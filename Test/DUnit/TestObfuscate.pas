@@ -42,6 +42,8 @@ type
 
     procedure TestObfuscate_Empty1;
     procedure TestObfuscate_fFormTest;
+    procedure TestObfuscate_fBracketProp;
+
     procedure TestObfuscate_LittleTest1;
     procedure TestObfuscate_LittleTest2;
     procedure TestObfuscate_LittleTest3;
@@ -1118,6 +1120,11 @@ end;
 procedure TTestObfuscate.TestObfuscate_TestInline;
 begin
   TestObfuscateFile('TestInline');
+end;
+
+procedure TTestObfuscate.TestObfuscate_fBracketProp;
+begin
+  TestObfuscateFile('fBracketProp');
 end;
 
 initialization

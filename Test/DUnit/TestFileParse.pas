@@ -44,6 +44,8 @@ type
       as it's nice to have a tick for each test file }
     procedure TestParse_Empty1;
     procedure TestParse_fFormTest;
+    procedure TestParse_fBracketProp;
+
     procedure TestParse_LittleTest1;
     procedure TestParse_LittleTest2;
     procedure TestParse_LittleTest3;
@@ -686,7 +688,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 1207);
+  TestParseFile('Testcases.dpr', 1217);
 end;
 
 
@@ -1084,6 +1086,11 @@ end;
 procedure TTestFileParse.TestParse_TestInline;
 begin
   TestParseFile('TestInline', 92);
+end;
+
+procedure TTestFileParse.TestParse_fBracketProp;
+begin
+  TestParseFile('fBracketProp', 492);
 end;
 
 initialization

@@ -61,7 +61,7 @@ implementation
 uses
   JclStrings,
   JcfSettings, AlignConst, AlignVars, AlignAssign, AlignComment,
-  AlignTypedef;
+  AlignTypedef, SysUtils;
 
 procedure TTestAlignment.Setup;
 begin
@@ -215,7 +215,9 @@ const
     UNIT_FOOTER;
 
 begin
+  FormatSettings.Align.AlignAssign := True;
   TestProcessResult(TAlignVars, MULTI_ALIGN_IN_UNIT_TEXT, OUT_UNIT_TEXT);
+  TestProcessResult(TAlignVars, OUT_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
 
@@ -234,7 +236,9 @@ const
     'end;' +
     UNIT_FOOTER;
 begin
+  FormatSettings.Align.AlignAssign := True;
   TestProcessResult(TAlignAssign, MULTI_ALIGN_IN_UNIT_TEXT, OUT_UNIT_TEXT);
+  TestProcessResult(TAlignAssign, OUT_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
 { this one tests that

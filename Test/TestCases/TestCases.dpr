@@ -146,7 +146,8 @@ uses
   LittleTest58 in 'LittleTest58.pas',
   LittleTest59 in 'LittleTest59.pas',
   LittleTest60 in 'LittleTest60.pas',
-  TestCommentIndent2 in 'TestCommentIndent2.pas';
+  TestCommentIndent2 in 'TestCommentIndent2.pas',
+  fBracketProp in 'fBracketProp.pas' {Form1};
 
 {$R *.res}
 

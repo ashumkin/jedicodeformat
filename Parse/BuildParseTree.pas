@@ -153,6 +153,9 @@ type
     procedure RecogniseConstantExpression;
     procedure RecogniseLiteralString;
 
+    procedure RecogniseBracketedStatement;
+    procedure RecognisePossibleAssign;
+
     procedure RecogniseSimpleExpression;
     procedure RecogniseSimpleStmnt;
 
@@ -1976,7 +1979,7 @@ const
   DESIGNATOR_TAIL_TOKENS = [ttDot, ttOpenBracket, ttOpenSquareBracket, ttHat,
     ttPlus, ttMinus];
 begin
-
+  
   while (fcTokenList.FirstSolidTokenType in DESIGNATOR_TAIL_TOKENS) do
   begin
     case fcTokenList.FirstSolidTokenType of
@@ -2058,6 +2061,7 @@ const
   BLOCK_END: TTokenTypeSet = [ttEnd, ttFinally, ttExcept];
 var
   lc: TSourceToken;
+  lct: TTokenType;
 begin
   RecogniseNotSolidTokens;
 
@@ -2065,14 +2069,15 @@ begin
 
   PushNode(nStatement);
 
-  // empty statement
-  if fcTokenList.FirstSolidTokenType = ttSemicolon then
+  lct :=  fcTokenList.FirstSolidTokenType;
+
+  if lct = ttSemicolon then
   begin
+    // empty statement
     PopNode;
     Exit;
-  end;
-
-  if fcTokenList.FirstSolidTokenType = ttEnd then
+  end
+  else if lct = ttEnd then
   begin
     PopNode;
     Exit;
@@ -2159,41 +2164,31 @@ begin
 
     These can be chained indefinitely, as in
    foo.GetBar(1).Stuff['fish'].MyFudgeFactor.Default(2).Name := 'Jiim';
+
+   you can also bracket the whole expression, as in
+   "(CheckBox1.Checked := not CheckBox1.Checked);"
 }
 
   lc := fcTokenList.FirstSolidToken;
 
-  if (IdentifierNext) or (lc.TokenType in [ttOpenBracket, ttAtSign]) then
+  if  lc.TokenType = ttOpenBracket then
   begin
-    // should be fullblown expression?
-    RecogniseDesignator;
+    RecogniseBracketedStatement;
+    RecogniseDesignatorTail;
 
-    if fcTokenList.FirstSolidTokenType = ttOpenBracket then
-    begin
-      RecogniseActualParams;
-    end;
-
-    // can be a hat after the close backets to deref the return value
-    if fcTokenList.FirstSolidTokenType = ttHat then
-      Recognise(ttHat);
-
-    // dot next ?
-    if fcTokenList.FirstSolidTokenType = ttDot then
-    begin
-      Recognise(ttDot);
-      RecogniseSimpleStmnt;
-    end
-
-    else if fcTokenList.FirstSolidTokenType = ttAssign then
+    if fcTokenList.FirstSolidTokenType = ttAssign then
     begin
       PushNode(nAssignment);
 
       Recognise(ttAssign);
       RecogniseExpr(True);
-
+      
       PopNode;
     end;
-
+  end
+  else if (IdentifierNext) or (lc.TokenType = ttAtSign) then
+  begin
+    RecognisePossibleAssign;
     // else nothing at all is also ok. i.e. procedure call with no params
   end
   else if lc.TokenType = ttInherited then
@@ -2232,6 +2227,43 @@ begin
   else
     raise TEParseError.Create('expected simple statement', lc);
 
+end;
+
+procedure TBuildParseTree.RecogniseBracketedStatement;
+begin
+  Recognise(ttOpenBracket);
+
+  if fcTokenList.FirstSolidTokenType = ttOpenBracket then
+    RecogniseBracketedStatement
+  else
+   RecognisePossibleAssign;
+
+  Recognise(ttCloseBracket);
+  RecogniseDesignatorTail;
+end;
+
+procedure TBuildParseTree.RecognisePossibleAssign;
+begin
+  // should be fullblown expression?
+  RecogniseDesignator;
+
+  RecogniseDesignatorTail;
+
+  if TokenList.FirstSolidTokenType = ttAssign then
+  begin
+    PushNode(nAssignment);
+
+    Recognise(ttAssign);
+    RecogniseExpr(True);
+
+    PopNode;
+  end;
+
+  if (fcTokenList.FirstSolidTokenType = ttAs) then
+  begin
+    Recognise(ttAs);
+    RecogniseIdentifier(True);
+  end;
 end;
 
 procedure TBuildParseTree.RecogniseRaise;

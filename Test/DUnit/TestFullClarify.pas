@@ -40,6 +40,8 @@ type
     { one test for each file}
     procedure TestClarify_EmptyTest1;
     procedure TestClarify_fFormTest;
+    procedure TestClarify_fBracketProp;
+
     procedure TestClarify_LittleTest1;
     procedure TestClarify_LittleTest2;
     procedure TestClarify_LittleTest3;
@@ -1074,6 +1076,11 @@ end;
 procedure TFullTestClarify.TestClarify_TestInline;
 begin
   TestClarifyFile('TestInline');
+end;
+
+procedure TFullTestClarify.TestClarify_fBracketProp;
+begin
+  TestClarifyFile('fBracketProp');
 end;
 
 initialization
