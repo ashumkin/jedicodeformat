@@ -1,9 +1,4 @@
-object fComments: TfComments
-  Left = 0
-  Top = 0
-  Width = 320
-  Height = 240
-  TabOrder = 0
+inherited fComments: TfComments
   object cbRemoveEmptyDoubleSlashComments: TCheckBox
     Left = 8
     Top = 8

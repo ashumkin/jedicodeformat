@@ -25,7 +25,7 @@ TRUE
 FALSE
 FALSE
 FALSE
-24
+26
 10
 Scribble10
 Main
@@ -38,7 +38,7 @@ Writing
 
 
 FALSE
-42
+44
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fmodern Courier New;}{\f3\fnil\fcharset0 Arial;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green128\blue0;}
 \viewkind4\uc1\pard\cf1\b\f0\fs32 Jedi Code Format V\lang2057\f1 2.0\cf0\lang1031\b0\f0\fs20 
@@ -64,8 +64,10 @@ FALSE
 \par \lang2057\f1\tab\cf3\strike Indentation\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 8\lang1031\f0 0\}
 \par \lang2057\f1\tab\cf3\strike Long lines\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 85\lang1031\f0\}
 \par \lang2057\f1\tab\cf3\strike Returns\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 9\lang1031\f0 0\}
+\par \lang2057\f1\tab\cf3\strike Blank Lines\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 95\lang1031\f0\}
 \par \lang2057\f1\tab\cf3\strike Blocks\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 10\lang1031\f0 0\}
 \par \lang2057\f1\tab\cf3\strike Align\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 11\lang1031\f0 0\}
+\par \lang2057\f1\tab\cf3\strike Comments\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 115\lang1031\f0\}
 \par \lang2057\f1\tab\cf3\strike Capitalisation\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 12\lang1031\f0 0\}
 \par \lang2057\f1\tab\cf3\strike Find and replace\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 13\lang1031\f0 0\}
 \par \lang2057\f1\tab\cf3\strike Find and replace on uses\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 14\lang1031\f0 0\}
@@ -493,8 +495,8 @@ Writing
 
 
 FALSE
-86
-{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fnil\fcharset0 Arial;}{\f3\fnil\fcharset0 Courier New;}{\f4\fmodern Courier New;}}
+47
+{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fnil\fcharset0 Arial;}{\f3\fnil\fcharset0 Courier New;}{\f4\fmodern Courier New;}{\f5\fmodern\fcharset0 Courier New;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Returns\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
@@ -512,72 +514,107 @@ FALSE
 \par \f0 
 \par Here the line break is used to emphasise the difference between the 'something' terms and the 'other' terms. If you do this, then turn off "Remove returns in expressions". If you don't, then turn it on, and let this process remove all the returns in your expression. Then the \lang2057\f1 long \lang1031\f0 line breaker will rebreak the long expressions at points that it considers good based on a purely syntactic analysis of the structure of the expression.
 \par 
-\par \b Remove returns at start and end of block:\b0  Removes blank lines just before \b\f3 end \b0\f0 or just after \b\f3 begin \b0\f0 e.g.  will turn
-\par 
-\par \f4 if a > 3 then
-\par begin
-\par 
-\par   b := 4;
-\par end;
-\par 
-\par \f0 to
-\par 
-\par \f4 if a > 3 then
-\par begin
-\par   b := 4;
-\par end;
-\par 
-\par \b\f0 Remove blank lines in procedure var section:\b0  e.g. turns 
-\par 
-\par \f4  procedure foo;
-\par  var
-\par   a: integer;
-\par 
-\par   b: string;
-\par begin
-\par 
-\par \f0 to
-\par 
-\par \f4 procedure
-\par var
-\par   a: integer;
-\par   b: string;
-\par begin
-\par 
-\par \f0 Remove returns after the procedure header, but before the opening begin or var/const/type
-\par declarations.
-\par  i.e.remove them here:
-\par 
-\par \f4 procedure foo;
-\par 
-\par begin
-\par \f0 
-\par and here:
-\par 
-\par \f4 procedure bar;
-\par 
-\par var
-\par \f0 
 \par \b 
 \par Remove \f1 returns in variable declaration\f0 :\b0  e.g. turns 
 \par 
 \par \f4  var
-\par   a: integer;
-\par 
-\par   b: string;
+\par   a\lang2057\f5 ,
+\par   \lang1031\f4 b: string;
 \par \f0 
-\par 
 \par \f1 to
 \par 
 \par \f4  var
-\par   a: integer;
-\par   b: string;
+\par   a\lang2057\f5 , \lang1031\f4 b: string;
 \par \f0 
-\par \b Number of returns after the final end:\b0  This setting standardises the way that\lang2057\f1  \lang1031\f0 the unit ends. The default value of 1 return after the end of the unit's text\lang2057\f1  \lang1031\f0 should please most people, but other values (for e.g. zero, or two) can be entered.\lang2057\f1  \lang1031\f0 The allowable range is 0 to an arbitrarily chosen maximum of 255, though IMHO\lang2057\f1  \lang1031\f0 anything above 2 is just silly.
+\par \lang2057\b\f1 One uses clause item per line:\b0  
+\par This setting will put a return after each item in each uses clause, e.g. turning
 \par 
+\par \f3 uses SysUtils, Classes, DB;\f1 
+\par 
+\par to\lang1031\f0 
+\par 
+\par \lang2057\f3 uses SysUtils, 
+\par   Classes, 
+\par   DB;\f1 
+\par 
+\par \lang1031\f0 
 \par \b Return chars:\b0  Use this setting if your file case come from a different OS and\lang2057\f1  \lang1031\f0 you are having trouble viewing it as the return chars don't seem to be working\lang2057\f1  \lang1031\f0 properly.
 \par  
-\par Unix system such as Linux store returns differently to DOS/Windows machines .\lang2057\f1  \lang1031\f0 Unix uses just a Linefeed character (#10), and Windows uses Carriage Return +\lang2057\f1  \lang1031\f0 Linefeed chars (#10#13). This setting will standardise all returns. But mostly\lang2057\f1  \lang1031\f0 you won't need to, so leave it as "leave as is"
+\par Unix system such as Linux store returns differently to DOS/Windows machines .\lang2057\f1  \lang1031\f0 Unix uses just a Linefeed character (\f3 #10\f0 ), and Windows uses Carriage Return +\lang2057\f1  \lang1031\f0 Linefeed chars (\f3 #10#13\f0 ). This setting will standardise all returns. But mostly\lang2057\f1  \lang1031\f0 you won't need to, so leave it as "leave as is"
+\par 
+\par }
+95
+Scribble95
+Clarify - Blank Lines
+
+
+
+
+Writing
+
+
+
+FALSE
+61
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil Arial;}{\f1\fnil\fcharset0 Arial;}{\f2\fswiss Arial;}{\f3\fmodern Courier New;}{\f4\fswiss\fcharset0 Arial;}{\f5\fnil\fcharset0 Courier New;}}
+{\colortbl ;\red0\green0\blue255;\red0\green0\blue0;}
+\viewkind4\uc1\pard\cf1\b\f0\fs32 Clarify - Blank Lines
+\par 
+\par \cf0\lang2057\b0\f1\fs20 The blank lines settings are related to returns settings, but control the insertion an removal of blank lines.
+\par 
+\par \lang1031\b\f2 Remove blank lines in procedure var section:\b0  e.g. turns 
+\par 
+\par \f3 procedure foo;
+\par var
+\par   a: integer;
+\par 
+\par   b: string;
+\par begin
+\par 
+\par \f2 to
+\par 
+\par \f3 procedure
+\par var
+\par   a: integer;
+\par   b: string;
+\par begin
+\par 
+\par \b\f2 Remove returns after the procedure header\lang2057\b0\f4 : e.g.\lang1031\f2  \lang2057\f4 after the the procedure header, \lang1031\f2 but before the opening begin or var/const/type
+\par declarations.
+\par  i.e.remove them here:
+\par 
+\par \f3 procedure foo;
+\par 
+\par begin
+\par \f2 
+\par and here:
+\par 
+\par \f3 procedure bar;
+\par 
+\par var
+\par \f2 
+\par \b Remove \lang2057\f4 blank lines\lang1031\f2  at start and end of \lang2057\f4 a \f5 begin \f4 ... \f5 end \lang1031\f2 block:\b0  
+\par Removes blank lines just before \b\f5 end \b0\f2 or just after \b\f5 begin \b0\f2 e.g.  will turn
+\par 
+\par \f3 if a > 3 then
+\par begin
+\par 
+\par   b := 4;
+\par end;
+\par 
+\par \f2 to
+\par 
+\par \f3 if a > 3 then
+\par begin
+\par   b := 4;
+\par end;
+\par \lang2057\f4 
+\par \lang1031\b\f2 Number of returns after the final end:\b0  This setting standardises the way that\lang2057\f4  \lang1031\f2 the unit ends. The default value of 1 return after the end of the unit's text\lang2057\f4  \lang1031\f2 should please most people, but other values (for e.g. zero, or two) can be entered.\lang2057\f4  \lang1031\f2 The allowable range is 0 to an arbitrarily chosen maximum of 255, though IMHO\lang2057\f4  \lang1031\f2 anything above 2 is just silly.
+\par \lang2057\f1 
+\par 
+\par \b Consecutive blank lines\b0 
+\par 
+\par This will remove blank lines when the limit limber of blank lines in a row is encountered anywhere in the source code. I recommend a value of 3 or 4 for this setting - less than that and you can't use several repeated blank lines for spacing. There is a minimum of 2 on this value.\cf2\lang1033\f0 
 \par 
 \par }
 100
@@ -705,6 +742,27 @@ FALSE
 \par How you set this is purely a matter of personal preference, as alignment of any kind is not standard. 
 \par 
 \par 
+\par }
+115
+Scribble115
+Clarify Comments
+
+
+
+
+Writing
+
+
+
+FALSE
+8
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil Arial;}{\f2\fnil\fcharset0 Courier New;}}
+{\colortbl ;\red0\green0\blue255;\red0\green0\blue0;}
+\viewkind4\uc1\pard\cf1\lang2057\b\fs32 Clarify Comments\cf2\lang1033\b0\f1\fs20 
+\par 
+\par 
+\par \lang2057\f0 There are currently only two comment settings, to remove empty comments, can be turned on or off for empty comments delimited by \f2 //\f0  and by\f2  \{ \}\f0 . these will remove all comments of the specifed type that contain nothing but white space characters.
+\par \lang1033\f1 
 \par }
 120
 Scribble120

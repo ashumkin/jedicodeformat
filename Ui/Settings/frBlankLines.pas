@@ -62,7 +62,7 @@ uses
 constructor TfBlankLines.Create(AOwner: TComponent);
 begin
   inherited;
-  fiHelpContext := HELP_CLARIFY_RETURNS;
+  fiHelpContext := HELP_CLARIFY_BLANK_LINES;
 end;
 
 procedure TfBlankLines.Read;
