@@ -4,9 +4,9 @@
 
 The Original Code is Tokens.pas, released June 2003.
 The Initial Developer of the Original Code is Anthony Steele.
-Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
+Portions created by Anthony Steele are Copyright (C) 1999-2003 Anthony Steele.
 All Rights Reserved.
-Contributor(s): Anthony Steele.
+Contributor(s): Anthony Steele, Adem Baba
 
 The contents of this file are subject to the Mozilla Public License Version 1.1
 (the "License"). you may not use this file except in compliance with the License.
@@ -20,22 +20,24 @@ under the License.
 {*)}
 unit Tokens;
 
-{ AFS 31 May 2003
+{
+  Enumerates the kinds of words and symbols found in a delphi program
 
-  Am going to unify the Tokens and words
-  as there are 149 words and about 22 tokens
-  Will also remove some when joining,
-  no need to have general token categories for words such as
-  TokenType = ttReservedWord, WordType = wIf
+  If you knew the code for Jcf 0.x series,
+  then this now unifies the enumerations for TTokenType and TWordType
 
-  will not add in the parse tree node type
+  There were 149 words and about 22 tokens
+  So there are now over 160 token types (some were removed on joining)
+
+  will not add in the parse tree node types into this enum
   as this would push the total over 256
   and you cannot have sets over enums with more than 256 elements
   I get a lot of value from sets over these enums
 
   there will still be space for new keywords later without reaching that limit
 
-  Where these are textual tokens the enum item name is the token prefixed with 'tt'
+  When these are textual tokens,
+  the enum item name is the token prefixed with 'tt'
   ie 'while' -> ttWhile
 }
 
@@ -390,208 +392,346 @@ implementation
 uses SysUtils;
 
 { the majority of these tokens have a fixed textual representation
-  e.g. ':=', 'if'. THose that don't include comments, numbers, literal strings and identifiers }
+  e.g. ':=', 'if'.
+  Those that don't include comments, numbers, literal strings and identifiers
+  Recognising text as tokens is data driven, so here is the data
+}
+
 type
   TRTokenTextMap = record
     sToken: string;
+    iLength: Integer; // length of string above
     eWordType: TWordType;
     eToken: TTokenType;
   end;
 
-
 const
-  KeywordTextMap: array [0..161] of TRTokenTextMap =
-    (
-    // once were tokens
-    (sToken: ';'; eWordType: wtNotAWord; eToken: ttSemicolon),
-    (sToken: ':'; eWordType: wtNotAWord; eToken: ttColon),
-    (sToken: ','; eWordType: wtNotAWord; eToken: ttComma),
-    (sToken: '('; eWordType: wtNotAWord; eToken: ttOpenBracket),
-    (sToken: ')'; eWordType: wtNotAWord; eToken: ttCloseBracket),
-    (sToken: '['; eWordType: wtNotAWord; eToken: ttOpenSquareBracket),
-    (sToken: ']'; eWordType: wtNotAWord; eToken: ttCloseSquareBracket),
-    (sToken: '..'; eWordType: wtNotAWord; eToken: ttDoubleDot),
-    (sToken: '.'; eWordType: wtNotAWord; eToken: ttDot),
-    (sToken: ':='; eWordType: wtNotAWord; eToken: ttAssign),
+  { the longest token 'resourcestring' = 14 chars  }
+  LONGEST_KEYWORD_LEN = 14;
 
-    { reserved words }
-    (sToken: 'array'; eWordType: wtReservedWord; eToken: ttArray),
-    (sToken: 'asm'; eWordType: wtReservedWord; eToken: ttAsm),
-    (sToken: 'begin'; eWordType: wtReservedWord; eToken: ttBegin),
-    (sToken: 'case'; eWordType: wtReservedWord; eToken: ttCase),
-    (sToken: 'class'; eWordType: wtReservedWord; eToken: ttClass),
-    (sToken: 'const'; eWordType: wtReservedWord; eToken: ttConst),
-    (sToken: 'constructor'; eWordType: wtReservedWord; eToken: ttConstructor),
-    (sToken: 'destructor'; eWordType: wtReservedWord; eToken: ttDestructor),
-    (sToken: 'dispinterface'; eWordType: wtReservedWord; eToken: ttDispinterface),
-    (sToken: 'do'; eWordType: wtReservedWord; eToken: ttDo),
-    (sToken: 'downto'; eWordType: wtReservedWord; eToken: ttDownTo),
-    (sToken: 'else'; eWordType: wtReservedWord; eToken: ttElse),
-    (sToken: 'end'; eWordType: wtReservedWord; eToken: ttEnd),
-    (sToken: 'except'; eWordType: wtReservedWord; eToken: ttExcept),
-    (sToken: 'exports'; eWordType: wtReservedWord; eToken: ttExports),
-    (sToken: 'file'; eWordType: wtReservedWord; eToken: ttFile),
-    (sToken: 'finalization'; eWordType: wtReservedWord; eToken: ttFinalization),
-    (sToken: 'finally'; eWordType: wtReservedWord; eToken: ttFinally),
-    (sToken: 'for'; eWordType: wtReservedWord; eToken: ttFor),
-    (sToken: 'function'; eWordType: wtReservedWord; eToken: ttFunction),
-    (sToken: 'goto'; eWordType: wtReservedWord; eToken: ttGoto),
-    (sToken: 'if'; eWordType: wtReservedWord; eToken: ttIf),
-    (sToken: 'implementation'; eWordType: wtReservedWord; eToken: ttImplementation),
-    (sToken: 'inherited'; eWordType: wtReservedWord; eToken: ttInherited),
-    (sToken: 'initialization'; eWordType: wtReservedWord; eToken: ttInitialization),
-    (sToken: 'inline'; eWordType: wtReservedWord; eToken: ttInline),
-    (sToken: 'interface'; eWordType: wtReservedWord; eToken: ttInterface),
-    (sToken: 'label'; eWordType: wtReservedWord; eToken: ttLabel),
-    (sToken: 'library'; eWordType: wtReservedWord; eToken: ttLibrary),
-    (sToken: 'object'; eWordType: wtReservedWord; eToken: ttObject),
-    (sToken: 'of'; eWordType: wtReservedWord; eToken: ttOf),
-    (sToken: 'out'; eWordType: wtReservedWord; eToken: ttOut),
-    (sToken: 'packed'; eWordType: wtReservedWord; eToken: ttPacked),
-    (sToken: 'procedure'; eWordType: wtReservedWord; eToken: ttProcedure),
-    (sToken: 'program'; eWordType: wtReservedWord; eToken: ttProgram),
-    (sToken: 'property'; eWordType: wtReservedWord; eToken: ttProperty),
-    (sToken: 'raise'; eWordType: wtReservedWord; eToken: ttRaise),
-    (sToken: 'record'; eWordType: wtReservedWord; eToken: ttRecord),
-    (sToken: 'repeat'; eWordType: wtReservedWord; eToken: ttRepeat),
-    (sToken: 'resourcestring'; eWordType: wtReservedWord; eToken: ttResourceString),
-    (sToken: 'set'; eWordType: wtReservedWord; eToken: ttSet),
-    (sToken: 'then'; eWordType: wtReservedWord; eToken: ttThen),
-    (sToken: 'threadvar'; eWordType: wtReservedWord; eToken: ttThreadvar),
-    (sToken: 'to'; eWordType: wtReservedWord; eToken: ttTo),
-    (sToken: 'try'; eWordType: wtReservedWord; eToken: ttTry),
-    (sToken: 'type'; eWordType: wtReservedWord; eToken: ttType),
-    (sToken: 'unit'; eWordType: wtReservedWord; eToken: ttUnit),
-    (sToken: 'until'; eWordType: wtReservedWord; eToken: ttUntil),
-    (sToken: 'uses'; eWordType: wtReservedWord; eToken: ttUses),
-    (sToken: 'var'; eWordType: wtReservedWord; eToken: ttVar),
-    (sToken: 'while'; eWordType: wtReservedWord; eToken: ttWhile),
-    (sToken: 'with'; eWordType: wtReservedWord; eToken: ttWith),
+  { a value larger than the number of keywords,
+    used as an initial size for the dynamic array }
+  INITIAL_MAX_KEYWORDS = 200;
 
-    { reseved words that must be parsed as directives because they can be identifier names }
-    (sToken: 'at'; eWordType: wtReservedWordDirective; eToken: ttAt),
-    (sToken: 'on'; eWordType: wtReservedWordDirective; eToken: ttOn),
-    (sToken: 'package'; eWordType: wtReservedWordDirective; eToken: ttPackage),
-    (sToken: 'contains'; eWordType: wtReservedWordDirective; eToken: ttContains),
-    (sToken: 'requires'; eWordType: wtReservedWordDirective; eToken: ttRequires),
+var
+  { final number of keywords added }
+  miKeyWordCount: Integer;
 
-    { reseved words that are directives }
-    (sToken: 'absolute'; eWordType: wtReservedWordDirective; eToken: ttAbsolute),
-    (sToken: 'external'; eWordType: wtReservedWordDirective; eToken: ttExternal),
-    (sToken: 'pascal'; eWordType: wtReservedWordDirective; eToken: ttPascal),
-    (sToken: 'safecall'; eWordType: wtReservedWordDirective; eToken: ttSafecall),
-    (sToken: 'abstract'; eWordType: wtReservedWordDirective; eToken: ttAbstract),
-    (sToken: 'far'; eWordType: wtReservedWordDirective; eToken: ttFar),
-    (sToken: 'private'; eWordType: wtReservedWordDirective; eToken: ttPrivate),
-    (sToken: 'stdcall'; eWordType: wtReservedWordDirective; eToken: ttStdCall),
-    (sToken: 'assembler'; eWordType: wtReservedWordDirective; eToken: ttAssembler),
-    (sToken: 'forward'; eWordType: wtReservedWordDirective; eToken: ttForward),
-    (sToken: 'protected'; eWordType: wtReservedWordDirective; eToken: ttProtected),
-    (sToken: 'stored'; eWordType: wtReservedWordDirective; eToken: ttStored),
-    (sToken: 'automated'; eWordType: wtReservedWordDirective; eToken: ttAutomated),
-    (sToken: 'index'; eWordType: wtReservedWordDirective; eToken: ttIndex),
-    (sToken: 'public'; eWordType: wtReservedWordDirective; eToken: ttPublic),
-    (sToken: 'virtual'; eWordType: wtReservedWordDirective; eToken: ttVirtual),
-    (sToken: 'cdecl'; eWordType: wtReservedWordDirective; eToken: ttCdecl),
-    (sToken: 'message'; eWordType: wtReservedWordDirective; eToken: ttMessage),
-    (sToken: 'published'; eWordType: wtReservedWordDirective; eToken: ttPublished),
-    (sToken: 'write'; eWordType: wtReservedWordDirective; eToken: ttWrite),
-    (sToken: 'default'; eWordType: wtReservedWordDirective; eToken: ttDefault),
-    (sToken: 'name'; eWordType: wtReservedWordDirective; eToken: ttName),
-    (sToken: 'read'; eWordType: wtReservedWordDirective; eToken: ttRead),
-    (sToken: 'writeonly'; eWordType: wtReservedWordDirective; eToken: ttWriteOnly),
-    (sToken: 'dispid'; eWordType: wtReservedWordDirective; eToken: ttDispId),
-    (sToken: 'near'; eWordType: wtReservedWordDirective; eToken: ttNear),
-    (sToken: 'readonly'; eWordType: wtReservedWordDirective; eToken: ttReadOnly),
-    (sToken: 'dynamic'; eWordType: wtReservedWordDirective; eToken: ttDynamic),
-    (sToken: 'nodefault'; eWordType: wtReservedWordDirective; eToken: ttNoDefault),
-    (sToken: 'register'; eWordType: wtReservedWordDirective; eToken: ttRegister),
-    (sToken: 'export'; eWordType: wtReservedWordDirective; eToken: ttExport),
-    (sToken: 'override'; eWordType: wtReservedWordDirective; eToken: ttOverride),
-    (sToken: 'overload'; eWordType: wtReservedWordDirective; eToken: ttOverload),
-    (sToken: 'resident'; eWordType: wtReservedWordDirective; eToken: ttResident),
-    (sToken: 'local'; eWordType: wtReservedWordDirective; eToken: ttLocal),
+  { the keyword data }
+  mrKeywordTextMap: array of TRTokenTextMap;
 
-    (sToken: 'implements'; eWordType: wtReservedWordDirective; eToken: ttImplements),
-    (sToken: 'reintroduce'; eWordType: wtReservedWordDirective; eToken: ttReintroduce),
-    (sToken: 'offset'; eWordType: wtReservedWordDirective; eToken: ttOffset),
-    (sToken: 'ptr'; eWordType: wtReservedWordDirective; eToken: ttPtr),
+  { Array is sorted by length -
+    this indexes where in the array tokens of a particular length start }
+  miKeywordLengthIndexes: array[1 .. LONGEST_KEYWORD_LEN + 1] of integer;
 
-    { D6 directives }
-    (sToken: 'deprecated'; eWordType: wtReservedWordDirective; eToken: ttDeprecated),
-    (sToken: 'platform'; eWordType: wtReservedWordDirective; eToken: ttPlatform),
+Procedure AddKeyWord(psToken: string; const peWordType: TWordType; const peToken: TTokenType);
+var
+  liLength: integer;
+Begin
+  { the UpperCase fn seems to be safe from locale -
+    it works on chars a..z and we are not feeding it any accented chars   }
+  psToken := Trim(UpperCase(psToken));
 
-    { operators that are words not symbols }
-    (sToken: 'and'; eWordType: wtOperator; eToken: ttAnd),
-    (sToken: 'as'; eWordType: wtOperator; eToken: ttAs),
-    (sToken: 'div'; eWordType: wtOperator; eToken: ttDiv),
-    (sToken: 'in'; eWordType: wtOperator; eToken: ttIn),
-    (sToken: 'is'; eWordType: wtOperator; eToken: ttIs),
-    (sToken: 'mod'; eWordType: wtOperator; eToken: ttMod),
-    (sToken: 'not'; eWordType: wtOperator; eToken: ttNot),
-    (sToken: 'or'; eWordType: wtOperator; eToken: ttOr),
-    (sToken: 'shl'; eWordType: wtOperator; eToken: ttShl),
-    (sToken: 'shr'; eWordType: wtOperator; eToken: ttShr),
-    (sToken: 'xor'; eWordType: wtOperator; eToken: ttXor),
+  liLength := Length(psToken);
+  Assert(liLength <= LONGEST_KEYWORD_LEN,
+    'Found a longer token: ' + psToken + ' length '  + IntToStr(liLength));
 
-    { built-in constants }
-    (sToken: 'nil'; eWordType: wtBuiltInConstant; eToken: ttNil),
-    (sToken: 'true'; eWordType: wtBuiltInConstant; eToken: ttTrue),
-    (sToken: 'false'; eWordType: wtBuiltInConstant; eToken: ttFalse),
+  mrKeywordTextMap[miKeyWordCount].sToken := psToken;
+  mrKeywordTextMap[miKeyWordCount].iLength := liLength;
 
-    { built-in types }
-    (sToken: 'boolean'; eWordType: wtBuiltInType; eToken: ttBoolean),
-    (sToken: 'ByteBool'; eWordType: wtBuiltInType; eToken: ttByteBool),
-    (sToken: 'WordBool'; eWordType: wtBuiltInType; eToken: ttWordBool),
-    (sToken: 'LongBool'; eWordType: wtBuiltInType; eToken: ttLongBool),
+  mrKeywordTextMap[miKeyWordCount].eWordType := peWordType;
+  mrKeywordTextMap[miKeyWordCount].eToken := peToken;
 
-    (sToken: 'integer'; eWordType: wtBuiltInType; eToken: ttInteger),
-    (sToken: 'cardinal'; eWordType: wtBuiltInType; eToken: ttCardinal),
-    (sToken: 'shortint'; eWordType: wtBuiltInType; eToken: ttShortInt),
-    (sToken: 'smallint'; eWordType: wtBuiltInType; eToken: ttSmallInt),
-    (sToken: 'longint'; eWordType: wtBuiltInType; eToken: ttLongInt),
-    (sToken: 'int64'; eWordType: wtBuiltInType; eToken: ttInt64),
-    (sToken: 'byte'; eWordType: wtBuiltInType; eToken: ttByte),
-    (sToken: 'word'; eWordType: wtBuiltInType; eToken: ttWord),
-    (sToken: 'longword'; eWordType: wtBuiltInType; eToken: ttLongWord),
+  Inc(miKeyWordCount);
+  Assert(miKeyWordCount < INITIAL_MAX_KEYWORDS);
+end;
 
-    (sToken: 'char'; eWordType: wtBuiltInType; eToken: ttChar),
-    (sToken: 'widechar'; eWordType: wtBuiltInType; eToken: ttWideChar),
-    (sToken: 'string'; eWordType: wtBuiltInType; eToken: ttString),
-    (sToken: 'ansistring'; eWordType: wtBuiltInType; eToken: ttAnsiString),
-    (sToken: 'widestring'; eWordType: wtBuiltInType; eToken: ttWideString),
-    (sToken: 'pChar'; eWordType: wtBuiltInType; eToken: ttPchar),
+procedure AddKeyWords;
+Begin
+  {NOTES: Adding the keywords to a dynamic array adds negligible overhead but
+  it is quite flexible as we can add stuff later. Array size is not fixed
 
-    (sToken: 'single'; eWordType: wtBuiltInType; eToken: ttSingle),
-    (sToken: 'double'; eWordType: wtBuiltInType; eToken: ttDouble),
-    (sToken: 'extended'; eWordType: wtBuiltInType; eToken: ttExtended),
-    (sToken: 'real'; eWordType: wtBuiltInType; eToken: ttReal),
-    (sToken: 'real48'; eWordType: wtBuiltInType; eToken: ttReal48),
-    (sToken: 'comp'; eWordType: wtBuiltInType; eToken: ttComp),
-    (sToken: 'currency'; eWordType: wtBuiltInType; eToken: ttCurrency),
+  Plus, we will sort it so that all the searches will be faster. }
 
-    (sToken: 'variant'; eWordType: wtBuiltInType; eToken: ttVariant),
-    (sToken: 'OleVariant'; eWordType: wtBuiltInType; eToken: ttOleVariant),
 
-    { operators that are symbols }
-    (sToken: '@'; eWordType: wtOperator; eToken: ttAtSign),
-    (sToken: '^'; eWordType: wtOperator; eToken: ttHat),
-    (sToken: '*'; eWordType: wtOperator; eToken: ttTimes),
-    (sToken: '/'; eWordType: wtOperator; eToken: ttFloatDiv),
-    (sToken: '+'; eWordType: wtOperator; eToken: ttPlus),
-    (sToken: '-'; eWordType: wtOperator; eToken: ttMinus),
-    (sToken: '='; eWordType: wtOperator; eToken: ttEquals),
-    (sToken: '>='; eWordType: wtOperator; eToken: ttGreaterThanOrEqual),
-    (sToken: '<='; eWordType: wtOperator; eToken: ttLessThanOrEqual),
-    (sToken: '<>'; eWordType: wtOperator; eToken: ttNotEqual),
-    // these must come after the above as they are shorter
-    (sToken: '>'; eWordType: wtOperator; eToken: ttGreaterThan),
-    (sToken: '<'; eWordType: wtOperator; eToken: ttLessThan)
-    );
+  SetLength(mrKeywordTextMap, INITIAL_MAX_KEYWORDS); {Something sufficiently large}
+  miKeyWordCount := 0;
 
+  // add all the data into the array
+
+  AddKeyword(';', wtNotAWord, ttSemicolon);
+  AddKeyword(':', wtNotAWord, ttColon);
+  AddKeyword(',', wtNotAWord, ttComma);
+  AddKeyword('(', wtNotAWord, ttOpenBracket);
+  AddKeyword(')', wtNotAWord, ttCloseBracket);
+  AddKeyword('[', wtNotAWord, ttOpenSquareBracket);
+  AddKeyword(']', wtNotAWord, ttCloseSquareBracket);
+  AddKeyword('..', wtNotAWord, ttDoubleDot);
+  AddKeyword('.', wtNotAWord, ttDot);
+  AddKeyword(':=', wtNotAWord, ttAssign);
+
+  { reserved words }
+  AddKeyword('array', wtReservedWord, ttArray);
+  AddKeyword('asm', wtReservedWord, ttAsm);
+  AddKeyword('begin', wtReservedWord, ttBegin);
+  AddKeyword('case', wtReservedWord, ttCase);
+  AddKeyword('class', wtReservedWord, ttClass);
+  AddKeyword('const', wtReservedWord, ttConst);
+  AddKeyword('constructor', wtReservedWord, ttConstructor);
+  AddKeyword('destructor', wtReservedWord, ttDestructor);
+  AddKeyword('dispinterface', wtReservedWord, ttDispinterface);
+  AddKeyword('do', wtReservedWord, ttDo);
+  AddKeyword('downto', wtReservedWord, ttDownTo);
+  AddKeyword('else', wtReservedWord, ttElse);
+  AddKeyword('end', wtReservedWord, ttEnd);
+  AddKeyword('except', wtReservedWord, ttExcept);
+  AddKeyword('exports', wtReservedWord, ttExports);
+  AddKeyword('file', wtReservedWord, ttFile);
+  AddKeyword('finalization', wtReservedWord, ttFinalization);
+  AddKeyword('finally', wtReservedWord, ttFinally);
+  AddKeyword('for', wtReservedWord, ttFor);
+  AddKeyword('function', wtReservedWord, ttFunction);
+  AddKeyword('goto', wtReservedWord, ttGoto);
+  AddKeyword('if', wtReservedWord, ttIf);
+  AddKeyword('implementation', wtReservedWord, ttImplementation);
+  AddKeyword('inherited', wtReservedWord, ttInherited);
+  AddKeyword('initialization', wtReservedWord, ttInitialization);
+  AddKeyword('inline', wtReservedWord, ttInline);
+  AddKeyword('interface', wtReservedWord, ttInterface);
+  AddKeyword('label', wtReservedWord, ttLabel);
+  AddKeyword('library', wtReservedWord, ttLibrary);
+  AddKeyword('object', wtReservedWord, ttObject);
+  AddKeyword('of', wtReservedWord, ttOf);
+  AddKeyword('out', wtReservedWord, ttOut);
+  AddKeyword('packed', wtReservedWord, ttPacked);
+  AddKeyword('procedure', wtReservedWord, ttProcedure);
+  AddKeyword('program', wtReservedWord, ttProgram);
+  AddKeyword('property', wtReservedWord, ttProperty);
+  AddKeyword('raise', wtReservedWord, ttRaise);
+  AddKeyword('record', wtReservedWord, ttRecord);
+  AddKeyword('repeat', wtReservedWord, ttRepeat);
+  AddKeyword('resourcestring', wtReservedWord, ttResourceString);
+  AddKeyword('set', wtReservedWord, ttSet);
+  AddKeyword('then', wtReservedWord, ttThen);
+  AddKeyword('threadvar', wtReservedWord, ttThreadvar);
+  AddKeyword('to', wtReservedWord, ttTo);
+  AddKeyword('try', wtReservedWord, ttTry);
+  AddKeyword('type', wtReservedWord, ttType);
+  AddKeyword('unit', wtReservedWord, ttUnit);
+  AddKeyword('until', wtReservedWord, ttUntil);
+  AddKeyword('uses', wtReservedWord, ttUses);
+  AddKeyword('var', wtReservedWord, ttVar);
+  AddKeyword('while', wtReservedWord, ttWhile);
+  AddKeyword('with', wtReservedWord, ttWith);
+
+  { reseved words that must be parsed as directives because they can be identifier names }
+  AddKeyword('at', wtReservedWordDirective, ttAt);
+  AddKeyword('on', wtReservedWordDirective, ttOn);
+  AddKeyword('package', wtReservedWordDirective, ttPackage);
+  AddKeyword('contains', wtReservedWordDirective, ttContains);
+  AddKeyword('requires', wtReservedWordDirective, ttRequires);
+
+  { reseved words that are directives }
+  AddKeyword('absolute', wtReservedWordDirective, ttAbsolute);
+  AddKeyword('external', wtReservedWordDirective, ttExternal);
+  AddKeyword('pascal', wtReservedWordDirective, ttPascal);
+  AddKeyword('safecall', wtReservedWordDirective, ttSafecall);
+  AddKeyword('abstract', wtReservedWordDirective, ttAbstract);
+  AddKeyword('far', wtReservedWordDirective, ttFar);
+  AddKeyword('private', wtReservedWordDirective, ttPrivate);
+  AddKeyword('stdcall', wtReservedWordDirective, ttStdCall);
+  AddKeyword('assembler', wtReservedWordDirective, ttAssembler);
+  AddKeyword('forward', wtReservedWordDirective, ttForward);
+  AddKeyword('protected', wtReservedWordDirective, ttProtected);
+  AddKeyword('stored', wtReservedWordDirective, ttStored);
+  AddKeyword('automated', wtReservedWordDirective, ttAutomated);
+  AddKeyword('index', wtReservedWordDirective, ttIndex);
+  AddKeyword('public', wtReservedWordDirective, ttPublic);
+  AddKeyword('virtual', wtReservedWordDirective, ttVirtual);
+  AddKeyword('cdecl', wtReservedWordDirective, ttCdecl);
+  AddKeyword('message', wtReservedWordDirective, ttMessage);
+  AddKeyword('published', wtReservedWordDirective, ttPublished);
+  AddKeyword('write', wtReservedWordDirective, ttWrite);
+  AddKeyword('default', wtReservedWordDirective, ttDefault);
+  AddKeyword('name', wtReservedWordDirective, ttName);
+  AddKeyword('read', wtReservedWordDirective, ttRead);
+  AddKeyword('writeonly', wtReservedWordDirective, ttWriteOnly);
+  AddKeyword('dispid', wtReservedWordDirective, ttDispId);
+  AddKeyword('near', wtReservedWordDirective, ttNear);
+  AddKeyword('readonly', wtReservedWordDirective, ttReadOnly);
+  AddKeyword('dynamic', wtReservedWordDirective, ttDynamic);
+  AddKeyword('nodefault', wtReservedWordDirective, ttNoDefault);
+  AddKeyword('register', wtReservedWordDirective, ttRegister);
+  AddKeyword('export', wtReservedWordDirective, ttExport);
+  AddKeyword('override', wtReservedWordDirective, ttOverride);
+  AddKeyword('overload', wtReservedWordDirective, ttOverload);
+  AddKeyword('resident', wtReservedWordDirective, ttResident);
+  AddKeyword('local', wtReservedWordDirective, ttLocal);
+
+  AddKeyword('implements', wtReservedWordDirective, ttImplements);
+  AddKeyword('reintroduce', wtReservedWordDirective, ttReintroduce);
+  AddKeyword('offset', wtReservedWordDirective, ttOffset);
+  AddKeyword('ptr', wtReservedWordDirective, ttPtr);
+
+  { D6 directives }
+  AddKeyword('deprecated', wtReservedWordDirective, ttDeprecated);
+  AddKeyword('platform', wtReservedWordDirective, ttPlatform);
+
+  { operators that are words not symbols }
+  AddKeyword('and', wtOperator, ttAnd);
+  AddKeyword('as', wtOperator, ttAs);
+  AddKeyword('div', wtOperator, ttDiv);
+  AddKeyword('in', wtOperator, ttIn);
+  AddKeyword('is', wtOperator, ttIs);
+  AddKeyword('mod', wtOperator, ttMod);
+  AddKeyword('not', wtOperator, ttNot);
+  AddKeyword('or', wtOperator, ttOr);
+  AddKeyword('shl', wtOperator, ttShl);
+  AddKeyword('shr', wtOperator, ttShr);
+  AddKeyword('xor', wtOperator, ttXor);
+
+  { built-in constants }
+  AddKeyword('nil', wtBuiltInConstant, ttNil);
+  AddKeyword('true', wtBuiltInConstant, ttTrue);
+  AddKeyword('false', wtBuiltInConstant, ttFalse);
+
+  { built-in types }
+  AddKeyword('boolean', wtBuiltInType, ttBoolean);
+  AddKeyword('ByteBool', wtBuiltInType, ttByteBool);
+  AddKeyword('WordBool', wtBuiltInType, ttWordBool);
+  AddKeyword('LongBool', wtBuiltInType, ttLongBool);
+
+  AddKeyword('integer', wtBuiltInType, ttInteger);
+  AddKeyword('cardinal', wtBuiltInType, ttCardinal);
+  AddKeyword('shortint', wtBuiltInType, ttShortInt);
+  AddKeyword('smallint', wtBuiltInType, ttSmallInt);
+  AddKeyword('longint', wtBuiltInType, ttLongInt);
+  AddKeyword('int64', wtBuiltInType, ttInt64);
+  AddKeyword('byte', wtBuiltInType, ttByte);
+  AddKeyword('word', wtBuiltInType, ttWord);
+  AddKeyword('longword', wtBuiltInType, ttLongWord);
+
+  AddKeyword('char', wtBuiltInType, ttChar);
+  AddKeyword('widechar', wtBuiltInType, ttWideChar);
+  AddKeyword('string', wtBuiltInType, ttString);
+  AddKeyword('ansistring', wtBuiltInType, ttAnsiString);
+  AddKeyword('widestring', wtBuiltInType, ttWideString);
+  AddKeyword('pChar', wtBuiltInType, ttPchar);
+
+  AddKeyword('single', wtBuiltInType, ttSingle);
+  AddKeyword('double', wtBuiltInType, ttDouble);
+  AddKeyword('extended', wtBuiltInType, ttExtended);
+  AddKeyword('real', wtBuiltInType, ttReal);
+  AddKeyword('real48', wtBuiltInType, ttReal48);
+  AddKeyword('comp', wtBuiltInType, ttComp);
+  AddKeyword('currency', wtBuiltInType, ttCurrency);
+
+  AddKeyword('variant', wtBuiltInType, ttVariant);
+  AddKeyword('OleVariant', wtBuiltInType, ttOleVariant);
+
+  { operators that are symbols }
+  AddKeyword('@', wtOperator, ttAtSign);
+  AddKeyword('^', wtOperator, ttHat);
+  AddKeyword('*', wtOperator, ttTimes);
+  AddKeyword('/', wtOperator, ttFloatDiv);
+  AddKeyword('+', wtOperator, ttPlus);
+  AddKeyword('-', wtOperator, ttMinus);
+  AddKeyword('=', wtOperator, ttEquals);
+  AddKeyword('>=', wtOperator, ttGreaterThanOrEqual);
+  AddKeyword('<=', wtOperator, ttLessThanOrEqual);
+  AddKeyword('<>', wtOperator, ttNotEqual);
+  // these must come after the above as they are shorter
+  AddKeyword('>', wtOperator, ttGreaterThan);
+  AddKeyword('<', wtOperator, ttLessThan);
+
+  {Now that we know how many keywords were added,
+    we can set the actual size of the array }
+  SetLength(mrKeywordTextMap, miKeyWordCount);
+end;
+
+{ sort order for the keyword data array }
+function KeyWordCompare(const prMap1, prMap2: TRTokenTextMap): Integer;
+Var
+  liIndex: Integer;
+Begin
+  { first sort by length }
+  Result := prMap1.iLength - prMap2.iLength;
+  if Result <> 0 then
+    exit;
+
+  { then for tokensof the same length: alphabetic, not localised }
+  liIndex := 1;
+  while (Result = 0) and (liIndex <= prMap1.iLength) do
+  begin
+   Result := Ord(prMap1.sToken[liIndex]) - Ord(prMap2.sToken[liIndex]);
+   Inc(liIndex);
+  end;
+End;
+
+Procedure SortKeywords;
+var
+  liIndex: Integer;
+  lrSwap: TRTokenTextMap;
+  lbDoneWork: Boolean;
+Begin
+  {We have a fairly small number of items, < 200.
+    Bubble sort is good enough, if not the best here }
+
+  lbDoneWork := True;
+  while lbDoneWork do
+  begin
+    lbDoneWork := False;
+
+    for liIndex := 0 to (miKeyWordCount - 2) do
+    begin
+      If KeyWordCompare(mrKeywordTextMap[Succ(liIndex)], mrKeywordTextMap[liIndex]) < 0 then
+      begin
+        { swap the items }
+        lrSwap := mrKeywordTextMap[Succ(liIndex)];
+        mrKeywordTextMap[Succ(liIndex)] := mrKeywordTextMap[liIndex];
+        mrKeywordTextMap[liIndex] := lrSwap;
+
+        // have made a swap. List was not sorted.
+        lbDoneWork := True;
+      end;
+    end;
+  end;
+end;
+
+procedure InitLengthOffestIndexes;
+var
+  liLoop, liLen: integer;
+begin
+  { init all indexes to a dummy value  }
+  for liLoop := low(miKeywordLengthIndexes) to High(miKeywordLengthIndexes) do
+    miKeywordLengthIndexes[liLoop] := -1;
+
+  { the keywords are sorted firstly by length }
+  for liLoop := 0 to Pred(miKeyWordCount) do
+  begin
+    liLen := mrKeywordTextMap[liLoop].iLength;
+
+    { keywords of length liLen are found at index liLoop onwards }
+    if miKeywordLengthIndexes[liLen] < 0 then
+      miKeywordLengthIndexes[liLen] := liLoop;
+  end;
+
+  { init all remaining to past the last item }
+  for liLoop := low(miKeywordLengthIndexes) to High(miKeywordLengthIndexes) do
+    if miKeywordLengthIndexes[liLoop] < 0 then
+      miKeywordLengthIndexes[liLoop] := miKeyWordCount;
+
+end;
+
+
+{ turn text to enum. Assumes data is sorted out and sorted }
 procedure TypeOfToken(const psWord: string; var peWordType: TWordType; var peToken: TTokenType);
 var
-  liLoop: integer;
+  liMapItemLoop: integer;
+  liCharIndex: integer;
+  liStart, liEnd: integer;
+  liTokenLength: integer;
+  lbFoundItem: boolean;
 begin
   Assert(psWord <> '');
 
@@ -599,15 +739,47 @@ begin
   peWordType := wtNotAWord;
   peToken := ttUnknown;
 
-  for liLoop := Low(KeywordTextMap) to High(KeywordTextMap) do
+  // the token in should already be trimmed
+  liTokenLength := Length(psWord);
+
+  { pointless and dangerous to continue if the keyword is longer than any known }
+  if liTokenLength > LONGEST_KEYWORD_LEN then
+    exit;
+
+  // where in the map do we find tokens of this length?
+  liStart := miKeywordLengthIndexes[liTokenLength];
+  // tokens of this length stop when the longer ones start :)
+  liEnd := miKeywordLengthIndexes[liTokenLength + 1] - 1;
+
+  { of course the ultimate would be binary search not for-loop
+    but it is questionable if that is needed
+    seeing as the part of the list to be searched has already been greatly limited }
+  for liMapItemLoop := liStart to liEnd do
   begin
-    if AnsiCompareText(KeywordTextMap[liLoop].sToken, psWord) = 0 then
+    { 'a simplified version of Boyer-Moore comparison technique' }
+    if (mrKeywordTextMap[liMapItemLoop].sToken[1] = UpCase(psWord[1])) and
+      (mrKeywordTextMap[liMapItemLoop].sToken[liTokenLength] = UpCase(psWord[liTokenLength])) then
     begin
-      peWordType := KeywordTextMap[liLoop].eWordType;
-      peToken     := KeywordTextMap[liLoop].eToken;
-      break;
-    end;
-  end;
+      lbFoundItem := True;
+      liCharIndex := 2;
+      {We have already checked the 2 ends of the string. Check the rest }
+      while lbFoundItem And (liCharIndex < liTokenLength) do
+      begin
+        lbFoundItem := lbFoundItem and
+          (mrKeywordTextMap[liMapItemLoop].sToken[liCharIndex] = UpCase(psWord[liCharIndex]));
+        Inc(liCharIndex);
+      end;
+
+      if lbFoundItem then
+      begin
+        peWordType := mrKeywordTextMap[liMapItemLoop].eWordType;
+        peToken := mrKeywordTextMap[liMapItemLoop].eToken;
+        break;
+      end;
+
+    end; { matched first and last and uppercase }
+
+  end; { for loop through the array }
 end;
 
 function TypeOfToken(const psWord: string): TTokenType; overload;
@@ -673,11 +845,11 @@ begin
     end
     else
     begin
-      for liLoop := Low(KeywordTextMap) to High(KeywordTextMap) do
+      for liLoop := Low(mrKeywordTextMap) to High(mrKeywordTextMap) do
       begin
-        if peToken = KeywordTextMap[liLoop].eToken then
+        if peToken = mrKeywordTextMap[liLoop].eToken then
         begin
-          Result := KeywordTextMap[liLoop].sToken;
+          Result := mrKeywordTextMap[liLoop].sToken;
           lbFound := True;
           break;
         end;
@@ -699,13 +871,13 @@ begin
   begin
     Result := '';
 
-    for liLoop := Low(KeywordTextMap) to High(KeywordTextMap) do
+    for liLoop := Low(mrKeywordTextMap) to High(mrKeywordTextMap) do
     begin
-      if KeywordTextMap[liLoop].eToken in peTokens then
+      if mrKeywordTextMap[liLoop].eToken in peTokens then
       begin
         if Result <> '' then
           Result := Result + ' ';
-        Result := Result + KeywordTextMap[liLoop].sToken;
+        Result := Result + mrKeywordTextMap[liLoop].sToken;
       end;
     end;
   end;
@@ -724,15 +896,19 @@ begin
   end
   else
   begin
-    for liLoop := Low(KeywordTextMap) to High(KeywordTextMap) do
+    for liLoop := Low(mrKeywordTextMap) to High(mrKeywordTextMap) do
     begin
-      if KeywordTextMap[liLoop].eToken = peTokenType then
+      if mrKeywordTextMap[liLoop].eToken = peTokenType then
       begin
-        Result := KeywordTextMap[liLoop].eWordType;
+        Result := mrKeywordTextMap[liLoop].eWordType;
         break;
       end;
     end;
   end;
 end;
 
+initialization
+  AddKeywords;
+  SortKeywords;
+  InitLengthOffestIndexes;
 end.
