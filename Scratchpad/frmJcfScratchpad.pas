@@ -7,6 +7,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ComCtrls, ExtCtrls, ExtActns, StdActns, ActnList,
   Buttons, Menus,
+  { Jedi }
+  JvMRUList, JvMemo,
   { local } StringsConverter, ScratchPadSettings;
 
 type
@@ -16,9 +18,9 @@ type
     pcPages: TPageControl;
     tsInput: TTabSheet;
     tsOutput: TTabSheet;
-    mInput: TMemo;
-    mOutput: TMemo;
-    mMessages: TMemo;
+    mInput: TJvMemo;
+    mOutput: TJvMemo;
+    mMessages: TJvMemo;
     lblMessages: TLabel;
     sbLoad: TSpeedButton;
     sbSave: TSpeedButton;
@@ -34,21 +36,27 @@ type
     MainMenu1: TMainMenu;
     mnuFile: TMenuItem;
     mnuFileOpen: TMenuItem;
-    mnuFileSave: TMenuItem;
-    mnuGo: TMenuItem;
-    mnuClear: TMenuItem;
+    mnuFileSaveOut: TMenuItem;
     mnuExit: TMenuItem;
-    Options1: TMenuItem;
+    mnuOptions: TMenuItem;
     mnuAlwaysShowParseTree: TMenuItem;
     mnuShowParseTreeonError: TMenuItem;
     mnuNeverShowParseTree: TMenuItem;
     actCopy: TAction;
     actPaste: TAction;
-    SpeedButton1: TSpeedButton;
-    sbPaste: TSpeedButton;
     N1: TMenuItem;
-    N2: TMenuItem;
-    Copy1: TMenuItem;
+    mruFIles: TJvMRUManager;
+    mnuEdit: TMenuItem;
+    mnuEditPaste: TMenuItem;
+    mnuEditCopy: TMenuItem;
+    mnuEditGo: TMenuItem;
+    mnuEditClear: TMenuItem;
+    mnuEditCut: TMenuItem;
+    mnuEditCopyOutput: TMenuItem;
+    mnuEditSelectAll: TMenuItem;
+    mnuEditCopyMessages: TMenuItem;
+    mnuFormat: TMenuItem;
+    mnuFileSaveIn: TMenuItem;
     procedure FormResize(Sender: TObject);
     procedure pcPagesChange(Sender: TObject);
     procedure actGoExecute(Sender: TObject);
@@ -66,15 +74,22 @@ type
     procedure mnuShowParseTreeonErrorClick(Sender: TObject);
     procedure actCopyExecute(Sender: TObject);
     procedure actPasteExecute(Sender: TObject);
+    procedure mruFilesClick(Sender: TObject; const RecentName,
+      Caption: String; UserData: Integer);
+    procedure mnuEditCopyOutputClick(Sender: TObject);
+    procedure mnuEditCutClick(Sender: TObject);
+    procedure mnuEditSelectAllClick(Sender: TObject);
+    procedure mnuEditCopyMessagesClick(Sender: TObject);
+    procedure mnuFileSaveInClick(Sender: TObject);
   private
     fcConvert: TStringsConverter;
     fcSettings: TScratchpadSettings;
 
     procedure CheckInputState;
-
+    procedure DoFileOpen(const psFileName: string);
+    procedure AddCheckMRU(const psFile: string);
 
   public
-    { Public declarations }
   end;
 
 var
@@ -89,10 +104,48 @@ uses
 
 {$R *.dfm}
 
+const FILE_FILTERS =
+  'Delphi source (*.pas, *.dpr)|*.pas; *.dpr|' +
+  'Text files (*.txt)|*.txt|' +
+  'All files (*.*)|*.*';
+
 procedure TfrmScratchpad.CheckInputState;
 begin
   actGo.Enabled := (mInput.Text <> '');
   actClear.Enabled := (mInput.Text <> '');
+end;
+
+procedure TfrmScratchpad.DoFileOpen(const psFileName: string);
+begin
+  if psFileName = '' then
+    exit;
+  if not FileExists(psFileName) then
+    exit;
+
+  fcSettings.InputDir := ExtractFilePath(psFileName);
+  mInput.Text := FileToString(psFileName);
+  sb1.SimpleText := psFileName;
+  AddCheckMRU(psFileName);
+
+  CheckInputState;
+end;
+
+procedure TfrmScratchpad.AddCheckMRU(const psFile: string);
+var
+  liIndex: integer;
+begin
+  liIndex := mruFiles.Strings.IndexOf(psFile);
+
+  if (liIndex < 0) then
+  begin
+    mruFiles.Add(psFile, 0);
+    liIndex := mruFiles.Strings.IndexOf(psFile);
+  end;
+
+  mruFiles.Strings.Move(liIndex, 0);
+
+  while mruFiles.Strings.Count > mruFiles.Capacity do
+    mruFiles.Strings.Delete(mruFiles.Strings.Count - 1);
 end;
 
 procedure TfrmScratchpad.FormResize(Sender: TObject);
@@ -161,13 +214,11 @@ end;
 procedure TfrmScratchpad.actOpenExecute(Sender: TObject);
 begin
   OpenDialog1.InitialDir := fcSettings.InputDir;
+  OpenDialog1.Filter := FILE_FILTERS;
 
   if OpenDialog1.Execute then
   begin
-    fcSettings.InputDir := ExtractFilePath(OpenDialog1.FileName);
-    mInput.Text := FileToString(OpenDialog1.FileName);
-    sb1.SimpleText := OpenDialog1.FileName;
-    CheckInputState;
+    DoFileOpen(OpenDialog1.FileName);
   end;
 end;
 
@@ -185,6 +236,9 @@ end;
 procedure TfrmScratchpad.actSaveExecute(Sender: TObject);
 begin
   SaveDialog1.InitialDir := fcSettings.OutputDir;
+  SaveDialog1.Title := 'Save output file';
+  SaveDialog1.Filter := FILE_FILTERS;
+
 
   if SaveDialog1.Execute then
   begin
@@ -204,12 +258,16 @@ begin
   fcConvert := TStringsConverter.Create;
   fcSettings := TScratchpadSettings.Create;
   fcConvert.ShowParseTreeOption := fcSettings.ShowParseTreeOption;
+
+  fcSettings.LoadMRUFiles(mruFiles.Strings);
+  mruFiles.RemoveInvalid;
 end;
 
 procedure TfrmScratchpad.FormDestroy(Sender: TObject);
 begin
   // write this to registry
   fcSettings.ShowParseTreeOption := fcConvert.ShowParseTreeOption;
+  fcSettings.SaveMRUFiles(mruFiles.Strings);
 
   FreeAndNil(fcConvert);
   FreeAndNil(fcSettings);
@@ -232,15 +290,73 @@ end;
 
 procedure TfrmScratchpad.actCopyExecute(Sender: TObject);
 begin
-  Clipboard.AsText := mOutput.Text;
+  if pcPages.ActivePage = tsOutput then
+    mOutput.CopyToClipboard
+  else
+    mInput.CopyToClipboard;
 end;
 
 procedure TfrmScratchpad.actPasteExecute(Sender: TObject);
 begin
-  if Clipboard.HasFormat(CF_TEXT) then
+  if (pcPages.ActivePage = tsInput) and Clipboard.HasFormat(CF_TEXT) then
   begin
-    mInput.Text := mInput.Text  + Clipboard.AsText;
+    mInput.PasteFromClipboard;
     CheckInputState;
+  end;
+end;
+
+procedure TfrmScratchpad.mruFilesClick(Sender: TObject; const RecentName,
+  Caption: String; UserData: Integer);
+begin
+  DoFileOpen(RecentName);
+end;
+
+procedure TfrmScratchpad.mnuEditCopyOutputClick(Sender: TObject);
+begin
+  Clipboard.AsText := mOutput.Text;
+end;
+
+procedure TfrmScratchpad.mnuEditCutClick(Sender: TObject);
+begin
+
+  if (pcPages.ActivePage = tsInput) then
+  begin
+    mInput.CutToClipboard;
+    CheckInputState;
+  end;
+
+end;
+
+procedure TfrmScratchpad.mnuEditSelectAllClick(Sender: TObject);
+begin
+  if (pcPages.ActivePage = tsInput) then
+  begin
+    mInput.SetFocus;
+    mInput.SelectAll;
+  end
+  else
+  begin
+    mOutput.SetFocus;
+    mOutput.SelectAll;
+  end;
+end;
+
+procedure TfrmScratchpad.mnuEditCopyMessagesClick(Sender: TObject);
+begin
+  Clipboard.AsText := mMessages.Text;
+end;
+
+procedure TfrmScratchpad.mnuFileSaveInClick(Sender: TObject);
+begin
+  SaveDialog1.InitialDir := fcSettings.OutputDir;
+  SaveDialog1.Title := 'Save input file';
+  SaveDialog1.Filter := FILE_FILTERS;
+
+  if SaveDialog1.Execute then
+  begin
+    fcSettings.OutputDir := ExtractFilePath(SaveDialog1.FileName);
+    StringToFile(SaveDialog1.FileName, mInput.Text);
+    sb1.SimpleText := 'Saved input' + SaveDialog1.FileName;
   end;
 end;
 

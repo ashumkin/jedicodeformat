@@ -62,20 +62,6 @@ object frmScratchpad: TfrmScratchpad
       Height = 24
       Action = actClear
     end
-    object SpeedButton1: TSpeedButton
-      Left = 290
-      Top = 2
-      Width = 57
-      Height = 24
-      Action = actCopy
-    end
-    object sbPaste: TSpeedButton
-      Left = 230
-      Top = 2
-      Width = 57
-      Height = 24
-      Action = actPaste
-    end
   end
   object pcPages: TPageControl
     Left = 0
@@ -88,11 +74,14 @@ object frmScratchpad: TfrmScratchpad
     OnChange = pcPagesChange
     object tsInput: TTabSheet
       Caption = 'Input'
-      object mInput: TMemo
+      object mInput: TJvMemo
         Left = 0
         Top = 0
         Width = 680
         Height = 351
+        AutoSize = False
+        MaxLines = 0
+        HideCaret = False
         Align = alClient
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
@@ -100,6 +89,7 @@ object frmScratchpad: TfrmScratchpad
         Font.Name = 'Courier New'
         Font.Style = []
         ParentFont = False
+        ReadOnly = False
         ScrollBars = ssVertical
         TabOrder = 0
         OnKeyUp = mInputKeyUp
@@ -115,11 +105,15 @@ object frmScratchpad: TfrmScratchpad
         Height = 13
         Caption = 'Messages'
       end
-      object mOutput: TMemo
+      object mOutput: TJvMemo
         Left = 8
         Top = 16
         Width = 185
         Height = 89
+        AutoSize = False
+        ClipboardCommands = [caCopy]
+        MaxLines = 0
+        HideCaret = False
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -131,11 +125,15 @@ object frmScratchpad: TfrmScratchpad
         ScrollBars = ssVertical
         TabOrder = 0
       end
-      object mMessages: TMemo
+      object mMessages: TJvMemo
         Left = 32
         Top = 221
         Width = 185
         Height = 89
+        AutoSize = False
+        ClipboardCommands = [caCopy]
+        MaxLines = 0
+        HideCaret = False
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -186,7 +184,6 @@ object frmScratchpad: TfrmScratchpad
   end
   object OpenDialog1: TOpenDialog
     DefaultExt = '*.pas'
-    Filter = 'Delphi source (*.pas, *.dpr)|*.pas; *.dpr|All files|*.*'
     Left = 496
     Top = 16
   end
@@ -203,30 +200,64 @@ object frmScratchpad: TfrmScratchpad
       object mnuFileOpen: TMenuItem
         Action = actOpen
       end
-      object mnuFileSave: TMenuItem
+      object mnuFileSaveOut: TMenuItem
         Action = actSave
+        Caption = '&Save output...'
       end
-      object N2: TMenuItem
-        Action = actPaste
-      end
-      object Copy1: TMenuItem
-        Action = actCopy
+      object mnuFileSaveIn: TMenuItem
+        Caption = 'Save &Input'
+        OnClick = mnuFileSaveInClick
       end
       object N1: TMenuItem
         Caption = '-'
-      end
-      object mnuGo: TMenuItem
-        Action = actGo
-      end
-      object mnuClear: TMenuItem
-        Action = actClear
       end
       object mnuExit: TMenuItem
         Caption = 'Exit'
         OnClick = mnuExitClick
       end
     end
-    object Options1: TMenuItem
+    object mnuEdit: TMenuItem
+      Caption = '&Edit'
+      object mnuEditCut: TMenuItem
+        Caption = 'Cut '
+        ShortCut = 16472
+        OnClick = mnuEditCutClick
+      end
+      object mnuEditCopy: TMenuItem
+        Action = actCopy
+        Hint = 'Copy to clipboard'
+      end
+      object mnuEditPaste: TMenuItem
+        Action = actPaste
+      end
+      object mnuEditSelectAll: TMenuItem
+        Caption = 'Select &all'
+        ShortCut = 16449
+        OnClick = mnuEditSelectAllClick
+      end
+      object mnuEditCopyOutput: TMenuItem
+        Caption = 'Copy &Output'
+        ShortCut = 16463
+        OnClick = mnuEditCopyOutputClick
+      end
+      object mnuEditCopyMessages: TMenuItem
+        Caption = 'Copy &Messages'
+        ShortCut = 16461
+        OnClick = mnuEditCopyMessagesClick
+      end
+    end
+    object mnuFormat: TMenuItem
+      Caption = '&Format'
+      object mnuEditGo: TMenuItem
+        Action = actGo
+        ShortCut = 16455
+      end
+      object mnuEditClear: TMenuItem
+        Action = actClear
+        ShortCut = 16474
+      end
+    end
+    object mnuOptions: TMenuItem
       Caption = '&Options'
       object mnuAlwaysShowParseTree: TMenuItem
         AutoCheck = True
@@ -251,5 +282,14 @@ object frmScratchpad: TfrmScratchpad
         OnClick = mnuNeverShowParseTreeClick
       end
     end
+  end
+  object mruFIles: TJvMRUManager
+    Duplicates = dupIgnore
+    AccelDelimiter = adSpace
+    Capacity = 9
+    RecentMenu = mnuFile
+    OnClick = mruFIlesClick
+    Left = 536
+    Top = 24
   end
 end
