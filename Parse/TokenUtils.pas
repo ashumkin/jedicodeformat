@@ -41,6 +41,8 @@ function SquareBracketLevel(const pt: TSourceToken): integer;
 function AllBracketLevel(const pt: TSourceToken): integer;
 function BlockLevel(const pt: TSourceToken): integer;
 
+function InRoundBrackets(const pt: TSourceToken): boolean;
+
 function SemicolonNext(const pt: TSourceToken): boolean;
 
 { true if the token is in code, ie in procedure/fn body,
@@ -49,8 +51,8 @@ function SemicolonNext(const pt: TSourceToken): boolean;
   False if it is vards, consts, types etc }
 function InStatements(const pt: TSourceToken): Boolean;
 
-function IsLabelColon(const pt: TSourceToken): boolean;
 function IsCaseColon(const pt: TSourceToken): boolean;
+function IsLabelColon(const pt: TSourceToken): boolean;
 
 function IsFirstSolidTokenOnLine(const pt: TSourceToken): boolean;
 
@@ -242,6 +244,15 @@ begin
     Result := pt.Nestings.GetLevel(nlRoundBracket);
 end;
 
+function InRoundBrackets(const pt: TSourceToken): boolean;
+begin
+  if pt = nil then
+    Result := False
+  else
+    Result := (pt.Nestings.GetLevel(nlRoundBracket) > 0);
+end;
+
+
 function SquareBracketLevel(const pt: TSourceToken): integer;
 begin
   if pt = nil then
@@ -286,6 +297,7 @@ function IsLabelColon(const pt: TSourceToken): boolean;
 begin
   Result := (pt.TokenType = ttColon) and pt.HasParentNode(nStatementLabel, 1);
 end;
+
 
 function IsCaseColon(const pt: TSourceToken): boolean;
 begin

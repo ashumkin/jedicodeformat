@@ -40,9 +40,11 @@ type
     fbSpaceBeforeClassHeritage: boolean;
 
     fiSpacesBeforeColonVar: integer;
+    fiSpacesBeforeColonConst: integer;
     fiSpacesBeforeColonParam: integer;
     fiSpacesBeforeColonFn: integer;
-    fiSpacesBeforeColonClass: integer;
+    fiSpacesBeforeColonClassVar: integer;
+    fiSpacesBeforeColonRecordField: integer;
     fiSpacesBeforeColonCaseLabel: integer;
     fiSpacesBeforeColonLabel: integer;
 
@@ -65,9 +67,11 @@ type
       fbSpaceBeforeClassHeritage;
 
     property SpacesBeforeColonVar: integer read fiSpacesBeforeColonVar write fiSpacesBeforeColonVar;
+    property SpacesBeforeColonConst: integer read fiSpacesBeforeColonConst write fiSpacesBeforeColonConst;
     property SpacesBeforeColonParam: integer read fiSpacesBeforeColonParam write fiSpacesBeforeColonParam;
     property SpacesBeforeColonFn: integer read fiSpacesBeforeColonFn write fiSpacesBeforeColonFn;
-    property SpacesBeforeColonClass: integer read fiSpacesBeforeColonClass write fiSpacesBeforeColonClass;
+    property SpacesBeforeColonClassVar: integer read fiSpacesBeforeColonClassVar write fiSpacesBeforeColonClassVar;
+    property SpacesBeforeColonRecordField: integer read fiSpacesBeforeColonRecordField write fiSpacesBeforeColonRecordField;
     property SpacesBeforeColonCaseLabel: integer read fiSpacesBeforeColonCaseLabel write fiSpacesBeforeColonCaseLabel;
     property SpacesBeforeColonLabel: integer read fiSpacesBeforeColonLabel write fiSpacesBeforeColonLabel;
   end;
@@ -83,10 +87,13 @@ const
   REG_FIX_SPACING    = 'FixSpacing';
 
   REG_SPACE_BEFORE_CLASS_HERITAGE = 'SpaceBeforeClassHeritage';
+
   REG_SPACES_BEFORE_COLON_VAR = 'SpacesBeforeColonVar';
+  REG_SPACES_BEFORE_COLON_CONST = 'SpacesBeforeColonConst';
   REG_SPACES_BEFORE_COLON_PARAM = 'SpacesBeforeColonParam';
   REG_SPACES_BEFORE_COLON_FN = 'SpacesBeforeColonFn';
-  REG_SPACES_BEFORE_COLON_CLASS = 'SpacesBeforeColonClass';
+  REG_SPACES_BEFORE_COLON_CLASS_VAR = 'SpacesBeforeColonClassVar';
+  REG_SPACES_BEFORE_COLON_RECORD_FIELD =  'SpacesBeforeColonRecordField';
   REG_SPACES_BEFORE_COLON_CASE_LABEL = 'SpacesBeforeColonCaseLabel';
   REG_SPACES_BEFORE_COLON_LABEL = 'SpacesBeforeColonLabel';
 
@@ -111,9 +118,12 @@ begin
   fbSpaceBeforeClassHeritage := pcStream.Read(REG_SPACE_BEFORE_CLASS_HERITAGE, False);
 
   fiSpacesBeforeColonVar := pcStream.Read(REG_SPACES_BEFORE_COLON_VAR, 0);
+  fiSpacesBeforeColonConst := pcStream.Read(REG_SPACES_BEFORE_COLON_CONST, 0);
   fiSpacesBeforeColonParam := pcStream.Read(REG_SPACES_BEFORE_COLON_PARAM, 0);
   fiSpacesBeforeColonFn := pcStream.Read(REG_SPACES_BEFORE_COLON_FN, 0);
-  fiSpacesBeforeColonClass := pcStream.Read(REG_SPACES_BEFORE_COLON_CLASS, 0);
+  fiSpacesBeforeColonClassVar := pcStream.Read(REG_SPACES_BEFORE_COLON_CLASS_VAR, 0);
+  fiSpacesBeforeColonRecordField := pcStream.Read(REG_SPACES_BEFORE_COLON_RECORD_FIELD, 0);
+
   fiSpacesBeforeColonCaseLabel := pcStream.Read(REG_SPACES_BEFORE_COLON_CASE_LABEL, 0);
   fiSpacesBeforeColonLabel := pcStream.Read(REG_SPACES_BEFORE_COLON_LABEL, 0);
 end;
@@ -131,9 +141,13 @@ begin
   pcOut.Write(REG_SPACE_BEFORE_CLASS_HERITAGE, fbSpaceBeforeClassHeritage);
 
   pcOut.Write(REG_SPACES_BEFORE_COLON_VAR, fiSpacesBeforeColonVar);
+  pcOut.Write(REG_SPACES_BEFORE_COLON_CONST, fiSpacesBeforeColonConst);
   pcOut.Write(REG_SPACES_BEFORE_COLON_PARAM, fiSpacesBeforeColonParam);
   pcOut.Write(REG_SPACES_BEFORE_COLON_FN, fiSpacesBeforeColonFn);
-  pcOut.Write(REG_SPACES_BEFORE_COLON_CLASS, fiSpacesBeforeColonClass);
+  pcOut.Write(REG_SPACES_BEFORE_COLON_CLASS_VAR, fiSpacesBeforeColonClassVar);
+
+  pcOut.Write(REG_SPACES_BEFORE_COLON_RECORD_FIELD, fiSpacesBeforeColonRecordField);
+
   pcOut.Write(REG_SPACES_BEFORE_COLON_CASE_LABEL, fiSpacesBeforeColonCaseLabel);
   pcOut.Write(REG_SPACES_BEFORE_COLON_LABEL, fiSpacesBeforeColonLabel);
 end;

@@ -49,6 +49,7 @@ uses
   { spacing}
   NoReturnBefore, NoReturnAfter, ReturnBefore, ReturnAfter,
   NoSpaceAfter, NoSpaceBefore, SingleSpaceBefore, SingleSpaceAfter,
+  SpaceBeforeColon, VisitStripEmptySpace, 
   BlockStyles,
   {indent}
   VisitSetNesting, Indenter;
@@ -146,6 +147,9 @@ begin
   ApplyVisitorType(TNoSpaceBefore);
   ApplyVisitorType(TSingleSpaceBefore);
   ApplyVisitorType(TSingleSpaceAfter);
+
+  ApplyVisitorType(TSpaceBeforeColon);
+  ApplyVisitorType(TVisitStripEmptySpace);
 
   ApplyVisitorType(TBlockStyles);
 end;

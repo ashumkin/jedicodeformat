@@ -20,10 +20,13 @@ type
     procedure TestNoReturnAfter;
     procedure TestNoReturnBefore;
     procedure TestNoSpaceAfter;
+
     procedure TestNoSpaceBefore;
+    procedure TestNoSpaceBeforeColon;
 
     procedure TestSingleSpaceBefore;
     procedure TestSingleSpaceAfter;
+    procedure TestSingleSpaceAfterColon;
 
     procedure TestReturnBefore;
     procedure TestReturnAfter;
@@ -32,7 +35,9 @@ type
 implementation
 
 uses JclStrings,
+  JcfSettings,
   NoReturnAfter, NoReturnBefore, NoSpaceAfter, NoSpaceBefore,
+  SpaceBeforeColon,
   SingleSpaceBefore, SingleSpaceAfter,
   ReturnBefore, ReturnAfter;
 
@@ -68,6 +73,14 @@ begin
   TestProcessResult(TNoSpaceBefore, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
+procedure TTestSpacing.TestNoSpaceBeforeColon;
+const
+  //JcfSettings.SetSpaces.SpacesBeforeColonFn := 0;
+  IN_UNIT_TEXT = UNIT_HEADER + ' function foo : integer; begin result := 2; end; ' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' function foo: integer; begin result := 2; end; ' + UNIT_FOOTER;
+begin
+  TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
 
 procedure TTestSpacing.TestSingleSpaceBefore;
 const
@@ -85,6 +98,15 @@ begin
   TestProcessResult(TSingleSpaceAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
+procedure TTestSpacing.TestSingleSpaceAfterColon;
+const
+  IN_UNIT_TEXT = UNIT_HEADER + ' function foo:   integer; begin result := 2; end; ' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' function foo: integer; begin result := 2; end; ' + UNIT_FOOTER;
+begin
+  TestProcessResult(TSingleSpaceAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+
 procedure TTestSpacing.TestReturnBefore;
 const
   IN_UNIT_TEXT = UNIT_HEADER +  ' procedure foo; begin a := 2; end; ' + UNIT_FOOTER;
@@ -98,8 +120,8 @@ const
   IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin a := 2; end; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = 'unit Test;'#$D#$A#$D#$A' interface'#$D#$A#$D#$A' implementation'#$D#$A#$D#$A'  procedure foo;'#$D#$A' begin'#$D#$A' a := 2;'#$D#$A' end;'#$D#$A'  end.';
 begin
-  TestProcessResult(TReturnAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);end;
-
+  TestProcessResult(TReturnAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
 
 initialization
  TestFramework.RegisterTest(TTestSpacing.Suite);
