@@ -8,7 +8,9 @@ The Original Code is EditorReader.pas, released January 2001.
 The Initial Developer of the Original Code is Anthony Steele.
 Portions created by Anthony Steele are Copyright (C) 2001 Anthony Steele.
 All Rights Reserved. 
-Contributor(s): Anthony Steele.
+Contributor(s):
+Anthony Steele.
+Walter Prins
 
 The contents of this file are subject to the Mozilla Public License Version 1.1
 (the "License"). you may not use this file except in compliance with the License.
@@ -81,7 +83,7 @@ begin
 
   fsSource := '';
 
-  // read it all. Unfortunately the APi dictates that we will work in chunks
+  // read it all. Unfortunately the API dictates that we will work in chunks
 
   liPos := 0;
   //liLoopCount := 0;
@@ -99,7 +101,16 @@ begin
     liActualSize := lciEditorReader.GetText(liPos, lpBuf, BUF_SIZE);
 
     // store it
-    fsSource := fsSource + lsBuf;
+    {WP: Do not add the entire lsBuf to fsSource, as in cases where the entire source is less
+     than 10Kb in total, there will be junk in the last part of the buffer.
+     If this is copied, it shows up as extraneous tokens in the token list
+     after the end of the unit proper.
+     This then causes an assertion failure in procedure DoConvertUnit in unit Converter.pas,
+     When these extra tokens are found that were not consumed by BuildParseTree
+
+     The way is to ensure that you only append as many characters as you've actually read (liActualSize bytes)
+     from the buffer into the fSource. }
+    fsSource := fsSource + Copy(lsBuf, 1, liActualSize);      //WP: Changed from just adding lsBuf
 
     // more stuff to read after this?
     liPos := liPos + liActualSize;
@@ -117,6 +128,5 @@ begin
   fiBufferLength := 1;
   fbHasRead      := True;
 end;
-
 
 end.
