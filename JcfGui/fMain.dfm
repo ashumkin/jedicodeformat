@@ -4489,7 +4489,7 @@ object frmMain: TfrmMain
     Top = 20
   end
   object JvFormStorage1: TJvFormStorage
-    Options = [fpPosition]
+    AppStoragePath = '%FORM_NAME%'
     StoredValues = <>
     Left = 460
     Top = 12

@@ -6,13 +6,13 @@ uses Windows, Messages, SysUtils, variants, Classes, Graphics, Controls, Forms, 
 
 type
   tform1 = class(TForm)
-    button1: TButton;
+    button1:   TButton;
     checkbox1: tcheckbox;
-    button2: TButton;
-    button3: TButton;
+    button2:   TButton;
+    button3:   TButton;
     checkbox2: tcheckbox;
-    button4: TButton;
-    button5: TButton;
+    button4:   TButton;
+    button5:   TButton;
     procedure button1click(Sender: TObject);
     procedure button2click(Sender: TObject);
     procedure button3click(Sender: TObject);
