@@ -156,7 +156,8 @@ uses
   TestMaxBlankLines in 'TestMaxBlankLines.pas',
   TestTextAfterUnitEnd in 'TestTextAfterUnitEnd.pas',
   TestCaseReturns in 'TestCaseReturns.pas',
-  TestIndentation in 'TestIndentation.pas';
+  TestIndentation in 'TestIndentation.pas',
+  MaxSpaces in '..\..\Process\Spacing\MaxSpaces.pas';
 
 {
   gpprof in '..\..\..\..\..\Program Files\GpProfile\gpprof.pas',

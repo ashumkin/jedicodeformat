@@ -34,8 +34,11 @@ uses
 type
   TTestSpacing = class(TBaseTestProcess)
   private
+    fiSaveMaxSpaces: integer;
 
   protected
+    procedure Setup; override;
+    procedure Teardown; override;
 
   published
 
@@ -73,6 +76,11 @@ type
 
     procedure TestTabToSpace;
     procedure TestSpaceToTab;
+
+    procedure TestMaxSpaces4;
+    procedure TestMaxSpaces3;
+    procedure TestMaxSpaces2;
+    procedure TestMaxSpaces1;
   end;
 
 implementation
@@ -84,8 +92,21 @@ uses JclStrings,
   SingleSpaceBefore, SingleSpaceAfter,
   ReturnBefore, ReturnAfter, RemoveBlankLinesAfterProcHeader,
   RemoveReturnsAfterBegin, RemoveReturnsBeforeEnd, UnitNameCaps,
-  TabToSpace, SpaceToTab;
+  TabToSpace, SpaceToTab, MaxSpaces;
 
+procedure TTestSpacing.Setup;
+begin
+  inherited;
+
+  fiSaveMaxSpaces := FormatSettings.Spaces.MaxSpacesInCode;
+end;
+
+procedure TTestSpacing.Teardown;
+begin
+  inherited;
+
+  FormatSettings.Spaces.MaxSpacesInCode := fiSaveMaxSpaces;
+end;
 
 procedure TTestSpacing.TestNoReturnAfter;
 const
@@ -342,6 +363,44 @@ const
   OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo;' + AnsiTab + 'begin a := 2; end; ' + UNIT_FOOTER;
 begin
   TestProcessResult(TSpaceToTab, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestSpacing.TestMaxSpaces4;
+const
+  IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo;   begin   a    :=  2;        end;  ' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo;   begin   a    :=  2;    end;  ' + UNIT_FOOTER;
+begin
+  FormatSettings.Spaces.MaxSpacesInCode := 4;
+  TestProcessResult(TMaxSpaces, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+
+procedure TTestSpacing.TestMaxSpaces3;
+const
+  IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo;   begin   a    :=  2;    end;  ' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo;   begin   a   :=  2;   end;  ' + UNIT_FOOTER;
+begin
+  FormatSettings.Spaces.MaxSpacesInCode := 3;
+  TestProcessResult(TMaxSpaces, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+
+procedure TTestSpacing.TestMaxSpaces2;
+const
+  IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo;   begin   a    :=  2;     end;  ' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo;  begin  a  :=  2;  end;  ' + UNIT_FOOTER;
+begin
+  FormatSettings.Spaces.MaxSpacesInCode := 2;
+  TestProcessResult(TMaxSpaces, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestSpacing.TestMaxSpaces1;
+const
+  IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo;   begin   a    :=  2;    end;  ' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin a := 2; end; ' + UNIT_FOOTER;
+begin
+  FormatSettings.Spaces.MaxSpacesInCode := 1;
+  TestProcessResult(TMaxSpaces, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
 initialization
