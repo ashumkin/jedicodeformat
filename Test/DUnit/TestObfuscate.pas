@@ -69,6 +69,12 @@ type
     procedure TestObfuscate_LittleTest25;
     procedure TestObfuscate_LittleTest26;
     procedure TestObfuscate_LittleTest27;
+    procedure TestObfuscate_LittleTest28;
+    procedure TestObfuscate_LittleTest29;
+    procedure TestObfuscate_LittleTest30;
+    procedure TestObfuscate_LittleTest31;
+    procedure TestObfuscate_LittleTest32;
+    procedure TestObfuscate_LittleTest33;
 
     procedure TestObfuscate_TestAbsolute;
     procedure TestObfuscate_TestAlign;
@@ -81,6 +87,7 @@ type
     procedure TestObfuscate_TestBogusDirectives;
     procedure TestObfuscate_TestBogusTypes;
     procedure TestObfuscate_TestCaseBlock;
+    procedure TestObfuscate_TestCaseIfFormat;
     procedure TestObfuscate_TestCast;
     procedure TestObfuscate_TestCastSimple;
     procedure TestObfuscate_TestCharLiterals;
@@ -92,6 +99,7 @@ type
     procedure TestObfuscate_TestDeclarations2;
     procedure TestObfuscate_TestDefaultParams;
     procedure TestObfuscate_TestDeref;
+    procedure TestObfuscate_TestEmptyCase;
     procedure TestObfuscate_TestEmptyClass;
     procedure TestObfuscate_TestEmptySquareBrackets;
     procedure TestObfuscate_TestEsotericKeywords;
@@ -843,6 +851,46 @@ end;
 procedure TTestObfuscate.TestObfuscate_TestEmptySquareBrackets;
 begin
   TestObfuscateFile('TestEmptySquareBrackets');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest28;
+begin
+  TestObfuscateFile('LittleTest28');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest29;
+begin
+  TestObfuscateFile('LittleTest29');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest30;
+begin
+  TestObfuscateFile('LittleTest30');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest31;
+begin
+  TestObfuscateFile('LittleTest31');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest32;
+begin
+  TestObfuscateFile('LittleTest32');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest33;
+begin
+  TestObfuscateFile('LittleTest33');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestCaseIfFormat;
+begin
+  TestObfuscateFile('TestCaseIfFormat');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestEmptyCase;
+begin
+  TestObfuscateFile('TestEmptyCase');
 end;
 
 initialization

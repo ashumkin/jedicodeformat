@@ -72,6 +72,12 @@ type
     procedure TestParse_LittleTest25;
     procedure TestParse_LittleTest26;
     procedure TestParse_LittleTest27;
+    procedure TestParse_LittleTest28;
+    procedure TestParse_LittleTest29;
+    procedure TestParse_LittleTest30;
+    procedure TestParse_LittleTest31;
+    procedure TestParse_LittleTest32;
+    procedure TestParse_LittleTest33;
 
     procedure TestParse_TestAbsolute;
     procedure TestParse_TestAlign;
@@ -83,6 +89,7 @@ type
     procedure TestParse_TestBogusDirectives;
     procedure TestParse_TestBogusTypes;
     procedure TestParse_TestCaseBlock;
+    procedure TestParse_TestCaseIfFormat;
     procedure TestParse_TestSimpleCast;
     procedure TestParse_TestCast;
     procedure TestParse_TestCharLiterals;
@@ -94,6 +101,7 @@ type
     procedure TestParse_TestDeclarations2;
     procedure TestParse_TestDefaultParams;
     procedure TestParse_TestDeref;
+    procedure TestParse_TestEmptyCase;
     procedure TestParse_TestEmptyClass;
     procedure TestParse_TestEmptySquareBrackets;
     procedure TestParse_TestEsotericKeywords;
@@ -384,7 +392,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestD6;
 begin
-  TestParseFile('TestD6', 845);
+  TestParseFile('TestD6', 973);
 end;
 
 procedure TTestFileParse.TestParse_TestDeclarations;
@@ -465,7 +473,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestLayoutBare;
 begin
-  TestParseFile('TestLayoutBare', 1459);
+  TestParseFile('TestLayoutBare', 1555);
 end;
 
 procedure TTestFileParse.TestParse_TestLayoutBare2;
@@ -560,7 +568,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestProperties;
 begin
-  TestParseFile('TestProperties', 677);
+  TestParseFile('TestProperties', 751);
 end;
 
 procedure TTestFileParse.TestParse_TestPropertyLines;
@@ -645,7 +653,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 855);
+  TestParseFile('Testcases.dpr', 919);
 end;
 
 
@@ -818,6 +826,46 @@ end;
 procedure TTestFileParse.TestParse_TestEmptySquareBrackets;
 begin
   TestParseFile('TestEmptySquareBrackets', 66);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest28;
+begin
+  TestParseFile('LittleTest28', 71);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest29;
+begin
+  TestParseFile('LittleTest29', 141);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest30;
+begin
+  TestParseFile('LittleTest30', 60);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest31;
+begin
+  TestParseFile('LittleTest31', 58);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest32;
+begin
+  TestParseFile('LittleTest32', 91);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest33;
+begin
+  TestParseFile('LittleTest33', 45);
+end;
+
+procedure TTestFileParse.TestParse_TestEmptyCase;
+begin
+  TestParseFile('TestEmptyCase', 128);
+end;
+
+procedure TTestFileParse.TestParse_TestCaseIfFormat;
+begin
+  TestParseFile('TestCaseIfFormat', 294);
 end;
 
 initialization

@@ -62,6 +62,14 @@ TThing6 = record
     False: (Fred6: integer;);
 end platform;
 
+TThing7 = record
+  Bar: integer;
+  Foo: integer deprecated;
+  Bar2: integer;
+  Foo2: integer library;
+end;
+
+
 TSomeOldClass = class
 public
   function foo: integer;
@@ -85,6 +93,11 @@ implementation
 
 var
  li2: integer = 3 deprecated;
+ li_x: integer deprecated = 3;
+ li_y: integer deprecated = 3 library;
+ li_z: integer deprecated platform = 3 library;
+ li_a: integer deprecated  = 3 platform library;
+ li_b: integer deprecated platform library = 3 deprecated platform library;
 
 
 function Foo: integer;

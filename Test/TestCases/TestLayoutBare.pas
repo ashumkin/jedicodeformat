@@ -17,6 +17,24 @@ implementation
 
 { block layout }
 
+function NastyElse(var foo, bar: boolean): integer;
+begin
+if Foo then
+Result := -1
+else
+end;
+
+function NastyElse2(var foo, bar: boolean): integer;
+begin
+if Foo then
+if bar then
+Result := -1
+else
+else
+Result := 2;
+end;
+
+
 { these lttle tests have one statement block per procedure
   and omit the semicolon after the final statement, which is legal but ugly }
 procedure LittleTest1;

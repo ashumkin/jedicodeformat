@@ -68,6 +68,12 @@ type
     procedure TestClarify_LittleTest25;
     procedure TestClarify_LittleTest26;
     procedure TestClarify_LittleTest27;
+    procedure TestClarify_LittleTest28;
+    procedure TestClarify_LittleTest29;
+    procedure TestClarify_LittleTest30;
+    procedure TestClarify_LittleTest31;
+    procedure TestClarify_LittleTest32;
+    procedure TestClarify_LittleTest33;
 
     procedure TestClarify_TestAbsolute;
     procedure TestClarify_TestAlign;
@@ -80,6 +86,7 @@ type
     procedure TestClarify_TestBogusDirectives;
     procedure TestClarify_TestBogusTypes;
     procedure TestClarify_TestCaseBlock;
+    procedure TestClarify_TestCaseIfFormat;
     procedure TestClarify_TestCast;
     procedure TestClarify_TestCastSimple;
     procedure TestClarify_TestCharLiterals;
@@ -91,6 +98,7 @@ type
     procedure TestClarify_TestDeclarations;
     procedure TestClarify_TestDefaultParams;
     procedure TestClarify_TestDeref;
+    procedure TestClarify_TestEmptyCase;
     procedure TestClarify_TestEmptyClass;
     procedure TestClarify_TestEmptySquareBrackets;
     procedure TestClarify_TestEsotericKeywords;
@@ -815,6 +823,46 @@ end;
 procedure TFullTestClarify.TestClarify_TestEmptySquareBrackets;
 begin
   TestClarifyFile('TestEmptySquareBrackets');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest28;
+begin
+  TestClarifyFile('LittleTest28');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest29;
+begin
+  TestClarifyFile('LittleTest29');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest30;
+begin
+  TestClarifyFile('LittleTest30');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest31;
+begin
+  TestClarifyFile('LittleTest31');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest32;
+begin
+  TestClarifyFile('LittleTest32');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest33;
+begin
+  TestClarifyFile('LittleTest33');
+end;
+
+procedure TFullTestClarify.TestClarify_TestEmptyCase;
+begin
+  TestClarifyFile('TestEmptyCase');
+end;
+
+procedure TFullTestClarify.TestClarify_TestCaseIfFormat;
+begin
+  TestClarifyFile('TestCaseIfFormat');
 end;
 
 initialization

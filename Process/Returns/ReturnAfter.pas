@@ -172,7 +172,9 @@ begin
     exit;
 
   if pt.HasParentNode(nAsm) then
+  begin
     exit;
+  end;
 
   // form dfm comment
   if IsDfmIncludeDirective(pt) then
@@ -250,6 +252,15 @@ end;
 function NeedsReturn(const pt, ptNext: TSourceToken): boolean;
 begin
   Result := False;
+
+  if pt.HasParentNode(nAsm) then
+  begin
+    if pt.TokenType = ttAsm then
+    begin
+      Result := True;
+      exit;
+    end;
+  end;
 
   if (pt.TokenType = ttReturn) then
     exit;

@@ -18,9 +18,6 @@ default: $(PROJECTS)
 jcf_test.exe: Test\DUnit\jcf_test.dpr
   $(DCC)
 
-TestCases.exe: Test\TestCases\TestCases.dpr
-  $(DCC)
-
 JcfNotepad.exe: Notepad\JcfNotepad.dpr
   $(DCC)
 
@@ -34,6 +31,9 @@ JcfIde7.bpl: IdePluggin\JcfIde7.dpk
   $(DCC)
 
 jcf.exe: CommandLine\jcf.dpr
+  $(DCC)
+
+TestCases.exe: Test\TestCases\TestCases.dpr
   $(DCC)
 
 

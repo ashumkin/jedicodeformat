@@ -1119,8 +1119,10 @@ begin
     RecogniseClassRefType
   else if (lc.WordType in IdentifierTypes) then
   begin
-    { could be a subrange on an enum, e.g. "clBlue .. clBlack" }
-    if TokenList.SolidTokenType(2) = ttDoubleDot then
+    { could be a subrange on an enum, e.g. "clBlue .. clBlack"
+      NB: this can also be Low(Integer) .. High(Integer)
+    }
+    if (AnsiSameText(lc.SourceCode, 'Low')) or (TokenList.SolidTokenType(2) = ttDoubleDot) then
       RecogniseSubRangeType
     else
       // some previously declared type that this simple prog does not know of
@@ -1295,7 +1297,7 @@ begin
   begin
     // e.g. var f = String[30];
     Recognise(ttOpenSquareBracket);
-    Recognise(ttNumber);
+    RecogniseConstantExpression;
     Recognise(ttCloseSquareBracket);
 
   end;
@@ -1401,6 +1403,8 @@ begin
   RecogniseIdentList(False);
   Recognise(ttColon);
   RecogniseType;
+
+  RecogniseHintDirectives;
 
   PopNode;
 end;
@@ -1581,20 +1585,26 @@ begin
 
     PopNode;
   end
-  else if lc.TokenType = ttEquals then
+  else
   begin
-    PushNode(nVariableInit);
+    RecogniseHintDirectives;
 
-    Recognise(ttEquals);
+    if TokenList.FirstSolidTokenType = ttEquals then
+    begin
+      PushNode(nVariableInit);
 
-    { not just an expr - can be an array, record or the like
-      reuse the code from typed constant declaration as it works the same
-    }
-    RecogniseTypedConstant;
+      Recognise(ttEquals);
 
-    PopNode;
+      { not just an expr - can be an array, record or the like
+        reuse the code from typed constant declaration as it works the same
+      }
+      RecogniseTypedConstant;
+
+      PopNode;
+    end;
   end;
 
+  { yes, they can occur here too }
   RecogniseHintDirectives;
 
   PopNode;
@@ -2184,7 +2194,8 @@ begin
   begin
     Recognise(ttElse);
     PushNode(nElseBlock);
-    RecogniseStatement;
+    if not (TokenList.FirstSolidTokenType in [ttElse, ttEnd]) then
+      RecogniseStatement;
     PopNode;
   end;
 end;
@@ -2240,10 +2251,14 @@ begin
   Recognise(ttColon);
   PopNode;
 
-  RecogniseStatement;
+  { semicolon is optional in the last case before the else }
+  if not (TokenList.FirstSolidTokenType in [ttElse, ttEnd]) then
+  begin
+    RecogniseStatement;
 
-  if TokenList.FirstSolidTokenType = ttSemicolon then
-    Recognise(ttSemicolon);
+    if TokenList.FirstSolidTokenType = ttSemicolon then
+      Recognise(ttSemicolon);
+  end;
 
   PopNode;
 end;
@@ -2528,6 +2543,9 @@ begin
 
 end;
 
+{ the proc/function is forward or extern (ie has no body)
+  if the word 'forward' or 'extern' is in the directives
+  these are also valid param names }
 function IsForwardExtern(pt: TParseTreeNode): Boolean;
 var
   lcDirectives: TParseTreeNode;
@@ -2589,7 +2607,7 @@ begin
   { if the proc declaration has the directive external or forward,
     it will not have a body }
   lcTop := TParseTreeNode(fcStack.Peek);
-  if not lcTop.HasChildNode([ttExternal, ttForward]) then
+  if not IsForwardExtern(lcTop) then
   begin
     RecogniseBlock;
     Recognise(ttSemicolon);
@@ -3311,11 +3329,25 @@ begin
       begin
         Recognise(ttRead);
         RecogniseIdentifier(False);
+
+        { record field }
+        if TokenList.FirstSolidTokenType = ttDot then
+        begin
+          Recognise(ttDot);
+          RecogniseIdentifier(False);
+        end;
       end;
       ttWrite:
       begin
         Recognise(ttWrite);
         RecogniseIdentifier(False);
+
+        { record field }
+        if TokenList.FirstSolidTokenType = ttDot then
+        begin
+          Recognise(ttDot);
+          RecogniseIdentifier(False);
+        end;
       end;
       ttStored:
       begin
@@ -3650,7 +3682,10 @@ begin
         Break;
 
       if TokenList.FirstSolidTokenType = ttSemiColon then
+      begin
         Recognise(ttSemiColon);
+        break;
+      end;
     end;
 
   end;

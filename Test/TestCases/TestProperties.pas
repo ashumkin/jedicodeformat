@@ -11,6 +11,8 @@ unit TestProperties;
 
 interface
 
+uses Types;
+
 type TFoo = class(TObject)
 private fiBar, fiBaz, fiWibble, fiFish, fiQuux: integer;
 
@@ -55,8 +57,18 @@ read GetArray
 write SetArray;
 default;
 
-
 end;
+
+type
+
+  THasAPoint = class (TObject)
+    private
+      FPoint: TPoint;
+    public
+      property X: integer read FPoint.x;
+      property Y: integer read FPoint.y write FPoint.y;
+  end;
+
 
 implementation
 

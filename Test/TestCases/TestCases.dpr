@@ -102,7 +102,15 @@ uses
   LittleTest25 in 'LittleTest25.pas',
   LittleTest26 in 'LittleTest26.pas',
   LittleTest27 in 'LittleTest27.pas',
-  TestASM in 'TestAsm.pas';
+  TestASM in 'TestAsm.pas',
+  testCaseIfFormat in 'testCaseIfFormat.pas',
+  LittleTest28 in 'LittleTest28.pas',
+  TestEmptyCase in 'TestEmptyCase.pas',
+  LittleTest29 in 'LittleTest29.pas',
+  LittleTest30 in 'LittleTest30.pas',
+  LittleTest31 in 'LittleTest31.pas',
+  LittleTest32 in 'LittleTest32.pas',
+  LittleTest33 in 'LittleTest33.pas';
 
 {$R *.res}
 
