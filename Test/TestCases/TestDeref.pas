@@ -4,6 +4,9 @@ interface
 
 implementation
 
+uses
+  Classes;
+
 type
   TAmoeba = class(TObject)
   private
@@ -11,6 +14,7 @@ type
     function GetName: string;
     procedure SetName(const Value: string);
     function GetStuff(const psIndex: string): TAmoeba;
+    procedure GetValueList(List: TStrings);
 
   public
     function GetBar(const piIndex: integer): TAmoeba;
@@ -58,6 +62,12 @@ end;
 procedure TAmoeba.SetName(const Value: string);
 begin
   fsName := Value;
+end;
+
+{ this line echoes the structure code in BDReg.pas that failed }
+procedure TAmoeba.GetValueList(List: TStrings);
+begin
+  (GetStuff('0') as TAmoeba).MyFudgeFactor.GetValueList(List);
 end;
 
 end.

@@ -60,8 +60,10 @@ end;
 implementation
 
 uses
-  JcfSettings, SetClarify,
-  VisitSetXY,
+  { delphi }
+  Forms,
+  { local }
+  JcfSettings, SetClarify, VisitSetXY,
   { once-offs }
   MozComment,
   { obfuscate}
@@ -115,6 +117,8 @@ begin
 
       if lc.FinalSummary(lsMessage) then
         OnMessage(lsMessage);
+
+      Application.ProcessMessages;
     end;
   finally
     lc.Free;

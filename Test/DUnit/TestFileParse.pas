@@ -58,6 +58,7 @@ type
     procedure TestParse_LittleTest11;
     procedure TestParse_LittleTest12;
     procedure TestParse_LittleTest13;
+    procedure TestParse_LittleTest14;
 
     procedure TestParse_TestAbsolute;
     procedure TestParse_TestAlign;
@@ -648,7 +649,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestDeref;
 begin
-  TestParseFile('TestDeref', 384);
+  TestParseFile('TestDeref', 444);
 end;
 
 procedure TTestFileParse.TestParse_TestPropertyInherited;
@@ -684,6 +685,11 @@ end;
 procedure TTestFileParse.TestParse_LittleTest13;
 begin
   TestParseFile('LittleTest13', 86);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest14;
+begin
+  TestParseFile('LittleTest14', 37);
 end;
 
 initialization

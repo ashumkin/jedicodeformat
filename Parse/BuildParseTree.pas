@@ -69,13 +69,13 @@ type
     procedure RecogniseInterfaceDecl;
     procedure RecogniseExportedHeading;
 
-    procedure RecogniseIdentifier;
+    procedure RecogniseIdentifier(const pbCanHaveUnitQualifier: Boolean);
     procedure RecogniseImplementationSection;
     procedure RecogniseDeclSections;
     procedure RecogniseDeclSection;
     procedure RecogniseInitSection;
     procedure RecogniseBlock;
-    procedure RecogniseIdentList;
+    procedure RecogniseIdentList(const pbCanHaveUnitQualifier: Boolean);
     procedure RecogniseIdentValue;
 
     procedure RecogniseLabelDeclSection;
@@ -439,13 +439,13 @@ begin
   Recognise(ttProgram);
 
   PushNode(nUnitName);
-  RecogniseIdentifier;
+  RecogniseIdentifier(False);
   PopNode;
 
   if TokenList.FirstSolidTokenType = ttOpenBracket then
   begin
     Recognise(ttOpenBracket);
-    RecogniseIdentList;
+    RecogniseIdentList(False);
     Recognise(ttCloseBracket);
   end;
 
@@ -469,7 +469,7 @@ begin
   Recognise(ttUnit);
 
   PushNode(nUnitName);
-  RecogniseIdentifier;
+  RecogniseIdentifier(False);
   PopNode;
   Recognise(ttSemicolon);
 
@@ -492,7 +492,7 @@ begin
   Recognise(ttPackage);
 
   PushNode(nUnitName);
-  RecogniseIdentifier;
+  RecogniseIdentifier(False);
   PopNode;
   Recognise(ttSemicolon);
   PopNode;
@@ -518,7 +518,7 @@ begin
   Recognise(ttLibrary);
 
   PushNode(nUnitName);
-  RecogniseIdentifier;
+  RecogniseIdentifier(False);
   PopNode;
   Recognise(ttSemicolon);
   PopNode;
@@ -572,7 +572,7 @@ procedure TBuildParseTree.RecogniseUsesItem(const pbInFiles: Boolean);
 begin
   PushNode(nUsesItem);
 
-  RecogniseIdentifier;
+  RecogniseIdentifier(False);
 
   if pbInFiles and (TokenList.FirstSolidTokenType  = ttIn) then
   begin
@@ -795,7 +795,7 @@ begin
 
   PushNode(nLabelDeclSection);
   Recognise(ttLabel);
-  RecogniseIdentList;
+  RecogniseIdentList(False);
   Recognise(ttSemicolon);
 
   PopNode;
@@ -836,7 +836,7 @@ begin
 
   PushNode(nConstDecl);
 
-  RecogniseIdentifier;
+  RecogniseIdentifier(False);
 
   lc := TokenList.FirstSolidToken;
 
@@ -887,7 +887,7 @@ begin
 
   PushNode(nTypeDecl);
 
-  RecogniseIdentifier;
+  RecogniseIdentifier(False);
   Recognise(ttEquals);
 
   // type or restricted type
@@ -1033,7 +1033,7 @@ begin
 
   PushNode(nRecordFieldConstant);
 
-  RecogniseIdentifier;
+  RecogniseIdentifier(False);
   Recognise(ttColon);
   RecogniseTypedConstant;
 
@@ -1063,6 +1063,14 @@ begin
 
   lc := TokenList.FirstSolidToken;
   lc2 := TokenList.SolidToken(2);
+
+  { type can be prefixed with a unit name, e.g.
+    Classes.TList; }
+  if lc2.TokenType = ttDot then
+  begin
+    RecogniseIdentifier(False);
+    Recognise(ttDot);
+  end;
 
   if (lc.TokenType = ttType) then
   begin
@@ -1244,7 +1252,7 @@ begin
   PushNode(nEnumeratedType);
 
   Recognise(ttOpenBracket);
-  RecogniseIdentList;
+  RecogniseIdentList(False);
   Recognise(ttCloseBracket);
 
   PopNode;
@@ -1370,7 +1378,7 @@ begin
   // FieldDecl -> IdentList ':' Type
   PushNode(nFieldDeclaration);
 
-  RecogniseIdentList;
+  RecogniseIdentList(False);
   Recognise(ttColon);
   RecogniseType;
 
@@ -1387,7 +1395,7 @@ begin
   // is there an 'of' 2 tokens hence? If not, must be 'ident:' first
   if not (TokenList.SolidTokenType(2) = ttOf) then
   begin
-    RecogniseIdentifier;
+    RecogniseIdentifier(False);
     Recognise(ttColon);
   end;
 
@@ -1533,7 +1541,7 @@ begin
 
   PushNode(nVarDecl);
 
-  RecogniseIdentList;
+  RecogniseIdentList(False);
   Recognise(ttColon);
   RecogniseType;
 
@@ -1545,7 +1553,7 @@ begin
     Recognise(ttAbsolute);
 
     if (TokenList.FirstSolidWordType in IdentifierTypes) then
-      RecogniseIdentifier
+      RecogniseIdentifier(False)
     else
       RecogniseConstantExpression;
 
@@ -1807,12 +1815,12 @@ begin
 
   RecogniseQualId;
 
-  while (TokenList.FirstSolidTokenType in [ttDot, ttOpenSquareBracket, ttHat]) do
+  while (TokenList.FirstSolidTokenType in [ttDot, ttOpenBracket, ttOpenSquareBracket, ttHat]) do
   begin
     if TokenList.FirstSolidTokenType = ttDot then
     begin
       Recognise(ttDot);
-      RecogniseIdentifier;
+      RecogniseIdentifier(False);
     end
     else if TokenList.FirstSolidTokenType = ttHat then
     begin
@@ -1824,6 +1832,10 @@ begin
       Recognise(ttOpenSquareBracket);
       RecogniseExprList;
       Recognise(ttCloseSquareBracket);
+    end
+    else if TokenList.FirstSolidTokenType = ttOpenBracket then
+    begin
+      RecogniseActualParams;
     end
     else
       Assert(False, 'Should not be here - bad token type');
@@ -1902,7 +1914,7 @@ begin
   if (lbColonSecond) then
   begin
     PushNode(nStatementLabel);
-    RecogniseIdentifier;
+    RecogniseIdentifier(True);
     Recognise(ttColon);
     PopNode;
   end;
@@ -1999,7 +2011,7 @@ begin
      // can be followed by a method name with or without params
      if IdentifierNext then
      begin
-      RecogniseIdentifier;
+      RecogniseIdentifier(False);
 
       if TokenList.FirstSolidTokenType = ttOpenBracket then
         RecogniseActualParams;
@@ -2009,7 +2021,7 @@ begin
   else if lc.TokenType = ttGoto then
   begin
      Recognise(ttGoto);
-     RecogniseIdentifier;
+     RecogniseIdentifier(False);
   end
   else if lc.TokenType = ttRaise then
   begin
@@ -2397,10 +2409,11 @@ begin
     Recognise(ttOn);
     if TokenList.SolidTokenType(2) = ttColon then
     begin
-      RecogniseIdentifier;
+      RecogniseIdentifier(False);
       Recognise(ttColon);
     end;
-    RecogniseIdentifier;
+
+    RecogniseIdentifier(True);
     Recognise(ttDo);
 
     RecogniseStatement;
@@ -2578,7 +2591,7 @@ begin
   if pbCanInterfaceMap and (TokenList.FirstSolidTokenType = ttEquals) then
   begin
     Recognise(ttEquals);
-    RecogniseIdentifier;
+    RecogniseIdentifier(False);
   end;
 
   PopNode;
@@ -2617,7 +2630,7 @@ begin
   if pbCanInterfaceMap and (TokenList.FirstSolidTokenType = ttEquals) then
   begin
     Recognise(ttEquals);
-    RecogniseIdentifier;
+    RecogniseIdentifier(False);
   end;
 
   PopNode;
@@ -2685,7 +2698,7 @@ begin
 
   }
   lbArray := False;
-  RecogniseIdentList;
+  RecogniseIdentList(False);
   if TokenList.FirstSolidTokenType = ttColon then
   begin
     Recognise(ttColon);
@@ -2746,7 +2759,7 @@ begin
         ttMessage:
         begin
           Recognise(ttMessage);
-          RecogniseIdentifier;
+          RecogniseIdentifier(False);
         end;
         else
           Recognise(ProcedureDirectives);
@@ -2931,7 +2944,7 @@ or a class ref type
   if TokenList.FirstSolidTokenType = ttOf then
   begin
     Recognise(ttOf);
-    RecogniseIdentifier;
+    RecogniseIdentifier(False);
     PopNode;
     exit;
   end;
@@ -2962,7 +2975,7 @@ begin
 
   // ClassHeritage -> '(' IdentList ')'
   Recognise(ttOpenBracket);
-  RecogniseIdentList;
+  RecogniseIdentList(True);
   Recognise(ttCloseBracket);
 
   PopNode;
@@ -3121,7 +3134,7 @@ begin
 
   Recognise(ttProperty);
 
-  RecogniseIdentifier;
+  RecogniseIdentifier(False);
 
   { this is omitted if it is a property redeclaration for visibility raising
     in that case it may still have directives and hints }
@@ -3166,7 +3179,7 @@ begin
     if (TokenList.FirstSolidTokenType in [ttConst, ttVar]) then
       Recognise([ttConst, ttVar]);
 
-    RecogniseIdentList;
+    RecogniseIdentList(False);
     Recognise(ttColon);
     RecogniseTypeId;
 
@@ -3218,18 +3231,18 @@ begin
       ttRead:
       begin
         Recognise(ttRead);
-        RecogniseIdentifier;
+        RecogniseIdentifier(False);
       end;
       ttWrite:
       begin
         Recognise(ttWrite);
-        RecogniseIdentifier;
+        RecogniseIdentifier(False);
       end;
       ttStored:
       begin
         Recognise(ttStored);
         if TokenList.FirstSolidWordType in IdentifierTypes then
-          RecogniseIdentifier
+          RecogniseIdentifier(False)
          else
           RecogniseConstantExpression;
       end;
@@ -3315,7 +3328,7 @@ begin
   if TokenList.FirstSolidTokenType = ttLiteralString then
     Recognise(ttLiteralString)
   else
-    RecogniseIdentifier;
+    RecogniseIdentifier(False);
 
   Recognise(ttCloseSquareBracket);
 
@@ -3328,7 +3341,7 @@ begin
   PushNode(nInterfaceHeritage);
 
   Recognise(ttOpenBracket);
-  RecogniseIdentList;
+  RecogniseIdentList(True);
   Recognise(ttCloseBracket);
 
   PopNode;
@@ -3341,7 +3354,7 @@ begin
   PushNode(nRequires);
 
   Recognise(ttRequires);
-  RecogniseIdentList;
+  RecogniseIdentList(False);
   Recognise(ttSemicolon);
 
   PopNode;
@@ -3387,7 +3400,7 @@ begin
   end;
 end;
 
-procedure TBuildParseTree.RecogniseIdentList;
+procedure TBuildParseTree.RecogniseIdentList(const pbCanHaveUnitQualifier: Boolean);
 begin
   { IdentList -> Ident/','...
 
@@ -3396,13 +3409,13 @@ begin
   }
   PushNode(nIdentList);
 
-  RecogniseIdentifier;
+  RecogniseIdentifier(pbCanHaveUnitQualifier);
   RecogniseIdentValue;
 
   while TokenList.FirstSolidTokenType = ttComma do
   begin
     Recognise(ttComma);
-    RecogniseIdentifier;
+    RecogniseIdentifier(pbCanHaveUnitQualifier);
     RecogniseIdentValue;
   end;
 
@@ -3436,17 +3449,17 @@ begin
     if (TokenList.FirstSolidTokenType = ttAs) then
     begin
       Recognise(ttAs);
-      RecogniseIdentifier;
+      RecogniseIdentifier(True);
     end;
     Recognise(ttCloseBracket);
     PopNode;
   end
   else
     // a simple ident - e.g. "x"
-    RecogniseIdentifier;
+    RecogniseIdentifier(True);
 end;
 
-procedure TBuildParseTree.RecogniseIdentifier;
+procedure TBuildParseTree.RecogniseIdentifier(const pbCanHaveUnitQualifier: Boolean);
 var
   lc: TSourceToken;
 begin
@@ -3457,6 +3470,14 @@ begin
 
   PushNode(nIdentifier);
   Recognise(IdentiferTokens);
+
+  { tokens can be qualified by a unit name }
+  if pbCanHaveUnitQualifier and (TokenList.FirstSolidTokenType = ttDot) then
+  begin
+    Recognise(ttDot);
+    Recognise(IdentiferTokens);
+  end;
+
   PopNode;
 end;
 
@@ -3472,14 +3493,14 @@ begin
   if (TokenList.FirstSolidTokenType = ttDot) or pbClassNameCompulsory then
   begin
     Recognise(ttDot);
-    RecogniseIdentifier;
+    RecogniseIdentifier(False);
   end
 end;
 
 
 procedure TBuildParseTree.RecogniseTypeId;
 begin
-  RecogniseIdentifier;
+  RecogniseIdentifier(True);
 end;
 
 procedure TBuildParseTree.RecogniseAsmBlock;
@@ -3591,7 +3612,7 @@ begin
     so I will not enumerate them all
    }
   PushNode(nASMOpcode);
-  RecogniseIdentifier;
+  RecogniseIdentifier(False);
   PopNode;
 end;
 
@@ -3722,7 +3743,7 @@ var
 begin
   PushNode(nExportedProc);
 
-  RecogniseIdentifier;
+  RecogniseIdentifier(False);
   if TokenList.FirstSolidTokenType = ttOpenBracket then
     RecogniseFormalParameters;
 
