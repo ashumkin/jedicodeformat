@@ -86,6 +86,7 @@ uses
   NoReturnBefore, NoReturnAfter, ReturnBefore, ReturnAfter,
   BlockStyles, ReturnsAfterFinalEnd, RemoveConsecutiveReturns,
   { spacing}
+  TabToSpace, SpaceToTab,
   NoSpaceAfter, NoSpaceBefore, SingleSpaceBefore, SingleSpaceAfter,
   SpaceBeforeColon, RemoveSpaceAtLineEnd, VisitStripEmptySpace,
   {indent}
@@ -219,6 +220,9 @@ end;
 
 procedure TAllProcesses.Spacing;
 begin
+  ApplyVisitorType(TTabToSpace);
+  ApplyVisitorType(TSpaceToTab);
+
   ApplyVisitorType(TNoSpaceAfter);
   ApplyVisitorType(TNoSpaceBefore);
   ApplyVisitorType(TVisitStripEmptySpace);

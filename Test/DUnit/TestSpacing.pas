@@ -69,6 +69,9 @@ type
     procedure TestUsesCaps1;
     procedure TestUsesCaps2;
     procedure TestUsesCaps3;
+
+    procedure TestTabToSpace;
+    procedure TestSpaceToTab;
   end;
 
 implementation
@@ -79,7 +82,8 @@ uses JclStrings,
   SpaceBeforeColon,
   SingleSpaceBefore, SingleSpaceAfter,
   ReturnBefore, ReturnAfter, RemoveBlankLinesAfterProcHeader,
-  RemoveReturnsAfterBegin, RemoveReturnsBeforeEnd, UnitNameCaps;
+  RemoveReturnsAfterBegin, RemoveReturnsBeforeEnd, UnitNameCaps,
+  TabToSpace, SpaceToTab;
 
 procedure TTestSpacing.TestNoReturnAfter;
 const
@@ -321,6 +325,23 @@ begin
   // reset
   FormatSettings.Read;
 end;
+
+procedure TTestSpacing.TestTabToSpace;
+const
+  IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo;' + AnsiTab + 'begin a := 2; end; ' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo;  begin a := 2; end; ' + UNIT_FOOTER;
+begin
+  TestProcessResult(TTabToSpace, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestSpacing.TestSpaceToTab;
+const
+  IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo;  begin a := 2; end; ' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo;' + AnsiTab + 'begin a := 2; end; ' + UNIT_FOOTER;
+begin
+  TestProcessResult(TSpaceToTab, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
 
 initialization
  TestFramework.RegisterTest('Processes', TTestSpacing.Suite);
