@@ -92,6 +92,8 @@ uses
   TestSpacing in 'TestSpacing.pas',
   TestAlignment in 'TestAlignment.pas',
   TestIfElseBreaks in 'TestIfElseBreaks.pas',
+  TestUsesReturns in 'TestUsesReturns.pas',
+  TestFindReplace in 'TestFindReplace.pas',
   BaseTestProcess in 'BaseTestProcess.pas',
   NoReturnBefore in '..\..\Process\Returns\NoReturnBefore.pas',
   NoSpaceAfter in '..\..\Process\Spacing\NoSpaceAfter.pas',

@@ -58,6 +58,13 @@ const
     'implementation' + AnsiLineBreak;
   UNIT_FOOTER = AnsiLineBreak + 'end.';
 
+
+  SPACED_INTERFACE_HEADER = 'unit Test;' + AnsiLineBreak + AnsiLineBreak +
+    'interface' + AnsiLineBreak + AnsiLineBreak;
+
+  SPACED_UNIT_HEADER = SPACED_INTERFACE_HEADER +
+    'implementation' + AnsiLineBreak;
+
 implementation
 
 uses SysUtils, Dialogs,
