@@ -4,7 +4,7 @@ unit TokenUtils;
   procedureal code that works on the parse tree
   not put on the class as it's most fairly specific stuff
     (but has been put here because 2 or more processes use it )
-  and nedds to know both classes - TParseTreeNode and TSoruceTOken
+  and needs to know both classes - TParseTreeNode and TSoruceTOken
   }
 
 interface
@@ -81,8 +81,11 @@ function IdentListNameCount(const pcNode: TParseTreeNode): integer;
 function ProcedureHasBody(const pt: TParseTreeNode): boolean;
 
 function IsDfmIncludeDirective(const pt: TSourceToken): boolean;
+function IsGenericResIncludeDirective(const pt: TSourceToken): boolean;
 
 function FirstSolidChild(const pt: TParseTreeNode): TParseTreeNode;
+
+function InFilesUses(const pt: TParseTreeNode): Boolean;
 
 implementation
 
@@ -507,6 +510,13 @@ begin
     pt.HasParentNode(nImplementationSection, 4);
 end;
 
+function IsGenericResIncludeDirective(const pt: TSourceToken): boolean;
+begin
+  // form dfm comment
+  Result := (pt.TokenType = ttComment) and AnsiSameText(pt.SourceCode, '{$R *.res}');
+end;
+
+
 { get the first child node that is not a space leaf}
 function FirstSolidChild(const pt: TParseTreeNode): TParseTreeNode;
 var
@@ -531,8 +541,15 @@ begin
       Result := lcChild;
       break;
     end;
-
   end;
+end;
+
+{ these uses clauses can specify file names for the units }
+function InFilesUses(const pt: TParseTreeNode): Boolean;
+begin
+  Assert(pt <> nil);
+  Result := pt.HasParentNode(nUses) and
+    pt.HasParentNode([nProgram, nPackage, nLibrary]);
 end;
 
 end.

@@ -255,7 +255,8 @@ begin
   begin
     GetRegSettings.OutputDir := ExtractFilePath(SaveDialog1.FileName);
     StringToFile(SaveDialog1.FileName, mOutput.Text);
-    sb1.SimpleText := 'Saved ' + SaveDialog1.FileName;
+    sb1.SimpleText := 'Saved output: ' + SaveDialog1.FileName;
+    AddCheckMRU(SaveDialog1.FileName);
   end;
 end;
 
@@ -350,7 +351,8 @@ begin
   begin
     GetRegSettings.OutputDir := ExtractFilePath(SaveDialog1.FileName);
     StringToFile(SaveDialog1.FileName, mInput.Text);
-    sb1.SimpleText := 'Saved input' + SaveDialog1.FileName;
+    sb1.SimpleText := 'Saved input as ' + SaveDialog1.FileName;
+    AddCheckMRU(SaveDialog1.FileName);
   end;
 end;
 

@@ -67,7 +67,7 @@ begin
   end;
 
   // form dfm comment
-  if IsDfmIncludeDirective(pt) then
+  if IsDfmIncludeDirective(pt) or IsGenericResIncludeDirective(pt) then
   begin
     Result := True;
     exit;
@@ -119,7 +119,7 @@ begin
 
     if (lcParent <> nil) and (lcParent.NodeType = nTypeDecl) and
       lcParent.HasChildNode(ObjectTypes, 2) and
-      lcParent.HasChildNode([nClassDeclarations, nCLassBody], 3) then
+      lcParent.HasChildNode(ObjectBodies, 3) then
     begin
       Result := True;
       exit;

@@ -104,6 +104,7 @@ type
     nInterfaceType,
     nInterfaceHeritage,
     nInterfaceTypeGuid,
+    nInterfaceBody,
     nBracketedQual,
     nAsm,
     nAsmStatement,
@@ -127,6 +128,7 @@ const
     [nFunctionHeading, nProcedureHeading, nConstructorHeading, nDestructorHeading];
 
   ObjectTypes: TParseTreeNodeTypeSet = [nObjectType, nClassType, nInterfaceType];
+  ObjectBodies: TParseTreeNodeTypeSet = [nClassBody, nInterfaceBody];
 
   { can declare these at the start of a procedure }
   InProcedureDeclSections: TParseTreeNodeTypeSet =
@@ -339,6 +341,8 @@ begin
       Result := 'interface heritage';
     nInterfaceTypeGuid:
       Result := 'interface type guid';
+    nInterfaceBody:
+      Result := 'interface body';
     nBracketedQual:
       Result := 'bracketed qual';
     nAsm:

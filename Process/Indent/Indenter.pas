@@ -240,7 +240,7 @@ begin
     { run on lines such as
       SomeArray[
        index] := 3; }
-    if pt.HasParentNode(nDesignator) then
+    if (not lbHasIndentedRunOnLine) and pt.HasParentNode(nDesignator) then
     begin
       lcChild := FirstSolidChild(pt.Parent);
       if (pt <> lcChild) then

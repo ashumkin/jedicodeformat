@@ -196,6 +196,15 @@ begin
       exit;
     end;
 
+    // at the end of type block with a proc next. but not in a class def
+    if pt.HasParentNode(nTypeSection) and (ptNext.Word in ProcedureWords) and
+      (not pt.HasParentNode(ObjectBodies)) then
+    begin
+      Result := True;
+      exit;
+    end;
+
+
     lcPrev := pt.PriorToken;
     { 'end' at end of type def or proc
       There can be hint directives between the type/proc and the 'end'

@@ -110,6 +110,17 @@ begin
     exit;
   end;
 
+  { program uses form link comment }
+  if InFilesUses(pt) then
+  begin
+    if ((pt.TokenType = ttComment) and (pt.CommentStyle = eCurly)) then
+    begin
+      Result := True;
+      exit;
+    end;
+  end;
+
+
 end;
 
 

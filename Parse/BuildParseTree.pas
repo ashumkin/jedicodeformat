@@ -3242,7 +3242,12 @@ begin
   if TokenList.FirstSolidTokenType = ttOpenSquareBracket then
     RecogniseInterfaceGuid;
 
-  RecogniseClassDeclarations(True);
+  if TokenList.FirstSolidTokenWord <> wEnd then
+  begin
+    PushNode(nInterfaceBody);
+    RecogniseClassDeclarations(True);
+    PopNode;
+  end;
 
   Recognise(wEnd);
 

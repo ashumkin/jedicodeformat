@@ -67,6 +67,18 @@ begin
     Result := True;
     exit;
   end;
+
+
+  // "foo in  Foo.pas, " has return only after the comma
+  if InFilesUses(pt) then
+  begin
+    if (pt.TokenType in [ttComma, ttWord, ttLiteralString]) or
+      ((pt.TokenType = ttComment) and (pt.CommentStyle = eCurly)) then
+    begin
+      Result := True;
+      exit;
+    end;
+  end;
 end;
 
 constructor TNoReturnBefore.Create;
