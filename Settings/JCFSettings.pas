@@ -28,18 +28,17 @@ unit JCFSettings;
 interface
 
 uses
-    { delphi } Classes, Registry,
-    { local } SetLog, SetFile,
-  SetObfuscate, SetClarify, SetIndent, SetSpaces, SetReturns,
+  { delphi } Classes, Registry,
+  { local } SetFile, SetObfuscate, SetClarify,
+  SetIndent, SetSpaces, SetReturns,
   SetCaps, SetAnyWordCaps,
-  SetAlign, SetReplace, SetUses, SetUi,
+  SetAlign, SetReplace, SetUses, 
   SettingsStream, VersionConsts;
 
 type
 
   TFormatSettings = class(TObject)
   private
-    fcLog: TSetLog;
     fcObfuscate: TSetObfuscate;
     fcClarify: TSetClarify;
     fcReturns: TSetReturns;
@@ -53,8 +52,6 @@ type
     fcUses: TSetUses;
 
     fcReplace: TSetReplace;
-
-    fcUi: TSetUi;
 
     procedure FromStream(const pcStream: TSettingsInput);
 
@@ -71,8 +68,6 @@ type
 
     procedure ToStream(const pcStream: TSettingsOutput);
 
-
-    property Log: TSetLog read fcLog;
     property FileSettings: TSetFile read FcFile;
 
     property Obfuscate: TSetObfuscate read fcObfuscate;
@@ -86,9 +81,6 @@ type
     property Align: TSetAlign read fcAlign;
     property Replace: TSetReplace read fcReplace;
     property UsesClause: TSetUses read fcUses;
-
-    // this is not settigns on how to format, it is settings on this program's Ui state
-    property UI: TSetUi read fcUi write fcUi;
   end;
 
 function FormatSettings: TFormatSettings;
@@ -117,8 +109,6 @@ begin
   fcAlign := TSetAlign.Create;
   fcReplace := TSetReplace.Create;
   fcUses := TSetUses.Create;
-  fcLog := TSetLog.Create;
-  fcUI := TSetUi.Create;
 
   Read;
 end;
@@ -127,7 +117,6 @@ destructor TFormatSettings.Destroy;
 begin
   Write;
 
-  FreeAndNil(fcLog);
   FreeAndNil(fcFile);
   FreeAndNil(fcObfuscate);
   FreeAndNil(fcClarify);
@@ -139,8 +128,6 @@ begin
   FreeAndNil(fcReplace);
   FreeAndNil(fcAlign);
   FreeAndNil(fcUses);
-  FreeAndNil(fcUI);
-
   inherited;
 end;
 
@@ -219,7 +206,6 @@ begin
   pcStream.Write('Version', PROGRAM_VERSION);
   pcStream.Write('WriteDateTime', Now);
 
-  WriteToStream(fcLog);
   WriteToStream(fcFile);
   WriteToStream(fcObfuscate);
   WriteToStream(fcClarify);
@@ -231,7 +217,6 @@ begin
   WriteToStream(fcAlign);
   WriteToStream(fcReplace);
   WriteToStream(fcUses);
-  WriteToStream(fcUI);
 
   pcStream.CloseSection(CODEFORMAT_SETTINGS_SECTION);
 end;
@@ -269,7 +254,6 @@ begin
   end;
 
   try
-    ReadFromStream(fcLog);
     ReadFromStream(fcFile);
     ReadFromStream(fcObfuscate);
     ReadFromStream(fcClarify);
@@ -281,7 +265,6 @@ begin
     ReadFromStream(fcAlign);
     ReadFromStream(fcReplace);
     ReadFromStream(fcUses);
-    ReadFromStream(fcUI);
   finally
     lcAllSettings.Free;
   end;

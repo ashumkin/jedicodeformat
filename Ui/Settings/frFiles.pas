@@ -62,7 +62,7 @@ implementation
 uses
     { delphi }
     { jcl } JclSysInfo, JclFileUtils,
-    { local } FileUtils, JcfSettings, SetLog, JCFHelp;
+    { local } FileUtils, JcfRegistrySettings, JcfSettings, JCFHelp;
 
 {$R *.DFM}
 
@@ -92,7 +92,7 @@ end;
 
 procedure TfFiles.Read;
 begin
-  with FormatSettings.Log do
+  with GetRegSettings do
   begin
     rgLogLevel.ItemIndex := Ord(LogLevel);
     rgLogDir.ItemIndex   := Ord(LogPlace);
@@ -112,7 +112,7 @@ end;
 
 procedure TfFiles.Write;
 begin
-  with FormatSettings.Log do
+  with GetRegSettings do
   begin
     LogLevel := TLogLevel(rgLogLevel.ItemIndex);
     LogPlace := TLogPlace(rgLogDir.ItemIndex);
@@ -130,7 +130,7 @@ end;
 
 procedure TfFiles.btnViewLogClick(Sender: TObject);
 begin
-  FormatSettings.Log.ViewLog;
+  GetRegSettings.ViewLog;
 end;
 
 procedure TfFiles.FrameResize(Sender: TObject);

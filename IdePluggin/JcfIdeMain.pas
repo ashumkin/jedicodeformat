@@ -236,6 +236,30 @@ begin
   end;
 end;
 
+procedure TJcfIdeMain.DoAbout(Sender: TObject);
+var
+  lcAbout: TfrmAboutBox;
+begin
+  lcAbout := TfrmAboutBox.Create(nil);
+  try
+    lcAbout.ShowModal;
+  finally
+    lcAbout.Free;
+  end;
+end;
+
+procedure TJcfIdeMain.DoRegistrySettings(Sender: TObject);
+var
+  lcAbout: TfmRegistrySettings;
+begin
+  lcAbout := TfmRegistrySettings.Create(nil);
+  try
+    lcAbout.Execute;
+  finally
+    lcAbout.Free;
+  end;
+end;
+
 procedure TJcfIdeMain.ShortcutKeyCallback(const Context: IOTAKeyContext;
   KeyCode: TShortcut; var BindingResult: TKeyBindingResult);
 var
@@ -284,30 +308,6 @@ begin
     exit;
 
   lciMessages.ClearToolMessages;
-end;
-
-procedure TJcfIdeMain.DoAbout(Sender: TObject);
-var
-  lcAbout: TfrmAboutBox;
-begin
-  lcAbout := TfrmAboutBox.Create(nil);
-  try
-    lcAbout.ShowModal;
-  finally
-    lcAbout.Free;
-  end;
-end;
-
-procedure TJcfIdeMain.DoRegistrySettings(Sender: TObject);
-var
-  lcAbout: TfmRegistrySettings;
-begin
-  lcAbout := TfmRegistrySettings.Create(nil);
-  try
-    lcAbout.ShowModal;
-  finally
-    lcAbout.Free;
-  end;
 end;
 
 end.

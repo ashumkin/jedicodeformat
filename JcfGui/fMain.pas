@@ -302,7 +302,7 @@ end;
 
 procedure TfrmMain.mnuViewLogClick(Sender: TObject);
 begin
-  FormatSettings.Log.ViewLog;
+  GetRegSettings.ViewLog;
 end;
 
 

@@ -26,22 +26,24 @@ interface
 uses
   { delphi }
   Windows, SysUtils, Classes, Graphics, Forms, Controls, StdCtrls,
-   Buttons, ExtCtrls;
+   Buttons, ExtCtrls,
+   { JVCL }
+   JvHotLink, JvLabel;
 
 type
   TfrmAboutBox = class(TForm)
     bbOK: TBitBtn;
-    Panel1: TPanel;
+    pnlClient: TPanel;
     imgOpenSource: TImage;
     mWarning: TMemo;
     mWhat: TMemo;
-    lblMPL: TStaticText;
-    lblHomePage: TStaticText;
+    lblMPL: TJvHotLink;
+    hlHomePage: TJvHotLink;
 
     procedure FormCreate(Sender: TObject);
-    procedure lblHomePageClick(Sender: TObject);
     procedure imgOpenSourceClick(Sender: TObject);
     procedure lblMPLClick(Sender: TObject);
+    procedure FormResize(Sender: TObject);
   private
   public
   end;
@@ -65,11 +67,6 @@ begin
 end;
 
 
-procedure TfrmAboutBox.lblHomePageClick(Sender: TObject);
-begin
-  ShowURL(lblHomePage.Caption);
-end;
-
 procedure TfrmAboutBox.imgOpenSourceClick(Sender: TObject);
 begin
   ShowURL('http://www.delphi-jedi.org')
@@ -92,8 +89,23 @@ begin
   StrReplace(ls, '%DATE%', PROGRAM_DATE);
   mWhat.Text := ls;
 
-  lblHomePage.Caption := PROGRAM_HOME_PAGE;
+  hlHomePage.Caption := 'Find more information on the web at ' + PROGRAM_HOME_PAGE;
+  hlHomePage.Url := PROGRAM_HOME_PAGE;
 end;
 
+
+procedure TfrmAboutBox.FormResize(Sender: TObject);
+const
+  SPACING = 8;
+begin
+  mWarning.Left := SPACING;
+  mWarning.Width := pnlClient.ClientWidth - (2 * SPACING);
+
+  lblMPL.Left := SPACING;
+  lblMPL.Width := pnlClient.ClientWidth - (2 * SPACING);
+
+  hlHomePage.Left := SPACING;
+  hlHomePage.Width := pnlClient.ClientWidth - (2 * SPACING);
+end;
 
 end.

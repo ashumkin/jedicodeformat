@@ -48,11 +48,9 @@ contains
   Delay in '..\Utils\Delay.pas',
   JCFSetBase in '..\Settings\JCFSetBase.pas',
   Converter in '..\ReadWrite\Converter.pas',
-  TokenSource in '..\Types\TokenSource.pas',
-  SetLog in '..\Settings\SetLog.pas',
-  frAbout in '..\Ui\Settings\frAbout.pas' {FrameAbout: TFrame},
   fAllSettings in '..\Ui\fAllSettings.pas' {FormAllSettings},
-  Writer in '..\ReadWrite\Writer.pas',
+  CodeReader in '..\ReadWrite\CodeReader.pas',
+  CodeWriter in '..\ReadWrite\CodeWriter.pas',
   fAbout in '..\Ui\fAbout.pas' {frmAboutBox},
   TokenType in '..\Parse\TokenType.pas',
   VersionConsts in '..\VersionConsts.pas',
@@ -110,6 +108,7 @@ contains
   WarnEmptyBlock in '..\Process\Warnings\WarnEmptyBlock.pas',
   Warning in '..\Process\Warnings\Warning.pas',
   JCFLog in '..\Utils\JcfLog.pas',
-  JCFSettings in '..\Settings\JCFSettings.pas';
+  JCFSettings in '..\Settings\JCFSettings.pas',
+  JcfRegistrySettings in '..\Settings\JcfRegistrySettings.pas';
 
 end.

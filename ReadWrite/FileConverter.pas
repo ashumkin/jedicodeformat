@@ -75,7 +75,8 @@ implementation
 uses
   { delphi } Windows, SysUtils, Dialogs, Controls,
   { jcl } JclFileUtils,
-  { local } FileUtils, JcfMiscFunctions, JCFLog, JcfSettings, SetLog;
+  { local } FileUtils, JcfMiscFunctions, JCFLog, JcfRegistrySettings,
+  JcfSettings;
 
 
 
@@ -121,7 +122,7 @@ begin
 
   lsMessage := 'Formatting file ' + psInput;
 
-  if FormatSettings.Log.LogLevel in [eLogFiles, eLogTokens] then
+  if GetRegSettings.LogLevel in [eLogFiles, eLogTokens] then
     Log.Write(lsMessage);
   SendStatusMessage(lsMessage);
   fsOriginalFileName := psInput;
@@ -341,7 +342,7 @@ procedure TFileConverter.Convert;
 var
   dwStart, dwElapsed: DWord;
 begin
-  if FormatSettings.Log.LogTime then
+  if GetRegSettings.LogTime then
     dwStart := GetTickCount
   else
     dwStart := 0;
@@ -362,7 +363,7 @@ begin
       raise Exception.Create('TConverter.Convert: Bad file recurse type');
   end;
 
-  if FormatSettings.Log.LogTime then
+  if GetRegSettings.LogTime then
   begin
     dwElapsed := GetTickCount - dwStart;
     Log.Write('Run took ' + FloatToStr(dwElapsed / 1000) + ' seconds')
@@ -371,8 +372,8 @@ begin
   FinalSummary;
   Log.CloseLog;
 
-  if FormatSettings.Log.ViewLogAfterRun then
-    FormatSettings.Log.ViewLog;
+  if GetRegSettings.ViewLogAfterRun then
+    GetRegSettings.ViewLog;
 end;
 
 

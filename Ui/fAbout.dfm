@@ -14,6 +14,7 @@ object frmAboutBox: TfrmAboutBox
   OldCreateOrder = True
   Position = poScreenCenter
   OnCreate = FormCreate
+  OnResize = FormResize
   PixelsPerInch = 96
   TextHeight = 13
   object bbOK: TBitBtn
@@ -24,7 +25,7 @@ object frmAboutBox: TfrmAboutBox
     TabOrder = 1
     Kind = bkOK
   end
-  object Panel1: TPanel
+  object pnlClient: TPanel
     Left = 0
     Top = 0
     Width = 352
@@ -416,12 +417,44 @@ object frmAboutBox: TfrmAboutBox
         0800}
       OnClick = imgOpenSourceClick
     end
+    object hlHomePage: TJvHotLink
+      Left = 8
+      Top = 220
+      Width = 61
+      Height = 13
+      Cursor = crHandPoint
+      Caption = 'hlHomePage'
+      WordWrap = True
+      HotTrack = True
+      HotTrackFont.Charset = DEFAULT_CHARSET
+      HotTrackFont.Color = clBlue
+      HotTrackFont.Height = -11
+      HotTrackFont.Name = 'MS Sans Serif'
+      HotTrackFont.Style = [fsUnderline]
+      Url = 'http://delphi-jedi.org'
+    end
+    object lblMPL: TJvHotLink
+      Left = 8
+      Top = 189
+      Width = 327
+      Height = 26
+      Cursor = crHandPoint
+      Caption = 
+        'This program is open source software. It is released under the M' +
+        'ozilla '#13#10'Public licence (MPL).  http://mozilla.org/MPL'
+      HotTrack = True
+      HotTrackFont.Charset = DEFAULT_CHARSET
+      HotTrackFont.Color = clBlue
+      HotTrackFont.Height = -11
+      HotTrackFont.Name = 'MS Sans Serif'
+      HotTrackFont.Style = [fsUnderline]
+      Url = 'http://mozilla.org/MPL'
+    end
     object mWarning: TMemo
       Left = 2
       Top = 132
       Width = 348
-      Height = 135
-      Align = alBottom
+      Height = 45
       BorderStyle = bsNone
       Color = clBtnFace
       Lines.Strings = (
@@ -429,36 +462,9 @@ object frmAboutBox: TfrmAboutBox
           'This program is still under development.  In spite of thorough t' +
           'esting and '
         'removal of reported bugs, no guarantees are given.'
-        'Please make backups, or better yet use a source control system. '
-        ''
-        
-          'This program is open source software. It is released under the M' +
-          'ozilla '
-        'Public licence (MPL).  '
-        ''
-        'Find more information on the web at')
+        'Please make backups, or better yet use a source control system. ')
       ReadOnly = True
       TabOrder = 0
-    end
-    object lblMPL: TStaticText
-      Left = 105
-      Top = 197
-      Width = 111
-      Height = 17
-      Cursor = crHandPoint
-      Caption = 'http://mozilla.org/MPL'
-      TabOrder = 2
-      OnClick = lblMPLClick
-    end
-    object lblHomePage: TStaticText
-      Left = 2
-      Top = 248
-      Width = 89
-      Height = 17
-      Cursor = crHandPoint
-      Caption = 'the home page url'
-      TabOrder = 3
-      OnClick = lblHomePageClick
     end
     object mWhat: TMemo
       Left = 116

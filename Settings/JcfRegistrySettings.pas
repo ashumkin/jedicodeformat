@@ -6,7 +6,8 @@ unit JcfRegistrySettings;
   This is not the format options file, that lives in a file so that it can be shared
   This registry file is intended to
    - tell you where the format options file is
-   - other GUI config settings that should not be shared 
+   - other GUI config settings that should not be shared, ie
+   - logging
 }
 
 interface
@@ -16,12 +17,18 @@ uses
   { local } ConvertTypes;
 
 type
+  TLogLevel = (eLogErrorsOnly, eLogFiles, eLogTokens);
+  TLogPlace = (eLogTempDir, eLogAppDIr, eLogSpecifiedDir);
+
+
   TJCFRegistrySettings = class(TObject)
   private
     fcReg: TRegIniFile;
 
     { general settings }
     fShowParseTreeOption: TShowParseTreeOption;
+
+    { ui settings }
     fsFormatConfigFileName: string;
     fsLastSettingsPage: string;
 
@@ -31,6 +38,14 @@ type
 
     { MRU files settings }
     fiMRUMaxItems: integer;
+
+    { log settings }
+    feLogLevel: TLogLevel;
+    feLogPlace: TLogPlace;
+    fsSpecifiedDirectory: string;
+    fbViewLogAfterRun: boolean;
+    fbLogTime: boolean;
+    fbLogStats: boolean;
 
     { this is ref not owned }
     fcMRUFiles: TStrings;
@@ -49,11 +64,12 @@ type
     procedure ReadAll;
     procedure WriteAll;
 
-    { general properties }
+    { general settings }
     property FormatConfigFileName: string read fsFormatConfigFileName write fsFormatConfigFileName;
+
+    { ui settings }
     property ShowParseTreeOption: TShowParseTreeOption read fShowParseTreeOption write fShowParseTreeOption;
     property LastSettingsPage: string read fsLastSettingsPage write fsLastSettingsPage;
-
 
     { notepad settings }
     property InputDir: string read fsInputDir write fsInputDir;
@@ -62,6 +78,20 @@ type
     { MRU files settings }
     property MRUMaxItems: integer read fiMRUMaxItems write fiMRUMaxItems;
     property MRUFiles: TStrings read fcMRUFiles write fcMRUFiles;
+
+    { log settings }
+    function LogDirectory: string;
+    function LogFileName: string;
+
+    property LogLevel: TLogLevel read feLogLevel write feLogLevel;
+    property LogPlace: TLogPlace read feLogPlace write feLogPlace;
+    property SpecifiedDirectory: string read fsSpecifiedDirectory write fsSpecifiedDirectory;
+
+    property ViewLogAfterRun: boolean read fbViewLogAfterRun write fbViewLogAfterRun;
+    property LogTime: boolean read fbLogTime write fbLogTime;
+    property LogStats: boolean read fbLogStats write fbLogStats;
+
+    procedure ViewLog;
   end;
 
 function GetRegSettings: TJCFRegistrySettings;
@@ -70,9 +100,9 @@ implementation
 
 uses
   { delphi }
-  SysUtils,
+  SysUtils, Dialogs,
   { jcl }
-  JclFileUtils, JclWin32,
+  JclFileUtils, JclWin32, JclSysInfo, JclShell,
   { jcf }
   JcfMiscFunctions;
 
@@ -80,6 +110,18 @@ const
   REG_GENERAL_SECTION = 'General';
   REG_NOTEPAD_SECTION = 'NotepadSettings';
   REG_MRU_FILES_SECTION = 'MRUFiles';
+  REG_LOG_SECTION = 'Log';
+  REG_UI_SECTION = 'UI';
+
+  REG_LOG_LEVEL = 'LogLevel';
+  REG_LOG_PLACE = 'LogPlace';
+  REG_SPECIFIED_DIRECTORY = 'SpecifiedDirectory';
+  REG_VIEW_LOG_AFTER_RUN = 'ViewLogAfterRun';
+  REG_LOG_TIME  = 'LogTime';
+  REG_LOG_STATS = 'LogStats';
+
+  REG_LAST_SETTINGS_PAGE = 'LastSettingsPage';
+
 
 { AFS 10 Oct 2001
  Migrate to file-based settings,  ie
@@ -168,9 +210,6 @@ begin
   if fsFormatConfigFileName = '' then
     fsFormatConfigFileName := GetDefaultSettingsFileName;
 
-  fsLastSettingsPage := fcReg.ReadString(REG_GENERAL_SECTION, 'LastSettingsPage', '');
-  ShowParseTreeOption :=  TShowParseTreeOption(
-    fcReg.ReadInteger(REG_GENERAL_SECTION, 'ParseTreeOption', Ord(eShowOnError)));
 
   {notpad settings }
   InputDir := fcReg.ReadString(REG_NOTEPAD_SECTION, 'InputDir', '');
@@ -179,6 +218,19 @@ begin
   { MRU section }
   MRUMaxItems := fcReg.ReadInteger(REG_NOTEPAD_SECTION, 'MRUMaxItems', 6);
   ReadMRUFiles;
+
+  { log section }
+  feLogLevel := TLogLevel(fcReg.ReadInteger(REG_LOG_SECTION, REG_LOG_LEVEL, Ord(eLogFiles)));
+  feLogPlace := TLogPlace(fcReg.ReadInteger(REG_LOG_SECTION, REG_LOG_PLACE, Ord(eLogTempDir)));
+  fsSpecifiedDirectory := fcReg.ReadString(REG_LOG_SECTION, REG_SPECIFIED_DIRECTORY, 'c:\');
+  fbViewLogAfterRun := fcReg.ReadBool(REG_LOG_SECTION, REG_VIEW_LOG_AFTER_RUN, False);
+  fbLogTime  := fcReg.ReadBool(REG_LOG_SECTION, REG_LOG_TIME, False);
+  fbLogStats := fcReg.ReadBool(REG_LOG_SECTION, REG_LOG_STATS, False);
+
+  { ui }
+  fsLastSettingsPage := fcReg.ReadString(REG_UI_SECTION, REG_LAST_SETTINGS_PAGE, '');
+  ShowParseTreeOption :=  TShowParseTreeOption(
+    fcReg.ReadInteger(REG_UI_SECTION, 'ParseTreeOption', Ord(eShowOnError)));
 end;
 
 
@@ -186,8 +238,6 @@ procedure TJCFRegistrySettings.WriteAll;
 begin
   { general section }
   fcReg.WriteString(REG_GENERAL_SECTION, 'FormatConfigFileName', fsFormatConfigFileName);
-  fcReg.WriteString(REG_GENERAL_SECTION, 'LastSettingsPage', fsLastSettingsPage);
-  fcReg.WriteInteger(REG_GENERAL_SECTION, 'ParseTreeOption', Ord(ShowParseTreeOption));
 
   { notepad section }
   fcReg.WriteString(REG_NOTEPAD_SECTION, 'InputDir', InputDir);
@@ -196,6 +246,18 @@ begin
   { mru section}
   fcReg.WriteInteger(REG_MRU_FILES_SECTION, 'MRUMaxItems', MRUMaxItems);
   WriteMRUFiles;
+
+  { log section }
+  fcReg.WriteInteger(REG_LOG_SECTION, REG_LOG_LEVEL, Ord(feLogLevel));
+  fcReg.WriteInteger(REG_LOG_SECTION, REG_LOG_PLACE, Ord(feLogPlace));
+  fcReg.WriteString(REG_LOG_SECTION, REG_SPECIFIED_DIRECTORY, fsSpecifiedDirectory);
+  fcReg.WriteBool(REG_LOG_SECTION, REG_VIEW_LOG_AFTER_RUN, fbViewLogAfterRun);
+  fcReg.WriteBool(REG_LOG_SECTION, REG_LOG_TIME, fbLogTime);
+  fcReg.WriteBool(REG_LOG_SECTION, REG_LOG_STATS, fbLogStats);
+
+  { ui section }
+  fcReg.WriteString(REG_UI_SECTION, REG_LAST_SETTINGS_PAGE, fsLastSettingsPage);
+  fcReg.WriteInteger(REG_UI_SECTION, 'ParseTreeOption', Ord(ShowParseTreeOption));
 end;
 
 function TJCFRegistrySettings.CanClearMRU: Boolean;
@@ -209,6 +271,43 @@ begin
     MRUFiles.Clear;
 end;
 
+
+function TJCFRegistrySettings.LogDirectory: string;
+begin
+  case feLogPlace of
+    eLogTempDir:
+      Result := GetWindowsTempFolder;
+    eLogAppDir:
+      Result := PathAddSeparator(ExtractFileDir(ParamStr(0)));
+    eLogSpecifiedDir:
+      Result := fsSpecifiedDirectory;
+  end;
+
+  Result := PathAddSeparator(Result);
+end;
+
+function TJCFRegistrySettings.LogFileName: string;
+begin
+  Result := LogDirectory + 'JediCodeFormat.log';
+end;
+
+procedure TJCFRegistrySettings.ViewLog;
+var
+  lsFile: string;
+begin
+  lsFile := LogFileName;
+
+  if FileExists(lsFile) then
+  begin
+    ShellExecEx('notepad.exe ', lsFile);
+  end
+  else
+    ShowMessage('No log file found');
+end;
+
+
+{--------------------------------------------
+  singleton accessor }
 
 var
   mcRegistrySettings: TJCFRegistrySettings = nil;

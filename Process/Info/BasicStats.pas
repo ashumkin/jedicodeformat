@@ -46,7 +46,7 @@ uses
   JclStrings,
   { JCF  }
   SourceToken, TokenType, ParseTreeNode, ParseTreeNodeType, TokenUtils,
-  JcfSettings;
+  JcfRegistrySettings;
 
 function DisplayFloat(const ex: extended): string;
 begin
@@ -202,7 +202,7 @@ end;
 
 function TBasicStats.IsIncludedInSettings: boolean;
 begin
-  Result := FormatSettings.Log.LogStats;
+  Result := GetRegSettings.LogStats;
 end;
 
 end.
