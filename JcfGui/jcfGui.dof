@@ -95,7 +95,7 @@ UnitOutputDir=..\Output
 PackageDLLOutputDir=
 PackageDCPOutputDir=
 SearchPath=
-Packages=vcl;rtl;vclx;indy;inet;xmlrtl;vclie;inetdbbde;inetdbxpress;dbrtl;dsnap;dsnapcon;vcldb;soaprtl;VclSmp;dbexpress;dbxcds;inetdb;bdertl;vcldbx;webdsnap;websnap;adortl;ibxpress;teeui;teedb;tee;dss;visualclx;visualdbclx;vclactnband;vclshlctrls;IntrawebDB_50_70;Intraweb_50_70;dclOffice2k;DJCL70;qrpt
+Packages=vcl;rtl;vclx;indy;inet;xmlrtl;vclie;inetdbbde;inetdbxpress;dbrtl;dsnap;dsnapcon;vcldb;soaprtl;VclSmp;dbexpress;dbxcds;inetdb;bdertl;vcldbx;webdsnap;websnap;adortl;ibxpress;teeui;teedb;tee;dss;visualclx;visualdbclx;vclactnband;vclshlctrls;IntrawebDB_50_70;Intraweb_50_70;dclOffice2k;DJcl;qrpt
 Conditionals=
 DebugSourceDirs=
 UsePackages=0
@@ -134,3 +134,5 @@ OriginalFilename=
 ProductName=
 ProductVersion=1.0.0.0
 Comments=
+[Excluded Packages]
+C:\Code\CodeFormat\Jcf2\Output\JcfIde7.bpl=Jedi Code Format IDE Plugin for Delphi 7

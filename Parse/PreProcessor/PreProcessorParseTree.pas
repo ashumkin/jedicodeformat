@@ -569,6 +569,9 @@ begin
       begin
         lsOutText := lsOutText + lcCurrentToken.SourceCode;
         fcTokens.Delete(liLoop);
+        lcCurrentToken.Free; // not an owning list, must manually avoid leak 
+
+        { next one will have shifted up }
         lcCurrentToken := fcTokens.SourceTokens[liLoop];
       end;
 

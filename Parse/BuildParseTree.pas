@@ -231,11 +231,14 @@ type
     function IdentifierNext: boolean;
     function ArrayConstantNext: boolean;
   Protected
+
   Public
     constructor Create;
     destructor Destroy; override;
+
     procedure BuildParseTree;
     procedure Clear;
+
     property Root: TParseTreeNode Read fcRoot;
     property TokenList: TSourceTokenList Read fcTokenList Write fcTokenList;
   end;
@@ -268,7 +271,8 @@ end;
 destructor TBuildParseTree.Destroy;
 begin
   Clear;
-  fcStack.Free; {FreeAndNil is pointless here}
+  FreeAndNil(fcStack);
+
   inherited;
 end;
 
@@ -276,6 +280,7 @@ procedure TBuildParseTree.Clear;
 begin
   while fcStack.Count > 0 do
     fcStack.Pop;
+    
   FreeAndNil(fcRoot);
 end;
 

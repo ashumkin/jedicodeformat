@@ -102,8 +102,6 @@ uses
 {-------------------------------------------------------------------------------
  TSourceToken }
 
-
-
 constructor TSourceToken.Create;
 begin
   inherited;
@@ -122,8 +120,6 @@ begin
   fsPreProcessorText   := '';
   fbPreprocessedOut    := False;
 end;
-
-
 
 function TSourceToken.Describe: string;
 const
