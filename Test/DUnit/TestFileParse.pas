@@ -662,7 +662,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestDeref;
 begin
-  TestParseFile('TestDeref', 444);
+  TestParseFile('TestDeref', 584);
 end;
 
 procedure TTestFileParse.TestParse_TestPropertyInherited;

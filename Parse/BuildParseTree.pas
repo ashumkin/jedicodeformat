@@ -132,6 +132,7 @@ type
     procedure RecogniseVarDecl;
     procedure RecogniseAddOp;
     procedure RecogniseDesignator;
+    procedure RecogniseDesignatorTail;
     procedure RecogniseExpr;
     procedure RecogniseExprList;
     procedure RecogniseFactor;
@@ -1733,6 +1734,8 @@ begin
     Recognise(ttOpenBracket);
     RecogniseExpr;
     Recognise(ttCloseBracket);
+
+    //!!! recognise expressions like (Foo.Stuff['x'].Pointer)^.MyIndex
   end
   else if (TokenList.FirstSolidTokenType = ttNot) then
   begin
@@ -1753,6 +1756,9 @@ begin
   end
   else
     Raise TEParseError.Create('unexpected token in factor', lc);
+
+  if TokenList.FirstSolidTokenType in [ttHat, ttDot] then
+    RecogniseDesignatorTail;
 end;
 
 procedure TBuildParseTree.RecogniseRelOp;
@@ -1829,6 +1835,14 @@ begin
 
   RecogniseQualId;
 
+  RecogniseDesignatorTail;
+
+  PopNode;
+end;
+
+procedure TBuildParseTree.RecogniseDesignatorTail;
+begin
+
   while (TokenList.FirstSolidTokenType in [ttDot, ttOpenBracket, ttOpenSquareBracket, ttHat]) do
   begin
     if TokenList.FirstSolidTokenType = ttDot then
@@ -1854,8 +1868,6 @@ begin
     else
       Assert(False, 'Should not be here - bad token type');
   end;
-
-  PopNode;
 end;
 
 procedure TBuildParseTree.RecogniseSetConstructor;

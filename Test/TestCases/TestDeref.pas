@@ -8,6 +8,9 @@ uses
   Classes;
 
 type
+  TAmoeba = class;
+  PTAmoeba = ^TAmoeba;
+
   TAmoeba = class(TObject)
   private
     fsName: string;
@@ -19,15 +22,22 @@ type
   public
     function GetBar(const piIndex: integer): TAmoeba;
     function MyFudgeFactor: TAmoeba;
+    function Pointer: PTAmoeba;
+    function MyIndex: integer;
 
     property Name: string read GetName write SetName;
     property Stuff[const psIndex: string]: TAmoeba read GetStuff;
   end;
 
+procedure TestHatExpr(var Foo: TAmoeba);
+begin
+  { modeled on an expression in Delphi source }
+  if ((Foo.Stuff['x'].Pointer)^.MyIndex = 0) then
+    Foo := nil;
+end;
 
-procedure DoTestDeref;
+procedure DoTestDeref(var Foo: TAmoeba);
 var
-  foo: TAmoeba;
   ls: string;
 begin
   // the goal of this unit is to get the following silly line to compile
@@ -68,6 +78,16 @@ end;
 procedure TAmoeba.GetValueList(List: TStrings);
 begin
   (GetStuff('0') as TAmoeba).MyFudgeFactor.GetValueList(List);
+end;
+
+function TAmoeba.Pointer: PTAmoeba;
+begin
+  Result := @self;
+end;
+
+function TAmoeba.MyIndex: integer;
+begin
+  Result := 1;
 end;
 
 end.
