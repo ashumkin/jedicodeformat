@@ -39,7 +39,7 @@ type
     cbRemoveConsecutiveBlankLines: TCheckBox;
     edtMaxConsecutiveBlankLines: TJvValidateEdit;
     Label2: TLabel;
-    GroupBox1: TGroupBox;
+    gbRemoveBlankLines: TGroupBox;
     cbRemoveBlockBlankLines: TCheckBox;
     cbRemoveBlankLinesAfterProcHeader: TCheckBox;
     cbRemoveVarBlankLines: TCheckBox;

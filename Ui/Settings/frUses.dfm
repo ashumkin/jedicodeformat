@@ -16,7 +16,7 @@ inherited fUses: TfUses
     Width = 137
     Height = 17
     Caption = 'Insert into  Interface'
-    TabOrder = 1
+    TabOrder = 2
     OnClick = cbInsertInterfaceClick
   end
   object cbInsertImplementation: TCheckBox
@@ -25,7 +25,7 @@ inherited fUses: TfUses
     Width = 141
     Height = 17
     Caption = 'Insert into Implementation'
-    TabOrder = 2
+    TabOrder = 4
     OnClick = cbInsertImplementationClick
   end
   object cbFindReplace: TCheckBox
@@ -34,7 +34,7 @@ inherited fUses: TfUses
     Width = 113
     Height = 17
     Caption = 'Replace'
-    TabOrder = 3
+    TabOrder = 6
     OnClick = cbFindReplaceClick
   end
   object mRemove: TMemo
@@ -42,21 +42,21 @@ inherited fUses: TfUses
     Top = 24
     Width = 160
     Height = 70
-    TabOrder = 4
+    TabOrder = 1
   end
   object mInsertInterface: TMemo
     Left = 4
     Top = 128
     Width = 160
     Height = 70
-    TabOrder = 5
+    TabOrder = 3
   end
   object mFind: TMemo
     Left = 4
     Top = 232
     Width = 160
     Height = 70
-    TabOrder = 6
+    TabOrder = 7
   end
   object mInsertImplementation: TMemo
     Left = 176
@@ -65,7 +65,7 @@ inherited fUses: TfUses
     Height = 70
     Lines.Strings = (
       '')
-    TabOrder = 7
+    TabOrder = 5
   end
   object mReplace: TMemo
     Left = 176

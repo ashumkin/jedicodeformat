@@ -29,7 +29,6 @@ inherited frAnyCapsSettings: TfrAnyCapsSettings
     MaxLines = 0
     HideCaret = False
     Align = alBottom
-    ReadOnly = False
     ScrollBars = ssVertical
     TabOrder = 1
   end

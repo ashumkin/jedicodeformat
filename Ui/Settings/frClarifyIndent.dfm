@@ -23,7 +23,7 @@ inherited fClarifyIndent: TfClarifyIndent
     MaxLength = 3
     MaxValue = 12.000000000000000000
     PasswordChar = #0
-    TabOrder = 0
+    TabOrder = 3
     Text = '0'
     Value = 0
   end
@@ -33,7 +33,7 @@ inherited fClarifyIndent: TfClarifyIndent
     Width = 237
     Height = 17
     Caption = 'Extra indent for begin/end inside procedures'
-    TabOrder = 1
+    TabOrder = 4
     OnClick = cbIndentBeginEndClick
   end
   object eIndentBeginEndSpaces: TJvValidateEdit
@@ -52,7 +52,7 @@ inherited fClarifyIndent: TfClarifyIndent
     MaxValue = 10.000000000000000000
     MinValue = -10.000000000000000000
     PasswordChar = #0
-    TabOrder = 2
+    TabOrder = 5
     Text = '0'
     Value = 0
   end
@@ -62,7 +62,7 @@ inherited fClarifyIndent: TfClarifyIndent
     Width = 153
     Height = 17
     Caption = 'Different indent for first level'
-    TabOrder = 3
+    TabOrder = 6
     OnClick = cbHasFirstLevelIndentClick
   end
   object eFirstLevelIndent: TJvValidateEdit
@@ -77,7 +77,7 @@ inherited fClarifyIndent: TfClarifyIndent
     EditText = '0'
     MaxLength = 3
     PasswordChar = #0
-    TabOrder = 4
+    TabOrder = 7
     Text = '0'
     Value = 0
   end
@@ -87,7 +87,7 @@ inherited fClarifyIndent: TfClarifyIndent
     Width = 110
     Height = 17
     Caption = 'Indent globals'
-    TabOrder = 5
+    TabOrder = 0
   end
   object cbIndentProcedures: TCheckBox
     Left = 4
@@ -95,7 +95,7 @@ inherited fClarifyIndent: TfClarifyIndent
     Width = 110
     Height = 17
     Caption = 'Indent procedures'
-    TabOrder = 6
+    TabOrder = 1
   end
   object cbIndentClasses: TCheckBox
     Left = 4
@@ -103,7 +103,7 @@ inherited fClarifyIndent: TfClarifyIndent
     Width = 110
     Height = 17
     Caption = 'Indent classes'
-    TabOrder = 7
+    TabOrder = 2
   end
   object cbKeepWithInProc: TCheckBox
     Left = 4

@@ -11,23 +11,23 @@ inherited fClarifyReturns: TfClarifyReturns
       'Leave as is'
       'Convert to Carriage return (UNIX)'
       'Convert to Carriage-return + Linefeed (DOS/Windows)')
-    TabOrder = 0
+    TabOrder = 2
   end
-  object GroupBox1: TGroupBox
+  object gbRemoveReturns: TGroupBox
     Left = 8
     Top = 8
     Width = 157
     Height = 145
     Hint = 'bgRemove'
     Caption = 'Remove returns'
-    TabOrder = 1
+    TabOrder = 0
     object cbRemoveProcDefReturns: TCheckBox
       Left = 8
       Top = 67
       Width = 140
       Height = 17
       Caption = 'In procedure definitions'
-      TabOrder = 0
+      TabOrder = 2
     end
     object cbRemoveVarReturns: TCheckBox
       Left = 8
@@ -35,7 +35,7 @@ inherited fClarifyReturns: TfClarifyReturns
       Width = 140
       Height = 17
       Caption = 'In variable declarations'
-      TabOrder = 1
+      TabOrder = 3
     end
     object cbRemoveExprReturns: TCheckBox
       Left = 8
@@ -43,7 +43,7 @@ inherited fClarifyReturns: TfClarifyReturns
       Width = 140
       Height = 17
       Caption = 'In expressions'
-      TabOrder = 2
+      TabOrder = 4
     end
     object cbRemovePropertyReturns: TCheckBox
       Left = 8
@@ -51,7 +51,7 @@ inherited fClarifyReturns: TfClarifyReturns
       Width = 140
       Height = 17
       Caption = 'In properties'
-      TabOrder = 3
+      TabOrder = 1
     end
     object cbRemoveReturns: TCheckBox
       Left = 8
@@ -59,7 +59,7 @@ inherited fClarifyReturns: TfClarifyReturns
       Width = 140
       Height = 17
       Caption = 'In misc. bad places'
-      TabOrder = 4
+      TabOrder = 0
     end
   end
   object gbInsert: TGroupBox
@@ -68,14 +68,14 @@ inherited fClarifyReturns: TfClarifyReturns
     Width = 173
     Height = 145
     Caption = 'Insert returns'
-    TabOrder = 2
+    TabOrder = 1
     object cbUsesClauseOnePerLine: TCheckBox
       Left = 8
       Top = 42
       Width = 160
       Height = 17
       Caption = 'One uses clause item per line'
-      TabOrder = 0
+      TabOrder = 1
     end
     object cbInsertReturns: TCheckBox
       Left = 8
@@ -83,7 +83,7 @@ inherited fClarifyReturns: TfClarifyReturns
       Width = 130
       Height = 17
       Caption = 'In misc. good places'
-      TabOrder = 1
+      TabOrder = 0
     end
   end
 end

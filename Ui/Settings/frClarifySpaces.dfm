@@ -199,7 +199,7 @@ inherited fClarifySpaces: TfClarifySpaces
       Width = 117
       Height = 17
       Caption = 'Turn spaces to tabs'
-      TabOrder = 1
+      TabOrder = 2
       OnClick = cbSpacesToTabsClick
     end
     object edtSpacesPerTab: TJvValidateEdit
@@ -217,7 +217,7 @@ inherited fClarifySpaces: TfClarifySpaces
       MaxLength = 2
       MaxValue = 12.000000000000000000
       PasswordChar = #0
-      TabOrder = 2
+      TabOrder = 1
       Text = '0'
       Value = 0
     end

@@ -4,7 +4,7 @@ object fmRegistrySettings: TfmRegistrySettings
   BorderStyle = bsDialog
   Caption = 'JCF Notepad registry settings'
   ClientHeight = 309
-  ClientWidth = 480
+  ClientWidth = 478
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,9 +21,9 @@ object fmRegistrySettings: TfmRegistrySettings
   object pgPages: TPageControl
     Left = 0
     Top = 0
-    Width = 480
+    Width = 478
     Height = 264
-    ActivePage = tsGeneral
+    ActivePage = tsLogFile
     Align = alClient
     TabOrder = 0
     object tsGeneral: TTabSheet
@@ -71,7 +71,7 @@ object fmRegistrySettings: TfmRegistrySettings
         MaxLength = 2
         MaxValue = 12.000000000000000000
         PasswordChar = #0
-        TabOrder = 1
+        TabOrder = 2
         Text = '0'
         Value = 0
       end
@@ -81,7 +81,7 @@ object fmRegistrySettings: TfmRegistrySettings
         Width = 75
         Height = 25
         Caption = 'Clear MRU'
-        TabOrder = 2
+        TabOrder = 3
         OnClick = btnClearMRUClick
       end
       object rgShowParseTree: TRadioGroup
@@ -94,7 +94,7 @@ object fmRegistrySettings: TfmRegistrySettings
           'Always'
           'On parse error'
           'Never')
-        TabOrder = 3
+        TabOrder = 4
       end
       object cbWriteSettingsFile: TCheckBox
         Left = 112
@@ -102,7 +102,7 @@ object fmRegistrySettings: TfmRegistrySettings
         Width = 161
         Height = 17
         Caption = '&Write changes to settings file'
-        TabOrder = 4
+        TabOrder = 1
       end
     end
     object tsLogFile: TTabSheet
@@ -159,7 +159,7 @@ object fmRegistrySettings: TfmRegistrySettings
           'Temp'
           'Application'
           'Specified')
-        TabOrder = 1
+        TabOrder = 3
       end
       object btnViewLog: TButton
         Left = 318
@@ -167,7 +167,7 @@ object fmRegistrySettings: TfmRegistrySettings
         Width = 89
         Height = 29
         Caption = 'View Log now'
-        TabOrder = 2
+        TabOrder = 6
         OnClick = btnViewLogClick
       end
       object cbViewLog: TCheckBox
@@ -176,7 +176,7 @@ object fmRegistrySettings: TfmRegistrySettings
         Width = 137
         Height = 17
         Caption = 'View log after each run'
-        TabOrder = 3
+        TabOrder = 4
       end
       object edtBackupExt: TEdit
         Left = 260
@@ -184,7 +184,7 @@ object fmRegistrySettings: TfmRegistrySettings
         Width = 45
         Height = 21
         MaxLength = 3
-        TabOrder = 4
+        TabOrder = 1
       end
       object edtOutputExt: TEdit
         Left = 260
@@ -192,7 +192,7 @@ object fmRegistrySettings: TfmRegistrySettings
         Width = 45
         Height = 21
         MaxLength = 3
-        TabOrder = 5
+        TabOrder = 2
       end
       object cbLogTime: TCheckBox
         Left = 6
@@ -200,7 +200,7 @@ object fmRegistrySettings: TfmRegistrySettings
         Width = 147
         Height = 17
         Caption = 'Log time taken to process'
-        TabOrder = 6
+        TabOrder = 5
       end
     end
     object tsExclusions: TTabSheet
@@ -246,7 +246,7 @@ object fmRegistrySettings: TfmRegistrySettings
   object pnlBottom: TPanel
     Left = 0
     Top = 264
-    Width = 480
+    Width = 478
     Height = 45
     Align = alBottom
     BevelOuter = bvNone

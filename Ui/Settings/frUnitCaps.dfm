@@ -16,9 +16,8 @@ inherited frUnitNameCaps: TfrUnitNameCaps
     MaxLines = 0
     HideCaret = False
     Align = alBottom
-    ReadOnly = False
     ScrollBars = ssVertical
-    TabOrder = 0
+    TabOrder = 1
   end
   object cbEnableAnyWords: TCheckBox
     Left = 6
@@ -28,6 +27,6 @@ inherited frUnitNameCaps: TfrUnitNameCaps
     Caption = 'Enable'
     Checked = True
     State = cbChecked
-    TabOrder = 1
+    TabOrder = 0
   end
 end

@@ -53,7 +53,7 @@ inherited fClarifyAlign: TfClarifyAlign
     MaxValue = 999.000000000000000000
     MinValue = 1.000000000000000000
     PasswordChar = #0
-    TabOrder = 1
+    TabOrder = 4
     Text = '1'
     Value = 1
     OnExit = edtMaxColumnExit
@@ -73,7 +73,7 @@ inherited fClarifyAlign: TfClarifyAlign
     MaxLength = 3
     MaxValue = 150.000000000000000000
     PasswordChar = #0
-    TabOrder = 2
+    TabOrder = 3
     Text = '0'
     Value = 0
     OnExit = edtMaxColumnExit
@@ -93,7 +93,7 @@ inherited fClarifyAlign: TfClarifyAlign
     MaxLength = 3
     MaxValue = 150.000000000000000000
     PasswordChar = #0
-    TabOrder = 3
+    TabOrder = 2
     Text = '0'
     Value = 0
     OnExit = edtMinColumnExit
@@ -104,7 +104,7 @@ inherited fClarifyAlign: TfClarifyAlign
     Width = 95
     Height = 117
     Caption = 'What to Align'
-    TabOrder = 4
+    TabOrder = 1
     object cbAlignAsign: TCheckBox
       Left = 6
       Top = 17

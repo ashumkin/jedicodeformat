@@ -33,7 +33,7 @@ uses
 type
   TfClarifyReturns = class(TfrSettingsFrame)
     rgReturnChars: TRadioGroup;
-    GroupBox1: TGroupBox;
+    gbRemoveReturns: TGroupBox;
     cbRemoveProcDefReturns: TCheckBox;
     cbRemoveVarReturns: TCheckBox;
     cbRemoveExprReturns: TCheckBox;

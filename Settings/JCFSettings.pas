@@ -265,7 +265,8 @@ begin
   WriteToStream(fcClarify);
   WriteToStream(fcIndent);
   WriteToStream(fcSpaces);
-  WritetoStream(fcReturns);
+  WriteToStream(fcReturns);
+  WriteToStream(fcComments);
   WriteToStream(fcCaps);
   WriteToStream(fcSpecificWordCaps);
   WriteToStream(fcUnitNameCaps);
@@ -319,6 +320,7 @@ begin
     ReadFromStream(fcIndent);
     ReadFromStream(fcSpaces);
     ReadFromStream(fcReturns);
+    ReadFromStream(fcComments);
     ReadFromStream(fcCaps);
     ReadFromStream(fcSpecificWordCaps);
     ReadFromStream(fcUnitNameCaps);

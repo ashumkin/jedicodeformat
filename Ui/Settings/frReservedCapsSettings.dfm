@@ -52,7 +52,7 @@ inherited frReservedCapsSettings: TfrReservedCapsSettings
       'all lowercase'
       'Mixed Case'
       'Leave alone')
-    TabOrder = 3
+    TabOrder = 5
   end
   object rgConstants: TRadioGroup
     Left = 134
@@ -80,6 +80,6 @@ inherited frReservedCapsSettings: TfrReservedCapsSettings
       'all lowercase'
       'Mixed Case'
       'Leave alone')
-    TabOrder = 5
+    TabOrder = 3
   end
 end

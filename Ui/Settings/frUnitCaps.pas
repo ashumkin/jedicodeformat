@@ -4,7 +4,7 @@ interface
 
 uses
   Classes, Controls, Forms,
-  { local}frmBaseSettingsFrame, StdCtrls, JvMemo;
+  { local}frmBaseSettingsFrame, StdCtrls, JvMemo, JvExStdCtrls;
 
 type
   TfrUnitNameCaps = class(TfrSettingsFrame)

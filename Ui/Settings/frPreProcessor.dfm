@@ -23,9 +23,8 @@ inherited fPreProcessor: TfPreProcessor
     AutoSize = False
     MaxLines = 0
     HideCaret = False
-    ReadOnly = False
     ScrollBars = ssVertical
-    TabOrder = 0
+    TabOrder = 1
   end
   object cbEnable: TCheckBox
     Left = 6
@@ -35,7 +34,7 @@ inherited fPreProcessor: TfPreProcessor
     Caption = 'Enable preprocessor parsing'
     Checked = True
     State = cbChecked
-    TabOrder = 1
+    TabOrder = 0
   end
   object mOptions: TJvMemo
     Left = 0
@@ -45,7 +44,6 @@ inherited fPreProcessor: TfPreProcessor
     AutoSize = False
     MaxLines = 0
     HideCaret = False
-    ReadOnly = False
     ScrollBars = ssVertical
     TabOrder = 2
   end

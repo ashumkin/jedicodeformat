@@ -7,7 +7,7 @@ interface
 uses
   Classes, Controls, Forms,
   StdCtrls, JvMemo,
-   { local}frmBaseSettingsFrame;
+   { local}frmBaseSettingsFrame, JvExStdCtrls;
 
 type
   TfPreProcessor = class(TfrSettingsFrame)

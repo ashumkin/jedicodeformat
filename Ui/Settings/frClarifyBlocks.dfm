@@ -42,7 +42,7 @@ inherited fClarifyBlocks: TfClarifyBlocks
       'Always'
       'Leave as is'
       'Never')
-    TabOrder = 2
+    TabOrder = 3
   end
   object rgBlock: TRadioGroup
     Left = 4
@@ -54,7 +54,7 @@ inherited fClarifyBlocks: TfClarifyBlocks
       'Always'
       'Leave as is'
       'Never')
-    TabOrder = 3
+    TabOrder = 2
   end
   object rgEndElse: TRadioGroup
     Left = 4
@@ -78,7 +78,7 @@ inherited fClarifyBlocks: TfClarifyBlocks
       'Always'
       'Leave as is'
       'Never')
-    TabOrder = 5
+    TabOrder = 6
   end
   object rgElseIf: TRadioGroup
     Left = 148
@@ -90,7 +90,7 @@ inherited fClarifyBlocks: TfClarifyBlocks
       'Always'
       'Leave as is'
       'Never')
-    TabOrder = 6
+    TabOrder = 5
   end
   object rgElseCase: TRadioGroup
     Left = 148

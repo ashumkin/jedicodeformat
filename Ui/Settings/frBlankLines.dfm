@@ -29,7 +29,7 @@ inherited fBlankLines: TfBlankLines
     MaxLength = 3
     MaxValue = 255.000000000000000000
     PasswordChar = #0
-    TabOrder = 0
+    TabOrder = 1
     Text = '0'
     Value = 0
   end
@@ -39,7 +39,7 @@ inherited fBlankLines: TfBlankLines
     Width = 201
     Height = 17
     Caption = 'Remove consecutive blank lines'
-    TabOrder = 1
+    TabOrder = 2
   end
   object edtMaxConsecutiveBlankLines: TJvValidateEdit
     Left = 144
@@ -56,24 +56,24 @@ inherited fBlankLines: TfBlankLines
     MaxLength = 3
     MaxValue = 99.000000000000000000
     PasswordChar = #0
-    TabOrder = 2
+    TabOrder = 3
     Text = '0'
     Value = 0
   end
-  object GroupBox1: TGroupBox
+  object gbRemoveBlankLines: TGroupBox
     Left = 4
     Top = 4
     Width = 221
     Height = 105
     Caption = 'Remove blank lines'
-    TabOrder = 3
+    TabOrder = 0
     object cbRemoveBlockBlankLines: TCheckBox
       Left = 8
       Top = 68
       Width = 197
       Height = 17
       Caption = 'at start and end of begin..end block'
-      TabOrder = 0
+      TabOrder = 2
     end
     object cbRemoveBlankLinesAfterProcHeader: TCheckBox
       Left = 8
@@ -89,7 +89,7 @@ inherited fBlankLines: TfBlankLines
       Width = 181
       Height = 17
       Caption = 'in procedure var section'
-      TabOrder = 2
+      TabOrder = 0
     end
   end
 end

@@ -9,7 +9,7 @@ inherited fObfuscateSettings: TfObfuscateSettings
     Caption = 'Remove &white space'
     Checked = True
     State = cbChecked
-    TabOrder = 1
+    TabOrder = 2
   end
   object cbRemoveComments: TCheckBox
     Left = 8
@@ -19,7 +19,7 @@ inherited fObfuscateSettings: TfObfuscateSettings
     Caption = 'Remove c&omments'
     Checked = True
     State = cbChecked
-    TabOrder = 2
+    TabOrder = 3
   end
   object rgObfuscateCaps: TRadioGroup
     Left = 8
@@ -33,7 +33,7 @@ inherited fObfuscateSettings: TfObfuscateSettings
       'all lowercase'
       'Mixed Case'
       'Leave alone')
-    TabOrder = 0
+    TabOrder = 1
   end
   object cbRebreak: TCheckBox
     Left = 8
@@ -43,7 +43,7 @@ inherited fObfuscateSettings: TfObfuscateSettings
     Caption = 'Rebreak &lines'
     Checked = True
     State = cbChecked
-    TabOrder = 3
+    TabOrder = 5
   end
   object cbRemoveIndent: TCheckBox
     Left = 8
@@ -61,6 +61,6 @@ inherited fObfuscateSettings: TfObfuscateSettings
     Width = 105
     Height = 17
     Caption = '&Obfuscate mode'
-    TabOrder = 5
+    TabOrder = 0
   end
 end
