@@ -1941,17 +1941,25 @@ begin
 
     if TokenList.FirstSolidTokenType = ttOpenBracket then
     begin
+      PushNode(nActualParams);
       Recognise(ttOpenBracket);
       RecogniseExprList;
       Recognise(ttCloseBracket);
+
+      PopNode;
     end;
 
     if TokenList.FirstSolidTokenType = ttAssign then
     begin
+      PushNode(nAssignnent);
+
       Recognise(ttAssign);
       RecogniseExpr;
+
+      PopNode;
     end;
-    // else nothing at all is also ok. i.e. procedure call
+
+    // else nothing at all is also ok. i.e. procedure call with no params
   end
   else if lc.Word = wInherited then
   begin

@@ -48,6 +48,40 @@ begin
   end;
 end;
 
+function IsInAssignExpr(const pt: TSourceToken): boolean;
+begin
+  Result := False;
+
+  if pt = nil then
+    exit;
+
+  if not pt.HasParentNode(nAssignnent) then
+    exit;
+
+  if not pt.IsOnRightOf(nAssignnent, ttAssign) then
+    exit;
+
+  Result := True;
+end;
+
+function IsInProcedureParams(const pt: TSourceToken): boolean;
+begin
+  Result := False;
+
+  if pt = nil then
+    exit;
+
+  if not pt.HasParentNode(nActualParams) then
+    exit;
+
+  if pt.Nestings.GetLevel(nlRoundBracket) = 0 then
+    exit;
+
+  // in a statement, in round brackets, also need .. ??
+
+  Result := True;
+end;
+
 function CalculateIndent(const pt: TSourceToken): integer;
 var
   liIndentCount: integer;
@@ -104,10 +138,17 @@ begin
       // outdent keywords that start and end the block
       if pt.Word in BlockOutdentWords then
       begin
-        // 'case' in a record type decl is not outdent here
-        if not ((pt.Word = wCase) and pt.HasParentNode(nRecordVariantSection)) then
-          dec(liIndentCount);
-      end;
+        dec(liIndentCount);
+
+        // not these in local record type decl
+        if (pt.Word in [wCase, wEnd]) and (pt.HasParentNode(nRecordType)) then
+          Inc(liIndentCount);
+      end
+
+      // else in a case statement is outdented
+      else if (pt.Word = wElse) and (pt.HasParentNode(nElseCase, 1)) then
+        dec(liIndentCount);
+
     end;
 
     if pt.Nestings.GetLevel(nlCaseSelector) > 0 then
@@ -159,13 +200,17 @@ begin
   { run on expression }
   if IsRunOnExpr(pt) then
     inc(liIndentCount)
-  else if IsInAssign(pt) then
+  else if IsInAssignExpr(pt) then
     inc(liIndentCount)
   else if IsInProcedureParams(pt) then
     inc(liIndentCount);
 
   if pt.HasParentNode(nArrayConstant) and
     ((RoundBracketLevel(pt) > 0) or (pt.TokenType in [ttOpenBracket, ttCloseBracket])) then
+    inc(liIndentCount);
+
+  { run-on type decl }
+  if pt.IsOnRightOf(nType, wEquals) then
     inc(liIndentCount);
 
   Assert(liIndentCount >= 0);

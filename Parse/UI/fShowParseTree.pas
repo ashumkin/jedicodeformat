@@ -40,9 +40,12 @@ type
     procedure lvTokensClick(Sender: TObject);
     procedure lvTokensSelectItem(Sender: TObject; Item: TListItem;
       Selected: Boolean);
+    procedure lvTokensDblClick(Sender: TObject);
+    procedure tvParseTreeDblClick(Sender: TObject);
   private
     fcRootNode: TParseTreeNode;
     procedure ShowTreeNodeDetails(const pcNode: TParseTreeNode);
+
   public
     property RootNode: TParseTreeNode read fcRootNode write fcRootNode;
 
@@ -211,6 +214,62 @@ begin
     ShowTreeNodeDetails(nil)
   else
     ShowTreeNodeDetails(lvTokens.Selected.Data);
+end;
+
+procedure TfrmShowParseTree.lvTokensDblClick(Sender: TObject);
+var
+  lpNode: pointer;
+  liLoop: integer;
+  lcItem: TTreeNode;
+begin
+  // try to select the same node in the tree
+  if lvTokens.Selected = nil then
+    exit;
+
+  lpNode := lvTokens.Selected.Data;
+  if lpNode = nil then
+    exit;
+
+  for liLoop := 0 to tvParseTree.Items.Count - 1 do
+  begin
+    lcItem := tvParseTree.Items[liLoop];
+    if lcItem.Data  = lpNode then
+    begin
+      lcItem.Selected := True;
+      pcPages.ActivePage := tsTree;
+      break;
+    end;
+  end;
+end;
+
+procedure TfrmShowParseTree.tvParseTreeDblClick(Sender: TObject);
+var
+  lpNode: pointer;
+  liLoop: integer;
+  lcItem: TListItem;
+begin
+  // try to select the same node in the list
+
+  if tvParseTree.Selected = nil then
+    exit;
+
+  lpNode := tvParseTree.Selected.Data;
+  if lpNode = nil then
+    exit;
+
+  for liLoop := 0 to lvTokens.Items.Count - 1 do
+  begin
+    lcItem := lvTokens.Items[liLoop];
+    if lcItem.Data = lpNode then
+    begin
+      lcItem.Selected := True;
+      lcItem.Focused := True;
+      lcItem.MakeVisible(false); 
+      pcPages.ActivePage := tsTokens;
+      break;
+    end;
+  end;
+
 end;
 
 end.

@@ -454,17 +454,17 @@ var
     end;
 
     // leaf node - matching token using the 'HasChildNode' override to match self
-    if (ChildNodeCount = 0) and HasChildNode(peTokens) then
+    if (pcRoot.ChildNodeCount = 0) and pcRoot.HasChildNode(peTokens) then
     begin
       lbSearchDone := True;
-      Result := self;
+      Result := pcRoot;
       exit;
     end;
 
     // recurse into all children (or until self is encountered)
-    for liLoop := 0 to ChildNodeCount - 1 do
+    for liLoop := 0 to pcRoot.ChildNodeCount - 1 do
     begin
-      lcChild := ChildNodes[liLoop];
+      lcChild := pcRoot.ChildNodes[liLoop];
       if lcChild = self then
       begin
         lbSearchDone := True;
@@ -497,7 +497,6 @@ begin
   lbSearchDone := False;
   lcFirstMatch := GetFirstMatch(lcRoot, peTokens);
 
-  // not enough - must be before self
   Result := (lcFirstMatch <> nil);
 end;
 

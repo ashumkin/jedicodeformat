@@ -122,6 +122,7 @@ object frmShowParseTree: TfrmShowParseTree
         RowSelect = True
         TabOrder = 0
         ViewStyle = vsReport
+        OnDblClick = lvTokensDblClick
         OnSelectItem = lvTokensSelectItem
       end
     end
@@ -140,6 +141,7 @@ object frmShowParseTree: TfrmShowParseTree
         ReadOnly = True
         TabOrder = 0
         OnChange = tvParseTreeChange
+        OnDblClick = tvParseTreeDblClick
       end
     end
   end
