@@ -18,5 +18,13 @@ begin
   msword.texttotable(convertfrom := 2, numcolumns := 3);
 end;
 
+procedure w_app;
+var
+  wordapp: variant;
+begin
+  wordapp := createoleobject('Word.Application');
+  wordapp.documents.Open('foo', , , , 'bar');
+end;
+
 end.
  

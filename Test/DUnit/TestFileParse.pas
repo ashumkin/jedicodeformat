@@ -571,7 +571,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestOleParams;
 begin
-  TestParseFile('TestOleParams', 113);
+  TestParseFile('TestOleParams', 160);
 end;
 
 procedure TTestFileParse.TestParse_TestOperators;

@@ -1,4 +1,5 @@
 unit testoleparams;interface implementation uses comobj;procedure wordup;var msword
 :variant;begin msword:=createoleobject('Word.Basic');msword.appshow;msword.filenew
 ;msword.insert('Foo');msword.lineup(2,1);msword.texttotable(convertfrom:=2,numcolumns
-:=3);end;end. 
+:=3);end;procedure w_app;var wordapp:variant;begin wordapp:=createoleobject('Word.Application'
+);wordapp.documents.open('foo',,,,'bar');end;end. 

@@ -26,4 +26,12 @@ begin
   MSWord.TextToTable(ConvertFrom := 2, NumColumns := 3);
 end;
 
+procedure W_App;
+var
+  WordApp: variant;
+begin
+  WordApp := CreateOleObject('Word.Application');
+  WordApp.Documents.Open('foo', , , , 'bar');
+end;
+
 end.

@@ -4352,6 +4352,13 @@ begin
     Recognise(ttAssign);
     RecogniseExpr(True);
   end
+  else if lc.TokenType = ttComma then
+  begin
+    { See TestOleParam: "WordApp.Documents.Open('foo',,,,'bar');"
+      params can be skipped
+      I guess a missing param has a default value
+    }
+  end
   else
   begin
     RecogniseExpr(True);
