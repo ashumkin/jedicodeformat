@@ -1,6 +1,6 @@
 object frmAboutBox: TfrmAboutBox
-  Left = 156
-  Top = 114
+  Left = 326
+  Top = 235
   BorderStyle = bsDialog
   Caption = 'About Jedi Code Format'
   ClientHeight = 305

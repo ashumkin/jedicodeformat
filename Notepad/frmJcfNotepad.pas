@@ -9,7 +9,7 @@ uses
   Buttons, Menus,
   { Jedi }
   JvMRUList, JvMemo,
-  { local } StringsConverter, JcfNotepadSettings;
+  { local } StringsConverter, JcfRegistrySettings;
 
 type
   TfmJCFNotepad = class(TForm)
@@ -100,7 +100,7 @@ implementation
 uses
   ClipBrd,
   JclStrings,
-  Converter, ConvertTypes, fAbout, fAllNotepadSettings;
+  Converter, ConvertTypes, fAbout, fNotepadSettings;
 
 {$R *.dfm}
 
@@ -122,7 +122,7 @@ begin
   if not FileExists(psFileName) then
     exit;
 
-  fcSettings.InputDir := ExtractFilePath(psFileName);
+  GetRegSettings.InputDir := ExtractFilePath(psFileName);
   mInput.Text := FileToString(psFileName);
   sb1.SimpleText := psFileName;
   AddCheckMRU(psFileName);
@@ -186,6 +186,7 @@ begin
   fcConvert.InputStrings := mInput.Lines;
   fcConvert.OutputStrings := mOutput.Lines;
   fcConvert.MessageStrings := mMessages.Lines;
+  fcConvert.ShowParseTreeOption := GetRegSettings.ShowParseTreeOption;
 
   fcConvert.Convert;
   fcConvert.Clear;
@@ -205,13 +206,11 @@ procedure TfmJCFNotepad.FormShow(Sender: TObject);
 begin
   CheckInputState;
   pcPagesChange(nil);
-
-  JcfRegistrySettings.MRUFiles := mruFiles.Strings;
 end;
 
 procedure TfmJCFNotepad.actOpenExecute(Sender: TObject);
 begin
-  OpenDialog1.InitialDir := fcSettings.InputDir;
+  OpenDialog1.InitialDir := GetRegSettings.InputDir;
   OpenDialog1.Filter := FILE_FILTERS;
 
   if OpenDialog1.Execute then
@@ -233,14 +232,14 @@ end;
 
 procedure TfmJCFNotepad.actSaveExecute(Sender: TObject);
 begin
-  SaveDialog1.InitialDir := fcSettings.OutputDir;
+  SaveDialog1.InitialDir := GetRegSettings.OutputDir;
   SaveDialog1.Title := 'Save output file';
   SaveDialog1.Filter := FILE_FILTERS;
 
 
   if SaveDialog1.Execute then
   begin
-    fcSettings.OutputDir := ExtractFilePath(SaveDialog1.FileName);
+    GetRegSettings.OutputDir := ExtractFilePath(SaveDialog1.FileName);
     StringToFile(SaveDialog1.FileName, mOutput.Text);
     sb1.SimpleText := 'Saved ' + SaveDialog1.FileName;
   end;
@@ -254,21 +253,20 @@ end;
 procedure TfmJCFNotepad.FormCreate(Sender: TObject);
 begin
   fcConvert := TStringsConverter.Create;
-  fcSettings := TJCFNotepadSettings.Create;
-  fcConvert.ShowParseTreeOption := fcSettings.ShowParseTreeOption;
+  fcConvert.ShowParseTreeOption := GetRegSettings.ShowParseTreeOption;
 
-  fcSettings.LoadMRUFiles(mruFiles.Strings);
+  GetRegSettings.MRUFiles := mruFiles.Strings;
+  GetRegSettings.ReadAll;
+
   mruFiles.RemoveInvalid;
 end;
 
 procedure TfmJCFNotepad.FormDestroy(Sender: TObject);
 begin
-  // write this to registry
-  fcSettings.ShowParseTreeOption := fcConvert.ShowParseTreeOption;
-  fcSettings.SaveMRUFiles(mruFiles.Strings);
-
+  GetRegSettings.WriteAll;
+  GetRegSettings.MRUFiles := nil;
+  
   FreeAndNil(fcConvert);
-  FreeAndNil(fcSettings);
 end;
 
 procedure TfmJCFNotepad.actCopyExecute(Sender: TObject);
@@ -331,13 +329,13 @@ end;
 
 procedure TfmJCFNotepad.mnuFileSaveInClick(Sender: TObject);
 begin
-  SaveDialog1.InitialDir := fcSettings.OutputDir;
+  SaveDialog1.InitialDir := GetRegSettings.OutputDir;
   SaveDialog1.Title := 'Save input file';
   SaveDialog1.Filter := FILE_FILTERS;
 
   if SaveDialog1.Execute then
   begin
-    fcSettings.OutputDir := ExtractFilePath(SaveDialog1.FileName);
+    GetRegSettings.OutputDir := ExtractFilePath(SaveDialog1.FileName);
     StringToFile(SaveDialog1.FileName, mInput.Text);
     sb1.SimpleText := 'Saved input' + SaveDialog1.FileName;
   end;
@@ -359,13 +357,8 @@ procedure TfmJCFNotepad.mnuShowRegSettingClick(Sender: TObject);
 var
   lfSettings: TfmNotepadSettings;
 begin
-  lcSet := NotepadSettings;
-
-  { can clear MRU? }
-  lcSet.CanClearMRU := (mruFiles.Strings.Count > 0);
-
   lfSettings := TfmNotepadSettings.Create(self);
-  lfSettings.Settings := RegSettings;
+  lfSettings.Settings := GetRegSettings;
   try
     lfSettings.Execute;
   finally
@@ -374,6 +367,9 @@ begin
 end;
 
 procedure TfmJCFNotepad.mnuParseSettingsClick(Sender: TObject);
+begin
+end;
+{
 var
   lfAllSettings: TfrmAllSettings;
   lcSet: TJCFSettings;
@@ -388,5 +384,6 @@ begin
     lfAllSettings.Release;
   end;
 end;
+}
 
 end.

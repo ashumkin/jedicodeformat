@@ -57,7 +57,7 @@ uses
   WarnEmptyBlock in '..\Process\Warnings\WarnEmptyBlock.pas',
   Warning in '..\Process\Warnings\Warning.pas',
   VersionConsts in '..\VersionConsts.pas',
-  JcfNotepadSettings in 'JcfNotepadSettings.pas',
+  JcfRegistrySettings in '..\Settings\JcfRegistrySettings.pas',
   TokenUtils in '..\Parse\TokenUtils.pas',
   NoSpaceBefore in '..\Process\Spacing\NoSpaceBefore.pas',
   NoSpaceAfter in '..\Process\Spacing\NoSpaceAfter.pas',
@@ -117,8 +117,7 @@ uses
   frReplace in '..\Ui\Settings\frReplace.pas' {fReplace: TFrame},
   frReservedCapsSettings in '..\Ui\Settings\frReservedCapsSettings.pas' {frReservedCapsSettings: TFrame},
   frUses in '..\Ui\Settings\frUses.pas' {fUses: TFrame},
-  frClarifyReturns in '..\Ui\Settings\frClarifyReturns.pas' {fClarifyReturns: TFrame},
-  frmNotepadSettings in 'frmNotepadSettings.pas' {fmNotepadSettings};
+  frClarifyReturns in '..\Ui\Settings\frClarifyReturns.pas' {fClarifyReturns: TFrame};
 
 {$R *.res}
 

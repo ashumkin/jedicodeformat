@@ -1,0 +1,27 @@
+unit JCFHelp;
+
+{ code interface to Ralf Steinhaeusser's help file }
+
+interface
+
+const
+
+{ help context ids }
+HELP_MAIN = 10;
+HELP_BASIC_SETTINGS = 20;
+HELP_LOGGING = 30;
+HELP_EXCLUSIONS = 40;
+HELP_OBFUSTCATE = 50;
+HELP_CLARIFY = 60;
+HELP_SPACES = 70;
+HELP_INDENTATION = 80;
+HELP_RETURNS = 90;
+HELP_BLOCKS = 100;
+HELP_ALIGN = 110;
+HELP_CAPITALISATION = 120;
+HELP_FIND_AND_REPLACE = 130;
+HELP_FIND_ANDREPLACE_USES = 140;
+
+implementation
+
+end.
