@@ -1,7 +1,7 @@
-package JcfIde6;
+package JcfIde5;
 
-{$R *.res}
-{$ALIGN 8}
+{$R *.RES}
+{$ALIGN ON}
 {$ASSERTIONS ON}
 {$BOOLEVAL OFF}
 {$DEBUGINFO ON}
@@ -28,19 +28,9 @@ package JcfIde6;
 {$DEFINE IDEPLUGGIN}
 
 requires
-  vcl,
-  vclx,
-  DesignIde,
-  rtl,
-  vcljpg,
-  inet,
-  qrpt,
-  bdertl,
-  dbrtl,
-  vcldb,
-  VclSmp,
-  DJCL60,
-  JVCL200_R60;
+  vcl50,
+  DJCL50,
+  JVCL200_R50;
 
 contains
   JcfIdeRegister in 'JcfIdeRegister.pas',
