@@ -64,6 +64,8 @@ type
     function HasChildNode(const peWords: TWordSet; const piMaxDepth: integer): Boolean; overload; virtual;
     function HasChildNode(const peTokens: TTokenTypeSet; const piMaxDepth: integer): Boolean; overload; virtual;
     function HasChildNode(const peToken: TTokenType; const piMaxDepth: integer): Boolean; overload; virtual;
+    function HasChildNode(const peNodes: TParseTreeNodeTypeSet; const piMaxDepth: integer): Boolean; overload; virtual;
+    function HasChildNode(const peNode: TParseTreeNodeType; const piMaxDepth: integer): Boolean; overload; virtual;
 
     function HasParentNode(const peNodeTypes: TParseTreeNodeTypeSet): Boolean; overload;
     function HasParentNode(const peNodeType: TParseTreeNodeType): Boolean; overload;
@@ -310,6 +312,32 @@ end;
 function TParseTreeNode.HasChildNode(const peToken: TTokenType; const piMaxDepth: integer): Boolean;
 begin
   Result := HasChildNode([peToken], piMaxDepth);
+end;
+
+
+function TParseTreeNode.HasChildNode(const peNodes: TParseTreeNodeTypeSet;
+  const piMaxDepth: integer): Boolean;
+var
+  liLoop: integer;
+begin
+  Result := (NodeType in peNodes);
+  if Result then
+    exit;
+
+  if (piMaxDepth > 0) then
+  begin
+    for liLoop := 0 to ChildNodeCount - 1 do
+    begin
+      Result := ChildNodes[liLoop].HasChildNode(peNodes, piMaxDepth - 1);
+      if Result then
+        break;
+    end;
+  end;
+end;
+
+function TParseTreeNode.HasChildNode(const peNode: TParseTreeNodeType; const piMaxDepth: integer): Boolean;
+begin
+  Result := HasChildNode([peNode], piMaxDepth);
 end;
 
 function TParseTreeNode.HasParentNode(const peNodeTypes: TParseTreeNodeTypeSet): Boolean;
@@ -836,5 +864,6 @@ begin
   else
     Result := Parent.IndexOfChild(self); 
 end;
+
 
 end.

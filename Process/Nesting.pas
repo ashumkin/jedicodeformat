@@ -22,6 +22,7 @@ type
 TNestingLevelType = (
   nlBlock, // generic code indent
   nlCaseSelector,
+  nlRecordType,
   nlRecordVariantSection,
   nlProcedure,
   nlRoundBracket, nlSquareBracket);

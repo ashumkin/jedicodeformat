@@ -238,7 +238,10 @@ end;
 procedure TfrmScratchpad.actPasteExecute(Sender: TObject);
 begin
   if Clipboard.HasFormat(CF_TEXT) then
+  begin
     mInput.Text := mInput.Text  + Clipboard.AsText;
+    CheckInputState;
+  end;
 end;
 
 end.

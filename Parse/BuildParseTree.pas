@@ -1951,7 +1951,7 @@ begin
 
     if TokenList.FirstSolidTokenType = ttAssign then
     begin
-      PushNode(nAssignnent);
+      PushNode(nAssignment);
 
       Recognise(ttAssign);
       RecogniseExpr;

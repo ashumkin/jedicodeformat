@@ -146,6 +146,9 @@ procedure TTestObfuscate.TestFileContentsSame(const psFileName1,
 var
   lsFile1, lsFile2: string;
 begin
+  Check(FileExists(psFileName1), 'File ' + psFileName1 + ' does not exist');
+  Check(FileExists(psFileName2), 'File ' + psFileName2 + ' does not exist');
+
   lsFile1 := FileToString(psFileName1);
   lsFile2 := FileToString(psFileName2);
 
@@ -156,20 +159,23 @@ end;
 
 procedure TTestObfuscate.TestObfuscateFile(const psName: string);
 var
-  lsInName, lsObsFileName, lsRemadeFileName: string;
+  lsInName, lsObsFileName: string;
+  // lsRemadeFileName: string;
 begin
+  Assert(psName <> '');
+
   { does it have an file extension? }
   if Pos('.', psName) > 0 then
   begin
     lsInName := psName;
     lsObsFileName := StrBefore('.', psName) + '.obs';
-    lsRemadeFileName := StrBefore('.', psName) + '.out';
+    //lsRemadeFileName := StrBefore('.', psName) + '.out';
   end
   else
   begin
     lsInName := psName + '.pas';
     lsObsFileName := psName + '.obs';
-    lsRemadeFileName := psName + '.out';
+    //lsRemadeFileName := psName + '.out';
   end;
 
   Settings.FileSettings.OutputExtension := 'obs';

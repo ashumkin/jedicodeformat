@@ -52,7 +52,7 @@ type
     nTerm,
     nActualParams,
     nStatement,
-    nAssignnent,
+    nAssignment,
     nStatementLabel,
     nCompoundStatement,
     nIfCondition,
@@ -211,7 +211,7 @@ begin
       Result := 'Actual params';
     nStatement:
       Result := 'Statement';
-    nAssignnent:
+    nAssignment:
       Result := 'Assignment';
     nStatementLabel:
       Result := 'Statement label';

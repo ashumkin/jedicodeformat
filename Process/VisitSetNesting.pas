@@ -85,7 +85,7 @@ begin
   lcNode := TParseTreeNode(pcNode);
 
   case lcNode.NodeType of
-    nBlock, nCaseStatement, nElseCase,
+    nBlock, nCaseStatement,
     nIfBlock, nTryBlock, nFinallyBlock, nExceptBlock,
     nRepeatStatement, nWhileStatement, nForStatement,
     nWithStatement, nOnExceptionHandler, nInitSection:
@@ -104,9 +104,14 @@ begin
         lbHasNesting := True;
       end;
     end;
-    nCaseSelector:
+    nCaseSelector, nElseCase:
     begin
       leNestType := nlCaseSelector;
+      lbHasNesting := True;
+    end;
+    nRecordType:
+    begin
+      leNestType := nlRecordType;
       lbHasNesting := True;
     end;
     nRecordVariantSection:

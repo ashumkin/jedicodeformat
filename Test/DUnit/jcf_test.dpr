@@ -86,7 +86,9 @@ uses
   BlockStyles in '..\..\Process\Spacing\BlockStyles.pas',
   SwitchableVisitor in '..\..\Process\SwitchableVisitor.pas',
   FormatFlags in '..\..\Process\FormatFlags.pas',
-  Indenter in '..\..\Process\Indent\Indenter.pas';
+  Indenter in '..\..\Process\Indent\Indenter.pas',
+  VisitSetNesting in '..\..\Process\VisitSetNesting.pas',
+  TestFullClarify in 'TestFullClarify.pas';
 
 {$R *.res}
 

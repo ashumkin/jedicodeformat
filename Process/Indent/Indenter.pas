@@ -55,10 +55,10 @@ begin
   if pt = nil then
     exit;
 
-  if not pt.HasParentNode(nAssignnent) then
+  if not pt.HasParentNode(nAssignment) then
     exit;
 
-  if not pt.IsOnRightOf(nAssignnent, ttAssign) then
+  if not pt.IsOnRightOf(nAssignment, ttAssign) then
     exit;
 
   Result := True;
@@ -98,8 +98,16 @@ begin
   { object types }
   if pt.HasParentNode(ObjectTypes) then
   begin
-    if pt.Word in CLASS_VISIBILITY + [wEnd] then
+    if pt.Word in CLASS_VISIBILITY then
       liIndentCount := 1
+    else if pt.Word = wEnd then
+    begin
+      // end is the end of the class unless it's the end of an anon record typed var
+      if pt.HasParentNode(nRecordType) then
+        liIndentCount := 2
+      else
+        liIndentCount := 1;
+    end
     else
       liIndentCount := 2;
 
@@ -163,11 +171,6 @@ begin
         if (pt.Word in ParamTypes) and pt.HasParentNode(nProcedureType) then
             inc(liIndentCount);
       end
-
-      // else in a case statement is outdented
-      else if (pt.Word = wElse) and (pt.HasParentNode(nElseCase, 1)) then
-        dec(liIndentCount);
-
     end
     else
     begin
@@ -212,6 +215,10 @@ begin
   { record declaration stuph }
   if pt.HasParentNode(nRecordType) then
   begin
+    { nested record types }
+    if pt.Nestings.GetLevel(nlRecordType) > 1 then
+      liIndentCount := liIndentCount + (pt.Nestings.GetLevel(nlRecordType) - 1);
+
     if pt.Nestings.GetLevel(nlRecordVariantSection) > 0 then
     begin
       liIndentCount := liIndentCount + pt.Nestings.GetLevel(nlRecordVariantSection);

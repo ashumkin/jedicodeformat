@@ -6,7 +6,7 @@ uses
  TestFrameWork;
 
 type
- TTestParse = class(TTestCase)
+ TTestFileParse = class(TTestCase)
  private
     procedure TestParseFile(const psInFileName, psRefOutput: string; const piTokenCount: integer); overload;
     procedure TestParseFile(const psName: string; const piTokenCount: integer); overload;
@@ -103,7 +103,7 @@ const
   TEST_FILES_DIR =    'C:\Code\JcfCheckout\CodeFormat\Jcf2\Test\TestCases\';
   REF_OUT_FILES_DIR = 'C:\Code\JcfCheckout\CodeFormat\jcf2\Test\TestCases\Out\';
 
-procedure TTestParse.TestParseFile(const psInFileName, psRefOutput: string;
+procedure TTestFileParse.TestParseFile(const psInFileName, psRefOutput: string;
   const piTokenCount: integer);
 var
   lcConverter: TFileConverter;
@@ -143,7 +143,7 @@ begin
 end;
 
 
-procedure TTestParse.TestCreate;
+procedure TTestFileParse.TestCreate;
 var
   lcConverter: TFileConverter;
 begin
@@ -151,14 +151,14 @@ begin
   lcConverter.Free;
 end;
 
-procedure TTestParse.TestDirs;
+procedure TTestFileParse.TestDirs;
 begin
   Check(DirectoryExists(TEST_FILES_DIR), 'Test files dir ' + TEST_FILES_DIR + ' not found');
   Check(DirectoryExists(REF_OUT_FILES_DIR), 'Test files ref out dir ' + TEST_FILES_DIR + ' not found');
 end;
 
 
-procedure TTestParse.TestParseFile(const psName: string; const piTokenCount: integer);
+procedure TTestFileParse.TestParseFile(const psName: string; const piTokenCount: integer);
 var
   lsInName, lsOutName: string;
 begin
@@ -178,362 +178,362 @@ begin
     REF_OUT_FILES_DIR + lsOutName, piTokenCount)
 end;
 
-procedure TTestParse.TestParse_Empty1;
+procedure TTestFileParse.TestParse_Empty1;
 begin
   TestParseFile('EmptyTest1', 15);
 end;
 
-procedure TTestParse.TestParse_fFormTest;
+procedure TTestFileParse.TestParse_fFormTest;
 begin
   TestParseFile('fFormTest', 151);
 end;
 
-procedure TTestParse.TestParse_LittleTest1;
+procedure TTestFileParse.TestParse_LittleTest1;
 begin
   TestParseFile('LittleTest1', 25);
 end;
 
-procedure TTestParse.TestParse_LittleTest2;
+procedure TTestFileParse.TestParse_LittleTest2;
 begin
   TestParseFile('LittleTest2', 26);
 end;
 
-procedure TTestParse.TestParse_LittleTest3;
+procedure TTestFileParse.TestParse_LittleTest3;
 begin
   TestParseFile('LittleTest3', 39);
 end;
 
-procedure TTestParse.TestParse_LittleTest4;
+procedure TTestFileParse.TestParse_LittleTest4;
 begin
   TestParseFile('LittleTest4', 41);
 end;
 
-procedure TTestParse.TestParse_LittleTest5;
+procedure TTestFileParse.TestParse_LittleTest5;
 begin
   TestParseFile('LittleTest5', 54);
 end;
 
-procedure TTestParse.TestParse_TestAbsolute;
+procedure TTestFileParse.TestParse_TestAbsolute;
 begin
   TestParseFile('TestAbsolute', 86);
 end;
 
-procedure TTestParse.TestParse_TestAlign;
+procedure TTestFileParse.TestParse_TestAlign;
 begin
   TestParseFile('TestAlign', 662);
 end;
 
-procedure TTestParse.TestParse_TestAsm;
+procedure TTestFileParse.TestParse_TestAsm;
 begin
   TestParseFile('TestAsm', 521);
 end;
 
-procedure TTestParse.TestParse_TestBlankLineRemoval;
+procedure TTestFileParse.TestParse_TestBlankLineRemoval;
 begin
   TestParseFile('TestBlankLineRemoval', 369);
 end;
 
-procedure TTestParse.TestParse_TestBogusDirectives;
+procedure TTestFileParse.TestParse_TestBogusDirectives;
 begin
   TestParseFile('TestBogusDirectives', 300);
 end;
 
-procedure TTestParse.TestParse_TestBogusTypes;
+procedure TTestFileParse.TestParse_TestBogusTypes;
 begin
   TestParseFile('TestBogusTypes', 230);
 end;
 
-procedure TTestParse.TestParse_TestCaseBlock;
+procedure TTestFileParse.TestParse_TestCaseBlock;
 begin
-  TestParseFile('TestCaseBlock', 2751);
+  TestParseFile('TestCaseBlock', 3041);
 end;
 
-procedure TTestParse.TestParse_TestCast;
+procedure TTestFileParse.TestParse_TestCast;
 begin
   TestParseFile('TestCast', 600);
 end;
 
-procedure TTestParse.TestParse_TestSimpleCast;
+procedure TTestFileParse.TestParse_TestSimpleCast;
 begin
   TestParseFile('TestCastSimple', 843);
 end;
 
-procedure TTestParse.TestParse_TestCharLiterals;
+procedure TTestFileParse.TestParse_TestCharLiterals;
 begin
   TestParseFile('TestCharLiterals', 177);
 end;
 
-procedure TTestParse.TestParse_TestClassLines;
+procedure TTestFileParse.TestParse_TestClassLines;
 begin
   TestParseFile('TestClassLines', 71);
 end;
 
-procedure TTestParse.TestParse_TestCommentIndent;
+procedure TTestFileParse.TestParse_TestCommentIndent;
 begin
   TestParseFile('TestCommentIndent', 549);
 end;
 
-procedure TTestParse.TestParse_TestConstRecords;
+procedure TTestFileParse.TestParse_TestConstRecords;
 begin
   TestParseFile('TestConstRecords', 760);
 end;
 
-procedure TTestParse.TestParse_TestD6;
+procedure TTestFileParse.TestParse_TestD6;
 begin
   TestParseFile('TestD6', 845);
 end;
 
-procedure TTestParse.TestParse_TestDeclarations;
+procedure TTestFileParse.TestParse_TestDeclarations;
 begin
   TestParseFile('TestDeclarations', 985);
 end;
 
 
-procedure TTestParse.TestParse_TestDeclarations2;
+procedure TTestFileParse.TestParse_TestDeclarations2;
 begin
   TestParseFile('TestDeclarations2', 362);
 end;
 
-procedure TTestParse.TestParse_TestDefaultParams;
+procedure TTestFileParse.TestParse_TestDefaultParams;
 begin
   TestParseFile('TestDefaultParams', 698);
 end;
 
-procedure TTestParse.TestParse_TestEmptyClass;
+procedure TTestFileParse.TestParse_TestEmptyClass;
 begin
   TestParseFile('TestEmptyClass', 244);
 end;
 
-procedure TTestParse.TestParse_TestEsotericKeywords;
+procedure TTestFileParse.TestParse_TestEsotericKeywords;
 begin
   TestParseFile('TestEsotericKeywords', 258);
 end;
 
-procedure TTestParse.TestParse_TestExclusion;
+procedure TTestFileParse.TestParse_TestExclusion;
 begin
   TestParseFile('TestExclusion', 431);
 end;
 
-procedure TTestParse.TestParse_TestExclusionFlags;
+procedure TTestFileParse.TestParse_TestExclusionFlags;
 begin
   TestParseFile('TestExclusionFlags', 723);
 end;
 
-procedure TTestParse.TestParse_TestExternal;
+procedure TTestFileParse.TestParse_TestExternal;
 begin
   TestParseFile('TestExternal', 259);
 end;
 
-procedure TTestParse.TestParse_TestForward;
+procedure TTestFileParse.TestParse_TestForward;
 begin
   TestParseFile('TestForward', 332);
 end;
 
-procedure TTestParse.TestParse_TestGoto;
+procedure TTestFileParse.TestParse_TestGoto;
 begin
   TestParseFile('TestGoto', 443);
 end;
 
-procedure TTestParse.TestParse_TestInitFinal;
+procedure TTestFileParse.TestParse_TestInitFinal;
 begin
   TestParseFile('TestInitFinal', 170);
 end;
 
-procedure TTestParse.TestParse_TestInterfaceImplements;
+procedure TTestFileParse.TestParse_TestInterfaceImplements;
 begin
   TestParseFile('TestInterfaceImplements', 225);
 end;
 
-procedure TTestParse.TestParse_TestInterfaceMap;
+procedure TTestFileParse.TestParse_TestInterfaceMap;
 begin
   TestParseFile('TestInterfaceMap', 397);
 end;
 
-procedure TTestParse.TestParse_TestInterfaces;
+procedure TTestFileParse.TestParse_TestInterfaces;
 begin
   TestParseFile('TestInterfaces', 352);
 end;
 
-procedure TTestParse.TestParse_TestLayout;
+procedure TTestFileParse.TestParse_TestLayout;
 begin
   TestParseFile('TestLayout', 1051);
 end;
 
-procedure TTestParse.TestParse_TestLayoutBare;
+procedure TTestFileParse.TestParse_TestLayoutBare;
 begin
   TestParseFile('TestLayoutBare', 1459);
 end;
 
-procedure TTestParse.TestParse_TestLayoutBare2;
+procedure TTestFileParse.TestParse_TestLayoutBare2;
 begin
   TestParseFile('TestLayoutBare2', 1008);
 end;
 
-procedure TTestParse.TestParse_TestLayoutBare3;
+procedure TTestFileParse.TestParse_TestLayoutBare3;
 begin
   TestParseFile('TestLayoutBare3', 1177);
 end;
 
-procedure TTestParse.TestParse_TestLibExports;
+procedure TTestFileParse.TestParse_TestLibExports;
 begin
   TestParseFile('TestLibExports', 119);
 end;
 
-procedure TTestParse.TestParse_TestLineBreaking;
+procedure TTestFileParse.TestParse_TestLineBreaking;
 begin
   TestParseFile('TestLineBreaking', 4445);
 end;
 
-procedure TTestParse.TestParse_TestLocalTypes;
+procedure TTestFileParse.TestParse_TestLocalTypes;
 begin
   TestParseFile('TestLocalTypes', 297);
 end;
 
-procedure TTestParse.TestParse_TestLongStrings;
+procedure TTestFileParse.TestParse_TestLongStrings;
 begin
   TestParseFile('TestLongStrings', 163);
 end;
 
-procedure TTestParse.TestParse_TestMarcoV;
+procedure TTestFileParse.TestParse_TestMarcoV;
 begin
   TestParseFile('TestMarcoV', 241);
 end;
 
-procedure TTestParse.TestParse_TestTestMH;
+procedure TTestFileParse.TestParse_TestTestMH;
 begin
   TestParseFile('TestMH', 2956);
 end;
 
-procedure TTestParse.TestParse_TestMixedModeCaps;
+procedure TTestFileParse.TestParse_TestMixedModeCaps;
 begin
   TestParseFile('TestMixedModeCaps', 123);
 end;
 
-procedure TTestParse.TestParse_TestMVB;
+procedure TTestFileParse.TestParse_TestMVB;
 begin
   TestParseFile('TestMVB', 833);
 end;
 
-procedure TTestParse.TestParse_TestNested;
+procedure TTestFileParse.TestParse_TestNested;
 begin
   TestParseFile('TestNested', 658);
 end;
 
-procedure TTestParse.TestParse_TestNestedRecords;
+procedure TTestFileParse.TestParse_TestNestedRecords;
 begin
-  TestParseFile('TestNestedRecords', 984);
+  TestParseFile('TestNestedRecords', 1189);
 end;
 
-procedure TTestParse.TestParse_TestOperators;
+procedure TTestFileParse.TestParse_TestOperators;
 begin
   TestParseFile('TestOperators', 1128);
 end;
 
-procedure TTestParse.TestParse_TestParams;
+procedure TTestFileParse.TestParse_TestParams;
 begin
   TestParseFile('TestParams', 218);
 end;
 
-procedure TTestParse.TestParse_TestParamSpaces;
+procedure TTestFileParse.TestParse_TestParamSpaces;
 begin
   TestParseFile('TestParamSpaces', 159);
 end;
 
-procedure TTestParse.TestParse_TestPointers;
+procedure TTestFileParse.TestParse_TestPointers;
 begin
   TestParseFile('TestPointers', 193);
 end;
 
-procedure TTestParse.TestParse_TestProgram;
+procedure TTestFileParse.TestParse_TestProgram;
 begin
   TestParseFile('TestProgram', 1246);
 end;
 
-procedure TTestParse.TestParse_TestProperties;
+procedure TTestFileParse.TestParse_TestProperties;
 begin
   TestParseFile('TestProperties', 677);
 end;
 
-procedure TTestParse.TestParse_TestPropertyLines;
+procedure TTestFileParse.TestParse_TestPropertyLines;
 begin
   TestParseFile('TestPropertyLines', 1186);
 end;
 
-procedure TTestParse.TestParse_TestRecords;
+procedure TTestFileParse.TestParse_TestRecords;
 begin
-  TestParseFile('TestRecords', 1244);
+  TestParseFile('TestRecords', 1455);
 end;
 
-procedure TTestParse.TestParse_TestReg;
+procedure TTestFileParse.TestParse_TestReg;
 begin
   TestParseFile('TestReg', 85);
 end;
 
-procedure TTestParse.TestParse_TestReint;
+procedure TTestFileParse.TestParse_TestReint;
 begin
   TestParseFile('TestReint', 159);
 end;
 
-procedure TTestParse.TestParse_TestReturnRemoval;
+procedure TTestFileParse.TestParse_TestReturnRemoval;
 begin
   TestParseFile('TestReturnRemoval', 256);
 end;
 
-procedure TTestParse.TestParse_TestReturns;
+procedure TTestFileParse.TestParse_TestReturns;
 begin
   TestParseFile('TestReturns', 141);
 end;
 
-procedure TTestParse.TestParse_TestRunOnConst;
+procedure TTestFileParse.TestParse_TestRunOnConst;
 begin
   TestParseFile('TestRunOnConst', 465);
 end;
 
-procedure TTestParse.TestParse_TestRunOnDef;
+procedure TTestFileParse.TestParse_TestRunOnDef;
 begin
   TestParseFile('TestRunOnDef', 363);
 end;
 
-procedure TTestParse.TestParse_TestRunOnLine;
+procedure TTestFileParse.TestParse_TestRunOnLine;
 begin
   TestParseFile('TestRunOnLine', 3668);
 end;
 
-procedure TTestParse.TestParse_TestTPObjects;
+procedure TTestFileParse.TestParse_TestTPObjects;
 begin
   TestParseFile('TestTPObjects', 126);
 end;
 
-procedure TTestParse.TestParse_TestTry;
+procedure TTestFileParse.TestParse_TestTry;
 begin
   TestParseFile('TestTry', 391);
 end;
 
-procedure TTestParse.TestParse_TestTypeDefs;
+procedure TTestFileParse.TestParse_TestTypeDefs;
 begin
   TestParseFile('TestTypeDefs', 793);
 end;
 
-procedure TTestParse.TestParse_TestUses;
+procedure TTestFileParse.TestParse_TestUses;
 begin
   TestParseFile('TestUses', 64);
 end;
 
-procedure TTestParse.TestParse_TestUsesChanges;
+procedure TTestFileParse.TestParse_TestUsesChanges;
 begin
   TestParseFile('TestUsesChanges', 56);
 end;
 
-procedure TTestParse.TestParse_TestWarnings;
+procedure TTestFileParse.TestParse_TestWarnings;
 begin
   TestParseFile('TestWarnings', 700);
 end;
 
-procedure TTestParse.TestParse_TestCases;
+procedure TTestFileParse.TestParse_TestCases;
 begin
   TestParseFile('Testcases.dpr', 551);
 end;
 
 initialization
- TestFramework.RegisterTest(TTestParse.Suite);
+ TestFramework.RegisterTest(TTestFileParse.Suite);
 end.

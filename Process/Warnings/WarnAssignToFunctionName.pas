@@ -68,10 +68,10 @@ begin
       lcSourceToken := TSourceToken(lcChildNode);
 
       if lcSourceToken.TokenType in IdentifierTypes then
-        Result := lcSourceToken
-      else if lcSourceToken.TokenType = ttAssign then
-        break;
-    end;
+        Result := lcSourceToken;
+    end
+    else if lcChildNode.NodeType = nAssignment then
+      break;
 
   end;
 end;
@@ -107,7 +107,7 @@ begin
   Assert(pcRoot <> nil);
   lcNode := TParseTreeNode(pcRoot);
 
-  if (lcNode.NodeType = nStatement) and (lcNode.HasChildNode(ttAssign, 1)) then
+  if (lcNode.NodeType = nStatement) and (lcNode.HasChildNode(nAssignment, 1)) then
   begin
 
     // this is an assign statement. Look at the LHS

@@ -254,6 +254,10 @@ begin
       begin
         ... }
   lcCommentTest := lcNext.NextTokenWithExclusions([ttWhiteSpace, ttReturn]);
+
+  if lcCommentTest = nil then
+    exit;
+
   if (lcCommentTest.TokenType = ttComment) then
     exit;
 
