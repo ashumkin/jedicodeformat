@@ -35,7 +35,7 @@ procedure Register;
 implementation
 
 uses
-  { delphi } Menus, Dialogs, ExtCtrls,
+  { delphi } Menus, Dialogs, ExtCtrls, ActnList,
   { local } JcfIdeMain, Delay;
 
 const
@@ -124,6 +124,13 @@ begin
   FreeAndNil(fcMainMenu);
 end;
 
+function IDEActionList: TCustomActionList;
+var
+  NTAServices: INTAServices;
+begin
+  NTAServices := BorlandIDEServices as INTAServices;
+  Result      := NTAServices.ActionList;
+end;
 
 procedure AddMenuItems(var pbDoAgain: Boolean);
 var
@@ -132,6 +139,7 @@ var
   procedure AddMenuItem(const psName: string; const pcHandler: TNotifyEvent);
   var
     lcItem: TMenuItem;
+    lcAction: TAction;
   begin
     Assert(psName <> '');
     // must have a callback unless it's a seperator line
@@ -140,8 +148,22 @@ var
     lcItem := TMenuItem.Create(fcMainMenu);
     Assert(lcItem <> nil);
 
-    lcItem.Caption := psName;
-    lcItem.OnClick := pcHandler;
+    if psName = '-' then
+    begin
+      lcItem.Caption := psName;
+      lcItem.OnClick := pcHandler;
+    end
+    else
+    begin
+      lcAction           := TAction.Create(fcMainMenu);
+      lcAction.Category  := StripHotKey(FORMAT_MENU_NAME);
+      lcAction.Name      :=
+        'jcf' + StringReplace(StripHotKey(psName), ' ', '', [rfReplaceAll]) + 'Action';
+      lcAction.Caption   := psName;
+      lcAction.OnExecute := pcHandler;
+      lcAction.ActionList := IDEactionList;
+      lcItem.Action      := lcAction;
+    end;
 
     Assert(fcMainMenu <> nil);
     fcMainMenu.Add(lcItem);
