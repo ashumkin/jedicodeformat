@@ -482,7 +482,7 @@ object frmAboutBox: TfrmAboutBox
         'make readable the layout of any Delphi '
         'Object-Pascal source code.'
         ''
-        'Copyright Anthony Steele 1999-2003')
+        'Copyright Anthony Steele 1999-2004')
       ParentColor = True
       ReadOnly = True
       TabOrder = 1
