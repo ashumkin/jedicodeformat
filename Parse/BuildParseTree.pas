@@ -1970,6 +1970,10 @@ begin
       RecogniseActualParams;
     end;
 
+    // can be a hat after the close backets to deref the return value
+    if TokenList.FirstSolidTokenType = ttHat then
+      Recognise(ttHat);
+
     // dot next ?
     if TokenList.FirstSolidTokenType = ttDot then
     begin
@@ -2627,11 +2631,16 @@ begin
 
   Recognise(ttOpenBracket);
 
-  RecogniseFormalParam;
-  while TokenList.FirstSolidTokenType = ttSemicolon do
+  { funciton Foo(); is accepted so must allow empty brackets }
+
+  if TokenList.FirstSolidTokenType <> ttCloseBracket then
   begin
-    Recognise(ttSemicolon);
     RecogniseFormalParam;
+    while TokenList.FirstSolidTokenType = ttSemicolon do
+    begin
+      Recognise(ttSemicolon);
+      RecogniseFormalParam;
+    end;
   end;
 
   Recognise(ttCloseBracket);
@@ -3743,13 +3752,38 @@ begin
 end;
 
 procedure TBuildParseTree.RecogniseActualParams;
+var
+  lbMore: boolean;
 begin
   PushNode(nActualParams);
 
   Recognise(ttOpenBracket);
 
   if TokenList.FirstSolidTokenType <> ttCloseBracket then
-    RecogniseExprList;
+  begin
+    //RecogniseExprList;
+
+    repeat
+      RecogniseExpr;
+
+      { ole named param syntax, e.g.
+        " MSWord.TextToTable(ConvertFrom := 2, NumColumns := 3);"
+      }
+
+      if TokenList.FirstSolidTokenType = ttAssign then
+      begin
+        Recognise(ttAssign);
+        RecogniseExpr;
+      end;
+
+      lbMore := TokenList.FirstSolidTokenType = ttComma;
+      if lbMore then
+        Recognise(ttComma);
+
+    until not lbMore;
+
+  end;
+
   Recognise(ttCloseBracket);
 
   PopNode;

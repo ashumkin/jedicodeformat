@@ -53,6 +53,8 @@ type
     procedure TestObfuscate_LittleTest9;
     procedure TestObfuscate_LittleTest10;
     procedure TestObfuscate_LittleTest11;
+    procedure TestObfuscate_LittleTest12;
+    procedure TestObfuscate_LittleTest13;
 
     procedure TestObfuscate_TestAbsolute;
     procedure TestObfuscate_TestAlign;
@@ -99,6 +101,7 @@ type
     procedure TestObfuscate_TestMVB;
     procedure TestObfuscate_TestNested;
     procedure TestObfuscate_TestNestedRecords;
+    procedure TestObfuscate_TestOleParams;
     procedure TestObfuscate_TestOperators;
     procedure TestObfuscate_TestParams;
     procedure TestObfuscate_TestParamSpaces;
@@ -532,6 +535,11 @@ begin
   TestObfuscateFile('TestNestedRecords');
 end;
 
+procedure TTestObfuscate.TestObfuscate_TestOleParams;
+begin
+  TestObfuscateFile('TestOleParams');
+end;
+
 procedure TTestObfuscate.TestObfuscate_TestOperators;
 begin
   TestObfuscateFile('TestOperators');
@@ -690,6 +698,16 @@ end;
 procedure TTestObfuscate.TestObfuscate_LittleTest11;
 begin
   TestObfuscateFile('LittleTest11');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest12;
+begin
+  TestObfuscateFile('LittleTest12');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest13;
+begin
+  TestObfuscateFile('LittleTest13');
 end;
 
 initialization

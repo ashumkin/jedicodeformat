@@ -52,6 +52,8 @@ type
     procedure TestClarify_LittleTest9;
     procedure TestClarify_LittleTest10;
     procedure TestClarify_LittleTest11;
+    procedure TestClarify_LittleTest12;
+    procedure TestClarify_LittleTest13;
 
     procedure TestClarify_TestAbsolute;
     procedure TestClarify_TestAlign;
@@ -101,6 +103,7 @@ type
     procedure TestClarify_TestMVB;
     procedure TestClarify_TestNested;
     procedure TestClarify_TestNestedRecords;
+    procedure TestClarify_TestOleParams;
     procedure TestClarify_TestOperators;
     procedure TestClarify_TestParams;
     procedure TestClarify_TestParamSpaces;
@@ -540,6 +543,11 @@ begin
   TestClarifyFile('TestOperators');
 end;
 
+procedure TFullTestClarify.TestClarify_TestOleParams;
+begin
+  TestClarifyFile('TestOleParams');
+end;
+
 procedure TFullTestClarify.TestClarify_TestPackage;
 begin
   TestClarifyFile('TestMe.dpk');
@@ -663,6 +671,16 @@ end;
 procedure TFullTestClarify.TestClarify_TestWith;
 begin
   TestClarifyFile('TestWith');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest12;
+begin
+  TestClarifyFile('LittleTest12');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest13;
+begin
+  TestClarifyFile('LittleTest13');
 end;
 
 initialization

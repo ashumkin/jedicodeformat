@@ -77,7 +77,10 @@ uses
   TestMessages in 'TestMessages.pas',
   LittleTest10 in 'LittleTest10.pas',
   TestInheritedExpr in 'TestInheritedExpr.pas',
-  LittleTest11 in 'LittleTest11.pas';
+  LittleTest11 in 'LittleTest11.pas',
+  LittleTest12 in 'LittleTest12.pas',
+  LittleTest13 in 'LittleTest13.pas',
+  TestOleParams in 'TestOleParams.pas';
 
 {$R *.res}
 

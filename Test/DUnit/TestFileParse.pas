@@ -56,6 +56,8 @@ type
     procedure TestParse_LittleTest9;
     procedure TestParse_LittleTest10;
     procedure TestParse_LittleTest11;
+    procedure TestParse_LittleTest12;
+    procedure TestParse_LittleTest13;
 
     procedure TestParse_TestAbsolute;
     procedure TestParse_TestAlign;
@@ -102,6 +104,7 @@ type
     procedure TestParse_TestMVB;
     procedure TestParse_TestNested;
     procedure TestParse_TestNestedRecords;
+    procedure TestParse_TestOleParams;
     procedure TestParse_TestOperators;
     procedure TestParse_TestParams;
     procedure TestParse_TestParamSpaces;
@@ -501,6 +504,11 @@ begin
   TestParseFile('TestNestedRecords', 1189);
 end;
 
+procedure TTestFileParse.TestParse_TestOleParams;
+begin
+  TestParseFile('TestOleParams', 113);
+end;
+
 procedure TTestFileParse.TestParse_TestOperators;
 begin
   TestParseFile('TestOperators', 1232);
@@ -613,7 +621,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 655);
+  TestParseFile('Testcases.dpr', 679);
 end;
 
 
@@ -666,6 +674,16 @@ end;
 procedure TTestFileParse.TestParse_LittleTest11;
 begin
   TestParseFile('LittleTest11', 97);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest12;
+begin
+  TestParseFile('LittleTest12', 54);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest13;
+begin
+  TestParseFile('LittleTest13', 86);
 end;
 
 initialization
