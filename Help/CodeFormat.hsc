@@ -100,13 +100,13 @@ FALSE
 \par 
 \par \f0 All of these program contain the same code formatting engine with different interfaces.\f1 
 \par 
-\par \b\f0 jcf.exe\b0  - A command-line program suitable for batch files and old-school unix programmers. The  functionality is much like \b JcfGui.exe\b0 , i.e. it can work on a file, a directory or a directy tree, and can format files in place, or to an output file.
+\par \b\f0 jcf.exe\b0  - A command-line program suitable for batch files and old-school unix programmers. The  functionality is much like JcfGui.exe, i.e. it can work on a file, a directory or a directy tree, and can format files in place, or to an output file.
 \par 
 \par \b jcfGui.exe\b0  - A GUI interface to formatting files and directories. Best used when you want to interactively format a file, directory or directory tree.
 \par 
 \par \b JcfIde7.bpl\b0  - The JCF Delphi IDE plug-in compiled for Delphi 7. Requires JCL and JCVL. This is the easiest way to use the formatter. Just press a button and watch your code change. the other advantage is that if you don't like the results, by clicking "undo" twice immediately you can undo the format.
 \par 
-\par If anyone can compile the ISE pluggin for other versions of Delphi I will gladly upload the binaries to Sourceforge.
+\par If anyone can compile the IDE pluggin for other versions of Delphi I will gladly upload the binaries to Sourceforge.
 \par 
 \par \b JcfNotepad.exe\b0  is a new gui - for experimenting with source and layout. Input source is loaded/typed/pasted into the input text area, and the formatter output is generated to the output text area, and can then be saved. Or not.\f1 
 \par }
@@ -468,7 +468,7 @@ Writing
 
 
 FALSE
-11
+12
 {\rtf1\ansi\ansicpg1252\deff0\deflang2057{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil Arial;}{\f2\fswiss Arial;}{\f3\fswiss\fcharset0 Arial;}}
 {\colortbl ;\red0\green0\blue255;\red0\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\fs32 Clarify: Long Lines\cf2\b0\f1\fs20 
@@ -478,7 +478,8 @@ FALSE
 \par \cf0\b\f3 B\lang1031\f2 reak l\lang2057\f3 ines that are longer than the max line length\lang1031\f2 :\b0  A line longer than the \lang2057\b\f3 max line length \lang1031\b0\f2 threshold (the standards recommend 80 chars) will be broken if possible.\lang2057\f3 
 \par \lang1031\f2 
 \par \lang2057\b\f3 Usually:\b0   Break the line at the best place, if any place at all is found where the line can be broken.\b 
-\par Sometimes\b0 : Break the line at the best place, provided that the best place is good enough. This option is recommended, as it means that you should never have a return inserted in an ugly place just for the sake of breaking a line.\cf2\f1 
+\par Sometimes:\b0  Break the line at the best place, provided that the best place is good enough. This option is recommended, as it means that you should never have a return inserted in an ugly place just for the sake of breaking a line.
+\par \b Never:\b0  Do not break long lines.\cf2\f1 
 \par }
 90
 Scribble90
@@ -818,7 +819,7 @@ FALSE
 \par 
 \par \cf0\lang1031\f2 Th\lang2057\f3 is page \cf2\f0 of the JCF Format settings controls preprocessor handling. Uncheck \b enabled \b0 for behaviour identical to previous versions.
 \par 
-\par The preprocessor in Delphi is a set of symbols that start with \f4\{$\f0  and are used to turn on or turn off compilation or certain parts of the source. The preprocessor happens before the Delphi compiler, it is not part of the Object-Pascal syntax. This can be proved simply, as the following code compiles:
+\par The preprocessor in Delphi is a set of symbols that start with \f4\{$\f0  and are used to turn on or turn off compilation or certain parts of the source. The preprocessor happens before the Delphi compiler, and is not part of the Object-Pascal syntax. This can be proved simply, as the following code compiles:
 \par 
 \par \cf0\f4\{$IFDEF I_AM_NOT_DEFINED\}\cf2 
 \par   this is not object-pascal.
@@ -958,7 +959,7 @@ FALSE
 \viewkind4\uc1\pard\cf1\lang3079\b\fs32 Special comments\cf0\lang1031\b0\f1\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
-\par The code formatter now recognizes certain comments to disable and enable formatting options around blocks of code.
+\par The code formatter recognizes certain comments to disable and enable formatting options around blocks of code.
 \par 
 \par Since the earliest versions, the comments \f2\{(*\}\f1  and \f2\{*)\}\f1  could be used to disable and reenable formatting respectively, in order to exclude a block of code from formatting. 
 \par 
