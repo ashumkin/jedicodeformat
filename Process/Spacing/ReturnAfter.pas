@@ -38,24 +38,26 @@ const
 
 { semicolons have returns after them except for a few places
    1) before and between procedure directives, e.g. procedure Fred; virtual; safecall;
-   2) The array property directive 'default' has a semicolon before it
+   2)  property directives such as 'default' has a semicolon before it.
+       Only the semicolon that ends the propery def always have a line break after it
    3) seperating fields of a const record declaration
    4) between params in a procedure declaration or header
    5) as 4, in a procedure type in a type def
 }
-function SemicolonHasReturn(const pt: TSourceToken): boolean;
+function SemicolonHasReturn(const pt, ptNext: TSourceToken): boolean;
 begin
   Result := True;
 
   { point 1 }
-  if (pt.HasParentNode(nProcedureDirectives)) then
+  if (ptNext.HasParentNode(nProcedureDirectives)) then
   begin
     Result := False;
     exit;
   end;
 
-  { point 2}
-  if pt.HasParentNode(nPropertySpecifier) then
+  { point 2. to avoid the return,
+    the next token must still be in the same  property}
+  if ptNext.HasParentNode(nProperty) and (ptNext.Word <> wProperty) then
   begin
     Result := False;
     exit;
@@ -138,7 +140,7 @@ begin
 
   if (pt.TokenType = ttSemiColon) then
   begin
-    Result := SemicolonHasReturn(pt);
+    Result := SemicolonHasReturn(pt, ptNext);
     if Result then
       exit;
   end;

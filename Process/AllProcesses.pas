@@ -167,7 +167,7 @@ begin
 
   ApplyVisitorType(TRemoveBlankLinesAfterProcHeader);
   ApplyVisitorType(TVisitStripEmptySpace);
-  
+
   ApplyVisitorType(TRemoveBlankLinesInVars);
   ApplyVisitorType(TVisitStripEmptySpace);
 
