@@ -37,7 +37,8 @@ type
     eAlignVars, eAlignConst, eAlignTypeDef, eAlignAssign,  eAlignComment,
     eCapsReservedWord, eCapsSpecificWord,
     eIndent, eLineBreaking, eBlockStyle,
-    eWarning, eFindReplace, eFindReplaceUses);
+    eWarning,
+    eFindReplace, eFindReplaceUses, eRemoveComments);
 
 
   { these flags control:
@@ -79,7 +80,7 @@ type
   end;
 
 const
-  FORMAT_FLAG_NAMES: array[1..27] of TRFlagNameData =
+  FORMAT_FLAG_NAMES: array[1..28] of TRFlagNameData =
   (
   (sName: 'format'; eFlags: [eAllFormat]),
   (sName: 'obfuscate'; eFlags: [eObfuscate]),
@@ -121,7 +122,9 @@ const
 
   (sName: 'warnings'; eFlags: [eWarning]),
   (sName: 'findreplace'; eFlags: [eFindReplace]),
-  (sName: 'findreplaceuses'; eFlags: [eFindReplaceUses])
+  (sName: 'findreplaceuses'; eFlags: [eFindReplaceUses]),
+
+  (sName: 'reovecomments'; eFlags: [eRemoveComments])
   );
 
 

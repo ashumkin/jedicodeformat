@@ -150,7 +150,10 @@ uses
   UsesClauseInsert in '..\Process\Transform\UsesClauseInsert.pas',
   UsesClauseRemove in '..\Process\Transform\UsesClauseRemove.pas',
   UsesClauseFindReplace in '..\Process\Transform\UsesClauseFindReplace.pas',
-  PreProcessorParseTree in '..\Parse\PreProcessor\PreProcessorParseTree.pas';
+  PreProcessorParseTree in '..\Parse\PreProcessor\PreProcessorParseTree.pas',
+  RemoveEmptyComment in '..\Process\RemoveEmptyComment.pas',
+  SetComments in '..\Settings\SetComments.pas',
+  frComments in '..\Ui\Settings\frComments.pas' {fComments: TFrame};
 
 {$R *.res}
 

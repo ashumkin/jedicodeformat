@@ -204,7 +204,7 @@ begin
   if Reader.Current = '$' then
     pcToken.CommentStyle := eCompilerDirective
   else
-    pcToken.CommentStyle := eCurly;
+    pcToken.CommentStyle := eCurlyBrace;
 
   { comment is ended by close-curly or by EOF (bad source) }
   while (Reader.Last <> '}') and not (Reader.BufferEndOfFile) do

@@ -72,6 +72,7 @@ uses
   RemoveConsecutiveWhiteSpace, RemoveUnneededWhiteSpace, RebreakLines,
   { transform }
   FindReplace, UsesClauseInsert, UsesClauseRemove, UsesClauseFindReplace,
+  RemoveEmptyComment,
   { warnings }
   Warning, WarnEmptyBlock, WarnRealType, WarnAssignToFunctionName,
   WarnCaseNoElse, WarnDestroy,
@@ -193,6 +194,8 @@ begin
   ApplyVisitorType(TUsesClauseInsert);
   ApplyVisitorType(TUsesClauseRemove);
   ApplyVisitorType(TUsesClauseFindReplace);
+
+  ApplyVisitorType(TRemoveEmptyComment);
 end;
 
 

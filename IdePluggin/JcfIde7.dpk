@@ -176,6 +176,9 @@ contains
   Tokens in '..\Parse\Tokens.pas',
   BuildParseTree in '..\Parse\BuildParseTree.pas',
   JcfMiscFunctions in '..\Utils\JcfMiscFunctions.pas',
-  PreProcessorParseTree in '..\Parse\PreProcessor\PreProcessorParseTree.pas';
+  PreProcessorParseTree in '..\Parse\PreProcessor\PreProcessorParseTree.pas',
+  RemoveEmptyComment in '..\Process\RemoveEmptyComment.pas',
+  frComments in '..\Ui\Settings\frComments.pas' {fComments},
+  SetComments in '..\Settings\SetComments.pas';
 
 end.

@@ -31,7 +31,7 @@ uses
   { delphi } Classes, Registry,
   { local } SetObfuscate, SetClarify,
   SetIndent, SetSpaces, SetReturns,
-  SetCaps, SetWordList,
+  SetComments, SetCaps, SetWordList,
   SetAlign, SetReplace, SetUses, SetPreProcessor,
   SettingsStream, VersionConsts;
 
@@ -41,9 +41,10 @@ type
   private
     fcObfuscate: TSetObfuscate;
     fcClarify: TSetClarify;
-    fcReturns: TSetReturns;
     fcSpaces: TSetSpaces;
     fcIndent: TSetIndent;
+    fcReturns: TSetReturns;
+    fcComments: TSetComments;
 
     fcCaps: TSetCaps;
     fcSpecificWordCaps: TSetWordList;
@@ -83,6 +84,7 @@ type
     property Indent: TSetIndent read fcIndent;
     property Spaces: TSetSpaces read fcSpaces;
     property Returns: TSetReturns read fcReturns;
+    property Comments: TSetComments read fcComments;
 
     property Caps: TSetCaps read fcCaps;
     property SpecificWordCaps: TSetWordList read fcSpecificWordCaps;
@@ -118,6 +120,8 @@ begin
   fcSpaces := TSetSpaces.Create;
   fcReturns := TSetReturns.Create;
 
+  fcComments := TSetComments.Create;
+
   fcCaps := TSetCaps.Create;
   fcSpecificWordCaps := TSetWordList.Create('SpecificWordCaps');
   fcUnitNameCaps := TSetWordList.Create('UnitNameCaps');
@@ -142,6 +146,7 @@ begin
   FreeAndNil(fcIndent);
   FreeAndNil(fcSpaces);
   FreeAndNil(fcReturns);
+  FreeAndNil(fcComments);
 
   FreeAndNil(fcCaps);
   FreeAndNil(fcSpecificWordCaps);

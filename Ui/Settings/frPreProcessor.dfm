@@ -30,9 +30,9 @@ inherited fPreProcessor: TfPreProcessor
   object cbEnable: TCheckBox
     Left = 6
     Top = 6
-    Width = 61
+    Width = 167
     Height = 17
-    Caption = 'Enable'
+    Caption = 'Enable preprocessor parsing'
     Checked = True
     State = cbChecked
     TabOrder = 1

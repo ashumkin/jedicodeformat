@@ -380,11 +380,11 @@ function TokenTypesToString(const peTokens: TTokenTypeSet): string;
 { these} (* or these *) // or these
 type
   TCommentStyle = (eNotAComment, eDoubleSlash, eBracketStar,
-    eCurly, eCompilerDirective);
+    eCurlyBrace, eCompilerDirective);
   TCommentStyleSet = set of TCommentStyle;
 
 const
-  CURLY_COMMENTS: TCommentStyleSet = [eCurly, eCompilerDirective];
+  CURLY_COMMENTS: TCommentStyleSet = [eCurlyBrace, eCompilerDirective];
 
 
 { preprocessor symbols }

@@ -129,7 +129,8 @@ uses
   FindReplace in '..\Process\Transform\FindReplace.pas',
   fJcfErrorDisplay in '..\Ui\fJcfErrorDisplay.pas' {ExceptionDialog},
   ReturnsAfterFinalEnd in '..\Process\Returns\ReturnsAfterFinalEnd.pas',
-  PreProcessorParseTree in '..\Parse\PreProcessor\PreProcessorParseTree.pas';
+  PreProcessorParseTree in '..\Parse\PreProcessor\PreProcessorParseTree.pas',
+  RemoveEmptyComment in '..\Process\RemoveEmptyComment.pas';
 
 const
   ABOUT_COMMANDLINE =

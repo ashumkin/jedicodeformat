@@ -149,7 +149,8 @@ uses
   UsesClauseRemove in '..\..\Process\Transform\UsesClauseRemove.pas',
   UsesClauseFindReplace in '..\..\Process\Transform\UsesClauseFindReplace.pas',
   UsesClauseInsert in '..\..\Process\Transform\UsesClauseInsert.pas',
-  PreProcessorParseTree in '..\..\Parse\PreProcessor\PreProcessorParseTree.pas';
+  PreProcessorParseTree in '..\..\Parse\PreProcessor\PreProcessorParseTree.pas',
+  RemoveEmptyComment in '..\..\Process\RemoveEmptyComment.pas';
 
 {
   gpprof in '..\..\..\..\..\Program Files\GpProfile\gpprof.pas',
