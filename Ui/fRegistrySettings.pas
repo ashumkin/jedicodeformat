@@ -65,6 +65,7 @@ type
     mFiles: TJvMemo;
     mDirs: TJvMemo;
     cbWriteSettingsFile: TCheckBox;
+    cbWarnOnWriteFail: TCheckBox;
     procedure btnOKClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnClearMRUClick(Sender: TObject);
@@ -113,6 +114,7 @@ begin
   { general }
   eSettingsFile.Text := lcSet.FormatConfigFileName;
   cbWriteSettingsFile.Checked := lcSet.WriteSettingsFile;
+  cbWarnOnWriteFail.Checked := lcSet.WarnOnWriteFail;
 
   eMRUMaxItems.Value := lcSet.MRUMaxItems;
   rgShowParseTree.ItemIndex := Ord(lcSet.ShowParseTreeOption);
@@ -152,6 +154,7 @@ begin
   end;
 
   lcSet.WriteSettingsFile := cbWriteSettingsFile.Checked;
+  lcSet.WarnOnWriteFail := cbWarnOnWriteFail.Checked;
 
   lcSet.MRUMaxItems := eMRUMaxItems.Value;
   lcSet.ShowParseTreeOption := TShowParseTreeOption(rgShowParseTree.ItemIndex);

@@ -65,6 +65,7 @@ type
 
     procedure FromStream(const pcStream: TSettingsInput);
 
+    procedure DoWrite;
   protected
 
   public
@@ -148,20 +149,8 @@ end;
 
 destructor TFormatSettings.Destroy;
 begin
-  { user may have specified no-write }
-  if not GetRegSettings.WriteSettingsFile then
-    WriteOnExit := False;
-
-  try
-    if WriteOnExit and Dirty and
-      ( not FileIsReadOnly(GetRegSettings.FormatConfigFileName)) then
-      Write;
-  except
-    on e: Exception do
-      MessageDlg('Error writing settings file ' +
-        GetRegSettings.FormatConfigFileName + AnsiLineBreak + ' :' +
-        E.Message, mtError, [mbOK], 0);
-  end;
+  if WriteOnExit then
+    Write;
 
   FreeAndNil(fcObfuscate);
   FreeAndNil(fcClarify);
@@ -237,10 +226,48 @@ end;
 
 procedure TFormatSettings.Write;
 var
+  lcReg: TJCFRegistrySettings;
+begin
+  if not Dirty then
+    exit;
+
+  { user may have specified no-write }
+  lcReg := GetRegSettings;
+  if not lcReg.WriteSettingsFile then
+    exit;
+
+  if lcReg.FormatConfigFileName = '' then
+    exit;
+
+  if FileIsReadOnly(lcReg.FormatConfigFileName) then
+  begin
+    { fail quietly? }
+    if lcReg.WarnOnWriteFail then
+        MessageDlg('Error writing settings file: ' +
+          lcReg.FormatConfigFileName + ' is read only', mtError, [mbOK], 0);
+
+    exit;
+  end;
+
+  try
+    DoWrite;
+  except
+    on e: Exception do
+    begin
+      if lcReg.WarnOnWriteFail then
+      begin
+        MessageDlg('Error writing settings file ' +
+          GetRegSettings.FormatConfigFileName + AnsiLineBreak + ' :' +
+          E.Message, mtError, [mbOK], 0);
+      end;
+    end;
+  end;
+end;
+
+procedure TFormatSettings.DoWrite;
+var
   lcFile: TSettingsStreamOutput;
 begin
-  if GetRegSettings.FormatConfigFileName = '' then
-    exit;
 
   // use the Settings File 
   lcFile := TSettingsStreamOutput.Create(GetRegSettings.FormatConfigFileName);
