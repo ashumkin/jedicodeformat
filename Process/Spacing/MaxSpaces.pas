@@ -47,7 +47,8 @@ implementation
 uses
   SysUtils,
   JclStrings,
-  JcfSettings, SourceToken, Tokens, FormatFlags, SetSpaces;
+  JcfSettings, SourceToken, Tokens,
+  FormatFlags, SetSpaces, ParseTreeNodeType;
 
 constructor TMaxSpaces.Create;
 begin
@@ -58,11 +59,21 @@ end;
 
 procedure TMaxSpaces.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
-  lcSourceToken: TSourceToken;
+  lcSourceToken, lcNext: TSourceToken;
 begin
   lcSourceToken := TSourceToken(pcNode);
 
+  { only look at white space }
   if (lcSourceToken.TokenType <> ttWhiteSpace) then
+    exit;
+
+  { not in asm blocks }
+  if lcSourceToken.HasParentNode(nAsm) then
+    exit;
+
+  { not before comments }
+  lcNext := lcSourceToken.NextToken;
+  if (lcNext <> nil) and (lcNext.TokenType = ttComment) then
     exit;
 
   { don't truncate the indentation spaces }

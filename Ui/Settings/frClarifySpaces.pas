@@ -58,6 +58,7 @@ type
     edtMaxSpacesInCode: TJvIntegerEdit;
     procedure cbTabsToSpacesClick(Sender: TObject);
     procedure cbSpacesToTabsClick(Sender: TObject);
+    procedure cbMaxSpacesClick(Sender: TObject);
   private
   public
     constructor Create(AOwner: TComponent); override;
@@ -110,6 +111,7 @@ begin
 
   cbTabsToSpacesClick(nil);
   cbSpacesToTabsClick(nil);
+  cbMaxSpacesClick(nil);
 end;
 
 procedure TfClarifySpaces.Write;
@@ -149,6 +151,11 @@ end;
 procedure TfClarifySpaces.cbSpacesToTabsClick(Sender: TObject);
 begin
   edtSpacesForTab.Enabled := cbSpacesToTabs.Checked;
+end;
+
+procedure TfClarifySpaces.cbMaxSpacesClick(Sender: TObject);
+begin
+  edtMaxSpacesInCode.Enabled := cbMaxSpaces.Checked;
 end;
 
 end.

@@ -181,6 +181,7 @@ contains
   frComments in '..\Ui\Settings\frComments.pas' {fComments},
   SetComments in '..\Settings\SetComments.pas',
   RemoveConsecutiveReturns in '..\Process\Returns\RemoveConsecutiveReturns.pas',
-  frBlankLines in '..\Ui\Settings\frBlankLines.pas' {fBlankLines};
+  frBlankLines in '..\Ui\Settings\frBlankLines.pas' {fBlankLines},
+  MaxSpaces in '..\Process\Spacing\MaxSpaces.pas';
 
 end.

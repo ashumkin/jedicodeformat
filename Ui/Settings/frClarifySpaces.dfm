@@ -11,7 +11,7 @@ inherited fClarifySpaces: TfClarifySpaces
   end
   object cbSpaceClassHeritage: TCheckBox
     Left = 8
-    Top = 28
+    Top = 24
     Width = 161
     Height = 17
     Caption = 'Space before class heritage'
@@ -19,7 +19,7 @@ inherited fClarifySpaces: TfClarifySpaces
   end
   object gbColon: TGroupBox
     Left = 2
-    Top = 48
+    Top = 42
     Width = 213
     Height = 189
     Caption = 'Spaces before colon in'
@@ -153,9 +153,9 @@ inherited fClarifySpaces: TfClarifySpaces
   end
   object gbTabs: TGroupBox
     Left = 2
-    Top = 240
+    Top = 232
     Width = 277
-    Height = 77
+    Height = 72
     Caption = 'Tab characters'
     TabOrder = 3
     object Label1: TLabel
@@ -167,7 +167,7 @@ inherited fClarifySpaces: TfClarifySpaces
     end
     object Label3: TLabel
       Left = 136
-      Top = 48
+      Top = 44
       Width = 69
       Height = 13
       Caption = 'Spaces for tab'
@@ -183,7 +183,7 @@ inherited fClarifySpaces: TfClarifySpaces
     end
     object cbSpacesToTabs: TCheckBox
       Left = 6
-      Top = 48
+      Top = 44
       Width = 117
       Height = 17
       Caption = 'Turn spaces to tabs'
@@ -206,7 +206,7 @@ inherited fClarifySpaces: TfClarifySpaces
     end
     object edtSpacesForTab: TJvIntegerEdit
       Left = 212
-      Top = 46
+      Top = 42
       Width = 49
       Height = 21
       Alignment = taRightJustify
@@ -221,15 +221,16 @@ inherited fClarifySpaces: TfClarifySpaces
   end
   object cbMaxSpaces: TCheckBox
     Left = 4
-    Top = 324
+    Top = 308
     Width = 129
     Height = 17
     Caption = 'Max spaces in code'
     TabOrder = 4
+    OnClick = cbMaxSpacesClick
   end
   object edtMaxSpacesInCode: TJvIntegerEdit
     Left = 216
-    Top = 326
+    Top = 310
     Width = 49
     Height = 21
     Alignment = taRightJustify

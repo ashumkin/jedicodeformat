@@ -134,7 +134,8 @@ uses
   RemoveConsecutiveReturns in '..\Process\Returns\RemoveConsecutiveReturns.pas',
   UsesClauseFindReplace in '..\Process\Transform\UsesClauseFindReplace.pas',
   UsesClauseInsert in '..\Process\Transform\UsesClauseInsert.pas',
-  UsesClauseRemove in '..\Process\Transform\UsesClauseRemove.pas';
+  UsesClauseRemove in '..\Process\Transform\UsesClauseRemove.pas',
+  MaxSpaces in '..\Process\Spacing\MaxSpaces.pas';
 
 const
   ABOUT_COMMANDLINE =

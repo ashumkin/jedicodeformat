@@ -330,8 +330,11 @@ begin
     end;
   end;
 
-  { return after else unless there is an in }
-  if (pt.TokenType = ttElse) and (ptNext.TokenType <> ttIf) then
+  { return after else unless
+   - it is an "else if"
+   - it is an else case of a case statement
+   block styles takes care of these }
+  if (pt.TokenType = ttElse) and (ptNext.TokenType <> ttIf) and not (pt.HasParentNode(nElseCase, 1)) then
   begin
     Result := True;
     exit;
