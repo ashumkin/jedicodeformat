@@ -70,14 +70,17 @@ begin
   { can't pass property as var parameter so ls local var is used }
   ls := lcSourceToken.SourceCode;
 
-  { merge any following whitespacespace tokens }
-  lcNextToken := lcSourceToken.NextToken;
-	while (lcNextToken <> nil) and (lcNextToken.TokenType = ttWhiteSpace) do
-	begin
-		ls := ls + lcNextToken.SourceCode;
-		lcNextToken.SourceCode := '';
-		lcNextToken := lcNextToken.NextToken;
-	end;
+  { merge any following whitespace tokens with a whitespace }
+  if (lcSourceToken.TokenType = ttWhiteSpace) then
+  begin
+    lcNextToken := lcSourceToken.NextToken;
+    while (lcNextToken <> nil) and (lcNextToken.TokenType = ttWhiteSpace) do
+    begin
+      ls := ls + lcNextToken.SourceCode;
+      lcNextToken.SourceCode := '';
+      lcNextToken := lcNextToken.NextToken;
+    end;
+  end;
 
   StrReplace(ls, AnsiTab, fsSpaces, [rfReplaceAll]);
   lcSourceToken.SourceCode := ls;

@@ -107,6 +107,7 @@ type
     procedure TestParse_LittleTest59;
     procedure TestParse_LittleTest60;
     procedure TestParse_LittleTest61;
+    procedure TestParse_LittleTest62;
 
     procedure TestParse_TestAbsolute;
     procedure TestParse_TestAlign;
@@ -1085,6 +1086,11 @@ begin
   TestParseFile('LittleTest61', 24);
 end;
 
+procedure TTestFileParse.TestParse_LittleTest62;
+begin
+  TestParseFile('LittleTest62', 49);
+end;
+
 procedure TTestFileParse.TestParse_TestInline;
 begin
   TestParseFile('TestInline', 92);
@@ -1104,6 +1110,7 @@ procedure TTestFileParse.TestParse_TestCondReturns;
 begin
   TestParseFile('TestCondReturns', 92);
 end;
+
 
 initialization
   TestFramework.RegisterTest(TTestFileParse.Suite);
