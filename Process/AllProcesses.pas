@@ -86,7 +86,7 @@ uses
   NoReturnBefore, NoReturnAfter, ReturnBefore, ReturnAfter,
   BlockStyles, ReturnsAfterFinalEnd, RemoveConsecutiveReturns,
   { spacing}
-  TabToSpace, SpaceToTab,
+  TabToSpace, SpaceToTab, MaxSpaces,
   NoSpaceAfter, NoSpaceBefore, SingleSpaceBefore, SingleSpaceAfter,
   SpaceBeforeColon, RemoveSpaceAtLineEnd, VisitStripEmptySpace,
   {indent}
@@ -101,7 +101,6 @@ begin
   inherited;
   fcOnMessages := nil;
 end;
-
 
 procedure TAllProcesses.ApplyVisitorType(const pcVisitorType: TTreeNodeVisitorType);
 var
@@ -222,6 +221,7 @@ procedure TAllProcesses.Spacing;
 begin
   ApplyVisitorType(TTabToSpace);
   ApplyVisitorType(TSpaceToTab);
+  ApplyVisitorType(TMaxSpaces);
 
   ApplyVisitorType(TNoSpaceAfter);
   ApplyVisitorType(TNoSpaceBefore);

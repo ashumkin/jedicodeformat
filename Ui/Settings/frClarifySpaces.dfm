@@ -1,6 +1,6 @@
 inherited fClarifySpaces: TfClarifySpaces
   Width = 295
-  Height = 343
+  Height = 394
   object cbFixSpacing: TCheckBox
     Left = 8
     Top = 6
@@ -218,5 +218,27 @@ inherited fClarifySpaces: TfClarifySpaces
       HasMaxValue = True
       HasMinValue = True
     end
+  end
+  object cbMaxSpaces: TCheckBox
+    Left = 4
+    Top = 324
+    Width = 129
+    Height = 17
+    Caption = 'Max spaces in code'
+    TabOrder = 4
+  end
+  object edtMaxSpacesInCode: TJvIntegerEdit
+    Left = 216
+    Top = 326
+    Width = 49
+    Height = 21
+    Alignment = taRightJustify
+    ReadOnly = False
+    TabOrder = 5
+    Value = 0
+    MaxValue = 99
+    MinValue = 0
+    HasMaxValue = True
+    HasMinValue = True
   end
 end

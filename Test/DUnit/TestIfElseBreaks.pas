@@ -11,6 +11,7 @@ type
   TTestIfElseBreaks = class(TBaseTestProcess)
   private
     leSaveIfElseStyle, leSaveBareBlockStyle: TBlockNewLineStyle;
+    leSaveCaseLabelStyle, leSaveCaseElseStyle: TBlockNewLineStyle;
 
   protected
     procedure Setup; override;
@@ -28,11 +29,18 @@ type
 
     procedure TestIfElseStyleNever;
     procedure TestIfElseNeverWithComment;
+
+    procedure TestCaseStatementNever1;
+    procedure TestCaseStatementNever2;
+    procedure TestCaseStatementLeaveAsIs1;
+    procedure TestCaseStatementLeaveAsIs2;
+    procedure TestCaseStatementAlways1;
+    procedure TestCaseStatementAlways2;
   end;
 
 implementation
 
-uses JclStrings, BlockStyles, JcfSettings;
+uses JclStrings, BlockStyles, JcfSettings, SetReturns;
 
 const
 
@@ -103,6 +111,9 @@ begin
 
   leSaveIfElseStyle := FormatSettings.Returns.ElseIfStyle;
   leSaveBareBlockStyle := FormatSettings.Returns.BlockStyle;
+
+  leSaveCaseLabelStyle := FormatSettings.Returns.CaseLabelStyle;
+  leSaveCaseElseStyle := FormatSettings.Returns.CaseElseStyle;
 end;
 
 procedure TTestIfElseBreaks.Teardown;
@@ -111,6 +122,9 @@ begin
 
   FormatSettings.Returns.ElseIfStyle := leSaveIfElseStyle;
   FormatSettings.Returns.BlockStyle := leSaveBareBlockStyle;
+
+  FormatSettings.Returns.CaseLabelStyle := leSaveCaseLabelStyle;
+  FormatSettings.Returns.CaseElseStyle := leSaveCaseElseStyle;
 end;
 
 procedure TTestIfElseBreaks.TestBlockStyleNever;
@@ -235,6 +249,91 @@ procedure TTestIfElseBreaks.TestIfElseRemoveReturn2;
 begin
   FormatSettings.Returns.ElseIfStyle := eNever;
   TestProcessResult(TBlockStyles, RETURN_REMOVED_TEXT, RETURN_REMOVED_TEXT);
+end;
+
+const
+  CASE_STATEMENT_IN_TEXT_NO_BREAKS =
+    'unit CaseTest;' + AnsiLineBreak + AnsiLineBreak +
+    'interface ' + AnsiLineBreak + AnsiLineBreak +
+    'implementation' + AnsiLineBreak + AnsiLineBreak +
+    'uses Dialogs;' + AnsiLineBreak + AnsiLineBreak +
+    'procedure foo(i: integer);' + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
+    '  case i of' + AnsiLineBreak +
+    '    1: ShowMessage(''1 ... OK'');' + AnsiLineBreak +
+    '    else ShowMessage(''else ... OK'');' + AnsiLineBreak +
+    '   end;' +  AnsiLineBreak +
+    '  end;' + AnsiLineBreak + AnsiLineBreak +
+    'end.';
+
+    CASE_STATEMENT_IN_TEXT_BREAKS =
+    'unit CaseTest;' + AnsiLineBreak + AnsiLineBreak +
+    'interface ' + AnsiLineBreak + AnsiLineBreak +
+    'implementation' + AnsiLineBreak + AnsiLineBreak +
+    'uses Dialogs;' + AnsiLineBreak + AnsiLineBreak +
+    'procedure foo(i: integer);' + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
+    '  case i of' + AnsiLineBreak +
+    '    1:' + AnsiLineBreak +
+    ' ShowMessage(''1 ... OK'');' + AnsiLineBreak +
+    '    else' + AnsiLineBreak +
+    ' ShowMessage(''else ... OK'');' + AnsiLineBreak +
+    '   end;' +  AnsiLineBreak +
+    '  end;' + AnsiLineBreak + AnsiLineBreak +
+    'end.';
+
+procedure TTestIfElseBreaks.TestCaseStatementNever1;
+begin
+  FormatSettings.Returns.CaseLabelStyle := eNever;
+  FormatSettings.Returns.CaseElseStyle := eNever;
+
+  // no breaks - text without breaks is left as is
+  TestProcessResult(TBlockStyles, CASE_STATEMENT_IN_TEXT_NO_BREAKS, CASE_STATEMENT_IN_TEXT_NO_BREAKS);
+end;
+
+procedure TTestIfElseBreaks.TestCaseStatementNever2;
+begin
+  FormatSettings.Returns.CaseLabelStyle := eNever;
+  FormatSettings.Returns.CaseElseStyle := eNever;
+
+  // no breaks - text with breaks is altered
+  TestProcessResult(TBlockStyles, CASE_STATEMENT_IN_TEXT_BREAKS, CASE_STATEMENT_IN_TEXT_NO_BREAKS);
+end;
+
+procedure TTestIfElseBreaks.TestCaseStatementLeaveAsIs1;
+begin
+  FormatSettings.Returns.CaseLabelStyle := eLeave;
+  FormatSettings.Returns.CaseElseStyle := eLeave;
+
+  // leave as is - text with no breaks is left as is
+  TestProcessResult(TBlockStyles, CASE_STATEMENT_IN_TEXT_NO_BREAKS, CASE_STATEMENT_IN_TEXT_NO_BREAKS);
+end;
+
+procedure TTestIfElseBreaks.TestCaseStatementLeaveAsIs2;
+begin
+  FormatSettings.Returns.CaseLabelStyle := eLeave;
+  FormatSettings.Returns.CaseElseStyle := eLeave;
+
+  // leave as is - text with breaks is left as is
+  TestProcessResult(TBlockStyles, CASE_STATEMENT_IN_TEXT_BREAKS, CASE_STATEMENT_IN_TEXT_BREAKS);
+end;
+
+procedure TTestIfElseBreaks.TestCaseStatementAlways1;
+begin
+  FormatSettings.Returns.CaseLabelStyle := eAlways;
+  FormatSettings.Returns.CaseElseStyle := eAlways;
+
+  // breaks - text without breaks has them inserted
+  TestProcessResult(TBlockStyles, CASE_STATEMENT_IN_TEXT_NO_BREAKS, CASE_STATEMENT_IN_TEXT_BREAKS);
+end;
+
+procedure TTestIfElseBreaks.TestCaseStatementAlways2;
+begin
+  FormatSettings.Returns.CaseLabelStyle := eAlways;
+  FormatSettings.Returns.CaseElseStyle := eAlways;
+
+  // breaks - text with breaks is left as is
+  TestProcessResult(TBlockStyles, CASE_STATEMENT_IN_TEXT_BREAKS, CASE_STATEMENT_IN_TEXT_BREAKS);
 end;
 
 initialization

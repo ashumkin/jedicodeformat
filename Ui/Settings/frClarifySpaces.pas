@@ -54,6 +54,8 @@ type
     eSpacesBeforeLabel: TJvIntegerEdit;
     Label5: TLabel;
     Label6: TLabel;
+    cbMaxSpaces: TCheckBox;
+    edtMaxSpacesInCode: TJvIntegerEdit;
     procedure cbTabsToSpacesClick(Sender: TObject);
     procedure cbSpacesToTabsClick(Sender: TObject);
   private
@@ -69,7 +71,7 @@ implementation
 
 {$R *.DFM}
 
-uses JcfHelp, JcfSettings;
+uses JcfHelp, JcfSettings, SetSpaces;
 
 constructor TfClarifySpaces.Create(AOwner: TComponent);
 begin
@@ -101,6 +103,9 @@ begin
 
     eSpacesBeforeCaseLabel.Value := SpacesBeforeColonCaseLabel;
     eSpacesBeforeLabel.Value := SpacesBeforeColonLabel;
+
+    cbMaxSpaces.Checked := UseMaxSpacesInCode;
+    edtMaxSpacesInCode.Value := MaxSpacesInCode;
   end;
 
   cbTabsToSpacesClick(nil);
@@ -127,6 +132,9 @@ begin
     SpacesBeforeColonClassVar := eSpacesBeforeColonClassVar.Value;
     SpacesBeforeColonCaseLabel := eSpacesBeforeCaseLabel.Value;
     SpacesBeforeColonLabel := eSpacesBeforeLabel.Value;
+
+    UseMaxSpacesInCode := cbMaxSpaces.Checked;
+    MaxSpacesInCode := edtMaxSpacesInCode.Value;
   end;
 end;
 
