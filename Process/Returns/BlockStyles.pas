@@ -79,12 +79,12 @@ implementation
 uses
   JclStrings,
   Tokens, SourceToken, TokenUtils, JCFSettings,
-  FormatFlags, SettingsTypes;
+  FormatFlags, SettingsTypes, SetReturns;
 
 const
   BreakWords: TTokenTypeSet = [ttThen, ttDo, ttElse, ttEnd];
 
-function GetStyle(const pt: TSourceToken): TBlockNewLineStyle;
+function GetStyle(const pt: TSourceToken): TTriOptionStyle;
 var
   lcNextToken: TSourceToken;
 begin
@@ -152,8 +152,11 @@ begin
 
        }
       Result := FormatSettings.Returns.ElseIfStyle;
+    end
+    else if (lcNextToken.TokenType = ttBegin) then
+    begin
+      Result := FormatSettings.Returns.ElseBeginStyle;
     end;
-
   end
   else
   begin
@@ -174,7 +177,7 @@ end;
 
 function TBlockStyles.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
-  leStyle: TBlockNewLineStyle;
+  leStyle: TTriOptionStyle;
   lcSourceToken, lcNextReturn, lcNextComment, lcNextSpace: TSourceToken;
 begin
   Result := False;

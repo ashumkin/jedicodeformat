@@ -38,7 +38,9 @@ type
 
 implementation
 
-uses ParseTreeNode, ParseTreeNodeType,
+uses
+  SettingsTypes,
+  ParseTreeNode, ParseTreeNodeType,
   JcfSettings, SourceToken, Tokens, SetTransform, TokenUtils;
 
 function IsBlockParent(const pcNode: TParseTreeNode): boolean;
@@ -193,12 +195,12 @@ begin
   begin
     if HasBlockChild(lcNode) then
     begin
-      if FormatSettings.Transform.BeginEndStyle = ebNever then
+      if FormatSettings.Transform.BeginEndStyle = eNever then
         RemoveBlockChild(lcNode);
     end
     else
     begin
-      if FormatSettings.Transform.BeginEndStyle = ebAlways then
+      if FormatSettings.Transform.BeginEndStyle = eAlways then
         AddBlockChild(lcNode);
     end;
   end;
@@ -206,7 +208,7 @@ end;
 
 function TAddBeginEnd.IsIncludedInSettings: boolean;
 begin
-  Result := (FormatSettings.Transform.BeginEndStyle <> ebLeave);
+  Result := (FormatSettings.Transform.BeginEndStyle <> eLeave);
 end;
 
 end.

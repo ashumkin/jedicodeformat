@@ -38,11 +38,10 @@ const
 type
   TCapitalisationType = (ctUpper, ctLower, ctMixed, ctLeaveAlone);
 
-type
- { return after Then and other strategic places? }
-  TBlockNewLineStyle = (eAlways, eLeave, eNever);
-
-
+{ used in several places for a user setting, e.g.
+ return after Then and other strategic places?
+}
+  TTriOptionStyle = (eAlways, eLeave, eNever);
 
 { what to do with return characters (Cr or CrLf)
   1) leave them as is

@@ -41,6 +41,7 @@ type
     rgCaseLabel: TRadioGroup;
     rgElseIf: TRadioGroup;
     rgElseCase: TRadioGroup;
+    rgElseBegin: TRadioGroup;
   private
 
   public
@@ -79,6 +80,7 @@ begin
     rgEndElse.ItemIndex    := Ord(EndElseStyle);
     rgCaseLabel.ItemIndex  := Ord(CaseLabelStyle);
     rgElseIf.ItemIndex     := Ord(ElseIfStyle);
+    rgElseBegin.ItemIndex := Ord(ElseBeginStyle);
 
     rgCaseLabel.ItemIndex := Ord(CaseLabelStyle);
     rgElseCase.ItemIndex  := Ord(CaseElseStyle);
@@ -90,15 +92,16 @@ begin
   with FormatSettings.Returns do
   begin
     { block styles }
-    BlockBeginStyle := TBlockNewLineStyle(rgBlockBegin.ItemIndex);
-    BlockStyle      := TBlockNewLineStyle(rgBlock.ItemIndex);
-    LabelBeginStyle := TBlockNewLineStyle(rgLabelBegin.ItemIndex);
-    LabelStyle      := TBlockNewLineStyle(rgLabel.ItemIndex);
-    EndElseStyle    := TBlockNewLineStyle(rgEndElse.ItemIndex);
-    ElseIfStyle     := TBlockNewLineStyle(rgElseIf.ItemIndex);
+    BlockBeginStyle := TTriOptionStyle(rgBlockBegin.ItemIndex);
+    BlockStyle      := TTriOptionStyle(rgBlock.ItemIndex);
+    LabelBeginStyle := TTriOptionStyle(rgLabelBegin.ItemIndex);
+    LabelStyle      := TTriOptionStyle(rgLabel.ItemIndex);
+    EndElseStyle    := TTriOptionStyle(rgEndElse.ItemIndex);
+    ElseIfStyle     := TTriOptionStyle(rgElseIf.ItemIndex);
+    ElseBeginStyle  := TTriOptionStyle(rgElseBegin.ItemIndex);
 
-    CaseLabelStyle := TBlockNewLineStyle(rgCaseLabel.ItemIndex);
-    CaseElseStyle  := TBlockNewLineStyle(rgElseCase.ItemIndex);
+    CaseLabelStyle := TTriOptionStyle(rgCaseLabel.ItemIndex);
+    CaseElseStyle  := TTriOptionStyle(rgElseCase.ItemIndex);
   end;
 end;
 

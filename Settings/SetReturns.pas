@@ -58,12 +58,13 @@ type
     fiNumReturnsAfterFinalEnd: integer;
 
     { returns on blocks }
-    feBlockStyle, feBlockBeginStyle: TBlockNewLineStyle;
-    feLabelStyle, feLabelBeginStyle: TBlockNewLineStyle;
-    feCaseLabelStyle: TBlockNewLineStyle;
-    feCaseElseStyle: TBlockNewLineStyle;
-    feEndElseStyle: TBlockNewLineStyle;
-    feElseIfStyle: TBlockNewLineStyle;
+    feBlockStyle, feBlockBeginStyle: TTriOptionStyle;
+    feLabelStyle, feLabelBeginStyle: TTriOptionStyle;
+    feCaseLabelStyle: TTriOptionStyle;
+    feCaseElseStyle: TTriOptionStyle;
+    feEndElseStyle: TTriOptionStyle;
+    feElseIfStyle: TTriOptionStyle;
+    feElseBeginStyle: TTriOptionStyle;
 
     feReturnChars: TReturnChars;
 
@@ -104,19 +105,16 @@ type
       Read fbRemoveProcHeaderBlankLines Write fbRemoveProcHeaderBlankLines;
 
 
-    property BlockStyle: TBlockNewLineStyle Read feBlockStyle Write feBlockStyle;
-    property BlockBeginStyle: TBlockNewLineStyle
-      Read feBlockBeginStyle Write feBlockBeginStyle;
-    property LabelStyle: TBlockNewLineStyle Read feLabelStyle Write feLabelStyle;
-    property LabelBeginStyle: TBlockNewLineStyle
-      Read feLabelBeginStyle Write feLabelBeginStyle;
-    property CaseLabelStyle: TBlockNewLineStyle
-      Read feCaseLabelStyle Write feCaseLabelStyle;
-    property CaseElseStyle: TBlockNewLineStyle
-      Read feCaseElseStyle Write feCaseElseStyle;
+    property BlockStyle: TTriOptionStyle Read feBlockStyle Write feBlockStyle;
+    property BlockBeginStyle: TTriOptionStyle Read feBlockBeginStyle Write feBlockBeginStyle;
+    property LabelStyle: TTriOptionStyle Read feLabelStyle Write feLabelStyle;
+    property LabelBeginStyle: TTriOptionStyle Read feLabelBeginStyle Write feLabelBeginStyle;
+    property CaseLabelStyle: TTriOptionStyle Read feCaseLabelStyle Write feCaseLabelStyle;
+    property CaseElseStyle: TTriOptionStyle Read feCaseElseStyle Write feCaseElseStyle;
 
-    property EndElseStyle: TBlockNewLineStyle Read feEndElseStyle Write feEndElseStyle;
-    property ElseIfStyle: TBlockNewLineStyle Read feElseIfStyle Write feElseIfStyle;
+    property EndElseStyle: TTriOptionStyle Read feEndElseStyle Write feEndElseStyle;
+    property ElseIfStyle: TTriOptionStyle Read feElseIfStyle Write feElseIfStyle;
+    property ElseBeginStyle: TTriOptionStyle Read feElseBeginStyle Write feElseBeginStyle;
 
     property ReturnChars: TReturnChars Read feReturnChars Write feReturnChars;
 
@@ -159,6 +157,7 @@ const
   REG_CASE_ELSE_STYLE  = 'CaseElse';
   REG_END_ELSE_STYLE   = 'EndElse';
   REG_ELSE_IF_STYLE    = 'ElseIf';
+  REG_ELSE_BEGIN_STYLE    = 'ElseBegin';
 
   REG_RETURN_CHARS = 'ReturnChars';
 
@@ -195,19 +194,15 @@ begin
   fbRemoveProcHeaderBlankLines :=
     pcStream.Read(REG_REMOVE_PROC_HEADER_BLANK_LINES, True);
 
-  feBlockStyle      := TBlockNewLineStyle(pcStream.Read(REG_BLOCK_STYLE, Ord(eLeave)));
-  feBlockBeginStyle := TBlockNewLineStyle(pcStream.Read(REG_BLOCK_BEGIN_STYLE,
-    Ord(eLeave)));
-  feLabelStyle      := TBlockNewLineStyle(pcStream.Read(REG_LABEL_STYLE, Ord(eLeave)));
-  feLabelBeginStyle := TBlockNewLineStyle(pcStream.Read(REG_LABEL_BEGIN_STYLE,
-    Ord(eLeave)));
-  feCaseLabelStyle  := TBlockNewLineStyle(pcStream.Read(REG_CASE_LABEL_STYLE,
-    Ord(eLeave)));
-  feCaseElseStyle   := TBlockNewLineStyle(pcStream.Read(REG_CASE_ELSE_STYLE,
-    Ord(eLeave)));
-  feEndElseStyle    := TBlockNewLineStyle(pcStream.Read(REG_END_ELSE_STYLE,
-    Ord(eLeave)));
-  feElseIfStyle     := TBlockNewLineStyle(pcStream.Read(REG_ELSE_IF_STYLE, Ord(eNever)));
+  feBlockStyle      := TTriOptionStyle(pcStream.Read(REG_BLOCK_STYLE, Ord(eLeave)));
+  feBlockBeginStyle := TTriOptionStyle(pcStream.Read(REG_BLOCK_BEGIN_STYLE, Ord(eLeave)));
+  feLabelStyle      := TTriOptionStyle(pcStream.Read(REG_LABEL_STYLE, Ord(eLeave)));
+  feLabelBeginStyle := TTriOptionStyle(pcStream.Read(REG_LABEL_BEGIN_STYLE, Ord(eLeave)));
+  feCaseLabelStyle  := TTriOptionStyle(pcStream.Read(REG_CASE_LABEL_STYLE, Ord(eLeave)));
+  feCaseElseStyle   := TTriOptionStyle(pcStream.Read(REG_CASE_ELSE_STYLE, Ord(eLeave)));
+  feEndElseStyle    := TTriOptionStyle(pcStream.Read(REG_END_ELSE_STYLE, Ord(eLeave)));
+  feElseIfStyle     := TTriOptionStyle(pcStream.Read(REG_ELSE_IF_STYLE, Ord(eNever)));
+  feElseBeginStyle  := TTriOptionStyle(pcStream.Read(REG_ELSE_BEGIN_STYLE, Ord(eNever)));
 
   feReturnChars := TReturnChars(pcStream.Read(REG_RETURN_CHARS, Ord(rcLeaveAsIs)));
 
@@ -247,6 +242,7 @@ begin
 
   pcOut.Write(REG_END_ELSE_STYLE, Ord(feEndElseStyle));
   pcOut.Write(REG_ELSE_IF_STYLE, Ord(feElseIfStyle));
+  pcOut.Write(REG_ELSE_BEGIN_STYLE, Ord(feElseBeginStyle));
 
   pcOut.Write(REG_RETURN_CHARS, Ord(feReturnChars));
 
