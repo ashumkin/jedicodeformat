@@ -142,9 +142,12 @@ begin
           end;
 
       -- the return before the comment should not be removed
+
+      This does not hold in a program files uses clause
       }
       lcNextComment := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace, ttReturn]);
-      if (lcNextComment <> nil) and (lcNextComment.TokenType <> ttComment) then
+      if (lcNextComment <> nil) and
+        ((lcNextComment.TokenType <> ttComment) or (InFilesUses(lcNextComment))) then
         BlankToken(lcSourceToken);
     end;
   end;

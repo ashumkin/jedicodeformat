@@ -3,8 +3,7 @@ program testcases;
 uses
   Forms,
   emptytest1 in 'EmptyTest1.pas',
-  fformtest in 'fFormTest.pas'
-  {FormTest},
+  fformtest in 'fFormTest.pas' {FormTest},
   littletest1 in 'LittleTest1.pas',
   littletest2 in 'LittleTest2.pas',
   littletest3 in 'LittleTest3.pas',
