@@ -97,6 +97,7 @@ type
 
    procedure TestParse_TestCases;
    procedure TestParse_TestPackage;
+   procedure TestParse_TestProcBlankLines;
 
  end;
 
@@ -569,6 +570,11 @@ end;
 procedure TTestFileParse.TestParse_TestPackage;
 begin
   TestParseFile('TestMe.dpk', 684);
+end;
+
+procedure TTestFileParse.TestParse_TestProcBlankLines;
+begin
+  TestParseFile('TestProcBlankLines', 64);
 end;
 
 initialization

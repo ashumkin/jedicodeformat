@@ -101,6 +101,7 @@ type
     nPropertyParameterList,
     nPropertySpecifier,
     nInterfaceType,
+    nInterfaceHeritage,
     nBracketedQual,
     nAsm,
     nAsmStatement,
@@ -330,6 +331,8 @@ begin
       Result := 'property specifier';
     nInterfaceType:
       Result := 'interface type';
+    nInterfaceHeritage:
+      Result := 'interface heritage';
     nBracketedQual:
       Result := 'bracketed qual';
     nAsm:

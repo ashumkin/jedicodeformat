@@ -87,8 +87,9 @@ begin
     exit;
   end;
 
-  { end. }
-  if (pt.Word = wEnd) and (ptNext.TokenType = ttDot) and (pt.Nestings.Total = 0) then
+  { end. don't always want this, not in init block  }
+  if (pt.Word = wEnd) and (ptNext.TokenType = ttDot) and pt.HasParentNode(nUnit, 2)
+    and (BlockLevel(pt) < 1) then
   begin
     Result := True;
     exit;
@@ -116,7 +117,8 @@ begin
     is legal, only a return before the first one
 
    var, const, type but not in parameter list }
-  if (pt.Word in Declarations) and pt.HasParentNode(nTopLevelSections, 1) then
+  if (pt.Word in Declarations) and pt.HasParentNode(nTopLevelSections, 1)
+    and (not pt.IsOnRightOf(nTypeDecl, wEquals)) then
   begin
     Result := True;
     exit;
@@ -183,10 +185,11 @@ begin
 
   liReturnsNeeded := 0;
 
-  if NeedsReturn(lcSourceToken, lcNext) then
-    liReturnsNeeded := 1
-  else if NeedsBlankLine(lcSourceToken, lcNext) then
-    liReturnsNeeded := 2;
+  if NeedsBlankLine(lcSourceToken, lcNext) then
+    liReturnsNeeded := 2
+  else if NeedsReturn(lcSourceToken, lcNext) then
+    liReturnsNeeded := 1;
+
 
   { number to insert = needed - actual }
   liReturnsNeeded := liReturnsNeeded - fiReturnsBefore;

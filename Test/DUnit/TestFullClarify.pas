@@ -95,6 +95,7 @@ type
   procedure TestClarify_TestWith;
 
   procedure TestClarify_TestPackage;
+  procedure TestClarify_TestProcBlankLines;
 end;
 
 
@@ -473,6 +474,11 @@ end;
 procedure TFullTestClarify.TestClarify_TestPointers;
 begin
   TestClarifyFile('TestPointers');
+end;
+
+procedure TFullTestClarify.TestClarify_TestProcBlankLines;
+begin
+  TestClarifyFile('TestProcBlankLines');
 end;
 
 procedure TFullTestClarify.TestClarify_TestProgram;

@@ -25,10 +25,10 @@ uses
   JclStrings,
   JcfMiscFunctions,
   TokenUtils, SourceToken, TokenType, WordMap, Nesting,
-  ParseTreeNodeType, JcfSettings, FormatFlags;
+  ParseTreeNodeType, ParseTreeNode, JcfSettings, FormatFlags;
 
 const
-  WordsJustReturnAfter: TWordSet = [wType, wBegin, wRepeat,
+  WordsJustReturnAfter: TWordSet = [wBegin, wRepeat,
     wTry, wExcept, wFinally, wLabel,
     wInitialization, wFinalization];
   // can't add 'interface' as it has a second meaning :(
@@ -92,7 +92,55 @@ begin
   end;
 end;
 
+
+// does this 'end' end an object type, ie class or interface
+function EndsObjectType(const pt: TSourceToken): Boolean;
+begin
+  Result := False;
+
+  if pt.Word <> wEnd then
+    exit;
+
+  if (BlockLevel(pt) = 0) and pt.HasParentNode([nClassType, nInterfaceType], 1) then
+      Result := True;
+end;
+
+// does this 'end' end a procedure, function or method
+function EndsProcedure(const pt: TSourceToken): Boolean;
+var
+  lcParent: TParseTreeNode;
+begin
+  Result := False;
+
+  if pt.Word <> wEnd then
+    exit;
+
+  if not pt.HasParentNode(ProcedureNodes) then
+    exit;
+
+  // is this the top 'end' of a main or contained procedure
+  lcParent := pt.Parent;
+
+  if (lcParent = nil) or (lcParent.NodeType <> nCompoundStatement) then
+    exit;
+
+  lcParent := lcParent.Parent;
+
+
+  if (lcParent = nil) or (lcParent.NodeType <> nBlock) then
+    exit;
+
+  lcParent := lcParent.Parent;
+
+  if (lcParent <> nil) and (lcParent.NodeType in ProcedureNodes) then
+    Result := True;
+
+end;
+
+
 function NeedsBlankLine(const pt, ptNext: TSourceToken): boolean;
+var
+  lcPrev: TSourceToken;
 begin
   Result := False;
 
@@ -116,14 +164,26 @@ begin
   end;
 
   { semicolon that ends a proc or is between procs e.g. end of uses clause }
-  if (pt.TokenType = ttSemiColon) and
-    (not pt.HasParentNode(ProcedureNodes)) and
-    (BlockLevel(pt) = 0) and
-    (not pt.HasParentNode(nDeclSection)) then
-
+  if (pt.TokenType = ttSemiColon) then
   begin
-    Result := True;
-    exit;
+    if (not pt.HasParentNode(ProcedureNodes)) and
+      (BlockLevel(pt) = 0) and
+      (not pt.HasParentNode(nDeclSection)) then
+    begin
+      Result := True;
+      exit;
+    end;
+
+    lcPrev := pt.PriorToken;
+    // 'end' at end of type def or proc
+    if (lcPrev.Word = wEnd) and (pt.TokenType <> ttDot) then
+    begin
+      if EndsObjectType(lcPrev) or EndsProcedure(lcPrev) then
+      begin
+        Result := True;
+        exit;
+      end;
+    end;
   end;
 end;
 
@@ -136,6 +196,14 @@ begin
     exit;
 
   if (pt.TokenType in ReservedWordTokens) and (pt.Word in WordsJustReturnAfter) then
+  begin
+    Result := True;
+    exit;
+  end;
+
+  { return after 'type' unless it's the second type in "type foo = type integer;" }
+  if (pt.Word = wType) and (pt.Nestings.Total = 0) and
+    (not pt.IsOnRightOf(nTypeDecl, wEquals)) then
   begin
     Result := True;
     exit;
@@ -184,6 +252,15 @@ begin
     Result := True;
     exit;
   end;
+
+  // "TSomeCLass = class(TAncestorClass)" has a return after the close brackets
+  if (pt.TokenType = ttCloseBracket) and
+    pt.HasParentNode([nClassHeritage, nInterfaceHeritage], 1) then
+  begin
+    Result := True;
+    exit;
+  end;
+
 
   { comma in exports clause }
   if (pt.TokenType = ttComma) and pt.HasParentNode(nExports) then

@@ -192,7 +192,7 @@ const
   OUT_UNIT_TEXT = 'unit Test;' + AnsiLineBreak + AnsiLineBreak + 'interface' +
     AnsiLineBreak + AnsiLineBreak + 'implementation' + AnsiLineBreak +
     'procedure foo; ' + AnsiLineBreak + 'begin a := 2; ' + AnsiLineBreak +
-    'end;' + AnsiLineBreak + 'end.';    
+    'end;' + AnsiLineBreak + AnsiLineBreak + 'end.';
 begin
   TestProcessResult(TReturnBefore, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -205,7 +205,7 @@ const
     ' interface' + AnsiLineBreak + AnsiLineBreak +
     ' implementation' + AnsiLineBreak + AnsiLineBreak +
     ' procedure foo;' + AnsiLineBreak + ' begin' + AnsiLineBreak +
-    ' a := 2;' + AnsiLineBreak + ' end;' + AnsiLineBreak + 'end.';
+    ' a := 2;' + AnsiLineBreak + ' end;' + AnsiLineBreak + AnsiLineBreak + 'end.';
 begin
   TestProcessResult(TReturnAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;

@@ -3256,9 +3256,13 @@ end;
 procedure TBuildParseTree.RecogniseInterfaceHeritage;
 begin
   // InterfaceHeritage -> '(' IdentList ')'
+  PushNode(nInterfaceHeritage);
+
   Recognise(ttOpenBracket);
   RecogniseIdentList;
   Recognise(ttCloseBracket);
+
+  PopNode;
 end;
 
 procedure TBuildParseTree.RecogniseRequiresClause;

@@ -93,6 +93,7 @@ type
     procedure TestObfuscate_TestWith;
 
    procedure TestObfuscate_TestCases;
+   procedure TestObfuscate_TestProcBlankLines;
 end;
 
 implementation
@@ -172,10 +173,8 @@ begin
 
     // clean up
     DeleteFile(lsOutFileName);
-
-    // }
+    }
     DeleteFile(lsObsFileName);
-
   finally
     lcConverter.Free;
     FormatSettings.Obfuscate.Enabled := False;
@@ -599,6 +598,11 @@ end;
 procedure TTestObfuscate.TestObfuscate_TestCases;
 begin
   TestObfuscateFile('Testcases.dpr');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestProcBlankLines;
+begin
+  TestObfuscateFile('TestProcBlankLines.pas');
 end;
 
 initialization
