@@ -68,6 +68,7 @@ type
     procedure TestParse_TestAlign;
     procedure TestParse_TestArray;
     procedure TestParse_TestAsm;
+    procedure TestParse_TestAsmStructs;
     procedure TestParse_TestAtExpr;
     procedure TestParse_TestBlankLineRemoval;
     procedure TestParse_TestBogusDirectives;
@@ -131,6 +132,12 @@ type
     procedure TestParse_TestTPObjects;
     procedure TestParse_TestTry;
     procedure TestParse_TestTypeDefs;
+
+    procedure TestParse_TestUnitPlatform;
+    procedure TestParse_TestUnitAllDirectives;
+    procedure TestParse_TestUnitDeprecated;
+    procedure TestParse_TestUnitLibrary;
+
     procedure TestParse_TestUses;
     procedure TestParse_TestUsesChanges;
     procedure TestParse_TestWarnings;
@@ -627,7 +634,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 727);
+  TestParseFile('Testcases.dpr', 767);
 end;
 
 
@@ -659,7 +666,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestPropertyInherited;
 begin
-  TestParseFile('TestPropertyInherited', 585);
+  TestParseFile('TestPropertyInherited', 797);
 end;
 
 procedure TTestFileParse.TestParse_TestMessages;
@@ -720,6 +727,31 @@ end;
 procedure TTestFileParse.TestParse_TestAtExpr;
 begin
   TestParseFile('TestAtExpr', 79);
+end;
+
+procedure TTestFileParse.TestParse_TestAsmStructs;
+begin
+  TestParseFile('TestAsmStructs', 358);
+end;
+
+procedure TTestFileParse.TestParse_TestUnitAllDirectives;
+begin
+  TestParseFile('TestUnitAllDirectives', 21);
+end;
+
+procedure TTestFileParse.TestParse_TestUnitDeprecated;
+begin
+  TestParseFile('TestUnitDeprecated', 17);
+end;
+
+procedure TTestFileParse.TestParse_TestUnitLibrary;
+begin
+  TestParseFile('TestUnitLibrary', 17);
+end;
+
+procedure TTestFileParse.TestParse_TestUnitPlatform;
+begin
+  TestParseFile('TestUnitPlatform', 17);
 end;
 
 initialization

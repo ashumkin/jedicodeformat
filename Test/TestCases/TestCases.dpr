@@ -86,7 +86,12 @@ uses
   LittleTest16 in 'LittleTest16.pas',
   LittleTest17 in 'LittleTest17.pas',
   LittleTest18 in 'LittleTest18.pas',
-  TestAtExpr in 'TestAtExpr.pas';
+  TestAtExpr in 'TestAtExpr.pas',
+  TestAsmStructs in 'TestAsmStructs.pas',
+  TestUnitPlatform in '..\TestCases\TestUnitPlatform.pas',
+  TestUnitAllDirectives in '..\TestCases\TestUnitAllDirectives.pas',
+  TestUnitDeprecated in '..\TestCases\TestUnitDeprecated.pas',
+  TestUnitLibrary in '..\TestCases\TestUnitLibrary.pas';
 
 {$R *.res}
 

@@ -197,6 +197,7 @@ type
     procedure RecogniseAsmExpr;
     procedure RecogniseAsmIdent;
     procedure RecogniseAsmOpcode;
+    procedure RecogniseAsmLabel;
     procedure RecogniseWhiteSpace;
 
     procedure RecogniseHintDirectives;
@@ -471,6 +472,15 @@ begin
   PushNode(nUnitName);
   RecogniseIdentifier(False);
   PopNode;
+
+  { unit can be "deprecated platform library" }
+  while TokenList.FirstSolidTokenType in HintDirectives do
+    Recognise(HintDirectives);
+
+  { or platform }
+  if TokenList.FirstSolidTokenType = ttPlatform then
+    Recognise(ttPlatform);
+
   Recognise(ttSemicolon);
 
   PopNode;
@@ -1690,6 +1700,7 @@ begin
   if lc.TokenType = ttInherited then
   begin
     Recognise(ttInherited);
+
     RecogniseDesignator;
     if TokenList.FirstSolidTokenType = ttOpenBracket then
     begin
@@ -2011,16 +2022,18 @@ begin
   end
   else if lc.TokenType = ttInherited then
   begin
+    { can be one of
+      "inherited;
+      inherited Foo;
+      inherited Foo(bar);
+      inherited FooProp := bar;
+      inherited FooProp[Bar] := Fish;
+      bar :=  inherited FooProp[Bar];
+      }
+
      Recognise(ttInherited);
-     // can be followed by a method name with or without params
      if IdentifierNext then
-     begin
-      RecogniseIdentifier(False);
-
-      if TokenList.FirstSolidTokenType = ttOpenBracket then
-        RecogniseActualParams;
-     end;
-
+      RecogniseSimpleStmnt;
   end
   else if lc.TokenType = ttGoto then
   begin
@@ -3555,11 +3568,7 @@ begin
 
   if TokenList.FirstSolidTokenType = ttAtSign then
   begin
-
-    Recognise(ttAtSign);
-    Recognise(ttAtSign);
-    RecogniseAsmIdent;
-    Recognise(ttColon);
+    RecogniseAsmLabel;
   end
   else
   begin
@@ -3658,22 +3667,40 @@ begin
     if TokenList.FirstSolidToken.TokenType = ttAtSign then
       Recognise(ttAtSign);
 
+    lc := TokenList.FirstSolidToken;
+  end;
 
-    RecogniseAsmIdent;
-  end
-  else if lc.TokenType = ttOpenSquareBracket then
-  begin             
+  if lc.TokenType = ttOpenSquareBracket then
+  begin
     Recognise(ttOpenSquareBracket);
     RecogniseAsmExpr;
     Recognise(ttCloseSquareBracket);
+
+    while TokenList.FirstSolidTokenType = ttDot do
+    begin
+      Recognise(ttDot);
+
+      if TokenList.FirstSolidTokenType = ttAtSign then
+        Recognise(ttAtSign);
+      RecogniseAsmIdent;
+    end;
   end
-  else if (lc.TokenType = ttNumber) then
+  else if (lc.TokenType in [ttNumber, ttNot, ttLiteralString, ttTrue, ttFalse]) then
   begin
     RecogniseAsmExpr;
   end
-  else if (lc.TokenType in IdentiferTokens) then
+  else if IdentifierNext then
   begin
     RecogniseAsmIdent;
+
+    while TokenList.FirstSolidTokenType = ttDot do
+    begin
+      Recognise(ttDot);
+
+      if TokenList.FirstSolidTokenType = ttAtSign then
+        Recognise(ttAtSign);
+      RecogniseAsmIdent;
+    end;
   end
   else
     Raise TEParseError.Create('Expected asm', lc);
@@ -3845,6 +3872,26 @@ begin
   end;
 
   Recognise(ttCloseBracket);
+
+  PopNode;
+end;
+
+procedure TBuildParseTree.RecogniseAsmLabel;
+begin
+  PushNode(nAsmLabel);
+
+  Recognise(ttAtSign);
+  if TokenList.FirstSolidTokenType = ttAtSign then
+    Recognise(ttAtSign);
+
+  // label can be a numer, eg "@@1:"
+
+  if TokenList.FirstSolidTokenType = ttNumber then
+    Recognise(ttNumber)
+  else
+    RecogniseAsmIdent;
+
+  Recognise(ttColon);
 
   PopNode;
 end;

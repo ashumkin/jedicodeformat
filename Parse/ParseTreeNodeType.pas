@@ -135,6 +135,7 @@ type
     nAsmIdent,
     nASMOpcode,
     nAsmParam,
+    nAsmLabel,
     nHintDirectives,
     nPropertyDirective,
     nExports,
@@ -386,6 +387,8 @@ begin
       Result := 'asm opcode';
     nAsmParam:
       Result := 'asm param';
+    nAsmLabel:
+      result := 'asm label';
     nHintDirectives:
       Result := 'hint directives';
     nPropertyDirective:

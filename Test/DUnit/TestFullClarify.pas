@@ -64,6 +64,7 @@ type
     procedure TestClarify_TestAlign;
     procedure TestClarify_TestArray;
     procedure TestClarify_TestAsm;
+    procedure TestClarify_TestAsmStructs;
     procedure TestClarify_TestAtExpr;
 
     procedure TestClarify_TestBlankLineRemoval;
@@ -131,6 +132,12 @@ type
     procedure TestClarify_TestTypeDefs;
     procedure TestClarify_TestUses;
     procedure TestClarify_TestUsesChanges;
+
+    procedure TestClarify_TestUnitAllDirectives;
+    procedure TestClarify_TestUnitDeprecated;
+    procedure TestClarify_TestUnitLibrary;
+    procedure TestClarify_TestUnitPlatform;
+
     procedure TestClarify_TestVarParam;
     procedure TestClarify_TestWarnings;
     procedure TestClarify_TestWith;
@@ -717,6 +724,31 @@ end;
 procedure TFullTestClarify.TestClarify_TestAtExpr;
 begin
   TestClarifyFile('TestAtExpr');
+end;
+
+procedure TFullTestClarify.TestClarify_TestAsmStructs;
+begin
+  TestClarifyFile('TestAsmStructs');
+end;
+
+procedure TFullTestClarify.TestClarify_TestUnitAllDirectives;
+begin
+  TestClarifyFile('TestUnitAllDirectives');
+end;
+
+procedure TFullTestClarify.TestClarify_TestUnitDeprecated;
+begin
+  TestClarifyFile('TestUnitDeprecated');
+end;
+
+procedure TFullTestClarify.TestClarify_TestUnitLibrary;
+begin
+  TestClarifyFile('TestUnitLibrary');
+end;
+
+procedure TFullTestClarify.TestClarify_TestUnitPlatform;
+begin
+  TestClarifyFile('TestUnitPlatform');
 end;
 
 initialization

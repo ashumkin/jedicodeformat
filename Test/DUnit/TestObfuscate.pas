@@ -65,6 +65,7 @@ type
     procedure TestObfuscate_TestAlign;
     procedure TestObfuscate_TestArray;
     procedure TestObfuscate_TestAsm;
+    procedure TestObfuscate_TestAsmStructs;
     procedure TestObfuscate_TestAtExpr;
 
     procedure TestObfuscate_TestBlankLineRemoval;
@@ -129,6 +130,12 @@ type
     procedure TestObfuscate_TestTPObjects;
     procedure TestObfuscate_TestTry;
     procedure TestObfuscate_TestTypeDefs;
+
+    procedure TestObfuscate_TestUnitAllDirectives;
+    procedure TestObfuscate_TestUnitDeprecated;
+    procedure TestObfuscate_TestUnitLibrary;
+    procedure TestObfuscate_TestUnitPlatform;
+
     procedure TestObfuscate_TestUses;
     procedure TestObfuscate_TestUsesChanges;
     procedure TestObfuscate_TestVarParam;
@@ -745,6 +752,31 @@ end;
 procedure TTestObfuscate.TestObfuscate_TestAtExpr;
 begin
   TestObfuscateFile('TestAtExpr');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestAsmStructs;
+begin
+  TestObfuscateFile('TestAsmStructs');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestUnitAllDirectives;
+begin
+  TestObfuscateFile('TestUnitAllDirectives');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestUnitDeprecated;
+begin
+  TestObfuscateFile('TestUnitDeprecated');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestUnitLibrary;
+begin
+  TestObfuscateFile('TestUnitLibrary');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestUnitPlatform;
+begin
+  TestObfuscateFile('TestUnitPlatform');
 end;
 
 initialization

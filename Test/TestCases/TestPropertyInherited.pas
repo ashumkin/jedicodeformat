@@ -51,10 +51,12 @@ type
   TUserHasDefaults = class(TObject)
   private
     function GetDef1: integer;
-    function GetDef2(const piC: integer): integer;
+  protected
+    function GetDef2(const piC: integer): integer; virtual;
+    procedure SetDef2(const piC, Value: integer); virtual;
   public
     property Def1: integer read GetDef1;
-    property Def2[const piC: integer]: integer read GetDef2;
+    property Def2[const piC: integer]: integer read GetDef2 write SetDef2;
 
   end;
 
@@ -62,6 +64,13 @@ type
   // two different syntaxes - semicolon in one not other
     property Def1 default 1;
     property Def2; default;
+
+  end;
+
+  TDefHasOverrides = class(TUserHasDefaults)
+  protected
+    function GetDef2(const piC: integer): integer; override;
+    procedure SetDef2(const piC, value: integer); override;
 
   end;
 
@@ -94,9 +103,27 @@ begin
   Result := 0;
 end;
 
+procedure TUserHasDefaults.SetDef2(const piC, Value: integer);
+begin
+  // do nothing
+end;
+
 function TUserHasDefaults.GetDef2(const piC: integer): integer;
 begin
   Result := piC + 1;
+end;
+
+
+{ TDefHasOverrides }
+
+function TDefHasOverrides.GetDef2(const piC: integer): integer;
+begin
+  Result := inherited Def2[piC] + inherited Def2[piC + 1] + 2;
+end;
+
+procedure TDefHasOverrides.SetDef2(const piC, value: integer);
+begin
+  inherited Def2[piC] := value;
 end;
 
 End.
