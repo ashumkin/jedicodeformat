@@ -1,0 +1,15 @@
+unit fbracketprop;interface uses windows,messages,sysutils,variants,classes,graphics
+,controls,forms,dialogs,stdctrls;type tform1=class(TForm)button1:tbutton;checkbox1
+:tcheckbox;button2:tbutton;button3:tbutton;checkbox2:tcheckbox;button4:tbutton;button5
+:tbutton;procedure button1click(sender:tobject);procedure button2click(sender:tobject
+);procedure button3click(sender:tobject);procedure button4click(sender:tobject);procedure
+button5click(sender:tobject);private public end;var form1:tform1;implementation {$R *.dfm}
+procedure tform1.button1click(sender:tobject);begin if(checkbox1.checked)then(checkbox1
+.checked:=false);end;procedure tform1.button2click(sender:tobject);begin if(checkbox1
+.checked)then (checkbox1.checked:=false)else (checkbox1.checked:=true);end;procedure
+tform1.button3click(sender:tobject);begin if(checkbox1.checked)then (checkbox1.checked
+:=false)else if(checkbox2.checked)then ((checkbox1.checked:=not checkbox1.checked
+))else (((checkbox1.checked:=false)));end;procedure tform1.button4click(sender:tobject
+);var liloop:integer;begin for liloop:=0 to 100 do (checkbox1.checked:=false);end
+;procedure tform1.button5click(sender:tobject);begin while checkbox1.checked do (
+checkbox1.checked:=not checkbox1.checked);end;end. 

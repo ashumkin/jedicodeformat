@@ -162,7 +162,8 @@ uses
   SetComments in '..\..\Settings\SetComments.pas',
   AddBeginEnd in '..\..\Process\Transform\AddBeginEnd.pas',
   AddBlockEndSemicolon in '..\..\Process\Transform\AddBlockEndSemicolon.pas',
-  SetTransform in '..\..\Settings\SetTransform.pas';
+  SetTransform in '..\..\Settings\SetTransform.pas',
+  TestAddBeginEnd in 'TestAddBeginEnd.pas';
 
 {$R *.res}
 

@@ -39,20 +39,28 @@ type
 implementation
 
 uses ParseTreeNode, ParseTreeNodeType,
-  JcfSettings, SourceToken, Tokens, SetTransform;
+  JcfSettings, SourceToken, Tokens, SetTransform, TokenUtils;
 
 function IsBlockParent(const pcNode: TParseTreeNode): boolean;
 const
   BLOCK_PARENTS: TParseTreeNodeTypeSet =
-    [nIfBlock, nElseBlock, nCaseSelector, nWhileStatement, nForStatement];
+    [nIfBlock, nElseBlock, nCaseSelector, nElseCase,
+    nWhileStatement, nForStatement, nWithStatement];
 begin
   Result := (pcNode <> nil) and (pcNode.NodeType in BLOCK_PARENTS);
 end;
 
 function HasBlockChild(const pcNode: TParseTreeNode): boolean;
+var
+  liDepth: integer;
 begin
+  if pcNode.NodeType = nElseCase then
+    liDepth := 3
+  else
+    liDepth := 2;
+
   { a compound statement is the begin..end block. }
-  Result := pcNode.HasChildNode(nCompoundStatement, 2);
+  Result := pcNode.HasChildNode(nCompoundStatement, liDepth);
 end;
 
 procedure AddBlockChild(const pcNode: TParseTreeNode);
@@ -93,6 +101,7 @@ begin
     lcBegin.SourceCode := 'begin';
     lcBegin.TokenType := ttBegin;
     lcCompound.AddChild(lcBegin);
+    lcCompound.AddChild(NewSpace(1));
 
     lcStatementList := TParseTreeNode.Create;
     lcStatementList.NodeType := nStatementList;
@@ -102,6 +111,8 @@ begin
     if lcStatement <> nil then
       lcStatementList.AddChild(lcStatement);
 
+    lcCompound.AddChild(NewSpace(1));
+
     lcEnd := TSourceToken.Create;
     lcEnd.SourceCode := 'end';
     lcEnd.TokenType := ttEnd;
@@ -110,16 +121,21 @@ end;
 
 procedure RemoveBlockChild(const pcNode: TParseTreeNode);
 var
-  lcTopStatement: TParseTreeNode;
+  lcTop: TParseTreeNode;
   lcCompoundStatement: TParseTreeNode;
   lcStatementList: TParseTreeNode;
   lcStatement: TParseTreeNode;
 begin
-  lcTopStatement := pcNode.GetImmediateChild(nStatement);
-  if lcTopStatement = nil then
+  { this one is for the else case }
+  lcTop := pcNode.GetImmediateChild(nStatementList);
+  if lcTop = nil then
+    lcTop := pcNode;
+
+  lcTop := lcTop.GetImmediateChild(nStatement);
+  if lcTop = nil then
     exit;
 
-  lcCompoundStatement := lcTopStatement.GetImmediateChild(nCompoundStatement);
+  lcCompoundStatement := lcTop.GetImmediateChild(nCompoundStatement);
   if lcCompoundStatement = nil then
     exit;
 
@@ -136,7 +152,7 @@ begin
   // right, put this single statement in at the top
   lcStatementList.ExtractChild(lcStatement);
   // and free the rest of the scaffolding
-  lcTopStatement.Free;
+  lcTop.Free;
   pcNode.AddChild(lcStatement);
 end;
 
