@@ -1,6 +1,6 @@
 HelpScribble project file.
 12
-...
+`cbbajbek Vap.-1N53O79Q
 0
 1
 JEDI Delphi Code Format
@@ -9,7 +9,7 @@ JEDI Delphi Code Format
 
 TRUE
 
-D:\Daten\Sonstige\CODEFO~3\Images
+D:\Daten\Sonstige\CodeFormat_Help\Images
 1
 BrowseButtons()
 0
