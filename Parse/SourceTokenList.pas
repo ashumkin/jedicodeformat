@@ -6,7 +6,13 @@ unit SourceTokenList;
   until it is turned into a parse tree
 
   The way that this class works has a big impact on JCF run speed
-  SO it is implemented in a more low-level way to most
+  So it is implemented in a more low-level way to most
+  it is a subclass not a wrap of TObjectList
+
+  It is populated, then tokens are read out.
+  This is done not by removing items from the start of the list (slow)
+  but by keeping the idnex of the current item,
+  and advancing it when items are extracted
 }
 
 {(*}
@@ -46,7 +52,7 @@ type
     { This is to keep an index of the next non-nil item
       when reading items out of the list
       List.Extract is a bit slow }
-    FStackIndex: integer;
+    fiCurrentTokenIndex: integer;
 
     function GetItem(const piIndex: integer): TSourceToken;
     procedure SetItem(const piIndex: integer; const pcObject: TSourceToken);
@@ -60,29 +66,28 @@ type
     procedure SetXYPositions;
     procedure Insert(const piIndex: integer; const pcItem: TSourceToken);
     function Extract(const piIndex: integer): TSourceToken;
- {CHANGED. This is now relative to StackIndex}
     procedure Delete(const piIndex: integer);
-    function First: TSourceToken;      {CHANGED. This is now relative to StackIndex}
-    function FirstTokenType: TTokenType; {CHANGED. This is now relative to StackIndex}
-    function FirstWordType: TWordType; {CHANGED. This is now relative to StackIndex}
-    function FirstSolidToken: TSourceToken; {CHANGED. This is now relative to StackIndex}
+
+    { not relative to current token index }
+    property SourceTokens[const piIndex: integer]: TSourceToken Read GetItem Write SetItem;
+
+    {This is to keep an index of the next non-nil item}
+    property CurrentTokenIndex: integer Read fiCurrentTokenIndex;
+
+    {----------------------------------------------------
+     the following are all relative to the Current Token Index
+      e.g. "First" is the token at the current pos }
+    function First: TSourceToken;
+    function FirstTokenType: TTokenType;
+    function FirstWordType: TWordType;
+    function FirstSolidToken: TSourceToken;
     function FirstSolidTokenType: TTokenType;
- {CHANGED. This is now relative to StackIndex}
-    function FirstSolidWordType: TWordType; {CHANGED. This is now relative to StackIndex}
+    function FirstSolidWordType: TWordType;
     function FirstTokenWithExclusion(const AExclusions: TTokenTypeSet): TSourceToken;
- {CHANGED. This is now relative to StackIndex}
+
     function SolidToken(piIndex: integer): TSourceToken;
- {CHANGED. This is now relative to StackIndex}
     function SolidTokenType(const piIndex: integer): TTokenType;
- {CHANGED. This is now relative to StackIndex}
     function SolidWordType(const piIndex: integer): TWordType;
- {CHANGED. This is now relative to StackIndex}
-
-    property SourceTokens[const piIndex: integer]: TSourceToken
-      Read GetItem Write SetItem;
-
-    property StackIndex: integer Read FStackIndex;
- {This is to keep an index of the next non-nil item}
   end;
 
 implementation
@@ -93,7 +98,7 @@ uses
 
 constructor TSourceTokenList.Create;
 begin
-  FStackIndex := 0;
+  fiCurrentTokenIndex := 0;
   OwnsObjects := true;
   inherited Create(false);
 end;
@@ -106,7 +111,7 @@ end;
 procedure TSourceTokenList.Clear;
 begin
   inherited Clear;
-  FStackIndex := 0;
+  fiCurrentTokenIndex := 0;
 end;
 
 function TSourceTokenList.GetItem(const piIndex: integer): TSourceToken;
@@ -121,21 +126,21 @@ end;
 
 function TSourceTokenList.First: TSourceToken;
 begin
-  Result := TSourceToken(List^[FStackIndex]);
+  Result := TSourceToken(List^[fiCurrentTokenIndex]);
 end;
 
 function TSourceTokenList.FirstTokenType: TTokenType;
 begin
   Result := ttUnknown;
   if Count > 0 then
-    Result := TSourceToken(inherited GetItem(FStackIndex)).TokenType;
+    Result := TSourceToken(inherited GetItem(fiCurrentTokenIndex)).TokenType;
 end;
 
 function TSourceTokenList.FirstWordType: TWordType;
 begin
   Result := wtNotAWord;
   if Count > 0 then
-    Result := First.WordType;
+    Result := TSourceToken(inherited GetItem(fiCurrentTokenIndex)).WordType;
 end;
 
 function TSourceTokenList.FirstSolidTokenType: TTokenType;
@@ -165,7 +170,7 @@ var
   lcItem: TSourceToken;
 begin
   Result := nil;
-  liLoop := FStackIndex;
+  liLoop := fiCurrentTokenIndex;
   while liLoop < Count do
   begin
     lcItem := TSourceToken(List^[liLoop]);
@@ -195,7 +200,7 @@ var
 begin
   Assert(piIndex > 0);
   Result := nil;
-  liLoop := FStackIndex;
+  liLoop := fiCurrentTokenIndex;
 
   while liLoop < Count do
   begin
@@ -203,7 +208,6 @@ begin
     if (lcTestToken <> nil) and lcTestToken.IsSolid then
     begin
       // found a solid token.
-
       if piIndex > 1 then
         Dec(piIndex) // go further
       else
@@ -245,7 +249,7 @@ var
 begin
   liX    := 1;
   liY    := 1;
-  liLoop := FStackIndex;
+  liLoop := fiCurrentTokenIndex;
   while liLoop < Count do
   begin
     lcToken := TSourceToken(List^[liLoop]);
@@ -262,12 +266,12 @@ begin
     This thing needs to be FAST. Access to here is quite controlled anyway.}
   Result      := TSourceToken(List^[piIndex]);
   List^[piIndex] := nil;
-  FStackIndex := piIndex + 1;
+  fiCurrentTokenIndex := piIndex + 1;
 end;
 
 procedure TSourceTokenList.Insert(const piIndex: integer; const pcItem: TSourceToken);
 begin
-  if FStackIndex <> 0 then
+  if fiCurrentTokenIndex <> 0 then
     raise Exception.Create('Insert Not allowed in Stack mode');
 
   inherited Insert(piIndex, pcItem);
@@ -275,7 +279,7 @@ end;
 
 procedure TSourceTokenList.Delete(const piIndex: integer);
 begin
-  if FStackIndex <> 0 then
+  if fiCurrentTokenIndex <> 0 then
     raise Exception.Create('Delete Not allowed in Stack mode');
 
   inherited Delete(piIndex);

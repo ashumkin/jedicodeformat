@@ -291,7 +291,7 @@ begin
   Assert(fcStack.Count = 0);
 
   { all tokens should have been processed }
-  Assert(fcTokenList.Count = fcTokenList.StackIndex);
+  Assert(fcTokenList.Count = fcTokenList.CurrentTokenIndex);
   fcTokenList.Clear;
 
 
@@ -313,19 +313,19 @@ procedure TBuildParseTree.Recognise(const peTokenTypes: TTokenTypeSet);
 
 var
   lcCurrentToken: TSourceToken;
-  liStackIndex:   integer;
+  liCurrentTokenIndex:   integer;
 begin
   // must accept something
   Assert(peTokenTypes <> []);
 
   { read tokens up to and including the specified one.
     Add them to the parse tree at the current growing point  }
-  liStackIndex := fcTokenList.StackIndex;
-  while liStackIndex < fcTokenList.Count do
+  liCurrentTokenIndex := fcTokenList.CurrentTokenIndex;
+  while liCurrentTokenIndex < fcTokenList.Count do
   begin
-    //lcCurrentToken := fcTokenList.ExtractFirst;
-    lcCurrentToken := fcTokenList.Extract(liStackIndex);
+    lcCurrentToken := fcTokenList.Extract(liCurrentTokenIndex);
     Assert(lcCurrentToken <> nil);
+
     TopNode.AddChild(lcCurrentToken);
     // the the match must be the first solid token
     if lcCurrentToken.TokenType in peTokenTypes then
@@ -333,7 +333,7 @@ begin
     else if not (lcCurrentToken.TokenType in NotSolidTokens) then
       raise TEParseError.Create('Unexpected token, expected ' +
         DescribeTarget, lcCurrentToken);
-    Inc(liStackIndex);
+    Inc(liCurrentTokenIndex);
   end;
 
   Inc(fiTokenCount);
@@ -540,7 +540,7 @@ begin
   Recognise(ttDot);
 
   { delphi accepts anything after the final end }
-  liCurrentIndex := fcTokenList.StackIndex; {AdemBaba}
+  liCurrentIndex := fcTokenList.CurrentTokenIndex; 
   while liCurrentIndex < fcTokenList.Count do
   begin
     lcCurrentToken := fcTokenList.Extract(liCurrentIndex);
@@ -968,7 +968,7 @@ begin
     exit;
 
   liBracketLevel := 0;
-  liIndex := fcTokenList.StackIndex; {AdemBaba}
+  liIndex := fcTokenList.CurrentTokenIndex;
   // scan past the open bracket
   while fcTokenList.SourceTokens[liIndex].TokenType <> ttOpenBracket do
     Inc(liIndex);
