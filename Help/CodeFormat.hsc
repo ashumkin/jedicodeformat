@@ -81,7 +81,7 @@ FALSE
 \par \f1 
 \par Helpfile by \cf3\strike Ralf Steinhaeusser\cf2\strike0\{linkID=1000\}
 \par 
-\par \cf0\f3 Last change : 30 October, 2003\f1 
+\par \cf0\f3 Last change : 20.11.2003\f1 
 \par }
 12
 Scribble12
@@ -176,7 +176,7 @@ Writing
 
 
 FALSE
-22
+24
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fnil\fcharset2 Symbol;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\f0\fs32 Logging Registry Settings\cf0\b0\fs20 
@@ -184,8 +184,10 @@ FALSE
 \par 
 \par \cf2\{bmc 30.\lang3079\f1 gif\lang1031\f0\}\cf0 
 \par 
+\par \lang3079\f1 These settings can be reached by clicking on the menu \b\i "Settings"\b0\i0  / \b\i "Registry settings"\b0\i0 , then change to the "Log file" tab.\lang1031\f0 
+\par 
 \par The log is a text file that is written every time that the code formatter is run, detailing what it did in the run. It can useful to you as a user when\lang2057\f1  y\lang1031\f0 ou have just run a batch and want to see how many and which files were formatted\lang2057\f1 . \lang1031\f0 The run's warnings are listed in the log file.
-\par \pard 
+\par 
 \par The log is also useful for debugging, as you can write to it from in the program. 
 \par 
 \par \b Log file detail level:\b0 
@@ -238,23 +240,21 @@ Writing
 
 
 FALSE
-18
+16
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fnil\fcharset0 Courier New;}{\f3\fnil\fcharset0 Arial;}}
-{\colortbl ;\red0\green0\blue255;\red128\green0\blue0;}
+{\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green128\blue0;}
 \viewkind4\uc1\pard\cf1\b\f0\fs32 Basic settings\cf0\b0\fs20 
 \par \cf2\{keepn\}
 \par 
-\par \{bmc 20.\lang3079\f1 gif\lang1031\f0\}\cf0 
+\par \{bmc \lang3079\f1 03\lang1031\f0 0\lang3079\f1 _Basic\lang1031\f0 .\lang3079\f1 gif\lang1031\f0\}\cf0 
 \par 
-\par \lang2057\f1 These are found on the main form of the JCFGui program.
+\par \lang2057\f1 These settings are found on the main form of the JCFGui program.
 \par \lang1031\f0 
-\par \b Mode:\b0  "Obfuscate" means to make unclear. You will want clarify not obfuscate.\lang2057\f1  \lang1031\f0 I did the obfuscation partly out of curiosity, partly as it is simple, and mostly to generate worst-case test units. It is not useful for production code, except to see how bad code layout can be but still compile.
-\par 
 \par \b Backup:\b0  I use "output to separate file" for testing.\lang2057\f1  The input file is left intact, with the output file going to a new file, with the same directory and the same name, but a different extension, typically \f2 .out\f1 . 
 \par 
 \par For production use, I recommend that you use "backup to seperate file". The input file is formatted, but a copy of the prior file is kept, with the same directory and name, but a different extension, typically \f2 .bak\f3 . If you really trust your source control system, you might decide to use "no backup".\lang1031\f0 
 \par 
-\par See the \lang2057\f1 logging registry\lang1031\f0  settings to change these \lang2057\f1 file \lang1031\f0 extensions.
+\par See the \cf3\lang2057\strike\f1 logging registry\lang1031\f0  settings\cf2\strike0\{linkID=24\}\cf0  to change these \lang2057\f1 file \lang1031\f0 extensions.
 \par 
 \par }
 40
@@ -289,15 +289,17 @@ Writing
 
 
 FALSE
-26
+28
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fnil\fcharset0 Arial;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\f0\fs32 Obfuscate Settings\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
-\par \cf2\{bmc 50.\lang3079\f1 gif\lang1031\f0\}\cf0 
+\par \cf2\{bmc \lang3079\f1 0\lang1031\f0 50\lang3079\f1 _Obfuscate\lang1031\f0 .\lang3079\f1 gif\lang1031\f0\}\cf0 
 \par 
 \par Th\lang2057\f1 is page \cf3\f2 of the JCF Format settings \cf0\lang1031\f0 control\lang2057\f1 s\lang1031\f0  the obfuscate process. 
+\par 
+\par "Obfuscate" means to make unclear. You will want clarify not obfuscate.\lang2057\f1  \lang1031\f0 I did the obfuscation partly out of curiosity, partly as it is simple, and mostly to generate worst-case test units. It is not useful for production code, except to see how bad code layout can be but still compile.
 \par 
 \par \lang2057\b\f1 Obfuscate\lang1031\f0  mode\b0  does everything wrong short of\lang2057\f1  \lang1031\f0 making semantic changes to your program. In spite of being unreadable, it will still\lang2057\f1  \lang1031\f0 compile as before.\lang2057\f1  This duplicates the obfuscate/clarify control on the \b JCFGui\b0  main page, but is needed for the \b JcfNotepad\b0  program and IDE pluggin.\lang1031\f0 
 \par 
@@ -328,7 +330,7 @@ Writing
 
 
 FALSE
-34
+36
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fnil\fcharset0 Arial;}{\f3\fnil\fcharset0 Courier New;}{\f4\fnil\fcharset2 Symbol;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green0\blue0;\red0\green128\blue0;}
 \viewkind4\uc1\pard\cf1\b\f0\fs32 Clarify Settings\cf0\b0\fs20 
@@ -348,6 +350,8 @@ FALSE
 \par {\pntext\f4\'B7\tab}Assignment to the function name. This is an obsolete style. Rather use the \f3 Result \f0 variable.
 \par {\pntext\f4\'B7\tab}\pard 
 \par \b Run plug-ins:\b0  A flag for user code to hook into. If you write a custom processor,\f1  \f0 use\lang2057\f1  \lang1031\f0 this flag to turn it on and off.
+\par 
+\par \lang3079\f1 Todo: Remove Plugins, what are "run once-offs"\lang1031\f0 
 \par 
 \par \f1 The clarifying algorithm can be configured via the following sub-pages:\f0 
 \par 
@@ -422,7 +426,7 @@ FALSE
 \viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Indentation\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
-\par \cf2\{bmc 80.\lang3079\f1 gif\lang1031\f0\}\cf0 
+\par \cf2\{bmc \lang3079\f1 0\lang1031\f0 80\lang3079\f1 _Indentation\lang1031\f0 .\lang3079\f1 gif\lang1031\f0\}\cf0 
 \par 
 \par Th\lang2057\f1 is page \cf3\f2 of the JCF Format settings controls indentation, ie the number of spaces to the left of the line of code due to the block structure of the program.\cf0\lang1031\f0 
 \par 
@@ -501,7 +505,7 @@ FALSE
 \viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Returns\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
-\par \cf2\{bmc 90.\lang3079\f1 gif\lang1031\f0\}
+\par \cf2\{bmc \lang3079\f1 0\lang1031\f0 90\lang3079\f1 _Returns\lang1031\f0 .\lang3079\f1 gif\lang1031\f0\}
 \par 
 \par \cf0 Th\lang2057\f1 is page \cf3\f2 of the JCF Format settings controls formatting by inserting or removing returns.\cf0\lang1031\f0 
 \par \lang2057\f1 
@@ -635,7 +639,7 @@ FALSE
 \viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Blocks\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
-\par \cf2\{bmc 100.\lang3079\f1 gif\lang1031\f0\}\cf0 
+\par \cf2\{bmc 100\lang3079\f1 _Blocks\lang1031\f0 .\lang3079\f1 gif\lang1031\f0\}\cf0 
 \par 
 \par Th\lang2057\f1 is page \cf3\f2 of the JCF Format settings controls line breaking around blocks of code.
 \par \cf0\lang1031\f0 
@@ -1076,7 +1080,7 @@ Writing
 
 
 FALSE
-21
+18
 {\rtf1\ansi\ansicpg1252\deff0\deflang3079{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil Arial;}{\f2\fswiss Arial;}{\f3\fmodern Courier New;}{\f4\fmodern\fcharset0 Courier New;}{\f5\fswiss\fcharset0 Arial;}{\f6\fnil Courier New;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;}
 \viewkind4\uc1\pard\cf1\lang1031\b\fs32 Info...\cf0\lang3079\b0\f1\fs20 
@@ -1085,10 +1089,7 @@ FALSE
 \par \lang1031\f2 This documantation was made out of the web page provided by Anthony Steele on his webpage on
 \par \cf1\strike\f3 http://jedicodeformat.sourceforge.net/\cf2\strike0\{link=*! ExecFile("\cf1\strike http://jedicodeformat.sourceforge.net/\cf2\strike0 ")\}\lang2057\f4  \cf0\f5 and subsequently expanded upon. 
 \par 
-\par \lang1031\f2 I really love the tool but I sometimes have to play around with the options to find out what they do. 
-\par That's why I put together this help file...
-\par 
-\par Feel free to send additions/corrections, better explanations or whatever concerning this helpfile to \cf1\strike\f3 codeformat@spoonworx.com\cf2\strike0\{link=*! ExecFile("mailto:codeformat@spoonworx.com")\}\cf0\f2 . \lang3079\f5 You can also get the source for this helpfile from the Sourceforge CVS. The helpfile is created using HelpScribble, and you can use the free demo-version (available from the Helpscribble-homepage from \cf1\strike\f6 http://www.helpscribble.com\cf2\strike0\{link=*! ExecFile("http://www.helpscribble.com")\}\cf0\f5 ) to make changes to this helpfile. If you will send us your modified helpfile (the source), we will try to include your changes into the next possible release.
+\par \lang1031\f2 Feel free to send additions/corrections, better explanations or whatever concerning this helpfile to \cf1\strike\f3 codeformat@spoonworx.com\cf2\strike0\{link=*! ExecFile("mailto:codeformat@spoonworx.com")\}\cf0\f2 . \lang3079\f5 You can also get the source for this helpfile from the Sourceforge CVS. The helpfile is created using HelpScribble, and you can use the free demo-version (available from the Helpscribble-homepage from \cf1\strike\f6 http://www.helpscribble.com\cf2\strike0\{link=*! ExecFile("http://www.helpscribble.com")\}\cf0\f5 ) to make changes to this helpfile. If you will send us your modified helpfile (the source), we will try to include your changes into the next possible release.
 \par \lang1031\f2 
 \par \f5 C\f2 omments regarding the program should be sent to Anthony Steele (\cf1\strike\f3 anthonysteele@users.sourceforge.net\cf2\strike0\{link=*! ExecFile("anthonysteele@users.sourceforge.net")\}\cf0\f2 ).
 \par \lang3079\f1 
