@@ -241,9 +241,9 @@ begin
 
     if fcBuildParseTree.ParseError then
     begin
-      {!!! debug code
+      {!!! debug code }
       ShowMessage(fcBuildParseTree.ParseErrorMessage);
-      ShowParseTree(fcBuildParseTree.Root);}
+      ShowParseTree(fcBuildParseTree.Root);
 
       fbConvertError := True;
       fsConvertErrorMessage := fcBuildParseTree.ParseErrorMessage;

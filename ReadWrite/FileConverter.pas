@@ -75,7 +75,7 @@ implementation
 uses
   { delphi } Windows, SysUtils, Dialogs, Controls,
   { jcl } JclFileUtils,
-  { local } FileUtils, JcfMiscFunctions, JCFLog;
+  { local } FileUtils, JcfMiscFunctions, JCFLog, JcfSettings;
 
 
 
@@ -99,13 +99,12 @@ begin
   if (SourceMode <> fmSingleFile) then
   begin
     lsTemp := PathExtractFileNameNoExt(psInput);
-    (*
+
     if Settings.FileSettings.FileIsExcluded(lsTemp) then
     begin
-      Log.LogMessage('Exluded file: ' + psInput);
+      Log.Write('Exluded file: ' + psInput);
       exit;
     end;
-    *)
   end;
 
   { all kinds of chaos ensues if you work with readonly files,
@@ -127,8 +126,7 @@ begin
   SendStatusMessage(lsMessage);
   fsOriginalFileName := psInput;
 
-  //lsOut := Settings.FileSettings.GetOutputFileName(psInput);
-  lsOut := SetFileNameExtension(psInput, 'out');
+  lsOut := Settings.FileSettings.GetOutputFileName(psInput);
 
   if BackupMode <> cmInplace then
   begin
@@ -239,13 +237,11 @@ begin
     exit;
   end;
 
-  (*
   if Settings.FileSettings.DirIsExcluded(GetLastDir(psDir)) then
   begin
-    Log.LogMessage('Exluded dir: ' + psDir);
+    Log.Write('Exluded dir: ' + psDir);
     exit;
   end;
-  *)
 
   lsDir := PathAddSeparator(psDir);
 
@@ -341,15 +337,13 @@ end;
 
 
 procedure TFileConverter.Convert;
-//var
-//  dwStart, dwElapsed: DWord;
+var
+  dwStart, dwElapsed: DWord;
 begin
-  {
   if Settings.Log.LogTime then
     dwStart := GetTickCount
   else
     dwStart := 0;
-  }
 
   fbAbort  := False;
   fiCount  := 0;
@@ -367,21 +361,17 @@ begin
       raise Exception.Create('TConverter.Convert: Bad file recurse type');
   end;
 
-  {
   if Settings.Log.LogTime then
   begin
     dwElapsed := GetTickCount - dwStart;
     Log.Write('Run took ' + FloatToStr(dwElapsed / 1000) + ' seconds')
   end;
-  }
 
   FinalSummary;
   Log.CloseLog;
 
-  {
   if Settings.Log.ViewLogAfterRun then
     Settings.Log.ViewLog;
-  }
 end;
 
 
