@@ -80,7 +80,7 @@ type
 implementation
 
 uses
-    { delphi } SysUtils, Dialogs,
+    { delphi } SysUtils, Dialogs, Forms,
     { jcl } JclStrings;
 
 { TBuildTokenList }
@@ -731,16 +731,24 @@ begin
 end;
 
 function TBuildTokenList.BuildTokenList: TSourceTokenList;
+const
+  UPDATE_INTERVAL = 4096; // big incre,ents here, this is fatser than parsing
 var
   lcList: TSourceTokenList;
   lcNew: TSourceToken;
+  liCounter: integer;
 begin
+  liCounter := 0;
   lcList := TSourceTokenList.Create;
 
   while not Reader.EndOfFile do
   begin
     lcNew := GetNextToken;
     lcList.Add(lcNew);
+
+    inc(liCounter);
+    if (liCounter mod UPDATE_INTERVAL) = 0 then
+      Application.ProcessMessages;
   end;
 
   Result := lcList;

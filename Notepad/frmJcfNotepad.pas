@@ -235,16 +235,21 @@ end;
 
 procedure TfmJCFNotepad.actGoExecute(Sender: TObject);
 begin
-  mMessages.Clear;
-  fcConvert.InputStrings := mInput.Lines;
-  fcConvert.OutputStrings := mOutput.Lines;
-  fcConvert.MessageStrings := mMessages.Lines;
+  actGo.Enabled := False;
+  try
+    mMessages.Clear;
+    fcConvert.InputStrings := mInput.Lines;
+    fcConvert.OutputStrings := mOutput.Lines;
+    fcConvert.MessageStrings := mMessages.Lines;
 
-  fcConvert.Convert;
-  fcConvert.Clear;
+    fcConvert.Convert;
+    fcConvert.Clear;
 
-  pcPages.ActivePage := tsOutput;
-  pcPagesChange(nil);
+    pcPages.ActivePage := tsOutput;
+    pcPagesChange(nil);
+  finally
+    CheckInputState;
+  end;
 end;
 
 procedure TfmJCFNotepad.mInputKeyUp(Sender: TObject; var Key: Word;

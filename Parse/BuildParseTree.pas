@@ -244,7 +244,7 @@ uses
 
 
 const
-  UPDATE_INTERVAL = 256;
+  UPDATE_INTERVAL = 512;
 
 {------------------------------------------------------------------------------
   standard overrides }

@@ -37,7 +37,7 @@ type
   private
     { stage of the token list }
     fcTokens: TSourceTokenList;
-    fiCurrentIndex: integer;
+    fiCurrentTokenIndex: integer;
 
     { state from the preprocessor statements }
     fbPreprocessorIncluded: Boolean;
@@ -67,6 +67,7 @@ type
 
     procedure CompactTokens;
 
+    procedure NextToken;
   public
     constructor Create;
     destructor Destroy; override;
@@ -82,7 +83,7 @@ implementation
 
 uses
   { delphi }
-  SysUtils,
+  SysUtils, Forms,
   { jcl }
   JclStrings,
   { local }
@@ -153,6 +154,8 @@ constructor TPreProcessorParseTree.Create;
 begin
   inherited;
 
+  fiCurrentTokenIndex := 0;
+
   fcDefinedSymbols := TStringList.Create;
   fcDefinedSymbols.Sorted := True;
   fcDefinedSymbols.Duplicates := dupIgnore;
@@ -166,6 +169,27 @@ begin
   FreeAndNil(fcDefinedSymbols);
 
   inherited;
+end;
+
+
+procedure TPreProcessorParseTree.NextToken;
+const
+  UPDATE_INTERVAL = 512;
+begin
+  inc(fiCurrentTokenIndex);
+
+  if (fiCurrentTokenIndex mod UPDATE_INTERVAL) = 0 then
+    Application.ProcessMessages;
+end;
+
+function TPreProcessorParseTree.CurrentToken: TSourceToken;
+begin
+  if fcTokens = nil then
+    Result:= nil
+  else if fiCurrentTokenIndex >= fcTokens.Count then
+    Result := nil
+  else
+    Result := fcTokens.SourceTokens[fiCurrentTokenIndex];
 end;
 
 procedure TPreProcessorParseTree.ProcessTokenList(const pcTokens: TSourceTokenList);
@@ -187,18 +211,18 @@ begin
 
 
   {   unit -> non-preproc [preproc non-preproc]... }
-  fiCurrentIndex := 0;
+  fiCurrentTokenIndex := 0;
   fbPreprocessorIncluded := True;
 
-  while fiCurrentIndex < pcTokens.Count do
+  while fiCurrentTokenIndex < pcTokens.Count do
   begin
-    lcToken := pcTokens.SourceTokens[fiCurrentIndex];
+    lcToken := pcTokens.SourceTokens[fiCurrentTokenIndex];
     lcToken.PreProcessedOut := False;
 
     if lcToken.CommentStyle = eCompilerDirective then
       ParseProcessorBlock
     else
-      inc(fiCurrentIndex);
+      NextToken;
   end;
 
   CompactTokens;
@@ -238,7 +262,7 @@ begin
       { do nothing. this could be a "$R *.dfm" or other compiler directive 
         //raise TEParseError.Create('Unknown preprocessor symbol', lcToken);
       }
-      inc(fiCurrentIndex);
+      NextToken;
     end;
     else
       raise TEParseError.Create('Unexpected preprocessor symbol', lcToken);
@@ -249,13 +273,13 @@ end;
 procedure TPreProcessorParseTree.ParseDefine(const psSymbol: string);
 begin
   AddDefinedSymbol(psSymbol);
-  inc(fiCurrentIndex);
+  NextToken;
 end;
 
 procedure TPreProcessorParseTree.ParseUndef;
 begin
   RemoveDefinedSymbol(psSymbol);
-  inc(fiCurrentIndex);
+  NextToken;
 end;
 
 
@@ -273,9 +297,12 @@ begin
     lbEval := False;
 
   fbPreprocessorIncluded := lbEval;
-  inc(fiCurrentIndex);
+  NextToken;
 
   ParseNonPreProc(PREPROC_BLOCK_END);
+  { must not include the else block if
+   - the expr was true & the first block was in
+   - the whole thing is inside a larger block that's out }
   ParseOptTail(lbEval or (not lbWasIncluded));
   ParsePreProcessorDirective([ppEndIf, ppIfEnd]);
 
@@ -294,10 +321,13 @@ begin
     lbEval := False;
 
   fbPreprocessorIncluded := lbEval;
-  inc(fiCurrentIndex);
+  NextToken;
 
   ParseNonPreProc(PREPROC_BLOCK_END);
-  ParseOptTail(lbEval);
+  { must not include the else block if
+   - the expr was true & the first block was in
+   - the whole thing is inside a larger block that's out }
+  ParseOptTail(lbEval or (not lbWasIncluded));
   ParsePreProcessorDirective([ppEndIf, ppIfEnd]);
   fbPreprocessorIncluded := lbWasIncluded;
 
@@ -315,10 +345,13 @@ begin
     lbEval := False;
 
   fbPreprocessorIncluded := lbEval;
-  inc(fiCurrentIndex);
+  NextToken;
 
   ParseNonPreProc(PREPROC_BLOCK_END);
-  ParseOptTail(lbEval);
+  { must not include the else block if
+   - the expr was true & the first block was in
+   - the whole thing is inside a larger block that's out }
+  ParseOptTail(lbEval or (not lbWasIncluded));
   ParsePreProcessorDirective([ppEndIf, ppIfEnd]);
 
   fbPreprocessorIncluded := lbWasIncluded;
@@ -336,10 +369,13 @@ begin
     lbEval := False;
 
   fbPreprocessorIncluded := lbEval;
-  inc(fiCurrentIndex);
+  NextToken;
 
   ParseNonPreProc(PREPROC_BLOCK_END);
-  ParseOptTail(lbEval);
+  { must not include the else block if
+   - the expr was true & the first block was in
+   - the whole thing is inside a larger block that's out }
+  ParseOptTail(lbEval or (not lbWasIncluded));
   ParsePreProcessorDirective([ppEndIf, ppIfEnd]);
   fbPreprocessorIncluded := lbWasIncluded;
 end;
@@ -363,7 +399,7 @@ begin
     raise TEParseError.Create('Expected compiler directive ' +
       PreProcSymbolTypeSetToString(peSymbolTypes), lcToken);
 
-  inc(fiCurrentIndex);
+  NextToken;
 end;
 
 
@@ -372,7 +408,7 @@ var
   lcToken: TSourceToken;
 begin
   { go forward until another preprocessor tag is found. or end of file }
-  while (fiCurrentIndex < fcTokens.Count) do
+  while (fiCurrentTokenIndex < fcTokens.Count) do
   begin
     lcToken := CurrentToken;
     Assert(lcToken <> nil);
@@ -391,7 +427,7 @@ begin
       ParseProcessorBlock;
     end
     else
-      inc(fiCurrentIndex);
+      NextToken;
   end;
 end;
 
@@ -413,7 +449,7 @@ end;
 
 procedure TPreProcessorParseTree.ParseElse(const pbAlreadyMatchedClause: boolean);
 begin
-  inc(fiCurrentIndex);
+  NextToken;
 
   fbPreprocessorIncluded := (not pbAlreadyMatchedClause);
   ParseNonPreProc([ppEndIf, ppIfEnd]);
@@ -432,7 +468,7 @@ begin
   else
     fbPreprocessorIncluded := False;
 
-  inc(fiCurrentIndex);
+  NextToken;
 
   ParseNonPreProc([ppElse, ppElseIf, ppEndIf, ppIfEnd]);
 end;
@@ -502,15 +538,6 @@ begin
   end;
 end;
 
-function TPreProcessorParseTree.CurrentToken: TSourceToken;
-begin
-  if fcTokens = nil then
-    Result:= nil
-  else if fiCurrentIndex >= fcTokens.Count then
-    Result := nil
-  else
-    Result := fcTokens.SourceTokens[fiCurrentIndex];
-end;
 
 { hide the bits that are preprocessed out }
 procedure TPreProcessorParseTree.CompactTokens;
