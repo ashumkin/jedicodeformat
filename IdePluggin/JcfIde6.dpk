@@ -34,13 +34,10 @@ requires
   rtl,
   vcljpg,
   inet,
-  qrpt,
-  bdertl,
-  dbrtl,
-  vcldb,
-  VclSmp,
-  DJCL60,
-  JVCL200_R60;
+  JvStdCtrlsD6R,
+  JvCoreD6R,
+  DJcl,
+  JvSystemD6R;
 
 contains
   JcfIdeRegister in 'JcfIdeRegister.pas',
