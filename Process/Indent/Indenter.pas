@@ -138,7 +138,7 @@ begin
     if pt.Word in Declarations + ProcedureWords then
     begin
       {
-        the words 'var' and 'cost' cna be found in proc params
+        the words 'var' and 'cost' can be found in proc params
         the words 'procedure' and 'function' can be found in type defs, e.g. type Tfoo = procedure of object; }
       if (pt.Word in ProcedureWords + ParamTypes) and
         (pt.HasParentNode(nProcedureType) or pt.HasParentNode(nFormalParams)) then

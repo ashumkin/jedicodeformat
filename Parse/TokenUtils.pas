@@ -42,6 +42,7 @@ function RoundBracketLevel(const pt: TSourceToken): integer;
 function SquareBracketLevel(const pt: TSourceToken): integer;
 function AllBracketLevel(const pt: TSourceToken): integer;
 function BlockLevel(const pt: TSourceToken): integer;
+function CaseLevel(const pt: TSourceToken): integer;
 
 function InRoundBrackets(const pt: TSourceToken): boolean;
 
@@ -71,6 +72,8 @@ function IsFormalParamOpenBracket(const pt: TSourceToken): boolean;
 function IsLineBreaker(const pcToken: TSourceToken): boolean;
 function IsMultiLineComment(const pcToken: TSourceToken): boolean;
 function IsSingleLineComment(const pcToken: TSourceToken): boolean;
+
+function IsBlankLineEnd(const pcToken: TSourceToken): boolean;
 
 function VarIdentCount(const pcNode: TParseTreeNode): integer;
 function IdentListNameCount(const pcNode: TParseTreeNode): integer;
@@ -311,6 +314,15 @@ begin
     Result := pt.Nestings.GetLevel(nlBlock);
 end;
 
+function CaseLevel(const pt: TSourceToken): integer;
+begin
+  if pt = nil then
+    Result := 0
+  else
+    Result := pt.Nestings.GetLevel(nlCaseSelector);
+end;
+
+
 function SemicolonNext(const pt: TSourceToken): boolean;
 var
   lcNext: TSourceToken;
@@ -412,6 +424,17 @@ begin
     Result := not IsMultiLineComment(pcToken);
 end;
 
+function IsBlankLineEnd(const pcToken: TSourceToken): boolean;
+var
+  lcPrev: TSourceToken;
+begin
+  Result := False;
+  if (pcToken <> nil) and (pcToken.TokenType = ttReturn) then
+  begin
+    lcPrev := pcToken.PriorToken;
+    Result := (lcPrev <> nil) and (lcPrev.TokenType = ttReturn);
+  end;
+end;
 
 function IsLineBreaker(const pcToken: TSourceToken): boolean;
 begin

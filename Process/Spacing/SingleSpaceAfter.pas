@@ -103,6 +103,13 @@ begin
     exit;
   end;
 
+  { 'absolute' as a var directive }
+  if (pt.Word = wAbsolute) and pt.HasParentNode(nAbsoluteVar) then
+  begin
+    Result := True;
+    exit;
+  end;
+
   if (pt.Word in SingleSpaceAfterWords) then
   begin
     { 'procedure' and 'function' in proc type def don't have space after, e.g.
@@ -202,6 +209,14 @@ begin
     if lcNext.TokenType = ttWhiteSpace then
     begin
       lcNext.SourceCode := AnsiSpace;
+
+      { empty any preceeding whitespace }
+      repeat
+        lcNext := lcNext.NextToken;
+        if lcNext.TokenType = ttWhiteSpace then
+          lcNext.SourceCode := '';
+      until lcNext.TokenType <> ttWhiteSpace;
+
     end
     else if (lcNext.TokenType <> ttReturn) then
     begin

@@ -276,7 +276,7 @@ const
 
   ParamTypes = [wVar, wConst, wOut];
 
-  BlockOutdentWords = [wVar, wThreadVar, wConst, wType, wLabel,
+  BlockOutdentWords = [wVar, wThreadVar, wConst, wResourceString, wType, wLabel,
     wBegin, wEnd, wTry, wFinally, wExcept,
     wWhile,  wFor, wRepeat, wUntil, wWith,
     wAsm, wCase, wInitialization, wFinalization];

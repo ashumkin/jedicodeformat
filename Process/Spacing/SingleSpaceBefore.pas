@@ -36,7 +36,7 @@ uses
 
 const
   // space before all operators
-  SingleSpaceBeforeWords: TWordSet       = [wEquals, wThen, wOf, wDo,
+  SingleSpaceBeforeWords: TWordSet = [wEquals, wThen, wOf, wDo,
     wTo, wDownTo,
     // some unary operators
     wNot,
@@ -89,6 +89,13 @@ begin
     exit;
   end;
 
+  { 'absolute' as a var directive }
+  if (pt.Word = wAbsolute) and pt.HasParentNode(nAbsoluteVar) then
+  begin
+    Result := True;
+    exit;
+  end;
+
   { string that starts with # , ie char codes
   }
   if pt.IsHashLiteral then
@@ -125,7 +132,17 @@ begin
   if NeedsSpaceBefore(lcNext) then
   begin
     if (lcSourceToken.TokenType = ttWhiteSpace) then
-      lcSourceToken.SourceCode := ' '
+    begin
+      { one space }
+      lcSourceToken.SourceCode := AnsiSpace;
+
+      { empty any preceeding whitespace }
+      repeat
+        lcSourceToken := lcSourceToken.PriorToken;
+        if lcSourceToken.TokenType = ttWhiteSpace then
+          lcSourceToken.SourceCode := '';
+      until lcSourceToken.TokenType <> ttWhiteSpace;
+    end
     else
     begin
       lcNew := TSourceToken.Create;

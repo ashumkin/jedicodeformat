@@ -110,15 +110,12 @@ begin
   { only look at solid tokens }
   if (pt.TokenType in [ttReturn, ttWhiteSpace]) then
   begin
-    Result := False;
+    // ended by a blank line
+    Result := IsBlankLineEnd(pt);
   end
   else
   begin
     Result := (pt.TokenType in [ttSemiColon, ttEOF]) or (not pt.HasParentNode(nVarSection));
-
-    // ended by a blank line
-    if (pt.TokenType = ttReturn) and (pt.SolidTokenOnLineIndex <= 1) then
-      Result := True;
   end;
 end;
 
