@@ -9,7 +9,7 @@ JEDI Delphi Code Format
 
 TRUE
 
-D:\Daten\Sonstige\CODEFO~1\Bilder
+.\Bilder,D:\Daten\Sonstige\CODEFO~3\Bilder
 1
 BrowseButtons()
 0
@@ -176,7 +176,7 @@ FALSE
 \viewkind4\uc1\pard\cf1\b\f0\fs32 Logging Registry Settings settings\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
-\par \cf2\{bmc 30.bmp\}\cf0 
+\par \cf2\{bmc 30.\lang3079\f1 gif\lang1031\f0\}\cf0 
 \par 
 \par The log is a text file that is written every time that the code formatter is run, detailing what it did in the run. It can useful to you as a user when 
 \par 
@@ -240,7 +240,7 @@ FALSE
 \viewkind4\uc1\pard\cf1\b\f0\fs32 Basic settings\cf0\b0\fs20 
 \par \cf2\{keepn\}
 \par 
-\par \{bmc 20.bmp\}\cf0 
+\par \{bmc 20.\lang3079\f1 gif\lang1031\f0\}\cf0 
 \par 
 \par \lang2057\f1 These are found on the main form of the JCFGui program.
 \par \lang1031\f0 
@@ -286,12 +286,12 @@ Writing
 
 FALSE
 26
-{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}}
+{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\f0\fs32 Obfuscate Settings\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
-\par \cf2\{bmc 50.bmp\}\cf0 
+\par \cf2\{bmc 50.\lang3079\f1 gif\lang1031\f0\}\cf0 
 \par 
 \par These control the obfuscate process. This mode does everything wrong short of
 \par making semantic changes to your program. In spite of being unreadable, it will still
@@ -374,7 +374,7 @@ FALSE
 \viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\f0\fs32\{linkID=\f1 %\f0 60\}\cf1  Spaces\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
-\par \cf2\{bmc 70.bmp\}\cf0 
+\par \cf2\{bmc 70.\lang3079\f1 gif\lang1031\f0\}\cf0 
 \par 
 \par \b Fix spacing:\b0  This turns on a set of rules that set a single space, or no
 \par space before or after certain tokens. For e.g., There is supposed to be no space
@@ -419,7 +419,7 @@ FALSE
 \viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Indentation\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
-\par \cf2\{bmc 80.bmp\}\cf0 
+\par \cf2\{bmc 80.\lang3079\f1 gif\lang1031\f0\}\cf0 
 \par 
 \par \i Indent:\i0  Do block indentation on global types and vars, class declarations and procedure bodies. The number of spaces per indentation level can be set, but 2 is standard. You can decide if you want this on in globals (i.e. variables, constants and types), in class declarations and in procedure bodies.
 \par 
@@ -506,7 +506,7 @@ FALSE
 \viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Returns\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
-\par \cf2\{bmc 90.bmp\}\cf0 
+\par \cf2\{bmc 90.\lang3079\f1 gif\lang1031\f0\}\cf0 
 \par \lang2057\f1 
 \par \lang1031\b\f0 Insert returns, remove returns:\b0  These turn on a rules that set a single new line, double\lang3079\f1  \lang1031\f0 new line or no new line before or after certain tokens. For e.g., There is\lang3079\f1  \lang1031\f0 supposed to be a double new line after the \b\f2 interface \b0\f0 and \b\f2 implementation \b0\f0 keywords, so this is one of the misc. good places to have returns.
 \par 
@@ -611,7 +611,7 @@ FALSE
 \viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Blocks\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
-\par \cf2\{bmc 100.bmp\}\cf0 
+\par \cf2\{bmc 100.\lang3079\f1 gif\lang1031\f0\}\cf0 
 \par 
 \par A block is a group of statements,  either grouped inside a begin..end. I have also used this term to refer to circumstances where there is no begin .. end block, but a statement is owned by a compound statement, e.g an if or while statement. These options give you control over when to use a new line in blocks and owned statements.
 \par 
@@ -661,7 +661,7 @@ FALSE
 \viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Align\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
-\par \cf2\{bmc 110.bmp\}\cf0 
+\par \cf2\{bmc 110.\lang3079\f1 gif\lang1031\f0\}\cf0 
 \par 
 \par These processes make you code look pretty by lining up code elements on successive lines. For e.g. this turns
 \par 
@@ -763,7 +763,7 @@ FALSE
 \viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Find and replace\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
-\par \cf2\{bmc 130.bmp\}
+\par \cf2\{bmc 130.\lang3079\f1 gif\lang1031\f0\}
 \par 
 \par \cf0\lang2057\b\f1 This feature is not yet working in JCF 2.0. It will be enabled in a later release\b0 
 \par 
@@ -802,7 +802,7 @@ FALSE
 \viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Find and replace on uses\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
-\par \cf2\{bmc 140.bmp\}\cf0 
+\par \cf2\{bmc 140.\lang3079\f1 gif\lang1031\f0\}\cf0 
 \par 
 \par \lang2057\b\f1 This feature is not working yet in V2.0. It will be enabled in a later beta.
 \par \lang1031\f0 
