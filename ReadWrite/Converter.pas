@@ -248,7 +248,12 @@ var
   lsMessage: string;
 begin
   if fiConvertCount = 0 then
-    lsMessage := 'Nothing done'
+  begin
+    if ConvertError then
+      lsMessage := 'Aborted due to error'
+    else
+      lsMessage := 'Nothing done';
+  end
   else if fbAbort then
     lsMessage := 'Aborted after ' + DescribeFileCount(fiConvertCount)
   else if fiConvertCount > 1 then
