@@ -31,7 +31,7 @@ uses
   { delphi design time }
   ToolsAPI,
   { local }
-  Converter, ConvertTypes;
+  ConvertTypes;
 
 type
 
@@ -77,12 +77,12 @@ uses
   { delphi }
   SysUtils,
   { local }
-  JcfLog, JcfDllExtern;
+  JcfDllExtern;
 
 constructor TEditorConverter.Create;
 begin
   inherited;
-
+  fOnStatusMessage := nil;
 end;
 
 destructor TEditorConverter.Destroy;
@@ -113,12 +113,11 @@ begin
   lsIn := ReadFromIDE(pciUnit);
 
   // now convert
-  SetOnStatusMessage(SendStatusMessage);
-  lsOut := Format(lsIn);
+  lsOut := JcfFormat(lsIn);
 
   fsCurrentUnitName := '';
 
-  if not ConvertError then
+  if not JcfConvertError then
   begin
     WriteToIDE(pciUnit, lsOut);
     SendStatusMessage(lcBuffer.FileName, 'Formatted unit', -1, -1);
@@ -217,15 +216,13 @@ end;
 procedure TEditorConverter.AfterConvert;
 begin
   FinalSummary;
-  Log.CloseLog;
-
-  if GetRegSettings.ViewLogAfterRun then
-    GetRegSettings.ViewLog;
+  JcfCloseLog;
+  JcfCheckShowLog;
 end;
 
 procedure TEditorConverter.Clear;
 begin
-  ClearFormat;
+  JcfClearFormat;
 end;
 
 
@@ -257,7 +254,7 @@ end;
 
 procedure TEditorConverter.SetOnStatusMessage(const Value: TStatusMessageProc);
 begin
-    fOnStatusMessage := Value;
+  fOnStatusMessage := Value;
 end;
 
 procedure TEditorConverter.FinalSummary;
@@ -266,7 +263,7 @@ var
 begin
   if fiConvertCount = 0 then
   begin
-    if ConvertError then
+    if JcfConvertError then
       lsMessage := 'Aborted due to error'
     else
       lsMessage := 'Nothing done';
@@ -283,8 +280,7 @@ begin
   if lsMessage <> '' then
     SendStatusMessage('', lsMessage, -1, -1);
 
-  Log.EmptyLine;
-  Log.Write(lsMessage);
+  JcfLogWrite(lsMessage);
 end;
 
 procedure TEditorConverter.BeforeConvert;

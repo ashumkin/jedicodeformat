@@ -122,8 +122,11 @@ end;
 constructor TJcfIdeMain.Create;
 begin
   inherited;
-  { both of these are created on demand }
+  { created on demand }
   fcEditorConverter := nil;
+
+  JcfReadRegistrySettings;
+  JcfLoadDefaultSettingsFile;
 end;
 
 destructor TJcfIdeMain.Destroy;
@@ -241,24 +244,24 @@ begin
   if not FileIsAllowedType(psFileName) then
     exit;
 
-  SetOnStatusMessage(LogIDEMessage);
+  JcfSetOnFileFormatStatusMessage(LogIDEMessage);
   // todo: pass over backup & out settings
-  ProcessFile(psFileName);
+  JcfProcessFile(psFileName);
 end;
 
 procedure TJcfIdeMain.DoFormatSettings(Sender: TObject);
 begin
-  ShowFormatSettings;
+  JcfShowFormatSettings;
 end;
 
 procedure TJcfIdeMain.DoAbout(Sender: TObject);
 begin
-  ShowAbout;
+  JcfShowAbout;
 end;
 
 procedure TJcfIdeMain.DoRegistrySettings(Sender: TObject);
 begin
-  ShowRegistrySettings;
+  JcfShowRegistrySettings;
 end;
 
 procedure TJcfIdeMain.ShortcutKeyCallback(const Context: IOTAKeyContext;
