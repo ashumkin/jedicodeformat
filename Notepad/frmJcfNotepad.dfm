@@ -1,6 +1,6 @@
 object fmJCFNotepad: TfmJCFNotepad
-  Left = 192
-  Top = 114
+  Left = 165
+  Top = 173
   Width = 696
   Height = 480
   Caption = 'Jedi Code format notepad'
@@ -296,5 +296,13 @@ object fmJCFNotepad: TfmJCFNotepad
     OnClick = mruFilesClick
     Left = 540
     Top = 24
+  end
+  object JvFormStorage1: TJvFormStorage
+    IniFileName = 'Software\Jedi\JediCodeFormat\'
+    IniSection = 'NotepadFormPos'
+    UseRegistry = True
+    StoredValues = <>
+    Left = 600
+    Top = 8
   end
 end

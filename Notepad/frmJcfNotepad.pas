@@ -2,7 +2,7 @@ unit frmJcfNotepad;
 
 {(*}
 (*------------------------------------------------------------------------------
- Delphi Code formatter source code 
+ Delphi Code formatter source code
 
 The Original Code is frmJcfNotepad, released May 2003.
 The Initial Developer of the Original Code is Anthony Steele. 
@@ -30,7 +30,7 @@ uses
   Buttons, Menus,
   { Jedi }
   JvMRUList, JvMemo,
-  { local } StringsConverter, JcfRegistrySettings;
+  { local } StringsConverter, JcfRegistrySettings, JvPlacemnt;
 
 type
   TfmJCFNotepad = class(TForm)
@@ -81,6 +81,7 @@ type
     mnuFormatSettings: TMenuItem;
     ActCut: TAction;
     Contents1: TMenuItem;
+    JvFormStorage1: TJvFormStorage;
     procedure FormResize(Sender: TObject);
     procedure pcPagesChange(Sender: TObject);
     procedure actGoExecute(Sender: TObject);

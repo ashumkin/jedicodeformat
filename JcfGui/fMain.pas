@@ -34,7 +34,7 @@ uses
   StdCtrls, Buttons, ExtCtrls, ComCtrls, Menus,
   ActnList, ImgList, ToolWin, StdActns,
     { local } FileConverter, JCFSettings, frFiles,
-  frBasicSettings,  frDrop,  frmBaseSettingsFrame, JvMRUList;
+  frBasicSettings,  frDrop,  frmBaseSettingsFrame, JvMRUList, JvPlacemnt;
 
 type
   TfrmMain = class(TForm)
@@ -77,6 +77,7 @@ type
     N1: TMenuItem;
     mnuSaveSettingsAs: TMenuItem;
     aSaveSettingsAs: TAction;
+    JvFormStorage1: TJvFormStorage;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure mnuGoClick(Sender: TObject);
