@@ -8,5 +8,6 @@ label loopstart;var liloop:integer;label loopend;const loopmax=20;begin liloop:=
 then goto loopend else goto loopstart;end;loopend:;end;procedure untilloop;label 
 loopstart;var liloop:integer;const loopmax=20;begin liloop:=0;loopstart:showmessage
 ('Loop # '+inttostr(liloop));inc(liloop);if(liloop<loopmax)or(random(10)=3)then goto
-loopstart;end;label jim;begin goto jim;fred:showmessage('Fred was here ');jim:;end
-. 
+loopstart;end;procedure testlabeluntil;var i:integer;b:boolean;label lbl;begin repeat
+if b then goto lbl;lbl:until b;end;label jim;begin goto jim;fred:showmessage('Fred was here '
+);jim:;end. 

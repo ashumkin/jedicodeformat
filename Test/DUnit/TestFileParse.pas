@@ -480,7 +480,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestGoto;
 begin
-  TestParseFile('TestGoto', 443);
+  TestParseFile('TestGoto', 503);
 end;
 
 procedure TTestFileParse.TestParse_TestInitFinal;
