@@ -33,7 +33,7 @@ uses
 type
   TfClarify = class(TfrSettingsFrame)
     cbWarnings: TCheckBox;
-    cbOnceOffs: TCheckBox;
+    rgRunOnceOffs: TRadioGroup;
   private
 
   public
@@ -48,7 +48,7 @@ implementation
 
 {$R *.DFM}
 
-uses JcfSettings, TokenType, JCFHelp;
+uses JcfSettings, TokenType, JCFHelp, SetClarify;
 
 constructor TfClarify.Create(AOwner: TComponent);
 begin
@@ -64,7 +64,7 @@ procedure TfClarify.Read;
 begin
   with FormatSettings.Clarify do
   begin
-    cbOnceOffs.Checked := OnceOffs;
+    rgRunOnceOffs.ItemIndex := Ord(OnceOffs);
     cbWarnings.Checked := Warnings;
   end;
 end;
@@ -73,7 +73,7 @@ procedure TfClarify.Write;
 begin
   with FormatSettings.Clarify do
   begin
-    OnceOffs := cbOnceOffs.Checked;
+    OnceOffs := TOnceOffsOption(rgRunOnceOffs.ItemIndex);
     Warnings := cbWarnings.Checked;
   end;
 end;

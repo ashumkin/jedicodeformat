@@ -31,12 +31,12 @@ uses
 
 type
   TfFiles = class(TfrSettingsFrame)
-    lblFormatFileName: TLabel;
     lblStatus: TLabel;
     lblDate: TLabel;
     lblVersion: TLabel;
     lblDescription: TLabel;
     mDescription: TJvMemo;
+    lblFormatFileName: TLabel;
     procedure FrameResize(Sender: TObject);
   private
 
@@ -72,18 +72,19 @@ begin
 
   if not FileExists(lcSet.FormatConfigFileName) then
   begin
-    lblStatus.Caption := 'file not found';
+    lblStatus.Caption := 'File not found';
   end
   else
   begin
     if FileIsReadOnly(lcSet.FormatConfigFileName) then
     begin
-      lblStatus.Caption := 'file is read only';
+      lblStatus.Caption := 'File is read only';
       mDescription.ReadOnly := True;
+      mDescription.ParentColor := True;
     end
     else
     begin
-      lblStatus.Caption := '';
+      lblStatus.Caption := 'File is writable';
       mDescription.ReadOnly := False;
     end;
 

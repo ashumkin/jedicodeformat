@@ -26,6 +26,8 @@ TAllProcesses = class(TObject)
     procedure Capitalisation;
     procedure Indent;
     procedure Align;
+
+    procedure OnceOffs;
   public
     constructor Create;
 
@@ -37,9 +39,10 @@ end;
 implementation
 
 uses
-  JcfSettings,
+  JcfSettings, SetClarify,
   VisitSetXY,
-
+  { once-offs }
+  MozComment,
   { obfuscate}
   FixCase, RemoveComment, RemoveBlankLine, RemoveReturn, ReduceWhiteSpace,
   RemoveConsecutiveWhiteSpace, RemoveUnneededWhiteSpace, RebreakLines,
@@ -102,12 +105,18 @@ begin
   Assert(pcRoot <> nil);
   fcRoot := pcRoot;
 
-  if FormatSettings.Obfuscate.Enabled then
+  if FormatSettings.Clarify.OnceOffs = eRunOnly then
+  begin
+    // run only the once-offs
+    OnceOffs;
+  end
+  else if FormatSettings.Obfuscate.Enabled then
   begin
     Obfuscate;
   end
   else
   begin
+    // normal clarify path 
     ClarifySetup;
     Warnings;
     Capitalisation;
@@ -116,7 +125,11 @@ begin
     Indent;
     Align;
 
-    // stats last 
+    // run the once-offs too?
+    if FormatSettings.Clarify.OnceOffs = eDoRun then
+       OnceOffs;
+
+    // stats last
     ApplyVisitorType(TBasicStats);
   end;
 end;
@@ -237,6 +250,11 @@ begin
 
   ApplyVisitorType(TVisitSetXY);
   ApplyVisitorType(TAlignComment);
+end;
+
+procedure TAllProcesses.OnceOffs;
+begin
+  ApplyVisitorType(TMozComment);
 end;
 
 end.

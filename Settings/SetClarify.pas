@@ -28,10 +28,12 @@ interface
 uses JCFSetBase, TokenType, SettingsStream;
 
 type
+  // once-offs can be run, not run, or can be the only thing run
+  TOnceOffsOption = (eDoNotRun, eDoRun, eRunOnly);
 
   TSetClarify = class(TSetBase)
   private
-    fbOnceOffs: boolean;
+    feOnceOffs: TOnceOffsOption;
     fbWarnings: boolean;
 
   protected
@@ -42,7 +44,7 @@ type
     procedure WriteToStream(const pcOut: TSettingsOutput); override;
     procedure ReadFromStream(const pcStream: TSettingsInput); override;
 
-    property OnceOffs: boolean read fbOnceOffs write fbOnceOffs;
+    property OnceOffs: TOnceOffsOption read feOnceOffs write feOnceOffs;
     property Warnings: boolean read fbWarnings write fbWarnings;
   end;
 
@@ -64,7 +66,7 @@ procedure TSetClarify.ReadFromStream(const pcStream: TSettingsInput);
 begin
   Assert(pcStream <> nil);
 
-  fbOnceOffs := pcStream.Read(REG_ONCE_OFFS, False);
+  feOnceOffs := TOnceOffsOption(pcStream.Read(REG_ONCE_OFFS, Ord(feOnceOffs)));
   fbWarnings := pcStream.Read(REG_WARNINGS, True);
 end;
 
@@ -72,7 +74,7 @@ procedure TSetClarify.WriteToStream(const pcOut: TSettingsOutput);
 begin
   Assert(pcOut <> nil);
 
-  pcOut.Write(REG_ONCE_OFFS, fbOnceOffs);
+  pcOut.Write(REG_ONCE_OFFS, Ord(feOnceOffs));
   pcOut.Write(REG_WARNINGS, fbWarnings);
 end;
 

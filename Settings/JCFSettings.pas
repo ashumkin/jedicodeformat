@@ -124,7 +124,7 @@ end;
 
 destructor TFormatSettings.Destroy;
 begin
-  if WriteOnExit then
+  if WriteOnExit and (not FileIsReadOnly(GetRegSettings.FormatConfigFileName)) then
     Write;
 
   FreeAndNil(fcObfuscate);

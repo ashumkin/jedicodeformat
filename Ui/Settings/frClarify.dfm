@@ -9,12 +9,16 @@ inherited fClarify: TfClarify
     Caption = 'Show warnings'
     TabOrder = 0
   end
-  object cbOnceOffs: TCheckBox
+  object rgRunOnceOffs: TRadioGroup
     Left = 8
-    Top = 26
-    Width = 97
-    Height = 17
-    Caption = 'Run plug-ins'
+    Top = 32
+    Width = 141
+    Height = 85
+    Caption = 'Run once-offs'
+    Items.Strings = (
+      'Do &not run'
+      'Do &run'
+      'Run &only these')
     TabOrder = 1
   end
 end

@@ -2,14 +2,6 @@ inherited fFiles: TfFiles
   Width = 338
   Height = 281
   OnResize = FrameResize
-  object lblFormatFileName: TLabel
-    Left = 8
-    Top = 12
-    Width = 86
-    Height = 13
-    Caption = 'lblFormatFileName'
-    WordWrap = True
-  end
   object lblStatus: TLabel
     Left = 8
     Top = 42
@@ -37,6 +29,13 @@ inherited fFiles: TfFiles
     Width = 53
     Height = 13
     Caption = 'Description'
+  end
+  object lblFormatFileName: TLabel
+    Left = 8
+    Top = 8
+    Width = 86
+    Height = 13
+    Caption = 'lblFormatFileName'
   end
   object mDescription: TJvMemo
     Left = 8
