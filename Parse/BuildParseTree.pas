@@ -465,6 +465,8 @@ procedure TBuildParseTree.RecogniseProgram;
 begin
   // Program -> [PROGRAM Ident ['(' IdentList ')'] ';']  ProgramBlock '.'
   PushNode(nProgram);
+
+  PushNode(nUnitHeader);
   Recognise(wProgram);
 
   RecogniseIdent;
@@ -477,6 +479,8 @@ begin
 
   if TokenList.FirstSolidTokenType = ttSemiColon then
     Recognise(ttSemicolon);
+
+  PopNode;
 
   RecogniseProgramBlock;
   Recognise(ttDot);
@@ -509,10 +513,14 @@ procedure TBuildParseTree.RecognisePackage;
 begin
   // Package -> PACKAGE Ident ';' [RequiresClause] [ContainsClause] END '.'
   PushNode(nPackage);
+
+  PushNode(nUnitHeader);
   Recognise(wPackage);
 
   RecogniseIdent;
   Recognise(ttSemiColon);
+  PopNode;
+
   if TokenList.FirstSolidTokenWord = wRequires then
     RecogniseRequiresClause;
 
@@ -529,10 +537,14 @@ procedure TBuildParseTree.RecogniseLibrary;
 begin
   // Library -> LIBRARY Ident ';' ProgramBlock '.'
   PushNode(nLibrary);
+
+  PushNode(nUnitHeader);
   Recognise(wLibrary);
 
   RecogniseIdent;
   Recognise(ttSemiColon);
+  PopNode;
+
   RecogniseProgramBlock;
   Recognise(ttDot);
 

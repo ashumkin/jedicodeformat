@@ -87,6 +87,11 @@ function FirstSolidChild(const pt: TParseTreeNode): TParseTreeNode;
 
 function InFilesUses(const pt: TParseTreeNode): Boolean;
 
+
+function Root(const pt: TParseTreeNode): TParseTreeNode;
+
+function UnitName(const pt: TParseTreeNode): String;
+
 implementation
 
 uses
@@ -550,6 +555,41 @@ begin
   Assert(pt <> nil);
   Result := pt.HasParentNode(nUses) and
     pt.HasParentNode([nProgram, nPackage, nLibrary]);
+end;
+
+function Root(const pt: TParseTreeNode): TParseTreeNode;
+begin
+  Result := pt;
+  while (Result <> nil) and (Result.Parent <> nil) do
+    Result := Result.Parent;
+end;
+
+function UnitName(const pt: TParseTreeNode): String;
+var
+  lcRoot: TParseTreeNode;
+  lcUnitHeader: TParseTreeNode;
+  lcName: TSourceToken;
+begin
+  Result := '';
+
+  { go to the top }
+  lcRoot := Root(pt);
+  if lcRoot = nil then
+    exit;
+
+  { find the unit header }
+  lcUnitHeader := lcRoot.GetImmediateChild(nUnitHeader);
+  if lcUnitHeader = nil then
+    exit;
+
+  { tokens therein are of the form 'program foo' or 'unit bar' }
+  lcName := TSourceToken(lcUnitHeader.FirstLeaf);
+  lcName := lcName.NextSolidToken;
+  if lcName = nil then
+    exit;
+
+  if (lcName.TokenType = ttWord) then
+    Result := lcName.SourceCode;
 end;
 
 end.

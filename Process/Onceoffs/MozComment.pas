@@ -52,7 +52,7 @@ implementation
 uses
   { delphi } SysUtils,
   JclStrings,
-  { local } WordMap, JcfSettings, TokenType, SetClarify;
+  { local } TokenUtils, WordMap, JcfSettings, TokenType, SetClarify;
 
 
 const
@@ -130,7 +130,7 @@ begin
       This will be inserted into the standard comment string
     }
 
-    //lsFile := ExtractFileName(OriginalFileName);
+    lsFile := UnitName(lcToken);
 
     lsComment := MozCommentString;
     lsComment := StringReplace(lsComment, '<FileName>', lsFile, [rfReplaceAll]);
