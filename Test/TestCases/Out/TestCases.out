@@ -137,7 +137,8 @@ uses
   LittleTest50 in 'LittleTest50.pas',
   LittleTest51 in 'LittleTest51.pas',
   LittleTest52 in 'LittleTest52.pas',
-  TestSimpleIfDef6 in 'TestSimpleIfDef6.pas';
+  TestSimpleIfDef6 in 'TestSimpleIfDef6.pas',
+  LittleTest53 in 'LittleTest53.pas';
 
 {$R *.res}
 

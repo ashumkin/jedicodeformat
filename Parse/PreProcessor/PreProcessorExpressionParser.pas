@@ -80,6 +80,7 @@ type
 
     procedure Consume(const peType: TPreProcessorSymbol);
     function SymbolIsDefined(const psSymbol: string): Boolean;
+    function SymbolIsDeclared(const psSymbol: string): Boolean;
   public
     function Parse: Boolean;
 
@@ -177,6 +178,15 @@ begin
       Consume(eIdentifier);
       Consume(eCloseBracket);
     end;
+    eDeclared:
+    begin
+      Consume(eDeclared);
+      Consume(eOpenBracket);
+      Result := SymbolIsDeclared(Tokens.Items[fiCurrentIndex].SourceCode);
+      Consume(eIdentifier);
+      Consume(eCloseBracket);
+    end;
+
     eNot:
     begin
       Consume(eNot);
@@ -203,6 +213,14 @@ end;
 function TPreProcessorExpressionParser.SymbolIsDefined(const psSymbol: string): Boolean;
 begin
   Result := DefinedSymbols.IndexOf(psSymbol) >= 0;
+end;
+
+function TPreProcessorExpressionParser.SymbolIsDeclared(const psSymbol: string): Boolean;
+begin
+  { 'Declared returns true if the argument passed to it
+    is a valid declared Delphi identifier visible within the current scope.'
+   we are faking it }
+  Result := (psSymbol <> '');
 end;
 
 end.

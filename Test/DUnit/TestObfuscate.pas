@@ -94,6 +94,7 @@ type
     procedure TestObfuscate_LittleTest50;
     procedure TestObfuscate_LittleTest51;
     procedure TestObfuscate_LittleTest52;
+    procedure TestObfuscate_LittleTest53;
 
     procedure TestObfuscate_TestAbsolute;
     procedure TestObfuscate_TestAlign;
@@ -1053,6 +1054,11 @@ end;
 procedure TTestObfuscate.TestObfuscate_TestSimpleIfdef6;
 begin
   TestObfuscateFile('TestSimpleIfdef6');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest53;
+begin
+  TestObfuscateFile('LittleTest53');
 end;
 
 initialization

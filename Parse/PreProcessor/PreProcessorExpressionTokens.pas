@@ -19,12 +19,13 @@ type
   TPreProcessorSymbol =
     (eNone, eIdentifier,
     // symbols with fixed text
-    eOpenBracket, eCloseBracket, eDefined, eAnd, eOr, eNot, eTrue, eFalse);
+    eOpenBracket, eCloseBracket, eDefined, eDeclared,
+    eAnd, eOr, eNot, eTrue, eFalse);
 
 { used to recognise tokens - all expect identifiers have fixed text }
 const
   SYMBOL_DATA: array[eOpenBracket .. eFalse] of string =
-     ('(', ')', 'defined', 'and', 'or', 'not', 'true', 'false');
+     ('(', ')', 'defined', 'declared', 'and', 'or', 'not', 'true', 'false');
 
 type
 

@@ -275,7 +275,7 @@ begin
   inc(fiCurrentIndex);
 
   ParseNonPreProc(OLD_PREPROC_BLOCK_END);
-  ParseOptTail(lbEval);
+  ParseOptTail(lbEval or (not lbWasIncluded));
   ParsePreProcessorDirective(ppEndIf);
 
   fbPreprocessorIncluded := lbWasIncluded;
