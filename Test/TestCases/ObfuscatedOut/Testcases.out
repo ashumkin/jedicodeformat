@@ -124,7 +124,8 @@ uses
   littletest39 in 'LittleTest39.pas',
   littletest40 in 'LittleTest40.pas',
   testdefines in 'TestDefines.pas',
-  littletest41 in 'LittleTest41.pas';
+  littletest41 in 'LittleTest41.pas',
+  littletest42 in 'LittleTest42.pas';
 
 {$R *.res}
 begin

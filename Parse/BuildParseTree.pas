@@ -81,8 +81,10 @@ type
     procedure RecogniseIdentValue;
 
     procedure RecogniseLabelDeclSection;
+    procedure RecogniseLabel;
     procedure RecogniseConstSection;
     procedure RecogniseConstantDecl;
+    procedure CheckLabelPrefix;
 
     procedure RecogniseTypeSection;
     procedure RecogniseVarSection;
@@ -833,10 +835,32 @@ begin
 
   PushNode(nLabelDeclSection);
   Recognise(ttLabel);
-  RecogniseIdentList(False);
+
+  // almost a RecogniseIdentList, but not quite. also numbers allowed
+  PushNode(nIdentList);
+
+  RecogniseLabel;
+
+  while TokenList.FirstSolidTokenType = ttComma do
+  begin
+    Recognise(ttComma);
+    RecogniseLabel;
+  end;
+
+  PopNode;
+
   Recognise(ttSemicolon);
 
   PopNode;
+end;
+
+procedure TBuildParseTree.RecogniseLabel;
+begin
+  if TokenList.FirstSolidTokenType = ttNumber then
+    Recognise(ttNumber)
+  else
+    // no unit qualifier
+    RecogniseIdentifier(false);
 end;
 
 procedure TBuildParseTree.RecogniseConstSection;
@@ -1964,8 +1988,7 @@ end;
 
 procedure TBuildParseTree.RecogniseStatement;
 var
-  lc, lc2: TSourceToken;
-  lbColonSecond: boolean;
+  lc: TSourceToken;
 begin
   // Statement -> [LabelId ':'] [SimpleStatement | StructStmt]
 
@@ -1984,23 +2007,41 @@ begin
     Exit;
   end;
 
+  CheckLabelPrefix;
+
+  lc := TokenList.FirstSolidToken;
+
+  { anything more? can just be a label at the end of the proc }
+  if lc.TokenType <> ttEnd then
+  begin
+
+    if lc.TokenType in StructStatementWords then
+      RecogniseStructStmnt
+    else
+      RecogniseSimpleStmnt;
+  end;
+
+  PopNode;
+end;
+
+procedure TBuildParseTree.CheckLabelPrefix;
+var
+  lc2: TSourceToken;
+  lbColonSecond: boolean;
+begin
   lc2 := TokenList.SolidToken(2);
   lbColonSecond := (lc2.TokenType = ttColon);
   if (lbColonSecond) then
   begin
     PushNode(nStatementLabel);
-    RecogniseIdentifier(True);
+    RecogniseLabel;
     Recognise(ttColon);
     PopNode;
-  end;
 
-  lc := TokenList.FirstSolidToken;
-  if lc.TokenType in StructStatementWords then
-    RecogniseStructStmnt
-  else
-    RecogniseSimpleStmnt;
+    { can be followed by another label  }
+    CheckLabelPrefix
+  end
 
-  PopNode;
 end;
 
 procedure TBuildParseTree.RecogniseStatementList(const peEndTokens: TTokenTypeSet);
@@ -2099,7 +2140,7 @@ begin
   else if lc.TokenType = ttGoto then
   begin
      Recognise(ttGoto);
-     RecogniseIdentifier(False);
+     RecogniseLabel;
   end
   else if lc.TokenType = ttRaise then
   begin
