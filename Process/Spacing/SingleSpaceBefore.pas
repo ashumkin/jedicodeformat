@@ -135,6 +135,17 @@ begin
     exit;
   end;
 
+  { signle space before read, write etc in property }
+  if pt.HasParentNode(nProperty) then
+  begin
+    if (pt.TokenType in [ttProperty, ttRead, ttWrite, ttDefault, ttStored, ttNoDefault, ttImplements]) then
+    begin
+      Result := True;
+      exit;
+    end;
+  end;
+
+
   { program uses form link comment }
   if InFilesUses(pt) then
   begin

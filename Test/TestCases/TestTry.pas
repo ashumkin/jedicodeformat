@@ -13,6 +13,18 @@ implementation
 
 uses Dialogs, SysUtils, Math;
 
+procedure TestTryRaise;
+begin
+
+try 
+  ShowMessage ('Start'); 
+ except 
+  ShowMessage ('except'); 
+  raise
+ end;
+
+end;
+
 
 procedure TestTryProc;
 begin

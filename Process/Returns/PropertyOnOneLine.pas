@@ -93,7 +93,7 @@ begin
     if (lcNext.TokenType = ttReturn) then
     begin
       lcNext.TokenType := ttWhiteSpace;
-      lcNext.SourceCode := '';
+      lcNext.SourceCode := ' ';
     end
     else if lcNext.TokenType = ttWhiteSpace then
     begin

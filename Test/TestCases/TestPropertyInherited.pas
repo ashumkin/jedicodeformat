@@ -8,6 +8,7 @@ Interface
 
 const
   HAS_BAR = False;
+  FIVE = (2 + 2);
 
 type
 
@@ -18,6 +19,9 @@ TCustomFoo = class(TObject)
   protected
     property Foo: integer read GetFoo nodefault;
     property Bar: integer read GetFoo stored HAS_BAR;
+    Property Monkey: integer read GetFoo;
+    Property Soy: integer read GetFoo;
+
 end;
 
 TFoo = class(TCustomFoo)
@@ -39,6 +43,8 @@ type
   published
     property Bar default 3;
     property Foo default FOO_DEFAULT + 1;
+    property Monkey Stored FIVE;
+    property Soy Stored FIVE + 1 nodefault;
   end;
 
   { base class with array and scalar property }

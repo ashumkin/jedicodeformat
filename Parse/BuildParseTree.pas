@@ -2027,7 +2027,7 @@ begin
   begin
     // another omission - raise expr  or just raise (in except block)
     Recognise(ttRaise);
-    if TokenList.FirstTokenType <> ttSemicolon then
+    if not (TokenList.FirstSolidTokenType in [ttSemicolon, ttEnd]) then
       RecogniseExpr;
   end
   else if lc.TokenType = ttSemicolon then
@@ -2483,9 +2483,6 @@ begin
   RecogniseProcedureHeading(False, False);
   Recognise(ttSemicolon);
 
-  if TokenList.FirstSolidTokenType in ProcedureDirectives then
-    RecogniseProcedureDirectives;
-
   { if the proc declaration has the directive external or forward,
     it will not have a body }
   lcTop := TParseTreeNode(fcStack.Peek);
@@ -2725,7 +2722,7 @@ end;
 
 procedure TBuildParseTree.RecogniseProcedureDirectives;
 var
-  lc, lc2: TSourceToken;
+  lbFirstPass: boolean;
 begin
   { these are semi-colon seperated
 
@@ -2735,18 +2732,23 @@ begin
     external is more complex
   }
 
-  lc := TokenList.FirstSolidToken;
-  lc2 := TokenList.SolidToken(2);
-
-  if (lc.TokenType = ttSemicolon) and (lc2.TokenType in ProcedureDirectives) then
+  if (TokenList.FirstSolidTokenType in ProcedureDirectives) or
+    ((TokenList.FirstSolidTokenType = ttSemicolon) and (TokenList.SolidTokenType(2) in ProcedureDirectives)) then
   begin
     PushNode(nProcedureDirectives);
 
-    while (lc.TokenType = ttSemicolon) and (lc2.TokenType in ProcedureDirectives) do
-    begin
-      Recognise(ttSemicolon);
+    if TokenList.FirstSolidTokenType = ttSemiColon then
+      Recognise(ttSemiColon);
+    lbFirstPass := True;
 
-      case lc2.TokenType of
+
+    while (TokenList.FirstSolidTokenType in ProcedureDirectives) or
+      ((TokenList.FirstSolidTokenType = ttSemicolon) and (TokenList.SolidTokenType(2) in ProcedureDirectives)) do
+    begin
+      if (not lbFirstPass) and (TokenList.FirstSolidTokenType = ttSemiColon) then
+        Recognise(ttSemiColon);
+
+      case TokenList.FirstSolidTokenType of
         ttExternal:
         begin
           RecogniseExternalProcDirective;
@@ -2765,8 +2767,7 @@ begin
           Recognise(ProcedureDirectives);
       end;
 
-      lc := TokenList.FirstSolidToken;
-      lc2 := TokenList.SolidToken(2);
+      lbFirstPass := False;
     end;
 
     PopNode;
@@ -3696,7 +3697,7 @@ const
 
   for non-array properties it is followed by an identifier
   }
-  PropertyDirectives = [ttDefault];
+  PropertyDirectives = [ttDefault, ttNoDefault, ttStored];
 begin
   if ((TokenList.FirstSolidTokenType = ttSemicolon) and (TokenList.SolidTokenType(2) in PropertyDirectives)) or
     (TokenList.FirstSolidTokenType in PropertyDirectives) then
@@ -3704,13 +3705,32 @@ begin
     if TokenList.FirstSolidTokenType = ttSemicolon then
       Recognise(ttSemicolon);
 
-    PushNode(nPropertyDirective);
+    while TokenList.FirstSolidTokenType in PropertyDirectives do
+    begin
+      PushNode(nPropertyDirective);
 
-    Recognise(PropertyDirectives);
-    if TokenList.FirstSolidTokenType <> ttSemicolon then
-      RecogniseConstantExpression;
+      case TokenList.FirstSolidTokenType of
+        ttDefault:
+        begin
+          Recognise(ttDefault);
+          if TokenList.FirstSolidTokenType <> ttSemicolon then
+            RecogniseConstantExpression;
+        end;
+        ttNoDefault:
+        begin
+          Recognise(ttNoDefault);
+        end;
+        ttStored:
+        begin
+          Recognise(ttStored);
+          if TokenList.FirstSolidTokenType <> ttSemicolon then
+            RecogniseConstantExpression;
+        end;
+      end;
 
-    PopNode;
+      PopNode;
+    end;
+
   end;
 
 end;

@@ -196,6 +196,17 @@ begin
     exit;
   end;
 
+  { signle space after read, write etc in property }
+  if pt.HasParentNode(nProperty) then
+  begin
+    if (pt.TokenType in [ttProperty, ttRead, ttWrite, ttDefault, ttStored, ttImplements]) and
+      (ptNext.TokenType <> ttSemiColon) then
+    begin
+      Result := True;
+      exit;
+    end;
+  end;
+
   { single space before class heritage ?
     see NoSpaceAfter }
   if (pt.HasParentNode(nRestrictedType)) and (pt.TokenType in ObjectTypeWords) and

@@ -44,12 +44,26 @@ uses SourceToken, Tokens;
 
 procedure TVisitStripEmptySpace.VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult);
 var
-  lcSourceToken: TSourceToken;
+  lcSourceToken, lcNext: TSourceToken;
 begin
   lcSourceToken := TSourceToken(pcToken);
 
-  if (lcSourceToken <> nil) and (lcSourceToken.TokenType = ttWhiteSpace) and (lcSourceToken.SourceCode = '') then
-    prVisitResult.Action := aDelete;
+  if (lcSourceToken <> nil) and (lcSourceToken.TokenType = ttWhiteSpace) then
+  begin
+    { remove }
+    if (lcSourceToken.SourceCode = '') then
+      prVisitResult.Action := aDelete
+    else
+    begin
+      lcNext := lcSourceToken.NextToken;
+      { consolidate }
+      if lcNext.TokenType = ttWhiteSpace then
+      begin
+        lcNext.SourceCode := lcNext.SourceCode + lcSourceToken.SourceCode;
+        prVisitResult.Action := aDelete;
+      end;
+    end;
+  end;
 end;
 
 end.

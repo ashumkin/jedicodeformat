@@ -59,6 +59,7 @@ type
     procedure TestParse_LittleTest12;
     procedure TestParse_LittleTest13;
     procedure TestParse_LittleTest14;
+    procedure TestParse_LittleTest15;
 
     procedure TestParse_TestAbsolute;
     procedure TestParse_TestAlign;
@@ -592,7 +593,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestTry;
 begin
-  TestParseFile('TestTry', 845);
+  TestParseFile('TestTry', 890);
 end;
 
 procedure TTestFileParse.TestParse_TestTypeDefs;
@@ -622,7 +623,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 679);
+  TestParseFile('Testcases.dpr', 695);
 end;
 
 
@@ -654,7 +655,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestPropertyInherited;
 begin
-  TestParseFile('TestPropertyInherited', 518);
+  TestParseFile('TestPropertyInherited', 585);
 end;
 
 procedure TTestFileParse.TestParse_TestMessages;
@@ -690,6 +691,11 @@ end;
 procedure TTestFileParse.TestParse_LittleTest14;
 begin
   TestParseFile('LittleTest14', 37);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest15;
+begin
+  TestParseFile('LittleTest15', 38);
 end;
 
 initialization

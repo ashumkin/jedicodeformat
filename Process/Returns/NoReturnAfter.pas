@@ -214,12 +214,6 @@ begin
     exit;
   end;
 
-  if lcSetReturns.RemovePropertyReturns and (pt.TokenType <> ttSemiColon) and pt.HasParentNode(nProperty) then
-  begin
-    Result := True;
-    exit;
-  end;
-
   // guid in interface
   if (pt.TokenType = ttOpenSquareBracket) and pt.HasParentNode(nInterfaceTypeGuid, 1) then
   begin
