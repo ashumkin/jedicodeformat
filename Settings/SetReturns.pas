@@ -60,8 +60,8 @@ type
     { returns on blocks }
     feBlockStyle, feBlockBeginStyle: TTriOptionStyle;
     feLabelStyle, feLabelBeginStyle: TTriOptionStyle;
-    feCaseLabelStyle: TTriOptionStyle;
-    feCaseElseStyle: TTriOptionStyle;
+    feCaseLabelStyle, feCaseBeginStyle: TTriOptionStyle;
+    feCaseElseStyle, feCaseElseBeginStyle: TTriOptionStyle;
     feEndElseStyle: TTriOptionStyle;
     feElseIfStyle: TTriOptionStyle;
     feElseBeginStyle: TTriOptionStyle;
@@ -110,7 +110,9 @@ type
     property LabelStyle: TTriOptionStyle Read feLabelStyle Write feLabelStyle;
     property LabelBeginStyle: TTriOptionStyle Read feLabelBeginStyle Write feLabelBeginStyle;
     property CaseLabelStyle: TTriOptionStyle Read feCaseLabelStyle Write feCaseLabelStyle;
+    property CaseBeginStyle: TTriOptionStyle Read feCaseBeginStyle Write feCaseBeginStyle;
     property CaseElseStyle: TTriOptionStyle Read feCaseElseStyle Write feCaseElseStyle;
+    property CaseElseBeginStyle: TTriOptionStyle Read feCaseElseBeginStyle Write feCaseElseBeginStyle;
 
     property EndElseStyle: TTriOptionStyle Read feEndElseStyle Write feEndElseStyle;
     property ElseIfStyle: TTriOptionStyle Read feElseIfStyle Write feElseIfStyle;
@@ -154,7 +156,9 @@ const
   REG_LABEL_STYLE      = 'Label';
   REG_LABEL_BEGIN_STYLE = 'LabelBegin';
   REG_CASE_LABEL_STYLE = 'CaseLabel';
+  REG_CASE_BEGIN_STYLE = 'CaseBegin';
   REG_CASE_ELSE_STYLE  = 'CaseElse';
+  REG_CASE_ELSE_BEGIN_STYLE  = 'CaseElseBegin';
   REG_END_ELSE_STYLE   = 'EndElse';
   REG_ELSE_IF_STYLE    = 'ElseIf';
   REG_ELSE_BEGIN_STYLE    = 'ElseBegin';
@@ -199,7 +203,10 @@ begin
   feLabelStyle      := TTriOptionStyle(pcStream.Read(REG_LABEL_STYLE, Ord(eLeave)));
   feLabelBeginStyle := TTriOptionStyle(pcStream.Read(REG_LABEL_BEGIN_STYLE, Ord(eLeave)));
   feCaseLabelStyle  := TTriOptionStyle(pcStream.Read(REG_CASE_LABEL_STYLE, Ord(eLeave)));
+  feCaseBeginStyle  := TTriOptionStyle(pcStream.Read(REG_CASE_BEGIN_STYLE, Ord(eLeave)));
   feCaseElseStyle   := TTriOptionStyle(pcStream.Read(REG_CASE_ELSE_STYLE, Ord(eLeave)));
+  feCaseElseBeginStyle := TTriOptionStyle(pcStream.Read(REG_CASE_ELSE_BEGIN_STYLE, Ord(eLeave)));
+
   feEndElseStyle    := TTriOptionStyle(pcStream.Read(REG_END_ELSE_STYLE, Ord(eLeave)));
   feElseIfStyle     := TTriOptionStyle(pcStream.Read(REG_ELSE_IF_STYLE, Ord(eNever)));
   feElseBeginStyle  := TTriOptionStyle(pcStream.Read(REG_ELSE_BEGIN_STYLE, Ord(eNever)));
@@ -238,7 +245,9 @@ begin
   pcOut.Write(REG_LABEL_STYLE, Ord(feLabelStyle));
   pcOut.Write(REG_LABEL_BEGIN_STYLE, Ord(feLabelBeginStyle));
   pcOut.Write(REG_CASE_LABEL_STYLE, Ord(feCaseLabelStyle));
+  pcOut.Write(REG_CASE_BEGIN_STYLE, Ord(feCaseBeginStyle));
   pcOut.Write(REG_CASE_ELSE_STYLE, Ord(feCaseElseStyle));
+  pcOut.Write(REG_CASE_ELSE_BEGIN_STYLE, Ord(feCaseElseBeginStyle));
 
   pcOut.Write(REG_END_ELSE_STYLE, Ord(feEndElseStyle));
   pcOut.Write(REG_ELSE_IF_STYLE, Ord(feElseIfStyle));

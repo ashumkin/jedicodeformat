@@ -105,8 +105,7 @@ begin
     if IsCaseColon(pt) then
     begin
       if lcNextToken.TokenType = ttBegin then
-        // always a return here
-        Result := eAlways
+        Result := FormatSettings.Returns.CaseBeginStyle
       else
         Result := FormatSettings.Returns.CaseLabelStyle;
     end
@@ -124,7 +123,10 @@ begin
 
     if pt.HasParentNode(nElseCase, 1) then
     begin
-      Result := FormatSettings.Returns.CaseElseStyle;
+      if lcNextToken.TokenType = ttBegin then
+        Result := FormatSettings.Returns.CaseElseBeginStyle
+      else
+        Result := FormatSettings.Returns.CaseElseStyle;
     end
     else if (lcNextToken.TokenType = ttIf) then
     begin

@@ -124,7 +124,7 @@ uses
   frBasicSettings in '..\Ui\Settings\frBasicSettings.pas' {frBasic: TFrame},
   frClarify in '..\Ui\Settings\frClarify.pas' {fClarify: TFrame},
   frClarifyAlign in '..\Ui\Settings\frClarifyAlign.pas' {fClarifyAlign: TFrame},
-  frClarifyBlocks in '..\Ui\Settings\frClarifyBlocks.pas' {fClarifyBlocks: TFrame},
+  frClarifyCaseBlocks in '..\Ui\Settings\frClarifyCaseBlocks.pas' {fClarifyCaseBlocks: TFrame},
   frClarifyIndent in '..\Ui\Settings\frClarifyIndent.pas' {fClarifyIndent: TFrame},
   frClarifyReturns in '..\Ui\Settings\frClarifyReturns.pas' {fClarifyReturns: TFrame},
   frClarifySpaces in '..\Ui\Settings\frClarifySpaces.pas' {fClarifySpaces: TFrame},
@@ -161,7 +161,8 @@ uses
   AddBeginEnd in '..\Process\Transform\AddBeginEnd.pas',
   SetTransform in '..\Settings\SetTransform.pas',
   frTransform in '..\Ui\Settings\frTransform.pas' {fTransform: TFrame},
-  AlignField in '..\Process\Align\AlignField.pas';
+  AlignField in '..\Process\Align\AlignField.pas',
+  frClarifyBlocks in '..\Ui\Settings\frClarifyBlocks.pas' {fClarifyBlocks: TFrame};
 
 {$R *.res}
 

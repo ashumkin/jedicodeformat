@@ -2,7 +2,7 @@
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code 
 
-The Original Code is frClarify.pas, released April 2000.
+The Original Code is frClarifyCaseBlocks.pas, released June 2004.
 The Initial Developer of the Original Code is Anthony Steele.
 Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
 All Rights Reserved. 
@@ -19,7 +19,7 @@ under the License.
 ------------------------------------------------------------------------------*)
 {*)}
 
-unit frClarifyBlocks;
+unit frClarifyCaseBlocks;
 
 interface
 
@@ -31,13 +31,14 @@ uses
   frmBaseSettingsFrame;
 
 type
-  TfClarifyBlocks = class(TfrSettingsFrame)
-    rgBlockBegin: TRadioGroup;
-    rgBlock: TRadioGroup;
-    rgEndElse: TRadioGroup;
+  TfClarifyCaseBlocks = class(TfrSettingsFrame)
+    rgLabelBegin: TRadioGroup;
+    rgLabel: TRadioGroup;
     Label1: TLabel;
-    rgElseIf: TRadioGroup;
-    rgElseBegin: TRadioGroup;
+    rgCaseLabel: TRadioGroup;
+    rgElseCase: TRadioGroup;
+    rgCaseBegin: TRadioGroup;
+    rgCaseElseBegin: TRadioGroup;
   private
 
   public
@@ -54,7 +55,7 @@ implementation
 
 uses JcfSettings, SettingsTypes, JcfHelp;
 
-constructor TfClarifyBlocks.Create(AOwner: TComponent);
+constructor TfClarifyCaseBlocks.Create(AOwner: TComponent);
 begin
   inherited;
   fiHelpContext := HELP_CLARIFY_BLOCKS;
@@ -64,31 +65,33 @@ end;
 {-------------------------------------------------------------------------------
   worker procs }
 
-procedure TfClarifyBlocks.Read;
+procedure TfClarifyCaseBlocks.Read;
 begin
   with FormatSettings.Returns do
   begin
     { block styles }
-    rgBlockBegin.ItemIndex := Ord(BlockBeginStyle);
-    rgBlock.ItemIndex      := Ord(BlockStyle);
+    rgLabelBegin.ItemIndex := Ord(LabelBeginStyle);
+    rgLabel.ItemIndex      := Ord(LabelStyle);
 
-    rgEndElse.ItemIndex    := Ord(EndElseStyle);
-    rgElseIf.ItemIndex     := Ord(ElseIfStyle);
-    rgElseBegin.ItemIndex := Ord(ElseBeginStyle);
+    rgCaseLabel.ItemIndex  := Ord(CaseLabelStyle);
+    rgCaseBegin.ItemIndex  := Ord(CaseBeginStyle);
+    rgElseCase.ItemIndex := Ord(CaseElseStyle);
+    rgCaseElseBegin.ItemIndex := Ord(CaseElseBeginStyle);
   end;
 end;
 
-procedure TfClarifyBlocks.Write;
+procedure TfClarifyCaseBlocks.Write;
 begin
   with FormatSettings.Returns do
   begin
     { block styles }
-    BlockBeginStyle := TTriOptionStyle(rgBlockBegin.ItemIndex);
-    BlockStyle      := TTriOptionStyle(rgBlock.ItemIndex);
+    LabelBeginStyle := TTriOptionStyle(rgLabelBegin.ItemIndex);
+    LabelStyle      := TTriOptionStyle(rgLabel.ItemIndex);
 
-    EndElseStyle    := TTriOptionStyle(rgEndElse.ItemIndex);
-    ElseIfStyle     := TTriOptionStyle(rgElseIf.ItemIndex);
-    ElseBeginStyle  := TTriOptionStyle(rgElseBegin.ItemIndex);
+    CaseLabelStyle := TTriOptionStyle(rgCaseLabel.ItemIndex);
+    CaseBeginStyle := TTriOptionStyle(rgCaseBegin.ItemIndex);
+    CaseElseStyle  := TTriOptionStyle(rgElseCase.ItemIndex);
+    CaseElseBeginStyle  := TTriOptionStyle(rgCaseElseBegin.ItemIndex);
   end;
 end;
 

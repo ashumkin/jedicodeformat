@@ -76,7 +76,8 @@ uses
   frFiles, frObfuscateSettings,
   frClarify, frClarifySpaces, frClarifyIndent,
   frClarifyReturns, frBlankLines,
-  frClarifyLongLineBreaker, frClarifyBlocks, frClarifyAlign,
+  frClarifyLongLineBreaker, frClarifyBlocks, frClarifyCaseBlocks,
+  frClarifyAlign,
   frReplace,
   frReservedCapsSettings, frAnyCapsSettings, frUnitCaps,
   frUses, frBasicSettings, frPreProcessor, frComments, frTransform;
@@ -89,7 +90,7 @@ type
   end;
 
 const
-  FrameMap: array[0..18] of TFrameMapRecord = (
+  FrameMap: array[0..19] of TFrameMapRecord = (
     (FrameName: 'Format file'; FrameClass: TfFiles),
     (FrameName: 'Obfuscate'; FrameClass: TfObfuscateSettings),
     (FrameName: 'Clarify'; FrameClass: TfClarify),
@@ -99,6 +100,7 @@ const
     (FrameName: 'Returns'; FrameClass: TfClarifyReturns),
     (FrameName: 'Blank lines'; FrameClass: TfBlankLines),
     (FrameName: 'Blocks'; FrameClass: TfClarifyBlocks),
+    (FrameName: 'Case blocks'; FrameClass: TfClarifyCaseBlocks),
     (FrameName: 'Align'; FrameClass: TfClarifyAlign),
     (FrameName: 'Object Pascal'; FrameClass: TfrReservedCapsSettings),
     (FrameName: 'Any Word'; FrameClass: TfrAnyCapsSettings),
@@ -119,7 +121,7 @@ var
 begin
   tvFrames.FullExpand;
 
-  lcNode := GetTreeNodeByName(GetRegSettings.LastSettingsPage);
+  lcNode := GetTreeNodeByName(GetRegSettings.LastSettingsPage);               
   if lcNode <> nil then
     lcNode.Selected := True;
 

@@ -1,6 +1,6 @@
-inherited fClarifyBlocks: TfClarifyBlocks
-  Width = 350
-  Height = 302
+inherited fClarifyCaseBlocks: TfClarifyCaseBlocks
+  Width = 301
+  Height = 286
   object Label1: TLabel
     Left = 4
     Top = 4
@@ -8,60 +8,72 @@ inherited fClarifyBlocks: TfClarifyBlocks
     Height = 13
     Caption = 'Block styles: use a new line at'
   end
-  object rgBlockBegin: TRadioGroup
+  object rgLabelBegin: TRadioGroup
     Left = 4
     Top = 24
     Width = 130
     Height = 73
-    Caption = 'Block with begin'
+    Caption = 'Label with begin'
     Items.Strings = (
       'Always'
       'Leave as is'
       'Never')
     TabOrder = 0
   end
-  object rgBlock: TRadioGroup
+  object rgLabel: TRadioGroup
     Left = 146
     Top = 24
     Width = 130
     Height = 73
-    Caption = 'Block without begin'
+    Caption = 'Label without begin'
     Items.Strings = (
       'Always'
       'Leave as is'
       'Never')
     TabOrder = 1
   end
-  object rgEndElse: TRadioGroup
+  object rgCaseLabel: TRadioGroup
     Left = 146
     Top = 104
     Width = 130
     Height = 73
-    Caption = 'Between end and else'
+    Caption = 'Case without begin'
     Items.Strings = (
       'Always'
       'Leave as is'
       'Never')
     TabOrder = 3
   end
-  object rgElseIf: TRadioGroup
+  object rgElseCase: TRadioGroup
+    Left = 146
+    Top = 184
+    Width = 130
+    Height = 73
+    Caption = 'Else case without begin'
+    Items.Strings = (
+      'Always'
+      'Leave as is'
+      'Never')
+    TabOrder = 5
+  end
+  object rgCaseBegin: TRadioGroup
     Left = 4
     Top = 104
     Width = 130
     Height = 73
-    Caption = 'Between else and if'
+    Caption = 'Case with begin'
     Items.Strings = (
       'Always'
       'Leave as is'
       'Never')
     TabOrder = 2
   end
-  object rgElseBegin: TRadioGroup
+  object rgCaseElseBegin: TRadioGroup
     Left = 4
     Top = 184
     Width = 130
     Height = 73
-    Caption = 'Else begin'
+    Caption = 'Else case with begin'
     Items.Strings = (
       'Always'
       'Leave as is'
