@@ -155,7 +155,7 @@ end;
 procedure TTestCommandline.TestFormatClarify;
 begin
   fsOutputExt := 'out';
-  fsJcfParams := ' -config=' + GetTestSettingsFileName + ' -out -D ' + GetTestFilesDir;
+  fsJcfParams := ' -config="' + GetTestSettingsFileName + '" -out -D ' + GetTestFilesDir;
   fsRefDir := GetRefOutFilesDir;
   fsFileMask := '*.out';
 
@@ -165,7 +165,7 @@ end;
 procedure TTestCommandline.TestFormatObfuscate;
 begin
   fsOutputExt := 'obs';
-  fsJcfParams := ' -obfuscate -config=' + GetTestFilesDir + 'JCFObfuscateSettings.cfg -out -D ' + GetTestFilesDir;
+  fsJcfParams := ' -obfuscate -config="' + GetTestFilesDir + 'JCFObfuscateSettings.cfg" -out -D ' + GetTestFilesDir;
   fsRefDir := GetObsOutFilesDir;
   fsFileMask := '*.obs';
 
