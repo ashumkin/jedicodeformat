@@ -3,9 +3,8 @@ unit TestIfElseBreaks;
 interface
 
 uses
-  Classes,
   TestFrameWork,
-  StringsConverter, BaseTestProcess, SettingsTypes;
+  BaseTestProcess, SettingsTypes;
 
 type
   TTestIfElseBreaks = class(TBaseTestProcess)
@@ -40,7 +39,7 @@ type
 
 implementation
 
-uses JclStrings, BlockStyles, JcfSettings, SetReturns;
+uses JclStrings, BlockStyles, JcfSettings;
 
 const
 

@@ -29,7 +29,6 @@ interface
 
 uses
   { delphi design time } ToolsAPI,
-  { jcl } JclStrings,
   { local } Converter, CodeReader, CodeWriter, EditorReader, EditorWriter;
 
 type
@@ -58,10 +57,8 @@ type
 implementation
 
 uses
-  { delphi }
-  SysUtils, Dialogs,
   { local }
-  JcfLog, JcfSettings, JcfRegistrySettings;
+  JcfLog, JcfRegistrySettings;
 
 procedure TEditorConverter.AfterConvert;
 begin

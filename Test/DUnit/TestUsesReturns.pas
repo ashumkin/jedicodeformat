@@ -26,9 +26,8 @@ under the License.
 interface
 
 uses
-  Classes,
   TestFrameWork,
-  StringsConverter, BaseTestProcess;
+  BaseTestProcess;
 
 type
   TTestUsesReturns = class(TBaseTestProcess)
@@ -49,9 +48,8 @@ type
 implementation
 
 uses
-  SysUtils,
   JclStrings,
-  JcfRegistrySettings, JcfSettings, TestConstants, ReturnAfter;
+  JcfSettings, TestConstants, ReturnAfter;
 
 procedure TTestUsesReturns.Setup;
 begin

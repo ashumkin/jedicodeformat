@@ -27,9 +27,8 @@ under the License.
 interface
 
 uses
-  Classes,
   TestFrameWork,
-  StringsConverter, BaseTestProcess;
+  BaseTestProcess;
 
 type
   TTestIndentation = class(TBaseTestProcess)
@@ -62,7 +61,7 @@ implementation
 
 uses JclStrings,
   JcfSettings,
-  Indenter, SetIndent;
+  Indenter;
 
 procedure TTestIndentation.Setup;
 begin

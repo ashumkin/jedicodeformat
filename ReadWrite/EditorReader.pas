@@ -49,9 +49,6 @@ end;
 
 implementation
 
-uses sysUtils, Dialogs;
-
-
 constructor TEditorReader.Create;
 begin
   inherited;

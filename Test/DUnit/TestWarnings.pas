@@ -24,9 +24,7 @@ under the License.
 interface
 
 uses
-  Classes,
-  TestFrameWork, BaseTestProcess,
-  StringsConverter;
+  TestFrameWork, BaseTestProcess;
 
 type
   TTestWarnings = class(TBaseTestProcess)
@@ -61,8 +59,6 @@ type
 
 
 implementation
-
-uses SysUtils, JclStrings;
 
 const
   EMPTY_BEGIN_END = 'Empty begin..end block';

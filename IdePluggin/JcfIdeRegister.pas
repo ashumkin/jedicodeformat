@@ -27,7 +27,7 @@ under the License.
 interface
 
 uses
-  { delphi } Windows, Messages, SysUtils, Classes, ToolsAPI;
+  { delphi } Windows, SysUtils, Classes, ToolsAPI;
 
 
 procedure Register;
@@ -35,7 +35,7 @@ procedure Register;
 implementation
 
 uses
-  { delphi } Menus, Dialogs, ExtCtrls, ActnList,
+  { delphi } Menus, ActnList,
   { local } JcfIdeMain, Delay;
 
 const

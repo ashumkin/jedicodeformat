@@ -30,7 +30,7 @@ implementation
 
 uses
   SysUtils,
-  JcfSettings, JcfRegistrySettings,
+  JcfRegistrySettings,
   TestConstants;
 
 

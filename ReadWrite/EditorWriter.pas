@@ -26,7 +26,6 @@ interface
 { writer class for use in IDE pluggin - writes to the editor interface }
 
 uses
-  { delphi - debug } Dialogs,
   { delphi design time } ToolsApi,
   { local } CodeWriter;
 
@@ -46,8 +45,6 @@ type
   end;
 
 implementation
-
-uses SysUtils; // Dialogs;
 
 constructor TEditorWriter.Create;
 begin

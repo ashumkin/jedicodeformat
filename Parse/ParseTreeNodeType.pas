@@ -80,6 +80,8 @@ type
     nActualParams,
     nStatement,
     nAssignment,
+    nInline,
+    nInlineItem,
     nStatementLabel,
     nCompoundStatement,
     nIfCondition,
@@ -277,6 +279,10 @@ begin
       Result := 'Statement';
     nAssignment:
       Result := 'Assignment';
+    nInline:
+      Result := 'Inline';
+    nInlineItem:
+      Result := 'Inline item';
     nStatementLabel:
       Result := 'Statement label';
     nCompoundStatement:

@@ -30,9 +30,8 @@ interface
 }
 
 uses
-  Classes,
   TestFrameWork,
-  StringsConverter, BaseTestProcess, SettingsTypes;
+  BaseTestProcess, SettingsTypes;
 
 type
   TTestBlockReturns = class(TBaseTestProcess)

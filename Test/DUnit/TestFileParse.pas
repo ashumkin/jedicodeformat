@@ -210,7 +210,7 @@ implementation
 
 uses
   { delphi } SysUtils,
-  JclStrings, JclFileUtils,
+  JclFileUtils,
   FileConverter, ConvertTypes, JcfSettings, JcfRegistrySettings,
   TestConstants;
 

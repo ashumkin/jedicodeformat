@@ -25,8 +25,8 @@ interface
 
 uses
   { delphi }
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ComCtrls, ExtCtrls, ExtActns, StdActns, ActnList,
+  Windows, SysUtils, Classes, Controls, Forms,
+  Dialogs, StdCtrls, ComCtrls, ExtCtrls, ActnList,
   Buttons, Menus,
   { Jedi }
   JvMRUList, JvMemo,
@@ -143,7 +143,7 @@ uses
   { jcl }
   JclStrings,
   { local }
-  JCFHelp, Converter, ConvertTypes, fAbout, fRegistrySettings, fAllSettings;
+  JCFHelp, ConvertTypes, fAbout, fRegistrySettings, fAllSettings;
 
 {$R *.dfm}
 

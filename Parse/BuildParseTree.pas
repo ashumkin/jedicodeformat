@@ -168,6 +168,9 @@ type
     procedure RecogniseExceptionHandler;
     procedure RecogniseRaise;
 
+    procedure RecogniseInline;
+    procedure RecogniseInlineItem;
+
     procedure RecogniseFunctionDecl;
     procedure RecogniseProcedureDecl;
     procedure RecogniseConstructorDecl;
@@ -2114,6 +2117,7 @@ begin
     -> Designator ':=' Expression
     -> INHERITED
     -> GOTO LabelId
+    -> inline ()
 
     argh this doesn't take brackets into account
     as far as I can tell, typecasts like "(lcFoo as TComponent)" is a designator
@@ -2187,6 +2191,10 @@ begin
   begin
     RecogniseRaise;
   end
+  else if lc.TokenType = ttInline then
+  begin
+    RecogniseInline;
+  end
   else if lc.TokenType = ttSemicolon then
   begin
     // empty statement
@@ -2210,6 +2218,48 @@ begin
     Recognise(ttAt);
     RecogniseExpr(true);
   end;
+end;
+
+procedure TBuildParseTree.RecogniseInline;
+begin
+  { inline is not supported in Delphi,
+    but occurs in some Turbo Pascal code.
+
+    It is a primitive way to do inline machine code,
+    by wedging in some literal bytes into the exe
+  }
+
+  PushNode(nInline);
+
+
+  Recognise(ttInline);
+  Recognise(ttOpenBracket);
+
+  // inline body is some inline constants separated by '/'
+  while fcTokenList.FirstSolidTokenType <> ttCloseBracket do
+  begin
+    RecogniseInlineItem;
+
+    // floatdiv is the '/' char here 
+    if fcTokenList.FirstSolidTokenType = ttFloatDiv then
+      Recognise(ttFloatDiv);
+  end;
+
+  Recognise(ttCloseBracket);
+
+  PopNode;
+end;
+
+procedure TBuildParseTree.RecogniseInlineItem;
+begin
+  PushNode(nInlineItem);
+
+  // for not, accept anything up to the '/' or ')'
+
+  while not (fcTokenList.FirstSolidTokenType in [ttFloatDiv, ttCloseBracket]) do
+    Recognise(fcTokenList.FirstSolidTokenType);
+
+  PopNode;
 end;
 
 procedure TBuildParseTree.RecogniseStructStmnt;

@@ -30,9 +30,9 @@ under the License.
 interface
 
 uses
-  { delphi } Windows, Messages, SysUtils, Classes,
+  { delphi } Windows, SysUtils, Classes,
   { delphi design time } ToolsAPI,
-  { local} JCFSettings, EditorConverter, FileCOnverter;
+  { local} EditorConverter, FileCOnverter;
 
 type
   TJcfIdeMain = class(TObject)
@@ -69,8 +69,7 @@ implementation
 uses
   { delphi } Menus, Dialogs, Controls,
   { jcl } JclStrings,
-  { local } fAllSettings, fAbout, JcfRegistrySettings, fRegistrySettings,
-  EditorReader, EditorWriter;
+  { local } fAllSettings, fAbout, JcfRegistrySettings, fRegistrySettings;
 
 
 function FileIsAllowedType(const psFileName: string): boolean;

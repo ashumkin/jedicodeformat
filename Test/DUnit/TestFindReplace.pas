@@ -27,9 +27,8 @@ under the License.
 interface
 
 uses
-  Classes,
   TestFrameWork,
-  StringsConverter, BaseTestProcess;
+  BaseTestProcess;
 
 type
   TTestFindReplace = class(TBaseTestProcess)
@@ -49,7 +48,6 @@ implementation
 
 uses
   SysUtils,
-  JclStrings,
   JcfRegistrySettings, JcfSettings, TestConstants, FindReplace;
 
 procedure TTestFindReplace.Setup;

@@ -68,7 +68,7 @@ const
 implementation
 
 uses SysUtils, Dialogs,
-  ConvertTypes, JcfRegistrySettings, TestConstants;
+  TestConstants;
 
 procedure TBaseTestProcess.Setup;
 begin

@@ -27,9 +27,8 @@ under the License.
 interface
 
 uses
-  Classes,
   TestFrameWork,
-  StringsConverter, BaseTestProcess;
+  BaseTestProcess;
 
 type
   TTestRemoveBlankLines = class(TBaseTestProcess)
