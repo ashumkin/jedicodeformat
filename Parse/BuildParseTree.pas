@@ -82,6 +82,7 @@ type
     procedure RecogniseBlock;
     procedure RecogniseIdentList(const pbCanHaveUnitQualifier: boolean);
     procedure RecogniseIdentValue;
+    procedure RecogniseAsCast;
 
     procedure RecogniseLabelDeclSection;
     procedure RecogniseLabel;
@@ -1977,9 +1978,9 @@ end;
 procedure TBuildParseTree.RecogniseDesignatorTail;
 const
   DESIGNATOR_TAIL_TOKENS = [ttDot, ttOpenBracket, ttOpenSquareBracket, ttHat,
-    ttPlus, ttMinus];
+    ttPlus, ttMinus, ttAs];
 begin
-  
+
   while (fcTokenList.FirstSolidTokenType in DESIGNATOR_TAIL_TOKENS) do
   begin
     case fcTokenList.FirstSolidTokenType of
@@ -2007,6 +2008,10 @@ begin
       begin
         Recognise([ttPlus, ttMinus]);
         RecogniseExpr(True);
+      end;
+      ttAs:
+      begin
+        RecogniseAsCast;
       end;
       else
         Assert(False, 'Should not be here - bad token type');
@@ -2260,10 +2265,7 @@ begin
   end;
 
   if (fcTokenList.FirstSolidTokenType = ttAs) then
-  begin
-    Recognise(ttAs);
-    RecogniseIdentifier(True);
-  end;
+    RecogniseAsCast;
 end;
 
 procedure TBuildParseTree.RecogniseRaise;
@@ -3820,10 +3822,8 @@ begin
     RecogniseDesignator;
 
     if (fcTokenList.FirstSolidTokenType = ttAs) then
-    begin
-      Recognise(ttAs);
-      RecogniseIdentifier(True);
-    end;
+      RecogniseAsCast;
+
     Recognise(ttCloseBracket);
     PopNode;
   end
@@ -4449,6 +4449,12 @@ begin
   end;
 
   PopNode;
+end;
+
+procedure TBuildParseTree.RecogniseAsCast;
+begin
+  Recognise(ttAs);
+  RecogniseIdentifier(True);
 end;
 
 end.
