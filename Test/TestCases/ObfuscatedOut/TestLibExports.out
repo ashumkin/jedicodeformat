@@ -16,7 +16,7 @@ exports initeditors,
 
   function foo: boolean; local;
   begin
-    Result := false;
+    Result := False;
   end;
 
 begin

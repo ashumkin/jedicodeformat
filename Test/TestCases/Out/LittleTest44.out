@@ -15,7 +15,7 @@ implementation
 
 uses SysUtils;
 
-procedure Foo(Value: double; Bufferlo: pchar);
+procedure Foo(Value: double; Bufferlo: PChar);
 var
   bar: array [0..13] of byte absolute Value;
   I:   byte;

@@ -22,7 +22,7 @@ type
   published
     property bar: integer Read fibar Write fibar;
     property baz: integer index 3 Read fibaz Write fibaz;
-    property wibble: integer Read fiwibble Write fiwibble stored false;
+    property wibble: integer Read fiwibble Write fiwibble stored False;
     property fish: integer index 5 Read fifish Write fifish default 6;
     property quux: integer index 5 Read fiquux Write fiquux nodefault;
   end;
@@ -53,7 +53,7 @@ end;
 
 function tfoo.getcomplexarrayprop(const piindex: integer; var pcstring: string): boolean;
 begin
-  Result   := false;
+  Result   := False;
   pcstring := pcstring + 'aa';
 end;
 

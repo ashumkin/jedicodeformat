@@ -43,14 +43,14 @@ type
   TThing5 = record
     Bar: integer;
     case Spon: boolean of
-      true: (Baz5: pchar);
-      false: (Fred5: integer;);
+      True: (Baz5: PChar);
+      False: (Fred5: integer;);
   end platform;
 
   TMonkey = record
     Bar: integer;
     case TFoo of
-      0, 1, 2, 3: (Baz5: pchar);
+      0, 1, 2, 3: (Baz5: PChar);
       4, 42, 300: (Fred5: integer;);
   end platform;
 
@@ -58,8 +58,8 @@ type
   TThing6 = record
     Bar: integer;
     case boolean of
-      true: (Baz6: pchar);
-      false: (Fred6: integer;);
+      True: (Baz6: PChar);
+      False: (Fred6: integer;);
   end platform;
 
   TThing7 = record
@@ -145,8 +145,8 @@ type
   TFoo2 = record
     Bar: integer;
     case Spon: boolean of
-      true: (Baz: pchar);
-      false: (Fred: integer);
+      True: (Baz: PChar);
+      False: (Fred: integer);
   end platform;
 begin
 end;

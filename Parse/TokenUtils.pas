@@ -523,7 +523,8 @@ end;
 
 function IsLineBreaker(const pcToken: TSourceToken): boolean;
 begin
-  Result := (pcToken.TokenType = ttReturn) or IsMultiLineComment(pcToken);
+  Result := (pcToken.TokenType = ttReturn) or IsMultiLineComment(pcToken) or
+   (pcToken.TokenType = ttConditionalCompilationRemoved);
 end;
 
 { count the number of identifiers in the var decl

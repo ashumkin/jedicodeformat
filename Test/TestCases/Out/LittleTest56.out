@@ -11,7 +11,7 @@ interface
 implementation
 
 const
-  Foo = true;
+  Foo = True;
 
 {$IF not Foo}
 

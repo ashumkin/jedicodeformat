@@ -47,16 +47,16 @@ type
     firstname, lastname: string[40];
     birthdate: tdatetime;
     case salaried: boolean of
-      true: (annualsalary: currency);
-      false: (hourlywage: currency);
+      True: (annualsalary: currency);
+      False: (hourlywage: currency);
   end;
 
   tperson = record
     firstname, lastname: string[40];
     birthdate: tdatetime;
     case citizen: boolean of
-      true: (birthplace: string[40]);
-      false: (country: string[20];
+      True: (birthplace: string[40]);
+      False: (country: string[20];
         entryport: string
         [20];
         entrydate, exitdate: tdatetime);
@@ -66,44 +66,44 @@ type
     bar: integer;
     case spon: boolean
       of
-      true: (baz: pchar);
-      false: (wibble: integer;
+      True: (baz: pchar);
+      False: (wibble: integer;
         fish: integer);
   end;
 
   tfoo2 = record
     bar: integer;
     case spon: boolean of
-      true: (baz: pchar);
-      false: (fred: tfoo);
+      True: (baz: pchar);
+      False: (fred: tfoo);
   end;
 
   tfoo3 = record
     bar: integer;
     case spon: boolean of
-      true: (baz: pchar);
-      false: (fred: tfoo;
+      True: (baz: pchar);
+      False: (fred: tfoo;
         case boolean of
-          false: (ligoop: integer);
-          true: (lcglorp: currency););
+          False: (ligoop: integer);
+          True: (lcglorp: currency););
   end;
 
   tdeepnesting = record
     bar: integer;
     case spon1: boolean of
-      true: (baz1: pchar);
-      false: (case spon2: boolean of
-          true: (baz2: pchar);
-          false: (case spon3: boolean of
-            true: (baz3: pchar);
-            false: (case spon4: boolean of
-              true: (baz4: pchar);
-              false: (case spon5: boolean of
-                true: (baz5: pchar);
-                false: (case spon6: boolean
+      True: (baz1: pchar);
+      False: (case spon2: boolean of
+          True: (baz2: pchar);
+          False: (case spon3: boolean of
+            True: (baz3: pchar);
+            False: (case spon4: boolean of
+              True: (baz4: pchar);
+              False: (case spon5: boolean of
+                True: (baz5: pchar);
+                False: (case spon6: boolean
                   of
-                  true: (baz6: pchar);
-                  false: (liendpoint: integer););););););
+                  True: (baz6: pchar);
+                  False: (liendpoint: integer););););););
   end;
 
 implementation
@@ -130,12 +130,12 @@ type
     foo: integer;
     bar: (trout, mackrel, rain, earth);
     case spon: boolean of
-      true: (baz: pchar);
-      false: (fred: tfoo;
+      True: (baz: pchar);
+      False: (fred: tfoo;
         case boolean
           of
-          false: (ligoop: integer);
-          true: (lcglorp: currency););
+          False: (ligoop: integer);
+          True: (lcglorp: currency););
   end;
 var
   lrec: tlocalrec;
@@ -148,11 +148,11 @@ var
     foo: integer;
     bar: (trout, mackrel, rain, earth);
     case spon: boolean of
-      true: (baz: pchar);
-      false: (fred: tfoo;
+      True: (baz: pchar);
+      False: (fred: tfoo;
         case boolean of
-          false: (ligoop: integer);
-          true: (lcglorp: currency););
+          False: (ligoop: integer);
+          True: (lcglorp: currency););
   end;
 begin
 end;
@@ -169,19 +169,19 @@ var
     foo: integer;
     bar: (trout2, mackrel2, rain2, mars);
     case spon: boolean of
-      true: (baz: pchar);
-      false: (fred: tfoo);
+      True: (baz: pchar);
+      False: (fred: tfoo);
   end;
   d1, d2, d3, d4: double;
   lrec: record
     foo: integer;
     bar: (trout3, mackrel3, cloud, earthprime);
     case spon: boolean of
-      true: (baz: pchar);
-      false: (fred: tfoo;
+      True: (baz: pchar);
+      False: (fred: tfoo;
         case boolean of
-          false: (ligoop: integer);
-          true: (lcglorp: currency););
+          False: (ligoop: integer);
+          True: (lcglorp: currency););
   end;
   c1, c2, c3: currency;
 begin

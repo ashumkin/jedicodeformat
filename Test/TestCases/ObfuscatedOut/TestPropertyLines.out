@@ -95,12 +95,12 @@ implementation
 
 function tterse.x10: boolean;
 begin
-  Result := false;
+  Result := False;
 end;
 
 function tterse.x11: boolean;
 begin
-  Result := false;
+  Result := False;
 end;
 
 procedure tterse.x4;
@@ -109,17 +109,17 @@ end;
 
 function tterse.x7: boolean;
 begin
-  Result := false;
+  Result := False;
 end;
 
 function tverbose.x10: boolean;
 begin
-  Result := false;
+  Result := False;
 end;
 
 function tverbose.x11: boolean;
 begin
-  Result := false;
+  Result := False;
 end;
 
 procedure tverbose.x4;
@@ -128,7 +128,7 @@ end;
 
 function tverbose.x7: boolean;
 begin
-  Result := false;
+  Result := False;
 end;
 
 function tlongproperties.getanarraypropertywithanabsurdlylongname(const pithisisanindextothearrayproperty: integer): integer;

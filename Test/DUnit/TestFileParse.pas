@@ -125,6 +125,7 @@ type
     procedure TestParse_TestClassLines;
     procedure TestParse_TestCommentIndent;
     procedure TestParse_TestCommentIndent2;
+    procedure TestParse_TestCondReturns;
     procedure TestParse_TestConstRecords;
     procedure TestParse_TestD6;
     procedure TestParse_TestDeclarations;
@@ -689,7 +690,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 1225);
+  TestParseFile('Testcases.dpr', 1233);
 end;
 
 
@@ -1097,6 +1098,11 @@ end;
 procedure TTestFileParse.TestParse_TestEndElse;
 begin
   TestParseFile('TestEndElse', 106);
+end;
+
+procedure TTestFileParse.TestParse_TestCondReturns;
+begin
+  TestParseFile('TestCondReturns', 92);
 end;
 
 initialization

@@ -74,7 +74,7 @@ begin
     (randomboolean and b4 and haslotsofarguments(b1, b2, b3, b4, b5)) or
     (randomboolean or randomboolean or randomboolean or randomboolean) then
   begin
-    b1 := false;
+    b1 := False;
   end;
   while (randomboolean and b1 and haslotsofarguments(b1, b2, b3, b4, b5)) or
     (randomboolean or b2 or haslotsofarguments(b1, b2, b3, b4, b5)) or
@@ -96,8 +96,8 @@ begin
     (randomboolean xor b3 xor haslotsofarguments(b1, b2, b3, b4, b5)) or
     (randomboolean and b4 and haslotsofarguments(b1, b2, b3, b4, b5)) or
     (randomboolean or randomboolean or randomboolean or randomboolean) of
-    true: b3  := false;
-    false: b4 := false;
+    True: b3  := False;
+    False: b4 := False;
   end;
 end;
 
@@ -132,45 +132,45 @@ begin
   b1 := (b2 or b3) and (b4 or b5) and (b4 or b1) and ((b1 or b3) and (b1 or b2) or
     (b1 or b3) and (b2 or b3));
   if b2 then
-    b1 := true;
+    b1 := True;
   if b2 or b3 or b1 then
-    b1 := true;
+    b1 := True;
   if (b2 or b3) and b1 then
-    b1 := true;
+    b1 := True;
   if (b2 or b3) and (b4 or b1) then
-    b1 := true;
+    b1 := True;
   if (b2 or b3) and (b4 or b5) and b1 then
-    b1 := true;
+    b1 := True;
   if (b2 or b3) and (b4 or b5) and (b4 or b1) and b1 then
-    b1 := true;
+    b1 := True;
   if (b2 or b3) and (b4 or b5) and (b4 or b1) and (b1 or b3) then
-    b1 := true;
+    b1 := True;
   if (b2 or b3) and (b4 or b5) and (b4 or b1) and (b1 or b3) and b1 then
-    b1 := true;
+    b1 := True;
   if (b2 or b3) and (b4 or b5) and (b4 or b1) and (b1 or b3) and (b1 or b2) then
-    b1 := true;
+    b1 := True;
   if (b2 or b3) and (b4 or b5) and (b4 or b1) and (b1 or b3) and (b1 or b2) or b1 then
-    b1 := true;
+    b1 := True;
   if (b2 or b3) and (b4 or b5) and (b4 or b1) and (b1 or b3) and (b1 or b2) or (b1 or b3) then
-    b1 := true;
+    b1 := True;
   if (b2 or b3) and (b4 or b5) and (b4 or b1) and (b1 or b3) and (b1 or b2) or
     (b1 or b3) and (b1 xor b3) then
-    b1 := true;
+    b1 := True;
   if (b2 or b3) and (b4 or b5) and (b4 or b1) and (b1 or b3) and (b1 or b2) or
     ((b1 or b3) and (b1 xor b3)) then
-    b1 := true;
+    b1 := True;
   if (b2 or b3) and (b4 or b5) and (b4 or b1) and (b1 or b3) and ((b1 or b2) or (b1 or b3)) and
     (b1 xor b3) then
-    b1 := true;
+    b1 := True;
   if (b2 or b3) and (b4 or b5) and (b4 or b1) and ((b1 or b3) and (b1 or b2)) or
     (b1 or b3) and (b1 xor b3) then
-    b1 := true;
+    b1 := True;
   if (b2 or b3) and (b4 or b5) and (b4 or b1) and (b1 or b3) and
     ((b1 or b2) or (b1 or b3) and (b1 xor b3)) then
-    b1 := true;
+    b1 := True;
   if (b2 or b3) and (b4 or b5) and (b4 or b1) and ((b1 or b3) and (b1 or b2) or
     (b1 or b3) and (b1 xor b3)) then
-    b1 := true;
+    b1 := True;
 end;
 
 procedure tcsomebusinessobject.investiv(const pcipco: iparrotcommentobject; const lciivchoice: iivychoice);

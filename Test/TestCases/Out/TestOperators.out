@@ -83,8 +83,8 @@ procedure BooleanLogic;
 var
   ba, bb, bc: boolean;
 begin
-  ba := true;
-  bb := false;
+  ba := True;
+  bb := False;
   bc := ba or bb;
   ba := bb and bc;
   ba := not ba;

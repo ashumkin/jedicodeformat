@@ -124,7 +124,9 @@ type
     procedure TestObfuscate_TestClassLines;
     procedure TestObfuscate_TestCommentIndent;
     procedure TestObfuscate_TestCommentIndent2;
+    procedure TestObfuscate_TestCondReturns;
     procedure TestObfuscate_TestConstRecords;
+
     procedure TestObfuscate_TestD6;
     procedure TestObfuscate_TestDeclarations;
     procedure TestObfuscate_TestDeclarations2;
@@ -1131,6 +1133,11 @@ end;
 procedure TTestObfuscate.TestObfuscate_TestEndElse;
 begin
   TestObfuscateFile('TestEndElse');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestCondReturns;
+begin
+  TestObfuscateFile('TestCondReturns');
 end;
 
 initialization

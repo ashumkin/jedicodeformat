@@ -111,18 +111,18 @@ begin
   try { finally free it all }
 
     { set up global vars }
-    bGlobalShutdown := false;
-    bNoFades      := true;
-    bSpeedupCycling := false;
-    bSlowDownCycling := false;
-    bChangeCycleDir := false;
-    bCycleFastest := false;
-    bCycleSlowest := false;
-    bCyclePause   := false;
+    bGlobalShutdown := False;
+    bNoFades      := True;
+    bSpeedupCycling := False;
+    bSlowDownCycling := False;
+    bChangeCycleDir := False;
+    bCycleFastest := False;
+    bCycleSlowest := False;
+    bCyclePause   := False;
     PatternChangeTiming := eRegular;
 
     { set up local vars }
-    bAuto := false;
+    bAuto := False;
 
     { process command line }
     for iParamLoop := 1 to Paramcount do
@@ -143,7 +143,7 @@ begin
 
       if sParam = 'A' then
       begin
-        bAuto := true;
+        bAuto := True;
       end
       else
       begin

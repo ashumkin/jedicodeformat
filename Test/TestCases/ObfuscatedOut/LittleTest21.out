@@ -3,7 +3,7 @@ unit littletest21;
 interface
 
 type
-  truncated = (false, true);
+  truncated = (False, True);
 
 implementation
 

@@ -7,7 +7,7 @@ const
   fred_const_two = 'Fred';
   gimp      = 'Glump';
   mo_money  = 123.45;
-  pigs_can_fly = false;
+  pigs_can_fly = False;
   fred_name: string = 'Fred!';
   fred_count: integer = 2;
   fred_money: currency = 234.4;
@@ -69,7 +69,7 @@ type
 
 var
   fred3:     integer = 42;
-  myfluggle: tfluggle = (true, false, true, true, false, true, false, true, true, false);
+  myfluggle: tfluggle = (True, False, True, True, False, True, False, True, True, False);
   myflig:    tflig = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
 
 function fnfred(var pifred: integer): integer;

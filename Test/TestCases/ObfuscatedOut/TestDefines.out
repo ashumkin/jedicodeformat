@@ -40,8 +40,7 @@ end;
 {$IF Defined(FOO) and defined(BAR)}
 
   5 wakka wakka wakka
-{$IFEND}
-{$DEFINE FOO}{$DEFINE BAR}{$UNDEF FISH}
+{$IFEND}{$DEFINE FOO}{$DEFINE BAR}{$UNDEF FISH}
 
 procedure test4;
 begin{$IF (Defined(FOO) and defined(BAR)) and not defined(FISH)}

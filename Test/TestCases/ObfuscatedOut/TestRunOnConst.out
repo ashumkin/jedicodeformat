@@ -14,16 +14,16 @@ type
 const
   fnordmap: array
     [0..11] of tfnordrecord = ((sword: 'bob'; efnordtype: efnord1;
-    btheother: true), (sword: 'was'; efnordtype: etheotherfnord;
-    btheother: false), (sword: 'here'; efnordtype: efnord2; btheother: true), (sword: 'some';
-    efnordtype: efnord1; btheother: false), (sword: 'time'; efnordtype: etheotherfnord;
-    btheother: true), (sword: 'after'; efnordtype: efnord1; btheother: false), (sword: 'midnight'; efnordtype: efnord2; btheother: true), (sword: 'bob';
-    efnordtype: efnord1; btheother: true), (sword: 'was'; efnordtype: etheotherfnord;
-    btheother: false), (sword: 'here'; efnordtype: efnord2; btheother: true), (sword: 'some';
-    efnordtype: efnord1; btheother: false), (sword: 'time'; efnordtype: etheotherfnord; btheother: true));
+    btheother: True), (sword: 'was'; efnordtype: etheotherfnord;
+    btheother: False), (sword: 'here'; efnordtype: efnord2; btheother: True), (sword: 'some';
+    efnordtype: efnord1; btheother: False), (sword: 'time'; efnordtype: etheotherfnord;
+    btheother: True), (sword: 'after'; efnordtype: efnord1; btheother: False), (sword: 'midnight'; efnordtype: efnord2; btheother: True), (sword: 'bob';
+    efnordtype: efnord1; btheother: True), (sword: 'was'; efnordtype: etheotherfnord;
+    btheother: False), (sword: 'here'; efnordtype: efnord2; btheother: True), (sword: 'some';
+    efnordtype: efnord1; btheother: False), (sword: 'time'; efnordtype: etheotherfnord; btheother: True));
 
 const
-  myfnord: tfnordrecord = (sword: 'bob'; efnordtype: efnord1; btheother: true);
+  myfnord: tfnordrecord = (sword: 'bob'; efnordtype: efnord1; btheother: True);
 
 implementation
 

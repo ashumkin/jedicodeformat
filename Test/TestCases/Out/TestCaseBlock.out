@@ -275,9 +275,9 @@ begin
   iB := Random(10);
 
   if iA > 5 then
-    bA := true
+    bA := True
   else
-    bA := false;
+    bA := False;
 
   { the case for 4 is something else, huh?
    unreadable as it gets wehn on one line,
@@ -290,9 +290,9 @@ begin
     2: for liLoop := 1 to 10 do
         iA := iA + Random(2);
     3: if iA > 5 then
-        ba := false
+        ba := False
       else
-        ba := true;
+        ba := True;
     14: if iA > 5 then
         for liLoop := 1 to 10 do
           iA := iA + Random(2)

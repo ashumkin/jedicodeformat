@@ -14,8 +14,8 @@ procedure jim;
 var
   b: boolean;
 begin
-  b := false;
-  b := fred(true, b);
+  b := False;
+  b := fred(True, b);
   fred(b, b);
 end;
 
@@ -39,7 +39,7 @@ end;
 procedure haggis;
 begin
   fred(
-    true, joe > 4);
+    True, joe > 4);
 end;
 
 procedure bob1; forward;

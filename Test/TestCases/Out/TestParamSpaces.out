@@ -27,7 +27,7 @@ end;
 
 function Fred: boolean;
 begin
-  Result := false;
+  Result := False;
 end;
 
 end.

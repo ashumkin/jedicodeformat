@@ -8,7 +8,7 @@ interface
 
 { this is an enum }
 type
-  Truncated = (false, true);
+  Truncated = (False, True);
 
 implementation
 

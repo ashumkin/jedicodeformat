@@ -40,7 +40,7 @@ type
     { properties, plain to complex}
     property Bar: integer Read fiBar Write fiBar;
     property Baz: integer index 3 Read fiBaz Write fiBaz;
-    property Wibble: integer Read fiWibble Write fiWibble stored false;
+    property Wibble: integer Read fiWibble Write fiWibble stored False;
     property Fish: integer index 5 Read fiFish Write fiFish default 6;
     property Quux: integer index 5 Read fiQuux Write fiQuux nodefault;
 
@@ -80,7 +80,7 @@ end;
 function TFoo.GetComplexArrayProp(const piIndex: integer;
   var pcString: string): boolean;
 begin
-  Result   := false;
+  Result   := False;
   pcString := pcString + 'aa';
 end;
 

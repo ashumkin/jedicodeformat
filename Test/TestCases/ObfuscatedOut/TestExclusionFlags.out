@@ -53,7 +53,7 @@ var
   a:  integer;
   lb: boolean;
 begin
-  lb := true and false;//jcf:caps=off
+  lb := True and False;//jcf:caps=off
   if a > 3 then
   begin
     a  := 12;

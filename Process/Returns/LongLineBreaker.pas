@@ -475,10 +475,7 @@ begin
       end;
     end;
   end
-
 end;
-
-
 
 
 { TLongLineBreaker }

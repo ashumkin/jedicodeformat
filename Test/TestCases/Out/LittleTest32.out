@@ -4,11 +4,11 @@ interface
 
 { this is legal for vars but not consts }
 var
-  Foo:    boolean platform = false;
-  Bar:    boolean library = false;
-  Fish:   boolean deprecated = false;
-  Wibble: boolean platform library = false;
-  Spon:   boolean platform library deprecated = false;
+  Foo:    boolean platform = False;
+  Bar:    boolean library = False;
+  Fish:   boolean deprecated = False;
+  Wibble: boolean platform library = False;
+  Spon:   boolean platform library deprecated = False;
 
 implementation
 

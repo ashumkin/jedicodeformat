@@ -51,14 +51,14 @@ threadvar
 
 function JustSayNo: boolean; assembler;
 begin
-  Result := false;
+  Result := False;
 end;
 
 
 { the JCLDebug unit does this with the __FILE__ etc fns }
 function _ThisFunctionStartsWithAnUnderscore: boolean;
 begin
-  Result := true;
+  Result := True;
 end;
 
 function __ThisFunctionStartsWithAnUnderscore: boolean;

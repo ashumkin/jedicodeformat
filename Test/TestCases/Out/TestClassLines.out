@@ -25,7 +25,7 @@ implementation
 
 class function TSomeClass.dink: boolean;
 begin
-  Result := false;
+  Result := False;
 end;
 
 end.

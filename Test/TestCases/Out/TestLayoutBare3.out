@@ -26,13 +26,13 @@ begin
   if iA > 5 then
     if iA > 20 then
       if IB > 6 then
-        BA := true
+        BA := True
       else
-        BA := false
+        BA := False
     else
-      ba := true
+      ba := True
   else
-    ba := false
+    ba := False
 end;
 
 procedure Test2;

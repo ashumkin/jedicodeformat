@@ -18,7 +18,7 @@ const
   FRED_CONST_TWO = 'Fred';
   GIMP     = 'Glump';
   MO_MONEY = 123.45;
-  PIGS_CAN_FLY = false;
+  PIGS_CAN_FLY = False;
 
   { typed constants }
   FRED_NAME: string    = 'Fred!';
@@ -111,8 +111,8 @@ type
 { initialised vars }
 var
   Fred3:     integer = 42;
-  MyFluggle: TFluggle = (true, false, true, true, false, true,
-    false, true, true, false);
+  MyFluggle: TFluggle = (True, False, True, True, False, True,
+    False, True, True, False);
   MyFlig:    TFlig = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
 
 function FnFred(var piFred: integer): integer;

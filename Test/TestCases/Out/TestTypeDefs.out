@@ -58,16 +58,16 @@ type
 
   IEntryJournalIterator = interface(IMyIterator)
     ['{D34D4105-FBC4-11D2-94F3-00A0CC39B56F}']
-    function Get_Note: widestring; safecall;
-    function Get_Status: widestring; safecall;
+    function Get_Note: WideString; safecall;
+    function Get_Status: WideString; safecall;
     function Get_CreatedDate: TDateTime; safecall;
-    function Get_LoginName: widestring; safecall;
+    function Get_LoginName: WideString; safecall;
     function Get_Id: integer; safecall;
     procedure Set_Id(Id: integer); safecall;
-    property Note: widestring Read Get_Note;
-    property Status: widestring Read Get_Status;
+    property Note: WideString Read Get_Note;
+    property Status: WideString Read Get_Status;
     property CreatedDate: TDateTime Read Get_CreatedDate;
-    property LoginName: widestring Read Get_LoginName;
+    property LoginName: WideString Read Get_LoginName;
     property Id: integer Read Get_Id Write Set_Id;
   end;
 
@@ -112,7 +112,7 @@ implementation
 
 function FredCoClass.Dink: boolean;
 begin
-  Result := true;
+  Result := True;
 end;
 
 class function FredCoClass.Create: IDispatch;
@@ -136,7 +136,7 @@ end;
 
 class function OtherFredCoClass.Dink: boolean;
 begin
-  Result := false;
+  Result := False;
 end;
 
 end.

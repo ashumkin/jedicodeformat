@@ -3,11 +3,11 @@ unit littletest32;
 interface
 
 var
-  foo:    boolean platform = false;
-  bar:    boolean library = false;
-  fish:   boolean deprecated = false;
-  wibble: boolean platform library = false;
-  spon:   boolean platform library deprecated = false;
+  foo:    boolean platform = False;
+  bar:    boolean library = False;
+  fish:   boolean deprecated = False;
+  wibble: boolean platform library = False;
+  spon:   boolean platform library deprecated = False;
 
 implementation
 

@@ -41,12 +41,12 @@ var
   ba:     boolean;
 begin
   if ia > 20 then
-    ba := false
+    ba := False
   else if ib > 6 then
     ba :=
-      true
+      True
   else
-    ba := false
+    ba := False
 end;
 
 procedure littletest3;
@@ -77,18 +77,18 @@ var
   ba:     boolean;
 begin
   if ia > 20 then
-    ba := false
+    ba := False
   else if ib > 6 then
-    ba := true
+    ba := True
   else if ia < 6 then
-    ba := false;
+    ba := False;
   if ia > 20 then
     if ib > 5 then
-      ba := false
+      ba := False
     else if ib > 6 then
-      ba := true
+      ba := True
     else
-      ba := false;
+      ba := False;
 end;
 
 procedure littletest5_1;
@@ -98,9 +98,9 @@ var
 begin
   if ia > 5 then
     if ia > 20 then
-      ba := true
+      ba := True
     else
-      ba := false
+      ba := False
 end;
 
 procedure littletest5_2;
@@ -110,11 +110,11 @@ var
 begin
   if ia > 5 then
     if ia > 20 then
-      ba := true
+      ba := True
     else
-      ba := false
+      ba := False
   else
-    ba := true
+    ba := True
 end;
 
 procedure littletest5_3;
@@ -124,11 +124,11 @@ var
 begin
   if ia > 20 then
     if ib > 6 then
-      ba := true
+      ba := True
     else
-      ba := false
+      ba := False
   else
-    ba := true
+    ba := True
 end;
 
 procedure littletest6;
@@ -139,13 +139,13 @@ begin
   if ia > 5 then
     if ia > 20 then
       if ib > 6 then
-        ba := true
+        ba := True
       else
-        ba := false
+        ba := False
     else
-      ba := true
+      ba := True
   else
-    ba := false
+    ba := False
 end;
 
 procedure mixem;
@@ -197,9 +197,9 @@ begin
   ia := random(10);
   ib := random(10);
   if ia > 5 then
-    ba := true
+    ba := True
   else
-    ba := false;
+    ba := False;
   for liloop := 0 to 10 do
     ia := ia + random(10);
   for liloop := 0 to 10 do
@@ -220,11 +220,11 @@ begin
   if ia > 20 then
     if ib > 5 then
       ba :=
-        false
+        False
     else if ib > 6 then
-      ba := true
+      ba := True
     else
-      ba := false;
+      ba := False;
   repeat
     ia := ia + random(10)
   until ia > 100;

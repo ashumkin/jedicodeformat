@@ -64,7 +64,7 @@ end;
 
 procedure TTestInterfaceMap.Gargle;
 begin
-  ITestInterfaceMap_Jim(false);
+  ITestInterfaceMap_Jim(False);
 end;
 
 procedure TTestInterfaceMap.ITestInterfaceMap_Jim(pbDoSomething: wordbool);

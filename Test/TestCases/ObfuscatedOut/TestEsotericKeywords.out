@@ -40,12 +40,12 @@ threadvar
 
 function justsayno: boolean; assembler;
 begin
-  Result := false;
+  Result := False;
 end;
 
 function _thisfunctionstartswithanunderscore: boolean;
 begin
-  Result := true;
+  Result := True;
 end;
 
 function __thisfunctionstartswithanunderscore: boolean;

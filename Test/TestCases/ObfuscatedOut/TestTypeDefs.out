@@ -89,7 +89,7 @@ implementation
 
 function fredcoclass.dink: boolean;
 begin
-  Result := true;
+  Result := True;
 end;
 
 class function fredcoclass.Create: IDispatch;
@@ -108,7 +108,7 @@ end;
 
 class function otherfredcoclass.dink: boolean;
 begin
-  Result := false;
+  Result := False;
 end;
 
 end.

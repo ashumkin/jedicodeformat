@@ -15,10 +15,10 @@ var
 begin
   foo := 'hello';
   mangledata(foo);
-  bar := pchar(foo);
+  bar := PChar(foo);
   mangledata(bar);
   mangledata(bar^);
-  mangledata(pchar(foo)^);
+  mangledata(PChar(foo)^);
 end;
 
 end.

@@ -3,8 +3,8 @@ unit testdefaultparams;
 interface
 
 function def1(const pival: integer = 42): boolean;
-function def2(bv: boolean = false; const pival: integer = 42): boolean;
-function def3(bv: boolean = false; const piaverrylongvalval: integer = 42;
+function def2(bv: boolean = False; const pival: integer = 42): boolean;
+function def3(bv: boolean = False; const piaverrylongvalval: integer = 42;
   const short: integer = 42): boolean;
 
 type
@@ -12,7 +12,7 @@ type
   public
     procedure fred(const pi: integer = 3; px: double = 34.4); virtual;
     procedure jim(const pi: integer = 3; px: double = 34.4); overload;
-    procedure jim(pb: boolean = false); overload;
+    procedure jim(pb: boolean = False); overload;
     procedure bob(const pi: integer = 3; px: double = 34.4); overload;
     procedure bob(const pblongvariablename: pointer = nil;
       const pi: integer = 3; px: double = 34.4); overload;
@@ -45,7 +45,7 @@ begin
   Result := (pival = 42);
 end;
 
-function def2(bv: boolean = false; const pival: integer = 42): boolean;
+function def2(bv: boolean = False; const pival: integer = 42): boolean;
 begin
   if bv then
     Result := def1(pival)
@@ -55,7 +55,7 @@ begin
   end;
 end;
 
-function def3(bv: boolean = false; const piaverrylongvalval: integer = 42; const short: integer = 42): boolean;
+function def3(bv: boolean = False; const piaverrylongvalval: integer = 42; const short: integer = 42): boolean;
 begin
   def2(bv);
 end;

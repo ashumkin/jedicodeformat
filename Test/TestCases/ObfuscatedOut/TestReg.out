@@ -12,7 +12,7 @@ procedure Register;
 var
   Data: boolean;
 begin
-  Data := false;
+  Data := False;
 end;
 
 procedure fred;

@@ -3,7 +3,7 @@ unit testpropertyinherited;
 interface
 
 const
-  has_bar = false;
+  has_bar = False;
   five    = (2 + 2);
 
 type

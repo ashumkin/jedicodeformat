@@ -77,16 +77,16 @@ begin
   initpatternmanager;
   paletteeffectsmanager := tpaletteeffectmanager.Create(application);
   try
-    bglobalshutdown := false;
-    bnofades := true;
-    bspeedupcycling := false;
-    bslowdowncycling := false;
-    bchangecycledir := false;
-    bcyclefastest := false;
-    bcycleslowest := false;
-    bcyclepause := false;
+    bglobalshutdown := False;
+    bnofades := True;
+    bspeedupcycling := False;
+    bslowdowncycling := False;
+    bchangecycledir := False;
+    bcyclefastest := False;
+    bcycleslowest := False;
+    bcyclepause := False;
     patternchangetiming := eregular;
-    bauto := false;
+    bauto := False;
     for iparamloop := 1 to paramcount do
     begin
       sparam := ParamStr(iparamloop);
@@ -100,7 +100,7 @@ begin
       sparam := restof(sparam, 2);
       if sparam = 'A' then
       begin
-        bauto := true;
+        bauto := True;
       end
       else
       begin

@@ -122,6 +122,7 @@ type
     procedure TestClarify_TestClassLines;
     procedure TestClarify_TestCommentIndent;
     procedure TestClarify_TestCommentIndent2;
+    procedure TestClarify_TestCondReturns;
     procedure TestClarify_TestConstRecords;
     procedure TestClarify_TestD6;
     procedure TestClarify_TestDeclarations2;
@@ -1087,6 +1088,11 @@ end;
 procedure TFullTestClarify.TestClarify_TestEndElse;
 begin
   TestClarifyFile('TestEndElse');
+end;
+
+procedure TFullTestClarify.TestClarify_TestCondReturns;
+begin
+  TestClarifyFile('TestCondReturns');
 end;
 
 initialization

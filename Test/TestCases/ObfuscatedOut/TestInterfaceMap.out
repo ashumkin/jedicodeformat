@@ -51,7 +51,7 @@ end;
 
 procedure ttestinterfacemap.gargle;
 begin
-  itestinterfacemap_jim(false);
+  itestinterfacemap_jim(False);
 end;
 
 procedure ttestinterfacemap.itestinterfacemap_jim(pbdosomething: wordbool);

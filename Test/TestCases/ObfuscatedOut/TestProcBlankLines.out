@@ -8,7 +8,7 @@ procedure foo;
 
   function bar: boolean;
   begin
-    Result := false;
+    Result := False;
   end;
 
 begin

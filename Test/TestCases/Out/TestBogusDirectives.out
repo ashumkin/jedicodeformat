@@ -68,12 +68,12 @@ var
   Absolute: integer absolute Name;
 begin
   Name   := 'Fred!';
-  Result := true;
+  Result := True;
 end;
 
 function Register.ProtecTED: boolean;
 begin
-  Result := false;
+  Result := False;
 end;
 
 procedure Register.Contains;

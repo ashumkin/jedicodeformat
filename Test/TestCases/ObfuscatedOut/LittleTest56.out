@@ -5,7 +5,7 @@ interface
 implementation
 
 const
-  foo = true;
+  foo = True;
 {$IF not Foo}
 
   warrawak

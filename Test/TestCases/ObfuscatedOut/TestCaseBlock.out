@@ -217,18 +217,18 @@ begin
   ia := random(10);
   ib := random(10);
   if ia > 5 then
-    ba := true
+    ba := True
   else
-    ba := false;
+    ba := False;
   case random(7) of
     1: ia := 0;
     2: for liloop := 1 to
         10 do
         ia := ia + random(2);
     3: if ia > 5 then
-        ba := false
+        ba := False
       else
-        ba := true;
+        ba := True;
     14: if ia > 5 then
         for
           liloop := 1 to 10 do

@@ -11,10 +11,10 @@ type
   TSpock   = Low(integer) .. 12;
   TRiker   = 12 .. High(integer);
   TWhorf   = 12 .. 42;
-  TData    = false .. true;
+  TData    = False .. True;
   TPicard  = Low(boolean) .. High(boolean);
-  TCrusher = Low(boolean) .. true;
-  TUhura   = false .. High(boolean);
+  TCrusher = Low(boolean) .. True;
+  TUhura   = False .. High(boolean);
 
 implementation
 

@@ -25,11 +25,11 @@ begin
   foo := 'hello';
   MangleData(foo);
 
-  bar := pchar(foo);
+  bar := PChar(foo);
   MangleData(bar);
   MangleData(bar^);
 
-  MangleData(pchar(foo)^);
+  MangleData(PChar(foo)^);
 end;
 
 end.

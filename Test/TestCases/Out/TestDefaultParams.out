@@ -9,8 +9,8 @@ unit TestDefaultParams;
 interface
 
 function Def1(const piVal: integer = 42): boolean;
-function Def2(bv: boolean = false; const piVal: integer = 42): boolean;
-function Def3(bv: boolean = false; const piAverryLongValVal: integer = 42;
+function Def2(bv: boolean = False; const piVal: integer = 42): boolean;
+function Def3(bv: boolean = False; const piAverryLongValVal: integer = 42;
   const short: integer = 42): boolean;
 
 type
@@ -20,7 +20,7 @@ type
       virtual;
     procedure Jim(const pi: integer = 3; px: double = 34.4);
       overload;
-    procedure Jim(pb: boolean = false);
+    procedure Jim(pb: boolean = False);
       overload;
 
     procedure Bob(const pi: integer = 3; px: double = 34.4); overload;
@@ -58,7 +58,7 @@ begin
   Result := (piVal = 42);
 end;
 
-function Def2(bv: boolean = false; const piVal: integer = 42): boolean;
+function Def2(bv: boolean = False; const piVal: integer = 42): boolean;
 begin
   if bv then
     Result := Def1(piVal)
@@ -68,7 +68,7 @@ begin
   end;
 end;
 
-function Def3(bv: boolean = false; const piAverryLongValVal: integer = 42;
+function Def3(bv: boolean = False; const piAverryLongValVal: integer = 42;
   const short: integer = 42): boolean;
 begin
   Def2(bv);

@@ -11,7 +11,7 @@ implementation
 
 class function tsomeclass.dink: boolean;
 begin
-  Result := false;
+  Result := False;
 end;
 
 end.

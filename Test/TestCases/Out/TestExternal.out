@@ -20,7 +20,7 @@ procedure Fred;
 procedure FloatToDecimal(var Result: integer; const Value; ValueType: integer;
   Precision, Decimals: integer); external;
 
-function FloatToText(Buffer: pchar; const Value; ValueType: integer;
+function FloatToText(Buffer: PChar; const Value; ValueType: integer;
   Format: integer; Precision, Digits: integer): integer; external;
 
 

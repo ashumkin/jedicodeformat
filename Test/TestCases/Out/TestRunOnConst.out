@@ -29,23 +29,23 @@ type
 const
   FnordMap: array [0..11] of TFnordRecord =
     (
-    (sWord: 'bob'; eFnordType: eFnord1; bTheOther: true),
-    (sWord: 'was'; eFnordType: eTheOtherFnord; bTheOther: false),
-    (sWord: 'here'; eFnordType: eFnord2; bTheOther: true),
-    (sWord: 'some'; eFnordType: eFnord1; bTheOther: false),
-    (sWord: 'time'; eFnordType: eTheOtherFnord; bTheOther: true),
-    (sWord: 'after'; eFnordType: eFnord1; bTheOther: false),
-    (sWord: 'midnight'; eFnordType: eFnord2; bTheOther: true),
-    (sWord: 'bob'; eFnordType: eFnord1; bTheOther: true),
-    (sWord: 'was'; eFnordType: eTheOtherFnord; bTheOther: false),
-    (sWord: 'here'; eFnordType: eFnord2; bTheOther: true),
-    (sWord: 'some'; eFnordType: eFnord1; bTheOther: false),
-    (sWord: 'time'; eFnordType: eTheOtherFnord; bTheOther: true)
+    (sWord: 'bob'; eFnordType: eFnord1; bTheOther: True),
+    (sWord: 'was'; eFnordType: eTheOtherFnord; bTheOther: False),
+    (sWord: 'here'; eFnordType: eFnord2; bTheOther: True),
+    (sWord: 'some'; eFnordType: eFnord1; bTheOther: False),
+    (sWord: 'time'; eFnordType: eTheOtherFnord; bTheOther: True),
+    (sWord: 'after'; eFnordType: eFnord1; bTheOther: False),
+    (sWord: 'midnight'; eFnordType: eFnord2; bTheOther: True),
+    (sWord: 'bob'; eFnordType: eFnord1; bTheOther: True),
+    (sWord: 'was'; eFnordType: eTheOtherFnord; bTheOther: False),
+    (sWord: 'here'; eFnordType: eFnord2; bTheOther: True),
+    (sWord: 'some'; eFnordType: eFnord1; bTheOther: False),
+    (sWord: 'time'; eFnordType: eTheOtherFnord; bTheOther: True)
     );
 
 
 const
-  MyFnord: TFnordRecord = (sWord: 'bob'; eFnordType: eFnord1; bTheOther: true);
+  MyFnord: TFnordRecord = (sWord: 'bob'; eFnordType: eFnord1; bTheOther: True);
 
 implementation
 

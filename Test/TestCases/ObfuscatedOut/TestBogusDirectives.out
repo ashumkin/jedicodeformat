@@ -52,12 +52,12 @@ var
   absolute: integer absolute Name;
 begin
   Name   := 'Fred!';
-  Result := true;
+  Result := True;
 end;
 
 function Register.protected: boolean;
 begin
-  Result := false;
+  Result := False;
 end;
 
 procedure Register.contains;

@@ -63,16 +63,16 @@ type
     FirstName, LastName: string[40];
     BirthDate: TDateTime;
     case Salaried: boolean of
-      true: (AnnualSalary: currency);
-      false: (HourlyWage: currency);
+      True: (AnnualSalary: currency);
+      False: (HourlyWage: currency);
   end;
 
   TPerson = record
     FirstName, LastName: string[40];
     BirthDate: TDateTime;
     case Citizen: boolean of
-      true: (Birthplace: string[40]);
-      false: (Country: string[20];
+      True: (Birthplace: string[40]);
+      False: (Country: string[20];
         EntryPort: string[20];
         EntryDate, ExitDate: TDateTime);
   end;
@@ -83,8 +83,8 @@ type
   TFoo = record
     Bar: integer;
     case Spon: boolean of
-      true: (Baz: pchar);
-      false: (Wibble: integer;
+      True: (Baz: pChar);
+      False: (Wibble: integer;
         Fish: integer);
     // not allowed! liFred: integer;
   end;
@@ -93,8 +93,8 @@ type
   TFoo2 = record
     Bar: integer;
     case Spon: boolean of
-      true: (Baz: pchar);
-      false: (Fred: TFoo);
+      True: (Baz: pChar);
+      False: (Fred: TFoo);
   end;
 
  { nested cases
@@ -103,11 +103,11 @@ type
   TFoo3 = record
     Bar: integer;
     case Spon: boolean of
-      true: (Baz: pchar);
-      false: (Fred: TFoo;
+      True: (Baz: pChar);
+      False: (Fred: TFoo;
         case boolean of
-          false: (liGoop: integer);
-          true: (lcGlorp: currency);
+          False: (liGoop: integer);
+          True: (lcGlorp: currency);
         // comment here means next line cannot be brought up
       );
   end;
@@ -115,23 +115,23 @@ type
   TDeepNesting = record
     Bar: integer;
     case Spon1: boolean of
-      true: (Baz1: pchar);
-      false: (
+      True: (Baz1: pChar);
+      False: (
         case Spon2: boolean of
-          true: (Baz2: pchar);
-          false: (
+          True: (Baz2: pChar);
+          False: (
           case Spon3: boolean of
-            true: (Baz3: pchar);
-            false: (
+            True: (Baz3: pChar);
+            False: (
             case Spon4: boolean of
-              true: (Baz4: pchar);
-              false: (
+              True: (Baz4: pChar);
+              False: (
               case Spon5: boolean of
-                true: (Baz5: pchar);
-                false: (
+                True: (Baz5: pChar);
+                False: (
                 case Spon6: boolean of
-                  true: (Baz6: pchar);
-                  false: (liEndpoint: integer);
+                  True: (Baz6: pChar);
+                  False: (liEndpoint: integer);
                 );
               );
             );
@@ -169,11 +169,11 @@ type
     Foo: integer;
     Bar: (Trout, Mackrel, Rain, Earth);
     case Spon: boolean of
-      true: (Baz: pchar);
-      false: (Fred: TFoo;
+      True: (Baz: pChar);
+      False: (Fred: TFoo;
         case boolean of
-          false: (liGoop: integer);
-          true: (lcGlorp: currency););
+          False: (liGoop: integer);
+          True: (lcGlorp: currency););
   end;
 var
   lRec: TLocalRec;
@@ -187,11 +187,11 @@ var
     Foo: integer;
     Bar: (Trout, Mackrel, Rain, Earth);
     case Spon: boolean of
-      true: (Baz: pchar);
-      false: (Fred: TFoo;
+      True: (Baz: pChar);
+      False: (Fred: TFoo;
         case boolean of
-          false: (liGoop: integer);
-          true: (lcGlorp: currency););
+          False: (liGoop: integer);
+          True: (lcGlorp: currency););
   end;
 
 begin
@@ -211,19 +211,19 @@ var
     Foo: integer;
     Bar: (Trout2, Mackrel2, Rain2, Mars);
     case Spon: boolean of
-      true: (Baz: pchar);
-      false: (Fred: TFoo);
+      True: (Baz: pChar);
+      False: (Fred: TFoo);
   end;
   d1, d2, d3, d4: double;
   lRec: record
     Foo: integer;
     Bar: (Trout3, Mackrel3, Cloud, EarthPrime);
     case Spon: boolean of
-      true: (Baz: pchar);
-      false: (Fred: TFoo;
+      True: (Baz: pChar);
+      False: (Fred: TFoo;
         case boolean of
-          false: (liGoop: integer);
-          true: (lcGlorp: currency););
+          False: (liGoop: integer);
+          True: (lcGlorp: currency););
   end;
 
   c1, c2, c3: currency;

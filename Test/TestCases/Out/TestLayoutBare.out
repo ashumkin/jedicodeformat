@@ -56,11 +56,11 @@ var
   bA:     boolean;
 begin
   if iA > 20 then
-    bA := false
+    bA := False
   else if IB > 6 then
-    BA := true
+    BA := True
   else
-    BA := false
+    BA := False
 end;
 
 
@@ -95,19 +95,19 @@ var
 begin
 
   if iA > 20 then
-    bA := false
+    bA := False
   else if IB > 6 then
-    BA := true
+    BA := True
   else if IA < 6 then
-    BA := false;
+    BA := False;
 
   if iA > 20 then
     if IB > 5 then
-      bA := false
+      bA := False
     else if IB > 6 then
-      BA := true
+      BA := True
     else
-      BA := false;
+      BA := False;
 
 end;
 
@@ -118,9 +118,9 @@ var
 begin
   if iA > 5 then
     if iA > 20 then
-      BA := true
+      BA := True
     else
-      BA := false
+      BA := False
 end;
 
 
@@ -131,11 +131,11 @@ var
 begin
   if iA > 5 then
     if iA > 20 then
-      BA := true
+      BA := True
     else
-      BA := false
+      BA := False
   else
-    ba := true
+    ba := True
 end;
 
 procedure LittleTest5_3;
@@ -145,11 +145,11 @@ var
 begin
   if iA > 20 then
     if IB > 6 then
-      BA := true
+      BA := True
     else
-      BA := false
+      BA := False
   else
-    ba := true
+    ba := True
 end;
 
 
@@ -161,13 +161,13 @@ begin
   if iA > 5 then
     if iA > 20 then
       if IB > 6 then
-        BA := true
+        BA := True
       else
-        BA := false
+        BA := False
     else
-      ba := true
+      ba := True
   else
-    ba := false
+    ba := False
 end;
 
 
@@ -226,9 +226,9 @@ begin
   iB := Random(10);
 
   if iA > 5 then
-    bA := true
+    bA := True
   else
-    bA := false;
+    bA := False;
 
   for liLoop := 0 to 10 do
     iA := iA + Random(10);
@@ -254,11 +254,11 @@ begin
 
   if iA > 20 then
     if IB > 5 then
-      bA := false
+      bA := False
     else if IB > 6 then
-      BA := true
+      BA := True
     else
-      BA := false;
+      BA := False;
 
   repeat
     iA := iA + Random(10)

@@ -148,7 +148,8 @@ uses
   littletest60 in 'LittleTest60.pas',
   testcommentindent2 in 'TestCommentIndent2.pas',
   fbracketprop in 'fBracketProp.pas' {Form1},
-  testendelse in 'TestEndElse.pas';
+  testendelse in 'TestEndElse.pas',
+  testcondreturns in 'TestCondReturns.pas';
 
 {$R *.res}
 begin

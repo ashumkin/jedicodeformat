@@ -42,25 +42,25 @@ implementation
 procedure TForm1.Button1Click(Sender: TObject);
 begin
   if (CheckBox1.Checked) then
-    (CheckBox1.Checked := false);
+    (CheckBox1.Checked := False);
 end;
 
 procedure TForm1.Button2Click(Sender: TObject);
 begin
   if (CheckBox1.Checked) then
-    (CheckBox1.Checked := false)
+    (CheckBox1.Checked := False)
   else
-    (CheckBox1.Checked := true);
+    (CheckBox1.Checked := True);
 end;
 
 procedure TForm1.Button3Click(Sender: TObject);
 begin
   if (CheckBox1.Checked) then
-    (CheckBox1.Checked := false)
+    (CheckBox1.Checked := False)
   else if (CheckBox2.Checked) then
     ((CheckBox1.Checked  := not CheckBox1.Checked))
   else
-    (((CheckBox1.Checked := false)));
+    (((CheckBox1.Checked := False)));
 end;
 
 procedure TForm1.Button4Click(Sender: TObject);
@@ -68,7 +68,7 @@ var
   liLoop: integer;
 begin
   for liLoop := 0 to 100 do
-    (CheckBox1.Checked := false);
+    (CheckBox1.Checked := False);
 end;
 
 procedure TForm1.Button5Click(Sender: TObject);

@@ -123,12 +123,12 @@ implementation
 
 function TTerse.X10: boolean;
 begin
-  Result := false;
+  Result := False;
 end;
 
 function TTerse.X11: boolean;
 begin
-  Result := false;
+  Result := False;
 end;
 
 procedure TTerse.X4;
@@ -138,19 +138,19 @@ end;
 
 function TTerse.X7: boolean;
 begin
-  Result := false;
+  Result := False;
 end;
 
 { TVerbose }
 
 function TVerbose.X10: boolean;
 begin
-  Result := false;
+  Result := False;
 end;
 
 function TVerbose.X11: boolean;
 begin
-  Result := false;
+  Result := False;
 end;
 
 procedure TVerbose.X4;
@@ -160,7 +160,7 @@ end;
 
 function TVerbose.X7: boolean;
 begin
-  Result := false;
+  Result := False;
 end;
 
 { TLongProperties }

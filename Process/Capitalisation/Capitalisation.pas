@@ -57,6 +57,14 @@ begin
   if pct.SourceCode = '' then
     exit;
 
+  { if it's covered by specific word caps, then don't touch it
+    This was happening with 'true' not coming out as 'True'
+    even thoug specific wprd caps specifically said it was doing that change
+    Capitalisation was changing it back!
+  }
+  if FormatSettings.SpecificWordCaps.HasWord(pct.SourceCode) then
+    exit; 
+
   case caps of
     ctUpper:
       pct.SourceCode := AnsiUpperCase(pct.SourceCode);

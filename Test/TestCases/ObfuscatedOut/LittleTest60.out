@@ -5,7 +5,7 @@ interface
 implementation
 
 const
-  boolconst: 5 = (2 + 2)..(1 = 1) = false;
+  boolconst: 5 = (2 + 2)..(1 = 1) = False;
   validcharset: set of 'A'..'z' = ['A'..'Z', 'a'..'z'];
 
 end.

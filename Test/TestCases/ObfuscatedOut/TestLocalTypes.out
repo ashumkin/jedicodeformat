@@ -49,8 +49,8 @@ type
   tfoo2 = record
     bar: integer;
     case spon: boolean of
-      true: (baz: pchar);
-      false: (fred: integer);
+      True: (baz: pchar);
+      False: (fred: integer);
   end;
 begin
 end;
