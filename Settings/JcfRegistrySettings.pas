@@ -86,6 +86,8 @@ type
     
     procedure ReadStrings(const psSection, psKey: string; pcStrings: TStrings);
     procedure WriteStrings(const psSection, psKey: string; pcStrings: TStrings);
+    function GetBackupExtension: string;
+    function GetOutputExtension: string;
 
   public
     constructor Create;
@@ -131,8 +133,8 @@ type
     { files settings }
     property BackupMode: TBackupMode read feBackupMode write feBackupMode;
     property SourceMode: TSourceMode read feSourceMode write feSourceMode;
-    property BackupExtension: string read fsBackupExtension write fsBackupExtension;
-    property OutputExtension: string read fsOutputExtension write fsOutputExtension;
+    property BackupExtension: string read GetBackupExtension write fsBackupExtension;
+    property OutputExtension: string read GetOutputExtension write fsOutputExtension;
 
     function GetOutputFileName(const psIn: string): string; overload;
     function GetOutputFileName(const psIn: string; peMode: TBackupMode): string; overload;
@@ -511,6 +513,22 @@ end;
 function TJCFRegistrySettings.Output: string;
 begin
   Result := GetOutputFileName(Input);
+end;
+
+function TJCFRegistrySettings.GetBackupExtension: string;
+begin
+  if fsBackupExtension = '' then
+    Result := 'bak'
+  else
+    Result := fsBackupExtension;
+end;
+
+function TJCFRegistrySettings.GetOutputExtension: string;
+begin
+  if fsOutputExtension = '' then
+    Result := 'out'
+  else
+    Result := fsOutputExtension;
 end;
 
 initialization

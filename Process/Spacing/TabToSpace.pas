@@ -34,10 +34,12 @@ type
   private
     fsSpaces: string;
 
+  protected
+    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
 
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    function IsIncludedInSettings: boolean; override;
   end;
 
 
@@ -46,7 +48,7 @@ implementation
 uses
   SysUtils,
   JclStrings,
-  JcfSettings, SourceToken, Tokens, FormatFlags;
+  JcfSettings, SourceToken, Tokens, FormatFlags, SetSpaces;
 
 constructor TTabToSpace.Create;
 begin
@@ -69,6 +71,11 @@ begin
   ls := lcSourceToken.SourceCode;
   StrReplace(ls, AnsiTab, fsSpaces, [rfReplaceAll]);
   lcSourceToken.SourceCode := ls;
+end;
+
+function TTabToSpace.IsIncludedInSettings: boolean;
+begin
+  Result := FormatSettings.Spaces.TabsToSpaces;
 end;
 
 end.

@@ -91,7 +91,8 @@ implementation
 uses SysUtils;
 
 const
-  DEFAULT_DELAY = 50;
+  // default of 100ms = 1/0 second
+  DEFAULT_DELAY = 100;
 
 { TDelay }
 constructor TDelay.Create;

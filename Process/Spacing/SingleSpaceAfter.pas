@@ -31,11 +31,13 @@ uses SwitchableVisitor, VisitParseTree;
 
 type
   TSingleSpaceAfter = class(TSwitchableVisitor)
-    private
-    protected
-      procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
-    public
-      constructor Create; override;
+  private
+  protected
+    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  public
+    constructor Create; override;
+
+    function IsIncludedInSettings: boolean; override;
   end;
 
 
@@ -265,6 +267,11 @@ begin
     end;
 
   end;
+end;
+
+function TSingleSpaceAfter.IsIncludedInSettings: boolean;
+begin
+  Result := FormatSettings.Spaces.FixSpacing;
 end;
 
 end.

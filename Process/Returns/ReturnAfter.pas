@@ -32,11 +32,13 @@ uses SwitchableVisitor, VisitParseTree;
 
 type
   TReturnAfter = class(TSwitchableVisitor)
-    private
-    protected
-      procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
-    public
-      constructor Create; override;
+  private
+  protected
+    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  public
+    constructor Create; override;
+
+    function IsIncludedInSettings: boolean; override;
   end;
 
 
@@ -488,6 +490,11 @@ begin
     end;
   end;
 
+end;
+
+function TReturnAfter.IsIncludedInSettings: boolean;
+begin
+  Result := FormatSettings.Returns.AddGoodReturns;
 end;
 
 end.

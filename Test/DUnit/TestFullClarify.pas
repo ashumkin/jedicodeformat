@@ -50,6 +50,7 @@ type
   procedure TestClarify_LittleTest7;
   procedure TestClarify_LittleTest8;
   procedure TestClarify_LittleTest9;
+  procedure TestClarify_LittleTest10;
 
   procedure TestClarify_TestAbsolute;
   procedure TestClarify_TestAlign;
@@ -244,6 +245,11 @@ end;
 procedure TFullTestClarify.TestClarify_LittleTest1;
 begin
   TestClarifyFile('LittleTest1');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest10;
+begin
+  TestClarifyFile('LittleTest10');
 end;
 
 procedure TFullTestClarify.TestClarify_LittleTest2;

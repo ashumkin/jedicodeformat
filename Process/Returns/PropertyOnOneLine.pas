@@ -37,11 +37,13 @@ type
 
     public
       constructor Create; override;
+
+      function IsIncludedInSettings: boolean; override;
   end;
 
 implementation
 
-uses FormatFlags, Tokens, ParseTreeNodeType;
+uses JcfSettings, FormatFlags, Tokens, ParseTreeNodeType;
 
 constructor TPropertyOnOneLine.Create;
 begin
@@ -101,6 +103,11 @@ begin
     lcNext := lcNext.NextToken;
   end;
 
+end;
+
+function TPropertyOnOneLine.IsIncludedInSettings: boolean;
+begin
+  Result := FormatSettings.Returns.RemovePropertyReturns;
 end;
 
 end.

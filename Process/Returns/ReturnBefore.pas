@@ -32,14 +32,16 @@ uses SwitchableVisitor, VisitParseTree;
 
 type
   TReturnBefore = class(TSwitchableVisitor)
-    private
-      fiReturnsBefore, fiNextReturnsBefore: integer;
-    protected
-      procedure InspectSourceToken(const pcToken: TObject); override;
+  private
+    fiReturnsBefore, fiNextReturnsBefore: integer;
+  protected
+    procedure InspectSourceToken(const pcToken: TObject); override;
 
-      procedure EnabledVisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult); override;
-    public
-      constructor Create; override;
+    procedure EnabledVisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult); override;
+  public
+    constructor Create; override;
+
+    function IsIncludedInSettings: boolean; override;
   end;
 
 
@@ -340,6 +342,11 @@ begin
   else if not (lcSourceToken.TokenType in [ttReturn, ttWhiteSpace, ttComment]) then
     fiNextReturnsBefore := 0;
 
+end;
+
+function TReturnBefore.IsIncludedInSettings: boolean;
+begin
+  Result := FormatSettings.Returns.AddGoodReturns;
 end;
 
 end.

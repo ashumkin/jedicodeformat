@@ -49,6 +49,8 @@ type
   public
     constructor Create; override;
     destructor Destroy; override;
+
+    function IsIncludedInSettings: boolean; override;
   end;
 
 implementation
@@ -718,4 +720,9 @@ initialization
   StringToFile('C:\temp\posvalues.txt', lsData)
 
 *)
+function TLongLineBreaker.IsIncludedInSettings: boolean;
+begin
+  Result := FormatSettings.Returns.RebreakLines <> rbOff;
+end;
+
 end.

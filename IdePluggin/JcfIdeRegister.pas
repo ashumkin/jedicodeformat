@@ -77,10 +77,11 @@ var
   lcJCFIDE: TJcfIdeMain;
   { object to delay registration }
   lcDelayedRegister: TDelay;
-  miTries: integer = 0;
+  { count the number of times that the plugin menus have been attempted }
+  miMenuTries: integer = 0;
 
 const
-  MAX_TRIES = 20;
+  MAX_TRIES = 100;
 
 { called from Finalization }
 procedure RemoveMenuItems;
@@ -150,18 +151,18 @@ var
   fcToolsMenu: TMenuItem;
 begin
   { give up after trying several times }
-  if miTries >= MAX_TRIES then
+  if miMenuTries >= MAX_TRIES then
     exit;
 
-  inc(miTries);
+  inc(miMenuTries);
 
   { this doesn't work during program startup?!? }
   fcToolsMenu := GetToolsMenu;
   if fcToolsMenu = nil then
     exit;
 
-  { I make these in the Register proc, &
-    I'll free them in finalization }
+  { make these menu items in the Register proc, &
+    free them in finalization }
   fcMainMenu := TMenuItem.Create(fcToolsMenu);
   fcMainMenu.Caption := FORMAT_MENU_NAME;
   fcToolsMenu.Insert(fcToolsMenu.Count, fcMainMenu);
@@ -171,6 +172,8 @@ begin
 
   if (fcMainMenu <> nil) then
   begin
+    // it worked. Now add menu subitems
+
     //liShortcut := Shortcut(ord('K'), [ssCtrl]);
     AddMenuItem(FORMAT_CURRENT_NAME, lcJCFIDE.DoFormatCurrentIDEWindow);
     AddMenuItem(FORMAT_PROJECT_NAME, lcJCFIDE.DoFormatProject);
@@ -186,7 +189,7 @@ begin
   end
   else
   begin
-    // do over
+    // do over, a bit later
     pbDoAgain := True;
     RemoveMenuItems;
     Sleep(0);

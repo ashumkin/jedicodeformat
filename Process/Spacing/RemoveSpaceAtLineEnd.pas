@@ -32,18 +32,20 @@ uses SwitchableVisitor, VisitParseTree;
 
 type
   TRemoveSpaceAtLineEnd = class(TSwitchableVisitor)
-    private
-    protected
-      procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
-    public
-      constructor Create; override;
+  private
+  protected
+    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  public
+    constructor Create; override;
+
+    function IsIncludedInSettings: boolean; override;
   end;
 
 
 
 implementation
 
-uses  FormatFlags, SourceToken, Tokens;
+uses JcfSettings, FormatFlags, SourceToken, Tokens;
 
 
 constructor TRemoveSpaceAtLineEnd.Create;
@@ -70,6 +72,11 @@ begin
     end;
   end;
 
+end;
+
+function TRemoveSpaceAtLineEnd.IsIncludedInSettings: boolean;
+begin
+  Result := FormatSettings.Spaces.FixSpacing;
 end;
 
 end.

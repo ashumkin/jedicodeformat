@@ -32,23 +32,25 @@ uses SourceToken, SwitchableVisitor, VisitParseTree;
 
 type
   TNoReturnAfter = class(TSwitchableVisitor)
-    private
-      fcLastSolidToken: TSourceToken;
-      fbDoneWork: boolean;
+  private
+    fcLastSolidToken: TSourceToken;
+    fbDoneWork: boolean;
 
-      function NoDeclarationBefore: Boolean;
-      function CommentBefore: Boolean;
-      function NoSemiColonBefore: Boolean;
+    function NoDeclarationBefore: Boolean;
+    function CommentBefore: Boolean;
+    function NoSemiColonBefore: Boolean;
 
-      function NeedsNoReturn(const pt: TSourceToken): boolean;
+    function NeedsNoReturn(const pt: TSourceToken): boolean;
 
-    protected
-      procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  protected
+    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
 
-    public
-      constructor Create; override;
+  public
+    constructor Create; override;
 
-      property DoneWork: boolean read fbDoneWork;
+    function IsIncludedInSettings: boolean; override;
+
+    property DoneWork: boolean read fbDoneWork;
   end;
 
 
@@ -273,6 +275,11 @@ begin
      if not (lcSourceToken.TokenType in [ttWhiteSpace, ttReturn]) then
       fcLastSolidToken := lcSourceToken;
   end;
+end;
+
+function TNoReturnAfter.IsIncludedInSettings: boolean;
+begin
+  Result := FormatSettings.Returns.RemoveBadReturns;
 end;
 
 end.

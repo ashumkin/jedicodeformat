@@ -34,16 +34,18 @@ uses SourceToken, SwitchableVisitor, VisitParseTree;
 
 type
   TRemoveBlankLinesInVars = class(TSwitchableVisitor)
-    protected
-      procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  protected
+    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
 
-    public
-      constructor Create; override;
+  public
+    constructor Create; override;
+
+    function IsIncludedInSettings: boolean; override;
   end;
 
 implementation
 
-uses FormatFlags, Tokens, ParseTreeNodeType, TokenUtils;
+uses JcfSettings, FormatFlags, Tokens, ParseTreeNodeType, TokenUtils;
 
 { TRemoveBlankLinesInVars }
 
@@ -97,6 +99,11 @@ begin
     end;
     lcTest := lcTest.NextToken;
   end;
+end;
+
+function TRemoveBlankLinesInVars.IsIncludedInSettings: boolean;
+begin
+  Result := FormatSettings.Returns.RemoveVarReturns;
 end;
 
 end.

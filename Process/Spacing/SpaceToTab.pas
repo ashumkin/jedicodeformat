@@ -38,6 +38,8 @@ type
     procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
+
+    function IsIncludedInSettings: boolean; override;
   end;
 
 implementation
@@ -69,6 +71,11 @@ begin
   lsTab := AnsiTab;
   StrReplace(ls, fsSpaces, lsTab, [rfReplaceAll]);
   lcSourceToken.SourceCode := ls;
+end;
+
+function TSpaceToTab.IsIncludedInSettings: boolean;
+begin
+  Result := FormatSettings.Spaces.SpacesToTabs;
 end;
 
 end.

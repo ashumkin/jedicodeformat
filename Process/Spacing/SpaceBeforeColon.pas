@@ -31,11 +31,12 @@ uses SwitchableVisitor, VisitParseTree;
 
 type
   TSpaceBeforeColon = class(TSwitchableVisitor)
-    protected
-      procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
-    public
-      constructor Create; override;
+  protected
+    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  public
+    constructor Create; override;
 
+    function IsIncludedInSettings: boolean; override;
   end;
 
 implementation
@@ -162,6 +163,11 @@ begin
     { else we are already right }
   end;
 
+end;
+
+function TSpaceBeforeColon.IsIncludedInSettings: boolean;
+begin
+  Result := FormatSettings.Spaces.FixSpacing;
 end;
 
 end.

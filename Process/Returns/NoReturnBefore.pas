@@ -40,6 +40,8 @@ type
 
   public
     constructor Create; override;
+
+    function IsIncludedInSettings: boolean; override;
   end;
 
 implementation
@@ -133,6 +135,11 @@ begin
     end;
   end;
 
+end;
+
+function TNoReturnBefore.IsIncludedInSettings: boolean;
+begin
+  Result := FormatSettings.Returns.RemoveBadReturns;
 end;
 
 end.

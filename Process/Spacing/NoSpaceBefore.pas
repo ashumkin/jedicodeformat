@@ -32,18 +32,21 @@ uses SwitchableVisitor, VisitParseTree;
 
 type
   TNoSpaceBefore = class(TSwitchableVisitor)
-    private
-      fbSafeToRemoveReturn: boolean;  // this taken from NoReturnBefore
-    protected
-      procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
-    public
-      constructor Create; override;
+  private
+    fbSafeToRemoveReturn: boolean;  // this taken from NoReturnBefore
+  protected
+    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  public
+    constructor Create; override;
+
+    function IsIncludedInSettings: boolean; override;
   end;
 
 
 implementation
 
-uses SourceToken, Tokens, ParseTreeNodeType, FormatFlags, TokenUtils;
+uses JcfSettings, SourceToken, Tokens, ParseTreeNodeType,
+  FormatFlags, TokenUtils;
 
 const
   NoSpaceAnywhere: TTokenTypeSet = [ttDot, ttComma,
@@ -135,6 +138,11 @@ begin
     // the space
     prVisitResult.Action := aDelete;
   end;
+end;
+
+function TNoSpaceBefore.IsIncludedInSettings: boolean;
+begin
+  Result := FormatSettings.Spaces.FixSpacing;
 end;
 
 end.

@@ -32,10 +32,13 @@ uses SwitchableVisitor, VisitParseTree;
 
 type
   TCapitalisation = class(TSwitchableVisitor)
-    protected
-      procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
-    public
-      constructor Create; override;
+  private
+  protected
+    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  public
+    constructor Create; override;
+
+    function IsIncludedInSettings: boolean; override;
   end;
 
 implementation
@@ -43,7 +46,8 @@ implementation
 uses
   SysUtils,
   JclStrings,
-  SourceToken, SettingsTypes, Tokens, ParseTreeNodeType, JcfSettings, FormatFlags;
+  SourceToken, SettingsTypes, Tokens, ParseTreeNodeType, JcfSettings, FormatFlags,
+  SetCaps;
 
 { TCapitalisation }
 
@@ -64,6 +68,11 @@ begin
     ctLeaveAlone:
       ;
   end;
+end;
+
+function TCapitalisation.IsIncludedInSettings: boolean;
+begin
+  Result := FormatSettings.Caps.Enabled;
 end;
 
 constructor TCapitalisation.Create;

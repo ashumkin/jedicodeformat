@@ -28,11 +28,13 @@ uses SourceToken, SwitchableVisitor, VisitParseTree;
 
 type
   TReturnChars = class(TSwitchableVisitor)
-    protected
-      procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  protected
+    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
 
-    public
-      constructor Create; override;
+  public
+    constructor Create; override;
+
+    function IsIncludedInSettings: boolean; override;
   end;
 
 implementation
@@ -81,6 +83,11 @@ begin
     end;
 
   end;
+end;
+
+function TReturnChars.IsIncludedInSettings: boolean;
+begin
+  Result := (FormatSettings.Returns.ReturnChars <> rcLeaveAsIs);
 end;
 
 end.

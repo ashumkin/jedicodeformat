@@ -31,17 +31,18 @@ uses SwitchableVisitor, VisitParseTree;
 
 type
   TUnitNameCaps = class(TSwitchableVisitor)
-    private
-      fiCount: integer;
-      lsLastChange: string;
+  private
+    fiCount: integer;
+    lsLastChange: string;
 
-    protected
-      procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
-    public
-      constructor Create; override;
+  protected
+    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  public
+    constructor Create; override;
 
-      { return true if you want the message logged}
-      function FinalSummary(var psMessage: string): Boolean; override;
+    function IsIncludedInSettings: boolean; override;
+    { return true if you want the message logged}
+    function FinalSummary(var psMessage: string): Boolean; override;
   end;
 
 implementation
@@ -136,6 +137,11 @@ begin
       inc(fiCount);
     end;
   end;
+end;
+
+function TUnitNameCaps.IsIncludedInSettings: boolean;
+begin
+  Result := FormatSettings.UnitNameCaps.Enabled;
 end;
 
 end.

@@ -38,6 +38,8 @@ type
       procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
     public
       constructor Create; override;
+
+      function IsIncludedInSettings: boolean; override;
   end;
 
 
@@ -150,6 +152,11 @@ begin
      if not (lcSourceToken.TokenType in [ttWhiteSpace, ttReturn]) then
       fcLastSolidToken := lcSourceToken;
   end;
+end;
+
+function TNoSpaceAfter.IsIncludedInSettings: boolean;
+begin
+  Result := FormatSettings.Spaces.FixSpacing;
 end;
 
 end.

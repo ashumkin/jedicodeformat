@@ -28,16 +28,18 @@ uses SourceToken, SwitchableVisitor, VisitParseTree;
 
 type
   TRemoveReturnsAfterBegin = class(TSwitchableVisitor)
-    protected
-      procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  protected
+    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
 
-    public
-      constructor Create; override;
+  public
+    constructor Create; override;
+
+    function IsIncludedInSettings: boolean; override;
   end;
 
 implementation
 
-uses FormatFlags, Tokens, ParseTreeNodeType, TokenUtils;
+uses JcfSettings, FormatFlags, Tokens, ParseTreeNodeType, TokenUtils;
 { TRemoveReturnsAfterBegin }
 
 constructor TRemoveReturnsAfterBegin.Create;
@@ -84,6 +86,11 @@ begin
     end;
     lcTest := lcTest.NextToken;
   end;
+end;
+
+function TRemoveReturnsAfterBegin.IsIncludedInSettings: boolean;
+begin
+  Result := FormatSettings.Returns.RemoveBlockBlankLines;
 end;
 
 end.

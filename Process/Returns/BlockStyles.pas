@@ -65,12 +65,14 @@ uses SwitchableVisitor, VisitParseTree, ParseTreeNodeType;
 
 type
   TBlockStyles = class(TSwitchableVisitor)
-    private
+  private
 
-    protected
-      procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
-    public
-      constructor Create; override;
+  protected
+    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  public
+    constructor Create; override;
+
+    function IsIncludedInSettings: boolean; override;
   end;
 
 implementation
@@ -205,6 +207,11 @@ begin
         Assert(False);
     end;
   end;
+end;
+
+function TBlockStyles.IsIncludedInSettings: boolean;
+begin
+  Result := True;
 end;
 
 end.

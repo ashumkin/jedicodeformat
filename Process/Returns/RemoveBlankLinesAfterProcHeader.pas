@@ -28,16 +28,18 @@ uses SourceToken, SwitchableVisitor, VisitParseTree;
 
 type
   TRemoveBlankLinesAfterProcHeader = class(TSwitchableVisitor)
-    protected
-      procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  protected
+    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
 
-    public
-      constructor Create; override;
+  public
+    constructor Create; override;
+
+    function IsIncludedInSettings: boolean; override;
   end;
 
 implementation
 
-uses FormatFlags, Tokens, ParseTreeNodeType;
+uses JcfSettings, FormatFlags, Tokens, ParseTreeNodeType;
 
 function IsPlaceForBlankLineRemoval(const ptToken, ptNextSolidToken: TSourceToken): boolean;
 begin
@@ -120,6 +122,11 @@ begin
     lcTest := lcTest.NextToken;
   end;
 
+end;
+
+function TRemoveBlankLinesAfterProcHeader.IsIncludedInSettings: boolean;
+begin
+  Result := FormatSettings.Returns.RemoveProcedureDefReturns;
 end;
 
 end.
