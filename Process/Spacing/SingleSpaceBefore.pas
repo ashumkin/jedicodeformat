@@ -17,7 +17,7 @@ uses BaseVisitor, VisitParseTree;
 
 
 type
-  TSingleSpaceBegin = class(TBaseTreeNodeVisitor)
+  TSingleSpaceBefore = class(TBaseTreeNodeVisitor)
     private
 
     public
@@ -91,7 +91,7 @@ begin
 end;
 
 
-procedure TSingleSpaceBegin.VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TSingleSpaceBefore.VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   lcSourceToken, lcNext, lcNew: TSourceToken;
 begin

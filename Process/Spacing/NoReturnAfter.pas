@@ -143,7 +143,9 @@ begin
   end;
 
   { or just before them }
-  ptNext  := pt.NextTokenWithExclusions([ttWhiteSpace, ttReturn]);
+  ptNext := pt.NextTokenWithExclusions([ttWhiteSpace, ttReturn]);
+  if ptNext = nil then
+    exit;
 
   if (ptNext.TokenType = ttComment) or CommentBefore then
   begin
@@ -206,22 +208,23 @@ end;
 procedure TNoReturnAfter.VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
-  lcNext: TSourceToken;
 begin
   lcSourceToken := TSourceToken(pcNode);
-  if not NeedsNoReturn(lcSourceToken) then
-    exit;
 
-  lcNext  := lcSourceToken.NextToken;
-  if lcNext.TokenType = ttReturn then
+  if (lcSourceToken.TokenType = ttReturn) and
+    (fcLastSolidToken <> nil) and NeedsNoReturn(fcLastSolidToken) then
   begin
     // must repeat this until all done
-    prVisitResult.Action := aDeleteNext;
+    prVisitResult.Action := aDelete;
     fbDoneWork := True;
-  end;
+  end
+  else
+  begin
 
-  if not (lcSourceToken.TokenType in [ttWhiteSpace, ttReturn]) then
-    fcLastSolidToken := lcSourceToken;
+    { store for next time }
+     if not (lcSourceToken.TokenType in [ttWhiteSpace, ttReturn]) then
+      fcLastSolidToken := lcSourceToken;
+  end;
 end;
 
 end.

@@ -5,12 +5,13 @@ unit NoSpaceAfter;
 
 interface
 
-uses BaseVisitor, VisitParseTree;
+uses BaseVisitor, VisitParseTree, SourceToken;
 
 
 type
   TNoSpaceAfter = class(TBaseTreeNodeVisitor)
     private
+      fcLastSolidToken: TSourceToken;
       fbSafeToRemoveReturn: boolean;  // this taken from NoReturnBefore
 
     public
@@ -24,7 +25,7 @@ implementation
 
 uses
   JcfMiscFunctions,
-  SourceToken, TokenType, WordMap, ParseTreeNodeType, JcfSettings;
+  TokenType, WordMap, ParseTreeNodeType, JcfSettings;
 
 { TNoSpaceAfter }
 
@@ -34,6 +35,9 @@ const
   NoSpaceAnywhere: TTokenTypeSet = [ttOpenBracket, ttOpenSquareBracket, ttDot];
 begin
   Result := False;
+
+  if pt = nil then
+    exit;
 
   { if the next thing is a comment, leave well enough alone }
   if ptNext.TokenType = ttComment then
@@ -108,14 +112,25 @@ end;
 procedure TNoSpaceAfter.VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
-  lcNext: TSourceToken;
+  lcNextSolid: TSourceToken;
 begin
   lcSourceToken := TSourceToken(pcNode);
-  lcNext := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace, ttReturn]);
 
-  if NeedsNoSpace(lcSourceToken, lcNext) then
-    prVisitResult.Action := aDeleteNext;
-
+  if lcSourceToken.TokenType = ttWhiteSpace then
+  begin
+    lcNextSolid := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace, ttReturn]);
+    if lcNextSolid <> nil then
+    begin
+      if NeedsNoSpace(fcLastSolidToken, lcNextSolid) then
+        prVisitResult.Action := aDelete;
+    end;
+  end
+  else
+  begin
+    { store for next time }
+     if not (lcSourceToken.TokenType in [ttWhiteSpace, ttReturn]) then
+      fcLastSolidToken := lcSourceToken;
+  end;
 end;
 
 end.

@@ -147,25 +147,31 @@ begin
 
   { exclude if a comment is next }
   lcNext := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace, ttReturn]);
+  if lcNext = nil then
+    exit;
+
   if lcNext.TokenType = ttComment then
     exit;
 
-  { inspect the next token }
-  lcNext := lcSourceToken.NextToken;
-  if lcNext.TokenType = ttWhiteSpace then
+  if NeedsSingleSpace(lcSourceToken, lcNext) then
   begin
-    lcNext.SourceCode := AnsiSpace;
-  end
-  else if (lcNext.TokenType <> ttReturn) then
-  begin
+    { inspect the next token }
+    lcNext := lcSourceToken.NextToken;
+    if lcNext.TokenType = ttWhiteSpace then
+    begin
+      lcNext.SourceCode := AnsiSpace;
+    end
+    else if (lcNext.TokenType <> ttReturn) then
+    begin
 
-    // insert a space
-    lcNew := TSourceToken.Create;
-    lcNew.TokenType := ttWhiteSpace;
-    lcNew.SourceCode := AnsiSpace;
+      // insert a space
+      lcNew := TSourceToken.Create;
+      lcNew.TokenType := ttWhiteSpace;
+      lcNew.SourceCode := AnsiSpace;
 
-    prVisitResult.Action := aInsertAfter;
-    prVisitResult.NewItem := lcNew;
+      prVisitResult.Action := aInsertAfter;
+      prVisitResult.NewItem := lcNew;
+    end;
   end;
 end;
 

@@ -32,6 +32,9 @@ const
 begin
   Result := False;
 
+  if pt = nil then
+    exit;
+
   if (pt.TokenType in NoReturnTokens) then
   begin
     Result := True;

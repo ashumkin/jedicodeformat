@@ -79,8 +79,6 @@ begin
 
   if HasNoSpaceBefore(lcNext) then
     prVisitResult.Action := aDelete;
-
-
 end;
 
 end.
