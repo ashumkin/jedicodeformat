@@ -102,7 +102,6 @@ uses
   frAbout in '..\Ui\Settings\frAbout.pas' {FrameAbout: TFrame},
   JCFHelp in '..\Utils\JCFHelp.pas',
   fAbout in '..\Ui\fAbout.pas' {frmAboutBox},
-  frNotepadSettings in 'frNotepadSettings.pas' {FrameNotepadSettings: TFrame},
   fAllSettings in '..\Ui\fAllSettings.pas' {FormAllSettings},
   frAnyCapsSettings in '..\Ui\Settings\frAnyCapsSettings.pas' {frAnyCapsSettings: TFrame},
   frBasicSettings in '..\Ui\Settings\frBasicSettings.pas' {frBasic: TFrame},
@@ -119,12 +118,13 @@ uses
   frReservedCapsSettings in '..\Ui\Settings\frReservedCapsSettings.pas' {frReservedCapsSettings: TFrame},
   frUses in '..\Ui\Settings\frUses.pas' {fUses: TFrame},
   frClarifyReturns in '..\Ui\Settings\frClarifyReturns.pas' {fClarifyReturns: TFrame},
-  fAllNotepadSettings in 'fAllNotepadSettings.pas' {frmNotepadAllSettings};
+  frmNotepadSettings in 'frmNotepadSettings.pas' {fmNotepadSettings};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.CreateForm(TfmJCFNotepad, fmJCFNotepad);
+  Application.CreateForm(TfmNotepadSettings, fmNotepadSettings);
   Application.Run;
 end.

@@ -259,10 +259,15 @@ object fmJCFNotepad: TfmJCFNotepad
     end
     object mnuSettings: TMenuItem
       Caption = '&Settings'
-      object mnuShowAllSetting: TMenuItem
-        Caption = '&Settings'
+      object mnuShowRegSetting: TMenuItem
+        Caption = '&Registry Settings'
         GroupIndex = 1
-        OnClick = mnuShowAllSettingClick
+        OnClick = mnuShowRegSettingClick
+      end
+      object mnuParseSettings: TMenuItem
+        Caption = 'Parse settings'
+        GroupIndex = 1
+        OnClick = mnuParseSettingsClick
       end
     end
     object mnuHelp: TMenuItem
@@ -273,12 +278,12 @@ object fmJCFNotepad: TfmJCFNotepad
       end
     end
   end
-  object mruFIles: TJvMRUManager
+  object mruFiles: TJvMRUManager
     Duplicates = dupIgnore
     AccelDelimiter = adSpace
     Capacity = 9
     RecentMenu = mnuFile
-    OnClick = mruFIlesClick
+    OnClick = mruFilesClick
     Left = 536
     Top = 24
   end

@@ -42,7 +42,7 @@ type
     actCopy: TAction;
     actPaste: TAction;
     N1: TMenuItem;
-    mruFIles: TJvMRUManager;
+    mruFiles: TJvMRUManager;
     mnuEdit: TMenuItem;
     mnuEditPaste: TMenuItem;
     mnuEditCopy: TMenuItem;
@@ -56,7 +56,8 @@ type
     mnuFileSaveIn: TMenuItem;
     mnuHelp: TMenuItem;
     mnuHelpAbout: TMenuItem;
-    mnuShowAllSetting: TMenuItem;
+    mnuShowRegSetting: TMenuItem;
+    mnuParseSettings: TMenuItem;
     procedure FormResize(Sender: TObject);
     procedure pcPagesChange(Sender: TObject);
     procedure actGoExecute(Sender: TObject);
@@ -79,17 +80,16 @@ type
     procedure mnuEditCopyMessagesClick(Sender: TObject);
     procedure mnuFileSaveInClick(Sender: TObject);
     procedure mnuHelpAboutClick(Sender: TObject);
-    procedure mnuShowAllSettingClick(Sender: TObject);
+    procedure mnuShowRegSettingClick(Sender: TObject);
+    procedure mnuParseSettingsClick(Sender: TObject);
   private
     fcConvert: TStringsConverter;
-    fcSettings: TJCFNotepadSettings;
 
     procedure CheckInputState;
     procedure DoFileOpen(const psFileName: string);
     procedure AddCheckMRU(const psFile: string);
 
   public
-    property NotepadSettings: TJCFNotepadSettings read fcSettings;
   end;
 
 var
@@ -205,6 +205,8 @@ procedure TfmJCFNotepad.FormShow(Sender: TObject);
 begin
   CheckInputState;
   pcPagesChange(nil);
+
+  JcfRegistrySettings.MRUFiles := mruFiles.Strings;
 end;
 
 procedure TfmJCFNotepad.actOpenExecute(Sender: TObject);
@@ -353,28 +355,38 @@ begin
   end;
 end;
 
-procedure TfmJCFNotepad.mnuShowAllSettingClick(Sender: TObject);
+procedure TfmJCFNotepad.mnuShowRegSettingClick(Sender: TObject);
 var
-  lfAllSettings: TfrmNotepadAllSettings;
-  lcSet: TJCFNotepadSettings;
+  lfSettings: TfmNotepadSettings;
 begin
   lcSet := NotepadSettings;
 
   { can clear MRU? }
   lcSet.CanClearMRU := (mruFiles.Strings.Count > 0);
 
-  lfAllSettings := TfrmNotepadAllSettings.Create(self);
+  lfSettings := TfmNotepadSettings.Create(self);
+  lfSettings.Settings := RegSettings;
+  try
+    lfSettings.Execute;
+  finally
+    lfSettings.Release;
+  end;
+end;
+
+procedure TfmJCFNotepad.mnuParseSettingsClick(Sender: TObject);
+var
+  lfAllSettings: TfrmAllSettings;
+  lcSet: TJCFSettings;
+begin
+  lcSet := JcfSettings;
+
+
+  lfAllSettings := TfrmAllSettings.Create(self);
   try
     lfAllSettings.Execute;
   finally
     lfAllSettings.Release;
   end;
-
-  { was clear MRU requested }
-  if lcSet.ClearMRU then
-    mruFiles.Strings.Clear;
-
-  mruFiles.Capacity := lcSet.MRUMaxItems;
 end;
 
 end.

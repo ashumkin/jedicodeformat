@@ -26,14 +26,11 @@ interface
 uses
   { delphi }
   Windows, SysUtils, Classes, Graphics, Forms, Controls, StdCtrls,
-   Buttons, ExtCtrls,
-  { local }
-  frDrop, SettingsFrame, frAbout;
+   Buttons, ExtCtrls;
 
 type
   TfrmAboutBox = class(TForm)
     bbOK: TBitBtn;
-    FrameAbout: TFrameAbout;
     procedure mWarningEnter(Sender: TObject);
   private
   public

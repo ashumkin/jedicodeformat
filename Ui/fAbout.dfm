@@ -23,19 +23,4 @@ object frmAboutBox: TfrmAboutBox
     TabOrder = 0
     Kind = bkOK
   end
-  inline FrameAbout: TFrameAbout
-    Width = 352
-    Height = 269
-    Align = alTop
-    TabOrder = 1
-    inherited Panel1: TPanel
-      Width = 352
-      inherited mWarning: TMemo
-        Width = 348
-      end
-      inherited lblMPL: TStaticText
-        Cursor = crHandPoint
-      end
-    end
-  end
 end
