@@ -218,7 +218,7 @@ begin
 
   DoConvertUnit;
 
-  Inc(fiCount);
+  Inc(fiConvertCount);
 
   if BackupMode = cmInPlace then
     if not DeleteFile(lsTemp) then
@@ -348,7 +348,7 @@ begin
     dwStart := 0;
 
   fbAbort  := False;
-  fiCount  := 0;
+  fiConvertCount  := 0;
 
   { all processors must check thier inclusion settings
     as this may have changed from the UI }

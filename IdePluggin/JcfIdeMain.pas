@@ -137,6 +137,7 @@ begin
   MakeEditorConverter;
 
   ClearToolMessages;
+  fcEditorConverter.BeforeConvert;
   fcEditorConverter.ConvertUnit(lciEditor);
   fcEditorConverter.AfterConvert;
 end;
@@ -161,6 +162,8 @@ begin
 
   ClearToolMessages;
 
+  fcEditorConverter.BeforeConvert;
+
   { loop through all modules in the project }
   for liLoop := 0 to lciProject.GetModuleCount - 1 do
   begin
@@ -176,7 +179,7 @@ var
   lciEditManager: IOTAEditorServices;
   lciIterateBuffers: IOTAEditBufferIterator;
   lciEditor: IOTASourceEditor;
-  liLoop, liCount: integer;
+  liLoop: integer;
 begin
   hRes := BorlandIDEServices.QueryInterface(IOTAEditorServices, lciEditManager);
   if hRes <> S_OK then
@@ -192,7 +195,7 @@ begin
     exit;
 
   ClearToolMessages;
-  liCount := 0;
+  fcEditorConverter.BeforeConvert;
 
   for liLoop := 0 to lciIterateBuffers.Count - 1 do
   begin
@@ -203,12 +206,8 @@ begin
       (FileIsAllowedType(lciEditor.FileName)) then
     begin
       fcEditorConverter.ConvertUnit(lciEditor);
-      inc(liCount);
     end;
   end;
-
-  if liCount = 0 then
-    LogIDEMessage('No open files that can be formatted');
 
   fcEditorConverter.AfterConvert;
 end;

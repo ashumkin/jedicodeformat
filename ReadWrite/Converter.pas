@@ -59,7 +59,7 @@ type
 
   protected
     fbAbort: Boolean;
-    fiCount: integer;
+    fiConvertCount: integer;
 
     // these are base class refs. this class's child will know what to insantiate
     fcReader: TCodeReader;
@@ -87,6 +87,8 @@ type
 
     procedure Convert; virtual;
     procedure Clear; virtual;
+
+    procedure BeforeConvert;
 
     //property Settings: TSettings read fcSettings write SetSettings;
 
@@ -200,16 +202,24 @@ begin
 end;
 *)
 
+function DescribeFileCount(const piCount: integer): string;
+begin
+  if piCount = 1 then
+    Result := '1 file'
+  else
+    Result := IntToStr(piCount) + ' files';
+end;
+
 procedure TConverter.FinalSummary;
 var
   lsMessage: string;
 begin
-  if fiCount = 0 then
+  if fiConvertCount = 0 then
     lsMessage := 'Nothing done'
   else if fbAbort then
-    lsMessage := 'Aborted after ' + IntToStr(fiCount) + ' files'
+    lsMessage := 'Aborted after ' + DescribeFileCount(fiConvertCount)
   else
-    lsMessage := 'Finished processing ' + IntToStr(fiCount) + ' files';
+    lsMessage := 'Finished processing ' + DescribeFileCount(fiConvertCount);
 
   SendStatusMessage(lsMessage);
 
@@ -223,6 +233,8 @@ begin
 
   fcReader.Clear;
   fcWriter.Clear;
+
+  fiConvertCount := 0;
 end;
 
 procedure TConverter.DoConvertUnit;
@@ -312,6 +324,11 @@ end;
 function TConverter.GetRoot: TParseTreeNode;
 begin
   Result := fcBuildParseTree.Root;
+end;
+
+procedure TConverter.BeforeConvert;
+begin
+  fiConvertCount := 0;
 end;
 
 end.
