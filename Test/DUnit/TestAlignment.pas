@@ -155,7 +155,7 @@ const
     '  a: integer;' + AnsiLineBreak +
     '  bee: string;' + AnsiLineBreak +
     '  deedee: float;' + AnsiLineBreak +
-    'begin' +
+    'begin' +  AnsiLineBreak +
     ' a := 3;' + AnsiLineBreak +
     ' bee := ''foo'';' + AnsiLineBreak +
     ' deedee := 34.56;' + AnsiLineBreak +
@@ -170,7 +170,7 @@ const
     '  a:      integer;' + AnsiLineBreak +
     '  bee:    string;' + AnsiLineBreak +
     '  deedee: float;' + AnsiLineBreak +
-    'begin' +
+    'begin' + AnsiLineBreak +
     ' a := 3;' + AnsiLineBreak +
     ' bee := ''foo'';' + AnsiLineBreak +
     ' deedee := 34.56;' + AnsiLineBreak +
@@ -190,7 +190,7 @@ const
     '  a: integer;' + AnsiLineBreak +
     '  bee: string;' + AnsiLineBreak +
     '  deedee: float;' + AnsiLineBreak +
-    'begin' +
+    'begin' +  AnsiLineBreak +
     ' a      := 3;' + AnsiLineBreak +
     ' bee    := ''foo'';' + AnsiLineBreak +
     ' deedee := 34.56;' + AnsiLineBreak +

@@ -24,6 +24,8 @@ type
     feNodeType: TParseTreeNodeType;
     fcNestings: TNestingLevelList;
 
+    fiUserTag: integer;
+
     function GetChildNodes(const piIndex: integer): TParseTreeNode;
   protected
   public
@@ -106,6 +108,12 @@ type
     property NodeType: TParseTreeNodeType read feNodeType write feNodeType;
 
     property Nestings: TNestingLevelList read fcNestings;
+
+    { use tag is for temp use of any process.
+      No process is guaranteed any input value here
+      Create for alignment processes }
+    property UserTag: integer read fiUserTag write fiUserTag;
+
   end;
 
 

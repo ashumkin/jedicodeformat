@@ -36,7 +36,6 @@ type
   TAlignBase = class(TSwitchableVisitor)
   private
     fcTokens: TSourceTokenList;
-    fcAlignments: TIntList; // using this as a bool list
     fcResumeToken: TSourceToken;
 
     procedure AlignTheBlock(const pcToken: TSourceToken);
@@ -84,36 +83,30 @@ begin
   fbKeepComments := False;
   fcResumeToken := nil;
   fcTokens := TSourceTokenList.Create;
-  fcAlignments := TIntList.Create;
 end;
 
 
 destructor TAlignBase.Destroy;
 begin
   FreeAndNil(fcTokens);
-  FreeAndNil(fcAlignments);
   inherited;
 end;
 
 
 procedure TAlignBase.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
-  lcToken, lcNext: TSourceToken;
+  lcToken: TSourceToken;
 begin
   lcToken := TSourceToken(pcNode);
 
-  lcNext := lcToken.NextToken;
-  if lcNext = nil then
+  if not IsTokenInContext(lcToken) then
     exit;
 
-  if not IsTokenInContext(lcNext) then
+  if StillSuspended(lcToken) then
     exit;
 
-  if StillSuspended(lcNext) then
-    exit;
-
-  if TokenIsAligned(lcNext) then
-    AlignTheBlock(lcNext);
+  if TokenIsAligned(lcToken) then
+    AlignTheBlock(lcToken);
 end;
 
 
@@ -264,8 +257,6 @@ var
   liLoop: integer;
   lcCurrent, lcNew: TSourceToken;
 begin
-  Assert(fcTokens.Count =  fcAlignments.Count);
-
   for liLoop := fcTokens.count - 1 downto 0 do
   begin
     lcCurrent := fcTokens.SourceTokens[liLoop];
@@ -289,7 +280,6 @@ end;
 procedure TAlignBase.ResetState;
 begin
   fcTokens.Clear;
-  fcAlignments.Clear;
 end;
 
 function TAlignBase.IsTokenInContext(const pt: TSourceToken): boolean;
@@ -317,19 +307,19 @@ end;
 
 function TAlignBase.IsAligned(const liIndex: integer): boolean;
 begin
-  Result := (liIndex >= 0) and (liIndex < fcAlignments.Count) and
-    (fcAlignments.Items[liIndex] > 0);
+  Result := (liIndex >= 0) and (liIndex < fcTokens.Count) and
+    (fcTokens.SourceTokens[liIndex].UserTag > 0);
 end;
 
-procedure TAlignBase.AddToken(const pcToken: TSOurceToken;
+procedure TAlignBase.AddToken(const pcToken: TSourceToken;
   const pbAligned: Boolean);
 begin
-  fcTokens.Add(pcToken);
   if pbAligned then
-    fcAlignments.Add(1)
+    pcToken.UserTag := 1
   else
-    fcAlignments.Add(0);
+    pcToken.UserTag := 0;
 
+  fcTokens.Add(pcToken);
 end;
 
 end.
