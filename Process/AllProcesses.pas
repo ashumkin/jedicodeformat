@@ -47,7 +47,7 @@ uses
   { caps}
   SpecifiCWordCaps, Capitalisation,
   { spacing}
-  PropertyOnOneLine,
+  PropertyOnOneLine, RemoveBlankLinesAfterProcHeader,
   NoReturnBefore, NoReturnAfter, ReturnBefore, ReturnAfter,
   NoSpaceAfter, NoSpaceBefore, SingleSpaceBefore, SingleSpaceAfter,
   SpaceBeforeColon, VisitStripEmptySpace, 
@@ -141,6 +141,9 @@ procedure TAllProcesses.Spacing;
 begin
   // apply them all
   ApplyVisitorType(TPropertyOnOneLine);
+  ApplyVisitorType(TVisitStripEmptySpace);
+
+  ApplyVisitorType(TRemoveBlankLinesAfterProcHeader);
   ApplyVisitorType(TVisitStripEmptySpace);
 
   ApplyVisitorType(TNoReturnAfter);

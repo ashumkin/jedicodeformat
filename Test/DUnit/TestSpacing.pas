@@ -31,6 +31,8 @@ type
 
     procedure TestReturnBefore;
     procedure TestReturnAfter;
+
+    procedure TestBlankLinesAfterProcHeader;
   end;
 
 implementation
@@ -40,7 +42,7 @@ uses JclStrings,
   NoReturnAfter, NoReturnBefore, NoSpaceAfter, NoSpaceBefore,
   SpaceBeforeColon,
   SingleSpaceBefore, SingleSpaceAfter,
-  ReturnBefore, ReturnAfter;
+  ReturnBefore, ReturnAfter, RemoveBlankLinesAfterProcHeader;
 
 procedure TTestSpacing.TestNoReturnAfter;
 const
@@ -143,6 +145,16 @@ begin
   TestProcessResult(TReturnAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
+
+procedure TTestSpacing.TestBlankLinesAfterProcHeader;
+const
+  IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo;' + AnsiLineBreak + AnsiLineBreak +
+    AnsiLineBreak + AnsiLineBreak + 'begin a := 2; end; ' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo;' + AnsiLineBreak + AnsiLineBreak +
+    'begin a := 2; end; ' + UNIT_FOOTER;
+begin
+  TestProcessResult(TRemoveBlankLinesAfterProcHeader, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
 
 initialization
  TestFramework.RegisterTest(TTestSpacing.Suite);

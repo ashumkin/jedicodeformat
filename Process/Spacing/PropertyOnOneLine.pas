@@ -1,7 +1,7 @@
 unit PropertyOnOneLine;
 
 { AFS 8 March 2003
-  put a property all on one line 
+  put a property all on one line
 }
 
 interface
@@ -63,8 +63,8 @@ begin
     lcNext.HasParentNode(nProperty) do
   begin
     // don't kill returns before a comment
-    lcNext2 := lcNext.NextToken;
-    if (lcNext2 <> nil) or (lcNext2.TokenType = ttComment) then
+    lcNext2 := lcNext.NextTokenWithExclusions([ttWhiteSpace]);
+    if (lcNext2 = nil) or (lcNext2.TokenType = ttComment) then
       break;
 
     if (lcNext.TokenType = ttReturn) then
@@ -77,7 +77,7 @@ begin
       lcNext.SourceCode := ' '; //reduce to a single space
     end;
 
-    lcNext := lcNext2;
+    lcNext := lcNext.NextToken;
   end;
 
 end;
