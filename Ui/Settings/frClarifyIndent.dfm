@@ -14,6 +14,7 @@ inherited fClarifyIndent: TfClarifyIndent
     Width = 50
     Height = 21
     Alignment = taRightJustify
+    MaxLength = 3
     ReadOnly = False
     TabOrder = 0
     Value = 0
@@ -37,6 +38,7 @@ inherited fClarifyIndent: TfClarifyIndent
     Width = 50
     Height = 21
     Alignment = taRightJustify
+    MaxLength = 3
     ReadOnly = False
     TabOrder = 2
     Value = 0
@@ -60,6 +62,7 @@ inherited fClarifyIndent: TfClarifyIndent
     Width = 50
     Height = 21
     Alignment = taRightJustify
+    MaxLength = 3
     ReadOnly = False
     TabOrder = 4
     Value = 0

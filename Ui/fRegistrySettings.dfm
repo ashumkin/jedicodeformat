@@ -64,6 +64,7 @@ object fmRegistrySettings: TfmRegistrySettings
         Width = 40
         Height = 21
         Alignment = taRightJustify
+        MaxLength = 2
         ReadOnly = False
         TabOrder = 1
         Value = 0

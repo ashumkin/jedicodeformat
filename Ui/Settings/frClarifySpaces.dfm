@@ -72,6 +72,7 @@ inherited fClarifySpaces: TfClarifySpaces
       Width = 50
       Height = 21
       Alignment = taRightJustify
+      MaxLength = 2
       ReadOnly = False
       TabOrder = 0
       Value = 0
@@ -86,6 +87,7 @@ inherited fClarifySpaces: TfClarifySpaces
       Width = 50
       Height = 21
       Alignment = taRightJustify
+      MaxLength = 2
       ReadOnly = False
       TabOrder = 1
       Value = 0
@@ -100,6 +102,7 @@ inherited fClarifySpaces: TfClarifySpaces
       Width = 50
       Height = 21
       Alignment = taRightJustify
+      MaxLength = 2
       ReadOnly = False
       TabOrder = 2
       Value = 0
@@ -114,6 +117,7 @@ inherited fClarifySpaces: TfClarifySpaces
       Width = 50
       Height = 21
       Alignment = taRightJustify
+      MaxLength = 2
       ReadOnly = False
       TabOrder = 3
       Value = 0
@@ -128,6 +132,7 @@ inherited fClarifySpaces: TfClarifySpaces
       Width = 50
       Height = 21
       Alignment = taRightJustify
+      MaxLength = 2
       ReadOnly = False
       TabOrder = 4
       Value = 0
@@ -142,6 +147,7 @@ inherited fClarifySpaces: TfClarifySpaces
       Width = 50
       Height = 21
       Alignment = taRightJustify
+      MaxLength = 2
       ReadOnly = False
       TabOrder = 5
       Value = 0
@@ -196,6 +202,7 @@ inherited fClarifySpaces: TfClarifySpaces
       Width = 49
       Height = 21
       Alignment = taRightJustify
+      MaxLength = 2
       ReadOnly = False
       TabOrder = 2
       Value = 0
@@ -210,6 +217,7 @@ inherited fClarifySpaces: TfClarifySpaces
       Width = 49
       Height = 21
       Alignment = taRightJustify
+      MaxLength = 2
       ReadOnly = False
       TabOrder = 3
       Value = 0
@@ -234,6 +242,7 @@ inherited fClarifySpaces: TfClarifySpaces
     Width = 49
     Height = 21
     Alignment = taRightJustify
+    MaxLength = 2
     ReadOnly = False
     TabOrder = 5
     Value = 0

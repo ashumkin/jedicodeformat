@@ -43,6 +43,7 @@ inherited fClarifyAlign: TfClarifyAlign
     Width = 57
     Height = 21
     Alignment = taRightJustify
+    MaxLength = 3
     ReadOnly = False
     TabOrder = 1
     OnExit = edtMaxColumnExit
@@ -58,6 +59,7 @@ inherited fClarifyAlign: TfClarifyAlign
     Width = 57
     Height = 21
     Alignment = taRightJustify
+    MaxLength = 3
     ReadOnly = False
     TabOrder = 2
     OnExit = edtMaxColumnExit
@@ -73,6 +75,7 @@ inherited fClarifyAlign: TfClarifyAlign
     Width = 57
     Height = 21
     Alignment = taRightJustify
+    MaxLength = 3
     ReadOnly = False
     TabOrder = 3
     OnExit = edtMinColumnExit
@@ -136,6 +139,7 @@ inherited fClarifyAlign: TfClarifyAlign
     Width = 57
     Height = 21
     Alignment = taRightJustify
+    MaxLength = 3
     ReadOnly = False
     TabOrder = 5
     Value = 0

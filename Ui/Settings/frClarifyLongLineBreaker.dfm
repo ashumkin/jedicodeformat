@@ -14,6 +14,7 @@ inherited fClarifyLongLineBreaker: TfClarifyLongLineBreaker
     Width = 49
     Height = 21
     Alignment = taRightJustify
+    MaxLength = 3
     ReadOnly = False
     TabOrder = 0
     Value = 0
