@@ -43,6 +43,7 @@ type
     function SolidTokenWord(piIndex: integer): TWord;
 
     function IndexOf(const pcToken: TSourceToken): integer;
+    procedure Insert(const piPos: integer; const pcToken: TSourceToken);
 
     function ExtractFirst: TSourceToken;
 
@@ -224,5 +225,10 @@ begin
   end;
 end;
 
+
+procedure TSourceTokenList.Insert(const piPos: integer; const pcToken: TSourceToken);
+begin
+  fcList.Insert(piPos, pcToken);
+end;
 
 end.

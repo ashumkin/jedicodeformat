@@ -32,11 +32,10 @@ uses
   JclStrings,
   JcfMiscFunctions,
   SourceToken, TokenType, WordMap, ParseTreeNodeType, JcfSettings,
-  FormatFlags;
+  FormatFlags, TokenUtils;
 
 const
   // space before all operators
-  SingleSpaceBeforeTokens: TTokenTypeSet = [ttAssign, ttOperator];
   SingleSpaceBeforeWords: TWordSet       = [wEquals, wThen, wOf, wDo,
     wTo, wDownTo,
     // some unary operators
@@ -54,9 +53,20 @@ begin
   if pt.HasParentNode(nAsm) then
     exit;
 
-  if (pt.TokenType in SingleSpaceBeforeTokens) then
+  if (pt.TokenType = ttAssign) then
   begin
     Result := True;
+    exit;
+  end;
+
+  { 'a := --3;' is the only exception to the rule of a space before an operator }
+  if (pt.TokenType = ttOperator) then
+  begin
+    if IsUnaryOperator(pt) and IsUnaryOperator(pt.PriorSolidToken) then
+      Result := False
+    else
+      Result := True;
+      
     exit;
   end;
 

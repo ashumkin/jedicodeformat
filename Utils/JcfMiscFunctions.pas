@@ -28,7 +28,7 @@ function GetWinDir: string;
 function SetFileNameExtension(const psFileName, psExt: string): string;
 
 procedure AdvanceTextPos(const ps: string; var piX, piY: integer);
-
+function LastLineLength(const ps: string): integer;
 
 implementation
 
@@ -129,7 +129,7 @@ begin
   if (ps = AnsiCarriageReturn) or (ps = AnsiCrLf) or (ps = AnsiLineFeed) then
   begin
     inc(piY);
-    piX := 1;
+    piX := 1; // XPos is indexed from 1
   end
   else
   begin
@@ -146,7 +146,19 @@ begin
       PiX := Length(ps) - (liLastPos + Length(AnsiLineBreak));
     end;
   end;
-  
+end;
+
+{ in a multiline sting, how many chars on last line (after last return) }
+function LastLineLength(const ps: string): integer;
+var
+  liPos: integer;
+begin
+  liPos := StrLastPos(AnsiLineBreak, ps);
+  if liPos <= 0 then
+    Result := Length(ps)
+  else
+    Result := Length(ps) - (liPos + Length(AnsiLineBreak));
+
 end;
 
 end.

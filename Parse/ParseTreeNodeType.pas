@@ -50,6 +50,7 @@ type
     nVariableInit,
     nExpression,
     nTerm,
+    nUnaryOp,
     nActualParams,
     nStatement,
     nAssignment,
@@ -210,6 +211,8 @@ begin
       Result := 'Expression';
     nTerm:
       Result := 'Term';
+    nUnaryOp:
+      Result := 'Unary op';
     nActualParams:
       Result := 'Actual params';
     nStatement:

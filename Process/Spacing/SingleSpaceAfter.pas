@@ -88,7 +88,7 @@ begin
 
   { + or - but only if it is a binary operator, ie a term to the left of it }
   if (pt.Word in PossiblyUnaryOperators) and (pt.HasParentNode(nExpression)) and
-    pt.IsOnRightOf(nExpression, nTerm) then
+    (not IsUnaryOperator(pt)) then
   begin
     Result := True;
     exit;

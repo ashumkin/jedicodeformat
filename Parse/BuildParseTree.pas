@@ -1607,15 +1607,20 @@ procedure TBuildParseTree.RecogniseSimpleExpression;
 var
   lc: TSourceToken;
 begin
-  // SimpleExpression -> ['+' | '-'] Term [AddOp Term]...
+  { SimpleExpression -> ['+' | '-'] Term [AddOp Term]...
+
+    the plus/minus prefix is a red herring
+    RecogniseFactor does that with a unary operator
+  }
 
   lc := TokenList.FirstSolidToken;
 
+{
   if lc.Word = wMinus then
     Recognise(wMinus)
   else if lc.Word = wPlus then
     Recognise(wPlus);
-
+ }
   RecogniseTerm;
   while TokenList.FirstSolidTokenWord in AddOperators do
   begin
@@ -1707,8 +1712,11 @@ begin
   end
   else if TokenList.FirstSolidTokenWord in PossiblyUnarySymbolOperators then
   begin
+    PushNode(nUnaryOp);
     Recognise(PossiblyUnarySymbolOperators);
     RecogniseFactor;
+
+    PopNode;
   end
   else if (TokenList.FirstSolidTokenType = ttOpenSquareBracket) then
   begin

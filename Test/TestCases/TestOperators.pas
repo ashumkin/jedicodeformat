@@ -48,7 +48,7 @@ begin
   liB := 12 or 42;
   liA := not liA;
 
-  { long expessions }
+  { long expresions }
   liA := not ((liA and ((liB or liC) xor liA)) shl 2);
   liA := not liA and liB or liC xor liA shl 2;
 
@@ -163,6 +163,13 @@ begin
   c:=c--4;
   f:=3.0;
   f:=f/-3;
+
+  // more complex unary ops
+  c := - (c * c);
+  f := 1 - (-1 * c);
+  f := - 1 + (-1 * c);
+  f := - 1 + (1 * -c);
+  f := - -1 + (1 * --c);
 
 end;
 

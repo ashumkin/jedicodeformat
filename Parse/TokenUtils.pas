@@ -329,20 +329,22 @@ end;
 
 function IsUnaryOperator(const pt: TSourceToken): boolean;
 begin
-  Result := (pt.TokenType = ttOperator) and (pt.Word in PossiblyUnarySymbolOperators);
+  Result := (pt <> nil) and (pt.TokenType = ttOperator) and
+    (pt.Word in PossiblyUnarySymbolOperators);
   if not Result then
     exit;
 
   { now must find if there is another token before it,
     ie true for the minus sign in '-2' but false for '2-2' }
 
-//    !!! need tree for this?
-  Result := (pt.IndexOfSelf = 0);
+  Result := pt.HasParentNode(nUnaryOp, 1);
 end;
 
 function InFormalParams(const pt: TSourceToken): boolean;
 begin
   Result := (RoundBracketLevel(pt) = 1) and pt.HasParentNode(nFormalParams);
 end;
+
+
 
 end.

@@ -5,6 +5,7 @@ unit TestLineBreaking;
  it is test cases for the code formatting utility
 
  This unit tests line breaking
+ so the code aims to take up space in creative ways
 }
 
 interface
@@ -118,6 +119,12 @@ begin
   lf := AddFloats((1.2345678901 * -47) + 12.1234567890, 1.2345678901 + (12.0987654321 * -12.987654321));
   lf := AddFloats(((1.2345678901 * -47) + 12.1234567890) * (1.2345678901 + (12.0987654321 * -12.987654321)), 3);
   lf := AddFloats(((1.2345678901 * -47) + 12.1234567890) * (1.2345678901 + (12.0987654321 * -12.987654321)), 3 * ((1.2345678901 * -47) + 12.1234567890) * (1.2345678901 + (12.0987654321 * -12.987654321)));
+
+  // nested function calls
+  lf := AddFloats(1.234, 5.678);
+  lf := AddFloats(AddFloats(1.234, 5.678), AddFloats(1.234, 5.678));
+  lf := AddFloats(AddFloats(AddFloats(1.234, 5.678), AddFloats(1.234, 5.678)),AddFloats(AddFloats(1.234, 5.678), AddFloats(1.234, 5.678)));
+  lf := AddFloats(AddFloats(AddFloats(1.234 * AddFloats(1.234, 5.678), 5.678 - AddFloats(1.234, 5.678)), AddFloats(1.234, 5.678)),AddFloats(AddFloats(1.234, 5.678), AddFloats(1.234, 5.678)));
 end;
 
 // something harder
