@@ -3090,16 +3090,24 @@ end;
 
 procedure TBuildParseTree.RecogniseProperty;
 begin
-  //PropertyList -> PROPERTY  Ident [PropertyInterface]  PropertySpecifiers
+  {PropertyList -> PROPERTY  Ident [PropertyInterface]  PropertySpecifiers
+
+  There is also the syntax of reclaring properties to raise visibility
+    -> Property Ident;
+  }
   PushNode(nProperty);
 
   Recognise(ttProperty);
-  RecogniseIdentifier;
-  RecognisePropertyInterface;
-  RecognisePropertySpecifiers;
 
-  RecognisePropertyDirectives;
-  RecogniseHintDirectives;
+  RecogniseIdentifier;
+  if TokenList.FirstSolidTokenType in [ttColon, ttOpenSquareBracket] then
+  begin
+    RecognisePropertyInterface;
+    RecognisePropertySpecifiers;
+
+    RecognisePropertyDirectives;
+    RecogniseHintDirectives;
+  end;
 
   PopNode;
 end;

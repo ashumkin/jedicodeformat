@@ -105,6 +105,7 @@ type
     procedure TestParse_TestProgram;
     procedure TestParse_TestProperties;
     procedure TestParse_TestPropertyLines;
+    procedure TestParse_TestPropertyInherited;
     procedure TestParse_TestRecords;
     procedure TestParse_TestReg;
     procedure TestParse_TestReint;
@@ -636,6 +637,11 @@ end;
 procedure TTestFileParse.TestParse_TestDeref;
 begin
   TestParseFile('TestDeref', 384);
+end;
+
+procedure TTestFileParse.TestParse_TestPropertyInherited;
+begin
+  TestParseFile('TestPropertyInherited', 111);
 end;
 
 initialization

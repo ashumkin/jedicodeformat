@@ -72,7 +72,8 @@ uses
   LittleTest7 in 'LittleTest7.pas',
   LittleTest8 in 'LittleTest8.pas',
   TestDeref in 'TestDeref.pas',
-  LittleTest9 in 'LittleTest9.pas';
+  LittleTest9 in 'LittleTest9.pas',
+  TestPropertyInherited in 'TestPropertyInherited.pas';
 
 {$R *.res}
 
