@@ -282,7 +282,7 @@ begin
 
       if fbConvertError or fcBuildParseTree.ParseError then
       begin
-        DoShowMessage(fcBuildParseTree.ParseErrorMessage);
+        DoShowMessage(fcBuildParseTree.ParseErrorMessage + ' in ' + OriginalFileName);
 
         fbConvertError := True;
         fsConvertErrorMessage := fcBuildParseTree.ParseErrorMessage;

@@ -398,7 +398,7 @@ begin
 
   { We have to admit directives and type names as identifiers.
     see TestBogusDirectives.pas for the reasons why }
-  Result := (lc.WordType in IdentifierTypes);
+  Result := (lc.WordType in IdentifierTypes) or (lc.TokenType = ttOut);
 end;
 
 
@@ -2908,7 +2908,7 @@ begin
     if TokenList.FirstSolidTokenType = ttName then
     begin
       Recognise(ttName);
-      Recognise((IdentiferTokens + [ttLiteralString]));
+      RecogniseConstantExpression;
     end;
   end;
 

@@ -74,6 +74,7 @@ type
     procedure TestClarify_LittleTest31;
     procedure TestClarify_LittleTest32;
     procedure TestClarify_LittleTest33;
+    procedure TestClarify_LittleTest34;
 
     procedure TestClarify_TestAbsolute;
     procedure TestClarify_TestAlign;
@@ -863,6 +864,11 @@ end;
 procedure TFullTestClarify.TestClarify_TestCaseIfFormat;
 begin
   TestClarifyFile('TestCaseIfFormat');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest34;
+begin
+  TestClarifyFile('LittleTest34');
 end;
 
 initialization

@@ -73,7 +73,7 @@ TFileConverter = class(TConverter)
 implementation
 
 uses
-  { delphi } Windows, SysUtils, Dialogs, Controls,
+  { delphi } Windows, SysUtils, Dialogs, Controls, Forms,
   { jcl } JclFileUtils,
   { local } FileUtils, JcfMiscFunctions, JCFLog, JcfRegistrySettings,
   JcfSettings;
@@ -284,6 +284,9 @@ begin
       ProcessFile(lsDir + lsNames[liLoop]);
       if fbAbort then
         break;
+
+      // refresh the GUI
+      Application.ProcessMessages;
     end;
 
     { all subdirs }

@@ -110,7 +110,8 @@ uses
   LittleTest30 in 'LittleTest30.pas',
   LittleTest31 in 'LittleTest31.pas',
   LittleTest32 in 'LittleTest32.pas',
-  LittleTest33 in 'LittleTest33.pas';
+  LittleTest33 in 'LittleTest33.pas',
+  LittleTest34 in 'LittleTest34.pas';
 
 {$R *.res}
 
