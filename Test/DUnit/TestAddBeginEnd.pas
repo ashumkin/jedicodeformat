@@ -207,13 +207,13 @@ const
     '    ShowMessage(''big'');' +
     UNIT_FOOTER;
 
-    NESTED_IF_WITH_ALL_BEGINS_1 =
+    NESTED_IF_WITH_ALL_BEGINS1 =
       UNIT_HEADER +
     '  if i > 3 then' + AnsiLineBreak +
-    '  begin begin'+ AnsiLineBreak +
+    '  begin'+ AnsiLineBreak +
     '    if i > 5 then' + AnsiLineBreak +
     '      begin ShowMessage(''bigger'') end' + AnsiLineBreak +
-    '  end end' + AnsiLineBreak +
+    '  end' + AnsiLineBreak +
     '  else' + AnsiLineBreak +
     '    begin ShowMessage(''big'') end;' + 
     UNIT_FOOTER;
@@ -404,7 +404,7 @@ begin
   FormatSettings.Transform.BeginEndStyle := eAlways;
 
   TestProcessResult(TAddBeginEnd, NESTED_IF_TEXT_WITH_BEGIN1,
-    NESTED_IF_WITH_ALL_BEGINS_1);
+    NESTED_IF_WITH_ALL_BEGINS1);
 end;
 
 
@@ -412,7 +412,7 @@ procedure TTestAddBeginEnd.TestNestedIf1_3;
 begin
   FormatSettings.Transform.BeginEndStyle := eNever;
 
-  TestProcessResult(TAddBeginEnd, NESTED_IF_WITH_ALL_BEGINS_1,
+  TestProcessResult(TAddBeginEnd, NESTED_IF_WITH_ALL_BEGINS1,
     NESTED_IF_TEXT_WITH_BEGIN1);
 end;
 

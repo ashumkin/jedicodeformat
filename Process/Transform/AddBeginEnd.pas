@@ -242,18 +242,23 @@ var
 begin
   lcNode := TParseTreeNode(pcNode);
 
-  if IsBlockParent(lcNode) then
-  begin
-    if HasBlockChild(lcNode) and SafeToRemoveBeginEnd(lcNode) then
+  if not IsBlockParent(lcNode) then
+    exit;
+
+  case FormatSettings.Transform.BeginEndStyle of
+    eNever:
     begin
-      if FormatSettings.Transform.BeginEndStyle = eNever then
+      if HasBlockChild(lcNode) and SafeToRemoveBeginEnd(lcNode) then
         RemoveBlockChild(lcNode);
+    end;
+    eAlways:
+    begin
+      if (not HasBlockChild(lcNode)) then
+        AddBlockChild(lcNode);
     end
     else
-    begin
-      if FormatSettings.Transform.BeginEndStyle = eAlways then
-        AddBlockChild(lcNode);
-    end;
+      // should not be here
+      Assert(false);
   end;
 end;
 
