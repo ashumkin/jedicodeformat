@@ -5,7 +5,6 @@ unit RemoveBlankLine;
 
 interface
 
-
 uses BaseVisitor, VisitParseTree;
 
 type
@@ -13,8 +12,6 @@ type
     public
       procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
   end;
-
-
 
 implementation
 
@@ -30,7 +27,10 @@ begin
   if lcSourceToken.TokenType <> ttReturn then
     exit;
 
-  lcNext := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace, ttComment]);
+  { find next, excluding spaces and comments, except '//' comment }
+  lcNext := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace]);
+  while (lcNext <> nil) and (lcNext.TokenType = ttComment) and (lcNext.CommentStyle <> eDoubleSlash) do
+    lcNext := lcNext.NextTokenWithExclusions([ttWhiteSpace]);
 
   {
     A return, followed by another return (with nothing of substance between them)

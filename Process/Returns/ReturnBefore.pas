@@ -39,6 +39,8 @@ const
 
 
 function NeedsBlankLine(const pt, ptNext: TSourceToken): boolean;
+var
+  lcNext: TSourceToken;
 begin
   Result := (pt.Word in WordsBlankLineBefore);
   if Result then
@@ -87,12 +89,18 @@ begin
     exit;
   end;
 
-  { end. don't always want this, not in init block  }
-  if (pt.Word = wEnd) and (ptNext.TokenType = ttDot) and pt.HasParentNode(nUnit, 2)
-    and (BlockLevel(pt) < 1) then
+  { end. where there is no initialization section code,
+    ie 'end' is the first and only token in the init section   }
+  if (pt.Word = wEnd) and
+    pt.HasParentNode(nInitSection, 1) and
+    (pt.Parent.SolidChildCount = 1) then
   begin
-    Result := True;
-    exit;
+    lcNext := pt.NextSolidToken;
+    if (lcNext <> nil) and (lcNext.TokenTYpe = ttDot) then
+    begin
+      Result := True;
+      exit;
+    end;
   end;
 end;
 

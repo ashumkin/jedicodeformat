@@ -22,6 +22,7 @@ type
 implementation
 
 uses
+  SysUtils,
   JclStrings,
   JcfMiscFunctions,
   TokenUtils, SourceToken, TokenType, WordMap, Nesting,
@@ -149,6 +150,15 @@ begin
 
   if pt.HasParentNode(nAsm) then
     exit;
+
+  // form dfm comment
+  if (pt.TokenType = ttComment) and AnsiSameText(pt.SourceCode, '{$R *.dfm}') and
+    pt.HasParentNode(nImplementationSection, 4) then
+  begin
+    Result := True;
+    exit;
+  end;
+
 
   if (pt.TokenType in ReservedWordTokens) and (pt.Word in WordsBlankLineAfter) then
   begin
@@ -298,13 +308,6 @@ begin
     Result := True;
     exit;
   end;
-
-
-  if NeedsBlankLine(pt, ptNext) then
-  begin
-    Result := True;
-    exit;
-  end;
 end;
 
 constructor TReturnAfter.Create;
@@ -326,7 +329,28 @@ begin
   if lcNext = nil then
     exit;
 
-  if not NeedsReturn(lcSourceToken, lcNext) then
+
+  if NeedsBlankLine(lcSourceToken, lcNext) then
+    liReturnsNeeded := 2
+  else if NeedsReturn(lcSourceToken, lcNext) then
+    liReturnsNeeded := 1
+  else
+    liReturnsNeeded := 0;
+
+  if liReturnsNeeded < 1 then
+    exit;
+
+  if (lcNext.TokenType = ttReturn) then
+  begin
+    dec(liReturnsNeeded);
+
+    // is there a second return?
+    lcNext := lcNext.NextTokenWithExclusions([ttWhiteSpace]);
+    if (lcNext.TokenType = ttReturn) then
+      dec(liReturnsNeeded);
+  end;
+
+  if liReturnsNeeded < 1 then
     exit;
 
   { catch comments!
@@ -346,31 +370,10 @@ begin
   if lcCommentTest = nil then
     exit;
 
-  if (lcCommentTest.TokenType = ttComment) then
+  if (lcCommentTest.TokenType = ttComment) and (lcCommentTest.CommentStyle = eDoubleSlash) then
     exit;
 
-  liReturnsNeeded := 0;
-  if (lcNext.TokenType <> ttReturn) then
-  begin
-    { no returns at all }
-    inc(liReturnsNeeded);
-    if NeedsBlankLine(lcSourceToken, lcNext) then
-      inc(liReturnsNeeded);
-  end
-  else
-  begin
-    { one return }
-    if NeedsBlankLine(lcSourceToken, lcNext) then
-    begin
-      { check for a second return }
-      lcNext := lcNext.NextTokenWithExclusions([ttWhiteSpace]);
-      if (lcNext.TokenType <> ttReturn) then
-        inc(liReturnsNeeded);
-    end;
-  end;
-
   case liReturnsNeeded of
-    0:  ;
     1:
     begin
       prVisitResult.Action := aInsertAfter;
@@ -384,7 +387,7 @@ begin
     end;
     else
     begin
-      Assert(False, 'Too many returns');
+      Assert(False, 'Too many returns' + IntToStr(liReturnsNeeded));
     end;
   end;
 

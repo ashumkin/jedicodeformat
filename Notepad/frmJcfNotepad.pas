@@ -58,6 +58,7 @@ type
     mnuHelpAbout: TMenuItem;
     mnuShowRegSetting: TMenuItem;
     mnuFormatSettings: TMenuItem;
+    ActCut: TAction;
     procedure FormResize(Sender: TObject);
     procedure pcPagesChange(Sender: TObject);
     procedure actGoExecute(Sender: TObject);
@@ -75,17 +76,20 @@ type
     procedure mruFilesClick(Sender: TObject; const RecentName,
       Caption: String; UserData: Integer);
     procedure mnuEditCopyOutputClick(Sender: TObject);
-    procedure mnuEditCutClick(Sender: TObject);
     procedure mnuEditSelectAllClick(Sender: TObject);
     procedure mnuEditCopyMessagesClick(Sender: TObject);
     procedure mnuFileSaveInClick(Sender: TObject);
     procedure mnuHelpAboutClick(Sender: TObject);
     procedure mnuShowRegSettingClick(Sender: TObject);
     procedure mnuFormatSettingsClick(Sender: TObject);
+    procedure ActCutExecute(Sender: TObject);
+    procedure mInputMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
   private
     fcConvert: TStringsConverter;
 
     procedure CheckInputState;
+    procedure CheckCutPasteState;
     procedure DoFileOpen(const psFileName: string);
     procedure AddCheckMRU(const psFile: string);
 
@@ -110,6 +114,24 @@ procedure TfmJCFNotepad.CheckInputState;
 begin
   actGo.Enabled := (mInput.Text <> '');
   actClear.Enabled := (mInput.Text <> '');
+end;
+
+procedure TfmJCFNotepad.CheckCutPasteState;
+var
+  lbHasOutput: boolean;
+begin
+  actPaste.Enabled := (pcPages.ActivePage = tsInput) and  Clipboard.HasFormat(CF_TEXT);
+  actCut.Enabled := (pcPages.ActivePage = tsInput) and (mInput.SelLength > 0);
+
+  lbHasOutput := (pcPages.ActivePage = tsOutput) and (mOutput.Text <> '');
+  actSave.Enabled := lbHasOutput;
+
+  if pcPages.ActivePage = tsOutput then
+    actCopy.Enabled := lbHasOutput
+  else
+    actCopy.Enabled := (mInput.Text <> '');
+
+
 end;
 
 procedure TfmJCFNotepad.DoFileOpen(const psFileName: string);
@@ -166,15 +188,8 @@ begin
 end;
 
 procedure TfmJCFNotepad.pcPagesChange(Sender: TObject);
-var
-  lbHasOutput: boolean;
 begin
-  actOpen.Enabled := (pcPages.ActivePage = tsInput);
-  actPaste.Enabled := (pcPages.ActivePage = tsInput) and  Clipboard.HasFormat(CF_TEXT);
-
-  lbHasOutput := (pcPages.ActivePage = tsOutput) and (mOutput.Text <> '');
-  actSave.Enabled := lbHasOutput;
-  actCopy.Enabled := lbHasOutput;
+  CheckCutPasteState;
 end;
 
 procedure TfmJCFNotepad.actGoExecute(Sender: TObject);
@@ -196,13 +211,14 @@ procedure TfmJCFNotepad.mInputKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   CheckInputState;
+  CheckCutPasteState;
 end;
 
 
 procedure TfmJCFNotepad.FormShow(Sender: TObject);
 begin
   CheckInputState;
-  pcPagesChange(nil);
+  CheckCutPasteState;
 end;
 
 procedure TfmJCFNotepad.actOpenExecute(Sender: TObject);
@@ -213,6 +229,7 @@ begin
   if OpenDialog1.Execute then
   begin
     DoFileOpen(OpenDialog1.FileName);
+    pcPages.ActivePage := tsInput;
   end;
 end;
 
@@ -224,7 +241,7 @@ begin
   pcPages.ActivePage := tsInput;
 
   CheckInputState;
-  pcPagesChange(nil);
+  CheckCutPasteState;
 end;
 
 procedure TfmJCFNotepad.actSaveExecute(Sender: TObject);
@@ -294,15 +311,13 @@ begin
   Clipboard.AsText := mOutput.Text;
 end;
 
-procedure TfmJCFNotepad.mnuEditCutClick(Sender: TObject);
+procedure TfmJCFNotepad.ActCutExecute(Sender: TObject);
 begin
-
   if (pcPages.ActivePage = tsInput) then
   begin
     mInput.CutToClipboard;
     CheckInputState;
   end;
-
 end;
 
 procedure TfmJCFNotepad.mnuEditSelectAllClick(Sender: TObject);
@@ -311,6 +326,7 @@ begin
   begin
     mInput.SetFocus;
     mInput.SelectAll;
+    CheckCutPasteState;
   end
   else
   begin
@@ -372,6 +388,12 @@ begin
   finally
     lfAllSettings.Release;
   end;
+end;
+
+procedure TfmJCFNotepad.mInputMouseUp(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  CheckCutPasteState;
 end;
 
 end.

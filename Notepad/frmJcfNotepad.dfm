@@ -93,6 +93,7 @@ object fmJCFNotepad: TfmJCFNotepad
         ScrollBars = ssVertical
         TabOrder = 0
         OnKeyUp = mInputKeyUp
+        OnMouseUp = mInputMouseUp
       end
     end
     object tsOutput: TTabSheet
@@ -181,6 +182,11 @@ object fmJCFNotepad: TfmJCFNotepad
       ShortCut = 16470
       OnExecute = actPasteExecute
     end
+    object ActCut: TAction
+      Caption = '&Cut'
+      ShortCut = 16472
+      OnExecute = ActCutExecute
+    end
   end
   object OpenDialog1: TOpenDialog
     DefaultExt = '*.pas'
@@ -219,9 +225,7 @@ object fmJCFNotepad: TfmJCFNotepad
     object mnuEdit: TMenuItem
       Caption = '&Edit'
       object mnuEditCut: TMenuItem
-        Caption = 'Cut '
-        ShortCut = 16472
-        OnClick = mnuEditCutClick
+        Action = ActCut
       end
       object mnuEditCopy: TMenuItem
         Action = actCopy
@@ -265,15 +269,15 @@ object fmJCFNotepad: TfmJCFNotepad
         OnClick = mnuShowRegSettingClick
       end
       object mnuFormatSettings: TMenuItem
-        Caption = 'Format settings'
+        Caption = '&Format settings'
         GroupIndex = 1
         OnClick = mnuFormatSettingsClick
       end
     end
     object mnuHelp: TMenuItem
-      Caption = 'Help'
+      Caption = '&Help'
       object mnuHelpAbout: TMenuItem
-        Caption = 'About'
+        Caption = '&About'
         OnClick = mnuHelpAboutClick
       end
     end

@@ -37,6 +37,7 @@ type
     rgObfuscateCaps: TRadioGroup;
     cbRebreak: TCheckBox;
     cbRemoveIndent: TCheckBox;
+    cbEnabled: TCheckBox;
   private
 
   public
@@ -51,7 +52,7 @@ implementation
 
 {$R *.DFM}
 
-uses JcfSettings, TokenType, JcfHelp;
+uses JcfSettings, TokenType, JcfHelp, SetObfuscate;
 
 { TfObfuscateSettings }
 
@@ -65,6 +66,7 @@ procedure TfObfuscateSettings.Read;
 begin
   with FormatSettings.Obfuscate do
   begin
+    cbEnabled.Enabled := Enabled;
     rgObfuscateCaps.ItemIndex  := Ord(Caps);
     cbRemoveWhiteSpace.Checked := RemoveWhiteSpace;
     cbRemoveComments.Checked   := RemoveComments;
@@ -77,6 +79,7 @@ procedure TfObfuscateSettings.Write;
 begin
   with FormatSettings.Obfuscate do
   begin
+    Enabled := cbEnabled.Enabled;
     Caps := TCapitalisationType(rgObfuscateCaps.ItemIndex);
     RemoveWhiteSpace := cbRemoveWhiteSpace.Checked;
     RemoveComments := cbRemoveComments.Checked;

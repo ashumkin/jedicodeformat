@@ -148,7 +148,6 @@ begin
     TestFileContentsSame(lsObsFileName, psRefObsOutput);
 
     // now deobfuscate
-    {
     FormatSettings.Obfuscate.Enabled := False;
     GetRegSettings.OutputExtension := 'out';
 
@@ -173,7 +172,6 @@ begin
 
     // clean up
     DeleteFile(lsOutFileName);
-    }
     DeleteFile(lsObsFileName);
   finally
     lcConverter.Free;
