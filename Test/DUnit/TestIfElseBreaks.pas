@@ -10,7 +10,7 @@ uses
 type
   TTestIfElseBreaks = class(TBaseTestProcess)
   private
-    leSaveStyle: TBlockNewLineStyle;
+    leSaveIfElseStyle, leSaveBareBlockStyle: TBlockNewLineStyle;
 
   protected
     procedure Setup; override;
@@ -22,6 +22,9 @@ type
     procedure TestIfElseAddReturn2;
     procedure TestIfElseLeaveReturnAsIs1;
     procedure TestIfElseLeaveReturnAsIs2;
+
+    procedure TestBlockStyleNever;
+    procedure TestBlockStyleNeverWithComment;
   end;
 
 implementation
@@ -95,14 +98,52 @@ procedure TTestIfElseBreaks.Setup;
 begin
   inherited;
 
-  leSaveStyle := FormatSettings.Returns.ElseIfStyle;
+  leSaveIfElseStyle := FormatSettings.Returns.ElseIfStyle;
+  leSaveBareBlockStyle := FormatSettings.Returns.BlockStyle;
 end;
 
 procedure TTestIfElseBreaks.Teardown;
 begin
   inherited;
 
-  FormatSettings.Returns.ElseIfStyle := leSaveStyle;
+  FormatSettings.Returns.ElseIfStyle := leSaveIfElseStyle;
+  FormatSettings.Returns.BlockStyle := leSaveBareBlockStyle;
+end;
+
+procedure TTestIfElseBreaks.TestBlockStyleNever;
+const
+  IN_TEXT = UNIT_HEADER +
+    'procedure foo;' + AnsiLineBreak +
+    'begin'  + AnsiLineBreak +
+    'if bar then ' + AnsiLineBreak +
+    ' Fish();' + AnsiLineBreak +
+    'end;' + AnsiLineBreak +
+    UNIT_FOOTER;
+  OUT_TEXT = UNIT_HEADER +
+    'procedure foo;' + AnsiLineBreak +
+    'begin'  + AnsiLineBreak +
+    'if bar then  Fish();' + AnsiLineBreak +
+    'end;' + AnsiLineBreak +
+    UNIT_FOOTER;
+begin
+  FormatSettings.Returns.BlockStyle := eNever;
+
+  TestProcessResult(TBlockStyles, IN_TEXT, OUT_TEXT);
+end;
+
+procedure TTestIfElseBreaks.TestBlockStyleNeverWithComment;
+const
+  IN_TEXT = UNIT_HEADER +
+    'procedure foo;' + AnsiLineBreak +
+    'begin'  + AnsiLineBreak +
+    'if bar then // noremove' + AnsiLineBreak +
+    ' Fish();' + AnsiLineBreak +
+    'end;' + AnsiLineBreak +
+    UNIT_FOOTER;
+begin
+  FormatSettings.Returns.BlockStyle := eNever;
+
+  TestProcessResult(TBlockStyles, IN_TEXT, IN_TEXT);
 end;
 
 procedure TTestIfElseBreaks.TestIfElseAddReturn1;

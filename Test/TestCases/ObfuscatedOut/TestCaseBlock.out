@@ -130,7 +130,8 @@ begin
   end;
   case x of
     csstart, csbegin: j := updatevalue;
-    else if j > 3 then
+    else
+      if j > 3 then
         Inc(j);
       if x > 4 then
         j := updatevalue;

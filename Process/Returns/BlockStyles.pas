@@ -166,7 +166,7 @@ end;
 procedure TBlockStyles.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   leStyle: TBlockNewLineStyle;
-  lcSourceToken, lcNextReturn: TSourceToken;
+  lcSourceToken, lcNextReturn, lcNextComment: TSourceToken;
 begin
   lcSourceToken := TSourceToken(pcNode);
 
@@ -190,17 +190,22 @@ begin
         lcNextReturn := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace, ttComment]);
         if (lcNextReturn <> nil) and (lcNextReturn.TokenType = ttReturn) then
         begin
-          // turn to space
-          lcNextReturn.TokenType := ttWhiteSpace;
-          // need some space here - don't leave nothing between tokens
-          if (lcNextReturn.PriorToken.TokenType = ttWhiteSpace) or
-            (lcNextReturn.NextToken.TokenType = ttWhiteSpace) then
+          { if there is a '//' comment before the return, don't remove the return :) }
+          lcNextComment := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace]);
+          if lcNextComment.CommentStyle <> eDoubleSlash then
+          begin
+            // turn to space
+            lcNextReturn.TokenType := ttWhiteSpace;
+            // need some space here - don't leave nothing between tokens
+            if (lcNextReturn.PriorToken.TokenType = ttWhiteSpace) or
+              (lcNextReturn.NextToken.TokenType = ttWhiteSpace) then
 
-          // null space as it's next to space already
-          lcNextReturn.SourceCode := ''
-          else
-            // keep a space 
-            lcNextReturn.SourceCode := ' ';
+            // null space as it's next to space already
+            lcNextReturn.SourceCode := ''
+            else
+              // keep a space
+              lcNextReturn.SourceCode := ' ';
+          end;
         end;
       end;
       else
