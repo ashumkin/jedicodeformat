@@ -276,6 +276,11 @@ begin
     begin
       Result := True;
       exit;
+    end
+    else if pt.HasParentNode(nAsmLabel) then
+    begin
+      Result := False;
+      exit;
     end;
   end;
 

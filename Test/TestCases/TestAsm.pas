@@ -134,4 +134,11 @@ begin
   end;
 end;
 
+procedure TestEndColon;
+begin
+  asm
+    @end:
+  end;
+end;
+
 end.
