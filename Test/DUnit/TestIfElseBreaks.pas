@@ -25,6 +25,9 @@ type
 
     procedure TestBlockStyleNever;
     procedure TestBlockStyleNeverWithComment;
+
+    procedure TestIfElseStyleNever;
+    procedure TestIfElseNeverWithComment;
   end;
 
 implementation
@@ -146,6 +149,56 @@ begin
   TestProcessResult(TBlockStyles, IN_TEXT, IN_TEXT);
 end;
 
+procedure TTestIfElseBreaks.TestIfElseStyleNever;
+const
+  IN_TEXT = UNIT_HEADER +
+    'procedure foo;' + AnsiLineBreak +
+    'begin'  + AnsiLineBreak +
+    'if bar then' + AnsiLineBreak +
+    ' Fish()' + AnsiLineBreak +
+    'else if spon then' + AnsiLineBreak +
+    ' Wibble();' + AnsiLineBreak +
+    'end;' + AnsiLineBreak +
+    UNIT_FOOTER;
+  OUT_TEXT = UNIT_HEADER +
+    'procedure foo;' + AnsiLineBreak +
+    'begin'  + AnsiLineBreak +
+    'if bar then Fish()' + AnsiLineBreak +
+    'else if spon then Wibble();' + AnsiLineBreak +
+    'end;' + AnsiLineBreak +
+    UNIT_FOOTER;
+begin
+  FormatSettings.Returns.BlockStyle := eNever;
+
+  TestProcessResult(TBlockStyles, IN_TEXT, OUT_TEXT);
+end;
+
+procedure TTestIfElseBreaks.TestIfElseNeverWithComment;
+const
+  IN_TEXT = UNIT_HEADER +
+    'procedure foo;' + AnsiLineBreak +
+    'begin'  + AnsiLineBreak +
+    'if bar then // comment' + AnsiLineBreak +
+    ' Fish()' + AnsiLineBreak +
+    'else if spon then // comment' + AnsiLineBreak +
+    ' Wibble();' + AnsiLineBreak +
+    'end;' + AnsiLineBreak +
+    UNIT_FOOTER;
+  OUT_TEXT = UNIT_HEADER +
+    'procedure foo;' + AnsiLineBreak +
+    'begin'  + AnsiLineBreak +
+    'if bar then // comment' + AnsiLineBreak +
+    ' Fish()' + AnsiLineBreak +
+    'else if spon then // comment' + AnsiLineBreak +
+    ' Wibble();' + AnsiLineBreak +
+    'end;' + AnsiLineBreak +
+    UNIT_FOOTER;
+begin
+  FormatSettings.Returns.BlockStyle := eNever;
+
+  TestProcessResult(TBlockStyles, IN_TEXT, OUT_TEXT);
+end;
+
 procedure TTestIfElseBreaks.TestIfElseAddReturn1;
 begin
   FormatSettings.Returns.ElseIfStyle := eAlways;
@@ -170,6 +223,7 @@ begin
   FormatSettings.Returns.ElseIfStyle := eLeave;
   TestProcessResult(TBlockStyles, RETURN_REMOVED_TEXT, RETURN_REMOVED_TEXT);
 end;
+
 
 procedure TTestIfElseBreaks.TestIfElseRemoveReturn1;
 begin
