@@ -72,7 +72,6 @@ Type
     Function SolidTokenType(const piIndex: integer): TTokenType; {CHANGED. This is now relative to StackIndex}
     Function SolidWordType(const piIndex: integer): TWordType; {CHANGED. This is now relative to StackIndex}
 
-    Property Items[const piIndex: Integer]: TSourceToken Read GetItem Write SetItem; Default; {This is ABSOLUTE. Not relative to StackIndex}
     Property SourceTokens[const piIndex: Integer]: TSourceToken Read GetItem Write SetItem;
 
     Property StackIndex: Integer Read FStackIndex; {This is to keep an index of the next non-nil item}

@@ -947,7 +947,7 @@ Begin
   liBracketLevel := 0;
   liIndex := fcTokenList.StackIndex; {AdemBaba}
   // scan past the open bracket
-  While fcTokenList[liIndex].TokenType <> ttOpenBracket Do inc(liIndex);
+  While fcTokenList.SourceTokens[liIndex].TokenType <> ttOpenBracket Do inc(liIndex);
 
   inc(liIndex);
 
@@ -956,7 +956,7 @@ Begin
     If liIndex >= fcTokenList.Count Then
       break;
 
-    tt := fcTokenList[liIndex].TokenType;
+    tt := fcTokenList.SourceTokens[liIndex].TokenType;
 
     If tt = ttOpenBracket Then
       inc(liBracketLevel)
