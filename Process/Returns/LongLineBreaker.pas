@@ -364,16 +364,26 @@ begin
         end;
         wExternal:
         begin
-          // the function directive external is followed by text 
+          // the function directive external is followed by text
           if pcToken.HasParentNode(nExternalDirective) then
           begin
             piScoreBefore := SEMI_GOOD_PLACE;
             piScoreAfter := BAD_PLACE;
           end;
         end;
+        wDefault:
+        begin
+          { default attr in a property is a bad thing to break before }
+          if pcToken.HasParentNode(nProperty) then
+          begin
+            piScoreBefore := BAD_PLACE;
+            piScoreAfter := GOOD_PLACE;
+          end;
+
+        end;
       end;
-    end;
-  end; { case }
+    end; { case reserved word directives }
+  end; { case tokentype }
 
   { slightly different rules for procedure params }
   if InFormalParams(pcToken) then
@@ -449,28 +459,6 @@ begin
         liPos := liPos + Length(lt.SourceCode);
     end;
   end;
-end;
-
-function IsMultiLineComment(const pcToken: TSourceToken): boolean;
-begin
-  Result := False;
-
-  if pcToken.TokenType <> ttComment then
-    exit;
-
-  // double-slash coments are never multiline
-  if (pcToken.CommentStyle = eDoubleSlash) then
-    exit;
-
-  if (Pos (AnsiLineBreak, pcToken.SourceCode) <= 0) then
-    exit;
-
-  Result := True;
-end;
-
-function IsLineBreaker(const pcToken: TSourceToken): boolean;
-begin
-  Result := (pcToken.TokenType = ttReturn) or IsMultiLineComment(pcToken);
 end;
 
 procedure TLongLineBreaker.EnabledVisitSourceToken(const pcNode: TObject;

@@ -29,6 +29,7 @@ uses
   TokenType, ParseTreeNode, ParseTreeNodeType, WordMap;
 
 
+{ is this token in an expression that starts on a previous line }
 function IsRunOnExpr(const pt: TSourceToken): boolean;
 var
   lcExpr: TParseTreeNode;
@@ -114,11 +115,12 @@ begin
     else
       liIndentCount := 2;
 
-    // run on lines in procs
-    if pt.HasParentNode(nProperty) and (pt.Word <> wProperty) and (pt.IndexOfSelf > 0) then
+    // run on lines in properties
+    if pt.HasParentNode(nProperty) and (pt.Word <> wProperty) then
       inc(liIndentCount);
 
-    if pt.HasParentNode(ProcedureHeadings) and (not (pt.Word in (ProcedureWords + [wClass]))) and (pt.IndexOfSelf > 0) then
+    // run on lines in procs
+    if pt.HasParentNode(ProcedureHeadings) and (not (pt.Word in (ProcedureWords + [wClass]))) then
       inc(liIndentCount);
 
     lbHasIndentedDecl := True;
@@ -180,9 +182,19 @@ begin
     if pt.HasParentNode(nFormalParams) then
       inc(liIndentCount);
 
+    if (liIndentCount = 0) and pt.HasParentNode(nProcedureDirectives) then
+      liIndentCount := 1;
+
     // else as an outdent for an exception block
     if (pt.Word = wElse) and pt.HasParentNode(nOnExceptionHandler, 1) then
       dec(liIndentCount);
+
+    // while loop (and others?) expression is not yet in the block
+    if pt.HasParentNode([nLoopHeaderExpr, nBlockHeaderExpr]) then
+    begin
+      //dec(liIndentCount);
+      lbHasIndentedRunOnLine := True;
+    end;
 
     if pt.Nestings.GetLevel(nlCaseSelector) > 0 then
     begin
@@ -289,8 +301,6 @@ var
   liPos: integer;
   liDesiredIndent: integer;
 begin
-  inherited;
-
   lcSourceToken := TSourceToken(pcNode);
 
   if IsFirstSolidTokenOnLine(lcSourceToken) then

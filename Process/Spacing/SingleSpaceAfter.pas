@@ -43,6 +43,9 @@ uses
 
 function NeedsSingleSpace(const pt, ptNext: TSourceToken): boolean;
 begin
+  Assert(pt <> nil);
+  Assert(ptNext <> nil);
+
   Result := False;
 
   if pt.HasParentNode(nAsm) then
@@ -52,26 +55,46 @@ begin
   if ptNext.TokenType = ttComment then
     exit;
 
-  { semciolon as a record field seperator in a const record declaration
-   has no newline (See ReturnAfter.pas), just a single space }
-  if (pt.TokenType = ttSemiColon) and (pt.HasParentNode(nRecordConstant)) then
+  // semicolons
+  if (pt.TokenType = ttSemiColon) then
   begin
-    Result := True;
-    exit;
-  end;
 
-  { semicolon  in param  declaration list }
-  if (pt.TokenType = ttSemiColon) and (pt.HasParentNode(nFormalParams)) then
-  begin
-    Result := True;
-    exit;
-  end;
+    { semciolon as a record field seperator in a const record declaration
+     has no newline (See ReturnAfter.pas), just a single space }
+    if (pt.HasParentNode(nRecordConstant)) then
+    begin
+      Result := True;
+      exit;
+    end;
 
-  { semicolon in param lists in proc type def. as above }
-  if (pt.TokenType = ttSemiColon) and (pt.HasParentNode(nProcedureType)) then
+    { semicolon  in param  declaration list }
+    if (pt.HasParentNode(nFormalParams)) then
+    begin
+      Result := True;
+      exit;
+    end;
+
+    { semicolon in param lists in proc type def. as above }
+    if (pt.HasParentNode(nProcedureType)) then
+    begin
+      Result := True;
+      exit;
+    end;
+
+    { semicolon in procedure directives }
+    if (pt.HasParentNode(nProcedureDirectives)) then
+    begin
+      Result := True;
+      exit;
+    end;
+
+  end;// semicolon
+
+  { function foo: integer; has single space after the colon
+    single space after colon - anywhere? }
+  if pt.TokenType = ttColon then
   begin
     Result := True;
-    exit;
   end;
 
   if (pt.TokenType in SingleSpaceAfterTokens) then
@@ -82,7 +105,15 @@ begin
 
   if (pt.Word in SingleSpaceAfterWords) then
   begin
-    Result := True;
+    { 'procedure' and 'function' in proc type def don't have space after, e.g.
+      type
+        TFredProc = procedure(var psFred: integer); }
+
+    if (pt.HasParentNode(nProcedureType, 2)) and (ptNext.TokenType in [ttOpenBracket, ttSemiColon]) then
+      Result := False
+    else
+      Result := True;
+
     exit;
   end;
 
@@ -95,7 +126,8 @@ begin
   end;
 
   { only if it actually is a directive, see TestCases/TestBogusDirectives for details }
-  if (pt.Word in AllDirectives) and (pt.HasParentNode(DirectiveNodes)) then
+  if (pt.Word in AllDirectives) and (pt.HasParentNode(DirectiveNodes)) and
+    (ptNext.TokenType <> ttSemiColon) then
   begin
     Result := True;
     exit;

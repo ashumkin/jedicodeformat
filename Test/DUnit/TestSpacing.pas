@@ -22,13 +22,18 @@ type
     procedure TestNoSpaceAfter;
 
     procedure TestNoSpaceBefore;
+    procedure TestNoSpaceBefore2;
     procedure TestNoSpaceBeforeColon;
 
     procedure TestNoSpaceAfterOperator;
     procedure TestNoSpaceAfterOperator2;
 
     procedure TestSingleSpaceBefore;
+
     procedure TestSingleSpaceAfter;
+    procedure TestSingleSpaceAfter2;
+    procedure TestSingleSpaceAfter3;
+
     procedure TestSingleSpaceAfterColon;
     procedure TestSingleSpaceAfterColon2;
 
@@ -83,6 +88,16 @@ begin
   TestProcessResult(TNoSpaceBefore, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
+procedure TTestSpacing.TestNoSpaceBefore2;
+const
+  IN_UNIT_TEXT = INTERFACE_HEADER + 'function foo (i : integer) : integer ; far ; stdcall ;' +
+    ' implementation ' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = INTERFACE_HEADER + 'function foo(i: integer): integer; far; stdcall;' +
+    ' implementation ' + UNIT_FOOTER;
+begin
+  TestProcessResult(TNoSpaceBefore, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
 { preserve line breaks if the user put them in }
 
 procedure TTestSpacing.TestNoSpaceBeforeColon;
@@ -129,6 +144,27 @@ const
 begin
   TestProcessResult(TSingleSpaceAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
+
+procedure TTestSpacing.TestSingleSpaceAfter2;
+const
+  IN_UNIT_TEXT = INTERFACE_HEADER + 'function foo(i:integer):integer;far;stdcall;' +
+    ' implementation ' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = INTERFACE_HEADER + 'function foo(i: integer): integer; far; stdcall;' +
+    ' implementation ' + UNIT_FOOTER;
+begin
+  TestProcessResult(TSingleSpaceAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestSpacing.TestSingleSPaceAfter3;
+const
+  IN_UNIT_TEXT = INTERFACE_HEADER + 'type TFredProc =procedure(var psFred:integer)of Object;' +
+    ' implementation ' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = INTERFACE_HEADER + 'type TFredProc = procedure(var psFred: integer)of Object;' +
+    ' implementation ' + UNIT_FOOTER;
+begin
+  TestProcessResult(TSingleSpaceAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
 
 procedure TTestSpacing.TestSingleSpaceAfterColon;
 const
@@ -201,6 +237,7 @@ const
 begin
   TestProcessResult(TRemoveReturnsBeforeEnd, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
+
 
 
 initialization

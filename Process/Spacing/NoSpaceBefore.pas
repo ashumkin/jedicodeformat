@@ -48,7 +48,25 @@ begin
 
   { hat (dereference) in expression is unary postfix operator - so no space before it }
   if (pt.HasParentNode(nExpression)) and (pt.word = wHat) then
+  begin
     Result := True;
+    exit;
+  end;
+
+  { no space before open brackets for fn name - declaration or use }
+  if IsActualParamOpenBracket(pt) or IsFormalParamOpenBracket(pt) then
+  begin
+    Result := True;
+    exit;
+  end;
+
+  { no space before colon -- anywhere? }
+  if pt.TokenType = ttColon then
+  begin
+    Result := True;
+    exit;
+  end;
+
 end;
 
 constructor TNoSpaceBefore.Create;

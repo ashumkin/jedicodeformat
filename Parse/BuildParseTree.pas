@@ -6,7 +6,7 @@ unit BuildParseTree;
 
  The token stream will still exist, but as the leaves of a tree structure
  This will be a preliminary step to putting a lot of the smarts
- e.g. (how many begin..end blocks is the current toekn within)
+ e.g. (how many begin..end blocks is the current token within)
  in the tree not the stream
 
  Hence it currently fits into the toekn processing pipeline
@@ -2084,9 +2084,11 @@ begin
   // IfStmt -> IF Expression THEN Statement [ELSE Statement]
 
   Recognise(wIf);
+
   PushNode(nIfCondition);
   RecogniseExpr;
   PopNode;
+
   Recognise(wThen);
 
   PushNode(nIfBlock);
@@ -2109,7 +2111,11 @@ begin
   PushNode(nCaseStatement);
 
   Recognise(wCase);
+
+  PushNode(nBlockHeaderExpr);
   RecogniseExpr;
+  PopNode;
+
   Recognise(wOf);
 
   while not (TokenList.FirstSolidTokenWord in [wElse, wEnd]) do
@@ -2186,7 +2192,10 @@ begin
     Recognise(ttSemicolon);
 
   Recognise(wUntil);
+
+  PushNode(nLoopHeaderExpr);
   RecogniseExpr;
+  PopNode;
 
   PopNode;
 end;
@@ -2197,7 +2206,11 @@ begin
   PushNode(nWhileStatement);
 
   Recognise(wWhile);
+
+  PushNode(nLoopHeaderExpr);
   RecogniseExpr;
+  PopNode;
+
   Recognise(wDo);
   RecogniseStatement;
 
@@ -2212,9 +2225,17 @@ begin
   Recognise(wFor);
   RecogniseQualId;
   Recognise(ttAssign);
+
+  PushNode(nLoopHeaderExpr);
   RecogniseExpr;
+  PopNode;
+
   Recognise([wTo, wDownto]);
+
+  PushNode(nLoopHeaderExpr);
   RecogniseExpr;
+  PopNode;
+  
   Recognise([wDo]);
   RecogniseStatement;
 
@@ -2232,7 +2253,9 @@ begin
   Recognise([wWith]);
 
   //RecogniseIdentList;
+  PushNode(nBlockHeaderExpr);
   RecogniseExprList;
+  PopNode;
 
   Recognise([wDo]);
   RecogniseStatement;

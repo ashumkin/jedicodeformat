@@ -66,6 +66,8 @@ type
     nElseCase,
     nRepeatStatement,
     nWhileStatement,
+    nLoopHeaderExpr,
+    nBlockHeaderExpr,
     nForStatement,
     nWithStatement,
     nTryAndHandlerBlock,
@@ -243,6 +245,10 @@ begin
       Result := 'Repeat statement';
     nWhileStatement:
       Result := 'While Statement';
+    nLoopHeaderExpr:
+      Result := 'Loop header expr';
+    nBlockHeaderExpr:
+      Result := 'Block header expr';
     nForStatement:
       Result := 'For statement';
     nWithStatement:

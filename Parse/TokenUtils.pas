@@ -65,6 +65,9 @@ function InFormalParams(const pt: TSourceToken): boolean;
 function IsActualParamOpenBracket(const pt: TSourceToken): boolean;
 function IsFormalParamOpenBracket(const pt: TSourceToken): boolean;
 
+function IsLineBreaker(const pcToken: TSourceToken): boolean;
+function IsMultiLineComment(const pcToken: TSourceToken): boolean;
+
 implementation
 
 uses
@@ -356,6 +359,29 @@ end;
 function IsFormalParamOpenBracket(const pt: TSourceToken): boolean;
 begin
   Result := (pt.TokenType = ttOpenBracket) and (pt.HasParentNode(nFormalParams, 1));
+end;
+
+
+function IsMultiLineComment(const pcToken: TSourceToken): boolean;
+begin
+  Result := False;
+
+  if pcToken.TokenType <> ttComment then
+    exit;
+
+  // double-slash coments are never multiline
+  if (pcToken.CommentStyle = eDoubleSlash) then
+    exit;
+
+  if (Pos (AnsiLineBreak, pcToken.SourceCode) <= 0) then
+    exit;
+
+  Result := True;
+end;
+
+function IsLineBreaker(const pcToken: TSourceToken): boolean;
+begin
+  Result := (pcToken.TokenType = ttReturn) or IsMultiLineComment(pcToken);
 end;
 
 

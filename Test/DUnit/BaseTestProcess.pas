@@ -32,6 +32,7 @@ type
 
 const
   UNIT_HEADER = 'unit Test; interface implementation ';
+  INTERFACE_HEADER = 'unit Test; interface ';
   UNIT_FOOTER = ' end.';
 
 implementation
