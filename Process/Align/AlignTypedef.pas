@@ -49,6 +49,16 @@ begin
   Result := IsBlankLineEnd(pt);
 end;
 
+function InStructuredTypeBody(const pt: TSourceToken): Boolean;
+begin
+  Result := pt.HasParentNode(ObjectTypes + [nRecordType]);
+  if Result then
+  begin
+    // exclude the starting word
+    Result := not (pt.Word in StructuredTypeWords + [wObject]);
+  end;
+end;
+
 function TAlignTypedef.TokenEndsStatement(const pt: TSourceToken): boolean;
 begin
   { only look at solid tokens }
@@ -59,7 +69,7 @@ begin
   else
   begin
     Result := (not pt.HasParentNode(nTypeDecl)) or
-      (pt.TokenType in [ttSemiColon, ttEOF]) or pt.HasParentNode(ObjectTypes + [nRecordType]);
+      (pt.TokenType in [ttSemiColon, ttEOF]) or InStructuredTypeBody(pt);
   end;
 end;
 

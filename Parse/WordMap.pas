@@ -325,7 +325,7 @@ const
 
   BlockEndWords = [wUntil, wElse, wFinally, wEnd];
 
-  StructuredTypeWords: TWordSet = [wClass, wInterface, wDispinterface, wRecord];
+  StructuredTypeWords: TWordSet = [wClass, wObject, wInterface, wDispinterface, wRecord];
   ObjectTypeWords: TWordSet   = [wClass, wObject, wInterface, wDispinterface];
 
   InterfaceWords: TWordSet = [wInterface, wDispinterface];

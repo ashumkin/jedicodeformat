@@ -46,8 +46,6 @@ type
     procedure AddToken(const pcToken: TSOurceToken; const pbAligned: Boolean);
 
   protected
-    fbKeepComments: Boolean;
-
 
     { API for descendant classes }
     function TokenIsAligned(const pt: TSourceToken): boolean; virtual; abstract;
@@ -79,7 +77,6 @@ uses
 constructor TAlignBase.Create;
 begin
   inherited;
-  fbKeepComments := False;
   fcResumeToken := nil;
   fcTokens := TSourceTokenList.Create;
 end;
@@ -113,7 +110,7 @@ procedure TAlignBase.AlignTheBlock(const pcToken: TSourceToken);
 var
   liCurrent, liLastKnownAlignedStatement: integer;
   lcCurrent: TSourceToken;
-  bDone, bThisStatementIsAligned, lbThisTokenIsAligned: boolean;
+  lbDone, lbFirst, bThisStatementIsAligned, lbThisTokenIsAligned: boolean;
   liMaxIndent, liMinIndent: integer;
   liThisIndent: integer;
   liSettingsMin, liSettingsMax, liSettingsMaxVariance: integer;
@@ -162,27 +159,28 @@ begin
   end;
 
   { locate block end - include all consecutive aligned statements }
-  bDone := False;
+  lbDone := False;
+  lbFirst := True;
   liUnalignedCount := 0;
   liAlignedCount := 1;
   bThisStatementIsAligned := True; // first statement just read will be aligned
 
 
   { now look for consecutive similar statements to align }
-  while not bDone do
+  while not lbDone do
   begin
-    lcCurrent := lcCurrent.NextToken;
-    OnTokenRead(lcCurrent);
-
     { EOF?! - abort! }
     if (lcCurrent = nil) or (lcCurrent.TokenType = ttEOF) then
     begin
-      bDone := True;
+      lbDone := True;
     end
     else
     begin
       lbThisTokenIsAligned := TokenIsAligned(lcCurrent);
-      AddToken(lcCurrent, lbThisTokenIsAligned);
+      if not lbFirst then
+        AddToken(lcCurrent, lbThisTokenIsAligned); // first one has been added above
+
+      lbFirst := False;
 
       { an aligned statement has the aligned token in it -
         e.g. an assign statement has a ':=' in it :) }
@@ -207,15 +205,6 @@ begin
           liMaxIndent := liThisIndent;
 
       end;
-      { carry on through comments - not valid anymore ??
-        Why didn't I explain why this was in?
-        May be of use on some of the aligners so it has been make a setting
-
-        Use only where the comment is first solid token on line ?
-         (ie not of enline comments)
-      }
-      if fbKeepComments and (lcCurrent.TokenType = ttComment) then
-        bThisStatementIsAligned := True;
 
       if TokenEndsStatement(lcCurrent) then
       begin
@@ -237,14 +226,16 @@ begin
           }
           inc(liUnalignedCount);
           if liUnalignedCount > liMaxUnaligned then
-            bDone := True;
+            lbDone := True;
         end;
       end;
 
       if TokenEndsAlignment(lcCurrent) then
-        bDone := True;
+        lbDone := True;
 
       inc(liCurrent);
+      lcCurrent := lcCurrent.NextToken;
+      OnTokenRead(lcCurrent);
     end; { not EOF }
   end; { while loop }
 

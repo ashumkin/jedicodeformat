@@ -216,6 +216,7 @@ end;
 
 procedure TAllProcesses.Align;
 begin
+
   ApplyVisitorType(TVisitSetXY);
   ApplyVisitorType(TAlignConst);
 
