@@ -144,7 +144,8 @@ uses
   LittleTest56 in 'LittleTest56.pas',
   LittleTest57 in 'LittleTest57.pas',
   LittleTest58 in 'LittleTest58.pas',
-  LittleTest59 in 'LittleTest59.pas';
+  LittleTest59 in 'LittleTest59.pas',
+  LittleTest60 in 'LittleTest60.pas';
 
 {$R *.res}
 

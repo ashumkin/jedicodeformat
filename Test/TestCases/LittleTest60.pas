@@ -1,5 +1,7 @@
-unit test;
+unit LittleTest60;
+
 interface
+
 implementation
 
 const
