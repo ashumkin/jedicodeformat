@@ -1,12 +1,15 @@
 object frmMain: TfrmMain
   Left = 205
   Top = 224
-  BorderIcons = [biSystemMenu, biMinimize]
-  BorderStyle = bsSingle
+  Width = 488
+  Height = 354
+  HorzScrollBar.Visible = False
+  VertScrollBar.Visible = False
+  BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
   Caption = 'Jedi Code Format'
-  ClientHeight = 255
-  ClientWidth = 537
   Color = clBtnFace
+  Constraints.MinHeight = 300
+  Constraints.MinWidth = 400
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -18,21 +21,20 @@ object frmMain: TfrmMain
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnKeyUp = FormKeyUp
+  OnResize = FormResize
   PixelsPerInch = 96
   TextHeight = 13
-  object sb: TStatusBar
-    Left = 0
-    Top = 233
-    Width = 537
-    Height = 22
-    AutoHint = True
-    Panels = <>
-    SimplePanel = True
+  object lblLog: TLabel
+    Left = 4
+    Top = 168
+    Width = 18
+    Height = 13
+    Caption = 'Log'
   end
   object tlbTop: TToolBar
     Left = 0
     Top = 0
-    Width = 537
+    Width = 480
     Height = 26
     AutoSize = True
     ButtonHeight = 24
@@ -43,7 +45,7 @@ object frmMain: TfrmMain
     Images = ilStandardImages
     ParentShowHint = False
     ShowHint = True
-    TabOrder = 1
+    TabOrder = 0
     object tbtnOpenFiles: TToolButton
       Left = 0
       Top = 0
@@ -111,9 +113,21 @@ object frmMain: TfrmMain
   inline frBasic: TfrBasic
     Left = 0
     Top = 26
-    Width = 537
-    Height = 207
-    Align = alClient
+    Width = 463
+    Height = 138
+    TabOrder = 1
+  end
+  object mOutput: TJvMemo
+    Left = 4
+    Top = 184
+    Width = 445
+    Height = 89
+    AutoSize = False
+    ClipboardCommands = [caCopy]
+    MaxLines = 0
+    HideCaret = False
+    ParentColor = True
+    ReadOnly = True
     TabOrder = 2
   end
   object mnuMain: TMainMenu

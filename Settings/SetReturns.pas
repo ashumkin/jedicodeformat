@@ -44,6 +44,7 @@ type
     { return removal and adding }
     fbRemoveBadReturns: Boolean;
     fbAddGoodReturns: Boolean;
+    fbUsesClauseOnePerLine: boolean;
 
     fbRemoveExpressionReturns: Boolean;
     fbRemoveVarReturns: Boolean;
@@ -78,9 +79,9 @@ type
     property NumReturnsAfterFinalEnd: integer read fiNumReturnsAfterFinalEnd
       write fiNumReturnsAfterFinalEnd;
 
-    //property FixReturns: boolean read fbFixReturns write fbFixReturns;
     property RemoveBadReturns: boolean read fbRemoveBadReturns write fbRemoveBadReturns;
     property AddGoodReturns: boolean read fbAddGoodReturns write fbAddGoodReturns;
+    property UsesClauseOnePerLine: Boolean read fbUsesClauseOnePerLine write fbUsesClauseOnePerLine;
 
     property RemoveExpressionReturns: boolean read fbRemoveExpressionReturns write fbRemoveExpressionReturns;
     property RemoveVarReturns: boolean read fbRemoveVarReturns write fbRemoveVarReturns;
@@ -105,7 +106,7 @@ type
     property EndElseStyle: TBlockNewLineStyle read feEndElseStyle write feEndElseStyle;
     property ElseIfStyle: TBlockNewLineStyle read feElseIfStyle write feElseIfStyle;
 
-    property ReturnChars: TReturnChars read  feReturnChars write  feReturnChars;
+    property ReturnChars: TReturnChars read  feReturnChars write feReturnChars;
   end;
 
 implementation
@@ -120,6 +121,7 @@ const
 
   REG_REMOVE_BAD_RETURNS = 'RemoveBadReturns';
   REG_ADD_GOOD_RETURNS = 'AddGoodReturns';
+  REG_USES_ONE_PER_LINE = 'UsesOnePerLine';
 
   REG_REMOVE_EXPRESSION_RETURNS = 'RemoveExpressionReturns';
   REG_REMOVE_VAR_RETURNS = 'RemoveVarReturns';
@@ -158,6 +160,7 @@ begin
 
   fbRemoveBadReturns := pcStream.Read(REG_REMOVE_BAD_RETURNS, True);
   fbAddGoodReturns := pcStream.Read(REG_ADD_GOOD_RETURNS, True);
+  fbUsesClauseOnePerLine := pcStream.Read(REG_USES_ONE_PER_LINE, False);
 
   fbRemoveExpressionReturns := pcStream.Read(REG_REMOVE_EXPRESSION_RETURNS, False);
   fbRemoveVarReturns := pcStream.Read(REG_REMOVE_VAR_RETURNS, True);
@@ -190,6 +193,7 @@ begin
 
   pcOut.Write(REG_REMOVE_BAD_RETURNS, fbRemoveBadReturns);
   pcOut.Write(REG_ADD_GOOD_RETURNS, fbAddGoodReturns);
+  pcOut.Write(REG_USES_ONE_PER_LINE, UsesClauseOnePerLine);
 
   pcOut.Write(REG_REMOVE_EXPRESSION_RETURNS, fbRemoveExpressionReturns);
   pcOut.Write(REG_REMOVE_VAR_RETURNS, fbRemoveVarReturns);

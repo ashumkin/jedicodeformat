@@ -32,18 +32,21 @@ uses
 
 type
   TfClarifyReturns = class(TfrSettingsFrame)
-    cbRemoveReturns: TCheckBox;
-    cbRemoveVarBlankLines: TCheckBox;
-    cbRemovePropertyReturns: TCheckBox;
-    cbRemoveExprReturns: TCheckBox;
-    cbInsertReturns: TCheckBox;
-    cbRemoveProcDefReturns: TCheckBox;
-    cbRemoveVarReturns: TCheckBox;
     eNumReturnsAfterFinalEnd: TJvIntegerEdit;
     Label1: TLabel;
-    cbRemoveBlankLinesAfterProcHeader: TCheckBox;
-    cbRemoveBlockBlankLines: TCheckBox;
     rgReturnChars: TRadioGroup;
+    GroupBox1: TGroupBox;
+    cbRemoveProcDefReturns: TCheckBox;
+    cbRemoveVarReturns: TCheckBox;
+    cbRemoveBlockBlankLines: TCheckBox;
+    cbRemoveExprReturns: TCheckBox;
+    cbRemovePropertyReturns: TCheckBox;
+    cbRemoveReturns: TCheckBox;
+    cbRemoveBlankLinesAfterProcHeader: TCheckBox;
+    cbRemoveVarBlankLines: TCheckBox;
+    gbInsert: TGroupBox;
+    cbUsesClauseOnePerLine: TCheckBox;
+    cbInsertReturns: TCheckBox;
   private
 
   public
@@ -87,6 +90,7 @@ begin
 
     cbRemoveVarBlankLines.Checked := RemoveVarBlankLines;
     cbRemoveBlockBlankLines.Checked := RemoveBlockBlankLines;
+    cbUsesClauseOnePerLine.Checked := UsesClauseOnePerLine;
 
     rgReturnChars.ItemIndex := Ord(ReturnChars);
   end;
@@ -109,6 +113,7 @@ begin
 
     RemoveVarBlankLines := cbRemoveVarBlankLines.Checked;
     RemoveBlockBlankLines := cbRemoveBlockBlankLines.Checked;
+    UsesClauseOnePerLine := cbUsesClauseOnePerLine.Checked;
 
     ReturnChars := TReturnChars(rgReturnChars.ItemIndex);
 

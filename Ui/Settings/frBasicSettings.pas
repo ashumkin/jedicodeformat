@@ -41,7 +41,6 @@ type
     lblOutput: TLabel;
     lblInput: TLabel;
     sbOpen: TSpeedButton;
-    rgMode: TRadioGroup;
     dlgOpen: TOpenDialog;
     procedure rgFileRecurseClick(Sender: TObject);
     procedure rgBackupClick(Sender: TObject);
@@ -217,11 +216,6 @@ begin
   rgBackup.ItemIndex := Ord(lcRegSet.BackupMode);
   edtInput.Text := lcRegSet.Input;
 
-  if FormatSettings.Obfuscate.Enabled then
-    rgMode.ItemIndex := 1
-  else
-    rgMode.ItemIndex := 0;
-
   DisplayOutputFile;
 end;
 
@@ -234,16 +228,14 @@ begin
   lcRegSet.SourceMode := GetCurrentSourceMode;
   lcRegSet.BackupMode := GetCurrentBackupMode;
   lcRegSet.Input := edtInput.Text;
-
-  FormatSettings.Obfuscate.Enabled := (rgMode.ItemIndex <> 0);
 end;
 
 function TfrBasic.GetGoHint: string;
 begin
-  if rgMode.ItemIndex = 0 then
-    Result := 'Format'
+  if FormatSettings.Obfuscate.Enabled then
+    Result := 'Obfuscate'
   else
-    Result := 'Obfuscate';
+    Result := 'Format';
 
   case GetCurrentSourceMode of
     fmSingleFile:

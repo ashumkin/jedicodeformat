@@ -250,8 +250,24 @@ end;
 
 
 function NeedsReturn(const pt, ptNext: TSourceToken): boolean;
+var
+  lcNext: TSourceToken;
 begin
   Result := False;
+
+  if FormatSettings.Returns.UsesClauseOnePerLine and pt.HasParentNode(nUses) then
+  begin
+    if (pt.TokenType in [ttComma, ttUses]) then
+    begin
+      // add a return, unlees there's a comment just after the comma
+      lcNext := pt.NextTokenWithExclusions([ttWhiteSpace]);
+      if (lcNext <> nil) and (lcNext.TokenType <> ttComment) then
+      begin
+        Result := True;
+        exit;
+      end;
+    end;
+  end;
 
   if pt.HasParentNode(nAsm) then
   begin

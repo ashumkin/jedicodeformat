@@ -34,11 +34,11 @@ uses
   StdCtrls, Buttons, ExtCtrls, ComCtrls, Menus,
   ActnList, ImgList, ToolWin, StdActns,
     { local } FileConverter, JCFSettings, frFiles,
-  frBasicSettings,  frDrop,  frmBaseSettingsFrame, JvMRUList, JvPlacemnt;
+  frBasicSettings,  frDrop,  frmBaseSettingsFrame, JvMRUList, JvPlacemnt,
+  JvMemo;
 
 type
   TfrmMain = class(TForm)
-    sb: TStatusBar;
     mnuMain: TMainMenu;
     mnuFiles: TMenuItem;
     mnuGo: TMenuItem;
@@ -78,6 +78,8 @@ type
     mnuSaveSettingsAs: TMenuItem;
     aSaveSettingsAs: TAction;
     JvFormStorage1: TJvFormStorage;
+    mOutput: TJvMemo;
+    lblLog: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure mnuGoClick(Sender: TObject);
@@ -96,6 +98,7 @@ type
       Caption: String; UserData: Integer);
     procedure FormKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure FormResize(Sender: TObject);
   private
     fcConverter: TFileConverter;
 
@@ -230,6 +233,7 @@ begin
   frBasic.OnChange := SettingsChange;
   SettingsChange(nil);
 
+  FormResize(nil);
 end;
 
 procedure TfrmMain.FormDestroy(Sender: TObject);
@@ -244,7 +248,13 @@ end;
 
 procedure TfrmMain.ShowStatusMesssage(const ps: string);
 begin
-  sb.SimpleText := ps;
+  mOutput.Lines.Add(ps);
+  mOutput.CurrentLine := mOutput.Lines.Count -1;
+  if mOutput.Lines.Count > 1 then
+    mOutput.ScrollBars := ssVertical
+  else
+    mOutput.ScrollBars := ssNone;
+
   Application.ProcessMessages;
 end;
 
@@ -383,6 +393,18 @@ procedure TfrmMain.FormKeyUp(Sender: TObject; var Key: Word;
 begin
   if Key = VK_F1 then
     Application.HelpContext(HELP_MAIN);
+end;
+
+procedure TfrmMain.FormResize(Sender: TObject);
+begin
+  frBasic.Left := 0;
+  frBasic.Top := tlbTop.Top + tlbTop.Height;
+  frBasic.Width := ClientWidth;
+
+  mOutput.Left := 2;
+  mOutput.Width := ClientWidth - 4;
+  mOutput.Top := lblLog.Top + lblLog.Height + 4;
+  mOutput.Height := ClientHeight - (mOutput.Top + 4);
 end;
 
 end.
