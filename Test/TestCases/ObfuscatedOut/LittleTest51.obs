@@ -1,0 +1,3 @@
+unit littletest51;interface implementation function foo:string;begin result:='foo'
+;end;procedure bar;var ch:char;li:integer;begin li:=3;ch:=#32;ch:=foo[1];ch:=foo[
+li+3];ch:=(foo+foo)[1];ch:=(foo+#32)[li+3];ch:=(#32+#32)[2];end;end. 

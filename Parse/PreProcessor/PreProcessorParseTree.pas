@@ -434,7 +434,7 @@ begin
 
   inc(fiCurrentIndex);
 
-  ParseNonPreProc([ppElseIf, ppEndIf, ppIfEnd]);
+  ParseNonPreProc([ppElse, ppElseIf, ppEndIf, ppIfEnd]);
 end;
 
 procedure TPreProcessorParseTree.AddDefinedSymbol(const psSymbol: string);
