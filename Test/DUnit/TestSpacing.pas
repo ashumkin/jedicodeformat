@@ -33,6 +33,9 @@ type
     procedure TestReturnAfter;
 
     procedure TestBlankLinesAfterProcHeader;
+
+    procedure TestBlankLinesAfterBegin;
+    procedure TestBlankLinesBeforeEnd;
   end;
 
 implementation
@@ -42,7 +45,8 @@ uses JclStrings,
   NoReturnAfter, NoReturnBefore, NoSpaceAfter, NoSpaceBefore,
   SpaceBeforeColon,
   SingleSpaceBefore, SingleSpaceAfter,
-  ReturnBefore, ReturnAfter, RemoveBlankLinesAfterProcHeader;
+  ReturnBefore, ReturnAfter, RemoveBlankLinesAfterProcHeader,
+  RemoveReturnsAfterBegin, RemoveReturnsBeforeEnd;
 
 procedure TTestSpacing.TestNoReturnAfter;
 const
@@ -154,6 +158,26 @@ const
     'begin a := 2; end; ' + UNIT_FOOTER;
 begin
   TestProcessResult(TRemoveBlankLinesAfterProcHeader, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestSpacing.TestBlankLinesAfterBegin;
+const
+  IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin' + AnsiLineBreak + AnsiLineBreak +
+    AnsiLineBreak + AnsiLineBreak + 'end; ' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin' + AnsiLineBreak + AnsiLineBreak +
+    'end; ' + UNIT_FOOTER;
+begin
+  TestProcessResult(TRemoveReturnsAfterBegin, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestSpacing.TestBlankLinesBeforeEnd;
+const
+  IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin' + AnsiLineBreak + AnsiLineBreak +
+    AnsiLineBreak + AnsiLineBreak + 'end; ' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin' + AnsiLineBreak + AnsiLineBreak +
+    'end; ' + UNIT_FOOTER;
+begin
+  TestProcessResult(TRemoveReturnsBeforeEnd, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
 initialization

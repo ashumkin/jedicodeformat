@@ -29,7 +29,9 @@ end;
 procedure TestBlankLines2;
 var
 
+
   a: integer;
+
 
   function GetA: integer;
   begin
@@ -40,6 +42,7 @@ var
 
   b: string;
 
+
 c,  d  ,e,f: double;
 
 begin
@@ -48,6 +51,7 @@ end;
 
 procedure TestBlankLines3;
 var
+
 
   a: integer;
 
@@ -67,6 +71,7 @@ var
 
 
 var
+
 
 c,  d  ,e,f: double;
 

@@ -81,7 +81,12 @@ uses
   Indenter in '..\Process\Indent\Indenter.pas',
   TestDeclarations in '..\Test\TestCases\TestDeclarations.pas',
   TestDeclIndent in '..\Test\TestCases\TestDeclIndent.pas',
-  TestNestedRecords in '..\Test\TestCases\TestNestedRecords.pas';
+  TestNestedRecords in '..\Test\TestCases\TestNestedRecords.pas',
+  PropertyOnOneLine in '..\Process\Spacing\PropertyOnOneLine.pas',
+  SpaceBeforeColon in '..\Process\Spacing\SpaceBeforeColon.pas',
+  VisitStripEmptySpace in '..\Process\VisitStripEmptySpace.pas',
+  RemoveBlankLinesAfterProcHeader in '..\Process\Spacing\RemoveBlankLinesAfterProcHeader.pas',
+  RemoveBlankLinesInVars in '..\Process\Spacing\RemoveBlankLinesInVars.pas';
 
 {$R *.res}
 

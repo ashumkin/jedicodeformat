@@ -22,6 +22,7 @@ TAllProcesses = class(TObject)
     procedure ClarifySetup;
     procedure Warnings;
     procedure Spacing;
+    procedure LineBreaking;
     procedure Capitalisation;
     procedure Indent;
   public
@@ -46,12 +47,16 @@ uses
   WarnCaseNoElse, WarnDestroy,
   { caps}
   SpecifiCWordCaps, Capitalisation,
-  { spacing}
-  PropertyOnOneLine, RemoveBlankLinesAfterProcHeader,
+  { returns }
+  ReturnChars,
+  RemoveReturnsAfterBegin, RemoveReturnsBeforeEnd,
+  PropertyOnOneLine,
+  RemoveBlankLinesAfterProcHeader, RemoveBlankLinesInVars,
   NoReturnBefore, NoReturnAfter, ReturnBefore, ReturnAfter,
-  NoSpaceAfter, NoSpaceBefore, SingleSpaceBefore, SingleSpaceAfter,
-  SpaceBeforeColon, VisitStripEmptySpace, 
   BlockStyles,
+  { spacing}
+  NoSpaceAfter, NoSpaceBefore, SingleSpaceBefore, SingleSpaceAfter,
+  SpaceBeforeColon, VisitStripEmptySpace,
   {indent}
   VisitSetNesting, Indenter;
 
@@ -91,6 +96,7 @@ begin
     ClarifySetup;
     Warnings;
     Capitalisation;
+    LineBreaking;
     Spacing;
     Indent;
   end;
@@ -139,17 +145,6 @@ end;
 
 procedure TAllProcesses.Spacing;
 begin
-  // apply them all
-  ApplyVisitorType(TPropertyOnOneLine);
-  ApplyVisitorType(TVisitStripEmptySpace);
-
-  ApplyVisitorType(TRemoveBlankLinesAfterProcHeader);
-  ApplyVisitorType(TVisitStripEmptySpace);
-
-  ApplyVisitorType(TNoReturnAfter);
-  ApplyVisitorType(TNoReturnBefore);
-  ApplyVisitorType(TReturnAfter);
-
   ApplyVisitorType(TNoSpaceAfter);
   ApplyVisitorType(TNoSpaceBefore);
   ApplyVisitorType(TVisitStripEmptySpace);
@@ -161,8 +156,35 @@ begin
   ApplyVisitorType(TSpaceBeforeColon);
   ApplyVisitorType(TVisitStripEmptySpace);
 
+end;
+
+
+procedure TAllProcesses.LineBreaking;
+begin
+  ApplyVisitorType(TReturnChars);
+
+  ApplyVisitorType(TPropertyOnOneLine);
+  ApplyVisitorType(TVisitStripEmptySpace);
+
+  ApplyVisitorType(TRemoveBlankLinesAfterProcHeader);
+  ApplyVisitorType(TVisitStripEmptySpace);
+  
+  ApplyVisitorType(TRemoveBlankLinesInVars);
+  ApplyVisitorType(TVisitStripEmptySpace);
+
+  ApplyVisitorType(TRemoveReturnsAfterBegin);
+  ApplyVisitorType(TVisitStripEmptySpace);
+
+  ApplyVisitorType(TRemoveReturnsBeforeEnd);
+  ApplyVisitorType(TVisitStripEmptySpace);
+
+  ApplyVisitorType(TNoReturnAfter);
+  ApplyVisitorType(TNoReturnBefore);
+  ApplyVisitorType(TReturnAfter);
+
   ApplyVisitorType(TBlockStyles);
 end;
+
 
 procedure TAllProcesses.Indent;
 begin

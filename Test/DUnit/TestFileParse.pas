@@ -230,7 +230,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestBlankLineRemoval;
 begin
-  TestParseFile('TestBlankLineRemoval', 369);
+  TestParseFile('TestBlankLineRemoval', 374);
 end;
 
 procedure TTestFileParse.TestParse_TestBogusDirectives;

@@ -117,6 +117,9 @@ const
 
   ObjectTypes = [nObjectType, nClassType, nInterfaceType];
 
+  { can declare these at the start of a procedure }
+  InProcedureDeclSections = [nVarSection, nConstSection, nLabelDeclSection, nTypeSection];
+
 
 function NodeTypeToString(const pe: TParseTreeNodeType): string;
 
@@ -158,7 +161,7 @@ begin
     nDeclSection:
       Result := 'Decl section';
     nLabelDeclSection:
-      Result := 'Decl section';
+      Result := 'Label decl section';
     nConstSection:
       Result := 'const section';
     nConstDecl:

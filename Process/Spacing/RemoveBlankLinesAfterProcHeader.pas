@@ -79,7 +79,6 @@ begin
   if not IsPlaceForBlankLineRemoval(lcSourceToken, lcNext) then
     exit;
 
-  { at most one return in the white space }
   liReturnCount := 0;
   liMaxReturns := 2;
   lcTest := lcSourceToken;

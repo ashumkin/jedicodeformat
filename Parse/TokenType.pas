@@ -126,11 +126,10 @@ const
   1) leave them as is
   2) turn to Lf
   3) turn to CrLf
-  4) Will be implemente when this runs in kylix: pick 2 or 3
-     depending on the Host OS, preference, ie CrLf for win, cr for 'nix
+  4) pick 2 or 3 depending on the Host OS, preference, ie CrLf for win, cr for 'nix
 }
 type
-  TReturnChars = (rcLeaveAsIs, rcLinefeed, rcCrLf);
+  TReturnChars = (rcLeaveAsIs, rcLinefeed, rcCrLf, rcPlatform);
 
 
 implementation

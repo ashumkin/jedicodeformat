@@ -13,10 +13,10 @@ uses
   SourceTokenList in '..\..\Parse\SourceTokenList.pas',
   TokenType in '..\..\Parse\TokenType.pas',
   fShowParseTree in '..\..\Parse\UI\fShowParseTree.pas' {frmShowParseTree},
+  Converter in '..\..\ReadWrite\Converter.pas',
   FileWriter in '..\..\ReadWrite\FileWriter.pas',
   CodeReader in '..\..\ReadWrite\CodeReader.pas',
   CodeWriter in '..\..\ReadWrite\CodeWriter.pas',
-  Converter in '..\..\ReadWrite\Converter.pas',
   ConvertTypes in '..\..\ReadWrite\ConvertTypes.pas',
   FileConverter in '..\..\ReadWrite\FileConverter.pas',
   FileReader in '..\..\ReadWrite\FileReader.pas',
@@ -90,7 +90,13 @@ uses
   VisitSetNesting in '..\..\Process\VisitSetNesting.pas',
   TestFullClarify in 'TestFullClarify.pas',
   SpaceBeforeColon in '..\..\Process\Spacing\SpaceBeforeColon.pas',
-  VisitStripEmptySpace in '..\..\Process\VisitStripEmptySpace.pas';
+  VisitStripEmptySpace in '..\..\Process\VisitStripEmptySpace.pas',
+  PropertyOnOneLine in '..\..\Process\Spacing\PropertyOnOneLine.pas',
+  RemoveBlankLinesAfterProcHeader in '..\..\Process\Spacing\RemoveBlankLinesAfterProcHeader.pas',
+  RemoveBlankLinesInVars in '..\..\Process\Spacing\RemoveBlankLinesInVars.pas',
+  ReturnChars in '..\..\Process\Spacing\ReturnChars.pas',
+  RemoveReturnsAfterBegin in '..\..\Process\Spacing\RemoveReturnsAfterBegin.pas',
+  RemoveReturnsBeforeEnd in '..\..\Process\Spacing\RemoveReturnsBeforeEnd.pas';
 
 {$R *.res}
 

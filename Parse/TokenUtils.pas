@@ -50,6 +50,7 @@ function SemicolonNext(const pt: TSourceToken): boolean;
   False if it is vars, consts, types etc
   or in asm }
 function InStatements(const pt: TSourceToken): Boolean;
+function InProcedureDeclarations(const pt: TsourceToken): Boolean;
 
 function IsCaseColon(const pt: TSourceToken): boolean;
 function IsLabelColon(const pt: TSourceToken): boolean;
@@ -292,6 +293,11 @@ function InStatements(const pt: TSourceToken): Boolean;
 begin
   Result := pt.HasParentNode(nStatementList) or pt.HasParentNode(nBlock);
   Result := Result and (not pt.HasParentNode(nAsm));
+end;
+
+function InProcedureDeclarations(const pt: TsourceToken): Boolean;
+begin
+  Result := (pt.HasParentNode(ProcedureNodes) and (pt.HasParentNode(InProcedureDeclSections)))
 end;
 
 function IsLabelColon(const pt: TSourceToken): boolean;
