@@ -27,7 +27,8 @@ under the License.
 interface
 
 uses
-  { delphi }Windows, SysUtils, Classes, ToolsAPI;
+  { delphi }
+  Windows, SysUtils, Classes, ToolsAPI;
 
 
 procedure Register;
@@ -35,8 +36,10 @@ procedure Register;
 implementation
 
 uses
-  { delphi }Menus, ActnList,
-  { local }JcfIdeMain, Delay;
+  { delphi }
+  Menus, ActnList,
+  { local }
+  JcfIdeMain, Delay;
 
 const
   MENU_TOOLS = '&Tools';
@@ -136,7 +139,8 @@ procedure AddMenuItems(var pbDoAgain: boolean);
 var
   fcMainMenu: TMenuItem;
 
-  procedure AddMenuItem(const psName: string; const pcHandler: TNotifyEvent);
+  procedure AddMenuItem(const psName: string; const pcHandler: TNotifyEvent;
+    const piShortCutKey: TShortCut = 0);
   var
     lcItem:   TMenuItem;
     lcAction: TAction;
@@ -155,13 +159,15 @@ var
     end
     else
     begin
-      lcAction      := TAction.Create(fcMainMenu);
+      lcAction := TAction.Create(fcMainMenu);
       lcAction.Category := StripHotKey(FORMAT_MENU_NAME);
-      lcAction.Name :=
-        'jcf' + StringReplace(StripHotKey(psName), ' ', '', [rfReplaceAll]) + 'Action';
+      lcAction.Name := 'jcf' + StringReplace(StripHotKey(psName), ' ', '', [rfReplaceAll]) + 'Action';
       lcAction.Caption := psName;
       lcAction.OnExecute := pcHandler;
       lcAction.ActionList := IDEactionList;
+      if piShortCutKey <> 0 then
+        lcAction.ShortCut := piShortCutKey;
+
       lcItem.Action := lcAction;
     end;
 
@@ -196,8 +202,9 @@ begin
   begin
     // it worked. Now add menu subitems
 
-    //liShortcut := Shortcut(ord('K'), [ssCtrl]);
-    AddMenuItem(FORMAT_CURRENT_NAME, lcJCFIDE.DoFormatCurrentIDEWindow);
+    AddMenuItem(FORMAT_CURRENT_NAME, lcJCFIDE.DoFormatCurrentIDEWindow,
+      ShortCut((Ord('F')), [ssCtrl, ssAlt]));
+
     AddMenuItem(FORMAT_PROJECT_NAME, lcJCFIDE.DoFormatProject);
     AddMenuItem(FORMAT_OPEN_NAME, lcJCFIDE.DoFormatOpen);
 
