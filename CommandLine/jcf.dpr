@@ -118,10 +118,9 @@ uses
   FileReader in '..\ReadWrite\FileReader.pas',
   Tokens in '..\Parse\Tokens.pas',
   SetWordList in '..\Settings\SetWordList.pas',
-  PreProcessorTokens in '..\Parse\PreProcessor\PreProcessorTokens.pas',
-  Preprocessor in '..\Parse\PreProcessor\PreProcessor.pas',
-  PreProcessorParse in '..\Parse\PreProcessor\PreProcessorParse.pas',
-  PreProcessorTokenise in '..\Parse\PreProcessor\PreProcessorTokenise.pas',
+  PreProcessorExpressionTokens in '..\Parse\PreProcessor\PreProcessorExpressionTokens.pas',
+  PreProcessorExpressionParser in '..\Parse\PreProcessor\PreProcessorExpressionParser.pas',
+  PreProcessorExpressionTokenise in '..\Parse\PreProcessor\PreProcessorExpressionTokenise.pas',
   JCFHelp in '..\Utils\JCFHelp.pas',
   SettingsTypes in '..\Settings\SettingsTypes.pas',
   SetPreprocessor in '..\Settings\SetPreProcessor.pas',
@@ -129,7 +128,8 @@ uses
   RemoveSpaceAtLineEnd in '..\Process\Spacing\RemoveSpaceAtLineEnd.pas',
   FindReplace in '..\Process\Transform\FindReplace.pas',
   fJcfErrorDisplay in '..\Ui\fJcfErrorDisplay.pas' {ExceptionDialog},
-  ReturnsAfterFinalEnd in '..\Process\Returns\ReturnsAfterFinalEnd.pas';
+  ReturnsAfterFinalEnd in '..\Process\Returns\ReturnsAfterFinalEnd.pas',
+  PreProcessorParseTree in '..\Parse\PreProcessor\PreProcessorParseTree.pas';
 
 const
   ABOUT_COMMANDLINE =

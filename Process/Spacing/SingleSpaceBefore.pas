@@ -129,7 +129,7 @@ begin
 
   { string that starts with # , ie char codes
   }
-  if pt.IsHashLiteral then
+  if HashLiteral(pt) then
   begin
     Result := True;
     exit;

@@ -52,5 +52,7 @@ in'LittleTest40.pas',testdefines in'TestDefines.pas',littletest41 in'LittleTest4
 ,littletest42 in'LittleTest42.pas',littletest43 in'LittleTest43.pas',littletest44
 in'LittleTest44.pas',littletest45 in'LittleTest45.pas',littletest46 in'LittleTest46.pas'
 ,littletest47 in'LittleTest47.pas',testwarndestroy in'TestWarnDestroy.pas',littletest48
-in'LittleTest48.pas',littletest49 in'LittleTest49.pas';{$R *.res}begin application
-.initialize;application.createform(tformtest,formtest);application.run;end. 
+in'LittleTest48.pas',littletest49 in'LittleTest49.pas',littletest50 in'LittleTest50.pas'
+,littletest51 in'LittleTest51.pas',littletest52 in'LittleTest52.pas',testsimpleifdef6
+in'TestSimpleIfDef6.pas';{$R *.res}begin application.initialize;application.createform
+(tformtest,formtest);application.run;end. 

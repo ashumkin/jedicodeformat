@@ -1,11 +1,5 @@
 unit ReduceWhiteSpace;
 
-{ AFS 28 Dec 2002
-
-  Visitor to reduce all whitespace to single spaces
-  Obfuscation
-}
-
 {(*}
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code 
@@ -28,6 +22,12 @@ under the License.
 {*)}
 
 interface
+
+{ AFS 28 Dec 2002
+
+  Visitor to reduce all whitespace to single spaces
+  Obfuscation
+}
 
 uses SwitchableVisitor, VisitParseTree;
 

@@ -1,9 +1,9 @@
 unit testsimpleifdef4;interface implementation procedure foo;cdecl;export;{$IFDEF LINUX}
+
 var
   I: Integer;
 begin
   I := 3;
 end;
-{$ENDIF}
-{$IFDEF MSWINDOWS}var k:integer;begin k:=4;end;{$ENDIF}procedure bar;begin end;end
-. 
+{$ENDIF}{$IFDEF MSWINDOWS}var k:integer
+;begin k:=4;end;{$ENDIF}procedure bar;begin end;end. 

@@ -56,8 +56,16 @@ begin
   inherited Create(psMessage);
 
   fcToken := pcToken;
-  fiXPosition := pcToken.XPosition;
-  fiYPosition := pcToken.YPosition;
+  if pcToken <> nil then
+  begin
+    fiXPosition := pcToken.XPosition;
+    fiYPosition := pcToken.YPosition;
+  end
+  else
+  begin
+    fiXPosition := -1;
+    fiYPosition := -1;
+  end;
 end;
 
 function TEParseError.GetTokenMessage: string;

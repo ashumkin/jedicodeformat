@@ -126,6 +126,9 @@ function IsIdentifier(const pt: TSourceToken): boolean;
 
 function IsHintDirective(const pt: TSourceToken): boolean;
 
+function HashLiteral(const pt: TSourceToken): boolean;
+
+
 implementation
 
 uses
@@ -468,6 +471,7 @@ begin
   if (pcToken.CommentStyle = eDoubleSlash) then
     exit;
 
+  // otherwise, if it contains a return it's not single line 
   if (Pos (AnsiLineBreak, pcToken.SourceCode) <= 0) then
     exit;
 
@@ -659,6 +663,11 @@ begin
 
   if Result then
     Result := pt.HasParentNode(nHintDirectives, 1);
+end;
+
+function HashLiteral(const pt: TSourceToken): boolean;
+begin
+  Result := (pt.TokenType = ttLiteralString) and (StrLeft(pt.SourceCode, 1) = '#');
 end;
 
 

@@ -1,4 +1,4 @@
 unit testsimpleifdef2;interface implementation uses{$IFDEF MSWINDOWS}sysutils{$ELSE}
+
 FooLinux
-{$ENDIF}
-;end. 
+{$ENDIF};end. 

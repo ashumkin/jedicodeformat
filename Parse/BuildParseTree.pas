@@ -309,7 +309,7 @@ var
 
   function DescribeTarget: string;
   begin
-    Result := '" ';
+    Result := '"';
 
     if peTokenTypes <> [] then
       Result := Result + TokenTypesToString(peTokenTypes);
@@ -1827,7 +1827,7 @@ begin
   else
     Raise TEParseError.Create('unexpected token in factor', lc);
 
-  if TokenList.FirstSolidTokenType in [ttHat, ttDot] then
+  if TokenList.FirstSolidTokenType in [ttHat, ttDot, ttOpenSquareBracket] then
     RecogniseDesignatorTail;
 end;
 

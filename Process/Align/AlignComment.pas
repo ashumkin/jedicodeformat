@@ -102,6 +102,11 @@ var
 begin
   // must be a comment on one line
   Result := IsSingleLineComment(pt);
+
+  { don't align compiler directives like other comments }
+  if Result then
+    Result := (pt.CommentStyle <> eCompilerDirective);
+
   if Result then
   begin
 

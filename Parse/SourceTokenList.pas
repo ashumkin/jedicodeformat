@@ -98,7 +98,10 @@ end;
 
 function TSourceTokenList.Count: integer;
 begin
-  Result := fcList.Count;
+  if fcList = nil then
+    Result := 0
+  else
+    Result := fcList.Count;
 end;
 
 procedure TSourceTokenList.Clear;

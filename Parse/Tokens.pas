@@ -387,9 +387,28 @@ const
   CURLY_COMMENTS: TCommentStyleSet = [eCurly, eCompilerDirective];
 
 
+{ preprocessor symbols }
+type
+  TPreProcessorSymbolType = (ppNone,
+    ppDefine, ppUndef,
+    ppIfDef, ppIfNotDef, ppIfOpt, ppIfExpr, ppElseIf,
+    ppElse, ppEndIf, ppIfEnd);
+
+  TPreProcessorSymbolTypeSet = set of TPreProcessorSymbolType;
+
+const
+  OLD_PREPROC_BLOCK_END = [ppElseIf, ppElse, ppEndIf];
+  NEW_PREPROC_BLOCK_END = [ppElseIf, ppElse, ppIfEnd];
+
+procedure GetPreprocessorSymbolData(const psSourceCode: string;
+  var peSymbolType: TPreProcessorSymbolType; var psText: string);
+
+function PreProcSymbolTypeToString(const peSymbolType: TPreProcessorSymbolType): string;
+
 implementation
 
-uses SysUtils;
+uses SysUtils,
+  JclStrings;
 
 { the majority of these tokens have a fixed textual representation
   e.g. ':=', 'if'.
@@ -904,6 +923,90 @@ begin
         break;
       end;
     end;
+  end;
+end;
+
+const
+  PreProcessorSymbolData: array[TPreProcessorSymbolType] of string = (
+    '$$$$$$$$$$',
+    '{$DEFINE',
+    '{$UNDEF',
+    '{$IFDEF',
+    '{$IFNDEF',
+    '{$IFOPT',
+    '{$IF',
+    '{$ELSEIF',
+    '{$ELSE',
+    '{$ENDIF',
+    '{$IFEND'
+  );
+
+
+{ given a token, identify the preprocessor symbol and the text after it }
+procedure GetPreprocessorSymbolData(const psSourceCode: string;
+  var peSymbolType: TPreProcessorSymbolType; var psText: string);
+var
+  leLoop: TPreProcessorSymbolType;
+  liItemLen: integer;
+begin
+  peSymbolType := ppNone;
+  psText := '';
+
+  for leLoop := low(TPreProcessorSymbolType) to High(TPreProcessorSymbolType) do
+  begin
+    if leLoop = ppNone then
+      continue;
+
+    liItemLen := Length(PreProcessorSymbolData[leLoop]);
+    if AnsiSameText(StrLeft(psSourceCode, liItemLen), PreProcessorSymbolData[leLoop]) and
+      (not CharIsAlpha(psSourceCode[liItemLen + 1])) then
+    begin
+      peSymbolType := leLoop;
+      break;
+    end;
+  end;
+
+  if peSymbolType = ppNone then
+    exit;
+
+  psText := StrRestOf(psSourceCode, Length(PreProcessorSymbolData[peSymbolType]) + 1);
+
+  if psText <> '' then
+  begin
+    if StrRight(psText, 1) = '}' then
+      psText := StrChopRight(psText, 1);
+
+    psText := Trim(psText);
+  end;
+end;
+
+function PreProcSymbolTypeToString(const peSymbolType: TPreProcessorSymbolType): string;
+begin
+  case peSymbolType of
+    ppNone:
+      Result := 'none';
+    ppDefine:
+      Result := '$DEFINE';
+    ppUndef:
+      Result := '$UNDEF';
+    ppIfDef:
+      Result := '$IFDEF';
+    ppIfNotDef:
+      Result := '$IFNDEF';
+    ppIfOpt:
+      Result := '$IFOPT';
+    ppIfExpr:
+      Result := '$IFEXPR';
+    ppElseIf:
+      Result := '$ELSEIF';
+    ppElse:
+      Result := '$ELSE';
+    ppEndIf:
+      Result := '$ENDIF';
+    ppIfEnd:
+      Result := '$IFEND';
+    else
+      Assert(False);
   end;
 end;
 

@@ -7,11 +7,14 @@ uses SysUtils, Windows;
 type
   ejclerror = class(Exception)
 {$IFNDEF DELPHI5_UP}
+
+
   public
     constructor CreateRes(ResStringRec: PResStringRec); overload;
     constructor CreateResFmt(ResStringRec: PResStringRec; const Args: array of const);
     overload;
-  {$ENDIF}
+  
+{$ENDIF}
   end;
 
   tfred = class(TObject)
@@ -27,8 +30,11 @@ type
   int64  = packed record
     case integer of
       0: (lowpart: dword;
-        highpart: longint);   {$IFNDEF BCB3}
-      1: (quadpart: longlong);{$ENDIF}
+        highpart:
+        longint);
+{$IFNDEF BCB3}
+      1: (quadpart: longlong);
+{$ENDIF}
   end;
 
 const
@@ -37,6 +43,8 @@ const
   dynsinglearrayhigh   = 268435448;
 
 {$IFDEF MATH_EXTENDED_PRECISION}
+
+
   DynFloatArrayHigh = 214748363;  // 2^31 / SizeOf(Extended)
   {$ENDIF}
 procedure i64assign(var i: int64; low, high: longint);
@@ -61,7 +69,8 @@ end;
 
 constructor ejclwin32error.createres(ident: integer);
 begin
-  flasterror    := getlasterror;
+  flasterror    :=
+    getlasterror;
   flasterrormsg := syserrormessage(flasterror);
   inherited createfmt(loadstr(ident) + #13 + 'Win32: %s (%u)', [flasterrormsg, flasterror]);
 end;
@@ -82,7 +91,8 @@ begin
     raise Exception.Create('');
   if initiallength < 0 then
     initiallength := 0;
-  size := dynarrayrecsize + (initiallength * elementsize);
+  size :=
+    dynarrayrecsize + (initiallength * elementsize);
   p := allocmem(size);
   with tdynarrayrec(p^) do
   begin

@@ -148,10 +148,9 @@ contains
   SetUses in '..\Settings\SetUses.pas',
   MozComment in '..\Process\Onceoffs\MozComment.pas',
   SetWordList in '..\Settings\SetWordList.pas',
-  Preprocessor in '..\Parse\PreProcessor\PreProcessor.pas',
-  PreProcessorParse in '..\Parse\PreProcessor\PreProcessorParse.pas',
-  PreProcessorTokenise in '..\Parse\PreProcessor\PreProcessorTokenise.pas',
-  PreProcessorTokens in '..\Parse\PreProcessor\PreProcessorTokens.pas',
+  PreProcessorExpressionParser in '..\Parse\PreProcessor\PreProcessorExpressionParser.pas',
+  PreProcessorExpressionTokenise in '..\Parse\PreProcessor\PreProcessorExpressionTokenise.pas',
+  PreProcessorExpressionTokens in '..\Parse\PreProcessor\PreProcessorExpressionTokens.pas',
   frPreProcessor in '..\Ui\Settings\frPreProcessor.pas' {fPreProcessor: TFrame},
   ParseTreeNode in '..\Parse\ParseTreeNode.pas',
   UnitNameCaps in '..\Process\Capitalisation\UnitNameCaps.pas',
@@ -176,6 +175,7 @@ contains
   ParseTreeNodeType in '..\Parse\ParseTreeNodeType.pas',
   Tokens in '..\Parse\Tokens.pas',
   BuildParseTree in '..\Parse\BuildParseTree.pas',
-  JcfMiscFunctions in '..\Utils\JcfMiscFunctions.pas';
+  JcfMiscFunctions in '..\Utils\JcfMiscFunctions.pas',
+  PreProcessorParseTree in '..\Parse\PreProcessor\PreProcessorParseTree.pas';
 
 end.

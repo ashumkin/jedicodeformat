@@ -137,10 +137,9 @@ uses
   SettingsTypes in '..\Settings\SettingsTypes.pas',
   SetWordList in '..\Settings\SetWordList.pas',
   UnitNameCaps in '..\Process\Capitalisation\UnitNameCaps.pas',
-  PreProcessorTokens in '..\Parse\PreProcessor\PreProcessorTokens.pas',
-  Preprocessor in '..\Parse\PreProcessor\PreProcessor.pas',
-  PreProcessorParse in '..\Parse\PreProcessor\PreProcessorParse.pas',
-  PreProcessorTokenise in '..\Parse\PreProcessor\PreProcessorTokenise.pas',
+  PreProcessorExpressionTokens in '..\Parse\PreProcessor\PreProcessorExpressionTokens.pas',
+  PreProcessorExpressionParser in '..\Parse\PreProcessor\PreProcessorExpressionParser.pas',
+  PreProcessorExpressionTokenise in '..\Parse\PreProcessor\PreProcessorExpressionTokenise.pas',
   frPreProcessor in '..\Ui\Settings\frPreProcessor.pas' {fPreProcessor: TFrame},
   SetPreprocessor in '..\Settings\SetPreProcessor.pas',
   RemoveSpaceAtLineEnd in '..\Process\Spacing\RemoveSpaceAtLineEnd.pas',
@@ -150,7 +149,8 @@ uses
   ReturnsAfterFinalEnd in '..\Process\Returns\ReturnsAfterFinalEnd.pas',
   UsesClauseInsert in '..\Process\Transform\UsesClauseInsert.pas',
   UsesClauseRemove in '..\Process\Transform\UsesClauseRemove.pas',
-  UsesClauseFindReplace in '..\Process\Transform\UsesClauseFindReplace.pas';
+  UsesClauseFindReplace in '..\Process\Transform\UsesClauseFindReplace.pas',
+  PreProcessorParseTree in '..\Parse\PreProcessor\PreProcessorParseTree.pas';
 
 {$R *.res}
 

@@ -44,7 +44,6 @@ type
     cbKeepWithInProc: TCheckBox;
     cbKeepWithInGlobals: TCheckBox;
     cbKeepWithInClassDef: TCheckBox;
-    cbBorlandCaseIndent: TCheckBox;
     procedure cbIndentBeginEndClick(Sender: TObject);
     procedure cbHasFirstLevelIndentClick(Sender: TObject);
   private

@@ -1,4 +1,27 @@
-unit PreProcessorParse;
+unit PreProcessorExpressionParser;
+
+{(*}
+(*------------------------------------------------------------------------------
+ Delphi Code formatter source code 
+
+The Original Code is PreProcessorParse, released October 2003.
+The Initial Developer of the Original Code is Anthony Steele. 
+Portions created by Anthony Steele are Copyright (C) 2003 Anthony Steele.
+All Rights Reserved. 
+Contributor(s): Anthony Steele. 
+
+The contents of this file are subject to the Mozilla Public License Version 1.1
+(the "License"). you may not use this file except in compliance with the License.
+You may obtain a copy of the License at http://www.mozilla.org/NPL/
+
+Software distributed under the License is distributed on an "AS IS" basis,
+WITHOUT WARRANTY OF ANY KIND, either express or implied.
+See the License for the specific language governing rights and limitations 
+under the License.
+------------------------------------------------------------------------------*)
+{*)}
+
+interface
 
 {
   AFS 26 Aug 2003
@@ -11,6 +34,7 @@ unit PreProcessorParse;
   All these expression are in $IF preprocessor statements
   and thus have boolean results
 
+  The entire expression is contained in the text string of a single token
 
  Grammar:
 
@@ -29,24 +53,23 @@ unit PreProcessorParse;
  But that will necessitate symbols with values and some kind of type inference
 }
 
-interface
 
 uses
   { celphi }
-  Classes, SYsUtils,
+  Classes, SysUtils,
   { local }
-  PreProcessorTokens;
+  PreProcessorExpressionTokens;
 
 type
   { distinguish these exceptions from others }
   PreProcessorParseFailedException = class(Exception);
 
-  TPreProcessorParser = class(TObject)
+  TPreProcessorExpressionParser = class(TObject)
   private
     fiCurrentIndex: integer;
 
     // referenced data
-    fcTokens: TPreProcessorTokenList;
+    fcTokens: TPreProcessorExpressionTokenList;
     fcDefinedSymbols: TStrings;
 
     function ParseExpr: Boolean;
@@ -60,7 +83,7 @@ type
   public
     function Parse: Boolean;
 
-    property Tokens: TPreProcessorTokenList read  fcTokens write fcTokens;
+    property Tokens: TPreProcessorExpressionTokenList read  fcTokens write fcTokens;
     property DefinedSymbols: TStrings read fcDefinedSymbols write fcDefinedSymbols;
 
   end;
@@ -68,9 +91,9 @@ type
 
 implementation
 
-{ TPreProcessorParser }
+{ TPreProcessorExpressionParser }
 
-procedure TPreProcessorParser.Consume(const peType: TPreProcessorSymbol);
+procedure TPreProcessorExpressionParser.Consume(const peType: TPreProcessorSymbol);
 begin
   Assert(CurrentTokenType = peType,
     'expected token ' + PreProcessorSymbolToString(peType) +
@@ -79,17 +102,17 @@ begin
   inc(fiCurrentIndex)
 end;
 
-function TPreProcessorParser.CurrentTokenType: TPreProcessorSymbol;
+function TPreProcessorExpressionParser.CurrentTokenType: TPreProcessorSymbol;
 begin
   Result := fcTokens.Items[fiCurrentIndex].Symbol;
 end;
 
-function TPreProcessorParser.MoreTokens: Boolean;
+function TPreProcessorExpressionParser.MoreTokens: Boolean;
 begin
   Result := fcTokens.Count > fiCurrentIndex;
 end;
 
-function TPreProcessorParser.Parse: Boolean;
+function TPreProcessorExpressionParser.Parse: Boolean;
 begin
   Assert(fcTokens <> nil);
   Assert(fcTokens.Count > 0);
@@ -101,7 +124,7 @@ begin
     Raise PreProcessorParseFailedException.Create('Expression has trailing tokens');
 end;
 
-function TPreProcessorParser.ParseExpr: Boolean;
+function TPreProcessorExpressionParser.ParseExpr: Boolean;
 var
   lbExprResult: Boolean;
 begin
@@ -136,7 +159,7 @@ begin
   end;
 end;
 
-function TPreProcessorParser.ParseTerm: Boolean;
+function TPreProcessorExpressionParser.ParseTerm: Boolean;
 begin
 
   case CurrentTokenType of
@@ -177,7 +200,7 @@ begin
 end;
 
 
-function TPreProcessorParser.SymbolIsDefined(const psSymbol: string): Boolean;
+function TPreProcessorExpressionParser.SymbolIsDefined(const psSymbol: string): Boolean;
 begin
   Result := DefinedSymbols.IndexOf(psSymbol) >= 0;
 end;

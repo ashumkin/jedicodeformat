@@ -14,12 +14,14 @@ implementation
   {$IFDEF FOO}
 
   {$ELSE}
+
     for this is not object-pascal, sha la la la la.
   {$ENDIF}
 
 {$UNDEF FOO}
 
   {$IFDEF FOO}
+
     A little piece of text 
   {$ELSE}
 

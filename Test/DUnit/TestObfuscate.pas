@@ -91,6 +91,9 @@ type
     procedure TestObfuscate_LittleTest47;
     procedure TestObfuscate_LittleTest48;
     procedure TestObfuscate_LittleTest49;
+    procedure TestObfuscate_LittleTest50;
+    procedure TestObfuscate_LittleTest51;
+    procedure TestObfuscate_LittleTest52;
 
     procedure TestObfuscate_TestAbsolute;
     procedure TestObfuscate_TestAlign;
@@ -168,6 +171,7 @@ type
     procedure TestObfuscate_TestSimpleIfdef3;
     procedure TestObfuscate_TestSimpleIfdef4;
     procedure TestObfuscate_TestSimpleIfdef5;
+    procedure TestObfuscate_TestSimpleIfdef6;
 
     procedure TestObfuscate_TestTestMH;
     procedure TestObfuscate_TestTPObjects;
@@ -1029,6 +1033,26 @@ end;
 procedure TTestObfuscate.TestObfuscate_LittleTest49;
 begin
   TestObfuscateFile('LittleTest49');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest50;
+begin
+  TestObfuscateFile('LittleTest50');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest51;
+begin
+  TestObfuscateFile('LittleTest51');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest52;
+begin
+  TestObfuscateFile('LittleTest52');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestSimpleIfdef6;
+begin
+  TestObfuscateFile('TestSimpleIfdef6');
 end;
 
 initialization

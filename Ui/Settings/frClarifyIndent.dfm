@@ -116,12 +116,4 @@ inherited fClarifyIndent: TfClarifyIndent
     Caption = 'Keep single-line comments with code in class definitions'
     TabOrder = 10
   end
-  object cbBorlandCaseIndent: TCheckBox
-    Left = 4
-    Top = 228
-    Width = 189
-    Height = 17
-    Caption = 'Borland style case indents'
-    TabOrder = 11
-  end
 end

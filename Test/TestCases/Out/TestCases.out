@@ -133,7 +133,11 @@ uses
   LittleTest47 in 'LittleTest47.pas',
   TestWarnDestroy in 'TestWarnDestroy.pas',
   LittleTest48 in 'LittleTest48.pas',
-  LittleTest49 in 'LittleTest49.pas';
+  LittleTest49 in 'LittleTest49.pas',
+  LittleTest50 in 'LittleTest50.pas',
+  LittleTest51 in 'LittleTest51.pas',
+  LittleTest52 in 'LittleTest52.pas',
+  TestSimpleIfDef6 in 'TestSimpleIfDef6.pas';
 
 {$R *.res}
 

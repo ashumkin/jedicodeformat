@@ -186,6 +186,8 @@ end;
 
 
 function NeedsReturn(const pt, ptNext: TSourceToken): boolean;
+var
+  lcPrev: TSourceToken;
 begin
   Result := False;
 
@@ -195,9 +197,22 @@ begin
   if pt.HasParentNode(nAsm) then
     exit;
 
-  Result := (pt.TokenType in WordsReturnBefore);
-  if Result = True then
+  if (pt.TokenType in WordsReturnBefore) then
+  begin
+    Result := True;
     exit;
+  end;
+  
+  { return before compiler directives }
+  if (pt.CommentStyle = eCompilerDirective) then
+  begin
+    lcPrev := pt.PriorToken;
+    if (lcPrev <> nil) and (lcPrev.TokenType <> ttConditionalCompilationRemoved) then
+      begin
+        Result := True;
+        exit;
+      end;
+  end;
 
   { there is not always a return before 'type'
     e.g.

@@ -4,12 +4,12 @@ interface
 
 uses
   TestFrameWork,
-  PreProcessor;
+  PreProcessorParseTree;
 
 type
   TTestPreprocessorTokens = class(TTestCase)
   private
-    fcPreProcessor: TPreProcessor;
+    fcPreProcessor: TPreProcessorParseTree;
 
     function EvalPreProcessorExpression(const ps: string): boolean;
 
@@ -37,7 +37,7 @@ uses
 function TTestPreprocessorTokens.EvalPreProcessorExpression(
   const ps: string): boolean;
 begin
-  Result := fcPreProcessor.EvalPreProcessorExpression(ps); 
+  Result := fcPreProcessor.EvalPreProcessorExpression(ps);
 end;
 
 procedure TTestPreprocessorTokens.TestFalse(const ps: string);
@@ -71,7 +71,7 @@ begin
 
   GetRegSettings.FormatConfigFileName := lsSettingsFileName;
 
-  fcPreProcessor := TPreProcessor.Create;
+  fcPreProcessor := TPreProcessorParseTree.Create;
 
   fcPreProcessor.AddDefinedSymbol('foo');
   fcPreProcessor.AddDefinedSymbol('bar');

@@ -68,7 +68,7 @@ uses
   TestFramework;
 
 const
-  EXPECTED_FILE_COUNT = 141;
+  EXPECTED_FILE_COUNT = 145;
 
 procedure TTestCommandline.SetUp;
 begin

@@ -141,16 +141,16 @@ uses
   SetWordList in '..\Settings\SetWordList.pas',
   frUnitCaps in '..\Ui\Settings\frUnitCaps.pas' {frUnitNameCaps: TFrame},
   frPreProcessor in '..\Ui\Settings\frPreProcessor.pas' {fPreProcessor: TFrame},
-  PreProcessorTokens in '..\Parse\PreProcessor\PreProcessorTokens.pas',
-  PreProcessorParse in '..\Parse\PreProcessor\PreProcessorParse.pas',
-  PreProcessorTokenise in '..\Parse\PreProcessor\PreProcessorTokenise.pas',
-  PreProcessor in '..\Parse\PreProcessor\PreProcessor.pas',
+  PreProcessorExpressionTokens in '..\Parse\PreProcessor\PreProcessorExpressionTokens.pas',
+  PreProcessorExpressionParser in '..\Parse\PreProcessor\PreProcessorExpressionParser.pas',
+  PreProcessorExpressionTokenise in '..\Parse\PreProcessor\PreProcessorExpressionTokenise.pas',
   SetPreprocessor in '..\Settings\SetPreprocessor.pas',
   UnitNameCaps in '..\Process\Capitalisation\UnitNameCaps.pas',
   RemoveSpaceAtLineEnd in '..\Process\Spacing\RemoveSpaceAtLineEnd.pas',
   FindReplace in '..\Process\Transform\FindReplace.pas',
   fJcfErrorDisplay in '..\Ui\fJcfErrorDisplay.pas' {ExceptionDialog},
-  ReturnsAfterFinalEnd in '..\Process\Returns\ReturnsAfterFinalEnd.pas';
+  ReturnsAfterFinalEnd in '..\Process\Returns\ReturnsAfterFinalEnd.pas',
+  PreProcessorParseTree in '..\Parse\PreProcessor\PreProcessorParseTree.pas';
 
 {$R *.res}
 

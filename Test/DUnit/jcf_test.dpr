@@ -137,10 +137,9 @@ uses
   UnitNameCaps in '..\..\Process\Capitalisation\UnitNameCaps.pas',
   TestSelfParse in 'TestSelfParse.pas',
   TestPreprocessorTokens in 'TestPreprocessorTokens.pas',
-  PreProcessorTokens in '..\..\Parse\PreProcessor\PreProcessorTokens.pas',
-  Preprocessor in '..\..\Parse\PreProcessor\PreProcessor.pas',
-  PreProcessorParse in '..\..\Parse\PreProcessor\PreProcessorParse.pas',
-  PreProcessorTokenise in '..\..\Parse\PreProcessor\PreProcessorTokenise.pas',
+  PreProcessorExpressionTokens in '..\..\Parse\PreProcessor\PreProcessorExpressionTokens.pas',
+  PreProcessorExpressionParser in '..\..\Parse\PreProcessor\PreProcessorExpressionParser.pas',
+  PreProcessorExpressionTokenise in '..\..\Parse\PreProcessor\PreProcessorExpressionTokenise.pas',
   JCFHelp in '..\..\Utils\JCFHelp.pas',
   SettingsTypes in '..\..\Settings\SettingsTypes.pas',
   SetPreprocessor in '..\..\Settings\SetPreProcessor.pas',
@@ -149,7 +148,8 @@ uses
   ReturnsAfterFinalEnd in '..\..\Process\Returns\ReturnsAfterFinalEnd.pas',
   UsesClauseRemove in '..\..\Process\Transform\UsesClauseRemove.pas',
   UsesClauseFindReplace in '..\..\Process\Transform\UsesClauseFindReplace.pas',
-  UsesClauseInsert in '..\..\Process\Transform\UsesClauseInsert.pas';
+  UsesClauseInsert in '..\..\Process\Transform\UsesClauseInsert.pas',
+  PreProcessorParseTree in '..\..\Parse\PreProcessor\PreProcessorParseTree.pas';
 
 {
   gpprof in '..\..\..\..\..\Program Files\GpProfile\gpprof.pas',

@@ -1,4 +1,4 @@
-unit PreProcessorTokenise;
+unit PreProcessorExpressionTokenise;
 
 {
   AFS 26 Aug 2003
@@ -11,16 +11,16 @@ unit PreProcessorTokenise;
 
 interface
 
-uses PreProcessorTokens;
+uses PreProcessorExpressionTokens;
 
 type
-  TPreProcessorTokeniser = class
+  TPreProcessorExpressionTokeniser = class
   private
     fsExpr: string;
     fiCurrentIndex: integer;
     fbHasError: Boolean;
 
-    fcTokens: TPreProcessorTokenList;
+    fcTokens: TPreProcessorExpressionTokenList;
 
     function Rest: string;
     function StartsWith(const ps: string): Boolean;
@@ -36,7 +36,7 @@ type
     procedure Tokenise;
 
     property Expression: string read fsExpr write fsExpr;
-    property Tokens: TPreProcessorTokenList read fcTokens;
+    property Tokens: TPreProcessorExpressionTokenList read fcTokens;
     property HasError: boolean read fbHasError;
   end;
 
@@ -47,29 +47,29 @@ uses
   JclStrings;
 
 
-constructor TPreProcessorTokeniser.Create;
+constructor TPreProcessorExpressionTokeniser.Create;
 begin
   inherited;
-  fcTokens := TPreProcessorTokenList.Create;
+  fcTokens := TPreProcessorExpressionTokenList.Create;
 end;
 
-destructor TPreProcessorTokeniser.Destroy;
+destructor TPreProcessorExpressionTokeniser.Destroy;
 begin
   FreeAndNil(fcTokens);
   inherited;
 end;
 
-function TPreProcessorTokeniser.Rest: string;
+function TPreProcessorExpressionTokeniser.Rest: string;
 begin
   Result := StrRestOf(fsExpr, fiCurrentIndex);
 end;
 
-function TPreProcessorTokeniser.StartsWith(const ps: string): Boolean;
+function TPreProcessorExpressionTokeniser.StartsWith(const ps: string): Boolean;
 begin
   Result := AnsiSameText(StrLeft(Rest, length(ps)), ps);
 end;
 
-procedure TPreProcessorTokeniser.Tokenise;
+procedure TPreProcessorExpressionTokeniser.Tokenise;
 begin
   fcTokens.Clear;
   fiCurrentIndex := 1;
@@ -90,7 +90,7 @@ begin
 
 end;
 
-function TPreProcessorTokeniser.TryConsumeFixedSymbol: boolean;
+function TPreProcessorExpressionTokeniser.TryConsumeFixedSymbol: boolean;
 var
   leLoop: TPreProcessorSymbol;
   lbFound: boolean;
@@ -113,7 +113,7 @@ begin
 end;
 
 
-function TPreProcessorTokeniser.TryConsumeIdentifier: boolean;
+function TPreProcessorExpressionTokeniser.TryConsumeIdentifier: boolean;
 var
   liStart: integer;
   lsIdentifierText: string;
@@ -134,7 +134,7 @@ begin
 end;
 
 
-procedure TPreProcessorTokeniser.ConsumeWhiteSpace;
+procedure TPreProcessorExpressionTokeniser.ConsumeWhiteSpace;
 begin
   // this lexer can ignore the white space
   while (fiCurrentIndex < Length(fsExpr)) and CharIsWhiteSpace(fsExpr[fiCurrentIndex]) do

@@ -15,6 +15,7 @@ type
 
   EJclError = class(Exception)
   {$IFNDEF DELPHI5_UP}
+
   public
     constructor CreateRes(ResStringRec: PResStringRec); overload;
     constructor CreateResFmt(ResStringRec: PResStringRec; const Args: array of const);
@@ -49,6 +50,7 @@ const
   DynDoubleArrayHigh   = 536870908;  // 2^31 / SizeOf(Double)
   DynSingleArrayHigh   = 268435448;  // 2^31 / SizeOf(Single)
   {$IFDEF MATH_EXTENDED_PRECISION}
+
   DynFloatArrayHigh = 214748363;  // 2^31 / SizeOf(Extended)
   {$ENDIF}
 

@@ -42,6 +42,10 @@ type
 
     fiXPosition, fiYPosition: integer;
     fiSolidTokenOnLineIndex: integer;
+    fbPreprocessedOut: Boolean;
+
+    fePreprocessorSymbol: TPreProcessorSymbolType;
+    fsPreProcessorText: string;
 
   protected
   public
@@ -69,7 +73,7 @@ type
     function NextTokenWithExclusions(const peExclusions: TTokenTypeSet): TSourceToken;
     function PriorTokenWithExclusions(const peExclusions: TTokenTypeSet): TSourceToken;
 
-    function IsHashLiteral: boolean;
+    procedure GeneratePreProcessorData;
 
     property TokenType: TTokenType read feTokenType write feTokenType;
     property WordType: TWordType read feWordType write feWordType;
@@ -80,6 +84,11 @@ type
     property XPosition: integer read fiXPosition write fiXPosition;
     property YPosition: integer read fiYPosition write fiYPosition;
     property SolidTokenOnLineIndex: integer read fiSolidTokenOnLineIndex write fiSolidTokenOnLineIndex;
+
+    property PreprocessorSymbol: TPreProcessorSymbolType read fePreprocessorSymbol;
+    property PreProcessorText: string read fsPreProcessorText;
+
+    property PreprocessedOut: Boolean read fbPreprocessedOut write fbPreprocessedOut;
   end;
 
   TSourceTokenProcedure = procedure(const pt: TSourceToken) of object;
@@ -98,8 +107,20 @@ uses
 constructor TSourceToken.Create;
 begin
   inherited;
+
   feTokenType  := ttUnknown;
   fsSourceCode := '';
+
+  feWordType := wtNotAWord;
+  feCommentStyle := eNotAComment;
+
+  fiXPosition := -1;
+  fiYPosition := -1;
+  fiSolidTokenOnLineIndex := -1;
+
+  fePreprocessorSymbol := ppNone;
+  fsPreProcessorText := '';
+  fbPreprocessedOut := False;
 end;
 
 
@@ -230,14 +251,14 @@ begin
     Result := nil;
 end;
 
-function TSourceToken.IsHashLiteral: boolean;
-begin
-  Result := (TokenType = ttLiteralString) and (StrLeft(SourceCode, 1) = '#');
-end;
-
 function TSourceToken.IsLeaf: Boolean;
 begin
   Result := True;
+end;
+
+procedure TSourceToken.GeneratePreProcessorData;
+begin
+  GetPreprocessorSymbolData(SourceCode, fePreprocessorSymbol, fsPreProcessorText);
 end;
 
 end.

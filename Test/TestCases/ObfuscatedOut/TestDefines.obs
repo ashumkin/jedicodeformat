@@ -1,21 +1,22 @@
 unit testdefines;interface implementation{$UNDEF FOO}{$UNDEF BAR}procedure test1
 ;begin{$IF (not Defined(FOO)) and (not defined(BAR))}end;{$IFEND}{$IF Defined(FOO) or defined(BAR)}
+
   1 wakka wakka wakka
-{$IFEND}
-{$DEFINE FOO}procedure test2;begin{$IF Defined(FOO) or defined(BAR)}end;{$IFEND}{$IF defined(BAR)}
+{$IFEND}{$DEFINE FOO}procedure test2;begin{$IF Defined(FOO) or defined(BAR)}
+end;{$IFEND}{$IF defined(BAR)}
   2 wakka wakka wakka
-{$IFEND}
-{$IF not Defined(FOO)}
+{$IFEND}{$IF not Defined(FOO)}
+
   3 wakka wakka wakka
-{$IFEND}{$UNDEF FOO}{$DEFINE BAR}procedure
-test3;begin{$IF Defined(FOO) or defined(BAR)}end;{$IFEND}{$IF Defined(FOO)}
+{$IFEND}{$UNDEF FOO}{$DEFINE BAR}procedure test3;begin{$IF Defined(FOO) or defined(BAR)}
+end;{$IFEND}{$IF Defined(FOO)}
   4 wakka wakka wakka
-{$IFEND}
-{$IF Defined(FOO) and defined(BAR)}
+{$IFEND}{$IF Defined(FOO) and defined(BAR)}
+
   5 wakka wakka wakka
-{$IFEND}{$DEFINE FOO}
-{$DEFINE BAR}{$UNDEF FISH}procedure test4;begin{$IF (Defined(FOO) and defined(BAR)) and not defined(FISH)}
-end;{$IFEND}{$IF Defined(FOO) and defined(BAR) and defined(FISH)}
+{$IFEND}{$DEFINE FOO}{$DEFINE BAR}{$UNDEF FISH}procedure
+test4;begin{$IF (Defined(FOO) and defined(BAR)) and not defined(FISH)}end;{$IFEND}
+{$IF Defined(FOO) and defined(BAR) and defined(FISH)}
   6 wakka wakka wakka
 {$IFEND}
 {$IF (Defined(FOO) or defined(BAR)) and defined(FISH)}
@@ -25,8 +26,8 @@ end;{$IFEND}{$IF Defined(FOO) and defined(BAR) and defined(FISH)}
 end;{$IFEND}procedure test6;begin{$IF Defined(FOO) or defined(BAR) or defined(FISH)}
 end;{$IFEND}{$IF (Defined(FOO) or defined(BAR)) and not defined(FISH)}
   8 wakka wakka wakka
-{$IFEND}
-{$IF not defined(FISH) and (Defined(FOO) or defined(BAR)) }
+
+{$IFEND}{$IF not defined(FISH) and (Defined(FOO) or defined(BAR)) }
   9 wakka wakka wakka
-{$IFEND}
-end. 
+
+{$IFEND}end. 

@@ -4,9 +4,14 @@ interface
 
 implementation
 
-uses{$IFDEF MSWINDOWS}SysUtils
+uses
+{$IFDEF MSWINDOWS}
+  SysUtils
 {$ELSE}
+
+
 FooLinux
+
 {$ENDIF}  ;
 
 end.

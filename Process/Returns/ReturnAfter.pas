@@ -287,6 +287,13 @@ begin
     exit;
   end;
 
+  { return before compiler directives }
+  if (pt.CommentStyle = eCompilerDirective) and (ptNext.TokenType <> ttConditionalCompilationRemoved) then
+  begin
+    Result := True;
+    exit;
+  end;
+  
   { return after 'type' unless it's the second type in "type foo = type integer;" }
   if (pt.TokenType = ttType) and (pt.HasParentNode(nTypeSection, 1)) and
     (not pt.IsOnRightOf(nTypeDecl, ttEquals)) then

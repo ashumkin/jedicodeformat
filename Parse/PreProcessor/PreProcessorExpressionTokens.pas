@@ -1,4 +1,4 @@
-unit PreProcessorTokens;
+unit PreProcessorExpressionTokens;
 
 {
   AFS 26 Aug 2003
@@ -28,7 +28,7 @@ const
 
 type
 
-  TPreProcessorToken = class(TObject)
+  TPreProcessorExpressionToken = class(TObject)
   private
     feSymbol: TPreProcessorSymbol;
     fsSourceCode: string;
@@ -37,20 +37,20 @@ type
     property SourceCode: string read fsSOurceCode write fsSourceCode;
   end;
 
-  TPreProcessorTokenList = class(TObject)
+  TPreProcessorExpressionTokenList = class(TObject)
   private
     fcList: TObjectList;
 
-    function GetItems(const piIndex: integer): TPreProcessorToken;
+    function GetItems(const piIndex: integer): TPreProcessorExpressionToken;
     function GetCount: integer;
   public
     constructor Create;
     destructor Destroy; override;
 
-    function Add(const peSymbol: TPreProcessorSymbol; psText: string): TPreProcessorToken;
+    function Add(const peSymbol: TPreProcessorSymbol; psText: string): TPreProcessorExpressionToken;
     procedure Clear;
 
-    property Items[const piIndex: integer]: TPreProcessorToken read GetItems;
+    property Items[const piIndex: integer]: TPreProcessorExpressionToken read GetItems;
     property Count:  integer read GetCount;
   end;
 
@@ -90,44 +90,44 @@ begin
 
 end;
 
-{ TPreProcessorTokenList }
+{ TPreProcessorExpressionTokenList }
 
-function TPreProcessorTokenList.Add(const peSymbol: TPreProcessorSymbol; psText: string): TPreProcessorToken;
+function TPreProcessorExpressionTokenList.Add(const peSymbol: TPreProcessorSymbol; psText: string): TPreProcessorExpressionToken;
 begin
-  Result := TPreProcessorToken.Create;
+  Result := TPreProcessorExpressionToken.Create;
   Result.Symbol := peSymbol;
   Result.SourceCode := psText;
   
   fcList.Add(Result);
 end;
 
-procedure TPreProcessorTokenList.Clear;
+procedure TPreProcessorExpressionTokenList.Clear;
 begin
   fcList.Clear;
 end;
 
-constructor TPreProcessorTokenList.Create;
+constructor TPreProcessorExpressionTokenList.Create;
 begin
   inherited;
   // thiws is an owning list
   fcList := TObjectList.Create;
 end;
 
-destructor TPreProcessorTokenList.Destroy;
+destructor TPreProcessorExpressionTokenList.Destroy;
 begin
   FreeAndNil(fcList);
   inherited;
 
 end;
 
-function TPreProcessorTokenList.GetCount: integer;
+function TPreProcessorExpressionTokenList.GetCount: integer;
 begin
   Result := fcList.Count;
 end;
 
-function TPreProcessorTokenList.GetItems(const piIndex: integer): TPreProcessorToken;
+function TPreProcessorExpressionTokenList.GetItems(const piIndex: integer): TPreProcessorExpressionToken;
 begin
-  Result := TPreProcessorToken(fcList[piIndex]);
+  Result := TPreProcessorExpressionToken(fcList[piIndex]);
 end;
 
 
