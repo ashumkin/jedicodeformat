@@ -35,14 +35,16 @@ begin
   begin
     // use first token under this node for pos
     lcToken := TParseTreeNode(pcNode).FirstSolidLeaf as TSourceToken;
-  end;
+  end
+  else
+    lcToken := nil;
 
   if lcToken <> nil then
   begin
     lsMessage := lsMessage  + ' near ' + lcToken.Describe + ' ' + lcToken.DescribePosition;
     lsProc := GetProcedureName(lcToken, True, False);
     if lsProc <> '' then
-      lsMessage := lsMessage  + ' in ' + lsProc;
+      lsMessage := lsMessage  + ' in ' + GetBlockType(lcToken) + ' ' + lsProc;
   end;
 
   if Assigned(fOnWarning) then

@@ -62,7 +62,13 @@ uses
   WarnDestroy in '..\..\Process\Warnings\WarnDestroy.pas',
   WarnEmptyBlock in '..\..\Process\Warnings\WarnEmptyBlock.pas',
   WarnRealType in '..\..\Process\Warnings\WarnRealType.pas',
-  WarnAssignToFunctionName in '..\..\Process\Warnings\WarnAssignToFunctionName.pas';
+  WarnAssignToFunctionName in '..\..\Process\Warnings\WarnAssignToFunctionName.pas',
+  AllWarnings in '..\..\Process\Warnings\AllWarnings.pas',
+  TokenUtils in '..\..\Parse\TokenUtils.pas',
+  TestWarnings in 'TestWarnings.pas',
+  StringsWriter in '..\..\ReadWrite\StringsWriter.pas',
+  StringsConverter in '..\..\ReadWrite\StringsConverter.pas',
+  StringsReader in '..\..\ReadWrite\StringsReader.pas';
 
 {$R *.res}
 

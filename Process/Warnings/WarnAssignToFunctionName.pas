@@ -92,7 +92,7 @@ begin
   lcFunctionHeading := lcNode.GetImmediateChild([nFunctionHeading]);
   Assert(lcFunctionHeading <> nil);
 
-  lsName := ExtractNameFromFunctionHeading(lcFunctionHeading);
+  lsName := ExtractNameFromFunctionHeading(lcFunctionHeading, False);
 
   WarnAllAssigns(lsName, lcNode);
 end;

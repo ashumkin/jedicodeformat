@@ -23,8 +23,8 @@ uses SourceToken, ParseTreeNodeType, WordMap;
 
 procedure TWarnRealType.VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult);
 const
-  REAL_WARNING = ' This type is obsolete and is seldom useful. ' +
-    'See the help for details';
+  REAL_WARNING = ' This type is obsolete and is seldom useful';
+  // + 'See the help for details';
 var
   lcToken: TSourceToken;
 begin

@@ -16,6 +16,8 @@ Type
     public
      function MemberFoo: integer;
      function memberBar: integer;
+
+     procedure EmptyMember;
   end;
 
 
@@ -126,6 +128,14 @@ begin
   MemberBar := fish + 3;
 end;
 
+
+procedure TWhatever.EmptyMember;
+var
+  foo: real;
+begin
+
+end;
+
 Function Fred1: integer;
 begin
   TestDeclarations.Fred1 := 3;  // this is not an assign to the function name
@@ -162,7 +172,5 @@ begin
   Level1 := 0;
   Level1 := Level2 + Level1;
 end;
-
-
 
 end.

@@ -526,7 +526,7 @@ end;
 
 procedure TTestParse.TestParse_TestWarnings;
 begin
-  TestParseFile('TestWarnings', 558);
+  TestParseFile('TestWarnings', 700);
 end;
 
 procedure TTestParse.TestParse_TestCases;

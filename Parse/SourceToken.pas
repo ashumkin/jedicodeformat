@@ -64,6 +64,8 @@ type
 
     function NextToken: TSourceToken;
     function PriorToken: TSourceToken;
+    function NextSolidToken: TSourceToken;
+    function PriorSolidToken: TSourceToken;
 
 
     property TokenType: TTokenType read feTokenType write feTokenType;
@@ -158,6 +160,21 @@ begin
   Result := TSourceToken(PriorLeafNode);
 end;
 
+function TSourceToken.NextSolidToken: TSourceToken;
+begin
+  Result := NextToken;
+
+  while (Result <> nil) and (not Result.IsSolid) do
+    Result := Result.NextToken;
+end;
+
+function TSourceToken.PriorSolidToken: TSourceToken;
+begin
+  Result := PriorToken;
+
+  while (Result <> nil) and (not Result.IsSolid) do
+    Result := Result.PriorToken;
+end;
 
 function TSourceToken.SolidChildCount: integer;
 begin

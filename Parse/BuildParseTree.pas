@@ -1503,7 +1503,7 @@ procedure TBuildParseTree.RecogniseVarSection;
 const
   END_VAR_SECTION: TWordSet =
     [wVar, wThreadVar, wConst, wLabel, wResourceString, wType,
-      wBegin, wImplementation, wInitialization,
+      wBegin, wEnd, wImplementation, wInitialization,
       wProcedure, wFunction, wConstructor, wDestructor];
 begin
   PushNode(nVarSection);

@@ -135,6 +135,7 @@ begin
 
   finally
     lcConverter.Free;
+    Settings.Obfuscate.Enabled := False;
   end;
 
   TestFileContentsSame(lsOutFileName, psRefOutput);
