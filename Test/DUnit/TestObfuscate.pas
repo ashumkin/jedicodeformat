@@ -8,85 +8,85 @@ uses
 type
   TTestObfuscate = class(TTestCase)
   private
-    procedure TestParseFile(const psInFileName, psRefOutput: string); overload;
-    procedure TestParseFile(const psName: string); overload;
+    procedure TestObfuscateFile(const psInFileName, psRefOutput: string); overload;
+    procedure TestObfuscateFile(const psName: string); overload;
 
     procedure TestFileContentsSame(const psFileName1, psFileName2: string);
 
  published
 
-    procedure TestParse_Empty1;
-    procedure TestParse_fFormTest;
-    procedure TestParse_LittleTest1;
-    procedure TestParse_LittleTest2;
-    procedure TestParse_LittleTest3;
-    procedure TestParse_LittleTest4;
-    procedure TestParse_LittleTest5;
-    procedure TestParse_TestAbsolute;
-    procedure TestParse_TestAlign;
-    procedure TestParse_TestAsm;
-    procedure TestParse_TestBlankLineRemoval;
-    procedure TestParse_TestBogusDirectives;
-    procedure TestParse_TestBogusTypes;
-    procedure TestParse_TestCaseBlock;
-    procedure TestParse_TestCast;
-    procedure TestParse_TestCharLiterals;
-    procedure TestParse_TestClassLines;
-    procedure TestParse_TestCommentIndent;
-    procedure TestParse_TestConstRecords;
-    procedure TestParse_TestD6;
-    procedure TestParse_TestDeclarations;
-    procedure TestParse_TestDeclarations2;
-    procedure TestParse_TestDefaultParams;
-    procedure TestParse_TestEmptyClass;
-    procedure TestParse_TestEsotericKeywords;
-    procedure TestParse_TestExclusion;
-    procedure TestParse_TestExclusionFlags;
-    procedure TestParse_TestExternal;
-    procedure TestParse_TestForward;
-    procedure TestParse_TestGoto;
-    procedure TestParse_TestInitFinal;
-    procedure TestParse_TestInterfaceImplements;
-    procedure TestParse_TestInterfaceMap;
-    procedure TestParse_TestInterfaces;
-    procedure TestParse_TestLayout;
-    procedure TestParse_TestLayoutBare;
-    procedure TestParse_TestLayoutBare2;
-    procedure TestParse_TestLayoutBare3;
-    procedure TestParse_TestLibExports;
-    procedure TestParse_TestLineBreaking;
-    procedure TestParse_TestLocalTypes;
-    procedure TestParse_TestLongStrings;
-    procedure TestParse_TestMarcoV;
-    procedure TestParse_TestMixedModeCaps;
-    procedure TestParse_TestMVB;
-    procedure TestParse_TestNested;
-    procedure TestParse_TestNestedRecords;
-    procedure TestParse_TestOperators;
-    procedure TestParse_TestParams;
-    procedure TestParse_TestParamSpaces;
-    procedure TestParse_TestPointers;
-    procedure TestParse_TestProgram;
-    procedure TestParse_TestProperties;
-    procedure TestParse_TestPropertyLines;
-    procedure TestParse_TestRecords;
-    procedure TestParse_TestReg;
-    procedure TestParse_TestReint;
-    procedure TestParse_TestReturnRemoval;
-    procedure TestParse_TestReturns;
-    procedure TestParse_TestRunOnConst;
-    procedure TestParse_TestRunOnDef;
-    procedure TestParse_TestRunOnLine;
-    procedure TestParse_TestSimpleCast;
-    procedure TestParse_TestTestMH;
-    procedure TestParse_TestTPObjects;
-    procedure TestParse_TestTry;
-    procedure TestParse_TestTypeDefs;
-    procedure TestParse_TestUses;
-    procedure TestParse_TestUsesChanges;
-    procedure TestParse_TestWarnings;
+    procedure TestObfuscate_Empty1;
+    procedure TestObfuscate_fFormTest;
+    procedure TestObfuscate_LittleTest1;
+    procedure TestObfuscate_LittleTest2;
+    procedure TestObfuscate_LittleTest3;
+    procedure TestObfuscate_LittleTest4;
+    procedure TestObfuscate_LittleTest5;
+    procedure TestObfuscate_TestAbsolute;
+    procedure TestObfuscate_TestAlign;
+    procedure TestObfuscate_TestAsm;
+    procedure TestObfuscate_TestBlankLineRemoval;
+    procedure TestObfuscate_TestBogusDirectives;
+    procedure TestObfuscate_TestBogusTypes;
+    procedure TestObfuscate_TestCaseBlock;
+    procedure TestObfuscate_TestCast;
+    procedure TestObfuscate_TestCharLiterals;
+    procedure TestObfuscate_TestClassLines;
+    procedure TestObfuscate_TestCommentIndent;
+    procedure TestObfuscate_TestConstRecords;
+    procedure TestObfuscate_TestD6;
+    procedure TestObfuscate_TestDeclarations;
+    procedure TestObfuscate_TestDeclarations2;
+    procedure TestObfuscate_TestDefaultParams;
+    procedure TestObfuscate_TestEmptyClass;
+    procedure TestObfuscate_TestEsotericKeywords;
+    procedure TestObfuscate_TestExclusion;
+    procedure TestObfuscate_TestExclusionFlags;
+    procedure TestObfuscate_TestExternal;
+    procedure TestObfuscate_TestForward;
+    procedure TestObfuscate_TestGoto;
+    procedure TestObfuscate_TestInitFinal;
+    procedure TestObfuscate_TestInterfaceImplements;
+    procedure TestObfuscate_TestInterfaceMap;
+    procedure TestObfuscate_TestInterfaces;
+    procedure TestObfuscate_TestLayout;
+    procedure TestObfuscate_TestLayoutBare;
+    procedure TestObfuscate_TestLayoutBare2;
+    procedure TestObfuscate_TestLayoutBare3;
+    procedure TestObfuscate_TestLibExports;
+    procedure TestObfuscate_TestLineBreaking;
+    procedure TestObfuscate_TestLocalTypes;
+    procedure TestObfuscate_TestLongStrings;
+    procedure TestObfuscate_TestMarcoV;
+    procedure TestObfuscate_TestMixedModeCaps;
+    procedure TestObfuscate_TestMVB;
+    procedure TestObfuscate_TestNested;
+    procedure TestObfuscate_TestNestedRecords;
+    procedure TestObfuscate_TestOperators;
+    procedure TestObfuscate_TestParams;
+    procedure TestObfuscate_TestParamSpaces;
+    procedure TestObfuscate_TestPointers;
+    procedure TestObfuscate_TestProgram;
+    procedure TestObfuscate_TestProperties;
+    procedure TestObfuscate_TestPropertyLines;
+    procedure TestObfuscate_TestRecords;
+    procedure TestObfuscate_TestReg;
+    procedure TestObfuscate_TestReint;
+    procedure TestObfuscate_TestReturnRemoval;
+    procedure TestObfuscate_TestReturns;
+    procedure TestObfuscate_TestRunOnConst;
+    procedure TestObfuscate_TestRunOnDef;
+    procedure TestObfuscate_TestRunOnLine;
+    procedure TestObfuscate_TestSimpleCast;
+    procedure TestObfuscate_TestTestMH;
+    procedure TestObfuscate_TestTPObjects;
+    procedure TestObfuscate_TestTry;
+    procedure TestObfuscate_TestTypeDefs;
+    procedure TestObfuscate_TestUses;
+    procedure TestObfuscate_TestUsesChanges;
+    procedure TestObfuscate_TestWarnings;
 
-   procedure TestParse_TestCases;
+   procedure TestObfuscate_TestCases;
 end;
 
 implementation
@@ -97,11 +97,11 @@ uses
   FileConverter, ConvertTypes, JcfSettings;
 
 const
-  TEST_FILES_DIR = 'C:\Code\Delphi\JcfCheckout\CodeFormat\Jcf2\Test\TestCases\';
-  OBS_OUT_FILES_DIR = 'C:\Code\Delphi\JcfCheckout\CodeFormat\Jcf2\Test\TestCases\ObfuscatedOut\';
+  TEST_FILES_DIR = 'C:\Code\JcfCheckout\CodeFormat\Jcf2\Test\TestCases\';
+  OBS_OUT_FILES_DIR = 'C:\Code\JcfCheckout\CodeFormat\Jcf2\Test\TestCases\ObfuscatedOut\';
 
 
-procedure TTestObfuscate.TestParseFile(const psInFileName,
+procedure TTestObfuscate.TestObfuscateFile(const psInFileName,
   psRefOutput: string);
 var
   lcConverter: TFileConverter;
@@ -154,7 +154,7 @@ begin
     Fail('Files differ ' + psFileName1 + ' and ' + psFileName2);
 end;
 
-procedure TTestObfuscate.TestParseFile(const psName: string);
+procedure TTestObfuscate.TestObfuscateFile(const psName: string);
 var
   lsInName, lsObsFileName, lsRemadeFileName: string;
 begin
@@ -174,7 +174,7 @@ begin
 
   Settings.FileSettings.OutputExtension := 'obs';
 
-  TestParseFile(TEST_FILES_DIR + lsInName,
+  TestObfuscateFile(TEST_FILES_DIR + lsInName,
     OBS_OUT_FILES_DIR + lsObsFileName)
 
   {
@@ -182,365 +182,365 @@ begin
 
   Settings.FileSettings.OutputExtension := 'out';
 
-  TestParseFile(TEST_FILES_DIR + lsObsFileName,
+  TestObfuscateFile(TEST_FILES_DIR + lsObsFileName,
     OBS_OUT_FILES_DIR + lsRemadeFileName)
   }
 end;
 
-procedure TTestObfuscate.TestParse_Empty1;
+procedure TTestObfuscate.TestObfuscate_Empty1;
 begin
-  TestParseFile('EmptyTest1');
+  TestObfuscateFile('EmptyTest1');
 end;
 
-procedure TTestObfuscate.TestParse_fFormTest;
+procedure TTestObfuscate.TestObfuscate_fFormTest;
 begin
-  TestParseFile('fFormTest');
+  TestObfuscateFile('fFormTest');
 end;
 
-procedure TTestObfuscate.TestParse_LittleTest1;
+procedure TTestObfuscate.TestObfuscate_LittleTest1;
 begin
-  TestParseFile('LittleTest1');
+  TestObfuscateFile('LittleTest1');
 end;
 
-procedure TTestObfuscate.TestParse_LittleTest2;
+procedure TTestObfuscate.TestObfuscate_LittleTest2;
 begin
-  TestParseFile('LittleTest2');
+  TestObfuscateFile('LittleTest2');
 end;
 
-procedure TTestObfuscate.TestParse_LittleTest3;
+procedure TTestObfuscate.TestObfuscate_LittleTest3;
 begin
-  TestParseFile('LittleTest3');
+  TestObfuscateFile('LittleTest3');
 end;
 
-procedure TTestObfuscate.TestParse_LittleTest4;
+procedure TTestObfuscate.TestObfuscate_LittleTest4;
 begin
-  TestParseFile('LittleTest4');
+  TestObfuscateFile('LittleTest4');
 end;
 
-procedure TTestObfuscate.TestParse_LittleTest5;
+procedure TTestObfuscate.TestObfuscate_LittleTest5;
 begin
-  TestParseFile('LittleTest5');
+  TestObfuscateFile('LittleTest5');
 end;
 
-procedure TTestObfuscate.TestParse_TestAbsolute;
+procedure TTestObfuscate.TestObfuscate_TestAbsolute;
 begin
-  TestParseFile('TestAbsolute');
+  TestObfuscateFile('TestAbsolute');
 end;
 
-procedure TTestObfuscate.TestParse_TestAlign;
+procedure TTestObfuscate.TestObfuscate_TestAlign;
 begin
-  TestParseFile('TestAlign');
+  TestObfuscateFile('TestAlign');
 end;
 
-procedure TTestObfuscate.TestParse_TestAsm;
+procedure TTestObfuscate.TestObfuscate_TestAsm;
 begin
-  TestParseFile('TestAsm');
+  TestObfuscateFile('TestAsm');
 end;
 
-procedure TTestObfuscate.TestParse_TestBlankLineRemoval;
+procedure TTestObfuscate.TestObfuscate_TestBlankLineRemoval;
 begin
-  TestParseFile('TestBlankLineRemoval');
+  TestObfuscateFile('TestBlankLineRemoval');
 end;
 
-procedure TTestObfuscate.TestParse_TestBogusDirectives;
+procedure TTestObfuscate.TestObfuscate_TestBogusDirectives;
 begin
-  TestParseFile('TestBogusDirectives');
+  TestObfuscateFile('TestBogusDirectives');
 end;
 
-procedure TTestObfuscate.TestParse_TestBogusTypes;
+procedure TTestObfuscate.TestObfuscate_TestBogusTypes;
 begin
-  TestParseFile('TestBogusTypes');
+  TestObfuscateFile('TestBogusTypes');
 end;
 
-procedure TTestObfuscate.TestParse_TestCaseBlock;
+procedure TTestObfuscate.TestObfuscate_TestCaseBlock;
 begin
-  TestParseFile('TestCaseBlock');
+  TestObfuscateFile('TestCaseBlock');
 end;
 
-procedure TTestObfuscate.TestParse_TestCast;
+procedure TTestObfuscate.TestObfuscate_TestCast;
 begin
-  TestParseFile('TestCast');
+  TestObfuscateFile('TestCast');
 end;
 
-procedure TTestObfuscate.TestParse_TestSimpleCast;
+procedure TTestObfuscate.TestObfuscate_TestSimpleCast;
 begin
-  TestParseFile('TestCastSimple');
+  TestObfuscateFile('TestCastSimple');
 end;
 
-procedure TTestObfuscate.TestParse_TestCharLiterals;
+procedure TTestObfuscate.TestObfuscate_TestCharLiterals;
 begin
-  TestParseFile('TestCharLiterals');
+  TestObfuscateFile('TestCharLiterals');
 end;
 
-procedure TTestObfuscate.TestParse_TestClassLines;
+procedure TTestObfuscate.TestObfuscate_TestClassLines;
 begin
-  TestParseFile('TestClassLines');
+  TestObfuscateFile('TestClassLines');
 end;
 
-procedure TTestObfuscate.TestParse_TestCommentIndent;
+procedure TTestObfuscate.TestObfuscate_TestCommentIndent;
 begin
-  TestParseFile('TestCommentIndent');
+  TestObfuscateFile('TestCommentIndent');
 end;
 
-procedure TTestObfuscate.TestParse_TestConstRecords;
+procedure TTestObfuscate.TestObfuscate_TestConstRecords;
 begin
-  TestParseFile('TestConstRecords');
+  TestObfuscateFile('TestConstRecords');
 end;
 
-procedure TTestObfuscate.TestParse_TestD6;
+procedure TTestObfuscate.TestObfuscate_TestD6;
 begin
-  TestParseFile('TestD6');
+  TestObfuscateFile('TestD6');
 end;
 
-procedure TTestObfuscate.TestParse_TestDeclarations;
+procedure TTestObfuscate.TestObfuscate_TestDeclarations;
 begin
-  TestParseFile('TestDeclarations');
+  TestObfuscateFile('TestDeclarations');
 end;
 
 
-procedure TTestObfuscate.TestParse_TestDeclarations2;
+procedure TTestObfuscate.TestObfuscate_TestDeclarations2;
 begin
-  TestParseFile('TestDeclarations2');
+  TestObfuscateFile('TestDeclarations2');
 end;
 
-procedure TTestObfuscate.TestParse_TestDefaultParams;
+procedure TTestObfuscate.TestObfuscate_TestDefaultParams;
 begin
-  TestParseFile('TestDefaultParams');
+  TestObfuscateFile('TestDefaultParams');
 end;
 
-procedure TTestObfuscate.TestParse_TestEmptyClass;
+procedure TTestObfuscate.TestObfuscate_TestEmptyClass;
 begin
-  TestParseFile('TestEmptyClass');
+  TestObfuscateFile('TestEmptyClass');
 end;
 
-procedure TTestObfuscate.TestParse_TestEsotericKeywords;
+procedure TTestObfuscate.TestObfuscate_TestEsotericKeywords;
 begin
-  TestParseFile('TestEsotericKeywords');
+  TestObfuscateFile('TestEsotericKeywords');
 end;
 
-procedure TTestObfuscate.TestParse_TestExclusion;
+procedure TTestObfuscate.TestObfuscate_TestExclusion;
 begin
-  TestParseFile('TestExclusion');
+  TestObfuscateFile('TestExclusion');
 end;
 
-procedure TTestObfuscate.TestParse_TestExclusionFlags;
+procedure TTestObfuscate.TestObfuscate_TestExclusionFlags;
 begin
-  TestParseFile('TestExclusionFlags');
+  TestObfuscateFile('TestExclusionFlags');
 end;
 
-procedure TTestObfuscate.TestParse_TestExternal;
+procedure TTestObfuscate.TestObfuscate_TestExternal;
 begin
-  TestParseFile('TestExternal');
+  TestObfuscateFile('TestExternal');
 end;
 
-procedure TTestObfuscate.TestParse_TestForward;
+procedure TTestObfuscate.TestObfuscate_TestForward;
 begin
-  TestParseFile('TestForward');
+  TestObfuscateFile('TestForward');
 end;
 
-procedure TTestObfuscate.TestParse_TestGoto;
+procedure TTestObfuscate.TestObfuscate_TestGoto;
 begin
-  TestParseFile('TestGoto');
+  TestObfuscateFile('TestGoto');
 end;
 
-procedure TTestObfuscate.TestParse_TestInitFinal;
+procedure TTestObfuscate.TestObfuscate_TestInitFinal;
 begin
-  TestParseFile('TestInitFinal');
+  TestObfuscateFile('TestInitFinal');
 end;
 
-procedure TTestObfuscate.TestParse_TestInterfaceImplements;
+procedure TTestObfuscate.TestObfuscate_TestInterfaceImplements;
 begin
-  TestParseFile('TestInterfaceImplements');
+  TestObfuscateFile('TestInterfaceImplements');
 end;
 
-procedure TTestObfuscate.TestParse_TestInterfaceMap;
+procedure TTestObfuscate.TestObfuscate_TestInterfaceMap;
 begin
-  TestParseFile('TestInterfaceMap');
+  TestObfuscateFile('TestInterfaceMap');
 end;
 
-procedure TTestObfuscate.TestParse_TestInterfaces;
+procedure TTestObfuscate.TestObfuscate_TestInterfaces;
 begin
-  TestParseFile('TestInterfaces');
+  TestObfuscateFile('TestInterfaces');
 end;
 
-procedure TTestObfuscate.TestParse_TestLayout;
+procedure TTestObfuscate.TestObfuscate_TestLayout;
 begin
-  TestParseFile('TestLayout');
+  TestObfuscateFile('TestLayout');
 end;
 
-procedure TTestObfuscate.TestParse_TestLayoutBare;
+procedure TTestObfuscate.TestObfuscate_TestLayoutBare;
 begin
-  TestParseFile('TestLayoutBare');
+  TestObfuscateFile('TestLayoutBare');
 end;
 
-procedure TTestObfuscate.TestParse_TestLayoutBare2;
+procedure TTestObfuscate.TestObfuscate_TestLayoutBare2;
 begin
-  TestParseFile('TestLayoutBare2');
+  TestObfuscateFile('TestLayoutBare2');
 end;
 
-procedure TTestObfuscate.TestParse_TestLayoutBare3;
+procedure TTestObfuscate.TestObfuscate_TestLayoutBare3;
 begin
-  TestParseFile('TestLayoutBare3');
+  TestObfuscateFile('TestLayoutBare3');
 end;
 
-procedure TTestObfuscate.TestParse_TestLibExports;
+procedure TTestObfuscate.TestObfuscate_TestLibExports;
 begin
-  TestParseFile('TestLibExports');
+  TestObfuscateFile('TestLibExports');
 end;
 
-procedure TTestObfuscate.TestParse_TestLineBreaking;
+procedure TTestObfuscate.TestObfuscate_TestLineBreaking;
 begin
-  TestParseFile('TestLineBreaking');
+  TestObfuscateFile('TestLineBreaking');
 end;
 
-procedure TTestObfuscate.TestParse_TestLocalTypes;
+procedure TTestObfuscate.TestObfuscate_TestLocalTypes;
 begin
-  TestParseFile('TestLocalTypes');
+  TestObfuscateFile('TestLocalTypes');
 end;
 
-procedure TTestObfuscate.TestParse_TestLongStrings;
+procedure TTestObfuscate.TestObfuscate_TestLongStrings;
 begin
-  TestParseFile('TestLongStrings');
+  TestObfuscateFile('TestLongStrings');
 end;
 
-procedure TTestObfuscate.TestParse_TestMarcoV;
+procedure TTestObfuscate.TestObfuscate_TestMarcoV;
 begin
-  TestParseFile('TestMarcoV');
+  TestObfuscateFile('TestMarcoV');
 end;
 
-procedure TTestObfuscate.TestParse_TestTestMH;
+procedure TTestObfuscate.TestObfuscate_TestTestMH;
 begin
-  TestParseFile('TestMH');
+  TestObfuscateFile('TestMH');
 end;
 
-procedure TTestObfuscate.TestParse_TestMixedModeCaps;
+procedure TTestObfuscate.TestObfuscate_TestMixedModeCaps;
 begin
-  TestParseFile('TestMixedModeCaps');
+  TestObfuscateFile('TestMixedModeCaps');
 end;
 
-procedure TTestObfuscate.TestParse_TestMVB;
+procedure TTestObfuscate.TestObfuscate_TestMVB;
 begin
-  TestParseFile('TestMVB');
+  TestObfuscateFile('TestMVB');
 end;
 
-procedure TTestObfuscate.TestParse_TestNested;
+procedure TTestObfuscate.TestObfuscate_TestNested;
 begin
-  TestParseFile('TestNested');
+  TestObfuscateFile('TestNested');
 end;
 
-procedure TTestObfuscate.TestParse_TestNestedRecords;
+procedure TTestObfuscate.TestObfuscate_TestNestedRecords;
 begin
-  TestParseFile('TestNestedRecords');
+  TestObfuscateFile('TestNestedRecords');
 end;
 
-procedure TTestObfuscate.TestParse_TestOperators;
+procedure TTestObfuscate.TestObfuscate_TestOperators;
 begin
-  TestParseFile('TestOperators');
+  TestObfuscateFile('TestOperators');
 end;
 
-procedure TTestObfuscate.TestParse_TestParams;
+procedure TTestObfuscate.TestObfuscate_TestParams;
 begin
-  TestParseFile('TestParams');
+  TestObfuscateFile('TestParams');
 end;
 
-procedure TTestObfuscate.TestParse_TestParamSpaces;
+procedure TTestObfuscate.TestObfuscate_TestParamSpaces;
 begin
-  TestParseFile('TestParamSpaces');
+  TestObfuscateFile('TestParamSpaces');
 end;
 
-procedure TTestObfuscate.TestParse_TestPointers;
+procedure TTestObfuscate.TestObfuscate_TestPointers;
 begin
-  TestParseFile('TestPointers');
+  TestObfuscateFile('TestPointers');
 end;
 
-procedure TTestObfuscate.TestParse_TestProgram;
+procedure TTestObfuscate.TestObfuscate_TestProgram;
 begin
-  TestParseFile('TestProgram');
+  TestObfuscateFile('TestProgram');
 end;
 
-procedure TTestObfuscate.TestParse_TestProperties;
+procedure TTestObfuscate.TestObfuscate_TestProperties;
 begin
-  TestParseFile('TestProperties');
+  TestObfuscateFile('TestProperties');
 end;
 
-procedure TTestObfuscate.TestParse_TestPropertyLines;
+procedure TTestObfuscate.TestObfuscate_TestPropertyLines;
 begin
-  TestParseFile('TestPropertyLines');
+  TestObfuscateFile('TestPropertyLines');
 end;
 
-procedure TTestObfuscate.TestParse_TestRecords;
+procedure TTestObfuscate.TestObfuscate_TestRecords;
 begin
-  TestParseFile('TestRecords');
+  TestObfuscateFile('TestRecords');
 end;
 
-procedure TTestObfuscate.TestParse_TestReg;
+procedure TTestObfuscate.TestObfuscate_TestReg;
 begin
-  TestParseFile('TestReg');
+  TestObfuscateFile('TestReg');
 end;
 
-procedure TTestObfuscate.TestParse_TestReint;
+procedure TTestObfuscate.TestObfuscate_TestReint;
 begin
-  TestParseFile('TestReint');
+  TestObfuscateFile('TestReint');
 end;
 
-procedure TTestObfuscate.TestParse_TestReturnRemoval;
+procedure TTestObfuscate.TestObfuscate_TestReturnRemoval;
 begin
-  TestParseFile('TestReturnRemoval');
+  TestObfuscateFile('TestReturnRemoval');
 end;
 
-procedure TTestObfuscate.TestParse_TestReturns;
+procedure TTestObfuscate.TestObfuscate_TestReturns;
 begin
-  TestParseFile('TestReturns');
+  TestObfuscateFile('TestReturns');
 end;
 
-procedure TTestObfuscate.TestParse_TestRunOnConst;
+procedure TTestObfuscate.TestObfuscate_TestRunOnConst;
 begin
-  TestParseFile('TestRunOnConst');
+  TestObfuscateFile('TestRunOnConst');
 end;
 
-procedure TTestObfuscate.TestParse_TestRunOnDef;
+procedure TTestObfuscate.TestObfuscate_TestRunOnDef;
 begin
-  TestParseFile('TestRunOnDef');
+  TestObfuscateFile('TestRunOnDef');
 end;
 
-procedure TTestObfuscate.TestParse_TestRunOnLine;
+procedure TTestObfuscate.TestObfuscate_TestRunOnLine;
 begin
-  TestParseFile('TestRunOnLine');
+  TestObfuscateFile('TestRunOnLine');
 end;
 
-procedure TTestObfuscate.TestParse_TestTPObjects;
+procedure TTestObfuscate.TestObfuscate_TestTPObjects;
 begin
-  TestParseFile('TestTPObjects');
+  TestObfuscateFile('TestTPObjects');
 end;
 
-procedure TTestObfuscate.TestParse_TestTry;
+procedure TTestObfuscate.TestObfuscate_TestTry;
 begin
-  TestParseFile('TestTry');
+  TestObfuscateFile('TestTry');
 end;
 
-procedure TTestObfuscate.TestParse_TestTypeDefs;
+procedure TTestObfuscate.TestObfuscate_TestTypeDefs;
 begin
-  TestParseFile('TestTypeDefs');
+  TestObfuscateFile('TestTypeDefs');
 end;
 
-procedure TTestObfuscate.TestParse_TestUses;
+procedure TTestObfuscate.TestObfuscate_TestUses;
 begin
-  TestParseFile('TestUses');
+  TestObfuscateFile('TestUses');
 end;
 
-procedure TTestObfuscate.TestParse_TestUsesChanges;
+procedure TTestObfuscate.TestObfuscate_TestUsesChanges;
 begin
-  TestParseFile('TestUsesChanges');
+  TestObfuscateFile('TestUsesChanges');
 end;
 
-procedure TTestObfuscate.TestParse_TestWarnings;
+procedure TTestObfuscate.TestObfuscate_TestWarnings;
 begin
-  TestParseFile('TestWarnings');
+  TestObfuscateFile('TestWarnings');
 end;
 
-procedure TTestObfuscate.TestParse_TestCases;
+procedure TTestObfuscate.TestObfuscate_TestCases;
 begin
-  TestParseFile('Testcases.dpr');
+  TestObfuscateFile('Testcases.dpr');
 end;
 
 initialization

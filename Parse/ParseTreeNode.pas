@@ -609,6 +609,15 @@ begin
       if lrVisitResult.NewItem2 <> nil then
         Parent.InsertChild(Parent.IndexOfChild(self) + 2,  TParseTreeNode(lrVisitResult.NewItem2));
     end;
+    aInsertBefore:
+    begin
+      // must have a new item
+      Assert(lrVisitResult.NewItem <> nil);
+
+      Parent.InsertChild(Parent.IndexOfChild(self),  TParseTreeNode(lrVisitResult.NewItem));
+      if lrVisitResult.NewItem2 <> nil then
+        Parent.InsertChild(Parent.IndexOfChild(self),  TParseTreeNode(lrVisitResult.NewItem2));
+    end;
     aDeleteNext:
     begin
       Parent.RemoveChild(Parent.IndexOfChild(self) + 1);
@@ -643,11 +652,26 @@ begin
 end;
 
 function TParseTreeNode.FirstLeaf: TParseTreeNode;
+var
+  liLoop: integer;
 begin
-  if ChildNodeCount = 0 then
-    Result := self // I am a leaf
+  if IsLeaf then
+    Result := Self // I am a leaf
+  else if ChildNodeCount = 0 then
+  begin
+    Result := nil // I am a bare branch.
+  end
   else
-    Result := ChildNodes[0].FirstLeaf; // go down
+  begin
+    // child may be a bare branch. Look back until a non-bare child is found
+    liLoop := 0;
+    Result := nil;
+    while (Result = nil) and (liLoop < ChildNodeCount) do
+    begin
+      Result := ChildNodes[liLoop].FirstLeaf; // go down
+      inc(liLoop)
+    end;
+  end;
 end;
 
 function TParseTreeNode.FirstSolidLeaf: TParseTreeNode;
@@ -685,7 +709,6 @@ begin
       dec(liLoop)
     end;
   end;
-
 end;
 
 { find the first leaf before this one }
@@ -734,7 +757,7 @@ begin
     { climb the tree until we reach the top or a node with stuff before this }
     lcParent := Parent;
 
-    While (Result = nil) and (lcParent <> nil) do
+    while (Result = nil) and (lcParent <> nil) do
     begin
       lcFocus := lcParent;
       lcParent := lcParent.Parent;

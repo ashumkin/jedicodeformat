@@ -2,8 +2,8 @@ program jcf_test;
 
 uses
   Forms,
-  TestFramework in '..\..\..\..\..\DUnit\src\TestFramework.pas',
-  GUITestRunner in '..\..\..\..\..\DUnit\src\GUITestRunner.pas' {GUITestRunner},
+  GUITestRunner in '..\..\..\..\..\Delphi\DUnit\src\GUITestRunner.pas' {GUITestRunner},
+  TestFramework in '..\..\..\..\..\Delphi\DUnit\src\TestFramework.pas',
   WordMap in '..\..\Parse\WordMap.pas',
   BuildParseTree in '..\..\Parse\BuildParseTree.pas',
   BuildTokenList in '..\..\Parse\BuildTokenList.pas',
@@ -34,7 +34,6 @@ uses
   ReduceWhiteSpace in '..\..\Process\Obfuscate\ReduceWhiteSpace.pas',
   RemoveConsecutiveWhiteSpace in '..\..\Process\Obfuscate\RemoveConsecutiveWhiteSpace.pas',
   RemoveReturn in '..\..\Process\Obfuscate\RemoveReturn.pas',
-  ObfuscateControl in '..\..\Process\Obfuscate\ObfuscateControl.pas',
   RebreakLines in '..\..\Process\Obfuscate\RebreakLines.pas',
   TestObfuscate in 'TestObfuscate.pas',
   SetUses in '..\..\Settings\SetUses.pas',
@@ -63,12 +62,27 @@ uses
   WarnEmptyBlock in '..\..\Process\Warnings\WarnEmptyBlock.pas',
   WarnRealType in '..\..\Process\Warnings\WarnRealType.pas',
   WarnAssignToFunctionName in '..\..\Process\Warnings\WarnAssignToFunctionName.pas',
-  AllWarnings in '..\..\Process\Warnings\AllWarnings.pas',
   TokenUtils in '..\..\Parse\TokenUtils.pas',
   TestWarnings in 'TestWarnings.pas',
   StringsWriter in '..\..\ReadWrite\StringsWriter.pas',
   StringsConverter in '..\..\ReadWrite\StringsConverter.pas',
-  StringsReader in '..\..\ReadWrite\StringsReader.pas';
+  StringsReader in '..\..\ReadWrite\StringsReader.pas',
+  TabToSpace in '..\..\Process\Spacing\TabToSpace.pas',
+  SpaceToTab in '..\..\Process\Spacing\SpaceToTab.pas',
+  Nesting in '..\..\Process\Nesting.pas',
+  AllProcesses in '..\..\Process\AllProcesses.pas',
+  RemoveBlankLine in '..\..\Process\Obfuscate\RemoveBlankLine.pas',
+  NoReturnAfter in '..\..\Process\Spacing\NoReturnAfter.pas',
+  NoSpaceBefore in '..\..\Process\Spacing\NoSpaceBefore.pas',
+  TestSpacing in 'TestSpacing.pas',
+  BaseTestProcess in 'BaseTestProcess.pas',
+  TestConverter in 'TestConverter.pas',
+  NoReturnBefore in '..\..\Process\Spacing\NoReturnBefore.pas',
+  NoSpaceAfter in '..\..\Process\Spacing\NoSpaceAfter.pas',
+  SingleSpaceBefore in '..\..\Process\Spacing\SingleSpaceBefore.pas',
+  SingleSpaceAfter in '..\..\Process\Spacing\SingleSpaceAfter.pas',
+  ReturnBefore in '..\..\Process\Spacing\ReturnBefore.pas',
+  ReturnAfter in '..\..\Process\Spacing\ReturnAfter.pas';
 
 {$R *.res}
 

@@ -97,11 +97,11 @@ implementation
 uses
   { delphi } SysUtils,
   JclStrings,
-  FileConverter, ConvertTypes;
+  FileConverter, ConvertTypes;                     
 
 const
-  TEST_FILES_DIR = 'C:\Code\Delphi\JcfCheckout\CodeFormat\Jcf2\Test\TestCases\';
-  REF_OUT_FILES_DIR = 'C:\Code\Delphi\jcf2\TestCases\Out\';
+  TEST_FILES_DIR =    'C:\Code\JcfCheckout\CodeFormat\Jcf2\Test\TestCases\';
+  REF_OUT_FILES_DIR = 'C:\Code\JcfCheckout\CodeFormat\jcf2\Test\TestCases\Out\';
 
 procedure TTestParse.TestParseFile(const psInFileName, psRefOutput: string;
   const piTokenCount: integer);
