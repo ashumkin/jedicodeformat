@@ -28,11 +28,17 @@ interface
 uses JCFSetBase, TokenType, SettingsStream;
 
 type
+  { rebreak lines has three modes:
+    - off, don't rebreak lines
+    - only if you can find a good spot to do it
+     yes (if there is any spot to do it)
+  }
+  TWhenToRebreakLines = (rbOff, rbOnlyIfGood, rbUsually);
 
   TSetReturns = class(TSetBase)
   private
     { line breaking }
-    fbRebreakLines: boolean;
+    feRebreakLines: TWhenToRebreakLines;
     fiMaxLineLength: integer;
 
     { return removal and adding }
@@ -65,7 +71,7 @@ type
     procedure WriteToStream(const pcOut: TSettingsOutput); override;
     procedure ReadFromStream(const pcStream: TSettingsInput); override;
 
-    property RebreakLines: boolean read fbRebreakLines write fbRebreakLines;
+    property RebreakLines: TWhenToRebreakLines read feRebreakLines write feRebreakLines;
     property MaxLineLength: integer read fiMaxLineLength write fiMaxLineLength;
 
     property NumReturnsAfterFinalEnd: integer read fiNumReturnsAfterFinalEnd
@@ -103,7 +109,7 @@ type
 implementation
 
 const
-  REG_REBREAK_LINES   = 'RebreakLines';
+  REG_WHEN_REBREAK_LINES   = 'WhenRebreakLines';
   REG_MAX_LINE_LENGTH = 'MaxLineLength';
 
   REG_NUM_RETURNS_AFTER_FINAL_END = 'NumReturnsAfterFinalEnd';
@@ -144,7 +150,7 @@ procedure TSetReturns.ReadFromStream(const pcStream: TSettingsInput);
 begin
   Assert(pcStream <> nil);
 
-  fbRebreakLines  := pcStream.Read(REG_REBREAK_LINES, True);
+  feRebreakLines  := TWhenToRebreakLines(pcStream.Read(REG_WHEN_REBREAK_LINES, Ord(rbOnlyIfGood)));
   fiMaxLineLength := pcStream.Read(REG_MAX_LINE_LENGTH, 90);
 
   fiNumReturnsAfterFinalEnd := pcStream.Read(REG_NUM_RETURNS_AFTER_FINAL_END, 1);
@@ -175,7 +181,7 @@ procedure TSetReturns.WriteToStream(const pcOut: TSettingsOutput);
 begin
   Assert(pcOut <> nil);
 
-  pcOut.Write(REG_REBREAK_LINES, fbRebreakLines);
+  pcOut.Write(REG_WHEN_REBREAK_LINES, Ord(feRebreakLines));
   pcOut.Write(REG_MAX_LINE_LENGTH, fiMaxLineLength);
 
   pcOut.Write(REG_NUM_RETURNS_AFTER_FINAL_END, fiNumReturnsAfterFinalEnd);

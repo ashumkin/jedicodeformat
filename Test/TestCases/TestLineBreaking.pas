@@ -64,6 +64,11 @@ begin
   Result := ps1 + ps2;
 end;
 
+function AddFloats(const pf1, pf2: extended): extended;
+begin
+  Result := pf1 + pf2;
+end;
+
 // easy pieces for the line breaker
 procedure EasyPieces;
 var
@@ -104,6 +109,15 @@ begin
   { this comment  will affect }  lf := ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890));
   { this comment  will affect line spacing }  lf := ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890));
   { this comment  will affect line spacing  in some way }  lf := ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890));
+
+
+  // expressions in params
+  lf := AddFloats(2, 2);
+  lf := AddFloats(1.2345678901, 1.2345678901);
+  lf := AddFloats(1.2345678901 * -47, 1.2345678901 + 12 * -12);
+  lf := AddFloats((1.2345678901 * -47) + 12.1234567890, 1.2345678901 + (12.0987654321 * -12.987654321));
+  lf := AddFloats(((1.2345678901 * -47) + 12.1234567890) * (1.2345678901 + (12.0987654321 * -12.987654321)), 3);
+  lf := AddFloats(((1.2345678901 * -47) + 12.1234567890) * (1.2345678901 + (12.0987654321 * -12.987654321)), 3 * ((1.2345678901 * -47) + 12.1234567890) * (1.2345678901 + (12.0987654321 * -12.987654321)));
 end;
 
 // something harder

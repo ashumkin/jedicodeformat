@@ -329,12 +329,15 @@ end;
 
 function IsUnaryOperator(const pt: TSourceToken): boolean;
 begin
-  Assert(pt.TokenType = ttOperator);
+  Result := (pt.TokenType = ttOperator) and (pt.Word in PossiblyUnarySymbolOperators);
+  if not Result then
+    exit;
 
-  // is there a term to the left of this?
+  { now must find if there is another token before it,
+    ie true for the minus sign in '-2' but false for '2-2' }
 
-  // ??
-  Result := pt.IndexOfSelf = 0;
+//    !!! need tree for this?
+  Result := (pt.IndexOfSelf = 0);
 end;
 
 function InFormalParams(const pt: TSourceToken): boolean;

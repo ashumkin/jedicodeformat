@@ -88,7 +88,8 @@ uses
   RemoveReturnsBeforeEnd in '..\Process\Spacing\RemoveReturnsBeforeEnd.pas',
   RemoveReturnsAfterBegin in '..\Process\Spacing\RemoveReturnsAfterBegin.pas',
   LongLineBreaker in '..\Process\Returns\LongLineBreaker.pas',
-  IntList in '..\Utils\IntList.pas';
+  IntList in '..\Utils\IntList.pas',
+  TestLineBreaking in '..\Test\TestCases\TestLineBreaking.pas';
 
 {$R *.res}
 

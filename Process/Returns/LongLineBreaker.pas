@@ -110,7 +110,6 @@ begin
     Result := Result + (piPos div INCREASE_TO_RIGHT_FACTOR);
 end;
 
-
 function BracketScore(const pcToken: TSourceToken): integer;
 const
   BRACKET_SCALE = -8;
@@ -119,12 +118,13 @@ begin
   Result := (RoundBracketLevel(pcToken) + SquareBracketLevel(pcToken)) * BRACKET_SCALE;
 end;
 
+
 { experimental - score for line breaking based on the parse tree
   The idea is that higher up the tree is going to be a better place to break
   as it represents a natural break in the program flow
 
   larger number are better so invert
-}
+
 function TreeScore(const pcToken: TSourceToken): integer;
 const
   DEPTH_FACTOR = 5;
@@ -134,7 +134,42 @@ begin
   if pcToken.IndexOfSelf = 0 then
     Result := Result + FIRST_CHILD_FACTOR;
 end;
+}
 
+
+{ want to capture the effect that that breaking the line near the end
+  (ie with few chars to go) is bad.
+  e.g. max allowed line length is 100, actual line is 102 chars long
+  breaking at char 101, just before the semicolon, would really suck
+
+  Have used a factor that breaking 15 or more chars from the end
+  incurs no penalty, Penalty is not linear:
+  It is insignificant for 15, 14, chars from end,
+  getting sizeable from 10 down to 5 spaces to the end
+  and very large for 1,2 chars to end
+
+  The function that I have used is Ceil((x ^ 2) / 2)
+  where x is (15 - <spaces to end>)
+}
+function NearEndScore(const piSpacesToEnd: integer): integer;
+const
+  TAIL_SIZE: integer = 15;
+
+  penalties: array[1..15] of integer = (
+    113, 98, 85, 72, 61,
+     50, 41, 32, 25, 18,
+     13,  8,  5,  2,  1);
+begin
+  Assert(piSpacesToEnd >= 0);
+  if piSpacesToEnd > TAIL_SIZE then
+  begin
+    Result := 0;
+  end
+  else
+  begin
+    Result := penalties[piSpacesToEnd];
+  end;
+end;
 { scoring - based on the current token,
   score how aestetically pleasing a line break after this token would be }
 procedure ScoreToken(const pcToken: TSourceToken;
@@ -331,8 +366,8 @@ end;
 procedure TLongLineBreaker.EnabledVisitSourceToken(const pcNode: TObject;
   var prVisitResult: TRVisitResult);
 const
-  DONT_BOTHER_CHARS = 2;
-  BREAK_THRESHHOLD = 50; // make this a config, or just have high/med/low options
+  GOOD_BREAK_THRESHHOLD = 50;
+  ANY_BREAK_THRESHHOLD = -10;
 var
   lcSourceToken: TSourceToken;
   lcNext: TSourceToken;
@@ -342,7 +377,6 @@ var
   liScoreBefore, liScoreAfter: integer;
   liPlaceToBreak: integer;
   lcBreakToken: TSourceToken;
-  liWidthRemaining: integer;
 begin
   lcSourceToken := TSourceToken(pcNode);
 
@@ -422,8 +456,9 @@ begin
   for liLoop := 0 to lcTokens.Count - 1 do
   begin
     lcNext := lcTokens.SourceTokens[liLoop];
-    liScoreAfter := TreeScore(lcNext);
-    lcScores.Items[liLoop] := lcScores.Items[liLoop] + liScoreAfter;
+    liScoreAfter := NearEndScore(liWidth - lcNext.XPosition);
+    // subtract this one - bad to break near end
+    lcScores.Items[liLoop] := lcScores.Items[liLoop] - liScoreAfter;
   end;
 
   for liLoop := 0 to lcTokens.Count - 1 do
@@ -462,7 +497,13 @@ begin
   { best breakpointis not good enough? }
   if Settings.Returns.RebreakLines = rbOnlyIfGood then
   begin
-    if lcScores.Items[liPlaceToBreak] < BREAK_THRESHHOLD then
+    if lcScores.Items[liPlaceToBreak] < GOOD_BREAK_THRESHHOLD then
+      exit;
+  end
+  else
+  begin
+    Assert(Settings.Returns.RebreakLines = rbUsually);
+    if lcScores.Items[liPlaceToBreak] < ANY_BREAK_THRESHHOLD then
       exit;
   end;
 
@@ -472,9 +513,6 @@ begin
     The program must break because the line is too long,
     so only place it can break lines is before the semicolon }
   lcBreakToken := lcTokens.SourceTokens[liPlaceToBreak];
-  liWidthRemaining := liWidth - lcBreakToken.XPosition;
-  if liWidthRemaining <= DONT_BOTHER_CHARS then
-    exit;
 
   { go break! }
   lcBreakToken.Parent.InsertChild(lcBreakToken.IndexOfSelf + 1, NewReturn); 

@@ -24,7 +24,7 @@ implementation
 
 uses
   JcfMiscFunctions,
-  TokenType, WordMap, ParseTreeNodeType, JcfSettings, FormatFlags;
+  TokenType, WordMap, ParseTreeNodeType, JcfSettings, FormatFlags, TokenUtils;
 
 { TNoSpaceAfter }
 
@@ -74,9 +74,7 @@ begin
   end;
 
   { no space after unary operator in expression }
-  if (pt.HasParentNode(nExpression)) and
-    (pt.TokenType = ttOperator) and (pt.Word in PossiblyUnarySymbolOperators) and
-    (not StrHasAlpha(pt.SourceCode)) then
+  if pt.HasParentNode(nExpression) and IsUnaryOperator(pt) and (not StrHasAlpha(pt.SourceCode)) then
   begin
     Result := True;
     exit;

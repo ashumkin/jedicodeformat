@@ -24,6 +24,9 @@ type
     procedure TestNoSpaceBefore;
     procedure TestNoSpaceBeforeColon;
 
+    procedure TestNoSpaceAfterOperator;
+    procedure TestNoSpaceAfterOperator2;
+
     procedure TestSingleSpaceBefore;
     procedure TestSingleSpaceAfter;
     procedure TestSingleSpaceAfterColon;
@@ -91,6 +94,26 @@ begin
   TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
+procedure TTestSpacing.TestNoSpaceAfterOperator;
+const
+  IN_UNIT_TEXT = UNIT_HEADER + ' function foo: ' + AnsiLineBreak +
+    '  integer; begin result := 2 + 2; end; ' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' function foo: '  + AnsiLineBreak +
+    '  integer; begin result := 2 + 2; end; ' + UNIT_FOOTER;
+begin
+  TestProcessResult(TNoSpaceAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestSpacing.TestNoSpaceAfterOperator2;
+const
+  IN_UNIT_TEXT = UNIT_HEADER + ' function foo: ' + AnsiLineBreak +
+    '  integer; begin result := 2 * - 2; end; ' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' function foo: '  + AnsiLineBreak +
+    '  integer; begin result := 2 * -2; end; ' + UNIT_FOOTER;
+begin
+  TestProcessResult(TNoSpaceAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
 procedure TTestSpacing.TestSingleSpaceBefore;
 const
   IN_UNIT_TEXT = UNIT_HEADER +  ' procedure foo; begin a    := 2; end; ' + UNIT_FOOTER;
@@ -125,7 +148,6 @@ const
 begin
   TestProcessResult(TSingleSpaceAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
-
 
 
 procedure TTestSpacing.TestReturnBefore;
@@ -179,6 +201,7 @@ const
 begin
   TestProcessResult(TRemoveReturnsBeforeEnd, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
+
 
 initialization
  TestFramework.RegisterTest(TTestSpacing.Suite);
