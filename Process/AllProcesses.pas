@@ -207,6 +207,16 @@ begin
   ApplyVisitorType(TUsesClauseFindReplace);
 
   ApplyVisitorType(TRemoveEmptyComment);
+
+  { !! test
+  ApplyVisitorType(TAddBeginEnd);
+  ApplyVisitorType(TVisitSetNestings);
+  ApplyVisitorType(TVisitSetXY);
+
+  ApplyVisitorType(TBlockEndSemicolon);
+  ApplyVisitorType(TVisitSetNestings);
+  ApplyVisitorType(TVisitSetXY);
+  }
 end;
 
 

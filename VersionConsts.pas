@@ -24,7 +24,7 @@ under the License.
 interface
 
 const
-  PROGRAM_VERSION   = '2.0 Beta 15';
+  PROGRAM_VERSION   = '2.0 Release Candidate 1';
   PROGRAM_DATE      = 'March 2004';
   PROGRAM_HOME_PAGE = 'http://jedicodeformat.sourceforge.net/';
 

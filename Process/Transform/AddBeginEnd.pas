@@ -1,5 +1,4 @@
 unit AddBeginEnd;
-
 {(*}
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code 

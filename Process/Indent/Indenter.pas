@@ -420,7 +420,7 @@ begin
     else if liDesiredIndent > liPos then
     begin
       Result := True;
-      lcSourceToken.AddSiblingBefore(NewSpace(liDesiredIndent - liPos));
+      InsertTokenBefore(lcSourceToken, NewSpace(liDesiredIndent - liPos));
     end;
   end;
 

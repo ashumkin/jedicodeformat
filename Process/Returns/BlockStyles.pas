@@ -190,7 +190,7 @@ begin
         lcNextReturn := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace, ttComment]);
         if (lcNextReturn <> nil) and (lcNextReturn.TokenType <> ttReturn) then
         begin
-          lcSourceToken.AddSiblingAfter(NewReturn);
+          InsertTokenAfter(lcSourceToken, NewReturn);
         end;
       end;
       eNever:

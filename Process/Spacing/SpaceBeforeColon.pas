@@ -152,7 +152,7 @@ begin
     else
     begin
       Result := True;
-      lcSourceToken.AddSiblingBefore(NewSpace(liSpaces));
+      InsertTokenBefore(lcSourceToken, NewSpace(liSpaces));
     end;
   end
   else

@@ -88,7 +88,7 @@ begin
         lcNew.SourceCode := AnsiLineBreak;
         XPos  := 0;
 
-        lcToken.AddSiblingAfter(lcNew);
+        InsertTokenAfter(lcToken, lcNew);
       end;
     end
     else

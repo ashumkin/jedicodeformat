@@ -157,11 +157,19 @@ end;
 
 procedure InsertTokenAfter(const pt, ptNew: TSourceToken);
 begin
+  Assert(pt <> nil);
+  Assert(pt.Parent <> nil);
+  Assert(ptNew <> nil);
+
   pt.Parent.InsertChild(pt.IndexOfSelf + 1, ptNew);
 end;
 
 procedure InsertTokenBefore(const pt, ptNew: TSourceToken);
 begin
+  Assert(pt <> nil);
+  Assert(pt.Parent <> nil);
+  Assert(ptNew <> nil);
+
   pt.Parent.InsertChild(pt.IndexOfSelf, ptNew);
 end;
 

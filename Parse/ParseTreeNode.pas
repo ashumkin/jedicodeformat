@@ -1,12 +1,5 @@
 unit ParseTreeNode;
 
-{ AFS 27 October 2002
-  this is the start of a new development
-   - to give the code formatter a full parse tree
-   in the recursive descent mould
-   and thereby pave the way for a version 2.0
-}
-
 {(*}
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code 
@@ -30,6 +23,12 @@ under the License.
 
 interface
 
+{ AFS 27 October 2002
+  this is the start of a new development
+   - to give the code formatter a full parse tree
+   in the recursive descent mould
+   and thereby pave the way for a version 2.0
+}
 uses
   {delphi }Contnrs,
   { local }Tokens, ParseTreeNodeType, Nesting;
@@ -58,12 +57,11 @@ type
 
     function NewChild: TParseTreeNode;
     procedure AddChild(const pcChild: TParseTreeNode);
-    procedure AddSiblingAfter(const pcChild: TParseTreeNode);
-    procedure AddSiblingBefore(const pcChild: TParseTreeNode);
 
     procedure InsertChild(const piIndex: integer; const pcChild: TParseTreeNode);
     function RemoveChild(const pcChild: TParseTreeNode): Boolean; overload;
     function RemoveChild(const piIndex: integer): Boolean; overload;
+    function ExtractChild(const pcChild: TParseTreeNode): TParseTreeNode;
 
     function IndexOfChild(const pcChild: TParseTreeNode): integer;
     function IndexOfSelf: integer;
@@ -72,6 +70,7 @@ type
     function FirstLeaf: TParseTreeNode;
     function FirstSolidLeaf: TParseTreeNode; virtual;
     function LastLeaf: TParseTreeNode;
+
     function PriorLeafNode: TParseTreeNode;
     function NextLeafNode: TParseTreeNode;
 
@@ -188,21 +187,6 @@ begin
   fcChildNodes.Add(pcChild);
 end;
 
-procedure TParseTreeNode.AddSiblingAfter(const pcChild: TParseTreeNode);
-begin
-  Assert(Parent <> nil);
-  Assert(pcChild <> nil);
-
-  Parent.InsertChild(IndexOfSelf + 1, pcChild);
-end;
-
-procedure TParseTreeNode.AddSiblingBefore(const pcChild: TParseTreeNode);
-begin
-  Assert(Parent <> nil);
-  Assert(pcChild <> nil);
-
-  Parent.InsertChild(IndexOfSelf, pcChild);
-end;
 
 procedure TParseTreeNode.InsertChild(const piIndex: integer;
   const pcChild: TParseTreeNode);
@@ -224,6 +208,11 @@ begin
     ChildNodes[piIndex].Parent := nil;
     fcChildNodes.Delete(piIndex);
   end;
+end;
+
+function TParseTreeNode.ExtractChild(const pcChild: TParseTreeNode): TParseTreeNode;
+begin
+  Result := TParseTreeNode(fcChildNodes.Extract(pcChild));
 end;
 
 function TParseTreeNode.IndexOfChild(const pcChild: TParseTreeNode): integer;

@@ -535,12 +535,12 @@ begin
   case liReturnsNeeded of
     1:
     begin
-      lcSourceToken.AddSiblingAfter(NewReturn);
+      InsertTokenAfter(lcSourceToken, NewReturn);
     end;
     2:
     begin
-      lcSourceToken.AddSiblingAfter(NewReturn);
-      lcSourceToken.AddSiblingAfter(NewReturn);
+      InsertTokenAfter(lcSourceToken, NewReturn);
+      InsertTokenAfter(lcSourceToken, NewReturn);
     end;
     else
     begin

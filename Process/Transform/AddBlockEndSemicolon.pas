@@ -1,5 +1,4 @@
 unit AddBlockEndSemicolon;
-
 {(*}
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code 

@@ -202,7 +202,7 @@ begin
       lcNew.TokenType := ttWhiteSpace;
       lcNew.SourceCode := AnsiSpace;
 
-      lcSourceToken.AddSiblingAfter(lcNew);
+      InsertTokenAfter(lcSourceToken, lcNew);
     end;
   end;
 
