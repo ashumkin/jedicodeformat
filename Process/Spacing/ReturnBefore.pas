@@ -6,18 +6,17 @@ unit ReturnBefore;
 
 interface
 
-uses BaseVisitor, VisitParseTree;
+uses SwitchableVisitor, VisitParseTree;
 
 
 type
-  TReturnBefore = class(TBaseTreeNodeVisitor)
+  TReturnBefore = class(TSwitchableVisitor)
     private
       fbBlankLineBefore: boolean;
-
+    protected
+      procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
     public
       constructor Create; override;
-
-      procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
   end;
 
 
@@ -26,7 +25,8 @@ implementation
 uses
   JclStrings,
   JcfMiscFunctions, TokenUtils,
-  SourceToken, TokenType, WordMap, Nesting, ParseTreeNodeType, JcfSettings;
+  SourceToken, TokenType, WordMap, Nesting, ParseTreeNodeType, JcfSettings,
+  FormatFlags;
 
 const
   WordsReturnBefore: TWordSet =
@@ -152,9 +152,10 @@ constructor TReturnBefore.Create;
 begin
   inherited;
   fbBlankLineBefore := False;
+  FormatFlags := FormatFlags + [eAddReturn];
 end;
 
-procedure TReturnBefore.VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TReturnBefore.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
   lcNext, lcNext2: TSourceToken;

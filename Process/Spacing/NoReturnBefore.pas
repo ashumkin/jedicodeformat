@@ -6,24 +6,25 @@ unit NoReturnBefore;
 
 interface
 
-uses BaseVisitor, VisitParseTree;
+uses SwitchableVisitor, VisitParseTree;
 
 
 type
-  TNoReturnBefore = class(TBaseTreeNodeVisitor)
+  TNoReturnBefore = class(TSwitchableVisitor)
   private
     fbSafeToRemoveReturn: boolean;
 
+  protected
+    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+
   public
     constructor Create; override;
-
-    procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
   end;
 
 implementation
 
 uses SourceToken, WordMap, TokenUtils, TokenType, ParseTreeNodeType,
-  JcfSettings, SetReturns;
+  JcfSettings, SetReturns, FormatFlags;
 
 function HasNoReturnBefore(const pt: TSourceToken): boolean;
 const
@@ -62,9 +63,10 @@ constructor TNoReturnBefore.Create;
 begin
   inherited;
   fbSafeToRemoveReturn := True;
+  FormatFlags := FormatFlags + [eRemoveReturn];
 end;
 
-procedure TNoReturnBefore.VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TNoReturnBefore.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
   lcNext: TSourceToken;

@@ -6,11 +6,11 @@ unit NoReturnAfter;
 
 interface
 
-uses SourceToken, BaseVisitor, VisitParseTree;
+uses SourceToken, SwitchableVisitor, VisitParseTree;
 
 
 type
-  TNoReturnAfter = class(TBaseTreeNodeVisitor)
+  TNoReturnAfter = class(TSwitchableVisitor)
     private
       fcLastSolidToken: TSourceToken;
       fbDoneWork: boolean;
@@ -21,11 +21,12 @@ type
 
       function NeedsNoReturn(const pt: TSourceToken): boolean;
 
+    protected
+      procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+
     public
       constructor Create; override;
 
-      procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
-      
       property DoneWork: boolean read fbDoneWork;
   end;
 
@@ -33,7 +34,7 @@ type
 implementation
 
 uses WordMap, TokenType, ParseTreeNodeType, TokenUtils,
-  SetReturns, JcfSettings;
+  SetReturns, JcfSettings, FormatFlags;
 
 
 constructor TNoReturnAfter.Create;
@@ -41,6 +42,7 @@ begin
   inherited;
   fcLastSolidToken := nil;
   fbDoneWork := False;
+  FormatFlags := FormatFlags + [eRemoveReturn];
 end;
 
 function TNoReturnAfter.NeedsNoReturn(const pt: TSourceToken): boolean;
@@ -205,7 +207,7 @@ begin
   Result := (fcLastSolidToken <> nil) and (fcLastSolidToken.TokenType = ttComment)
 end;
 
-procedure TNoReturnAfter.VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TNoReturnAfter.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
 begin

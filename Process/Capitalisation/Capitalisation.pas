@@ -6,13 +6,15 @@ unit Capitalisation;
 
 interface
 
-uses BaseVisitor, VisitParseTree;
+uses SwitchableVisitor, VisitParseTree;
 
 
 type
-  TCapitalisation = class(TBaseTreeNodeVisitor)
+  TCapitalisation = class(TSwitchableVisitor)
+    protected
+      procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
     public
-      procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+      constructor Create; override;
   end;
 
 implementation
@@ -20,7 +22,7 @@ implementation
 uses
   SysUtils,
   JclStrings,
-  SourceToken, TokenType, ParseTreeNodeType, JcfSettings;
+  SourceToken, TokenType, ParseTreeNodeType, JcfSettings, FormatFlags;
 
 { TCapitalisation }
 
@@ -43,7 +45,13 @@ begin
   end;
 end;
 
-procedure TCapitalisation.VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+constructor TCapitalisation.Create;
+begin
+  inherited;
+  FormatFlags := FormatFlags + [eCapsReservedWord];
+end;
+
+procedure TCapitalisation.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
 begin

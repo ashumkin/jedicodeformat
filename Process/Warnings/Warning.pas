@@ -2,10 +2,10 @@ unit Warning;
 
 interface
 
-uses BaseVisitor, ConvertTypes;
+uses SwitchableVisitor, ConvertTypes;
 
 type
-  TWarning = class(TBaseTreeNodeVisitor)
+  TWarning = class(TSwitchableVisitor)
     private
       fOnWarning: TStatusMessageProc;
 
@@ -14,12 +14,20 @@ type
 
     public
       property OnWarning: TStatusMessageProc read fOnWarning write fOnWarning;
+
+      constructor Create; override;
   end;
 
 
 implementation
 
-uses ParseTreeNode, SourceToken, TokenUtils;
+uses ParseTreeNode, SourceToken, TokenUtils, FormatFlags;
+
+constructor TWarning.Create;
+begin
+  inherited;
+  FormatFlags := FormatFlags + [eWarning];
+end;
 
 procedure TWarning.SendWarning(const pcNode: TObject; const psMessage: string);
 var

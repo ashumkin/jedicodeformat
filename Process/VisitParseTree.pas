@@ -11,8 +11,7 @@ interface
 type
 
   // action on visiting a node.
-  TVisitAction = (aNone, aDelete, aDeleteNext, aDeletePrevious,
-    aInsertAfter, aInsertBefore);
+  TVisitAction = (aNone, aDelete, aInsertAfter, aInsertBefore);
 
   // what happens on visiting a node. More fields to come?
   TRVisitResult = record

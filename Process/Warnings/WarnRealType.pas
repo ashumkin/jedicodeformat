@@ -14,14 +14,14 @@ type
 
   TWarnRealType = class(TWarning)
     public
-      procedure VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult); override;
+      procedure EnabledVisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult); override;
   end;
 
 implementation
 
 uses SourceToken, ParseTreeNodeType, WordMap;
 
-procedure TWarnRealType.VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult);
+procedure TWarnRealType.EnabledVisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult);
 const
   REAL_WARNING = ' This type is obsolete and is seldom useful';
   // + 'See the help for details';

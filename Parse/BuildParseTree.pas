@@ -643,6 +643,7 @@ begin
       -> VarSection
       -> ExportedHeading
   }
+  PushNode(nDeclSection);
 
   lc := TokenList.FirstSolidToken;
   lw := TokenList.FirstSolidTokenWord;
@@ -659,6 +660,8 @@ begin
     else
       Raise TEParseError.Create('Expected const, type, var, procedure or function', lc);
   end;
+
+  PopNode;
 end;
 
 procedure TBuildParseTree.RecogniseExportedHeading;
@@ -2890,7 +2893,8 @@ end;
 
 procedure TBuildParseTree.RecogniseClassBody;
 begin
-  //ClassBody -> classdeclarations (access clasdeclarations) ...
+  //ClassBody -> classdeclarations (access classdeclarations) ...
+  PushNode(nClassBody);
 
   RecogniseClassDeclarations(False);
 
@@ -2902,6 +2906,7 @@ begin
     PopNode;
   end;
 
+  PopNode;
 end;
 
 procedure TBuildParseTree.RecogniseClassDeclarations(const pbInterface: Boolean);

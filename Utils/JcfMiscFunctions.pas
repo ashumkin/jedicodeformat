@@ -134,8 +134,8 @@ begin
   else
   begin
 
-    liLastPos := StrLastPos(ANsiLineBreak, ps);
-    if liLastPos < 0 then
+    liLastPos := StrLastPos(AnsiLineBreak, ps);
+    if liLastPos <= 0 then
     begin
       piX := piX + Length(ps);
     end
@@ -146,7 +146,7 @@ begin
       PiX := Length(ps) - (liLastPos + Length(AnsiLineBreak));
     end;
   end;
-
+  
 end;
 
 end.

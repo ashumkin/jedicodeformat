@@ -5,16 +5,16 @@ interface
 { AFS 9 Dec 1999
   Single space after : }
 
-uses BaseVisitor, VisitParseTree;
+uses SwitchableVisitor, VisitParseTree;
 
 
 type
-  TSingleSpaceAfter = class(TBaseTreeNodeVisitor)
+  TSingleSpaceAfter = class(TSwitchableVisitor)
     private
-
+    protected
+      procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
     public
-
-      procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+      constructor Create; override;
   end;
 
 
@@ -23,7 +23,8 @@ implementation
 uses
   JclStrings,
   JcfMiscFunctions,
-  SourceToken, TokenType, WordMap, ParseTreeNodeType, JcfSettings;
+  SourceToken, TokenType, WordMap, ParseTreeNodeType, JcfSettings,
+  FormatFlags;
 
   const
   SingleSpaceAfterTokens: TTokenTypeSet = [ttColon, ttAssign, ttComma];
@@ -138,7 +139,13 @@ begin
 end;
 
 
-procedure TSingleSpaceAfter.VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+constructor TSingleSpaceAfter.Create;
+begin
+  inherited;
+  FormatFlags := FormatFlags + [eAddSpace, eRemoveSpace, eRemoveReturn];
+end;
+
+procedure TSingleSpaceAfter.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
   lcNext, lcNew: TSourceToken;

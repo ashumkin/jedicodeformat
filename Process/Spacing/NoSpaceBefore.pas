@@ -7,24 +7,22 @@ unit NoSpaceBefore;
 
 interface
 
-uses BaseVisitor, VisitParseTree;
-
+uses SwitchableVisitor, VisitParseTree;
 
 type
-  TNoSpaceBefore = class(TBaseTreeNodeVisitor)
+  TNoSpaceBefore = class(TSwitchableVisitor)
     private
       fbSafeToRemoveReturn: boolean;  // this taken from NoReturnBefore
-
+    protected
+      procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
     public
       constructor Create; override;
-
-      procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
   end;
 
 
 implementation
 
-uses SourceToken, TokenType, WordMap, ParseTreeNodeType;
+uses SourceToken, TokenType, WordMap, ParseTreeNodeType, FormatFlags;
 
 const
   NoSpaceAnywhere: TTokenTypeSet = [ttSemiColon, ttDot, ttComma,
@@ -54,9 +52,10 @@ constructor TNoSpaceBefore.Create;
 begin
   inherited;
   fbSafeToRemoveReturn := True;
+  FormatFlags := FormatFlags + [eRemoveSpace];
 end;
 
-procedure TNoSpaceBefore.VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TNoSpaceBefore.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
   lcNext: TSourceToken;

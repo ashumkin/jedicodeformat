@@ -10,8 +10,8 @@ uses BaseVisitor, VisitParseTree;
 
 type
   TFixCase = class(TBaseTreeNodeVisitor)
-    public
-      procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  public
+    procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
   end;
 
 
@@ -66,8 +66,8 @@ begin
       pt.SourceCode := StrSmartCase(pt.SourceCode, []);
     ctLeaveAlone:;
   end;
-
 end;
+
 
 procedure TFixCase.VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var

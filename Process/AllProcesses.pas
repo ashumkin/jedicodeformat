@@ -17,8 +17,11 @@ TAllProcesses = class(TObject)
 
     procedure ApplyVisitorType(const pcVisitorType: TTreeNodeVisitorType);
 
-    procedure AllWarnings;
     procedure Obfuscate;
+    procedure Warnings;
+    procedure Spacing;
+    procedure Capitalisation;
+    procedure Indent;
   public
     constructor Create;
 
@@ -33,12 +36,20 @@ uses
   JcfSettings,
   VisitSetXY,
 
+  { obfuscate}
+  FixCase, RemoveComment, RemoveBlankLine, RemoveReturn, ReduceWhiteSpace,
+  RemoveConsecutiveWhiteSpace, RemoveUnneededWhiteSpace, RebreakLines,
   { warnings }
   Warning, WarnEmptyBlock, WarnRealType, WarnAssignToFunctionName,
   WarnCaseNoElse, WarnDestroy,
-  { obfuscate}
-  FixCase, RemoveComment, RemoveBlankLine, RemoveReturn, ReduceWhiteSpace,
-  RemoveConsecutiveWhiteSpace, RemoveUnneededWhiteSpace, RebreakLines;
+  { caps}
+  SpecifiCWordCaps, Capitalisation,
+  { spacing}
+  NoReturnBefore, NoReturnAfter, ReturnBefore, ReturnAfter,
+  NoSpaceAfter, NoSpaceBefore, SingleSpaceBefore, SingleSpaceAfter,
+  BlockStyles,
+  {indent}
+  VisitSetNesting, Indenter;
 
 constructor TAllProcesses.Create;
 begin
@@ -73,20 +84,11 @@ begin
   end
   else
   begin
-    AllWarnings;
+    Warnings;
+    Capitalisation;
+    Spacing;
+    Indent;
   end;
-
-end;
-
-procedure TAllProcesses.AllWarnings;
-begin
-  ApplyVisitorType(TVisitSetXY);
-
-  ApplyVisitorType(TWarnEmptyBlock);
-  ApplyVisitorType(TWarnRealType);
-  ApplyVisitorType(TWarnAssignToFunctionName);
-  ApplyVisitorType(TWarnCaseNoElse);
-  ApplyVisitorType(TWarnDestroy);
 end;
 
 procedure TAllProcesses.Obfuscate;
@@ -107,5 +109,44 @@ begin
   ApplyVisitorType(TRebreakLines);
 end;
 
+procedure TAllProcesses.Warnings;
+begin
+  ApplyVisitorType(TVisitSetXY);
+
+  ApplyVisitorType(TWarnEmptyBlock);
+  ApplyVisitorType(TWarnRealType);
+  ApplyVisitorType(TWarnAssignToFunctionName);
+  ApplyVisitorType(TWarnCaseNoElse);
+  ApplyVisitorType(TWarnDestroy);
+end;
+
+procedure TAllProcesses.Capitalisation;
+begin
+  ApplyVisitorType(TSpecificWordCaps);
+  ApplyVisitorType(TCapitalisation);
+end;
+
+procedure TAllProcesses.Spacing;
+begin
+  // apply them all
+  ApplyVisitorType(TNoReturnAfter);
+  ApplyVisitorType(TNoReturnBefore);
+  ApplyVisitorType(TReturnAfter);
+
+  ApplyVisitorType(TNoSpaceAfter);
+  ApplyVisitorType(TNoSpaceBefore);
+  ApplyVisitorType(TSingleSpaceBefore);
+  ApplyVisitorType(TSingleSpaceAfter);
+
+  ApplyVisitorType(TBlockStyles);
+end;
+
+procedure TAllProcesses.Indent;
+begin
+  ApplyVisitorType(TVisitSetNestings);
+  ApplyVisitorType(TVisitSetXY);
+  ApplyVisitorType(TIndenter);
+  ApplyVisitorType(TVisitSetXY);
+end;
 
 end.

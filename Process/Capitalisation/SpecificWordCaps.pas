@@ -5,19 +5,19 @@ unit SpecificWordCaps;
 }
 interface
 
-uses BaseVisitor, VisitParseTree;
+uses SwitchableVisitor, VisitParseTree;
 
 
 type
-  TSpecificWordCaps = class(TBaseTreeNodeVisitor)
+  TSpecificWordCaps = class(TSwitchableVisitor)
     private
       fiCount: integer;
       lsLastChange: string;
 
+    protected
+      procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
     public
       constructor Create; override;
-
-      procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
 
       { return true if you want the message logged}
       function FinalSummary(var psMessage: string): Boolean; override;
@@ -28,7 +28,7 @@ implementation
 uses
   SysUtils,
   JclStrings,
-  SourceToken, TokenType, ParseTreeNodeType, JcfSettings;
+  SourceToken, TokenType, ParseTreeNodeType, JcfSettings, FormatFlags;
 
 
 function Excluded(const pt: TSourceToken): boolean;
@@ -71,6 +71,7 @@ begin
   inherited;
   fiCount      := 0;
   lsLastChange := '';
+  FormatFlags := FormatFlags + [eCapsSpecificWord];
 end;
 
 function TSpecificWordCaps.FinalSummary(var psMessage: string): Boolean;
@@ -88,7 +89,7 @@ begin
   end;
 end;
 
-procedure TSpecificWordCaps.VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TSpecificWordCaps.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
   lsChange: string;

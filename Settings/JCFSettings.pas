@@ -106,6 +106,7 @@ begin
 
   Result := mcSettings;
 end;
+
 constructor TSettings.Create;
 begin
   inherited;

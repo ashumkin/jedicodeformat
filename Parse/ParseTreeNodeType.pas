@@ -81,6 +81,7 @@ type
     nInitSection,
     nClassType,
     nClassHeritage,
+    nClassBody,
     nClassVisibility,
     nClassDeclarations,
     nProperty,
@@ -256,6 +257,8 @@ begin
       Result := 'class type';
     nClassHeritage:
       Result := 'class heritage';
+    nClassBody:
+      Result := 'class body';
     nClassVisibility:
       Result := 'class visiblity';
     nClassDeclarations:

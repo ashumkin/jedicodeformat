@@ -6,16 +6,16 @@ unit ReturnAfter;
 
 interface
 
-uses BaseVisitor, VisitParseTree;
+uses SwitchableVisitor, VisitParseTree;
 
 
 type
-  TReturnAfter = class(TBaseTreeNodeVisitor)
+  TReturnAfter = class(TSwitchableVisitor)
     private
-
+    protected
+      procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
     public
-
-      procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+      constructor Create; override;
   end;
 
 
@@ -25,7 +25,7 @@ uses
   JclStrings,
   JcfMiscFunctions,
   TokenUtils, SourceToken, TokenType, WordMap, Nesting,
-  ParseTreeNodeType, JcfSettings;
+  ParseTreeNodeType, JcfSettings, FormatFlags;
 
 const
   WordsJustReturnAfter: TWordSet = [wType, wBegin, wRepeat,
@@ -219,7 +219,13 @@ begin
   end;
 end;
 
-procedure TReturnAfter.VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+constructor TReturnAfter.Create;
+begin
+  inherited;
+  FormatFlags := FormatFlags + [eAddReturn];
+end;
+
+procedure TReturnAfter.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   lcNext, lcCommentTest: TSourceToken;
   liReturnsNeeded: integer;

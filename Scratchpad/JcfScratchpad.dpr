@@ -70,7 +70,15 @@ uses
   NoReturnAfter in '..\Process\Spacing\NoReturnAfter.pas',
   NoReturnBefore in '..\Process\Spacing\NoReturnBefore.pas',
   AllProcesses in '..\Process\AllProcesses.pas',
-  RemoveBlankLine in '..\Process\Obfuscate\RemoveBlankLine.pas';
+  RemoveBlankLine in '..\Process\Obfuscate\RemoveBlankLine.pas',
+  BlockStyles in '..\Process\Spacing\BlockStyles.pas',
+  SwitchableVisitor in '..\Process\SwitchableVisitor.pas',
+  FormatFlags in '..\Process\FormatFlags.pas',
+  TabToSpace in '..\Process\Spacing\TabToSpace.pas',
+  SpaceToTab in '..\Process\Spacing\SpaceToTab.pas',
+  SpecificWordCaps in '..\Process\Capitalisation\SpecificWordCaps.pas',
+  Capitalisation in '..\Process\Capitalisation\Capitalisation.pas',
+  Indenter in '..\Process\Indent\Indenter.pas';
 
 {$R *.res}
 

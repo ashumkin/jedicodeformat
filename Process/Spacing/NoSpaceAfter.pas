@@ -5,19 +5,18 @@ unit NoSpaceAfter;
 
 interface
 
-uses BaseVisitor, VisitParseTree, SourceToken;
+uses SwitchableVisitor, VisitParseTree, SourceToken;
 
 
 type
-  TNoSpaceAfter = class(TBaseTreeNodeVisitor)
+  TNoSpaceAfter = class(TSwitchableVisitor)
     private
       fcLastSolidToken: TSourceToken;
       fbSafeToRemoveReturn: boolean;  // this taken from NoReturnBefore
-
+    protected
+      procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
     public
       constructor Create; override;
-
-      procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
   end;
 
 
@@ -25,7 +24,7 @@ implementation
 
 uses
   JcfMiscFunctions,
-  TokenType, WordMap, ParseTreeNodeType, JcfSettings;
+  TokenType, WordMap, ParseTreeNodeType, JcfSettings, FormatFlags;
 
 { TNoSpaceAfter }
 
@@ -107,9 +106,10 @@ constructor TNoSpaceAfter.Create;
 begin
   inherited;
   fbSafeToRemoveReturn := True;
+  FormatFlags := FormatFlags + [eRemoveSpace];
 end;
 
-procedure TNoSpaceAfter.VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TNoSpaceAfter.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
   lcNextSolid: TSourceToken;

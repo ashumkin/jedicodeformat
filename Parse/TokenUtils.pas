@@ -13,6 +13,7 @@ uses ParseTreeNode, SourceToken;
 
 { make a new return token }
 function NewReturn: TSourceToken;
+function NewSpace(const piLength: integer): TSourceToken;
 
 
 { return the name of the procedure around any parse tree node or source token
@@ -51,9 +52,12 @@ function InStatements(const pt: TSourceToken): Boolean;
 function IsLabelColon(const pt: TSourceToken): boolean;
 function IsCaseColon(const pt: TSourceToken): boolean;
 
+function IsFirstSolidTokenOnLine(const pt: TSourceToken): boolean;
+
 implementation
 
 uses
+  SysUtils,
   JclStrings,
   ParseTreeNodeType, TokenType, WordMap, Nesting;
 
@@ -63,6 +67,15 @@ begin
   Result := TSourceToken.Create;
   Result.TokenType := ttReturn;
   Result.SourceCode := AnsiLineBreak;
+end;
+
+function NewSpace(const piLength: integer): TSourceToken;
+begin
+  Assert(piLength > 0, 'Bad space length of' + IntToStr(piLength));
+
+  Result := TSourceToken.Create;
+  Result.TokenType := ttWhiteSpace;
+  Result.SourceCode := StrRepeat(AnsiSpace, piLength);
 end;
 
 
@@ -277,6 +290,11 @@ end;
 function IsCaseColon(const pt: TSourceToken): boolean;
 begin
   Result := (pt.TokenType = ttColon) and pt.HasParentNode(nCaseLabels, 1);
+end;
+
+function IsFirstSolidTokenOnLine(const pt: TSourceToken): boolean;
+begin
+  Result := pt.IsSolid and (pt.SolidTokenOnLineIndex = 0);
 end;
 
 end.

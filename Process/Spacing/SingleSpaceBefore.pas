@@ -13,16 +13,16 @@ interface
      "Result := myObject. read ;" compiles, but looks all wrong
 }
 
-uses BaseVisitor, VisitParseTree;
+uses SwitchableVisitor, VisitParseTree;
 
 
 type
-  TSingleSpaceBefore = class(TBaseTreeNodeVisitor)
+  TSingleSpaceBefore = class(TSwitchableVisitor)
     private
-
+    protected
+      procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
     public
-
-      procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+      constructor Create; override;
   end;
 
 
@@ -31,7 +31,8 @@ implementation
 uses
   JclStrings,
   JcfMiscFunctions,
-  SourceToken, TokenType, WordMap, ParseTreeNodeType, JcfSettings;
+  SourceToken, TokenType, WordMap, ParseTreeNodeType, JcfSettings,
+  FormatFlags;
 
 const
   // space before all operators
@@ -91,7 +92,13 @@ begin
 end;
 
 
-procedure TSingleSpaceBefore.VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+constructor TSingleSpaceBefore.Create;
+begin
+  inherited;
+  FormatFlags := FormatFlags + [eAddSpace, eRemoveSpace, eRemoveReturn];
+end;
+
+procedure TSingleSpaceBefore.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   lcSourceToken, lcNext, lcNew: TSourceToken;
 begin

@@ -5,18 +5,18 @@ interface
 { AFS 4 Jan 2002
   convert tabs to spaces }
 
-uses BaseVisitor, VisitParseTree;
+uses SwitchableVisitor, VisitParseTree;
 
 
 type
-  TTabToSpace = class(TBaseTreeNodeVisitor)
+  TTabToSpace = class(TSwitchableVisitor)
   private
     fsSpaces: string;
 
   public
     constructor Create; override;
 
-    procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
   end;
 
 
@@ -25,15 +25,16 @@ implementation
 uses
   SysUtils,
   JclStrings,
-  JcfSettings, SourceToken, TokenType;
+  JcfSettings, SourceToken, TokenType, FormatFlags;
 
 constructor TTabToSpace.Create;
 begin
   inherited;
   fsSpaces := StrRepeat(AnsiSpace, Settings.Spaces.SpacesPerTab);
+  FormatFlags := FormatFlags + [eAddSpace, eRemoveSpace];
 end;
 
-procedure TTabToSpace.VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TTabToSpace.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
   ls: string;

@@ -82,7 +82,11 @@ uses
   SingleSpaceBefore in '..\..\Process\Spacing\SingleSpaceBefore.pas',
   SingleSpaceAfter in '..\..\Process\Spacing\SingleSpaceAfter.pas',
   ReturnBefore in '..\..\Process\Spacing\ReturnBefore.pas',
-  ReturnAfter in '..\..\Process\Spacing\ReturnAfter.pas';
+  ReturnAfter in '..\..\Process\Spacing\ReturnAfter.pas',
+  BlockStyles in '..\..\Process\Spacing\BlockStyles.pas',
+  SwitchableVisitor in '..\..\Process\SwitchableVisitor.pas',
+  FormatFlags in '..\..\Process\FormatFlags.pas',
+  Indenter in '..\..\Process\Indent\Indenter.pas';
 
 {$R *.res}
 

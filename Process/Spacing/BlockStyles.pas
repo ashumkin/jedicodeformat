@@ -39,23 +39,24 @@ unit BlockStyles;
 
 interface
 
-uses BaseVisitor, VisitParseTree, ParseTreeNodeType;
+uses SwitchableVisitor, VisitParseTree, ParseTreeNodeType;
 
 
 type
-  TBlockStyles = class(TBaseTreeNodeVisitor)
+  TBlockStyles = class(TSwitchableVisitor)
     private
       fbRemoveNextReturn: boolean;
 
+    protected
+      procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
     public
       constructor Create; override;
-
-      procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
   end;
 
 implementation
 
-uses WordMap, SourceToken, TokenType, TokenUtils, JCFSettings;
+uses WordMap, SourceToken, TokenType, TokenUtils, JCFSettings,
+  FormatFlags;
 
 const
   BreakWords: TWordSet = [wThen, wDo, wElse, wEnd];
@@ -126,7 +127,7 @@ begin
   begin
     { otherwise, is there a begin next? }
     if lcNextToken.Word = wBegin then
-      Result := Settings.Returns.BlockBeginStyle
+      Result := Settings.Returns.BlockBeginStyle    
     else
       Result := Settings.Returns.BlockStyle;
   end;
@@ -137,9 +138,10 @@ constructor TBlockStyles.Create;
 begin
   inherited;
   fbRemoveNextReturn := False;
+  FormatFlags := FormatFlags + [eBlockStyle, eAddReturn, eRemoveReturn];
 end;
 
-procedure TBlockStyles.VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TBlockStyles.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   leStyle: TBlockNewLineStyle;
   lcSourceToken, lcNextReturn: TSourceToken;
@@ -179,7 +181,6 @@ begin
         Assert(False);
     end;
   end;
-
 end;
 
 end.

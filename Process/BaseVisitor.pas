@@ -12,6 +12,7 @@ uses VisitParseTree;
 type
 
   TBaseTreeNodeVisitor = class(TInterfacedObject, IVisitParseTree)
+
   public
     constructor Create; virtual;
 

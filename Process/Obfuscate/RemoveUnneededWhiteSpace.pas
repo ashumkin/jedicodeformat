@@ -101,9 +101,7 @@ begin
   end
   else
     Result := False;
-
 end;
-
 
 
 procedure TRemoveUnneededWhiteSpace.VisitSourceToken(const pcNode: TObject;

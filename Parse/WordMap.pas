@@ -276,6 +276,8 @@ const
 
   ParamTypes = [wVar, wConst, wOut];
 
+  BlockOutdentWords = [wVar, wThreadVar, wConst, wType, wLabel, wBegin, wEnd, wTry, wFinally, wExcept];
+
   PropertyDirectives: TWordSet =
     { the basics }
     [wRead, wWrite,

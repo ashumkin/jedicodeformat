@@ -14,7 +14,7 @@ type
 
   TWarnDestroy = class(TWarning)
     public
-      procedure VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult); override;
+      procedure EnabledVisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult); override;
   end;
 
 implementation
@@ -23,7 +23,7 @@ uses
   { delphi } SysUtils,
   { local } SourceToken, ParseTreeNodeType;
 
-procedure TWarnDestroy.VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult);
+procedure TWarnDestroy.EnabledVisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult);
 var
   lcToken: TSourceToken;
 begin
