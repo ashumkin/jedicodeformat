@@ -179,7 +179,7 @@ begin
   end;
 
   { access specifiying directive (private, public et al) in a class def }
-  if pt.HasParentNode(nClassVisibility) and (pt.Word in CLASS_VISIBILITY) then
+  if IsClassDirective(pt) then
   begin
     Result := True;
     exit;

@@ -68,7 +68,7 @@ const
   this is mixed bag of words
   }
 
-const 
+const
   DefaultWordsWithCaps: array [0..119] of string =
     (// constants
     'True', 'False',
@@ -127,7 +127,9 @@ constructor TSetAnyWordCaps.Create;
 begin
   inherited;
   SetSection('SpecificWordCaps');
+  
   fcWords := TStringList.Create;
+  fcWords.Duplicates := dupIgnore;
 end;
 
 destructor TSetAnyWordCaps.Destroy;

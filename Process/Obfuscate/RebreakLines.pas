@@ -35,7 +35,7 @@ end;
 procedure TRebreakLines.VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   lcToken: TSourceToken;
-  lcNew: TSourceToken;
+  lcNext, lcNew: TSourceToken;
   liLen: integer;
 begin
   lcToken := TSourceToken(pcNode);
@@ -49,16 +49,26 @@ begin
 
     if (XPos + liLen) > 80 then
     begin
-      prVisitResult.Action := aInsertAfter;
+      { no space directly after the new return }
+      lcNext := lcToken.NextToken;
+      if (lcNext <> nil) and (lcNext.TokenType = ttWhiteSpace) then
+          lcNext.SourceCode := '';
 
-      lcNew := TSourceToken.Create;
-      lcNew.TokenType := ttReturn;
-      lcNew.SourceCode := AnsiLineBreak;
-      XPos := 0;
+      { need a return? }
+      if (lcNext <> nil) and (lcNext.TokenType <> ttReturn) then
+      begin
+        prVisitResult.Action := aInsertAfter;
 
-      prVisitResult.NewItem := lcNew;
+        lcNew := TSourceToken.Create;
+        lcNew.TokenType := ttReturn;
+        lcNew.SourceCode := AnsiLineBreak;
+        XPos := 0;
+
+        prVisitResult.NewItem := lcNew;
+      end;
     end
     else
+      // not at enhd of line yet 
       xPos := xPos + liLen;
   end;
 end;

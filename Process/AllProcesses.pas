@@ -57,7 +57,7 @@ uses
   BlockStyles,
   { spacing}
   NoSpaceAfter, NoSpaceBefore, SingleSpaceBefore, SingleSpaceAfter,
-  SpaceBeforeColon, VisitStripEmptySpace,
+  SpaceBeforeColon, RemoveSpaceAtLineEnd, VisitStripEmptySpace,
   {indent}
   VisitSetNesting, Indenter, LongLineBreaker,
   { stats }
@@ -173,6 +173,7 @@ begin
   ApplyVisitorType(TVisitStripEmptySpace);
 
   ApplyVisitorType(TSpaceBeforeColon);
+  ApplyVisitorType(TRemoveSpaceAtLineEnd);
   ApplyVisitorType(TVisitStripEmptySpace);
 end;
 
@@ -198,6 +199,11 @@ begin
 
   ApplyVisitorType(TNoReturnAfter);
   ApplyVisitorType(TNoReturnBefore);
+
+  ApplyVisitorType(TVisitSetXY);
+  ApplyVisitorType(TReturnBefore);
+
+  ApplyVisitorType(TVisitSetXY);
   ApplyVisitorType(TReturnAfter);
 
   ApplyVisitorType(TBlockStyles);

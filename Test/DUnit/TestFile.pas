@@ -33,6 +33,11 @@ begin
   lsFile1 := FileToString(psFileName1);
   lsFile2 := FileToString(psFileName2);
 
+  // first check lengths
+  CheckEquals(Length(lsFile1), Length(lsFile2),
+    'Files lengths differ ' + psFileName1 + ' and ' + psFileName2);
+
+
   // check contents the same
   if (lsFile1 <> lsFile2) then
     Fail('Files differ ' + psFileName1 + ' and ' + psFileName2);

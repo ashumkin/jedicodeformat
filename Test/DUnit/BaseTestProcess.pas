@@ -31,9 +31,10 @@ type
  end;
 
 const
-  UNIT_HEADER = 'unit Test;' + AnsiLineBreak + ' interface' +
-    AnsiLineBreak + ' implementation' + AnsiLineBreak;
-  INTERFACE_HEADER = 'unit Test;' + AnsiLineBreak + 'interface' + AnsiLineBreak;
+  INTERFACE_HEADER = 'unit Test;' + AnsiLineBreak +
+    'interface' + AnsiLineBreak;
+  UNIT_HEADER = INTERFACE_HEADER +
+    'implementation' + AnsiLineBreak;
   UNIT_FOOTER = AnsiLineBreak + 'end.';
 
 implementation
@@ -131,7 +132,7 @@ begin
 
   lsOut := Trim(fcOutput.Text);
 
-  {
+  { }
   // debug
   if (lsOut <> psOut) then
     ShowMessage(MarkReturns(lsOut) +
@@ -139,6 +140,7 @@ begin
       MarkReturns(psOut));
  { }
 
+  CheckEquals(Length(psOut), Length(lsOut), 'Results length mismatch');
   CheckEquals(psOut, lsOut, 'Bad result text');
 end;
 

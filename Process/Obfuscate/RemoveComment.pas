@@ -19,7 +19,37 @@ type
 
 implementation
 
-uses SourceToken, TokenType;
+uses
+  JclStrings,
+  SourceToken, TokenType, ParseTreeNodeType, WordMap, FormatFlags;
+
+function CommentMustStay(const pc: TSourceToken): boolean;
+var
+  lsPrefix: string;
+begin
+  Result := False;
+
+  lsPrefix := StrLeft(pc.SourceCode, 2);
+  if (lsPrefix = '{$') or (lsPrefix = '{%') then
+    Result := True;
+
+  { all curly backets in the uses clause of a program/library def
+   must be respected as they link files to dfms, com classes 'n stuff }
+  if (pc.CommentStyle = eCurly) and
+    (pc.HasParentNode(InterfaceSections)) and pc.HasParentNode(UsesClauses) and
+    pc.IsOnRightOf(UsesClauses, UsesWords) then
+    Result := True;
+
+  { these comments are flags to the code format program, so leave them }
+  if (pc.SourceCode = '{(*}') or (pc.SourceCode = '{*)}') then
+    Result := True;
+
+  // these are also flags
+  if ((pc.CommentStyle = eDoubleSlash) and
+    (StrLeft(pc.SourceCode, FORMAT_COMMENT_PREFIX_LEN) = FORMAT_COMMENT_PREFIX)) then
+    Result := True;
+
+end;
 
 procedure TRemoveComment.VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
@@ -32,8 +62,11 @@ begin
   *)
   if lcSourceToken.TokenType = ttComment then
   begin
-    lcSourceToken.TokenType := ttWhiteSpace;
-    lcSourceToken.SourceCode := ' ';
+    if not CommentMustStay(lcSourceToken) then
+    begin
+      lcSourceToken.TokenType := ttWhiteSpace;
+      lcSourceToken.SourceCode := ' ';
+    end;
   end;
 end;
 

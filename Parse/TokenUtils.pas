@@ -272,8 +272,8 @@ begin
     are both legal so have to check that we're not in a property or function def. }
 
   Result := (pt.Word in ClassDirectives) and
-    pt.HasParentNode(nClassVisibility) and
-    (not (pt.HasParentNode(ProcedureNodes)));
+    pt.HasParentNode(nClassVisibility, 1) and
+    (not (pt.HasParentNode(ProcedureNodes + [nProperty])));
 end;
 
 function RoundBracketLevel(const pt: TSourceToken): integer;

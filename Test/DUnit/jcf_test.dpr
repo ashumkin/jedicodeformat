@@ -108,7 +108,8 @@ uses
   JCFSettings in '..\..\Settings\JCFSettings.pas',
   TestCommandLine in 'TestCommandLine.pas',
   TestConstants in 'TestConstants.pas',
-  TestFile in 'TestFile.pas';
+  TestFile in 'TestFile.pas',
+  RemoveSpaceAtLineEnd in '..\..\Process\Spacing\RemoveSpaceAtLineEnd.pas';
 
 {$R *.res}
 

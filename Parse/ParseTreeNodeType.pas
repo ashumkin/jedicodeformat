@@ -131,6 +131,13 @@ const
 
   UsesClauses: TParseTreeNodeTypeSet = [nUses, nRequires, nContains];
 
+  InterfaceSections: TParseTreeNodeTypeSet =
+    [nUnitHeader, nPackage, nLibrary];
+
+  { can find these blocks of def/dels outside of anything }
+  nTopLevelSections = [nTypeSection, nConstSection, nVarSection, nLabelDeclSection, nExports];
+
+
 
 function NodeTypeToString(const pe: TParseTreeNodeType): string;
 

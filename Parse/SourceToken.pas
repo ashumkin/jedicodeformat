@@ -70,6 +70,7 @@ type
     function NextSolidToken: TSourceToken;
     function PriorSolidToken: TSourceToken;
     function NextTokenWithExclusions(const peExclusions: TTokenTypeSet): TSourceToken;
+    function PriorTokenWithExclusions(const peExclusions: TTokenTypeSet): TSourceToken;
 
     function IsHashLiteral: boolean;
 
@@ -202,6 +203,15 @@ begin
   while (Result <> nil) and (Result.TokenType in peExclusions) do
     Result := Result.NextToken;
 end;
+
+function TSourceToken.PriorTokenWithExclusions(const peExclusions: TTokenTypeSet): TSourceToken;
+begin
+  Result := PriorToken;
+
+  while (Result <> nil) and (Result.TokenType in peExclusions) do
+    Result := Result.PriorToken;
+end;
+
 
 function TSourceToken.PriorSolidToken: TSourceToken;
 begin

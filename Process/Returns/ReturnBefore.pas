@@ -1,7 +1,7 @@
 unit ReturnBefore;
 
 { AFS 10 Jan 2003
-  Retrun before
+  Return before
 }
 
 interface
@@ -12,9 +12,11 @@ uses SwitchableVisitor, VisitParseTree;
 type
   TReturnBefore = class(TSwitchableVisitor)
     private
-      fbBlankLineBefore: boolean;
+      fiReturnsBefore, fiNextReturnsBefore: integer;
     protected
-      procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+      procedure InspectSourceToken(const pcToken: TObject); override;
+
+      procedure EnabledVisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult); override;
     public
       constructor Create; override;
   end;
@@ -39,6 +41,8 @@ const
 function NeedsBlankLine(const pt, ptNext: TSourceToken): boolean;
 begin
   Result := (pt.Word in WordsBlankLineBefore);
+  if Result then
+    exit;
 
   { function/proc body needs a blank line
    but not in RHSEquals of type defs,
@@ -57,6 +61,15 @@ begin
     exit;
   end;
 
+    { blank line before the words var, type or const at top level
+      except for:
+      type t2 = type integer; }
+  if (pt.Word in Declarations) and (pt.Nestings.Total = 0) and
+    (not pt.IsOnRightOf(nTypeDecl, wEquals)) then
+  begin
+    Result := True;
+    exit;
+  end;
 
   { start of class function body }
   if (pt.Word = wClass) and (IsClassFunction(pt)) and
@@ -68,7 +81,7 @@ begin
   end;
 
   { interface, but not as a typedef }
-  if (pt.Word = wInterface) and(not RHSTypeEquals(pt)) then
+  if (pt.Word = wInterface) and not (pt.HasParentNode(nTypeDecl)) then
   begin
     Result := True;
     exit;
@@ -86,7 +99,7 @@ end;
 function NeedsReturn(const pt, ptNext: TSourceToken): boolean;
 begin
   Result := False;
-  
+
   if pt = nil then
     exit;
 
@@ -103,8 +116,7 @@ begin
     is legal, only a return before the first one
 
    var, const, type but not in parameter list }
-  if (pt.Word in Declarations) and  (not pt.HasParentNode(nFormalParams)) and
-    (not pt.HasParentNode(nType)) then
+  if (pt.Word in Declarations) and pt.HasParentNode(nTopLevelSections, 1) then
   begin
     Result := True;
     exit;
@@ -148,77 +160,80 @@ begin
     Result := True;
     exit;
   end;
-
-  if NeedsBlankLine(pt, ptNext) then
-  begin
-    Result := True;
-    exit;
-  end;
 end;
 
 constructor TReturnBefore.Create;
 begin
   inherited;
-  fbBlankLineBefore := False;
+  fiReturnsBefore := 0;
+  fiNextReturnsBefore := 0;
   FormatFlags := FormatFlags + [eAddReturn];
 end;
 
-procedure TReturnBefore.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TReturnBefore.EnabledVisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
-  lcNext, lcNext2: TSourceToken;
+  lcNext: TSourceToken;
   liReturnsNeeded: integer;
 begin
-  lcSourceToken := TSourceToken(pcNode);
+  lcSourceToken := TSourceToken(pcToken);
+  lcNext := lcSourceToken.NextToken;
+  if lcNext = nil then
+    exit;
 
-  { we are really interested in tcNext, but we inspect pt
-   to see if there is a significant token before it on the line
-   this is a running total, that is affeced by returns & non-white-space chars
+  liReturnsNeeded := 0;
+
+  if NeedsReturn(lcSourceToken, lcNext) then
+    liReturnsNeeded := 1
+  else if NeedsBlankLine(lcSourceToken, lcNext) then
+    liReturnsNeeded := 2;
+
+  { number to insert = needed - actual }
+  liReturnsNeeded := liReturnsNeeded - fiReturnsBefore;
+
+  if liReturnsNeeded > 0 then
+  begin
+
+    case liReturnsNeeded of
+      1:
+      begin
+        prVisitResult.Action := aInsertBefore;
+        prVisitResult.NewItem := NewReturn;
+      end;
+      2:
+      begin
+        prVisitResult.Action := aInsertBefore;
+        prVisitResult.NewItem := NewReturn;
+        prVisitResult.NewItem2 := NewReturn;
+      end;
+      else
+      begin
+        Assert(False, 'Too many returns');
+      end;
+    end;
+  end;
+
+end;
+
+procedure TReturnBefore.InspectSourceToken(const pcToken: TObject);
+var
+  lcSourceToken: TSourceToken;
+begin
+  {
+    inspect the tokens as they go past
+    this is a running total, that is affeced by returns & non-white-space chars
    A comment line is as good as a blank line for this
 
     if we encounter the tokens <return> <spaces> <word-needing-return before> the flag must be set true
    }
-  if (lcSourceToken.SolidTokenOnLineIndex = 0) and (lcSourceToken.TokenType = ttReturn) then
-    fbBlankLineBefore := True;
-  if not (lcSourceToken.TokenType in [ttReturn, ttWhiteSpace, ttComment]) then
-    fbBlankLineBefore := False;
+   fiReturnsBefore := fiNextReturnsBefore;
 
-  { check the next token  }
-  liReturnsNeeded := 0;
-  lcNext := lcSourceToken.NextToken;
-  if lcNext = nil then
-    exit;
-  lcNext2 := lcNext.NextSolidToken;
-  if lcNext2 = nil then
-    exit;
+  lcSourceToken := TSourceToken(pcToken);
 
-  // token should be first on line, or else wrap it  !
-  if (lcNext.SolidTokenOnLineIndex > 1) and NeedsReturn(lcNext, lcNext2) then
-    inc(liReturnsNeeded);
-
-  if not fbBlankLineBefore and NeedsBlankLine(lcNext, lcNext2) then
-    inc(liReturnsNeeded);
-
-
-  case liReturnsNeeded of
-    0:  ;
-    1:
-    begin
-      prVisitResult.Action := aInsertBefore;
-      prVisitResult.NewItem := NewReturn;
-    end;
-    2:
-    begin
-      prVisitResult.Action := aInsertBefore;
-      prVisitResult.NewItem := NewReturn;
-      prVisitResult.NewItem2 := NewReturn;
-    end;
-    else
-    begin
-      Assert(False, 'Too many returns');
-    end;
-  end;
-
+  if (lcSourceToken.TokenType = ttReturn) then
+    inc(fiNextReturnsBefore)
+  else if not (lcSourceToken.TokenType in [ttReturn, ttWhiteSpace, ttComment]) then
+    fiNextReturnsBefore := 0;
 
 end;
 
