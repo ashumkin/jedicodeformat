@@ -305,6 +305,16 @@ const
   ClassDirectives: TWordSet = [wPrivate, wProtected, wPublic, wPublished, wAutomated];
   HintDirectives: TWordSet = [wDeprecated, wLibrary, wPlatform];
 
+  AllDirectives: TWordSet = [wAbsolute, wExternal, wPascal, wSafecall,
+    wAbstract, wFar, wPrivate, wStdcall, wAssembler, wForward,
+    wProtected, wStored, wAutomated, wIndex, wPublic,
+    wVirtual, wCdecl, wMessage, wPublished, wWrite,
+    wDefault, wName, wRead, wWriteOnly, wDispid,
+    wNear, wReadOnly, wDynamic, wNodefault, wRegister,
+    wExport, wOverride, wOverload, wResident, wLocal,
+    wImplements, wReintroduce, wDeprecated, wPlatform];
+
+
 
   ProcedureWords: TWordSet = [wProcedure, wFunction, wConstructor, wDestructor];
 

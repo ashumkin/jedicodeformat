@@ -1619,6 +1619,8 @@ procedure TBuildParseTree.RecogniseTerm;
 begin
   // Term -> Factor [MulOp Factor]...
 
+  PushNode(nTerm);
+
   RecogniseFactor;
 
   while TokenList.FirstSolidTokenWord in MulOperators do
@@ -1626,6 +1628,8 @@ begin
     RecogniseMulOp;
     RecogniseFactor;
   end;
+
+  PopNode;
 end;
 
 procedure TBuildParseTree.RecogniseFactor;
@@ -3039,6 +3043,7 @@ begin
    property ComplexArrayProp[const piIndex: integer; var pcsString: string]: boolean read GetComplexArrayProp ;
 
   }
+  PushNode(nPropertyParameterList);
 
   Recognise(ttOpenSquareBracket);
   repeat
@@ -3057,6 +3062,8 @@ begin
   until TokenList.FirstSolidTokenType = ttCloseSquareBracket;
 
   Recognise(ttCloseSquareBracket);
+
+  PopNode;
 end;
 
 procedure TBuildParseTree.RecognisePropertySpecifiers;

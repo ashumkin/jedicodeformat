@@ -55,6 +55,7 @@ type
     function IsSolid: boolean;
 
     function HasChildNode(const peWords: TWordSet): Boolean; override;
+    function HasChildNode(const peTokens: TTokenTypeSet): Boolean; override;
     function HasChildNode(const peWords: TWordSet; const piMaxDepth: integer): Boolean; override;
     function HasChildNode(const peTokens: TTokenTypeSet; const piMaxDepth: integer): Boolean; override;
 
@@ -68,6 +69,7 @@ type
     function PriorSolidToken: TSourceToken;
     function NextTokenWithExclusions(const peExclusions: TTokenTypeSet): TSourceToken;
 
+    function IsHashLiteral: boolean;
 
     property TokenType: TTokenType read feTokenType write feTokenType;
     property SourceCode: string read fsSourceCode write fsSourceCode;
@@ -125,6 +127,11 @@ end;
 function TSourceToken.HasChildNode(const peWords: TWordSet): Boolean;
 begin
   Result := (Word in peWords);
+end;
+
+function TSourceToken.HasChildNode(const peTokens: TTokenTypeSet): Boolean;
+begin
+  Result := (TokenType in peTokens);
 end;
 
 function TSourceToken.HasChildNode(const peWords: TWordSet; const piMaxDepth: integer): Boolean;
@@ -199,6 +206,11 @@ begin
     Result := self
   else
     Result := nil;
+end;
+
+function TSourceToken.IsHashLiteral: boolean;
+begin
+  Result := (TokenType = ttLiteralString) and (StrLeft(SourceCode, 1) = '#');
 end;
 
 end.

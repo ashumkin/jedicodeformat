@@ -56,6 +56,7 @@ type
     function HasChildren: boolean;
     function Root: TParseTreeNode;
 
+    function HasChildNode(const peTokens: TTokenTypeSet): Boolean; overload; virtual;
     function HasChildNode(const peWords: TWordSet): Boolean; overload; virtual;
     function HasChildNode(const peWords: TWordSet; const piMaxDepth: integer): Boolean; overload; virtual;
     function HasChildNode(const peTokens: TTokenTypeSet; const piMaxDepth: integer): Boolean; overload; virtual;
@@ -72,6 +73,14 @@ type
      So we find if we have a predecessor of one of peWords in the subtree rooted at peNodeTypes }
     function IsOnRightOf(const peRootNodeTypes: TParseTreeNodeTypeSet; const peWords: TWordSet): Boolean; overload;
     function IsOnRightOf(const peRootNodeType: TParseTreeNodeType; const peWord: TWord): Boolean; overload;
+
+    { same with token types}
+    function IsOnRightOf(const peRootNodeTypes: TParseTreeNodeTypeSet; const peTokens: TTokenTypeSet): Boolean; overload;
+    function IsOnRightOf(const peRootNodeType: TParseTreeNodeType; const peToken: TTokenType): Boolean; overload;
+
+    { same with parse tree interior nodes }
+    function IsOnRightOf(const peRootNodeTypes, peNodes: TParseTreeNodeTypeSet): Boolean; overload;
+    function IsOnRightOf(const peRootNodeType, peNode: TParseTreeNodeType): Boolean; overload;
 
 
     function Describe: string; virtual;
@@ -234,6 +243,20 @@ begin
   end;
 end;
 
+function TParseTreeNode.HasChildNode(const peTokens: TTokenTypeSet): Boolean;
+var
+  liLoop: integer;
+begin
+  Result := False;
+
+  for liLoop := 0 to ChildNodeCount - 1 do
+  begin
+    Result := ChildNodes[liLoop].HasChildNode(peTokens);
+    if Result then
+      break;
+  end;
+end;
+
 function TParseTreeNode.HasChildNode(const peWords: TWordSet; const piMaxDepth: integer): Boolean;
 var
   liLoop: integer;
@@ -329,6 +352,7 @@ var
     // leaf node - matching token using the 'HasChildNode' override to match self
     if (ChildNodeCount = 0) and HasChildNode(peWords) then
     begin
+      lbSearchDone := True;
       Result := self;
       exit;
     end;
@@ -347,6 +371,8 @@ var
       if Result <> nil then
         break;
 
+      if lbSearchDone then
+        break;
    end;
   end;
 
@@ -362,8 +388,7 @@ begin
   end;
 
   { does the parent have the required child
-    seacrch depth-first, ending when the self node is reached
-    argh - need token functionaly }
+    search depth-first, ending when the self node is reached }
 
   lbSearchDone := False;
   lcFirstMatch := GetFirstMatch(lcRoot, peWords);
@@ -377,6 +402,149 @@ begin
   Result := IsOnRightOf([peRootNodeType], [peWord]);
 end;
 
+
+{ a copy of the above with different types }
+function TParseTreeNode.IsOnRightOf(const peRootNodeTypes: TParseTreeNodeTypeSet;
+  const peTokens: TTokenTypeSet): Boolean;
+var
+  lbSearchDone: Boolean;
+
+  function GetFirstMatch(const pcRoot: TParseTreeNode; const peTokens: TTokenTypeSet): TParseTreeNode;
+  var
+    liLoop: integer;
+    lcChild: TParseTreeNode;
+  begin
+    Result := nil;
+
+    if pcRoot = self then
+    begin
+      lbSearchDone := True;
+      exit;
+    end;
+
+    // leaf node - matching token using the 'HasChildNode' override to match self
+    if (ChildNodeCount = 0) and HasChildNode(peTokens) then
+    begin
+      lbSearchDone := True;
+      Result := self;
+      exit;
+    end;
+
+    // recurse into all children (or until self is encountered)
+    for liLoop := 0 to ChildNodeCount - 1 do
+    begin
+      lcChild := ChildNodes[liLoop];
+      if lcChild = self then
+      begin
+        lbSearchDone := True;
+        break;
+      end;
+
+      Result := GetFirstMatch(lcChild, peTokens);
+      if Result <> nil then
+        break;
+
+      if lbSearchDone then
+        break;
+   end;
+  end;
+
+var
+  lcRoot, lcFirstMatch: TParseTreeNode;
+begin
+  { does it have the required parent }
+  lcRoot := GetParentNode(peRootNodeTypes);
+  if lcRoot = nil then
+  begin
+    Result := False;
+    exit;
+  end;
+
+  { does the parent have the required child
+    search depth-first, ending when the self node is reached  }
+
+  lbSearchDone := False;
+  lcFirstMatch := GetFirstMatch(lcRoot, peTokens);
+
+  // not enough - must be before self
+  Result := (lcFirstMatch <> nil);
+end;
+
+function TParseTreeNode.IsOnRightOf(const peRootNodeType: TParseTreeNodeType;
+  const peToken: TTokenType): Boolean;
+begin
+  Result := IsOnRightOf([peRootNodeType], [peToken]);
+end;
+
+
+function TParseTreeNode.IsOnRightOf(const peRootNodeTypes, peNodes: TParseTreeNodeTypeSet): Boolean;
+var
+  lbSearchDone: Boolean;
+
+  function GetFirstMatch(const pcRoot: TParseTreeNode; const peNodes: TParseTreeNodeTypeSet): TParseTreeNode;
+  var
+    liLoop: integer;
+    lcChild: TParseTreeNode;
+  begin
+    Result := nil;
+
+    if pcRoot = self then
+    begin
+      lbSearchDone := True;
+      exit;
+    end;
+
+    if pcRoot.NodeType in peNodes then
+    begin
+      lbSearchDone := True;
+      Result := self;
+      exit;
+    end;
+
+    // recurse into all children (or until self is encountered)
+    for liLoop := 0 to ChildNodeCount - 1 do
+    begin
+      lcChild := ChildNodes[liLoop];
+      if lcChild = self then
+      begin
+        lbSearchDone := True;
+        break;
+      end;
+
+      Result := GetFirstMatch(lcChild, peNodes);
+      if Result <> nil then
+        break;
+
+      if lbSearchDone then
+        break;
+   end;
+  end;
+
+var
+  lcRoot, lcFirstMatch: TParseTreeNode;
+begin
+  { does it have the required parent }
+  lcRoot := GetParentNode(peRootNodeTypes);
+  if lcRoot = nil then
+  begin
+    Result := False;
+    exit;
+  end;
+
+  { does the parent have the required child
+    search depth-first, ending when the self node is reached  }
+
+  lbSearchDone := False;
+  lcFirstMatch := GetFirstMatch(lcRoot, peNodes);
+
+  // not enough - must be before self
+  Result := (lcFirstMatch <> nil);
+end;
+
+function TParseTreeNode.IsOnRightOf(const peRootNodeType,  peNode: TParseTreeNodeType): Boolean;
+begin
+  Result := IsOnRightOf([peRootNodeType], [peNode])
+end;
 
 procedure TParseTreeNode.AcceptVisitor(const pcVisitor: IVisitParseTree; var prVisitResults: TRVisitResult);
 begin

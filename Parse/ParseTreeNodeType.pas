@@ -47,6 +47,7 @@ type
     nAbsoluteVar,
     nVariableInit,
     nExpression,
+    nTerm,
     nActualParams,
     nStatement,
     nCompoundStatement,
@@ -78,6 +79,7 @@ type
     nClassVisibility,
     nClassDeclarations,
     nProperty,
+    nPropertyParameterList,
     nPropertySpecifier,
     nInterfaceType,
     nBracketedQual,
@@ -180,6 +182,8 @@ begin
       Result := 'Variable init';
     nExpression:
       Result := 'Expression';
+    nTerm:
+      Result := 'Term';
     nActualParams:
       Result := 'Actual params';
     nStatement:
@@ -242,6 +246,8 @@ begin
       Result := 'class declarations';
     nProperty:
       Result := 'property';
+    nPropertyParameterList:
+      Result := 'property param list';
     nPropertySpecifier:
       Result := 'property specifier';
     nInterfaceType:
