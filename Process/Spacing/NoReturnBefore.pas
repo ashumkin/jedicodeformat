@@ -36,6 +36,9 @@ begin
   if pt = nil then
     exit;
 
+  if pt.HasParentNode(nAsm) then
+    exit;
+
   if (pt.TokenType in NoReturnTokens) then
   begin
     Result := True;

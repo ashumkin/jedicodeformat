@@ -85,6 +85,14 @@ end;
 
 function NeedsReturn(const pt, ptNext: TSourceToken): boolean;
 begin
+  Result := False;
+  
+  if pt = nil then
+    exit;
+
+  if pt.HasParentNode(nAsm) then
+    exit;
+
   Result := (pt.Word in WordsReturnBefore);
   if Result = True then
     exit;

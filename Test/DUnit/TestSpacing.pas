@@ -27,6 +27,7 @@ type
     procedure TestSingleSpaceBefore;
     procedure TestSingleSpaceAfter;
     procedure TestSingleSpaceAfterColon;
+    procedure TestSingleSpaceAfterColon2;
 
     procedure TestReturnBefore;
     procedure TestReturnAfter;
@@ -73,6 +74,8 @@ begin
   TestProcessResult(TNoSpaceBefore, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
+{ preserve line breaks if the user put them in }
+
 procedure TTestSpacing.TestNoSpaceBeforeColon;
 const
   //JcfSettings.SetSpaces.SpacesBeforeColonFn := 0;
@@ -92,7 +95,7 @@ end;
 
 procedure TTestSpacing.TestSingleSpaceAfter;
 const
-  IN_UNIT_TEXT = UNIT_HEADER +  ' procedure foo; begin a :=2; end; ' + UNIT_FOOTER;
+  IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin a :=2; end; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin a := 2; end; ' + UNIT_FOOTER;
 begin
   TestProcessResult(TSingleSpaceAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -107,10 +110,23 @@ begin
 end;
 
 
+procedure TTestSpacing.TestSingleSpaceAfterColon2;
+const
+  IN_UNIT_TEXT = UNIT_HEADER + ' function foo: ' + AnsiLineBreak +
+    '  integer; begin result := 2; end; ' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' function foo: '  + AnsiLineBreak +
+    '  integer; begin result := 2; end; ' + UNIT_FOOTER;
+begin
+  TestProcessResult(TSingleSpaceAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+
+
 procedure TTestSpacing.TestReturnBefore;
 const
   IN_UNIT_TEXT = UNIT_HEADER +  ' procedure foo; begin a := 2; end; ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = 'unit Test;'#$D#$A' interface'#$D#$A' implementation  procedure foo; begin a := 2; end;'#$D#$A'  end.';
+  OUT_UNIT_TEXT = 'unit Test;' + AnsiLineBreak + ' interface' + AnsiLineBreak +
+    ' implementation  procedure foo; begin a := 2; end;' + AnsiLineBreak + '  end.';
 begin
   TestProcessResult(TReturnBefore, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -118,10 +134,15 @@ end;
 procedure TTestSpacing.TestReturnAfter;
 const
   IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin a := 2; end; ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = 'unit Test;'#$D#$A#$D#$A' interface'#$D#$A#$D#$A' implementation'#$D#$A#$D#$A'  procedure foo;'#$D#$A' begin'#$D#$A' a := 2;'#$D#$A' end;'#$D#$A'  end.';
+  OUT_UNIT_TEXT = 'unit Test;' + AnsiLineBreak + AnsiLineBreak +
+    ' interface' + AnsiLineBreak + AnsiLineBreak +
+    ' implementation' + AnsiLineBreak + AnsiLineBreak +
+    '  procedure foo;' + AnsiLineBreak + ' begin' + AnsiLineBreak +
+    ' a := 2;' + AnsiLineBreak + ' end;' + AnsiLineBreak + '  end.';
 begin
   TestProcessResult(TReturnAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
+
 
 initialization
  TestFramework.RegisterTest(TTestSpacing.Suite);

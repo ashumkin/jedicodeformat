@@ -55,6 +55,12 @@ var
 begin
   Result := False;
 
+  if pt = nil then
+    exit;
+
+  if pt.HasParentNode(nAsm) then
+    exit;
+
   lcSetReturns := Settings.Returns;
   Assert(lcSetReturns <> nil);
 

@@ -71,7 +71,7 @@ begin
   begin
     Result := lcSpaces.SpacesBeforeColonLabel;
   end
-  else if pt.HasParentNode(nBlock) or pt.HasParentNode(nStatementList) then
+  else if InStatements(pt) then
   begin
     if IsCaseColon(pt) then
       Result := lcSpaces.SpacesBeforeColonCaseLabel
@@ -80,7 +80,11 @@ begin
     else
       Result := lcSpaces.SpacesBeforeColonLabel;
   end
-  else
+  else if pt.HasParentNode(nAsm) then
+  begin
+    Result := 0; // !!!
+  end
+  else 
   begin
     Result := 0;
     // assertion failure brings the house down

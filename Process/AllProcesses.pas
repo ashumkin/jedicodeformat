@@ -145,8 +145,11 @@ begin
 
   ApplyVisitorType(TNoSpaceAfter);
   ApplyVisitorType(TNoSpaceBefore);
+  ApplyVisitorType(TVisitStripEmptySpace);
+
   ApplyVisitorType(TSingleSpaceBefore);
   ApplyVisitorType(TSingleSpaceAfter);
+  ApplyVisitorType(TVisitStripEmptySpace);
 
   ApplyVisitorType(TSpaceBeforeColon);
   ApplyVisitorType(TVisitStripEmptySpace);

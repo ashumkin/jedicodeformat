@@ -15,7 +15,6 @@ uses ParseTreeNode, SourceToken;
 function NewReturn: TSourceToken;
 function NewSpace(const piLength: integer): TSourceToken;
 
-
 { return the name of the procedure around any parse tree node or source token
   empty string if there is none }
 function GetProcedureName(const pcNode: TParseTreeNode;
@@ -48,7 +47,8 @@ function SemicolonNext(const pt: TSourceToken): boolean;
 { true if the token is in code, ie in procedure/fn body,
   init section, finalization section, etc
 
-  False if it is vards, consts, types etc }
+  False if it is vars, consts, types etc
+  or in asm }
 function InStatements(const pt: TSourceToken): Boolean;
 
 function IsCaseColon(const pt: TSourceToken): boolean;
@@ -290,7 +290,8 @@ end;
 
 function InStatements(const pt: TSourceToken): Boolean;
 begin
-  Result := pt.HasParentNode(nStatementList);
+  Result := pt.HasParentNode(nStatementList) or pt.HasParentNode(nBlock);
+  Result := Result and (not pt.HasParentNode(nAsm));
 end;
 
 function IsLabelColon(const pt: TSourceToken): boolean;

@@ -94,6 +94,12 @@ function NeedsBlankLine(const pt, ptNext: TSourceToken): boolean;
 begin
   Result := False;
 
+  if pt = nil then
+    exit;
+
+  if pt.HasParentNode(nAsm) then
+    exit;
+
   if (pt.TokenType in ReservedWordTokens) and (pt.Word in WordsBlankLineAfter) then
   begin
     Result := True;

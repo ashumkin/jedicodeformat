@@ -24,7 +24,7 @@ uses
   JclStrings,
   JcfMiscFunctions,
   SourceToken, TokenType, WordMap, ParseTreeNodeType, JcfSettings,
-  FormatFlags;
+  FormatFlags, TokenUtils;
 
   const
   SingleSpaceAfterTokens: TTokenTypeSet = [ttColon, ttAssign, ttComma];
@@ -44,6 +44,9 @@ uses
 function NeedsSingleSpace(const pt, ptNext: TSourceToken): boolean;
 begin
   Result := False;
+
+  if pt.HasParentNode(nAsm) then
+    exit;
 
   // if the next token is a comment, leave it where it is, do not adjust spacing
   if ptNext.TokenType = ttComment then
@@ -170,7 +173,6 @@ begin
     end
     else if (lcNext.TokenType <> ttReturn) then
     begin
-
       // insert a space
       lcNew := TSourceToken.Create;
       lcNew.TokenType := ttWhiteSpace;
@@ -179,6 +181,7 @@ begin
       prVisitResult.Action := aInsertAfter;
       prVisitResult.NewItem := lcNew;
     end;
+
   end;
 end;
 

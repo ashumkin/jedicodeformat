@@ -88,7 +88,9 @@ uses
   FormatFlags in '..\..\Process\FormatFlags.pas',
   Indenter in '..\..\Process\Indent\Indenter.pas',
   VisitSetNesting in '..\..\Process\VisitSetNesting.pas',
-  TestFullClarify in 'TestFullClarify.pas';
+  TestFullClarify in 'TestFullClarify.pas',
+  SpaceBeforeColon in '..\..\Process\Spacing\SpaceBeforeColon.pas',
+  VisitStripEmptySpace in '..\..\Process\VisitStripEmptySpace.pas';
 
 {$R *.res}
 

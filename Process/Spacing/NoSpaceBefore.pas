@@ -22,7 +22,8 @@ type
 
 implementation
 
-uses SourceToken, TokenType, WordMap, ParseTreeNodeType, FormatFlags;
+uses SourceToken, TokenType, WordMap, ParseTreeNodeType, FormatFlags,
+  TokenUtils;
 
 const
   NoSpaceAnywhere: TTokenTypeSet = [ttSemiColon, ttDot, ttComma,
@@ -32,9 +33,11 @@ function HasNoSpaceBefore(const pt: TSourceToken): boolean;
 begin
   Result := False;
 
-  // '@@' in asm, e.g. "JE @@initTls" needs the space
+  if pt = nil then
+    exit;
 
-  if (pt.Word = wAtSign) and pt.HasParentNode(nAsmStatement) then
+  // '@@' in asm, e.g. "JE @@initTls" needs the space
+  if pt.HasParentNode(nAsm) then
     exit;
 
   if pt.TokenType in NoSpaceAnywhere then
@@ -77,7 +80,10 @@ begin
     exit;
 
   if HasNoSpaceBefore(lcNext) then
+  begin
+    // the space
     prVisitResult.Action := aDelete;
+  end;
 end;
 
 end.

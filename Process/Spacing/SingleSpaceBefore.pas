@@ -50,6 +50,10 @@ function NeedsSpaceBefore(const pt: TSourceToken): boolean;
 begin
   Result := False;
 
+  { not in ASM block }
+  if pt.HasParentNode(nAsm) then
+    exit;
+
   if (pt.TokenType in SingleSpaceBeforeTokens) then
   begin
     Result := True;
