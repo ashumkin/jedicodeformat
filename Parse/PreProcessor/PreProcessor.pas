@@ -15,7 +15,7 @@ uses
   SourceToken, SourceTokenList;
 
 type
-  TConditionalCompilationProcessing = class(TObject)
+  TPreProcessor = class(TObject)
   private
     // working data
     fiStartNestingLevel: integer;
@@ -28,7 +28,6 @@ type
     function RemoveBlock(const piIndex, piStartNestingLevel: integer;
       const pbStopAtElse: Boolean): Boolean;
 
-    procedure AddDefinedSymbol(const psSymbol: string);
     procedure RemoveDefinedSymbol(const psSymbol: string);
     function SymbolIsDefined(const psSymbol: string): boolean;
 
@@ -40,6 +39,11 @@ type
 
     procedure ProcessTokenList;
 
+    // used in the more complex $IF syntax
+    procedure AddDefinedSymbol(const psSymbol: string);
+    function EvalPreProcessorExpression(const psExpression: string): boolean;
+
+
     property TokenList: TSourceTokenList read fcTokenList write fcTokenList;
   end;
 
@@ -49,7 +53,8 @@ implementation
 
 uses
   SysUtils,
-  JclStrings, Tokens, JcfSettings, PreProcessorEval;
+  JclStrings, Tokens, JcfSettings,
+  PreProcessorTokenise, PreProcessorParse;
 
 
 type
@@ -64,21 +69,21 @@ type
 const
   SymbolData: array[TPreProcessorSymbolType] of string =(
     '$$$$$$$$$$',
-    '$UNDEF',
-    '$DEFINE',
-    '$IFDEF',
-    '$IFNDEF',
-    '$IFOPT',
-    '$IF',
-    '$ELSEIF',
-    '$ELSE',
-    '$ENDIF',
-    '$IFEND'
+    '{$DEFINE',
+    '{$UNDEF',
+    '{$IFDEF',
+    '{$IFNDEF',
+    '{$IFOPT',
+    '{$IF',
+    '{$ELSEIF',
+    '{$ELSE',
+    '{$ENDIF',
+    '{$IFEND'
   );
 
 const
   BLOCK_START: TPreProcessorSymbolTypeSet = [bcIfDef, bcIfNotDef, bcIfOpt, bcIfExpr, bcElseIf];
-  BLOCK_ELSE: TPreProcessorSymbolTypeSet = [bcIfExpr, bcElseIf];
+  BLOCK_ELSE: TPreProcessorSymbolTypeSet = [btBlockElse, bcElseIf];
   BLOCK_END: TPreProcessorSymbolTypeSet = [btBlockEnd, btNewBlockEnd];
 
 function GetPreprocessorSymbolType(const pcToken: TSourceToken): TPreProcessorSymbolType;
@@ -95,6 +100,9 @@ begin
 
   for leLoop := low(TPreProcessorSymbolType) to High(TPreProcessorSymbolType) do
   begin
+    if leLoop = btNone then
+      continue;
+
     liItemLen := Length(SymbolData[leLoop]);
     if AnsiSameText(StrLeft(pcToken.SourceCode, liItemLen), SymbolData[leLoop]) and
       (not CharIsAlpha(pcToken.SourceCode[liItemLen + 1])) then
@@ -118,6 +126,8 @@ begin
   if leSymbolType = btNone then
     exit;
 
+  Result := StrRestOf(pcToken.SourceCode, Length(SymbolData[leSymbolType]) + 1);
+
   if Result <> '' then
   begin
     if StrRight(Result, 1) = '}' then
@@ -130,11 +140,11 @@ end;
 
 procedure RemoveConditionalCompilation(const pcTokenList: TSourceTokenList);
 var
-  lcComp: TConditionalCompilationProcessing;
+  lcComp: TPreProcessor;
 begin
   Assert(pcTokenList <> nil);
 
-  lcComp := TConditionalCompilationProcessing.Create;
+  lcComp := TPreProcessor.Create;
   try
     lcComp.TokenList := pcTokenList;
     lcComp.ProcessTokenList;
@@ -143,7 +153,7 @@ begin
   end;
 end;
 
-constructor TConditionalCompilationProcessing.Create;
+constructor TPreProcessor.Create;
 begin
   inherited;
 
@@ -153,20 +163,20 @@ begin
   fcDefinedSymbols.Assign(FormatSettings.PreProcessor.DefinedSymbols);
 end;
 
-destructor TConditionalCompilationProcessing.Destroy;
+destructor TPreProcessor.Destroy;
 begin
   FreeAndNil(fcDefinedSymbols);
 
   inherited;
 end;
 
-procedure TConditionalCompilationProcessing.AddDefinedSymbol(const psSymbol: string);
+procedure TPreProcessor.AddDefinedSymbol(const psSymbol: string);
 begin
   if (psSymbol <> '') and (not SymbolIsDefined(psSymbol)) then
     fcDefinedSymbols.Add(psSymbol);
 end;
 
-procedure TConditionalCompilationProcessing.RemoveDefinedSymbol(const psSymbol: string);
+procedure TPreProcessor.RemoveDefinedSymbol(const psSymbol: string);
 var
   liIndex: integer;
 begin
@@ -175,7 +185,7 @@ begin
     fcDefinedSymbols.Delete(liIndex);
 end;
 
-function TConditionalCompilationProcessing.SymbolIsDefined(const psSymbol: string): boolean;
+function TPreProcessor.SymbolIsDefined(const psSymbol: string): boolean;
 begin
   Result := fcDefinedSymbols.IndexOf(psSymbol) >= 0;
 end;
@@ -191,7 +201,7 @@ begin
   Result := StrReplaceChar(Result, '?', '-');
 end;
 
-function TConditionalCompilationProcessing.BlockStartIsIncluded(const pcToken: TSourceToken): Boolean;
+function TPreProcessor.BlockStartIsIncluded(const pcToken: TSourceToken): Boolean;
 var
   leBlockCond: TPreProcessorSymbolType;
   lsSymbol: string;
@@ -223,7 +233,7 @@ end;
 
 
 { scan from the else to the end, and hide it all! }
-function TConditionalCompilationProcessing.RemoveBlock(
+function TPreProcessor.RemoveBlock(
   const piIndex, piStartNestingLevel: integer; const pbStopAtElse: Boolean): boolean;
 var
   liLoop: integer;
@@ -284,9 +294,9 @@ begin
 end;
 
 
-{ TConditionalCompilationProcessing }
+{ TPreProcessor }
 
-procedure TConditionalCompilationProcessing.ProcessTokenList;
+procedure TPreProcessor.ProcessTokenList;
 var
   liLoop: integer;
   lcToken: TSourceToken;
@@ -325,6 +335,43 @@ begin
       dec(fiStartNestingLevel);
 
     inc(liLoop);
+  end;
+end;
+
+function TPreProcessor.EvalPreProcessorExpression(
+  const psExpression: string): boolean;
+var
+  lcTokeniser: TPreProcessorTokeniser;
+  lcParser: TPreProcessorParser;
+begin
+  Result := False;
+  Assert(psExpression <> '');
+
+  lcTokeniser := TPreProcessorTokeniser.Create;
+  lcParser := TPreProcessorParser.Create;
+  try
+    // tokenise
+    try
+      lcTokeniser.Expression := psExpression;
+      lcTokeniser.Tokenise;
+    except
+      on E: Exception do
+        Raise Exception.Create('Exception tokenising "' + psExpression + '": ' + E.Message);
+    end;
+
+    // parse
+    try
+      lcParser.Tokens := lcTokeniser.Tokens;
+      lcParser.DefinedSymbols := fcDefinedSymbols;
+
+      Result := lcParser.Parse;
+    except
+      on E: Exception do
+        Raise Exception.Create('Exception parsing "' + psExpression + '": ' + E.Message);
+    end;
+  finally
+    lcTokeniser.Free;
+    lcParser.Free;
   end;
 end;
 

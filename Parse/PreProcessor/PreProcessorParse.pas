@@ -31,13 +31,20 @@ unit PreProcessorParse;
 
 interface
 
-uses PreProcessorTokens;
+uses
+  { celphi }
+  Classes,
+  { local }
+  PreProcessorTokens;
 
 type
   TPreProcessorParser = class(TObject)
   private
     fiCurrentIndex: integer;
+
+    // referenced data
     fcTokens: TPreProcessorTokenList;
+    fcDefinedSymbols: TStrings;
 
     function ParseExpr: Boolean;
     function ParseTerm: Boolean;
@@ -51,6 +58,8 @@ type
     function Parse: Boolean;
 
     property Tokens: TPreProcessorTokenList read  fcTokens write fcTokens;
+    property DefinedSymbols: TStrings read fcDefinedSymbols write fcDefinedSymbols;
+
   end;
 
 
@@ -58,9 +67,7 @@ implementation
 
 uses
   { delphi }
-  SysUtils,
-  { local }
-  JcfSettings;
+  SysUtils;
 
 { TPreProcessorParser }
 
@@ -174,8 +181,7 @@ end;
 
 function TPreProcessorParser.SymbolIsDefined(const psSymbol: string): Boolean;
 begin
-  // should also keep changes during files
-  Result := FormatSettings.PreProcessor.SymbolIsDefined(psSymbol);
+  Result := DefinedSymbols.IndexOf(psSymbol) >= 0;
 end;
 
 end.
