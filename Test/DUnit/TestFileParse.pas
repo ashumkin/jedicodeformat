@@ -135,6 +135,7 @@ type
     procedure TestParse_TestEmptyCase;
     procedure TestParse_TestEmptyClass;
     procedure TestParse_TestEmptySquareBrackets;
+    procedure TestParse_TestEndElse;
     procedure TestParse_TestEsotericKeywords;
     procedure TestParse_TestExclusion;
     procedure TestParse_TestExclusionFlags;
@@ -688,7 +689,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 1217);
+  TestParseFile('Testcases.dpr', 1225);
 end;
 
 
@@ -1091,6 +1092,11 @@ end;
 procedure TTestFileParse.TestParse_fBracketProp;
 begin
   TestParseFile('fBracketProp', 492);
+end;
+
+procedure TTestFileParse.TestParse_TestEndElse;
+begin
+  TestParseFile('TestEndElse', 106);
 end;
 
 initialization

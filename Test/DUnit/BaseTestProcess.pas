@@ -153,12 +153,16 @@ begin
 end;
 
 function DiffText(ps1, ps2: string): string;
+var
+  liStartDif: integer;
 begin
+  liStartDif := 0;
   // strip same chars on start
   while (length(ps1) > 0) and (length(ps2) > 0) and (ps1[1] = ps2[1]) do
   begin
     ps1 := StrRestOf(ps1, 2);
     ps2 := StrRestOf(ps2, 2);
+    inc(liStartDif);
   end;
 
   while (length(ps1) > 0) and (length(ps2) > 0) and
@@ -168,7 +172,7 @@ begin
     ps2 := StrChopRight(ps2, 1);
   end;
 
-  Result := ps1 + '<->' + ps2;
+  Result := ps1 + '<->' + ps2 + AnsiLineBreak + 'at char ' + IntToStr(liStartDif);
 end;
 
 procedure TBaseTestProcess.TestProcessResult(processType: TTreeNodeVisitorType;

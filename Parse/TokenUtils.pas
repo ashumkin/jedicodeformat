@@ -130,6 +130,8 @@ function IsHintDirective(const pt: TSourceToken): boolean;
 
 function StartsLiteralString(const pt: TSourceToken): boolean;
 
+function NextToWhiteSpace(const pt: TSourceToken): boolean;
+
 implementation
 
 uses
@@ -700,6 +702,28 @@ begin
   begin
     // is this actually the first solid token in the literal string?
     Result := not InLiteralString(pt.PriorToken);
+  end;
+end;
+
+{ true if this token is preceeded or followed by a non-empty whitespace }
+function NextToWhiteSpace(const pt: TSourceToken): Boolean;
+var
+  lcPrior, lcNext: TSourceToken;
+begin
+  if pt = nil then
+  begin
+    Result := False;
+  end
+  else
+  begin
+    lcPrior := pt.PriorToken;
+    Result := (lcPrior <> nil) and (lcPrior.TokenType = ttWhiteSpace) and (lcPrior.SourceCode <> '');
+
+    if not Result then
+    begin
+      lcNext := pt.NextToken;
+      Result := (lcNext <> nil) and (lcNext.TokenType = ttWhiteSpace) and (lcNext.SourceCode <> '');
+    end;
   end;
 end;
 

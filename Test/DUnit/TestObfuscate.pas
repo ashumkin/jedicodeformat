@@ -134,6 +134,7 @@ type
     procedure TestObfuscate_TestEmptyCase;
     procedure TestObfuscate_TestEmptyClass;
     procedure TestObfuscate_TestEmptySquareBrackets;
+    procedure TestObfuscate_TestEndElse;
     procedure TestObfuscate_TestEsotericKeywords;
     procedure TestObfuscate_TestExclusion;
     procedure TestObfuscate_TestExclusionFlags;
@@ -1125,6 +1126,11 @@ end;
 procedure TTestObfuscate.TestObfuscate_fBracketProp;
 begin
   TestObfuscateFile('fBracketProp');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestEndElse;
+begin
+  TestObfuscateFile('TestEndElse');
 end;
 
 initialization

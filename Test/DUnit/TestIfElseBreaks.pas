@@ -11,6 +11,7 @@ type
   private
     leSaveIfElseStyle, leSaveBareBlockStyle: TBlockNewLineStyle;
     leSaveCaseLabelStyle, leSaveCaseElseStyle: TBlockNewLineStyle;
+    leSaveEndElseStyle: TBlockNewLineStyle;
 
   protected
     procedure Setup; override;
@@ -35,11 +36,18 @@ type
     procedure TestCaseStatementLeaveAsIs2;
     procedure TestCaseStatementAlways1;
     procedure TestCaseStatementAlways2;
+
+    procedure TestEndElseStyle1;
+    procedure TestEndElseStyle2;
+    procedure TestEndElseStyle3;
+    procedure TestEndElseStyle4;
+    procedure TestEndElseStyle5;
+    procedure TestEndElseStyle6;
   end;
 
 implementation
 
-uses JclStrings, BlockStyles, JcfSettings;
+uses JclStrings, BlockStyles, JcfSettings, SetReturns;
 
 const
 
@@ -65,7 +73,7 @@ const
     'if True then' + AnsiLineBreak +
     '  ShowMessage(''twoo'')' + AnsiLineBreak +
     'else' + AnsiLineBreak +
-    ' if True then' + AnsiLineBreak +
+    'if True then' + AnsiLineBreak +
     '  ShowMessage(''twoo'')' + AnsiLineBreak +
     'else' + AnsiLineBreak +
     '  ShowMessage(''false'');' + AnsiLineBreak +
@@ -113,6 +121,8 @@ begin
 
   leSaveCaseLabelStyle := FormatSettings.Returns.CaseLabelStyle;
   leSaveCaseElseStyle  := FormatSettings.Returns.CaseElseStyle;
+
+  leSaveEndElseStyle := FormatSettings.Returns.EndElseStyle;
 end;
 
 procedure TTestIfElseBreaks.Teardown;
@@ -124,6 +134,8 @@ begin
 
   FormatSettings.Returns.CaseLabelStyle := leSaveCaseLabelStyle;
   FormatSettings.Returns.CaseElseStyle  := leSaveCaseElseStyle;
+
+  FormatSettings.Returns.EndElseStyle := leSaveEndElseStyle;
 end;
 
 procedure TTestIfElseBreaks.TestBlockStyleNever;
@@ -274,9 +286,9 @@ const
     'begin' + AnsiLineBreak +
     '  case i of' + AnsiLineBreak +
     '    1:' + AnsiLineBreak +
-    ' ShowMessage(''1 ... OK'');' + AnsiLineBreak +
+    'ShowMessage(''1 ... OK'');' + AnsiLineBreak +
     '    else' + AnsiLineBreak +
-    ' ShowMessage(''else ... OK'');' + AnsiLineBreak +
+    'ShowMessage(''else ... OK'');' + AnsiLineBreak +
     '   end;' + AnsiLineBreak +
     '  end;' + AnsiLineBreak + AnsiLineBreak +
     'end.';
@@ -339,6 +351,78 @@ begin
   // breaks - text with breaks is left as is
   TestProcessResult(TBlockStyles, CASE_STATEMENT_IN_TEXT_BREAKS,
     CASE_STATEMENT_IN_TEXT_BREAKS);
+end;
+
+const
+  BROKEN_END_ELSE_UNIT_TEXT =
+   'unit TestCase;' + AnsiLineBreak +
+   'interface' + AnsiLineBreak +
+   'implementation' + AnsiLineBreak +
+   AnsiLineBreak +
+   'procedure foo;' + AnsiLineBreak +
+   'begin' + AnsiLineBreak +
+   'if (a > b) then' + AnsiLineBreak +
+   'begin' + AnsiLineBreak +
+   'end' + AnsiLineBreak +
+   'else' + AnsiLineBreak +
+   'begin' + AnsiLineBreak +
+   'end;' + AnsiLineBreak +
+   'end;' + AnsiLineBreak +
+   'end.';
+
+  UNBROKEN_END_ELSE_UNIT_TEXT =
+   'unit TestCase;' + AnsiLineBreak +
+   'interface' + AnsiLineBreak +
+   'implementation' + AnsiLineBreak +
+   AnsiLineBreak +
+   'procedure foo;' + AnsiLineBreak +
+   'begin' + AnsiLineBreak +
+   'if (a > b) then' + AnsiLineBreak +
+   'begin' + AnsiLineBreak +
+   'end else' + AnsiLineBreak +
+   'begin' + AnsiLineBreak +
+   'end;' + AnsiLineBreak +
+   'end;' + AnsiLineBreak +
+   'end.';
+
+procedure TTestIfElseBreaks.TestEndElseStyle1;
+begin
+  FormatSettings.Returns.EndElseStyle := eLeave;
+  TestProcessResult(TBlockStyles, BROKEN_END_ELSE_UNIT_TEXT, BROKEN_END_ELSE_UNIT_TEXT);
+end;
+
+
+procedure TTestIfElseBreaks.TestEndElseStyle2;
+begin
+  FormatSettings.Returns.EndElseStyle := eLeave;
+  TestProcessResult(TBlockStyles, UNBROKEN_END_ELSE_UNIT_TEXT, UNBROKEN_END_ELSE_UNIT_TEXT);
+end;
+
+procedure TTestIfElseBreaks.TestEndElseStyle3;
+begin
+  FormatSettings.Returns.EndElseStyle := eAlways;
+  // breaks - text with breaks is left as is
+  TestProcessResult(TBlockStyles, BROKEN_END_ELSE_UNIT_TEXT, BROKEN_END_ELSE_UNIT_TEXT);
+end;
+
+procedure TTestIfElseBreaks.TestEndElseStyle4;
+begin
+  FormatSettings.Returns.EndElseStyle := eAlways;
+  // without breaks -> breaks added
+  TestProcessResult(TBlockStyles, UNBROKEN_END_ELSE_UNIT_TEXT, BROKEN_END_ELSE_UNIT_TEXT);
+end;
+
+procedure TTestIfElseBreaks.TestEndElseStyle5;
+begin
+  FormatSettings.Returns.EndElseStyle := eNever;
+
+  TestProcessResult(TBlockStyles, BROKEN_END_ELSE_UNIT_TEXT, UNBROKEN_END_ELSE_UNIT_TEXT);
+end;
+
+procedure TTestIfElseBreaks.TestEndElseStyle6;
+begin
+  FormatSettings.Returns.EndElseStyle := eNever;
+  TestProcessResult(TBlockStyles, UNBROKEN_END_ELSE_UNIT_TEXT, UNBROKEN_END_ELSE_UNIT_TEXT);
 end;
 
 initialization

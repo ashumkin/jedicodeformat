@@ -76,7 +76,9 @@ type
 
 implementation
 
-uses Tokens, SourceToken, TokenUtils, JCFSettings,
+uses
+  JclStrings,
+  Tokens, SourceToken, TokenUtils, JCFSettings,
   FormatFlags, SettingsTypes;
 
 const
@@ -173,7 +175,7 @@ end;
 function TBlockStyles.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
   leStyle: TBlockNewLineStyle;
-  lcSourceToken, lcNextReturn, lcNextComment: TSourceToken;
+  lcSourceToken, lcNextReturn, lcNextComment, lcNextSpace: TSourceToken;
 begin
   Result := False;
   lcSourceToken := TSourceToken(pcNode);
@@ -190,7 +192,15 @@ begin
         lcNextReturn := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace, ttComment]);
         if (lcNextReturn <> nil) and (lcNextReturn.TokenType <> ttReturn) then
         begin
-          InsertTokenAfter(lcSourceToken, NewReturn);
+          { if there's a white space at heand, turn it into a return. Else make a return }
+          lcNextSpace := lcSourceToken.NextToken;
+          if lcNextSpace.TokenType = ttWhiteSpace then
+          begin
+            lcNextSpace.TokenType := ttReturn;
+            lcNextSpace.SourceCode := AnsiLineBreak;
+          end
+          else
+            InsertTokenAfter(lcSourceToken, NewReturn);
         end;
       end;
       eNever:
@@ -205,13 +215,13 @@ begin
             // turn to space
             lcNextReturn.TokenType := ttWhiteSpace;
             // need some space here - don't leave nothing between tokens
-            if (lcNextReturn.PriorToken.TokenType = ttWhiteSpace) or
-              (lcNextReturn.NextToken.TokenType = ttWhiteSpace) then
-
-            // null space as it's next to space already
-              lcNextReturn.SourceCode := ''
+            if NextToWhiteSpace(lcNextReturn) then
+            begin
+              // null space as it's next to space already
+              lcNextReturn.SourceCode := '';
+            end
             else
-              // keep a space
+              // keep a single space
               lcNextReturn.SourceCode := ' ';
           end;
         end;

@@ -224,11 +224,21 @@ begin
     end;
   end;
 
-  // else if
-  if (pt.TokenType = ttElse) and (ptNext.TokenType = ttIf) and InStatements(pt) then
+  if InStatements(pt) then
   begin
-    Result := True;
-    exit;
+    // else if
+    if (pt.TokenType = ttElse) and (ptNext.TokenType = ttIf) then
+    begin
+      Result := True;
+      exit;
+    end;
+
+    // end else
+    if (pt.TokenType = ttEnd) and (ptNext.TokenType = ttElse) then
+    begin
+      Result := True;
+      exit;
+    end;
   end;
 
 end;

@@ -132,6 +132,7 @@ type
     procedure TestClarify_TestEmptyCase;
     procedure TestClarify_TestEmptyClass;
     procedure TestClarify_TestEmptySquareBrackets;
+    procedure TestClarify_TestEndElse;
     procedure TestClarify_TestEsotericKeywords;
     procedure TestClarify_TestExclusion;
     procedure TestClarify_TestExclusionFlags;
@@ -1081,6 +1082,11 @@ end;
 procedure TFullTestClarify.TestClarify_fBracketProp;
 begin
   TestClarifyFile('fBracketProp');
+end;
+
+procedure TFullTestClarify.TestClarify_TestEndElse;
+begin
+  TestClarifyFile('TestEndElse');
 end;
 
 initialization

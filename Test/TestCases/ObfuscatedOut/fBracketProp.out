@@ -1,0 +1,72 @@
+unit fbracketprop;
+
+interface
+
+uses Windows, Messages, SysUtils, variants, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls;
+
+type
+  tform1 = class(TForm)
+    button1: TButton;
+    checkbox1: tcheckbox;
+    button2: TButton;
+    button3: TButton;
+    checkbox2: tcheckbox;
+    button4: TButton;
+    button5: TButton;
+    procedure button1click(Sender: TObject);
+    procedure button2click(Sender: TObject);
+    procedure button3click(Sender: TObject);
+    procedure button4click(Sender: TObject);
+    procedure button5click(Sender: TObject);
+  private
+  public
+  end;
+
+var
+  form1: tform1;
+
+implementation
+
+{$R *.dfm}
+
+procedure tform1.button1click(Sender: TObject);
+begin
+  if (checkbox1.Checked) then
+    (checkbox1.Checked := false);
+end;
+
+procedure tform1.button2click(Sender: TObject);
+begin
+  if (checkbox1.Checked) then
+    (checkbox1.Checked := false)
+  else
+    (checkbox1.Checked := true);
+end;
+
+procedure tform1.button3click(Sender: TObject);
+begin
+  if (checkbox1.Checked) then
+    (checkbox1.Checked := false)
+  else if (checkbox2.Checked) then
+    ((checkbox1.Checked  := not checkbox1.Checked))
+  else
+    (((checkbox1.Checked := false)));
+end;
+
+procedure tform1.button4click(Sender: TObject);
+var
+  liloop: integer;
+begin
+  for liloop := 0 to 100 do
+    (checkbox1.Checked := false);
+end;
+
+procedure tform1.button5click(Sender: TObject);
+begin
+  while checkbox1.Checked do
+    (
+      checkbox1.Checked := not checkbox1.Checked);
+end;
+
+end.
+ 
