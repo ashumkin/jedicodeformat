@@ -48,6 +48,7 @@ type
     procedure OnTokenRead(const pt: TSourceToken); override;
     procedure ResetState; override;
 
+
   public
     constructor Create; override;
 
@@ -66,13 +67,15 @@ constructor TAlignVars.Create;
 begin
   inherited;
   FormatFlags := FormatFlags + [eAlignVars];
+  feFoundTokenState := eUnknown;
 end;
 
-function AlignedToken(const ptt: TTokenType): boolean;
+function AlignedToken(const pt: TSourceToken): boolean;
 const
   NOT_ALIGNED: TTokenTypeSet = [ttWhiteSpace, ttReturn, ttComment, ttSemiColon, ttColon];
 begin
-  Result := not (ptt in NOT_ALIGNED);
+  Result := (not (pt.TokenType in NOT_ALIGNED)) and
+    pt.HasParentNode(nVarSection) and pt.IsOnRightOf(nVarDecl, ttColon);
 end;
 
 procedure TAlignVars.OnTokenRead(const pt: TSourceToken);
@@ -86,7 +89,7 @@ begin
 
   if pt.TokenType = ttColon then
     feFoundTokenState := eBefore
-  else if AlignedToken(pt.TokenType) and
+  else if AlignedToken(pt) and
     (feFoundTokenState in [eUnknown, eBefore]) then
     feFoundTokenState := eOn
   else if feFoundTokenState = eOn then
@@ -103,11 +106,19 @@ end;
 
 function TAlignVars.TokenEndsStatement(const pt: TSourceToken): boolean;
 begin
-  Result := (not pt.HasParentNode(nVarSection)) or (pt.TokenType in [ttSemiColon, ttEOF]);
+  { only look at solid tokens }
+  if (pt.TokenType in [ttReturn, ttWhiteSpace]) then
+  begin
+    Result := False;
+  end
+  else
+  begin
+    Result := (pt.TokenType in [ttSemiColon, ttEOF]) or (not pt.HasParentNode(nVarSection));
 
-  // ended by a blank line
-  if (pt.TokenType = ttReturn) and (pt.SolidTokenOnLineIndex <= 1) then
-    Result := True;
+    // ended by a blank line
+    if (pt.TokenType = ttReturn) and (pt.SolidTokenOnLineIndex <= 1) then
+      Result := True;
+  end;
 end;
 
 function TAlignVars.IsTokenInContext(const pt: TSourceToken): boolean;
@@ -121,15 +132,13 @@ begin
   { the local var feFoundTokenState is used to recognise the first token
     in the type after the colon }
 
-  Result := pt.HasParentNode(nType) and
-    (feFoundTokenState in [eOn, eUnknown]) and AlignedToken(pt.TokenType);
+  Result := (feFoundTokenState in [eOn, eUnknown]) and AlignedToken(pt);
 
   if Result and (pt.Nestings.GetLevel(nlRecordType) > 0) then
     Result := False;
 
   if Result and (RoundBracketLevel(pt) > 0) then
     Result := False;
-
 end;
 
 function TAlignVars.IsIncludedInSettings: boolean;

@@ -28,19 +28,25 @@ unit AlignBase;
 
 interface
 
-uses SwitchableVisitor, VisitParseTree, SourceToken, SourceTokenList;
+uses SwitchableVisitor, VisitParseTree, SourceToken,
+  SourceTokenList, IntList;
 
 type
 
   TAlignBase = class(TSwitchableVisitor)
   private
     fcTokens: TSourceTokenList;
+    fcAlignments: TIntList; // using this as a bool list
     fcResumeToken: TSourceToken;
 
     procedure AlignTheBlock(const pcToken: TSourceToken);
-    procedure IndentAll(piTokens, piIndent: integer);
 
     function StillSuspended(const pc: TSourceToken): boolean;
+    procedure IndentAll(const piIndent: integer);
+
+    function IsAligned(const liIndex: integer): boolean;
+
+    procedure AddToken(const pcToken: TSOurceToken; const pbAligned: Boolean);
 
   protected
     fbKeepComments: Boolean;
@@ -50,7 +56,6 @@ type
     function TokenIsAligned(const pt: TSourceToken): boolean; virtual; abstract;
     function TokenEndsStatement(const pt: TSourceToken): boolean; virtual; abstract;
     function IsTokenInContext(const pt: TSourceToken): boolean; virtual;
-
 
       { override this to let the child class see the tokens as they come
       this is used by the align vars to detect the first non-white space token after the : }
@@ -79,12 +84,14 @@ begin
   fbKeepComments := False;
   fcResumeToken := nil;
   fcTokens := TSourceTokenList.Create;
+  fcAlignments := TIntList.Create;
 end;
 
 
 destructor TAlignBase.Destroy;
 begin
   FreeAndNil(fcTokens);
+  FreeAndNil(fcAlignments);
   inherited;
 end;
 
@@ -114,7 +121,7 @@ procedure TAlignBase.AlignTheBlock(const pcToken: TSourceToken);
 var
   liCurrent, liLastKnownAlignedStatement: integer;
   lcCurrent: TSourceToken;
-  bDone, bThisStatementIsAligned: boolean;
+  bDone, bThisStatementIsAligned, lbThisTokenIsAligned: boolean;
   liMaxIndent, liMinIndent: integer;
   liThisIndent: integer;
   liSettingsMin, liSettingsMax, liSettingsMaxVariance: integer;
@@ -127,8 +134,8 @@ begin
   Assert(TokenIsAligned(pcToken));
 
   lcCurrent := pcToken;
-  fcTokens.Add(lcCurrent);
   OnTokenRead(lcCurrent);
+  AddToken(lcCurrent, True);
 
   liLastKnownAlignedStatement := 0;
   liMaxIndent := lcCurrent.XPosition;
@@ -142,11 +149,9 @@ begin
   repeat
     inc(liCurrent);
     lcCurrent := lcCurrent.NextToken;
-    fcTokens.Add(lcCurrent);
-    OnTokenRead(lcCurrent);
+    OnTokenRead(pcToken);
+    AddToken(lcCurrent, False);
   until (lcCurrent = nil) or TokenEndsStatement(lcCurrent);
-
-  inc(liCurrent); { liCurrent is the index of a statement ender so move past it }
 
   { end the first statement on EOF?! - abort! }
   if (lcCurrent = nil) or (lcCurrent.TokenType = ttEOF) then
@@ -167,10 +172,11 @@ begin
   bThisStatementIsAligned := True; // first statement just read will be aligned
 
 
-  { jow look for consecutive similar statements to align }
+  { now look for consecutive similar statements to align }
   while not bDone do
   begin
     lcCurrent := lcCurrent.NextToken;
+    OnTokenRead(lcCurrent);
 
     { EOF?! - abort! }
     if (lcCurrent = nil) or (lcCurrent.TokenType = ttEOF) then
@@ -179,12 +185,12 @@ begin
     end
     else
     begin
-      fcTokens.Add(lcCurrent);
-      OnTokenRead(lcCurrent);
+      lbThisTokenIsAligned := TokenIsAligned(lcCurrent);
+      AddToken(lcCurrent, lbThisTokenIsAligned);
 
       { an aligned statement has the aligned token in it -
         e.g. an assign statement has a ':=' in it :) }
-      if TokenIsAligned(lcCurrent) then
+      if lbThisTokenIsAligned then
       begin
         bThisStatementIsAligned := True;
 
@@ -246,36 +252,30 @@ begin
   { set iResume equal to the last token aligned  }
   fcResumeToken := fcTokens.SourceTokens[fcTokens.Count - 1];
 
-  { now we know how far to go and how far to indent, do it }
+  { now we know how far to go and how far to indent, do it? }
   if (liLastKnownAlignedStatement > 0) and (liAlignedCount > 1) then
-    IndentAll(liLastKnownAlignedStatement, liMaxIndent);
+    IndentAll(liMaxIndent);
 
   ResetState;
 end;
 
-procedure TAlignBase.IndentAll(piTokens, piIndent: integer);
+procedure TAlignBase.IndentAll(const piIndent: integer);
 var
   liLoop: integer;
   lcCurrent, lcNew: TSourceToken;
 begin
-  liLoop := 0;
-  while liLoop <= piTokens do
+  Assert(fcTokens.Count =  fcAlignments.Count);
+
+  for liLoop := fcTokens.count - 1 downto 0 do
   begin
     lcCurrent := fcTokens.SourceTokens[liLoop];
-    OnTokenRead(lcCurrent);
 
-    if TokenIsAligned(lcCurrent) and (lcCurrent.XPosition < piIndent) then
+    if IsAligned(liLoop) and (lcCurrent.XPosition < piIndent) then
     begin
       { indent to the specified level  - make a new space token }
       lcNew := InsertSpacesBefore(lcCurrent, piIndent - lcCurrent.XPosition);
-
-      { list just got longer - move the end marker }
       fcTokens.Insert(liLoop, lcNew);
-      inc(piTokens);
-      inc(liLoop);
     end;
-
-    inc(liLoop);
   end;
 end;
 
@@ -289,6 +289,7 @@ end;
 procedure TAlignBase.ResetState;
 begin
   fcTokens.Clear;
+  fcAlignments.Clear;
 end;
 
 function TAlignBase.IsTokenInContext(const pt: TSourceToken): boolean;
@@ -311,6 +312,23 @@ begin
     if not Result then
       fcResumeToken := nil;
   end;
+
+end;
+
+function TAlignBase.IsAligned(const liIndex: integer): boolean;
+begin
+  Result := (liIndex >= 0) and (liIndex < fcAlignments.Count) and
+    (fcAlignments.Items[liIndex] > 0);
+end;
+
+procedure TAlignBase.AddToken(const pcToken: TSOurceToken;
+  const pbAligned: Boolean);
+begin
+  fcTokens.Add(pcToken);
+  if pbAligned then
+    fcAlignments.Add(1)
+  else
+    fcAlignments.Add(0);
 
 end;
 
