@@ -79,6 +79,7 @@ type
     procedure TestObfuscate_TestExternal;
     procedure TestObfuscate_TestForward;
     procedure TestObfuscate_TestGoto;
+    procedure TestObfuscate_TestInheritedExpr;
     procedure TestObfuscate_TestInitFinal;
     procedure TestObfuscate_TestInterfaceImplements;
     procedure TestObfuscate_TestInterfaceMap;
@@ -678,6 +679,11 @@ end;
 procedure TTestObfuscate.TestObfuscate_LittleTest10;
 begin
   TestObfuscateFile('LittleTest10');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestInheritedExpr;
+begin
+  TestObfuscateFile('TestInheritedExpr');
 end;
 
 initialization

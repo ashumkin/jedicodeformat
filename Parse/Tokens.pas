@@ -462,14 +462,15 @@ const
     (sToken: 'var'; eWordType: wtReservedWord; eToken: ttVar),
     (sToken: 'while'; eWordType: wtReservedWord; eToken: ttWhile),
     (sToken: 'with'; eWordType: wtReservedWord; eToken: ttWith),
-    (sToken: 'at'; eWordType: wtReservedWord; eToken: ttAt),
-    (sToken: 'on'; eWordType: wtReservedWord; eToken: ttOn),
 
-    { reseved words that are directives }
+    { reseved words that must be parsed as directives because they can be identifier names }
+    (sToken: 'at'; eWordType: wtReservedWordDirective; eToken: ttAt),
+    (sToken: 'on'; eWordType: wtReservedWordDirective; eToken: ttOn),
     (sToken: 'package'; eWordType: wtReservedWordDirective; eToken: ttPackage),
     (sToken: 'contains'; eWordType: wtReservedWordDirective; eToken: ttContains),
     (sToken: 'requires'; eWordType: wtReservedWordDirective; eToken: ttRequires),
 
+    { reseved words that are directives }
     (sToken: 'absolute'; eWordType: wtReservedWordDirective; eToken: ttAbsolute),
     (sToken: 'external'; eWordType: wtReservedWordDirective; eToken: ttExternal),
     (sToken: 'pascal'; eWordType: wtReservedWordDirective; eToken: ttPascal),

@@ -1673,10 +1673,22 @@ begin
 
     Can also be fn call with no params but with the optional braces,
       e.g. "Foo();"
+
+      or a call to an inherited fucntion, e.g. "inherited foo();
+      Note that the function name can be omitted "
    }
   lc := TokenList.FirstSolidToken;
 
-  if (IdentifierNext) then
+  if lc.TokenType = ttInherited then
+  begin
+    Recognise(ttInherited);
+    RecogniseDesignator;
+    if TokenList.FirstSolidTokenType = ttOpenBracket then
+    begin
+      RecogniseActualParams;
+    end;
+  end
+  else if (IdentifierNext) then
   begin
     RecogniseDesignator;
     if TokenList.FirstSolidTokenType = ttOpenBracket then
@@ -3099,14 +3111,17 @@ begin
   Recognise(ttProperty);
 
   RecogniseIdentifier;
+
+  { this is omitted if it is a property redeclaration for visibility raising
+    in that case it may still have directives and hints }
   if TokenList.FirstSolidTokenType in [ttColon, ttOpenSquareBracket] then
   begin
     RecognisePropertyInterface;
     RecognisePropertySpecifiers;
-
-    RecognisePropertyDirectives;
-    RecogniseHintDirectives;
   end;
+
+  RecognisePropertyDirectives;
+  RecogniseHintDirectives;
 
   PopNode;
 end;
@@ -3622,33 +3637,46 @@ end;
 
 procedure TBuildParseTree.RecogniseHintDirectives;
 begin
-  if not (TokenList.FirstSolidTokenType in HintDirectives) then
-    exit;
-
-  PushNode(nHintDirectives);
-
-  while (TokenList.FirstSolidTokenType in HintDirectives) do
+  if ((TokenList.FirstSolidTokenType = ttSemicolon) and (TokenList.SolidTokenType(2) in HintDirectives)) or
+    (TokenList.FirstSolidTokenType in HintDirectives) then
   begin
-    Recognise(HintDirectives);
-  end;
+    if TokenList.FirstSolidTokenType = ttSemicolon then
+      Recognise(ttSemicolon);
 
-  PopNode;
+    PushNode(nHintDirectives);
+
+    while (TokenList.FirstSolidTokenType in HintDirectives) do
+    begin
+      Recognise(HintDirectives);
+    end;
+
+    PopNode;
+  end;
 end;
 
 
 procedure TBuildParseTree.RecognisePropertyDirectives;
 const
   { this can be specified at the end after a semicolon
-  so it's not just in the specifiers }
+  so it's not just in the specifiers
+
+  the default directive works differently for array and not-array properties
+
+  for non-array properties it is followed by an identifier
+  }
   PropertyDirectives = [ttDefault];
 begin
-  while (TokenList.FirstSolidTokenType = ttSemicolon) and
-    (TokenList.SolidTokenType(2) in PropertyDirectives) do
+  if ((TokenList.FirstSolidTokenType = ttSemicolon) and (TokenList.SolidTokenType(2) in PropertyDirectives)) or
+    (TokenList.FirstSolidTokenType in PropertyDirectives) then
   begin
+    if TokenList.FirstSolidTokenType = ttSemicolon then
+      Recognise(ttSemicolon);
+
     PushNode(nPropertyDirective);
 
-    Recognise(ttSemicolon);
     Recognise(PropertyDirectives);
+    if TokenList.FirstSolidTokenType <> ttSemicolon then
+      RecogniseConstantExpression;
 
     PopNode;
   end;

@@ -79,6 +79,7 @@ type
   procedure TestClarify_TestExternal;
   procedure TestClarify_TestForward;
   procedure TestClarify_TestGoto;
+  procedure TestClarify_TestInheritedExpr;
   procedure TestClarify_TestInitFinal;
   procedure TestClarify_TestInterfaceImplements;
   procedure TestClarify_TestInterfaceMap;
@@ -426,6 +427,11 @@ end;
 procedure TFullTestClarify.TestClarify_TestGoto;
 begin
   TestClarifyFile('TestGoto');
+end;
+
+procedure TFullTestClarify.TestClarify_TestInheritedExpr;
+begin
+  TestClarifyFile('TestInheritedExpr');
 end;
 
 procedure TFullTestClarify.TestClarify_TestInitFinal;

@@ -82,6 +82,7 @@ type
     procedure TestParse_TestExternal;
     procedure TestParse_TestForward;
     procedure TestParse_TestGoto;
+    procedure TestParse_TestInheritedExpr;
     procedure TestParse_TestInitFinal;
     procedure TestParse_TestInterfaceImplements;
     procedure TestParse_TestInterfaceMap;
@@ -310,7 +311,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestBogusDirectives;
 begin
-  TestParseFile('TestBogusDirectives', 361);
+  TestParseFile('TestBogusDirectives', 427);
 end;
 
 procedure TTestFileParse.TestParse_TestBogusTypes;
@@ -426,7 +427,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestInterfaces;
 begin
-  TestParseFile('TestInterfaces', 352);
+  TestParseFile('TestInterfaces', 564);
 end;
 
 procedure TTestFileParse.TestParse_TestLayout;
@@ -611,7 +612,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 639);
+  TestParseFile('Testcases.dpr', 647);
 end;
 
 
@@ -643,7 +644,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestPropertyInherited;
 begin
-  TestParseFile('TestPropertyInherited', 111);
+  TestParseFile('TestPropertyInherited', 518);
 end;
 
 procedure TTestFileParse.TestParse_TestMessages;
@@ -654,6 +655,11 @@ end;
 procedure TTestFileParse.TestParse_LittleTest10;
 begin
   TestParseFile('LittleTest10', 367);
+end;
+
+procedure TTestFileParse.TestParse_TestInheritedExpr;
+begin
+  TestParseFile('TestInheritedExpr', 301);
 end;
 
 initialization

@@ -38,6 +38,8 @@ type
       procedure Contains;
       procedure Requires;
       procedure Package;
+      function At: integer;
+      function On: integer;
   end;
 
 implementation
@@ -83,6 +85,16 @@ end;
 
 procedure Register.Package;
 begin
+end;
+
+function Register.At: integer;
+begin
+  Result := 23;
+end;
+
+function Register.On: integer;
+begin
+  Result := 23;
 end;
 
 end.

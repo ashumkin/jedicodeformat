@@ -6,20 +6,59 @@ Unit TestPropertyInherited;
 
 Interface
 
+const
+  HAS_BAR = False;
+
 type
 
 TCustomFoo = class(TObject)
   private
     function GetFoo: integer;
 
-  public
-    property Foo: integer read GetFoo;
+  protected
+    property Foo: integer read GetFoo nodefault;
+    property Bar: integer read GetFoo stored HAS_BAR;
 end;
 
-TFoo = Class(TCustomFoo)
- Published
+TFoo = class(TCustomFoo)
+ public
   Property Foo;
 End;
+
+const
+  FOO_DEFAULT = 3;
+
+type
+  TMegaFoo = class(TFoo)
+  private
+    function GetFishes(const piC: integer): integer;
+    procedure SetFishes(const piC, Value: integer);
+  public
+    property Fishes[const piC: integer]: integer read GetFishes write SetFishes; default;
+
+  published
+    property Bar default 3;
+    property Foo default FOO_DEFAULT + 1;
+  end;
+
+  { base class with array and scalar property }
+  TUserHasDefaults = class(TObject)
+  private
+    function GetDef1: integer;
+    function GetDef2(const piC: integer): integer;
+  public
+    property Def1: integer read GetDef1;
+    property Def2[const piC: integer]: integer read GetDef2;
+
+  end;
+
+  THasDefaults = class(TUserHasDefaults)
+  // two different syntaxes - semicolon in one not other
+    property Def1 default 1;
+    property Def2; default;
+
+  end;
+
 
 Implementation
 
@@ -28,6 +67,30 @@ Implementation
 function TCustomFoo.GetFoo: integer;
 begin
   Result := 3;
+end;
+
+{ TMegaFoo }
+
+function TMegaFoo.GetFishes(const piC: integer): integer;
+begin
+  Result := piC - 1; // overfishing
+end;
+
+procedure TMegaFoo.SetFishes(const piC, Value: integer);
+begin
+
+end;
+
+{ TUserHasDefaults }
+
+function TUserHasDefaults.GetDef1: integer;
+begin
+  Result := 0;
+end;
+
+function TUserHasDefaults.GetDef2(const piC: integer): integer;
+begin
+  Result := piC + 1;
 end;
 
 End.
