@@ -3993,9 +3993,9 @@ begin
 
   AsmParam
     -> Ident
+    -> Ident(AsmExpr) 
     -> '@' ident
     -> '[' AsmExpr ']'
-    -> Ident(number)
   }
 
   lbHasLabel := False;
@@ -4109,6 +4109,13 @@ begin
     Recognise(ttOpenBracket);
     RecogniseAsmFactor;
     Recognise(ttCloseBracket);
+  end;
+
+  if fcTokenList.FirstSolidTokenType = ttOpenSquareBracket then
+  begin
+    Recognise(ttOpenSquareBracket);
+    RecogniseAsmFactor;
+    Recognise(ttCloseSquareBracket);
   end;
 
 end;
