@@ -156,8 +156,7 @@ uses
   RemoveConsecutiveReturns in '..\Process\Returns\RemoveConsecutiveReturns.pas',
   frBlankLines in '..\Ui\Settings\frBlankLines.pas' {fBlankLines: TFrame},
   MaxSpaces in '..\Process\Spacing\MaxSpaces.pas',
-  TreeWalker in '..\Process\TreeWalker.pas',
-  testhatnil in '..\..\..\..\temp\testhatnil.pas';
+  TreeWalker in '..\Process\TreeWalker.pas';
 
 {$R *.res}
 

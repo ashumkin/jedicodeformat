@@ -49,4 +49,14 @@ end;li2:=li1+li2;end;end;type tfish=(goldfish,tetra,hake,haddock,trout,salmon,ca
 ,bass,eel,shark);const pond:array[0..6]of tfish=(goldfish,goldfish,eel,haddock,shark
 ,trout,salmon);procedure testcomplexasm;begin asm
 movzx eax,tfish(pond[edx])
+end;end;procedure testendcolon;begin asm
+ @end:
+end;end;procedure testasmexpr;begin asm
+ @@tv:
+ @@nx:jmp dword ptr @@tv[ecx*4+32]
+end;end;procedure testasmdot;begin asm
+ja @@4
+push[esi].integer[4]
+push[esi].integer[0]
+ @@4:
 end;end;end. 

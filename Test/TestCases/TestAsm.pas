@@ -141,4 +141,22 @@ begin
   end;
 end;
 
+procedure TestAsmExpr;
+begin
+  asm
+    @@tV:
+    @@nx:   JMP     DWORD PTR @@tV[ECX*4+32]
+  end;
+end;
+
+procedure TestAsmDot;
+begin
+  asm
+        JA      @@4
+        PUSH    [ESI].Integer[4]
+        PUSH    [ESI].Integer[0]
+        @@4:
+  end;
+end;
+
 end.

@@ -4029,7 +4029,7 @@ const
     ttNot, ttQuotedLiteralString,
     ttTrue, ttFalse, ttPlus, ttMinus, ttType, ttOffset];
 var
-  lc: TSourceToken;
+  lc, lcNext: TSourceToken;
   lbHasLabel: boolean;
 begin
   { um.
@@ -4055,14 +4055,20 @@ begin
       Recognise(ttDot);
   end;
 
-  if IdentifierNext or (lc.TokenType in ASM_EXPRESSION_START) then
+  { only parse trainling expressions if it is on the same line
+    ASM is not completely white-space-independant }
+  lcNext := fcTokenList.FirstTokenWithExclusion([ttWhiteSpace]);
+  if (lcNext <> nil) and (lcNext.TokenType <> ttReturn) then
   begin
-    RecogniseAsmExpr;
-  end
-  else
-  begin
-    if not lbHasLabel then
-      raise TEParseError.Create('Expected asm param', lc);
+    if IdentifierNext or (lc.TokenType in ASM_EXPRESSION_START) then
+    begin
+      RecogniseAsmExpr;
+    end
+    else
+    begin
+      if not lbHasLabel then
+        raise TEParseError.Create('Expected asm param', lc);
+    end;
   end;
 
   PopNode;
@@ -4138,27 +4144,31 @@ begin
     end
   end;
 
-  while fcTokenList.FirstSolidTokenType in [ttDot] do
+  while fcTokenList.FirstSolidTokenType in [ttDot, ttOpenBracket, ttOpenSquareBracket] do
   begin
-    Recognise([ttDot]);
 
-    if fcTokenList.FirstSolidTokenType = ttAtSign then
-      Recognise(ttAtSign);
-    RecogniseAsmIdent;
-  end;
+    if fcTokenList.FirstSolidTokenType = ttDot then
+    begin
+      Recognise([ttDot]);
 
-  if fcTokenList.FirstSolidTokenType = ttOpenBracket then
-  begin
-    Recognise(ttOpenBracket);
-    RecogniseAsmFactor;
-    Recognise(ttCloseBracket);
-  end;
+      if fcTokenList.FirstSolidTokenType = ttAtSign then
+        Recognise(ttAtSign);
+      RecogniseAsmIdent;
+    end;
 
-  if fcTokenList.FirstSolidTokenType = ttOpenSquareBracket then
-  begin
-    Recognise(ttOpenSquareBracket);
-    RecogniseAsmFactor;
-    Recognise(ttCloseSquareBracket);
+    if fcTokenList.FirstSolidTokenType = ttOpenBracket then
+    begin
+      Recognise(ttOpenBracket);
+      RecogniseAsmFactor;
+      Recognise(ttCloseBracket);
+    end;
+
+    if fcTokenList.FirstSolidTokenType = ttOpenSquareBracket then
+    begin
+      Recognise(ttOpenSquareBracket);
+      RecogniseAsmExpr;
+      Recognise(ttCloseSquareBracket);
+    end;
   end;
 
 end;

@@ -79,8 +79,10 @@ type
 implementation
 
 uses
-    { delphi }Forms,
-    { jcl }JclStrings;
+ { delphi }
+ Forms, SysUtils,
+ { jcl }
+ JclStrings;
 
 { TBuildTokenList }
 
@@ -279,9 +281,12 @@ begin
     pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
     Reader.Consume;
 
+    { read until the close ' }
     repeat
       if Reader.Current = #0 then
         break;
+      if Reader.Current in [AnsiLineFeed, AnsiCarriageReturn] then
+        Raise Exception.Create('Unterminated string: ' + pcToken.SourceCode);
 
       { two quotes in a row are still part of the string }
       if (Reader.Current = pcDelimiter) then
@@ -289,7 +294,6 @@ begin
         { two consecutive quote chars inside string, read them }
         if (Reader.BufferChar(1) = pcDelimiter) then
         begin
-          Reader.IncBuffer;
           Reader.IncBuffer;
           pcToken.SourceCode := pcToken.SourceCode + Reader.ConsumeBuffer;
         end

@@ -98,5 +98,30 @@ begin
   end;
 end;
 
+procedure testendcolon;
+begin
+  asm
+    @end:
+  end;
+end;
+
+procedure testasmexpr;
+begin
+  asm
+    @@tv:
+    @@nx:jmp dword ptr @@tv[ecx*4+32]
+  end;
+end;
+
+procedure testasmdot;
+begin
+  asm
+    ja @@4
+    push[esi].integer[4]
+    push[esi].integer[0]
+    @@4:
+  end;
+end;
+
 end.
  

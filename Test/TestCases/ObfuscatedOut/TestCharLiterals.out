@@ -12,6 +12,11 @@ const
   linebreak = #13#10;
   somechars = #78#79#80;
   hexchars  = #$12#$2E#60;
+  dqs_0     = '';
+  dqs_1     = '''';
+  dqs_2     = '''''';
+  dqs_3     = '''''''';
+  dqs_4     = '''''''''';
 var
   ls:  string;
   ls2: string;
@@ -70,8 +75,7 @@ procedure testhatcharliteralsinstrings;
 var
   str1: string;
 begin
-  str1 :=
-    'prefix'^m + 'substr2';
+  str1 := 'prefix'^m + 'substr2';
   str1 := 'prefix'^m'foo' + 'substr2';
   str1 := 'prefix'^m'foo'#23 + 'substr2'#56;
   str1 := 'prefix'^m'foo'^m'bar'^n + 'substr2'^o;

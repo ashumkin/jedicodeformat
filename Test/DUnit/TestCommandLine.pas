@@ -73,6 +73,9 @@ const
 procedure TTestCommandline.SetUp;
 begin
   fsFileNames := TStringList.Create;
+
+  InitTestSettings;
+  GetRegSettings.WriteAll;
 end;
 
 procedure TTestCommandline.TearDown;

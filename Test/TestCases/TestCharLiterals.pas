@@ -19,6 +19,13 @@ Fred = #80;
 LineBreak = #13#10;
 SomeChars = #78#79#80;
 HEXCHARS = #$12#$2E#60;
+
+DQS_0 = '';
+DQS_1 = '''';
+DQS_2 = '''''';
+DQS_3 = '''''''';
+DQS_4 = '''''''''';
+
 var
 ls:string;
 ls2: string;

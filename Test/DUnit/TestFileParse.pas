@@ -365,7 +365,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestAsm;
 begin
-  TestParseFile('TestAsm', 703);
+  TestParseFile('TestAsm', 828);
 end;
 
 procedure TTestFileParse.TestParse_TestBlankLineRemoval;
@@ -400,7 +400,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCharLiterals;
 begin
-  TestParseFile('TestCharLiterals', 998);
+  TestParseFile('TestCharLiterals', 1035);
 end;
 
 procedure TTestFileParse.TestParse_TestClassLines;
