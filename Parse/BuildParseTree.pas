@@ -1060,6 +1060,13 @@ begin
   lc := TokenList.FirstSolidToken;
   lc2 := TokenList.SolidToken(2);
 
+  if (lc.Word = wType) then
+  begin
+    { this can be a prefix. See help under "Declaring types".
+      an e.g. is in TestDeclarations.pas }
+    Recognise(wType);
+  end;
+
   if (lc.Word = wConst) then
     Recognise(wConst)
   else if (lc.Word in REAL_TYPES + ORD_TYPES) then
@@ -1079,7 +1086,14 @@ begin
   else if (lc.Word = wClass) and (lc2.Word = wOf) then
     RecogniseClassRefType
   else if (lc.TokenType in IdentifierTypes) and (lc.Word = wUnknown) then
-    RecogniseTypeId // some previously declared type that this simple prog does not know of
+  begin
+    { could be a subrange on an enum, e.g. "clBlue .. clBlack" }
+    if TokenList.SolidTokenType(2) = ttDoubleDot then
+      RecogniseSubRangeType
+    else
+      // some previously declared type that this simple prog does not know of
+      RecogniseTypeId;
+  end
   else
     RecogniseSimpleType;
     //Raise TEParseError.Create('Expected type definition', lc);
@@ -1527,7 +1541,11 @@ begin
     PushNode('Var Init');
 
     Recognise(wEquals);
-    RecogniseConstExpr;
+
+    { not just an expr - can be an array, record or the like
+      reuse the code from typed constant declaration as it works the same 
+    }
+    RecogniseTypedConstant;
     
     PopNode;
   end;
