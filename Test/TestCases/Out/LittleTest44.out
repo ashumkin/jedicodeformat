@@ -43,7 +43,7 @@ const
 var
   FirstIndexKeyBuffer: array [0..MAX_KEYLEN - 1] of char;
 begin
-  (StrEnd( @FirstIndexKeyBuffer[FLDCHG_DATA + TEXT_FLDNUM_SIZE]) -1)^ := #0; {<--HERE}
+  (StrEnd(@FirstIndexKeyBuffer[FLDCHG_DATA + TEXT_FLDNUM_SIZE]) -1)^ := #0; {<--HERE}
 end;
 
 end.

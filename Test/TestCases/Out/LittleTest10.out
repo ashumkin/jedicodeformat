@@ -44,7 +44,7 @@ begin
     ch := StreamReadChar(Source);
     case ch of
       #13: if StreamReadChar(Source) <> #10 then
-          Source.Seek( -1, soFromCurrent);
+          Source.Seek(-1, soFromCurrent);
       #10: ch := #13;
       #26:
       begin

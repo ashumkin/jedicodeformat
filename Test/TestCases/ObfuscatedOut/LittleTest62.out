@@ -1,0 +1,13 @@
+unit littletest62;
+
+interface
+
+implementation
+
+function foo(const bar: boolean): boolean;
+begin
+  Result := (not bar);
+end;
+
+end.
+ 

@@ -66,6 +66,8 @@ const
     ttTimes, ttFloatDiv, ttEquals, ttGreaterThan, ttLessThan,
     ttGreaterThanOrEqual, ttLessThanOrEqual, ttNotEqual];
 
+  NoSpaceAfterTokens: TTokenTypeSet = [ttOpenBracket, ttOpenSquareBracket];
+
 function NeedsSpaceBefore(const pt: TSourceToken): boolean;
 var                         
   lcPrev: TSourceToken;
@@ -201,6 +203,10 @@ begin
   lcNext := lcSourceToken.NextToken;
 
   if lcNext = nil then
+    exit;
+
+  // suspend this rule after open bracket
+  if lcSourceToken.TokenType in NoSpaceAfterTokens then
     exit;
 
   if NeedsSpaceBefore(lcNext) then

@@ -33,7 +33,7 @@ const
 var
   firstindexkeybuffer: array[0..max_keylen - 1] of char;
 begin
-  (strend( @firstindexkeybuffer[fldchg_data + text_fldnum_size]) -1)^ := #0;
+  (strend(@firstindexkeybuffer[fldchg_data + text_fldnum_size]) -1)^ := #0;
 end;
 
 end.

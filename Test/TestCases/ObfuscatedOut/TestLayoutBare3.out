@@ -142,7 +142,7 @@ begin
   end;
   while ((length(apath) > 1) and (pos(cfwdslash, apath) = 1)) do
     Delete(apath, 1, 1);
-  while ( not EOF and (fields[cpvendortoken] = avendortoken)) do
+  while (not EOF and (fields[cpvendortoken] = avendortoken)) do
   begin
     aproduct := 3;
     aproductinfoitem := 3;

@@ -1,0 +1,2 @@
+unit littletest62;interface implementation function foo(const bar:boolean):boolean
+;begin result:=(not bar);end;end. 

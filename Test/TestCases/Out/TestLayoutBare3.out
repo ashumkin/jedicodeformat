@@ -179,7 +179,7 @@ begin
   while ((Length(aPath) > 1) and (Pos(cFwdSlash, aPath) = 1)) do
     Delete(aPath, 1, 1);
 
-  while ( not EOF and (Fields[cpVendorToken] = aVendorToken)) do
+  while (not EOF and (Fields[cpVendorToken] = aVendorToken)) do
   begin
     aProduct := 3;
     aProductInfoItem := 3;

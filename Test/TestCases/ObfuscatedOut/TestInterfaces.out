@@ -56,7 +56,7 @@ type
     function removeattribute(const strattributename: widestring; lflags: integer): wordbool;
       dispid -2147417609;
     property ClassName: widestring dispid bar_disp_id + foo_disp_id;
-    property id: widestring dispid( -1 * foo_disp_id);
+    property id: widestring dispid(-1 * foo_disp_id);
     property onfilterchange: olevariant dispid -2147412069;
     property children: IDispatch ReadOnly dispid -2147417075;
     property all: IDispatch ReadOnly dispid -2147417074;
