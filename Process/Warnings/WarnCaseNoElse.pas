@@ -44,7 +44,7 @@ type
   public
     constructor Create; override;
 
-    function PreVisitParseTreeNode(const pcNode: TObject): Boolean; override;
+    procedure PreVisitParseTreeNode(const pcNode: TObject); override;
   end;
 
 
@@ -64,11 +64,10 @@ begin
   HasSourceTokenVisit := True;
 end;
 
-function TWarnCaseNoElse.PreVisitParseTreeNode(const pcNode: TObject): Boolean;
+procedure TWarnCaseNoElse.PreVisitParseTreeNode(const pcNode: TObject);
 var
   lcNode: TParseTreeNode;
 begin
-  Result := False;
   lcNode := TParseTreeNode(pcNode);
 
   // when we have a case statement, does it have an else?

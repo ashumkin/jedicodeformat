@@ -101,7 +101,7 @@ begin
   begin
     { not leaf - visit children }
     if fbHasPreVisit then
-      fbRecalcIndex := fcVisitor.PreVisitParseTreeNode(pcNode);
+      fcVisitor.PreVisitParseTreeNode(pcNode);
 
     if pcNode.ChildNodeCount > MAX_NODE_CHILDREN then
     begin

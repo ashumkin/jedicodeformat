@@ -52,7 +52,7 @@ type
   public
     constructor Create; override;
 
-    function PreVisitParseTreeNode(const pcNode: TObject): boolean; override;
+    procedure PreVisitParseTreeNode(const pcNode: TObject); override;
     function VisitSourceToken(const pcNode: TObject): Boolean; override;
     function FinalSummary(var psMessage: string): boolean; override;
 
@@ -102,11 +102,10 @@ begin
   HasSourceTokenVisit := True;
 end;
 
-function TBasicStats.PreVisitParseTreeNode(const pcNode: TObject): Boolean;
+procedure TBasicStats.PreVisitParseTreeNode(const pcNode: TObject);
 var
   lcNode: TParseTreeNode;
 begin
-  Result := False;
   lcNode := TParseTreeNode(pcNode);
 
   case lcNode.NodeType of

@@ -37,7 +37,7 @@ type
   public
     constructor Create; override;
 
-    function PreVisitParseTreeNode(const pcNode: TObject): Boolean; override;
+    procedure PreVisitParseTreeNode(const pcNode: TObject); override;
   end;
 
 implementation
@@ -53,12 +53,11 @@ begin
   HasSourceTokenVisit := False;
 end;
 
-function TWarnEmptyBlock.PreVisitParseTreeNode(const pcNode: TObject): Boolean;
+procedure TWarnEmptyBlock.PreVisitParseTreeNode(const pcNode: TObject);
 var
   lcNode: TParseTreeNode;
   liSolidChildCount: integer;
 begin
-  Result := False;
   lcNode := TParseTreeNode(pcNode);
 
   // only look in statements

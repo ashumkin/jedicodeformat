@@ -51,7 +51,7 @@ type
   public
     constructor Create; override;
 
-    function PreVisitParseTreeNode(const pcNode: TObject): Boolean; override;
+    procedure PreVisitParseTreeNode(const pcNode: TObject); override;
   end;
 
 
@@ -118,13 +118,12 @@ begin
   HasSourceTokenVisit := False;
 end;
 
-function TWarnAssignToFunctionName.PreVisitParseTreeNode(const pcNode: TObject): Boolean;
+procedure TWarnAssignToFunctionName.PreVisitParseTreeNode(const pcNode: TObject);
 var
   lcNode: TParseTreeNode;
   lcFunctionHeading: TParseTreeNode;
   lsName: string;
 begin
-  Result := False;
   lcNode := TParseTreeNode(pcNode);
 
   if lcNode.NodeType <> nFunctionDecl then

@@ -44,7 +44,7 @@ type
     { these are called when visiting interior nodes before and after thier children
       Must return true if the visited node is deleted, or if nodes are inserted before it
       ie if the cuurent node's index is not correct and the same after the visit}
-    function PreVisitParseTreeNode(const pcNode: TObject): Boolean; virtual;
+    procedure PreVisitParseTreeNode(const pcNode: TObject); virtual;
     procedure PostVisitParseTreeNode(const pcNode: TObject); virtual;
 
     { this is called when visiting a leaf node (ie a source token) }
@@ -82,10 +82,9 @@ begin
   psMessage := '';
 end;
 
-function TBaseTreeNodeVisitor.PreVisitParseTreeNode(const pcNode: TObject): Boolean;
+procedure TBaseTreeNodeVisitor.PreVisitParseTreeNode(const pcNode: TObject);
 begin
   // do nothing, here for override
-  Result := False;
 end;
 
 procedure TBaseTreeNodeVisitor.PostVisitParseTreeNode(const pcNode: TObject);

@@ -44,7 +44,7 @@ type
     constructor Create; override;
     destructor Destroy; override;
 
-    function PreVisitParseTreeNode(const pcNode: TObject): Boolean; override;
+    procedure PreVisitParseTreeNode(const pcNode: TObject); override;
     procedure PostVisitParseTreeNode(const pcNode: TObject); override;
     function VisitSourceToken(const pcToken: TObject): Boolean; override;
 
@@ -84,9 +84,8 @@ begin
   Result    := (psMessage <> '');
 end;
 
-function TVisitSetNestings.PreVisitParseTreeNode(const pcNode: TObject): Boolean;
+procedure TVisitSetNestings.PreVisitParseTreeNode(const pcNode: TObject);
 begin
-  Result := False;
   // increment when you enter
   ProcessNode(pcNode, True);
 end;
