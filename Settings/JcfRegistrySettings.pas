@@ -100,47 +100,45 @@ type
     procedure ReadAll;
     procedure WriteAll;
 
-    property HasRead: boolean Read fbHasRead;
+    property HasRead: boolean read fbHasRead;
 
     { general settings }
-    property FormatConfigFileName: string Read fsFormatConfigFileName
-      Write fsFormatConfigFileName;
-    property WriteSettingsFile: boolean Read fbWriteSettingsFile
-      Write fbWriteSettingsFile;
+    property FormatConfigFileName: string read fsFormatConfigFileName write fsFormatConfigFileName;
+    property WriteSettingsFile: boolean read fbWriteSettingsFile write fbWriteSettingsFile;
 
     { ui settings }
     property ShowParseTreeOption: TShowParseTreeOption
-      Read fShowParseTreeOption Write fShowParseTreeOption;
-    property LastSettingsPage: string Read fsLastSettingsPage Write fsLastSettingsPage;
+      read fShowParseTreeOption write fShowParseTreeOption;
+    property LastSettingsPage: string read fsLastSettingsPage write fsLastSettingsPage;
 
     { notepad settings }
-    property InputDir: string Read fsInputDir Write fsInputDir;
-    property OutputDir: string Read fsOutputDir Write fsOutputDir;
+    property InputDir: string read fsInputDir write fsInputDir;
+    property OutputDir: string read fsOutputDir write fsOutputDir;
 
     { MRU files settings }
-    property MRUMaxItems: integer Read fiMRUMaxItems Write fiMRUMaxItems;
-    property MRUFiles: TStrings Read fcMRUFiles Write fcMRUFiles;
+    property MRUMaxItems: integer read fiMRUMaxItems write fiMRUMaxItems;
+    property MRUFiles: TStrings read fcMRUFiles write fcMRUFiles;
 
     { log settings }
     function LogDirectory: string;
     function LogFileName: string;
 
-    property LogLevel: TLogLevel Read feLogLevel Write feLogLevel;
-    property LogPlace: TLogPlace Read feLogPlace Write feLogPlace;
-    property SpecifiedDirectory: string Read fsSpecifiedDirectory
-      Write fsSpecifiedDirectory;
+    property LogLevel: TLogLevel read feLogLevel write feLogLevel;
+    property LogPlace: TLogPlace read feLogPlace write feLogPlace;
+    property SpecifiedDirectory: string read fsSpecifiedDirectory
+      write fsSpecifiedDirectory;
 
-    property ViewLogAfterRun: boolean Read fbViewLogAfterRun Write fbViewLogAfterRun;
-    property LogTime: boolean Read fbLogTime Write fbLogTime;
-    property LogStats: boolean Read fbLogStats Write fbLogStats;
+    property ViewLogAfterRun: boolean read fbViewLogAfterRun write fbViewLogAfterRun;
+    property LogTime: boolean read fbLogTime write fbLogTime;
+    property LogStats: boolean read fbLogStats write fbLogStats;
 
     procedure ViewLog;
 
     { files settings }
-    property BackupMode: TBackupMode Read feBackupMode Write feBackupMode;
-    property SourceMode: TSourceMode Read feSourceMode Write feSourceMode;
-    property BackupExtension: string Read GetBackupExtension Write fsBackupExtension;
-    property OutputExtension: string Read GetOutputExtension Write fsOutputExtension;
+    property BackupMode: TBackupMode read feBackupMode write feBackupMode;
+    property SourceMode: TSourceMode read feSourceMode write feSourceMode;
+    property BackupExtension: string read GetBackupExtension write fsBackupExtension;
+    property OutputExtension: string read GetOutputExtension write fsOutputExtension;
 
     function GetOutputFileName(const psIn: string): string; overload;
     function GetOutputFileName(const psIn: string; peMode: TBackupMode): string; overload;
@@ -150,10 +148,10 @@ type
     function FileIsExcluded(const psFile: string): boolean;
     function DirIsExcluded(const psDir: string): boolean;
 
-    property Input: string Read fsInput Write fsInput;
+    property Input: string read fsInput write fsInput;
 
-    property ExclusionsFiles: TStringList Read fcExclusionsFiles;
-    property ExclusionsDirs: TStringList Read fcExclusionsDirs;
+    property ExclusionsFiles: TStringList read fcExclusionsFiles;
+    property ExclusionsDirs: TStringList read fcExclusionsDirs;
   end;
 
 function GetRegSettings: TJCFRegistrySettings;
@@ -195,14 +193,14 @@ const
   REG_EXCLUSIONS_FILES = 'ExclusionsFiles';
   REG_EXCLUSIONS_DIRS  = 'ExclusionsDirs';
 
-{ AFS 10 Oct 2001
- Migrate to file-based settings,  ie
+{
+  file-based settings,  ie
   - read from the settings file if it exists, else use the registry
   - always write to the file
  }
 function GetDefaultSettingsFileName: string;
 begin
-  Result := IncludeTrailingPathDelimiter(GetWinDir) + 'JCF2Settings.cfg';
+  Result := IncludeTrailingPathDelimiter(GetApplicationFolder) + 'JCF2Settings.cfg';
 end;
 
 
@@ -308,15 +306,13 @@ end;
 procedure TJCFRegistrySettings.ReadAll;
 begin
   { general section }
-  fsFormatConfigFileName := fcReg.ReadString(REG_GENERAL_SECTION,
-    'FormatConfigFileName', '');
+  fsFormatConfigFileName := fcReg.ReadString(REG_GENERAL_SECTION, 'FormatConfigFileName', '');
   if fsFormatConfigFileName = '' then
     fsFormatConfigFileName := GetDefaultSettingsFileName;
 
   fbWriteSettingsFile := fcReg.ReadBool(REG_GENERAL_SECTION, 'WriteSettingsFile', True);
 
-
-  {notpad settings }
+  {notepad settings }
   InputDir  := fcReg.ReadString(REG_NOTEPAD_SECTION, 'InputDir', '');
   OutputDir := fcReg.ReadString(REG_NOTEPAD_SECTION, 'OutputDir', '');
 
@@ -325,12 +321,9 @@ begin
   ReadMRUFiles;
 
   { log section }
-  feLogLevel := TLogLevel(fcReg.ReadInteger(REG_LOG_SECTION, REG_LOG_LEVEL,
-    Ord(eLogFiles)));
-  feLogPlace := TLogPlace(fcReg.ReadInteger(REG_LOG_SECTION, REG_LOG_PLACE,
-    Ord(eLogTempDir)));
-  fsSpecifiedDirectory := fcReg.ReadString(REG_LOG_SECTION,
-    REG_SPECIFIED_DIRECTORY, 'c:\');
+  feLogLevel := TLogLevel(fcReg.ReadInteger(REG_LOG_SECTION, REG_LOG_LEVEL, Ord(eLogFiles)));
+  feLogPlace := TLogPlace(fcReg.ReadInteger(REG_LOG_SECTION, REG_LOG_PLACE, Ord(eLogTempDir)));
+  fsSpecifiedDirectory := fcReg.ReadString(REG_LOG_SECTION, REG_SPECIFIED_DIRECTORY, 'c:\');
   fbViewLogAfterRun := fcReg.ReadBool(REG_LOG_SECTION, REG_VIEW_LOG_AFTER_RUN, False);
   fbLogTime  := fcReg.ReadBool(REG_LOG_SECTION, REG_LOG_TIME, False);
   fbLogStats := fcReg.ReadBool(REG_LOG_SECTION, REG_LOG_STATS, False);

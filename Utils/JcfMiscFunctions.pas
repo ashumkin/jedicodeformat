@@ -40,18 +40,15 @@ under the License.
 
 interface
 
+function GetApplicationFolder: string;
+
 function PadNumber(const pi: integer): ansistring;
 function StrHasAlpha(const str: ansistring): boolean;
 function GetLastDir(psPath: string): string;
 
-function StrToBoolean(ps: string): boolean;
-
 function Str2Float(s: string): double;
 function Float2Str(const d: double): string;
 
-
-{ delphi-string wrapper for the win32 pchar api }
-function GetWinDir: string;
 
 {not really a file fn - string file name manipulation}
 function SetFileNameExtension(const psFileName, psExt: string): string;
@@ -70,13 +67,13 @@ implementation
 
 uses
   { delphi }
-  SysUtils, Windows,
+  SysUtils, Forms,
   { jcl }
   JclStrings, JclFileUtils, JclSysUtils;
 
-function StrToBoolean(ps: string): boolean;
+function GetApplicationFolder: string;
 begin
-  Result := StrIsOneOf(ps, ['t', 'true', 'y', 'yes', '1']);
+  Result := ExtractFilePath(Application.ExeName);
 end;
 
 { these come from Ralf Steinhaeusser
@@ -157,20 +154,6 @@ begin
   liPos := StrLastPos(PathSeparator, psPath);
   if liPos > 0 then
     Result := StrRestOf(psPath, liPos + 1);
-end;
-
-function GetWinDir: string;
-const
-  LEN: integer = 255;
-var
-  lsBuffer: string;
-begin
-  SetLength(lsBuffer, LEN);
-  FillChar(pchar(lsBuffer)^, LEN, 0);
-
-  GetWindowsDirectory(pchar(lsBuffer), LEN);
-
-  Result := Trim(lsBuffer);
 end;
 
 function SetFileNameExtension(const psFileName, psExt: string): string;

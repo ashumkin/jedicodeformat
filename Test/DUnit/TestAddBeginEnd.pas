@@ -37,6 +37,8 @@ type
     procedure TestRemoveFromCaseStatement;
 
     procedure TestAddToifForStatement;
+    procedure TestAddToifForStatement2;
+    procedure TestAddToifForStatement3;
     procedure TestRemoveFromIfForStatement;
 
     procedure TestNestedIf1;
@@ -119,7 +121,7 @@ const
     UNIT_HEADER +
     '  if i > 10 then ' + AnsiLineBreak +
     '    begin if i > 20 then ' + AnsiLineBreak +
-    '      begin ShowMessage(''big'') end; end;' +
+    '      begin ShowMessage(''big'') end end;' +
     UNIT_FOOTER;
 
   WHILE_STATEMENT_TEXT_NO_BEGIN =
@@ -192,6 +194,43 @@ const
     '    begin for i := 1 to 3 do ' + AnsiLineBreak +
     '      begin ShowMessage(''big'') end; end;' +
     UNIT_FOOTER;
+
+  IF_FOR_ELSE_STATEMENT_TEXT_NO_BEGIN =
+    UNIT_HEADER +
+    '  if i > 3 then' + AnsiLineBreak +
+    '    for i := 1 to 3 do ' + AnsiLineBreak +
+    '      ShowMessage(''big'')' +
+    '  else' +
+    '    ShowMessage(''small'');' +
+    UNIT_FOOTER;
+
+  IF_FOR_ELSE_STATEMENT_TEXT_WITH_BEGIN =
+    UNIT_HEADER +
+    '  if i > 3 then' + AnsiLineBreak +
+    '    begin for i := 1 to 3 do ' + AnsiLineBreak +
+    '      begin ShowMessage(''big'') end end' +
+    '  else' +
+    '    begin ShowMessage(''small'') end;' +
+    UNIT_FOOTER;
+
+  IF_FOR_ELSE_IF_STATEMENT_TEXT_NO_BEGIN =
+    UNIT_HEADER +
+    '  if i > 3 then' + AnsiLineBreak +
+    '    for i := 1 to 3 do ' + AnsiLineBreak +
+    '      ShowMessage(''big'')' +
+    '  else if i > 2 then' +
+    '    ShowMessage(''small'');' +
+    UNIT_FOOTER;
+
+  IF_FOR_ELSE_IF_STATEMENT_TEXT_WITH_BEGIN =
+    UNIT_HEADER +
+    '  if i > 3 then' + AnsiLineBreak +
+    '    begin for i := 1 to 3 do ' + AnsiLineBreak +
+    '      begin ShowMessage(''big'') end end' +
+    '  else if i > 2 then' +
+    '    begin ShowMessage(''small'') end;' +
+    UNIT_FOOTER;
+
 
   { in this case removing the begin..end is wrong
     because it causes the else to attach to the inner if
@@ -360,6 +399,25 @@ begin
     IF_FOR_STATEMENT_TEXT_NO_BEGIN);
 end;
 
+
+procedure TTestAddBeginEnd.TestAddToifForStatement2;
+begin
+  FormatSettings.Transform.BeginEndStyle := eAlways;
+
+  TestProcessResult(TAddBeginEnd, IF_FOR_ELSE_STATEMENT_TEXT_NO_BEGIN,
+    IF_FOR_ELSE_STATEMENT_TEXT_WITH_BEGIN);
+end;
+
+// note that the "else..if" doesn't become "else begin if"
+procedure TTestAddBeginEnd.TestAddToifForStatement3;
+begin
+  FormatSettings.Transform.BeginEndStyle := eAlways;
+
+  TestProcessResult(TAddBeginEnd, IF_FOR_ELSE_IF_STATEMENT_TEXT_NO_BEGIN,
+    IF_FOR_ELSE_IF_STATEMENT_TEXT_WITH_BEGIN);
+end;
+
+
 procedure TTestAddBeginEnd.TestRemoveFromIfForStatement;
 begin
   FormatSettings.Transform.BeginEndStyle := eNever;
@@ -437,6 +495,7 @@ begin
 
   TestProcessResult(TAddBeginEnd, NESTED_IF_TEXT_NO_BEGIN2, NESTED_IF_TEXT_WITH_BEGIN2);
 end;
+
 
 
 initialization

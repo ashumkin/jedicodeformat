@@ -79,7 +79,7 @@ implementation
 uses
   JclStrings,
   Tokens, SourceToken, TokenUtils, JCFSettings,
-  FormatFlags, SettingsTypes, SetReturns;
+  FormatFlags, SettingsTypes;
 
 const
   BreakWords: TTokenTypeSet = [ttThen, ttDo, ttElse, ttEnd];

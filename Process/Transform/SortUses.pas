@@ -45,7 +45,7 @@ implementation
 
 uses
   { delphi }
-  Contnrs, Classes, SysUtils, Math,
+  Contnrs, Classes, 
   { local }
   ParseTreeNodeType, SourceToken, Tokens, JcfSettings,
   SetTransform, TokenUtils, SortUsesData;

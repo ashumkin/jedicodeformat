@@ -3,8 +3,8 @@ unit frTransform;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, 
-  Dialogs, StdCtrls, ExtCtrls,
+  Classes, Graphics, Controls, Forms, 
+  StdCtrls, ExtCtrls,
   { local }
   frmBaseSettingsFrame;
 

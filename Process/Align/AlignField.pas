@@ -66,9 +66,8 @@ type
 implementation
 
 uses
-  FormatFlags, Nesting,
-  JcfSettings, ParseTreeNodeType, Tokens, TokenUtils,
-  SetAlign;
+  FormatFlags, 
+  JcfSettings, ParseTreeNodeType, Tokens, TokenUtils;
 
 const
   FORMATTED_SECTIONS: TParseTreeNodeTypeSet = [nClassVisibility, nFieldDeclaration];

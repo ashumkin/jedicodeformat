@@ -149,8 +149,7 @@ uses
   { jcl }
   JclStrings,
   { local }
-  JCFHelp, ConvertTypes, fAbout, fRegistrySettings, fAllSettings,
-  ParseError;
+  JCFHelp, ConvertTypes, fAbout, fRegistrySettings, fAllSettings;
 
 {$R *.dfm}
 

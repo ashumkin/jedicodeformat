@@ -41,7 +41,7 @@ implementation
 uses
   SettingsTypes,
   ParseTreeNode, ParseTreeNodeType,
-  JcfSettings, SourceToken, Tokens, SetTransform, TokenUtils;
+  JcfSettings, SourceToken, Tokens, TokenUtils;
 
 function IsBlockParent(const pcNode: TParseTreeNode): boolean;
 const
@@ -239,6 +239,7 @@ end;
 procedure TAddBeginEnd.PostVisitParseTreeNode(const pcNode: TObject);
 var
   lcNode: TParseTreeNode;
+  lcToken: TSourceToken;
 begin
   lcNode := TParseTreeNode(pcNode);
 
@@ -253,6 +254,14 @@ begin
     end;
     eAlways:
     begin
+      // do not add begin/end to "else if"
+      if (lcNode.NodeType = nElseBlock) then
+      begin
+        lcToken := TSourceToken(lcNode.FirstSolidLeaf);
+        if (lcToken <> nil) and (lcToken.TokenType = ttIf) then
+          exit;
+      end;
+
       if (not HasBlockChild(lcNode)) then
         AddBlockChild(lcNode);
     end

@@ -34,7 +34,7 @@ uses
   { delphi } SysUtils,
   { local } ConvertTypes, ParseTreeNode,
   BuildTokenList,
-  BuildParseTree, JCFLog, BaseVisitor;
+  BuildParseTree, BaseVisitor;
 
 type
 
@@ -104,7 +104,7 @@ uses
   { local }
   SourceTokenList, SourceToken,
   fShowParseTree, JcfSettings, JcfRegistrySettings,
-  AllProcesses, ParseError, fJcfErrorDisplay, PreProcessorParseTree,
+  AllProcesses, ParseError, PreProcessorParseTree,
   TreeWalker, VisitSetXY, VisitSetNesting;
 
 function StrInsert(const psSub, psMain: string; const piPos: integer): string;

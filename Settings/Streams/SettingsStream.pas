@@ -144,9 +144,12 @@ type
 implementation
 
 uses
-  { delphi }SysUtils,
-  { jcl }JclStrings,
-  { local}JcfMiscFunctions;
+  { delphi }
+  SysUtils,
+  { jcl }
+  JclStrings, JclSysUtils,
+  { local}
+  JcfMiscFunctions;
 
 
 
