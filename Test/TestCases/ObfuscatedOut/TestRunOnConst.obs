@@ -1,0 +1,14 @@
+unit testrunonconst;interface type tfnorftype=(efnord1,efnord2,etheotherfnord);tfnordrecord
+=record sword:string;efnordtype:tfnorftype;btheother:boolean;end;const fnordmap:array
+[0..11]of tfnordrecord=((sword:'bob';efnordtype:efnord1;btheother:true),(sword:'was'
+;efnordtype:etheotherfnord;btheother:false),(sword:'here';efnordtype:efnord2;btheother
+:true),(sword:'some';efnordtype:efnord1;btheother:false),(sword:'time';efnordtype
+:etheotherfnord;btheother:true),(sword:'after';efnordtype:efnord1;btheother:false
+),(sword:'midnight';efnordtype:efnord2;btheother:true),(sword:'bob';efnordtype:efnord1
+;btheother:true),(sword:'was';efnordtype:etheotherfnord;btheother:false),(sword:'here'
+;efnordtype:efnord2;btheother:true),(sword:'some';efnordtype:efnord1;btheother:false
+),(sword:'time';efnordtype:etheotherfnord;btheother:true));const myfnord:tfnordrecord
+=(sword:'bob';efnordtype:efnord1;btheother:true);implementation const somestrings
+:array[1..14]of string=('Fnord','Fnord','Fnord','Fnord','Fnord','Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord'
+,'Fnord','Fnord','This is a somewhat longer string which, although it digesses a bit just to gain length, does not contain very many fnords'
+,'Fnord','Fnord','Fnord Fnord Fnord','Fnord','Fnord');end. 

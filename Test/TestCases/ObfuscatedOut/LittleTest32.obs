@@ -1,0 +1,3 @@
+unit littletest32;interface var foo:boolean platform=false;bar:boolean library=false
+;fish:boolean deprecated=false;wibble:boolean platform library=false;spon:boolean
+platform library deprecated=false;implementation end. 

@@ -1,0 +1,24 @@
+unit testtypedefs;interface uses classes;type tfred=integer;tjim1=record i1:integer
+;s1:string;end;tbob=interface;tbobdisp=dispinterface;tmark=class;ptgarf=^tgarf;tgarf
+=record ifoo:integer;bbar:boolean;sbaz:string;end;tmyenum=(foo,bar,baz,spon,wibble
+,fish);tmyenumset=set of tmyenum;imyiterator=interface(iunknown)procedure first;procedure
+next;end;ientryjournallookupdisp=dispinterface['{D34D4103-FBC4-11D2-94F3-00A0CC39B56F}'
+]property startdate:tdatetime dispid 1;property enddate:tdatetime dispid 2;property
+maxrows:integer dispid 2000;property iterator:imyiterator readonly dispid 2001;function
+execute:imyiterator;dispid 2002;function getnewojectkey:iunknown;dispid 2003;end;
+ientryjournaliterator=interface(imyiterator)['{D34D4105-FBC4-11D2-94F3-00A0CC39B56F}'
+]function get_note:widestring;safecall;function get_status:widestring;safecall;function
+get_createddate:tdatetime;safecall;function get_loginname:widestring;safecall;function
+get_id:integer;safecall;procedure set_id(id:integer);safecall;property note:widestring
+read get_note;property status:widestring read get_status;property createddate:tdatetime
+read get_createddate;property loginname:widestring read get_loginname;property id
+:integer read get_id write set_id;end;fredcoclass=class function dink:boolean;class
+function create:idispatch;class function createremote(const machinename:string):idispatch
+;end;otherfredcoclass=class class function dink:boolean;end;tmark=class(TObject)private
+fimark:integer;protected psstuff:string;public procedure fred;safecall;property mark
+:integer read fimark write fimark;end;tbob=interface(iunknown)end;tbobdisp=dispinterface
+['{BAADBEEF-CADA-11D2-94F3-00A0CC39B56F}']end;tdink=class(TStrings)end;implementation
+function fredcoclass.dink:boolean;begin result:=true;end;class function fredcoclass
+.create:idispatch;begin result:=nil;end;class function fredcoclass.createremote(const
+machinename:string):idispatch;begin result:=nil;end;procedure tmark.fred;begin end
+;class function otherfredcoclass.dink:boolean;begin result:=false;end;end. 

@@ -1,0 +1,12 @@
+unit littletest8;
+
+interface
+
+type
+  tmyobject = class(TObject)
+    Name: string;
+  end;
+
+implementation
+
+end. 

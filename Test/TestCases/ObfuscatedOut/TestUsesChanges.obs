@@ -1,0 +1,2 @@
+unit testuseschanges;interface uses sysutils,comctrls,classes,windows,fred,jim,bob
+;implementation uses peter,paul,ralph;end. 

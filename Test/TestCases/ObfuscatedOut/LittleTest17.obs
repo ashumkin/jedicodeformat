@@ -1,0 +1,3 @@
+unit littletest17;interface uses forms;type tfooform=class(TForm)public class function
+foo:tfooform;end;implementation const soy=42;class function tfooform.foo:tfooform
+;begin result:=nil;end;end. 

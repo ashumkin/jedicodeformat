@@ -1,0 +1,29 @@
+unit littletest19;
+
+interface
+
+type
+  tsoy = class
+  protected
+    function getklingon: integer;
+    procedure setklingon(const Value: integer);
+    property klingon: integer Read getklingon Write setklingon;
+  end;
+
+  tenterprise = class(TSoy)
+  published
+    property klingon Read getklingon Write setklingon;
+  end;
+
+implementation
+
+function tsoy.getklingon: integer;
+begin
+  Result := 42;
+end;
+
+procedure tsoy.setklingon(const Value: integer);
+begin
+end;
+
+end. 

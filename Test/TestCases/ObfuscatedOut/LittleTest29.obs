@@ -1,0 +1,4 @@
+unit littletest29;interface type tkirk=low(integer)..high(integer);tspock=low(integer
+)..12;triker=12..high(integer);twhorf=12..42;tdata=false..true;tpicard=low(boolean
+)..high(boolean);tcrusher=low(boolean)..true;tuhura=false..high(boolean);implementation
+end. 

@@ -1,0 +1,7 @@
+unit testparams;interface procedure arrayproc1(foo:array of const);procedure arrayproc2
+(var foo:array of const);procedure fred2(var foo);procedure fred3(var foo;const bar
+);procedure fred4(var foo,bar);procedure fred5(const foo);implementation procedure
+arrayproc1(foo:array of const);begin end;procedure arrayproc2(var foo:array of const
+);begin end;procedure fred2(var foo);begin end;procedure fred3(var foo;const bar)
+;begin end;procedure fred4(var foo,bar);begin end;procedure fred5(const foo);begin
+end;end. 

@@ -1,0 +1,164 @@
+unit testpropertylines;
+
+interface
+
+type
+  tterse = class(TObject)
+  private
+    fix1: integer;
+    fix6: integer;
+    fix5: integer;
+    fix8: integer;
+    fix2: integer;
+    fix3: integer;
+    fix9: integer;
+    fix12: integer;
+  public
+    property x1: integer Read fix1;
+    property x2: integer Read fix2;
+    property x3: integer Read fix3;
+    procedure x4;
+    property x5: integer Read fix5;
+    property x6: integer Read fix6;
+    function x7: boolean;
+    property x8: integer Read fix8;
+    property x9: integer Read fix9 Write fix9;
+    function x10: boolean;
+    function x11: boolean;
+    property x12: integer Read fix12 Write fix12;
+  end;
+
+  tverbose = class(TObject)
+  private
+    fix1: integer;
+    fix6: integer;
+    fix5: integer;
+    fix8: integer;
+    fix2: integer;
+    fix3: integer;
+    fix9: integer;
+    fix12: integer;
+  public
+    property x1: integer Read fix1 Write fix1;
+    property x2: integer Read fix2;
+    property x3: integer Read fix3;
+    procedure x4;
+    property x5: integer Read fix5;
+    property x6: integer Read fix6;
+    function x7: boolean;
+    property x8: integer Read fix8;
+    property x9: integer Read fix9 Write fix9;
+    function x10: boolean;
+    function x11: boolean;
+    property x12: integer Read fix12 Write fix12;
+  end;
+
+  thascomments = class(TObject)
+  private
+    ffred1: integer;
+    ffred3: integer;
+    ffred2: integer;
+    ffred4: integer;
+    procedure setfred1(const Value: integer);
+    procedure setfred2(const Value: integer);
+    procedure setfred3(const Value: integer);
+    procedure setfred4(const Value: integer);
+  protected
+  public
+    property fred1: integer Read ffred1 Write setfred1;
+    property fred2: integer Read ffred2 Write setfred2;
+    property fred3: integer Read ffred3 Write setfred3;
+    property fred4: integer Read ffred4 Write setfred4;
+  end;
+
+  tlongproperties = class(TObject)
+  private
+    fithisisaverylongproperynameindeedy: integer;
+    fithisisaverylongproperynameindeedynumbertwo: integer;
+    function getanarraypropertywithanabsurdlylongname(
+      const pithisisanindextothearrayproperty: integer): integer;
+    procedure setanarraypropertywithanabsurdlylongname(
+      const pithisisanindextothearrayproperty: integer; const pithisisavalue: integer);
+  public
+    property thisisaverylongproperynameindeedy: integer
+      Read fithisisaverylongproperynameindeedy Write fithisisaverylongproperynameindeedy;
+    property anarraypropertywithanabsurdlylongname[
+      const pithisisanindextothearrayproperty: integer]: integer
+      Read getanarraypropertywithanabsurdlylongname
+      Write setanarraypropertywithanabsurdlylongname; default;
+    property thisisaverylongproperynameindeedynumbertwo: integer
+      Read fithisisaverylongproperynameindeedynumbertwo
+      Write fithisisaverylongproperynameindeedynumbertwo;
+  end;
+
+implementation
+
+function tterse.x10: boolean;
+begin
+  Result := false;
+end;
+
+function tterse.x11: boolean;
+begin
+  Result := false;
+end;
+
+procedure tterse.x4;
+begin
+end;
+
+function tterse.x7: boolean;
+begin
+  Result := false;
+end;
+
+function tverbose.x10: boolean;
+begin
+  Result := false;
+end;
+
+function tverbose.x11: boolean;
+begin
+  Result := false;
+end;
+
+procedure tverbose.x4;
+begin
+end;
+
+function tverbose.x7: boolean;
+begin
+  Result := false;
+end;
+
+function tlongproperties.getanarraypropertywithanabsurdlylongname(const pithisisanindextothearrayproperty: integer): integer;
+begin
+  Result := 3;
+end;
+
+procedure tlongproperties.setanarraypropertywithanabsurdlylongname(
+  const pithisisanindextothearrayproperty, pithisisavalue: integer);
+begin
+end;
+
+procedure thascomments.setfred1(const Value: integer);
+begin
+  ffred1 := Value;
+end;
+
+procedure thascomments.setfred2(const Value: integer);
+begin
+  ffred2 := Value;
+end;
+
+procedure thascomments.setfred3(const Value: integer);
+begin
+  ffred3 := Value;
+end;
+
+procedure thascomments.setfred4(const Value: integer);
+begin
+  ffred4 := Value;
+end;
+
+end. 

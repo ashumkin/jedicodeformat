@@ -1,0 +1,21 @@
+unit testcastsimple;interface uses classes,stdctrls;var lcstrings:tstringlist;lcobj
+:tobject;lcbutton:tbutton;implementation procedure testdot;var lc:tobject;begin lc
+:=lcbutton.owner;lc:=(lcobj as tcomponent).owner;end;procedure test1;begin(lcbutton
+as tobject).free;(lcobj as tstringlist).free;(lcstrings as tobject).free;end;procedure
+testsurplusbrackets;begin((lcbutton as tobject)).free;(((lcobj as tstringlist))).
+free;((((lcstrings as tobject)))).free;end;procedure testsurplusbrackets2;begin lcbutton
+.parent.parent.owner.free;(lcbutton.parent.parent).owner.free;((lcbutton.parent).
+parent).owner.free;(((lcbutton).parent).parent).owner.free;((((lcbutton).parent).
+parent).owner).free;end;procedure test2;var lc:tobject;begin lc:=(lcbutton as tobject
+);lc:=(lcobj as tstringlist);lc:=(lcstrings as tobject);lc:=(lcstrings);end;procedure
+test3;begin if lcobj is tstrings then(lcobj as tstrings).classname;if lcobj is tstrings
+then begin((lcobj as tstrings)).classname;end;end;procedure test4;var lc:tobject;
+begin lc:=(lcobj as tcomponent).owner;lc:=((lcobj as tcomponent).owner as tbutton
+);lc:=(((lcobj as tcomponent).owner as tbutton).owner as tbutton);lc:=((((lcobj as
+tcomponent).owner as tbutton).owner as tbutton).owner as tbutton);lc:=((lcobj as 
+tobject)as tcomponent);lc:=(((lcobj as tbutton)as tobject)as tcomponent);lc:=((lcobj
+as tcomponent).owner as tcomponent);lc:=(((lcobj as tbutton)as tobject).owner as 
+tcomponent);lc:=((((((lcobj as tbutton))as tobject)).owner as tcomponent));lc:=(lcbutton
+.parent as tcomponent).owner;lc:=(lcbutton.parent.parent as tcomponent).owner;lc:=
+(lcbutton.parent.parent).owner;lc:=((lcbutton.parent).parent).owner;lc:=(((lcbutton
+).parent).parent).owner;lc:=((((lcbutton).parent).parent).owner);end;end. 

@@ -1,0 +1,3 @@
+unit littletest7;interface implementation procedure foo;var libar:integer;begin 
+libar:=-100;while libar<-10 do begin end;end;procedure foo2;var libar:integer;begin
+libar:=100;while libar>=-1 do begin end;end;end. 

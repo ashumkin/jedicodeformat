@@ -1,0 +1,11 @@
+unit littletest4;
+
+interface
+
+var
+  fred, blogs: integer;
+  mcgonnigle, mctavish, macathini: string;
+
+implementation
+
+end. 

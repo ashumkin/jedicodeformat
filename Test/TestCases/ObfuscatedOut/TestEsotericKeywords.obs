@@ -1,0 +1,8 @@
+unit testesoterickeywords;interface var fred,vodka:integer;var jim2:integer;threadvar
+jim:real;var ey:integer;threadvar i:integer;broom:boolean;var drink:real absolute
+vodka;type tcow=packed record i1:integer;s2:string;b3:boolean;end;tmoo=packed array
+[1..10]of tcow;resourcestring greeting='Hello';implementation threadvar herd:tmoo
+;function justsayno:boolean;assembler;begin result:=false;end;function _thisfunctionstartswithanunderscore
+:boolean;begin result:=true;end;function __thisfunctionstartswithanunderscore:boolean
+;begin result:=_thisfunctionstartswithanunderscore;end;function ___thisfunctionstartswithanunderscore
+:boolean;begin result:=__thisfunctionstartswithanunderscore;end;end. 

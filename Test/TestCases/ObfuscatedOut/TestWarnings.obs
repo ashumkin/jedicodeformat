@@ -1,0 +1,16 @@
+unit testwarnings;interface type twhatever=class public function memberfoo:integer
+;function memberbar:integer;procedure emptymember;end;implementation uses classes
+,testdeclarations;var fred:real;var fi,fifi,fo,fun:real48;procedure baddestructor
+;var lc:tobject;begin lc:=tstringlist.create;try finally lc.destroy;end;end;procedure
+badcases;var li,li2:integer;begin li:=random(10);li2:=random(10);case li of 1:inc
+(li);else case li of 1:baddestructor;end;end;end;procedure emptyblock;begin end;procedure
+emptyblocks;begin begin end;begin begin end;end;try emptyblock;except end;try finally
+emptyblock;end;end;function selffn:integer;begin selffn:=3;end;function spon:integer
+;function jim:integer;begin jim:=4;end;begin spon:=jim+3;end;function twhatever.memberfoo
+:integer;begin memberfoo:=3;end;function twhatever.memberbar:integer;function fish
+:integer;begin fish:=3;fish:=fish+1;end;begin memberbar:=fish+3;end;procedure twhatever
+.emptymember;var foo:real;begin end;function fred1:integer;begin testdeclarations
+.fred1:=3;result:=3;end;function fred2:integer;begin testwarnings.fred2:=3;result
+:=3;end;function level1:integer;function level2:integer;function level3:integer;begin
+level1:=5;level2:=6;level3:=7;end;begin level1:=3;level2:=level3;end;begin level1
+:=0;level1:=level2+level1;end;end. 

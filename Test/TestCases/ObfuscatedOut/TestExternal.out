@@ -1,0 +1,31 @@
+unit testexternal;
+
+interface
+
+uses Windows;
+
+procedure fred; cdecl;
+procedure floattodecimal(var Result: integer; const Value; valuetype: integer; precision, decimals: integer); external;
+function floattotext(buffer: pchar;
+  const Value; valuetype: integer; format: integer; precision, digits: integer): integer; external;
+function addatoma: atom; external kernel32 name 'AddAtomA';
+function arefileapisansi: bool; external kernel32 name 'AreFileApisANSI';
+function beep: bool; external kernel32 name 'Beep';
+function fooo: string; external kernel32 name 'Fish';
+function wibble: boolean; external;
+
+implementation
+
+uses Dialogs;
+
+procedure spon; external;
+procedure spon2; external;
+
+procedure fred;
+begin
+  ShowMessage('Fred');
+end;
+
+procedure spon3; external;
+
+end. 

@@ -1,0 +1,10 @@
+unit littletest15;
+
+interface
+
+var
+  lpfnhook: function(wnd: integer): integer stdcall;
+
+implementation
+
+end. 

@@ -1,0 +1,1 @@
+unit littletest2;interface const foo=3;implementation end. 

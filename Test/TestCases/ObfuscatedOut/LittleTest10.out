@@ -1,0 +1,55 @@
+unit littletest10;
+
+interface
+
+uses SysUtils;
+
+function bintohex(const sbin: string): string;
+
+implementation
+
+uses Math, Classes;
+
+function bintohex(const sbin: string): string;
+var
+  ex: extended;
+begin
+  ex := power(2, length('12345'));
+  ex := power(2, pos('2', '12345'));
+end;
+
+function streamreadln(Source: tstream): string;
+
+  function streamreadchar(Source: tstream): char;
+  begin
+    if Source.Read(Result, sizeof(char)) = 0 then
+      Result := #26;
+  end;
+
+var
+  bufsize, charsread: integer;
+  ch: char;
+begin
+  bufsize   := 255;
+  charsread := 0;
+  setlength(Result, bufsize);
+  repeat
+    ch := streamreadchar(Source);
+    case ch of
+      #13: if streamreadchar(Source) <> #10 then
+          Source.seek( -1, sofromcurrent);
+      #10: ch := #13;
+      #26:
+      begin
+        ch := #13;
+        Source.seek(0, sofromend);
+      end;
+      else
+      begin
+      end;
+    end;
+  until (ch = #13);
+  setlength(Result, charsread);
+end;
+
+end. 

@@ -1,0 +1,17 @@
+unit littletest24;
+
+interface
+
+type
+  tshatner = record
+    fish: integer;
+    soy: boolean;
+    monkey: string;
+  end;
+
+var
+  flurry: tshatner = ();
+
+implementation
+
+end. 

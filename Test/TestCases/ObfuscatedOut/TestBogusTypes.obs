@@ -1,0 +1,6 @@
+unit testbogustypes;interface type fred=class public procedure word;procedure dword
+;function tcomponent(ps:string):string;end;procedure byte;function ansichar(pi:integer
+):string;const int64='Hello world';implementation procedure byte;begin end;function
+ansichar(pi:integer):string;begin byte;result:='';end;procedure fred.dword;begin 
+ansichar(3);end;function fred.tcomponent(ps:string):string;begin result:='';end;procedure
+fred.word;begin dword;tcomponent(ansichar(42));end;end. 

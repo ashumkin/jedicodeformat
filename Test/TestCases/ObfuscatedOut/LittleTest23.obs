@@ -1,0 +1,2 @@
+unit littletest23;interface implementation var bar:boolean;function foo(const chr
+:byte):boolean;begin result:=(bar)and(chr in[$B2..$EC]);end;end. 

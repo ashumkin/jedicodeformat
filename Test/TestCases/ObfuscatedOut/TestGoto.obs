@@ -1,0 +1,12 @@
+unit testgoto;interface function jumpallaround:integer;procedure forloop;procedure
+untilloop;implementation uses sysutils,dialogs;label fred;function jumpallaround:
+integer;label procstart,procmid,procend;begin result:=0;goto procmid;procstart:inc
+(result);procmid:result:=result+random(10)-random(9);if result<10 then goto procstart
+;if result>20 then goto procend else goto procmid;procend:;end;procedure forloop;
+label loopstart;var liloop:integer;label loopend;const loopmax=20;begin liloop:=0
+;loopstart:begin showmessage('Loop # '+inttostr(liloop));inc(liloop);if liloop>loopmax
+then goto loopend else goto loopstart;end;loopend:;end;procedure untilloop;label 
+loopstart;var liloop:integer;const loopmax=20;begin liloop:=0;loopstart:showmessage
+('Loop # '+inttostr(liloop));inc(liloop);if(liloop<loopmax)or(random(10)=3)then goto
+loopstart;end;label jim;begin goto jim;fred:showmessage('Fred was here ');jim:;end
+. 

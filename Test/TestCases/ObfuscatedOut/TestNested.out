@@ -1,0 +1,120 @@
+unit testnested;
+
+interface
+
+implementation
+
+uses SysUtils;
+
+function fred: string;
+begin
+  Result := IntToStr(random(20));
+end;
+
+function fred2: string;
+
+  function getarandomnumber:
+  integer;
+  begin
+    Result := random(20);
+  end;
+
+begin
+  Result := IntToStr(getarandomnumber);
+end;
+
+function fred3: string;
+
+  function getarandomnumber: integer;
+
+    function getlimit: integer;
+    begin
+      Result := 20;
+    end;
+
+  begin
+    Result := random(getlimit);
+  end;
+
+begin
+  Result := IntToStr(getarandomnumber);
+end;
+
+procedure jim1(var ps1: string; const ps2: string);
+const
+  fred = 'Jim1';
+var
+  ls3: string;
+begin
+  ls3 := fred;
+  ps1 := ls3 + ps2;
+end;
+
+procedure jim2(var ps1: string; const ps2: string);
+const
+  fred = 'Jim2';
+
+  function getarandomnumber: integer;
+  var
+    lilimit: integer;
+  begin
+    lilimit := 10 * 2;
+    Result  := random(lilimit);
+  end;
+
+var
+  ls3: string;
+begin
+  ls3 := fred;
+  ps1 := ls3 + IntToStr(getarandomnumber) + ps2;
+end;
+
+procedure jim3(var ps1: string; const ps2: string);
+const
+  fred = 'Jim3';
+var
+  ls3: string;
+
+  function getarandomnumber: integer;
+
+    function getlimit: integer;
+    const
+      half_limit = 10;
+    begin
+      Result := half_limit * 2;
+    end;
+
+  var
+    lilimit: integer;
+  begin
+    lilimit := getlimit;
+    Result  := random(lilimit);
+  end;
+
+begin
+  ls3 := fred;
+  ps1 := ls3 + IntToStr(getarandomnumber) + ps2;
+end;
+
+function multipass: integer;
+
+  function one: integer;
+  begin
+    Result := 1;
+  end;
+
+  function two: integer;
+  begin
+    Result := 2;
+  end;
+
+  function three: integer;
+  begin
+    Result := 3;
+  end;
+
+begin
+  Result := one + two + three;
+end;
+
+end. 

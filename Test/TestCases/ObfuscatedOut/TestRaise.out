@@ -1,0 +1,103 @@
+unit testraise;
+
+interface
+
+implementation
+
+uses SysUtils;
+
+function test1: tdatetime;
+var
+  datestr: string;
+begin
+  datestr := 'Fooo';
+  Result  := 0.0;
+  try
+    Result := strtodate(datestr);
+  except
+    on econverterror do
+    else
+      raise;
+  end;
+end;
+
+function test1_2: tdatetime;
+var
+  datestr: string;
+begin
+  datestr := 'Fooo';
+  Result  := 0.0;
+  try
+    Result := strtodate(datestr);
+  except
+    on econverterror do ;
+    on ematherror do
+    else
+      raise;
+  end;
+end;
+
+function test2: tdatetime;
+var
+  datestr: string;
+begin
+  datestr := 'Fooo';
+  Result  := now;
+  try
+    Result := strtodate(datestr);
+  except
+    on econverterror do
+      if datestr = '' then
+        raise
+      else
+  end;
+end;
+
+function test3: tdatetime;
+var
+  datestr: string;
+begin
+  datestr := 'Fooo';
+  Result  := now;
+  try
+    Result := strtodate(datestr);
+  except
+    on econverterror do
+      if datestr = '' then
+        raise
+      else
+        raise
+  end;
+end;
+
+function test4: tdatetime;
+var
+  datestr: string;
+begin
+  datestr := 'Fooo';
+  Result  := now;
+  try
+    Result := strtodate(datestr);
+  except
+    on
+      econverterror do
+      if datestr = '' then
+        raise
+      else if datestr = 'foo' then
+      begin
+        raise
+      end
+      else
+        raise
+  end;
+end;
+
+procedure testif(const pi: integer);
+begin
+  if pi > 4 then
+  else
+  begin
+  end;
+end;
+
+end. 

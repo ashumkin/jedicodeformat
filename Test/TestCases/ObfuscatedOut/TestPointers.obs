@@ -1,0 +1,4 @@
+unit testpointers;interface type tfred=record fi1:integer;fc2:currency;ganzfeld:
+string;end;ptfred=^tfred;pptfred=^ptfred;procedure stuff;implementation procedure
+stuff;var f:tfred;pf:ptfred;ppf:pptfred;li:integer;begin pf:=@f;ppf:=@pf;pf:=ppf^
+;f:=pf^;f:=ppf^^;pf:=@f;ppf:=@pf;li:=3;end;end. 

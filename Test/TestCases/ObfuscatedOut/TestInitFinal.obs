@@ -1,0 +1,6 @@
+unit testinitfinal;interface var someglobalseed:integer;fred:tobject;implementation
+uses classes,sysutils;function randomint:integer;begin result:=random(1000);end;initialization
+someglobalseed:=randomint;if someglobalseed>20 then begin while someglobalseed>20
+do begin someglobalseed:=someglobalseed-randomint div 100;end;end;fred:=tlist.create
+;finalization while randomint<20000 do begin freeandnil(fred);someglobalseed:=0;end
+;end. 

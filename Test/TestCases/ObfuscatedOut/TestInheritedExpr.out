@@ -1,0 +1,51 @@
+unit testinheritedexpr;
+
+interface
+
+type
+  tcitycounter = class(TObject)
+  public
+    function countrats(const pscity: string): integer; virtual;
+    function countcheaptaxis: integer; virtual;
+    procedure foo; virtual;
+  end;
+
+  tlondoncounter = class(TCityCounter)
+  public
+    function countrats(const pscity: string): integer; override;
+    function countcheaptaxis: integer; override;
+    procedure foo; override;
+  end;
+
+implementation
+
+function tcitycounter.countcheaptaxis: integer;
+begin
+  Result := -1;
+end;
+
+function tcitycounter.countrats(const pscity: string): integer;
+begin
+  Result := 1000;
+end;
+
+procedure tcitycounter.foo;
+begin
+end;
+
+function tlondoncounter.countcheaptaxis: integer;
+begin
+  Result := inherited countcheaptaxis;
+end;
+
+function tlondoncounter.countrats(const pscity: string): integer;
+begin
+  Result := inherited countrats('London') * 42;
+end;
+
+procedure tlondoncounter.foo;
+begin
+  inherited;
+end;
+
+end. 

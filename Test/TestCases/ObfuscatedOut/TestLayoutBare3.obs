@@ -1,0 +1,25 @@
+unit testlayoutbare3;interface implementation procedure test1;var ia,ib:integer;
+ba:boolean;begin if ia>5 then if ia>20 then if ib>6 then ba:=true else ba:=false 
+else ba:=true else ba:=false end;procedure test2;var sa,sb:string;begin sa:='Fred '
+;sb:=sa+'Jim';sa:=sa+#40;if sa=''then if sb='x'then if sa<>'foo'then begin sa:=sa
++'narf';end;end;procedure test3_1;var ia,ib:integer;begin ia:=random(10);ib:=random
+(10);if ia>6 then begin if ia>7 then if ia>8 then begin if ia>9 then ib:=10;end;end
+;end;procedure test3_2;var ia,ib:integer;begin ia:=random(10);ib:=random(10);if ia
+>5 then if ia>6 then begin if ia>7 then if ia>8 then begin if ia>9 then ib:=10;end
+;end;end;procedure test3_3;var ia,ib:integer;begin ia:=random(10);ib:=random(10);
+if ia>4 then begin if ia>5 then if ia>6 then begin if ia>7 then if ia>8 then begin
+if ia>9 then ib:=10;end;end;end;end;procedure test3_4;var ia,ib:integer;begin ia:=
+random(10);ib:=random(10);if ia>3 then if ia>4 then begin if ia>5 then if ia>6 then
+begin if ia>7 then if ia>8 then begin if ia>9 then ib:=10;end;end;end;end;procedure
+testraymalone;const cfwdslash:char='/';cpvendortoken=1;avendortoken=2;var apath:string
+;fields:array[1..4]of integer;aproduct:integer;aproductinfoitem:integer;begin while
+(length(apath)>1)and(pos(cfwdslash,apath)=1)do delete(apath,1,1);while(length(apath
+)>1)or(pos(cfwdslash,apath)=1)do delete(apath,1,1);while(length(apath)>1)do delete
+(apath,1,1);while length(apath)>1 do delete(apath,1,1);while not eof and(fields[cpvendortoken
+]=avendortoken)do begin aproduct:=3;aproductinfoitem:=3;end;while((length(apath)>
+1)and(pos(cfwdslash,apath)=1))do delete(apath,1,1);while(not eof and(fields[cpvendortoken
+]=avendortoken))do begin aproduct:=3;aproductinfoitem:=3;end;//jcf:indent=off
+while(length(apath)>1)and(pos(cfwdslash,apath)=1)do delete(apath,1,1);while not eof
+and(fields[cpvendortoken]=avendortoken)do begin aproduct:=3;aproductinfoitem:=3;end
+;//jcf:indent=on
+end;end. 

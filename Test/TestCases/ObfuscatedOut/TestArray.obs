@@ -1,0 +1,6 @@
+unit testarray;interface type tsomeenum=(efoo,ebar,ebaz,efish,ewibble,espon,emonkey
+,esoy,eshatner);tmyarray=array[0..100]of integer;tfunnythreed=array[112..456,tsomeenum
+,boolean]of integer;var foo:tmyarray;puppy:array[12..120]of integer;boolarray:array
+[boolean]of boolean;somemap:array[tsomeenum]of integer;twod:array[1..100,1..100]of
+integer;threed:array[1..100,1..100,1..100]of integer;funnythreed:array[112..456,tsomeenum
+,boolean]of integer;implementation end. 

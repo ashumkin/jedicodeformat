@@ -1,0 +1,6 @@
+unit testsimpleifdef5;interface implementation{$IFDEF MSWINDOWS}uses windows;{$ELSE}
+  {$IF FOO}
+  uses LibFoo;
+  {$IFEND}
+{$ENDIF}
+end. 

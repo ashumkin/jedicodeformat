@@ -1,0 +1,5 @@
+unit testcharliterals;interface implementation procedure chars;const fred=#80;linebreak
+=#13#10;somechars=#78#79#80;hexchars=#$12#$2E#60;var ls:string;ls2:string;begin ls
+:=#90+linebreak+#90#91+somechars+#90;ls2:=#$F#$A;ls2:=ls+#$1F+hexchars;end;procedure
+stringchars;const boo='Boo';hello='Hello'#13;olla=#10'Olla!';var ls:string;begin 
+ls:='Fred';ls:=#13;ls:=#12'Fred'#32'Fred'#22;end;end. 

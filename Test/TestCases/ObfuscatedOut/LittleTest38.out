@@ -1,0 +1,14 @@
+unit littletest38;
+
+interface
+
+implementation
+
+procedure foo;
+begin
+  asm
+    mov[esi].ttextrec.bufsize,type ttextrec.buffer
+  end
+end;
+
+end. 

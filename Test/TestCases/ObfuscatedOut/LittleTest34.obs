@@ -1,0 +1,3 @@
+unit littletest34;interface type iamaninterface=interface(idispatch)['{081A08A5-AC8E-4C99-89A4-6175E6320719}'
+]procedure monkey(out out:olevariant);safecall;procedure soy(var out:integer);safecall
+;end;implementation end. 

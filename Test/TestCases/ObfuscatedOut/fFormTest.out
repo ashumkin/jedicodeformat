@@ -1,0 +1,30 @@
+unit fformtest;
+
+interface
+
+uses Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, Buttons;
+
+type
+  tformtest = class(TForm)
+    bbclose: tbitbtn;
+    mnotice: tmemo;
+    procedure bbcloseclick(Sender: TObject);
+  private
+  public
+  end;
+
+var
+  formtest: tformtest;
+
+implementation
+
+{$R *.DFM}
+
+procedure tformtest.bbcloseclick(Sender: TObject);
+begin
+  Close;
+  application.terminate;
+  halt;
+end;
+
+end.

@@ -1,0 +1,16 @@
+unit LittleTest30;
+
+interface
+
+implementation
+
+procedure Foo(const Forward: boolean);
+
+  function Bar(const Forward: boolean): boolean;
+  begin
+  end;
+
+begin
+end;
+
+end.

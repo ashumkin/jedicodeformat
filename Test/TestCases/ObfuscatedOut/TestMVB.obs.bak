@@ -1,0 +1,28 @@
+unit testmvb;interface uses sysutils,windows;type ejclerror=class(Exception){$IFNDEF DELPHI5_UP}
+public constructor createres(resstringrec:presstringrec);overload;constructor createresfmt
+(resstringrec:presstringrec;const args:array of const);overload;{$ENDIF}end;tfred
+=class(TObject)end;tfred2=class(TObject)end;tfred3=class(TObject)end;pint64=^int64
+;int64=packed record case integer of 0:(lowpart:dword;highpart:longint);{$IFNDEF BCB3}
+    1: (
+      QuadPart: LONGLONG);
+  {$ENDIF}
+end;const dynextendedarrayhigh=214748363;dyndoublearrayhigh=536870908;dynsinglearrayhigh
+=268435448;{$IFDEF MATH_EXTENDED_PRECISION}
+  DynFloatArrayHigh = 214748363;  // 2^31 / SizeOf(Extended)
+  {$ENDIF}
+procedure i64assign(var i:int64;low,high:longint);procedure i64copy(var dest:int64
+;const source:int64);function i64compare(const i1,i2:int64):integer;implementation
+var i:integer;fred:string;const wan=1;twoooo=2;f=12;constructor ejclerror.createresfmt
+(resstringrec:presstringrec;const args:array of const);begin createfmt(loadresstring
+(resstringrec),args);end;constructor ejclwin32error.createres(ident:integer);begin
+flasterror:=getlasterror;flasterrormsg:=syserrormessage(flasterror);inherited createfmt
+(loadstr(ident)+#13+'Win32: %s (%u)',[flasterrormsg,flasterror]);end;constructor 
+ejclwin32error.createfmt(const msg:string;const args:array of const);begin flasterror
+:=getlasterror;flasterrormsg:=syserrormessage(flasterror);inherited createfmt(msg
++#13+format('Win32: %s (%u)',[flasterrormsg,flasterror]),args);end;procedure dynarrayinitialize
+(var a;elementsize,initiallength:longint);var p:pointer;size:longint;begin if(elementsize
+<1)or(elementsize>8)then raise exception.create('');if initiallength<0 then initiallength
+:=0;size:=dynarrayrecsize+(initiallength*elementsize);p:=allocmem(size);with tdynarrayrec
+(p^)do begin allocsize:=size;length:=initiallength;elemsize:=elementsize;end;pointer
+(a):=pointer(longint(p)+dynarrayrecsize);end;procedure testmisc;var p:pointer;s:string
+;begin s:='';p:=nil;s:='';p:=nil;s:='';p:=nil;end;initialization initsysinfo;end.

@@ -1,0 +1,87 @@
+unit testcast;
+
+interface
+
+function castnumeric: integer;
+procedure messwithobjects;
+
+implementation
+
+uses Classes, SysUtils, Dialogs;
+
+function castnumeric: integer;
+var
+  dvalue:  double;
+  crvalue: currency;
+begin
+  dvalue  := random(100) * pi;
+  crvalue := currency(dvalue);
+  Result  := round(crvalue);
+end;
+
+procedure messwithobjects;
+var
+  lcstrings: TStringList;
+  lcobj: TObject;
+  lp: pointer;
+  li: integer;
+begin
+  lcstrings := TStringList.Create;
+  try
+    lcobj := lcstrings as TObject;
+    lp    := pointer(lcobj);
+    li    := integer(lp);
+    ShowMessage(IntToStr(li));
+    lp    := pointer(li);
+    lcobj :=
+      TObject(pointer(li));
+    lcstrings := TStringList(TObject(pointer(li)));
+  finally
+    lcstrings.Free;
+  end;
+end;
+
+type
+  tfred   = (efee, efi, efo, fum);
+  tjim    = (eming, emong, mmung, ecorwhatadonga);
+  tnumber = integer;
+
+procedure usertypecast;
+var
+  fred: tfred;
+  jim:  tjim;
+  li:   integer;
+  lj:   tnumber;
+begin
+  li   := random(3);
+  fred := tfred(li);
+  jim  := tjim(fred);
+  lj   := tnumber(jim);
+end;
+
+procedure hardleft;
+var
+  lcstrings: TStringList;
+  lcobj:     TObject;
+begin
+  lcstrings := TStringList.Create;
+  try
+    lcobj := lcstrings;
+    if lcobj is TStrings then
+      (lcobj as TStrings).ClassName;
+    if lcobj is TStrings then
+    begin
+      (lcobj as TStrings).ClassName;
+    end;
+    if lcobj is TStrings then
+      ((lcobj as TStrings)).ClassName;
+    if lcobj is TStrings then
+    begin
+      ((lcobj as TStrings)).ClassName;
+    end;
+  finally
+    lcstrings.Free;
+  end;
+end;
+
+end. 

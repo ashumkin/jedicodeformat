@@ -1,0 +1,6 @@
+unit testemptyclass;interface uses classes;var jim:integer;type tfoo=class;counter
+=integer;tfoo=class(TPersistent);tmylist=class(TList);var cripes:string;function 
+oog:integer;type tpenguin=class(TObject)libill:integer;public procedure feedme;end
+;type tbar=class(TObject);var opps:currency;implementation type foo=class(TObject
+)end;function oog:integer;begin result:=3;end;procedure tpenguin.feedme;begin end
+;type tcormorant=class(TObject);procedure foog;var lctux:tpenguin;begin end;end. 

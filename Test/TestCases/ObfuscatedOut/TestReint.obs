@@ -1,0 +1,4 @@
+unit testreint;interface type tfoo=class(TObject)public procedure foo;virtual;end
+;tbar=class(TFoo)public procedure foo;reintroduce;end;tlinebreak=class(TFoo)public
+procedure foo;reintroduce;end;implementation procedure tfoo.foo;begin end;procedure
+tbar.foo;begin end;procedure tlinebreak.foo;begin end;end. 

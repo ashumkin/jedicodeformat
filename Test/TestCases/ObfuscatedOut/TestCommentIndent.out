@@ -1,0 +1,93 @@
+unit testcommentindent;
+
+interface
+
+const
+  fred   = 3;
+  jim    = 3;
+  spon   = 4;
+  wibble = 67;
+  fish   = 'cod';
+
+procedure proc1;
+procedure proc2;
+procedure proc3;
+procedure proc4;
+
+type
+  tfred = integer;
+  tbar  = integer;
+  tbaz  = integer;
+
+  taclass = class(TObject)
+  public
+    procedure proc1;
+    procedure proc2;
+    procedure proc3;
+    procedure proc4;
+    procedure proc5(p1: integer; p2: string);
+    procedure proc6(p1: integer; p2: string);
+  end;
+
+implementation
+
+procedure test1;
+var
+  li1, li2: integer;
+begin
+  li1 := 0;
+  li2 := random(3);
+  if li2 > 1 then
+  begin
+    li1 := 3;
+    li1 := li1 + random(3);
+    if li1 > 3 then
+    begin
+      li2 := 0;
+      li2 := li2 + 3;
+      li2 := li2 + 3;
+    end;
+  end;
+end;
+
+procedure proc1;
+begin
+end;
+
+procedure proc2;
+begin
+end;
+
+procedure proc3;
+begin
+end;
+
+procedure proc4;
+begin
+end;
+
+procedure taclass.proc1;
+begin
+end;
+
+procedure taclass.proc2;
+begin
+end;
+
+procedure taclass.proc3;
+begin
+end;
+
+procedure taclass.proc4;
+begin
+end;
+
+procedure taclass.proc5(p1: integer; p2: string);
+begin
+end;
+
+procedure taclass.proc6(p1: integer; p2: string);
+begin
+end;
+
+end. 

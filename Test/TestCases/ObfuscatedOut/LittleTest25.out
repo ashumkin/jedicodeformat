@@ -1,0 +1,10 @@
+unit littletest25;
+
+interface
+
+type
+  tmonkey = procedure(p: pointer) of object cdecl;
+
+implementation
+
+end. 

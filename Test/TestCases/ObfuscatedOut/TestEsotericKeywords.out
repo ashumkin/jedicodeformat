@@ -1,0 +1,61 @@
+unit testesoterickeywords;
+
+interface
+
+var
+  fred, vodka: integer;
+
+var
+  jim2: integer;
+
+threadvar
+  jim: real;
+
+var
+  ey: integer;
+
+threadvar
+  i:     integer;
+  broom: boolean;
+
+var
+  drink: real absolute vodka;
+
+type
+  tcow = packed record
+    i1: integer;
+    s2: string;
+    b3: boolean;
+  end;
+  tmoo = packed array
+    [1..10] of tcow;
+
+resourcestring
+  greeting = 'Hello';
+
+implementation
+
+threadvar
+  herd: tmoo;
+
+function justsayno: boolean; assembler;
+begin
+  Result := false;
+end;
+
+function _thisfunctionstartswithanunderscore: boolean;
+begin
+  Result := true;
+end;
+
+function __thisfunctionstartswithanunderscore: boolean;
+begin
+  Result := _thisfunctionstartswithanunderscore;
+end;
+
+function ___thisfunctionstartswithanunderscore: boolean;
+begin
+  Result := __thisfunctionstartswithanunderscore;
+end;
+
+end. 

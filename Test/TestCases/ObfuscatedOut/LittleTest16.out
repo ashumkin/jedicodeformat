@@ -1,0 +1,23 @@
+unit littletest16;
+
+interface
+
+uses Forms;
+
+type
+  tfooform = class(TForm)
+  public
+    class function foo: tfooform;
+  end;
+
+implementation
+
+var
+  afooform: tfooform;
+
+class function tfooform.foo: tfooform;
+begin
+  Result := afooform;
+end;
+
+end. 

@@ -1,0 +1,16 @@
+unit littletest11;
+
+interface
+
+uses Classes;
+
+const
+  foo: procedure = nil;
+  bar: function: boolean
+    of object = nil;
+  fish: procedure(const monkey: string;
+    const shatner: array of TObject; soy: tcomponentclass) = nil;
+
+implementation
+
+end. 

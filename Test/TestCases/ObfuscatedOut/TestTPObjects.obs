@@ -1,0 +1,4 @@
+unit testtpobjects;interface type tfoo=object end;tbar=object private protected 
+public end;tbaz=object li1:integer;private li2:integer;protected li3:integer;public
+li4:integer;end;tfish=object(tbar)procedure swim;end;implementation procedure tfish
+.swim;begin end;end. 

@@ -1,0 +1,19 @@
+unit testatexpr;
+
+interface
+
+implementation
+
+uses Windows;
+
+type
+  tfooproc = procedure stdcall;
+
+procedure findthefoo(foohandle: thandle);
+var
+  fooproc: tfooproc;
+begin
+  @fooproc := getprocaddress(foohandle, 'Foo');
+end;
+
+end. 

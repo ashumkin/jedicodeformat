@@ -1,0 +1,77 @@
+unit testrunonline;interface implementation function randomint:integer;begin result
+:=random(20);end;function randomboolean:boolean;begin result:=(random(2)=0);end;function
+haslotsofarguments(b1,b2,b3,b4,b5:boolean):boolean;begin result:=(b1 or b2 or b3 
+or b4 or b5 and randomboolean)or randomboolean;end;procedure temptest2;var b1,b2,
+b3,b4,b5:boolean;begin while(randomboolean and b1 and haslotsofarguments(b1,b2,b3
+,b4,b5))or(randomboolean and b2 and haslotsofarguments(b1,b2,b3,b4,b5))or(randomboolean
+xor b3 xor haslotsofarguments(b1,b2,b3,b4,b5))or(randomboolean and b4 and haslotsofarguments
+(b1,b2,b3,b4,b5))or(randomboolean or randomboolean or randomboolean or randomboolean
+)do end;procedure temptest;var b1,b2,b3,b4,b5:boolean;begin while(randomboolean and
+b1 and haslotsofarguments(b1,b2,b3,b4,b5))or(randomboolean or b2 or haslotsofarguments
+(b1,b2,b3,b4,b5))or(randomboolean xor b3 xor haslotsofarguments(b1,b2,b3,b4,b5))or
+(randomboolean and b4 and haslotsofarguments(b1,b2,b3,b4,b5))or(randomboolean or 
+randomboolean or randomboolean or randomboolean)do begin break;end;end;procedure 
+haslongstatements;var b1,b2,b3,b4,b5,b6:boolean;begin b1:=randomboolean;b2:=randomboolean
+;b3:=randomboolean;b4:=randomboolean;b5:=haslotsofarguments(b1,b2,b3,b4,b5);b5:=randomboolean
+or randomboolean or randomboolean or randomboolean or randomboolean or randomboolean
+and(b1 xor b2 and randomboolean);b6:=haslotsofarguments(randomboolean and b1 and 
+haslotsofarguments(b1,b2,b3,b4,b5),randomboolean or b2 or haslotsofarguments(b1,b2
+,b3,b4,b5),randomboolean xor b3 xor haslotsofarguments(b1,b2,b3,b4,b5),randomboolean
+and b4 and haslotsofarguments(b1,b2,b3,b4,b5),randomboolean or randomboolean or randomboolean
+or randomboolean);b1:=randomboolean or randomboolean or randomboolean or randomboolean
+or randomboolean or randomboolean and(b1 xor b2 and randomboolean)or haslotsofarguments
+(randomboolean and b1 and haslotsofarguments(b1,b2,b3,b4,b5),randomboolean or b2 
+or haslotsofarguments(b1,b2,b3,b4,b5),randomboolean xor b3 xor haslotsofarguments
+(b1,b2,b3,b4,b5),randomboolean and b4 and haslotsofarguments(b1,b2,b3,b4,b5),randomboolean
+or randomboolean or randomboolean or randomboolean);if(randomboolean and b1 and haslotsofarguments
+(b1,b2,b3,b4,b5))or(randomboolean or b2 or haslotsofarguments(b1,b2,b3,b4,b5))or(
+randomboolean xor b3 xor haslotsofarguments(b1,b2,b3,b4,b5))or(randomboolean and 
+b4 and haslotsofarguments(b1,b2,b3,b4,b5))or(randomboolean or randomboolean or randomboolean
+or randomboolean)then begin b1:=false;end;while(randomboolean and b1 and haslotsofarguments
+(b1,b2,b3,b4,b5))or(randomboolean or b2 or haslotsofarguments(b1,b2,b3,b4,b5))or(
+randomboolean xor b3 xor haslotsofarguments(b1,b2,b3,b4,b5))or(randomboolean and 
+b4 and haslotsofarguments(b1,b2,b3,b4,b5))or(randomboolean or randomboolean or randomboolean
+or randomboolean)do begin break;end;repeat b1:=not b1;until(randomboolean and b1 
+and haslotsofarguments(b1,b2,b3,b4,b5))or(randomboolean or b2 or haslotsofarguments
+(b1,b2,b3,b4,b5))or(randomboolean xor b3 xor haslotsofarguments(b1,b2,b3,b4,b5))or
+(randomboolean and b4 and haslotsofarguments(b1,b2,b3,b4,b5))or(randomboolean or 
+randomboolean or randomboolean or randomboolean);case(randomboolean and b1 and haslotsofarguments
+(b1,b2,b3,b4,b5))or(randomboolean or b2 or haslotsofarguments(b1,b2,b3,b4,b5))or(
+randomboolean xor b3 xor haslotsofarguments(b1,b2,b3,b4,b5))or(randomboolean and 
+b4 and haslotsofarguments(b1,b2,b3,b4,b5))or(randomboolean or randomboolean or randomboolean
+or randomboolean)of true:b3:=false;false:b4:=false;end;end;procedure progressive;
+var b1,b2,b3,b4,b5,b6:boolean;begin b1:=randomboolean;b2:=randomboolean;b3:=randomboolean
+;b4:=randomboolean;b5:=haslotsofarguments(b1,b2,b3,b4,b5);b1:=b2;b1:=b2 or b3 or 
+b1;b1:=(b2 or b3)and b1;b1:=(b2 or b3)and(b4 or b1);b1:=(b2 or b3)and(b4 or b5)and
+b1;b1:=(b2 or b3)and(b4 or b5)and(b4 or b1)and b1;b1:=(b2 or b3)and(b4 or b5)and(
+b4 or b1)and(b1 or b3);b1:=(b2 or b3)and(b4 or b5)and(b4 or b1)and(b1 or b3)and b1
+;b1:=(b2 or b3)and(b4 or b5)and(b4 or b1)and(b1 or b3)and(b1 or b2);b1:=(b2 or b3
+)and(b4 or b5)and(b4 or b1)and(b1 or b3)and(b1 or b2)or b1;b1:=(b2 or b3)and(b4 or
+b5)and(b4 or b1)and(b1 or b3)and(b1 or b2)or(b1 or b3);b1:=(b2 or b3)and(b4 or b5
+)and(b4 or b1)and(b1 or b3)and(b1 or b2)or(b1 or b3)and(b2 or b3);b1:=(b2 or b3)and
+(b4 or b5)and(b4 or b1)and(b1 or b3)and(b1 or b2)or((b1 or b3)and(b2 or b3));b1:=
+(b2 or b3)and(b4 or b5)and(b4 or b1)and(b1 or b3)and((b1 or b2)or(b1 or b3))and(b2
+or b3);b1:=(b2 or b3)and(b4 or b5)and(b4 or b1)and((b1 or b3)and(b1 or b2))or(b1 
+or b3)and(b2 or b3);b1:=(b2 or b3)and(b4 or b5)and(b4 or b1)and((b1 or b3)and(b1 
+or b2)or(b1 or b3)and(b2 or b3));if b2 then b1:=true;if b2 or b3 or b1 then b1:=true
+;if(b2 or b3)and b1 then b1:=true;if(b2 or b3)and(b4 or b1)then b1:=true;if(b2 or
+b3)and(b4 or b5)and b1 then b1:=true;if(b2 or b3)and(b4 or b5)and(b4 or b1)and b1
+then b1:=true;if(b2 or b3)and(b4 or b5)and(b4 or b1)and(b1 or b3)then b1:=true;if
+(b2 or b3)and(b4 or b5)and(b4 or b1)and(b1 or b3)and b1 then b1:=true;if(b2 or b3
+)and(b4 or b5)and(b4 or b1)and(b1 or b3)and(b1 or b2)then b1:=true;if(b2 or b3)and
+(b4 or b5)and(b4 or b1)and(b1 or b3)and(b1 or b2)or b1 then b1:=true;if(b2 or b3)
+and(b4 or b5)and(b4 or b1)and(b1 or b3)and(b1 or b2)or(b1 or b3)then b1:=true;if(
+b2 or b3)and(b4 or b5)and(b4 or b1)and(b1 or b3)and(b1 or b2)or(b1 or b3)and(b1 xor
+b3)then b1:=true;if(b2 or b3)and(b4 or b5)and(b4 or b1)and(b1 or b3)and(b1 or b2)
+or((b1 or b3)and(b1 xor b3))then b1:=true;if(b2 or b3)and(b4 or b5)and(b4 or b1)and
+(b1 or b3)and((b1 or b2)or(b1 or b3))and(b1 xor b3)then b1:=true;if(b2 or b3)and(
+b4 or b5)and(b4 or b1)and((b1 or b3)and(b1 or b2))or(b1 or b3)and(b1 xor b3)then 
+b1:=true;if(b2 or b3)and(b4 or b5)and(b4 or b1)and(b1 or b3)and((b1 or b2)or(b1 or
+b3)and(b1 xor b3))then b1:=true;if(b2 or b3)and(b4 or b5)and(b4 or b1)and((b1 or 
+b3)and(b1 or b2)or(b1 or b3)and(b1 xor b3))then b1:=true;end;procedure tcsomebusinessobject
+.investiv(const pcipco:iparrotcommentobject;const lciivchoice:iivychoice);var lssql
+:string;ldpercentage:double;begin lssql:='InvestTransfer '+inttostr(id)+' ,'+inttostr
+(thingdid)+' , '+inttostr(pcipco.id)+' , '+floattostr(ldpercentage)+' , '+doublequote
+(coreobject.loginname)+formatdatetime('dd mmm yyyy',coreobject.currentdate);coreobject
+.execsql(lssql);edtallocationtype.text:=findingmanager.finditembycode(lookup_incoming_payment_allocation
+,incomingpaymentallocation.allocationtype)+12;end;end. 

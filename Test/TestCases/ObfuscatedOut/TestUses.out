@@ -1,0 +1,12 @@
+unit testuses;
+
+interface
+
+uses SysUtils, ComCtrls, Classes, Windows;
+
+implementation
+
+uses
+  activex, testclasslines, testcast;
+
+end. 

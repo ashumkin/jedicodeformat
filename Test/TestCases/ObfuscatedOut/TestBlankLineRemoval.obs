@@ -1,0 +1,8 @@
+unit testblanklineremoval;interface implementation uses sysutils;procedure testblanklines1
+;var a:integer;b:string;c,d,e,f:double;begin end;procedure testblanklines2;var a:
+integer;function geta:integer;begin result:=a+1;end;var b:string;c,d,e,f:double;begin
+end;procedure testblanklines3;var a:integer;function geta:integer;begin result:=a
++1;end;var b:string;function getb:string;begin result:=b+inttostr(a);end;var c,d,
+e,f:double;begin end;procedure testblanklines4;var a:integer;function geta:integer
+;var x,y,z:currency;q:string;begin result:=a+1;end;var b:string;c,d,e,f:double;begin
+end;end. 

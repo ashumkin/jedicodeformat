@@ -1,0 +1,75 @@
+unit TestEsotericKeywords;
+
+{ AFS 11 March 2K test local types
+
+  This code compiles, but is not semantically meaningfull.
+  It is test cases for the code-formating utility
+
+  Test the threadvar, absolute, packed, etc
+
+}
+
+
+interface
+
+var
+  Fred, Vodka: integer;
+
+var
+  Jim2: integer;
+
+threadvar
+  Jim: real;
+
+var
+  ey: integer;
+
+threadvar
+  I:     integer;
+  broom: boolean;
+
+var
+  Drink: real absolute Vodka;
+
+type
+  TCow = packed record
+    i1: integer;
+    s2: string;
+    b3: boolean;
+  end;
+
+  TMoo = packed array [1..10] of TCow;
+
+
+resourcestring
+  Greeting = 'Hello';
+
+implementation
+
+threadvar
+  Herd: TMoo;
+
+function JustSayNo: boolean; assembler;
+begin
+  Result := false;
+end;
+
+
+{ the JCLDebug unit does this with the __FILE__ etc fns }
+function _ThisFunctionStartsWithAnUnderscore: boolean;
+begin
+  Result := true;
+end;
+
+function __ThisFunctionStartsWithAnUnderscore: boolean;
+begin
+  Result := _ThisFunctionStartsWithAnUnderscore;
+end;
+
+function ___ThisFunctionStartsWithAnUnderscore: boolean;
+begin
+  Result := __ThisFunctionStartsWithAnUnderscore;
+end;
+
+
+end.

@@ -1,0 +1,4 @@
+unit testmessages;interface uses messages;type tfoo=class public procedure cmtextchanged
+(var message:tmessage);message wm_setfont;procedure soy(var message:tmessage);message
+wm_setfont+3;end;implementation procedure tfoo.cmtextchanged(var message:tmessage
+);begin end;procedure tfoo.soy(var message:tmessage);begin end;end. 

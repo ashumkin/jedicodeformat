@@ -1,0 +1,2 @@
+unit littletest35;interface implementation procedure foo;begin
+asm cld end;end;end. 

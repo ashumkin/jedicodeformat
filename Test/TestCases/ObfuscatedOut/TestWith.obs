@@ -1,0 +1,24 @@
+unit testwith;interface type trecordone=record foo:integer;bar:string;end;trecordtwo
+=record baz:integer;fish:string;wibble:trecordone;end;trecordthree=record spon:integer
+;plud:string;monkey:trecordone;soy:trecordtwo;end;trecordfour=record kirk:integer
+;spock:string;picard:trecordtwo;data:trecordthree;end;trecordfive=record worf:integer
+;troy:string;riker:trecordtwo;q:trecordthree;borg:trecordfour;end;implementation 
+procedure testwithstatement1;var localrecord1:trecordone;localrecord2:trecordtwo;
+localrecord3:trecordthree;localrecord4:trecordfour;localrecord5:trecordfive;begin
+with localrecord1 do begin end;with localrecord1,localrecord2 do begin end;with localrecord1
+,localrecord2,localrecord3 do begin end;with localrecord1,localrecord2,localrecord3
+,localrecord4 do begin end;with localrecord1,localrecord2,localrecord3,localrecord4
+,localrecord5 do begin end;with localrecord1,localrecord2.wibble,localrecord3,localrecord4
+,localrecord5 do begin end;with localrecord1,localrecord2.wibble,localrecord3.soy
+,localrecord4,localrecord5 do begin end;with localrecord1,localrecord2.wibble,localrecord3
+.soy,localrecord4.data,localrecord5 do begin end;with localrecord1,localrecord2.wibble
+,localrecord3.soy,localrecord4.data,localrecord5.borg do begin end;with localrecord1
+,localrecord2.wibble,localrecord3.soy.wibble,localrecord4.data,localrecord5.borg 
+do begin end;with localrecord1,localrecord2.wibble,localrecord3.soy.wibble,localrecord4
+.data.soy,localrecord5.borg do begin end;with localrecord1,localrecord2.wibble,localrecord3
+.soy.wibble,localrecord4.data.soy.wibble,localrecord5.borg do begin end;with localrecord1
+,localrecord2.wibble,localrecord3.soy.wibble,localrecord4.data.soy.wibble,localrecord5
+.borg.data do begin end;with localrecord1,localrecord2.wibble,localrecord3.soy.wibble
+,localrecord4.data.soy.wibble,localrecord5.borg.data.soy do begin end;with localrecord1
+,localrecord2.wibble,localrecord3.soy.wibble,localrecord4.data.soy.wibble,localrecord5
+.borg.data.soy.wibble do begin end;end;end. 

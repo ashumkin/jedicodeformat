@@ -1,0 +1,24 @@
+unit testvarparam;
+
+interface
+
+implementation
+
+procedure mangledata(var Data);
+begin
+end;
+
+procedure callmangledata;
+var
+  foo: string;
+  bar: pchar;
+begin
+  foo := 'hello';
+  mangledata(foo);
+  bar := pchar(foo);
+  mangledata(bar);
+  mangledata(bar^);
+  mangledata(pchar(foo)^);
+end;
+
+end. 

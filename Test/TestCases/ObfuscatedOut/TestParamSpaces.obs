@@ -1,0 +1,4 @@
+unit testparamspaces;interface implementation procedure simpleparams(a:integer;b
+:string);begin end;procedure paramlists(a,a2,a3:integer;b1,b2,b3:string);begin end
+;procedure paramswithkeywords(const f:double;var a,b,c:integer);begin end;function
+fred:boolean;begin result:=false;end;end. 

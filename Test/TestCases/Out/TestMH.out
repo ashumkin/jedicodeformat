@@ -1,0 +1,305 @@
+unit TestMh;
+
+{ test cases recieved from Michael Hieke,
+ 19/12/2000
+ }
+
+interface
+
+type
+  w_PA3500Array = array [0..32766] of word;
+  pw_WordPtr    = ^w_PA3500Array;
+  PPointer      = ^Pointer;
+
+const
+  PA3500_DISABLE     = 0;
+  PA3500_ENABLE      = 1;
+  PA3500_SYNCHRONOUS_MODE = 1;
+  PA3500_ASYNCHRONOUS_MODE = 0;
+  PA3500_SIMPLE_MODE = 0;
+  PA3500_TRIGGER_MODE = 1;
+  PA3500_SYNCHRONISATION_MODE = 2;
+  PA3500_UNIPOLAR    = 1;
+  PA3500_BIPOLAR     = 0;
+  PA3500_CHANNEL0    = 0;
+  PA3500_CHANNEL1    = 1;
+  PA3500_CHANNEL2    = 2;
+  PA3500_CHANNEL3    = 3;
+  PA3500_CHANNEL4    = 4;
+  PA3500_CHANNEL5    = 5;
+  PA3500_CHANNEL6    = 6;
+  PA3500_CHANNEL7    = 7;
+  PA3500_ASYNCHRONOUS_MODE_A = 0;
+  PA3500_SYNCHRONOUS_MODE_A = 1;
+
+
+{*
++----------------------------------------------------------------------------+
+|   GLOBAL PROTOTYPE FUNCTION                                                |
++----------------------------------------------------------------------------+
+*}
+
+
+function i_PA3500_InitCompiler(b_BoardHandle: byte): integer; far; stdcall;
+
+
+function i_PA3500_SetBoardInformationWin32(s_Identification: string;
+  b_BoardOperatingMode: byte; var b_BoardHandle: byte): integer;
+  far; stdcall;
+
+function i_PA3500_CloseBoardHandle(b_BoardHandle: byte): integer;
+  far; stdcall;
+
+function i_PA3500_SetBoardIntRoutineWin32(b_BoardHandle: byte;
+  b_UserCallingMode: byte; l_GlobalBufferSize: longint;
+  pp_UserGlobalBuffer: PPointer; p_FunctionName: POINTER): integer;
+  far; stdcall;
+
+function i_PA3500_TestInterrupt(var b_BoardHandle: byte;
+  var b_InterruptMask: byte; var b_LastChannelNumber: byte): integer;
+  far; stdcall;
+
+function i_PA3500_ResetBoardIntRoutine(b_BoardHandle: byte): integer;
+  far; stdcall;
+
+
+function i_PA3500_GetHardwareInformation(b_BoardHandle: byte;
+  var w_BaseAddress: word; var b_InterruptNbr: byte;
+  var b_BoardOperatingMode: byte; var b_NbrOfOutput: byte): integer;
+  far; stdcall;
+
+
+function i_PA3500_ChangeBoardOperatingMode(b_BoardHandle: byte;
+  b_BoardOperatingMode: byte): integer; far; stdcall;
+
+function i_PA3500_Write1AnalogValue(b_BoardHandle: byte;
+  b_ChannelNbr: byte; b_Polarity: byte;
+  w_ValueToWrite: word): integer; far; stdcall;
+
+function i_PA3500_WriteMoreAnalogValue(b_BoardHandle: byte;
+  b_FirstChannelNbr: byte; b_NbrOfChannel: byte;
+  var b_PolarityArray: byte;
+  var w_WriteValueArray: word): integer; far; stdcall;
+
+function i_PA3500_StoreAnalogOutputValue(b_BoardHandle: byte;
+  b_EraseLastStorage: byte; b_ChannelNbr: byte;
+  b_Polarity: byte; w_ValueToWrite: word): integer; far; stdcall;
+
+function i_PA3500_GetExternTriggerStatus(b_BoardHandle: byte;
+  var b_ExternTriggerStatus: byte): integer; far; stdcall;
+
+function i_PA3500_SimulateExternalTrigger(b_BoardHandle: byte): integer; far; stdcall;
+
+function i_PA3500_EnableTriggerInterrupt(b_BoardHandle: byte): integer; far; stdcall;
+
+function i_PA3500_DisableTriggerInterrupt(b_BoardHandle: byte): integer; far; stdcall;
+
+function i_PA3500_EnableWatchdog(b_BoardHandle: byte; b_InterruptFlag: byte;
+  b_ResetFlag: byte): integer; far; stdcall;
+
+function i_PA3500_GetWatchdogStatus(b_BoardHandle: byte;
+  var b_WatchdogStatus: byte): integer; far; stdcall;
+
+function i_PA3500_TriggerWatchdog(b_BoardHandle: byte): integer; far; stdcall;
+
+function i_PA3500_DisableWatchdog(b_BoardHandle: byte): integer; far; stdcall;
+
+function i_PA3500_SetOutputMemoryOn(b_BoardHandle: byte): integer; far; stdcall;
+
+function i_PA3500_SetOutputMemoryOff(b_BoardHandle: byte): integer; far; stdcall;
+
+function i_PA3500_Set1DigitalOutputOn(b_BoardHandle: byte;
+  b_Channel: byte): integer; far; stdcall;
+
+function i_PA3500_Set1DigitalOutputOff(b_BoardHandle: byte;
+  b_Channel: byte): integer; far; stdcall;
+
+function i_PA3500_Set2DigitalOutputOn(b_BoardHandle: byte;
+  b_Value: byte): integer; far; stdcall;
+
+function i_PA3500_Set2DigitalOutputOff(b_BoardHandle: byte;
+  b_Value: byte): integer; far; stdcall;
+
+function i_PA3500_Read1DigitalInput(b_BoardHandle: byte;
+  b_Channel: byte; var b_ChannelValue: byte): integer; far; stdcall;
+
+function i_PA3500_Read2DigitalInput(b_BoardHandle: byte;
+  var b_PortValue: byte): integer; far; stdcall;
+
+function i_PA3500_EnableDigitalInputInterrupt(b_BoardHandle: byte;
+  b_ChannelValue: byte): integer; far; stdcall;
+
+function i_PA3500_DisableDigitalInputInterrupt(b_BoardHandle: byte): integer;
+  far; stdcall;
+
+function i_PA3500_ReadExternTriggerInput(b_BoardHandle: byte;
+  var b_TriggerValue: byte): integer; far; stdcall;
+
+function i_PA3500_KRNL_Write1AnalogValue(w_Address: word;
+  b_ChannelNbr: byte; b_Polarity: byte;
+  w_ValueToWrite: word): integer; far; stdcall;
+
+function i_PA3500_KRNL_StoreAnalogOutputValue(w_Address: word;
+  b_EraseLastStorage: byte; b_ChannelNbr: byte;
+  b_Polarity: byte; w_ValueToWrite: word): integer; far; stdcall;
+
+function i_PA3500_KRNL_SimulateExternalTrigger(w_Address: word): integer; far; stdcall;
+
+function i_PA3500_KRNL_TriggerWatchdog(w_Address: word): integer; far; stdcall;
+
+function i_PA3500_KRNL_Set1DigitalOutputOn(w_Address: word;
+  b_Channel: byte): integer; far; stdcall;
+
+function i_PA3500_KRNL_Set2DigitalOutputOn(w_Address: word;
+  b_Value: byte): integer; far; stdcall;
+
+function i_PA3500_KRNL_Read1DigitalInput(w_Address: word;
+  b_Channel: byte; var b_ChannelValue: byte): integer; far; stdcall;
+
+function i_PA3500_KRNL_Read2DigitalInput(w_Address: word;
+  var b_PortValue: byte): integer; far; stdcall;
+
+function i_PA3500_KRNL_ReadExternTriggerInput(w_Address: word;
+  var b_TriggerValue: byte): integer; far; stdcall;
+
+
+
+implementation
+
+function i_PA3500_InitCompiler(b_BoardHandle: byte): integer;
+  far; stdcall; external 'PA3500.DLL';
+
+
+function i_PA3500_SetBoardInformationWin32(s_Identification: string;
+  b_BoardOperatingMode: byte; var b_BoardHandle: byte): integer;
+  far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_CloseBoardHandle(b_BoardHandle: byte): integer;
+  far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_SetBoardIntRoutineWin32(b_BoardHandle: byte;
+  b_UserCallingMode: byte; l_GlobalBufferSize: longint;
+  pp_UserGlobalBuffer: PPointer; p_FunctionName: POINTER): integer;
+  far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_TestInterrupt(var b_BoardHandle: byte;
+  var b_InterruptMask: byte; var b_LastChannelNumber: byte): integer;
+  far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_ResetBoardIntRoutine(b_BoardHandle: byte): integer;
+  far; stdcall; external 'PA3500.DLL';
+
+
+function i_PA3500_GetHardwareInformation(b_BoardHandle: byte;
+  var w_BaseAddress: word; var b_InterruptNbr: byte;
+  var b_BoardOperatingMode: byte; var b_NbrOfOutput: byte): integer;
+  far; stdcall; external 'PA3500.DLL';
+
+
+function i_PA3500_ChangeBoardOperatingMode(b_BoardHandle: byte;
+  b_BoardOperatingMode: byte): integer; far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_Write1AnalogValue(b_BoardHandle: byte;
+  b_ChannelNbr: byte; b_Polarity: byte;
+  w_ValueToWrite: word): integer; far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_WriteMoreAnalogValue(b_BoardHandle: byte;
+  b_FirstChannelNbr: byte; b_NbrOfChannel: byte;
+  var b_PolarityArray: byte;
+  var w_WriteValueArray: word): integer; far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_StoreAnalogOutputValue(b_BoardHandle: byte;
+  b_EraseLastStorage: byte; b_ChannelNbr: byte;
+  b_Polarity: byte; w_ValueToWrite: word): integer;
+  far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_GetExternTriggerStatus(b_BoardHandle: byte;
+  var b_ExternTriggerStatus: byte): integer; far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_SimulateExternalTrigger(b_BoardHandle: byte): integer;
+  far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_EnableTriggerInterrupt(b_BoardHandle: byte): integer;
+  far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_DisableTriggerInterrupt(b_BoardHandle: byte): integer;
+  far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_EnableWatchdog(b_BoardHandle: byte; b_InterruptFlag: byte;
+  b_ResetFlag: byte): integer; far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_GetWatchdogStatus(b_BoardHandle: byte;
+  var b_WatchdogStatus: byte): integer; far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_TriggerWatchdog(b_BoardHandle: byte): integer;
+  far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_DisableWatchdog(b_BoardHandle: byte): integer;
+  far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_SetOutputMemoryOn(b_BoardHandle: byte): integer;
+  far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_SetOutputMemoryOff(b_BoardHandle: byte): integer;
+  far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_Set1DigitalOutputOn(b_BoardHandle: byte;
+  b_Channel: byte): integer; far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_Set1DigitalOutputOff(b_BoardHandle: byte;
+  b_Channel: byte): integer; far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_Set2DigitalOutputOn(b_BoardHandle: byte;
+  b_Value: byte): integer; far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_Set2DigitalOutputOff(b_BoardHandle: byte;
+  b_Value: byte): integer; far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_Read1DigitalInput(b_BoardHandle: byte;
+  b_Channel: byte; var b_ChannelValue: byte): integer;
+  far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_Read2DigitalInput(b_BoardHandle: byte;
+  var b_PortValue: byte): integer; far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_EnableDigitalInputInterrupt(b_BoardHandle: byte;
+  b_ChannelValue: byte): integer; far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_DisableDigitalInputInterrupt(b_BoardHandle: byte): integer;
+  far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_ReadExternTriggerInput(b_BoardHandle: byte;
+  var b_TriggerValue: byte): integer; far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_KRNL_Write1AnalogValue(w_Address: word;
+  b_ChannelNbr: byte; b_Polarity: byte;
+  w_ValueToWrite: word): integer; far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_KRNL_StoreAnalogOutputValue(w_Address: word;
+  b_EraseLastStorage: byte; b_ChannelNbr: byte;
+  b_Polarity: byte; w_ValueToWrite: word): integer;
+  far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_KRNL_SimulateExternalTrigger(w_Address: word): integer;
+  far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_KRNL_TriggerWatchdog(w_Address: word): integer;
+  far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_KRNL_Set1DigitalOutputOn(w_Address: word;
+  b_Channel: byte): integer; far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_KRNL_Set2DigitalOutputOn(w_Address: word;
+  b_Value: byte): integer; far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_KRNL_Read1DigitalInput(w_Address: word;
+  b_Channel: byte; var b_ChannelValue: byte): integer;
+  far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_KRNL_Read2DigitalInput(w_Address: word;
+  var b_PortValue: byte): integer; far; stdcall; external 'PA3500.DLL';
+
+function i_PA3500_KRNL_ReadExternTriggerInput(w_Address: word;
+  var b_TriggerValue: byte): integer; far; stdcall; external 'PA3500.DLL';
+
+end.

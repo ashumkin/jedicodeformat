@@ -1,0 +1,25 @@
+unit testinterfaces;interface uses classes;type imyiterator=interface(iunknown)procedure
+first;safecall;procedure next;safecall;end;ientryjournallookupdisp=dispinterface[
+'{D34D4103-FBC4-11D2-94F3-00A0CC39B56F}']property startdate:tdatetime dispid 1;property
+enddate:tdatetime dispid 2;property maxrows:integer dispid 2000;property iterator
+:imyiterator readonly dispid 2001;function execute:imyiterator;dispid 2002;function
+getnewojectkey:iunknown;dispid 2003;property soy:integer writeonly;end;ientryjournaliterator
+=interface(imyiterator)['{D34D4105-FBC4-11D2-94F3-00A0CC39B56F}']function get_note
+:widestring;safecall;function get_status:widestring;safecall;function get_createddate
+:tdatetime;safecall;function get_loginname:widestring;safecall;function get_id:integer
+;safecall;procedure set_id(id:integer);safecall;property note:widestring read get_note
+;property status:widestring read get_status;property createddate:tdatetime read get_createddate
+;property loginname:widestring read get_loginname;property id:integer read get_id
+write set_id;end;imyotheriterator=interface(iunknown)procedure first;safecall;procedure
+next;safecall;end;const foo_disp_id=12;bar_disp_id=1002;type ifoodisp=dispinterface
+['{3050F1FF-98B5-11CF-BB82-00AA00CACE0B}']procedure setattribute(const strattributename
+:widestring;attributevalue:olevariant;lflags:integer);dispid-2147417611;function 
+getattribute(const strattributename:widestring;lflags:integer):olevariant;dispid 
+foo_disp_id;function removeattribute(const strattributename:widestring;lflags:integer
+):wordbool;dispid-2147417609;property classname:widestring dispid bar_disp_id+foo_disp_id
+;property id:widestring dispid(-1*foo_disp_id);property onfilterchange:olevariant
+dispid-2147412069;property children:idispatch readonly dispid-2147417075;property
+all:idispatch readonly dispid-2147417074;property foo[const bar:integer]:idispatch
+readonly dispid-2147417073;property foo2[var bar:integer]:idispatch readonly dispid
+-2147417072;property foo3[out bar:integer]:idispatch readonly dispid-2147417071;end
+;implementation end. 

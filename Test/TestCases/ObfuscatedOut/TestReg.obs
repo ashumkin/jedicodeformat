@@ -1,0 +1,3 @@
+unit testreg;interface procedure register;procedure fred;procedure hoopyfroog;implementation
+procedure register;var data:boolean;begin data:=false;end;procedure fred;begin end
+;procedure hoopyfroog;begin end;end. 

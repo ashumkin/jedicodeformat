@@ -1,0 +1,9 @@
+unit testforward;interface implementation procedure haggis;forward;function fred
+(b1,b2:boolean):boolean;forward;var liwonk:integer;procedure jim;var b:boolean;begin
+b:=false;b:=fred(true,b);fred(b,b);end;function joe:integer;forward;function fred
+;begin result:=b1 or b2;haggis;end;const narf='So, what are we going to do tonight, brain?'
+;function joe:integer;begin result:=3;liwonk:=12;end;procedure haggis;begin fred(
+true,joe>4);end;procedure bob1;forward;procedure bob2;begin bob1;end;function fugu1
+:integer;safecall;forward;procedure bob1;begin bob2;end;function fugu2:integer;safecall
+;begin result:=fugu1*2;end;function fugu1:integer;begin result:=fugu2 div 2;end;end
+. 

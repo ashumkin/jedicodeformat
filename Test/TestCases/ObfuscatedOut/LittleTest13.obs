@@ -1,0 +1,2 @@
+unit littletest13;interface implementation type pinteger=^integer;procedure foo;
+var li:integer;lp:pointer;begin li:=3;lp:=@li;pinteger(lp)^:=4;end;end. 

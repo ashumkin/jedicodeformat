@@ -1,0 +1,3 @@
+unit littletest11;interface uses classes;const foo:procedure=nil;bar:function:boolean
+of object=nil;fish:procedure(const monkey:string;const shatner:array of tobject;soy
+:tcomponentclass)=nil;implementation end. 

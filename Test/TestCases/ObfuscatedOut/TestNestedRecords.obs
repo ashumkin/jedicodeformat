@@ -1,0 +1,29 @@
+unit testnestedrecords;interface type trsomerecord=record fifoo:integer;fsbar:string
+;end;var fooble:record fifoo:integer;fsbar:trsomerecord;end;fooble2:record fifoo:
+integer;fsbar:trsomerecord;fooble:record fifoo:integer;fsbar:string;end;end;fooble3
+:record fifoo:integer;fsbar:string;fooble:array[3..7]of record fifoo:integer;fsbar
+:string;end;end;fooble4:record fifoo:integer;fsbar:string;fooble4a:record fifoo:trsomerecord
+;fsbar:string;end;fdbaz:double;end;fooble5:record fifoo:integer;fsbar:string;fooble5a
+:array[3..7]of record fifoo:integer;fsbar:trsomerecord;fdbaz:double;fooble5b:record
+fifoo:integer;fsbar:trsomerecord;end;end;fdbaz:double;end;type tridiculous=record
+li1:integer;ridiculous2:record li12:integer;ridiculous3:record li3:integer;ridiculous4
+:record li4:integer;ridiculous5:record li5:integer;end;end;lbhuh:boolean;end;end;
+lbhuh2:boolean;end;var iamridiculous:record li1:integer;tridiculous2:record li12:
+integer;tridiculous3:record li3:integer;tridiculous4:record li4:integer;tridiculous5
+:record li5:integer;end;end;lbhuh:boolean;end;end;lbhuh2:boolean;end;function test1
+(const p1:integer):boolean;type ttestrecord=record fifoo:integer;fsbar:string;fooble5a
+:array[3..7]of record fifoo:integer;fsbar:string;fdbaz:double;fooble5b:record fifoo
+:integer;fsbar:trsomerecord;end;end;fdbaz:double;end;function test2(const p1:integer
+):boolean;type tmyclass=class(TObject)private fifoo:integer;fsbar:string;frfish:record
+i1:integer;s1:string;ri:double;end;frwibble:record i1:integer;s1:string;spon:array
+[1..9]of record i1:integer;s1:string;end;end;gloop:array[1..4]of record i1:integer
+;s1:string;end;floop,noop:boolean;ffoo:integer;procedure setfoo(const value:integer
+);protected public constructor create;function fred(const pi:integer):integer;property
+foo:integer read ffoo write setfoo;end;implementation type trimpsomerecord=record
+fifoo:integer;fsbar:string;end;var impfooble:record fifoo:integer;fsbar:trsomerecord
+;end;impfooble2:record fifoo:integer;fsbar:trsomerecord;fooble:record fifoo:integer
+;fsbar:string;end;end;function test1(const p1:integer):boolean;begin result:=(p1 
+mod 3)=1;end;function test2(const p1:integer):boolean;begin result:=(p1 mod 3)=2;
+end;constructor tmyclass.create;begin inherited;end;function tmyclass.fred(const 
+pi:integer):integer;begin result:=pi*3;end;procedure tmyclass.setfoo(const value:
+integer);begin ffoo:=value;end;end. 

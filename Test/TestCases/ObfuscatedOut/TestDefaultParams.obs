@@ -1,0 +1,17 @@
+unit testdefaultparams;interface function def1(const pival:integer=42):boolean;function
+def2(bv:boolean=false;const pival:integer=42):boolean;function def3(bv:boolean=false
+;const piaverrylongvalval:integer=42;const short:integer=42):boolean;type thasdefs
+=class(TObject)public procedure fred(const pi:integer=3;px:double=34.4);virtual;procedure
+jim(const pi:integer=3;px:double=34.4);overload;procedure jim(pb:boolean=false);overload
+;procedure bob(const pi:integer=3;px:double=34.4);overload;procedure bob(const pblongvariablename
+:pointer=nil;const pi:integer=3;px:double=34.4);overload;end;implementation procedure
+thasdefs.bob(const pi:integer;px:double);begin if pi>3 then begin px:=pi;end;end;
+procedure thasdefs.bob(const pblongvariablename:pointer;const pi:integer;px:double
+);begin end;procedure thasdefs.fred(const pi:integer=3;px:double=34.4);begin if pi
+>3 then begin px:=pi;end;end;function def1(const pival:integer=42):boolean;begin 
+result:=(pival=42);end;function def2(bv:boolean=false;const pival:integer=42):boolean
+;begin if bv then result:=def1(pival)else begin result:=def1;end;end;function def3
+(bv:boolean=false;const piaverrylongvalval:integer=42;const short:integer=42):boolean
+;begin def2(bv);end;procedure thasdefs.jim(const pi:integer;px:double);begin if pi
+>3 then begin px:=pi;end;end;procedure thasdefs.jim(pb:boolean);begin if pb then 
+jim(pb);end;end. 

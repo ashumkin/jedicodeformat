@@ -1,0 +1,48 @@
+ program testprogram uses forms,sysutils,syncobjs,classes,windows,settings in'Settings\Settings.pas'
+,log in'Log.pas',globals in'Globals.pas',spinpalette in'Palette\SpinPalette.pas',
+palettefns in'Palette\PaletteFns.pas',memorybuffer in'Classes\MemoryBuffer.pas',palettechangethread
+in'Palette\PaletteChangeThread.pas',paletteeffectlists in'Palette\PaletteEffectLists.pas'
+,palettespinthread in'Palette\PaletteSpinThread.pas',paletteeffect in'Palette\PaletteEffect.pas'
+,paletteeffectbinary in'Palette\Effects\PaletteEffectBinary.pas',paletteeffectsfade
+in'Palette\Effects\PaletteEffectsFade.pas',paletteeffectsnowburst in'Palette\Effects\PaletteEffectSnowburst.pas'
+,paletteeffectssimple in'Palette\Effects\PaletteEffectsSimple.pas',paletteeffectsstain
+in'Palette\Effects\PaletteEffectsStain.pas',mandalatypes in'MandalaTypes.pas',noscreensaver
+in'Classes\NoScreenSaver.pas',patterncreatethread in'Pattern\PatternCreateThread.pas'
+,patterndisplaythread in'Pattern\PatternDisplayThread.pas',directdrawform in'DirectDrawForm.pas'
+{frmDirectDraw},mainform in'MainForm.pas'{frmMain},aboutform in'AboutForm.pas'{frmAbout}
+,stringfunctions in'..\Functions\StringFunctions.pas'{this is a long comment, as there might be a long form name which should not be line-broken}
+,miscfunctions in'..\Functions\MiscFunctions.pas',patterns_tlb in'..\PatternLib\Patterns_TLB.pas'
+,formsettings in'Settings\FormSettings.pas'{frmMandalaSettings},mathfunctions in'..\Functions\MathFunctions.pas'
+,dxtools in'..\Imports\DXTools.pas',dinput in'..\Imports\DInput.pas',ddraw in'..\Imports\DDraw.pas'
+,directmanager in'Classes\DirectManager.pas',bitmapfn in'BitmapFn.pas',directxfunctions
+in'..\Functions\DirectXFunctions.pas',osversion in'..\Imports\OSVersion.pas',savinit
+in'..\Imports\Saver\savInit.pas',mandalaconstants in'..\MandalaConstants.pas',paletteeffectfourcolours
+in'Palette\Effects\PaletteEffectFourColours.pas',paletteeffectsequential in'Palette\Effects\PaletteEffectSequential.pas'
+,colourlist in'Classes\ColourList.pas';{$R *.RES}procedure initpatternmanager;begin
+cipatternmanager:=copatternmanager.create;cipatternmanager.excludelist(cmandalasettings
+.excludedpatterns);end;var sparam:string;iparamloop:integer;bauto:boolean;hsemaphore
+:thandle;begin getsavermode;hsemaphore:=createsemaphore(nil,0,1,'MandalaSemaphore'
+);if((hsemaphore<>0)and(getlasterror=error_already_exists))then begin closehandle
+(hsemaphore);halt;end;application.initialize;application.title:='Mandala';cmandalasettings
+:=tmandalasettings.create(application);applicationlog:=tclog.create(cmandalasettings
+.logdir);applicationlog.debugmode:=cmandalasettings.logdebug;screencriticalsection
+:=tcriticalsection.create;varcriticalsection:=tcriticalsection.create;initpatternmanager
+;paletteeffectsmanager:=tpaletteeffectmanager.create(application);try bglobalshutdown
+:=false;bnofades:=true;bspeedupcycling:=false;bslowdowncycling:=false;bchangecycledir
+:=false;bcyclefastest:=false;bcycleslowest:=false;bcyclepause:=false;patternchangetiming
+:=eregular;bauto:=false;for iparamloop:=1 to paramcount do begin sparam:=paramstr
+(iparamloop);sparam:=ansiuppercase(sparam);if(sparam[1]<>'-')and(sparam[1]<>'/')then
+begin applicationlog.logmessage(merror,'badly formed command line parameter '+paramstr
+(iparamloop));continue;end;sparam:=restof(sparam,2);if sparam='A'then begin bauto
+:=true;end else begin applicationlog.logmessage(merror,'unknown command line parameter '
++paramstr(iparamloop));end;end;excludescreensaver:=tnoscreensaver.create(application
+);if bauto then begin frmdirectdraw:=tfrmdirectdraw.create(application);frmdirectdraw
+.execute;end else begin frmmain:=tfrmmain.create(application);frmmain.execute;end
+;finally if assigned(frmmain)then begin frmmain.release;frmmain:=nil;end;if assigned
+(frmdirectdraw)then begin frmdirectdraw.release;frmdirectdraw:=nil;end;screencriticalsection
+.free;screencriticalsection:=nil;varcriticalsection.free;varcriticalsection:=nil;
+if assigned(paletteeffectsmanager)then begin paletteeffectsmanager.free;paletteeffectsmanager
+:=nil;end;cipatternmanager:=nil;if assigned(cmandalasettings)then begin cmandalasettings
+.free;cmandalasettings:=nil;end;if assigned(applicationlog)then begin applicationlog
+.free;applicationlog:=nil;end;if assigned(excludescreensaver)then begin excludescreensaver
+.free;excludescreensaver:=nil;end;end;end. 

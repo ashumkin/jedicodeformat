@@ -1,0 +1,23 @@
+unit testpropertyinherited;interface const has_bar=false;five=(2+2);type tcustomfoo
+=class(TObject)private function getfoo:integer;protected property foo:integer read
+getfoo nodefault;property bar:integer read getfoo stored has_bar;property monkey:
+integer read getfoo;property soy:integer read getfoo;end;tfoo=class(TCustomFoo)public
+property foo;end;const foo_default=3;type tmegafoo=class(TFoo)private function getfishes
+(const pic:integer):integer;procedure setfishes(const pic,value:integer);public property
+fishes[const pic:integer]:integer read getfishes write setfishes;default;published
+property bar default 3;property foo default foo_default+1;property monkey stored 
+five;property soy stored five+1 nodefault;end;tuserhasdefaults=class(TObject)private
+function getdef1:integer;protected function getdef2(const pic:integer):integer;virtual
+;procedure setdef2(const pic,value:integer);virtual;public property def1:integer 
+read getdef1;property def2[const pic:integer]:integer read getdef2 write setdef2;
+end;thasdefaults=class(TUserHasDefaults)property def1 default 1;property def2;default
+;end;tdefhasoverrides=class(TUserHasDefaults)protected function getdef2(const pic
+:integer):integer;override;procedure setdef2(const pic,value:integer);override;end
+;implementation function tcustomfoo.getfoo:integer;begin result:=3;end;function tmegafoo
+.getfishes(const pic:integer):integer;begin result:=pic-1;end;procedure tmegafoo.
+setfishes(const pic,value:integer);begin end;function tuserhasdefaults.getdef1:integer
+;begin result:=0;end;procedure tuserhasdefaults.setdef2(const pic,value:integer);
+begin end;function tuserhasdefaults.getdef2(const pic:integer):integer;begin result
+:=pic+1;end;function tdefhasoverrides.getdef2(const pic:integer):integer;begin result
+:=inherited def2[pic]+inherited def2[pic+1]+2;end;procedure tdefhasoverrides.setdef2
+(const pic,value:integer);begin inherited def2[pic]:=value;end;end. 

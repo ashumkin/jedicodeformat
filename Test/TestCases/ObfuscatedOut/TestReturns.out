@@ -1,0 +1,25 @@
+unit testreturns;
+
+interface
+
+implementation
+
+uses Dialogs;
+
+procedure returnbeforethen;
+var
+  i: integer;
+begin
+  i := random(20);
+  if i < 5 then
+  begin
+    ShowMessage('Fred');
+  end;
+  if 1 < 5 then
+    Dec(i);
+  while i < 10 do
+    Dec(i);
+  i := i + 1;
+end;
+
+end. 

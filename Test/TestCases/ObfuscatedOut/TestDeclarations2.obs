@@ -1,0 +1,10 @@
+unit testdeclarations2;interface type tfred=class;tfred2=class end;iarthur=interface
+;iart2=interface end;tjezebel=class of tfred;tfred=class(TObject)public procedure
+narf;private fifred:integer;end;iarthur=interface(iunknown)procedure fred;safecall
+;end;implementation type tnorman=class(TObject)private finorman:integer;protected
+procedure readfred(const pcfred:tfred);virtual;safecall;public constructor create
+;end;procedure tfred.narf;begin fifred:=0;end;constructor tnorman.create;begin inherited
+;finorman:=0;end;procedure tnorman.readfred(const pcfred:tfred);begin if pcfred=nil
+then finorman:=0 else finorman:=pcfred.fifred end;procedure fooble;var lcnorm:tnorman
+;begin lcnorm:=tnorman.create;try lcnorm.readfred(nil);finally lcnorm.free;end;end
+;end. 

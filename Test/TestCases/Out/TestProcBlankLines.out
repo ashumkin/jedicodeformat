@@ -1,0 +1,23 @@
+unit TestProcBlankLines;
+
+interface
+
+implementation
+
+procedure Foo;
+
+  function Bar: boolean;
+  begin
+    Result := false;
+  end;
+
+begin
+  begin
+  end;
+end;
+
+procedure Fish;
+begin
+end;
+
+end.

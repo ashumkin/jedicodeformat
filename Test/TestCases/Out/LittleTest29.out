@@ -1,0 +1,21 @@
+unit LittleTest29;
+
+{ This unit compiles but is not semantically meaningfull
+ it is test cases for the code formatting utility
+}
+
+interface
+
+type
+  TKirk    = Low(integer) .. High(integer);
+  TSpock   = Low(integer) .. 12;
+  TRiker   = 12 .. High(integer);
+  TWhorf   = 12 .. 42;
+  TData    = false .. true;
+  TPicard  = Low(boolean) .. High(boolean);
+  TCrusher = Low(boolean) .. true;
+  TUhura   = false .. High(boolean);
+
+implementation
+
+end.

@@ -1,0 +1,12 @@
+unit testsimpleifdef2;
+
+interface
+
+implementation
+
+uses{$IFDEF MSWINDOWS}SysUtils
+{$ELSE}
+FooLinux
+{$ENDIF}  ;
+
+end. 

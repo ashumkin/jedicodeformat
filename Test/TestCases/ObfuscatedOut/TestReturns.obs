@@ -1,0 +1,3 @@
+unit testreturns;interface implementation uses dialogs;procedure returnbeforethen
+;var i:integer;begin i:=random(20);if i<5 then begin showmessage('Fred');end;if 1
+<5 then dec(i);while i<10 do dec(i);i:=i+1;end;end. 

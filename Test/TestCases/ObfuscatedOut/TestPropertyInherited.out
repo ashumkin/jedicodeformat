@@ -1,0 +1,105 @@
+unit testpropertyinherited;
+
+interface
+
+const
+  has_bar = false;
+  five    = (2 + 2);
+
+type
+  tcustomfoo = class(TObject)
+  private
+    function getfoo: integer;
+  protected
+    property foo: integer Read getfoo nodefault;
+    property bar: integer Read getfoo stored has_bar;
+    property monkey: integer Read getfoo;
+    property soy: integer Read getfoo;
+  end;
+
+  tfoo = class(TCustomFoo)
+  public
+    property foo;
+  end;
+
+const
+  foo_default = 3;
+
+type
+  tmegafoo = class(TFoo)
+  private
+    function getfishes(const pic: integer): integer;
+    procedure setfishes(const pic, Value: integer);
+  public
+    property fishes[const pic: integer]: integer Read getfishes Write setfishes; default;
+  published
+    property bar default 3;
+    property foo default foo_default + 1;
+    property monkey stored five;
+    property soy stored five + 1 nodefault;
+  end;
+
+  tuserhasdefaults = class(TObject)
+  private
+    function getdef1: integer;
+  protected
+    function getdef2(const pic: integer): integer; virtual;
+    procedure setdef2(const pic, Value: integer); virtual;
+  public
+    property def1: integer Read getdef1;
+    property def2[const pic: integer]: integer Read getdef2 Write setdef2;
+  end;
+
+  thasdefaults = class(TUserHasDefaults)
+    property def1 default 1;
+    property def2; default;
+  end;
+
+  tdefhasoverrides = class(TUserHasDefaults)
+  protected
+    function getdef2(const pic: integer): integer; override;
+    procedure setdef2(const pic, Value: integer); override;
+  end;
+
+implementation
+
+function tcustomfoo.getfoo: integer;
+begin
+  Result := 3;
+end;
+
+function tmegafoo.getfishes(const pic: integer): integer;
+begin
+  Result := pic - 1;
+end;
+
+procedure tmegafoo.
+setfishes(const pic, Value: integer);
+begin
+end;
+
+function tuserhasdefaults.getdef1: integer;
+begin
+  Result := 0;
+end;
+
+procedure tuserhasdefaults.setdef2(const pic, Value: integer);
+begin
+end;
+
+function tuserhasdefaults.getdef2(const pic: integer): integer;
+begin
+  Result := pic + 1;
+end;
+
+function tdefhasoverrides.getdef2(const pic: integer): integer;
+begin
+  Result := inherited def2[pic] + inherited def2[pic + 1] + 2;
+end;
+
+procedure tdefhasoverrides.setdef2(const pic, Value: integer);
+begin
+  inherited def2[pic] := Value;
+end;
+
+end. 

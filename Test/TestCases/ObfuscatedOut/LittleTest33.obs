@@ -1,0 +1,2 @@
+unit littletest33;interface type tfoorecord=record fish:boolean;bar:integer platform
+;end;implementation end. 

@@ -1,0 +1,56 @@
+unit TestAsmStructs;
+
+{ AFS 5 Feb 2K
+
+  This code compiles, but is not semantically meaningfull.
+  It is test cases for the code-formating utility
+  SOme difficult bits of ASM from ComObj.pas
+}
+interface
+
+implementation
+
+uses ActiveX;
+
+const
+  atVarMask  = $3F;
+  atTypeMask = $7F;
+  atByRef    = $80;
+
+
+procedure Foo(CallDesc: PCallDesc; NamedArgDispIDs, Result: Pointer);
+var
+  DispParams: TDispParams;
+asm
+  and  EAX, not 3
+
+  @ResultTable:
+  MOV     EBX,CallDesc
+  MOVZX   ECX,[EBX].TCallDesc.ArgCount
+  MOV     DispParams.cArgs,ECX
+  ADD     EBX,OFFSET TCallDesc.ArgTypes
+  @@1:    MOVZX   EAX,[EBX].byte
+  JNE     @@1
+  CMP     AL,varVariant
+  PUSH[ESI].integer[4]
+  @@2:    PUSH[ESI].integer[12]
+  @@3:    and     AL,atTypeMask
+  or      EAX,varByRef
+  @@10:   MOV     DispParams.rgvarg,ESP
+  MOVZX   EAX,[EBX].TCallDesc.NamedArgCount
+  MOV     DispParams.cNamedArgs,EAX
+  MOV     ESI,NamedArgDispIDs
+  @@12:   MOVZX   ECX,[EBX].TCallDesc.CallType
+  CMP     ECX,DISPATCH_PROPERTYPUT
+  CMP[EBX].TCallDesc.ArgTypes.byte[0],varDispatch
+  @@20:   MOV     DispParams.rgdispidNamedArgs,ESP
+  CALL[EAX].Pointer[24]
+  MOV     ECX,[EBP+4]
+  JMP     Foo
+  MOV       Result,false
+  MOV       Result, 'F'
+
+end;
+
+
+end.

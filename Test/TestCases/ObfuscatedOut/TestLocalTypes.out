@@ -1,0 +1,58 @@
+unit testlocaltypes;
+
+interface
+
+implementation
+
+uses Dialogs;
+
+procedure fred;
+type
+  tfred = integer;
+const
+  fred = 'hello wold';
+var
+  li: tfred;
+begin
+  ShowMessage('Fred was here');
+end;
+
+procedure jim;
+type
+  tgoon     = (nedseagoon, eccles, bluebottle, henrycrun, bloodnok);
+  tgoons    = set of tgoon;
+  ptgoon    = ^tgoon;
+  pgoonproc = function: tgoon of object;
+const
+  protagonist:
+    tgoon = nedseagoon;
+begin
+  ShowMessage('Allo Jiim');
+end;
+
+procedure classlesssociety;
+type
+  tbub = boolean;
+  tfredsnumbers = 42..122;
+var
+  liwhatfredhas: tfredsnumbers;
+begin
+end;
+
+procedure hasrecords;
+type
+  tfoo = record
+    libar: integer;
+    libaz: string;
+  end;
+
+  tfoo2 = record
+    bar: integer;
+    case spon: boolean of
+      true: (baz: pchar);
+      false: (fred: integer);
+  end;
+begin
+end;
+
+end. 

@@ -1,0 +1,81 @@
+unit testalign;
+
+interface
+
+implementation
+
+const
+  f1  = 3;
+  bar = 4;
+  bazzzzzz = 12;
+
+procedure wellcommented;
+var
+  li1, li2, li3: integer;
+  ldlongone, longtwo: int64;
+  ldlongfortythreepointseven: double;
+  lsnocomment: string;
+begin
+  li1 := 2;
+  ldlongone := li1 * 2;
+  ldlongone := (li1 * 2);
+  li2 := li1;
+  ldlongfortythreepointseven := ldlongone + 2;
+  ldlongone := (li2 * 2) + 3;
+  li1 := 2;
+  ldlongfortythreepointseven := ldlongone + 2;
+  li3 := 2 + li2;
+  ldlongone := li1 * 2;
+  li2 := 2;
+  li3 := 2 + li2;
+  li3 := li3 + 2;
+  ldlongone := li1 * 2;
+  ldlongfortythreepointseven := ldlongone + 2;
+  li1 := 1;
+  li2 := 12;
+  li3 := 300;
+  Inc(li1);
+  lsnocomment := 'This string has no comment';
+  li1 := li2 + 1;
+  li2 := li3 + 11;
+  Inc(li2);
+  li3 := li1 + 122;
+  li1 := 1;
+  li2 := 12;
+  li3 := 300;
+  Inc(li1);
+  lsnocomment := 'This string has no comment';
+  lsnocomment := 'A second statement with no comment. ';
+  li1 := li2 + 1;
+  li2 := li3 + 11;
+  Inc(li2);
+  li3 := li1 + 122;
+end;
+
+procedure fred;
+var
+  a:   integer;
+  bee: string;
+  cee: integer;
+  deefgee: integer;
+begin
+  a   := 2;
+  bee := 'three';
+  cee := 1210;
+  deefgee := 12;
+end;
+
+procedure frednocomments;
+var
+  a:   integer;
+  bee: string;
+  cee: integer;
+  deefgee: integer;
+begin
+  a   := 2;
+  bee := 'three';
+  cee := 1210;
+  deefgee := 12;
+end;
+
+end. 

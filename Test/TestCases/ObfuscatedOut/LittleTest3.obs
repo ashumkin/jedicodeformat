@@ -1,0 +1,2 @@
+unit littletest3;interface var fred:integer;implementation const foo='hello';end
+. 

@@ -1,0 +1,12 @@
+unit littletest14;
+
+interface
+
+implementation
+
+uses Classes;
+
+var
+  foolist: Classes.TList;
+
+end. 

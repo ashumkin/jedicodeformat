@@ -1,0 +1,657 @@
+unit testlinebreaking;
+
+interface
+
+implementation
+
+uses SysUtils;
+
+procedure thisisajobforreturninsertion;
+var
+  a, b: integer;
+begin
+  a := 10;
+  b := 2 * a;
+end;
+
+function doublestring(const ps: string): string;
+begin
+  Result := ps + ps;
+end;
+
+procedure thisisajobforreturnremoval;
+var
+  a, b: integer;
+begin
+  a := 10;
+  b := 2 * a;
+end;
+
+procedure testtweaks;
+var
+  a, b: integer;
+begin
+  a := random(20);
+  if a < 10 then
+  begin
+    b := a * 2;
+  end;
+  if b < 10 then
+    a := b * 2;
+  if b < 10 then
+    a := b * 2;
+  a := a * 2;
+  a := a * 2;
+end;
+
+function thisfunctionnameisfourty_characters_long(const ps1, ps2: string): string;
+begin
+  Result := ps1 + ps2;
+end;
+
+function addfloats(const pf1, pf2: extended): extended;
+begin
+  Result := pf1 + pf2;
+end;
+
+procedure easypieces;
+var
+  ls1, ls2, ls3: string;
+  lf: extended;
+begin
+  ls1 := 'this string is fourty characters long ' + 'this string is fourty characters long ' +
+    'this string is fourty characters long ';
+  ls1 := 'this string is not fourty characters' + 'this string is not fourty characters' +
+    'this string is not fourty characters ';
+  ls1 := 'this string is not fourty chars' + 'this string is not fourty chars' +
+    'this string is not fourty chars';
+  ls1 := 'this string is not chars' + 'this string is not chars' + 'this string is not chars';
+  ls1 := 'this string is not' + 'this string is not' + 'this string is not';
+  ls1 := 'this string is' + 'this string is' + 'this string is';
+  lf  := (1.23456789 + 2.34567890) * -12.34567890 + (1.23456789 + 2.34567890);
+  lf  := (1.23456789 + 2.34567890) * -12.34567890 + (1.23456789 + 2.34567890) * -12.34567890;
+  lf  := (1.23456789 + 2.34567890) * -12.34567890 + (1.23456789 + 2.34567890) * -12.34567890 +
+    (1.23456789 + 2.34567890);
+  lf  := (1.23456789 + 2.34567890) * -12.34567890 + ((1.23456789 + 2.34567890) * -12.34567890 +
+    (1.23456789 + 2.34567890));
+  lf  := (1.23456789 + 2.34567890) * ( -12.34567890 + (1.23456789 + 2.34567890) * -12.34567890) +
+    (1.23456789 + 2.34567890) * -12.34567890 + (1.23456789 + 2.34567890) * -12.34567890;
+  lf  := ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890) * -12.34567890) +
+    ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890) * -12.34567890);
+  ls2 := thisfunctionnameisfourty_characters_long(
+    'this string is fourty characters long ', 'this string is fourty characters long ');
+  ls2 := thisfunctionnameisfourty_characters_long(
+    'this string is characters long ', 'this string is characters long ');
+  ls2 := thisfunctionnameisfourty_characters_long('this string is long ',
+    'this string is long ');
+  ls2 := thisfunctionnameisfourty_characters_long('this string', 'this string');
+  ls2 := thisfunctionnameisfourty_characters_long('this', 'this');
+  ls1 := 'this string is ' + floattostrf(12.3456789012, ffexponent, 8, 9);
+  ls1 := 'this string is getting ' + floattostrf(12.3456789012, ffexponent, 8, 9);
+  ls1 := 'this string is getting longer ' + floattostrf(12.3456789012, ffexponent, 8, 9);
+  ls1 := 'this string is getting longer and longer ' + floattostrf(
+    12.3456789012, ffexponent, 8, 9);
+  ls1 := 'this string is getting longer and longer and longer ' + floattostrf(
+    12.3456789012, ffexponent, 8, 9);
+  lf  := ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890));
+  lf  := ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890));
+  lf  := ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890));
+  lf  := ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890));
+  lf  := ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890));
+  lf  := ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890));
+  lf  := addfloats(2, 2);
+  lf  := addfloats(1.2345678901, 1.2345678901);
+  lf  := addfloats(1.2345678901 * -47, 1.2345678901 + 12 * -12);
+  lf  := addfloats((1.2345678901 * -47) + 12.1234567890, 1.2345678901 +
+    (12.0987654321 * -12.987654321));
+  lf  :=
+    addfloats(((1.2345678901 * -47) + 12.1234567890) *
+    (1.2345678901 + (12.0987654321 * -12.987654321)), 3);
+  lf  := addfloats(((1.2345678901 * -47) + 12.1234567890) *
+    (1.2345678901 + (12.0987654321 * -12.987654321)), 3 * ((1.2345678901 * -47) + 12.1234567890) *
+    (1.2345678901 + (12.0987654321 * -12.987654321)));
+  lf  := addfloats(1.234, 5.678);
+  lf  := addfloats(addfloats(1.234, 5.678), addfloats(1.234, 5.678));
+  lf  := addfloats(addfloats(addfloats(1.234, 5.678), addfloats(1.234, 5.678)),
+    addfloats(addfloats(1.234, 5.678), addfloats(1.234, 5.678)));
+  lf  := addfloats(addfloats(addfloats(1.234 * addfloats(1.234, 5.678), 5.678 -
+    addfloats(1.234, 5.678)), addfloats(1.234, 5.678)), addfloats(
+    addfloats(1.234, 5.678), addfloats(1.234, 5.678)));
+end;
+
+procedure breakit;
+var
+  lsstring: string;
+begin
+  lsstring := doublestring('a');
+  lsstring := doublestring('aa');
+  lsstring := doublestring('aaa');
+  lsstring := doublestring('aaaa');
+  lsstring := doublestring('aaaaa');
+  lsstring := doublestring('aaaaaa');
+  lsstring := doublestring('aaaaaaa');
+  lsstring := doublestring('aaaaaaaa');
+  lsstring := doublestring('aaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring := doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+end;
+
+procedure breakitinbrackets;
+var
+  lsstring: string;
+begin
+  lsstring := (doublestring('a'));
+  lsstring := (doublestring('aa'));
+  lsstring := (doublestring('aaa'));
+  lsstring := (doublestring('aaaa'));
+  lsstring := (doublestring('aaaaa'));
+  lsstring := (doublestring('aaaaaa'));
+  lsstring := (doublestring('aaaaaaa'));
+  lsstring := (doublestring('aaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring :=
+    (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+  lsstring := (doublestring(
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
+end;
+
+procedure manyparams1(a1, b1, c1: integer; const a2, b2, c2: string);
+begin
+end;
+
+procedure manyparams2(a1, b1, c1: integer; const a2, b2, c2: string; a3, b3, c3: double);
+begin
+end;
+
+procedure manyparams3(a1, b1, c1: integer;
+  const a2, b2, c2: string; a3, b3, c3: double; a4, b4, c4: char);
+begin
+end;
+
+procedure manyparams4(a1, b1, c1: integer;
+  const a2, b2, c2: string; a3, b3, c3: double; a4, b4, c4: char; var a5, b5, c5: widestring);
+begin
+end;
+
+procedure manyparams5(a1, b1, c1: integer;
+  const a2, b2, c2: string; a3, b3, c3: double; a4, b4, c4: char; var a5, b5, c5: widestring;
+  const a6, b6, d6: pointer);
+begin
+end;
+
+procedure manyparams6(a1, b1, c1: integer;
+  const a2, b2, c2: string; a3, b3, c3: double; a4, b4, c4: char; var a5, b5, c5: widestring;
+  const a6, b6, d6: pointer; const a7, a8, a9: array of widechar);
+begin
+end;
+
+procedure manyparams7(a1xxxxx, b1xxxxx, c1xxxxx: integer;
+  const a2xxxxx, b2xxxxx, c2xxxxx: string; a3xxxxx, b3xxxxx, c3xxxxx: double;
+  a4xxxxx, b4xxxxx, c4xxxxx: char; var a5xxxxx, b5xxxxx, c5xxxxx: widestring;
+  const a6xxxxx, b6xxxxx, d6xxxxx: pointer; const a7xxxxx, a8xxxxx, a9xxxxx: array of widechar);
+begin
+end;
+
+procedure manyparams8(a1xxxxxxxxx, b1xxxxxxxxx, c1xxxxxxxxx: integer;
+  const a2xxxxxxxxx, b2xxxxxxxxx, c2xxxxxxxxx: string;
+  a3xxxxxxxxx, b3xxxxxxxxx, c3xxxxxxxxx: double; a4xxxxxxxxx, b4xxxxxxxxx, c4xxxxxxxxx: char;
+  var a5xxxxxxxxx, b5xxxxxxxxx, c5xxxxxxxxx: widestring;
+  const a6xxxxxxxxx, b6xxxxxxxxx, d6xxxxxxxxx: pointer;
+  const a7xxxxxxxxx, a8xxxxxxxxx, a9xxxxxxxxx: array of widechar);
+begin
+end;
+
+procedure manyparams9(a1xxxxxxxxx, b1xxxxxxxxx, c1xxxxxxxxx, a2xxxxxxxxx,
+  b2xxxxxxxxx, c2xxxxxxxxx: string;
+  a3xxxxxxxxx, b3xxxxxxxxx, c3xxxxxxxxx, a4xxxxxxxxx, b4xxxxxxxxx, c4xxxxxxxxx: char;
+  var a5xxxxxxxxx, b5xxxxxxxxx, c5xxxxxxxxx, a6xxxxxxxxx, b6xxxxxxxxx, d6xxxxxxxxx: pointer;
+  const a7xxxxxxxxx, a8xxxxxxxxx, a9xxxxxxxxx: array of widechar);
+begin
+end;
+
+function testfunctionname(a1, b1, c1: integer; const a2, b2, c2: string): integer;
+begin
+end;
+
+function testfunctionnamelength(a1, b1, c1: integer; const a2, b2, c2: string): integer;
+begin
+end;
+
+function testfunctionnamelength_hahaha(a1, b1, c1: integer; const a2, b2, c2: string): integer;
+begin
+end;
+
+function testfunctionnamelength_hahaha_more(a1, b1, c1: integer; const a2, b2, c2: string): integer;
+begin
+end;
+
+function testfunctionnamelength_hahaha_more_again(a1, b1, c1: integer; const a2, b2, c2: string): integer;
+begin
+end;
+
+function testfunctionnamelength_hahaha_more_again_and_again(a1, b1, c1: integer; const a2, b2, c2: string): integer;
+begin
+end;
+
+function testfunctionnamelength_hahaha_more_again_and_again_andyetagain(a1, b1, c1: integer; const a2, b2, c2: string): integer;
+begin
+end;
+
+function testfunctionnamelength_hahaha_more_again_and_again_andyetagain_thisis(a1, b1, c1: integer; const a2, b2, c2: string): integer;
+begin
+end;
+
+function testfunctionnamelength_hahaha_more_again_and_again_andyetagain_thisissilly(a1, b1, c1: integer; const a2, b2, c2: string): integer;
+begin
+end;
+
+end. 

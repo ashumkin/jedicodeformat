@@ -1,0 +1,17 @@
+unit testinterfacemap;interface uses comobj,activex,asptlb,project1_tlb,stdvcl;type
+ttestinterfacemap=class(TASPObject,ITestInterfaceMap)protected procedure onendpage
+;safecall;procedure onstartpage(const ascriptingcontext:iunknown);safecall;procedure
+itestinterfacemap.fred=itestinterfacemap_fred;procedure itestinterfacemap_fred(const
+pcifugu:iunknown;pifudgemode:integer);safecall;procedure gargle;safecall;procedure
+itestinterfacemap.jim=itestinterfacemap_jim;procedure itestinterfacemap_jim(pbdosomething
+:wordbool);safecall;public procedure fred;function jim:integer;end;implementation
+uses comserv,dialogs;procedure ttestinterfacemap.fred;begin showmessage('Yabba dabba doo'
+);end;function ttestinterfacemap.jim:integer;begin result:=12;end;procedure ttestinterfacemap
+.onendpage;begin inherited onendpage;end;procedure ttestinterfacemap.onstartpage(
+const ascriptingcontext:iunknown);begin inherited onstartpage(ascriptingcontext);
+end;procedure ttestinterfacemap.itestinterfacemap_fred(const pcifugu:iunknown;pifudgemode
+:integer);begin showmessage('Yabba dabba doo on the interface');end;procedure ttestinterfacemap
+.gargle;begin itestinterfacemap_jim(false);end;procedure ttestinterfacemap.itestinterfacemap_jim
+(pbdosomething:wordbool);begin if pbdosomething then itestinterfacemap_fred(nil,0
+);end;initialization tautoobjectfactory.create(comserver,ttestinterfacemap,class_testinterfacemap
+,cimultiinstance,tmapartment);end. 

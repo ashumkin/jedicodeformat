@@ -1,0 +1,51 @@
+unit testcaseblock;interface implementation uses sysutils,controls,math;procedure
+fromborlandsstyleguide;const csstart=1;csbegin=2;cstimeout=3;csfoo=12;csbar=20;updatevalue
+=200;sb_lineup=1;sb_linedown=2;sb_pageup=3;sb_pagedown=4;var control:tcontrol;newrange
+,position,alignmargin:integer;x,y,j,scrollcode:integer;incr,fincrement,flinediv,finalincr
+,count:integer;fpageincrement,fpagediv:integer;begin newrange:=max(newrange,position
+);case control.align of alleft,alnone:newrange:=max(newrange,position);alright:inc
+(alignmargin,control.width);end;case x of csstart:begin j:=updatevalue;end;csbegin
+:x:=j;csfoo:x:=j;cstimeout:begin j:=x;x:=updatevalue;end;end;case scrollcode of sb_lineup
+,sb_linedown:begin incr:=fincrement div flinediv;finalincr:=fincrement mod flinediv
+;count:=flinediv;end;sb_pageup,sb_pagedown:begin incr:=fpageincrement;finalincr:=
+incr mod fpagediv;incr:=incr div fpagediv;count:=fpagediv;end;else count:=0;incr:=
+0;finalincr:=0;end;case x of csstart,csbegin:j:=updatevalue;csfoo..csbar,23:j:=x+
+1;cstimeout:j:=x;end;case x of csstart,csbegin:j:=updatevalue;csfoo..csbar,23:j:=
+x+1;cstimeout:j:=x;else inc(j);end;case x of csstart,csbegin:begin j:=updatevalue
+;j:=x;x:=x+updatevalue;end;csfoo..csbar,23:begin j:=x+1;j:=x;x:=x+updatevalue;end
+;cstimeout:begin j:=x;j:=j+1;end;end;case x of csstart,csbegin:begin j:=updatevalue
+;j:=x;x:=x+updatevalue;end;csfoo..csbar,23:begin j:=x+1;j:=x;end;cstimeout:begin 
+j:=x;j:=j+1;x:=x+updatevalue;end;else begin inc(j);j:=updatevalue;x:=x+updatevalue
+;end;end;case x of csstart,csbegin:j:=updatevalue;else inc(j);j:=updatevalue;x:=x
++updatevalue;end;case x of csstart,csbegin:j:=updatevalue;else if j>3 then inc(j)
+;if x>4 then j:=updatevalue;if x=5 then x:=x+updatevalue;end;case x of csstart,csbegin
+:j:=updatevalue;else x:=3;if j>3 then begin inc(j);end;end;case x of csstart,csbegin
+:j:=updatevalue;else x:=3;if j>3 then begin inc(j);end;case y of csstart,csbegin:
+j:=updatevalue;else x:=3;if j>3 then begin inc(j);end;end;end;end;procedure simplecase
+;var li:integer;begin li:=random(5);case li of 0:li:=1;1:li:=li+1;2:begin li:=li+
+1;end;else li:=0;end;end;procedure charcase;var ch,ch2:char;li:integer;begin li:=
+random(5);ch:='a';ch:=char(ord(ch)+li);case ch of'a':li:=1;'b':li:=li+1;'c':begin
+li:=li+1;end;'d':ch2:='e';else li:=0;end;ch:='a';end;procedure complexcase;var ia
+,ib:integer;ba:boolean;liloop,liloop2:integer;begin ia:=random(10);ib:=random(10)
+;if ia>5 then ba:=true else ba:=false;case random(7)of 1:ia:=0;2:for liloop:=1 to
+10 do ia:=ia+random(2);3:if ia>5 then ba:=false else ba:=true;14:if ia>5 then for
+liloop:=1 to 10 do ia:=ia+random(2)else while ia<50 do ia:=ia+random(5);5:if ia>6
+then for liloop:=1 to 10 do ia:=ia+random(2);else while ia<50 do ia:=ia+random(5)
+;end;end;procedure layoutmycasestatement;var ia,ib1,icc2:integer;begin;;;;;if random
+(10)>4 then begin ia:=random(20);case ia of 1:ia:=10;2:ia:=random(1000);3:begin ia
+:=random(1000);ib1:=ia+10;end;34:;5:case random(2)of 0:ia:=1;1:ia:=0;else ia:=4;end
+;else begin raise exception.create('this sucks');end;end;end;end;procedure testnested
+;var ia:integer;begin case random(7)of 0:ia:=0;1:case random(2)of 0:ia:=1;2:ia:=2
+;end;2:case random(2)of 0:ia:=1;2:case random(2)of 0:ia:=1;2:ia:=2;end;end;3:case
+random(2)of 0:ia:=1;2:case random(2)of 0:ia:=1;2:case random(2)of 0:ia:=1;2:ia:=2
+;end;end;end;4:case random(2)of 0:case random(2)of 0:ia:=1;2:ia:=2;end;2:case random
+(2)of 0:ia:=1;2:case random(2)of 0:ia:=1;2:ia:=2;end;end;end;5:case random(2)of 0
+:case random(2)of 0:ia:=1;2:ia:=2;end;2:case random(2)of 0:case random(2)of 0:ia:=
+1;2:ia:=2;end;2:case random(2)of 0:ia:=1;2:ia:=2;end;end;end;6:case random(2)of 0
+:case random(2)of 0:ia:=1;2:ia:=2;end;2:case random(2)of 0:case random(2)of 0:ia:=
+1;2:ia:=2;end;2:case random(2)of 0:ia:=1;2:case random(2)of 0:ia:=1;2:ia:=2;end;end
+;end;end;end;end;procedure testelse;var li:integer;begin case random(7)of 0:li:=1
+;else li:=0;end;case random(7)of 0:li:=1;else begin li:=0;end;end;case random(7)of
+0:li:=1;else begin case random(7)of 0:li:=1;else li:=0;end;end;end;case random(7)
+of 0:li:=1;else begin case random(7)of 0:li:=1;else begin case random(7)of 0:li:=
+1;else li:=0;end;end;end;end;end;end;end. 

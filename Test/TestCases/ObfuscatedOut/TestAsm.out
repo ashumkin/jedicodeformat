@@ -1,0 +1,88 @@
+unit testasm;
+
+interface
+
+procedure procasm1;
+procedure procasm2;
+procedure procasm3;
+
+implementation
+
+uses Dialogs;
+
+procedure procasm1;
+var
+  li1, li2: integer;
+  lb: boolean;
+begin
+  li1 := random(10);
+  li2 := random(10);
+  asm
+    mov eax,li1
+    push dword ptr[edx]
+    mov edx,[ebp+8]
+    add esp,4
+    call dword ptr procasm2
+    mov lb,al
+  end;
+  li1 := li1 + li2;
+end;
+
+procedure procasm2;
+asm
+  test cl,cl
+  jne @@isdll
+  mov eax,[edx+eax*4]
+  mov cl,moduleislib
+  mov eax,tlsindex
+  ret
+  @@inittls:
+  call procasm3
+  mov eax,tlsindex
+  je @@rtm32
+  call procasm1
+  push eax
+  test eax,eax
+  ret
+  @@rtm32:
+  ret
+  @@isdll:
+  push eax
+  test eax,eax
+  call procasm3
+  je @@inittls
+  @@2a:mov eax,[ebx]
+  @@2a2:mov eax,[ebx]
+  @@2a2a:mov eax,[ebx]
+  fmul st(1),st
+end;
+
+procedure procasm3;
+var
+  li1, li2: integer;
+begin
+  li1 := random(10);
+  li2 := random(10);
+  asm
+    mov ecx,[edx]
+    xchg ecx,[eax]
+    call procasm2
+    xchg ecx,[eax]
+    mov[edx],ecx
+  end;
+  li1 := li1 + li2;
+  li2 := random(10);
+  if li2 > 5 then
+  begin
+    ShowMessage('More Asm');
+    asm
+      mov[edx],ecx
+      mov ecx,[edx]
+      push eax
+      xchg ecx,[eax]
+    end;
+    li2 := li1 + li2;
+  end;
+end;
+
+end. 

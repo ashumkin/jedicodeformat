@@ -1,0 +1,10 @@
+unit littletest1;
+
+interface
+
+var
+  fred: integer;
+
+implementation
+
+end. 

@@ -1,0 +1,85 @@
+unit testbogusdirectives;
+
+interface
+
+var
+  safecall, dispid: integer;
+  cdecl, protected: boolean;
+
+const
+  ReadOnly = 10;
+
+type
+  Register = class(TObject)
+  private
+    fidynamic, fipublic: integer;
+    function getreadonly: boolean;
+  protected
+  public
+    property dynamic: integer Read fidynamic Write fidynamic;
+    property public: integer Read fipublic;
+    property ReadOnly: boolean Read getreadonly;
+    function dispid: integer; safecall;
+    function protected: boolean;
+    procedure contains;
+    procedure requires;
+    procedure package;
+    function at: integer;
+    function on: integer;
+  end;
+
+implementation
+
+label
+  dynamic;
+
+procedure override;
+var
+  virtual: integer;
+begin
+  virtual := 10;
+end;
+
+function Register.dispid: integer;
+begin
+  Result := 12;
+end;
+
+function Register.
+getreadonly: boolean;
+var
+  Name:     string;
+  absolute: integer absolute Name;
+begin
+  Name   := 'Fred!';
+  Result := true;
+end;
+
+function Register.protected: boolean;
+begin
+  Result := false;
+end;
+
+procedure Register.contains;
+begin
+end;
+
+procedure Register.requires;
+begin
+end;
+
+procedure Register.package;
+begin
+end;
+
+function Register.at: integer;
+begin
+  Result := 23;
+end;
+
+function Register.on: integer;
+begin
+  Result := 23;
+end;
+
+end. 

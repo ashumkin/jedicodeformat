@@ -1,0 +1,30 @@
+unit testlayoutbare;interface implementation function nastyelse(var foo,bar:boolean
+):integer;begin if foo then result:=-1 else end;function nastyelse2(var foo,bar:boolean
+):integer;begin if foo then if bar then result:=-1 else else result:=2;end;procedure
+littletest1;var ia,ib:integer;liloop:integer;begin if ia>5 then for liloop:=1 to 
+10 do ia:=ia+random(2)else while ia<50 do ia:=ia+random(5)end;procedure littletest2
+;var ia,ib:integer;ba:boolean;begin if ia>20 then ba:=false else if ib>6 then ba:=
+true else ba:=false end;procedure littletest3;var ia,ib:integer;liloop:integer;begin
+if ib<15 then while ia<10 do for liloop:=0 to 3 do begin ia:=ia+random(10);end end
+;procedure littletest4;var ia:integer;begin repeat ia:=ia+random(10)until ia>100;
+end;procedure ifelsetest;var ia,ib:integer;ba:boolean;begin if ia>20 then ba:=false
+else if ib>6 then ba:=true else if ia<6 then ba:=false;if ia>20 then if ib>5 then
+ba:=false else if ib>6 then ba:=true else ba:=false;end;procedure littletest5_1;var
+ia,ib:integer;ba:boolean;begin if ia>5 then if ia>20 then ba:=true else ba:=false
+end;procedure littletest5_2;var ia,ib:integer;ba:boolean;begin if ia>5 then if ia
+>20 then ba:=true else ba:=false else ba:=true end;procedure littletest5_3;var ia
+,ib:integer;ba:boolean;begin if ia>20 then if ib>6 then ba:=true else ba:=false else
+ba:=true end;procedure littletest6;var ia,ib:integer;ba:boolean;begin if ia>5 then
+if ia>20 then if ib>6 then ba:=true else ba:=false else ba:=true else ba:=false end
+;procedure mixem;var ia,ib:integer;begin ia:=random(10);ib:=random(10);if ia>3 then
+if ia>4 then begin ib:=10;end;if ia>4 then begin if ia>5 then if ia>6 then begin 
+if ia>7 then if ia>8 then begin if ia>9 then ib:=10;end;end;end;if ia>3 then if ia
+>4 then begin if ia>5 then if ia>6 then begin if ia>7 then if ia>8 then begin if 
+ia>9 then ib:=10;end;end;end;end;procedure layoutbare;var ia,ib:integer;ba:boolean
+;liloop,liloop2:integer;begin ia:=random(10);ib:=random(10);if ia>5 then ba:=true
+else ba:=false;for liloop:=0 to 10 do ia:=ia+random(10);for liloop:=0 to 10 do if
+ib<15 then ia:=ia-random(10);if ib<15 then while ia<10 do ia:=ia+random(10);for liloop
+:=0 to 3 do for liloop2:=0 to 3 do ia:=ia-random(10);if ib<15 then while ia<10 do
+for liloop:=0 to 3 do begin ia:=ia+random(10);end;if ia>20 then if ib>5 then ba:=
+false else if ib>6 then ba:=true else ba:=false;repeat ia:=ia+random(10)until ia>
+100;end;end. 

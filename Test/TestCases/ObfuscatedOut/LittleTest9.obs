@@ -1,0 +1,2 @@
+unit littletest9;interface procedure something;implementation uses db,dbtables;procedure
+something;var qry:tquery;begin qry.fieldbyname('line').asinteger:=1;end;end. 

@@ -1,0 +1,14 @@
+unit littletest27;
+
+interface
+
+const
+  captain   = 'Kirk' deprecated;
+  wizard    = 'Gandalf' platform;
+  librarian = 'Monkey' library;
+  joke: string = 'A frayed knot' deprecated;
+  overachiver: integer = 3 deprecated platform library;
+
+implementation
+
+end. 

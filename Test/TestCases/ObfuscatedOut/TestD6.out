@@ -1,0 +1,143 @@
+unit testd6;
+
+interface
+
+function foo: integer; deprecated;
+function bar: integer;
+function baz: integer; platform;
+
+type
+  tfoo  = 0..300;
+  tfoo2 = 1 + 1..(300 * 7);
+
+  trthing1 = record
+    foo: integer;
+    bar: string;
+  end deprecated;
+
+  trthing2 = record
+    foo: integer;
+    bar: string;
+  end platform;
+
+  trthing3 = record
+    foo: integer;
+    bar: string;
+  end library;
+
+  trthing4 = record
+    foo: integer;
+    bar: string;
+  end deprecated platform library;
+
+  tthing5 = record
+    bar: integer;
+    case spon: boolean of
+      true: (baz5: pchar);
+      false: (fred5: integer;);
+  end platform;
+
+  tmonkey = record
+    bar: integer;
+    case tfoo of
+      0, 1, 2, 3: (baz5: pchar);
+      4, 42, 300: (fred5: integer;);
+  end platform;
+
+  tthing6 = record
+    bar: integer;
+    case boolean of
+      true: (baz6: pchar);
+      false: (fred6: integer;);
+  end platform;
+
+  tthing7 = record
+    bar: integer;
+    foo: integer deprecated;
+    bar2: integer;
+    foo2: integer library;
+  end;
+
+  tsomeoldclass = class
+  public
+    function foo: integer;
+  end deprecated;
+
+  tsomeotherclass = class(TSomeOldClass)
+    function bar: integer;
+  end platform;
+
+  tsomemoreclass = class(TSomeOldClass)
+    function baz: integer;
+  end platform deprecated;
+
+  tcounters  = (ni, spon, herring = 12, wibble, fish = 42);
+  tcounters2 = (soy = 1 + 1, monkey = ((3 * 2) - 1), shatner);
+
+implementation
+
+var
+  li2:  integer = 3 deprecated;
+  li_x: integer deprecated = 3;
+  li_y: integer deprecated = 3 library;
+  li_z: integer deprecated platform = 3 library;
+  li_a: integer deprecated = 3 platform library;
+  li_b: integer deprecated platform library = 3 deprecated platform library;
+
+function foo: integer;
+var
+  li: integer library;
+begin
+  li     := 3;
+  Result := li;
+end;
+
+function bar: integer;
+var
+  li: integer platform;
+begin
+  li     := 4;
+  Result := li;
+end;
+
+function baz: integer;
+var
+  li:  integer deprecated;
+  li3: integer deprecated platform library;
+begin
+  li     := 5;
+  Result := li;
+end;
+
+function tsomeoldclass.foo: integer;
+begin
+  Result := 3;
+end;
+
+function tsomeotherclass.bar: integer;
+begin
+  Result := 4;
+end;
+
+procedure hasobsoleterecords;
+type
+  tfoo = record
+    libar: integer;
+    libaz: string;
+  end deprecated;
+
+  tfoo2 = record
+    bar: integer;
+    case spon: boolean of
+      true: (baz: pchar);
+      false: (fred: integer);
+  end platform;
+begin
+end;
+
+function tsomemoreclass.baz: integer;
+begin
+  Result := 5;
+end;
+
+end. 

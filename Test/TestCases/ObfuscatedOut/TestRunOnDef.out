@@ -1,0 +1,42 @@
+unit testrunondef;
+
+interface
+
+type
+  thaslongprocs = class
+  public
+    procedure dosomething(var pialongparamter: integer; pbanotherparamter: boolean; pmmorebettermoney: currency);
+    function dosomethingelsealthogether(var pialongparamter: integer;
+      pbanotherparamter: boolean; pmmorebettermoney: currency): TObject; virtual; safecall;
+    function hasmodifiers: integer; virtual; safecall;
+  end;
+
+type
+  tveryextremelylongprocedure1 = function(fred: integer): currency of object;
+  tveryextremelylongprocedure2 = function(fred: integer): currency
+    of object;
+  tveryextremelylongprocedure3 = function(fred: integer): currency of object;
+  tveryextremelylongprocedure4 = function(fred: integer): currency of object;
+  tveryextremelylongprocedure5 = function(fred: integer): currency of object;
+  dissimilarstuff = (apples, oranges, deconstructionism, compostheap);
+
+implementation
+
+procedure thaslongprocs.dosomething(var pialongparamter: integer;
+  pbanotherparamter: boolean; pmmorebettermoney: currency);
+begin
+end;
+
+function thaslongprocs.dosomethingelsealthogether(
+  var pialongparamter: integer; pbanotherparamter: boolean;
+  pmmorebettermoney: currency): TObject;
+begin
+  Result := nil;
+end;
+
+function thaslongprocs.hasmodifiers: integer;
+begin
+  Result := -1;
+end;
+
+end. 

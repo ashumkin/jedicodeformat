@@ -1,0 +1,3 @@
+unit testemptysquarebrackets;interface type tmonkey=(gibbon,baboon,vervet,mandril
+);tbarrelofmonkeys=set of tmonkey;const tfoo:tbarrelofmonkeys=[];implementation end
+.

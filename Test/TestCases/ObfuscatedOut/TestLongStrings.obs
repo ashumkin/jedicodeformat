@@ -1,0 +1,7 @@
+unit testlongstrings;interface var gsgoose:string='Quote''Quote''My quote';gsgander
+:string='''''''';const therightway='Fnord Fnord Fnord Fnord Fnord Fnord Fnord '+'Fnord Fnord Fnord Fnord Fnord Fnord Fnord'
++'Fnord Fnord Fnord Fnord Fnord Fnord Fnord'+'Fnord Fnord Fnord Fnord Fnord Fnord Fnord'
+;const thewrongway='Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord'
+;implementation procedure longstring;var lsduck:string;begin lsduck:='duck esfdfsdfsdfsdfsddddddddddddddddddds werf sdf sdf sd f sdf '' dsfsdfsdfsdfsdf sd fsd f sd f sdf sd f sdf s'
+;end;type trecked=record s1:string;s2:string;end;const rec:trecked=(s1:'rec sfsdfsdfsdfsdfsdfsdfsdfffffffffffffffffffffffffffffffffffdffffffffffffdasfds sfsdf ff'
+;s2:' dasfsdfssdrfdf ');end.

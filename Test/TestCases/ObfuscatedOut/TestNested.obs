@@ -1,0 +1,16 @@
+unit testnested;interface implementation uses sysutils;function fred:string;begin
+result:=inttostr(random(20));end;function fred2:string;function getarandomnumber:
+integer;begin result:=random(20);end;begin result:=inttostr(getarandomnumber);end
+;function fred3:string;function getarandomnumber:integer;function getlimit:integer
+;begin result:=20;end;begin result:=random(getlimit);end;begin result:=inttostr(getarandomnumber
+);end;procedure jim1(var ps1:string;const ps2:string);const fred='Jim1';var ls3:string
+;begin ls3:=fred;ps1:=ls3+ps2;end;procedure jim2(var ps1:string;const ps2:string)
+;const fred='Jim2';function getarandomnumber:integer;var lilimit:integer;begin lilimit
+:=10*2;result:=random(lilimit);end;var ls3:string;begin ls3:=fred;ps1:=ls3+inttostr
+(getarandomnumber)+ps2;end;procedure jim3(var ps1:string;const ps2:string);const 
+fred='Jim3';var ls3:string;function getarandomnumber:integer;function getlimit:integer
+;const half_limit=10;begin result:=half_limit*2;end;var lilimit:integer;begin lilimit
+:=getlimit;result:=random(lilimit);end;begin ls3:=fred;ps1:=ls3+inttostr(getarandomnumber
+)+ps2;end;function multipass:integer;function one:integer;begin result:=1;end;function
+two:integer;begin result:=2;end;function three:integer;begin result:=3;end;begin 
+result:=one+two+three;end;end. 

@@ -1,0 +1,108 @@
+unit testmh;interface type w_pa3500array=array[0..32766]of word;pw_wordptr=^w_pa3500array
+;ppointer=^pointer;const pa3500_disable=0;pa3500_enable=1;pa3500_synchronous_mode
+=1;pa3500_asynchronous_mode=0;pa3500_simple_mode=0;pa3500_trigger_mode=1;pa3500_synchronisation_mode
+=2;pa3500_unipolar=1;pa3500_bipolar=0;pa3500_channel0=0;pa3500_channel1=1;pa3500_channel2
+=2;pa3500_channel3=3;pa3500_channel4=4;pa3500_channel5=5;pa3500_channel6=6;pa3500_channel7
+=7;pa3500_asynchronous_mode_a=0;pa3500_synchronous_mode_a=1;function i_pa3500_initcompiler
+(b_boardhandle:byte):integer;far;stdcall;function i_pa3500_setboardinformationwin32
+(s_identification:string;b_boardoperatingmode:byte;var b_boardhandle:byte):integer
+;far;stdcall;function i_pa3500_closeboardhandle(b_boardhandle:byte):integer;far;stdcall
+;function i_pa3500_setboardintroutinewin32(b_boardhandle:byte;b_usercallingmode:byte
+;l_globalbuffersize:longint;pp_userglobalbuffer:ppointer;p_functionname:pointer):
+integer;far;stdcall;function i_pa3500_testinterrupt(var b_boardhandle:byte;var b_interruptmask
+:byte;var b_lastchannelnumber:byte):integer;far;stdcall;function i_pa3500_resetboardintroutine
+(b_boardhandle:byte):integer;far;stdcall;function i_pa3500_gethardwareinformation
+(b_boardhandle:byte;var w_baseaddress:word;var b_interruptnbr:byte;var b_boardoperatingmode
+:byte;var b_nbrofoutput:byte):integer;far;stdcall;function i_pa3500_changeboardoperatingmode
+(b_boardhandle:byte;b_boardoperatingmode:byte):integer;far;stdcall;function i_pa3500_write1analogvalue
+(b_boardhandle:byte;b_channelnbr:byte;b_polarity:byte;w_valuetowrite:word):integer
+;far;stdcall;function i_pa3500_writemoreanalogvalue(b_boardhandle:byte;b_firstchannelnbr
+:byte;b_nbrofchannel:byte;var b_polarityarray:byte;var w_writevaluearray:word):integer
+;far;stdcall;function i_pa3500_storeanalogoutputvalue(b_boardhandle:byte;b_eraselaststorage
+:byte;b_channelnbr:byte;b_polarity:byte;w_valuetowrite:word):integer;far;stdcall;
+function i_pa3500_getexterntriggerstatus(b_boardhandle:byte;var b_externtriggerstatus
+:byte):integer;far;stdcall;function i_pa3500_simulateexternaltrigger(b_boardhandle
+:byte):integer;far;stdcall;function i_pa3500_enabletriggerinterrupt(b_boardhandle
+:byte):integer;far;stdcall;function i_pa3500_disabletriggerinterrupt(b_boardhandle
+:byte):integer;far;stdcall;function i_pa3500_enablewatchdog(b_boardhandle:byte;b_interruptflag
+:byte;b_resetflag:byte):integer;far;stdcall;function i_pa3500_getwatchdogstatus(b_boardhandle
+:byte;var b_watchdogstatus:byte):integer;far;stdcall;function i_pa3500_triggerwatchdog
+(b_boardhandle:byte):integer;far;stdcall;function i_pa3500_disablewatchdog(b_boardhandle
+:byte):integer;far;stdcall;function i_pa3500_setoutputmemoryon(b_boardhandle:byte
+):integer;far;stdcall;function i_pa3500_setoutputmemoryoff(b_boardhandle:byte):integer
+;far;stdcall;function i_pa3500_set1digitaloutputon(b_boardhandle:byte;b_channel:byte
+):integer;far;stdcall;function i_pa3500_set1digitaloutputoff(b_boardhandle:byte;b_channel
+:byte):integer;far;stdcall;function i_pa3500_set2digitaloutputon(b_boardhandle:byte
+;b_value:byte):integer;far;stdcall;function i_pa3500_set2digitaloutputoff(b_boardhandle
+:byte;b_value:byte):integer;far;stdcall;function i_pa3500_read1digitalinput(b_boardhandle
+:byte;b_channel:byte;var b_channelvalue:byte):integer;far;stdcall;function i_pa3500_read2digitalinput
+(b_boardhandle:byte;var b_portvalue:byte):integer;far;stdcall;function i_pa3500_enabledigitalinputinterrupt
+(b_boardhandle:byte;b_channelvalue:byte):integer;far;stdcall;function i_pa3500_disabledigitalinputinterrupt
+(b_boardhandle:byte):integer;far;stdcall;function i_pa3500_readexterntriggerinput
+(b_boardhandle:byte;var b_triggervalue:byte):integer;far;stdcall;function i_pa3500_krnl_write1analogvalue
+(w_address:word;b_channelnbr:byte;b_polarity:byte;w_valuetowrite:word):integer;far
+;stdcall;function i_pa3500_krnl_storeanalogoutputvalue(w_address:word;b_eraselaststorage
+:byte;b_channelnbr:byte;b_polarity:byte;w_valuetowrite:word):integer;far;stdcall;
+function i_pa3500_krnl_simulateexternaltrigger(w_address:word):integer;far;stdcall
+;function i_pa3500_krnl_triggerwatchdog(w_address:word):integer;far;stdcall;function
+i_pa3500_krnl_set1digitaloutputon(w_address:word;b_channel:byte):integer;far;stdcall
+;function i_pa3500_krnl_set2digitaloutputon(w_address:word;b_value:byte):integer;
+far;stdcall;function i_pa3500_krnl_read1digitalinput(w_address:word;b_channel:byte
+;var b_channelvalue:byte):integer;far;stdcall;function i_pa3500_krnl_read2digitalinput
+(w_address:word;var b_portvalue:byte):integer;far;stdcall;function i_pa3500_krnl_readexterntriggerinput
+(w_address:word;var b_triggervalue:byte):integer;far;stdcall;implementation function
+i_pa3500_initcompiler(b_boardhandle:byte):integer;far;stdcall;external'PA3500.DLL'
+;function i_pa3500_setboardinformationwin32(s_identification:string;b_boardoperatingmode
+:byte;var b_boardhandle:byte):integer;far;stdcall;external'PA3500.DLL';function i_pa3500_closeboardhandle
+(b_boardhandle:byte):integer;far;stdcall;external'PA3500.DLL';function i_pa3500_setboardintroutinewin32
+(b_boardhandle:byte;b_usercallingmode:byte;l_globalbuffersize:longint;pp_userglobalbuffer
+:ppointer;p_functionname:pointer):integer;far;stdcall;external'PA3500.DLL';function
+i_pa3500_testinterrupt(var b_boardhandle:byte;var b_interruptmask:byte;var b_lastchannelnumber
+:byte):integer;far;stdcall;external'PA3500.DLL';function i_pa3500_resetboardintroutine
+(b_boardhandle:byte):integer;far;stdcall;external'PA3500.DLL';function i_pa3500_gethardwareinformation
+(b_boardhandle:byte;var w_baseaddress:word;var b_interruptnbr:byte;var b_boardoperatingmode
+:byte;var b_nbrofoutput:byte):integer;far;stdcall;external'PA3500.DLL';function i_pa3500_changeboardoperatingmode
+(b_boardhandle:byte;b_boardoperatingmode:byte):integer;far;stdcall;external'PA3500.DLL'
+;function i_pa3500_write1analogvalue(b_boardhandle:byte;b_channelnbr:byte;b_polarity
+:byte;w_valuetowrite:word):integer;far;stdcall;external'PA3500.DLL';function i_pa3500_writemoreanalogvalue
+(b_boardhandle:byte;b_firstchannelnbr:byte;b_nbrofchannel:byte;var b_polarityarray
+:byte;var w_writevaluearray:word):integer;far;stdcall;external'PA3500.DLL';function
+i_pa3500_storeanalogoutputvalue(b_boardhandle:byte;b_eraselaststorage:byte;b_channelnbr
+:byte;b_polarity:byte;w_valuetowrite:word):integer;far;stdcall;external'PA3500.DLL'
+;function i_pa3500_getexterntriggerstatus(b_boardhandle:byte;var b_externtriggerstatus
+:byte):integer;far;stdcall;external'PA3500.DLL';function i_pa3500_simulateexternaltrigger
+(b_boardhandle:byte):integer;far;stdcall;external'PA3500.DLL';function i_pa3500_enabletriggerinterrupt
+(b_boardhandle:byte):integer;far;stdcall;external'PA3500.DLL';function i_pa3500_disabletriggerinterrupt
+(b_boardhandle:byte):integer;far;stdcall;external'PA3500.DLL';function i_pa3500_enablewatchdog
+(b_boardhandle:byte;b_interruptflag:byte;b_resetflag:byte):integer;far;stdcall;external
+'PA3500.DLL';function i_pa3500_getwatchdogstatus(b_boardhandle:byte;var b_watchdogstatus
+:byte):integer;far;stdcall;external'PA3500.DLL';function i_pa3500_triggerwatchdog
+(b_boardhandle:byte):integer;far;stdcall;external'PA3500.DLL';function i_pa3500_disablewatchdog
+(b_boardhandle:byte):integer;far;stdcall;external'PA3500.DLL';function i_pa3500_setoutputmemoryon
+(b_boardhandle:byte):integer;far;stdcall;external'PA3500.DLL';function i_pa3500_setoutputmemoryoff
+(b_boardhandle:byte):integer;far;stdcall;external'PA3500.DLL';function i_pa3500_set1digitaloutputon
+(b_boardhandle:byte;b_channel:byte):integer;far;stdcall;external'PA3500.DLL';function
+i_pa3500_set1digitaloutputoff(b_boardhandle:byte;b_channel:byte):integer;far;stdcall
+;external'PA3500.DLL';function i_pa3500_set2digitaloutputon(b_boardhandle:byte;b_value
+:byte):integer;far;stdcall;external'PA3500.DLL';function i_pa3500_set2digitaloutputoff
+(b_boardhandle:byte;b_value:byte):integer;far;stdcall;external'PA3500.DLL';function
+i_pa3500_read1digitalinput(b_boardhandle:byte;b_channel:byte;var b_channelvalue:byte
+):integer;far;stdcall;external'PA3500.DLL';function i_pa3500_read2digitalinput(b_boardhandle
+:byte;var b_portvalue:byte):integer;far;stdcall;external'PA3500.DLL';function i_pa3500_enabledigitalinputinterrupt
+(b_boardhandle:byte;b_channelvalue:byte):integer;far;stdcall;external'PA3500.DLL'
+;function i_pa3500_disabledigitalinputinterrupt(b_boardhandle:byte):integer;far;stdcall
+;external'PA3500.DLL';function i_pa3500_readexterntriggerinput(b_boardhandle:byte
+;var b_triggervalue:byte):integer;far;stdcall;external'PA3500.DLL';function i_pa3500_krnl_write1analogvalue
+(w_address:word;b_channelnbr:byte;b_polarity:byte;w_valuetowrite:word):integer;far
+;stdcall;external'PA3500.DLL';function i_pa3500_krnl_storeanalogoutputvalue(w_address
+:word;b_eraselaststorage:byte;b_channelnbr:byte;b_polarity:byte;w_valuetowrite:word
+):integer;far;stdcall;external'PA3500.DLL';function i_pa3500_krnl_simulateexternaltrigger
+(w_address:word):integer;far;stdcall;external'PA3500.DLL';function i_pa3500_krnl_triggerwatchdog
+(w_address:word):integer;far;stdcall;external'PA3500.DLL';function i_pa3500_krnl_set1digitaloutputon
+(w_address:word;b_channel:byte):integer;far;stdcall;external'PA3500.DLL';function
+i_pa3500_krnl_set2digitaloutputon(w_address:word;b_value:byte):integer;far;stdcall
+;external'PA3500.DLL';function i_pa3500_krnl_read1digitalinput(w_address:word;b_channel
+:byte;var b_channelvalue:byte):integer;far;stdcall;external'PA3500.DLL';function 
+i_pa3500_krnl_read2digitalinput(w_address:word;var b_portvalue:byte):integer;far;
+stdcall;external'PA3500.DLL';function i_pa3500_krnl_readexterntriggerinput(w_address
+:word;var b_triggervalue:byte):integer;far;stdcall;external'PA3500.DLL';end.

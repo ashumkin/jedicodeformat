@@ -1,0 +1,3 @@
+unit testclasslines;interface type tsomeclass=class class function dink:boolean;
+end;implementation class function tsomeclass.dink:boolean;begin result:=false;end
+;end. 

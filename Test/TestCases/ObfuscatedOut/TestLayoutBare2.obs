@@ -1,0 +1,18 @@
+unit testlayoutbare2;interface implementation procedure test;var ia,ib:integer;ba
+:boolean;begin if ia>3 then if ia>4 then begin ib:=10;end;if ia>4 then if ia>4 then
+begin ib:=10;end;if ia>4 then if ia>4 then begin ib:=10;end;end;procedure test2;var
+ia,ib:integer;ba:boolean;begin if ia>3 then if ia>4 then begin ib:=10;end;if ia>4
+then if ia>4 then begin ib:=10;end;if ia>4 then if ia>4 then begin ib:=10;end;end
+;procedure test3;var ia,ib:integer;ba:boolean;begin if ia>3 then if ia>4 then ib:=
+10;if ia>4 then ib:=10;if ia>4 then ib:=0;end;procedure test4;var ia,ib:integer;ba
+:boolean;begin if ia>3 then if ia>4 then begin ib:=10;end;if ia>4 then begin ib:=
+10;end;end;procedure testend1;var sa,sb:string;begin sa:='Fred ';sb:=sa+'Jim';sa:=
+sa+#40;if sa=''then begin sa:=sa+'narf';end;end;procedure testend2;var sa,sb:string
+;begin sa:='Fred ';sb:=sa+'Jim';sa:=sa+#40;if sa=''then if sa='x'then begin sa:=sa
++'narf';end;end;procedure testend3;var sa,sb:string;begin sa:='Fred ';sb:=sa+'Jim'
+;sa:=sa+#40;if sa=''then if sb='x'then if sa<>'foo'then begin sa:=sa+'narf';end;end
+;procedure testend4;var sa,sb:string;begin sa:='Fred ';sb:=sa+'Jim';sa:=sa+#40;if
+sa=''then if sb='x'then if sa<>'foo'then if sa='groo'then begin sa:=sa+'narf';end
+;end;procedure testend5;var sa,sb:string;begin sa:='Fred ';sb:=sa+'Jim';begin sa:=
+sa+#40;if sa=''then if sb='x'then if sa<>'foo'then if sa='groo'then begin sa:=sa+
+'narf';end;end;end;end. 

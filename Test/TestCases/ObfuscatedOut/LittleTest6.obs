@@ -1,0 +1,2 @@
+unit littletest6;interface function bar:integer;implementation function foo:integer
+;begin result:=3;end;function bar:integer;begin result:=foo()+3;end;end. 

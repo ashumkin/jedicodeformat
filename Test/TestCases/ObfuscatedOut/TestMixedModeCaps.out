@@ -1,0 +1,25 @@
+unit testmixedmodecaps;
+
+interface
+
+type
+  tmixedmode = class(TObject)
+  private
+    fisafecall: integer;
+  public
+    property safecall: integer Read fisafecall Write fisafecall;
+    procedure Read; safecall;
+    procedure Write; safecall;
+  end;
+
+implementation
+
+procedure tmixedmode.Read;
+begin
+end;
+
+procedure tmixedmode.Write;
+begin
+end;
+
+end. 

@@ -1,0 +1,8 @@
+unit testinterfaceimplements;interface type imyinterface=interface procedure p1;
+procedure p2;end;tmyclass=class(TObject,IMyInterface)fmyinterface:imyinterface;property
+myinterface:imyinterface read fmyinterface implements imyinterface;end;tmyimplclass
+=class procedure p1;procedure p2;end;tmyclass2=class(TInterfacedObject,IMyInterface
+)fmyimplclass:tmyimplclass;property myimplclass:tmyimplclass read fmyimplclass implements
+imyinterface;procedure imyinterface.p1=myp1;procedure myp1;end;implementation procedure
+tmyclass2.myp1;begin end;procedure tmyimplclass.p1;begin end;procedure tmyimplclass
+.p2;begin end;end. 

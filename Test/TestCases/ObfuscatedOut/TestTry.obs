@@ -1,0 +1,30 @@
+unit testtry;interface implementation uses dialogs,sysutils,math;procedure testraise
+;begin raise exception.create('Monkey error: please insert soy');end;procedure testraiseat
+;begin raise exception.create('Shatner error: please insert toupee')at@testraiseat
+;end;procedure testtryraise;begin try showmessage('Start');except showmessage('except'
+);raise end;end;procedure testtryproc;begin try showmessage('Start');try showmessage
+('trying');try showmessage('still trying');finally showmessage('going...');end;except
+showmessage('except');end;finally showmessage('Finally!');end;end;procedure simple
+;begin try testtryproc;except end;try testtryproc;except showmessage('It Failed')
+;end;end;procedure exceptblock;begin try testtryproc;except on e:exception do begin
+showmessage('There was an exception: '+e.message);end;end;end;procedure complex;var
+liloop:integer;begin try liloop:=0;while liloop<10 do begin testtryproc;inc(liloop
+);end;except on e:exception do begin showmessage('There was an exception: '+e.message
+);end;end;end;procedure testsimpleelse;begin try testtryproc;except on e2:einvalidargument
+do showmessage('There was an invalid arg exception: '+e2.message);else raise;end;
+try testtryproc;except on e:ematherror do begin showmessage('There was a math error: '
++e.message);end else begin raise;end;end;try testtryproc;except on e:ematherror do
+begin showmessage('There was a math error: '+e.message);end else;end;try testtryproc
+;except on e:ematherror do begin showmessage('There was a math error: '+e.message
+);end else begin end;end;end;procedure morecomplexexceptionhandler;var liloop:integer
+;begin try testtryproc;except on e2:einvalidargument do showmessage('There was an invalid arg exception: '
++e2.message);on e:ematherror do begin showmessage('There was an exception: '+e.message
+);end;on eoverflow do showmessage('There was an underflow exception');else raise;
+end;end;procedure testreraise;begin try testtryproc;except showmessage('There was an exception'
+);raise;end;end;procedure testreraise2;var li:integer;begin try testtryproc;except
+showmessage('There was an exception');showmessage('There was an exception');li:=0
+;showmessage('There was an exception');for li:=0 to 10 do showmessage('There was an exception'
+);begin testtryproc;end;raise;end;end;procedure testbigfinally;var li:integer;begin
+try testtryproc;finally showmessage('There was an exception');showmessage('There was an exception'
+);li:=0;showmessage('There was an exception');for li:=0 to 10 do showmessage('There was an exception'
+);begin testtryproc;end;end;end;end. 

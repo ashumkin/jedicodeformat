@@ -1,0 +1,35 @@
+unit testinitfinal;
+
+interface
+
+var
+  someglobalseed: integer;
+  fred: TObject;
+
+implementation
+
+uses Classes, SysUtils;
+
+function randomint: integer;
+begin
+  Result := random(1000);
+end;
+
+initialization
+  someglobalseed := randomint;
+  if someglobalseed > 20 then
+  begin
+    while someglobalseed > 20 do
+    begin
+      someglobalseed := someglobalseed - randomint div 100;
+    end;
+  end;
+  fred := TList.Create;
+
+finalization
+  while randomint < 20000 do
+  begin
+    FreeAndNil(fred);
+    someglobalseed := 0;
+  end;
+end. 

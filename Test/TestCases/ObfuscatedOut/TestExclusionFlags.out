@@ -1,0 +1,113 @@
+unit testexclusionflags;
+
+interface
+
+implementation
+
+procedure testspace;
+var
+  a: integer;
+begin
+  a := 3; //jcf:space=off
+  a :=a+1;//jcf:space=on
+end;
+
+procedure testindent;//jcf:indent=off
+var
+ a: integer;
+begin
+ a := 3;
+if a > 12 then
+begin
+ a := 12;//jcf:indent=on
+  end;
+end;
+
+procedure testreturn;
+var
+  a, b: integer;
+begin
+  if a > 3 then
+    b := 2
+  else
+    b := -1;//jcf:return=off
+  if b>3 then a:=2 else a:=-1;if b>3 then a:=2 else a:=-1;//jcf:return=on
+end;
+
+procedure testalign;
+var
+  a:      integer;
+  b2:     string;
+  cthree: double;
+begin//jcf:align=off
+  a := 1;
+  b2 := 'hello';
+  cthree := 2.3;//jcf:align=on
+  a      := 2;
+  b2     := 'world';
+  cthree := 3.2;
+end;
+
+procedure testcaps;
+var
+  a:  integer;
+  lb: boolean;
+begin
+  lb := true and false;//jcf:caps=off
+  if a > 3 then
+  begin
+    a  := 12;
+    lb := false or true;
+  end;//jcf:caps=on
+end;
+
+procedure testlinebreaking;
+var
+  longvariable1, longvariable2, longvariable3: integer;
+begin
+  longvariable1 := 0;
+  longvariable2 := 2;
+  longvariable3 := 5;
+  if (longvariable1 > longvariable2) and (longvariable2 > longvariable3) and
+    (longvariable2 <> longvariable3) then
+  begin
+    longvariable1 := longvariable2;
+  end;//jcf:linebreaking=off
+  if (longvariable1 > longvariable2) and (longvariable2 > longvariable3) and (longvariable2 <> longvariable3) then
+  begin
+    longvariable1 := longvariable2;
+  end;//jcf:linebreaking=on
+end;
+
+procedure testblockstyles;
+begin//jcf:blockstyle=off
+     //jcf:blockstyle=on
+end;
+
+procedure givewarnings;
+var
+  li: integer;
+  lr: real;
+begin
+  li := 3;
+  case li of
+    2:
+    begin
+    end;
+  end;
+end;//jcf:warnings=off
+
+procedure givenowarnings;
+var
+  li: integer;
+  lr: real;
+begin
+  li := 3;
+  case li of
+    2:
+    begin
+    end;
+  end;
+end;//jcf:warnings=on
+
+end. 

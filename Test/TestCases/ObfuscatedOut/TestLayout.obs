@@ -1,0 +1,26 @@
+unit testlayout;interface implementation uses sysutils,classes;procedure testsimplevarlayout
+;var ifred:integer;bb:boolean;begin end;procedure testsimplevarlayout2;var v1:integer
+;var2:integer;begin end;procedure allneatlylaidout;var ia,ib1,icc2:integer;ba:boolean
+;begin ia:=random(10);ib1:=0;icc2:=0;if random(10)>5 then begin ia:=random(10);ib1
+:=0;icc2:=0;if random(10)>5 then begin ia:=random(10);ib1:=0;icc2:=0;ba:=(ansicomparetext
+('fred','jim')>0)and(random(10)>5)or(random(20)>15)or(random(20)>15)or(random(20)
+>15)or(random(20)>15)or(random(20)>15)or(random(20)>15);end;end else ia:=0;end;procedure
+aligntheequalssigns;var v1:integer;var2:integer;variable3:integer;variable4withalongname
+:integer;begin v1:=0;var2:=v1+1;v1:=var2+v1;v1:=0;var2:=v1+1;variable3:=var2+1;var2
+:=v1+1;v1:=var2+v1;var2:=v1+1;variable3:=var2+1;variable4withalongname:=12;var2:=
+v1+1;v1:=var2+v1;variable4withalongname:=12;var2:=v1+1;v1:=0;end;procedure alignlongline
+;var v1:integer;var2:integer;variable3:integer;variablewithanexceedinglylongnameindeed
+:integer;begin v1:=0;var2:=v1+1;variable3:=var2+1;variablewithanexceedinglylongnameindeed
+:=42;v1:=0;var2:=v1+1;end;procedure nosemicolonsneeded;var la:integer;begin la:=0
+;if random(10)>2 then begin if random(20)>5 then begin la:=12 end else la:=10 end
+else la:=20 end;procedure thereverse;var v1:integer;var2:integer;variable3:integer
+;variable43:integer;variablewithanexceedinglylongnameindeed:integer;lcthisisalongnameforastringlist
+:tstringlist;begin lcthisisalongnameforastringlist:=tstringlist.create;variablewithanexceedinglylongnameindeed
+:=42;v1:=0;var2:=v1+1;variable3:=var2+1;variablewithanexceedinglylongnameindeed:=
+42;variable3:=var2+1;variable43:=12;v1:=0;var2:=v1+1;variablewithanexceedinglylongnameindeed
+:=42;variable43:=12;variable3:=var2+1;var2:=v1+1;v1:=0;lcthisisalongnameforastringlist
+[variablewithanexceedinglylongnameindeed]:='Hello';v1:=0;lcthisisalongnameforastringlist
+.free;end;procedure testrepeat;var li:integer;begin li:=0;repeat inc(li);until li
+>10;li:=0;repeat begin inc(li);end until li>10;li:=0;repeat inc(li);dec(li);inc(li
+);until li>100;li:=0;repeat inc(li);begin dec(li);end;inc(li);until li>100;end;end
+. 

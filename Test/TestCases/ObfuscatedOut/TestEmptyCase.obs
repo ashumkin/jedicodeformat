@@ -1,0 +1,3 @@
+unit testemptycase;interface implementation procedure monkey(const pi:integer);const
+krukolibidinous=12;begin case pi of 1:;2:;3:;krukolibidinous:else begin end;end;end
+;procedure soy(const pi:integer);begin case pi of 1:end;end;end. 

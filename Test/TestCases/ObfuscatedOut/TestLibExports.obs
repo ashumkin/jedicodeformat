@@ -1,0 +1,4 @@
+library testlibexports;uses edinit,edinout,edformat,edprint;exports initeditors,
+doneeditors index 17 name done,inserttext name insert,deleteselection name delete
+,formatselection,printselection name print resident,seterrorhandler index 23;function
+foo:boolean;local;begin result:=false;end;begin initlibrary;end. 

@@ -1,0 +1,6 @@
+unit testreturnremoval;interface implementation procedure paramswithtomanyreturns
+(a,b,c:integer;d:string;e,f,g:double);begin end;procedure varswithtoomanyreturns;
+var a,b,c:integer;d,e,f,g:string;begin a:=random(10);end;procedure expessionwithreturns
+;var a,b,c:integer;begin a:=random(10)+random(10)+random(10);b:=3*a+random(10)*4;
+end;procedure blankvarlines;var a,b,c:integer;d,e,f:integer;begin end;procedure novarsblanklines
+;begin end;end. 

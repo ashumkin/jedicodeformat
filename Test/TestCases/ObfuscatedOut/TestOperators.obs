@@ -1,0 +1,21 @@
+unit testoperators;interface implementation function __somenumber:integer;begin 
+result:=random(30);end;procedure integerarithmetic;var lia,lib,lic:integer;begin 
+lia:=1;lib:=lia+5;lic:=lib-3;lia:=lia*lia;lia:=lia div 3;lib:=lia mod 3;lia:=-12;
+lib:=-lia;lic:=+lia;lic:=not lia;lia:=((lia+2)*(lib-3)div 3)+(lia mod lib);lia:=lia
++2*lib-3 div 3+lia mod lib;lic:=lic shl 2;lia:=lia shr 2;lib:=lib xor 42;lia:=255
+and 127;lib:=12 or 42;lia:=not lia;lia:=not((lia and((lib or lic)xor lia))shl 2);
+lia:=not lia and lib or lic xor lia shl 2;lia:=lia+$BADBEEF;lia:=__somenumber+__somenumber
+-__somenumber*__somenumber div __somenumber;end;procedure floatarithmetic;var fa,
+fb,fc:double;begin fa:=1.23456;fb:=fa*2.345;fc:=fb/1.56789;fa:=fb+fc;fa:=-12.12345
+;fb:=-fa;fc:=+fa;fc:=__somenumber/__somenumber;end;procedure booleanlogic;var ba,
+bb,bc:boolean;begin ba:=true;bb:=false;bc:=ba or bb;ba:=bb and bc;ba:=not ba;bc:=
+ba xor bb;end;procedure stringlogic;var sa,sb:string;name:string;begin sa:='Fred '
+;sb:=sa+'Jim';sa:=sa+#40;if sa=''then if sa=''then if sa='foo'then if sa='foo'then
+if sb=sa then if sb=sb then if sa=sb then if name=''then if name=''then if name='foo'
+then if name=sb then if sb=name then begin end;end;procedure floats;const bignum=
+456.789e34;littlenum=12e-9;var f1,f2:extended;begin f1:=123.4E-2;f2:=f1+12.e12;f1
+:=f1+bignum+littlenum*1E-2;end;procedure testequalsminus;var a,b,c:integer;begin 
+a:=-1;b:=-2;c:=-3;if a=-1then b:=-2;if a=+3then b:=-12;if b=-1then b:=-3;if c=-1then
+b:=-4;end;procedure testnospace;var a,b,c:integer;f:double;begin a:=-1;b:=2;c:=3;
+b:=b*-2;a:=a+2;b:=-3;c:=+4;c:=c+-4;c:=c--4;f:=3.0;f:=f/-3;c:=-(c*c);f:=1-(-1*c);f
+:=-1+(-1*c);f:=-1+(1*-c);f:=--1+(1*--c);end;end. 

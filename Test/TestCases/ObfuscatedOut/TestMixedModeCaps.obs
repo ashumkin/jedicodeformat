@@ -1,0 +1,4 @@
+unit testmixedmodecaps;interface type tmixedmode=class(TObject)private fisafecall
+:integer;public property safecall:integer read fisafecall write fisafecall;procedure
+read;safecall;procedure write;safecall;end;implementation procedure tmixedmode.read
+;begin end;procedure tmixedmode.write;begin end;end. 

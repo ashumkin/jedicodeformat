@@ -1,0 +1,11 @@
+unit testuseschanges;
+
+interface
+
+uses SysUtils, ComCtrls, Classes, Windows, fred, jim, bob;
+
+implementation
+
+uses peter, paul, ralph;
+
+end. 
