@@ -74,6 +74,8 @@ type
     procedure ReadDefaults;
     procedure Write;
 
+    procedure MakeConsistent;
+
     procedure ToStream(const pcStream: TSettingsOutput);
 
     property Description: string read fsDescription write fsDescription;
@@ -343,6 +345,15 @@ begin
   Result := mcFormatSettings;
 end;
 
+
+procedure TFormatSettings.MakeConsistent;
+begin
+  { one consistency check so far
+    - if linebreaking is off, then "remove returns in expressions" must also be off }
+    
+  if Returns.RebreakLines =  rbOff then
+    Returns.RemoveExpressionReturns := False;
+end;
 
 initialization
 finalization

@@ -194,8 +194,14 @@ end;
 
 procedure TFormAllSettings.bbOKClick(Sender: TObject);
 begin
-  FormatSettings.Dirty := True;
+  { save settings }
   RemoveAll(True);
+
+  { settings are now in need of saving }
+  FormatSettings.Dirty := True;
+  { check consistency of settings }
+  FormatSettings.MakeConsistent;
+
   Close;
 end;
 
