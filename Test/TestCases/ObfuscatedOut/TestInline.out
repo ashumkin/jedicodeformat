@@ -1,0 +1,13 @@
+unit testinline;
+
+interface
+
+implementation
+
+procedure fillword(var dest; Count: word; Data: word);
+begin
+  inline($C4 / e / < dest / b / e / < Count / b $FC / $F3 / $AB);
+end;
+
+end.
+ 

@@ -140,6 +140,7 @@ type
     procedure TestParse_TestGoto;
     procedure TestParse_TestInheritedExpr;
     procedure TestParse_TestInitFinal;
+    procedure TestParse_TestInline;
     procedure TestParse_TestInterfaceImplements;
     procedure TestParse_TestInterfaceMap;
     procedure TestParse_TestInterfaces;
@@ -1069,6 +1070,11 @@ end;
 procedure TTestFileParse.TestParse_LittleTest61;
 begin
   TestParseFile('LittleTest61', 24);
+end;
+
+procedure TTestFileParse.TestParse_TestInline;
+begin
+  TestParseFile('TestInline', 92);
 end;
 
 initialization

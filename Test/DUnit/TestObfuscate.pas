@@ -139,6 +139,7 @@ type
     procedure TestObfuscate_TestGoto;
     procedure TestObfuscate_TestInheritedExpr;
     procedure TestObfuscate_TestInitFinal;
+    procedure TestObfuscate_TestInline;
     procedure TestObfuscate_TestInterfaceImplements;
     procedure TestObfuscate_TestInterfaceMap;
     procedure TestObfuscate_TestInterfaces;
@@ -1107,6 +1108,11 @@ end;
 procedure TTestObfuscate.TestObfuscate_LittleTest61;
 begin
   TestObfuscateFile('LittleTest61');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestInline;
+begin
+  TestObfuscateFile('TestInline');
 end;
 
 initialization

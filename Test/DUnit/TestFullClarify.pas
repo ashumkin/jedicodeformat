@@ -138,6 +138,7 @@ type
     procedure TestClarify_TestGoto;
     procedure TestClarify_TestInheritedExpr;
     procedure TestClarify_TestInitFinal;
+    procedure TestClarify_TestInline;
     procedure TestClarify_TestInterfaceImplements;
     procedure TestClarify_TestInterfaceMap;
     procedure TestClarify_TestInterfaces;
@@ -1080,6 +1081,11 @@ end;
 procedure TFullTestClarify.TestClarify_LittleTest61;
 begin
   TestClarifyFile('LittleTest61');
+end;
+
+procedure TFullTestClarify.TestClarify_TestInline;
+begin
+  TestClarifyFile('TestInline');
 end;
 
 initialization

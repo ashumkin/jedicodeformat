@@ -1,0 +1,2 @@
+unit testinline;interface implementation procedure fillword(var dest;count:word;
+data:word);begin inline($C4/e/<dest/b/e/<count/b $FC/$F3/$AB);end;end. 
