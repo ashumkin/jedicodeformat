@@ -51,6 +51,7 @@ type
 
     // calls to destroy
     procedure TestDestroy;
+    procedure TestDestroy2;
 
     // case without else block
     procedure TestCaseNoElse1;
@@ -151,6 +152,13 @@ begin
   TestWarnings(UNIT_TEXT, 'Destroy should not normally be called');
 end;
 
+procedure TTestWarnings.TestDestroy2;
+const
+  UNIT_TEXT = UNIT_HEADER + ' procedure TFoo.fred; begin Destroy; end; ' + UNIT_FOOTER;
+begin
+  TestWarnings(UNIT_TEXT, 'TFoo.fred');
+end;
+
 procedure TTestWarnings.TestCaseNoElse1;
 const
   UNIT_TEXT = UNIT_HEADER +  'procedure fred; var li: integer; begin case li of 1: end; end; ' + UNIT_FOOTER;
@@ -165,6 +173,8 @@ const
 begin
   TestNoWarnings(UNIT_TEXT);
 end;
+
+
 
 initialization
  TestFramework.RegisterTest('Processes', TTestWarnings.Suite);

@@ -202,8 +202,15 @@ begin
       Consume(eFalse);
       Result := False;
     end;
+    eIdentifier:
+    begin
+      Consume(eIdentifier);
+      // we don't know, so guess. One of us can't be wrong
+      Result := True;
+    end;
     else
     begin
+      CurrentTokenType;
       Raise PreProcessorParseFailedException.Create('Preprocessor term could not be parsed');
     end;
   end;

@@ -225,6 +225,10 @@ begin
         lcNameToken := lcSourceToken
       else if lcSourceToken.TokenType = ttColon then
         break;
+    end
+    else if (lcChildNode.NodeType = nIdentifier) then
+    begin
+      lcNameToken := TSourceToken(lcChildNode.FirstLeaf);
     end;
   end;
 
