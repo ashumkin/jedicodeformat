@@ -153,7 +153,8 @@ uses
   RemoveEmptyComment in '..\..\Process\RemoveEmptyComment.pas',
   RemoveConsecutiveReturns in '..\..\Process\Returns\RemoveConsecutiveReturns.pas',
   TestRemoveComment in 'TestRemoveComment.pas',
-  TestMaxBlankLines in 'TestMaxBlankLines.pas';
+  TestMaxBlankLines in 'TestMaxBlankLines.pas',
+  TestTextAfterUnitEnd in 'TestTextAfterUnitEnd.pas';
 
 {
   gpprof in '..\..\..\..\..\Program Files\GpProfile\gpprof.pas',

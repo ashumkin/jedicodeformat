@@ -548,7 +548,8 @@ var
 begin
   Recognise(ttDot);
 
-  while (TokenList.Count > 0) and (not TokenList.SourceTokens[0].IsSolid) do
+  { delphi accepts anything after the final end }
+  while (TokenList.Count > 0) do
   begin
     lcCurrentToken := TokenList.ExtractFirst;
     TopNode.AddChild(lcCurrentToken);

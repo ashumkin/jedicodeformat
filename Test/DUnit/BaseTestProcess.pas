@@ -182,7 +182,17 @@ begin
     fcConvert.SingleProcess := nil;
   end;
 
-  lsOut := Trim(fcOutput.Text);
+  lsOut := fcOutput.Text;
+
+  { an extra return is attached from using a stringlist
+    if it wasn't there already
+    this is not ideal for TestTextAfterUnitEnd
+    but better than a trim
+  }
+  if (StrRight(lsOut, 2) = AnsiLineBreak) then
+  begin
+    lsOut := StrChopRight(lsOut, 2);
+  end;
 
   { }
   // debug

@@ -99,7 +99,7 @@ end;
 procedure TCodeWriter.WriteOut(const st: string);
 begin
   //Assert(st <> #0);
-  if st = #0 then
+  if (st = '') or (st = #0) then
     exit;
 
   fsDestText := fsDestText + st;

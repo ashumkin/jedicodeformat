@@ -58,7 +58,7 @@ procedure TReturnsAfterFinalEnd.EnabledVisitSourceToken(
   const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
-  lcCurrent: TSourceToken;
+  lcCurrent, lcPrev: TSourceToken;
   liReturnsWanted, liReturnsFound: integer;
 begin
   lcSourceToken := TSourceToken(pcNode);
@@ -74,15 +74,18 @@ begin
     while lcCurrent <> nil do
     begin
       if lcCurrent.TokenType = ttReturn then
+      begin
         inc(liReturnsFound);
 
-      if liReturnsFound > liReturnsWanted then
-      begin
-        { this returns is surplus - remove it }
-        lcCurrent.TokenType := ttWhiteSpace;
-        lcCurrent.SourceCode := '';
-      end;
+        lcPrev := lcCurrent.PriorToken;
 
+        if (liReturnsFound > liReturnsWanted) and (not lcPrev.IsSolid) then
+        begin
+          { this returns is surplus - remove it }
+          BlankToken(lcCurrent);
+        end;
+      end;
+      
       lcCurrent := lcCurrent.NextToken;
     end;
 
