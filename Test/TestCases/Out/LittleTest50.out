@@ -25,8 +25,8 @@ const
 {$UNDEF FOO}
 {$IF Defined(FOO)}
   warrawak2
-{$ELSEIF Defined(BAR)}
 
+{$ELSEIF Defined(BAR)}
  warrawak3
 {$IFEND}
 
@@ -43,8 +43,8 @@ const
 {$DEFINE FISH}
 {$IF Defined(FOO)}
   warrawak5
-{$ELSEIF Defined(BAR)}
 
+{$ELSEIF Defined(BAR)}
   warrawak6
 {$ELSEIF Defined(FISH)}
 

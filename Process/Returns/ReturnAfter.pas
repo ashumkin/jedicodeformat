@@ -460,7 +460,7 @@ end;
 
 procedure TReturnAfter.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
-  lcNext, lcCommentTest: TSourceToken;
+  lcNext, lcCommentTest, lcNextSpace: TSourceToken;
   liReturnsNeeded: integer;
   lcSourceToken: TSourceToken;
 begin
@@ -518,6 +518,12 @@ begin
 
   if (lcCommentTest.TokenType = ttComment) and (lcCommentTest.CommentStyle = eDoubleSlash) then
     exit;
+
+  { white space that was on the end of the line shouldn't be carried over
+    to indent the next line  }
+  lcNextSpace := lcSourceToken.NextToken;
+  if lcNextSpace.TokenType = ttWhiteSpace then
+    BlankToken(lcNextSpace);
 
   case liReturnsNeeded of
     1:

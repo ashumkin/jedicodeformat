@@ -1,27 +1,21 @@
 unit littletest59;
 
-interface
+interface {$DEFINE FISH}
 
-{$DEFINE FISH}
-
-uses
-{$IF DEFINED(FISH)}
-  Messages
-{$ELSE}
+uses {$IF DEFINED(FISH)}
+  Messages{$ELSE}
 Controls
-
-{$IFEND}  , Forms;
+{$IFEND}, Forms;
 
 const
   foo = 2;
 
 implementation
 
-uses
-{$IF FOO=1}
-  Classes
-{$ELSE}
-SysUtils{$IFEND}  , StdCtrls;
+uses {$IF FOO=1}
+  Classes{$ELSE}SysUtils
+
+{$IFEND}, StdCtrls;
 
 end.
  

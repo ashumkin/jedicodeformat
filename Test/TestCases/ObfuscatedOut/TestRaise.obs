@@ -2,7 +2,7 @@ unit testraise;interface implementation uses sysutils;function test1:tdatetime;v
 datestr:string;begin datestr:='Fooo';result:=0.0;try result:=strtodate(datestr);except
 on econverterror do else raise;end;end;function test1_2:tdatetime;var datestr:string
 ;begin datestr:='Fooo';result:=0.0;try result:=strtodate(datestr);except on econverterror
-do;on ematherror do else raise;end;end;function test2:tdatetime;var datestr:string
+do ;on ematherror do else raise;end;end;function test2:tdatetime;var datestr:string
 ;begin datestr:='Fooo';result:=now;try result:=strtodate(datestr);except on econverterror
 do if datestr=''then raise else end;end;function test3:tdatetime;var datestr:string
 ;begin datestr:='Fooo';result:=now;try result:=strtodate(datestr);except on econverterror

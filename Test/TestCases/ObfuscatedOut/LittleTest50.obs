@@ -1,5 +1,5 @@
-unit littletest50;interface implementation{$DEFINE FOO}{$IF Defined(FOO)}const soy
-=3;{$ELSEIF Defined(BAR)}
+unit littletest50;interface implementation {$DEFINE FOO}{$IF Defined(FOO)}const 
+soy=3;{$ELSEIF Defined(BAR)}
  warrawak1
 {$IFEND}{$UNDEF FOO}{$IF Defined(FOO)}
   warrawak2

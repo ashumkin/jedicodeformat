@@ -38,7 +38,8 @@ type
 
 implementation
 
-uses ParseTreeNode, SourceToken, Tokens, ParseTreeNodeType, FormatFlags;
+uses ParseTreeNode, SourceToken, Tokens, ParseTreeNodeType,
+  FormatFlags, TokenUtils;
 
 
 constructor TRemoveBlankLine.Create;
@@ -66,7 +67,7 @@ begin
     is a blank line, so kill one of them
     thia pplies even in ASM blocks  }
   if (lcNext <> nil) and (lcNext.TokenType = ttReturn) then
-    prVisitResult.Action := aDelete;
+    BlankToken(lcSourceToken);
 
 end;
 

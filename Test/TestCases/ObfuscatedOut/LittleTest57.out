@@ -5,7 +5,6 @@ interface
 implementation
 
 {$ifdef FOO}
-
 procedure Bar;
 var
   b, s: Boolean;
@@ -16,8 +15,8 @@ begin
     else
       s := '';
 
-{$ELSE}
 
+{$ELSE}
   {$IFNDEF FISHDANCE}
     if b then
     begin
@@ -36,8 +35,8 @@ begin
       S := b;
     end;
   
-{$ELSE}
 
+{$ELSE}
     begin
       S := b;
     end
@@ -51,10 +50,8 @@ begin
 
 {$ENDIF}
 
-
 end;
 
 {$ENDIF}
 
 end.
- 

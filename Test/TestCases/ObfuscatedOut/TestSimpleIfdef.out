@@ -7,7 +7,6 @@ implementation
 {$DEFINE FOO}
 {$IFDEF FOO}
 {$ELSE}
-
   for this is not object-pascal, sha la la la la.
 
 {$ENDIF}

@@ -1,4 +1,4 @@
-unit littletest53;interface implementation{$IFDEF REDDWARF}
+unit littletest53;interface implementation {$IFDEF REDDWARF}
 procedure Cat;
 asm
 
@@ -12,4 +12,4 @@ asm
 @@ret:
 end;
 
-{$ENDIF}end. 
+{$ENDIF}end.

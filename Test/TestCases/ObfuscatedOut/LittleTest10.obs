@@ -4,6 +4,6 @@ ex:extended;begin ex:=power(2,length('12345'));ex:=power(2,pos('2','12345'));end
 function streamreadln(source:tstream):string;function streamreadchar(source:tstream
 ):char;begin if source.read(result,sizeof(char))=0 then result:=#26;end;var bufsize
 ,charsread:integer;ch:char;begin bufsize:=255;charsread:=0;setlength(result,bufsize
-);repeat ch:=streamreadchar(source);case ch of#13:if streamreadchar(source)<>#10then
-source.seek(-1,sofromcurrent);#10:ch:=#13;#26:begin ch:=#13;source.seek(0,sofromend
+);repeat ch:=streamreadchar(source);case ch of #13:if streamreadchar(source)<>#10
+then source.seek(-1,sofromcurrent);#10:ch:=#13;#26:begin ch:=#13;source.seek(0,sofromend
 );end;else begin end;end;until(ch=#13);setlength(result,charsread);end;end. 

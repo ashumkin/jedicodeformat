@@ -31,7 +31,7 @@ li:=li+1;end;'d':ch2:='e';else li:=0;end;ch:='a';end;procedure complexcase;var i
 10 do ia:=ia+random(2);3:if ia>5 then ba:=false else ba:=true;14:if ia>5 then for
 liloop:=1 to 10 do ia:=ia+random(2)else while ia<50 do ia:=ia+random(5);5:if ia>6
 then for liloop:=1 to 10 do ia:=ia+random(2);else while ia<50 do ia:=ia+random(5)
-;end;end;procedure layoutmycasestatement;var ia,ib1,icc2:integer;begin;;;;;if random
+;end;end;procedure layoutmycasestatement;var ia,ib1,icc2:integer;begin ;;;;;if random
 (10)>4 then begin ia:=random(20);case ia of 1:ia:=10;2:ia:=random(1000);3:begin ia
 :=random(1000);ib1:=ia+10;end;34:;5:case random(2)of 0:ia:=1;1:ia:=0;else ia:=4;end
 ;else begin raise exception.create('this sucks');end;end;end;end;procedure testnested

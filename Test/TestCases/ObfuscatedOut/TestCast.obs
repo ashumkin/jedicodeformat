@@ -9,7 +9,7 @@ tobject(pointer(li));lcstrings:=tstringlist(tobject(pointer(li)));finally lcstri
 );tnumber=integer;procedure usertypecast;var fred:tfred;jim:tjim;li:integer;lj:tnumber
 ;begin li:=random(3);fred:=tfred(li);jim:=tjim(fred);lj:=tnumber(jim);end;procedure
 hardleft;var lcstrings:tstringlist;lcobj:tobject;begin lcstrings:=tstringlist.create
-;try lcobj:=lcstrings;if lcobj is tstrings then(lcobj as tstrings).classname;if lcobj
-is tstrings then begin(lcobj as tstrings).classname;end;if lcobj is tstrings then
-((lcobj as tstrings)).classname;if lcobj is tstrings then begin((lcobj as tstrings
+;try lcobj:=lcstrings;if lcobj is tstrings then (lcobj as tstrings).classname;if 
+lcobj is tstrings then begin (lcobj as tstrings).classname;end;if lcobj is tstrings
+then ((lcobj as tstrings)).classname;if lcobj is tstrings then begin ((lcobj as tstrings
 )).classname;end;finally lcstrings.free;end;end;end. 

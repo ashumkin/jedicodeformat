@@ -143,7 +143,7 @@ begin
     if lcNextSolid <> nil then
     begin
       if NeedsNoSpace(fcLastSolidToken, lcNextSolid) then
-        prVisitResult.Action := aDelete;
+        BlankToken(lcSourceToken);
     end;
   end
   else

@@ -2,29 +2,25 @@ unit littletest50;
 
 interface
 
-implementation
-
-{$DEFINE FOO}
-{$IF Defined(FOO)}
+implementation {$DEFINE FOO}{$IF Defined(FOO)}
 
 const
   soy = 3;
 {$ELSEIF Defined(BAR)}
-
  warrawak1
+
 {$IFEND}
 {$UNDEF FOO}
 {$IF Defined(FOO)}
-
   warrawak2
 
-{$ELSEIF Defined(BAR)}
 
+{$ELSEIF Defined(BAR)}
  warrawak3
+
 {$IFEND}
 {$DEFINE BAR}
 {$IF Defined(FOO)}
-
   warrawak4
 
 {$ELSEIF Defined(BAR)}
@@ -36,10 +32,9 @@ const
 {$DEFINE FISH}
 {$IF Defined(FOO)}
 
-
   warrawak5
-{$ELSEIF Defined(BAR)}
 
+{$ELSEIF Defined(BAR)}
   warrawak6
 {$ELSEIF Defined(FISH)}
 
@@ -48,14 +43,12 @@ const
 {$IFEND}
 {$DEFINE BAR}
 {$IF Defined(FOO)}
-
   warrawak7
 {$ELSEIF Defined(BAR)}
 
 const
   munchen = 4;
 {$ELSEIF Defined(FISH)}
-
   warrawak8
 {$IFEND}
 

@@ -1,6 +1,6 @@
 unit testinterfaces;interface uses classes;type imyiterator=interface(iunknown)procedure
-first;safecall;procedure next;safecall;end;ientryjournallookupdisp=dispinterface[
-'{D34D4103-FBC4-11D2-94F3-00A0CC39B56F}']property startdate:tdatetime dispid 1;property
+first;safecall;procedure next;safecall;end;ientryjournallookupdisp=dispinterface 
+['{D34D4103-FBC4-11D2-94F3-00A0CC39B56F}']property startdate:tdatetime dispid 1;property
 enddate:tdatetime dispid 2;property maxrows:integer dispid 2000;property iterator
 :imyiterator readonly dispid 2001;function execute:imyiterator;dispid 2002;function
 getnewojectkey:iunknown;dispid 2003;property soy:integer writeonly;end;ientryjournaliterator

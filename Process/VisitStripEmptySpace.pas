@@ -52,7 +52,9 @@ begin
   begin
     { remove }
     if (lcSourceToken.SourceCode = '') then
-      prVisitResult.Action := aDelete
+    begin
+      prVisitResult.Action := aDelete;
+    end
     else
     begin
       lcNext := lcSourceToken.NextToken;

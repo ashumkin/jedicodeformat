@@ -4,7 +4,7 @@ unit Indenter;
   process to indent tokens
   Will borrow some old code, but mostly new
 
-  This is the single most important (and possibly most comples)
+  This is the single most important (and possibly most complex)
   of all the processes
 }
 
@@ -387,14 +387,15 @@ begin
       if (lcPrev <> nil) and (lcPrev.TokenType = ttWhiteSpace) then
       begin
         lcPrev.SourceCode := StrRepeat(AnsiSpace, liDesiredIndent - lcPrev.XPosition + 1);
-      end
+      end;
+      {
       else if liDesiredIndent > 0 then
       begin
         // no prev space token? Insert one
         prVisitResult.Action := aInsertBefore;
         prVisitResult.NewItem := NewSpace(liDesiredIndent);
       end;
-
+      }
     end
     else if liDesiredIndent > liPos then
     begin

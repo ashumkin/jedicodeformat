@@ -15,9 +15,9 @@ type
     function getcomplexarrayprop(const piindex: integer; var pcstring: string): boolean;
   public
     property arrayval[piindex: integer]: integer Read getarray Write setarray; default;
-    property constarrayval [const piindex: integer]: integer
+    property constarrayval[const piindex: integer]: integer
       Read getconstarray Write setconstarray;
-    property complexarrayprop [const piindex: integer;var pcsstring: string]: boolean
+    property complexarrayprop[const piindex: integer;var pcsstring: string]: boolean
       Read getcomplexarrayprop;
   published
     property bar: integer Read fibar Write fibar;
@@ -51,8 +51,7 @@ begin
   Result := piindex * 3;
 end;
 
-function tfoo.
-getcomplexarrayprop(const piindex: integer; var pcstring: string): boolean;
+function tfoo.getcomplexarrayprop(const piindex: integer; var pcstring: string): boolean;
 begin
   Result   := false;
   pcstring := pcstring + 'aa';

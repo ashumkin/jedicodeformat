@@ -1,4 +1,4 @@
-unit littletest54;interface implementation{$IFDEF LINUX}
+unit littletest54;interface implementation {$IFDEF LINUX}
 
 warrawak1
 {$ELSEIF Defined(MSWINDOWS)}
@@ -8,4 +8,4 @@ warrawak2
 
 // must end like this not ENDIF
 
-{$IFEND}end. 
+{$IFEND}end.

@@ -85,6 +85,7 @@ const
   WIDTH_SCORE_FACTOR = 5;
   TO_FAR_SCORE_FACTOR = 10;
   FAR_TO_FAR_SCORE_FACTOR = 0.3;
+  FIRST_TOKENS = 3;
 var
   liEffectiveWidth: integer;
   liEffectivePos: integer;
@@ -139,11 +140,16 @@ begin
       eg lines that start with a very long text string }
       Result     := PAST_END - Round(fUnderflow * FAR_TO_FAR_SCORE_FACTOR);
     end;
+
+    { normally a place to break before the end will be found,
+      but if the first possible place to break is past the end position,
+      don't consider it a bad place because any break past the end is better than none }
+    if piIndex <= FIRST_TOKENS then
+      Result := Result + PLATEAU;
   end;
 
   { general slope up to the right
-    this results in the RHS slope of the plateau being favoured over the left one
-  }
+    this results in the RHS slope of the plateau being favoured over the left one }
   if Result > NOGO_PLACE then
     Result := Result + (piPos div INCREASE_TO_RIGHT_FACTOR);
 end;
@@ -221,6 +227,7 @@ const
   HALF_GOOD = 5;
 
   GOOD1 = 10;
+  GOOD2 = 20;
   GOOD3 = 30;
   GOOD4 = 40;
   GOOD5 = 50;
@@ -236,15 +243,24 @@ begin
   begin
     { good to break after an operator (except unary operators)
     bad to break just before one }
-    if not IsUnaryOperator(pcToken) then
-    begin
-      piScoreAfter := GOOD1;
-      piScoreBefore := BAD2;
-    end
-    else
+    if IsUnaryOperator(pcToken) then
     begin
       { dont break between unary operator and operand }
       piScoreAfter := BAD4;
+    end
+    else
+    begin
+      if (pcToken.TokenType = ttEquals) and pcToken.HasParentNode(nConstDecl) then
+      begin
+        { '=' in a const def is like a ':='}
+        piScoreAfter := GOOD4;
+        piScoreBefore := BAD2;
+      end
+      else
+      begin
+        piScoreAfter := GOOD1;
+        piScoreBefore := BAD2;
+      end;
     end;
   end
   else
@@ -614,7 +630,7 @@ begin
     lcNext := fcTokens.SourceTokens[liLoop];
     liTempWidth := liTempWidth + Length(lcNext.SourceCode);
 
-    { thse scores are simply property of one token }
+    { these scores are simply property of one token }
     liScoreAfter := PositionScore(liLoop, liIndexOfFirstSolidToken, liTempWidth);
     fcScores.Add(liScoreAfter);
   end;
@@ -696,6 +712,10 @@ begin
   FixPos;
 end;
 
+function TLongLineBreaker.IsIncludedInSettings: boolean;
+begin
+  Result := FormatSettings.Returns.RebreakLines <> rbOff;
+end;
 
 (*
   //TEST code used to get a graph of the position scoring function into excel
@@ -720,9 +740,6 @@ initialization
   StringToFile('C:\temp\posvalues.txt', lsData)
 
 *)
-function TLongLineBreaker.IsIncludedInSettings: boolean;
-begin
-  Result := FormatSettings.Returns.RebreakLines <> rbOff;
-end;
+
 
 end.

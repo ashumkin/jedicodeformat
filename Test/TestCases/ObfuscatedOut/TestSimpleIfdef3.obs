@@ -1,4 +1,4 @@
-unit testsimpleifdef3;interface implementation{$DEFINE FOO}{$IFDEF FOO}{$ELSE}
+unit testsimpleifdef3;interface implementation {$DEFINE FOO}{$IFDEF FOO}{$ELSE}
     for this is not object-pascal, sha la la la la.
   
 {$ENDIF}{$UNDEF FOO}{$IFDEF FOO}

@@ -1,2 +1,2 @@
 unit littletest31;interface const soysoysoymakesyoustrong=44;type tsoy=record monkey
-:string[soysoysoymakesyoustrong];greekisland:integer;end;implementation end. 
+:string[soysoysoymakesyoustrong];greekisland:integer;end;implementation end.

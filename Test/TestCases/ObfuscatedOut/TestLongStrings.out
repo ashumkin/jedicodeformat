@@ -12,7 +12,8 @@ const
     'Fnord Fnord Fnord Fnord Fnord Fnord Fnord';
 
 const
-  thewrongway = 'Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord';
+  thewrongway =
+    'Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord';
 
 implementation
 
@@ -30,6 +31,8 @@ type
   end;
 
 const
-  rec: trecked = (s1: 'rec sfsdfsdfsdfsdfsdfsdfsdfffffffffffffffffffffffffffffffffffdffffffffffffdasfds sfsdf ff'; s2: ' dasfsdfssdrfdf ');
+  rec: trecked = (s1:
+    'rec sfsdfsdfsdfsdfsdfsdfsdfffffffffffffffffffffffffffffffffffdffffffffffffdasfds sfsdf ff';
+    s2: ' dasfsdfssdrfdf ');
 
 end.

@@ -103,6 +103,14 @@ begin
     exit;
   end;
 
+  { '[' of array property definition }
+  if (pt.TokenType = ttOpenSquareBracket) and pt.HasParentNode(nProperty) then
+  begin
+    Result := True;
+    exit;
+  end;
+
+
 end;
 
 constructor TNoSpaceBefore.Create;
@@ -136,7 +144,7 @@ begin
   if HasNoSpaceBefore(lcNext) then
   begin
     // the space
-    prVisitResult.Action := aDelete;
+    BlankToken(lcSourceToken);
   end;
 end;
 

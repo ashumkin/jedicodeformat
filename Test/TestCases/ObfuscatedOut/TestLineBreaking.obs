@@ -1,25 +1,26 @@
 unit testlinebreaking;interface implementation uses sysutils;procedure thisisajobforreturninsertion
 ;var a,b:integer;begin a:=10;b:=2*a;end;function doublestring(const ps:string):string
 ;begin result:=ps+ps;end;procedure thisisajobforreturnremoval;var a,b:integer;begin
-a:=10;b:=2*a;end;procedure testtweaks;var a,b:integer;begin a:=random(20);if a<10
-then begin b:=a*2;end;if b<10 then a:=b*2;if b<10 then a:=b*2;a:=a*2;a:=a*2;end;function
-thisfunctionnameisfourty_characters_long(const ps1,ps2:string):string;begin result
-:=ps1+ps2;end;function addfloats(const pf1,pf2:extended):extended;begin result:=pf1
-+pf2;end;procedure easypieces;var ls1,ls2,ls3:string;lf:extended;begin ls1:='this string is fourty characters long '
-+'this string is fourty characters long '+'this string is fourty characters long '
-;ls1:='this string is not fourty characters'+'this string is not fourty characters'
-+'this string is not fourty characters ';ls1:='this string is not fourty chars'+'this string is not fourty chars'
-+'this string is not fourty chars';ls1:='this string is not chars'+'this string is not chars'
-+'this string is not chars';ls1:='this string is not'+'this string is not'+'this string is not'
-;ls1:='this string is'+'this string is'+'this string is';lf:=(1.23456789+2.34567890
-)*-12.34567890+(1.23456789+2.34567890);lf:=(1.23456789+2.34567890)*-12.34567890+(
-1.23456789+2.34567890)*-12.34567890;lf:=(1.23456789+2.34567890)*-12.34567890+(1.23456789
-+2.34567890)*-12.34567890+(1.23456789+2.34567890);lf:=(1.23456789+2.34567890)*-12.34567890
-+((1.23456789+2.34567890)*-12.34567890+(1.23456789+2.34567890));lf:=(1.23456789+2.34567890
-)*(-12.34567890+(1.23456789+2.34567890)*-12.34567890)+(1.23456789+2.34567890)*-12.34567890
-+(1.23456789+2.34567890)*-12.34567890;lf:=((1.23456789+2.34567890)*-12.34567890)+
-((1.23456789+2.34567890)*-12.34567890)+((1.23456789+2.34567890)*-12.34567890)+((1.23456789
-+2.34567890)*-12.34567890);ls2:=thisfunctionnameisfourty_characters_long('this string is fourty characters long '
+a :=10;b:=2*a ;end;procedure testtweaks;var a,b:integer;begin a:=random(20);if a<
+10 then begin b:=a*2;end;if b<10 then a:=b*2;if b<10 then a:=b*2;a:=a*2;a:=a*2;end
+;function thisfunctionnameisfourty_characters_long(const ps1,ps2:string):string;begin
+result:=ps1+ps2;end;function addfloats(const pf1,pf2:extended):extended;begin result
+:=pf1+pf2;end;procedure easypieces;var ls1,ls2,ls3:string;lf:extended;begin ls1:=
+'this string is fourty characters long '+'this string is fourty characters long '
++'this string is fourty characters long ';ls1:='this string is not fourty characters'
++'this string is not fourty characters'+'this string is not fourty characters ';ls1
+:='this string is not fourty chars'+'this string is not fourty chars'+'this string is not fourty chars'
+;ls1:='this string is not chars'+'this string is not chars'+'this string is not chars'
+;ls1:='this string is not'+'this string is not'+'this string is not';ls1:='this string is'
++'this string is'+'this string is';lf:=(1.23456789+2.34567890)*-12.34567890+(1.23456789
++2.34567890);lf:=(1.23456789+2.34567890)*-12.34567890+(1.23456789+2.34567890)*-12.34567890
+;lf:=(1.23456789+2.34567890)*-12.34567890+(1.23456789+2.34567890)*-12.34567890+(1.23456789
++2.34567890);lf:=(1.23456789+2.34567890)*-12.34567890+((1.23456789+2.34567890)*-12.34567890
++(1.23456789+2.34567890));lf:=(1.23456789+2.34567890)*(-12.34567890+(1.23456789+2.34567890
+)*-12.34567890)+(1.23456789+2.34567890)*-12.34567890+(1.23456789+2.34567890)*-12.34567890
+;lf:=((1.23456789+2.34567890)*-12.34567890)+((1.23456789+2.34567890)*-12.34567890
+)+((1.23456789+2.34567890)*-12.34567890)+((1.23456789+2.34567890)*-12.34567890);ls2
+:=thisfunctionnameisfourty_characters_long('this string is fourty characters long '
 ,'this string is fourty characters long ');ls2:=thisfunctionnameisfourty_characters_long
 ('this string is characters long ','this string is characters long ');ls2:=thisfunctionnameisfourty_characters_long
 ('this string is long ','this string is long ');ls2:=thisfunctionnameisfourty_characters_long

@@ -1,4 +1,4 @@
-unit testdefines;interface implementation{$UNDEF FOO}{$UNDEF BAR}procedure test1
+unit testdefines;interface implementation {$UNDEF FOO}{$UNDEF BAR}procedure test1
 ;begin{$IF (not Defined(FOO)) and (not defined(BAR))}end;{$IFEND}{$IF Defined(FOO) or defined(BAR)}
 
   1 wakka wakka wakka

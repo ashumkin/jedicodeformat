@@ -162,6 +162,7 @@ uses
 begin
   Application.Initialize;
   Application.Title := 'Jedi Delphi Code Format Notepad';
+  Application.HelpFile := 'C:\Code\CodeFormat\Jcf2\Output\CodeFormat.hlp';
   Application.CreateForm(TfmJCFNotepad, fmJCFNotepad);
   Application.Run;
 end.

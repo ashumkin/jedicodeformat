@@ -59,7 +59,8 @@ var
   ls1, ls2, ls3: string;
   lf: extended;
 begin
-  ls1 := 'this string is fourty characters long ' + 'this string is fourty characters long ' +
+  ls1 :=
+    'this string is fourty characters long ' + 'this string is fourty characters long ' +
     'this string is fourty characters long ';
   ls1 := 'this string is not fourty characters' + 'this string is not fourty characters' +
     'this string is not fourty characters ';

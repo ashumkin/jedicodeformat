@@ -56,7 +56,9 @@ uses
 
 const
   WordsReturnBefore: TTokenTypeSet =
-    [ttBegin, ttEnd, ttUntil, ttElse, ttTry, ttFinally, ttExcept, ttConditionalCompilationRemoved];
+    [ttBegin, ttEnd, ttUntil, ttElse, ttTry, ttFinally, ttExcept
+    //, ttConditionalCompilationRemoved
+    ];
 
   WordsBlankLineBefore: TTokenTypeSet =
     [ttImplementation, ttInitialization, ttFinalization, ttUses];
@@ -186,8 +188,8 @@ end;
 
 
 function NeedsReturn(const pt, ptNext: TSourceToken): boolean;
-var
-  lcPrev: TSourceToken;
+{var
+  lcPrev: TSourceToken;}
 begin
   Result := False;
 
@@ -202,7 +204,8 @@ begin
     Result := True;
     exit;
   end;
-  
+
+  (*
   { return before compiler directives }
   if (pt.CommentStyle = eCompilerDirective) then
   begin
@@ -213,6 +216,7 @@ begin
         exit;
       end;
   end;
+  *)
 
   { there is not always a return before 'type'
     e.g.

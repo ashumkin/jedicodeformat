@@ -12,6 +12,6 @@ stuff['x'].pointer)^.myindex=0)then foo:=nil;end;procedure dotestderef(var foo:t
 :string;begin result:=fsname;end;function tamoeba.getstuff(const psindex:string):
 tamoeba;begin result:=self;end;function tamoeba.myfudgefactor:tamoeba;begin result
 :=self;end;procedure tamoeba.setname(const value:string);begin fsname:=value;end;
-procedure tamoeba.getvaluelist(list:tstrings);begin(getstuff('0')as tamoeba).myfudgefactor
+procedure tamoeba.getvaluelist(list:tstrings);begin (getstuff('0')as tamoeba).myfudgefactor
 .getvaluelist(list);end;function tamoeba.pointer:ptamoeba;begin result:=@self;end
 ;function tamoeba.myindex:integer;begin result:=1;end;end. 

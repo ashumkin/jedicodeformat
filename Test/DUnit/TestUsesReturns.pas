@@ -79,7 +79,7 @@ procedure TTestUsesReturns.Test1;
 const
   IN_UNIT_TEXT = UNIT_HEADER + ' uses foo; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = SPACED_UNIT_HEADER + AnsiLineBreak +
-    ' uses' + AnsiLineBreak + ' foo;' + AnsiLineBreak + ' ' + UNIT_FOOTER;
+    ' uses' + AnsiLineBreak + 'foo;' + AnsiLineBreak  + UNIT_FOOTER;
 begin
   TestProcessResult(TReturnAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -89,8 +89,8 @@ const
   IN_UNIT_TEXT = UNIT_HEADER + ' uses foo, bar; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = SPACED_UNIT_HEADER + AnsiLineBreak +
     ' uses' + AnsiLineBreak +
-    ' foo,' + AnsiLineBreak +
-    ' bar;' + AnsiLineBreak + ' ' +
+    'foo,' + AnsiLineBreak +
+    'bar;' + AnsiLineBreak +
     UNIT_FOOTER;
 begin
   TestProcessResult(TReturnAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -101,9 +101,9 @@ const
   IN_UNIT_TEXT = UNIT_HEADER + ' uses foo, bar, fish; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = SPACED_UNIT_HEADER + AnsiLineBreak +
     ' uses' + AnsiLineBreak +
-    ' foo,' + AnsiLineBreak +
-    ' bar,' + AnsiLineBreak +
-    ' fish;' + AnsiLineBreak + ' ' + UNIT_FOOTER;
+    'foo,' + AnsiLineBreak +
+    'bar,' + AnsiLineBreak +
+    'fish;' + AnsiLineBreak + UNIT_FOOTER;
 begin
   TestProcessResult(TReturnAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -115,9 +115,9 @@ const
   IN_UNIT_TEXT = UNIT_HEADER + ' uses foo {foo}, bar, fish; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = SPACED_UNIT_HEADER + AnsiLineBreak +
     ' uses' + AnsiLineBreak +
-    ' foo {foo},' + AnsiLineBreak +
-    ' bar,' + AnsiLineBreak +
-    ' fish;' + AnsiLineBreak + ' ' + UNIT_FOOTER;
+    'foo {foo},' + AnsiLineBreak +
+    'bar,' + AnsiLineBreak +
+    'fish;' + AnsiLineBreak + UNIT_FOOTER;
 begin
   TestProcessResult(TReturnAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -127,10 +127,11 @@ const
   IN_UNIT_TEXT = UNIT_HEADER + ' uses foo, {foo} bar, fish; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = SPACED_UNIT_HEADER + AnsiLineBreak +
     ' uses' + AnsiLineBreak +
-    ' foo, {foo} bar,' + AnsiLineBreak +
-    ' fish;' + AnsiLineBreak + ' ' + UNIT_FOOTER;
+    'foo, {foo} bar,' + AnsiLineBreak +
+    'fish;' + AnsiLineBreak + UNIT_FOOTER;
 begin
-  TestProcessResult(TReturnAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);end;
+  TestProcessResult(TReturnAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
 
 initialization
  TestFramework.RegisterTest('Processes', TTestUsesReturns.Suite);

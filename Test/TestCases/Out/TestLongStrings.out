@@ -24,7 +24,8 @@ const
     'Fnord Fnord Fnord Fnord Fnord Fnord Fnord';
 
 const
-  TheWrongWay = 'Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord';
+  TheWrongWay =
+    'Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord';
 
 
 
@@ -34,7 +35,8 @@ procedure LongString;
 var
   lsDuck: string;
 begin
-  lsDuck := 'duck esfdfsdfsdfsdfsddddddddddddddddddds werf sdf sdf sd f sdf '' dsfsdfsdfsdfsdf sd fsd f sd f sdf sd f sdf s';
+  lsDuck :=
+    'duck esfdfsdfsdfsdfsddddddddddddddddddds werf sdf sdf sd f sdf '' dsfsdfsdfsdfsdf sd fsd f sd f sdf sd f sdf s';
 end;
 
 type
@@ -45,6 +47,7 @@ type
 
 const
   rec: TRecked =
-    (s1: 'rec sfsdfsdfsdfsdfsdfsdfsdfffffffffffffffffffffffffffffffffffdffffffffffffdasfds sfsdf ff'; s2: ' dasfsdfssdrfdf ');
+    (s1: 'rec sfsdfsdfsdfsdfsdfsdfsdfffffffffffffffffffffffffffffffffffdffffffffffffdasfds sfsdf ff';
+    s2: ' dasfsdfssdrfdf ');
 
 end.

@@ -34,7 +34,7 @@ je @@inittls
 @@2a:mov eax,[ebx]
 @@2a2:mov eax,[ebx]
 @@2a2a:mov eax,[ebx]
-fmul st(1),st
+fmul st(1),st 
 end;procedure procasm3;var li1,li2:integer;begin li1:=random(10);li2:=random(10);
 asm
 mov ecx,[edx]

@@ -139,8 +139,7 @@ begin
     begin
       ShowMessage('There was a math error: ' + E.Message);
     end
-    else
-      ;
+    else;
   end;
 
   try

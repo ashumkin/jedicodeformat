@@ -7,9 +7,9 @@ implementation
 {$UNDEF FOO}
 {$IFDEF FOO}
 
-
   // apparently not - this would be 'invalid compier directive' if it was not ifdefed out
  {$WARRAWAK}
+
 
 
 {$ENDIF}

@@ -3,4 +3,4 @@ unit littletest56;interface implementation const foo=true;{$IF not Foo}
   warrawak
 
 
-{$ELSE}const bar=3;{$IFEND}end. 
+{$ELSE}const bar=3;{$IFEND}end.

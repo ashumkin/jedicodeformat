@@ -12,10 +12,8 @@ interface
 
 uses
  {$IF DEFINED(FISH)}
-  Messages
-{$ELSE}
-Controls
-{$IFEND}  ,
+  Messages{$ELSE}Controls
+{$IFEND},
   Forms;
 
 const
@@ -25,10 +23,8 @@ implementation
 
 uses
  {$IF FOO=1}
-  Classes
-{$ELSE}
-SysUtils
-{$IFEND}  ,
+  Classes{$ELSE}SysUtils
+{$IFEND},
   StdCtrls;
 
 end.

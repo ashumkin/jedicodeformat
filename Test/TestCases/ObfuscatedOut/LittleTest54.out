@@ -6,19 +6,15 @@ implementation
 
 {$IFDEF LINUX}
 
-
 warrawak1
 {$ELSEIF Defined(MSWINDOWS)}
 
 const
-  foo = 3;
-{$IFEND}
-{$IFDEF MSWINDOWS}
+  foo = 3;{$IFEND}{$IFDEF MSWINDOWS}
 
 const
   bar = 3;
 {$ELSEIF Defined(LINUX)}
-
 
 warrawak2
 
@@ -27,4 +23,3 @@ warrawak2
 {$IFEND}
 
 end.
- 

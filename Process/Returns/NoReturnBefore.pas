@@ -131,7 +131,7 @@ begin
 
     if HasNoReturnBefore(lcNext) then
     begin
-      prVisitResult.Action := aDelete;
+      BlankToken(lcSourceToken);
     end;
   end;
 end;

@@ -45,7 +45,7 @@ type
 
 implementation
 
-uses SourceToken, Tokens, FormatFlags;
+uses SourceToken, Tokens, FormatFlags, TokenUtils;
 
 constructor TRemoveConsecutiveWhiteSpace.Create;
 begin
@@ -62,7 +62,7 @@ begin
 
   { delete whitespace if the last one was also whitespace }
   if (lcSourceToken.TokenType = ttWhiteSpace) and fbWhiteSpaceLast then
-    prVisitResult.action := aDelete;
+    BlankToken(lcSourceToken);
 
   fbWhiteSpaceLast := (lcSourceToken.TokenType = ttWhiteSpace);
 end;

@@ -1,2 +1,2 @@
 unit littletest22;interface implementation procedure false;begin end;function null
-:integer;begin result:=3;end;end. 
+:integer;begin result:=3;end;end.

@@ -2,19 +2,16 @@ unit testsimpleifdef5;
 
 interface
 
-implementation
-
-{$IFDEF MSWINDOWS}
+implementation {$IFDEF MSWINDOWS}
 
 uses Windows;
 
 {$ELSE}
 
-
   {$IF FOO}
   uses LibFoo;
-  {$IFEND}
-
+  
+{$IFEND}
 {$ENDIF}
 
 end.

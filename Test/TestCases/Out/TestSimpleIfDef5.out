@@ -10,8 +10,8 @@ uses Windows;
 {$ELSE}
   {$IF FOO}
   uses LibFoo;
-  {$IFEND}
-
+  
+{$IFEND}
 {$ENDIF}
 
 end.

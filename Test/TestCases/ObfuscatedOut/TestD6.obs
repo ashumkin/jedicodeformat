@@ -21,4 +21,4 @@ platform;begin li:=4;result:=li;end;function baz:integer;var li:integer deprecat
 :=4;end;procedure hasobsoleterecords;type tfoo=record libar:integer;libaz:string;
 end deprecated;tfoo2=record bar:integer;case spon:boolean of true:(baz:pchar);false
 :(fred:integer);end platform;begin end;function tsomemoreclass.baz:integer;begin 
-result:=5;end;end. 
+result:=5;end;end.

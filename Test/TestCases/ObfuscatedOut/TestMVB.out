@@ -33,8 +33,7 @@ type
         highpart:
         longint);
 {$IFNDEF BCB3}
-      1: (quadpart: longlong);
-{$ENDIF}
+      1: (quadpart: longlong);{$ENDIF}
   end;
 
 const
@@ -44,9 +43,9 @@ const
 
 {$IFDEF MATH_EXTENDED_PRECISION}
 
-
   DynFloatArrayHigh = 214748363;  // 2^31 / SizeOf(Extended)
-  {$ENDIF}
+  
+{$ENDIF}
 procedure i64assign(var i: int64; low, high: longint);
 procedure i64copy(var dest: int64; const Source: int64);
 function i64compare(const i1, i2: int64): integer;

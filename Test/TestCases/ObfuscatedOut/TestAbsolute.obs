@@ -1,3 +1,3 @@
 unit testabsolute;interface implementation uses classes;function methodpointertodouble
 (pmmethod:tnotifyevent):double;var lmmethod:tnotifyevent;ldcast:double absolute pmmethod
-;begin lmmethod:=pmmethod;result:=ldcast end;end. 
+;begin lmmethod:=pmmethod;result:=ldcast end;end.

@@ -9,12 +9,12 @@ fix12 write fix12;end;tverbose=class(TObject)private fix1:integer;fix6:integer;f
 property x1:integer read fix1 write fix1;property x2:integer read fix2;property x3
 :integer read fix3;procedure x4;property x5:integer read fix5;property x6:integer
 read fix6;function x7:boolean;property x8:integer read fix8;property x9:integer read
-fix9 write fix9;function x10:boolean;function x11:boolean;property x12:integer read
+fix9 write fix9;function x10:boolean;function x11:boolean;property x12 :integer read
 fix12 write fix12;end;thascomments=class(TObject)private ffred1:integer;ffred3:integer
 ;ffred2:integer;ffred4:integer;procedure setfred1(const value:integer);procedure 
 setfred2(const value:integer);procedure setfred3(const value:integer);procedure setfred4
 (const value:integer);protected public property fred1:integer read ffred1 write setfred1
-;property fred2:integer read ffred2 write setfred2;property fred3:integer read ffred3
+;property fred2:integer read ffred2 write setfred2;property fred3 :integer read ffred3
 write setfred3;property fred4:integer read ffred4 write setfred4;end;tlongproperties
 =class(TObject)private fithisisaverylongproperynameindeedy:integer;fithisisaverylongproperynameindeedynumbertwo
 :integer;function getanarraypropertywithanabsurdlylongname(const pithisisanindextothearrayproperty
@@ -23,7 +23,7 @@ write setfred3;property fred4:integer read ffred4 write setfred4;end;tlongproper
 :integer read fithisisaverylongproperynameindeedy write fithisisaverylongproperynameindeedy
 ;property anarraypropertywithanabsurdlylongname[const pithisisanindextothearrayproperty
 :integer]:integer read getanarraypropertywithanabsurdlylongname write setanarraypropertywithanabsurdlylongname
-;default;property thisisaverylongproperynameindeedynumbertwo:integer read fithisisaverylongproperynameindeedynumbertwo
+;default;property thisisaverylongproperynameindeedynumbertwo :integer read fithisisaverylongproperynameindeedynumbertwo
 write fithisisaverylongproperynameindeedynumbertwo;end;implementation function tterse
 .x10:boolean;begin result:=false;end;function tterse.x11:boolean;begin result:=false
 ;end;procedure tterse.x4;begin end;function tterse.x7:boolean;begin result:=false

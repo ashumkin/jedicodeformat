@@ -13,4 +13,4 @@ emptyblock;end;end;function selffn:integer;begin selffn:=3;end;function spon:int
 .fred1:=3;result:=3;end;function fred2:integer;begin testwarnings.fred2:=3;result
 :=3;end;function level1:integer;function level2:integer;function level3:integer;begin
 level1:=5;level2:=6;level3:=7;end;begin level1:=3;level2:=level3;end;begin level1
-:=0;level1:=level2+level1;end;end. 
+:=0;level1:=level2+level1;end;end.

@@ -13,10 +13,9 @@ asm
         call    TroutALaCreme
 
 {$ELSE}
-
         pop MealStack
-{$ENDIF}
 
+{$ENDIF}
       call  __EnjoyYourMeal
 @@ret:
 end;

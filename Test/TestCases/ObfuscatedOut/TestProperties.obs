@@ -4,20 +4,20 @@ setarray(piindex:integer;pivalue:integer);function getconstarray(const piindex:i
 ):integer;procedure setconstarray(const piindex:integer;pivalue:integer);function
 getcomplexarrayprop(const piindex:integer;var pcstring:string):boolean;public property
 arrayval[piindex:integer]:integer read getarray write setarray;default;property constarrayval
-[const piindex:integer]:integer read getconstarray write setconstarray;property complexarrayprop
-[const piindex:integer;var pcsstring:string]:boolean read getcomplexarrayprop;published
-property bar:integer read fibar write fibar;property baz:integer index 3 read fibaz
-write fibaz;property wibble:integer read fiwibble write fiwibble stored false;property
-fish:integer index 5 read fifish write fifish default 6;property quux:integer index
-5 read fiquux write fiquux nodefault;end;type tbar=class(TObject)function getarray
-(piindex:integer):integer;procedure setarray(piindex:integer;pivalue:integer);public
-property arrayval[piindex:integer]:integer read getarray write setarray;default;end
-;type thasapoint=class(TObject)private fpoint:tpoint;public property x:integer read
-fpoint.x;property y:integer read fpoint.y write fpoint.y;end;implementation function
-tfoo.getarray(piindex:integer):integer;begin result:=piindex*3;end;function tfoo.
-getcomplexarrayprop(const piindex:integer;var pcstring:string):boolean;begin result
-:=false;pcstring:=pcstring+'aa';end;function tfoo.getconstarray(const piindex:integer
-):integer;begin result:=piindex*3;end;procedure tfoo.setarray(piindex,pivalue:integer
-);begin end;procedure tfoo.setconstarray(const piindex:integer;pivalue:integer);begin
-end;function tbar.getarray(piindex:integer):integer;begin result:=piindex*4;end;procedure
-tbar.setarray(piindex,pivalue:integer);begin end;end. 
+[const piindex :integer ]:integer read getconstarray write setconstarray;property
+complexarrayprop[const piindex:integer;var pcsstring:string]:boolean read getcomplexarrayprop
+;published property bar:integer read fibar write fibar;property baz:integer index
+3 read fibaz write fibaz;property wibble:integer read fiwibble write fiwibble stored
+false;property fish:integer index 5 read fifish write fifish default 6;property quux
+:integer index 5 read fiquux write fiquux nodefault;end;type tbar=class(TObject)function
+getarray(piindex:integer):integer;procedure setarray(piindex:integer;pivalue:integer
+);public property arrayval[piindex:integer]:integer read getarray write setarray;
+default;end;type thasapoint=class(TObject)private fpoint:tpoint;public property x
+:integer read fpoint.x;property y:integer read fpoint.y write fpoint.y;end;implementation
+function tfoo.getarray(piindex:integer):integer;begin result:=piindex*3;end;function
+tfoo.getcomplexarrayprop(const piindex:integer;var pcstring:string):boolean;begin
+result:=false;pcstring:=pcstring+'aa';end;function tfoo.getconstarray(const piindex
+:integer):integer;begin result:=piindex*3;end;procedure tfoo.setarray(piindex,pivalue
+:integer);begin end;procedure tfoo.setconstarray(const piindex:integer;pivalue:integer
+);begin end;function tbar.getarray(piindex:integer):integer;begin result:=piindex
+*4;end;procedure tbar.setarray(piindex,pivalue:integer);begin end;end. 

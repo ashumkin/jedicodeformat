@@ -1,4 +1,4 @@
-unit littletest57;interface implementation{$ifdef FOO}
+unit littletest57;interface implementation {$ifdef FOO}
 procedure Bar;
 var
   b, s: Boolean;
@@ -42,4 +42,4 @@ begin
 
 end;
 
-{$ENDIF}end. 
+{$ENDIF}end.

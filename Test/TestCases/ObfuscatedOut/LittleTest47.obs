@@ -6,4 +6,4 @@ unit littletest47;interface uses windows;type pdiobjectdataformat=^tdiobjectdata
 =((pguid:@guid_key;dwofs:1;dwtype:didft_button or didft_anyinstance;dwflags:0));type
 tdiobjectdataformatarray=array[0..0]of tdiobjectdataformat;const _c_dfdikeyboard_objects2
 :tdiobjectdataformatarray=((pguid:@guid_key;dwofs:1;dwtype:didft_button or didft_anyinstance
-;dwflags:0));implementation end. 
+;dwflags:0));implementation end.

@@ -2,10 +2,10 @@ unit testrunonline;interface implementation function randomint:integer;begin res
 :=random(20);end;function randomboolean:boolean;begin result:=(random(2)=0);end;function
 haslotsofarguments(b1,b2,b3,b4,b5:boolean):boolean;begin result:=(b1 or b2 or b3 
 or b4 or b5 and randomboolean)or randomboolean;end;procedure temptest2;var b1,b2,
-b3,b4,b5:boolean;begin while(randomboolean and b1 and haslotsofarguments(b1,b2,b3
-,b4,b5))or(randomboolean and b2 and haslotsofarguments(b1,b2,b3,b4,b5))or(randomboolean
-xor b3 xor haslotsofarguments(b1,b2,b3,b4,b5))or(randomboolean and b4 and haslotsofarguments
-(b1,b2,b3,b4,b5))or(randomboolean or randomboolean or randomboolean or randomboolean
+b3,b4,b5:boolean;begin while (randomboolean and b1 and haslotsofarguments(b1,b2,b3
+,b4,b5))or(randomboolean and b2 and haslotsofarguments(b1,b2,b3,b4,b5))or (randomboolean
+xor b3 xor haslotsofarguments(b1,b2,b3,b4,b5))or (randomboolean and b4 and haslotsofarguments
+(b1,b2,b3,b4,b5))or (randomboolean or randomboolean or randomboolean or randomboolean
 )do end;procedure temptest;var b1,b2,b3,b4,b5:boolean;begin while(randomboolean and
 b1 and haslotsofarguments(b1,b2,b3,b4,b5))or(randomboolean or b2 or haslotsofarguments
 (b1,b2,b3,b4,b5))or(randomboolean xor b3 xor haslotsofarguments(b1,b2,b3,b4,b5))or
@@ -19,25 +19,25 @@ haslotsofarguments(b1,b2,b3,b4,b5),randomboolean or b2 or haslotsofarguments(b1,
 ,b3,b4,b5),randomboolean xor b3 xor haslotsofarguments(b1,b2,b3,b4,b5),randomboolean
 and b4 and haslotsofarguments(b1,b2,b3,b4,b5),randomboolean or randomboolean or randomboolean
 or randomboolean);b1:=randomboolean or randomboolean or randomboolean or randomboolean
-or randomboolean or randomboolean and(b1 xor b2 and randomboolean)or haslotsofarguments
+or randomboolean or randomboolean and (b1 xor b2 and randomboolean)or haslotsofarguments
 (randomboolean and b1 and haslotsofarguments(b1,b2,b3,b4,b5),randomboolean or b2 
 or haslotsofarguments(b1,b2,b3,b4,b5),randomboolean xor b3 xor haslotsofarguments
 (b1,b2,b3,b4,b5),randomboolean and b4 and haslotsofarguments(b1,b2,b3,b4,b5),randomboolean
 or randomboolean or randomboolean or randomboolean);if(randomboolean and b1 and haslotsofarguments
-(b1,b2,b3,b4,b5))or(randomboolean or b2 or haslotsofarguments(b1,b2,b3,b4,b5))or(
-randomboolean xor b3 xor haslotsofarguments(b1,b2,b3,b4,b5))or(randomboolean and 
-b4 and haslotsofarguments(b1,b2,b3,b4,b5))or(randomboolean or randomboolean or randomboolean
+(b1,b2,b3,b4,b5))or(randomboolean or b2 or haslotsofarguments(b1,b2,b3,b4,b5))or 
+(randomboolean xor b3 xor haslotsofarguments(b1,b2,b3,b4,b5))or(randomboolean and
+b4 and haslotsofarguments(b1,b2,b3,b4,b5))or (randomboolean or randomboolean or randomboolean
 or randomboolean)then begin b1:=false;end;while(randomboolean and b1 and haslotsofarguments
 (b1,b2,b3,b4,b5))or(randomboolean or b2 or haslotsofarguments(b1,b2,b3,b4,b5))or(
-randomboolean xor b3 xor haslotsofarguments(b1,b2,b3,b4,b5))or(randomboolean and 
+randomboolean xor b3 xor haslotsofarguments(b1,b2,b3,b4,b5))or (randomboolean and
 b4 and haslotsofarguments(b1,b2,b3,b4,b5))or(randomboolean or randomboolean or randomboolean
-or randomboolean)do begin break;end;repeat b1:=not b1;until(randomboolean and b1 
-and haslotsofarguments(b1,b2,b3,b4,b5))or(randomboolean or b2 or haslotsofarguments
+or randomboolean)do begin break;end;repeat b1:=not b1;until (randomboolean and b1
+and haslotsofarguments(b1,b2,b3,b4,b5))or (randomboolean or b2 or haslotsofarguments
 (b1,b2,b3,b4,b5))or(randomboolean xor b3 xor haslotsofarguments(b1,b2,b3,b4,b5))or
 (randomboolean and b4 and haslotsofarguments(b1,b2,b3,b4,b5))or(randomboolean or 
 randomboolean or randomboolean or randomboolean);case(randomboolean and b1 and haslotsofarguments
-(b1,b2,b3,b4,b5))or(randomboolean or b2 or haslotsofarguments(b1,b2,b3,b4,b5))or(
-randomboolean xor b3 xor haslotsofarguments(b1,b2,b3,b4,b5))or(randomboolean and 
+(b1,b2,b3,b4,b5))or (randomboolean or b2 or haslotsofarguments(b1,b2,b3,b4,b5))or
+(randomboolean xor b3 xor haslotsofarguments(b1,b2,b3,b4,b5))or (randomboolean and
 b4 and haslotsofarguments(b1,b2,b3,b4,b5))or(randomboolean or randomboolean or randomboolean
 or randomboolean)of true:b3:=false;false:b4:=false;end;end;procedure progressive;
 var b1,b2,b3,b4,b5,b6:boolean;begin b1:=randomboolean;b2:=randomboolean;b3:=randomboolean

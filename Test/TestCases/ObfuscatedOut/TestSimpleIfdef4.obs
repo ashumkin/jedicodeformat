@@ -6,4 +6,4 @@ begin
   I := 3;
 end;
 {$ENDIF}{$IFDEF MSWINDOWS}var k:integer
-;begin k:=4;end;{$ENDIF}procedure bar;begin end;end. 
+;begin k:=4;end;{$ENDIF}procedure bar;begin end;end.

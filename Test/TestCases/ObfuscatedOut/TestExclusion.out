@@ -28,7 +28,7 @@ function GetLimit: integer;
 begin
 Result := 20;
 end;
-{ can format again } {*)}  begin
+{ can format again } {*)}begin
     Result := random(getlimit);
   end;
 

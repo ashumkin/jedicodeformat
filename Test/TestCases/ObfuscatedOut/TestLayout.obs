@@ -3,9 +3,9 @@ unit testlayout;interface implementation uses sysutils,classes;procedure testsim
 ;var2:integer;begin end;procedure allneatlylaidout;var ia,ib1,icc2:integer;ba:boolean
 ;begin ia:=random(10);ib1:=0;icc2:=0;if random(10)>5 then begin ia:=random(10);ib1
 :=0;icc2:=0;if random(10)>5 then begin ia:=random(10);ib1:=0;icc2:=0;ba:=(ansicomparetext
-('fred','jim')>0)and(random(10)>5)or(random(20)>15)or(random(20)>15)or(random(20)
->15)or(random(20)>15)or(random(20)>15)or(random(20)>15);end;end else ia:=0;end;procedure
-aligntheequalssigns;var v1:integer;var2:integer;variable3:integer;variable4withalongname
+('fred','jim')>0)and(random(10)>5)or (random(20)>15)or(random(20)>15)or(random(20
+)>15)or (random(20)>15)or(random(20)>15)or(random(20)>15);end;end else ia:=0;end;
+procedure aligntheequalssigns;var v1:integer;var2:integer;variable3:integer;variable4withalongname
 :integer;begin v1:=0;var2:=v1+1;v1:=var2+v1;v1:=0;var2:=v1+1;variable3:=var2+1;var2
 :=v1+1;v1:=var2+v1;var2:=v1+1;variable3:=var2+1;variable4withalongname:=12;var2:=
 v1+1;v1:=var2+v1;variable4withalongname:=12;var2:=v1+1;v1:=0;end;procedure alignlongline

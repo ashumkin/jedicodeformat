@@ -3,9 +3,9 @@ unit testmarcov;
 interface
 
 var
-  bigs, storesc, searchdepth, mcount, rrate, hyva, huonoja, viimeksi, wmat,
-  bmat, bonus, movesmade, posvalue: integer;
-  kpos, positions, pos2: longint;
+  bigs, storesc, searchdepth, mcount, rrate, hyva, huonoja, viimeksi, wmat, bmat,
+  bonus, movesmade, posvalue: integer;
+  kpos, positions, pos2:      longint;
   mwk, mbk, mwra, mbra, mwrh, mbrh, viewscores, analysis, keskeyta, opening, stopcalc: boolean;
 
 implementation

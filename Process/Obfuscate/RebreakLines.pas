@@ -2,7 +2,7 @@ unit RebreakLines;
 
 { AFS 29 December 2002
 
-  Obfucate process
+  Obfuscate process
   break lines at regular intervals
 }
 
@@ -45,7 +45,7 @@ implementation
 
 uses
   JclStrings,
-  SourceToken, Tokens, FormatFlags;
+  SourceToken, Tokens, FormatFlags, TokenUtils;
 
 constructor TRebreakLines.Create;
 begin
@@ -55,6 +55,8 @@ begin
 end;
 
 procedure TRebreakLines.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+const
+  LINE_LENGTH = 80;
 var
   lcToken: TSourceToken;
   lcNext, lcNew: TSourceToken;
@@ -69,12 +71,12 @@ begin
   begin
     liLen := Length(lcToken.SourceCode);
 
-    if (XPos + liLen) > 80 then
+    if (XPos + liLen) > LINE_LENGTH then
     begin
       { no space directly after the new return }
       lcNext := lcToken.NextToken;
-      if (lcNext <> nil) and (lcNext.TokenType = ttWhiteSpace) then
-          lcNext.SourceCode := '';
+      if (lcNext <> nil) and (lcNext.TokenType = ttWhiteSpace) and (lcNext.SourceCode <> '') then
+          BlankToken(lcNext);
 
       { need a return? }
       if (lcNext <> nil) and (lcNext.TokenType <> ttReturn) then

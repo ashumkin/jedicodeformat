@@ -178,6 +178,7 @@ begin
   ApplyVisitorType(TRemoveUnneededWhiteSpace);
 
   ApplyVisitorType(TVisitSetXY);
+  ApplyVisitorType(TVisitStripEmptySpace);
   ApplyVisitorType(TRebreakLines);
 end;
 
@@ -231,7 +232,6 @@ begin
   ApplyVisitorType(TVisitStripEmptySpace);
 end;
 
-
 procedure TAllProcesses.LineBreaking;
 begin
   ApplyVisitorType(TReturnChars);
@@ -263,6 +263,15 @@ begin
 
   ApplyVisitorType(TBlockStyles);
 
+  { long line breaking is a bit of a circular thing
+    The indentation before the code on the line
+    influences if (and where) to insert a break
+
+    But indeting needs to happen the linebreaker to indent the trailing line
+    Fortunately this is only an issue when code is really badly formatted
+    e.g. de-obfucation }
+
+  ApplyVisitorType(TVisitStripEmptySpace);
   ApplyVisitorType(TVisitSetXY);
   ApplyVisitorType(TLongLineBreaker);
 

@@ -43,7 +43,8 @@ implementation
 
 uses
   JclStrings,
-  { local } SourceToken, Tokens, ParseTreeNodeType, FormatFlags;
+  { local } SourceToken, Tokens, ParseTreeNodeType,
+    FormatFlags, TokenUtils;
 
 function TextOrNumberString(const str: string): boolean;
 var
@@ -71,6 +72,8 @@ const
 
 
 function NeedSpaceBetween(const pt1, pt2: TSourceToken): boolean;
+var
+  lcLast: TSourceToken;
 begin
   Result := True;
 
@@ -79,6 +82,18 @@ begin
     Result := False;
     exit;
   end;
+
+  { can loose everything after the final end }
+  if (pt1.TokenType = ttDot) then
+  begin
+    lcLast := pt1.PriorSolidToken;
+    if (lcLast.TokenType = ttEnd) and (pt1.HasParentNode(TopOfFileSection, 1)) then
+    begin
+      Result := False;
+      exit;
+    end;
+  end;
+
 
   { need to keep space before ASM @@ thingy}
   if (pt2.TokenType = ttAtSign) and pt2.HasParentNode(nAsmStatement) then
@@ -100,6 +115,20 @@ begin
 
   { or dot or comma etc }
   if (pt1.TokenType in MiscUnspacedTokens) or (pt2.TokenType in MiscUnspacedTokens) then
+  begin
+    Result := False;
+    exit;
+  end;
+
+  { before a comment. Comments are removed by another process (except for compiler directives) }
+  if (pt2.TokenType = ttComment) then
+  begin
+    Result := False;
+    exit;
+  end;
+
+  { similartly, after a comment unless it starts with '//' }
+  if (pt1.TokenType = ttComment) and (pt1.CommentStyle <> eDoubleSlash) then
   begin
     Result := False;
     exit;
@@ -154,7 +183,7 @@ begin
     exit;
 
   if not NeedSpaceBetween(lcBefore, lcAfter) then
-    prVisitResult.Action := aDelete;
+    BlankToken(lcSpace);
 end;
 
 end.

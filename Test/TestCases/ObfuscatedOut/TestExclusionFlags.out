@@ -14,12 +14,12 @@ end;
 
 procedure testindent;//jcf:indent=off
 var
- a: integer;
+a: integer;
 begin
- a := 3;
+a := 3;
 if a > 12 then
 begin
- a := 12;//jcf:indent=on
+a := 12;//jcf:indent=on
   end;
 end;
 
@@ -39,7 +39,7 @@ var
   a:      integer;
   b2:     string;
   cthree: double;
-begin//jcf:align=off
+begin //jcf:align=off
   a := 1;
   b2 := 'hello';
   cthree := 2.3;//jcf:align=on
@@ -80,8 +80,8 @@ begin
 end;
 
 procedure testblockstyles;
-begin//jcf:blockstyle=off
-     //jcf:blockstyle=on
+begin //jcf:blockstyle=off
+      //jcf:blockstyle=on
 end;
 
 procedure givewarnings;

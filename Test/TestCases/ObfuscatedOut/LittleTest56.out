@@ -8,15 +8,12 @@ const
   foo = true;
 {$IF not Foo}
 
-
   warrawak
 
 
 {$ELSE}
 
 const
-  bar = 3;
-{$IFEND}
+  bar = 3;{$IFEND}
 
 end.
- 

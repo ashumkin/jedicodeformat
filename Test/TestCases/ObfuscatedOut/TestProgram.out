@@ -104,8 +104,7 @@ begin
       end
       else
       begin
-        applicationlog.logmessage(merror, 'unknown command line parameter ' +
-          ParamStr(iparamloop));
+        applicationlog.logmessage(merror, 'unknown command line parameter ' + ParamStr(iparamloop));
       end;
     end;
     excludescreensaver := tnoscreensaver.Create(application);

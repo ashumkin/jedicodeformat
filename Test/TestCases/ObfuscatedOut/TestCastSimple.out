@@ -29,8 +29,7 @@ end;
 procedure testsurplusbrackets;
 begin
   ((lcbutton as TObject)).Free;
-  (((lcobj as TStringList))).
-    Free;
+  (((lcobj as TStringList))).Free;
   ((((lcstrings as TObject)))).Free;
 end;
 
@@ -38,11 +37,11 @@ procedure testsurplusbrackets2;
 begin
   lcbutton.parent.parent.owner.Free;
   (lcbutton.parent.parent).owner.Free;
-  ((lcbutton.parent).
-    parent).owner.Free;
+  ((lcbutton.
+    parent).parent).owner.Free;
   (((lcbutton).parent).parent).owner.Free;
-  ((((lcbutton).parent).
-    parent).owner).Free;
+  ((((lcbutton).
+    parent).parent).owner).Free;
 end;
 
 procedure test2;
@@ -80,8 +79,7 @@ begin
   lc := ((((((lcobj as TButton)) as TObject)).owner as TComponent));
   lc := (lcbutton.parent as TComponent).owner;
   lc := (lcbutton.parent.parent as TComponent).owner;
-  lc :=
-    (lcbutton.parent.parent).owner;
+  lc := (lcbutton.parent.parent).owner;
   lc := ((lcbutton.parent).parent).owner;
   lc := (((lcbutton).parent).parent).owner;
   lc := ((((lcbutton).parent).parent).owner);

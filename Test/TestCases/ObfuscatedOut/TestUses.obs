@@ -1,2 +1,2 @@
-unit testuses;interface uses sysutils,comctrls,classes,windows;implementation uses
+unit testuses;interface uses sysutils,comctrls,classes,windows ;implementation uses
 activex,testclasslines,testcast;end. 

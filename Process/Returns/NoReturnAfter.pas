@@ -259,7 +259,7 @@ begin
     (fcLastSolidToken <> nil) and NeedsNoReturn(fcLastSolidToken) then
   begin
     // must repeat this until all done
-    prVisitResult.Action := aDelete;
+    BlankToken(lcSourceToken);
     fbDoneWork := True;
   end
   else

@@ -15,6 +15,7 @@ type
 
   EJclError = class(Exception)
   {$IFNDEF DELPHI5_UP}
+
   public
     constructor CreateRes(ResStringRec: PResStringRec); overload;
     constructor CreateResFmt(ResStringRec: PResStringRec; const Args: array of const);

@@ -562,14 +562,14 @@ begin
   AcceptVisitor(pcVisitor, lrVisitResult);
   // process the results
 
-  case lrVisitResult.action of
+  case lrVisitResult.Action of
     aNone: ;
     aDelete:
-    begin
-      // remove self - do it via the parent
-      Parent.RemoveChild(self);
-      // can't go on here, no more self
-      exit;
+     begin
+       // remove self - do it via the parent
+       Parent.RemoveChild(self);
+       // can't go on here, no more self
+       exit;
     end;
     aInsertAfter:
     begin

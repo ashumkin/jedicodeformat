@@ -28,9 +28,10 @@ const
 implementation
 
 const
-  somestrings: array[1..14] of
-    string = ('Fnord', 'Fnord', 'Fnord', 'Fnord', 'Fnord',
-    'Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord', 'Fnord', 'Fnord', 'This is a somewhat longer string which, although it digesses a bit just to gain length, does not contain very many fnords', 'Fnord', 'Fnord', 'Fnord Fnord Fnord', 'Fnord', 'Fnord');
+  somestrings: array[1..14] of string =
+    ('Fnord', 'Fnord', 'Fnord', 'Fnord', 'Fnord',
+    'Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord', 'Fnord', 'Fnord',
+    'This is a somewhat longer string which, although it digesses a bit just to gain length, does not contain very many fnords', 'Fnord', 'Fnord', 'Fnord Fnord Fnord', 'Fnord', 'Fnord');
 
 end.
  

@@ -1,4 +1,4 @@
-unit testsimpleifdef6;interface implementation{$DEFINE FOO}{$IFDEF MSWINDOWS}uses
+unit testsimpleifdef6;interface implementation {$DEFINE FOO}{$IFDEF MSWINDOWS}uses
 windows;{$ELSE}
    { even if it's not parsed, the block starts and ends must match
      the unparsed block ends at the *second* endif }

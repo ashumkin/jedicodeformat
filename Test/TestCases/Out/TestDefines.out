@@ -102,11 +102,9 @@ end;
 
 {$IF (Defined(FOO) or defined(BAR)) and not defined(FISH)}
   8 wakka wakka wakka
-
 {$IFEND}
 
 {$IF not defined(FISH) and (Defined(FOO) or defined(BAR)) }
-
   9 wakka wakka wakka
 {$IFEND}
 
