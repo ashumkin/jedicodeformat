@@ -17,6 +17,7 @@ type
     fsJcfParams: string;
     fsRefDir: string;
     fsFileMask: string;
+    fsOutputExt: string;
 
     fsFileNames: TStringList;
 
@@ -75,51 +76,62 @@ var
   lsJcfExe: string;
   liLoop: integer;
   lbRes: boolean;
+var
+  lsSaveExt: string;
 begin
-  Assert(fsJcfParams <> '');
-  Assert(fsRefDir <> '');
-  Assert(fsFileMask <> '');
+  lsSaveExt := GetRegSettings.OutputExtension;
 
-  // delete the output files
-  GetOutFiles;
+  try
+    GetRegSettings.OutputExtension := fsOutputExt;
+    GetRegSettings.WriteAll;
 
-  if fsFileNames.Count > 0 then
-  begin
-    for liLoop := 0 to fsFileNames.Count - 1 do
-      DeleteFile(TEST_FILES_DIR + fsFileNames[liLoop]);
+    Assert(fsJcfParams <> '');
+    Assert(fsRefDir <> '');
+    Assert(fsFileMask <> '');
 
-    // should be none left
+    // delete the output files
     GetOutFiles;
+
+    if fsFileNames.Count > 0 then
+    begin
+      for liLoop := 0 to fsFileNames.Count - 1 do
+        DeleteFile(TEST_FILES_DIR + fsFileNames[liLoop]);
+
+      // should be none left
+      GetOutFiles;
+    end;
+
+    CheckEquals(0, fsFileNames.Count, 'file could not be deleted');
+
+
+    // build them again
+    lsJcfExe := EXE_FILES_DIR + 'jcf.exe';
+    Check(FileExists(lsJcfExe), 'could not find program ' + lsJcfExe);
+
+    lbRes := ShellExecAndWait(lsJcfExe, fsJcfParams);
+    Check(lbRes, 'program execution failed');
+
+    // should be back
+    GetOutFiles;
+    CheckEquals(EXPECTED_FILE_COUNT, fsFileNames.Count);
+
+    // for each, compare to the reference versions
+    GetOutFiles;
+
+    for liLoop := 0 to fsFileNames.Count - 1 do
+      CompareFileToRef(fsFileNames[liLoop]);
+
+  finally
+    GetRegSettings.OutputExtension := lsSaveExt;
+    GetRegSettings.WriteAll;
   end;
-
-  CheckEquals(0, fsFileNames.Count, 'file could not be deleted');
-
-
-  // build them again
-  lsJcfExe := EXE_FILES_DIR + 'jcf.exe';
-  Check(FileExists(lsJcfExe), 'could not find program ' + lsJcfExe);
-
-  lbRes := ShellExecAndWait(lsJcfExe, fsJcfParams);
-  Check(lbRes, 'program execution failed');
-
-  // should be back
-  GetOutFiles;
-  CheckEquals(EXPECTED_FILE_COUNT, fsFileNames.Count);
-
-  // for each, compare to the reference versions
-  GetOutFiles;
-
-  for liLoop := 0 to fsFileNames.Count - 1 do
-    CompareFileToRef(fsFileNames[liLoop]);
 end;
 
 
 
 procedure TTestCommandline.TestFormatClarify;
 begin
-  GetRegSettings.OutputExtension := 'out';
-  GetRegSettings.WriteAll;
-
+  fsOutputExt := 'out';
   fsJcfParams := ' -config=' + TEST_FILES_DIR + 'JCFTestSettings.cfg -out -D ' + TEST_FILES_DIR;
   fsRefDir := REF_OUT_FILES_DIR;
   fsFileMask := '*.out';
@@ -129,9 +141,7 @@ end;
 
 procedure TTestCommandline.TestFormatObfuscate;
 begin
-  GetRegSettings.OutputExtension := 'obs';
-  GetRegSettings.WriteAll;
-  
+  fsOutputExt := 'obs';
   fsJcfParams := ' -obfuscate -config=' + TEST_FILES_DIR + 'JCFObfuscateSettings.cfg -out -D ' + TEST_FILES_DIR;
   fsRefDir := OBS_OUT_FILES_DIR;
   fsFileMask := '*.obs';
