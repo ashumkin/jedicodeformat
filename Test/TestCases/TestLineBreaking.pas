@@ -106,10 +106,12 @@ begin
   ls1 := 'this string is getting longer and longer ' + FloatToStrF(12.3456789012, ffExponent, 8, 9);
   ls1 := 'this string is getting longer and longer and longer ' + FloatToStrF(12.3456789012, ffExponent, 8, 9);
 
-  { this comment  }  lf := ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890));
+  { this comment }  lf := ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890));
+  { this comment  will }  lf := ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890));
   { this comment  will affect }  lf := ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890));
+  { this comment  will affect line }  lf := ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890));
   { this comment  will affect line spacing }  lf := ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890));
-  { this comment  will affect line spacing  in some way }  lf := ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890));
+  { this comment  will affect line spacing in some way }  lf := ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890));
 
 
   // expressions in params
@@ -463,5 +465,41 @@ procedure ManyParams9(a1xxxxxxxxx, b1xxxxxxxxx, c1xxxxxxxxx, a2xxxxxxxxx, b2xxxx
 begin
 end;
 
+function TestFunctionName(a1, b1, c1: integer; const a2, b2, c2: string): integer;
+begin
+end;
+
+function TestFunctionNameLength(a1, b1, c1: integer; const a2, b2, c2: string): integer;
+begin
+end;
+
+function TestFunctionNameLength_hahaha(a1, b1, c1: integer; const a2, b2, c2: string): integer;
+begin
+end;
+
+function TestFunctionNameLength_hahaha_more(a1, b1, c1: integer; const a2, b2, c2: string): integer;
+begin
+end;
+
+function TestFunctionNameLength_hahaha_more_again(a1, b1, c1: integer; const a2, b2, c2: string): integer;
+begin
+end;
+
+function TestFunctionNameLength_hahaha_more_again_and_again(a1, b1, c1: integer; const a2, b2, c2: string): integer;
+begin
+end;
+
+function TestFunctionNameLength_hahaha_more_again_and_again_andyetagain(a1, b1, c1: integer; const a2, b2, c2: string): integer;
+begin
+end;
+
+function TestFunctionNameLength_hahaha_more_again_and_again_andyetagain_thisis(a1, b1, c1: integer; const a2, b2, c2: string): integer;
+begin
+end;
+
+
+function TestFunctionNameLength_hahaha_more_again_and_again_andyetagain_thisissilly(a1, b1, c1: integer; const a2, b2, c2: string): integer;
+begin
+end;
 
 end.

@@ -381,7 +381,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestLineBreaking;
 begin
-  TestParseFile('TestLineBreaking', 5678);
+  TestParseFile('TestLineBreaking', 6108);
 end;
 
 procedure TTestFileParse.TestParse_TestLocalTypes;

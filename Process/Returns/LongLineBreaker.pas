@@ -176,6 +176,7 @@ end;
 procedure ScoreToken(const pcToken: TSourceToken;
   var piScoreBefore, piScoreAfter: integer);
 const
+  AWEFULL_PLACE   = -40;
   VERY_BAD_PLACE  = -20;
   BAD_PLACE       = -10;
   SEMI_BAD_PLACE  = -5;
@@ -188,6 +189,8 @@ var
   lcPrev, lcNext: TSourceToken;
 begin
   Assert(pcToken <> nil);
+  piScoreBefore := 0;
+  piScoreAfter := 0;
 
   case pcToken.TokenType of
 
@@ -266,11 +269,24 @@ begin
       piScoreBefore := VERY_BAD_PLACE;
       piScoreAfter := AWESOME_PLACE;
     end;
-    { It is good to break after := or comma, not before }
-    ttAssign, ttComma:
+    { It is good to break after := not before }
+    ttAssign:
     begin
       piScoreBefore := VERY_BAD_PLACE;
       piScoreAfter := EXCELLENT_PLACE;
+    end;
+    ttComma:
+    begin
+      { just not on to break before comma
+        breaking after comma is better, but not great
+       Have found aplace where in formal params, breaking after commas
+       is not as good value as in fn call actual params }
+      piScoreBefore := AWEFULL_PLACE;
+      if pcToken.HasParentNode(nFormalParams) then
+        piScoreAfter := SEMI_GOOD_PLACE
+      else
+        piScoreAfter := GOOD_PLACE;
+
     end;
     ttOperator:
     begin
@@ -282,8 +298,10 @@ begin
         piScoreBefore := VERY_BAD_PLACE;
       end
       else
+      begin
         { dont break between unary operator and operand }
-        piScoreAfter := VERY_BAD_PLACE;
+        piScoreAfter := AWEFULL_PLACE;
+      end;
     end;
 
     { break before white Space, not after }
@@ -342,6 +360,15 @@ begin
           begin
             piScoreBefore := EXCELLENT_PLACE;
             piScoreAfter := VERY_BAD_PLACE;
+          end;
+        end;
+        wExternal:
+        begin
+          // the function directive external is followed by text 
+          if pcToken.HasParentNode(nExternalDirective) then
+          begin
+            piScoreBefore := SEMI_GOOD_PLACE;
+            piScoreAfter := BAD_PLACE;
           end;
         end;
       end;
@@ -424,6 +451,27 @@ begin
   end;
 end;
 
+function IsMultiLineComment(const pcToken: TSourceToken): boolean;
+begin
+  Result := False;
+
+  if pcToken.TokenType <> ttComment then
+    exit;
+
+  // double-slash coments are never multiline
+  if (pcToken.CommentStyle = eDoubleSlash) then
+    exit;
+
+  if (Pos (AnsiLineBreak, pcToken.SourceCode) <= 0) then
+    exit;
+
+  Result := True;
+end;
+
+function IsLineBreaker(const pcToken: TSourceToken): boolean;
+begin
+  Result := (pcToken.TokenType = ttReturn) or IsMultiLineComment(pcToken);
+end;
 
 procedure TLongLineBreaker.EnabledVisitSourceToken(const pcNode: TObject;
   var prVisitResult: TRVisitResult);
@@ -447,16 +495,8 @@ begin
     exit;
 
   { line can start with a return or with a multiline comment }
-  if not (lcSourceToken.TokenType in [ttReturn, ttComment]) then
+  if not IsLineBreaker(lcSourceToken) then
     exit;
-
-  // double-slash coments are never multiline
-  if (lcSourceToken.TokenType = ttComment) and (lcSourceToken.CommentStyle = eDoubleSlash) then
-    exit;
-  // if the comment is one-line then don't bother
-  if (lcSourceToken.TokenType = ttComment) and (Pos (AnsiLineBreak, lcSourceToken.SourceCode) <= 0) then
-    exit;
-
 
   // read until the next return
   lcNext := lcSourceToken.NextToken;
@@ -471,7 +511,7 @@ begin
 
   fcTokens.Clear;
 
-  while (lcNext <> nil) and (not (lcNext.TokenType in [ttReturn, ttComment])) do
+  while (lcNext <> nil) and (not IsLineBreaker(lcNext)) do
   begin
     fcTokens.Add(lcNext);
 
