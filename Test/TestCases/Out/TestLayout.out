@@ -125,13 +125,13 @@ begin
   begin
     if Random(20) > 5 then
     begin
-      la := 12
+      la := 12;
     end
     else
-      la := 10
+      la := 10;
   end
   else
-    la := 20
+    la := 20;
 end;
 
 procedure TheReverse;

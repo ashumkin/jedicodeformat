@@ -17,7 +17,7 @@ begin
   10:
     ShowMessage('10');
   bar:
-  20:
+  20: ;
 end;
 
 end.

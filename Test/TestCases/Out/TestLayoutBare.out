@@ -21,7 +21,7 @@ function NastyElse(var foo, bar: boolean): integer;
 begin
   if Foo then
     Result := -1
-  else
+  else;
 end;
 
 function NastyElse2(var foo, bar: boolean): integer;
@@ -47,7 +47,7 @@ begin
       iA := iA + Random(2)
   else
     while IA < 50 do
-      iA := iA + Random(5)
+      iA := iA + Random(5);
 end;
 
 procedure LittleTest2;
@@ -60,7 +60,7 @@ begin
   else if IB > 6 then
     BA := True
   else
-    BA := False
+    BA := False;
 end;
 
 
@@ -74,7 +74,7 @@ begin
       for liLoop := 0 to 3 do
       begin
         iA := iA + Random(10);
-      end
+      end;
 
 end;
 
@@ -120,7 +120,7 @@ begin
     if iA > 20 then
       BA := True
     else
-      BA := False
+      BA := False;
 end;
 
 
@@ -135,7 +135,7 @@ begin
     else
       BA := False
   else
-    ba := True
+    ba := True;
 end;
 
 procedure LittleTest5_3;
@@ -149,7 +149,7 @@ begin
     else
       BA := False
   else
-    ba := True
+    ba := True;
 end;
 
 
@@ -167,7 +167,7 @@ begin
     else
       ba := True
   else
-    ba := False
+    ba := False;
 end;
 
 

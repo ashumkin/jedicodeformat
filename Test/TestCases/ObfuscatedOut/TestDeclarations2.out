@@ -53,7 +53,7 @@ begin
   if pcfred = nil then
     finorman := 0
   else
-    finorman := pcfred.fifred
+    finorman := pcfred.fifred;
 end;
 
 procedure fooble;

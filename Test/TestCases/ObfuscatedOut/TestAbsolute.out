@@ -12,7 +12,7 @@ var
   ldcast:   double absolute pmmethod;
 begin
   lmmethod := pmmethod;
-  Result   := ldcast
+  Result   := ldcast;
 end;
 
 end.

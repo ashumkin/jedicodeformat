@@ -71,7 +71,7 @@ begin
   if pcFred = nil then
     fiNorman := 0
   else
-    fiNorman := pcFred.fiFred
+    fiNorman := pcFred.fiFred;
 end;
 
 procedure Fooble;

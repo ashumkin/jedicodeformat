@@ -10,7 +10,7 @@ begin
     if 1 > 3 then
     begin
     end
-    else
+    else;
   end;
 end;
 

@@ -6,7 +6,7 @@ implementation
 
 function bar: pointer;
 begin
-  Result := nil
+  Result := nil;
 end;
 
 procedure foo;

@@ -27,7 +27,7 @@ begin
     (randomboolean and b2 and haslotsofarguments(b1, b2, b3, b4, b5)) or
     (randomboolean xor b3 xor haslotsofarguments(b1, b2, b3, b4, b5)) or
     (randomboolean and b4 and haslotsofarguments(b1, b2, b3, b4, b5)) or
-    (randomboolean or randomboolean or randomboolean or randomboolean) do
+    (randomboolean or randomboolean or randomboolean or randomboolean) do ;
 end;
 
 procedure temptest;

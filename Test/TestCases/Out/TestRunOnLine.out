@@ -53,7 +53,7 @@ begin
     (RandomBoolean and b2 and HasLotsOfArguments(b1, b2, b3, b4, b5)) or
     (RandomBoolean xor b3 xor HasLotsOfArguments(b1, b2, b3, b4, b5)) or
     (RandomBoolean and b4 and HasLotsOfArguments(b1, b2, b3, b4, b5)) or
-    (RandomBoolean or RandomBoolean or RandomBoolean or RandomBoolean) do
+    (RandomBoolean or RandomBoolean or RandomBoolean or RandomBoolean) do ;
 end;
 
 procedure tempTest;

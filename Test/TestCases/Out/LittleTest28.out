@@ -11,7 +11,7 @@ implementation
 
 function Bar: Pointer;
 begin
-  Result := nil
+  Result := nil;
 end;
 
 procedure Foo;

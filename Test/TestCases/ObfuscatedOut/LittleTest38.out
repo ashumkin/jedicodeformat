@@ -8,7 +8,7 @@ procedure foo;
 begin
   asm
     mov[esi].ttextrec.bufsize,type ttextrec.buffer
-  end
+  end;
 end;
 
 end.

@@ -27,7 +27,7 @@ begin
 
     INC     EDX
     and     [EAX],CH
-  end
+  end;
 
 end;
 

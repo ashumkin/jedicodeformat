@@ -18,7 +18,7 @@ begin
     else
       ba := True
   else
-    ba := False
+    ba := False;
 end;
 
 procedure test2;

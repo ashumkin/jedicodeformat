@@ -8,7 +8,7 @@ function nastyelse(var foo, bar: boolean): integer;
 begin
   if foo then
     Result := -1
-  else
+  else;
 end;
 
 function nastyelse2(var foo, bar: boolean): integer;
@@ -32,7 +32,7 @@ begin
       ia := ia + random(2)
   else
     while ia < 50 do
-      ia := ia + random(5)
+      ia := ia + random(5);
 end;
 
 procedure littletest2;
@@ -46,7 +46,7 @@ begin
     ba :=
       True
   else
-    ba := False
+    ba := False;
 end;
 
 procedure littletest3;
@@ -59,7 +59,7 @@ begin
       for liloop := 0 to 3 do
       begin
         ia := ia + random(10);
-      end
+      end;
 end;
 
 procedure littletest4;
@@ -100,7 +100,7 @@ begin
     if ia > 20 then
       ba := True
     else
-      ba := False
+      ba := False;
 end;
 
 procedure littletest5_2;
@@ -114,7 +114,7 @@ begin
     else
       ba := False
   else
-    ba := True
+    ba := True;
 end;
 
 procedure littletest5_3;
@@ -128,7 +128,7 @@ begin
     else
       ba := False
   else
-    ba := True
+    ba := True;
 end;
 
 procedure littletest6;
@@ -145,7 +145,7 @@ begin
     else
       ba := True
   else
-    ba := False
+    ba := False;
 end;
 
 procedure mixem;

@@ -28,7 +28,7 @@ var
   ldCast:   double absolute pmMethod;
 begin
   lmMethod := pmMethod;
-  Result   := ldCast
+  Result   := ldCast;
 end;
 
 end.

@@ -15,7 +15,7 @@ begin
     fmul qword ptr[ebx]+offset foo
     inc edx
     and[eax],ch
-  end
+  end;
 end;
 
 end.

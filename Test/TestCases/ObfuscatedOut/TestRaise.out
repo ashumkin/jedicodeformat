@@ -85,7 +85,7 @@ begin
         raise
       else if datestr = 'foo' then
       begin
-        raise
+        raise;
       end
       else
         raise

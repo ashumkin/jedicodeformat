@@ -12,7 +12,7 @@ procedure Foo;
 begin
   asm
     MOV[ESI].TTextRec.BufSize, type TTextRec.Buffer
-  end
+  end;
 end;
 
 end.

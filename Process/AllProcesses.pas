@@ -104,6 +104,7 @@ uses
 constructor TAllProcesses.Create;
 begin
   inherited;
+
   fcOnMessages := nil;
   fcTreeWalker := TTreeWalker.Create;
 end;
