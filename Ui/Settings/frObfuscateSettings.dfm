@@ -2,7 +2,7 @@ inherited fObfuscateSettings: TfObfuscateSettings
   Width = 275
   Height = 239
   object cbRemoveWhiteSpace: TCheckBox
-    Left = 6
+    Left = 8
     Top = 136
     Width = 133
     Height = 17
@@ -22,7 +22,7 @@ inherited fObfuscateSettings: TfObfuscateSettings
     TabOrder = 2
   end
   object rgObfuscateCaps: TRadioGroup
-    Left = 6
+    Left = 8
     Top = 38
     Width = 125
     Height = 93
@@ -36,7 +36,7 @@ inherited fObfuscateSettings: TfObfuscateSettings
     TabOrder = 0
   end
   object cbRebreak: TCheckBox
-    Left = 6
+    Left = 8
     Top = 196
     Width = 125
     Height = 17
@@ -46,7 +46,7 @@ inherited fObfuscateSettings: TfObfuscateSettings
     TabOrder = 3
   end
   object cbRemoveIndent: TCheckBox
-    Left = 6
+    Left = 8
     Top = 176
     Width = 125
     Height = 17

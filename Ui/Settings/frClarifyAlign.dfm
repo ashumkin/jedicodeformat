@@ -9,14 +9,14 @@ inherited fClarifyAlign: TfClarifyAlign
     Caption = 'Max Variance'
   end
   object Label4: TLabel
-    Left = 12
+    Left = 8
     Top = 180
     Width = 58
     Height = 13
     Caption = 'Max Column'
   end
   object Label5: TLabel
-    Left = 16
+    Left = 8
     Top = 152
     Width = 55
     Height = 13
@@ -30,7 +30,7 @@ inherited fClarifyAlign: TfClarifyAlign
     Caption = 'Unaligned'
   end
   object cbInterfaceOnly: TCheckBox
-    Left = 6
+    Left = 8
     Top = 6
     Width = 97
     Height = 17

@@ -2,7 +2,7 @@ inherited fClarifySpaces: TfClarifySpaces
   Width = 295
   Height = 343
   object cbFixSpacing: TCheckBox
-    Left = 4
+    Left = 8
     Top = 6
     Width = 89
     Height = 17
@@ -10,7 +10,7 @@ inherited fClarifySpaces: TfClarifySpaces
     TabOrder = 0
   end
   object cbSpaceClassHeritage: TCheckBox
-    Left = 4
+    Left = 8
     Top = 28
     Width = 161
     Height = 17
@@ -18,7 +18,7 @@ inherited fClarifySpaces: TfClarifySpaces
     TabOrder = 1
   end
   object gbColon: TGroupBox
-    Left = 4
+    Left = 2
     Top = 48
     Width = 213
     Height = 189
@@ -152,7 +152,7 @@ inherited fClarifySpaces: TfClarifySpaces
     end
   end
   object gbTabs: TGroupBox
-    Left = 4
+    Left = 2
     Top = 240
     Width = 277
     Height = 77
@@ -173,7 +173,7 @@ inherited fClarifySpaces: TfClarifySpaces
       Caption = 'Spaces for tab'
     end
     object cbTabsToSpaces: TCheckBox
-      Left = 4
+      Left = 6
       Top = 20
       Width = 117
       Height = 17
@@ -182,7 +182,7 @@ inherited fClarifySpaces: TfClarifySpaces
       OnClick = cbTabsToSpacesClick
     end
     object cbSpacesToTabs: TCheckBox
-      Left = 4
+      Left = 6
       Top = 48
       Width = 117
       Height = 17

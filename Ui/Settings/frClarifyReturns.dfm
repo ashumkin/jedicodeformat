@@ -3,7 +3,7 @@ inherited fClarifyReturns: TfClarifyReturns
   Height = 369
   object Label1: TLabel
     Left = 8
-    Top = 196
+    Top = 208
     Width = 199
     Height = 13
     Caption = 'Number of returns after the unit'#39's final end.'
@@ -18,7 +18,7 @@ inherited fClarifyReturns: TfClarifyReturns
   end
   object cbRemoveVarBlankLines: TCheckBox
     Left = 8
-    Top = 163
+    Top = 184
     Width = 237
     Height = 17
     Caption = 'Remove blank lines in procedure var section'
@@ -66,7 +66,7 @@ inherited fClarifyReturns: TfClarifyReturns
   end
   object eNumReturnsAfterFinalEnd: TJvIntegerEdit
     Left = 212
-    Top = 194
+    Top = 206
     Width = 49
     Height = 21
     Alignment = taRightJustify
@@ -80,7 +80,7 @@ inherited fClarifyReturns: TfClarifyReturns
   end
   object cbRemoveBlankLinesAfterProcHeader: TCheckBox
     Left = 8
-    Top = 145
+    Top = 162
     Width = 237
     Height = 17
     Caption = 'Remove blank lines after procedure header'
@@ -96,7 +96,7 @@ inherited fClarifyReturns: TfClarifyReturns
   end
   object rgReturnChars: TRadioGroup
     Left = 8
-    Top = 224
+    Top = 228
     Width = 301
     Height = 73
     Caption = 'Return chars'

@@ -80,7 +80,8 @@ uses
   LittleTest11 in 'LittleTest11.pas',
   LittleTest12 in 'LittleTest12.pas',
   LittleTest13 in 'LittleTest13.pas',
-  TestOleParams in 'TestOleParams.pas';
+  TestOleParams in 'TestOleParams.pas',
+  LittleTest14 in 'LittleTest14.pas';
 
 {$R *.res}
 
