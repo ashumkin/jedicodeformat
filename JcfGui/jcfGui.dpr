@@ -149,7 +149,7 @@ uses
   UnitNameCaps in '..\Process\Capitalisation\UnitNameCaps.pas',
   RemoveSpaceAtLineEnd in '..\Process\Spacing\RemoveSpaceAtLineEnd.pas',
   FindReplace in '..\Process\Transform\FindReplace.pas',
-  LittleTest47 in '..\Test\TestCases\LittleTest47.pas';
+  fJcfExceptionDisplay in '..\Ui\fJcfExceptionDisplay.pas' {ExceptionDialog};
 
 {$R *.res}
 

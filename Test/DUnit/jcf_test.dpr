@@ -143,7 +143,8 @@ uses
   JCFHelp in '..\..\Utils\JCFHelp.pas',
   SettingsTypes in '..\..\Settings\SettingsTypes.pas',
   SetPreprocessor in '..\..\Settings\SetPreProcessor.pas',
-  FindReplace in '..\..\Process\Transform\FindReplace.pas';
+  FindReplace in '..\..\Process\Transform\FindReplace.pas',
+  fJcfExceptionDisplay in '..\..\Ui\fJcfExceptionDisplay.pas' {ExceptionDialog};
 
 {
   gpprof in '..\..\..\..\..\Program Files\GpProfile\gpprof.pas',

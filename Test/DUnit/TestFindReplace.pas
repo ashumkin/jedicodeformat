@@ -77,6 +77,7 @@ end;
 procedure TTestFindReplace.TearDown;
 begin
   FormatSettings.Replace.Enabled := False;
+  FormatSettings.Replace.Words.Clear;
 end;
 
 procedure TTestFindReplace.TestNoAction;

@@ -127,7 +127,8 @@ uses
   SetPreprocessor in '..\Settings\SetPreProcessor.pas',
   UnitNameCaps in '..\Process\Capitalisation\UnitNameCaps.pas',
   RemoveSpaceAtLineEnd in '..\Process\Spacing\RemoveSpaceAtLineEnd.pas',
-  FindReplace in '..\Process\Transform\FindReplace.pas';
+  FindReplace in '..\Process\Transform\FindReplace.pas',
+  fJcfExceptionDisplay in '..\Ui\fJcfExceptionDisplay.pas' {ExceptionDialog};
 
 const
   ABOUT_COMMANDLINE =

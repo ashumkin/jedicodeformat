@@ -145,7 +145,8 @@ uses
   SetPreprocessor in '..\Settings\SetPreProcessor.pas',
   RemoveSpaceAtLineEnd in '..\Process\Spacing\RemoveSpaceAtLineEnd.pas',
   frUnitCaps in '..\Ui\Settings\frUnitCaps.pas' {frUnitNameCaps: TFrame},
-  FindReplace in '..\Process\Transform\FindReplace.pas';
+  FindReplace in '..\Process\Transform\FindReplace.pas',
+  fJcfExceptionDisplay in '..\Ui\fJcfExceptionDisplay.pas' {ExceptionDialog};
 
 {$R *.res}
 

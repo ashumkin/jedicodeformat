@@ -112,7 +112,7 @@ implementation
 uses
   { delphi } Windows, SysUtils, Dialogs, Controls, Forms,
   { local } SourceTokenList, fShowParseTree, JcfSettings, JcfRegistrySettings,
-  AllProcesses, Preprocessor;
+  AllProcesses, Preprocessor, fJcfExceptionDisplay;
 
 
 constructor TConverter.Create;
@@ -183,7 +183,7 @@ end;
 procedure TConverter.DoShowMessage(const psMessage: string);
 begin
   if fbGuiMessages then
-    ShowMessage(psMessage)
+    mfExceptionDialog.DisplayErrorMessage(psMessage)
   else
     SendStatusMessage(psMessage);
 end;
