@@ -25,7 +25,7 @@ interface
 
 const
   PROGRAM_VERSION   = '2.02';
-  PROGRAM_DATE      = 'July 2004';
+  PROGRAM_DATE      = 'August 2004';
   PROGRAM_HOME_PAGE = 'http://jedicodeformat.sourceforge.net/';
 
 implementation

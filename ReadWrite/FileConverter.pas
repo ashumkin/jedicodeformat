@@ -138,6 +138,12 @@ begin
     exit;
   end;
 
+  if FileGetSize(psInputFileName) < 1 then
+  begin
+    SendStatusMessage(psInputFileName, 'The file "' + psInputFileName + '" is empty', -1, -1);
+    exit;
+  end;
+
   if (SourceMode <> fmSingleFile) then
   begin
     lsTemp := PathExtractFileNameNoExt(psInputFileName);
@@ -159,7 +165,6 @@ begin
     Log.WriteError('File: ' + psInputFileName + ' cannot be processed as it is read only');
     exit;
   end;
-
 
   lsMessage := 'Formatting file ' + psInputFileName;
 
@@ -210,78 +215,88 @@ begin
     end;
   end;
 
-  if BackupMode = cmInPlace then
-  begin
-    { rename the original file to an arbitrary temp file,
-      write processed code back to the original file,
-      delete the temp }
+  case BackupMode of
+    cmInPlace:
+    begin
+      fsOutFileName := psInputFileName;
 
+      { rename the original file to an arbitrary temp file,
+        write processed code back to the original file,
+        delete the temp }
+      lsTemp := FileGetTempName('Con');
+      if FileExists(lsTemp) then
+        if not DeleteFile(lsTemp) then
+          raise Exception.Create('TFileConverter.ProcessFile: ' +
+            'Failed to delete temp file ' + lsTemp);
 
-    lsTemp := FileGetTempName('Con');
-    if FileExists(lsTemp) then
-      if not DeleteFile(lsTemp) then
+      if not RenameFile(psInputFileName, lsTemp) then
         raise Exception.Create('TFileConverter.ProcessFile: ' +
-          'Failed to delete temp file ' + lsTemp);
+          'could not rename source file ' + psInputFileName + ' to ' + lsTemp);
 
-    if not RenameFile(psInputFileName, lsTemp) then
-      raise Exception.Create('TFileConverter.ProcessFile: ' +
-        'could not rename source file ' + psInputFileName + ' to ' + lsTemp);
+      { process from the temp file to the input file }
+      ConvertFile(lsTemp, psInputFileName);
 
-    //FileWriter.OutputFileName := psInput;
-  end
-  else if BackupMode = cmInPlaceWithBackup then
-  begin
-    { rename the original file to the backup file name,
-      write processed code back to the original file }
+      if ConvertError then
+      begin
+        // restore the backup
+        CopyFile(pchar(lsTemp), pchar(psInputFileName), False);
+      end
+      else
+      begin
+        Inc(fiConvertCount);
 
+        // remove the backup
+        if not DeleteFile(lsTemp) then
+          Log.WriteError('TFileConverter.ProcessFile: ' +
+            'Failed to delete temp file ' + lsTemp + ' for ' + psInputFileName);
+      end;
 
-    if not RenameFile(psInputFileName, lsOut) then
-      raise Exception.Create('TFileConverter.ProcessFile: ' +
-        'could not rename source file ' + psInputFileName + ' to ' + lsOut);
-
-  end
-  else
-  begin
-    { simple. Source is source, dest is dest }
-
-    if FileExists(lsOut) then
-      raise Exception.Create('TFileConverter.ProcessFile: ' +
-        'Destination file ' + lsOut + ' exists already');
-  end;
-
-  fsOutFileName := lsOut;
-
-  ConvertFile(psInputFileName, lsOut);
-
-  Inc(fiConvertCount);
-
-  // unit is converted. Did it fail?
-
-  if BackupMode = cmInPlaceWithBackup then
-  begin
-    if ConvertError then
-    begin
-      // restore the backup
-      CopyFile(pchar(lsOut), pchar(psInputFileName), False);
-    end
-
-  end
-  else if BackupMode = cmInPlace then
-  begin
-    if ConvertError then
-    begin
-      // restore the backup
-      CopyFile(pchar(lsTemp), pchar(psInputFileName), False);
-    end
-    else
-    begin
-      // remove the backup
-      if not DeleteFile(lsTemp) then
-        Log.WriteError('TFileConverter.ProcessFile: ' +
-          'Failed to delete temp file ' + lsTemp + ' for ' + psInputFileName);
     end;
 
+    cmInPlaceWithBackup:
+    begin
+      fsOutFileName := psInputFileName;
+
+      { rename the original file to the backup file name,
+        write processed code back to the original file }
+      if not RenameFile(psInputFileName, lsOut) then
+        raise Exception.Create('TFileConverter.ProcessFile: ' +
+          'could not rename source file ' + psInputFileName + ' to ' + lsOut);
+
+      { process from the temp file to the input file }
+      ConvertFile(lsOut, psInputFileName);
+
+      // did the convert fail?
+      if ConvertError then
+      begin
+        // oops! restore the backup
+        CopyFile(pchar(lsOut), pchar(psInputFileName), False);
+      end
+      else
+      begin
+        Inc(fiConvertCount);
+      end;
+    end;
+
+    cmSeperateOutput:
+    begin
+      { simple. Source is source, dest is dest }
+      fsOutFileName := lsOut;
+
+      if FileExists(lsOut) then
+        raise Exception.Create('TFileConverter.ProcessFile: ' +
+          'Destination file ' + lsOut + ' exists already');
+
+      ConvertFile(psInputFileName, lsOut);
+
+      if not ConvertError then
+        Inc(fiConvertCount);
+    end;
+
+    else
+      Assert(False, 'Bad backup mode');
   end;
+
 end;
 
 procedure TFileConverter.ProcessDirectory(const psDir: string);
@@ -443,7 +458,8 @@ procedure TFileConverter.ConvertFile(const psInputFileName, psOutputFileName: st
 begin
   fcConverter.InputCode := FileToString(psInputFileName);
   fcConverter.Convert;
-  StringToFile(psOutputFileName, fcConverter.OutputCode);
+  if not ConvertError then
+    StringToFile(psOutputFileName, fcConverter.OutputCode);
 end;
 
 
