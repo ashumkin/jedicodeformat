@@ -1,4 +1,4 @@
-unit MiscFunctions;
+unit JcfMiscFunctions;
 
 { AFS 15 Jan 2k
 
