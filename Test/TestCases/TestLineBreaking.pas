@@ -11,6 +11,8 @@ interface
 
 implementation
 
+uses SysUtils;
+
 procedure ThisIsAJobForReturnInsertion; var a,b: integer; begin a := 10; b := 2 * a; end;
 
 function DoubleString(const ps: string): string;
@@ -62,13 +64,46 @@ begin
   Result := ps1 + ps2;
 end;
 
+// easy pieces for the line breaker
 procedure EasyPieces;
 var
   ls1, ls2, ls3: string;
+  lf: Extended;
 begin
+  // string concat
   ls1 := 'this string is fourty characters long ' + 'this string is fourty characters long ' + 'this string is fourty characters long ';
+  ls1 := 'this string is not fourty characters' + 'this string is not fourty characters' + 'this string is not fourty characters ';
+  ls1 := 'this string is not fourty chars' + 'this string is not fourty chars' + 'this string is not fourty chars';
+  ls1 := 'this string is not chars' + 'this string is not chars' + 'this string is not chars';
+  ls1 := 'this string is not' + 'this string is not' + 'this string is not';
+  ls1 := 'this string is' + 'this string is' + 'this string is';
 
+  // expressions with brackets
+  lf := (1.23456789 + 2.34567890) * -12.34567890 + (1.23456789 + 2.34567890);
+  lf := (1.23456789 + 2.34567890) * -12.34567890 + (1.23456789 + 2.34567890) * -12.34567890;
+  lf := (1.23456789 + 2.34567890) * -12.34567890 + (1.23456789 + 2.34567890) * -12.34567890 + (1.23456789 + 2.34567890);
+  lf := (1.23456789 + 2.34567890) * -12.34567890 + ((1.23456789 + 2.34567890) * -12.34567890 + (1.23456789 + 2.34567890));
+  lf := (1.23456789 + 2.34567890) * (-12.34567890 + (1.23456789 + 2.34567890) * -12.34567890) + (1.23456789 + 2.34567890) * -12.34567890 + (1.23456789 + 2.34567890) * -12.34567890;
+  lf := ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890) * -12.34567890);
+
+  // function call with long strings
   ls2 := ThisFunctionNameIsFourty_Characters_Long('this string is fourty characters long ', 'this string is fourty characters long ');
+  ls2 := ThisFunctionNameIsFourty_Characters_Long('this string is characters long ', 'this string is characters long ');
+  ls2 := ThisFunctionNameIsFourty_Characters_Long('this string is long ', 'this string is long ');
+  ls2 := ThisFunctionNameIsFourty_Characters_Long('this string', 'this string');
+  ls2 := ThisFunctionNameIsFourty_Characters_Long('this', 'this');
+
+  // test breaking in & around the function call
+  ls1 := 'this string is ' + FloatToStrF(12.3456789012, ffExponent, 8, 9);
+  ls1 := 'this string is getting ' + FloatToStrF(12.3456789012, ffExponent, 8, 9);
+  ls1 := 'this string is getting longer ' + FloatToStrF(12.3456789012, ffExponent, 8, 9);
+  ls1 := 'this string is getting longer and longer ' + FloatToStrF(12.3456789012, ffExponent, 8, 9);
+  ls1 := 'this string is getting longer and longer and longer ' + FloatToStrF(12.3456789012, ffExponent, 8, 9);
+
+  { this comment  }  lf := ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890));
+  { this comment  will affect }  lf := ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890));
+  { this comment  will affect line spacing }  lf := ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890));
+  { this comment  will affect line spacing  in some way }  lf := ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890));
 end;
 
 // something harder

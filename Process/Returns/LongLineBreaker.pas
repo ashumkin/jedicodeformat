@@ -21,9 +21,7 @@ type
     lcScores: TIntList;
     lcTokens: TSourceTokenList;
 
-    fiIndexOfFirstSolidToken: integer;
 
-    function PositionScore(const piIndex, piPos: integer): integer;
     procedure FixPos(piStart, piEnd: integer);
   protected
     procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
@@ -35,88 +33,60 @@ type
 implementation
 
 uses
-  SysUtils,
+  SysUtils, Classes,
   JclStrings,
-  SourceToken, Nesting, FormatFlags, JcfSettings, TokenUtils,
-  TokenType, ParseTreeNode, ParseTreeNodeType, WordMap;
+  SourceToken, Nesting, FormatFlags, JcfSettings, SetReturns,
+  TokenUtils, TokenType, ParseTreeNode, ParseTreeNodeType, WordMap;
 
-{ TLongLineBreaker }
-
-constructor TLongLineBreaker.Create;
-begin
-  inherited;
-  FormatFlags := FormatFlags + [eLineBreaking];
-  lcScores := TIntList.Create;
-  lcTokens := TSourceTokenList.Create;
-end;
-
-destructor TLongLineBreaker.Destroy;
-begin
-  FreeAndNil(lcScores);
-  FreeAndNil(lcTokens);
-  inherited;
-end;
-
-procedure TLongLineBreaker.FixPos(piStart, piEnd: integer);
-var
-  liLoop, liPos: integer;
-  lt: TSourceToken;
-begin
-  liPos := 0;
-  for liLoop := piStart to piEnd do
-  begin
-    lt := lcTokens.SourceTokens[liLoop];
-    lt.XPosition := liPos;
-
-    case lt.TokenType of
-      ttEOF: break;
-      ttReturn: liPos := 0;
-      else
-        liPos := liPos + Length(lt.SourceCode);
-    end;
-  end;
-end;
-
-
-function TLongLineBreaker.PositionScore(const piIndex, piPos: integer): integer;
+function PositionScore(const piIndex, piIndexOfFirstSolidToken, piPos: integer): integer;
 const
+  NOGO_PLACE = -100; // the pits
+  PLATEAU    = 100; // the baseline
+  ROOFSLOPE  = 5; // the plateau slopes a bit up to a point /\
+  INCREASE_TO_RIGHT_FACTOR = 15; // and it also slopes to the right
   WIDTH_SCORE_FACTOR = 5;
-  TO_FAR_SCORE_FACTOR = 5;
+  TO_FAR_SCORE_FACTOR = 10;
   FAR_TO_FAR_SCORE_FACTOR = 0.3;
-  NOGO_PLACE = -100;
-  PLATEAU    = 50;
-  ROOFSLOPE  = 7;
 var
   liEffectiveWidth: integer;
-  liMidPoint, liThreeQuarterPoint: integer;
+  liEffectivePos: integer;
+  liMidPoint: integer;
+  liOneThirdPoint, liThreeQuarterPoint: integer;
   liClose:    integer;
   liOverFlow: integer;
   fUnderflow: double;
 begin
-  if piIndex < fiIndexOfFirstSolidToken then
+  if piIndex < piIndexOfFirstSolidToken then
   begin
     Result := NOGO_PLACE;
     exit;
   end;
 
   { middle of the actual line (ie from first token pos to max length) }
-  liEffectiveWidth := Settings.Returns.MaxLineLength - fiIndexOfFirstSolidToken;
-  liMidPoint       := (liEffectiveWidth div 2) + fiIndexOfFirstSolidToken;
+  liEffectiveWidth := Settings.Returns.MaxLineLength - piIndexOfFirstSolidToken;
+  liMidPoint       := (liEffectiveWidth div 2) + piIndexOfFirstSolidToken;
+  liOneThirdPoint  := (liEffectiveWidth div 3) + piIndexOfFirstSolidToken;
 
-  if piPos < liMidPoint then
+  if piPos < liOneThirdPoint then
   begin
-    { slope up evenly over the first half }
-    Result := NOGO_PLACE + ((PLATEAU - NOGO_PLACE) * piPos * 2) div liEffectiveWidth;
+    { slope up evenly over the first third
+      want a fn that at piIndexOfFirstSolidToken is NOGO_PLACE
+      and slopes up evenly to PLATEAU at liMidPoint }
+
+    { this is the distance from the first tokne  }
+    liEffectivePos := piPos - piIndexOfFirstSolidToken;
+
+    Result := NOGO_PLACE + ((PLATEAU - NOGO_PLACE) * liEffectivePos * 3) div liEffectiveWidth;
   end
-  else if piPos <= Settings.Returns.MaxLineLength then
+  else if piPos < Settings.Returns.MaxLineLength then
   begin
     { relatively flat plateau, slight bump in the middle }
-    liThreeQuarterPoint := (liEffectiveWidth * 3 div 4) + fiIndexOfFirstSolidToken;
+    liThreeQuarterPoint := (liEffectiveWidth * 3 div 4) + piIndexOfFirstSolidToken;
     { how close to it }
-    liClose := (liEffectiveWidth div 4) - abs(piPos - liThreeQuarterPoint) + 1;
-    Assert(liClose >= 0);
+    liClose := liMidPoint - abs(piPos - liThreeQuarterPoint) + 1;
+   // Assert(liClose >= 0, 'Close is neg: ' + IntToStr(liClose));
 
-    Result := PLATEAU + (liClose div ROOFSLOPE);
+    Result := PLATEAU + (liClose * 2 div ROOFSLOPE);
   end
   else
   begin
@@ -132,8 +102,22 @@ begin
       Result     := NOGO_PLACE - Round(fUnderflow * FAR_TO_FAR_SCORE_FACTOR);
     end;
   end;
+
+  { general slope up to the right
+    this results in the RHS slope of the plateau being favoured over the left one
+  }
+  if Result > NOGO_PLACE then
+    Result := Result + (piPos div INCREASE_TO_RIGHT_FACTOR);
 end;
 
+
+function BracketScore(const pcToken: TSourceToken): integer;
+const
+  BRACKET_SCALE = -8;
+begin
+  { less of a good place if it is in brackets }
+  Result := (RoundBracketLevel(pcToken) + SquareBracketLevel(pcToken)) * BRACKET_SCALE;
+end;
 
 { experimental - score for line breaking based on the parse tree
   The idea is that higher up the tree is going to be a better place to break
@@ -161,9 +145,8 @@ const
   SEMI_BAD_PLACE  = -5;
   SEMI_GOOD_PLACE = 5;
   GOOD_PLACE      = 10;
-  EXCELLENT_PLACE = 20;
-  AWESOME_PLACE   = 30;
-  BRACKET_SCALE   = -8;
+  EXCELLENT_PLACE = 30;
+  AWESOME_PLACE   = 40;
 begin
   Assert(pcToken <> nil);
 
@@ -302,9 +285,46 @@ begin
         end;
     end;
   end;
+end;
 
-  { less of a good place if it is in brackets }
-  piScoreAfter := (RoundBracketLevel(pcToken) + SquareBracketLevel(pcToken)) * BRACKET_SCALE;
+
+
+
+{ TLongLineBreaker }
+
+constructor TLongLineBreaker.Create;
+begin
+  inherited;
+  FormatFlags := FormatFlags + [eLineBreaking];
+  lcScores := TIntList.Create;
+  lcTokens := TSourceTokenList.Create;
+end;
+
+destructor TLongLineBreaker.Destroy;
+begin
+  FreeAndNil(lcScores);
+  FreeAndNil(lcTokens);
+  inherited;
+end;
+
+procedure TLongLineBreaker.FixPos(piStart, piEnd: integer);
+var
+  liLoop, liPos: integer;
+  lt: TSourceToken;
+begin
+  liPos := 0;
+  for liLoop := piStart to piEnd do
+  begin
+    lt := lcTokens.SourceTokens[liLoop];
+    lt.XPosition := liPos;
+
+    case lt.TokenType of
+      ttEOF: break;
+      ttReturn: liPos := 0;
+      else
+        liPos := liPos + Length(lt.SourceCode);
+    end;
+  end;
 end;
 
 
@@ -312,10 +332,12 @@ procedure TLongLineBreaker.EnabledVisitSourceToken(const pcNode: TObject;
   var prVisitResult: TRVisitResult);
 const
   DONT_BOTHER_CHARS = 2;
+  BREAK_THRESHHOLD = 50; // make this a config, or just have high/med/low options
 var
   lcSourceToken: TSourceToken;
   lcNext: TSourceToken;
   liWidth: integer;
+  liIndexOfFirstSolidToken: integer;
   liLoop: integer;
   liScoreBefore, liScoreAfter: integer;
   liPlaceToBreak: integer;
@@ -329,7 +351,7 @@ begin
 
   // read until the next return
   lcNext := lcSourceToken.NextToken;
-  fiIndexOfFirstSolidToken := -1;
+  liIndexOfFirstSolidToken := -1;
   liWidth := 0;
   lcTokens.Clear;
 
@@ -338,8 +360,8 @@ begin
     lcTokens.Add(lcNext);
 
     { record which token starts the line's solid text - don't want to break before it }
-    if (lcNext.TokenType <> ttWhiteSpace) and (fiIndexOfFirstSolidToken = -1) then
-      fiIndexOfFirstSolidToken := lcTokens.Count - 1;
+    if (lcNext.TokenType <> ttWhiteSpace) and (liIndexOfFirstSolidToken = -1) then
+      liIndexOfFirstSolidToken := lcTokens.Count - 1;
 
     liWidth := liWidth + Length(lcNext.SourceCode);
 
@@ -351,7 +373,7 @@ begin
     exit;
 
   { must be solid stuff on the line }
-  if fiIndexOfFirstSolidToken < 0 then
+  if liIndexOfFirstSolidToken < 0 then
     exit;
 
   { if the line does not run on, exit now }
@@ -374,13 +396,43 @@ begin
   lcScores.Clear;
   liWidth := 0;
 
+  (* better coded this way
   for liLoop := 0 to lcTokens.Count - 1 do
   begin
     lcNext := lcTokens.SourceTokens[liLoop];
-
-    lcScores.Add(PositionScore(liLoop, liWidth) + TreeScore(lcNext));
     liWidth := liWidth + Length(lcNext.SourceCode);
+
+    { thse scores are simply property of one token }
+    liScoreAfter := PositionScore(liLoop, liIndexOfFirstSolidToken, liWidth) +
+      TreeScore(lcNext) + BracketScore(lcNext);
+    lcScores.Add(liScoreAfter);
+  end;  *)
+
+  // easier to debug *this* way
+  for liLoop := 0 to lcTokens.Count - 1 do
+  begin
+    lcNext := lcTokens.SourceTokens[liLoop];
+    liWidth := liWidth + Length(lcNext.SourceCode);
+
+    { thse scores are simply property of one token }
+    liScoreAfter := PositionScore(liLoop, liIndexOfFirstSolidToken, liWidth);
+    lcScores.Add(liScoreAfter);
   end;
+
+  for liLoop := 0 to lcTokens.Count - 1 do
+  begin
+    lcNext := lcTokens.SourceTokens[liLoop];
+    liScoreAfter := TreeScore(lcNext);
+    lcScores.Items[liLoop] := lcScores.Items[liLoop] + liScoreAfter;
+  end;
+
+  for liLoop := 0 to lcTokens.Count - 1 do
+  begin
+    lcNext := lcTokens.SourceTokens[liLoop];
+    liScoreAfter := BracketScore(lcNext);
+    lcScores.Items[liLoop] := lcScores.Items[liLoop] + liScoreAfter;
+  end;
+
 
   { modify the weights based on the particular source code.
     This is what will make it work -
@@ -401,25 +453,25 @@ begin
 
   { ignore the error conditions
    - is the break place before the first non-space token? }
-  if (liPlaceToBreak < fiIndexOfFirstSolidToken) then
+  if (liPlaceToBreak < liIndexOfFirstSolidToken) then
     exit;
   { - is it at the end of the line already, just before the existing return?}
   if (liPlaceToBreak >= (lcTokens.Count - 1)) then
     exit;
 
-  { best breakpointis not good enough?
+  { best breakpointis not good enough? }
   if Settings.Returns.RebreakLines = rbOnlyIfGood then
   begin
     if lcScores.Items[liPlaceToBreak] < BREAK_THRESHHOLD then
       exit;
   end;
-  }
+
 
   { check if the program has made a bad decision,
     e.g. the only thing on the line is a *really* long string constant and it's semicolon
     The program must break because the line is too long,
     so only place it can break lines is before the semicolon }
-  lcBreakToken := lcTokens.SourceTokens[liPlaceToBreak + 1];
+  lcBreakToken := lcTokens.SourceTokens[liPlaceToBreak];
   liWidthRemaining := liWidth - lcBreakToken.XPosition;
   if liWidthRemaining <= DONT_BOTHER_CHARS then
     exit;
@@ -431,4 +483,28 @@ begin
   FixPos(liPlaceToBreak, lcTokens.Count - 1);
 end;
 
+
+(*
+  //TEST code used to get a graph of the position scoring function into excel
+
+var
+  liLoop, liScore: integer;
+  lsData: string;
+const
+  INDEX_OF_FIRST = 10;
+  MAX_TOKENS = 100;
+initialization
+  Settings.Returns.MaxLineLength  := MAX_TOKENS;
+
+  { debug temp to graph the pos fn }
+  for liLoop := 0 to (MAX_TOKENS * 3 div  2) do
+  begin
+    liScore := PositionScore(liLoop, INDEX_OF_FIRST, liLoop);
+
+    lsData := lsData + IntToStr(liScore) + ', ';
+  end;
+
+  StringToFile('C:\temp\posvalues.txt', lsData)
+
+*)
 end.
