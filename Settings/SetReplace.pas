@@ -81,6 +81,15 @@ begin
   fcRightWords := TStringList.Create;
 end;
 
+destructor TSetReplace.Destroy;
+begin
+  FreeAndNil(fcWords);
+  FreeAndNil(fcLeftWords);
+  FreeAndNil(fcRightWords);
+  inherited;
+end;
+
+
 procedure TSetReplace.ReadFromStream(const pcStream: TSettingsInput);
 begin
   Assert(pcStream <> nil);
@@ -97,12 +106,6 @@ begin
 
   pcOut.Write(REG_ENABLED, fbEnabled);
   pcOut.Write(REG_WORDS, fcWords);
-end;
-
-destructor TSetReplace.Destroy;
-begin
-  FreeAndNil(fcWords);
-  inherited;
 end;
 
 procedure TSetReplace.SplitWord(const ps: string; var psOut1,

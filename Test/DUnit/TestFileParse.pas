@@ -392,7 +392,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestD6;
 begin
-  TestParseFile('TestD6', 973);
+  TestParseFile('TestD6', 959);
 end;
 
 procedure TTestFileParse.TestParse_TestDeclarations;

@@ -60,6 +60,8 @@ type
     procedure RecognisePackage;
     procedure RecogniseLibrary;
 
+    procedure RecogniseFileEnd;
+
     procedure RecogniseProgramBlock;
     procedure RecogniseUsesClause(const pbInFiles: Boolean);
     procedure RecogniseUsesItem(const pbInFiles: Boolean);
@@ -338,6 +340,7 @@ begin
     Add them to the parse tree at the current growing point  }
   repeat
     lcCurrentToken := TokenList.ExtractFirst;
+    Assert(lcCurrentToken <> nil);
 
     TopNode.AddChild(lcCurrentToken);
 
@@ -458,7 +461,7 @@ begin
   PopNode;
 
   RecogniseProgramBlock;
-  Recognise(ttDot);
+  RecogniseFileEnd;
 
   PopNode;
 end;
@@ -476,8 +479,15 @@ begin
   PopNode;
 
   { unit can be "deprecated platform library" }
-  while TokenList.FirstSolidTokenType in HintDirectives do
-    Recognise(HintDirectives);
+  if  TokenList.FirstSolidTokenType in HintDirectives then
+  begin
+    PushNode(nHintDirectives);
+
+    while TokenList.FirstSolidTokenType in HintDirectives do
+      Recognise(HintDirectives);
+
+    PopNode;
+  end;
 
   { or platform }
   if TokenList.FirstSolidTokenType = ttPlatform then
@@ -490,7 +500,7 @@ begin
   RecogniseInterfaceSection;
   RecogniseImplementationSection;
   RecogniseInitSection;
-  Recognise(ttDot);
+  RecogniseFileEnd;
 
   PopNode;
 end;
@@ -516,7 +526,7 @@ begin
     RecogniseContainsClause;
 
   Recognise(ttEnd);
-  Recognise(ttDot);
+  RecogniseFileEnd;
 
   PopNode;
 end;
@@ -536,9 +546,22 @@ begin
   PopNode;
 
   RecogniseProgramBlock;
-  Recognise(ttDot);
+  RecogniseFileEnd;
 
   PopNode;
+end;
+
+procedure TBuildParseTree.RecogniseFileEnd;
+var
+  lcCurrentToken: TSourceToken;
+begin
+  Recognise(ttDot);
+
+  while (TokenList.Count > 0) and (not TokenList.SourceTokens[0].IsSolid) do
+  begin
+    lcCurrentToken := TokenList.ExtractFirst;
+    TopNode.AddChild(lcCurrentToken);
+  end;
 end;
 
 procedure TBuildParseTree.RecogniseProgramBlock;
@@ -870,8 +893,7 @@ begin
     Raise TEParseError.Create('Expected equals or colon', lc);
 
   { can be deprecated library platform }
-  while TokenList.FirstSolidTokentype in ConstantDirectives do
-    Recognise(ConstantDirectives);
+  RecogniseHintDirectives;
 
   PopNode;
 end;

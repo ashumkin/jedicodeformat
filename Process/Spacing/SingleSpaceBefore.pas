@@ -82,6 +82,12 @@ begin
     exit;
   end;
 
+  if IsHintDirective(pt) then
+  begin
+    Result := True;
+    exit;
+  end;
+
   { 'a := --3;' and 'lc := ptr^;'
   are the only exceptions to the rule of a space before an operator }
   if (pt.TokenType in Operators) then

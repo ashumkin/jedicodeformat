@@ -57,7 +57,7 @@ begin
     begin
       lcNext := lcSourceToken.NextToken;
       { consolidate }
-      if lcNext.TokenType = ttWhiteSpace then
+      if (lcNext <> nil) and (lcNext.TokenType = ttWhiteSpace) then
       begin
         lcNext.SourceCode := lcNext.SourceCode + lcSourceToken.SourceCode;
         prVisitResult.Action := aDelete;

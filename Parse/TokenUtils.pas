@@ -115,6 +115,8 @@ function UnitName(const pt: TParseTreeNode): String;
 
 function IsIdentifier(const pt: TSourceToken): boolean;
 
+function IsHintDirective(const pt: TSourceToken): boolean;
+
 implementation
 
 uses
@@ -622,6 +624,14 @@ begin
     Result := pt.HasParentNode(nIdentifier, 1);
 end;
 
+
+function IsHintDirective(const pt: TSourceToken): boolean;
+begin
+  Result := (pt <> nil) and (pt.TokenType in HintDirectives);
+
+  if Result then
+    Result := pt.HasParentNode(nHintDirectives, 1);
+end;
 
 
 end.

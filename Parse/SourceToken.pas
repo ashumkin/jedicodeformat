@@ -95,12 +95,15 @@ uses
  TSourceToken }
 
 
+
 constructor TSourceToken.Create;
 begin
   inherited;
   feTokenType  := ttUnknown;
   fsSourceCode := '';
 end;
+
+
 
 function TSourceToken.Describe: string;
 const

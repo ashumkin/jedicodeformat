@@ -47,7 +47,8 @@ type
 
     function Count: integer;
     procedure Clear;
-    
+    procedure ClearAndFree;
+
     procedure Add(const pcToken: TSourceToken);
     procedure SetXYPositions;
 
@@ -100,6 +101,13 @@ end;
 procedure TSourceTokenList.Clear;
 begin
   fcList.Clear;
+end;
+
+procedure TSourceTokenList.ClearAndFree;
+begin
+  fcList.OwnsObjects := True;
+  fcList.Clear;
+  fcList.OwnsObjects := False;
 end;
 
 function TSourceTokenList.GetSourceToken(const piIndex: integer): TSourceToken;
@@ -251,5 +259,7 @@ procedure TSourceTokenList.Insert(const piPos: integer; const pcToken: TSourceTo
 begin
   fcList.Insert(piPos, pcToken);
 end;
+
+
 
 end.

@@ -269,6 +269,14 @@ begin
         fcBuildParseTree.TokenList := lcTokenList;
         fcBuildParseTree.BuildParseTree;
       finally
+        if (fbConvertError or fcBuildParseTree.ParseError) then
+        begin
+          // free tokens still in the list
+          lcTokenList.ClearAndFree;
+        end;
+
+        // should not be any tokens left
+        Assert(lcTokenList.Count = 0);
         lcTokenList.Free;
       end;
 
