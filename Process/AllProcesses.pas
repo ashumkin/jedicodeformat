@@ -183,7 +183,7 @@ begin
   end
   else
   begin
-    // normal clarify path 
+    // normal clarify path
     ClarifySetup;
     Transform;
     Warnings;
@@ -303,7 +303,7 @@ begin
     The indentation before the code on the line
     influences if (and where) to insert a break
 
-    But indeting needs to happen the linebreaker to indent the trailing line
+    But indenting needs to happen the linebreaker to indent the trailing line
     Fortunately this is only an issue when code is really badly formatted
     e.g. de-obfucation }
 
@@ -311,6 +311,7 @@ begin
   ApplyVisitorType(TLongLineBreaker, [TVisitSetXY]);
   ApplyVisitorType(TReturnsAfterFinalEnd, [TVisitSetXY]);
   ApplyVisitorType(TLongLineBreaker);
+
 end;
 
 

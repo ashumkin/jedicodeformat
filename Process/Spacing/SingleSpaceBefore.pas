@@ -129,8 +129,8 @@ begin
     exit;
   end;
 
-  { comment just after uses clause }
-  if (pt.TokenType = ttComment) then
+  { comment just after uses clause, unless it's a compiler directive }
+  if (pt.TokenType = ttComment) and (pt.CommentStyle <> eCompilerDirective) then
   begin
     lcPrev := pt.PriorSolidToken;
     if (lcPrev <> nil) and (lcPrev.TokenType = ttUses) then
