@@ -1,30 +1,30 @@
 inherited fClarifyAlign: TfClarifyAlign
   Width = 181
-  Height = 277
+  Height = 367
   object Label6: TLabel
     Left = 8
-    Top = 208
+    Top = 236
     Width = 65
     Height = 13
     Caption = 'Max Variance'
   end
   object Label4: TLabel
     Left = 8
-    Top = 180
+    Top = 208
     Width = 58
     Height = 13
     Caption = 'Max Column'
   end
   object Label5: TLabel
     Left = 8
-    Top = 152
+    Top = 180
     Width = 55
     Height = 13
     Caption = 'Min Column'
   end
   object Label1: TLabel
     Left = 8
-    Top = 236
+    Top = 264
     Width = 48
     Height = 13
     Caption = 'Unaligned'
@@ -39,7 +39,7 @@ inherited fClarifyAlign: TfClarifyAlign
   end
   object edtMaxVariance: TJvValidateEdit
     Left = 80
-    Top = 204
+    Top = 232
     Width = 57
     Height = 21
     CheckChars = '01234567890'
@@ -60,7 +60,7 @@ inherited fClarifyAlign: TfClarifyAlign
   end
   object edtMaxColumn: TJvValidateEdit
     Left = 80
-    Top = 176
+    Top = 204
     Width = 57
     Height = 21
     CheckChars = '01234567890'
@@ -80,7 +80,7 @@ inherited fClarifyAlign: TfClarifyAlign
   end
   object edtMinColumn: TJvValidateEdit
     Left = 80
-    Top = 148
+    Top = 176
     Width = 57
     Height = 21
     CheckChars = '01234567890'
@@ -101,8 +101,8 @@ inherited fClarifyAlign: TfClarifyAlign
   object gbWhat: TGroupBox
     Left = 2
     Top = 24
-    Width = 95
-    Height = 117
+    Width = 143
+    Height = 145
     Caption = 'What to Align'
     TabOrder = 1
     object cbAlignAsign: TCheckBox
@@ -124,14 +124,14 @@ inherited fClarifyAlign: TfClarifyAlign
     object cbAlignVar: TCheckBox
       Left = 6
       Top = 55
-      Width = 80
+      Width = 119
       Height = 17
-      Caption = 'Var'
+      Caption = 'Var declarations'
       TabOrder = 2
     end
     object cbAlignTypedef: TCheckBox
       Left = 6
-      Top = 74
+      Top = 94
       Width = 75
       Height = 17
       Caption = 'Type defs'
@@ -139,16 +139,24 @@ inherited fClarifyAlign: TfClarifyAlign
     end
     object cbAlignComment: TCheckBox
       Left = 6
-      Top = 94
+      Top = 114
       Width = 75
       Height = 17
       Caption = 'Comment'
       TabOrder = 4
     end
+    object cbAlignField: TCheckBox
+      Left = 6
+      Top = 75
+      Width = 127
+      Height = 17
+      Caption = 'Class and record field'
+      TabOrder = 5
+    end
   end
   object eMaxUnaligned: TJvValidateEdit
     Left = 80
-    Top = 232
+    Top = 260
     Width = 57
     Height = 21
     CheckChars = '01234567890'

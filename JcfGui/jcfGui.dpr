@@ -163,7 +163,8 @@ uses
   AddBlockEndSemicolon in '..\Process\Transform\AddBlockEndSemicolon.pas',
   AddBeginEnd in '..\Process\Transform\AddBeginEnd.pas',
   SetTransform in '..\Settings\SetTransform.pas',
-  frTransform in '..\Ui\Settings\frTransform.pas' {fTransform: TFrame};
+  frTransform in '..\Ui\Settings\frTransform.pas' {fTransform: TFrame},
+  AlignField in '..\Process\Align\AlignField.pas';
 
 {$R *.res}
 

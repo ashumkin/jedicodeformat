@@ -99,7 +99,7 @@ uses
   { stats }
   BasicStats,
   { align }
-  AlignConst, AlignVars, AlignAssign, AlignTypedef, AlignComment;
+  AlignConst, AlignVars, AlignAssign, AlignTypedef, AlignComment, AlignField;
 
 constructor TAllProcesses.Create;
 begin
@@ -325,6 +325,7 @@ begin
   ApplyVisitorType(TAlignAssign, [TVisitSetXY]);
   ApplyVisitorType(TAlignTypedef, [TVisitSetXY]);
   ApplyVisitorType(TAlignComment, [TVisitSetXY]);
+  ApplyVisitorType(TAlignField, [TVisitSetXY]);
 end;
 
 procedure TAllProcesses.OnceOffs;

@@ -49,6 +49,7 @@ type
     cbAlignComment: TCheckBox;
     Label1: TLabel;
     eMaxUnaligned: TJvValidateEdit;
+    cbAlignField: TCheckBox;
     procedure edtMinColumnExit(Sender: TObject);
     procedure edtMaxColumnExit(Sender: TObject);
   private
@@ -67,7 +68,7 @@ implementation
 
 {$R *.DFM}
 
-uses JcfSettings, JcfHelp;
+uses JcfSettings, JcfHelp, SetAlign;
 
 constructor TfClarifyAlign.Create(AOwner: TComponent);
 begin
@@ -106,6 +107,7 @@ begin
     cbAlignVar.Checked     := AlignVar;
     cbAlignTypedef.Checked := AlignTypeDef;
     cbAlignComment.Checked := AlignComment;
+    cbAlignField.Checked := AlignField;
 
     cbInterfaceOnly.Checked := InterfaceOnly;
 
@@ -125,6 +127,7 @@ begin
     AlignVar     := cbAlignVar.Checked;
     AlignTypeDef := cbAlignTypedef.Checked;
     AlignComment := cbAlignComment.Checked;
+    AlignField := cbAlignField.Checked;
 
     InterfaceOnly := cbInterfaceOnly.Checked;
 

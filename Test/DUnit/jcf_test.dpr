@@ -163,7 +163,8 @@ uses
   AddBeginEnd in '..\..\Process\Transform\AddBeginEnd.pas',
   AddBlockEndSemicolon in '..\..\Process\Transform\AddBlockEndSemicolon.pas',
   SetTransform in '..\..\Settings\SetTransform.pas',
-  TestAddBeginEnd in 'TestAddBeginEnd.pas';
+  TestAddBeginEnd in 'TestAddBeginEnd.pas',
+  AlignField in '..\..\Process\Align\AlignField.pas';
 
 {$R *.res}
 

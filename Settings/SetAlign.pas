@@ -39,6 +39,7 @@ type
     fbAlignTypedef: boolean;
     fbAlignVar: boolean;
     fbAlignComment: boolean;
+    fbAlignField: boolean;
 
     fiMinColumn, fiMaxColumn, fiMaxVariance: integer;
     fiMaxUnalignedStatements: integer;
@@ -57,6 +58,7 @@ type
     property AlignVar: boolean Read fbAlignVar Write fbAlignVar;
 
     property AlignComment: boolean Read fbAlignComment Write fbAlignComment;
+    property AlignField: boolean read fbAlignField write fbAlignField;
 
     property MinColumn: integer Read fiMinColumn Write fiMinColumn;
     property MaxColumn: integer Read fiMaxColumn Write fiMaxColumn;
@@ -76,6 +78,7 @@ const
   REG_ALIGN_TYPEDEF = 'AlignTypedef';
   REG_ALIGN_VAR     = 'AlignVars';
   REG_ALIGN_COMMENT = 'AlignComment';
+  REG_ALIGN_FIELDS = 'AlignFields';
 
   REG_MIN_COLUMN   = 'MinColumn';
   REG_MAX_COLUMN   = 'MaxColumn';
@@ -101,6 +104,7 @@ begin
   fbAlignTypedef := pcStream.Read(REG_ALIGN_TYPEDEF, False);
   fbAlignVar     := pcStream.Read(REG_ALIGN_VAR, False);
   fbAlignComment := pcStream.Read(REG_ALIGN_COMMENT, False);
+  fbAlignField   := pcStream.Read(REG_ALIGN_FIELDS, False);
 
   fbInterfaceOnly := pcStream.Read(REG_INTERFACE_ONLY, False);
 
@@ -119,6 +123,7 @@ begin
   pcOut.Write(REG_ALIGN_TYPEDEF, fbAlignTypedef);
   pcOut.Write(REG_ALIGN_VAR, fbAlignVar);
   pcOut.Write(REG_ALIGN_COMMENT, fbAlignComment);
+  pcOut.Write(REG_ALIGN_FIELDS, fbAlignField);
 
   pcOut.Write(REG_INTERFACE_ONLY, fbInterfaceOnly);
 

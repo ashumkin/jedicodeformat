@@ -140,7 +140,8 @@ uses
   TreeWalker in '..\Process\TreeWalker.pas',
   AddBlockEndSemicolon in '..\Process\Transform\AddBlockEndSemicolon.pas',
   AddBeginEnd in '..\Process\Transform\AddBeginEnd.pas',
-  SetTransform in '..\Settings\SetTransform.pas';
+  SetTransform in '..\Settings\SetTransform.pas',
+  AlignField in '..\Process\Align\AlignField.pas';
 
 const
   ABOUT_COMMANDLINE =

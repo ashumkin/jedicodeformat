@@ -34,7 +34,7 @@ type
     eObfuscate,
     eAddSpace, eRemoveSpace,
     eAddReturn, eRemoveReturn,
-    eAlignVars, eAlignConst, eAlignTypeDef, eAlignAssign, eAlignComment,
+    eAlignVars, eAlignConst, eAlignTypeDef, eAlignAssign, eAlignComment, eAlignField,
     eCapsReservedWord, eCapsSpecificWord,
     eIndent, eLineBreaking, eBlockStyle,
     eWarning,
@@ -78,7 +78,7 @@ type
   end;
 
 const
-  FORMAT_FLAG_NAMES: array[1..28] of TRFlagNameData =
+  FORMAT_FLAG_NAMES: array[1..29] of TRFlagNameData =
     (
     (sName: 'format'; eFlags: [eAllFormat]),
     (sName: 'obfuscate'; eFlags: [eObfuscate]),
@@ -105,9 +105,10 @@ const
     (sName: 'alignvars'; eFlags: [eAlignVars]),
     (sName: 'alignconst'; eFlags: [eAlignConst]),
     (sName: 'aligntypedef'; eFlags: [eAlignTypeDef]),
-    (sName: 'aligncomment'; eFlags: [eAlignComment]),
-
     (sName: 'alignassign'; eFlags: [eAlignAssign]),
+    (sName: 'aligncomment'; eFlags: [eAlignComment]),
+    (sName: 'alignfield'; eFlags: [eAlignField]),
+
 
     (sName: 'indent'; eFlags: [eIndent]),
 

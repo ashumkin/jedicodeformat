@@ -34,10 +34,11 @@ type
   TFoundTokenState = (eBefore, eOn, eAfter, eUnknown);
 
   TAlignVars = class(TAlignBase)
-  private
+  protected
     feFoundTokenState: TFoundTokenState;
 
-  protected
+    function AlignedToken(const pt: TSourceToken): boolean; virtual;
+
     { TokenProcessor overrides }
     function IsTokenInContext(const pt: TSourceToken): boolean; override;
 
@@ -71,7 +72,7 @@ begin
   feFoundTokenState := eUnknown;
 end;
 
-function AlignedToken(const pt: TSourceToken): boolean;
+function TAlignVars.AlignedToken(const pt: TSourceToken): boolean;
 const
   NOT_ALIGNED: TTokenTypeSet = [ttWhiteSpace, ttReturn, ttComment, ttSemiColon, ttColon];
 begin

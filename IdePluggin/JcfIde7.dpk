@@ -180,6 +180,7 @@ contains
   AddBeginEnd in '..\Process\Transform\AddBeginEnd.pas',
   SetTransform in '..\Settings\SetTransform.pas',
   frTransform in '..\Ui\Settings\frTransform.pas' {fTransform: TFrame},
-  Unit2 in '..\..\..\..\temp\Unit2.pas' {Form2};
+  Unit2 in '..\..\..\..\temp\Unit2.pas' {Form2},
+  AlignField in '..\Process\Align\AlignField.pas';
 
 end.
