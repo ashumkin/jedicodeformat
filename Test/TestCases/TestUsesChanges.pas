@@ -1,4 +1,4 @@
-unit TestUses;
+unit TestUsesChanges;
 
 { AFS 28 March 2000
  This unit compiles but is not semantically meaningfull

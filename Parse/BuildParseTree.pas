@@ -468,8 +468,10 @@ begin
     Recognise(ttOpenBracket);
     RecogniseIdentList;
     Recognise(ttCloseBracket);
-    Recognise(ttSemicolon);
   end;
+
+  if TokenList.FirstSolidTokenType = ttSemiColon then
+    Recognise(ttSemicolon);
 
   RecogniseProgramBlock;
   Recognise(ttDot);
