@@ -29,19 +29,12 @@ package JcfIde7;
 
 requires
   vcl,
-  vclx,
-  DesignIde,
-  JVCL200_R70,
-  DJCL70,
-  rtl,
-  vclactnband,
-  vcljpg,
-  inet,
-  qrpt,
-  bdertl,
-  dbrtl,
-  vcldb,
-  VclSmp;
+  DesignIDE,
+  DJcl,
+  JvCoreD7R,
+  JvSystemD7R,
+  JvStdCtrlsD7R,
+  JvCustomD7R;
 
 contains
   JcfIdeRegister in 'JcfIdeRegister.pas',
