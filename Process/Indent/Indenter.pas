@@ -23,7 +23,30 @@ implementation
 uses
   JclStrings,
   SourceToken, Nesting, FormatFlags, JcfSettings, TokenUtils,
-  TokenType, ParseTreeNodeType, WordMap;
+  TokenType, ParseTreeNode, ParseTreeNodeType, WordMap;
+
+
+function IsRunOnExpr(const pt: TSourceToken): boolean;
+var
+  lcExpr: TParseTreeNode;
+  lcExprStart: TSourceToken;
+begin
+  Result := False;
+
+  if pt = nil then
+    exit;
+
+  lcExpr := pt.GetParentNode(nExpression);
+  if lcExpr <> nil then
+  begin
+    lcExprStart := lcExpr.FirstLeaf as TSourceToken;
+    while (lcExprStart <> nil) and (not lcExprStart.IsSolid) do
+      lcExprStart := lcExprStart.NextToken;
+
+    if lcExprStart.YPosition < pt.YPosition then
+      Result := True;
+  end;
+end;
 
 function CalculateIndent(const pt: TSourceToken): integer;
 var
@@ -69,16 +92,23 @@ begin
   end
   else
   begin
+    { this section is for
+      - procedure body
+      - procedure declarations
+    }
+
     { indent procedure body for various kinds of block }
     liIndentCount := pt.Nestings.GetLevel(nlBlock);
     if liIndentCount > 0 then
     begin
       // outdent keywords that start and end the block
       if pt.Word in BlockOutdentWords then
-        dec(liIndentCount);
+      begin
+        // 'case' in a record type decl is not outdent here
+        if not ((pt.Word = wCase) and pt.HasParentNode(nRecordVariantSection)) then
+          dec(liIndentCount);
+      end;
     end;
-
-    liIndentCount := liIndentCount + pt.Nestings.GetLevel(nlRecordVariantSection);
 
     if pt.Nestings.GetLevel(nlCaseSelector) > 0 then
     begin
@@ -106,13 +136,37 @@ begin
     if pt.HasParentNode(nUses) and (pt.Word <> wUses) then
       inc(liIndentCount);
 
+    if (pt.Word = wOn) and pt.HasParentNode(nOnExceptionHandler, 1) then
+      dec(liIndentCount);
   end;
+
+  { these apply everywhere
+    mostly because they need to apply to decls
+    either in or out of a proc }
+  if pt.Nestings.GetLevel(nlRecordVariantSection) > 0 then
+  begin
+    liIndentCount := liIndentCount + pt.Nestings.GetLevel(nlRecordVariantSection);
+    if pt.Word = wCase then
+      dec(liIndentCount);
+  end;
+
+  if pt.HasParentNode(nRecordVariant) and (RoundBracketLevel(pt) > 0) then
+    inc(liIndentCount);
 
   if pt.HasParentNode(nRecordType) and pt.HasParentNode(nDeclSection) and (pt.Word <> wEnd) then
     inc(liIndentCount);
 
-  if (pt.Word = wOn) and pt.HasParentNode(nOnExceptionHandler, 1) then
-    dec(liIndentCount);
+  { run on expression }
+  if IsRunOnExpr(pt) then
+    inc(liIndentCount)
+  else if IsInAssign(pt) then
+    inc(liIndentCount)
+  else if IsInProcedureParams(pt) then
+    inc(liIndentCount);
+
+  if pt.HasParentNode(nArrayConstant) and
+    ((RoundBracketLevel(pt) > 0) or (pt.TokenType in [ttOpenBracket, ttCloseBracket])) then
+    inc(liIndentCount);
 
   Assert(liIndentCount >= 0);
 

@@ -95,7 +95,6 @@ begin
 
   if fbEnabled then
     EnabledVisitSourceToken(pcToken, prVisitResult);
-
 end;
 
 end.

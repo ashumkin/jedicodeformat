@@ -362,4 +362,64 @@ Case Random(7) of
 end;
 end;
 
+procedure TestElse;
+var
+  li: integer;
+begin
+
+  case Random(7) of
+    0:
+      li := 1;
+    else
+      li := 0;
+  end;
+
+  case Random(7) of
+    0:
+      li := 1;
+    else
+    begin
+      li := 0;
+    end;
+  end;
+
+  case Random(7) of
+    0:
+      li := 1;
+    else
+    begin
+      case Random(7) of
+        0:
+          li := 1;
+        else
+          li := 0;
+      end;
+    end;
+  end;
+
+  case Random(7) of
+    0:
+      li := 1;
+    else
+    begin
+      case Random(7) of
+        0:
+          li := 1;
+        else
+        begin
+          case Random(7) of
+            0:
+              li := 1;
+            else
+              li := 0;
+          end;
+        end;
+      end;
+    end;
+  end;
+
+
+end;
+
+
 end.

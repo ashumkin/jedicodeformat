@@ -97,8 +97,35 @@ False: (Fred: TFoo;
 case Boolean of
 False: (liGoop: integer); True: (lcGlorp: Currency
 );
-  // comment here means next line cannot be brought up 
+  // comment here means next line cannot be brought up
 );
+end;
+
+TDeepNesting = record
+  Bar: integer;
+  case Spon1: Boolean of
+  True: (Baz1: pChar);
+  False: (
+    case Spon2: Boolean of
+    True: (Baz2: pChar);
+    False: (
+      case Spon3: Boolean of
+      True: (Baz3: pChar);
+      False: (
+        case Spon4: Boolean of
+        True: (Baz4: pChar);
+        False: (
+          case Spon5: Boolean of
+          True: (Baz5: pChar);
+          False: (
+            case Spon6: Boolean of
+            True: (Baz6: pChar);
+            False: (liEndpoint: integer);
+        );
+      );
+    );
+   );
+  );
 end;
 
 

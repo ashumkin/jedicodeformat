@@ -18,6 +18,8 @@ TAllProcesses = class(TObject)
     procedure ApplyVisitorType(const pcVisitorType: TTreeNodeVisitorType);
 
     procedure Obfuscate;
+
+    procedure ClarifySetup;
     procedure Warnings;
     procedure Spacing;
     procedure Capitalisation;
@@ -84,6 +86,7 @@ begin
   end
   else
   begin
+    ClarifySetup;
     Warnings;
     Capitalisation;
     Spacing;
@@ -107,6 +110,12 @@ begin
 
   ApplyVisitorType(TVisitSetXY);
   ApplyVisitorType(TRebreakLines);
+end;
+
+procedure TAllProcesses.ClarifySetup;
+begin
+  ApplyVisitorType(TVisitSetNestings);
+  ApplyVisitorType(TVisitSetXY);
 end;
 
 procedure TAllProcesses.Warnings;
@@ -143,7 +152,6 @@ end;
 
 procedure TAllProcesses.Indent;
 begin
-  ApplyVisitorType(TVisitSetNestings);
   ApplyVisitorType(TVisitSetXY);
   ApplyVisitorType(TIndenter);
   ApplyVisitorType(TVisitSetXY);
