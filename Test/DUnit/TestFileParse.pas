@@ -91,6 +91,8 @@ type
     procedure TestParse_LittleTest45;
     procedure TestParse_LittleTest46;
     procedure TestParse_LittleTest47;
+    procedure TestParse_LittleTest48;
+    procedure TestParse_LittleTest49;
 
     procedure TestParse_TestAbsolute;
     procedure TestParse_TestAlign;
@@ -244,8 +246,7 @@ begin
     lcConverter.Convert;
 
     Check(not lcConverter.ConvertError, 'Convert failed for ' +
-      ExtractFileName(psInFileName) +
-      ' : ' + lcConverter.ConvertErrorMessage);
+      ExtractFileName(psInFileName));
 
     lsOutFileName := lcConverter.OutFileName;
     Check(lsOutFileName <> '', 'No output file');
@@ -662,7 +663,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 1087);
+  TestParseFile('Testcases.dpr', 1103);
 end;
 
 
@@ -929,8 +930,7 @@ end;
 
 procedure TTestFileParse.TestParse_LittleTest39;
 begin
-  TestParseFile('LittleTest39', 56);
-
+  TestParseFile('LittleTest39', 185);
 end;
 
 procedure TTestFileParse.TestParse_LittleTest40;
@@ -981,6 +981,16 @@ end;
 procedure TTestFileParse.TestParse_TestWarnDestroy;
 begin
   TestParseFile('TestWarnDestroy', 117);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest48;
+begin
+  TestParseFile('LittleTest48', 203);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest49;
+begin
+  TestParseFile('LittleTest49', 161);
 end;
 
 initialization

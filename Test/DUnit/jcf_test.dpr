@@ -145,7 +145,7 @@ uses
   SettingsTypes in '..\..\Settings\SettingsTypes.pas',
   SetPreprocessor in '..\..\Settings\SetPreProcessor.pas',
   FindReplace in '..\..\Process\Transform\FindReplace.pas',
-  fJcfExceptionDisplay in '..\..\Ui\fJcfExceptionDisplay.pas' {ExceptionDialog},
+  fJcfErrorDisplay in '..\..\Ui\fJcfErrorDisplay.pas' {ExceptionDialog},
   ReturnsAfterFinalEnd in '..\..\Process\Returns\ReturnsAfterFinalEnd.pas',
   UsesClauseRemove in '..\..\Process\Transform\UsesClauseRemove.pas',
   UsesClauseFindReplace in '..\..\Process\Transform\UsesClauseFindReplace.pas',

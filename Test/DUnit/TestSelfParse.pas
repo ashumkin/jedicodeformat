@@ -125,8 +125,7 @@ begin
     lsOutFileName := lcConverter.OutFileName;
 
     Check(not lcConverter.ConvertError, 'Convert failed for ' +
-      ExtractFileName(psInFileName) +
-      ' : ' + lcConverter.ConvertErrorMessage);
+      ExtractFileName(psInFileName));
 
     lsOutFileName := lcConverter.OutFileName;
     Check(lsOutFileName <> '', 'No output file');

@@ -146,7 +146,7 @@ uses
   RemoveSpaceAtLineEnd in '..\Process\Spacing\RemoveSpaceAtLineEnd.pas',
   frUnitCaps in '..\Ui\Settings\frUnitCaps.pas' {frUnitNameCaps: TFrame},
   FindReplace in '..\Process\Transform\FindReplace.pas',
-  fJcfExceptionDisplay in '..\Ui\fJcfExceptionDisplay.pas' {ExceptionDialog},
+  fJcfErrorDisplay in '..\Ui\fJcfErrorDisplay.pas' {ExceptionDialog},
   ReturnsAfterFinalEnd in '..\Process\Returns\ReturnsAfterFinalEnd.pas',
   UsesClauseInsert in '..\Process\Transform\UsesClauseInsert.pas',
   UsesClauseRemove in '..\Process\Transform\UsesClauseRemove.pas',

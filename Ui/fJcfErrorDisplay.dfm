@@ -1,10 +1,10 @@
 object ExceptionDialog: TExceptionDialog
   Left = 294
   Top = 195
-  BorderStyle = bsDialog
+  Width = 340
+  Height = 182
+  BorderIcons = [biSystemMenu]
   Caption = 'Exception'
-  ClientHeight = 148
-  ClientWidth = 332
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,11 +12,12 @@ object ExceptionDialog: TExceptionDialog
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  OnResize = FormResize
   PixelsPerInch = 96
   TextHeight = 13
   object btnOk: TButton
     Left = 126
-    Top = 112
+    Top = 108
     Width = 80
     Height = 28
     Caption = '&OK'
@@ -29,7 +30,6 @@ object ExceptionDialog: TExceptionDialog
     Top = 0
     Width = 332
     Height = 101
-    Align = alTop
     ParentColor = True
     ReadOnly = True
     TabOrder = 1

@@ -27,7 +27,7 @@ object fmJCFNotepad: TfmJCFNotepad
     Height = 19
     Panels = <
       item
-        Width = 60
+        Width = 80
       end
       item
         Width = 50

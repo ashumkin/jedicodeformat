@@ -73,6 +73,9 @@ end;
 
 procedure TStringsConverter.Convert;
 begin
+  // show message on popup if there is no message output
+  GuiMessages := (fcMessageStrings = nil);
+
   DoConvertUnit;
 end;
 

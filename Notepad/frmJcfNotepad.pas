@@ -458,6 +458,7 @@ const
 var
   liX, liY: integer;
   lsPos: string;
+  lsX, lsY: string;
 begin
   if pcPages.ActivePage = tsInput then
   begin
@@ -475,8 +476,17 @@ begin
   inc(liX);
   inc(liY);
 
-  lsPos := StrPadLeft(IntToStr(liY), POS_NUM_LEN, ' ') + ':' +
-    StrPadLeft(IntToStr(liX), POS_NUM_LEN, ' ');
+  if liX > 0 then
+    lsX := StrPadLeft(IntToStr(liX), POS_NUM_LEN, ' ')
+  else
+    lsX := '?';
+
+  if liY > 0 then
+    lsY := StrPadLeft(IntToStr(liY), POS_NUM_LEN, ' ')
+  else
+    lsY := '?';
+
+  lsPos := lsY + ':' + lsX;
     
   sb1.Panels[0].Text := lsPos;
 end;

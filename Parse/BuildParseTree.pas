@@ -37,7 +37,7 @@ interface
 uses
   { delphi }
   Contnrs,
-  { local } ParseTreeNode, ParseTreeNodeType,
+  { local } ParseTreeNode, ParseTreeNodeType, ParseError,
   SourceToken, SourceTokenList, Tokens;
 
 
@@ -46,8 +46,6 @@ type
   TBuildParseTree = class(TObject)
   private
     fbMadeTree: Boolean;
-    fbParseError: boolean;
-    fsParseErrorMessage: string;
     fiTokenIndex: integer;
 
     fcRoot: TParseTreeNode;
@@ -233,11 +231,7 @@ type
     procedure BuildParseTree;
     procedure Clear;
 
-    property ParseError: boolean read fbParseError;
-    property ParseErrorMessage: String read fsParseErrorMessage;
     property Root: TParseTreeNode read fcRoot;
-
-
     property TokenList: TSourceTokenList read fcTokenList write fcTokenList;
   end;
 
@@ -246,7 +240,7 @@ implementation
 uses
   { delphi } SysUtils,  Dialogs,  Forms,
   JclStrings,
-  { local } ParseError, TokenUtils;
+  { local } TokenUtils;
 
 
 const
@@ -265,6 +259,7 @@ end;
 
 destructor TBuildParseTree.Destroy;
 begin
+  Clear;
   freeAndNil(fcStack);
   inherited;
 end;
@@ -279,8 +274,6 @@ end;
 
 
 procedure TBuildParseTree.BuildParseTree;
-var
-  lsTokenMessage: string;
 begin
   Assert(TokenList <> nil);
 
@@ -295,29 +288,9 @@ begin
   end; }
 
   fiTokenIndex := 0;
-  fbParseError := False;
-  fsParseErrorMessage := '';
+  RecogniseGoal;
 
-  try
-    RecogniseGoal;
-
-    Assert(fcStack.Count = 0);
-  except
-    on E: TEParseError do
-    begin
-      fbParseError := True;
-      fsParseErrorMessage := E.Message;
-      lsTokenMessage := E.TokenMessage;
-      if lsTokenMessage <> '' then
-        fsParseErrorMessage :=  fsParseErrorMessage + ' near ' + lsTokenMessage;
-    end;
-    on E: exception do
-    begin
-      fbParseError := True;
-      fsParseErrorMessage := E.Message;
-    end;
-  end;
-
+  Assert(fcStack.Count = 0);
   fbMadeTree := True;
 end;
 
@@ -2021,6 +1994,8 @@ begin
 end;
 
 procedure TBuildParseTree.RecogniseStatement;
+const
+  BLOCK_END: TTokenTypeSet = [ttEnd, ttFinally, ttExcept];
 var
   lc: TSourceToken;
 begin
@@ -2045,8 +2020,8 @@ begin
 
   lc := TokenList.FirstSolidToken;
 
-  { anything more? can just be a label at the end of the proc }
-  if lc.TokenType <> ttEnd then
+  { anything more? can just be a label at the end of the proc/block }
+  if not (lc.TokenType in BLOCK_END) then
   begin
 
     if lc.TokenType in StructStatementWords then
@@ -4241,8 +4216,12 @@ begin
     { str width specifiers e.g. " Str(val:0, S);" this is an odd wart on the syntax }
     else if TokenList.FirstSolidTokenType = ttColon then
     begin
-      Recognise(ttColon);
-      RecogniseExpr;
+      { can be more than one of them }
+      while TokenList.FirstSolidTokenType = ttColon do
+      begin
+        Recognise(ttColon);
+        RecogniseExpr;
+      end;
     end;
   end;
 end;

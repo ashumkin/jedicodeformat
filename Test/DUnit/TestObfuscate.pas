@@ -89,6 +89,8 @@ type
     procedure TestObfuscate_LittleTest45;
     procedure TestObfuscate_LittleTest46;
     procedure TestObfuscate_LittleTest47;
+    procedure TestObfuscate_LittleTest48;
+    procedure TestObfuscate_LittleTest49;
 
     procedure TestObfuscate_TestAbsolute;
     procedure TestObfuscate_TestAlign;
@@ -230,8 +232,7 @@ begin
     lcConverter.Convert;
 
     Check(not lcConverter.ConvertError, 'Obfuscate failed for ' +
-      ExtractFileName(psInFileName) +
-      ' : ' + lcConverter.ConvertErrorMessage);
+      ExtractFileName(psInFileName));
 
     lsObsFileName := lcConverter.OutFileName;
     Check(lsObsFileName <> '', 'No obfuscated file');
@@ -253,8 +254,7 @@ begin
     lcConverter.Convert;
 
     Check(not lcConverter.ConvertError, 'Reclarify failed for ' +
-      ExtractFileName(lsObsFileName) +
-      ' : ' + lcConverter.ConvertErrorMessage);
+      ExtractFileName(lsObsFileName));
 
     lsOutFileName := lcConverter.OutFileName;
     Check(lsOutFileName <> '', 'No output file');
@@ -1019,6 +1019,16 @@ end;
 procedure TTestObfuscate.TestObfuscate_TestWarnDestroy;
 begin
   TestObfuscateFile('TestWarnDestroy');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest48;
+begin
+  TestObfuscateFile('LittleTest48');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest49;
+begin
+  TestObfuscateFile('LittleTest49');
 end;
 
 initialization

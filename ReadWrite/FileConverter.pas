@@ -88,13 +88,13 @@ var
 begin
   if psInput = '' then
   begin
-    DoShowMessage('', 'Select a file');
+    SendStatusMessage('', 'Select a file');
     exit;
   end;
 
   if not FileExists(psInput) then
   begin
-    DoShowMessage(psInput, 'The file "' + psInput + '" does not exist');
+    SendStatusMessage(psInput, 'The file "' + psInput + '" does not exist');
     exit;
   end;
 
@@ -134,7 +134,7 @@ begin
   begin
     if lsOut = '' then
     begin
-      DoShowMessage(psInput, 'No output/backup file specifed');
+      SendStatusMessage(psInput, 'No output/backup file specifed');
       exit;
     end;
 
@@ -225,7 +225,7 @@ begin
 
   if BackupMode = cmInPlaceWithBackup then
   begin
-    if ParseError then
+    if ConvertError then
     begin
       // restore the backup
       CopyFile(PChar(lsOut),PChar(psInput), False);
@@ -234,7 +234,7 @@ begin
   end
   else if BackupMode = cmInPlace then
   begin
-    if ParseError then
+    if ConvertError then
     begin
       // restore the backup
       CopyFile(PChar(lsTemp), PChar(psInput), False);
@@ -259,7 +259,7 @@ var
 begin
   if not DirectoryExists(psDir) then
   begin
-    DoShowMessage('', 'The directory ' + psDir + ' does not exist');
+    SendStatusMessage('', 'The directory ' + psDir + ' does not exist');
     exit;
   end;
 

@@ -33,12 +33,18 @@ type
   TEParseError = class(Exception)
   private
     fcToken: TSourceToken;
-    function GetTokenMessage: string;
+    fiXPosition, fiYPosition: integer;
+    fsFileName: string;
 
+    function GetTokenMessage: string;
   public
     Constructor Create(const psMessage: string; const pcToken: TSourceToken);
 
+    property FileName: string read fsFileName write fsFileName;
     property TokenMessage: string read GetTokenMessage;
+    property XPosition: integer read fiXPosition;
+    property YPosition: integer read fiYPosition;
+
   end;
 
 implementation
@@ -50,22 +56,16 @@ begin
   inherited Create(psMessage);
 
   fcToken := pcToken;
+  fiXPosition := pcToken.XPosition;
+  fiYPosition := pcToken.YPosition;
 end;
 
 function TEParseError.GetTokenMessage: string;
-var
-  lsPos: string;
 begin
   if fcToken = nil then
     Result := ''
   else
-  begin
     Result := fcToken.Describe;
-    lsPos := fcToken.DescribePosition;
-    if lsPos <> '' then
-      Result := Result + ' ' + lsPos;
-  end;
-
 end;
 
 end.

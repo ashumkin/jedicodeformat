@@ -131,7 +131,9 @@ uses
   littletest45 in 'LittleTest45.pas',
   littletest46 in 'LittleTest46.pas',
   littletest47 in 'LittleTest47.pas',
-  testwarndestroy in 'TestWarnDestroy.pas';
+  testwarndestroy in 'TestWarnDestroy.pas',
+  littletest48 in 'LittleTest48.pas',
+  littletest49 in 'LittleTest49.pas';
 
 {$R *.res}
 begin

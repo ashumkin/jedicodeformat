@@ -7,6 +7,15 @@ implementation
 procedure foo(val: longint; s: string);
 begin
   str(val: 0, s);
+  str(val: 1 - 1, s);
+  str(val: val div 3, s);
+  str(val: (val div 3) + 3 + length(s),
+    s);
+  str(val: (val div 3) + 3 + length(s) div val, s);
+end;
+
+procedure bar(val: longint; s: string);
+begin
 end;
 
 end.

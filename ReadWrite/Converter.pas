@@ -33,7 +33,7 @@ unit Converter;
 interface
 
 uses
-    { delphi } Classes,
+    { delphi } Classes, SysUtils,
     { local } ConvertTypes, ParseTreeNode,
     CodeReader, CodeWriter, BuildTokenList,
     BuildParseTree, JCFLog;
@@ -52,10 +52,7 @@ type
     fiTokenCount: integer;
 
     fbConvertError: boolean;
-    fsConvertErrorMessage: string;
-
     fOnStatusMessage: TStatusMessageProc;
-    function GetParseError: boolean;
 
   protected
     fbAbort: Boolean;
@@ -65,10 +62,13 @@ type
     fcReader: TCodeReader;
     fcWriter: TCodeWriter;
 
-    procedure DoShowMessage(const psFile, psMessage: string;
-      const piY: integer = -1; const piX: integer = -1); virtual;
+    { call this to display a parse error or other falure }
+    procedure DoShowException(const pe: Exception);
+
+    { call this to report the current state of the proceedings }
     procedure SendStatusMessage(const psFile, psMessage: string;
       const piY: integer = -1; const piX: integer = -1); virtual;
+    { last thing }
     procedure FinalSummary;
 
     procedure DoConvertUnit;
@@ -82,8 +82,6 @@ type
 
     { this does the reformatting. Virtual method so can be overriden for testing }
     procedure ApplyProcesses; virtual;
-
-    property ParseError: boolean read GetParseError; 
 
   public
     constructor Create;
@@ -104,7 +102,6 @@ type
 
     property TokenCount: integer read fiTokenCount;
     property ConvertError: boolean read fbConvertError;
-    property ConvertErrorMessage: string read fsConvertErrorMessage;
 
     property Root: TParseTreeNode read GetRoot;
   end;
@@ -112,9 +109,9 @@ type
 implementation
 
 uses
-  { delphi } Windows, SysUtils, Dialogs, Controls, Forms,
+  { delphi } Windows, Dialogs, Controls, Forms,
   { local } SourceTokenList, fShowParseTree, JcfSettings, JcfRegistrySettings,
-  AllProcesses, Preprocessor;
+  AllProcesses, Preprocessor, ParseError, fJcfErrorDisplay;
 
 
 constructor TConverter.Create;
@@ -191,17 +188,38 @@ begin
 end;
 
 { for failures, use console output, not showmessage in gui mode }
-procedure TConverter.DoShowMessage(const psFile, psMessage: string; const piY, piX: integer);
+procedure TConverter.DoShowException(const pe: Exception);
+var
+  lcParseError: TEParseError;
+  lsText: string;
 begin
   if fbGuiMessages then
   begin
-    if (piY >= 0) and (piX >= 0) then
-      ShowMessage(psMessage + ' at line ' + IntToStr(piY) + ' col ' + IntToStr(piX))
-    else
-      ShowMessage(psMessage);
+    if (pE is TEParseError) then
+    begin
+      lcParseError := TEParseError(pE);
+      lcParseError.FileName := OriginalFileName;
+    end;
+
+    ShowExceptionDialog(pe);
   end
   else
-    SendStatusMessage(psFile, psMessage, piY, piX);
+  begin
+    if (pE is TEParseError) then
+    begin
+      lcParseError := TEParseError(pE);
+
+      lsText := lcParseError.Message + ' near ' + lcParseError.TokenMessage;
+      if OriginalFileName <> '' then
+        lsText := lsText + ' in ' + OriginalFileName;
+
+      SendStatusMessage(OriginalFileName, lsText, lcParseError.YPosition, lcParseError.XPosition);
+    end
+    else
+    begin
+      SendStatusMessage(OriginalFileName, pe.Message, -1, -1);
+    end;
+  end;
 end;
 
 
@@ -260,7 +278,6 @@ begin
 
   //Assert(Settings <> nil);
   fbConvertError := False;
-  fsConvertErrorMessage := '';
 
   try
     fcWriter.Clear;
@@ -283,9 +300,18 @@ begin
 
           // make a parse tree from it
         fcBuildParseTree.TokenList := lcTokenList;
-        fcBuildParseTree.BuildParseTree;
+
+        try
+          fcBuildParseTree.BuildParseTree;
+        except
+          on E: Exception do
+          begin
+            fbConvertError := True;
+            DoShowException(E);
+          end;
+        end;
       finally
-        if (fbConvertError or fcBuildParseTree.ParseError) then
+        if fbConvertError then
         begin
           { if there was a parse error, the rest of the unit was not parsed
            there may still be tokens in the list
@@ -298,23 +324,15 @@ begin
         lcTokenList.Free;
       end;
 
-      if fbConvertError or fcBuildParseTree.ParseError then
-      begin
-        DoShowMessage(OriginalFileName, fcBuildParseTree.ParseErrorMessage);
-
-        fbConvertError := True;
-        fsConvertErrorMessage := fcBuildParseTree.ParseErrorMessage;
-      end;
-
       // show the parse tree?
       if (GetRegSettings.ShowParseTreeOption = eShowAlways) or
-        ((GetRegSettings.ShowParseTreeOption = eShowOnError) and (fcBuildParseTree.ParseError)) then
+        ((GetRegSettings.ShowParseTreeOption = eShowOnError) and fbConvertError) then
       begin
         if fcBuildParseTree.Root <> nil then
           ShowParseTree(fcBuildParseTree.Root);
       end;
 
-      if not fcBuildParseTree.ParseError then
+      if not fbConvertError then
       begin
         // do the processes
         ApplyProcesses;
@@ -333,9 +351,8 @@ begin
   except
     on E: Exception do
     begin
-      SendStatusMessage(OriginalFileName, 'Could not convert the unit: ' + E.Message);
+      DoShowException(E);
       fbConvertError := True;
-      fsConvertErrorMessage := E.Message;
     end;
   end;
 end;
@@ -372,9 +389,5 @@ begin
   fiConvertCount := 0;
 end;
 
-function TConverter.GetParseError: boolean;
-begin
-  Result := (fcBuildParseTree <> nil) and (fcBuildParseTree.ParseError);
-end;
 
 end.
