@@ -113,6 +113,9 @@ function Root(const pt: TParseTreeNode): TParseTreeNode;
 
 function UnitName(const pt: TParseTreeNode): String;
 
+{ use to build a parse tree}
+function IsIdentifierToken(const pt: TSourceToken): boolean;
+{ use on a built parse tree }
 function IsIdentifier(const pt: TSourceToken): boolean;
 
 function IsHintDirective(const pt: TSourceToken): boolean;
@@ -616,9 +619,17 @@ begin
     Result := lcName.SourceCode;
 end;
 
+function IsIdentifierToken(const pt: TSourceToken): boolean;
+const
+  FUDGE_NAMES = [ttOut];
+begin
+  Result := (pt <> nil) and
+    ((pt.WordType in IdentifierTypes) or (pt.TokenType in FUDGE_NAMES));
+end;
+
 function IsIdentifier(const pt: TSourceToken): boolean;
 begin
-  Result := (pt <> nil) and (pt.WordType in IdentifierTypes);
+  Result := IsIdentifierToken(pt);
 
   if Result then
     Result := pt.HasParentNode(nIdentifier, 1);

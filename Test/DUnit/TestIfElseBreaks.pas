@@ -5,13 +5,16 @@ interface
 uses
   Classes,
   TestFrameWork,
-  StringsConverter, BaseTestProcess;
+  StringsConverter, BaseTestProcess, SettingsTypes;
 
 type
   TTestIfElseBreaks = class(TBaseTestProcess)
   private
+    leSaveStyle: TBlockNewLineStyle;
 
   protected
+    procedure Setup; override;
+    procedure Teardown; override;
   published
     procedure TestIfElseRemoveReturn1;
     procedure TestIfElseRemoveReturn2;
@@ -23,7 +26,7 @@ type
 
 implementation
 
-uses JclStrings, BlockStyles, JcfSettings, SettingsTypes;
+uses JclStrings, BlockStyles, JcfSettings;
 
 const
 
@@ -87,6 +90,20 @@ const
     'end.';
 
     { TTestIfElseBreaks }
+
+procedure TTestIfElseBreaks.Setup;
+begin
+  inherited;
+
+  leSaveStyle := FormatSettings.Returns.ElseIfStyle;
+end;
+
+procedure TTestIfElseBreaks.Teardown;
+begin
+  inherited;
+
+  FormatSettings.Returns.ElseIfStyle := leSaveStyle;
+end;
 
 procedure TTestIfElseBreaks.TestIfElseAddReturn1;
 begin

@@ -86,6 +86,9 @@ type
     procedure TestParse_LittleTest40;
     procedure TestParse_LittleTest41;
     procedure TestParse_LittleTest42;
+    procedure TestParse_LittleTest43;
+    procedure TestParse_LittleTest44;
+    procedure TestParse_LittleTest45;
 
     procedure TestParse_TestAbsolute;
     procedure TestParse_TestAlign;
@@ -195,10 +198,21 @@ uses
 
 
 procedure TTestFileParse.Setup;
+var
+  lsSettingsFileName: string;
 begin
   inherited;
+
   if not GetRegSettings.HasRead then
     GetRegSettings.ReadAll;
+
+  { use clarify test settings }
+  lsSettingsFileName := GetTestSettingsFileName;
+  Check(FileExists(lsSettingsFileName), 'Settings file ' + lsSettingsFileName + ' not found');
+
+  GetRegSettings.FormatConfigFileName := lsSettingsFileName;
+  FormatSettings; // create and read
+  FormatSettings.Obfuscate.Enabled := False;
 end;
 
 
@@ -656,7 +670,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 1039);
+  TestParseFile('Testcases.dpr', 1063);
 end;
 
 
@@ -945,6 +959,21 @@ end;
 procedure TTestFileParse.TestParse_LittleTest42;
 begin
   TestParseFile('LittleTest42', 112);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest43;
+begin
+  TestParseFile('LittleTest43', 413);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest44;
+begin
+  TestParseFile('LittleTest44', 285);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest45;
+begin
+  TestParseFile('LittleTest45', 177);
 end;
 
 initialization

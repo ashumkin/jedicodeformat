@@ -174,6 +174,10 @@ begin
   if Reader.BufferCharsLeft(2) <> '(*' then
     exit;
 
+  { if the comment starts with (*) that is not the end of the comment }
+  Reader.IncBuffer;
+  Reader.IncBuffer;
+
   { until *) or End of file }
   while (Reader.BufferCharsRight(2) <> '*)') and (not Reader.BufferEndOfFile) do
     Reader.IncBuffer;

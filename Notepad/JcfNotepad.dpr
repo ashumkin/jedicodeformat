@@ -141,7 +141,10 @@ uses
   Preprocessor in '..\Parse\PreProcessor\PreProcessor.pas',
   PreProcessorParse in '..\Parse\PreProcessor\PreProcessorParse.pas',
   PreProcessorTokenise in '..\Parse\PreProcessor\PreProcessorTokenise.pas',
-  frPreProcessor in '..\Ui\Settings\frPreProcessor.pas' {fPreProcessor: TFrame};
+  frPreProcessor in '..\Ui\Settings\frPreProcessor.pas' {fPreProcessor: TFrame},
+  SetPreprocessor in '..\Settings\SetPreProcessor.pas',
+  RemoveSpaceAtLineEnd in '..\Process\Spacing\RemoveSpaceAtLineEnd.pas',
+  frUnitCaps in '..\Ui\Settings\frUnitCaps.pas' {frUnitNameCaps: TFrame};
 
 {$R *.res}
 

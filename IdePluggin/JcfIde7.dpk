@@ -152,6 +152,9 @@ contains
   PreProcessorParse in '..\Parse\PreProcessor\PreProcessorParse.pas',
   PreProcessorTokenise in '..\Parse\PreProcessor\PreProcessorTokenise.pas',
   PreProcessorTokens in '..\Parse\PreProcessor\PreProcessorTokens.pas',
-  frPreProcessor in '..\Ui\Settings\frPreProcessor.pas' {fPreProcessor: TFrame};
+  frPreProcessor in '..\Ui\Settings\frPreProcessor.pas' {fPreProcessor: TFrame},
+  ParseTreeNode in '..\Parse\ParseTreeNode.pas',
+  UnitNameCaps in '..\Process\Capitalisation\UnitNameCaps.pas',
+  RemoveSpaceAtLineEnd in '..\Process\Spacing\RemoveSpaceAtLineEnd.pas';
 
 end.

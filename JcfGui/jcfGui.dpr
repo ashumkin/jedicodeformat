@@ -145,7 +145,9 @@ uses
   PreProcessorParse in '..\Parse\PreProcessor\PreProcessorParse.pas',
   PreProcessorTokenise in '..\Parse\PreProcessor\PreProcessorTokenise.pas',
   PreProcessor in '..\Parse\PreProcessor\PreProcessor.pas',
-  SetPreprocessor in '..\Settings\SetPreprocessor.pas';
+  SetPreprocessor in '..\Settings\SetPreprocessor.pas',
+  UnitNameCaps in '..\Process\Capitalisation\UnitNameCaps.pas',
+  RemoveSpaceAtLineEnd in '..\Process\Spacing\RemoveSpaceAtLineEnd.pas';
 
 {$R *.res}
 

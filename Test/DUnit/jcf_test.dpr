@@ -137,7 +137,10 @@ uses
   PreProcessorTokens in '..\..\Parse\PreProcessor\PreProcessorTokens.pas',
   Preprocessor in '..\..\Parse\PreProcessor\PreProcessor.pas',
   PreProcessorParse in '..\..\Parse\PreProcessor\PreProcessorParse.pas',
-  PreProcessorTokenise in '..\..\Parse\PreProcessor\PreProcessorTokenise.pas';
+  PreProcessorTokenise in '..\..\Parse\PreProcessor\PreProcessorTokenise.pas',
+  JCFHelp in '..\..\Utils\JCFHelp.pas',
+  SettingsTypes in '..\..\Settings\SettingsTypes.pas',
+  SetPreprocessor in '..\..\Settings\SetPreProcessor.pas';
 
 {$R *.res}
 

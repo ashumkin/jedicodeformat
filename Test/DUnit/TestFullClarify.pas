@@ -83,6 +83,9 @@ type
     procedure TestClarify_LittleTest40;
     procedure TestClarify_LittleTest41;
     procedure TestClarify_LittleTest42;
+    procedure TestClarify_LittleTest43;
+    procedure TestClarify_LittleTest44;
+    procedure TestClarify_LittleTest45;
 
     procedure TestClarify_TestAbsolute;
     procedure TestClarify_TestAlign;
@@ -212,9 +215,9 @@ begin
   lsSettingsFileName := GetTestSettingsFileName;
   Check(FileExists(lsSettingsFileName), 'Settings file ' + lsSettingsFileName + ' not found');
 
-  FormatSettings.ReadFromFile(lsSettingsFileName);
+  GetRegSettings.FormatConfigFileName := lsSettingsFileName;
+  FormatSettings; // create and read
   FormatSettings.Obfuscate.Enabled := False;
-
 end;
 
 procedure TFullTestClarify.TestClarifyFile(const psName: string);
@@ -955,6 +958,21 @@ end;
 procedure TFullTestClarify.TestClarify_LittleTest42;
 begin
   TestClarifyFile('LittleTest42');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest43;
+begin
+  TestClarifyFile('LittleTest43');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest44;
+begin
+  TestClarifyFile('LittleTest44');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest45;
+begin
+  TestClarifyFile('LittleTest45');
 end;
 
 initialization

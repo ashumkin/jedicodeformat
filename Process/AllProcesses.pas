@@ -73,7 +73,7 @@ uses
   Warning, WarnEmptyBlock, WarnRealType, WarnAssignToFunctionName,
   WarnCaseNoElse, WarnDestroy,
   { caps}
-  UnitNameCaps, SpecifiCWordCaps, Capitalisation,
+  UnitNameCaps, SpecificWordCaps, Capitalisation,
   { returns }
   ReturnChars,
   RemoveReturnsAfterBegin, RemoveReturnsBeforeEnd,

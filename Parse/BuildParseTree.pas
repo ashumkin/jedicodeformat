@@ -174,6 +174,7 @@ type
     procedure RecogniseFormalParam;
     procedure RecogniseParameter;
     procedure RecogniseActualParams;
+    procedure RecogniseActualParam;
 
     procedure RecogniseProcedureDirectives;
 
@@ -242,7 +243,8 @@ implementation
 
 uses
   { delphi } SysUtils,  Dialogs,
-  { local } ParseError;
+  JclStrings,
+  { local } ParseError, TokenUtils;
 
 
 {------------------------------------------------------------------------------
@@ -402,7 +404,7 @@ begin
 
   { We have to admit directives and type names as identifiers.
     see TestBogusDirectives.pas for the reasons why }
-  Result := (lc.WordType in IdentifierTypes) or (lc.TokenType = ttOut);
+  Result := IsIdentifierToken(lc);
 end;
 
 
@@ -1914,32 +1916,42 @@ begin
 end;
 
 procedure TBuildParseTree.RecogniseDesignatorTail;
+const
+  DESIGNATOR_TAIL_TOKENS = [ttDot, ttOpenBracket, ttOpenSquareBracket, ttHat,
+    ttPlus, ttMinus];
 begin
 
-  while (TokenList.FirstSolidTokenType in [ttDot, ttOpenBracket, ttOpenSquareBracket, ttHat]) do
+  while (TokenList.FirstSolidTokenType in DESIGNATOR_TAIL_TOKENS) do
   begin
-    if TokenList.FirstSolidTokenType = ttDot then
-    begin
-      Recognise(ttDot);
-      RecogniseIdentifier(False);
-    end
-    else if TokenList.FirstSolidTokenType = ttHat then
-    begin
-      Recognise(ttHat);
-      // and after the deref operator ?
-    end
-    else if TokenList.FirstSolidTokenType = ttOpenSquareBracket then
-    begin
-      Recognise(ttOpenSquareBracket);
-      RecogniseExprList;
-      Recognise(ttCloseSquareBracket);
-    end
-    else if TokenList.FirstSolidTokenType = ttOpenBracket then
-    begin
-      RecogniseActualParams;
-    end
-    else
-      Assert(False, 'Should not be here - bad token type');
+    case TokenList.FirstSolidTokenType of
+      ttDot:
+      begin
+        Recognise(ttDot);
+        RecogniseIdentifier(False);
+      end;
+      ttHat:
+      begin
+        Recognise(ttHat);
+        // and after the deref operator ?
+      end;
+      ttOpenSquareBracket:
+      begin
+        Recognise(ttOpenSquareBracket);
+        RecogniseExprList;
+        Recognise(ttCloseSquareBracket);
+      end;
+      ttOpenBracket:
+      begin
+        RecogniseActualParams;
+      end;
+      ttPlus, ttMinus:
+      begin
+        Recognise([ttPlus, ttMinus]);
+        RecogniseExpr;
+      end;
+      else
+        Assert(False, 'Should not be here - bad token type');
+    end;
   end;
 end;
 
@@ -2827,14 +2839,27 @@ end;
 
 procedure TBuildParseTree.RecogniseFormalParam;
 const
-  PARAM_PREFIXES: TTokenTypeSet = [ttVar, ttConst, ttOut];
+  PARAM_PREFIXES: TTokenTypeSet = [ttVar, ttConst];
 begin
   PushNode(nFormalParam);
 
-  // FormalParm -> [VAR | CONST | OUT] Parameter
+  { FormalParm -> [VAR | CONST | OUT] Parameter
+
+    'out' is different as it is also a param name so this is legal
+    procedure Foo(out out: integer);
+
+    'out' with a comma, colon or ')' directly after is not a prefix, it is a param name
+    if another name follows it is a prefix
+  }
+
 
   if TokenList.FirstSolidTokenType in PARAM_PREFIXES then
-    Recognise(PARAM_PREFIXES);
+    Recognise(PARAM_PREFIXES)
+  else if TokenList.FirstSolidTokenType = ttOut then
+  begin
+    if IsIdentifierToken(TokenList.SolidToken(2)) then
+      Recognise(ttOut);
+  end;
 
   RecogniseParameter;
 
@@ -3630,6 +3655,7 @@ begin
       -> (Designator)
       -> (Designator as type)
       -> ident
+      ->(pointervar + expr)
   }
   if (TokenList.FirstSolidTokenType = ttOpenBracket) then
   begin
@@ -4125,24 +4151,7 @@ begin
     //RecogniseExprList;
 
     repeat
-      RecogniseExpr;
-
-      { ole named param syntax, e.g.
-        " MSWord.TextToTable(ConvertFrom := 2, NumColumns := 3);"
-      }
-
-      if TokenList.FirstSolidTokenType = ttAssign then
-      begin
-        Recognise(ttAssign);
-        RecogniseExpr;
-      end;
-
-      { str width specifiers e.g. " Str(val:0, S);" this is an odd wart on the syntax }
-      if TokenList.FirstSolidTokenType = ttColon then
-      begin
-        Recognise(ttColon);
-        RecogniseExpr;
-      end;
+      RecogniseActualParam;
 
       lbMore := TokenList.FirstSolidTokenType = ttComma;
       if lbMore then
@@ -4155,6 +4164,55 @@ begin
   Recognise(ttCloseBracket);
 
   PopNode;
+end;
+
+procedure TBuildParseTree.RecogniseActualParam;
+const
+  EXPR_TYPES = [ttNumber, ttIdentifier, ttLiteralString,
+    ttPlus, ttMinus, ttOpenBracket, ttOpenSquareBracket, ttNot];
+var
+  lc: TSourceToken;
+begin
+  lc := TokenList.FirstSolidToken;
+
+  { all kinds of reserved words can sometimes be param names
+    thanks to COM and named params
+    See LittleTest43.pas }
+  if (not (lc.TokenType in EXPR_TYPES)) and StrIsAlphaNum(lc.SourceCode) and
+    (not IsIdentifierToken(lc)) then
+  begin
+    { quick surgery. Perhaps even a hack -
+      reclasify the token, as it isn't what it thinks it is
+      e.g. if this word is 'then', then
+      we don't want a linbreak after it like in if statements }
+    lc.TokenType := ttIdentifier;
+    Recognise(ttIdentifier);
+
+    { this must be a named value, e.g. "end = 3". See LittleTest43.pas for e.g.s }
+    Recognise(ttAssign);
+    RecogniseExpr;
+  end
+  else
+  begin
+    RecogniseExpr;
+
+    { ole named param syntax, e.g.
+      " MSWord.TextToTable(ConvertFrom := 2, NumColumns := 3);"
+    }
+
+    if TokenList.FirstSolidTokenType = ttAssign then
+    begin
+      Recognise(ttAssign);
+      RecogniseExpr;
+    end
+
+    { str width specifiers e.g. " Str(val:0, S);" this is an odd wart on the syntax }
+    else if TokenList.FirstSolidTokenType = ttColon then
+    begin
+      Recognise(ttColon);
+      RecogniseExpr;
+    end;
+  end;
 end;
 
 end.
