@@ -58,7 +58,9 @@ uses
   NoSpaceAfter, NoSpaceBefore, SingleSpaceBefore, SingleSpaceAfter,
   SpaceBeforeColon, VisitStripEmptySpace,
   {indent}
-  VisitSetNesting, Indenter, LongLineBreaker;
+  VisitSetNesting, Indenter, LongLineBreaker,
+  { stats }
+  BasicStats;
 
 constructor TAllProcesses.Create;
 begin
@@ -70,6 +72,7 @@ end;
 procedure TAllProcesses.ApplyVisitorType(const pcVisitorType: TTreeNodeVisitorType);
 var
   lc: TBaseTreeNodeVisitor;
+  lsMessage: string;
 begin
   Assert(fcRoot <> nil);
 
@@ -80,6 +83,10 @@ begin
 
   fcRoot.VisitTree(lc);
 
+  if lc.FinalSummary(lsMessage) then
+    OnMessage(lsMessage);
+
+  lc.Free;
 end;
 
 procedure TAllProcesses.Execute(const pcRoot: TParseTreeNode);
@@ -99,6 +106,8 @@ begin
     LineBreaking;
     Spacing;
     Indent;
+
+    ApplyVisitorType(TBasicStats);
   end;
 end;
 
