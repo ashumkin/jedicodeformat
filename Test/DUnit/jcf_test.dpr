@@ -155,7 +155,8 @@ uses
   TestRemoveComment in 'TestRemoveComment.pas',
   TestMaxBlankLines in 'TestMaxBlankLines.pas',
   TestTextAfterUnitEnd in 'TestTextAfterUnitEnd.pas',
-  TestCaseReturns in 'TestCaseReturns.pas';
+  TestCaseReturns in 'TestCaseReturns.pas',
+  TestIndentation in 'TestIndentation.pas';
 
 {
   gpprof in '..\..\..\..\..\Program Files\GpProfile\gpprof.pas',
