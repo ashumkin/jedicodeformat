@@ -89,9 +89,6 @@ begin
     cbKeepWithInProc.Checked := KeepCommentsWithCodeInProcs;
     cbKeepWithInGlobals.Checked := KeepCommentsWithCodeInGlobals;
     cbKeepWithInClassDef.Checked := KeepCommentsWithCodeInClassDef;
-
-    cbBorlandCaseIndent.Checked := BorlandCaseIndent;
-
   end;
 
   cbIndentBeginEndClick(nil);
@@ -117,8 +114,6 @@ begin
     KeepCommentsWithCodeInProcs := cbKeepWithInProc.Checked;
     KeepCommentsWithCodeInGlobals := cbKeepWithInGlobals.Checked;
     KeepCommentsWithCodeInClassDef := cbKeepWithInClassDef.Checked;
-
-    BorlandCaseIndent := cbBorlandCaseIndent.Checked;
   end;
 end;
 
