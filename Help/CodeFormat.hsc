@@ -1,6 +1,6 @@
 HelpScribble project file.
 12
-`cbbajbek Vap.-1N53O79Q
+...
 0
 1
 JEDI Delphi Code Format
@@ -25,7 +25,7 @@ TRUE
 FALSE
 FALSE
 FALSE
-26
+27
 10
 Scribble10
 Main
@@ -38,7 +38,7 @@ Writing
 
 
 FALSE
-44
+45
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fmodern Courier New;}{\f3\fnil\fcharset0 Arial;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green128\blue0;}
 \viewkind4\uc1\pard\cf1\b\f0\fs32 Jedi Code Format V\lang2057\f1 2.0\cf0\lang1031\b0\f0\fs20 
@@ -71,6 +71,7 @@ FALSE
 \par \lang2057\f1\tab\cf3\strike Capitalisation\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 12\lang1031\f0 0\}
 \par \lang2057\f1\tab\cf3\strike Find and replace\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 13\lang1031\f0 0\}
 \par \lang2057\f1\tab\cf3\strike Find and replace on uses\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 14\lang1031\f0 0\}
+\par \lang2057\f1\tab\cf3\strike Transform\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 210\lang1031\f0\}
 \par \cf3\lang2057\strike\f1 Preprocessor\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 15\lang1031\f0 0\}
 \par \cf0 
 \par \cf3\lang3079\strike\f1 Command line parameters\cf2\strike0\{linkID=200\}
@@ -690,7 +691,7 @@ Writing
 
 
 FALSE
-61
+62
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fnil\fcharset0 Arial;}{\f3\fnil\fcharset0 Courier New;}{\f4\fnil\fcharset2 Symbol;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Align\cf0\b0\fs20 
@@ -723,6 +724,7 @@ FALSE
 \par \pard{\pntext\f4\'B7\tab}{\*\pn\pnlvlblt\pnf4\pnindent0{\pntxtb\'B7}}\fi-200\li200 Assign: aligns the := of assignment statements in procedures.
 \par {\pntext\f4\'B7\tab}Const: aligns the = sign of const declarations.
 \par {\pntext\f4\'B7\tab}Var: aligns the type names of variable declarations.
+\par {\pntext\f4\'B7\tab}\lang2057\f1 Class and record fields: aligns the type names of class and record fields\lang1031\f0 
 \par {\pntext\f4\'B7\tab}Typedef Aligns the = sign of type declarations.
 \par {\pntext\f4\'B7\tab}Comments: Aligns the start of end line comments.
 \par {\pntext\f4\'B7\tab}\pard 
@@ -1052,6 +1054,55 @@ FALSE
 \par {\pntext\f4\'B7\tab}A comment that starts with \f2 //jcf:\f1  but cannot be recognised as one of the options given will cause a warning in the log but will have no effect of the file's format.
 \par {\pntext\f4\'B7\tab}\pard 
 \par For exampes see the test case unit \f2 TestExclusionFlags.pas\f1 , for impl\lang2057\f0 e\lang1031\f1 mentation see the unit \f2 FormatFlags.pas\f1 
+\par }
+211
+Scribble211
+Transform
+
+
+
+
+Writing
+
+
+
+FALSE
+36
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil Arial;}{\f2\fnil\fcharset0 Courier;}}
+{\colortbl ;\red0\green0\blue255;\red0\green0\blue0;\red128\green0\blue0;}
+\viewkind4\uc1\pard\cf1\lang2057\b\fs32 Transform\cf2\lang1033\b0\f1\fs20 
+\par 
+\par \cf3\lang1031\{keepn\}\cf0 
+\par \cf2\lang1033 
+\par \lang2057\f0 The "\lang1033\f1 transform" options tab \lang2057\f0 is \lang1033\f1 for processes that alter the code. On it are the option to add or remove begin and end blocks around single statements.
+\par Adding will turn statements such as
+\par 
+\par \b\f2 if \b0 Somecond \b then\b0 
+\par   b := SomeFunc;\f1 
+\par 
+\par ... into ...
+\par \f2 
+\par \b if \b0 Somecond \b then\b0 
+\par \b begin\b0 
+\par   b := SomeFunc;
+\par \b end\b0 ;\f1 
+\par 
+\par Removing begin end does the inverse to any single statement in a begin-end block. This will work on single statements underneath an if, else, case label, else case, while, for or with statement. The default option is to leave statements as-is, ie to neither add nor remove begin-end blocks
+\par 
+\par Added an option to always put a semicolon after the last statement in a block, where it is optional. This will turn code like
+\par \b\f2 begin\b0 
+\par   SomeFunction;
+\par   SomeOtherFunction
+\par \b end\b0 ;\f1 
+\par 
+\par ... into ...
+\par 
+\par \b\f2 begin\b0 
+\par   SomeFunction;
+\par   SomeOtherFunction;
+\par \b end\b0 ;\f1 
+\par 
+\par Note the extra pendantic semicolon. 
 \par }
 220
 Scribble220
