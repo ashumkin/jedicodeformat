@@ -66,7 +66,8 @@ uses
   TestUses in 'TestUses.pas',
   TestWarnings in 'TestWarnings.pas',
   TestWith in 'TestWith.pas',
-  LittleTest6 in 'LittleTest6.pas';
+  LittleTest6 in 'LittleTest6.pas',
+  TestArray in 'TestArray.pas';
 
 {$R *.res}
 

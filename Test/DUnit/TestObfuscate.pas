@@ -27,8 +27,10 @@ type
     procedure TestObfuscate_LittleTest4;
     procedure TestObfuscate_LittleTest5;
     procedure TestObfuscate_LittleTest6;
+
     procedure TestObfuscate_TestAbsolute;
     procedure TestObfuscate_TestAlign;
+    procedure TestObfuscate_TestArray;
     procedure TestObfuscate_TestAsm;
     procedure TestObfuscate_TestBlankLineRemoval;
     procedure TestObfuscate_TestBogusDirectives;
@@ -280,6 +282,12 @@ end;
 procedure TTestObfuscate.TestObfuscate_TestAlign;
 begin
   TestObfuscateFile('TestAlign');
+end;
+
+
+procedure TTestObfuscate.TestObfuscate_TestArray;
+begin
+  TestObfuscateFile('TestArray');
 end;
 
 procedure TTestObfuscate.TestObfuscate_TestAsm;
@@ -602,6 +610,7 @@ procedure TTestObfuscate.TestObfuscate_TestProcBlankLines;
 begin
   TestObfuscateFile('TestProcBlankLines.pas');
 end;
+
 
 initialization
  TestFramework.RegisterTest(TTestObfuscate.Suite);

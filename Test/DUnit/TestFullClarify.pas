@@ -29,6 +29,7 @@ type
 
   procedure TestClarify_TestAbsolute;
   procedure TestClarify_TestAlign;
+  procedure TestClarify_TestArray;
   procedure TestClarify_TestAsm;
 
   procedure TestClarify_TestBlankLineRemoval;
@@ -248,6 +249,11 @@ end;
 procedure TFullTestClarify.TestClarify_TestAlign;
 begin
   TestClarifyFile('TestAlign');
+end;
+
+procedure TFullTestClarify.TestClarify_TestArray;
+begin
+  TestClarifyFile('TestArray');
 end;
 
 procedure TFullTestClarify.TestClarify_TestAsm;

@@ -27,12 +27,16 @@ uses
   { delphi }
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, Buttons, ExtCtrls,
-  { local } frmBaseSettingsFrame;
+  { local } frmBaseSettingsFrame, JvMemo;
 
 type
   TfFiles = class(TfrSettingsFrame)
     lblFormatFileName: TLabel;
     lblStatus: TLabel;
+    lblDate: TLabel;
+    lblVersion: TLabel;
+    lblDescription: TLabel;
+    mDescription: TJvMemo;
     procedure FrameResize(Sender: TObject);
   private
 
@@ -62,19 +66,39 @@ procedure TfFiles.Read;
 var
   lcSet: TJCFRegistrySettings;
 begin
+  { from the registry, about the file }
   lcSet := GetRegSettings;
   lblFormatFileName.Caption := 'Format file is ' + lcSet.FormatConfigFileName;
 
   if not FileExists(lcSet.FormatConfigFileName) then
-    lblStatus.Caption := 'file not found'
-  else if FileIsReadOnly(lcSet.FormatConfigFileName) then
-    lblStatus.Caption := 'file is read only'
+  begin
+    lblStatus.Caption := 'file not found';
+  end
   else
-    lblStatus.Caption := '';
+  begin
+    if FileIsReadOnly(lcSet.FormatConfigFileName) then
+    begin
+      lblStatus.Caption := 'file is read only';
+      mDescription.ReadOnly := True;
+    end
+    else
+    begin
+      lblStatus.Caption := '';
+      mDescription.ReadOnly := False;
+    end;
+
+    { from the file, about itself}
+    lblDate.Caption := 'Date file written: ' +
+      FormatDateTime(ShortDateFormat + ' ' + ShortTimeFormat, FormatSettings.WriteDateTime);
+    lblVersion.Caption := 'Version that wrote this file: ' + FormatSettings.WriteVersion;
+    mDescription.Text := FormatSettings.Description;
+
+  end;
 end;
 
 procedure TfFiles.Write;
 begin
+  FormatSettings.Description := mDescription.Text;
 end;
 
 procedure TfFiles.FrameResize(Sender: TObject);
@@ -86,8 +110,26 @@ begin
   lblFormatFileName.Left := SPACING;
   lblFormatFileName.Width := ClientWidth - (lblFormatFileName.Left + SPACING);
 
+  // file name is varaible height due to wrap. Rest go below
   lblStatus.Left := SPACING;
   lblStatus.Top := lblFormatFileName.Top + lblFormatFileName.Height + SPACING;
+
+  lblDate.Left := SPACING;
+  lblDate.Top := lblStatus.Top + lblStatus.Height + SPACING;
+
+  lblVersion.Left := SPACING;
+  lblVersion.Top := lblDate.Top + lblDate.Height + SPACING;
+
+  lblDescription.Left := SPACING;
+  lblDescription.Top := lblVersion.Top + lblVersion.Height + SPACING;
+
+  mDescription.Left := SPACING;
+  mDescription.Top := lblDescription.Top + lblDescription.Height + SPACING;
+  mDescription.Height := CLientHeight - (mDescription.Top + SPACING); 
+
+  mDescription.Left := SPACING;
+  mDescription.Width := ClientWidth - (mDescription.Left + SPACING);
+
 end;
 
 end.

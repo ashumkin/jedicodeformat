@@ -53,6 +53,9 @@ type
     fcReplace: TSetReplace;
 
     fbWriteOnExit: Boolean;
+    fsDescription: string;
+    fdtWriteDateTime: TDateTime;
+    fsWriteVersion: String;
 
     procedure FromStream(const pcStream: TSettingsInput);
 
@@ -68,6 +71,10 @@ type
     procedure Write;
 
     procedure ToStream(const pcStream: TSettingsOutput);
+
+    property Description: string read fsDescription write fsDescription;
+    property WriteDateTime: TDateTime read fdtWriteDateTime write fdtWriteDateTime;
+    property WriteVersion: string read fsWriteVersion write fsWriteVersion;
 
     property Obfuscate: TSetObfuscate read fcObfuscate;
     property Clarify: TSetClarify read fcClarify;
@@ -135,6 +142,10 @@ end;
 
 const
   CODEFORMAT_SETTINGS_SECTION = 'JediCodeFormatSettings';
+
+  REG_VERSION = 'WriteVersion';
+  REG_WRITE_DATETIME = 'WriteDateTime';
+  REG_DESCRIPTION = 'Description';
 
 procedure TFormatSettings.Read;
 begin
@@ -205,8 +216,9 @@ procedure TFormatSettings.ToStream(const pcStream: TSettingsOutput);
 begin
   Assert(pcStream <> nil);
   pcStream.OpenSection(CODEFORMAT_SETTINGS_SECTION);
-  pcStream.Write('Version', PROGRAM_VERSION);
-  pcStream.Write('WriteDateTime', Now);
+  pcStream.Write(REG_VERSION, PROGRAM_VERSION);
+  pcStream.Write(REG_WRITE_DATETIME, Now);
+  pcStream.Write(REG_DESCRIPTION, Description);
 
   WriteToStream(fcObfuscate);
   WriteToStream(fcClarify);
@@ -255,6 +267,10 @@ begin
   end;
 
   try
+    fsWriteVersion := pcStream.Read(REG_VERSION, '');
+    fsDescription := pcStream.Read(REG_DESCRIPTION, '');
+    fdtWriteDateTime := pcStream.Read(REG_WRITE_DATETIME, 0.0);
+
     ReadFromStream(fcObfuscate);
     ReadFromStream(fcClarify);
     ReadFromStream(fcIndent);

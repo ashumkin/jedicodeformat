@@ -1239,12 +1239,18 @@ end;
 
 procedure TBuildParseTree.RecogniseSubrangeType;
 begin
-  // SubrangeType -> ConstExpr '..' ConstExpr
+  { SubrangeType -> ConstExpr '..' ConstExpr
+    this fails when an array is indexed on an entire type, eg
+    'BoolArray: array[Boolean] of Boolean;'
+  }
   PushNode(nSubrangeType);
 
   RecogniseConstExpr;
-  Recognise(ttDoubleDot);
-  RecogniseConstExpr;
+  if TokenList.FirstSolidTokenType = ttDoubleDot then
+  begin
+    Recognise(ttDoubleDot);
+    RecogniseConstExpr;
+  end;
 
   PopNode;
 end;

@@ -86,6 +86,7 @@ type
     function Read(const psTag: string): string; overload; virtual;
     function Read(const psTag, psDefault: string): string; overload; virtual;
     function Read(const psTag: string; const piDefault: integer): integer; overload; virtual;
+    function Read(const psTag: string; const pfDefault: double): double; overload; virtual;
     function Read(const psTag: string; const pbDefault: boolean): boolean; overload; virtual;
     function Read(const psTag: string; const pcStrings: TStrings): boolean;  overload; virtual;
 
@@ -113,6 +114,7 @@ type
     function Read(const psTag: string): string; override;
     function Read(const psTag, psDefault: string): string; override;
     function Read(const psTag: string; const piDefault: integer): integer; override;
+    function Read(const psTag: string; const pfDefault: double): double; override;
     function Read(const psTag: string; const pbDefault: boolean): boolean; override;
     function Read(const psTag: string; const pcStrings: TStrings): boolean; override;
 
@@ -298,6 +300,12 @@ begin
   Result := 0;
 end;
 
+function TSettingsInput.Read(const psTag: string; const pfDefault: double): double;
+begin
+  Assert(False, 'TSettingsInput.GetValue(double) must be overridden in class ' + ClassName);
+  Result := 0.0;
+end;
+
 function TSettingsInput.Read(const psTag: string; const pbDefault: boolean): boolean;
 begin
   Assert(False, 'TSettingsInput.GetValue(boolean) must be overridden in class ' + ClassName);
@@ -401,6 +409,18 @@ begin
     Result := StrToInt(lsNewText)
   else
     Result := piDefault;
+end;
+
+function TSettingsInputString.Read(const psTag: string; const pfDefault: double): double;
+var
+  lbFound: Boolean;
+  lsNewText: string;
+begin
+  InternalGetValue(psTag, lsNewText, lbFound);
+  if lbFound then
+    Result := StrToFloat(lsNewText)
+  else
+    Result := pfDefault;
 end;
 
 function TSettingsInputString.Read(const psTag: string; const pbDefault: boolean): boolean;

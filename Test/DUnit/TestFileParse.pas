@@ -30,8 +30,10 @@ type
     procedure TestParse_LittleTest4;
     procedure TestParse_LittleTest5;
     procedure TestParse_LittleTest6;
+
     procedure TestParse_TestAbsolute;
     procedure TestParse_TestAlign;
+    procedure TestParse_TestArray;
     procedure TestParse_TestAsm;
     procedure TestParse_TestBlankLineRemoval;
     procedure TestParse_TestBogusDirectives;
@@ -158,7 +160,7 @@ begin
 
     // clean up
     DeleteFile(lsOutFileName);
-    
+
   finally
     lcConverter.Free;
   end;
@@ -249,6 +251,13 @@ procedure TTestFileParse.TestParse_TestAlign;
 begin
   TestParseFile('TestAlign', 662);
 end;
+
+
+procedure TTestFileParse.TestParse_TestArray;
+begin
+  TestParseFile('TestArray', 220);
+end;
+
 
 procedure TTestFileParse.TestParse_TestAsm;
 begin
