@@ -36,12 +36,10 @@ uses
   SetClarify in '..\Settings\SetClarify.pas',
   SetFile in '..\Settings\SetFile.pas',
   SetIndent in '..\Settings\SetIndent.pas',
-  SetLog in '..\Settings\SetLog.pas',
   SetObfuscate in '..\Settings\SetObfuscate.pas',
   SetReplace in '..\Settings\SetReplace.pas',
   SetReturns in '..\Settings\SetReturns.pas',
   SetSpaces in '..\Settings\SetSpaces.pas',
-  SetUi in '..\Settings\SetUi.pas',
   SettingsStream in '..\Settings\Streams\SettingsStream.pas',
   RegistrySettings in '..\Settings\Streams\RegistrySettings.pas',
   RemoveUnneededWhiteSpace in '..\Process\Obfuscate\RemoveUnneededWhiteSpace.pas',
@@ -283,13 +281,13 @@ begin
 
   { write to settings }
   if fbHasSourceMode then
-    FormatSettings.FileSettings.SourceMode := feCmdLineSourceMode;
+    GetRegSettings.SourceMode := feCmdLineSourceMode;
   if fbHasBackupMode then
-    FormatSettings.FileSettings.BackupMode := feCmdLineBackupMode;
+    GetRegSettings.BackupMode := feCmdLineBackupMode;
 
   if not fbCmdLineShowHelp then
   begin
-    if FormatSettings.FileSettings.SourceMode = fmSingleFile then
+    if GetRegSettings.SourceMode = fmSingleFile then
     begin
       if not FileExists(lsPath) then
       begin
@@ -307,7 +305,7 @@ begin
     end;
   end;
 
-  FormatSettings.FileSettings.Input := lsPath;
+  GetRegSettings.Input := lsPath;
   FormatSettings.Obfuscate.Enabled := fbCmdLineObfuscate;
 end;
 
@@ -328,6 +326,13 @@ end;
 
 { main program starts here }
 begin
+  { read registry }
+  GetRegSettings.ReadAll;
+
+  { format setttings will be altered by the command line.
+    Do not persist these changes }
+  FormatSettings.WriteOnExit := False;
+
   lcStatus := TStatusMsgReceiver.Create;
 
   ParseCommandLine;
@@ -348,9 +353,9 @@ begin
       // use command line settings
       lcConvert.YesAll := fbYesAll;
       lcConvert.GuiMessages := False;
-      lcConvert.SourceMode :=  FormatSettings.FileSettings.SourceMode;
-      lcConvert.BackupMode := FormatSettings.FileSettings.BackupMode;
-      lcConvert.Input := FormatSettings.FileSettings.Input;
+      lcConvert.SourceMode :=  GetRegSettings.SourceMode;
+      lcConvert.BackupMode := GetRegSettings.BackupMode;
+      lcConvert.Input := GetRegSettings.Input;
 
       // do it!
       lcConvert.Convert;

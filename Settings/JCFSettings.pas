@@ -53,6 +53,8 @@ type
 
     fcReplace: TSetReplace;
 
+    fbWriteOnExit: Boolean;
+
     procedure FromStream(const pcStream: TSettingsInput);
 
   protected
@@ -81,6 +83,8 @@ type
     property Align: TSetAlign read fcAlign;
     property Replace: TSetReplace read fcReplace;
     property UsesClause: TSetUses read fcUses;
+
+    property WriteOnExit: Boolean read fbWriteOnExit write fbWriteOnExit;
   end;
 
 function FormatSettings: TFormatSettings;
@@ -111,11 +115,14 @@ begin
   fcUses := TSetUses.Create;
 
   Read;
+
+  fbWriteOnExit := True;
 end;
 
 destructor TFormatSettings.Destroy;
 begin
-  Write;
+  if WriteOnExit then
+    Write;
 
   FreeAndNil(fcFile);
   FreeAndNil(fcObfuscate);

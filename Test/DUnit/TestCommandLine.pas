@@ -42,7 +42,7 @@ uses
   { delphi }
   SysUtils,
   { jcl }
-  JclShell, JclFileUtils,
+  JclShell, JclFileUtils, JcfRegistrySettings,
   TestFramework;
 
 const
@@ -92,15 +92,15 @@ begin
     GetOutFiles;
   end;
 
-  CheckEquals(0, fsFileNames.Count);
+  CheckEquals(0, fsFileNames.Count, 'file could not be deleted');
 
 
   // build them again
   lsJcfExe := EXE_FILES_DIR + 'jcf.exe';
-  Check(FileExists(lsJcfExe));
+  Check(FileExists(lsJcfExe), 'could not find program ' + lsJcfExe);
 
   lbRes := ShellExecAndWait(lsJcfExe, fsJcfParams);
-  Check(lbRes);
+  Check(lbRes, 'program execution failed');
 
   // should be back
   GetOutFiles;
@@ -117,6 +117,9 @@ end;
 
 procedure TTestCommandline.TestFormatClarify;
 begin
+  GetRegSettings.OutputExtension := 'out';
+  GetRegSettings.WriteAll;
+
   fsJcfParams := ' -config=' + TEST_FILES_DIR + 'JCFTestSettings.cfg -out -D ' + TEST_FILES_DIR;
   fsRefDir := REF_OUT_FILES_DIR;
   fsFileMask := '*.out';
@@ -126,6 +129,9 @@ end;
 
 procedure TTestCommandline.TestFormatObfuscate;
 begin
+  GetRegSettings.OutputExtension := 'obs';
+  GetRegSettings.WriteAll;
+  
   fsJcfParams := ' -obfuscate -config=' + TEST_FILES_DIR + 'JCFObfuscateSettings.cfg -out -D ' + TEST_FILES_DIR;
   fsRefDir := OBS_OUT_FILES_DIR;
   fsFileMask := '*.obs';

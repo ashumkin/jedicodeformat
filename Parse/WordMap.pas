@@ -365,6 +365,8 @@ const
     wBoolean, wByteBool, wWordBool, wLongBool,
     wChar, wWideChar, wLongWord, wPChar];
 
+  UsesWords: TWordSet = [wUses, wRequires, wContains];
+
 implementation
 
 uses Sysutils;
@@ -384,7 +386,7 @@ type
   the procedure TypeOfWord exposes it }
 
 const
-  KeywordMap: array [0..148] of TRReservedWordMap =
+  KeywordMap: array [0..149] of TRReservedWordMap =
     ({ reserved words }
     (sWord: 'array'; eWordType: ttReservedWord; eWord: wArray),
     (sWord: 'asm'; eWordType: ttReservedWord; eWord: wAsm),
@@ -419,6 +421,7 @@ const
     (sWord: 'object'; eWordType: ttReservedWord; eWord: wobject),
     (sWord: 'of'; eWordType: ttReservedWord; eWord: wOf),
     (sWord: 'out'; eWordType: ttReservedWord; eWord: wOut),
+    (sWord: 'package'; eWordType: ttReservedWord; eWord: wPackage),
     (sWord: 'packed'; eWordType: ttReservedWord; eWord: wPacked),
     (sWord: 'procedure'; eWordType: ttReservedWord; eWord: wProcedure),
     (sWord: 'program'; eWordType: ttReservedWord; eWord: wProgram),

@@ -19,6 +19,8 @@ type
     nLibrary,
     nUses,
     nUsesItem,
+    nRequires,
+    nContains,
     nIdentList,
     nInterfaceSection,
     nImplementationSection,
@@ -114,14 +116,20 @@ type
 TParseTreeNodeTypeSet = set of TParseTreeNodeType;
 
 const
-  DirectiveNodes = [nProcedureDirectives, nExternalDirective, nHintDirectives, nPropertyDirective];
-  ProcedureNodes = [nProcedureDecl, nFunctionDecl, nConstructorDecl, nDestructorDecl];
-  ProcedureHeadings = [nFunctionHeading, nProcedureHeading, nConstructorHeading, nDestructorHeading];
+  DirectiveNodes: TParseTreeNodeTypeSet =
+    [nProcedureDirectives, nExternalDirective, nHintDirectives, nPropertyDirective];
+  ProcedureNodes: TParseTreeNodeTypeSet =
+    [nProcedureDecl, nFunctionDecl, nConstructorDecl, nDestructorDecl];
+  ProcedureHeadings: TParseTreeNodeTypeSet =
+    [nFunctionHeading, nProcedureHeading, nConstructorHeading, nDestructorHeading];
 
-  ObjectTypes = [nObjectType, nClassType, nInterfaceType];
+  ObjectTypes: TParseTreeNodeTypeSet = [nObjectType, nClassType, nInterfaceType];
 
   { can declare these at the start of a procedure }
-  InProcedureDeclSections = [nVarSection, nConstSection, nLabelDeclSection, nTypeSection];
+  InProcedureDeclSections: TParseTreeNodeTypeSet =
+    [nVarSection, nConstSection, nLabelDeclSection, nTypeSection];
+
+  UsesClauses: TParseTreeNodeTypeSet = [nUses, nRequires, nContains];
 
 
 function NodeTypeToString(const pe: TParseTreeNodeType): string;
@@ -150,7 +158,11 @@ begin
     nUses:
       Result := 'Uses';
     nUsesItem:
-      result := 'Uses Item';
+      Result := 'Uses Item';
+    nRequires:
+      Result := 'Requires';
+    nContains:
+      Result := 'Contains';
     nIdentList:
       Result := 'ident list';
     nInterfaceSection:

@@ -222,8 +222,16 @@ begin
       lbHasIndentedRunOnLine := True;
     end;
 
-    if pt.HasParentNode(nUses) and (pt.Word <> wUses) then
+    // indent for uses clause
+    if pt.HasParentNode(UsesClauses) and (not (pt.Word in UsesWords)) then
+    begin
       inc(liIndentCount);
+
+      { run on uses item }
+      if pt.HasParentNode(nUsesItem, 1) and (pt.IsOnRightOf(nUsesItem, wIn)) then
+        inc(liIndentCount);
+
+    end;
 
     if (pt.Word = wOn) and pt.HasParentNode(nOnExceptionHandler, 1) then
       dec(liIndentCount);

@@ -3265,18 +3265,43 @@ procedure TBuildParseTree.RecogniseRequiresClause;
 begin
   // RequiresClause -> REQUIRES IdentList... ';'
 
+  PushNode(nRequires);
+
   Recognise(wRequires);
   RecogniseIdentList;
   Recognise(ttSemiColon);
+
+  PopNode;
 end;
 
 procedure TBuildParseTree.RecogniseContainsClause;
 begin
   // ContainsClause -> CONTAINS IdentList... ';'
 
+  { it's not an ident list it's a unit list can be
+  "ident1, indent2" etc
+
+  or more usually
+  "ident1 in 'file1.pas',
+  ident2 in 'file2.pas' " etc}
+
+  PushNode(nContains);
+
   Recognise(wContains);
-  RecogniseIdentList;
+
+  PushNode(nIdentList);
+
+  RecogniseUsesItem(True);
+  while TokenList.FirstSolidTokenType = ttComma do
+  begin
+    Recognise(ttComma);
+    RecogniseUsesItem(True);
+  end;
+  PopNode;
+
   Recognise(ttSemicolon);
+
+  PopNode;
 end;
 
 { worker for RecogniseIdentList }

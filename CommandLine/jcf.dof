@@ -76,9 +76,9 @@ LocaleToUnicode=1
 ImagebaseMultiple=1
 SuspiciousTypecast=1
 PrivatePropAccessor=1
-UnsafeType=1
+UnsafeType=0
 UnsafeCode=1
-UnsafeCast=1
+UnsafeCast=0
 [Linker]
 MapFile=0
 OutputObjs=0
@@ -100,7 +100,7 @@ Conditionals=
 DebugSourceDirs=
 UsePackages=0
 [Parameters]
-RunParams=-config=C:\Code\JcfCheckout\CodeFormat\Jcf2\Test\TestCases\JCFTestSettings.cfg -out -D C:\Code\JcfCheckout\CodeFormat\Jcf2\Test\TestCases
+RunParams=-config=C:\Code\JcfCheckout\CodeFormat\Jcf2\Test\TestCases\JCFTestSettings.cfg -out -D C:\Code\JcfCheckout\CodeFormat\Jcf2\Test\TestCases\
 HostApplication=
 Launcher=
 UseLauncher=0

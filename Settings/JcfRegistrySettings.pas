@@ -241,7 +241,9 @@ var
   lcItems: TStringList;
   liLoop: integer;
 begin
-  Assert(fcMRUFiles <> nil);
+  if fcMRUFiles = nil then
+    exit;
+
   fcMRUFiles.Clear;
 
   lcItems := TStringList.Create;
@@ -264,8 +266,9 @@ end;
 
 procedure TJCFRegistrySettings.WriteMRUFiles;
 begin
-  Assert(fcMRUFiles <> nil);
-
+  if fcMRUFiles = nil then
+    exit;
+    
   WriteStrings(REG_MRU_FILES_SECTION, 'MRUFile', fcMRUFiles);
 end;
 

@@ -120,6 +120,8 @@ begin
     lcConverter.SourceMode := fmSingleFile;
     lcConverter.BackupMode := cmSeperateOutput;
 
+    FormatSettings.Obfuscate.Enabled := True;
+
     lcConverter.Input := psInFileName;
 
 

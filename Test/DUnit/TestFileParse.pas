@@ -91,6 +91,7 @@ type
     procedure TestParse_TestWith;
 
    procedure TestParse_TestCases;
+   procedure TestParse_TestPackage;
 
  end;
 
@@ -108,7 +109,7 @@ var
   lcConverter: TFileConverter;
   lsSettingsFileName, lsOutFileName: string;
 begin
-    Check(FileExists(psInFileName), 'input file ' + psInFileName + ' not found');
+  Check(FileExists(psInFileName), 'input file ' + psInFileName + ' not found');
 
   lcConverter := TFileConverter.Create;
   try
@@ -120,6 +121,8 @@ begin
     Check(FileExists(lsSettingsFileName), 'Settings file ' + lsSettingsFileName + ' not found');
 
     FormatSettings.ReadFromFile(lsSettingsFileName);
+    FormatSettings.Obfuscate.Enabled := False;
+
     lcConverter.SourceMode := fmSingleFile;
     lcConverter.BackupMode := cmSeperateOutput;
     GetRegSettings.OutputExtension := 'out';
@@ -545,6 +548,11 @@ begin
   TestParseFile('Testcases.dpr', 567);
 end;
 
+
+procedure TTestFileParse.TestParse_TestPackage;
+begin
+  TestParseFile('TestMe.dpk', 684);
+end;
 
 initialization
  TestFramework.RegisterTest(TTestFileParse.Suite);

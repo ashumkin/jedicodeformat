@@ -91,6 +91,8 @@ type
   procedure TestClarify_TestUsesChanges;
   procedure TestClarify_TestWarnings;
   procedure TestClarify_TestWith;
+
+  procedure TestClarify_TestPackage;
 end;
 
 
@@ -155,8 +157,9 @@ begin
     FormatSettings.ReadFromFile(lsSettingsFileName);
     lcConverter.SourceMode := fmSingleFile;
     lcConverter.BackupMode := cmSeperateOutput;
-    GetRegSettings.OutputExtension := 'out';
+    FormatSettings.Obfuscate.Enabled := False;
 
+    GetRegSettings.OutputExtension := 'out';
     lcConverter.Input := psInFileName;
     lcConverter.Convert;
 
@@ -432,6 +435,11 @@ end;
 procedure TTestClarify.TestClarify_TestOperators;
 begin
   TestClarifyFile('TestOperators');
+end;
+
+procedure TTestClarify.TestClarify_TestPackage;
+begin
+  TestClarifyFile('TestMe.dpk');
 end;
 
 procedure TTestClarify.TestClarify_TestParams;
