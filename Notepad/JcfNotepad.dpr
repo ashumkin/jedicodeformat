@@ -144,7 +144,8 @@ uses
   frPreProcessor in '..\Ui\Settings\frPreProcessor.pas' {fPreProcessor: TFrame},
   SetPreprocessor in '..\Settings\SetPreProcessor.pas',
   RemoveSpaceAtLineEnd in '..\Process\Spacing\RemoveSpaceAtLineEnd.pas',
-  frUnitCaps in '..\Ui\Settings\frUnitCaps.pas' {frUnitNameCaps: TFrame};
+  frUnitCaps in '..\Ui\Settings\frUnitCaps.pas' {frUnitNameCaps: TFrame},
+  FindReplace in '..\Process\Transform\FindReplace.pas';
 
 {$R *.res}
 

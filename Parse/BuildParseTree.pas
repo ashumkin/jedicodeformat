@@ -54,6 +54,8 @@ type
     fcStack: TStack;
     fcTokenList: TSourceTokenList;
 
+    fiTokenCount: integer;
+
     procedure RecogniseGoal;
     procedure RecogniseUnit;
     procedure RecogniseProgram;
@@ -242,10 +244,13 @@ type
 implementation
 
 uses
-  { delphi } SysUtils,  Dialogs,
+  { delphi } SysUtils,  Dialogs,  Forms,
   JclStrings,
   { local } ParseError, TokenUtils;
 
+
+const
+  UPDATE_INTERVAL = 256;
 
 {------------------------------------------------------------------------------
   standard overrides }
@@ -255,6 +260,7 @@ begin
   inherited;
   fcStack := TStack.Create;
   fcRoot := nil;
+  fiTokenCount := 0;
 end;
 
 destructor TBuildParseTree.Destroy;
@@ -358,6 +364,11 @@ begin
     end;
 
   until Matched;
+
+  inc(fiTokenCount);
+
+  if (fiTokenCount mod UPDATE_INTERVAL) = 0 then
+    Application.ProcessMessages;
 end;
 
 
@@ -3716,8 +3727,18 @@ end;
 
 
 procedure TBuildParseTree.RecogniseTypeId;
+var
+  lc: TSourceToken;
 begin
-  RecogniseIdentifier(True);
+  lc := TokenList.FirstSolidToken;
+
+  { a type is an identifier. Or a file or other Reserved word }
+  if lc.TokenType in BuiltInTypes then
+    Recognise(BuiltInTypes)
+  else if lc.TokenType = ttFile then
+    Recognise(ttFile)
+  else
+    RecogniseIdentifier(True);
 end;
 
 procedure TBuildParseTree.RecogniseAsmBlock;
@@ -4169,7 +4190,7 @@ end;
 procedure TBuildParseTree.RecogniseActualParam;
 const
   EXPR_TYPES = [ttNumber, ttIdentifier, ttLiteralString,
-    ttPlus, ttMinus, ttOpenBracket, ttOpenSquareBracket, ttNot];
+    ttPlus, ttMinus, ttOpenBracket, ttOpenSquareBracket, ttNot, ttInherited];
 var
   lc: TSourceToken;
 begin

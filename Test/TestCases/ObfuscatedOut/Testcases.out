@@ -126,9 +126,10 @@ uses
   testdefines in 'TestDefines.pas',
   littletest41 in 'LittleTest41.pas',
   littletest42 in 'LittleTest42.pas',
-  littletest45 in 'LittleTest45.pas',
   littletest43 in 'LittleTest43.pas',
-  littletest44 in 'LittleTest44.pas';
+  littletest44 in 'LittleTest44.pas',
+  littletest45 in 'LittleTest45.pas',
+  littletest46 in 'LittleTest46.pas';
 
 {$R *.res}
 begin

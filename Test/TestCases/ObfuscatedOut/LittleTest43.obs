@@ -1,0 +1,10 @@
+unit littletest43;interface implementation uses sysutils,forms,controls,comobj;procedure
+foosavetodoc(filename:string);var fword:variant;fdoc:variant;ftable:variant;frng:
+variant;fcell:variant;s,z:integer;begin screen.cursor:=crhourglass;try fword:=createoleobject
+('word.application');except screen.cursor:=crdefault;raise exception.create('Word OLE server not found'
+);exit;end;frng:=fdoc.range(start:=0,end:=0);frng:=fdoc.range(start:=0,begin:=0);
+frng:=fdoc.range(start:=0,try:=0);frng:=fdoc.range(start:=0,unit:=0);frng:=fdoc.range
+(start:=0,for:=0);frng:=fdoc.range(start:=0,if:=0);frng:=fdoc.range(start:=0,then
+:=0);frng:=fdoc.range(start:=0,procedure:=0);frng:=fdoc.range(start:=0,string:=0)
+;frng:=fdoc.range(start:=0,integer:=0);frng:=fdoc.range(start:=0,char:=0);end;end
+. 

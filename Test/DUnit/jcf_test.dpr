@@ -140,8 +140,13 @@ uses
   PreProcessorTokenise in '..\..\Parse\PreProcessor\PreProcessorTokenise.pas',
   JCFHelp in '..\..\Utils\JCFHelp.pas',
   SettingsTypes in '..\..\Settings\SettingsTypes.pas',
-  SetPreprocessor in '..\..\Settings\SetPreProcessor.pas';
+  SetPreprocessor in '..\..\Settings\SetPreProcessor.pas',
+  FindReplace in '..\..\Process\Transform\FindReplace.pas';
 
+{
+  gpprof in '..\..\..\..\..\Program Files\GpProfile\gpprof.pas',
+  GpProfH in '..\..\..\..\..\Program Files\GpProfile\gpprofh.pas';
+  }
 {$R *.res}
 
 begin

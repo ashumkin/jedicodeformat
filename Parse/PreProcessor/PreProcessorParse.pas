@@ -33,11 +33,14 @@ interface
 
 uses
   { celphi }
-  Classes,
+  Classes, SYsUtils,
   { local }
   PreProcessorTokens;
 
 type
+  { distinguish these exceptions from others }
+  PreProcessorParseFailedException = class(Exception);
+
   TPreProcessorParser = class(TObject)
   private
     fiCurrentIndex: integer;
@@ -64,10 +67,6 @@ type
 
 
 implementation
-
-uses
-  { delphi }
-  SysUtils;
 
 { TPreProcessorParser }
 
@@ -98,7 +97,8 @@ begin
 
   Result := ParseExpr;
 
-  Assert(not MoreTokens, 'Expression has trailing tokens');
+  if MoreTokens then
+    Raise PreProcessorParseFailedException.Create('Expression has trailing tokens');
 end;
 
 function TPreProcessorParser.ParseExpr: Boolean;
@@ -130,8 +130,7 @@ begin
       end;
       else
       begin
-        Result := False;
-        Assert(False, 'Preprocessor expression could not be parsed');
+        Raise PreProcessorParseFailedException.Create('Preprocessor expression could not be parsed');
       end;
     end;
   end;
@@ -172,8 +171,7 @@ begin
     end;
     else
     begin
-      Result := False;
-      Assert(False, 'Preprocessor term could not be parsed');
+      Raise PreProcessorParseFailedException.Create('Preprocessor term could not be parsed');
     end;
   end;
 end;

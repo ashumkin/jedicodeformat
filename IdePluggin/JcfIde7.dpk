@@ -155,6 +155,7 @@ contains
   frPreProcessor in '..\Ui\Settings\frPreProcessor.pas' {fPreProcessor: TFrame},
   ParseTreeNode in '..\Parse\ParseTreeNode.pas',
   UnitNameCaps in '..\Process\Capitalisation\UnitNameCaps.pas',
-  RemoveSpaceAtLineEnd in '..\Process\Spacing\RemoveSpaceAtLineEnd.pas';
+  RemoveSpaceAtLineEnd in '..\Process\Spacing\RemoveSpaceAtLineEnd.pas',
+  FindReplace in '..\Process\Transform\FindReplace.pas';
 
 end.

@@ -147,7 +147,8 @@ uses
   PreProcessor in '..\Parse\PreProcessor\PreProcessor.pas',
   SetPreprocessor in '..\Settings\SetPreprocessor.pas',
   UnitNameCaps in '..\Process\Capitalisation\UnitNameCaps.pas',
-  RemoveSpaceAtLineEnd in '..\Process\Spacing\RemoveSpaceAtLineEnd.pas';
+  RemoveSpaceAtLineEnd in '..\Process\Spacing\RemoveSpaceAtLineEnd.pas',
+  FindReplace in '..\Process\Transform\FindReplace.pas';
 
 {$R *.res}
 

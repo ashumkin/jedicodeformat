@@ -1,0 +1,6 @@
+unit littletest45;interface function foo1(out:integer):integer;stdcall;overload;
+external'FooDll'name'Bargle';function foo2(out,bar:integer):integer;stdcall;overload
+;external'FooDll'name'Snargle';function foo3(out out,bar:integer):integer;stdcall
+;overload;external'FooDll'name'Fargle';function foo4(out out:integer):integer;stdcall
+;overload;external'FooDll'name'Gargle';function foo5(out bar:integer):integer;stdcall
+;overload;external'FooDll'name'Zargle';implementation end. 

@@ -1,0 +1,2 @@
+unit littletest46;interface type pinteger=^integer;p_char=^char;pptr=^pointer;ppptr
+=^pptr;pfile=^file;tfoo=(fish,wibble,spon);pfoo=^tfoo;implementation end. 

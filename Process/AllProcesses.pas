@@ -41,6 +41,7 @@ TAllProcesses = class(TObject)
     procedure Obfuscate;
 
     procedure ClarifySetup;
+    procedure Transform;
     procedure Warnings;
     procedure Spacing;
     procedure LineBreaking;
@@ -69,6 +70,8 @@ uses
   { obfuscate}
   FixCase, RemoveComment, RemoveBlankLine, RemoveReturn, ReduceWhiteSpace,
   RemoveConsecutiveWhiteSpace, RemoveUnneededWhiteSpace, RebreakLines,
+  { transform }
+  FindReplace,
   { warnings }
   Warning, WarnEmptyBlock, WarnRealType, WarnAssignToFunctionName,
   WarnCaseNoElse, WarnDestroy,
@@ -143,6 +146,7 @@ begin
   begin
     // normal clarify path 
     ClarifySetup;
+    Transform;
     Warnings;
     Capitalisation;
     LineBreaking;
@@ -182,6 +186,12 @@ begin
   ApplyVisitorType(TVisitSetNestings);
   ApplyVisitorType(TVisitSetXY);
 end;
+
+procedure TAllProcesses.Transform;
+begin
+  ApplyVisitorType(TFindReplace);
+end;
+
 
 procedure TAllProcesses.Warnings;
 begin

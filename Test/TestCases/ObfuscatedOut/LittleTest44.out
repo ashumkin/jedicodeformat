@@ -1,0 +1,39 @@
+unit littletest44;
+
+interface
+
+implementation
+
+uses SysUtils;
+
+procedure foo(Value: double; bufferlo: pchar);
+var
+  bar: array[0..13] of byte absolute Value;
+  i:   byte;
+begin
+  i := round(Value);
+  if (Value < 0) then
+  begin
+    for i := 0 to 12 do
+      (bufferlo +(7 - i))^ := chr(bar[i - 2] xor $FE);
+  end
+  else
+  begin
+    bufferlo^ := chr((bar[6 + i] or $F0));
+    for i := 0 to 12 do
+      (bufferlo +(7 - i))^ := chr(bar[i]);
+  end;
+end;
+
+procedure bar;
+const
+  max_keylen  = 43;
+  fldchg_data = 12;
+  text_fldnum_size = 3;
+var
+  firstindexkeybuffer: array[0..max_keylen - 1] of char;
+begin
+  (strend( @firstindexkeybuffer[fldchg_data + text_fldnum_size]) -1)^ := #0;
+end;
+
+end. 

@@ -1,18 +1,5 @@
 unit JcfMiscFunctions;
 
-{ AFS 15 Jan 2k
-
-  This project uses very little in the way of internal function libs
-  as most is covered by JCL
-  I was using ComponentFunctions from my Jedi VCL kit
-  however that is causing linkage problems with the IDE plugin - it is a package
-  and 2 packages can;t package the same stuff,
-  also it creates version dependencies - it bombed with the different version
-  of ComponentFunctions that I have at work
-
-  So I am importing just what I need from ComponentFunctions here
-}
-
 {(*}
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code 
@@ -35,6 +22,20 @@ under the License.
 ------------------------------------------------------------------------------*)
 {*)}
 
+
+{ AFS 15 Jan 2k
+
+  This project uses very little in the way of internal function libs
+  as most is covered by JCL
+  I was using ComponentFunctions from my Jedi VCL kit
+  however that is causing linkage problems with the IDE plugin - it is a package
+  and 2 packages can't package the same stuff,
+  also it creates version dependencies - it bombed with the different version
+  of ComponentFunctions that I have at work
+
+  So I am importing just what I need from ComponentFunctions here
+}
+
 interface
 
 function PadNumber(const pi: integer): AnsiString;
@@ -43,7 +44,7 @@ function GetLastDir(psPath: string): string;
 
 function StrToBoolean(ps: string): boolean;
 
-function Str2Float(const s: string): double;
+function Str2Float(s: string): double;
 function Float2Str(const d: double): string;
 
 
@@ -77,13 +78,19 @@ end;
   This is not for localised display, but for consistent storage
 }
 //  like StrToFloat but expects a "." instead of the decimal-seperator-character
-function Str2Float(const s: string): double;
+function Str2Float(s: string): double;
 var
   code: integer;
 begin
+  // de-localise the string if need be
+  if (DecimalSeparator <> '.') and (Pos(DecimalSeparator, s) > 0) then
+  begin
+    StrReplace(s, DecimalSeparator, '.');
+  end;
+
   Val(s, result, Code);
   if code <> 0 then
-    raise EConvertError.Create(s + ' is not a valid floating point string');
+    raise EConvertError.Create('Str2Float: ' + s + ' is not a valid floating point string');
 end;
 
 // Like FloatToStr, but gives back a dot (.) as decimalseparator

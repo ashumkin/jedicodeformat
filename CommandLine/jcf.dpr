@@ -126,7 +126,8 @@ uses
   SettingsTypes in '..\Settings\SettingsTypes.pas',
   SetPreprocessor in '..\Settings\SetPreProcessor.pas',
   UnitNameCaps in '..\Process\Capitalisation\UnitNameCaps.pas',
-  RemoveSpaceAtLineEnd in '..\Process\Spacing\RemoveSpaceAtLineEnd.pas';
+  RemoveSpaceAtLineEnd in '..\Process\Spacing\RemoveSpaceAtLineEnd.pas',
+  FindReplace in '..\Process\Transform\FindReplace.pas';
 
 const
   ABOUT_COMMANDLINE =
