@@ -1,0 +1,19 @@
+unit littletest59;
+
+interface
+
+const
+  foo = 2;
+
+implementation
+
+uses
+{$IF FOO=1}
+  Classes
+{$ELSE}
+
+SysUtils
+{$IFEND}  , DB;
+
+end.
+ 

@@ -1,0 +1,2 @@
+unit littletest59;interface const foo=2;implementation uses{$IF FOO=1}classes{$ELSE}
+SysUtils{$IFEND},db;end. 
