@@ -247,7 +247,8 @@ const
     wtBuiltInConstant, wtOperator, wtBuiltInType, wtIdentifier];
 
   // identifiers can use these word categories
-  IdentifierTypes: TWordTypeSet = [wtReservedWordDirective, wtBuiltInType, wtIdentifier];
+  IdentifierTypes: TWordTypeSet = [wtReservedWordDirective,
+    wtBuiltInType, wtBuiltInConstant, wtIdentifier];
 
 
   { all tokens spelled with a-z }

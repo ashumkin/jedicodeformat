@@ -94,7 +94,10 @@ uses
   TestUnitLibrary in 'TestUnitLibrary.pas',
   LittleTest19 in 'LittleTest19.pas',
   LittleTest20 in 'LittleTest20.pas',
-  TestRaise in 'TestRaise.pas';
+  TestRaise in 'TestRaise.pas',
+  LittleTest21 in 'LittleTest21.pas',
+  LittleTest22 in 'LittleTest22.pas',
+  LittleTest23 in 'LittleTest23.pas';
 
 {$R *.res}
 

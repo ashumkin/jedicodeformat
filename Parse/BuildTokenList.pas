@@ -479,12 +479,12 @@ begin
   }
   while CharIsDigit(Reader.Current) or (Reader.Current = DecimalSeparator) do
   begin
-    // have we got to the dot? 
+    // have we got to the dot?
     if (Reader.Current = DecimalSeparator) then
     begin
       if Reader.BufferCharsLeft(2) = '..' then
         break;
-        
+
       if lbHasDecimalSep then
         // oops! a second one
         break
@@ -524,6 +524,8 @@ begin
 end;
 
 function TBuildTokenList.TryHexNumber(const pcToken: TSourceToken): boolean;
+var
+  lbHasDecimalSep: boolean;
 begin
   Result := False;
 
@@ -534,13 +536,28 @@ begin
   pcToken.TokenType  := ttNumber;
   pcToken.SourceCode := Reader.Current;
   Reader.Consume;
+  lbHasDecimalSep := False;
 
   { concat any subsequent number chars }
   while (Reader.Current in AnsiHexDigits) or (Reader.Current = DecimalSeparator) do
+  begin
+    // have we got to the dot?
+    if (Reader.Current = DecimalSeparator) then
     begin
-      pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
+      if Reader.BufferCharsLeft(2) = '..' then
+        break;
+
+      if lbHasDecimalSep then
+        // oops! a second one
+        break
+      else
+        lbHasDecimalSep := True;
+    end;
+
+    pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
     Reader.Consume;
   end;
+
   Result := True;
 end;
 
