@@ -2725,7 +2725,12 @@ begin
         begin
           Recognise(ttDispId);
           Recognise(ttNumber);
-        end
+        end;
+        ttMessage:
+        begin
+          Recognise(ttMessage);
+          RecogniseIdentifier;
+        end;
         else
           Recognise(ProcedureDirectives);
       end;
@@ -3283,10 +3288,15 @@ end;
 
 procedure TBuildParseTree.RecogniseInterfaceGuid;
 begin
+  // interface guid can be a litteral string, or occasionally a string constant
   PushNode(nInterfaceTypeGuid);
 
   Recognise(ttOpenSquareBracket);
-  Recognise(ttLiteralString);
+  if TokenList.FirstSolidTokenType = ttLiteralString then
+    Recognise(ttLiteralString)
+  else
+    RecogniseIdentifier;
+
   Recognise(ttCloseSquareBracket);
 
   PopNode;

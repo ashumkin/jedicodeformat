@@ -91,6 +91,7 @@ type
     procedure TestObfuscate_TestLocalTypes;
     procedure TestObfuscate_TestLongStrings;
     procedure TestObfuscate_TestMarcoV;
+    procedure TestObfuscate_TestMessages;
     procedure TestObfuscate_TestMixedModeCaps;
     procedure TestObfuscate_TestMVB;
     procedure TestObfuscate_TestNested;
@@ -666,6 +667,11 @@ end;
 procedure TTestObfuscate.TestObfuscate_TestPropertyInherited;
 begin
   TestObfuscateFile('TestPropertyInherited');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestMessages;
+begin
+  TestObfuscateFile('TestMessages');
 end;
 
 initialization

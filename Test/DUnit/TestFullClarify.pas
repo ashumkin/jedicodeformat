@@ -92,6 +92,7 @@ type
   procedure TestClarify_TestLocalTypes;
   procedure TestClarify_TestLongStrings;
   procedure TestClarify_TestMarcoV;
+  procedure TestClarify_TestMessages;
   procedure TestClarify_TestMH;
   procedure TestClarify_TestMixedModeCaps;
   procedure TestClarify_TestMVB;
@@ -484,6 +485,11 @@ end;
 procedure TFullTestClarify.TestClarify_TestMarcoV;
 begin
   TestClarifyFile('TestMarcoV');
+end;
+
+procedure TFullTestClarify.TestClarify_TestMessages;
+begin
+  TestClarifyFile('TestMessages');
 end;
 
 procedure TFullTestClarify.TestClarify_TestMH;

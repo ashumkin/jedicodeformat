@@ -73,7 +73,8 @@ uses
   LittleTest8 in 'LittleTest8.pas',
   TestDeref in 'TestDeref.pas',
   LittleTest9 in 'LittleTest9.pas',
-  TestPropertyInherited in 'TestPropertyInherited.pas';
+  TestPropertyInherited in 'TestPropertyInherited.pas',
+  TestMessages in 'TestMessages.pas';
 
 {$R *.res}
 

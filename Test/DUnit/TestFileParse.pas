@@ -95,6 +95,7 @@ type
     procedure TestParse_TestLongStrings;
     procedure TestParse_TestMarcoV;
     procedure TestParse_TestMixedModeCaps;
+    procedure TestParse_TestMessages;
     procedure TestParse_TestMVB;
     procedure TestParse_TestNested;
     procedure TestParse_TestNestedRecords;
@@ -642,6 +643,11 @@ end;
 procedure TTestFileParse.TestParse_TestPropertyInherited;
 begin
   TestParseFile('TestPropertyInherited', 111);
+end;
+
+procedure TTestFileParse.TestParse_TestMessages;
+begin
+  TestParseFile('TestMessages', 85);
 end;
 
 initialization

@@ -588,8 +588,9 @@ function TBuildTokenList.TryPunctuation(const pcToken: TSourceToken): boolean;
     { these have meanings on thier own and should not be recognised as part of the punc.
      e.g '=(' is not a punctation symbol, but 2 of them ( for e.g. in const a=(3);
      simlarly ');' is 2 puncs }
-   UnitaryPunctuation: set of char =
-    [AnsiSingleQuote, '"', '(', ')', '[', ']', '{', '#', '$', '_', ';', '@', '^'];
+   UnitaryPunctuation: set of char = [
+     AnsiSingleQuote, '"', '(', ')', '[', ']', '{',
+     '#', '$', '_', ';', '@', '^', ','];
 
    { these can't have anything following them:
     for e.g, catch the case if a=-1 then ...
