@@ -9,7 +9,7 @@ JEDI Delphi Code Format
 
 TRUE
 
-.\Bilder,D:\Daten\Sonstige\CODEFO~3\Bilder
+D:\Daten\Sonstige\CODEFO~3\Images
 1
 BrowseButtons()
 0
