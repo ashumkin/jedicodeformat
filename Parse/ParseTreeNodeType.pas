@@ -62,6 +62,10 @@ type
     nCaseLabels,
     nCaseLabel,
     nElseCase,
+    nRepeatStatement,
+    nWhileStatement,
+    nForStatement,
+    nWithStatement,
     nTryAndHandlerBlock,
     nTryBlock,
     nFinallyBlock,
@@ -73,6 +77,8 @@ type
     nDestructorDecl,
     nFunctionHeading,
     nProcedureHeading,
+    nConstructorHeading,
+    nDestructorHeading,
     nFormalParams,
     nFormalParam,
     nProcedureDirectives,
@@ -105,6 +111,10 @@ TParseTreeNodeTypeSet = set of TParseTreeNodeType;
 const
   DirectiveNodes = [nProcedureDirectives, nExternalDirective, nHintDirectives, nPropertyDirective];
   ProcedureNodes = [nProcedureDecl, nFunctionDecl, nConstructorDecl, nDestructorDecl];
+  ProcedureHeadings = [nFunctionHeading, nProcedureHeading, nConstructorHeading, nDestructorHeading];
+
+  ObjectTypes = [nObjectType, nClassType, nInterfaceType];
+
 
 function NodeTypeToString(const pe: TParseTreeNodeType): string;
 
@@ -219,6 +229,14 @@ begin
       Result := 'Case label';
     nElseCase:
       Result := 'else case';
+    nRepeatStatement:
+      Result := 'Repeat statement';
+    nWhileStatement:
+      Result := 'While Statement';
+    nForStatement:
+      Result := 'For statement';
+    nWithStatement:
+      Result := 'With statement';
     nTryAndHandlerBlock:
       Result := 'try and handler block';
     nTryBlock:
@@ -241,6 +259,10 @@ begin
       Result := 'Function heading';
     nProcedureHeading:
       Result := 'Procedure Heading';
+    nConstructorHeading:
+      Result := 'Constructor Heading';
+    nDestructorHeading:
+      Result := 'Destructor heading';
     nFormalParams:
       Result := 'Formal params';
     nFormalParam:

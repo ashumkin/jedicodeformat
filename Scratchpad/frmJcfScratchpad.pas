@@ -11,7 +11,7 @@ uses
 
 type
   TfrmScratchpad = class(TForm)
-    StatusBar1: TStatusBar;
+    sb1: TStatusBar;
     pnlTop: TPanel;
     pcPages: TPageControl;
     tsInput: TTabSheet;
@@ -166,6 +166,7 @@ begin
   begin
     fcSettings.InputDir := ExtractFilePath(OpenDialog1.FileName);
     mInput.Text := FileToString(OpenDialog1.FileName);
+    sb1.SimpleText := OpenDialog1.FileName;
     CheckInputState;
   end;
 end;
@@ -189,6 +190,7 @@ begin
   begin
     fcSettings.OutputDir := ExtractFilePath(SaveDialog1.FileName);
     StringToFile(SaveDialog1.FileName, mOutput.Text);
+    sb1.SimpleText := 'Saved ' + SaveDialog1.FileName;
   end;
 end;
 

@@ -175,7 +175,7 @@ begin
     end;
   end;
 
-  lcHeading := lCFunction.GetImmediateChild([nFunctionHeading, nProcedureHeading]);
+  lcHeading := lCFunction.GetImmediateChild(ProcedureHeadings);
 
   Result := ExtractNameFromFunctionHeading(lcHeading, pbFullName)
 end;
@@ -210,7 +210,7 @@ end;
 
 function IsClassFunction(const pt: TSourceToken): boolean;
 begin
-  Result := pt.IsOnRightOf([nFunctionHeading, nProcedureHeading], [wClass]);
+  Result := pt.IsOnRightOf(ProcedureHeadings, [wClass]);
 end;
 
 function RHSExprEquals(const pt: TSourceToken): Boolean;

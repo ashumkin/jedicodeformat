@@ -19,8 +19,11 @@ uses Contnrs;
 
 type
 
-TNestingLevelType = (nlBlock, nlRecordVariantSection, nlCaseStatement,
-  nlTryBlock, nlFinallyBlock, nlExceptBlock, nlProcedure,
+TNestingLevelType = (
+  nlBlock, // generic code indent
+  nlCaseSelector,
+  nlRecordVariantSection,
+  nlProcedure,
   nlRoundBracket, nlSquareBracket);
 
 { store a nesting level for one of the above enums

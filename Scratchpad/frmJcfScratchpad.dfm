@@ -18,7 +18,7 @@ object frmScratchpad: TfrmScratchpad
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object StatusBar1: TStatusBar
+  object sb1: TStatusBar
     Left = 0
     Top = 407
     Width = 688
@@ -94,6 +94,12 @@ object frmScratchpad: TfrmScratchpad
         Width = 680
         Height = 351
         Align = alClient
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Courier New'
+        Font.Style = []
+        ParentFont = False
         ScrollBars = ssVertical
         TabOrder = 0
         OnKeyUp = mInputKeyUp
@@ -114,7 +120,13 @@ object frmScratchpad: TfrmScratchpad
         Top = 16
         Width = 185
         Height = 89
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Courier New'
+        Font.Style = []
         ParentColor = True
+        ParentFont = False
         ReadOnly = True
         ScrollBars = ssVertical
         TabOrder = 0
@@ -124,7 +136,13 @@ object frmScratchpad: TfrmScratchpad
         Top = 221
         Width = 185
         Height = 89
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Courier New'
+        Font.Style = []
         ParentColor = True
+        ParentFont = False
         ReadOnly = True
         ScrollBars = ssVertical
         TabOrder = 1

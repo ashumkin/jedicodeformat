@@ -4,13 +4,18 @@ unit VisitSetNesting;
 
 interface
 
-uses BaseVisitor, VisitParseTree, Nesting;
+uses
+  { delphi }
+  Contnrs,
+  { local }
+  BaseVisitor, VisitParseTree, Nesting;
 
 type
 
   TVisitSetNestings = class(TBaseTreeNodeVisitor)
     private
       fcRunningTotals: TNestingLevelList;
+      fcIndentNodes: TObjectList;
 
       procedure ProcessNode(const pcNode: TObject; const pbIncrement: boolean);
 
@@ -37,11 +42,14 @@ begin
   inherited;
 
    fcRunningTotals := TNestingLevelList.Create;
+   fcIndentNodes := TObjectList.Create;
+   fcIndentNodes.OwnsObjects := False;
 end;
 
 destructor TVisitSetNestings.Destroy;
 begin
   FreeAndNil(fcRunningTotals);
+  FreeAndNil(fcIndentNodes);
   inherited;
 end;
 
@@ -75,9 +83,16 @@ begin
   lcNode := TParseTreeNode(pcNode);
 
   case lcNode.NodeType of
-    nBlock:
+    nBlock, nCaseStatement, nElseCase,
+    nIfBlock, nElseBlock, nTryBlock, nFinallyBlock, nExceptBlock,
+    nRepeatStatement, nWhileStatement, nForStatement, nWithStatement:
     begin
       leNestType := nlBlock;
+      lbHasNesting := True;
+    end;
+    nCaseSelector:
+    begin
+      leNestType := nlCaseSelector;
       lbHasNesting := True;
     end;
     nRecordVariantSection:
@@ -85,34 +100,24 @@ begin
       leNestType := nlRecordVariantSection;
       lbHasNesting := True;
     end;
-    nCaseStatement:
-    begin
-      leNestType := nlCaseStatement;
-      lbHasNesting := True;
-    end;
     nProcedureDecl, nFunctionDecl, nConstructorDecl, nDestructorDecl:
     begin
       leNestType := nlProcedure;
       lbHasNesting := True;
     end;
-    nTryBlock:
+  end;
+
+  { test for a begin..end block with no other indent }
+  if (not lbHasNesting) and (lcNode.Parent <> nil) and
+    (lcNode.NodeType = nCompoundStatement) then
+  begin
+    if (fcIndentNodes.IndexOf(lcNode.Parent) < 0) and
+      ((fcIndentNodes.IndexOf(lcNode.Parent.Parent) < 0) or (lcNode.Parent.NodeType <> nStatement)) and
+      (not lcNode.HasParentNode(nElseCase, 3)) then
     begin
-      leNestType := nlTryBlock;
+      leNestType := nlBlock;
       lbHasNesting := True;
     end;
-    nFinallyBlock:
-    begin
-      leNestType := nlFinallyBlock;
-      lbHasNesting := True;
-    end;
-    nExceptBlock:
-    begin
-      leNestType := nlExceptBlock;
-      lbHasNesting := True;
-    end;
-
-
-
   end;
 
   if lbHasNesting then
@@ -121,6 +126,9 @@ begin
       fcRunningTotals.IncLevel(leNestType)
     else
       fcRunningTotals.DecLevel(leNestType);
+
+    if fcIndentNodes.IndexOf(pcNode) < 0 then
+      fcIndentNodes.Add(pcNode);
   end;
 end;
 

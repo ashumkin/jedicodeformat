@@ -2160,6 +2160,8 @@ end;
 procedure TBuildParseTree.RecogniseRepeatStmnt;
 begin
   // RepeatStmt -> REPEAT Statement UNTIL Expression
+  PushNode(nRepeatStatement);
+
   Recognise(wRepeat);
   RecogniseStatement;
 
@@ -2168,21 +2170,28 @@ begin
 
   Recognise(wUntil);
   RecogniseExpr;
+
+  PopNode;
 end;
 
 procedure TBuildParseTree.RecogniseWhileStmnt;
 begin
   // WhileStmt -> WHILE Expression DO Statement
+  PushNode(nWhileStatement);
 
   Recognise(wWhile);
   RecogniseExpr;
   Recognise(wDo);
   RecogniseStatement;
+
+  PopNode;
 end;
 
 procedure TBuildParseTree.RecogniseForStmnt;
 begin
   // ForStmt -> FOR QualId ':=' Expression (TO | DOWNTO) Expression DO Statement
+  PushNode(nForStatement);
+
   Recognise(wFor);
   RecogniseQualId;
   Recognise(ttAssign);
@@ -2191,6 +2200,8 @@ begin
   RecogniseExpr;
   Recognise([wDo]);
   RecogniseStatement;
+
+  PopNode;
 end;
 
 procedure TBuildParseTree.RecogniseWithStmnt;
@@ -2199,6 +2210,8 @@ begin
 
    it's not an identlist, but an expression list
   }
+  PushNode(nWithStatement);
+
   Recognise([wWith]);
 
   //RecogniseIdentList;
@@ -2206,6 +2219,8 @@ begin
 
   Recognise([wDo]);
   RecogniseStatement;
+
+  PopNode;
 end;
 
 procedure TBuildParseTree.RecogniseTryStatement;
@@ -2735,7 +2750,7 @@ end;
 procedure TBuildParseTree.RecogniseConstructorHeading(const pbDeclaration: boolean);
 begin
   //ConstructorHeading -> CONSTRUCTOR Ident [FormalParameters]
-  PushNode(nProcedureHeading);
+  PushNode(nConstructorHeading);
 
   Recognise(wConstructor);
   RecogniseMethodName(not pbDeclaration);
@@ -2750,7 +2765,7 @@ end;
 procedure TBuildParseTree.RecogniseDestructorHeading(const pbDeclaration: boolean);
 begin
   //DestructorHeading -> DESTRUCTOR Ident [FormalParameters]
-  PushNode(nProcedureHeading);
+  PushNode(nDestructorHeading);
 
   Recognise(wDestructor);
   RecogniseMethodName(not pbDeclaration);

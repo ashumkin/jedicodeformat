@@ -33,6 +33,7 @@ type
     function ChildNodeCount: integer;
     function RecursiveChildCount: integer;
     function MaxDepth: integer;
+    function IndexOfSelf: integer;
 
     function NewChild: TParseTreeNode;
     procedure AddChild(const pcChild: TParseTreeNode);
@@ -824,6 +825,14 @@ begin
       break;
     end;
   end;
+end;
+
+function TParseTreeNode.IndexOfSelf: integer;
+begin
+  if Parent = nil then
+    Result := 0
+  else
+    Result := Parent.IndexOfChild(self); 
 end;
 
 end.

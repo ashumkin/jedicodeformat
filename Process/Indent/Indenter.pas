@@ -34,36 +34,76 @@ begin
   if pt = nil then
     exit;
 
-  { indent for various kinds of block }
-  liIndentCount := pt.Nestings.GetLevel(nlBlock);
-  if liIndentCount > 0 then
+
+  { object types }
+  if pt.HasParentNode(ObjectTypes) then
   begin
-    // outdent keywords that start and end the block
-    if pt.Word in BlockOutdentWords then
-      dec(liIndentCount);
-  end;
-
-  liIndentCount := liIndentCount + pt.Nestings.GetLevel(nlRecordVariantSection);
-  liIndentCount := liIndentCount + pt.Nestings.GetLevel(nlCaseStatement);
-  liIndentCount := liIndentCount + pt.Nestings.GetLevel(nlTryBlock);
-  liIndentCount := liIndentCount + pt.Nestings.GetLevel(nlFinallyBlock);
-  liIndentCount := liIndentCount + pt.Nestings.GetLevel(nlExceptBlock);
-
-  { nested procedures }
-  if pt.Nestings.GetLevel(nlProcedure) > 1 then
-    liIndentCount := liIndentCount + (pt.Nestings.GetLevel(nlProcedure) - 1);
-
-  { indent for run on line }
-  if (pt.Nestings.GetLevel(nlRoundBracket) + (pt.Nestings.GetLevel(nlSquareBracket)) > 0) then
-    liIndentCount := liIndentCount + 1;
-
-  { indent in clas defs }
-  if pt.HasParentNode(nClassBody) then
-  begin
-    if pt.Word in CLASS_VISIBILITY then
+    if pt.Word in CLASS_VISIBILITY + [wEnd] then
       liIndentCount := 1
     else
       liIndentCount := 2;
+
+    // run on lines in procs
+    if pt.HasParentNode(nProperty) and (pt.Word <> wProperty) and (pt.IndexOfSelf > 0) then
+      inc(liIndentCount);
+
+    if pt.HasParentNode(ProcedureHeadings) and (not (pt.Word in ProcedureWords)) and (pt.IndexOfSelf > 0) then
+      inc(liIndentCount);
+  end
+
+  { indent vars, consts etc, e.g.
+    implementation
+    const
+      foo = 3;
+    var
+      bar: integer;
+  }
+  else if pt.HasParentNode(nDeclSection) and (not pt.HasParentNode(ProcedureNodes)) then
+  begin
+    if pt.Word in Declarations + [wProcedure, wFunction] then
+      liIndentCount := 0
+    else
+      liIndentCount := 1;
+
+    if pt.Nestings.GetLevel(nlProcedure) > 1 then
+      liIndentCount := liIndentCount + (pt.Nestings.GetLevel(nlProcedure) - 1);
+  end
+  else
+  begin
+    { indent procedure body for various kinds of block }
+    liIndentCount := pt.Nestings.GetLevel(nlBlock);
+    if liIndentCount > 0 then
+    begin
+      // outdent keywords that start and end the block
+      if pt.Word in BlockOutdentWords then
+        dec(liIndentCount);
+    end;
+
+    liIndentCount := liIndentCount + pt.Nestings.GetLevel(nlRecordVariantSection);
+
+    if pt.Nestings.GetLevel(nlCaseSelector) > 0 then
+    begin
+      liIndentCount := liIndentCount + pt.Nestings.GetLevel(nlCaseSelector);
+      // don't indent the case label again
+      if pt.HasParentNode(nCaseLabels, 5) then
+        dec(liIndentCount)
+      else if (pt.Word = wElse) and pt.HasParentNode(nElseCase, 1) then
+        dec(liIndentCount);
+    end;
+
+
+    { nested procedures
+    if pt.Nestings.GetLevel(nlProcedure) > 1 then
+      liIndentCount := liIndentCount + (pt.Nestings.GetLevel(nlProcedure) - 1);
+    }
+
+    { indent for run on line }
+    if (pt.Nestings.GetLevel(nlRoundBracket) + (pt.Nestings.GetLevel(nlSquareBracket)) > 0) then
+      liIndentCount := liIndentCount + 1;
+
+    if pt.HasParentNode(nAsm) and pt.HasParentNode(nStatementList) then
+      inc(liIndentCount);
+
   end;
 
   Assert(liIndentCount >= 0);
