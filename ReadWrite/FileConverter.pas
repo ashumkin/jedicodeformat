@@ -56,9 +56,9 @@ TFileConverter = class(TConverter)
     function CreateWriter: TCodeWriter; override;
 
     procedure ProcessDirectory(const psDir: string);
-    procedure ProcessFile(const psInput: string);
 
   public
+    procedure ProcessFile(const psInput: string);
 
     procedure Convert; override;
 
