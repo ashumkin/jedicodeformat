@@ -79,7 +79,7 @@ uses
   frClarifyReturns, frClarifyLongLineBreaker,
   frClarifyBlocks, frClarifyAlign, frReplace,
   frReservedCapsSettings, frAnyCapsSettings, frUnitCaps,
-  frUses, frBasicSettings, frDefinedSymbols;
+  frUses, frBasicSettings, frPreProcessor;
 
 
 type
@@ -105,7 +105,7 @@ const
   (FrameName: 'Find and replace'; FrameClass: TfReplace),
   (FrameName: 'Uses'; FrameClass: TfUses),
   (FrameName: 'Basic'; FrameClass: TfrBasic),
-  (FrameName: 'Defined symbols'; FrameClass: TTfrDefinedSymbols)
+  (FrameName: 'PreProcessor'; FrameClass: TfPreProcessor)
   );
 
 { TFormAllSettings }

@@ -82,6 +82,7 @@ type
     procedure TestObfuscate_LittleTest38;
     procedure TestObfuscate_LittleTest39;
     procedure TestObfuscate_LittleTest40;
+    procedure TestObfuscate_LittleTest41;
 
     procedure TestObfuscate_TestAbsolute;
     procedure TestObfuscate_TestAlign;
@@ -105,6 +106,7 @@ type
     procedure TestObfuscate_TestDeclarations;
     procedure TestObfuscate_TestDeclarations2;
     procedure TestObfuscate_TestDefaultParams;
+    procedure TestObfuscate_TestDefines;
     procedure TestObfuscate_TestDeref;
     procedure TestObfuscate_TestEmptyCase;
     procedure TestObfuscate_TestEmptyClass;
@@ -965,6 +967,16 @@ end;
 procedure TTestObfuscate.TestObfuscate_TestSimpleIfdef5;
 begin
   TestObfuscateFile('TestSimpleIfdef5');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestDefines;
+begin
+  TestObfuscateFile('TestDefines');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest41;
+begin
+  TestObfuscateFile('LittleTest41');
 end;
 
 initialization

@@ -114,7 +114,7 @@ implementation
 uses
   { delphi } Windows, SysUtils, Dialogs, Controls, Forms,
   { local } SourceTokenList, fShowParseTree, JcfSettings, JcfRegistrySettings,
-  AllProcesses, ConditionalCompilationProcessing;
+  AllProcesses, Preprocessor;
 
 
 constructor TConverter.Create;
@@ -266,7 +266,7 @@ begin
         lcTokenList.SetXYPositions;
 
         // remove conditional compilation stuph
-        if FormatSettings.DefinedSymbols.Enabled then
+        if FormatSettings.PreProcessor.Enabled then
           RemoveConditionalCompilation(lcTokenList);
 
           // make a parse tree from it

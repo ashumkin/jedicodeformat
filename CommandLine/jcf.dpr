@@ -117,7 +117,11 @@ uses
   FileWriter in '..\ReadWrite\FileWriter.pas',
   FileReader in '..\ReadWrite\FileReader.pas',
   Tokens in '..\Parse\Tokens.pas',
-  SetWordList in '..\Settings\SetWordList.pas';
+  SetWordList in '..\Settings\SetWordList.pas',
+  PreProcessorTokens in '..\Parse\PreProcessor\PreProcessorTokens.pas',
+  Preprocessor in '..\Parse\PreProcessor\PreProcessor.pas',
+  PreProcessorParse in '..\Parse\PreProcessor\PreProcessorParse.pas',
+  PreProcessorTokenise in '..\Parse\PreProcessor\PreProcessorTokenise.pas';
 
 const
   ABOUT_COMMANDLINE =

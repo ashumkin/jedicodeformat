@@ -85,6 +85,7 @@ type
     procedure TestParse_LittleTest38;
     procedure TestParse_LittleTest39;
     procedure TestParse_LittleTest40;
+    procedure TestParse_LittleTest41;
 
     procedure TestParse_TestAbsolute;
     procedure TestParse_TestAlign;
@@ -107,6 +108,7 @@ type
     procedure TestParse_TestDeclarations;
     procedure TestParse_TestDeclarations2;
     procedure TestParse_TestDefaultParams;
+    procedure TestParse_TestDefines;
     procedure TestParse_TestDeref;
     procedure TestParse_TestEmptyCase;
     procedure TestParse_TestEmptyClass;
@@ -667,7 +669,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 1015);
+  TestParseFile('Testcases.dpr', 1031);
 end;
 
 
@@ -940,7 +942,17 @@ end;
 
 procedure TTestFileParse.TestParse_LittleTest40;
 begin
-  TestParseFile('LittleTest40', 139);
+  TestParseFile('LittleTest40', 143);
+end;
+
+procedure TTestFileParse.TestParse_TestDefines;
+begin
+  TestParseFile('TestDefines', 262);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest41;
+begin
+  TestParseFile('LittleTest41', 47);
 end;
 
 initialization

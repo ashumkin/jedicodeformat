@@ -48,6 +48,8 @@ type
 
     function TryWhiteSpace(const pcToken: TSourceToken): boolean;
     function TryLiteralString(const pcToken: TSourceToken): boolean;
+    function TryDoubleQuoteLiteralString(const pcToken: TSourceToken): boolean;
+
     function TryNumber(const pcToken: TSourceToken): boolean;
     function TryHexNumber(const pcToken: TSourceToken): boolean;
 
@@ -113,8 +115,11 @@ var
     { the rest }
     if TryWhiteSpace(lcNewToken) then 
       exit;
-    if TryLiteralString(lcNewToken) then 
+    if TryLiteralString(lcNewToken) then
       exit;
+    if TryDoubleQuoteLiteralString(lcNewToken) then
+      exit;
+
     if TryWord(lcNewToken) then
       exit;
     if TryNumber(lcNewToken) then 
@@ -371,6 +376,30 @@ begin
 
   if Result then
     pcToken.TokenType := ttLiteralString;
+end;
+
+{ these can happen inside asm
+  not going to give them the same degree of sophistication though }
+function TBuildTokenList.TryDoubleQuoteLiteralString(
+  const pcToken: TSourceToken): boolean;
+begin
+  Result := False;
+
+  if Reader.Current = AnsiDoubleQuote then
+  begin
+    Result := True;
+
+    repeat
+      pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
+      Reader.Consume;
+
+    until Reader.Current = AnsiDoubleQuote;
+
+    pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
+    Reader.Consume;
+
+    pcToken.TokenType := ttLiteralString;
+  end;
 end;
 
 function TBuildTokenList.TryWord(const pcToken: TSourceToken): boolean;
@@ -710,5 +739,6 @@ begin
 
   Result := lcList;
 end;
+
 
 end.

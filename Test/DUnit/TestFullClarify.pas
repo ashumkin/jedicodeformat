@@ -81,6 +81,7 @@ type
     procedure TestClarify_LittleTest38;
     procedure TestClarify_LittleTest39;
     procedure TestClarify_LittleTest40;
+    procedure TestClarify_LittleTest41;
 
     procedure TestClarify_TestAbsolute;
     procedure TestClarify_TestAlign;
@@ -104,6 +105,7 @@ type
     procedure TestClarify_TestDeclarations2;
     procedure TestClarify_TestDeclarations;
     procedure TestClarify_TestDefaultParams;
+    procedure TestClarify_TestDefines;
     procedure TestClarify_TestDeref;
     procedure TestClarify_TestEmptyCase;
     procedure TestClarify_TestEmptyClass;
@@ -937,6 +939,16 @@ end;
 procedure TFullTestClarify.TestClarify_LittleTest40;
 begin
   TestClarifyFile('LittleTest40');
+end;
+
+procedure TFullTestClarify.TestClarify_TestDefines;
+begin
+  TestClarifyFile('TestDefines');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest41;
+begin
+  TestClarifyFile('LittleTest41');
 end;
 
 initialization

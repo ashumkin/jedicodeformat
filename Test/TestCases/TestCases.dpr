@@ -122,7 +122,9 @@ uses
   TestSimpleIfDef5 in 'TestSimpleIfDef5.pas',
   LittleTest38 in 'LittleTest38.pas',
   LittleTest39 in 'LittleTest39.pas',
-  LittleTest40 in 'LittleTest40.pas';
+  LittleTest40 in 'LittleTest40.pas',
+  TestDefines in 'TestDefines.pas',
+  LittleTest41 in 'LittleTest41.pas';
 
 {$R *.res}
 

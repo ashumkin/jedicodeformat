@@ -147,6 +147,11 @@ contains
   SetSpaces in '..\Settings\SetSpaces.pas',
   SetUses in '..\Settings\SetUses.pas',
   MozComment in '..\Process\Onceoffs\MozComment.pas',
-  SetWordList in '..\Settings\SetWordList.pas';
+  SetWordList in '..\Settings\SetWordList.pas',
+  Preprocessor in '..\Parse\PreProcessor\PreProcessor.pas',
+  PreProcessorParse in '..\Parse\PreProcessor\PreProcessorParse.pas',
+  PreProcessorTokenise in '..\Parse\PreProcessor\PreProcessorTokenise.pas',
+  PreProcessorTokens in '..\Parse\PreProcessor\PreProcessorTokens.pas',
+  frPreProcessor in '..\Ui\Settings\frPreProcessor.pas' {fPreProcessor: TFrame};
 
 end.

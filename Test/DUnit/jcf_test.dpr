@@ -132,8 +132,12 @@ uses
   Tokens in '..\..\Parse\Tokens.pas',
   SetWordList in '..\..\Settings\SetWordList.pas',
   UnitNameCaps in '..\..\Process\Capitalisation\UnitNameCaps.pas',
-  ConditionalCompilationProcessing in '..\..\Parse\ConditionalCompilationProcessing.pas',
-  TestSelfParse in 'TestSelfParse.pas';
+  TestSelfParse in 'TestSelfParse.pas',
+  TestPreprocessorTokens in 'TestPreprocessorTokens.pas',
+  PreProcessorTokens in '..\..\Parse\PreProcessor\PreProcessorTokens.pas',
+  Preprocessor in '..\..\Parse\PreProcessor\PreProcessor.pas',
+  PreProcessorParse in '..\..\Parse\PreProcessor\PreProcessorParse.pas',
+  PreProcessorTokenise in '..\..\Parse\PreProcessor\PreProcessorTokenise.pas';
 
 {$R *.res}
 

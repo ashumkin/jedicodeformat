@@ -10,7 +10,7 @@ uses
    { local} frmBaseSettingsFrame;
 
 type
-  TfrDefinedSymbols = class(TfrSettingsFrame)
+  TfPreProcessor = class(TfrSettingsFrame)
     mSymbols: TJvMemo;
     cbEnable: TCheckBox;
     lblSymbols: TLabel;
@@ -31,13 +31,13 @@ implementation
 
 uses JcfHelp, JcfSettings;
 
-constructor TfrDefinedSymbols.Create(AOwner: TComponent);
+constructor TfPreProcessor.Create(AOwner: TComponent);
 begin
   inherited;
   fiHelpContext := HELP_CLARIFY;
 end;
 
-procedure TfrDefinedSymbols.Read;
+procedure TfPreProcessor.Read;
 begin
   inherited;
   with FormatSettings.PreProcessor do
@@ -49,7 +49,7 @@ begin
 
 end;
 
-procedure TfrDefinedSymbols.Write;
+procedure TfPreProcessor.Write;
 begin
   inherited;
   with FormatSettings.PreProcessor do
@@ -60,7 +60,7 @@ begin
   end;
 end;
 
-procedure TfrDefinedSymbols.FrameResize(Sender: TObject);
+procedure TfPreProcessor.FrameResize(Sender: TObject);
 var
   liClientHeight: integer;
 begin

@@ -137,7 +137,11 @@ uses
   SettingsTypes in '..\Settings\SettingsTypes.pas',
   SetWordList in '..\Settings\SetWordList.pas',
   UnitNameCaps in '..\Process\Capitalisation\UnitNameCaps.pas',
-  ConditionalCompilationProcessing in '..\Parse\ConditionalCompilationProcessing.pas';
+  PreProcessorTokens in '..\Parse\PreProcessor\PreProcessorTokens.pas',
+  Preprocessor in '..\Parse\PreProcessor\PreProcessor.pas',
+  PreProcessorParse in '..\Parse\PreProcessor\PreProcessorParse.pas',
+  PreProcessorTokenise in '..\Parse\PreProcessor\PreProcessorTokenise.pas',
+  frPreProcessor in '..\Ui\Settings\frPreProcessor.pas' {fPreProcessor: TFrame};
 
 {$R *.res}
 

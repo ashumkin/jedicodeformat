@@ -20,8 +20,6 @@ type
     // working data
     fiStartNestingLevel: integer;
     fcDefinedSymbols: TStringList;
-    fcDefinedOptions: TStringList;
-
 
     // referenced data
     fcTokenList: TSourceTokenList;
@@ -33,9 +31,6 @@ type
     procedure AddDefinedSymbol(const psSymbol: string);
     procedure RemoveDefinedSymbol(const psSymbol: string);
     function SymbolIsDefined(const psSymbol: string): boolean;
-
-    //procedure AddDefinedOption(const psOption: string);
-    function OptionIsDefined(const psOption: string): boolean;
 
     function BlockStartIsIncluded(const pcToken: TSourceToken): Boolean;
 
@@ -54,71 +49,81 @@ implementation
 
 uses
   SysUtils,
-  JclStrings, Tokens, JcfSettings;
+  JclStrings, Tokens, JcfSettings, PreProcessorEval;
 
 
 type
-  TBlockMarkerType = (btNone, btBlockStart, btBlockElse, btBlockEnd);
-  TBlockCondition = (bcNone, bcIfDef, bcIfNotDef, bcIfOpt);
+  TPreProcessorSymbolType = (btNone,
+    btDefine, btUndef,
+    bcIfDef, bcIfNotDef, bcIfOpt, bcIfExpr, bcElseIf,
+    btBlockElse, btBlockEnd, btNewBlockEnd);
 
-function GetConditionalBlockType(const pcToken: TSourceToken): TBlockMarkerType;
+  TPreProcessorSymbolTypeSet = set of TPreProcessorSymbolType;
+
+
+const
+  SymbolData: array[TPreProcessorSymbolType] of string =(
+    '$$$$$$$$$$',
+    '$UNDEF',
+    '$DEFINE',
+    '$IFDEF',
+    '$IFNDEF',
+    '$IFOPT',
+    '$IF',
+    '$ELSEIF',
+    '$ELSE',
+    '$ENDIF',
+    '$IFEND'
+  );
+
+const
+  BLOCK_START: TPreProcessorSymbolTypeSet = [bcIfDef, bcIfNotDef, bcIfOpt, bcIfExpr, bcElseIf];
+  BLOCK_ELSE: TPreProcessorSymbolTypeSet = [bcIfExpr, bcElseIf];
+  BLOCK_END: TPreProcessorSymbolTypeSet = [btBlockEnd, btNewBlockEnd];
+
+function GetPreprocessorSymbolType(const pcToken: TSourceToken): TPreProcessorSymbolType;
+var
+  leLoop: TPreProcessorSymbolType;
+  liItemLen: integer;
 begin
+  Assert(pcToken <> nil);
+
   Result := btNone;
 
-  if pcToken.CommentStyle = eCompilerDirective then
+  if pcToken.CommentStyle <> eCompilerDirective then
+    exit;
+
+  for leLoop := low(TPreProcessorSymbolType) to High(TPreProcessorSymbolType) do
   begin
-    if StrHasPrefix(pcToken.SourceCode, ['{$IF ', '{$IFDEF', '{$IFNDEF', '{$IFOPT']) then
-      Result := btBlockStart
-    else if StrHasPrefix(pcToken.SourceCode, ['{$ELSE']) then
-      Result := btBlockElse
-    else if StrHasPrefix(pcToken.SourceCode, ['{$IFEND', '{$ENDIF']) then
-      Result := btBlockEnd;
+    liItemLen := Length(SymbolData[leLoop]);
+    if AnsiSameText(StrLeft(pcToken.SourceCode, liItemLen), SymbolData[leLoop]) and
+      (not CharIsAlpha(pcToken.SourceCode[liItemLen + 1])) then
+    begin
+      Result := leLoop;
+      break;
+    end;
+
   end;
 end;
 
-function GetBlockCondition(const pcToken: TSourceToken): TBlockCondition;
-begin
-  Result :=  bcNone;
 
-  if pcToken.CommentStyle = eCompilerDirective then
-  begin
-    if StrHasPrefix(pcToken.SourceCode, ['{$IF']) then
-      Result := bcIfDef
-    else if StrHasPrefix(pcToken.SourceCode, ['{$IFDEF']) then
-      Result := bcIfDef
-    else if StrHasPrefix(pcToken.SourceCode, ['{$IFNDEF']) then
-      Result := bcIfNotDef
-    else if StrHasPrefix(pcToken.SourceCode, ['{$IFOPT']) then
-      Result := bcIfOpt;
-  end;
-end;
-
-function GetConditionSymbol(const pcToken: TSourceToken): string;
+function GetPreprocessorCondition(const pcToken: TSourceToken): string;
+var
+  leSymbolType: TPreProcessorSymbolType;
 begin
   Result := '';
 
-  if pcToken.CommentStyle = eCompilerDirective then
+  leSymbolType := GetPreprocessorSymbolType(pcToken);
+
+  if leSymbolType = btNone then
+    exit;
+
+  if Result <> '' then
   begin
-    if StrHasPrefix(pcToken.SourceCode, ['{$IF ']) then
-      Result := StrRestOf(pcToken.SourceCode, Length('{$IF') + 1)
-    else if StrHasPrefix(pcToken.SourceCode, ['{$IFDEF']) then
-      Result := StrRestOf(pcToken.SourceCode, Length('{$IFDEF') + 1)
-    else if StrHasPrefix(pcToken.SourceCode, ['{$IFNDEF']) then
-      Result := StrRestOf(pcToken.SourceCode, Length('{$IFNDEF')+ 1)
-    else if StrHasPrefix(pcToken.SourceCode, ['{$IFOPT']) then
-      Result := StrRestOf(pcToken.SourceCode, Length('{$IFOPT')+ 1)
-    else if StrHasPrefix(pcToken.SourceCode, ['{$DEFINE']) then
-      Result := StrRestOf(pcToken.SourceCode, Length('{$DEFINE')+ 1)
-    else if StrHasPrefix(pcToken.SourceCode, ['{$UNDEF']) then
-      Result := StrRestOf(pcToken.SourceCode, Length('{$UNDEF')+ 1);
+    if StrRight(Result, 1) = '}' then
+      Result := StrChopRight(result, 1);
 
-    if Result <> '' then
-    begin
-      if StrRight(Result, 1) = '}' then
-        Result := StrChopRight(result, 1);
-
-      Result := Trim(Result);
-    end;
+    Result := Trim(Result);
   end;
 end;
 
@@ -145,17 +150,12 @@ begin
   fcDefinedSymbols := TStringList.Create;
   fcDefinedSymbols.Sorted := True;
 
-  fcDefinedSymbols.Assign(FormatSettings.DefinedSymbols.Words);
-
-  fcDefinedOptions := TStringList.Create;
-  fcDefinedOptions.Sorted := True;
-
+  fcDefinedSymbols.Assign(FormatSettings.PreProcessor.DefinedSymbols);
 end;
 
 destructor TConditionalCompilationProcessing.Destroy;
 begin
   FreeAndNil(fcDefinedSymbols);
-  FreeAndNil(fcDefinedOptions);
 
   inherited;
 end;
@@ -191,51 +191,31 @@ begin
   Result := StrReplaceChar(Result, '?', '-');
 end;
 
-{
-procedure TConditionalCompilationProcessing.AddDefinedOption(const psOption: string);
-var
-  lsInverseOption: string;
-  liIndex: integer;
-begin
-  if (psOption <> '') and (not OptionIsDefined(psOption)) then
-  begin
-    fcDefinedSymbols.Add(psOption);
-
-    lsInverseOption := InverseOption(psOption);
-    liIndex := fcDefinedOptions.IndexOf(lsInverseOption);
-    if liIndex >= 0 then
-      fcDefinedOptions.Delete(liIndex);
-  end;
-end;
-}
-
-function TConditionalCompilationProcessing.OptionIsDefined(const psOption: string): boolean;
-begin
-  Result := fcDefinedOptions.IndexOf(psOption) >= 0;
-end;
-
 function TConditionalCompilationProcessing.BlockStartIsIncluded(const pcToken: TSourceToken): Boolean;
 var
-  leBlockCond: TBlockCondition;
+  leBlockCond: TPreProcessorSymbolType;
   lsSymbol: string;
 begin
   Assert(pcToken <> nil);
   Result := False;
 
-  if GetConditionalBlockType(pcToken) = btBlockStart then
+  leBlockCond := GetPreprocessorSymbolType(pcToken);
+
+  if (leBlockCond in BLOCK_START) then
   begin
-    leBlockCond := GetBlockCondition(pcToken);
-    lsSymbol := GetConditionSymbol(pcToken);
+    lsSymbol := GetPreprocessorCondition(pcToken);
 
     case leBlockCond of
       bcIfDef:
         Result := SymbolIsDefined(lsSymbol);
       bcIfNotDef:
         Result := not SymbolIsDefined(lsSymbol);
+      bcIfExpr:
+        Result := EvalPreProcessorExpression(lsSymbol);
       bcIfOpt:
-        Result := OptionIsDefined(lsSymbol);
+        Result := FormatSettings.PreProcessor.OptionIsDefined(lsSymbol);
       else
-        Assert(false);
+        Assert(False);
     end;
   end;
 end;
@@ -249,9 +229,9 @@ var
   liLoop: integer;
   liEndIndex: integer;
   liCurrentNestingLevel: integer;
-  leType: TBlockMarkerType;
   lcToken: TSourceToken;
   lcStoredItems: TSourceToken;
+  leSymbolType: TPreProcessorSymbolType;
 begin
   Result := False;
   liEndIndex := -1;
@@ -261,11 +241,12 @@ begin
   begin
     lcToken := fcTokenList.SourceTokens[liLoop];
 
-    leType := GetConditionalblockType(lcToken);
-    case leType of
-    btBlockStart:
-      inc(liCurrentNestingLevel);
-    btBlockElse:
+    leSymbolType := GetPreprocessorSymbolType(lcToken);
+
+    if leSymbolType in BLOCK_START then
+          inc(liCurrentNestingLevel);
+
+    if leSymbolType in BLOCK_ELSE then
     begin
       if pbStopAtElse and (liCurrentNestingLevel = piStartNestingLevel) then
       begin
@@ -273,7 +254,8 @@ begin
         break;
       end;
     end;
-    btBlockEnd:
+
+    if leSymbolType in BLOCK_END then
     begin
       if liCurrentNestingLevel = piStartNestingLevel then
       begin
@@ -282,9 +264,6 @@ begin
       end;
       dec(liCurrentNestingLevel);
     end
-    else
-      // no change, do nothing
-    end;
   end;
 
   if liEndIndex >= 0 then
@@ -311,7 +290,7 @@ procedure TConditionalCompilationProcessing.ProcessTokenList;
 var
   liLoop: integer;
   lcToken: TSourceToken;
-  leType: TBlockMarkerType;
+  leSymbolType: TPreProcessorSymbolType;
 begin
   Assert(TokenList <> nil);
 
@@ -320,40 +299,33 @@ begin
   begin
     lcToken := TokenList.SourceTokens[liLoop];
 
-    if lcToken.CommentStyle = eCompilerDirective then
-    begin
-      if StrHasPrefix(lcToken.SourceCode, ['{$DEFINE']) then
-        AddDefinedSymbol(GetConditionSymbol(lcToken))
-      else if StrHasPrefix(lcToken.SourceCode, ['{$UNDEF']) then
-        RemoveDefinedSymbol(GetConditionSymbol(lcToken))
-      else
-      begin
-        leType := GetConditionalblockType(lcToken);
-        case leType of
-        btBlockStart:
-        begin
-          inc(fiStartNestingLevel);
-          if not BlockStartIsIncluded(lcToken) then
-          begin
-            RemoveBlock(liLoop, fiStartNestingLevel, True);
-            //dec(fiStartNestingLevel);
-         end;
-        end;
-        btBlockElse:
-          if RemoveBlock(liLoop, fiStartNestingLevel, False) then
-            dec(fiStartNestingLevel);
+    leSymbolType := GetPreprocessorSymbolType(lcToken);
 
-        btBlockEnd:
-          dec(fiStartNestingLevel);
-        else
-          // no change, do nothing
-        end;
+    if leSymbolType = btDefine then
+      AddDefinedSymbol(GetPreprocessorCondition(lcToken))
+    else if leSymbolType = btUndef then
+      RemoveDefinedSymbol(GetPreprocessorCondition(lcToken));
+
+    if leSymbolType in BLOCK_START then
+    begin
+      inc(fiStartNestingLevel);
+      if not BlockStartIsIncluded(lcToken) then
+      begin
+        RemoveBlock(liLoop, fiStartNestingLevel, True);
       end;
     end;
 
+    if leSymbolType in BLOCK_ELSE then
+    begin
+      if RemoveBlock(liLoop, fiStartNestingLevel, (leSymbolType = bcElseIf)) then
+        dec(fiStartNestingLevel);
+    end;
+
+    if leSymbolType in BLOCK_END then
+      dec(fiStartNestingLevel);
+
     inc(liLoop);
   end;
-
 end;
 
 end.

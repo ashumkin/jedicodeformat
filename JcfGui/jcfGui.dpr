@@ -140,8 +140,12 @@ uses
   SettingsTypes in '..\Settings\SettingsTypes.pas',
   SetWordList in '..\Settings\SetWordList.pas',
   frUnitCaps in '..\Ui\Settings\frUnitCaps.pas' {frUnitNameCaps: TFrame},
-  ConditionalCompilationProcessing in '..\Parse\ConditionalCompilationProcessing.pas',
-  frDefinedSymbols in '..\Ui\Settings\frDefinedSymbols.pas' {TfrDefinedSymbols: TFrame};
+  frPreProcessor in '..\Ui\Settings\frPreProcessor.pas' {fPreProcessor: TFrame},
+  PreProcessorTokens in '..\Parse\PreProcessor\PreProcessorTokens.pas',
+  PreProcessorParse in '..\Parse\PreProcessor\PreProcessorParse.pas',
+  PreProcessorTokenise in '..\Parse\PreProcessor\PreProcessorTokenise.pas',
+  PreProcessor in '..\Parse\PreProcessor\PreProcessor.pas',
+  SetPreprocessor in '..\Settings\SetPreprocessor.pas';
 
 {$R *.res}
 

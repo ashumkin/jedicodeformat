@@ -1,5 +1,11 @@
 unit LittleTest40;
 
+{ AFS 28 August 2003
+
+ This unit compiles but is not semantically meaningfull
+ it is test cases for the code formatting utility }
+
+
 interface
 
 implementation

@@ -32,7 +32,7 @@ uses
   { local } SetObfuscate, SetClarify,
   SetIndent, SetSpaces, SetReturns,
   SetCaps, SetWordList,
-  SetAlign, SetReplace, SetUses, 
+  SetAlign, SetReplace, SetUses, SetPreProcessor,
   SettingsStream, VersionConsts;
 
 type
@@ -48,7 +48,7 @@ type
     fcCaps: TSetCaps;
     fcSpecificWordCaps: TSetWordList;
     fcUnitNameCaps: TSetWordList;
-    fcDefinedSymbols: TSetWordList;
+    fcPreProcessor: TSetPreProcessor;
     fcAlign: TSetAlign;
     fcUses: TSetUses;
 
@@ -87,7 +87,7 @@ type
     property Caps: TSetCaps read fcCaps;
     property SpecificWordCaps: TSetWordList read fcSpecificWordCaps;
     property UnitNameCaps: TSetWordList read fcUnitNameCaps;
-    property DefinedSymbols: TSetWordList read fcDefinedSymbols;
+    property PreProcessor: TSetPreProcessor read fcPreProcessor;
 
 
     property Align: TSetAlign read fcAlign;
@@ -121,7 +121,7 @@ begin
   fcCaps := TSetCaps.Create;
   fcSpecificWordCaps := TSetWordList.Create('SpecificWordCaps');
   fcUnitNameCaps := TSetWordList.Create('UnitNameCaps');
-  fcDefinedSymbols := TSetWordList.Create('DefinedSymbols');
+  fcPreProcessor := TSetPreProcessor.Create;
 
   fcAlign := TSetAlign.Create;
   fcReplace := TSetReplace.Create;
@@ -146,7 +146,7 @@ begin
   FreeAndNil(fcCaps);
   FreeAndNil(fcSpecificWordCaps);
   FreeAndNil(fcUnitNameCaps);
-  FreeAndNil(fcDefinedSymbols);
+  FreeAndNil(fcPreProcessor);
 
   FreeAndNil(fcReplace);
   FreeAndNil(fcAlign);
@@ -248,7 +248,7 @@ begin
   WriteToStream(fcCaps);
   WriteToStream(fcSpecificWordCaps);
   WriteToStream(fcUnitNameCaps);
-  WriteToStream(fcDefinedSymbols);
+  WriteToStream(fcPreProcessor);
   WriteToStream(fcAlign);
   WriteToStream(fcReplace);
   WriteToStream(fcUses);
@@ -301,7 +301,7 @@ begin
     ReadFromStream(fcCaps);
     ReadFromStream(fcSpecificWordCaps);
     ReadFromStream(fcUnitNameCaps);
-    ReadFromStream(fcDefinedSymbols);
+    ReadFromStream(fcPreProcessor);
     
     ReadFromStream(fcAlign);
     ReadFromStream(fcReplace);

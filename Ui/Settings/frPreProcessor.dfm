@@ -1,4 +1,4 @@
-inherited frDefinedSymbols: TfrDefinedSymbols
+inherited fPreProcessor: TfPreProcessor
   Height = 282
   OnResize = FrameResize
   object lblSymbols: TLabel
