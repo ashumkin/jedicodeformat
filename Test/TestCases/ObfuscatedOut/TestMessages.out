@@ -22,4 +22,5 @@ procedure tfoo.soy(var message: tmessage);
 begin
 end;
 
-end. 
+end.
+ 

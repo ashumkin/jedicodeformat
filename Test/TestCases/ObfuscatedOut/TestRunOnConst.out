@@ -32,4 +32,5 @@ const
     string = ('Fnord', 'Fnord', 'Fnord', 'Fnord', 'Fnord',
     'Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord Fnord', 'Fnord', 'Fnord', 'This is a somewhat longer string which, although it digesses a bit just to gain length, does not contain very many fnords', 'Fnord', 'Fnord', 'Fnord Fnord Fnord', 'Fnord', 'Fnord');
 
-end. 
+end.
+ 

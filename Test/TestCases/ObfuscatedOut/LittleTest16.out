@@ -20,4 +20,5 @@ begin
   Result := afooform;
 end;
 
-end. 
+end.
+ 

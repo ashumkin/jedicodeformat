@@ -80,4 +80,5 @@ procedure tbar.setarray(piindex, pivalue: integer);
 begin
 end;
 
-end. 
+end.
+ 

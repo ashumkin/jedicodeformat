@@ -159,6 +159,7 @@ contains
   FindReplace in '..\Process\Transform\FindReplace.pas',
   fJcfExceptionDisplay in '..\Ui\fJcfExceptionDisplay.pas' {ExceptionDialog},
   frUnitCaps in '..\Ui\Settings\frUnitCaps.pas' {frUnitNameCaps: TFrame},
-  SettingsTypes in '..\Settings\SettingsTypes.pas';
+  SettingsTypes in '..\Settings\SettingsTypes.pas',
+  ReturnsAfterFinalEnd in '..\Process\Returns\ReturnsAfterFinalEnd.pas';
 
 end.

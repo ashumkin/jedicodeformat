@@ -144,7 +144,8 @@ uses
   SettingsTypes in '..\..\Settings\SettingsTypes.pas',
   SetPreprocessor in '..\..\Settings\SetPreProcessor.pas',
   FindReplace in '..\..\Process\Transform\FindReplace.pas',
-  fJcfExceptionDisplay in '..\..\Ui\fJcfExceptionDisplay.pas' {ExceptionDialog};
+  fJcfExceptionDisplay in '..\..\Ui\fJcfExceptionDisplay.pas' {ExceptionDialog},
+  ReturnsAfterFinalEnd in '..\..\Process\Returns\ReturnsAfterFinalEnd.pas';
 
 {
   gpprof in '..\..\..\..\..\Program Files\GpProfile\gpprof.pas',

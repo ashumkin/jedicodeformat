@@ -129,7 +129,8 @@ uses
   littletest43 in 'LittleTest43.pas',
   littletest44 in 'LittleTest44.pas',
   littletest45 in 'LittleTest45.pas',
-  littletest46 in 'LittleTest46.pas';
+  littletest46 in 'LittleTest46.pas',
+  littletest47 in 'LittleTest47.pas';
 
 {$R *.res}
 begin

@@ -66,4 +66,5 @@ begin
   Result := fugu2 div 2;
 end;
 
-end. 
+end.
+ 

@@ -62,4 +62,5 @@ end;
 
 initialization
   tautoobjectfactory.Create(comserver, ttestinterfacemap, class_testinterfacemap, cimultiinstance, tmapartment);
-end. 
+end.
+ 

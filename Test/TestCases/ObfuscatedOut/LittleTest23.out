@@ -12,4 +12,5 @@ begin
   Result := (bar) and (chr in [$B2..$EC]);
 end;
 
-end. 
+end.
+ 

@@ -102,4 +102,5 @@ begin
   inherited def2[pic] := Value;
 end;
 
-end. 
+end.
+ 

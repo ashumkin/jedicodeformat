@@ -11,4 +11,5 @@ procedure foo2; external 'foo.dll' name
   '__foo'
 procedure bar2; external 'bar.dll' name '__bar'
 
-end. 
+end.
+ 

@@ -35,4 +35,5 @@ procedure fred5(const foo);
 begin
 end;
 
-end. 
+end.
+ 

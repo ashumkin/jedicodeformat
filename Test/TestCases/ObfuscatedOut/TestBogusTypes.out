@@ -44,4 +44,5 @@ begin
   TComponent(ansichar(42));
 end;
 
-end. 
+end.
+ 

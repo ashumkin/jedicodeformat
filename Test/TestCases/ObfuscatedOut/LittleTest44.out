@@ -36,4 +36,5 @@ begin
   (strend( @firstindexkeybuffer[fldchg_data + text_fldnum_size]) -1)^ := #0;
 end;
 
-end. 
+end.
+ 

@@ -32,4 +32,5 @@ finalization
     FreeAndNil(fred);
     someglobalseed := 0;
   end;
-end. 
+end.
+ 

@@ -22,4 +22,5 @@ procedure tmixedmode.Write;
 begin
 end;
 
-end. 
+end.
+ 

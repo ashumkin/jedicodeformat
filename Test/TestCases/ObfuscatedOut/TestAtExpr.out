@@ -16,4 +16,5 @@ begin
   @fooproc := getprocaddress(foohandle, 'Foo');
 end;
 
-end. 
+end.
+ 

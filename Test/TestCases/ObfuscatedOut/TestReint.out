@@ -32,4 +32,5 @@ procedure tlinebreak.foo;
 begin
 end;
 
-end. 
+end.
+ 

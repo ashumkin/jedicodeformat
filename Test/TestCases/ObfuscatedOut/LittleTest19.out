@@ -26,4 +26,5 @@ procedure tsoy.setklingon(const Value: integer);
 begin
 end;
 
-end. 
+end.
+ 

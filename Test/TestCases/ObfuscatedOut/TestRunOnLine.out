@@ -186,4 +186,5 @@ begin
     lookup_incoming_payment_allocation, incomingpaymentallocation.allocationtype) + 12;
 end;
 
-end. 
+end.
+ 

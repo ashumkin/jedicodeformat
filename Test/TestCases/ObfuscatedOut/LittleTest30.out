@@ -13,4 +13,5 @@ procedure foo(const forward: boolean);
 begin
 end;
 
-end. 
+end.
+ 

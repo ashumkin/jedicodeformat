@@ -72,6 +72,8 @@ begin
   FormatSettings.Replace.Enabled := True;
   FormatSettings.Replace.Words.Clear;
   FormatSettings.Replace.Words.Add('Foo;Bar');
+
+  FormatSettings.Replace.SplitWords
 end;
 
 procedure TTestFindReplace.TearDown;

@@ -678,7 +678,8 @@ end;
 procedure ManyParams9(a1xxxxxxxxx, b1xxxxxxxxx, c1xxxxxxxxx, a2xxxxxxxxx,
   b2xxxxxxxxx, c2xxxxxxxxx: string;
   a3xxxxxxxxx, b3xxxxxxxxx, c3xxxxxxxxx, a4xxxxxxxxx, b4xxxxxxxxx, c4xxxxxxxxx: char;
-  var a5xxxxxxxxx, b5xxxxxxxxx, c5xxxxxxxxx, a6xxxxxxxxx, b6xxxxxxxxx, d6xxxxxxxxx: pointer;
+  var a5xxxxxxxxx, b5xxxxxxxxx, c5xxxxxxxxx, a6xxxxxxxxx, b6xxxxxxxxx,
+  d6xxxxxxxxx: pointer;
   const a7xxxxxxxxx, a8xxxxxxxxx, a9xxxxxxxxx: array of widechar);
 begin
 end;

@@ -8,4 +8,5 @@ implementation
   for this is not object-pascal, sha la la la la.
 {$ENDIF}
 
-end. 
+end.
+ 

@@ -11,4 +11,5 @@ begin
   Result := 'Foo';
 end;
 
-end. 
+end.
+ 

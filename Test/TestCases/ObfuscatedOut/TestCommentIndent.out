@@ -90,4 +90,5 @@ procedure taclass.proc6(p1: integer; p2: string);
 begin
 end;
 
-end. 
+end.
+ 

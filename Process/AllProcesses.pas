@@ -83,7 +83,7 @@ uses
   PropertyOnOneLine,
   RemoveBlankLinesAfterProcHeader, RemoveBlankLinesInVars,
   NoReturnBefore, NoReturnAfter, ReturnBefore, ReturnAfter,
-  BlockStyles,
+  BlockStyles, ReturnsAfterFinalEnd,
   { spacing}
   NoSpaceAfter, NoSpaceBefore, SingleSpaceBefore, SingleSpaceAfter,
   SpaceBeforeColon, RemoveSpaceAtLineEnd, VisitStripEmptySpace,
@@ -261,6 +261,8 @@ begin
   ApplyVisitorType(TVisitSetXY);
   ApplyVisitorType(TLongLineBreaker);
 
+  ApplyVisitorType(TReturnsAfterFinalEnd);
+  ApplyVisitorType(TLongLineBreaker);
 end;
 
 

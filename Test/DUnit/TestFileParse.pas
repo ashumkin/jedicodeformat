@@ -744,12 +744,12 @@ end;
 
 procedure TTestFileParse.TestParse_LittleTest15;
 begin
-  TestParseFile('LittleTest15', 38);
+  TestParseFile('LittleTest15', 41);
 end;
 
 procedure TTestFileParse.TestParse_LittleTest16;
 begin
-  TestParseFile('LittleTest16', 101);
+  TestParseFile('LittleTest16', 102);
 end;
 
 procedure TTestFileParse.TestParse_LittleTest17;
@@ -759,7 +759,7 @@ end;
 
 procedure TTestFileParse.TestParse_LittleTest18;
 begin
-  TestParseFile('LittleTest18', 102);
+  TestParseFile('LittleTest18', 103);
 end;
 
 procedure TTestFileParse.TestParse_TestAtExpr;

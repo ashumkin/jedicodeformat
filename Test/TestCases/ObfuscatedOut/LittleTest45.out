@@ -11,4 +11,5 @@ function foo5(out bar: integer): integer; stdcall; overload; external 'FooDll' n
 
 implementation
 
-end. 
+end.
+ 

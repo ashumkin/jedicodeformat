@@ -21,4 +21,5 @@ begin
   mangledata(pchar(foo)^);
 end;
 
-end. 
+end.
+ 

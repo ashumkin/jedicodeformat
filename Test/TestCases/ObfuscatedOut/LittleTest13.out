@@ -17,4 +17,5 @@ begin
   pinteger(lp)^ := 4;
 end;
 
-end. 
+end.
+ 

@@ -87,4 +87,5 @@ begin
   lc := ((((lcbutton).parent).parent).owner);
 end;
 
-end. 
+end.
+ 

@@ -32,4 +32,5 @@ begin
   ls := #12'Fred'#32'Fred'#22;
 end;
 
-end. 
+end.
+ 

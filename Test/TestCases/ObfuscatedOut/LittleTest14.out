@@ -9,4 +9,5 @@ uses Classes;
 var
   foolist: Classes.TList;
 
-end. 
+end.
+ 
