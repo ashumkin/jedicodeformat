@@ -15,6 +15,7 @@ uses
 {$ELSE}
 FooLinux
 
-{$ENDIF};
+{$ENDIF}
+  ;
 
 end.
