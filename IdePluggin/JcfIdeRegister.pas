@@ -235,6 +235,60 @@ begin
   end;
 end;
 
+{------------------------------------------------------------
+  keyboard binding
+  ctrl-alt-f to format current unit 
+
+  based on
+  http://community.borland.com/article/0,1410,26389,00.html
+  and http://www.gexperts.org/opentools/ }
+
+type
+  TJcfKeyBindings = class(TNotifierObject, IOTAKeyboardBinding)
+  private
+    procedure OnShortcut(const Context: IOTAKeyContext;
+      KeyCode: TShortcut; var BindingResult: TKeyBindingResult);
+
+  public
+    { IOTAKeyboardBinding methods }
+    function GetBindingType: TBindingType;
+    function GetDisplayName: string;
+    function GetName: string;
+    procedure BindKeyboard(const BindingServices: IOTAKeyBindingServices);
+  end;
+
+
+
+function TJcfKeyBindings.GetBindingType: TBindingType;
+begin
+  Result := btPartial;
+end;
+
+function TJcfKeyBindings.GetDisplayName: string;
+begin
+  Result := 'JCF';
+end;
+
+function TJcfKeyBindings.GetName: string;
+begin
+  Result := 'Jedi.CodeFormatter';
+end;
+
+procedure TJcfKeyBindings.BindKeyboard(const BindingServices: IOTAKeyBindingServices);
+var
+  liShortcut: TShortcut;
+begin
+  liShortcut := ShortCut((Ord('F')), [ssCtrl, ssAlt]);
+  BindingServices.AddKeyBinding([liShortcut], OnShortcut, nil)
+end;
+
+procedure TJcfKeyBindings.OnShortcut(const Context: IOTAKeyContext;
+  KeyCode: TShortcut; var BindingResult: TKeyBindingResult);
+begin
+  lcJCFIDE.DoFormatCurrentIDEWindow(self);
+end;
+
+
 procedure Register;
 begin
   { delayed reg. technique from sample code by Mike Remec
@@ -242,6 +296,8 @@ begin
   Assert(lcDelayedRegister <> nil);
   lcDelayedRegister.Proc := AddMenuItems;
   lcDelayedRegister.DoItSoon;
+
+  (BorlandIDEServices as IOTAKeyboardServices).AddKeyboardBinding(TJcfKeyBindings.Create);
 end;
 
 
