@@ -45,6 +45,7 @@ uses SourceToken, AlignVars;
 type
 
   TAlignField = class(TAlignVars)
+  private
   protected
 
     { TokenProcessor overrides }
@@ -54,6 +55,7 @@ type
 
     function TokenIsAligned(const pt: TSourceToken): boolean; override;
     function TokenEndsStatement(const pt: TSourceToken): boolean; override;
+    function TokenEndsAlignment(const pt: TSourceToken): boolean; override;
 
   public
     constructor Create; override;
@@ -63,11 +65,13 @@ type
 
 implementation
 
-uses FormatFlags, JcfSettings, ParseTreeNodeType, Tokens, TokenUtils,
+uses
+  FormatFlags, Nesting,
+  JcfSettings, ParseTreeNodeType, Tokens, TokenUtils,
   SetAlign;
 
 const
-  FORMATTED_SECTIONS: TParseTreeNodeTypeSet = [nClassVisibility, nRecordType];
+  FORMATTED_SECTIONS: TParseTreeNodeTypeSet = [nClassVisibility, nFieldDeclaration];
 
 constructor TAlignField.Create;
 begin
@@ -77,7 +81,7 @@ end;
 
 function TAlignField.AlignedToken(const pt: TSourceToken): boolean;
 const
-  NOT_ALIGNED: TTokenTypeSet = [ttWhiteSpace, ttReturn, ttComment, ttSemiColon, ttColon];
+  NOT_ALIGNED: TTokenTypeSet = [ttWhiteSpace, ttReturn, ttComment, ttSemiColon, ttColon, ttRecord];
 begin
   Result := not (pt.TokenType in NOT_ALIGNED);
 
@@ -113,7 +117,6 @@ begin
   begin
     Result := (pt.TokenType = ttSemiColon) or (not pt.HasParentNode(FORMATTED_SECTIONS));
   end;
-
 end;
 
 function TAlignField.TokenIsAligned(const pt: TSourceToken): boolean;
@@ -125,6 +128,23 @@ begin
 
   if Result and (RoundBracketLevel(pt) > 0) then
     Result := False;
+end;
+
+function TAlignField.TokenEndsAlignment(const pt: TSourceToken): boolean;
+begin
+  // ended by a blank line
+  Result := IsBlankLineEnd(pt);
+
+  { ended by change in class visiblity section }
+  if not Result then
+    Result := pt.TokenType in ClassVisibility;
+
+  { ended by a change in record nesting level }
+  if not Result then
+    Result := (pt.TokenType = ttCase) and (pt.HasParentNode([nRecordVariantSection], 1));
+
+  if not Result then
+    Result := (pt.TokenType = ttRecord) and (pt.HasParentNode([nRecordType], 1));
 end;
 
 end.

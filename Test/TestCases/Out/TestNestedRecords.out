@@ -35,8 +35,8 @@ var
   end;
 
   Fooble3: record
-    fiFoo: integer;
-    fsBar: string;
+    fiFoo:  integer;
+    fsBar:  string;
     Fooble: array [3..7] of record
       fiFoo: integer;
       fsBar: string;
@@ -54,8 +54,8 @@ var
   end;
 
   Fooble5: record
-    fiFoo: integer;
-    fsBar: string;
+    fiFoo:    integer;
+    fsBar:    string;
     Fooble5a: array [3..7] of record
       fiFoo: integer;
       fsBar: TRSomeRecord;
@@ -111,8 +111,8 @@ function Test1(const p1: integer): boolean;
 type
   { a bit better }
   TTestRecord = record
-    fiFoo: integer;
-    fsBar: string;
+    fiFoo:    integer;
+    fsBar:    string;
     Fooble5a: array [3..7] of record
       fiFoo: integer;
       fsBar: string;
@@ -153,7 +153,7 @@ type
 
     Gloop: array[1..4] of record
       i1: integer;
-      S1: string;
+      S1:  string;
     end;
 
     Floop, Noop: boolean;

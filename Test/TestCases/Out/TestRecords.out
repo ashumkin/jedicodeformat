@@ -24,16 +24,16 @@ type
   end;
 
   TLongRec = record
-    l1: TLeftRec;
-    a: string;
-    b: currency;
-    c: string;
-    d: currency;
-    e: string;
-    f: currency;
+    l1:   TLeftRec;
+    a:    string;
+    b:    currency;
+    c:    string;
+    d:    currency;
+    e:    string;
+    f:    currency;
     fred: boolean;
-    g: string;
-    h: currency;
+    g:    string;
+    h:    currency;
   end;
 
 
@@ -42,10 +42,10 @@ type
 
 
   TDateRec = record
-    Year: integer;
+    Year:  integer;
     Month: (Jan, Feb, Mar, Apr, May, Jun,
       Jul, Aug, Sep, Oct, Nov, Dec);
-    Day: 1..31;
+    Day:   1..31;
   end;
 
   { missing final colons }
