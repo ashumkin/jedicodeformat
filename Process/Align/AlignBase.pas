@@ -97,10 +97,10 @@ var
 begin
   lcToken := TSourceToken(pcNode);
 
-  if not IsTokenInContext(lcToken) then
+  if StillSuspended(lcToken) then
     exit;
 
-  if StillSuspended(lcToken) then
+  if not IsTokenInContext(lcToken) then
     exit;
 
   if TokenIsAligned(lcToken) then

@@ -52,7 +52,7 @@ begin
   else
   begin
     Result := (not pt.HasParentNode(nTypeDecl)) or
-      (pt.TokenType in [ttSemiColon, ttEOF]);
+      (pt.TokenType in [ttSemiColon, ttEOF]) or pt.HasParentNode(ObjectTypes + [nRecordType]);
 
     // ended by a blank line
     if (pt.TokenType = ttReturn) and (pt.SolidTokenOnLineIndex <= 1) then

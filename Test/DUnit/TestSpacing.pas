@@ -188,21 +188,23 @@ end;
 
 procedure TTestSpacing.TestReturnBefore;
 const
-  IN_UNIT_TEXT = UNIT_HEADER +  ' procedure foo; begin a := 2; end; ' + UNIT_FOOTER;
+  IN_UNIT_TEXT = UNIT_HEADER +  ' procedure foo; begin a := 2; end;' + UNIT_FOOTER;
   OUT_UNIT_TEXT = 'unit Test;' + AnsiLineBreak + ' interface' + AnsiLineBreak +
-    ' implementation  procedure foo; begin a := 2; end;' + AnsiLineBreak + '  end.';
+    ' implementation' + AnsiLineBreak +
+    ' procedure foo; begin a := 2; end;' + AnsiLineBreak + 'end.';
 begin
   TestProcessResult(TReturnBefore, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
 procedure TTestSpacing.TestReturnAfter;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin a := 2; end; ' + UNIT_FOOTER;
+  UNLINED_UNIT_HEADER = 'unit Test; interface implementation';
+  IN_UNIT_TEXT = UNLINED_UNIT_HEADER + ' procedure foo; begin a := 2; end;' + UNIT_FOOTER;
   OUT_UNIT_TEXT = 'unit Test;' + AnsiLineBreak + AnsiLineBreak +
     ' interface' + AnsiLineBreak + AnsiLineBreak +
     ' implementation' + AnsiLineBreak + AnsiLineBreak +
-    '  procedure foo;' + AnsiLineBreak + ' begin' + AnsiLineBreak +
-    ' a := 2;' + AnsiLineBreak + ' end;' + AnsiLineBreak + '  end.';
+    ' procedure foo;' + AnsiLineBreak + ' begin' + AnsiLineBreak +
+    ' a := 2;' + AnsiLineBreak + ' end;' + AnsiLineBreak + 'end.';
 begin
   TestProcessResult(TReturnAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -210,9 +212,9 @@ end;
 
 procedure TTestSpacing.TestBlankLinesAfterProcHeader;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo;' + AnsiLineBreak + AnsiLineBreak +
+  IN_UNIT_TEXT = UNIT_HEADER + 'procedure foo;' + AnsiLineBreak + AnsiLineBreak +
     AnsiLineBreak + AnsiLineBreak + 'begin a := 2; end; ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo;' + AnsiLineBreak + AnsiLineBreak +
+  OUT_UNIT_TEXT = UNIT_HEADER + 'procedure foo;' + AnsiLineBreak + AnsiLineBreak +
     'begin a := 2; end; ' + UNIT_FOOTER;
 begin
   TestProcessResult(TRemoveBlankLinesAfterProcHeader, IN_UNIT_TEXT, OUT_UNIT_TEXT);

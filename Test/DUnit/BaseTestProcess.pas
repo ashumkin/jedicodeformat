@@ -31,13 +31,14 @@ type
  end;
 
 const
-  UNIT_HEADER = 'unit Test; interface implementation ';
-  INTERFACE_HEADER = 'unit Test; interface ';
-  UNIT_FOOTER = ' end.';
+  UNIT_HEADER = 'unit Test;' + AnsiLineBreak + ' interface' +
+    AnsiLineBreak + ' implementation' + AnsiLineBreak;
+  INTERFACE_HEADER = 'unit Test;' + AnsiLineBreak + 'interface' + AnsiLineBreak;
+  UNIT_FOOTER = AnsiLineBreak + 'end.';
 
 implementation
 
-uses SysUtils;
+uses SysUtils, Dialogs;
 
 procedure TBaseTestProcess.Setup;
 begin
@@ -106,6 +107,13 @@ begin
   TestWarnings(psUnit, 0, []);
 end;
 
+
+function MarkReturns(const ps: string): string;
+begin
+  Result := ps;
+  StrReplace(Result, AnsiLineBreak, '-q' + AnsiLineBreak, [rfReplaceAll]);
+end;
+
 procedure TBaseTestProcess.TestProcessResult(processType: TTreeNodeVisitorType; const psIn, psOut: string);
 var
   lsOut: string;
@@ -122,6 +130,15 @@ begin
   end;
 
   lsOut := Trim(fcOutput.Text);
+
+  {
+  // debug
+  if (lsOut <> psOut) then
+    ShowMessage(MarkReturns(lsOut) +
+      AnsiLineBreak + AnsiLineBreak + '-- should have been --' + AnsiLineBreak + AnsiLineBreak +
+      MarkReturns(psOut));
+ { }
+
   CheckEquals(psOut, lsOut, 'Bad result text');
 end;
 

@@ -151,6 +151,7 @@ type
     procedure RecogniseFormalParameters;
     procedure RecogniseFormalParam;
     procedure RecogniseParameter;
+    procedure RecogniseActualParams;
 
     procedure RecogniseProcedureDirectives;
 
@@ -1666,10 +1667,12 @@ begin
 
     What is that second line??
 
-    WHat about unary operators other than not,
+    What about unary operators other than not,
     e.g. b := b * -2;
-
     PossiblyUnarySymbolOperators
+
+    Can also be fn call with no params but with the optional braces,
+      e.g. "Foo();"
    }
   lc := TokenList.FirstSolidToken;
 
@@ -1678,13 +1681,7 @@ begin
     RecogniseDesignator;
     if TokenList.FirstSolidTokenType = ttOpenBracket then
     begin
-      PushNode(nActualParams);
-
-      Recognise(ttOpenBracket);
-      RecogniseExprList;
-      Recognise(ttCloseBracket);
-
-      PopNode;
+      RecogniseActualParams;
     end;
   end
   else if (TokenList.FirstSolidTokenType = ttNumber) then
@@ -1950,12 +1947,7 @@ begin
 
     if TokenList.FirstSolidTokenType = ttOpenBracket then
     begin
-      PushNode(nActualParams);
-      Recognise(ttOpenBracket);
-      RecogniseExprList;
-      Recognise(ttCloseBracket);
-
-      PopNode;
+      RecogniseActualParams;
     end;
 
     if TokenList.FirstSolidTokenType = ttAssign then
@@ -1979,15 +1971,7 @@ begin
       RecogniseIdent;
 
       if TokenList.FirstSolidTokenType = ttOpenbracket then
-      begin
-        PushNode(nActualParams);
-
-        Recognise(ttOpenBracket);
-        RecogniseExprList;
-        Recognise(ttCloseBracket);
-
-        PopNode;
-      end;
+        RecogniseActualParams;
      end;
 
   end
@@ -3655,5 +3639,18 @@ begin
   PopNode;
 end;
 
+
+procedure TBuildParseTree.RecogniseActualParams;
+begin
+  PushNode(nActualParams);
+
+  Recognise(ttOpenBracket);
+
+  if TokenList.FirstSolidTokenType <> ttCloseBracket then
+    RecogniseExprList;
+  Recognise(ttCloseBracket);
+
+  PopNode;
+end;
 
 end.

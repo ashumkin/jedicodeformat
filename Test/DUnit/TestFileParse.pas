@@ -24,6 +24,7 @@ type
     procedure TestParse_LittleTest3;
     procedure TestParse_LittleTest4;
     procedure TestParse_LittleTest5;
+    procedure TestParse_LittleTest6;
     procedure TestParse_TestAbsolute;
     procedure TestParse_TestAlign;
     procedure TestParse_TestAsm;
@@ -212,6 +213,11 @@ end;
 procedure TTestFileParse.TestParse_LittleTest5;
 begin
   TestParseFile('LittleTest5', 54);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest6;
+begin
+  TestParseFile('LittleTest6', 74);
 end;
 
 procedure TTestFileParse.TestParse_TestAbsolute;

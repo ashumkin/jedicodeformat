@@ -33,6 +33,7 @@ type
 
   TAlignAssign = class(TAlignBase)
   private
+    // don't align across block nexting levels
     fiStartBlockLevel: integer;
   protected
     { TokenProcessor overrides }

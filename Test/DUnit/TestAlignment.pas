@@ -13,6 +13,8 @@ uses
 type
   TTestAlignment = class(TBaseTestProcess)
   private
+  public
+    procedure Setup; override;
   published
     procedure TestAlignConst;
     procedure TestAlignConst2;
@@ -22,7 +24,9 @@ type
     procedure TestAlignVars;
     procedure TestAlignVars2;
     procedure TestAlignVars3;
+
     procedure TestAlignAssign;
+    procedure TestAlignAssign2;
 
     procedure TestAlignComments;
     procedure TestAlignComments2;
@@ -36,8 +40,14 @@ implementation
 
 uses
   JclStrings,
-  AlignConst, AlignVars, AlignAssign, AlignComment, AlignTypedef;
+  JcfSettings, AlignConst, AlignVars, AlignAssign, AlignComment,
+  AlignTypedef;
 
+procedure TTestAlignment.Setup;
+begin
+  inherited;
+  Settings.Align.MaxVariance := 5;
+end;
 
 procedure TTestAlignment.TestAlignConst;
 const
@@ -207,6 +217,52 @@ begin
   TestProcessResult(TAlignAssign, MULTI_ALIGN_IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
+{ this one tests that
+ - multiple blocks work
+ - they align independantly
+ - don't necessarily align on last line }
+procedure TTestAlignment.TestAlignAssign2;
+const
+  IN_UNIT_TEXT = UNIT_HEADER +
+    'procedure foo;' + AnsiLineBreak +
+    'var' + AnsiLineBreak +
+    '  a, aa: integer;' + AnsiLineBreak +
+    '  bee, bee2: string;' + AnsiLineBreak +
+    '  deedee, deedee2: float;' + AnsiLineBreak +
+    'begin' +  AnsiLineBreak +
+    ' a := 3;' + AnsiLineBreak +
+    ' bee := ''foo'';' + AnsiLineBreak +
+    ' deedee := 34.56;' + AnsiLineBreak +
+    ' Foo;' + AnsiLineBreak +
+    ' Bar;' + AnsiLineBreak +
+    ' aa := 3;' + AnsiLineBreak +
+    ' deedee2 := 34.56;' + AnsiLineBreak +
+    ' bee2 := ''foo'';' + AnsiLineBreak +
+    'end;' +
+    UNIT_FOOTER;
+
+  OUT_UNIT_TEXT = UNIT_HEADER +
+    'procedure foo;' + AnsiLineBreak +
+    'var' + AnsiLineBreak +
+    '  a, aa: integer;' + AnsiLineBreak +
+    '  bee, bee2: string;' + AnsiLineBreak +
+    '  deedee, deedee2: float;' + AnsiLineBreak +
+    'begin' +  AnsiLineBreak +
+    ' a      := 3;' + AnsiLineBreak +
+    ' bee    := ''foo'';' + AnsiLineBreak +
+    ' deedee := 34.56;' + AnsiLineBreak +
+    ' Foo;' + AnsiLineBreak +
+    ' Bar;' + AnsiLineBreak +
+    ' aa      := 3;' + AnsiLineBreak +
+    ' deedee2 := 34.56;' + AnsiLineBreak +
+    ' bee2    := ''foo'';' + AnsiLineBreak +
+    'end;' +
+    UNIT_FOOTER;
+begin
+  TestProcessResult(TAlignAssign, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+
 
 procedure TTestAlignment.TestAlignComments;
 const
@@ -227,14 +283,14 @@ procedure TTestAlignment.TestAlignComments2;
 const
   IN_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
     ' // foo' + AnsiLineBreak +
-    '     { bar bie } ' + AnsiLineBreak +
-    '        // baz' + AnsiLineBreak +
+    '    { bar bie } ' + AnsiLineBreak +
+    '      // baz' + AnsiLineBreak +
     UNIT_FOOTER;
 
   OUT_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
-    '        // foo' + AnsiLineBreak +
-    '        { bar bie } ' + AnsiLineBreak +
-    '        // baz' + AnsiLineBreak +
+    '      // foo' + AnsiLineBreak +
+    '      { bar bie } ' + AnsiLineBreak +
+    '      // baz' + AnsiLineBreak +
     UNIT_FOOTER;
 begin
   TestProcessResult(TAlignComment, IN_UNIT_TEXT, OUT_UNIT_TEXT);

@@ -22,6 +22,7 @@ type
     procedure TestObfuscate_LittleTest3;
     procedure TestObfuscate_LittleTest4;
     procedure TestObfuscate_LittleTest5;
+    procedure TestObfuscate_LittleTest6;
     procedure TestObfuscate_TestAbsolute;
     procedure TestObfuscate_TestAlign;
     procedure TestObfuscate_TestAsm;
@@ -227,6 +228,11 @@ end;
 procedure TTestObfuscate.TestObfuscate_LittleTest5;
 begin
   TestObfuscateFile('LittleTest5');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest6;
+begin
+  TestObfuscateFile('LittleTest6');
 end;
 
 procedure TTestObfuscate.TestObfuscate_TestAbsolute;

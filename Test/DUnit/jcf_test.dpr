@@ -106,7 +106,8 @@ uses
   AlignVars in '..\..\Process\Align\AlignVars.pas',
   TestConverter in 'TestConverter.pas',
   AlignTypedef in '..\..\Process\Align\AlignTypedef.pas',
-  AlignComment in '..\..\Process\Align\AlignComment.pas';
+  AlignComment in '..\..\Process\Align\AlignComment.pas',
+  LittleTest6 in '..\TestCases\LittleTest6.pas';
 
 {$R *.res}
 

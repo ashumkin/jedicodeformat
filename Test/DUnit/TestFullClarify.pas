@@ -24,6 +24,7 @@ type
   procedure TestClarify_LittleTest3;
   procedure TestClarify_LittleTest4;
   procedure TestClarify_LittleTest5;
+  procedure TestClarify_LittleTest6;
 
   procedure TestClarify_TestAbsolute;
   procedure TestClarify_TestAlign;
@@ -222,6 +223,11 @@ end;
 procedure TTestClarify.TestClarify_LittleTest5;
 begin
   TestClarifyFile('LittleTest5');
+end;
+
+procedure TTestClarify.TestClarify_LittleTest6;
+begin
+  TestClarifyFile('LittleTest6');
 end;
 
 procedure TTestClarify.TestClarify_TestAbsolute;
