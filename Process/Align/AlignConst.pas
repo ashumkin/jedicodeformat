@@ -69,12 +69,20 @@ end;
 { a token that ends an const block }
 function TAlignConst.TokenEndsStatement(const pt: TSourceToken): boolean;
 begin
-  Result := (not pt.HasParentNode(nConstSection)) or
-    (pt.TokenType in [ttSemiColon, ttEOF, ttReservedWord]);
+  { only look at solid tokens }
+  if (pt.TokenType in [ttReturn, ttWhiteSpace]) then
+  begin
+    Result := False;
+  end
+  else
+  begin
+    Result := (not pt.HasParentNode(nConstSection)) or
+      (pt.TokenType in [ttSemiColon, ttEOF, ttReservedWord]);
 
-  // ended by a blank line
-  if (pt.TokenType = ttReturn) and (pt.SolidTokenOnLineIndex <= 1) then
-    Result := True;
+    // ended by a blank line
+    if (pt.TokenType = ttReturn) and (pt.SolidTokenOnLineIndex <= 1) then
+      Result := True;
+  end;
 end;
 
 function TAlignConst.IsTokenInContext(const pt: TSourceToken): boolean;

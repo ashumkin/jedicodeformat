@@ -75,8 +75,8 @@ uses
   NoReturnAfter in '..\..\Process\Returns\NoReturnAfter.pas',
   NoSpaceBefore in '..\..\Process\Spacing\NoSpaceBefore.pas',
   TestSpacing in 'TestSpacing.pas',
+  TestAlignment in 'TestAlignment.pas',
   BaseTestProcess in 'BaseTestProcess.pas',
-  TestConverter in 'TestConverter.pas',
   NoReturnBefore in '..\..\Process\Returns\NoReturnBefore.pas',
   NoSpaceAfter in '..\..\Process\Spacing\NoSpaceAfter.pas',
   SingleSpaceBefore in '..\..\Process\Spacing\SingleSpaceBefore.pas',
@@ -101,7 +101,10 @@ uses
   ReturnChars in '..\..\Process\Returns\ReturnChars.pas',
   BasicStats in '..\..\Process\Info\BasicStats.pas',
   AlignBase in '..\..\Process\Align\AlignBase.pas',
-  AlignConst in '..\..\Process\Align\AlignConst.pas';
+  AlignConst in '..\..\Process\Align\AlignConst.pas',
+  AlignAssign in '..\..\Process\Align\AlignAssign.pas',
+  AlignVars in '..\..\Process\Align\AlignVars.pas',
+  TestConverter in 'TestConverter.pas';
 
 {$R *.res}
 

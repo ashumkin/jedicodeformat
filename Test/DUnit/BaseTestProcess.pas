@@ -111,8 +111,6 @@ var
   lsOut: string;
 begin
   // run just this process
-  //lsOut := JustOneProccess(processType, psIn);
-
   fcInput.Text := psIn;
   fcConvert.RunAll := False;
   fcConvert.SingleProcess := processType;

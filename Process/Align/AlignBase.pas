@@ -120,6 +120,7 @@ var
   liSettingsMin, liSettingsMax, liSettingsMaxVariance: integer;
 
   liUnalignedCount, liMaxUnaligned: integer;
+  liAlignedCount: integer;
 begin
   ResetState;
 
@@ -162,19 +163,25 @@ begin
   { locate block end - include all consecutive aligned statements }
   bDone := False;
   liUnalignedCount := 0;
+  liAlignedCount := 1;
+  bThisStatementIsAligned := True; // first statement just read will be aligned
 
-  bThisStatementIsAligned := False;
+
+  { jow look for consecutive similar statements to align }
   while not bDone do
   begin
     lcCurrent := lcCurrent.NextToken;
-    fcTokens.Add(lcCurrent);
-    OnTokenRead(lcCurrent);
-    
+
     { EOF?! - abort! }
-    if lcCurrent.TokenType = ttEOF then
-      bDone := True
+    if (lcCurrent = nil) or (lcCurrent.TokenType = ttEOF) then
+    begin
+      bDone := True;
+    end
     else
     begin
+      fcTokens.Add(lcCurrent);
+      OnTokenRead(lcCurrent);
+
       { an aligned statement has the aligned token in it -
         e.g. an assign statement has a ':=' in it :) }
       if TokenIsAligned(lcCurrent) then
@@ -218,6 +225,7 @@ begin
           liLastKnownAlignedStatement := liCurrent;
           liUnalignedCount := 0;
           bThisStatementIsAligned := False;
+          inc(liAlignedCount);
         end
         else
         begin
@@ -235,11 +243,11 @@ begin
     end; { not EOF }
   end; { while loop }
 
-  { set iResume equal to the block end token }
-  fcResumeToken := fcTokens.SOurceTokens[liLastKnownAlignedStatement];
+  { set iResume equal to the last token aligned  }
+  fcResumeToken := fcTokens.SourceTokens[fcTokens.Count - 1];
 
   { now we know how far to go and how far to indent, do it }
-  if liLastKnownAlignedStatement > 0 then
+  if (liLastKnownAlignedStatement > 0) and (liAlignedCount > 1) then
     IndentAll(liLastKnownAlignedStatement, liMaxIndent);
 
   ResetState;
@@ -262,7 +270,7 @@ begin
       lcNew := InsertSpacesBefore(lcCurrent, piIndent - lcCurrent.XPosition);
 
       { list just got longer - move the end marker }
-      fcTokens.Insert(liLoop + 1, lcNew);
+      fcTokens.Insert(liLoop, lcNew);
       inc(piTokens);
       inc(liLoop);
     end;

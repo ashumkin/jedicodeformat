@@ -63,7 +63,7 @@ uses
   { stats }
   BasicStats,
   { align }
-  AlignConst, ALignVars, AlignAssign;
+  AlignConst, AlignVars, AlignAssign;
 
 constructor TAllProcesses.Create;
 begin
