@@ -65,6 +65,15 @@ begin
   Result := pcNode.HasChildNode(nCompoundStatement, liDepth);
 end;
 
+procedure TestAddSpaceAtEnd(const pcNode: TParseTreeNode);
+var
+  lcLeaf: TSourceToken;
+begin
+  lcLeaf := TSourceToken(pcNode.LastLeaf);
+  if (lcLeaf = nil) or lcLeaf.IsSolid then
+    pcNode.AddChild(NewSpace(1));
+end;
+
 {
   it is not safe to remove the block from
     if <cond1> then
@@ -99,7 +108,6 @@ begin
         Result := False;
     end;
   end;
-
 end;
 
 procedure AddBlockChild(const pcNode: TParseTreeNode);
@@ -108,6 +116,7 @@ var
   lcTop: TParseTreeNode;
   lcStatement, lcCompound, lcStatementList: TParseTreeNode;
   lcBegin, lcEnd: TSourceToken;
+  lcPrior: TSourceToken;
 begin
   { this is an if block or the like
     with a single statement under it  }
@@ -139,8 +148,8 @@ begin
        - statement list
          -  lcStatement
        - end
-
     }
+    
     lcCompound := TParseTreeNode.Create;
     lcCompound.NodeType := nCompoundStatement;
     lcTop.InsertChild(liIndex, lcCompound);
@@ -151,6 +160,11 @@ begin
     lcCompound.AddChild(lcBegin);
     lcCompound.AddChild(NewSpace(1));
 
+    { check we have got space before the begin }
+    lcPrior := lcBegin.PriorToken;
+    if (lcPrior <> nil) and lcPrior.IsSolid then
+      lcPrior.Parent.InsertChild(lcPrior.IndexOfSelf + 1, NewSpace(1));
+
     lcStatementList := TParseTreeNode.Create;
     lcStatementList.NodeType := nStatementList;
     lcCompound.AddChild(lcStatementList);
@@ -159,7 +173,7 @@ begin
     if lcStatement <> nil then
       lcStatementList.AddChild(lcStatement);
 
-    lcCompound.AddChild(NewSpace(1));
+    TestAddSpaceAtEnd(lcCompound);
 
     lcEnd := TSourceToken.Create;
     lcEnd.SourceCode := 'end';
