@@ -676,7 +676,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 1191);
+  TestParseFile('Testcases.dpr', 1199);
 end;
 
 
@@ -1063,7 +1063,7 @@ end;
 
 procedure TTestFileParse.TestParse_LittleTest60;
 begin
-  TestParseFile('LittleTest60', 71);
+  TestParseFile('LittleTest60', 73);
 end;
 
 procedure TTestFileParse.TestParse_LittleTest61;

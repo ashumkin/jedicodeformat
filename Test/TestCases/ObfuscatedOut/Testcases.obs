@@ -57,5 +57,5 @@ in'LittleTest48.pas',littletest49 in'LittleTest49.pas',littletest50 in'LittleTes
 in'TestSimpleIfDef6.pas',littletest53 in'LittleTest53.pas',littletest54 in'LittleTest54.pas'
 ,littletest55 in'LittleTest55.pas',littletest56 in'LittleTest56.pas',littletest57
 in'LittleTest57.pas',littletest58 in'LittleTest58.pas',littletest59 in'LittleTest59.pas'
-;{$R *.res}begin application.initialize;application.createform(tformtest,formtest
-);application.run;end. 
+,littletest60 in'LittleTest60.pas';{$R *.res}begin application.initialize;application
+.createform(tformtest,formtest);application.run;end. 
