@@ -85,8 +85,12 @@ end;
 function CalculateIndent(const pt: TSourceToken): integer;
 var
   liIndentCount: integer;
+  lbHasIndentedRunOnLine: Boolean;
+  lbHasIndentedDecl: boolean;
 begin
   Result := 0;
+  lbHasIndentedRunOnLine := False;
+  lbHasIndentedDecl := False;
 
   if pt = nil then
     exit;
@@ -105,6 +109,8 @@ begin
 
     if pt.HasParentNode(ProcedureHeadings) and (not (pt.Word in (ProcedureWords + [wClass]))) and (pt.IndexOfSelf > 0) then
       inc(liIndentCount);
+
+    lbHasIndentedDecl := True;
   end
 
   { indent vars, consts etc, e.g.
@@ -116,8 +122,17 @@ begin
   }
   else if pt.HasParentNode(nDeclSection) and (not pt.HasParentNode(ProcedureNodes)) then
   begin
-    if pt.Word in Declarations + [wProcedure, wFunction] then
-      liIndentCount := 0
+    if pt.Word in Declarations + ProcedureWords then
+    begin
+      {
+        the words 'var' and 'cost' cna be found in proc params
+        the words 'procedure' and 'function' can be found in type defs, e.g. type Tfoo = procedure of object; }
+      if (pt.Word in ProcedureWords + ParamTypes) and
+        (pt.HasParentNode(nProcedureType) or pt.HasParentNode(nFormalParams)) then
+        liIndentCount := 1
+      else
+        liIndentCount := 0;
+    end
     else
       liIndentCount := 1;
 
@@ -142,13 +157,23 @@ begin
 
         // not these in local record type decl
         if (pt.Word in [wCase, wEnd]) and (pt.HasParentNode(nRecordType)) then
-          Inc(liIndentCount);
+          inc(liIndentCount);
+
+        // not these in  procedure params or procedure type
+        if (pt.Word in ParamTypes) and pt.HasParentNode(nProcedureType) then
+            inc(liIndentCount);
       end
 
       // else in a case statement is outdented
       else if (pt.Word = wElse) and (pt.HasParentNode(nElseCase, 1)) then
         dec(liIndentCount);
 
+    end
+    else
+    begin
+     { procedure formal params are not in the block }
+      if pt.HasParentNode(nFormalParams) then
+        inc(liIndentCount);
     end;
 
     if pt.Nestings.GetLevel(nlCaseSelector) > 0 then
@@ -171,8 +196,11 @@ begin
       inc(liIndentCount);
 
     { indent for run on line }
-    if (pt.Nestings.GetLevel(nlRoundBracket) + (pt.Nestings.GetLevel(nlSquareBracket)) > 0) then
+    if pt.HasParentNode(nStatement) and (pt.Nestings.GetLevel(nlRoundBracket) + (pt.Nestings.GetLevel(nlSquareBracket)) > 0) then
+    begin
       inc(liIndentCount);
+      lbHasIndentedRunOnLine := True;
+    end;
 
     if pt.HasParentNode(nUses) and (pt.Word <> wUses) then
       inc(liIndentCount);
@@ -181,36 +209,50 @@ begin
       dec(liIndentCount);
   end;
 
+  { record declaration stuph }
+  if pt.HasParentNode(nRecordType) then
+  begin
+    if pt.Nestings.GetLevel(nlRecordVariantSection) > 0 then
+    begin
+      liIndentCount := liIndentCount + pt.Nestings.GetLevel(nlRecordVariantSection);
+      if pt.Word = wCase then
+        dec(liIndentCount);
+    end;
+
+    if pt.HasParentNode(nRecordVariant) and (RoundBracketLevel(pt) > 0) then
+      inc(liIndentCount);
+
+    if (pt.Word <> wEnd) then
+    begin
+      lbHasIndentedDecl := True;
+      inc(liIndentCount);
+    end;
+  end;
+
+
   { these apply everywhere
     mostly because they need to apply to decls
     either in or out of a proc }
-  if pt.Nestings.GetLevel(nlRecordVariantSection) > 0 then
-  begin
-    liIndentCount := liIndentCount + pt.Nestings.GetLevel(nlRecordVariantSection);
-    if pt.Word = wCase then
-      dec(liIndentCount);
-  end;
 
-  if pt.HasParentNode(nRecordVariant) and (RoundBracketLevel(pt) > 0) then
-    inc(liIndentCount);
-
-  if pt.HasParentNode(nRecordType) and pt.HasParentNode(nDeclSection) and (pt.Word <> wEnd) then
+  if pt.HasParentNode(nEnumeratedType) and (RoundBracketLevel(pt) > 0) then
     inc(liIndentCount);
 
   { run on expression }
-  if IsRunOnExpr(pt) then
-    inc(liIndentCount)
-  else if IsInAssignExpr(pt) then
-    inc(liIndentCount)
-  else if IsInProcedureParams(pt) then
-    inc(liIndentCount);
+  if not lbHasIndentedRunOnLine then
+  begin
+    if IsRunOnExpr(pt) then
+      inc(liIndentCount)
+    else if IsInAssignExpr(pt) then
+      inc(liIndentCount)
+    else if IsInProcedureParams(pt) then
+      inc(liIndentCount)
+    { run-on type decl }
+    else if pt.IsOnRightOf(nTypeDecl, wEquals) and (not lbHasIndentedDecl) and (pt.Word <> wEnd) then
+      inc(liIndentCount);
+  end;
 
   if pt.HasParentNode(nArrayConstant) and
     ((RoundBracketLevel(pt) > 0) or (pt.TokenType in [ttOpenBracket, ttCloseBracket])) then
-    inc(liIndentCount);
-
-  { run-on type decl }
-  if pt.IsOnRightOf(nType, wEquals) then
     inc(liIndentCount);
 
   Assert(liIndentCount >= 0);

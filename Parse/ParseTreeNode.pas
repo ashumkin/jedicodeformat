@@ -381,19 +381,21 @@ var
     end;
 
     // leaf node - matching token using the 'HasChildNode' override to match self
-    if (ChildNodeCount = 0) and HasChildNode(peWords) then
+    if (pcRoot.ChildNodeCount = 0) and pcRoot.HasChildNode(peWords) then
     begin
+      // success
       lbSearchDone := True;
-      Result := self;
+      Result := pcRoot;
       exit;
     end;
 
     // recurse into all children (or until self is encountered)
-    for liLoop := 0 to ChildNodeCount - 1 do
+    for liLoop := 0 to pcRoot.ChildNodeCount - 1 do
     begin
-      lcChild := ChildNodes[liLoop];
+      lcChild := pcRoot.ChildNodes[liLoop];
       if lcChild = self then
       begin
+        // failed - reached self without matching the required words.
         lbSearchDone := True;
         break;
       end;

@@ -78,7 +78,10 @@ uses
   SpaceToTab in '..\Process\Spacing\SpaceToTab.pas',
   SpecificWordCaps in '..\Process\Capitalisation\SpecificWordCaps.pas',
   Capitalisation in '..\Process\Capitalisation\Capitalisation.pas',
-  Indenter in '..\Process\Indent\Indenter.pas';
+  Indenter in '..\Process\Indent\Indenter.pas',
+  TestDeclarations in '..\Test\TestCases\TestDeclarations.pas',
+  TestDeclIndent in '..\Test\TestCases\TestDeclIndent.pas',
+  TestNestedRecords in '..\Test\TestCases\TestNestedRecords.pas';
 
 {$R *.res}
 

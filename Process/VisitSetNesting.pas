@@ -35,7 +35,8 @@ type
 implementation
 
 uses SysUtils,
-  ParseTreeNode, ParseTreeNodeType, TokenType, SourceToken;
+  ParseTreeNode, ParseTreeNodeType,
+  TokenType, SourceToken, WordMap;
 
 constructor TVisitSetNestings.Create;
 begin
@@ -74,6 +75,7 @@ end;
 procedure TVisitSetNestings.ProcessNode(const pcNode: TObject; const pbIncrement: boolean);
 var
   lcNode: TParseTreeNode;
+  lcNextLeaf: TSourceToken;
   leNestType: TNestingLevelType;
   lbHasNesting: Boolean;
 begin
@@ -84,12 +86,23 @@ begin
 
   case lcNode.NodeType of
     nBlock, nCaseStatement, nElseCase,
-    nIfBlock, nElseBlock, nTryBlock, nFinallyBlock, nExceptBlock,
+    nIfBlock, nTryBlock, nFinallyBlock, nExceptBlock,
     nRepeatStatement, nWhileStatement, nForStatement,
-    nWithStatement, nOnExceptionHandler:
+    nWithStatement, nOnExceptionHandler, nInitSection:
     begin
       leNestType := nlBlock;
       lbHasNesting := True;
+    end;
+    nElseBlock:
+    begin
+      { if the else is immediately followed by if then it is not a block indent }
+      lcNextLeaf := TSourceToken(lcNode.FirstLeaf);
+      lcNextLeaf := lcNextLeaf.NextSolidToken;
+      if not (lcNextLeaf.Word = wIf) then
+      begin
+        leNestType := nlBlock;
+        lbHasNesting := True;
+      end;
     end;
     nCaseSelector:
     begin

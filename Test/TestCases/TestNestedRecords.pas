@@ -68,6 +68,44 @@ var
     fdBaz: Double;
   end;
 
+type
+  TRidiculous = record
+    li1: integer;
+    Ridiculous2: record
+      li12: integer;
+      Ridiculous3: record
+        li3: integer;
+        Ridiculous4: record
+          li4: integer;
+          Ridiculous5: record
+            li5: integer;
+          end;
+        end;
+        lbHuh: boolean;
+      end;
+    end;
+    lbHuh2: boolean;
+  end;
+
+var
+  IAmRidiculous: record
+    li1: integer;
+    TRidiculous2: record
+      li12: integer;
+      TRidiculous3: record
+        li3: integer;
+        TRidiculous4: record
+          li4: integer;
+          TRidiculous5: record
+            li5: integer;
+          end;
+        end;
+        lbHuh: boolean;
+      end;
+    end;
+    lbHuh2: boolean;
+  end;
+
   function Test1(const p1: integer): boolean;
 
 type
