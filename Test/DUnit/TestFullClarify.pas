@@ -90,6 +90,7 @@ type
   procedure TestClarify_TestUses;
   procedure TestClarify_TestUsesChanges;
   procedure TestClarify_TestWarnings;
+  procedure TestClarify_TestWith;
 end;
 
 
@@ -537,6 +538,11 @@ end;
 procedure TTestClarify.TestClarify_TestWarnings;
 begin
   TestClarifyFile('TestWarnings');
+end;
+
+procedure TTestClarify.TestClarify_TestWith;
+begin
+  TestClarifyFile('TestWith');
 end;
 
 initialization

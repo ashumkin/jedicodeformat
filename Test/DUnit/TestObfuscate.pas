@@ -85,6 +85,7 @@ type
     procedure TestObfuscate_TestUses;
     procedure TestObfuscate_TestUsesChanges;
     procedure TestObfuscate_TestWarnings;
+    procedure TestObfuscate_TestWith;
 
    procedure TestObfuscate_TestCases;
 end;
@@ -542,6 +543,11 @@ end;
 procedure TTestObfuscate.TestObfuscate_TestWarnings;
 begin
   TestObfuscateFile('TestWarnings');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestWith;
+begin
+  TestObfuscateFile('TestWith');
 end;
 
 procedure TTestObfuscate.TestObfuscate_TestCases;

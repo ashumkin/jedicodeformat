@@ -87,6 +87,7 @@ type
     procedure TestParse_TestUses;
     procedure TestParse_TestUsesChanges;
     procedure TestParse_TestWarnings;
+    procedure TestParse_TestWith;
 
    procedure TestParse_TestCases;
 
@@ -529,10 +530,16 @@ begin
   TestParseFile('TestWarnings', 700);
 end;
 
+procedure TTestFileParse.TestParse_TestWith;
+begin
+  TestParseFile('TestWith', 735);
+end;
+
 procedure TTestFileParse.TestParse_TestCases;
 begin
   TestParseFile('Testcases.dpr', 551);
 end;
+
 
 initialization
  TestFramework.RegisterTest(TTestFileParse.Suite);

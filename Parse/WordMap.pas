@@ -278,7 +278,7 @@ const
 
   BlockOutdentWords = [wVar, wThreadVar, wConst, wType, wLabel,
     wBegin, wEnd, wTry, wFinally, wExcept,
-    wWhile,  wFor, wRepeat, wUntil,
+    wWhile,  wFor, wRepeat, wUntil, wWith,
     wAsm, wCase, wInitialization, wFinalization];
 
   PropertyDirectives: TWordSet =
