@@ -42,7 +42,7 @@ const
 
 const
   SOURCE_FILE_FILTERS =
-    'Delphi source (*.pas, *.dpr)|*.pas; *.dpr|' +
+    'Delphi source (*.pas, *.dpr, *.dpk)|*.pas; *.dpr; *.dpk|' +
     'Text files (*.txt)|*.txt|' +
     'All files (*.*)|*.*';
 

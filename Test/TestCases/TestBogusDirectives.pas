@@ -33,6 +33,11 @@ type
 
       function DispId: integer; SAFECAlL;
       function ProtecTED: boolean;
+
+      { are these keywords or directives? }
+      procedure Contains;
+      procedure Requires;
+      procedure Package;
   end;
 
 implementation
@@ -66,6 +71,18 @@ end;
 function Register.ProtecTED: boolean;
 begin
   Result := False;
+end;
+
+procedure Register.Contains;
+begin
+end;
+
+procedure Register.Requires;
+begin
+end;
+
+procedure Register.Package;
+begin
 end;
 
 end.

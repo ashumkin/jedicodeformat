@@ -416,7 +416,6 @@ const
     (sToken: 'case'; eWordType: wtReservedWord; eToken: ttCase),
     (sToken: 'class'; eWordType: wtReservedWord; eToken: ttClass),
     (sToken: 'const'; eWordType: wtReservedWord; eToken: ttConst),
-    (sToken: 'contains'; eWordType: wtReservedWord; eToken: ttContains),
     (sToken: 'constructor'; eWordType: wtReservedWord; eToken: ttConstructor),
     (sToken: 'destructor'; eWordType: wtReservedWord; eToken: ttDestructor),
     (sToken: 'dispinterface'; eWordType: wtReservedWord; eToken: ttDispinterface),
@@ -443,7 +442,6 @@ const
     (sToken: 'object'; eWordType: wtReservedWord; eToken: ttObject),
     (sToken: 'of'; eWordType: wtReservedWord; eToken: ttOf),
     (sToken: 'out'; eWordType: wtReservedWord; eToken: ttOut),
-    (sToken: 'package'; eWordType: wtReservedWord; eToken: ttPackage),
     (sToken: 'packed'; eWordType: wtReservedWord; eToken: ttPacked),
     (sToken: 'procedure'; eWordType: wtReservedWord; eToken: ttProcedure),
     (sToken: 'program'; eWordType: wtReservedWord; eToken: ttProgram),
@@ -451,7 +449,6 @@ const
     (sToken: 'raise'; eWordType: wtReservedWord; eToken: ttRaise),
     (sToken: 'record'; eWordType: wtReservedWord; eToken: ttRecord),
     (sToken: 'repeat'; eWordType: wtReservedWord; eToken: ttRepeat),
-    (sToken: 'requires'; eWordType: wtReservedWord; eToken: ttRequires),
     (sToken: 'resourcestring'; eWordType: wtReservedWord; eToken: ttResourceString),
     (sToken: 'set'; eWordType: wtReservedWord; eToken: ttSet),
     (sToken: 'then'; eWordType: wtReservedWord; eToken: ttThen),
@@ -469,6 +466,10 @@ const
     (sToken: 'on'; eWordType: wtReservedWord; eToken: ttOn),
 
     { reseved words that are directives }
+    (sToken: 'package'; eWordType: wtReservedWordDirective; eToken: ttPackage),
+    (sToken: 'contains'; eWordType: wtReservedWordDirective; eToken: ttContains),
+    (sToken: 'requires'; eWordType: wtReservedWordDirective; eToken: ttRequires),
+
     (sToken: 'absolute'; eWordType: wtReservedWordDirective; eToken: ttAbsolute),
     (sToken: 'external'; eWordType: wtReservedWordDirective; eToken: ttExternal),
     (sToken: 'pascal'; eWordType: wtReservedWordDirective; eToken: ttPascal),

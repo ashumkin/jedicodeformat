@@ -405,8 +405,16 @@ var
   lsNewText: string;
 begin
   InternalGetValue(psTag, lsNewText, lbFound);
-  if lbFound then
-    Result := StrToInt(lsNewText)
+  if lbFound and (lsNewText <> '') then
+  begin
+    // cope with some old data 
+    if AnsiSameText(lsNewText, 'true') then
+      Result := 1
+    else if AnsiSameText(lsNewText, 'false') then
+      Result := 0
+    else
+      Result := StrToInt(lsNewText);
+  end
   else
     Result := piDefault;
 end;

@@ -407,7 +407,6 @@ end;
 procedure TBuildParseTree.RecogniseGoal;
 var
   lc: TSourceToken;
-  leTokenType: TTokenType;
 begin
   // Goal -> (Program | Package  | Library  | Unit)
 
@@ -417,12 +416,7 @@ begin
  lc := TokenList.FirstSolidToken;
  Assert(lc <> nil);
 
-  if lc.WordType <> wtReservedWord then
-   Raise TEParseError.Create('Expected reserved word - program, package, library, unit', lc);
-
- leTokenType := lc.TokenType;
-
-  case leTokenType of
+  case lc.TokenType of
     ttProgram:
       RecogniseProgram;
     ttPackage:

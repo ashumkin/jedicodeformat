@@ -310,7 +310,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestBogusDirectives;
 begin
-  TestParseFile('TestBogusDirectives', 300);
+  TestParseFile('TestBogusDirectives', 361);
 end;
 
 procedure TTestFileParse.TestParse_TestBogusTypes;
