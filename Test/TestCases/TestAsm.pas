@@ -72,6 +72,13 @@ PUSH    EAX
          TEST    EAX,EAX
           CALL    ProcASM3
           JE      @@initTls
+
+@@2a:   MOV     EAX, [EBX]
+@@2a2:   MOV     EAX, [EBX]
+@@2a2a:   MOV     EAX, [EBX]
+
+        fmul    ST(1),ST          { Result := Result * X }
+
 end;
 
 

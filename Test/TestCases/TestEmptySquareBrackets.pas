@@ -1,4 +1,4 @@
-unit LittleTest21;
+unit TestEmptySquareBrackets;
 
 { AFS August 2003
  This unit compiles but is not semantically meaningfull
@@ -6,9 +6,12 @@ unit LittleTest21;
 
 interface
 
-  { this is an enum }
 type
-    Truncated = (false, true);
+  TMonkey = (gibbon, baboon, vervet, mandril);
+  TBarrelOfMonkeys = set of TMonkey;
+
+const
+  TFoo: TBarrelOfMonkeys = [];
 
 implementation
 

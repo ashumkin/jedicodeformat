@@ -64,6 +64,10 @@ type
     procedure TestClarify_LittleTest21;
     procedure TestClarify_LittleTest22;
     procedure TestClarify_LittleTest23;
+    procedure TestClarify_LittleTest24;
+    procedure TestClarify_LittleTest25;
+    procedure TestClarify_LittleTest26;
+    procedure TestClarify_LittleTest27;
 
     procedure TestClarify_TestAbsolute;
     procedure TestClarify_TestAlign;
@@ -88,6 +92,7 @@ type
     procedure TestClarify_TestDefaultParams;
     procedure TestClarify_TestDeref;
     procedure TestClarify_TestEmptyClass;
+    procedure TestClarify_TestEmptySquareBrackets;
     procedure TestClarify_TestEsotericKeywords;
     procedure TestClarify_TestExclusion;
     procedure TestClarify_TestExclusionFlags;
@@ -785,6 +790,31 @@ end;
 procedure TFullTestClarify.TestClarify_LittleTest23;
 begin
   TestClarifyFile('LittleTest23');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest24;
+begin
+  TestClarifyFile('LittleTest24');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest25;
+begin
+  TestClarifyFile('LittleTest25');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest26;
+begin
+  TestClarifyFile('LittleTest26');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest27;
+begin
+  TestClarifyFile('LittleTest27');
+end;
+
+procedure TFullTestClarify.TestClarify_TestEmptySquareBrackets;
+begin
+  TestClarifyFile('TestEmptySquareBrackets');
 end;
 
 initialization

@@ -65,6 +65,10 @@ type
     procedure TestObfuscate_LittleTest21;
     procedure TestObfuscate_LittleTest22;
     procedure TestObfuscate_LittleTest23;
+    procedure TestObfuscate_LittleTest24;
+    procedure TestObfuscate_LittleTest25;
+    procedure TestObfuscate_LittleTest26;
+    procedure TestObfuscate_LittleTest27;
 
     procedure TestObfuscate_TestAbsolute;
     procedure TestObfuscate_TestAlign;
@@ -89,6 +93,7 @@ type
     procedure TestObfuscate_TestDefaultParams;
     procedure TestObfuscate_TestDeref;
     procedure TestObfuscate_TestEmptyClass;
+    procedure TestObfuscate_TestEmptySquareBrackets;
     procedure TestObfuscate_TestEsotericKeywords;
     procedure TestObfuscate_TestExclusion;
     procedure TestObfuscate_TestExclusionFlags;
@@ -813,6 +818,31 @@ end;
 procedure TTestObfuscate.TestObfuscate_LittleTest23;
 begin
   TestObfuscateFile('LittleTest23');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest24;
+begin
+  TestObfuscateFile('LittleTest24');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest25;
+begin
+  TestObfuscateFile('LittleTest25');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest26;
+begin
+  TestObfuscateFile('LittleTest26');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest27;
+begin
+  TestObfuscateFile('LittleTest27');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestEmptySquareBrackets;
+begin
+  TestObfuscateFile('TestEmptySquareBrackets');
 end;
 
 initialization

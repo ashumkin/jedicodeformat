@@ -199,7 +199,7 @@ type
     procedure RecogniseAsmExpr;
     procedure RecogniseAsmIdent;
     procedure RecogniseAsmOpcode;
-    procedure RecogniseAsmLabel;
+    procedure RecogniseAsmLabel(const pbColon: boolean);
     procedure RecogniseWhiteSpace;
 
     procedure RecogniseHintDirectives;
@@ -869,6 +869,10 @@ begin
   else
     Raise TEParseError.Create('Expected equals or colon', lc);
 
+  { can be deprecated library platform }
+  while TokenList.FirstSolidTokentype in ConstantDirectives do
+    Recognise(ConstantDirectives);
+
   PopNode;
 end;
 
@@ -1032,6 +1036,10 @@ begin
   while (TokenList.FirstSolidTokenType = ttSemicolon) do
   begin
     Recognise(ttSemicolon);
+
+    if TokenList.FirstSolidTokenType = ttCloseBracket then
+      break;
+      
     RecogniseRecordFieldConstant;
   end;
 
@@ -1521,6 +1529,8 @@ begin
     Recognise(ttObject);
   end;
 
+  RecogniseProcedureDirectives;
+
   PopNode;
 end;
 
@@ -1733,7 +1743,10 @@ begin
   else if (TokenList.FirstSolidTokenType = ttOpenBracket) then
   begin
     Recognise(ttOpenBracket);
-    RecogniseExpr;
+
+    { can be empty brackets }
+    if TokenList.FirstSolidTokenType <> ttCloseBracket then
+      RecogniseExpr;
     Recognise(ttCloseBracket);
 
     //!!! recognise expressions like (Foo.Stuff['x'].Pointer)^.MyIndex
@@ -2515,6 +2528,22 @@ begin
 
 end;
 
+function IsForwardExtern(pt: TParseTreeNode): Boolean;
+var
+  lcDirectives: TParseTreeNode;
+begin
+  Assert(pt <> nil);
+
+  if pt.NodeType in ProcedureNodes then
+    pt := pt.GetImmediateChild(ProcedureHeadings);
+
+  Assert(pt <> nil);
+
+  lcDirectives := pt.GetImmediateChild(nProcedureDirectives);
+
+  Result := (lcDirectives <> nil) and lcDirectives.HasChildNode([ttExternal, ttForward])
+end;
+
 procedure TBuildParseTree.RecogniseProcedureDecl;
 var
   lcTop: TParseTreeNode;
@@ -2530,9 +2559,11 @@ begin
   Recognise(ttSemicolon);
 
   { if the proc declaration has the directive external or forward,
-    it will not have a body }
+    it will not have a body
+    note that though 'forward' is a spectacularly unfortunate variable name,
+    it has happened, e.g. in ActnMenus.pas }
   lcTop := TParseTreeNode(fcStack.Peek);
-  if not lcTop.HasChildNode([ttExternal, ttForward]) then
+  if not IsForwardExtern(lcTop) then
   begin
     RecogniseBlock;
     Recognise(ttSemicolon);
@@ -3224,8 +3255,8 @@ begin
 
   Recognise(ttOpenSquareBracket);
   repeat
-    if (TokenList.FirstSolidTokenType in [ttConst, ttVar]) then
-      Recognise([ttConst, ttVar]);
+    if (TokenList.FirstSolidTokenType in [ttConst, ttVar, ttOut]) then
+      Recognise([ttConst, ttVar, ttOut]);
 
     RecogniseIdentList(False);
     Recognise(ttColon);
@@ -3248,7 +3279,7 @@ var
   lc: TSourceToken;
 const
   PROPERTY_SPECIFIERS: TTokenTypeSet = [ttIndex, ttRead, ttWrite, ttStored,
-    ttDefault, ttNoDefault, ttImplements, ttDispId, ttReadOnly];
+    ttDefault, ttNoDefault, ttImplements, ttDispId, ttReadOnly, ttWriteOnly];
 begin
  {
   PropertySpecifiers ->
@@ -3304,6 +3335,13 @@ begin
       begin
         Recognise(ttImplements);
         RecogniseTypeId;
+
+        { can be a lost of them, e.g. "implements foo, bar" }
+        while TokenList.FirstSolidTokenType = ttComma do
+        begin
+          Recognise(ttComma);
+          RecogniseTypeId;
+        end;
       end;
       ttDispId:
       begin
@@ -3313,6 +3351,10 @@ begin
       ttReadOnly:
       begin
         Recognise(ttReadOnly);
+      end;
+      ttWriteOnly:
+      begin
+        Recognise(ttWriteOnly);
       end;
       else
         Raise TEParseError.Create('expected proeprty specifier', TokenList.FirstSolidToken);
@@ -3588,7 +3630,7 @@ begin
 
   if TokenList.FirstSolidTokenType = ttAtSign then
   begin
-    RecogniseAsmLabel;
+    RecogniseAsmLabel(True);
   end
   else
   begin
@@ -3671,9 +3713,45 @@ begin
   PopNode;
 end;
 
+function IsAsmLabel(const pt: TSourceToken): boolean;
+begin
+  Result := False;
+  if pt = nil then
+    exit;
+  Result := (pt.TokenType in [ttNumber, ttIdentifier]) or
+    (pt.WordType in [wtReservedWord, wtReservedWordDirective, wtBuiltInConstant, wtBuiltInType]);
+end;
+
+procedure TBuildParseTree.RecogniseAsmLabel(const pbColon: boolean);
+begin
+  PushNode(nAsmLabel);
+
+  Recognise(ttAtSign);
+  if TokenList.FirstSolidTokenType = ttAtSign then
+    Recognise(ttAtSign);
+
+  { label can be a number, eg "@@1:"
+    or an identifier that starts with a number, eg "@@2a"
+
+    can also be a delphi keyword, e.g. "@@repeat:"
+  }
+
+  while IsAsmLabel(TokenList.First) do
+  begin
+    Recognise(TokenList.FirstTokenType);
+  end;
+
+  if pbColon then
+    Recognise(ttColon);
+
+  PopNode;
+end;
+
+
 procedure TBuildParseTree.RecogniseAsmParam;
 var
   lc: TSourceToken;
+  lbHasLabel: boolean;
 begin
   { um.
 
@@ -3681,19 +3759,21 @@ begin
     -> Ident
     -> '@' ident
     -> '[' AsmExpr ']'
+    -> Ident(number)
   }
 
+  lbHasLabel := False;
   PushNode(nAsmParam);
 
   lc := TokenList.FirstSolidToken;
 
   if lc.TokenType = ttAtSign then
   begin
-    Recognise(ttAtSign);
-    if TokenList.FirstSolidToken.TokenType = ttAtSign then
-      Recognise(ttAtSign);
+    RecogniseAsmLabel(False);
+    lbHasLabel := True;
 
-    lc := TokenList.FirstSolidToken;
+    if TokenList.FirstSolidTokenType = ttDot then
+      Recognise(ttDot);
   end;
 
   if lc.TokenType = ttOpenSquareBracket then
@@ -3727,9 +3807,19 @@ begin
         Recognise(ttAtSign);
       RecogniseAsmIdent;
     end;
+
+    if TokenList.FirstSolidTokenType = ttOpenBracket then
+    begin
+      Recognise(ttOpenBracket);
+      Recognise(ttNumber);
+      Recognise(ttCloseBracket);
+    end;
   end
   else
-    Raise TEParseError.Create('Expected asm', lc);
+  begin
+    if not lbHasLabel then
+      Raise TEParseError.Create('Expected asm param', lc);
+  end;
 
   PopNode;
 end;
@@ -3898,26 +3988,6 @@ begin
   end;
 
   Recognise(ttCloseBracket);
-
-  PopNode;
-end;
-
-procedure TBuildParseTree.RecogniseAsmLabel;
-begin
-  PushNode(nAsmLabel);
-
-  Recognise(ttAtSign);
-  if TokenList.FirstSolidTokenType = ttAtSign then
-    Recognise(ttAtSign);
-
-  // label can be a numer, eg "@@1:"
-
-  if TokenList.FirstSolidTokenType = ttNumber then
-    Recognise(ttNumber)
-  else
-    RecogniseAsmIdent;
-
-  Recognise(ttColon);
 
   PopNode;
 end;

@@ -11,7 +11,6 @@ uses
   LittleTest5 in 'LittleTest5.pas',
   TestAbsolute in 'TestAbsolute.pas',
   TestAlign in 'TestAlign.pas',
-  TestASM in 'TestAsm.pas',
   TestBlankLineRemoval in 'TestBlankLineRemoval.pas',
   TestBogusDirectives in 'TestBogusDirectives.pas',
   TestBogusTypes in 'TestBogusTypes.pas',
@@ -97,7 +96,13 @@ uses
   TestRaise in 'TestRaise.pas',
   LittleTest21 in 'LittleTest21.pas',
   LittleTest22 in 'LittleTest22.pas',
-  LittleTest23 in 'LittleTest23.pas';
+  LittleTest23 in 'LittleTest23.pas',
+  TestEmptySquareBrackets in 'TestEmptySquareBrackets.pas',
+  LittleTest24 in 'LittleTest24.pas',
+  LittleTest25 in 'LittleTest25.pas',
+  LittleTest26 in 'LittleTest26.pas',
+  LittleTest27 in 'LittleTest27.pas',
+  TestASM in 'TestAsm.pas';
 
 {$R *.res}
 

@@ -27,7 +27,9 @@ IMyIterator = interface (IUnknown)
     property MaxRows: Integer dispid 2000;
       property Iterator: IMyIterator readonly dispid 2001;
     function  Execute: IMyIterator; dispid 2002; function  GetNewOjectKey: IUnknown; dispid 2003;
-         end;
+
+      property Soy: integer writeonly;
+       end;
 
        IEntryJournalIterator = interface(IMyIterator)
     ['{D34D4105-FBC4-11D2-94F3-00A0CC39B56F}']
@@ -63,6 +65,9 @@ type
     property onfilterchange: OleVariant dispid -2147412069;
     property children: IDispatch readonly dispid -2147417075;
     property all: IDispatch readonly dispid -2147417074;
+    property foo[const bar: integer]: IDispatch readonly dispid -2147417073;
+    property foo2[var bar: integer]: IDispatch readonly dispid -2147417072;
+    property foo3[out bar: integer]: IDispatch readonly dispid -2147417071;
   end;
 
 implementation

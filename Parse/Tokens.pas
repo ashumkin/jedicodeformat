@@ -290,6 +290,7 @@ const
   ExportDirectives: TTokenTypeSet = [ttIndex, ttName];
 
   VariableDirectives: TTokenTypeSet = [ttAbsolute, ttDeprecated, ttLibrary, ttPlatform];
+  ConstantDirectives: TTokenTypeSet = [ttDeprecated, ttLibrary, ttPlatform];
 
   ClassVisibility: TTokenTypeSet = [ttPrivate, ttProtected, ttPublic, ttPublished, ttAutomated];
 

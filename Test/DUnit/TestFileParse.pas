@@ -68,6 +68,10 @@ type
     procedure TestParse_LittleTest21;
     procedure TestParse_LittleTest22;
     procedure TestParse_LittleTest23;
+    procedure TestParse_LittleTest24;
+    procedure TestParse_LittleTest25;
+    procedure TestParse_LittleTest26;
+    procedure TestParse_LittleTest27;
 
     procedure TestParse_TestAbsolute;
     procedure TestParse_TestAlign;
@@ -91,6 +95,7 @@ type
     procedure TestParse_TestDefaultParams;
     procedure TestParse_TestDeref;
     procedure TestParse_TestEmptyClass;
+    procedure TestParse_TestEmptySquareBrackets;
     procedure TestParse_TestEsotericKeywords;
     procedure TestParse_TestExclusion;
     procedure TestParse_TestExclusionFlags;
@@ -324,7 +329,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestAsm;
 begin
-  TestParseFile('TestAsm', 521);
+  TestParseFile('TestAsm', 581);
 end;
 
 procedure TTestFileParse.TestParse_TestBlankLineRemoval;
@@ -450,7 +455,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestInterfaces;
 begin
-  TestParseFile('TestInterfaces', 564);
+  TestParseFile('TestInterfaces', 648);
 end;
 
 procedure TTestFileParse.TestParse_TestLayout;
@@ -640,7 +645,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 815);
+  TestParseFile('Testcases.dpr', 855);
 end;
 
 
@@ -777,17 +782,42 @@ end;
 
 procedure TTestFileParse.TestParse_LittleTest21;
 begin
-  TestParseFile('LittleTest21', 34);
+  TestParseFile('LittleTest21', 37);
 end;
 
 procedure TTestFileParse.TestParse_LittleTest22;
 begin
-  TestParseFile('LittleTest22', 50);
+  TestParseFile('LittleTest22', 53);
 end;
 
 procedure TTestFileParse.TestParse_LittleTest23;
 begin
-  TestParseFile('LittleTest23', 71);
+  TestParseFile('LittleTest23', 74);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest24;
+begin
+  TestParseFile('LittleTest24', 69);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest25;
+begin
+  TestParseFile('LittleTest25', 42);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest26;
+begin
+  TestParseFile('LittleTest26', 97);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest27;
+begin
+  TestParseFile('LittleTest27', 89);
+end;
+
+procedure TTestFileParse.TestParse_TestEmptySquareBrackets;
+begin
+  TestParseFile('TestEmptySquareBrackets', 66);
 end;
 
 initialization

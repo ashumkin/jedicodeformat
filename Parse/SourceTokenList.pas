@@ -53,6 +53,7 @@ type
 
     function First: TSourceToken;
     function FirstTokenType: TTokenType;
+    function FirstWordType: TWordType;
 
     function FirstSolidToken: TSourceToken;
     function FirstSolidTokenType: TTokenType;
@@ -117,6 +118,14 @@ begin
     Result := ttUnknown
   else
     Result := First.TokenType;
+end;
+
+function TSourceTokenList.FirstWordType: TWordType;
+begin
+  if Count = 0 then
+    Result := wtNotAWord
+  else
+    Result := First.WordType;
 end;
 
 function TSourceTokenList.FirstSolidTokenType: TTokenType;
