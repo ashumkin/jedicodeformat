@@ -246,6 +246,9 @@ begin
   lcFile := TSettingsStreamOutput.Create(GetRegSettings.FormatConfigFileName);
   try
     ToStream(lcFile);
+
+    // not dirty any more 
+    fbDirty := False;
   finally
     lcFile.Free;
   end;

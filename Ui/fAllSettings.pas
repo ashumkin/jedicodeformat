@@ -126,6 +126,9 @@ begin
     lcNode.Selected := True;
 
   ShowModal;
+
+  if (ModalResult = mrOk) and FormatSettings.Dirty then
+    FormatSettings.Write;
 end;
 
 procedure TFormAllSettings.GetFrameForNode(const pcNode: TTreeNode);
@@ -205,6 +208,7 @@ begin
   FormatSettings.MakeConsistent;
 
   Close;
+  ModalResult := mrOk;
 end;
 
 procedure TFormAllSettings.bbCancelClick(Sender: TObject);
