@@ -94,8 +94,10 @@ type
 implementation
 
 uses
-  { delphi }SysUtils,
-  { local }JcfMiscFunctions;
+  { delphi }
+  SysUtils,
+  { local }
+  JcfMiscFunctions;
 
 constructor TSourceTokenList.Create;
 begin

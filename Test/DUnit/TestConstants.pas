@@ -116,6 +116,10 @@ begin
   GetRegSettings.FormatConfigFileName := lsSettingsFileName;
   FormatSettings; // create and read
   FormatSettings.Obfuscate.Enabled := False;
+
+  { some registry settings can be painfull in automated tests }
+  GetRegSettings.LogTime := False;
+  GetRegSettings.ViewLogAfterRun := False;
 end;
 
 end.

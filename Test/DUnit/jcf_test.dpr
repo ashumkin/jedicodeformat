@@ -42,6 +42,7 @@ uses
   JcfMiscFunctions in '..\..\Utils\JcfMiscFunctions.pas',
   FileUtils in '..\..\Utils\FileUtils.pas',
   JCFLog in '..\..\Utils\JcfLog.pas',
+  TestAdvanceTextPos in 'TestAdvanceTextPos.pas',
   TestFileParse in 'TestFileParse.pas',
   VisitParseTree in '..\..\Process\VisitParseTree.pas',
   BaseVisitor in '..\..\Process\BaseVisitor.pas',
@@ -158,11 +159,7 @@ uses
   TestCaseReturns in 'TestCaseReturns.pas',
   TestIndentation in 'TestIndentation.pas',
   MaxSpaces in '..\..\Process\Spacing\MaxSpaces.pas';
-
-{
-  gpprof in '..\..\..\..\..\Program Files\GpProfile\gpprof.pas',
-  GpProfH in '..\..\..\..\..\Program Files\GpProfile\gpprofh.pas';
-  }
+  
 {$R *.res}
 
 begin

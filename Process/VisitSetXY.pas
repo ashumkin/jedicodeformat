@@ -47,9 +47,6 @@ uses
   JclStrings,
   JcfMiscFunctions, SourceToken, Tokens;
 
-{ TVisitSetXY }
-
-
 constructor TVisitSetXY.Create;
 begin
   // text coords start at 1,1

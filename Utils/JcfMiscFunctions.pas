@@ -8,8 +8,10 @@ The Original Code is JcfMiscFunctions, released May 2003.
 The Initial Developer of the Original Code is Anthony Steele. 
 Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
 All Rights Reserved. 
-Contributor(s): Anthony Steele.
+Contributor(s):
+Anthony Steele.
 functions Str2Float and Float2Str from Ralf Steinhaeusser
+procedures AdvanceTextPos and LastLineLength rewritten for speed by Adem Baba
 
 The contents of this file are subject to the Mozilla Public License Version 1.1
 (the "License"). you may not use this file except in compliance with the License.
@@ -54,14 +56,16 @@ function GetWinDir: string;
 {not really a file fn - string file name manipulation}
 function SetFileNameExtension(const psFileName, psExt: string): string;
 
-procedure AdvanceTextPos(const ps: string; var piX, piY: integer);
-function LastLineLength(const ps: string): integer;
+procedure AdvanceTextPos(const AText: string; var ARow, ACol: integer);
+function LastLineLength(const AString: string): integer;
 
 implementation
 
 uses
-  { delphi }SysUtils, Windows,
-  { jcl }JclStrings, JclFileUtils, JclSysUtils;
+  { delphi }
+  SysUtils, Windows,
+  { jcl }
+  JclStrings, JclFileUtils, JclSysUtils;
 
 function StrToBoolean(ps: string): boolean;
 begin
@@ -180,48 +184,165 @@ begin
   Result := Result + '.' + psExt;
 end;
 
+function PosLast(const ASubString, AString: ansistring;
+  const ALastPos: integer = 0): integer; {AdemBaba}
+var
+  {This is at least two or three times faster than Jedi's StrLastPos. I tested it}
+  LastChar1: char;
+  Index1:    integer;
+  Index2:    integer;
+  Index3:    integer;
+  Length1:   integer;
+  Length2:   integer;
+  Found1:    boolean;
+begin
+  Result  := 0;
+  Length1 := Length(AString);
+  Length2 := Length(ASubString);
+  if ALastPos <> 0 then
+    Length1 := ALastPos;
+  if Length2 > Length1 then
+    Exit
+  else
+  begin
+    LastChar1 := ASubString[Length2];
+    Index1    := Length1;
+    while Index1 > 0 do
+    begin
+      if (AString[Index1] = LastChar1) then
+      begin
+        Index2 := Index1;
+        Index3 := Length2;
+        Found1 := Index2 >= Length2;
+        while Found1 and (Index2 > 0) and (Index3 > 0) do
+        begin
+          Found1 := (AString[Index2] = ASubString[Index3]);
+          Dec(Index2);
+          Dec(Index3);
+        end;
+        if Found1 then
+        begin
+          Result := Index2 + 1;
+          Exit;
+        end;
+      end;
+      Dec(Index1);
+    end;
+  end;
+end;
+
+procedure PosLastAndCount(const ASubString, AString: ansistring;
+  var ALastPos: integer; var ACount: integer);
+var
+  {This gets the last occurance and count in one go. It saves time}
+  LastCahr1: char;
+  Index1:    integer;
+  Index2:    integer;
+  Index3:    integer;
+  Length1:   integer;
+  Length2:   integer;
+  Found1:    boolean;
+begin
+  ACount   := 0;
+  ALastPos := 0;
+  Length1  := Length(AString);
+  Length2  := Length(ASubString);
+  if Length2 > Length1 then
+    Exit
+  else
+  begin
+    LastCahr1 := ASubString[Length2];
+    Index1    := Length1;
+    while Index1 > 0 do
+    begin
+      if (AString[Index1] = LastCahr1) then
+      begin
+        Index2 := Index1;
+        Index3 := Length2;
+        Found1 := Index2 >= Length2;
+        while Found1 and (Index2 > 0) and (Index3 > 0) do
+        begin
+          Found1 := (AString[Index2] = ASubString[Index3]);
+          Dec(Index2);
+          Dec(Index3);
+        end;
+        if Found1 then
+        begin
+          if ALastPos = 0 then
+            ALastPos := Index2 + 1;
+          Inc(ACount);
+          Index1 := Index2;
+          Continue;
+        end;
+      end;
+      Dec(Index1);
+    end;
+  end;
+end;
+
 { given an existing source pos, and a text string that adds at that pos,
   calculate the new text pos
   - if the text does not contain a newline, add its length onto the Xpos
   - if the text contains newlines, then add on to the Y pos, and
     set the X pos to the text length after the last newline }
-procedure AdvanceTextPos(const ps: string; var piX, piY: integer);
+{AdemBaba}
+procedure AdvanceTextPos(const AText: string; var ARow, ACol: integer);
 var
-  liLastPos: integer;
+  Length1: integer;
+  Count1:  integer;
+  Pos1:    integer;
 begin
-  if (ps = AnsiCarriageReturn) or (ps = AnsiCrLf) or (ps = AnsiLineFeed) then
-  begin
-    Inc(piY);
-    piX := 1; // XPos is indexed from 1
-  end
-  else
-  begin
-
-    liLastPos := StrLastPos(AnsiLineBreak, ps);
-    if liLastPos <= 0 then
+  {This is more than 3 times faster than the original.
+  I have meticilously checked that it conforms with the original}
+  Length1 := Length(AText);
+  case Length1 of
+    0: ; {Trivial case}
+    1:
     begin
-      piX := piX + Length(ps);
-    end
-    else
-    begin
-      // multiline
-      piY := piY + StrStrCount(ps, AnsiLineBreak);
-      PiX := Length(ps) - (liLastPos + Length(AnsiLineBreak));
+      case AText[1] of
+        AnsiCarriageReturn, AnsiLineFeed:
+        begin {#13 or #10}
+          Inc(ACol);
+          ARow := 1; // XPos is indexed from 1
+        end;
+        else
+          Inc(ARow, Length1)
+      end;
     end;
+    2:
+    begin
+      if (AText[1] = AnsiCarriageReturn) and (AText[2] = AnsiLineFeed) then
+      begin
+        Inc(ACol);
+        ARow := 1; // XPos is indexed from 1
+      end
+      else
+        Inc(ARow, Length1);
+    end;
+    else
+      PosLastAndCount(AnsiLineBreak, AText, Pos1, Count1);
+      if Pos1 <= 0 then
+        Inc(ARow, Length1)
+      else
+      begin // multiline
+        Inc(ACol, Count1);
+        ARow := Length1 - (Pos1 + 1); {2 = Length(AnsiLineBreak)}
+
+        if ARow < 1 then
+          ARow := 1;
+      end;
   end;
 end;
 
-{ in a multiline sting, how many chars on last line (after last return) }
-function LastLineLength(const ps: string): integer;
-var
-  liPos: integer;
+function LastLineLength(const AString: string): integer;
+var { in a multiline sting, how many chars on last line (after last return) }
+  Pos1: integer;
 begin
-  liPos := StrLastPos(AnsiLineBreak, ps);
-  if liPos <= 0 then
-    Result := Length(ps)
+  Pos1 := PosLast(AnsiLineBreak, AString); {AdemBaba}
+  if Pos1 <= 0 then
+    Result := Length(AString)
   else
-    Result := Length(ps) - (liPos + Length(AnsiLineBreak));
-
+    Result := Length(AString) - (Pos1 + Length(AnsiLineBreak));
 end;
 
 end.
