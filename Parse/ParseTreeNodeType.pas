@@ -52,13 +52,16 @@ type
     nTerm,
     nActualParams,
     nStatement,
+    nStatementLabel,
     nCompoundStatement,
     nIfCondition,
     nIfBlock,
     nElseBlock,
     nCaseStatement,
     nCaseSelector,
+    nCaseLabels,
     nCaseLabel,
+    nElseCase,
     nTryAndHandlerBlock,
     nTryBlock,
     nFinallyBlock,
@@ -195,6 +198,8 @@ begin
       Result := 'Actual params';
     nStatement:
       Result := 'Statement';
+    nStatementLabel:
+      Result := 'Statement label';
     nCompoundStatement:
       Result := 'Compound statement';
     nIfCondition:
@@ -207,8 +212,12 @@ begin
       Result := 'Case statement';
     nCaseSelector:
       Result := 'Case selector';
+    nCaseLabels:
+      Result := 'Case labels';
     nCaseLabel:
       Result := 'Case label';
+    nElseCase:
+      Result := 'else case';
     nTryAndHandlerBlock:
       Result := 'try and handler block';
     nTryBlock:

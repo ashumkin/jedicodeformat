@@ -618,14 +618,6 @@ begin
       if lrVisitResult.NewItem2 <> nil then
         Parent.InsertChild(Parent.IndexOfChild(self),  TParseTreeNode(lrVisitResult.NewItem2));
     end;
-    aDeleteNext:
-    begin
-      Parent.RemoveChild(Parent.IndexOfChild(self) + 1);
-    end;
-    aDeletePrevious:
-    begin
-      Parent.RemoveChild(Parent.IndexOfChild(self) - 1);
-    end
     else
       Assert(false, 'Unhandled action ' + IntToStr(Ord(lrVisitResult.action)));
   end;

@@ -70,12 +70,16 @@ type
     procedure FinalSummary;
 
     procedure DoConvertUnit;
+    function GetRoot: TParseTreeNode;
 
     function OriginalFileName: string; virtual;
 
     { abstract factories called in the constructor. override these }
     function CreateReader: TCodeReader; virtual;
     function CreateWriter: TCodeWriter; virtual;
+
+    { this does the reformatting. Virtual method so can be overriden for testing }
+    procedure ApplyProcesses; virtual;
 
   public
     constructor Create;
@@ -224,7 +228,6 @@ end;
 procedure TConverter.DoConvertUnit;
 var
   lcTokenList: TSourceTokenList;
-  lcProcess: TAllProcesses;
 begin
   //Assert(Settings <> nil);
   fbConvertError := False;
@@ -265,19 +268,7 @@ begin
     if not fcBuildParseTree.ParseError then
     begin
       // do the processes
-      lcProcess := TAllProcesses.Create;
-      try
-        lcProcess.OnMessage := SendStatusMessage;
-
-        try
-          lcProcess.Execute(fcBuildParseTree.Root);
-        except
-          ShowParseTree(fcBuildParseTree.Root);
-          Raise;
-        end;
-      finally
-        lcProcess.Free;
-      end;
+      ApplyProcesses;
 
       fcWriter.Root := fcBuildParseTree.Root;
       fcWriter.WriteAll;
@@ -297,5 +288,30 @@ begin
 end;
 
 
+
+procedure TConverter.ApplyProcesses;
+var
+  lcProcess: TAllProcesses;
+begin
+  lcProcess := TAllProcesses.Create;
+  try
+    lcProcess.OnMessage := SendStatusMessage;
+
+    try
+      lcProcess.Execute(fcBuildParseTree.Root);
+    except
+      ShowParseTree(fcBuildParseTree.Root);
+      Raise;
+    end;
+  finally
+    lcProcess.Free;
+  end;
+
+end;
+
+function TConverter.GetRoot: TParseTreeNode;
+begin
+  Result := fcBuildParseTree.Root;
+end;
 
 end.

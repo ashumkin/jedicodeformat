@@ -12,7 +12,6 @@ type
   TTabToSpace = class(TBaseTreeNodeVisitor)
   private
     fsSpaces: string;
-    fbInitialised: boolean;
 
   public
     constructor Create; override;
@@ -31,10 +30,7 @@ uses
 constructor TTabToSpace.Create;
 begin
   inherited;
-  // reset the local var - setings may have changed
-  fsSpaces := '';
-  fbInitialised := False;
-
+  fsSpaces := StrRepeat(AnsiSpace, Settings.Spaces.SpacesPerTab);
 end;
 
 procedure TTabToSpace.VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
@@ -46,13 +42,6 @@ begin
 
   if (lcSourceToken.TokenType <> ttWhiteSpace) then
     exit;
-
-  { set up spaces }
-  if not fbInitialised then
-  begin
-    fsSpaces := StrRepeat(AnsiSpace, Settings.Spaces.SpacesPerTab);
-    fbInitialised := True;
-  end;
 
   { can't pass property as var parameter so ls local var is used }
   ls := lcSourceToken.SourceCode;

@@ -31,9 +31,9 @@ type
 
     procedure Convert; override;
 
-    property InputStrings: TSTrings read GetInputStrings write SetInputStrings;
-    property OutputStrings: TSTrings read GetOutputStrings write SetOutputStrings;
-    property MessageStrings: TSTrings read GetMessageStrings write SetMessageStrings;
+    property InputStrings: TStrings read GetInputStrings write SetInputStrings;
+    property OutputStrings: TStrings read GetOutputStrings write SetOutputStrings;
+    property MessageStrings: TStrings read GetMessageStrings write SetMessageStrings;
 
   end;
 

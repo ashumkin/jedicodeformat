@@ -48,6 +48,9 @@ function SemicolonNext(const pt: TSourceToken): boolean;
   False if it is vards, consts, types etc }
 function InStatements(const pt: TSourceToken): Boolean;
 
+function IsLabelColon(const pt: TSourceToken): boolean;
+function IsCaseColon(const pt: TSourceToken): boolean;
+
 implementation
 
 uses
@@ -264,6 +267,16 @@ end;
 function InStatements(const pt: TSourceToken): Boolean;
 begin
   Result := pt.HasParentNode(nStatementList);
+end;
+
+function IsLabelColon(const pt: TSourceToken): boolean;
+begin
+  Result := (pt.TokenType = ttColon) and pt.HasParentNode(nStatementLabel, 1);
+end;
+
+function IsCaseColon(const pt: TSourceToken): boolean;
+begin
+  Result := (pt.TokenType = ttColon) and pt.HasParentNode(nCaseLabels, 1);
 end;
 
 end.

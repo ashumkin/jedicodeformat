@@ -1878,8 +1878,10 @@ begin
   lbColonSecond := (lc2.TokenType = ttColon);
   if (lbColonSecond) then
   begin
+    PushNode(nStatementLabel);
     RecogniseIdent;
     Recognise(ttColon);
+    PopNode;
   end;
 
   lc := TokenList.FirstSolidToken;
@@ -2095,8 +2097,10 @@ begin
 
   if TokenList.FirstSolidTokenWord = wElse then
   begin
+    PushNode(nElseCase);
     Recognise(wElse);
     RecogniseStmntList([wEnd]);
+    PopNode;
   end;
 
   if TokenList.FirstSolidTokenType = ttSemiColon then
@@ -2113,6 +2117,7 @@ begin
 
   PushNode(nCaseSelector);
 
+  PushNode(nCaseLabels);
   RecogniseCaseLabel;
 
   while (TokenList.FirstSolidTokenType = ttComma) do
@@ -2122,6 +2127,8 @@ begin
   end;
 
   Recognise(ttColon);
+  PopNode;
+
   RecogniseStatement;
 
   if TokenList.FirstSolidTokenType = ttSemiColon then
