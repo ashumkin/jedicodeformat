@@ -31,24 +31,11 @@ uses
 
 type
   TfFiles = class(TfrSettingsFrame)
-    rgLogLevel: TRadioGroup;
-    rgLogDir: TRadioGroup;
-    sbSpecifedDir: TSpeedButton;
-    Label1: TLabel;
-    btnViewLog: TButton;
-    cbViewLog: TCheckBox;
-    lblBackupFileExt: TLabel;
-    edtBackupExt: TEdit;
-    lblOutputFileExt: TLabel;
-    edtOutputExt: TEdit;
-    cbLogTime: TCheckBox;
-    procedure sbSpecifedDirClick(Sender: TObject);
-    procedure btnViewLogClick(Sender: TObject);
+    lblFormatFileName: TLabel;
+    lblStatus: TLabel;
     procedure FrameResize(Sender: TObject);
   private
-    fsSpecifiedDirectory: string;
 
-    procedure ShowDirs;
 
   public
     constructor Create(AOwner: TComponent); override;
@@ -69,74 +56,38 @@ uses
 constructor TfFiles.Create(AOwner: TComponent);
 begin
   inherited;
-  fiHelpContext := HELP_LOGGING;
-end;
-
-procedure TfFiles.sbSpecifedDirClick(Sender: TObject);
-var
-  lsDir: string;
-begin
-  if SelectDirectory('select a directory', '', lsDir) then
-  begin
-    fsSpecifiedDirectory := PathAddSeparator(lsDir);
-    ShowDirs;
-  end;
-end;
-
-procedure TfFiles.ShowDirs;
-begin
-  rgLogDir.Items[0] := 'Temp: ' + GetWindowsTempFolder;
-  rgLogDir.Items[1] := 'Application: ' +  PathAddSeparator(ExtractFileDir(ParamStr(0)));
-  rgLogDir.Items[2] := 'Specified: ' + fsSpecifiedDirectory;
 end;
 
 procedure TfFiles.Read;
+var
+  lcSet: TJCFRegistrySettings;
 begin
-  with GetRegSettings do
-  begin
-    rgLogLevel.ItemIndex := Ord(LogLevel);
-    rgLogDir.ItemIndex   := Ord(LogPlace);
-    fsSpecifiedDirectory := SpecifiedDirectory;
-    cbViewLog.Checked    := ViewLogAfterRun;
-    cbLogTime.Checked    := LogTime;
-  end;
+  lcSet := GetRegSettings;
+  lblFormatFileName.Caption := 'Format file is ' + lcSet.FormatConfigFileName;
 
-  with FormatSettings.FileSettings do
-  begin
-    edtBackupExt.Text := BackupExtension;
-    edtOutputExt.Text := OutputExtension;
-  end;
-
-  ShowDirs;
+  if not FileExists(lcSet.FormatConfigFileName) then
+    lblStatus.Caption := 'file not found'
+  else if FileIsReadOnly(lcSet.FormatConfigFileName) then
+    lblStatus.Caption := 'file is read only'
+  else
+    lblStatus.Caption := '';
 end;
 
 procedure TfFiles.Write;
 begin
-  with GetRegSettings do
-  begin
-    LogLevel := TLogLevel(rgLogLevel.ItemIndex);
-    LogPlace := TLogPlace(rgLogDir.ItemIndex);
-    SpecifiedDirectory := fsSpecifiedDirectory;
-    ViewLogAfterRun := cbViewLog.Checked;
-    LogTime  := cbLogTime.Checked;
-  end;
-
-  with FormatSettings.FileSettings do
-  begin
-    BackupExtension := edtBackupExt.Text;
-    OutputExtension := edtOutputExt.Text;
-  end;
-end;
-
-procedure TfFiles.btnViewLogClick(Sender: TObject);
-begin
-  GetRegSettings.ViewLog;
 end;
 
 procedure TfFiles.FrameResize(Sender: TObject);
+const
+  SPACING = 8;
 begin
   inherited;
-  rgLogDir.Width := ClientWidth - (rgLogDir.Left + GUI_PAD);
+
+  lblFormatFileName.Left := SPACING;
+  lblFormatFileName.Width := ClientWidth - (lblFormatFileName.Left + SPACING);
+
+  lblStatus.Left := SPACING;
+  lblStatus.Top := lblFormatFileName.Top + lblFormatFileName.Height + SPACING;
 end;
 
 end.

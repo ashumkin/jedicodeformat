@@ -34,22 +34,9 @@ uses
 
 type
   TfExcludeFiles = class(TfrSettingsFrame)
-    mFiles: TJvMemo;
-    lblFilesCaption: TLabel;
-    mDirs: TJvMemo;
-    lblDirsCaption: TLabel;
-    procedure FrameResize(Sender: TObject);
-    procedure mFilesDragOver(Sender, Source: TObject; X, Y: Integer;
-      State: TDragState; var Accept: Boolean);
-    procedure mDirsDragOver(Sender, Source: TObject; X, Y: Integer;
-      State: TDragState; var Accept: Boolean);
-    procedure mFilesDragDrop(Sender, Source: TObject; X, Y: Integer);
-    procedure mDirsDragDrop(Sender, Source: TObject; X, Y: Integer);
   private
     fbFileDrop: Boolean;
   protected
-
-    procedure DragItemDropped(const piFormat: integer; const psItem: string); override;
 
   public
     constructor Create(AOwner: TComponent); override;
@@ -63,10 +50,14 @@ implementation
 
 {$R *.DFM}
 
+
+this unit is obsolete
+
 uses
   { delphi } 
-  { jcl } JclStrings,
-  { local } JcfMiscFunctions, JcfHelp, JclFileUtils, JcfSettings;
+  { jcl } JclStrings, JclFileUtils,
+  { local } JcfMiscFunctions, JcfHelp,
+  JcfSettings, JcfRegistrySettings;
 
 constructor TfExcludeFiles.Create(AOwner: TComponent);
 begin
@@ -77,97 +68,11 @@ end;
 
 procedure TfExcludeFiles.Read;
 begin
-  with FormatSettings.FileSettings do
-  begin
-    mFiles.Lines.Assign(ExclusionsFiles);
-    mDirs.Lines.Assign(ExclusionsDirs);
-  end;
 end;
 
 procedure TfExcludeFiles.Write;
 begin
-  with FormatSettings.FileSettings do
-  begin
-      ExclusionsFiles.Assign(mFiles.Lines);
-      ExclusionsDirs.Assign(mDirs.Lines);
-  end;
 end;
 
-procedure TfExcludeFiles.DragItemDropped(const piFormat: integer; const psItem: string);
-var
-  lsItem: string;
-begin
-
-  if fbFileDrop then
-  begin
-    { is it a valid file ? }
-    if not FileExists(psItem) then
-      exit;
-
-    { get just the raw file name }
-    lsItem := ExtractFileName(psItem);
-    if Pos('.', lsItem) > 0 then
-      lsItem := StrBefore('.', lsItem);
-    if mFiles.Lines.IndexOf(lsItem) < 0 then
-      mFiles.Lines.Add(lsItem);
-  end
-  else
-  begin
-    { add dir - can be file or dir }
-    if not (FileExists(psItem) or DirectoryExists(psItem)) then
-      exit;
-
-    lsItem := GetLastDir(psItem);
-    if mDirs.Lines.IndexOf(lsItem) < 0 then
-      mDirs.Lines.Add(lsItem);
-  end;
-end;
-
-{-------------------------------------------------------------------------------
-  evnet handlers }
-
-procedure TfExcludeFiles.FrameResize(Sender: TObject);
-const
-  PAD = 2;
-var
-  liHalf: integer;
-begin
-  liHalf := ClientHeight div 2;
-
-  mFiles.Height := liHalf - (lblFilesCaption.Top + lblFilesCaption.Height + PAD);
-  mFiles.Left := PAD;
-  mFiles.Width := ClientWidth - (2 * PAD);
-
-  lblDirsCaption.Top := mFiles.Top + mFiles.Height + PAD;
-  mDirs.Left := PAD;
-  mDirs.Top := lblDirsCaption.Top + lblDirsCaption.Height + PAD;
-  mDirs.Height := ClientHeight - (mDirs.Top + PAD);
-  mDirs.Width := ClientWidth - (2 * PAD);
-end;
-
-procedure TfExcludeFiles.mFilesDragOver(Sender, Source: TObject; X,
-  Y: Integer; State: TDragState; var Accept: Boolean);
-begin
-  Accept := True;
-  fbFileDrop := True;
-end;
-
-procedure TfExcludeFiles.mDirsDragOver(Sender, Source: TObject; X,
-  Y: Integer; State: TDragState; var Accept: Boolean);
-begin
-  Accept := True;
-  fbFileDrop := False;
-end;
-
-procedure TfExcludeFiles.mFilesDragDrop(Sender, Source: TObject; X,
-  Y: Integer);
-begin
-  HandleShellDragDrop(Source);
-end;
-
-procedure TfExcludeFiles.mDirsDragDrop(Sender, Source: TObject; X, Y: Integer);
-begin
-  HandleShellDragDrop(Source);
-end;
 
 end.

@@ -54,8 +54,7 @@ uses
   frFiles, frObfuscateSettings,
   frClarify, frClarifySpaces, frClarifyIndent,
   frClarifyReturns, frClarifyLongLineBreaker,
-  frClarifyBlocks, frClarifyAlign,
-  frExcludeFiles, frReplace,
+  frClarifyBlocks, frClarifyAlign, frReplace,
   frReservedCapsSettings, frAnyCapsSettings, frUses, frBasicSettings;
 
 
@@ -66,8 +65,8 @@ type
   end;
 
 const
-  FrameMap: array[0..14] of TFrameMapRecord = (
-  (FrameName: 'Logging'; FrameClass: TfFiles),
+  FrameMap: array[0..13] of TFrameMapRecord = (
+  (FrameName: 'Format file'; FrameClass: TfFiles),
   (FrameName: 'Obfuscate'; FrameClass: TfObfuscateSettings),
   (FrameName: 'Clarify'; FrameClass: TfClarify),
   (FrameName: 'Spaces'; FrameClass: TfClarifySpaces),
@@ -78,7 +77,6 @@ const
   (FrameName: 'Align'; FrameClass: TfClarifyAlign),
   (FrameName: 'Object Pascal'; FrameClass: TfrReservedCapsSettings),
   (FrameName: 'Any Word'; FrameClass: TfrAnyCapsSettings),
-  (FrameName: 'Exclusions'; FrameClass: TfExcludeFiles),
   (FrameName: 'Find and replace'; FrameClass: TfReplace),
   (FrameName: 'Uses'; FrameClass: TfUses),
   (FrameName: 'Basic'; FrameClass: TfrBasic)

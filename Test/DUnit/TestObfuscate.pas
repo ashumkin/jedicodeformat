@@ -96,7 +96,8 @@ implementation
 uses
   { delphi } SysUtils,
   JclStrings,
-  FileConverter, ConvertTypes, JcfSettings, TestConstants;
+  FileConverter, ConvertTypes, JcfSettings, JcfRegistrySettings,
+  TestConstants;
 
 
 
@@ -177,7 +178,7 @@ begin
     //lsRemadeFileName := psName + '.out';
   end;
 
-  FormatSettings.FileSettings.OutputExtension := 'obs';
+  GetRegSettings.OutputExtension := 'obs';
 
   TestObfuscateFile(TEST_FILES_DIR + lsInName,
     OBS_OUT_FILES_DIR + lsObsFileName)

@@ -99,7 +99,8 @@ implementation
 uses
   { delphi } SysUtils,
   JclStrings,
-  FileConverter, ConvertTypes, JcfSettings, testConstants;
+  FileConverter, ConvertTypes, JcfSettings, JcfRegistrySettings,
+  TestConstants;
 
 procedure TTestFileParse.TestParseFile(const psInFileName, psRefOutput: string;
   const piTokenCount: integer);
@@ -121,7 +122,7 @@ begin
     FormatSettings.ReadFromFile(lsSettingsFileName);
     lcConverter.SourceMode := fmSingleFile;
     lcConverter.BackupMode := cmSeperateOutput;
-    FormatSettings.FileSettings.OutputExtension := 'out';
+    GetRegSettings.OutputExtension := 'out';
 
     lcConverter.Input := psInFileName;
 

@@ -104,7 +104,8 @@ uses
   { DUnit}
   TestFrameWork,
   { JCF }
-  FileConverter, ConvertTypes, JcfSettings, TestConstants;
+  FileConverter, ConvertTypes, JcfSettings, JcfRegistrySettings,
+  TestConstants;
 
 { TTestClarify }
 
@@ -154,7 +155,7 @@ begin
     FormatSettings.ReadFromFile(lsSettingsFileName);
     lcConverter.SourceMode := fmSingleFile;
     lcConverter.BackupMode := cmSeperateOutput;
-    FormatSettings.FileSettings.OutputExtension := 'out';
+    GetRegSettings.OutputExtension := 'out';
 
     lcConverter.Input := psInFileName;
     lcConverter.Convert;

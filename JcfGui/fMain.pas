@@ -134,13 +134,16 @@ end;
 
 procedure TfrmMain.DoFormat;
 var
+  lcRegSet: TJCFRegistrySettings;
   lsSource, lsFileDesc, lsMessage: string;
 begin
   frBasic.Write;
 
-  lsSource := FormatSettings.FileSettings.Input;
+  lcRegSet := GetRegSettings;
 
-  if (FormatSettings.FileSettings.SourceMode = fmSingleFile) and
+  lsSource := lcRegSet.Input;
+
+  if (lcRegSet.SourceMode = fmSingleFile) and
     (ExtractFileName(lsSource) = '') then
   begin
     ErrorDialog('No file specified in direcory');
@@ -153,7 +156,7 @@ begin
     exit;
   end;
 
-  if FormatSettings.FileSettings.SourceMode = fmSingleFile then
+  if lcRegSet.SourceMode = fmSingleFile then
     lsFileDesc := 'the file ' + ExtractFileName(lsSource)
   else
     lsFileDesc := 'the files in ' + lsSource;
@@ -163,14 +166,14 @@ begin
   begin
     lsMessage := 'Are you sure that you want to obfuscate ' + lsFileDesc;
 
-    if FormatSettings.FileSettings.BackupMode = cmInPlace then
+    if lcRegSet.BackupMode = cmInPlace then
       lsMessage := lsMessage + ' without backup';
 
     lsMessage := lsMessage + '?';
     if not OkDialog(lsMessage) then
       exit;
   end
-  else if (FormatSettings.FileSettings.BackupMode = cmInPlace) then
+  else if (lcRegSet.BackupMode = cmInPlace) then
   begin
     lsMessage := 'Are you sure you want to convert ' + lsFileDesc + ' without backup?';
     if not OkDialog(lsMessage) then

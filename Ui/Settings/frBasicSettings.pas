@@ -83,7 +83,7 @@ implementation
 uses
  { delphi }
  { jcl } jclFileUtils,
- { local } FileUtils, JcfHelp, JcfSettings;
+ { local } FileUtils, JcfHelp, JcfSettings, JcfRegistrySettings;
 
 {$R *.DFM}
 
@@ -160,7 +160,7 @@ begin
     edtOutput.Text := ''
   else
     edtOutput.Text :=
-      FormatSettings.FileSettings.GetOutputFileName(edtInput.Text, GetCurrentBackupMode);
+      GetRegSettings.GetOutputFileName(edtInput.Text, GetCurrentBackupMode);
 
   bShowOutput := (GetCurrentBackupMode <> cmInplace) and
     (GetCurrentSourceMode = fmSingleFIle);
@@ -208,13 +208,14 @@ end;
 
 
 procedure TfrBasic.Read;
+var
+  lcRegSet: TJCFRegistrySettings;
 begin
-  with FormatSettings.FileSettings do
-  begin
-    rgFileRecurse.ItemIndex := Ord(SourceMode);
-    rgBackup.ItemIndex := Ord(BackupMode);
-    edtInput.Text := Input;
-  end;
+  lcRegSet := GetRegSettings;
+
+  rgFileRecurse.ItemIndex := Ord(lcRegSet.SourceMode);
+  rgBackup.ItemIndex := Ord(lcRegSet.BackupMode);
+  edtInput.Text := lcRegSet.Input;
 
   if FormatSettings.Obfuscate.Enabled then
     rgMode.ItemIndex := 1
@@ -225,13 +226,14 @@ begin
 end;
 
 procedure TfrBasic.Write;
+var
+  lcRegSet: TJCFRegistrySettings;
 begin
-  with FormatSettings.FileSettings do
-  begin
-    SourceMode := GetCurrentSourceMode;
-    BackupMode := GetCurrentBackupMode;
-    Input      := edtInput.Text;
-  end;
+  lcRegSet := GetRegSettings;
+
+  lcRegSet.SourceMode := GetCurrentSourceMode;
+  lcRegSet.BackupMode := GetCurrentBackupMode;
+  lcRegSet.Input := edtInput.Text;
 
   FormatSettings.Obfuscate.Enabled := (rgMode.ItemIndex <> 0);
 end;

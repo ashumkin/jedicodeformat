@@ -101,7 +101,7 @@ begin
   begin
     lsTemp := PathExtractFileNameNoExt(psInput);
 
-    if FormatSettings.FileSettings.FileIsExcluded(lsTemp) then
+    if GetRegSettings.FileIsExcluded(lsTemp) then
     begin
       Log.Write('Exluded file: ' + psInput);
       exit;
@@ -127,7 +127,7 @@ begin
   SendStatusMessage(lsMessage);
   fsOriginalFileName := psInput;
 
-  lsOut := FormatSettings.FileSettings.GetOutputFileName(psInput, peBackupMode);
+  lsOut := GetRegSettings.GetOutputFileName(psInput, peBackupMode);
 
   if BackupMode <> cmInplace then
   begin
@@ -239,7 +239,7 @@ begin
     exit;
   end;
 
-  if FormatSettings.FileSettings.DirIsExcluded(GetLastDir(psDir)) then
+  if GetRegSettings.DirIsExcluded(GetLastDir(psDir)) then
   begin
     Log.Write('Exluded dir: ' + psDir);
     exit;
