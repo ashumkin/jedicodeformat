@@ -37,9 +37,6 @@ type
 
   TEditorConverter = class(TObject)
   private
-    { the string -> string converter }
-    fcConverter: TConverter;
-
     { state }
     fOnStatusMessage: TStatusMessageProc;
     fsCurrentUnitName: string;
@@ -67,9 +64,6 @@ type
 
     procedure Clear;
 
-    function ConvertError: Boolean;
-    function TokenCount: integer;
-
     procedure BeforeConvert;
     procedure AfterConvert;
 
@@ -83,30 +77,25 @@ uses
   { delphi }
   SysUtils,
   { local }
-  JcfLog, JcfRegistrySettings;
+  JcfLog, JcfDllExtern;
 
 constructor TEditorConverter.Create;
 begin
   inherited;
-  
-  fcConverter := TConverter.Create;
-  fcConverter.OnStatusMessage := SendStatusMessage;
+
 end;
 
 destructor TEditorConverter.Destroy;
 begin
-  FreeAndNil(fcConverter);
   inherited;
 end;
 
 procedure TEditorConverter.Convert(const pciUnit: IOTASourceEditor);
 var
   lcBuffer: IOTAEditBuffer;
+  lsIn, lsOut: string;
 begin
   Assert(pciUnit <> nil);
-
-  if not GetRegSettings.HasRead then
-    GetRegSettings.ReadAll;
 
   { check for read-only  }
   pciUnit.QueryInterface(IOTAEditBuffer, lcBuffer);
@@ -121,16 +110,17 @@ begin
   end;
 
   fsCurrentUnitName := lcBuffer.FileName;
-  fcConverter.InputCode := ReadFromIDE(pciUnit);
+  lsIn := ReadFromIDE(pciUnit);
 
   // now convert
-  fcConverter.Convert;
+  SetOnStatusMessage(SendStatusMessage);
+  lsOut := Format(lsIn);
 
   fsCurrentUnitName := '';
 
   if not ConvertError then
   begin
-    WriteToIDE(pciUnit, fcConverter.OutputCode);
+    WriteToIDE(pciUnit, lsOut);
     SendStatusMessage(lcBuffer.FileName, 'Formatted unit', -1, -1);
     Inc(fiConvertCount);
   end;
@@ -235,14 +225,9 @@ end;
 
 procedure TEditorConverter.Clear;
 begin
-  fcConverter.Clear;
+  ClearFormat;
 end;
 
-
-function TEditorConverter.ConvertError: Boolean;
-begin
-  Result := fcConverter.ConvertError;
-end;
 
 function TEditorConverter.GetOnStatusMessage: TStatusMessageProc;
 begin
@@ -273,11 +258,6 @@ end;
 procedure TEditorConverter.SetOnStatusMessage(const Value: TStatusMessageProc);
 begin
     fOnStatusMessage := Value;
-end;
-
-function TEditorConverter.TokenCount: integer;
-begin
-  Result := fcConverter.TokenCount;
 end;
 
 procedure TEditorConverter.FinalSummary;

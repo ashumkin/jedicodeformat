@@ -197,6 +197,10 @@ begin
     if FormatSettings.Clarify.OnceOffs = eDoRun then
       OnceOffs;
 
+
+  // Do this last - spaces may have been introduced above. 
+  ApplyVisitorType(TSpaceToTab);
+
     // stats last
     ApplyVisitorType(TBasicStats);
   end;
@@ -262,7 +266,7 @@ end;
 procedure TAllProcesses.Spacing;
 begin
   ApplyVisitorType(TTabToSpace);
-  ApplyVisitorType(TSpaceToTab);
+  //ApplyVisitorType(TSpaceToTab);
   ApplyVisitorType(TMaxSpaces);
 
   ApplyVisitorType(TNoSpaceAfter);

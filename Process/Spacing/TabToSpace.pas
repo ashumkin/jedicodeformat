@@ -58,7 +58,7 @@ end;
 
 function TTabToSpace.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
-  lcSourceToken: TSourceToken;
+  lcSourceToken, lcNextToken: TSourceToken;
   ls: string;
 begin
   Result := False;
@@ -69,6 +69,16 @@ begin
 
   { can't pass property as var parameter so ls local var is used }
   ls := lcSourceToken.SourceCode;
+
+  { merge any following whitespacespace tokens }
+  lcNextToken := lcSourceToken.NextToken;
+	while (lcNextToken <> nil) and (lcNextToken.TokenType = ttWhiteSpace) do
+	begin
+		ls := ls + lcNextToken.SourceCode;
+		lcNextToken.SourceCode := '';
+		lcNextToken := lcNextToken.NextToken;
+	end;
+
   StrReplace(ls, AnsiTab, fsSpaces, [rfReplaceAll]);
   lcSourceToken.SourceCode := ls;
 end;

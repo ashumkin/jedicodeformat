@@ -65,7 +65,6 @@ type
 
     procedure FromStream(const pcStream: TSettingsInput);
 
-    procedure DoWrite;
   protected
 
   public
@@ -227,8 +226,9 @@ end;
 procedure TFormatSettings.Write;
 var
   lcReg: TJCFRegistrySettings;
+  lcFile: TSettingsStreamOutput;
 begin
-  if not Dirty then
+   if not Dirty then
     exit;
 
   { user may have specified no-write }
@@ -250,7 +250,16 @@ begin
   end;
 
   try
-    DoWrite;
+    // use the Settings file name
+    lcFile := TSettingsStreamOutput.Create(GetRegSettings.FormatConfigFileName);
+    try
+      ToStream(lcFile);
+
+      // not dirty any more
+      fbDirty := False;
+    finally
+      lcFile.Free;
+    end;
   except
     on e: Exception do
     begin
@@ -264,23 +273,6 @@ begin
   end;
 end;
 
-procedure TFormatSettings.DoWrite;
-var
-  lcFile: TSettingsStreamOutput;
-begin
-
-  // use the Settings File 
-  lcFile := TSettingsStreamOutput.Create(GetRegSettings.FormatConfigFileName);
-  try
-    ToStream(lcFile);
-
-    // not dirty any more 
-    fbDirty := False;
-  finally
-    lcFile.Free;
-  end;
-
-end;
 
 procedure TFormatSettings.ToStream(const pcStream: TSettingsOutput);
 

@@ -34,13 +34,12 @@ uses
   { delphi design time }
   ToolsAPI,
   { local}
-  EditorConverter, FileCOnverter;
+  EditorConverter;
 
 type
   TJcfIdeMain = class(TObject)
   private
     fcEditorConverter: TEditorConverter;
-    fcFileConverter: TFileConverter;
 
     procedure MakeEditorConverter;
 
@@ -70,8 +69,7 @@ implementation
 
 uses
   { delphi }Menus, Dialogs, Controls,
-  { jcl }JclStrings,
-  { local }fAllSettings, fAbout, JcfRegistrySettings, fRegistrySettings;
+  { jcl }JclStrings, JcfDllExtern;
 
 
 function FileIsAllowedType(const psFileName: string): boolean;
@@ -126,13 +124,11 @@ begin
   inherited;
   { both of these are created on demand }
   fcEditorConverter := nil;
-  fcFileConverter   := nil;
 end;
 
 destructor TJcfIdeMain.Destroy;
 begin
   FreeAndNil(fcEditorConverter);
-  FreeAndNil(fcFileConverter);
   inherited;
 end;
 
@@ -245,55 +241,24 @@ begin
   if not FileIsAllowedType(psFileName) then
     exit;
 
-  if fcFileConverter = nil then
-  begin
-    fcFileConverter := TFileConverter.Create;
-    fcFileConverter.OnStatusMessage := LogIDEMessage;
-  end;
-
-  fcFileConverter.ProcessFile(psFileName);
+  SetOnStatusMessage(LogIDEMessage);
+  // todo: pass over backup & out settings
+  ProcessFile(psFileName);
 end;
 
 procedure TJcfIdeMain.DoFormatSettings(Sender: TObject);
-var
-  lfAllSettings: TFormAllSettings;
 begin
-  if not GetRegSettings.HasRead then
-    GetRegSettings.ReadAll;
-
-  lfAllSettings := TFormAllSettings.Create(nil);
-  try
-    lfAllSettings.Execute;
-  finally
-    lfAllSettings.Release;
-  end;
+  ShowFormatSettings;
 end;
 
 procedure TJcfIdeMain.DoAbout(Sender: TObject);
-var
-  lcAbout: TfrmAboutBox;
 begin
-  lcAbout := TfrmAboutBox.Create(nil);
-  try
-    lcAbout.ShowModal;
-  finally
-    lcAbout.Free;
-  end;
+  ShowAbout;
 end;
 
 procedure TJcfIdeMain.DoRegistrySettings(Sender: TObject);
-var
-  lcAbout: TfmRegistrySettings;
 begin
-  if not GetRegSettings.HasRead then
-    GetRegSettings.ReadAll;
-
-  lcAbout := TfmRegistrySettings.Create(nil);
-  try
-    lcAbout.Execute;
-  finally
-    lcAbout.Free;
-  end;
+  ShowRegistrySettings;
 end;
 
 procedure TJcfIdeMain.ShortcutKeyCallback(const Context: IOTAKeyContext;
