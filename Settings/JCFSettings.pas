@@ -48,6 +48,7 @@ type
     fcCaps: TSetCaps;
     fcSpecificWordCaps: TSetWordList;
     fcUnitNameCaps: TSetWordList;
+    fcDefinedSymbols: TSetWordList;
     fcAlign: TSetAlign;
     fcUses: TSetUses;
 
@@ -86,6 +87,7 @@ type
     property Caps: TSetCaps read fcCaps;
     property SpecificWordCaps: TSetWordList read fcSpecificWordCaps;
     property UnitNameCaps: TSetWordList read fcUnitNameCaps;
+    property DefinedSymbols: TSetWordList read fcDefinedSymbols;
 
 
     property Align: TSetAlign read fcAlign;
@@ -119,6 +121,7 @@ begin
   fcCaps := TSetCaps.Create;
   fcSpecificWordCaps := TSetWordList.Create('SpecificWordCaps');
   fcUnitNameCaps := TSetWordList.Create('UnitNameCaps');
+  fcDefinedSymbols := TSetWordList.Create('DefinedSymbols');
 
   fcAlign := TSetAlign.Create;
   fcReplace := TSetReplace.Create;
@@ -143,6 +146,7 @@ begin
   FreeAndNil(fcCaps);
   FreeAndNil(fcSpecificWordCaps);
   FreeAndNil(fcUnitNameCaps);
+  FreeAndNil(fcDefinedSymbols);
 
   FreeAndNil(fcReplace);
   FreeAndNil(fcAlign);
@@ -180,6 +184,12 @@ begin
     finally
       lcFile.free;
     end;
+  end
+  else
+  begin
+    MessageDlg('The settings file "' + psFileName + '" does not exist.' + AnsiLineBreak +
+     'The formatter will work better if it is configured to use a valid settings file',
+     mtError, [mbOk], 0);
   end;
 end;
 
@@ -238,6 +248,7 @@ begin
   WriteToStream(fcCaps);
   WriteToStream(fcSpecificWordCaps);
   WriteToStream(fcUnitNameCaps);
+  WriteToStream(fcDefinedSymbols);
   WriteToStream(fcAlign);
   WriteToStream(fcReplace);
   WriteToStream(fcUses);
@@ -290,6 +301,8 @@ begin
     ReadFromStream(fcCaps);
     ReadFromStream(fcSpecificWordCaps);
     ReadFromStream(fcUnitNameCaps);
+    ReadFromStream(fcDefinedSymbols);
+    
     ReadFromStream(fcAlign);
     ReadFromStream(fcReplace);
     ReadFromStream(fcUses);

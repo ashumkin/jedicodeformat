@@ -214,7 +214,7 @@ begin
     lcConverter.GuiMessages := False;
 
     { see also TestFullClarify }
-    lsSettingsFileName := GetTestFilesDir + '\JCFTestSettings.cfg';
+    lsSettingsFileName := GetTestFilesDir + 'JCFTestSettings.cfg';
     Check(FileExists(lsSettingsFileName), 'Settings file ' + lsSettingsFileName + ' not found');
 
     FormatSettings.ReadFromFile(lsSettingsFileName);

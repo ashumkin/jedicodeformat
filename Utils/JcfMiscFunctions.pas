@@ -4,7 +4,7 @@ unit JcfMiscFunctions;
 
   This project uses very little in the way of internal function libs
   as most is covered by JCL
-  I was using CompoentFunctions from my Jedi VCL kit
+  I was using ComponentFunctions from my Jedi VCL kit
   however that is causing linkage problems with the IDE plugin - it is a package
   and 2 packages can;t package the same stuff,
   also it creates version dependencies - it bombed with the different version
@@ -21,7 +21,8 @@ The Original Code is JcfMiscFunctions, released May 2003.
 The Initial Developer of the Original Code is Anthony Steele. 
 Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
 All Rights Reserved. 
-Contributor(s): Anthony Steele. 
+Contributor(s): Anthony Steele.
+functions Str2Float and Float2Str from Ralf Steinhaeusser
 
 The contents of this file are subject to the Mozilla Public License Version 1.1
 (the "License"). you may not use this file except in compliance with the License.

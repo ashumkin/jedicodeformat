@@ -140,7 +140,8 @@ uses
   SettingsTypes in '..\Settings\SettingsTypes.pas',
   SetWordList in '..\Settings\SetWordList.pas',
   frUnitCaps in '..\Ui\Settings\frUnitCaps.pas' {frUnitNameCaps: TFrame},
-  ConditionalCompilationProcessing in '..\Parse\ConditionalCompilationProcessing.pas';
+  ConditionalCompilationProcessing in '..\Parse\ConditionalCompilationProcessing.pas',
+  frDefinedSymbols in '..\Ui\Settings\frDefinedSymbols.pas' {TfrDefinedSymbols: TFrame};
 
 {$R *.res}
 

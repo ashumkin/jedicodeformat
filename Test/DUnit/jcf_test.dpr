@@ -23,8 +23,8 @@ under the License.
 
 uses
   Forms,
-  GUITestRunner in '..\..\..\..\..\Delphi\DUnit\src\GUITestRunner.pas' {GUITestRunner},
-  TestFramework in '..\..\..\..\..\Delphi\DUnit\src\TestFramework.pas',
+  GUITestRunner {GUITestRunner},
+  TestFramework,
   BuildParseTree in '..\..\Parse\BuildParseTree.pas',
   BuildTokenList in '..\..\Parse\BuildTokenList.pas',
   ParseError in '..\..\Parse\ParseError.pas',
@@ -132,7 +132,8 @@ uses
   Tokens in '..\..\Parse\Tokens.pas',
   SetWordList in '..\..\Settings\SetWordList.pas',
   UnitNameCaps in '..\..\Process\Capitalisation\UnitNameCaps.pas',
-  ConditionalCompilationProcessing in '..\..\Parse\ConditionalCompilationProcessing.pas';
+  ConditionalCompilationProcessing in '..\..\Parse\ConditionalCompilationProcessing.pas',
+  TestSelfParse in 'TestSelfParse.pas';
 
 {$R *.res}
 

@@ -54,7 +54,7 @@ implementation
 
 uses
   SysUtils,
-  JclStrings, Tokens;
+  JclStrings, Tokens, JcfSettings;
 
 
 type
@@ -144,8 +144,8 @@ begin
 
   fcDefinedSymbols := TStringList.Create;
   fcDefinedSymbols.Sorted := True;
-  fcDefinedSymbols.Add('MSWINDOWS');
-  fcDefinedSymbols.Add('DELPHI5_UP');
+
+  fcDefinedSymbols.Assign(FormatSettings.DefinedSymbols.Words);
 
   fcDefinedOptions := TStringList.Create;
   fcDefinedOptions.Sorted := True;

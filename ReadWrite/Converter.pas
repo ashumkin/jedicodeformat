@@ -266,7 +266,8 @@ begin
         lcTokenList.SetXYPositions;
 
         // remove conditional compilation stuph
-        RemoveConditionalCompilation(lcTokenList);
+        if FormatSettings.DefinedSymbols.Enabled then
+          RemoveConditionalCompilation(lcTokenList);
 
           // make a parse tree from it
         fcBuildParseTree.TokenList := lcTokenList;

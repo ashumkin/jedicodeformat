@@ -34,6 +34,7 @@ uses
 
 
 type
+
 TFileConverter = class(TConverter)
   private
     fsInput: string;
