@@ -2,7 +2,10 @@ unit Indenter;
 
 { AFS 23 Feb 2003
   process to indent tokens
-  Will borrow some ond code, but mostly new
+  Will borrow some old code, but mostly new
+
+  This is the single most important (and possibly most comples)
+  of all the processes
 }
 
 interface
@@ -306,7 +309,7 @@ begin
       end
       else if liDesiredIndent > 0 then
       begin
-        // no prev ? Insert one
+        // no prev space token? Insert one
         prVisitResult.Action := aInsertBefore;
         prVisitResult.NewItem := NewSpace(liDesiredIndent);
       end;

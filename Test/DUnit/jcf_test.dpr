@@ -96,7 +96,8 @@ uses
   RemoveBlankLinesInVars in '..\..\Process\Spacing\RemoveBlankLinesInVars.pas',
   ReturnChars in '..\..\Process\Spacing\ReturnChars.pas',
   RemoveReturnsAfterBegin in '..\..\Process\Spacing\RemoveReturnsAfterBegin.pas',
-  RemoveReturnsBeforeEnd in '..\..\Process\Spacing\RemoveReturnsBeforeEnd.pas';
+  RemoveReturnsBeforeEnd in '..\..\Process\Spacing\RemoveReturnsBeforeEnd.pas',
+  LineBreaker in '..\..\Process\Returns\LineBreaker.pas';
 
 {$R *.res}
 
