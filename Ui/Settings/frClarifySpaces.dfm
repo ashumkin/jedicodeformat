@@ -66,95 +66,101 @@ inherited fClarifySpaces: TfClarifySpaces
       Height = 13
       Caption = 'Label'
     end
-    object eSpaceBeforeColonVar: TJvIntegerEdit
+    object eSpaceBeforeColonVar: TJvValidateEdit
       Left = 142
       Top = 24
       Width = 50
       Height = 21
-      Alignment = taRightJustify
+      CheckChars = '01234567890'
+      CriticalPoints.CheckPoints = cpNone
+      CriticalPoints.ColorAbove = clBlue
+      CriticalPoints.ColorBelow = clRed
+      EditText = '0'
       MaxLength = 2
-      ReadOnly = False
+      PasswordChar = #0
       TabOrder = 0
+      Text = '0'
       Value = 0
-      MaxValue = 0
-      MinValue = 0
-      HasMaxValue = False
-      HasMinValue = False
     end
-    object eSpaceBeforeColonParam: TJvIntegerEdit
+    object eSpaceBeforeColonParam: TJvValidateEdit
       Left = 142
       Top = 52
       Width = 50
       Height = 21
-      Alignment = taRightJustify
+      CheckChars = '01234567890'
+      CriticalPoints.CheckPoints = cpNone
+      CriticalPoints.ColorAbove = clBlue
+      CriticalPoints.ColorBelow = clRed
+      EditText = '0'
       MaxLength = 2
-      ReadOnly = False
+      PasswordChar = #0
       TabOrder = 1
+      Text = '0'
       Value = 0
-      MaxValue = 0
-      MinValue = 0
-      HasMaxValue = False
-      HasMinValue = False
     end
-    object eSpaceBeforeColonFn: TJvIntegerEdit
+    object eSpaceBeforeColonFn: TJvValidateEdit
       Left = 142
       Top = 76
       Width = 50
       Height = 21
-      Alignment = taRightJustify
+      CheckChars = '01234567890'
+      CriticalPoints.CheckPoints = cpNone
+      CriticalPoints.ColorAbove = clBlue
+      CriticalPoints.ColorBelow = clRed
+      EditText = '0'
       MaxLength = 2
-      ReadOnly = False
+      PasswordChar = #0
       TabOrder = 2
+      Text = '0'
       Value = 0
-      MaxValue = 0
-      MinValue = 0
-      HasMaxValue = False
-      HasMinValue = False
     end
-    object eSpacesBeforeColonClassVar: TJvIntegerEdit
+    object eSpacesBeforeColonClassVar: TJvValidateEdit
       Left = 142
       Top = 104
       Width = 50
       Height = 21
-      Alignment = taRightJustify
+      CheckChars = '01234567890'
+      CriticalPoints.CheckPoints = cpNone
+      CriticalPoints.ColorAbove = clBlue
+      CriticalPoints.ColorBelow = clRed
+      EditText = '0'
       MaxLength = 2
-      ReadOnly = False
+      PasswordChar = #0
       TabOrder = 3
+      Text = '0'
       Value = 0
-      MaxValue = 0
-      MinValue = 0
-      HasMaxValue = False
-      HasMinValue = False
     end
-    object eSpacesBeforeCaseLabel: TJvIntegerEdit
+    object eSpacesBeforeCaseLabel: TJvValidateEdit
       Left = 142
       Top = 132
       Width = 50
       Height = 21
-      Alignment = taRightJustify
+      CheckChars = '01234567890'
+      CriticalPoints.CheckPoints = cpNone
+      CriticalPoints.ColorAbove = clBlue
+      CriticalPoints.ColorBelow = clRed
+      EditText = '0'
       MaxLength = 2
-      ReadOnly = False
+      PasswordChar = #0
       TabOrder = 4
+      Text = '0'
       Value = 0
-      MaxValue = 0
-      MinValue = 0
-      HasMaxValue = False
-      HasMinValue = False
     end
-    object eSpacesBeforeLabel: TJvIntegerEdit
+    object eSpacesBeforeLabel: TJvValidateEdit
       Left = 142
       Top = 160
       Width = 50
       Height = 21
-      Alignment = taRightJustify
+      CheckChars = '01234567890'
+      CriticalPoints.CheckPoints = cpNone
+      CriticalPoints.ColorAbove = clBlue
+      CriticalPoints.ColorBelow = clRed
+      EditText = '0'
       MaxLength = 2
-      ReadOnly = False
+      PasswordChar = #0
       TabOrder = 5
+      Text = '0'
       Value = 0
-      MaxValue = 0
-      MinValue = 0
-      HasMaxValue = False
-      HasMinValue = False
     end
   end
   object gbTabs: TGroupBox
@@ -196,35 +202,43 @@ inherited fClarifySpaces: TfClarifySpaces
       TabOrder = 1
       OnClick = cbSpacesToTabsClick
     end
-    object edtSpacesPerTab: TJvIntegerEdit
+    object edtSpacesPerTab: TJvValidateEdit
       Left = 212
       Top = 18
       Width = 49
       Height = 21
-      Alignment = taRightJustify
-      MaxLength = 2
-      ReadOnly = False
-      TabOrder = 2
-      Value = 0
-      MaxValue = 12
-      MinValue = 0
+      CheckChars = '01234567890'
+      CriticalPoints.CheckPoints = cpNone
+      CriticalPoints.ColorAbove = clBlue
+      CriticalPoints.ColorBelow = clRed
+      EditText = '0'
       HasMaxValue = True
       HasMinValue = True
+      MaxLength = 2
+      MaxValue = 12.000000000000000000
+      PasswordChar = #0
+      TabOrder = 2
+      Text = '0'
+      Value = 0
     end
-    object edtSpacesForTab: TJvIntegerEdit
+    object edtSpacesForTab: TJvValidateEdit
       Left = 212
       Top = 42
       Width = 49
       Height = 21
-      Alignment = taRightJustify
-      MaxLength = 2
-      ReadOnly = False
-      TabOrder = 3
-      Value = 0
-      MaxValue = 12
-      MinValue = 0
+      CheckChars = '01234567890'
+      CriticalPoints.CheckPoints = cpNone
+      CriticalPoints.ColorAbove = clBlue
+      CriticalPoints.ColorBelow = clRed
+      EditText = '0'
       HasMaxValue = True
       HasMinValue = True
+      MaxLength = 2
+      MaxValue = 12.000000000000000000
+      PasswordChar = #0
+      TabOrder = 3
+      Text = '0'
+      Value = 0
     end
   end
   object cbMaxSpaces: TCheckBox
@@ -236,19 +250,23 @@ inherited fClarifySpaces: TfClarifySpaces
     TabOrder = 4
     OnClick = cbMaxSpacesClick
   end
-  object edtMaxSpacesInCode: TJvIntegerEdit
+  object edtMaxSpacesInCode: TJvValidateEdit
     Left = 216
     Top = 310
     Width = 49
     Height = 21
-    Alignment = taRightJustify
-    MaxLength = 2
-    ReadOnly = False
-    TabOrder = 5
-    Value = 0
-    MaxValue = 99
-    MinValue = 0
+    CheckChars = '01234567890'
+    CriticalPoints.CheckPoints = cpNone
+    CriticalPoints.ColorAbove = clBlue
+    CriticalPoints.ColorBelow = clRed
+    EditText = '0'
     HasMaxValue = True
     HasMinValue = True
+    MaxLength = 2
+    MaxValue = 99.000000000000000000
+    PasswordChar = #0
+    TabOrder = 5
+    Text = '0'
+    Value = 0
   end
 end

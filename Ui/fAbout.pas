@@ -28,7 +28,7 @@ uses
   Windows, Classes, Graphics, Forms, Controls, StdCtrls,
   Buttons, ExtCtrls,
    { JVCL }
-  JvHotLink, JvLabel;
+  JvLabel, JvExControls, JvComponent;
 
 type
   TfrmAboutBox = class(TForm)
@@ -37,8 +37,8 @@ type
     imgOpenSource: TImage;
     mWarning: TMemo;
     mWhat: TMemo;
-    lblMPL: TJvHotLink;
-    hlHomePage: TJvHotLink;
+    lblMPL: TJvLabel;
+    hlHomePage: TJvLabel;
 
     procedure FormCreate(Sender: TObject);
     procedure imgOpenSourceClick(Sender: TObject);

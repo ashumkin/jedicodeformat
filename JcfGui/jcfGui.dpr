@@ -159,7 +159,8 @@ uses
   UsesClauseRemove in '..\Process\Transform\UsesClauseRemove.pas',
   UsesClauseFindReplace in '..\Process\Transform\UsesClauseFindReplace.pas',
   MaxSpaces in '..\Process\Spacing\MaxSpaces.pas',
-  TreeWalker in '..\Process\TreeWalker.pas';
+  TreeWalker in '..\Process\TreeWalker.pas',
+  StreamConverter in '..\ReadWrite\StreamConverter.pas';
 
 {$R *.res}
 

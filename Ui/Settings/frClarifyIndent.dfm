@@ -8,20 +8,24 @@ inherited fClarifyIndent: TfClarifyIndent
     Height = 13
     Caption = 'Block indentation spaces'
   end
-  object edtIndentSpaces: TJvIntegerEdit
+  object edtIndentSpaces: TJvValidateEdit
     Left = 236
     Top = 78
     Width = 50
     Height = 21
-    Alignment = taRightJustify
-    MaxLength = 3
-    ReadOnly = False
-    TabOrder = 0
-    Value = 0
-    MaxValue = 12
-    MinValue = 0
+    CheckChars = '01234567890'
+    CriticalPoints.CheckPoints = cpNone
+    CriticalPoints.ColorAbove = clBlue
+    CriticalPoints.ColorBelow = clRed
+    EditText = '0'
     HasMaxValue = True
     HasMinValue = True
+    MaxLength = 3
+    MaxValue = 12.000000000000000000
+    PasswordChar = #0
+    TabOrder = 0
+    Text = '0'
+    Value = 0
   end
   object cbIndentBeginEnd: TCheckBox
     Left = 4
@@ -32,20 +36,25 @@ inherited fClarifyIndent: TfClarifyIndent
     TabOrder = 1
     OnClick = cbIndentBeginEndClick
   end
-  object eIndentBeginEndSpaces: TJvIntegerEdit
+  object eIndentBeginEndSpaces: TJvValidateEdit
     Left = 236
     Top = 106
     Width = 50
     Height = 21
-    Alignment = taRightJustify
-    MaxLength = 3
-    ReadOnly = False
-    TabOrder = 2
-    Value = 0
-    MaxValue = 10
-    MinValue = -10
+    CheckChars = '01234567890'
+    CriticalPoints.CheckPoints = cpNone
+    CriticalPoints.ColorAbove = clBlue
+    CriticalPoints.ColorBelow = clRed
+    EditText = '0'
     HasMaxValue = True
     HasMinValue = True
+    MaxLength = 3
+    MaxValue = 10.000000000000000000
+    MinValue = -10.000000000000000000
+    PasswordChar = #0
+    TabOrder = 2
+    Text = '0'
+    Value = 0
   end
   object cbHasFirstLevelIndent: TCheckBox
     Left = 4
@@ -56,20 +65,21 @@ inherited fClarifyIndent: TfClarifyIndent
     TabOrder = 3
     OnClick = cbHasFirstLevelIndentClick
   end
-  object eFirstLevelIndent: TJvIntegerEdit
+  object eFirstLevelIndent: TJvValidateEdit
     Left = 236
     Top = 134
     Width = 50
     Height = 21
-    Alignment = taRightJustify
+    CheckChars = '01234567890'
+    CriticalPoints.CheckPoints = cpNone
+    CriticalPoints.ColorAbove = clBlue
+    CriticalPoints.ColorBelow = clRed
+    EditText = '0'
     MaxLength = 3
-    ReadOnly = False
+    PasswordChar = #0
     TabOrder = 4
+    Text = '0'
     Value = 0
-    MaxValue = 0
-    MinValue = 0
-    HasMaxValue = False
-    HasMinValue = False
   end
   object cbIndentGlobals: TCheckBox
     Left = 4

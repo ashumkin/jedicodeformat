@@ -58,20 +58,22 @@ object fmRegistrySettings: TfmRegistrySettings
         TabOrder = 0
         OnKeyUp = eSettingsFileKeyUp
       end
-      object eMRUMaxItems: TJvIntegerEdit
+      object eMRUMaxItems: TJvValidateEdit
         Left = 110
         Top = 66
         Width = 40
         Height = 21
-        Alignment = taRightJustify
+        CheckChars = '01234567890'
+        CriticalPoints.CheckPoints = cpNone
+        CriticalPoints.ColorAbove = clBlue
+        CriticalPoints.ColorBelow = clRed
+        EditText = '0'
         MaxLength = 2
-        ReadOnly = False
+        MaxValue = 12.000000000000000000
+        PasswordChar = #0
         TabOrder = 1
+        Text = '0'
         Value = 0
-        MaxValue = 12
-        MinValue = 0
-        HasMaxValue = False
-        HasMinValue = False
       end
       object btnClearMRU: TButton
         Left = 156
@@ -227,7 +229,6 @@ object fmRegistrySettings: TfmRegistrySettings
         AutoSize = False
         MaxLines = 0
         HideCaret = False
-        ReadOnly = False
         TabOrder = 0
       end
       object mDirs: TJvMemo
@@ -238,7 +239,6 @@ object fmRegistrySettings: TfmRegistrySettings
         AutoSize = False
         MaxLines = 0
         HideCaret = False
-        ReadOnly = False
         TabOrder = 1
       end
     end

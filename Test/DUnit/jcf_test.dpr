@@ -158,7 +158,8 @@ uses
   TestCaseReturns in 'TestCaseReturns.pas',
   TestIndentation in 'TestIndentation.pas',
   MaxSpaces in '..\..\Process\Spacing\MaxSpaces.pas',
-  TreeWalker in '..\..\Process\TreeWalker.pas';
+  TreeWalker in '..\..\Process\TreeWalker.pas',
+  SetComments in '..\..\Settings\SetComments.pas';
 
 {$R *.res}
 

@@ -27,17 +27,19 @@ uses
   { delphi }
   Classes, Controls, Forms,
   StdCtrls,
+  { JVCL }
+  JvEdit, JvExStdCtrls, JvValidateEdit,
   { local}
-  JvEdit, JvTypedEdit, frmBaseSettingsFrame;
+  frmBaseSettingsFrame;
 
 type
   TfClarifyIndent = class(TfrSettingsFrame)
     Label2: TLabel;
-    edtIndentSpaces: TJvIntegerEdit;
+    edtIndentSpaces: TJvValidateEdit;
     cbIndentBeginEnd: TCheckBox;
-    eIndentBeginEndSpaces: TJvIntegerEdit;
+    eIndentBeginEndSpaces: TJvValidateEdit;
     cbHasFirstLevelIndent: TCheckBox;
-    eFirstLevelIndent: TJvIntegerEdit;
+    eFirstLevelIndent: TJvValidateEdit;
     cbIndentGlobals: TCheckBox;
     cbIndentProcedures: TCheckBox;
     cbIndentClasses: TCheckBox;

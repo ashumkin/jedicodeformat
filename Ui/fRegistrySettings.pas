@@ -29,8 +29,8 @@ uses
   { delphi }
   Windows, SysUtils, Classes, Controls, Forms,
   Dialogs, StdCtrls, Buttons, ExtCtrls, ComCtrls,
-  { JCL }
-  JvTypedEdit, JvMemo, JvEdit;
+  { JVCL }
+  JvMemo, JvEdit, JvExStdCtrls, JvValidateEdit;
 
 type
   TfmRegistrySettings = class(TForm)
@@ -41,7 +41,7 @@ type
     eSettingsFile: TEdit;
     sbFile: TSpeedButton;
     Label1: TLabel;
-    eMRUMaxItems: TJvIntegerEdit;
+    eMRUMaxItems: TJvValidateEdit;
     btnClearMRU: TButton;
     Label2: TLabel;
     rgShowParseTree: TRadioGroup;

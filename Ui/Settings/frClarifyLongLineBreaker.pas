@@ -27,12 +27,14 @@ uses
   { delphi }
   Classes, Controls, Forms,
   StdCtrls, ExtCtrls,
+  { JVCL }
+  JvEdit, JvExStdCtrls, JvValidateEdit,
   { local}
-  JvEdit, JvTypedEdit, frmBaseSettingsFrame;
+  frmBaseSettingsFrame;
 
 type
   TfClarifyLongLineBreaker = class(TfrSettingsFrame)
-    edtMaxLineLength: TJvIntegerEdit;
+    edtMaxLineLength: TJvValidateEdit;
     Label3: TLabel;
     rgRebreakLongLines: TRadioGroup;
     procedure cbRebreakLinesClick(Sender: TObject);

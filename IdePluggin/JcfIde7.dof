@@ -94,7 +94,7 @@ OutputDir=
 UnitOutputDir=..\Output
 PackageDLLOutputDir=..\Output
 PackageDCPOutputDir=
-SearchPath=..\Settings;..\Types;..\Settings\Streams;..\Utils;..\ReadWrite;..\TokenCreation;..\Processors;..\Processors\Obfuscate;..\Processors\Transform;..\Processors\Spacing;..\Processors\OnceOffs;..\Processors\Indent;..\Processors\Align;..\Processors\Warnings;..\UI\Settings
+SearchPath=
 Packages=
 Conditionals=IDEPLUGGIN
 DebugSourceDirs=
@@ -134,3 +134,17 @@ OriginalFilename=
 ProductName=
 ProductVersion=1.0.0.0
 Comments=
+[Excluded Packages]
+C:\Code\CodeFormat\Jcf2\Output\JcfIde7.bpl=Jedi Code Format IDE Plugin for Delphi 7
+[HistoryLists\hlConditionals]
+Count=1
+Item0=IDEPLUGGIN
+[HistoryLists\hlUnitAliases]
+Count=1
+Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
+[HistoryLists\hlUnitOutputDirectory]
+Count=1
+Item0=..\Output
+[HistoryLists\hlBPLOutput]
+Count=1
+Item0=..\Output

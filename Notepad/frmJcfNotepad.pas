@@ -29,8 +29,8 @@ uses
   Dialogs, StdCtrls, ComCtrls, ExtCtrls, ActnList,
   Buttons, Menus,
   { Jedi }
-  JvMRUList, JvMemo,
-  { local }StringsConverter, JcfRegistrySettings, JvPlacemnt;
+  JvMRUManager, JvMemo,
+  { local }StringsConverter, JcfRegistrySettings, JvFormPlacement;
 
 type
   TfmJCFNotepad = class(TForm)

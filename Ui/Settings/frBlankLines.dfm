@@ -14,20 +14,24 @@ inherited fBlankLines: TfBlankLines
     Height = 13
     Caption = 'Max consecutive blank lines'
   end
-  object eNumReturnsAfterFinalEnd: TJvIntegerEdit
+  object eNumReturnsAfterFinalEnd: TJvValidateEdit
     Left = 208
     Top = 117
     Width = 49
     Height = 21
-    Alignment = taRightJustify
-    MaxLength = 3
-    ReadOnly = False
-    TabOrder = 0
-    Value = 0
-    MaxValue = 255
-    MinValue = 0
+    CheckChars = '01234567890'
+    CriticalPoints.CheckPoints = cpNone
+    CriticalPoints.ColorAbove = clBlue
+    CriticalPoints.ColorBelow = clRed
+    EditText = '0'
     HasMaxValue = True
     HasMinValue = True
+    MaxLength = 3
+    MaxValue = 255.000000000000000000
+    PasswordChar = #0
+    TabOrder = 0
+    Text = '0'
+    Value = 0
   end
   object cbRemoveConsecutiveBlankLines: TCheckBox
     Left = 4
@@ -37,20 +41,24 @@ inherited fBlankLines: TfBlankLines
     Caption = 'Remove consecutive blank lines'
     TabOrder = 1
   end
-  object edtMaxConsecutiveBlankLines: TJvIntegerEdit
+  object edtMaxConsecutiveBlankLines: TJvValidateEdit
     Left = 144
     Top = 165
     Width = 49
     Height = 21
-    Alignment = taRightJustify
-    MaxLength = 3
-    ReadOnly = False
-    TabOrder = 2
-    Value = 0
-    MaxValue = 99
-    MinValue = 0
+    CheckChars = '01234567890'
+    CriticalPoints.CheckPoints = cpNone
+    CriticalPoints.ColorAbove = clBlue
+    CriticalPoints.ColorBelow = clRed
+    EditText = '0'
     HasMaxValue = True
     HasMinValue = True
+    MaxLength = 3
+    MaxValue = 99.000000000000000000
+    PasswordChar = #0
+    TabOrder = 2
+    Text = '0'
+    Value = 0
   end
   object GroupBox1: TGroupBox
     Left = 4

@@ -37,53 +37,66 @@ inherited fClarifyAlign: TfClarifyAlign
     Caption = 'Interface Only'
     TabOrder = 0
   end
-  object edtMaxVariance: TJvIntegerEdit
+  object edtMaxVariance: TJvValidateEdit
     Left = 80
     Top = 204
     Width = 57
     Height = 21
-    Alignment = taRightJustify
-    MaxLength = 3
-    ReadOnly = False
-    TabOrder = 1
-    OnExit = edtMaxColumnExit
-    Value = 0
-    MaxValue = 999
-    MinValue = 1
+    CheckChars = '01234567890'
+    CriticalPoints.CheckPoints = cpNone
+    CriticalPoints.ColorAbove = clBlue
+    CriticalPoints.ColorBelow = clRed
+    EditText = '1'
     HasMaxValue = True
     HasMinValue = True
+    MaxLength = 3
+    MaxValue = 999.000000000000000000
+    MinValue = 1.000000000000000000
+    PasswordChar = #0
+    TabOrder = 1
+    Text = '1'
+    Value = 1
+    OnExit = edtMaxColumnExit
   end
-  object edtMaxColumn: TJvIntegerEdit
+  object edtMaxColumn: TJvValidateEdit
     Left = 80
     Top = 176
     Width = 57
     Height = 21
-    Alignment = taRightJustify
-    MaxLength = 3
-    ReadOnly = False
-    TabOrder = 2
-    OnExit = edtMaxColumnExit
-    Value = 0
-    MaxValue = 150
-    MinValue = 0
+    CheckChars = '01234567890'
+    CriticalPoints.CheckPoints = cpNone
+    CriticalPoints.ColorAbove = clBlue
+    CriticalPoints.ColorBelow = clRed
+    EditText = '0'
     HasMaxValue = True
     HasMinValue = True
+    MaxLength = 3
+    MaxValue = 150.000000000000000000
+    PasswordChar = #0
+    TabOrder = 2
+    Text = '0'
+    Value = 0
+    OnExit = edtMaxColumnExit
   end
-  object edtMinColumn: TJvIntegerEdit
+  object edtMinColumn: TJvValidateEdit
     Left = 80
     Top = 148
     Width = 57
     Height = 21
-    Alignment = taRightJustify
-    MaxLength = 3
-    ReadOnly = False
-    TabOrder = 3
-    OnExit = edtMinColumnExit
-    Value = 0
-    MaxValue = 150
-    MinValue = 0
+    CheckChars = '01234567890'
+    CriticalPoints.CheckPoints = cpNone
+    CriticalPoints.ColorAbove = clBlue
+    CriticalPoints.ColorBelow = clRed
+    EditText = '0'
     HasMaxValue = True
     HasMinValue = True
+    MaxLength = 3
+    MaxValue = 150.000000000000000000
+    PasswordChar = #0
+    TabOrder = 3
+    Text = '0'
+    Value = 0
+    OnExit = edtMinColumnExit
   end
   object gbWhat: TGroupBox
     Left = 2
@@ -133,19 +146,23 @@ inherited fClarifyAlign: TfClarifyAlign
       TabOrder = 4
     end
   end
-  object eMaxUnaligned: TJvIntegerEdit
+  object eMaxUnaligned: TJvValidateEdit
     Left = 80
     Top = 232
     Width = 57
     Height = 21
-    Alignment = taRightJustify
-    MaxLength = 3
-    ReadOnly = False
-    TabOrder = 5
-    Value = 0
-    MaxValue = 999
-    MinValue = 0
+    CheckChars = '01234567890'
+    CriticalPoints.CheckPoints = cpNone
+    CriticalPoints.ColorAbove = clBlue
+    CriticalPoints.ColorBelow = clRed
+    EditText = '0'
     HasMaxValue = True
     HasMinValue = True
+    MaxLength = 3
+    MaxValue = 999.000000000000000000
+    PasswordChar = #0
+    TabOrder = 5
+    Text = '0'
+    Value = 0
   end
 end

@@ -29,7 +29,7 @@ uses
   SysUtils, Classes, Controls, Forms, Dialogs,
   Buttons, StdCtrls, ExtCtrls,
   { local }
-  JvMRUList,
+  JvMRUManager,
   ConvertTypes, frmBaseSettingsFrame;
 
 type

@@ -35,8 +35,8 @@ uses
   ActnList, StdActns, ToolWin, ImgList,
   { local }
   FileConverter, JCFSettings,
-  frBasicSettings, JvMRUList, JvPlacemnt,
-  JvMemo, frDrop, frmBaseSettingsFrame;
+  frBasicSettings, JvMRUManager, JvFormPlacement,
+  JvMemo, frDrop, frmBaseSettingsFrame, JvComponent, JvExStdCtrls;
 
 type
   TfrmMain = class(TForm)

@@ -26,16 +26,18 @@ uses
   { delphi }
   Classes, Controls, Forms,
   StdCtrls,
+  { JVCL }
+  JvEdit, JvExStdCtrls, JvValidateEdit,
   { local}
-  JvTypedEdit, frmBaseSettingsFrame, JvEdit;
+  frmBaseSettingsFrame;
 
 
 type
   TfBlankLines = class(TfrSettingsFrame)
     Label1: TLabel;
-    eNumReturnsAfterFinalEnd: TJvIntegerEdit;
+    eNumReturnsAfterFinalEnd: TJvValidateEdit;
     cbRemoveConsecutiveBlankLines: TCheckBox;
-    edtMaxConsecutiveBlankLines: TJvIntegerEdit;
+    edtMaxConsecutiveBlankLines: TJvValidateEdit;
     Label2: TLabel;
     GroupBox1: TGroupBox;
     cbRemoveBlockBlankLines: TCheckBox;

@@ -27,15 +27,17 @@ uses
   { delphi }
   Classes, Controls, Forms,
   StdCtrls,
+  { JVCL }
+  JvEdit, JvExStdCtrls, JvValidateEdit,
   { local}
-  JvEdit, JvTypedEdit, frmBaseSettingsFrame;
+  frmBaseSettingsFrame;
 
 type
   TfClarifyAlign = class(TfrSettingsFrame)
     cbInterfaceOnly: TCheckBox;
-    edtMaxVariance: TJvIntegerEdit;
-    edtMaxColumn: TJvIntegerEdit;
-    edtMinColumn: TJvIntegerEdit;
+    edtMaxVariance: TJvValidateEdit;
+    edtMaxColumn: TJvValidateEdit;
+    edtMinColumn: TJvValidateEdit;
     Label6: TLabel;
     Label4: TLabel;
     Label5: TLabel;
@@ -46,7 +48,7 @@ type
     cbAlignTypedef: TCheckBox;
     cbAlignComment: TCheckBox;
     Label1: TLabel;
-    eMaxUnaligned: TJvIntegerEdit;
+    eMaxUnaligned: TJvValidateEdit;
     procedure edtMinColumnExit(Sender: TObject);
     procedure edtMaxColumnExit(Sender: TObject);
   private

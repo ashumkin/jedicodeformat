@@ -27,8 +27,10 @@ uses
   { delphi }
   Classes, Controls, Forms,
   StdCtrls,
+  { JVCL }
+  JvEdit, JvExStdCtrls, JvValidateEdit,
   { local}
-  JvTypedEdit, JvEdit, frmBaseSettingsFrame;
+  frmBaseSettingsFrame;
 
 type
   TfClarifySpaces = class(TfrSettingsFrame)
@@ -39,23 +41,23 @@ type
     Label4: TLabel;
     Label7: TLabel;
     Label8: TLabel;
-    eSpaceBeforeColonVar: TJvIntegerEdit;
-    eSpaceBeforeColonParam: TJvIntegerEdit;
-    eSpaceBeforeColonFn: TJvIntegerEdit;
-    eSpacesBeforeColonClassVar: TJvIntegerEdit;
+    eSpaceBeforeColonVar: TJvValidateEdit;
+    eSpaceBeforeColonParam: TJvValidateEdit;
+    eSpaceBeforeColonFn: TJvValidateEdit;
+    eSpacesBeforeColonClassVar: TJvValidateEdit;
     gbTabs: TGroupBox;
     cbTabsToSpaces: TCheckBox;
     cbSpacesToTabs: TCheckBox;
     Label1: TLabel;
-    edtSpacesPerTab: TJvIntegerEdit;
+    edtSpacesPerTab: TJvValidateEdit;
     Label3: TLabel;
-    edtSpacesForTab: TJvIntegerEdit;
-    eSpacesBeforeCaseLabel: TJvIntegerEdit;
-    eSpacesBeforeLabel: TJvIntegerEdit;
+    edtSpacesForTab: TJvValidateEdit;
+    eSpacesBeforeCaseLabel: TJvValidateEdit;
+    eSpacesBeforeLabel: TJvValidateEdit;
     Label5: TLabel;
     Label6: TLabel;
     cbMaxSpaces: TCheckBox;
-    edtMaxSpacesInCode: TJvIntegerEdit;
+    edtMaxSpacesInCode: TJvValidateEdit;
     procedure cbTabsToSpacesClick(Sender: TObject);
     procedure cbSpacesToTabsClick(Sender: TObject);
     procedure cbMaxSpacesClick(Sender: TObject);

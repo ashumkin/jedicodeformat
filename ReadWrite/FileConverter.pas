@@ -30,7 +30,7 @@ uses
 
 { AFS 11 Jan 2K
   file-specific stuff extracted from converter
-  to make way for a editr subclass with the same base class }
+  to make way for a editor subclass with the same base class }
 
 
 type

@@ -4489,10 +4489,7 @@ object frmMain: TfrmMain
     Top = 20
   end
   object JvFormStorage1: TJvFormStorage
-    IniFileName = 'Software\Jedi\JediCodeFormat\'
-    IniSection = 'JcfGuiFormPos'
     Options = [fpPosition]
-    UseRegistry = True
     StoredValues = <>
     Left = 460
     Top = 12
