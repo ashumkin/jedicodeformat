@@ -60,7 +60,9 @@ uses
   Warning in '..\Process\Warnings\Warning.pas',
   VersionConsts in '..\VersionConsts.pas',
   ScratchpadSettings in 'ScratchpadSettings.pas',
-  TokenUtils in '..\Parse\TokenUtils.pas';
+  TokenUtils in '..\Parse\TokenUtils.pas',
+  NoSpaceBefore in '..\Process\Spacing\NoSpaceBefore.pas',
+  NoSpaceAfter in '..\Process\Spacing\NoSpaceAfter.pas';
 
 {$R *.res}
 

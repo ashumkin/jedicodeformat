@@ -61,11 +61,12 @@ type
     function SolidChildCount: integer; override;
     function FirstSolidLeaf: TParseTreeNode; override;
 
-
+    { navigating the source tree as if it was a list }
     function NextToken: TSourceToken;
     function PriorToken: TSourceToken;
     function NextSolidToken: TSourceToken;
     function PriorSolidToken: TSourceToken;
+    function NextTokenWithExclusions(const peExclusions: TTokenTypeSet): TSourceToken;
 
 
     property TokenType: TTokenType read feTokenType write feTokenType;
@@ -165,6 +166,14 @@ begin
   Result := NextToken;
 
   while (Result <> nil) and (not Result.IsSolid) do
+    Result := Result.NextToken;
+end;
+
+function TSourceToken.NextTokenWithExclusions(const peExclusions: TTokenTypeSet): TSourceToken;
+begin
+  Result := NextToken;
+
+  while (Result <> nil) and (Result.TokenType in peExclusions) do
     Result := Result.NextToken;
 end;
 

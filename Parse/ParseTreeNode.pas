@@ -36,7 +36,9 @@ type
     function NewChild: TParseTreeNode;
     procedure AddChild(const pcChild: TParseTreeNode);
     procedure InsertChild(const piIndex: Integer; const pcChild: TParseTreeNode);
-    function RemoveChild(const pcChild: TParseTreeNode): integer;
+    function RemoveChild(const pcChild: TParseTreeNode): integer; overload;
+    function RemoveChild(const piIndex: integer): integer; overload;
+
     function IndexOfChild(const pcChild: TParseTreeNode): integer;
     function SolidChildCount: integer; virtual;
 
@@ -63,6 +65,14 @@ type
     function HasParentNode(const peNodeType: TParseTreeNodeType): Boolean; overload;
     function GetParentNode(const peNodeTypes: TParseTreeNodeTypeSet): TParseTreeNode; overload;
     function GetParentNode(const peNodeType: TParseTreeNodeType): TParseTreeNode; overload;
+
+
+    { this one needs some explanation. Need to answer questions like
+     'Is this node in a type decl, on the right of an equal sign
+     So we find if we have a predecessor of one of peWords in the subtree rooted at peNodeTypes }
+    function IsOnRightOf(const peRootNodeTypes: TParseTreeNodeTypeSet; const peWords: TWordSet): Boolean; overload;
+    function IsOnRightOf(const peRootNodeType: TParseTreeNodeType; const peWord: TWord): Boolean; overload;
+
 
     function Describe: string; virtual;
 
@@ -135,6 +145,15 @@ begin
   Result := fcChildNodes.Remove(pcChild);
 end;
 
+function TParseTreeNode.RemoveChild(const piIndex: integer): integer;
+begin
+  if (piIndex < 0) or (piIndex >= ChildNodeCount) then
+  begin
+    Result := -1;
+  end
+  else
+    Result := fcChildNodes.Remove(fcChildNodes[piIndex]);
+end;
 
 function TParseTreeNode.IndexOfChild(const pcChild: TParseTreeNode): integer;
 begin
@@ -290,6 +309,73 @@ begin
   Result := GetParentNode([peNodeType]);
 end;
 
+function TParseTreeNode.IsOnRightOf(const peRootNodeTypes: TParseTreeNodeTypeSet; const peWords: TWordSet): Boolean;
+var
+  lbSearchDone: Boolean;
+
+  function GetFirstMatch(const pcRoot: TParseTreeNode; const peWords: TWordSet): TParseTreeNode;
+  var
+    liLoop: integer;
+    lcChild: TParseTreeNode;
+  begin
+    Result := nil;
+
+    if pcRoot = self then
+    begin
+      lbSearchDone := True;
+      exit;
+    end;
+
+    // leaf node - matching token using the 'HasChildNode' override to match self
+    if (ChildNodeCount = 0) and HasChildNode(peWords) then
+    begin
+      Result := self;
+      exit;
+    end;
+
+    // recurse into all children (or until self is encountered)
+    for liLoop := 0 to ChildNodeCount - 1 do
+    begin
+      lcChild := ChildNodes[liLoop];
+      if lcChild = self then
+      begin
+        lbSearchDone := True;
+        break;
+      end;
+
+      Result := GetFirstMatch(lcChild, peWords);
+      if Result <> nil then
+        break;
+
+   end;
+  end;
+
+var
+  lcRoot, lcFirstMatch: TParseTreeNode;
+begin
+  { does it have the required parent }
+  lcRoot := GetParentNode(peRootNodeTypes);
+  if lcRoot = nil then
+  begin
+    Result := False;
+    exit;
+  end;
+
+  { does the parent have the required child
+    seacrch depth-first, ending when the self node is reached
+    argh - need token functionaly }
+
+  lbSearchDone := False;
+  lcFirstMatch := GetFirstMatch(lcRoot, peWords);
+
+  // not enough - must be before self
+  Result := (lcFirstMatch <> nil);
+end;
+
+function TParseTreeNode.IsOnRightOf(const peRootNodeType: TParseTreeNodeType; const peWord: TWord): Boolean;
+begin
+  Result := IsOnRightOf([peRootNodeType], [peWord]);
+end;
 
 
 procedure TParseTreeNode.AcceptVisitor(const pcVisitor: IVisitParseTree; var prVisitResults: TRVisitResult);
@@ -322,6 +408,14 @@ begin
       // must have a new item
       Assert(lrVisitResult.NewItem <> nil);
       Parent.InsertChild(Parent.IndexOfChild(self) + 1,  TParseTreeNode(lrVisitResult.NewItem));
+    end;
+    aDeleteNext:
+    begin
+      Parent.RemoveChild(Parent.IndexOfChild(self) + 1);
+    end;
+    aDeletePrevious:
+    begin
+      Parent.RemoveChild(Parent.IndexOfChild(self) - 1);
     end
     else
       Assert(false, 'Unhandled action ' + IntToStr(Ord(lrVisitResult.action)));
@@ -338,21 +432,11 @@ begin
       if so, don't increment counter, as the next item will now be in this slot }
     liNewIndex := IndexOfChild(lcNode);
 
-    if liNewIndex <> liLoop then
-    begin
-      { it has moved during processing. }
-      if liNewIndex < 0 then
-      begin
-        { deleted. Nothing to do.
-          Don't even inc the loop counter
-          as the next item will now be in this slot
-        }
-      end
-      else
-        Assert(False);
-    end
-    else
-      inc(liLoop);
+    if liNewIndex > 0 then
+     // proceed to next one
+      liLoop := liNewIndex + 1;
+    { else case is that liNewIndex is -1 as the current item has been deleted.
+      Stay at same index as the next item will now be in this slot }
   end;
 end;
 

@@ -1883,6 +1883,7 @@ end;
 procedure TBuildParseTree.RecogniseStmntList(const peEndWords: TWordSet);
 begin
   // StmtList -> Statement/';'...
+  PushNode(nStatementList);
 
   while not (TokenList.FirstSolidTokenWord in peEndWords) do
   begin
@@ -1894,6 +1895,8 @@ begin
     else
       break;
   end;
+
+  PopNode;
 end;
 
 procedure TBuildParseTree.RecogniseSimpleStmnt;

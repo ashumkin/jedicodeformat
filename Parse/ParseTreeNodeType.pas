@@ -22,6 +22,7 @@ type
     nInterfaceSection,
     nImplementationSection,
     nBlock,
+    nStatementList,
     nLabelDeclSection,
     nConstSection,
     nConstDecl,
@@ -129,6 +130,8 @@ begin
       Result := 'Implmentation section';
     nBlock:
       Result := 'Block';
+    nStatementList:
+      Result := 'Statement list';
     nLabelDeclSection:
       Result := 'Decl section';
     nConstSection:
