@@ -82,6 +82,7 @@ begin
   Assert(pcNode <> nil);
 
   lcDes := pcNode.GetImmediateChild(nDesignator);
+  Assert(lcDes <> nil);
 
   for liLoop := 0 to lcDes.ChildNodeCount - 1 do
   begin
@@ -93,6 +94,11 @@ begin
 
       if lcSourceToken.WordType in IdentifierTypes then
         Result := lcSourceToken;
+    end
+    else if lcChildNode.NodeType = nBracketedQual then
+    begin
+      // go inside the brackets - should be a designator in there
+      Result := GetIdentifierBeforeAssign(lcChildNode);
     end
     else if lcChildNode.NodeType = nAssignment then
       break;
@@ -136,7 +142,9 @@ begin
 
     // this is an assign statement. Look at the LHS
     lcLeftName := GetIdentifierBeforeAssign(lcNode);
+
     Assert(lcLeftName <> nil, 'No id before assign');
+
     if AnsiSameText(lcLeftName.SourceCode, psFnName) then
     begin
       SendWarning(lcLeftName,
