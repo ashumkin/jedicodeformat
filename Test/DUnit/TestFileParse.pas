@@ -1056,7 +1056,7 @@ end;
 
 procedure TTestFileParse.TestParse_LittleTest59;
 begin
-  TestParseFile('LittleTest59', 43);
+  TestParseFile('LittleTest59', 61);
 end;
 
 initialization

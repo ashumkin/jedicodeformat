@@ -8,6 +8,12 @@ unit LittleTest59;
 }
 interface
 
+{$DEFINE FISH}
+
+uses
+ {$IF DEFINED(FISH)}Messages{$ELSE}Controls{$IFEND},
+  Forms;
+
 const
   FOO = 2;
 
@@ -15,6 +21,6 @@ implementation
 
 uses
  {$IF FOO=1}Classes{$ELSE}SysUtils{$IFEND},
-  DB;
+  StdCtrls;
 
 end.

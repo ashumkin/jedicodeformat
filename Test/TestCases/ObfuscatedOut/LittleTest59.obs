@@ -1,2 +1,3 @@
-unit littletest59;interface const foo=2;implementation uses{$IF FOO=1}classes{$ELSE}
-SysUtils{$IFEND},db;end. 
+unit littletest59;interface{$DEFINE FISH}uses{$IF DEFINED(FISH)}messages{$ELSE}Controls
+{$IFEND},forms;const foo=2;implementation uses{$IF FOO=1}classes{$ELSE}SysUtils{$IFEND}
+,stdctrls;end. 
