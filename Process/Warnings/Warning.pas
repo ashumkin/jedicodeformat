@@ -26,6 +26,10 @@ var
   lsMessage, lsProc: string;
   lcToken: TSourceToken;
 begin
+  { don't bother with the rest }
+  if not Assigned(fOnWarning) then
+    exit;
+
   lsMessage := psMessage;
   if (pcNode is TSourceToken) then
   begin
@@ -47,8 +51,7 @@ begin
       lsMessage := lsMessage  + ' in ' + GetBlockType(lcToken) + ' ' + lsProc;
   end;
 
-  if Assigned(fOnWarning) then
-    fOnWarning(lsMessage);
+  fOnWarning(lsMessage);
 end;
 
 

@@ -15,14 +15,14 @@ type
 
   TWarnEmptyBlock = class(TWarning)
     public
-      procedure VisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+      procedure PreVisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
   end;
 
 implementation
 
 uses ParseTreeNode, ParseTreeNodeType;
 
-procedure TWarnEmptyBlock.VisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TWarnEmptyBlock.PreVisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   lcNode: TParseTreeNode;
   liSolidChildCount: integer;

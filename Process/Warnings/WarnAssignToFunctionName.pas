@@ -28,7 +28,7 @@ type
     private
       procedure WarnAllAssigns(const psFnName: string; const pcRoot: TObject);
     public
-      procedure VisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+      procedure PreVisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
   end;
 
 
@@ -76,7 +76,7 @@ begin
   end;
 end;
 
-procedure TWarnAssignToFunctionName.VisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TWarnAssignToFunctionName.PreVisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   lcNode: TParseTreeNode;
   lcFunctionHeading: TParseTreeNode;

@@ -21,7 +21,7 @@ type
 
   TWarnCaseNoElse = class(TWarning)
     public
-      procedure VisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+      procedure PreVisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
   end;
 
 
@@ -32,7 +32,7 @@ uses
 
 
 
-procedure TWarnCaseNoElse.VisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TWarnCaseNoElse.PreVisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   lcNode: TParseTreeNode;
 begin
