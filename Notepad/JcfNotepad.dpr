@@ -158,7 +158,8 @@ uses
   frTransform in '..\Ui\Settings\frTransform.pas' {fTransform: TFrame},
   AlignField in '..\Process\Align\AlignField.pas',
   frClarifyBlocks in '..\Ui\Settings\frClarifyBlocks.pas' {fClarifyBlocks: TFrame},
-  SortUses in '..\Process\Transform\SortUses.pas';
+  SortUses in '..\Process\Transform\SortUses.pas',
+  SortUsesData in '..\Process\Transform\SortUsesData.pas';
 
 {$R *.res}
 

@@ -18,6 +18,7 @@ type
     cbBreakUsesSortOnComment: TCheckBox;
     cbBreakUsesSortOnReturn: TCheckBox;
     rgUsesSortOrder: TRadioGroup;
+    cbNoComments: TCheckBox;
   private
   public
     constructor Create(AOwner: TComponent); override;
@@ -51,6 +52,8 @@ begin
     cbBreakUsesSortOnComment.Checked := BreakUsesSortOnComment;
 
     rgUsesSortOrder.ItemIndex := Ord(UsesSortOrder);
+
+    cbNoComments.Checked := SortUsesNoComments;
   end;
 
 end;
@@ -68,6 +71,8 @@ begin
     BreakUsesSortOnComment := cbBreakUsesSortOnComment.Checked;
 
     UsesSortOrder := TUsesSortOrder(rgUsesSortOrder.ItemIndex);
+
+    SortUsesNoComments := cbNoComments.Checked;
   end;
 
 end;

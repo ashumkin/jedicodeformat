@@ -41,6 +41,8 @@ type
     { woker procs }
     fiCurrentIndex: integer;
 
+    procedure SetSourceCode(const Value: string);
+
     function Current: char;
     function CurrentChars(const piCount: integer): string;
     function ForwardChar(const piOffset: integer): char;
@@ -80,10 +82,9 @@ type
     constructor Create;
     destructor Destroy; override;
 
-    procedure Reset;
     function BuildTokenList: TSourceTokenList;
 
-    property SourceCode: string read fsSourceCode write fsSourceCode;
+    property SourceCode: string read fsSourceCode write SetSourceCode;
   end;
 
 
@@ -100,12 +101,19 @@ uses
 constructor TBuildTokenList.Create;
 begin
   inherited;
-  Reset;
+  SourceCode := '';
 end;
 
 destructor TBuildTokenList.Destroy;
 begin
   inherited;
+end;
+
+procedure TBuildTokenList.SetSourceCode(const Value: string);
+begin
+  fsSourceCode := Value;
+  // reset the index 
+  fiCurrentIndex := 1;
 end;
 
 function TBuildTokenList.GetNextToken: TSourceToken;
@@ -697,12 +705,6 @@ begin
   Result := lcList;
 end;
 
-
-procedure TBuildTokenList.Reset;
-begin
-  fiCurrentIndex := 1;
-end;
-
 function TBuildTokenList.Current: char;
 begin
   Result := fsSourceCode[fiCurrentIndex];
@@ -738,6 +740,5 @@ function TBuildTokenList.EndOfFileAfter(const piChars: integer): boolean;
 begin
   Result := (fiCurrentIndex + piChars) > Length(fsSourceCode);
 end;
-
 
 end.

@@ -65,6 +65,9 @@ type
 
     procedure TestSortByCommentSection1;
     procedure TestSortByCommentSection2;
+
+    procedure TestIfDef1;
+    procedure TestIfDef2;
   end;
 
 implementation
@@ -341,6 +344,60 @@ const
 begin
   SetTestSortState;
   FormatSettings.Transform.BreakUsesSortOnComment := True;
+
+  TestProcessResult(TSortUses, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestSortUses.TestIfDef1;
+const
+  IN_UNIT_TEXT = TEST_UNIT_START +
+    'uses' + AnsiLineBreak +
+    '  aZUnit, qZUnit, bZUnit, fZUNit,' + AnsiLineBreak +
+    '  {$IFDEF foo}' +  AnsiLineBreak +
+    '  aUnit, gUnit, bUnit;' + AnsiLineBreak +
+    '  {$ELSE}' +  AnsiLineBreak +
+    '  aQUnit, gQUnit, bQUnit;' + AnsiLineBreak +
+    '  {$ENDIF}' + AnsiLineBreak +
+    TEST_UNIT_END;
+  OUT_UNIT_TEXT = TEST_UNIT_START +
+    'uses' + AnsiLineBreak +
+    '  aZUnit, bZUnit, fZUNit,' + AnsiLineBreak +
+    '  qZUnit, {$IFDEF foo}' + AnsiLineBreak +
+    '  aUnit, gUnit, bUnit;' + AnsiLineBreak +
+    '  {$ELSE}' + AnsiLineBreak +
+    '  aQUnit, bQUnit, gQUnit;' + AnsiLineBreak +
+    '  {$ENDIF}' + AnsiLineBreak +
+    TEST_UNIT_END;
+begin
+  SetTestSortState;
+
+  TestProcessResult(TSortUses, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestSortUses.TestIfDef2;
+const
+  IN_UNIT_TEXT = TEST_UNIT_START +
+    'uses' + AnsiLineBreak +
+    'aZUnit, qZUnit, bZUnit, fZUNit,' + AnsiLineBreak +
+    '{$IFDEF foo}' + AnsiLineBreak +
+    'aUnit, gUnit, bUnit,' + AnsiLineBreak +
+    '{$ELSE}' + AnsiLineBreak +
+    'aQUnit, gQUnit, bQUnit,' + AnsiLineBreak +
+    '{$ENDIF}' + AnsiLineBreak +
+    'xMUnit, gMUnit, rMUnit;' + AnsiLineBreak +
+  TEST_UNIT_END;
+  OUT_UNIT_TEXT = TEST_UNIT_START +
+    'uses' + AnsiLineBreak +
+    'aZUnit, bZUnit, fZUNit,' + AnsiLineBreak +
+    'qZUnit, {$IFDEF foo}' + AnsiLineBreak +
+    'aUnit, gUnit, bUnit,' + AnsiLineBreak +
+    '{$ELSE}' + AnsiLineBreak +
+    'aQUnit, bQUnit,' + AnsiLineBreak +
+    'gQUnit, {$ENDIF}' + AnsiLineBreak +
+    'gMUnit, rMUnit, xMUnit;' + AnsiLineBreak +
+    TEST_UNIT_END;
+begin
+  SetTestSortState;
 
   TestProcessResult(TSortUses, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;

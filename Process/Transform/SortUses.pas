@@ -168,6 +168,7 @@ var
   lcToken: TSourceToken;
   lcSections: TObjectList;
   lcCurrentSection: TUsesSection;
+  leBreakTokens: TTokenTypeSet;
 
   procedure CollectWhiteSpace;
   begin
@@ -186,8 +187,13 @@ var
     lcSections.Add(lcCurrentSection);
   end;
 
+  function IsBreakToken(const pcToken: TSourceToken): Boolean;
+  begin
+    Result := (lcToken.TokenType in leBreakTokens) or
+      ((lcToken.TokenType = ttComment) and (lcToken.CommentStyle = eCompilerDirective));
+  end;
+
 var
-  leBreakTokens: TTokenTypeSet;
   lbStartFirstSection: boolean;
   lbStartUsesItem: boolean;
   liSectionLoop: integer;
@@ -226,7 +232,7 @@ begin
     while (lcToken <> nil) and lcToken.HasParentNode(nIdentList) and lcToken.HasParentNode(nUses) do
     begin
       { end of section, start of the next }
-      if (lcToken.TokenType in leBreakTokens) and (not lbStartUsesItem) then
+      if IsBreakToken(lcToken) and (not lbStartUsesItem) then
       begin
         { the break token is in a non-sorted section }
         NewSection(False);

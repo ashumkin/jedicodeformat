@@ -25,7 +25,7 @@ inherited fTransform: TfTransform
     Left = 4
     Top = 110
     Width = 161
-    Height = 107
+    Height = 131
     Caption = 'Sort &uses clauses'
     TabOrder = 2
     object cbSortInterfaceUses: TCheckBox
@@ -59,6 +59,14 @@ inherited fTransform: TfTransform
       Height = 17
       Caption = 'Break on &return'
       TabOrder = 3
+    end
+    object cbNoComments: TCheckBox
+      Left = 8
+      Top = 104
+      Width = 133
+      Height = 17
+      Caption = 'Only with no comments'
+      TabOrder = 4
     end
   end
   object rgUsesSortOrder: TRadioGroup

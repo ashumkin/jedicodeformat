@@ -40,8 +40,13 @@ type
     fbAddBlockEndSemicolon: Boolean;
 
     { sort uses clauses }
+
+    { when to sort }
     fbSortInterfaceUses: Boolean;
     fbSortImplementationUses: Boolean;
+    fbSortUsesNoComments: boolean;
+
+    { how to sort}
     fbBreakUsesSortOnReturn: Boolean;
     fbBreakUsesSortOnComment: Boolean;
     feUsesSortOrder: TUsesSortOrder;
@@ -56,6 +61,8 @@ type
 
     property SortInterfaceUses: Boolean read fbSortInterfaceUses write fbSortInterfaceUses;
     property SortImplementationUses: Boolean read fbSortImplementationUses write fbSortImplementationUses;
+    property SortUsesNoComments: Boolean read fbSortUsesNoComments write fbSortUsesNoComments;
+
     property BreakUsesSortOnReturn: Boolean read fbBreakUsesSortOnReturn write fbBreakUsesSortOnReturn;
     property BreakUsesSortOnComment: Boolean read fbBreakUsesSortOnComment write fbBreakUsesSortOnComment;
     property UsesSortOrder: TUsesSortOrder read feUsesSortOrder write feUsesSortOrder;
@@ -72,6 +79,7 @@ const
   REG_SORT_USES_BREAK_ON_RETURN = 'SortUsesBreakOnReturn';
   REG_SORT_USES_BREAK_ON_COMMENT = 'SortUsesBreakOnComment';
   REG_SORT_USES_SORT_ORDER = 'SortUsesSortOrder';
+  REG_SORT_USES_NO_COMMENTS = 'SortUsesNoComments';
 
 constructor TSetTransform.Create;
 begin
@@ -90,6 +98,7 @@ begin
   fbBreakUsesSortOnReturn := pcStream.Read(REG_SORT_USES_BREAK_ON_RETURN, True);
   fbBreakUsesSortOnComment := pcStream.Read(REG_SORT_USES_BREAK_ON_COMMENT, True);
   feUsesSortOrder := TUsesSortOrder(pcStream.Read(REG_SORT_USES_SORT_ORDER, Ord(eAlpha)));
+  fbSortUsesNoComments := pcStream.Read(REG_SORT_USES_NO_COMMENTS, True);
 end;
 
 procedure TSetTransform.WriteToStream(const pcOut: TSettingsOutput);
@@ -104,6 +113,7 @@ begin
   pcOut.Write(REG_SORT_USES_BREAK_ON_RETURN, fbBreakUsesSortOnReturn);
   pcOut.Write(REG_SORT_USES_BREAK_ON_COMMENT, fbBreakUsesSortOnComment);
   pcOut.Write(REG_SORT_USES_SORT_ORDER, Ord(feUsesSortOrder));
+  pcOut.Write(REG_SORT_USES_NO_COMMENTS, fbSortUsesNoComments);
 end;
 
 end.

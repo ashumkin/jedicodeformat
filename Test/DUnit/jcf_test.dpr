@@ -159,7 +159,9 @@ uses
   TestAddBeginEnd in 'TestAddBeginEnd.pas',
   AlignField in '..\..\Process\Align\AlignField.pas',
   TestFormatPart in 'TestFormatPart.pas',
-  SortUses in '..\..\Process\Transform\SortUses.pas';
+  SortUses in '..\..\Process\Transform\SortUses.pas',
+  TestSortUses in 'TestSortUses.pas',
+  SortUsesData in '..\..\Process\Transform\SortUsesData.pas';
 
 {$R *.res}
 

@@ -153,7 +153,6 @@ begin
     Screen.Cursor := crHourGlass;
 
     // turn text into tokens
-    fcTokeniser.Reset;
     fcTokeniser.SourceCode := InputCode;
     lcTokenList := fcTokeniser.BuildTokenList;
     try   { finally free the list  }

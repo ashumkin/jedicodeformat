@@ -109,6 +109,8 @@ type
     function HasParentNode(const peNodeType: TParseTreeNodeType;
       const piMaxDepth: integer): boolean; overload;
 
+    function HasParentNode(const pcParentNode: TParseTreeNode): boolean; overload;
+
     function GetParentNode(const peNodeTypes: TParseTreeNodeTypeSet): TParseTreeNode; overload;
     function GetParentNode(const peNodeType: TParseTreeNodeType): TParseTreeNode; overload;
 
@@ -421,6 +423,14 @@ function TParseTreeNode.HasParentNode(const peNodeType: TParseTreeNodeType;
   const piMaxDepth: integer): boolean;
 begin
   Result := HasParentNode([peNodeType], piMaxDepth);
+end;
+
+function TParseTreeNode.HasParentNode(const pcParentNode: TParseTreeNode): boolean;
+begin
+  Result := (Parent = pcParentNode);
+
+  if (not Result) and (Parent <> nil) then
+    Result := Parent.HasParentNode(pcParentNode);
 end;
 
 
