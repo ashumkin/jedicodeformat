@@ -30,11 +30,13 @@ interface
 
 
 { get the directory for the test files, relative to the exe dir, not hardcoded }
+function GetBaseDir: string;
 function GetExeFilesDir: string;
 function GetTestFilesDir: string;
 function GetObsOutFilesDir: string;
 function GetRefOutFilesDir: string;
 
+function GetTestSettingsFileName: string;
 
 implementation
 
@@ -91,4 +93,8 @@ begin
   Result := GetTestFilesDir + 'Out\';
 end;
 
+function GetTestSettingsFileName: string;
+begin
+  Result := GetTestFilesDir + 'JCFTestSettings.cfg';
+end;
 end.

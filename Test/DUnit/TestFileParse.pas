@@ -29,8 +29,7 @@ uses
 type
  TTestFileParse = class(TTestCase)
  private
-    procedure TestParseFile(const psInFileName, psRefOutput: string; const piTokenCount: integer); overload;
-    procedure TestParseFile(const psName: string; const piTokenCount: integer); overload;
+    procedure TestParseFile(psInFileName: string; const piTokenCount: integer); overload;
 
  protected
    procedure Setup; override;
@@ -189,7 +188,7 @@ implementation
 
 uses
   { delphi } SysUtils,
-  JclStrings,
+  JclStrings, JclFileUtils,
   FileConverter, ConvertTypes, JcfSettings, JcfRegistrySettings,
   TestConstants;
 
@@ -202,12 +201,19 @@ begin
 end;
 
 
-procedure TTestFileParse.TestParseFile(const psInFileName, psRefOutput: string;
+procedure TTestFileParse.TestParseFile(psInFileName: string;
   const piTokenCount: integer);
 var
   lcConverter: TFileConverter;
   lsSettingsFileName, lsOutFileName: string;
 begin
+  { does it have an file extension? }
+  if Pos('.', psInFileName) <= 0 then
+    psInFileName := psInFileName + '.pas';
+
+  if Pos(PathSeparator, psInFileName) <= 0 then
+    psInFileName := GetTestFilesDir + psInFileName;
+
   Check(FileExists(psInFileName), 'input file ' + psInFileName + ' not found');
 
   lcConverter := TFileConverter.Create;
@@ -216,7 +222,7 @@ begin
     lcConverter.GuiMessages := False;
 
     { see also TestFullClarify }
-    lsSettingsFileName := GetTestFilesDir + 'JCFTestSettings.cfg';
+    lsSettingsFileName := GetTestSettingsFileName;
     Check(FileExists(lsSettingsFileName), 'Settings file ' + lsSettingsFileName + ' not found');
 
     FormatSettings.ReadFromFile(lsSettingsFileName);
@@ -263,26 +269,6 @@ begin
   Check(DirectoryExists(GetRefOutFilesDir), 'Test files ref out dir ' + GetTestFilesDir + ' not found');
 end;
 
-
-procedure TTestFileParse.TestParseFile(const psName: string; const piTokenCount: integer);
-var
-  lsInName, lsOutName: string;
-begin
-  { does it have an file extension? }
-  if Pos('.', psName) > 0 then
-  begin
-    lsInName := psName;
-    lsOutName := StrBefore('.', psName) + '.out';
-  end
-  else
-  begin
-    lsInName := psName + '.pas';
-    lsOutName := psName + '.out';
-  end;
-
-  TestParseFile(GetTestFilesDir + lsInName,
-    GetRefOutFilesDir + lsOutName, piTokenCount)
-end;
 
 procedure TTestFileParse.TestParse_Empty1;
 begin

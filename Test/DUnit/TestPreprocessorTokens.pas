@@ -66,7 +66,7 @@ var
 begin
   inherited;
 
-  lsSettingsFileName := GetTestFilesDir + 'JCFTestSettings.cfg';
+  lsSettingsFileName := GetTestSettingsFileName;
   Check(FileExists(lsSettingsFileName), 'Settings file ' + lsSettingsFileName + ' not found');
 
   GetRegSettings.FormatConfigFileName := lsSettingsFileName;

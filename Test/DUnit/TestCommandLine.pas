@@ -155,7 +155,7 @@ end;
 procedure TTestCommandline.TestFormatClarify;
 begin
   fsOutputExt := 'out';
-  fsJcfParams := ' -config=' + GetTestFilesDir + 'JCFTestSettings.cfg -out -D ' + GetTestFilesDir;
+  fsJcfParams := ' -config=' + GetTestSettingsFileName + ' -out -D ' + GetTestFilesDir;
   fsRefDir := GetRefOutFilesDir;
   fsFileMask := '*.out';
 

@@ -208,7 +208,7 @@ begin
   if not GetRegSettings.HasRead then
     GetRegSettings.ReadAll;
 
-  lsSettingsFileName := GetTestFilesDir + 'JCFTestSettings.cfg';
+  lsSettingsFileName := GetTestSettingsFileName;
   Check(FileExists(lsSettingsFileName), 'Settings file ' + lsSettingsFileName + ' not found');
 
   FormatSettings.ReadFromFile(lsSettingsFileName);
