@@ -61,6 +61,11 @@ begin
   if pt = nil then
     exit;
 
+  { dont apply this rule just after a conditional compilation directive }
+  lcPrev := pt.PriorTokenWithExclusions([ttWhiteSpace, ttReturn]);
+  if (lcPrev <> nil) and (lcPrev.TokenType = ttComment) and (lcPrev.CommentStyle = eCompilerDirective) then
+    exit;
+
   if pt.HasParentNode(nLiteralString) then
   begin
     Result := not StartsLiteralString(pt);
