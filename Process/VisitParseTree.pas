@@ -31,8 +31,8 @@ interface
 
 type
 
-  // action on visiting a node.
-  TVisitAction = (aNone, aDelete, aInsertAfter, aInsertBefore);
+  // action performed by the treewalker after visiting a node.
+  TVisitAction = (aNone, aDelete, aInsertBefore);
 
   // what happens on visiting a node. More fields to come?
   TRVisitResult = record

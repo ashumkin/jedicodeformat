@@ -192,8 +192,7 @@ begin
         lcNextReturn := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace, ttComment]);
         if (lcNextReturn <> nil) and (lcNextReturn.TokenType <> ttReturn) then
         begin
-          prVisitResult.Action  := aInsertAfter;
-          prVisitResult.NewItem := NewReturn;
+          lcSourceToken.AddSiblingAfter(NewReturn);
         end;
       end;
       eNever:

@@ -58,6 +58,10 @@ type
 
     function NewChild: TParseTreeNode;
     procedure AddChild(const pcChild: TParseTreeNode);
+    procedure AddSiblingAfter(const pcChild: TParseTreeNode);
+    procedure AddSiblingBefore(const pcChild: TParseTreeNode);
+    procedure SelfDestruct;
+
     procedure InsertChild(const piIndex: integer; const pcChild: TParseTreeNode);
     function RemoveChild(const pcChild: TParseTreeNode): integer; overload;
     function RemoveChild(const piIndex: integer): integer; overload;
@@ -74,10 +78,8 @@ type
 
     function FirstNodeBefore(const pcChild: TParseTreeNode): TParseTreeNode;
     function FirstNodeAfter(const pcChild: TParseTreeNode): TParseTreeNode;
-    function GetImmediateChild(const peNodeTypes: TParseTreeNodeTypeSet): TParseTreeNode;
-      overload;
-    function GetImmediateChild(const peNodeType: TParseTreeNodeType): TParseTreeNode;
-      overload;
+    function GetImmediateChild(const peNodeTypes: TParseTreeNodeTypeSet): TParseTreeNode; overload;
+    function GetImmediateChild(const peNodeType: TParseTreeNodeType): TParseTreeNode; overload;
 
     function Level: integer;
     function HasChildren: boolean;
@@ -103,11 +105,8 @@ type
     function HasParentNode(const peNodeType: TParseTreeNodeType;
       const piMaxDepth: integer): boolean; overload;
 
-    function GetParentNode(const peNodeTypes: TParseTreeNodeTypeSet): TParseTreeNode;
-      overload;
-    function GetParentNode(const peNodeType: TParseTreeNodeType): TParseTreeNode;
-      overload;
-
+    function GetParentNode(const peNodeTypes: TParseTreeNodeTypeSet): TParseTreeNode; overload;
+    function GetParentNode(const peNodeType: TParseTreeNodeType): TParseTreeNode; overload;
 
     { this one needs some explanation. Need to answer questions like
      'Is this node in a type decl, on the right of an equal sign
@@ -118,10 +117,8 @@ type
       const peToken: TTokenType): boolean; overload;
 
     { same with parse tree interior nodes }
-    function IsOnRightOf(const peRootNodeTypes, peNodes: TParseTreeNodeTypeSet): boolean;
-      overload;
-    function IsOnRightOf(const peRootNodeType, peNode: TParseTreeNodeType): boolean;
-      overload;
+    function IsOnRightOf(const peRootNodeTypes, peNodes: TParseTreeNodeTypeSet): boolean; overload;
+    function IsOnRightOf(const peRootNodeType, peNode: TParseTreeNodeType): boolean; overload;
 
     function Describe: string; virtual;
 
@@ -135,7 +132,6 @@ type
       No process is guaranteed any input value here
       Create for alignment processes }
     property UserTag: integer Read fiUserTag Write fiUserTag;
-
   end;
 
 
@@ -187,6 +183,28 @@ procedure TParseTreeNode.AddChild(const pcChild: TParseTreeNode);
 begin
   pcChild.fcParent := self;
   fcChildNodes.Add(pcChild);
+end;
+
+procedure TParseTreeNode.AddSiblingAfter(const pcChild: TParseTreeNode);
+begin
+  Assert(Parent <> nil);
+  Assert(pcChild <> nil);
+
+  Parent.InsertChild(IndexOfSelf + 1, pcChild);
+end;
+
+procedure TParseTreeNode.AddSiblingBefore(const pcChild: TParseTreeNode);
+begin
+  Assert(Parent <> nil);
+  Assert(pcChild <> nil);
+
+  Parent.InsertChild(IndexOfSelf, pcChild);
+end;
+
+procedure TParseTreeNode.SelfDestruct;
+begin
+  Assert(Parent <> nil);
+  Parent.RemoveChild(self);
 end;
 
 procedure TParseTreeNode.InsertChild(const piIndex: integer;

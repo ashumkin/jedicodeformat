@@ -86,7 +86,6 @@ end;
 procedure TTreeWalker.ProcessAction(const pcNode: TParseTreeNode; const prResults: TRVisitResult);
 var
   lcParent: TParseTreeNode;
-  liIndex: integer;
 begin
   case prResults.Action of
     aNone: ;
@@ -96,18 +95,6 @@ begin
        // remove current node from parent
       lcParent.RemoveChild(pcNode);
       fbRecalcIndex := True;
-    end;
-    aInsertAfter:
-    begin
-      // must have a new item
-      Assert(prResults.NewItem <> nil);
-
-      lcParent := pcNode.Parent;
-      liIndex := lcParent.IndexOfChild(pcNode);
-
-      lcParent.InsertChild(liIndex + 1, TParseTreeNode(prResults.NewItem));
-      if prResults.NewItem2 <> nil then
-        lcParent.InsertChild(liIndex + 2, TParseTreeNode(prResults.NewItem2));
     end;
     aInsertBefore:
     begin

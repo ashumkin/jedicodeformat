@@ -84,14 +84,13 @@ begin
       { need a return? }
       if (lcNext <> nil) and (lcNext.TokenType <> ttReturn) then
       begin
-        prVisitResult.Action := aInsertAfter;
 
         lcNew := TSourceToken.Create;
         lcNew.TokenType := ttReturn;
         lcNew.SourceCode := AnsiLineBreak;
         XPos  := 0;
 
-        prVisitResult.NewItem := lcNew;
+        lcToken.AddSiblingAfter(lcNew);
       end;
     end
     else

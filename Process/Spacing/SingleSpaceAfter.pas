@@ -278,8 +278,7 @@ begin
       lcNew.TokenType := ttWhiteSpace;
       lcNew.SourceCode := AnsiSpace;
 
-      prVisitResult.Action  := aInsertAfter;
-      prVisitResult.NewItem := lcNew;
+      lcSourceToken.AddSiblingAfter(lcNew);
     end;
 
   end;

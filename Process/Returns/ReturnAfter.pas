@@ -537,14 +537,12 @@ begin
   case liReturnsNeeded of
     1:
     begin
-      prVisitResult.Action  := aInsertAfter;
-      prVisitResult.NewItem := NewReturn;
+      lcSourceToken.AddSiblingAfter(NewReturn);
     end;
     2:
     begin
-      prVisitResult.Action   := aInsertAfter;
-      prVisitResult.NewItem  := NewReturn;
-      prVisitResult.NewItem2 := NewReturn;
+      lcSourceToken.AddSiblingAfter(NewReturn);
+      lcSourceToken.AddSiblingAfter(NewReturn);
     end;
     else
     begin
