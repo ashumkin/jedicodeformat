@@ -46,7 +46,7 @@ implementation
 uses
   SysUtils,
   JclStrings,
-  FormatFlags, SourceToken, Tokens, TokenUtils, JcfSettings;
+  FormatFlags, SourceToken, Tokens, TokenUtils, JcfSettings, SetReturns;
 
 
 constructor TRemoveConsecutiveReturns.Create;
@@ -69,7 +69,7 @@ begin
   begin
     inc(liCount);
 
-    if liCount > FormatSettings.Returns.MaxConsecutiveReturns then
+    if (liCount - 1) > FormatSettings.Returns.MaxConsecutiveBlankLines then
     begin
       BlankToken(lcSourceToken);
     end;
@@ -81,7 +81,7 @@ end;
 
 function TRemoveConsecutiveReturns.IsIncludedInSettings: boolean;
 begin
-  Result := FormatSettings.Returns.RemoveConsecutiveReturns;
+  Result := FormatSettings.Returns.RemoveConsecutiveBlankLines;
 end;
 
 end.

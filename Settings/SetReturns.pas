@@ -66,8 +66,8 @@ type
 
     feReturnChars: TReturnChars;
 
-    fbRemoveConsecutiveReturns: Boolean;
-    fiMaxConsecutiveReturns: integer;
+    fbRemoveConsecutiveBlankLines: Boolean;
+    fiMaxConsecutiveBlankLines: integer;
 
   protected
   public
@@ -111,8 +111,10 @@ type
 
     property ReturnChars: TReturnChars read  feReturnChars write feReturnChars;
 
-    property RemoveConsecutiveReturns: Boolean read fbRemoveConsecutiveReturns write fbRemoveConsecutiveReturns;
-    property MaxConsecutiveReturns: integer read fiMaxConsecutiveReturns write fiMaxConsecutiveReturns;
+    property RemoveConsecutiveBlankLines: Boolean
+      read fbRemoveConsecutiveBlankLines write fbRemoveConsecutiveBlankLines;
+    property MaxConsecutiveBlankLines: integer
+      read fiMaxConsecutiveBlankLines write fiMaxConsecutiveBlankLines;
 
   end;
 
@@ -150,8 +152,8 @@ const
 
   REG_RETURN_CHARS = 'ReturnChars';
 
-  REG_REMOVE_CONSECUTIVE_RETURNS = 'RemoveConsecutiveReturns';
-  REG_MAX_CONSECUTIVE_RETURNS = 'MaxConsecutiveReturns';
+  REG_REMOVE_CONSECUTIVE_BLANK_LINES = 'RemoveConsecutiveBlankLines';
+  REG_MAX_CONSECUTIVE_BLANK_LINES = 'MaxConsecutiveBlankLines';
 
 constructor TSetReturns.Create;
 begin
@@ -191,8 +193,8 @@ begin
 
   feReturnChars := TReturnChars(pcStream.Read(REG_RETURN_CHARS, Ord(rcLeaveAsIs)));
 
-  fbRemoveConsecutiveReturns := pcStream.Read(REG_REMOVE_CONSECUTIVE_RETURNS, True);
-  fiMaxConsecutiveReturns := pcStream.Read(REG_MAX_CONSECUTIVE_RETURNS, 4);
+  fbRemoveConsecutiveBlankLines := pcStream.Read(REG_REMOVE_CONSECUTIVE_BLANK_LINES, True);
+  fiMaxConsecutiveBlankLines := pcStream.Read(REG_MAX_CONSECUTIVE_BLANK_LINES, 4);
 end;
 
 procedure TSetReturns.WriteToStream(const pcOut: TSettingsOutput);
@@ -228,8 +230,8 @@ begin
 
   pcOut.Write(REG_RETURN_CHARS, Ord(feReturnChars));
 
-  pcOut.Write(REG_REMOVE_CONSECUTIVE_RETURNS, fbRemoveConsecutiveReturns);
-  pcOut.Write(REG_MAX_CONSECUTIVE_RETURNS, fiMaxConsecutiveReturns);
+  pcOut.Write(REG_REMOVE_CONSECUTIVE_BLANK_LINES, fbRemoveConsecutiveBlankLines);
+  pcOut.Write(REG_MAX_CONSECUTIVE_BLANK_LINES, fiMaxConsecutiveBlankLines);
 end;
 
 end.

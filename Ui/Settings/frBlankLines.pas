@@ -34,8 +34,8 @@ type
   TfBlankLines = class(TfrSettingsFrame)
     Label1: TLabel;
     eNumReturnsAfterFinalEnd: TJvIntegerEdit;
-    cbRemoveConsecutiveReturns: TCheckBox;
-    edtMaxConsecutiveReturns: TJvIntegerEdit;
+    cbRemoveConsecutiveBlankLines: TCheckBox;
+    edtMaxConsecutiveBlankLines: TJvIntegerEdit;
     Label2: TLabel;
     GroupBox1: TGroupBox;
     cbRemoveBlockBlankLines: TCheckBox;
@@ -53,7 +53,11 @@ implementation
 
 {$R *.dfm}
 
-uses Tokens, SettingsTypes, JcfSettings, SetReturns, JcfHelp;
+uses
+  { delphi }
+  Math,
+  { local }
+  Tokens, SettingsTypes, JcfSettings, SetReturns, JcfHelp;
 
 constructor TfBlankLines.Create(AOwner: TComponent);
 begin
@@ -71,8 +75,8 @@ begin
 
     eNumReturnsAfterFinalEnd.Value := NumReturnsAfterFinalEnd;
 
-    cbRemoveConsecutiveReturns.Checked := RemoveConsecutiveReturns;
-    edtMaxConsecutiveReturns.Value := MaxConsecutiveReturns;
+    cbRemoveConsecutiveBlankLines.Checked := RemoveConsecutiveBlankLines;
+    edtMaxConsecutiveBlankLines.Value := MaxConsecutiveBlankLines;
   end;
 end;
 
@@ -86,8 +90,9 @@ begin
 
     NumReturnsAfterFinalEnd := eNumReturnsAfterFinalEnd.Value;
 
-    RemoveConsecutiveReturns := cbRemoveConsecutiveReturns.Checked;
-    MaxConsecutiveReturns := edtMaxConsecutiveReturns.Value;
+    RemoveConsecutiveBlankLines := cbRemoveConsecutiveBlankLines.Checked;
+    // this value is always at least 2
+    MaxConsecutiveBlankLines := Max(edtMaxConsecutiveBlankLines.Value, 2);
   end;
 end;
 

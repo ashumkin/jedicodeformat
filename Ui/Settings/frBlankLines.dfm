@@ -10,9 +10,9 @@ inherited fBlankLines: TfBlankLines
   object Label2: TLabel
     Left = 4
     Top = 168
-    Width = 116
+    Width = 134
     Height = 13
-    Caption = 'Max consecutive returns'
+    Caption = 'Max consecutive blank lines'
   end
   object eNumReturnsAfterFinalEnd: TJvIntegerEdit
     Left = 208
@@ -28,16 +28,16 @@ inherited fBlankLines: TfBlankLines
     HasMaxValue = True
     HasMinValue = True
   end
-  object cbRemoveConsecutiveReturns: TCheckBox
+  object cbRemoveConsecutiveBlankLines: TCheckBox
     Left = 4
     Top = 144
     Width = 201
     Height = 17
-    Caption = 'Remove consecutive returns'
+    Caption = 'Remove consecutive blank lines'
     TabOrder = 1
   end
-  object edtMaxConsecutiveReturns: TJvIntegerEdit
-    Left = 124
+  object edtMaxConsecutiveBlankLines: TJvIntegerEdit
+    Left = 144
     Top = 165
     Width = 49
     Height = 21
@@ -45,7 +45,7 @@ inherited fBlankLines: TfBlankLines
     ReadOnly = False
     TabOrder = 2
     Value = 0
-    MaxValue = 255
+    MaxValue = 99
     MinValue = 0
     HasMaxValue = True
     HasMinValue = True
