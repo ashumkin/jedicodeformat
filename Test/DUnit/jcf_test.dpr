@@ -154,7 +154,8 @@ uses
   RemoveConsecutiveReturns in '..\..\Process\Returns\RemoveConsecutiveReturns.pas',
   TestRemoveComment in 'TestRemoveComment.pas',
   TestMaxBlankLines in 'TestMaxBlankLines.pas',
-  TestTextAfterUnitEnd in 'TestTextAfterUnitEnd.pas';
+  TestTextAfterUnitEnd in 'TestTextAfterUnitEnd.pas',
+  TestCaseReturns in 'TestCaseReturns.pas';
 
 {
   gpprof in '..\..\..\..\..\Program Files\GpProfile\gpprof.pas',

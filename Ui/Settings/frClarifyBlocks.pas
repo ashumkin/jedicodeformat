@@ -40,6 +40,7 @@ type
     Label1: TLabel;
     rgCaseLabel: TRadioGroup;
     rgElseIf: TRadioGroup;
+    rgElseCase: TRadioGroup;
   private
 
   public
@@ -78,6 +79,9 @@ begin
     rgEndElse.ItemIndex    := Ord(EndElseStyle);
     rgCaseLabel.ItemIndex := Ord(CaseLabelStyle);
     rgElseIf.ItemIndex := Ord(ElseIfStyle);
+
+    rgCaseLabel.ItemIndex := Ord(CaseLabelStyle);
+    rgElseCase.ItemIndex := Ord(CaseElseStyle);
   end;
 end;
 
@@ -91,8 +95,10 @@ begin
     LabelBeginStyle := TBlockNewLineStyle(rgLabelBegin.ItemIndex);
     LabelStyle      := TBlockNewLineStyle(rgLabel.ItemIndex);
     EndElseStyle    := TBlockNewLineStyle(rgEndElse.ItemIndex);
-    CaseLabelStyle  :=  TBlockNewLineStyle(rgCaseLabel.ItemIndex);
     ElseIfStyle     := TBlockNewLineStyle(rgElseIf.ItemIndex);
+
+    CaseLabelStyle  := TBlockNewLineStyle(rgCaseLabel.ItemIndex);
+    CaseElseStyle   := TBlockNewLineStyle(rgElseCase.ItemIndex);
   end;
 end;
 

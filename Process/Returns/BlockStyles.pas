@@ -78,7 +78,7 @@ type
 implementation
 
 uses Tokens, SourceToken, TokenUtils, JCFSettings,
-  FormatFlags, SettingsTypes;
+  FormatFlags, SettingsTypes, SetReturns;
 
 const
   BreakWords: TTokenTypeSet = [ttThen, ttDo, ttElse, ttEnd];
@@ -118,33 +118,41 @@ begin
         Result := FormatSettings.Returns.LabelStyle;
     end;
   end
-  else if (pt.TokenType = ttElse) and (not pt.HasParentNode(nElseCase, 1)) and
-    (lcNextToken.TokenType = ttIf) then
+  else if (pt.TokenType = ttElse) then
   begin
-    { though else normally starts a block,
-     according to standards, there is never a return in "else if" (!!! check!)
-     But we have a config setting for Marcus F
 
-      **NB** rare exception: this does not apply when the if is not related to the else
-      ie
-       case (foo) of
-         1:
-          DoSomething1;
-         2:
-          SoSomething2;
-         else
-           // this is the else case, not part of an if.
-           // All statements from the 'else' to the 'end' form a block
-           if (SomeCond) then // though the 'if' is directly after the else, this is not an else-if
-             DoSomethingElse;
-           if (SomeOtherCond) then
-             DoSomeOtherThing;
-       end;
+    if pt.HasParentNode(nElseCase, 1) then
+    begin
+      Result := FormatSettings.Returns.CaseElseStyle;
+    end
+    else if (lcNextToken.TokenType = ttIf) then
+    begin
+      { though else normally starts a block,
+       according to standards, there is never a return in "else if" (!!! check!)
+       But we have a config setting for Marcus F
 
-       end;
+        **NB** rare exception: this does not apply when the if is not related to the else
+        ie
+         case (foo) of
+           1:
+            DoSomething1;
+           2:
+            SoSomething2;
+           else
+             // this is the else case, not part of an if.
+             // All statements from the 'else' to the 'end' form a block
+             if (SomeCond) then // though the 'if' is directly after the else, this is not an else-if
+               DoSomethingElse;
+             if (SomeOtherCond) then
+               DoSomeOtherThing;
+         end;
 
-     }
-    Result := FormatSettings.Returns.ElseIfStyle;
+         end;
+
+       }
+      Result := FormatSettings.Returns.ElseIfStyle;
+    end;
+
   end
   else
   begin

@@ -61,6 +61,7 @@ type
     feBlockStyle, feBlockBeginStyle: TBlockNewLineStyle;
     feLabelStyle, feLabelBeginStyle: TBlockNewLineStyle;
     feCaseLabelStyle: TBlockNewLineStyle;
+    feCaseElseStyle: TBlockNewLineStyle;
     feEndElseStyle: TBlockNewLineStyle;
     feElseIfStyle: TBlockNewLineStyle;
 
@@ -105,6 +106,7 @@ type
     property LabelBeginStyle: TBlockNewLineStyle read feLabelBeginStyle
       write feLabelBeginStyle;
     property CaseLabelStyle: TBlockNewLineStyle read feCaseLabelStyle write feCaseLabelStyle;
+    property CaseElseStyle: TBlockNewLineStyle read feCaseElseStyle write feCaseElseStyle;
 
     property EndElseStyle: TBlockNewLineStyle read feEndElseStyle write feEndElseStyle;
     property ElseIfStyle: TBlockNewLineStyle read feElseIfStyle write feElseIfStyle;
@@ -147,6 +149,7 @@ const
   REG_LABEL_STYLE       = 'Label';
   REG_LABEL_BEGIN_STYLE = 'LabelBegin';
   REG_CASE_LABEL_STYLE  = 'CaseLabel';
+  REG_CASE_ELSE_STYLE  = 'CaseElse';
   REG_END_ELSE_STYLE    = 'EndElse';
   REG_ELSE_IF_STYLE     = 'ElseIf';
 
@@ -188,6 +191,7 @@ begin
   feLabelStyle      := TBlockNewLineStyle(pcStream.Read(REG_LABEL_STYLE, Ord(eLeave)));
   feLabelBeginStyle := TBlockNewLineStyle(pcStream.Read(REG_LABEL_BEGIN_STYLE, Ord(eLeave)));
   feCaseLabelStyle  := TBlockNewLineStyle(pcStream.Read(REG_CASE_LABEL_STYLE, Ord(eLeave)));
+  feCaseElseStyle  := TBlockNewLineStyle(pcStream.Read(REG_CASE_ELSE_STYLE, Ord(eLeave)));
   feEndElseStyle    := TBlockNewLineStyle(pcStream.Read(REG_END_ELSE_STYLE, Ord(eLeave)));
   feElseIfStyle     := TBlockNewLineStyle(pcStream.Read(REG_ELSE_IF_STYLE, Ord(eNever)));
 
@@ -224,7 +228,8 @@ begin
   pcOut.Write(REG_LABEL_STYLE, Ord(feLabelStyle));
   pcOut.Write(REG_LABEL_BEGIN_STYLE, Ord(feLabelBeginStyle));
   pcOut.Write(REG_CASE_LABEL_STYLE, Ord(feCaseLabelStyle));
-
+  pcOut.Write(REG_CASE_ELSE_STYLE, Ord(feCaseElseStyle));
+ 
   pcOut.Write(REG_END_ELSE_STYLE, Ord(feEndElseStyle));
   pcOut.Write(REG_ELSE_IF_STYLE, Ord(feElseIfStyle));
 
