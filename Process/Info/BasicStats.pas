@@ -34,6 +34,8 @@ type
     procedure PreVisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
     procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
     function FinalSummary(var psMessage: string): Boolean; override;
+
+    function IsIncludedInSettings: boolean; override;
   end;
 
 implementation
@@ -43,7 +45,8 @@ uses
   SysUtils,
   JclStrings,
   { JCF  }
-  SourceToken, TokenType, ParseTreeNode, ParseTreeNodeType, TokenUtils;
+  SourceToken, TokenType, ParseTreeNode, ParseTreeNodeType, TokenUtils,
+  JcfSettings;
 
 function DisplayFloat(const ex: extended): string;
 begin
@@ -196,5 +199,10 @@ begin
 
 end;
 
+
+function TBasicStats.IsIncludedInSettings: boolean;
+begin
+  Result := Settings.Log.LogStats;
+end;
 
 end.

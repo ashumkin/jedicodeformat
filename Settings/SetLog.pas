@@ -44,6 +44,7 @@ type
     fsSpecifiedDirectory: string;
     fbViewLogAfterRun: boolean;
     fbLogTime: boolean;
+    fbLogStats: boolean;
 
   protected
 
@@ -66,6 +67,7 @@ type
 
     property ViewLogAfterRun: boolean read fbViewLogAfterRun write fbViewLogAfterRun;
     property LogTime: boolean read fbLogTime write fbLogTime;
+    property LogStats: boolean read fbLogStats write fbLogStats;
 
   end;
 
@@ -82,6 +84,7 @@ const
   REG_SPECIFIED_DIRECTORY = 'SpecifiedDirectory';
   REG_VIEW_LOG_AFTER_RUN = 'ViewLogAfterRun';
   REG_LOG_TIME  = 'LogTime';
+  REG_LOG_STATS = 'LogStats';
 
   { TSetLog }
 
@@ -119,6 +122,7 @@ begin
   fsSpecifiedDirectory := pcStream.Read(REG_SPECIFIED_DIRECTORY, 'c:\');
   fbViewLogAfterRun := pcStream.Read(REG_VIEW_LOG_AFTER_RUN, False);
   fbLogTime  := pcStream.Read(REG_LOG_TIME, False);
+  fbLogStats := pcStream.Read(REG_LOG_STATS, False);
 end;
 
 
@@ -145,6 +149,7 @@ begin
   pcOut.Write(REG_SPECIFIED_DIRECTORY, fsSpecifiedDirectory);
   pcOut.Write(REG_VIEW_LOG_AFTER_RUN, fbViewLogAfterRun);
   pcOut.Write(REG_LOG_TIME, fbLogTime);
+  pcOut.Write(REG_LOG_STATS, fbLogStats);
 end;
 
 

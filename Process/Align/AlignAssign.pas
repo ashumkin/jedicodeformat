@@ -2,7 +2,7 @@
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code
 
-The Original Code is AlignConst.pas, released April 2000.
+The Original Code is AlignAssign.pas, released April 2000.
 The Initial Developer of the Original Code is Anthony Steele.
 Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
 All Rights Reserved.
@@ -19,10 +19,10 @@ under the License.
 ------------------------------------------------------------------------------*)
 {*)}
 
-unit AlignConst;
+unit AlignAssign;
 
 { AFS 3 Feb 2K
- Align the RHS of consecutive = signs in a const section
+ Align the RHS of consecutive assign statements
 }
 
 interface
@@ -31,8 +31,9 @@ uses SourceToken, AlignBase;
 
 type
 
-  TAlignConst = class(TAlignBase)
+  TAlignAssign = class(TAlignBase)
   private
+    fiStartBlockLevel: integer;
   protected
     { TokenProcessor overrides }
     function IsTokenInContext(const pt: TSourceToken): boolean; override;
@@ -41,6 +42,7 @@ type
     function TokenIsAligned(const pt: TSourceToken): boolean; override;
     function TokenEndsStatement(const pt: TSourceToken): boolean; override;
 
+    procedure ResetState; override;
   public
     constructor Create; override;
 
@@ -50,23 +52,39 @@ type
 implementation
 
 uses
-    { local} WordMap, FormatFlags, JcfSettings,
-    TokenType, ParseTreeNodeType;
+  { local}
+  WordMap, FormatFlags, JcfSettings, TokenUtils,
+  ParseTreeNodeType, TokenType;
+
+{ TAlignAssign }
 
 
-constructor TAlignConst.Create;
+constructor TAlignAssign.Create;
 begin
   inherited;
-  FormatFlags := FormatFlags + [eAlignConst];
+  FormatFlags := FormatFlags + [eAlignAssign];
+  fiStartBlockLevel := -1;
 end;
 
-function TAlignConst.IsIncludedInSettings: boolean;
+procedure TAlignAssign.ResetState;
 begin
-  Result := (not Settings.Obfuscate.Enabled) and Settings.Align.AlignConst;
+  inherited;
+  fiStartBlockLevel := -1;
 end;
 
-{ a token that ends an const block }
-function TAlignConst.TokenEndsStatement(const pt: TSourceToken): boolean;
+
+{ a token that ends an assign block }
+function TAlignAssign.IsIncludedInSettings: boolean;
+begin
+  Result := (not Settings.Obfuscate.Enabled) and Settings.Align.AlignAssign;
+end;
+
+function TAlignAssign.IsTokenInContext(const pt: TSourceToken): boolean;
+begin
+  Result := InStatements(pt) and pt.HasParentNode(nAssignment);
+end;
+
+function TAlignAssign.TokenEndsStatement(const pt: TSourceToken): boolean;
 begin
   { only look at solid tokens }
   if (pt.TokenType in [ttReturn, ttWhiteSpace]) then
@@ -75,8 +93,8 @@ begin
   end
   else
   begin
-    Result := (not pt.HasParentNode(nConstSection)) or
-      (pt.TokenType in [ttSemiColon, ttEOF, ttReservedWord]);
+    Result := (pt.TokenType in [ttSemiColon, ttEOF, ttReservedWord]) or
+    (not InStatements(pt));
 
     // ended by a blank line
     if (pt.TokenType = ttReturn) and (pt.SolidTokenOnLineIndex <= 1) then
@@ -84,15 +102,14 @@ begin
   end;
 end;
 
-function TAlignConst.IsTokenInContext(const pt: TSourceToken): boolean;
+function TAlignAssign.TokenIsAligned(const pt: TSourceToken): boolean;
 begin
-  Result := (pt <> nil) and (pt.HasParentNode(nConstSection)) and
-    ((not Settings.Align.InterfaceOnly)) or (pt.HasParentNode(nInterfaceSection));
+  { keep the indent - don't align statement of differing indent levels }
+  if (fiStartBlockLevel < 0) and (pt.TokenType = ttAssign) then
+    fiStartBlockLevel := BlockLevel(pt);
+
+  Result := (pt.TokenType = ttAssign) and (fiStartBlockLevel = BlockLevel(pt));
 end;
 
-function TAlignConst.TokenIsAligned(const pt: TSourceToken): boolean;
-begin
-  Result := (pt.Word = wEquals);
-end;
 
 end.

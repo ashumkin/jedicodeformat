@@ -537,7 +537,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 551);
+  TestParseFile('Testcases.dpr', 559);
 end;
 
 

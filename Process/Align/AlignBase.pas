@@ -43,8 +43,6 @@ type
     function StillSuspended(const pc: TSourceToken): boolean;
     procedure IndentAll(const piIndent: integer);
 
-    function IsAligned(const liIndex: integer): boolean;
-
     procedure AddToken(const pcToken: TSOurceToken; const pbAligned: Boolean);
 
   protected
@@ -142,8 +140,12 @@ begin
   repeat
     inc(liCurrent);
     lcCurrent := lcCurrent.NextToken;
-    OnTokenRead(pcToken);
-    AddToken(lcCurrent, False);
+
+    if lcCurrent <> nil then
+    begin
+      OnTokenRead(pcToken);
+      AddToken(lcCurrent, False);
+    end;
   until (lcCurrent = nil) or TokenEndsStatement(lcCurrent);
 
   { end the first statement on EOF?! - abort! }
@@ -261,7 +263,7 @@ begin
   begin
     lcCurrent := fcTokens.SourceTokens[liLoop];
 
-    if IsAligned(liLoop) and (lcCurrent.XPosition < piIndent) then
+    if (lcCurrent.UserTag > 0) and (lcCurrent.XPosition < piIndent) then
     begin
       { indent to the specified level  - make a new space token }
       lcNew := InsertSpacesBefore(lcCurrent, piIndent - lcCurrent.XPosition);
@@ -305,15 +307,11 @@ begin
 
 end;
 
-function TAlignBase.IsAligned(const liIndex: integer): boolean;
-begin
-  Result := (liIndex >= 0) and (liIndex < fcTokens.Count) and
-    (fcTokens.SourceTokens[liIndex].UserTag > 0);
-end;
-
 procedure TAlignBase.AddToken(const pcToken: TSourceToken;
   const pbAligned: Boolean);
 begin
+  Assert(pcToken <> nil);
+  
   if pbAligned then
     pcToken.UserTag := 1
   else

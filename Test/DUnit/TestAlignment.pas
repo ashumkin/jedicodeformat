@@ -23,13 +23,20 @@ type
     procedure TestAlignVars2;
     procedure TestAlignVars3;
     procedure TestAlignAssign;
+
+    procedure TestAlignComments;
+    procedure TestAlignComments2;
+
+    procedure TestAlignTypedef;
+    procedure TestAlignTypedef2;
+
   end;
 
 implementation
 
 uses
   JclStrings,
-  AlignConst, AlignVars, AlignAssign;
+  AlignConst, AlignVars, AlignAssign, AlignComment, AlignTypedef;
 
 
 procedure TTestAlignment.TestAlignConst;
@@ -200,6 +207,74 @@ begin
   TestProcessResult(TAlignAssign, MULTI_ALIGN_IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
+
+procedure TTestAlignment.TestAlignComments;
+const
+  IN_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
+    ' // foo' + AnsiLineBreak +
+    '     { bar bie } ' + AnsiLineBreak +
+    UNIT_FOOTER;
+
+  OUT_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
+    '     // foo' + AnsiLineBreak +
+    '     { bar bie } ' + AnsiLineBreak +
+    UNIT_FOOTER;
+begin
+  TestProcessResult(TAlignComment, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestAlignment.TestAlignComments2;
+const
+  IN_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
+    ' // foo' + AnsiLineBreak +
+    '     { bar bie } ' + AnsiLineBreak +
+    '        // baz' + AnsiLineBreak +
+    UNIT_FOOTER;
+
+  OUT_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
+    '        // foo' + AnsiLineBreak +
+    '        { bar bie } ' + AnsiLineBreak +
+    '        // baz' + AnsiLineBreak +
+    UNIT_FOOTER;
+begin
+  TestProcessResult(TAlignComment, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestAlignment.TestAlignTypedef;
+const
+  IN_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
+    ' type ' + AnsiLineBreak +
+    '  foo = integer; ' + AnsiLineBreak +
+    '  barnee = string; ' + AnsiLineBreak +
+    UNIT_FOOTER;
+
+  OUT_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
+    ' type ' + AnsiLineBreak +
+    '  foo    = integer; ' + AnsiLineBreak +
+    '  barnee = string; ' + AnsiLineBreak +
+    UNIT_FOOTER;
+begin
+  TestProcessResult(TALignTypedef, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestAlignment.TestAlignTypedef2;
+const
+  IN_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
+    ' type ' + AnsiLineBreak +
+    '  foo = integer; ' + AnsiLineBreak +
+    '  barnee = string; ' + AnsiLineBreak +
+    '  Baaaaaaz = float; ' +  AnsiLineBreak +
+    UNIT_FOOTER;
+
+  OUT_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
+    ' type ' + AnsiLineBreak +
+    '  foo      = integer; ' + AnsiLineBreak +
+    '  barnee   = string; ' + AnsiLineBreak +
+    '  Baaaaaaz = float; ' +  AnsiLineBreak +
+    UNIT_FOOTER;
+begin
+  TestProcessResult(TALignTypedef, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
 
 initialization
  TestFramework.RegisterTest(TTestAlignment.Suite);

@@ -63,7 +63,7 @@ uses
   { stats }
   BasicStats,
   { align }
-  AlignConst, AlignVars, AlignAssign;
+  AlignConst, AlignVars, AlignAssign, AlignTypedef, AlignComment;
 
 constructor TAllProcesses.Create;
 begin
@@ -224,6 +224,12 @@ begin
 
   ApplyVisitorType(TVisitSetXY);
   ApplyVisitorType(TAlignAssign);
+
+  ApplyVisitorType(TVisitSetXY);
+  ApplyVisitorType(TAlignTypedef);
+
+  ApplyVisitorType(TVisitSetXY);
+  ApplyVisitorType(TAlignComment);
 end;
 
 end.

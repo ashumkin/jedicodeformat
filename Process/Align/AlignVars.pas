@@ -27,7 +27,7 @@ unit AlignVars;
 
 interface
 
-uses TokenType, SourceToken, AlignBase;
+uses SourceToken, VisitParseTree, AlignBase;
 
 type
 
@@ -58,7 +58,8 @@ type
 implementation
 
 uses
-  { local} WordMap, FormatFlags, JcfSettings, ParseTreeNodeType,
+  { local} WordMap, FormatFlags, JcfSettings,
+  ParseTreeNodeType, TokenType,
   TokenUtils, Nesting;
 
 { TAlignVars }

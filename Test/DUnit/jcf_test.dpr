@@ -104,7 +104,9 @@ uses
   AlignConst in '..\..\Process\Align\AlignConst.pas',
   AlignAssign in '..\..\Process\Align\AlignAssign.pas',
   AlignVars in '..\..\Process\Align\AlignVars.pas',
-  TestConverter in 'TestConverter.pas';
+  TestConverter in 'TestConverter.pas',
+  AlignTypedef in '..\..\Process\Align\AlignTypedef.pas',
+  AlignComment in '..\..\Process\Align\AlignComment.pas';
 
 {$R *.res}
 

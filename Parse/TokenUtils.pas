@@ -70,6 +70,7 @@ function IsFormalParamOpenBracket(const pt: TSourceToken): boolean;
 
 function IsLineBreaker(const pcToken: TSourceToken): boolean;
 function IsMultiLineComment(const pcToken: TSourceToken): boolean;
+function IsSingleLineComment(const pcToken: TSourceToken): boolean;
 
 function VarIdentCount(const pcNode: TParseTreeNode): integer;
 function IdentListNameCount(const pcNode: TParseTreeNode): integer;
@@ -402,6 +403,15 @@ begin
 
   Result := True;
 end;
+
+function IsSingleLineComment(const pcToken: TSourceToken): boolean;
+begin
+  if pcToken.TokenType <> ttComment then
+    Result := False
+  else
+    Result := not IsMultiLineComment(pcToken);
+end;
+
 
 function IsLineBreaker(const pcToken: TSourceToken): boolean;
 begin
