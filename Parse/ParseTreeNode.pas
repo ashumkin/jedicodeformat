@@ -52,7 +52,8 @@ type
 
     function FirstNodeBefore(const pcChild: TParseTreeNode): TParseTreeNode;
     function FirstNodeAfter(const pcChild: TParseTreeNode): TParseTreeNode;
-    function GetImmediateChild(const peNodeTypes: TParseTreeNodeTypeSet): TParseTreeNode;
+    function GetImmediateChild(const peNodeTypes: TParseTreeNodeTypeSet): TParseTreeNode; overload;
+    function GetImmediateChild(const peNodeType: TParseTreeNodeType): TParseTreeNode; overload;
 
     function Level: integer;
     function HasChildren: boolean;
@@ -66,6 +67,7 @@ type
     function HasChildNode(const peToken: TTokenType; const piMaxDepth: integer): Boolean; overload; virtual;
     function HasChildNode(const peNodes: TParseTreeNodeTypeSet; const piMaxDepth: integer): Boolean; overload; virtual;
     function HasChildNode(const peNode: TParseTreeNodeType; const piMaxDepth: integer): Boolean; overload; virtual;
+    function HasChildNode(const peNode: TParseTreeNodeType): Boolean; overload; virtual;
 
     function HasParentNode(const peNodeTypes: TParseTreeNodeTypeSet): Boolean; overload;
     function HasParentNode(const peNodeType: TParseTreeNodeType): Boolean; overload;
@@ -346,6 +348,12 @@ end;
 function TParseTreeNode.HasChildNode(const peNode: TParseTreeNodeType; const piMaxDepth: integer): Boolean;
 begin
   Result := HasChildNode([peNode], piMaxDepth);
+end;
+
+function TParseTreeNode.HasChildNode(const peNode: TParseTreeNodeType): Boolean;
+begin
+  // get the child down to any depth
+  Result := HasChildNode([peNode], High(integer));
 end;
 
 function TParseTreeNode.HasParentNode(const peNodeTypes: TParseTreeNodeTypeSet): Boolean;
@@ -864,5 +872,11 @@ begin
     end;
   end;
 end;
+
+function TParseTreeNode.GetImmediateChild(const peNodeType: TParseTreeNodeType): TParseTreeNode;
+begin
+  Result := GetImmediateChild([peNodeType]);
+end;
+
 
 end.

@@ -99,7 +99,9 @@ uses
   LongLineBreaker in '..\..\Process\Returns\LongLineBreaker.pas',
   IntList in '..\..\Utils\IntList.pas',
   ReturnChars in '..\..\Process\Returns\ReturnChars.pas',
-  BasicStats in '..\..\Process\Info\BasicStats.pas';
+  BasicStats in '..\..\Process\Info\BasicStats.pas',
+  AlignBase in '..\..\Process\Align\AlignBase.pas',
+  AlignConst in '..\..\Process\Align\AlignConst.pas';
 
 {$R *.res}
 

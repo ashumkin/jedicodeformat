@@ -89,7 +89,11 @@ uses
   RemoveReturnsAfterBegin in '..\Process\Returns\RemoveReturnsAfterBegin.pas',
   LongLineBreaker in '..\Process\Returns\LongLineBreaker.pas',
   IntList in '..\Utils\IntList.pas',
-  BasicStats in '..\Process\Info\BasicStats.pas';
+  BasicStats in '..\Process\Info\BasicStats.pas',
+  AlignConst in '..\Process\Align\AlignConst.pas',
+  AlignBase in '..\Process\Align\AlignBase.pas',
+  AlignAssign in '..\Process\Align\AlignAssign.pas',
+  AlignVars in '..\Process\Align\AlignVars.pas';
 
 {$R *.res}
 

@@ -28,10 +28,9 @@ type
     procedure EnabledVisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult); virtual;
 
   public
+    constructor Create; override;
 
     procedure VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult); override;
-
-    constructor Create; override;
 
     property FormatFlags: TFormatFlags read feFormatFlags write feFormatFlags;
   end;

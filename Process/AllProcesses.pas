@@ -25,6 +25,7 @@ TAllProcesses = class(TObject)
     procedure LineBreaking;
     procedure Capitalisation;
     procedure Indent;
+    procedure Align;
   public
     constructor Create;
 
@@ -60,7 +61,9 @@ uses
   {indent}
   VisitSetNesting, Indenter, LongLineBreaker,
   { stats }
-  BasicStats;
+  BasicStats,
+  { align }
+  AlignConst, ALignVars, AlignAssign;
 
 constructor TAllProcesses.Create;
 begin
@@ -77,16 +80,21 @@ begin
   Assert(fcRoot <> nil);
 
   lc := pcVisitorType.Create;
+  try
+    if lc.IsIncludedInSettings then
+    begin
 
-  if (lc is TWarning) then
-    (lc as TWarning).OnWarning := OnMessage;
+      if (lc is TWarning) then
+        (lc as TWarning).OnWarning := OnMessage;
 
-  fcRoot.VisitTree(lc);
+      fcRoot.VisitTree(lc);
 
-  if lc.FinalSummary(lsMessage) then
-    OnMessage(lsMessage);
-
-  lc.Free;
+      if lc.FinalSummary(lsMessage) then
+        OnMessage(lsMessage);
+    end;
+  finally
+    lc.Free;
+  end;
 end;
 
 procedure TAllProcesses.Execute(const pcRoot: TParseTreeNode);
@@ -106,7 +114,9 @@ begin
     LineBreaking;
     Spacing;
     Indent;
+    Align;
 
+    // stats last 
     ApplyVisitorType(TBasicStats);
   end;
 end;
@@ -202,6 +212,18 @@ begin
   ApplyVisitorType(TVisitSetXY);
   ApplyVisitorType(TIndenter);
   ApplyVisitorType(TVisitSetXY);
+end;
+
+procedure TAllProcesses.Align;
+begin
+  ApplyVisitorType(TVisitSetXY);
+  ApplyVisitorType(TAlignConst);
+
+  ApplyVisitorType(TVisitSetXY);
+  ApplyVisitorType(TAlignVars);
+
+  ApplyVisitorType(TVisitSetXY);
+  ApplyVisitorType(TAlignAssign);
 end;
 
 end.

@@ -21,6 +21,7 @@ type
     procedure VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult); virtual;
 
     function FinalSummary(var psMessage: string): Boolean; virtual;
+    function IsIncludedInSettings: boolean; virtual;
   end;
 
 type
@@ -55,6 +56,12 @@ end;
 procedure TBaseTreeNodeVisitor.VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult);
 begin
   // do nothing, here for override
+end;
+
+function TBaseTreeNodeVisitor.IsIncludedInSettings: boolean;
+begin
+  // here for override
+  Result := True;
 end;
 
 end.

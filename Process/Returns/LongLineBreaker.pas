@@ -461,6 +461,7 @@ begin
   end;
 end;
 
+
 procedure TLongLineBreaker.EnabledVisitSourceToken(const pcNode: TObject;
   var prVisitResult: TRVisitResult);
 const
@@ -632,8 +633,7 @@ begin
   lcBreakToken := fcTokens.SourceTokens[liPlaceToBreak];
 
   { go break! }
-  lcNewToken := NewReturn;
-  lcBreakToken.Parent.InsertChild(lcBreakToken.IndexOfSelf + 1, lcNewToken);
+  lcNewToken := InsertReturnAfter(lcBreakToken);
   fcTokens.Insert(liPlaceToBreak + 1, lcNewToken);
 
   { the tokens in the buffer past liPlaceToBreak now have the wrong Xpos }

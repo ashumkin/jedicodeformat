@@ -24,8 +24,9 @@ type
 
     fiLines: integer;
 
-    fiConsts, fiTypes, fiClasses, fiAllProcs: integer;
+    fiConsts, fiTypes, fiClasses, fiInterfaces, fiAllProcs: integer;
     liInterfaceGlobalVars, liGlobalVars: integer;
+    fiInterfaceProcs: integer;
 
   protected
   public
@@ -42,7 +43,7 @@ uses
   SysUtils,
   JclStrings,
   { JCF  }
-  SourceToken, TokenType, ParseTreeNode, ParseTreeNodeType;
+  SourceToken, TokenType, ParseTreeNode, ParseTreeNodeType, TokenUtils;
 
 function DisplayFloat(const ex: extended): string;
 begin
@@ -65,34 +66,6 @@ begin
     Result := DisplayFloat(exNum * 100 / exDenom) + '%';
 end;
 
-{ count the number of identifiers in the var decl
-  e.g. "var i,j,k,l: integer" has 4 vars
-}
-function VarIdentCount(const pcNode: TParseTreeNode): integer;
-var
-  liLoop: integer;
-  lcIdents: TParseTreeNode;
-  lcLeafItem: TParseTreeNode;
-begin
-  Result := 0;
-  if pcNode.NodeType <> nVarDecl then
-    exit;
-
-  { the ident list is an immediate child of the var node }
-  lcIdents := pcNode.GetImmediateChild(nIdentList);
-  Assert(lcIdents <> nil);
-
-  {and uner it we find words (var names), commas and assorted white space
-   count the var names}
-  for liLoop := 0 to lcIdents.ChildNodeCount - 1 do
-  begin
-    lcLeafItem := lcIdents.ChildNodes[liLoop];
-    if (lcLeafItem is TSourceToken) and
-      (TSourceToken(lcLeafItem).TokenType = ttWord) then
-        inc(Result);
-
-  end;
-end;
 
 procedure TBasicStats.PreVisitParseTreeNode(const pcNode: TObject;
   var prVisitResult: TRVisitResult);
@@ -108,11 +81,22 @@ begin
       inc(fiConsts);
     nClassType:
       inc(fiClasses);
+    nInterfaceType:
+      inc(fiInterfaces);
     else ; // no nothing
   end;
 
+  { procedure/fn/constructor/destructor }
   if (lcNode.NodeType in ProcedureNodes) and lcNode.HasChildNode(nBlock) then
+    { if it has a block of code under it, it counts as a proc }
     inc(fiAllProcs);
+
+  { can only export a global procedure or function - not a constructor or destructor
+    don't count procs in a class or itnerface def }
+  if (lcNode.NodeType in [nFunctionHeading, nProcedureHeading]) and
+   lcNode.HasParentNode(nInterfaceSection) and
+   (not lcNode.HasParentNode([nClassType, nInterfaceType, nProcedureType])) then
+   inc(fiInterfaceProcs);
 
   // find global vars
   if (lcNode.NodeType = nVarDecl) and (not lcNode.HasParentNode(nClassType)) and
@@ -202,11 +186,13 @@ begin
     IntToStr(fiConsts) + ' constants ' + AnsiLineBreak +
     IntToStr(fiTypes) + ' types ' + AnsiLineBreak +
     IntToStr(fiClasses) + ' classes ' + AnsiLineBreak +
+    IntToStr(fiInterfaces) + ' interfaces ' + AnsiLineBreak +
     IntToStr(fiAllProcs) + ' procedures ' + AnsiLineBreak + AnsiLineBreak;
 
   psMessage := psMessage +
     IntToStr(liInterfaceGlobalVars) + ' global vars in interface ' + AnsiLineBreak +
-    IntToStr(liGlobalVars) + ' global vars in rest of unit ' + AnsiLineBreak + AnsiLineBreak;
+    IntToStr(liGlobalVars) + ' global vars in rest of unit ' + AnsiLineBreak +
+    IntToStr(fiInterfaceProcs) + ' procedures in interface ' + AnsiLineBreak + AnsiLineBreak;
 
 end;
 

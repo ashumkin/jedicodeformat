@@ -15,6 +15,9 @@ uses ParseTreeNode, SourceToken;
 function NewReturn: TSourceToken;
 function NewSpace(const piLength: integer): TSourceToken;
 
+function InsertReturnAfter(const pt: TSourceToken): TSourceToken;
+function InsertSpacesBefore(const pt: TSourceToken; const piSpaces: integer): TSourceToken;
+
 { return the name of the procedure around any parse tree node or source token
   empty string if there is none }
 function GetProcedureName(const pcNode: TParseTreeNode;
@@ -68,6 +71,9 @@ function IsFormalParamOpenBracket(const pt: TSourceToken): boolean;
 function IsLineBreaker(const pcToken: TSourceToken): boolean;
 function IsMultiLineComment(const pcToken: TSourceToken): boolean;
 
+function VarIdentCount(const pcNode: TParseTreeNode): integer;
+function IdentListNameCount(const pcNode: TParseTreeNode): integer;
+
 implementation
 
 uses
@@ -92,6 +98,24 @@ begin
   Result.SourceCode := StrRepeat(AnsiSpace, piLength);
 end;
 
+
+function InsertReturnAfter(const pt: TSourceToken): TSourceToken;
+begin
+  Assert(pt <> nil);
+  Assert(pt.Parent <> nil);
+
+  Result := NewReturn;
+  pt.Parent.InsertChild(pt.IndexOfSelf + 1, Result);
+end;
+
+function InsertSpacesBefore(const pt: TSourceToken; const piSpaces: integer): TSourceToken;
+begin
+  Assert(pt <> nil);
+  Assert(pt.Parent <> nil);
+
+  Result := NewSpace(piSpaces);
+  pt.Parent.InsertChild(pt.IndexOfSelf, Result);
+end;
 
 { given a function header parse tree node, extract the fn name underneath it }
 function ExtractNameFromFunctionHeading(const pcNode: TParseTreeNode;
@@ -384,5 +408,42 @@ begin
   Result := (pcToken.TokenType = ttReturn) or IsMultiLineComment(pcToken);
 end;
 
+{ count the number of identifiers in the var decl
+  e.g. "var i,j,k,l: integer" has 4 vars
+}
+function VarIdentCount(const pcNode: TParseTreeNode): integer;
+var
+  lcIdents: TParseTreeNode;
+begin
+  Result := 0;
+  if pcNode.NodeType <> nVarDecl then
+    exit;
+
+  { the ident list is an immediate child of the var node }
+  lcIdents := pcNode.GetImmediateChild(nIdentList);
+  Assert(lcIdents <> nil);
+
+  Result := IdentListNameCount(lcIdents);
+end;
+
+function IdentListNameCount(const pcNode: TParseTreeNode): integer;
+var
+  liLoop: integer;
+  lcLeafItem: TParseTreeNode;
+begin
+  Result := 0;
+  if pcNode.NodeType <> nIdentList then
+    exit;
+
+  {and uner it we find words (names), commas and assorted white space
+   count the names }
+  for liLoop := 0 to pcNode.ChildNodeCount - 1 do
+  begin
+    lcLeafItem := pcNode.ChildNodes[liLoop];
+    if (lcLeafItem is TSourceToken) and
+      (TSourceToken(lcLeafItem).TokenType = ttWord) then
+        inc(Result);
+  end;
+end;
 
 end.
