@@ -150,7 +150,7 @@ var
 
     if TryOperator(lcNewToken, '^', wHat) then 
       exit;
-    if TryOperator(lcNewToken, '@', wAt) then
+    if TryOperator(lcNewToken, '@', wAtSign) then
       exit;
     if TryPunctuation(lcNewToken) then 
       exit;

@@ -18,11 +18,13 @@ type
     nPackage,
     nLibrary,
     nUses,
+    nUsesItem,
     nIdentList,
     nInterfaceSection,
     nImplementationSection,
     nBlock,
     nStatementList,
+    nDeclSection,
     nLabelDeclSection,
     nConstSection,
     nConstDecl,
@@ -98,6 +100,7 @@ TParseTreeNodeTypeSet = set of TParseTreeNodeType;
 
 const
   DirectiveNodes = [nProcedureDirectives, nExternalDirective, nHintDirectives, nPropertyDirective];
+  ProcedureNodes = [nProcedureDecl, nFunctionDecl, nConstructorDecl, nDestructorDecl];
 
 function NodeTypeToString(const pe: TParseTreeNodeType): string;
 
@@ -124,6 +127,8 @@ begin
       Result := 'Library';
     nUses:
       Result := 'Uses';
+    nUsesItem:
+      result := 'Uses Item';
     nIdentList:
       Result := 'ident list';
     nInterfaceSection:
@@ -134,6 +139,8 @@ begin
       Result := 'Block';
     nStatementList:
       Result := 'Statement list';
+    nDeclSection:
+      Result := 'Decl section';
     nLabelDeclSection:
       Result := 'Decl section';
     nConstSection:

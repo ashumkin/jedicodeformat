@@ -41,6 +41,7 @@ type
     feCommentStyle: TCommentStyle;
 
     fiXPosition, fiYPosition: integer;
+    fiSolidTokenOnLineIndex: integer;
 
 
   protected
@@ -61,6 +62,7 @@ type
 
     function SolidChildCount: integer; override;
     function FirstSolidLeaf: TParseTreeNode; override;
+    function IsLeaf: Boolean; override;
 
     { navigating the source tree as if it was a list }
     function NextToken: TSourceToken;
@@ -78,6 +80,7 @@ type
 
     property XPosition: integer read fiXPosition write fiXPosition;
     property YPosition: integer read fiYPosition write fiYPosition;
+    property SolidTokenOnLineIndex: integer read fiSolidTokenOnLineIndex write fiSolidTokenOnLineIndex;
   end;
 
   TSourceTokenProcedure = procedure(const pt: TSourceToken) of object;
@@ -159,13 +162,29 @@ end;
 
 
 function TSourceToken.NextToken: TSourceToken;
+var
+  lcTemp: TParseTreeNode;
 begin
-  Result := TSourceToken(NextLeafNode);
+  Result := nil;
+  lcTemp := NextLeafNode;
+  if lcTemp = nil then
+    exit;
+
+  Assert(lcTemp is TSourceToken, 'Next leaf is not token at ' + Describe);
+  Result := TSourceToken(lcTemp);
 end;
 
 function TSourceToken.PriorToken: TSourceToken;
+var
+  lcTemp: TParseTreeNode;
 begin
-  Result := TSourceToken(PriorLeafNode);
+  Result := nil;
+  lcTemp := PriorLeafNode;
+  if lcTemp = nil then
+    exit;
+
+  Assert(lcTemp is TSourceToken, 'prior leaf is not token at ' + Describe);
+  Result := TSourceToken(lcTemp);
 end;
 
 function TSourceToken.NextSolidToken: TSourceToken;
@@ -211,6 +230,11 @@ end;
 function TSourceToken.IsHashLiteral: boolean;
 begin
   Result := (TokenType = ttLiteralString) and (StrLeft(SourceCode, 1) = '#');
+end;
+
+function TSourceToken.IsLeaf: Boolean;
+begin
+  Result := True;
 end;
 
 end.

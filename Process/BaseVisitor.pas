@@ -15,7 +15,8 @@ type
   public
     constructor Create; virtual;
 
-    procedure VisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult); virtual;
+    procedure PreVisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult); virtual;
+    procedure PostVisitParseTreeNode(const pcNode: TObject); virtual;
     procedure VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult); virtual;
 
     function FinalSummary(var psMessage: string): Boolean; virtual;
@@ -40,14 +41,19 @@ begin
   psMessage := '';
 end;
 
-procedure TBaseTreeNodeVisitor.VisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TBaseTreeNodeVisitor.PreVisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult);
 begin
-  // do nothing
+  // do nothing, here for override
+end;
+
+procedure TBaseTreeNodeVisitor.PostVisitParseTreeNode(const pcNode: TObject);
+begin
+  // do nothing, here for override
 end;
 
 procedure TBaseTreeNodeVisitor.VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult);
 begin
-  // do nothing
+  // do nothing, here for override
 end;
 
 end.

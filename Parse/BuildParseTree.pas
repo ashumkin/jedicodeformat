@@ -584,6 +584,8 @@ end;
 
 procedure TBuildParseTree.RecogniseUsesItem(const pbInFiles: Boolean);
 begin
+  PushNode(nUsesItem);
+
   RecogniseIdent;
 
   if pbInFiles and (TokenList.FirstSolidTokenWord = wIn) then
@@ -591,6 +593,8 @@ begin
     Recognise(wIn);
     Recognise(ttLiteralString);
   end;
+
+  PopNode;
 
 end;
 
@@ -755,6 +759,7 @@ var
   lc: TSourceToken;
   lw: TWord;
 begin
+  PushNode(nDeclSection);
  {
   DeclSection
     -> LabelDeclSection
@@ -783,6 +788,8 @@ begin
     else
       Raise TEParseError.Create('Expected label, const, type, var, procedure or function', lc);
   end;
+
+  PopNode;
 end;
 
 
@@ -2870,11 +2877,8 @@ end;
 procedure TBuildParseTree.RecogniseClassVisibility;
 begin
   // ClassVisibility -> [PUBLIC | PROTECTED | PRIVATE | PUBLISHED]
-  PushNode(nClassVisibility);
 
   Recognise(CLASS_VISIBILITY);
-
-  PopNode;
 end;
 
 procedure TBuildParseTree.RecogniseClassBody;
@@ -2885,8 +2889,10 @@ begin
 
   while(TokenList.FirstSolidTokenWord in CLASS_VISIBILITY) do
   begin
+    PushNode(nClassVisibility);
     RecogniseClassVisibility;
     RecogniseClassDeclarations(False);
+    PopNode;
   end;
 
 end;
@@ -3360,10 +3366,11 @@ begin
 
   PushNode(nAsmStatement);
 
-  if TokenList.FirstSolidTokenWord = wAt then
+  if TokenList.FirstSolidTokenWord = wAtSign then
   begin
 
-    Recognise(wAt);
+    Recognise(wAtSign);
+    Recognise(wAtSign);
     RecogniseAsmIdent;
     Recognise(ttColon);
   end
@@ -3450,9 +3457,13 @@ begin
 
   lc := TokenList.FirstSolidToken;
 
-  if lc.Word = wAt then
+  if lc.Word = wAtSign then
   begin
-    Recognise(wAt);
+    Recognise(wAtSign);
+    if TokenList.FirstSolidToken.Word = wAtSign then
+      Recognise(wAtSign);
+
+
     RecogniseAsmIdent;
   end
   else if lc.TokenType = ttOpenSquareBracket then

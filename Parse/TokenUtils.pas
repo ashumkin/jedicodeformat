@@ -9,7 +9,11 @@ unit TokenUtils;
 
 interface
 
-uses ParseTreeNode;
+uses ParseTreeNode, SourceToken;
+
+{ make a new return token }
+function NewReturn: TSourceToken;
+
 
 { return the name of the procedure around any parse tree node or source token
   empty string if there is none }
@@ -21,12 +25,43 @@ function GetProcedureName(const pcNode: TParseTreeNode;
 function GetBlockType(const pcNode: TParseTreeNode): string;
 
 
-function ExtractNameFromFunctionHeading(const pcNode: TParseTreeNode;
-  const pbFullName: boolean): string;
+function ExtractNameFromFunctionHeading(const pcNode: TParseTreeNode; const pbFullName: boolean): string;
+
+function IsClassFunction(const pt: TSourceToken): boolean;
+
+function RHSExprEquals(const pt: TSourceToken): Boolean;
+
+function RHSTypeEquals(const pt: TSourceToken): Boolean;
+
+function IsClassDirective(const pt: TSourceToken): boolean;
+
+function RoundBracketLevel(const pt: TSourceToken): integer;
+function SquareBracketLevel(const pt: TSourceToken): integer;
+function AllBracketLevel(const pt: TSourceToken): integer;
+function BlockLevel(const pt: TSourceToken): integer;
+
+function SemicolonNext(const pt: TSourceToken): boolean;
+
+{ true if the token is in code, ie in procedure/fn body,
+  init section, finalization section, etc
+
+  False if it is vards, consts, types etc }
+function InStatements(const pt: TSourceToken): Boolean;
 
 implementation
 
-uses ParseTreeNodeType, SourceToken, TokenType;
+uses
+  JclStrings,
+  ParseTreeNodeType, TokenType, WordMap, Nesting;
+
+
+function NewReturn: TSourceToken;
+begin
+  Result := TSourceToken.Create;
+  Result.TokenType := ttReturn;
+  Result.SourceCode := AnsiLineBreak;
+end;
+
 
 { given a function header parse tree node, extract the fn name underneath it }
 function ExtractNameFromFunctionHeading(const pcNode: TParseTreeNode;
@@ -155,6 +190,80 @@ begin
     else
       Result := '';
   end;
+end;
+
+function IsClassFunction(const pt: TSourceToken): boolean;
+begin
+  Result := pt.IsOnRightOf([nFunctionHeading, nProcedureHeading], [wClass]);
+end;
+
+function RHSExprEquals(const pt: TSourceToken): Boolean;
+begin
+  Result := pt.IsOnRightOf(nExpression, wEquals);
+end;
+
+function RHSTypeEquals(const pt: TSourceToken): Boolean;
+begin
+  Result := pt.IsOnRightOf(nType, wEquals);
+end;
+
+function IsClassDirective(const pt: TSourceToken): boolean;
+begin
+  { property Public: Boolean;
+    function Protected: Boolean
+    are both legal so have to check that we're not in a property or function def. }
+
+  Result := (pt.Word in ClassDirectives) and
+    pt.HasParentNode(nClassVisibility) and
+    (not (pt.HasParentNode(ProcedureNodes)));
+end;
+
+function RoundBracketLevel(const pt: TSourceToken): integer;
+begin
+  if pt = nil then
+    Result := 0
+  else
+    Result := pt.Nestings.GetLevel(nlRoundBracket);
+end;
+
+function SquareBracketLevel(const pt: TSourceToken): integer;
+begin
+  if pt = nil then
+    Result := 0
+  else
+    Result := pt.Nestings.GetLevel(nlSquareBracket);
+end;
+
+function AllBracketLevel(const pt: TSourceToken): integer;
+begin
+  Result := RoundBracketLevel(pt) + SquareBracketLevel(pt);
+end;
+
+function BlockLevel(const pt: TSourceToken): integer;
+begin
+  if pt = nil then
+    Result := 0
+  else
+    Result := pt.Nestings.GetLevel(nlBlock);
+end;
+
+function SemicolonNext(const pt: TSourceToken): boolean;
+var
+  lcNext: TSourceToken;
+begin
+  Result := False;
+
+ if pt <> nil then
+ begin
+  lcNext := pt.NextSolidToken;
+  if lcNext <> nil then
+    Result := (lcNext.TokenType = ttSemiColon);
+ end;
+end;
+
+function InStatements(const pt: TSourceToken): Boolean;
+begin
+  Result := pt.HasParentNode(nStatementList);
 end;
 
 end.
