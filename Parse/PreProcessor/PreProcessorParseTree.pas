@@ -84,8 +84,6 @@ implementation
 uses
   { delphi }
   SysUtils, Forms,
-  { jcl }
-  JclStrings,
   { local }
   PreProcessorExpressionTokenise, PreProcessorExpressionParser,
   ParseError, JCFSettings;

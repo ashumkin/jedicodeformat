@@ -44,9 +44,8 @@ type
 implementation
 
 uses
-  SysUtils,
-  JclStrings,
-  FormatFlags, SourceToken, Tokens, TokenUtils, JcfSettings, SetReturns;
+  { local }
+  FormatFlags, SourceToken, Tokens, TokenUtils, JcfSettings;
 
 
 constructor TRemoveConsecutiveReturns.Create;

@@ -29,7 +29,7 @@ unit AlignBase;
 interface
 
 uses SwitchableVisitor, VisitParseTree, SourceToken,
-  SourceTokenList, IntList;
+  SourceTokenList;
 
 type
 
@@ -69,8 +69,8 @@ implementation
 
 uses
   { delphi } SysUtils, Math,
-  { jcl } JclStrings,
-  { jcf } Tokens, JcfSettings, TokenUtils;
+  { jcl } 
+  { jcf } JcfSettings, TokenUtils;
 
 { TAlignBase }
 

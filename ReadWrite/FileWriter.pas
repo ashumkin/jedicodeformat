@@ -30,7 +30,7 @@ unit FileWriter;
 
 interface
 
-uses SourceToken, CodeWriter;
+uses CodeWriter;
 
 type
   TFileWriter = class(TCodeWriter)

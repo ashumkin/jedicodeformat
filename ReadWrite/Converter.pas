@@ -32,7 +32,7 @@ unit Converter;
 interface
 
 uses
-  { delphi } Classes, SysUtils,
+  { delphi } SysUtils,
   { local } ConvertTypes, ParseTreeNode,
   CodeReader, CodeWriter, BuildTokenList,
   BuildParseTree, JCFLog;
@@ -102,8 +102,10 @@ type
 implementation
 
 uses
-  { delphi }Windows, Dialogs, Controls, Forms,
-  { local }SourceTokenList, fShowParseTree, JcfSettings, JcfRegistrySettings,
+  { delphi }
+  Controls, Forms,
+  { local }
+  SourceTokenList, fShowParseTree, JcfSettings, JcfRegistrySettings,
   AllProcesses, ParseError, fJcfErrorDisplay, PreProcessorParseTree;
 
 

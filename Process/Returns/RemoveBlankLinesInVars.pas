@@ -45,7 +45,7 @@ type
 
 implementation
 
-uses JcfSettings, FormatFlags, Tokens, ParseTreeNodeType, TokenUtils;
+uses JcfSettings, FormatFlags, Tokens, TokenUtils;
 
 { TRemoveBlankLinesInVars }
 

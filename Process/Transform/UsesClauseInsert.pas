@@ -67,7 +67,7 @@ uses
   FormatFlags,
   ParseTreeNodeType,
   ParseTreeNode,
-  TokenUtils, SetUses;
+  TokenUtils;
 
 constructor TUsesClauseInsert.Create;
 begin

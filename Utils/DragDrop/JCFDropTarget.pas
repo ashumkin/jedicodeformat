@@ -31,8 +31,6 @@ interface
 
 uses
   Windows,
-  Messages,
-  SysUtils,
   Classes,
   ActiveX,
   Controls;

@@ -26,7 +26,7 @@ interface
 
 uses
   { delphi }
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  SysUtils, Classes, Controls, Forms, Dialogs,
   Buttons, StdCtrls, ExtCtrls,
   { local }
   JvMRUList,

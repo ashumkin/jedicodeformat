@@ -25,8 +25,8 @@ interface
 
 uses
   { delphi }
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, ExtCtrls, ComCtrls,
+  Classes, Controls, Forms, 
+  StdCtrls, 
   { local }
   JvMemo, frmBaseSettingsFrame;
 

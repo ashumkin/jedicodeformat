@@ -27,10 +27,10 @@ interface
 
 uses
   { delphi }
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Windows, SysUtils, Classes, Controls, Forms,
   Dialogs, StdCtrls, Buttons, ExtCtrls, ComCtrls, 
   { JCL }
-  JvEdit, JvTypedEdit, JvMemo;
+  JvTypedEdit, JvMemo, JvEdit;
 
 type
   TfmRegistrySettings = class(TForm)
@@ -98,7 +98,7 @@ uses
   { delphi }
   FileCtrl,
   { jcl }
-  JclFileUtils, JclShell, JclSysInfo,
+  JclSysInfo,
   { jcf }
   ConvertTypes, JcfRegistrySettings, JcfSettings, JCFHelp;
 

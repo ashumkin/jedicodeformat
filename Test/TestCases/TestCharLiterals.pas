@@ -53,6 +53,14 @@ const
   HAT_WIBBLE = ^q;
   HAT_SPON = ^Z;
 
+  HAT_AT = ^@;
+
+  HAT_FROWN = ^[;
+  HAT_HMM = ^\;
+  HAT_SMILE = ^];
+  HAT_HAT = ^^;
+  HAT_UNDER = ^_;
+
 var
   hat1: char = ^h;
   hat2: char = ^j;

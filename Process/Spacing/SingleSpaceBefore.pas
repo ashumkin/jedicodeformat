@@ -53,7 +53,6 @@ implementation
 
 uses
   JclStrings,
-  JcfMiscFunctions,
   SourceToken, Tokens, ParseTreeNodeType, JcfSettings,
   FormatFlags, TokenUtils;
 

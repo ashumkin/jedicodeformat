@@ -44,8 +44,9 @@ type
 implementation
 
 uses
+  { jcl }
   JclStrings,
-  JcfMiscFunctions,
+  { local }
   SourceToken, Tokens, ParseTreeNodeType, JcfSettings,
   FormatFlags, TokenUtils;
 

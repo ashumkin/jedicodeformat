@@ -76,8 +76,7 @@ implementation
 uses
   { delphi } Windows, SysUtils, Dialogs, Controls, Forms,
   { jcl } JclFileUtils,
-  { local } FileUtils, JcfMiscFunctions, JCFLog, JcfRegistrySettings,
-  JcfSettings;
+  { local } FileUtils, JcfMiscFunctions, JCFLog, JcfRegistrySettings;
 
 
 

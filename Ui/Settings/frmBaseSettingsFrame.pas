@@ -29,9 +29,11 @@ unit frmBaseSettingsFrame;
 interface
 
 uses
-  {delphi } Windows, Messages, SysUtils, Classes, Graphics, Controls,
-  Forms, Dialogs,
-  { local } frDrop, JCFSettings;
+  {delphi }
+  Classes, Controls,
+  Forms, 
+  { local }
+  frDrop;
 
 type
   TfrSettingsFrame = class(TFrameDrop)

@@ -39,7 +39,7 @@ type
 
 implementation
 
-uses JcfSettings, FormatFlags, Tokens, ParseTreeNodeType, TokenUtils;
+uses JcfSettings, Tokens, TokenUtils;
 { TRemoveReturnsAfterBegin }
 
 constructor TRemoveReturnsAfterBegin.Create;

@@ -48,8 +48,7 @@ type
 implementation
 
 uses
-  JclStrings,
-  JcfMiscFunctions, TokenUtils,
+  TokenUtils,
   SourceToken, Tokens, ParseTreeNode,
   Nesting, ParseTreeNodeType, JcfSettings,
   FormatFlags;

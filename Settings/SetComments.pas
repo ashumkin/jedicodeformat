@@ -27,7 +27,7 @@ under the License.
 
 interface
 
-uses JCFSetBase, SettingsTypes, SettingsStream;
+uses JCFSetBase, SettingsStream;
 
 type
 

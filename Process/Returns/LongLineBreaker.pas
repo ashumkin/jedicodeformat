@@ -56,9 +56,12 @@ type
 implementation
 
 uses
-  SysUtils, Classes,
+  { delphi }
+  SysUtils,
+  { JCL }
   JclStrings,
-  SourceToken, Nesting, FormatFlags, JcfSettings, SetReturns,
+  { local }
+  SourceToken, FormatFlags, JcfSettings, SetReturns,
   TokenUtils, JcfMiscFunctions, Tokens, ParseTreeNode, ParseTreeNodeType;
 
 

@@ -29,13 +29,14 @@ unit fMain;
 interface
 
 uses
-    { delphi }
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, Buttons, ExtCtrls, ComCtrls, Menus,
-  ActnList, ImgList, ToolWin, StdActns,
-    { local } FileConverter, JCFSettings, frFiles,
-  frBasicSettings,  frDrop,  frmBaseSettingsFrame, JvMRUList, JvPlacemnt,
-  JvMemo;
+  { delphi }
+  Windows, SysUtils, Classes, Controls, Forms, Dialogs,
+  StdCtrls, ComCtrls, Menus,
+  ActnList, StdActns, ToolWin, ImgList,
+  { local }
+  FileConverter, JCFSettings,
+  frBasicSettings,  JvMRUList, JvPlacemnt,
+  JvMemo, frDrop, frmBaseSettingsFrame;
 
 type
   TfrmMain = class(TForm)
@@ -119,9 +120,9 @@ implementation
 {$R *.DFM}
 
 uses
-  { jcl } JclFileUtils, JclStrings,
+  { jcl } JclFileUtils, 
   { local } fAbout, ConvertTypes, fAllSettings, fRegistrySettings,
-  SettingsStream, JcfMiscFunctions, JCFHelp, JcfRegistrySettings;
+  SettingsStream, JCFHelp, JcfRegistrySettings;
 
 
 function OkDialog(const psMsg: string): boolean;

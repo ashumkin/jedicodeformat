@@ -3,8 +3,7 @@ unit frUnitCaps;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs,
+  Classes, Controls, Forms,
   { local} frmBaseSettingsFrame, StdCtrls, JvMemo;
 
 type
@@ -25,7 +24,7 @@ implementation
 
 {$R *.dfm}
 
-uses JcfHelp, JcfSettings;
+uses JcfSettings;
 
 constructor TfrUnitNameCaps.Create(AOwner: TComponent);
 begin

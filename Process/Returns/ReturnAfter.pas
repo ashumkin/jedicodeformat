@@ -45,10 +45,10 @@ type
 implementation
 
 uses
+  { delphi }
   SysUtils,
-  JclStrings,
-  JcfMiscFunctions,
-  TokenUtils, SourceToken, Tokens, Nesting,
+  { local }
+  TokenUtils, SourceToken, Tokens, 
   ParseTreeNodeType, ParseTreeNode, JcfSettings, FormatFlags;
 
 const

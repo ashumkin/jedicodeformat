@@ -24,8 +24,8 @@ unit frObfuscateSettings;
 interface
 
 uses
-    { delphi }
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  { delphi }
+  Classes, Controls, Forms, 
   StdCtrls, ExtCtrls,
   { local }
   frmBaseSettingsFrame;

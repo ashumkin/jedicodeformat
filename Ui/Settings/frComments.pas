@@ -25,10 +25,9 @@ interface
 
 uses
   { delphi }
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs,
+  StdCtrls, Classes, Controls, Forms,
   { local }
-  frmBaseSettingsFrame, StdCtrls;
+  frmBaseSettingsFrame;
 
 type
   TfComments = class(TfrSettingsFrame)

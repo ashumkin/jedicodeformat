@@ -49,7 +49,6 @@ implementation
 
 uses
   SysUtils,
-  JclStrings,
   SourceToken, Tokens, ParseTreeNodeType, JcfSettings, FormatFlags;
 
 

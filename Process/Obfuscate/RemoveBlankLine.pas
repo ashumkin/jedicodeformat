@@ -38,7 +38,8 @@ type
 
 implementation
 
-uses ParseTreeNode, SourceToken, Tokens, ParseTreeNodeType,
+uses
+  SourceToken, Tokens, 
   FormatFlags, TokenUtils;
 
 

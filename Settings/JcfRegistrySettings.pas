@@ -161,7 +161,7 @@ uses
   { delphi }
   SysUtils, Dialogs,
   { jcl }
-  JclFileUtils, JclWin32, JclSysInfo, JclShell, JclStrings,
+  JclFileUtils, JclSysInfo, JclShell, JclStrings,
   { jcf }
   JcfMiscFunctions;
 

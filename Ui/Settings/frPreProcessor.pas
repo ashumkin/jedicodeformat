@@ -5,8 +5,8 @@ interface
 { preprocessor symbols }
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, 
-  Dialogs, StdCtrls, JvMemo,
+  Classes, Controls, Forms, 
+  StdCtrls, JvMemo,
    { local} frmBaseSettingsFrame;
 
 type

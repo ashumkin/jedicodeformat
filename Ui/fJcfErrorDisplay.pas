@@ -7,8 +7,7 @@ interface
   that allows the exception etx to be copied out }
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls;
+  SysUtils, Classes, Controls, Forms, StdCtrls;
 
 type
   TExceptionDialog = class(TForm)

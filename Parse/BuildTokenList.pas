@@ -80,7 +80,7 @@ type
 implementation
 
 uses
-    { delphi } SysUtils, Dialogs, Forms,
+    { delphi } Forms,
     { jcl } JclStrings;
 
 { TBuildTokenList }

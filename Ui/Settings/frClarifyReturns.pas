@@ -25,10 +25,10 @@ interface
 
 uses
   { delphi }
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, ComCtrls, ExtCtrls,
+  Classes, Controls, Forms, 
+  StdCtrls, ExtCtrls,
   { local}
-  JvEdit, JvTypedEdit, frmBaseSettingsFrame;
+  JvEdit, frmBaseSettingsFrame;
 
 type
   TfClarifyReturns = class(TfrSettingsFrame)
@@ -56,7 +56,8 @@ implementation
 
 {$R *.DFM}
 
-uses Tokens, SettingsTypes, JcfSettings, SetReturns, JcfHelp;
+uses
+  SettingsTypes, JcfSettings, SetReturns, JcfHelp;
 
 
 constructor TfClarifyReturns.Create(AOwner: TComponent);

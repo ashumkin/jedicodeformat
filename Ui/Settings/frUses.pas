@@ -25,7 +25,7 @@ interface
 
 uses
   { delphi }
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  Classes, Controls, Forms, 
   StdCtrls,
   { local }
   frmBaseSettingsFrame;

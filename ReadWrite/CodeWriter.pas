@@ -74,9 +74,6 @@ type
   end;
 
 implementation
-                               
-uses { delphi } SysUtils,
-  { local } JclStrings;
 
 const
   MAX_TOKENS = 100000;

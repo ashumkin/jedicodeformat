@@ -40,9 +40,11 @@ type
 implementation
 
 uses
+  { jcl }
   JclStrings,
-  FormatFlags, Tokens, SettingsTypes,
-  ParseTreeNodeType, TokenUtils, JcfSettings;
+  { local }
+  Tokens, SettingsTypes,
+  JcfSettings;
 
 { TReturnChars }
 

@@ -25,9 +25,10 @@ interface
 
 uses
   { delphi }
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, Buttons, ExtCtrls,
-  { local } frmBaseSettingsFrame, JvMemo;
+  SysUtils, Classes, Controls, Forms, 
+  StdCtrls, 
+  { local }
+  frmBaseSettingsFrame, JvMemo;
 
 type
   TfFiles = class(TfrSettingsFrame)
@@ -52,8 +53,8 @@ implementation
 
 uses
     { delphi }
-    { jcl } JclSysInfo, JclFileUtils,
-    { local } FileUtils, JcfRegistrySettings, JcfSettings, JCFHelp;
+    { jcl } JclFileUtils,
+    { local } FileUtils, JcfRegistrySettings, JcfSettings;
 
 {$R *.DFM}
 

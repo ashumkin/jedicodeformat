@@ -27,8 +27,8 @@ unit SourceToken;
 interface
 
 uses
-    { delphi } Windows,
-    { local } Tokens, ParseTreeNode, VisitParseTree;
+  { local }
+  Tokens, ParseTreeNode, VisitParseTree;
 
 type
 
@@ -96,8 +96,8 @@ type
 implementation
 
 uses
-    { delphi } Classes, SysUtils,
-    { local } JclStrings;
+  { delphi }
+  SysUtils;
 
 {-------------------------------------------------------------------------------
  TSourceToken }

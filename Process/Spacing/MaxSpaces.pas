@@ -45,10 +45,11 @@ type
 implementation
 
 uses
-  SysUtils,
+  { jcl }
   JclStrings,
+  { local }
   JcfSettings, SourceToken, Tokens,
-  FormatFlags, SetSpaces, ParseTreeNodeType;
+  FormatFlags, ParseTreeNodeType;
 
 constructor TMaxSpaces.Create;
 begin

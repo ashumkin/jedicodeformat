@@ -27,7 +27,7 @@ unit AlignVars;
 
 interface
 
-uses SourceToken, VisitParseTree, AlignBase;
+uses SourceToken, AlignBase;
 
 type
 

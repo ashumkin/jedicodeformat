@@ -30,7 +30,7 @@ under the License.
 
 interface
 
-uses BaseVisitor, VisitParseTree, FormatFlags;
+uses BaseVisitor, VisitParseTree;
 
 type
   TVisitStripEmptySpace = class(TBaseTreeNodeVisitor)

@@ -89,9 +89,6 @@ type
 
 implementation
 
-uses
-    {delphi } SysUtils;
-
 { TCodeReader }
 
 constructor TCodeReader.Create;

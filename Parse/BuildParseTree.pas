@@ -239,11 +239,13 @@ type
 implementation
 
 uses
-  { delphi }SysUtils,
-  Dialogs,
+  { delphi }
+  SysUtils,
   Forms,
+  { jcl }
   JclStrings,
-  { local }TokenUtils;
+  { local }
+  TokenUtils;
 
 const
   UPDATE_INTERVAL = 512;

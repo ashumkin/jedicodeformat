@@ -31,7 +31,8 @@ unit SettingsStream;
 interface
 
 uses
-  { delphi } Classes, Registry;
+  { delphi }
+  Classes;
 
 type
 

@@ -24,10 +24,10 @@ interface
 
 uses
   { delphi }
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, ComCtrls, ExtCtrls,
+  Classes, Controls, Forms, 
+  StdCtrls, 
   { local}
-  JvEdit, JvTypedEdit, frmBaseSettingsFrame;
+  JvTypedEdit, frmBaseSettingsFrame, JvEdit;
 
 
 type
@@ -57,7 +57,7 @@ uses
   { delphi }
   Math,
   { local }
-  Tokens, SettingsTypes, JcfSettings, SetReturns, JcfHelp;
+  JcfSettings, SetReturns, JcfHelp;
 
 constructor TfBlankLines.Create(AOwner: TComponent);
 begin

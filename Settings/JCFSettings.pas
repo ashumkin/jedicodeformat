@@ -28,7 +28,6 @@ unit JCFSettings;
 interface
 
 uses
-  { delphi } Classes, Registry,
   { local } SetObfuscate, SetClarify,
   SetIndent, SetSpaces, SetReturns,
   SetComments, SetCaps, SetWordList,
@@ -108,9 +107,9 @@ function FormatSettings: TFormatSettings;
 implementation
 
 uses
-  { delphi } SysUtils, Dialogs, Forms,
+  { delphi } SysUtils, Dialogs, 
   { jcl } JclStrings,
-  { local } ConvertTypes, JCFSetBase, 
+  { local } JCFSetBase, 
    JcfRegistrySettings;
 
 

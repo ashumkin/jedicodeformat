@@ -47,7 +47,7 @@ type
 implementation
 
 uses SourceToken, TokenUtils, Tokens, ParseTreeNodeType,
-  JcfSettings, SetReturns, FormatFlags;
+  JcfSettings, FormatFlags;
 
 function HasNoReturnBefore(const pt: TSourceToken): boolean;
 const

@@ -29,8 +29,8 @@ unit JCFSetBase;
 interface
 
 uses
-    { delphi } Classes,
-    { local } SettingsStream;
+  { local }
+  SettingsStream;
 
 type
 
@@ -49,12 +49,6 @@ type
   end;
 
 implementation
-
-uses
- { delphi } SysUtils,
- { jcl } JclStrings,
- { local } JcfMiscFunctions;
-
 
 procedure TSetBase.SetSection(const ps: string);
 begin

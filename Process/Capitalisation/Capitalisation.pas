@@ -46,8 +46,8 @@ implementation
 uses
   SysUtils,
   JclStrings,
-  SourceToken, SettingsTypes, Tokens, ParseTreeNodeType, JcfSettings, FormatFlags,
-  SetCaps;
+  SourceToken, SettingsTypes, Tokens, ParseTreeNodeType,
+  JcfSettings, FormatFlags;
 
 { TCapitalisation }
 

@@ -29,8 +29,6 @@ interface
  }
 
 uses
-  { delphi }
-  Classes,
   { local }
   SourceToken,
   SwitchableVisitor, VisitParseTree;

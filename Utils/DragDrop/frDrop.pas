@@ -35,7 +35,7 @@ interface
 
 uses
   { delphi }
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  Windows, SysUtils, Classes, Controls, Forms, 
   ActiveX, ComObj, ShellAPI,
   { Drop } JCFDropTarget;
 

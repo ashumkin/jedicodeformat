@@ -28,8 +28,8 @@ unit SetFile;
 interface
 
 uses
-    { delphi  } classes,
-    { local } JCFSetBase, ConvertTypes, SettingsStream;
+  { local }
+  JCFSetBase, SettingsStream;
 
 type
 
@@ -43,18 +43,9 @@ type
 
     procedure WriteToStream(const pcOut: TSettingsOutput); override;
     procedure ReadFromStream(const pcStream: TSettingsInput); override;
-
   end;
 
 implementation
-
-uses
-    { delphi } SysUtils,
-    { jcl } JclStrings, JclFileUtils;
-
-
-
-  { TSetFile }
 
 constructor TSetFile.Create;
 begin

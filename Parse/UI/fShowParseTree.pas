@@ -33,8 +33,8 @@ interface
 
 uses
   { delphi }
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ComCtrls, ExtCtrls, StdCtrls,
+  Windows, SysUtils, Classes, Controls, Forms,
+  ComCtrls, ExtCtrls, StdCtrls,
   { local }
   ParseTreeNode;
 
