@@ -1,4 +1,4 @@
-Unit BuildParseTree;
+unit BuildParseTree;
 
 { AFS 27 October
  This unit turns a token stream into a full parse tree
@@ -19,7 +19,7 @@ The Original Code is BuildParseTree, released May 2003.
 The Initial Developer of the Original Code is Anthony Steele.
 Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
 All Rights Reserved.
-Contributor(s): Anthony Steele.
+Contributor(s): Anthony Steele, Adem Baba
 
 The contents of this file are subject to the Mozilla Public License Version 1.1
 (the "License"). you may not use this file except in compliance with the License.
@@ -32,9 +32,9 @@ under the License.
 ------------------------------------------------------------------------------*)
 {*)}
 
-Interface
+interface
 
-Uses
+uses
   { delphi }
   Contnrs,
   { local }
@@ -45,10 +45,10 @@ Uses
   SourceTokenList,
   Tokens;
 
-Type
-  TBuildParseTree = Class(TObject)
+type
+  TBuildParseTree = class(TObject)
   Private
-    fbMadeTree: Boolean;
+    fbMadeTree: boolean;
     fiTokenIndex: integer;
 
     fcRoot: TParseTreeNode;
@@ -57,225 +57,225 @@ Type
 
     fiTokenCount: integer;
 
-    Procedure RecogniseGoal;
-    Procedure RecogniseUnit;
-    Procedure RecogniseProgram;
-    Procedure RecognisePackage;
-    Procedure RecogniseLibrary;
+    procedure RecogniseGoal;
+    procedure RecogniseUnit;
+    procedure RecogniseProgram;
+    procedure RecognisePackage;
+    procedure RecogniseLibrary;
 
-    Procedure RecogniseFileEnd;
+    procedure RecogniseFileEnd;
 
-    Procedure RecogniseProgramBlock;
-    Procedure RecogniseUsesClause(Const pbInFiles: Boolean);
-    Procedure RecogniseUsesItem(Const pbInFiles: Boolean);
+    procedure RecogniseProgramBlock;
+    procedure RecogniseUsesClause(const pbInFiles: boolean);
+    procedure RecogniseUsesItem(const pbInFiles: boolean);
 
-    Procedure RecogniseInterfaceSection;
-    Procedure RecogniseInterfaceDecls;
-    Procedure RecogniseInterfaceDecl;
-    Procedure RecogniseExportedHeading;
+    procedure RecogniseInterfaceSection;
+    procedure RecogniseInterfaceDecls;
+    procedure RecogniseInterfaceDecl;
+    procedure RecogniseExportedHeading;
 
-    Procedure RecogniseIdentifier(Const pbCanHaveUnitQualifier: Boolean);
-    Procedure RecogniseImplementationSection;
-    Procedure RecogniseDeclSections;
-    Procedure RecogniseDeclSection;
-    Procedure RecogniseInitSection;
-    Procedure RecogniseBlock;
-    Procedure RecogniseIdentList(Const pbCanHaveUnitQualifier: Boolean);
-    Procedure RecogniseIdentValue;
+    procedure RecogniseIdentifier(const pbCanHaveUnitQualifier: boolean);
+    procedure RecogniseImplementationSection;
+    procedure RecogniseDeclSections;
+    procedure RecogniseDeclSection;
+    procedure RecogniseInitSection;
+    procedure RecogniseBlock;
+    procedure RecogniseIdentList(const pbCanHaveUnitQualifier: boolean);
+    procedure RecogniseIdentValue;
 
-    Procedure RecogniseLabelDeclSection;
-    Procedure RecogniseLabel;
-    Procedure RecogniseConstSection;
-    Procedure RecogniseConstantDecl;
-    Procedure CheckLabelPrefix;
+    procedure RecogniseLabelDeclSection;
+    procedure RecogniseLabel;
+    procedure RecogniseConstSection;
+    procedure RecogniseConstantDecl;
+    procedure CheckLabelPrefix;
 
-    Procedure RecogniseTypeSection;
-    Procedure RecogniseVarSection;
-    Procedure RecogniseProcedureDeclSection;
+    procedure RecogniseTypeSection;
+    procedure RecogniseVarSection;
+    procedure RecogniseProcedureDeclSection;
 
     // set pbAnon = true if the proc has no name
-    Procedure RecogniseProcedureHeading(Const pbAnon, pbCanInterfaceMap: Boolean);
-    Procedure RecogniseFunctionHeading(Const pbAnon, pbCanInterfaceMap: Boolean);
-    Procedure RecogniseCompoundStmnt;
-    Procedure RecogniseStatementList(Const peEndTokens: TTokenTypeSet);
-    Procedure RecogniseStatement;
+    procedure RecogniseProcedureHeading(const pbAnon, pbCanInterfaceMap: boolean);
+    procedure RecogniseFunctionHeading(const pbAnon, pbCanInterfaceMap: boolean);
+    procedure RecogniseCompoundStmnt;
+    procedure RecogniseStatementList(const peEndTokens: TTokenTypeSet);
+    procedure RecogniseStatement;
 
-    Procedure RecogniseTypeId;
-    Procedure RecogniseTypedConstant;
-    Procedure RecogniseArrayConstant;
-    Procedure RecogniseRecordConstant;
-    Procedure RecogniseRecordFieldConstant;
+    procedure RecogniseTypeId;
+    procedure RecogniseTypedConstant;
+    procedure RecogniseArrayConstant;
+    procedure RecogniseRecordConstant;
+    procedure RecogniseRecordFieldConstant;
 
-    Procedure RecogniseTypeDecl;
+    procedure RecogniseTypeDecl;
 
-    Procedure RecogniseArrayType;
-    Procedure RecogniseClassRefType;
-    Procedure RecogniseEnumeratedType;
-    Procedure RecogniseFieldDecl;
-    Procedure RecogniseFieldList;
-    Procedure RecogniseFileType;
-    Procedure RecogniseOrdIdent;
-    Procedure RecogniseOrdinalType;
-    Procedure RecognisePointerType;
-    Procedure RecogniseProcedureType;
-    Procedure RecogniseRealType;
-    Procedure RecogniseRecordType;
-    Procedure RecogniseRecVariant;
-    Procedure RecogniseRestrictedType;
-    Procedure RecogniseSetType;
-    Procedure RecogniseSimpleType;
-    Procedure RecogniseStringType;
-    Procedure RecogniseStrucType;
-    Procedure RecogniseSubrangeType;
-    Procedure RecogniseType;
-    Procedure RecogniseVariantType;
-    Procedure RecogniseClassType;
-    Procedure RecogniseClassBody;
-    Procedure RecogniseClassDeclarations(Const pbInterface: Boolean);
+    procedure RecogniseArrayType;
+    procedure RecogniseClassRefType;
+    procedure RecogniseEnumeratedType;
+    procedure RecogniseFieldDecl;
+    procedure RecogniseFieldList;
+    procedure RecogniseFileType;
+    procedure RecogniseOrdIdent;
+    procedure RecogniseOrdinalType;
+    procedure RecognisePointerType;
+    procedure RecogniseProcedureType;
+    procedure RecogniseRealType;
+    procedure RecogniseRecordType;
+    procedure RecogniseRecVariant;
+    procedure RecogniseRestrictedType;
+    procedure RecogniseSetType;
+    procedure RecogniseSimpleType;
+    procedure RecogniseStringType;
+    procedure RecogniseStrucType;
+    procedure RecogniseSubrangeType;
+    procedure RecogniseType;
+    procedure RecogniseVariantType;
+    procedure RecogniseClassType;
+    procedure RecogniseClassBody;
+    procedure RecogniseClassDeclarations(const pbInterface: boolean);
 
-    Procedure RecogniseInterfaceType;
-    Procedure RecogniseObjectType;
-    Procedure RecogniseVariantSection;
-    Procedure RecogniseVarDecl;
-    Procedure RecogniseAddOp;
-    Procedure RecogniseDesignator;
-    Procedure RecogniseDesignatorTail;
-    Procedure RecogniseExpr(Const pbAllowRelop: Boolean);
-    Procedure RecogniseExprList;
-    Procedure RecogniseFactor;
-    Procedure RecogniseTerm;
-    Procedure RecogniseMulOp;
-    Procedure RecogniseRelOp;
-    Procedure RecogniseSetConstructor;
-    Procedure RecogniseSetElement;
-    Procedure RecogniseQualId;
-    Procedure RecogniseConstantExpression;
+    procedure RecogniseInterfaceType;
+    procedure RecogniseObjectType;
+    procedure RecogniseVariantSection;
+    procedure RecogniseVarDecl;
+    procedure RecogniseAddOp;
+    procedure RecogniseDesignator;
+    procedure RecogniseDesignatorTail;
+    procedure RecogniseExpr(const pbAllowRelop: boolean);
+    procedure RecogniseExprList;
+    procedure RecogniseFactor;
+    procedure RecogniseTerm;
+    procedure RecogniseMulOp;
+    procedure RecogniseRelOp;
+    procedure RecogniseSetConstructor;
+    procedure RecogniseSetElement;
+    procedure RecogniseQualId;
+    procedure RecogniseConstantExpression;
 
-    Procedure RecogniseSimpleExpression;
-    Procedure RecogniseSimpleStmnt;
+    procedure RecogniseSimpleExpression;
+    procedure RecogniseSimpleStmnt;
 
-    Procedure RecogniseCaseLabel;
-    Procedure RecogniseCaseSelector;
-    Procedure RecogniseCaseStmnt;
-    Procedure RecogniseForStmnt;
-    Procedure RecogniseIfStmnt;
-    Procedure RecogniseRepeatStmnt;
-    Procedure RecogniseStructStmnt;
-    Procedure RecogniseWhileStmnt;
-    Procedure RecogniseWithStmnt;
-    Procedure RecogniseTryStatement;
-    Procedure RecogniseExceptionHandlerBlock;
-    Procedure RecogniseExceptionHandler;
-    Procedure RecogniseRaise;
+    procedure RecogniseCaseLabel;
+    procedure RecogniseCaseSelector;
+    procedure RecogniseCaseStmnt;
+    procedure RecogniseForStmnt;
+    procedure RecogniseIfStmnt;
+    procedure RecogniseRepeatStmnt;
+    procedure RecogniseStructStmnt;
+    procedure RecogniseWhileStmnt;
+    procedure RecogniseWithStmnt;
+    procedure RecogniseTryStatement;
+    procedure RecogniseExceptionHandlerBlock;
+    procedure RecogniseExceptionHandler;
+    procedure RecogniseRaise;
 
-    Procedure RecogniseFunctionDecl;
-    Procedure RecogniseProcedureDecl;
-    Procedure RecogniseConstructorDecl;
-    Procedure RecogniseDestructorDecl;
+    procedure RecogniseFunctionDecl;
+    procedure RecogniseProcedureDecl;
+    procedure RecogniseConstructorDecl;
+    procedure RecogniseDestructorDecl;
 
-    Procedure RecogniseFormalParameters;
-    Procedure RecogniseFormalParam;
-    Procedure RecogniseParameter;
-    Procedure RecogniseActualParams;
-    Procedure RecogniseActualParam;
+    procedure RecogniseFormalParameters;
+    procedure RecogniseFormalParam;
+    procedure RecogniseParameter;
+    procedure RecogniseActualParams;
+    procedure RecogniseActualParam;
 
-    Procedure RecogniseProcedureDirectives;
+    procedure RecogniseProcedureDirectives;
 
-    Procedure RecogniseExportsSection;
-    Procedure RecogniseExportedProc;
+    procedure RecogniseExportsSection;
+    procedure RecogniseExportedProc;
 
     // set pbDeclaration to false if the method body is to be recognised
-    Procedure RecogniseConstructorHeading(Const pbDeclaration: boolean);
-    Procedure RecogniseDestructorHeading(Const pbDeclaration: boolean);
-    Procedure RecogniseObjHeritage;
+    procedure RecogniseConstructorHeading(const pbDeclaration: boolean);
+    procedure RecogniseDestructorHeading(const pbDeclaration: boolean);
+    procedure RecogniseObjHeritage;
 
-    Procedure RecogniseContainsClause;
-    Procedure RecogniseInterfaceHeritage;
-    Procedure RecogniseProperty;
-    Procedure RecognisePropertyInterface;
-    Procedure RecognisePropertyParameterList;
-    Procedure RecognisePropertySpecifiers;
-    Procedure RecognisePropertyAccess;
-    Procedure RecogniseRequiresClause;
-    Procedure RecogniseInterfaceGuid;
-    Procedure RecogniseClassHeritage;
-    Procedure RecogniseClassVisibility;
-    Procedure RecogniseMethodName(Const pbClassNameCompulsory: Boolean);
+    procedure RecogniseContainsClause;
+    procedure RecogniseInterfaceHeritage;
+    procedure RecogniseProperty;
+    procedure RecognisePropertyInterface;
+    procedure RecognisePropertyParameterList;
+    procedure RecognisePropertySpecifiers;
+    procedure RecognisePropertyAccess;
+    procedure RecogniseRequiresClause;
+    procedure RecogniseInterfaceGuid;
+    procedure RecogniseClassHeritage;
+    procedure RecogniseClassVisibility;
+    procedure RecogniseMethodName(const pbClassNameCompulsory: boolean);
 
-    Procedure RecogniseAsmBlock;
-    Procedure RecogniseAsmParam;
-    Procedure RecogniseAsmStatement;
-    Procedure RecogniseAsmExpr;
-    Procedure RecogniseAsmOperator;
-    Procedure RecogniseAsmFactor;
+    procedure RecogniseAsmBlock;
+    procedure RecogniseAsmParam;
+    procedure RecogniseAsmStatement;
+    procedure RecogniseAsmExpr;
+    procedure RecogniseAsmOperator;
+    procedure RecogniseAsmFactor;
 
-    Procedure RecogniseAsmIdent;
-    Procedure RecogniseAsmOpcode;
-    Procedure RecogniseAsmLabel(Const pbColon: boolean);
-    Procedure RecogniseWhiteSpace;
+    procedure RecogniseAsmIdent;
+    procedure RecogniseAsmOpcode;
+    procedure RecogniseAsmLabel(const pbColon: boolean);
+    procedure RecogniseWhiteSpace;
 
-    Procedure RecogniseHintDirectives;
-    Procedure RecognisePropertyDirectives;
-    Procedure RecogniseExternalProcDirective;
+    procedure RecogniseHintDirectives;
+    procedure RecognisePropertyDirectives;
+    procedure RecogniseExternalProcDirective;
 
-    Procedure Recognise(Const peTokenTypes: TTokenTypeSet); Overload;
-    Procedure Recognise(Const peTokenType: TTokenType); Overload;
+    procedure Recognise(const peTokenTypes: TTokenTypeSet); overload;
+    procedure Recognise(const peTokenType: TTokenType); overload;
 
-    Function PushNode(Const peNodeType: TParseTreeNodeType): TParseTreeNode;
-    Function PopNode: TParseTreeNode;
-    Function TopNode: TParseTreeNode;
-    Function IdentifierNext: Boolean;
-    Function ArrayConstantNext: boolean;
+    function PushNode(const peNodeType: TParseTreeNodeType): TParseTreeNode;
+    function PopNode: TParseTreeNode;
+    function TopNode: TParseTreeNode;
+    function IdentifierNext: boolean;
+    function ArrayConstantNext: boolean;
   Protected
   Public
-    Constructor Create;
-    Destructor Destroy; Override;
-    Procedure BuildParseTree;
-    Procedure Clear;
-    Property Root: TParseTreeNode Read fcRoot;
-    Property TokenList: TSourceTokenList Read fcTokenList Write fcTokenList;
-  End;
+    constructor Create;
+    destructor Destroy; override;
+    procedure BuildParseTree;
+    procedure Clear;
+    property Root: TParseTreeNode Read fcRoot;
+    property TokenList: TSourceTokenList Read fcTokenList Write fcTokenList;
+  end;
 
-Implementation
+implementation
 
-Uses
-  { delphi } SysUtils,
+uses
+  { delphi }SysUtils,
   Dialogs,
   Forms,
   JclStrings,
-  { local } TokenUtils;
+  { local }TokenUtils;
 
-Const
+const
   UPDATE_INTERVAL = 512;
 
   {------------------------------------------------------------------------------
     standard overrides }
 
-Constructor TBuildParseTree.Create;
-Begin
-  Inherited;
+constructor TBuildParseTree.Create;
+begin
+  inherited;
   fcStack := TStack.Create;
-  fcRoot := Nil;
+  fcRoot  := nil;
   fiTokenCount := 0;
-End;
+end;
 
-Destructor TBuildParseTree.Destroy;
-Begin
+destructor TBuildParseTree.Destroy;
+begin
   Clear;
   fcStack.Free; {FreeAndNil is pointless here}
-  Inherited;
-End;
+  inherited;
+end;
 
-Procedure TBuildParseTree.Clear;
-Begin
-  While fcStack.Count > 0 Do
+procedure TBuildParseTree.Clear;
+begin
+  while fcStack.Count > 0 do
     fcStack.Pop;
   FreeAndNil(fcRoot);
-End;
+end;
 
-Procedure TBuildParseTree.BuildParseTree;
-Begin
-  Assert(fcTokenList <> Nil);
+procedure TBuildParseTree.BuildParseTree;
+begin
+  Assert(fcTokenList <> nil);
   Clear;
   { read to end of file necessary?
   liIndex := 0;
@@ -295,84 +295,93 @@ Begin
   fcTokenList.Clear;
 
 
-  fbMadeTree := True;
-End;
+  fbMadeTree := true;
+end;
 
 {-------------------------------------------------------------------------------
   recogniser support }
 
-Procedure TBuildParseTree.Recognise(Const peTokenTypes: TTokenTypeSet);
-//Var HAVING LOCAL GLOBALS SLOW DOWN THE THING
-  //lcCurrentToken: TSourceToken;
+procedure TBuildParseTree.Recognise(const peTokenTypes: TTokenTypeSet);
 
-  // Function Matched: Boolean; REMOVED. INLINED
-
-  Function DescribeTarget: String;
-  Begin
+  function DescribeTarget: string;
+  begin
     Result := '"';
-    If peTokenTypes <> [] Then Result := Result + TokenTypesToString(peTokenTypes);
+    if peTokenTypes <> [] then
+      Result := Result + TokenTypesToString(peTokenTypes);
     Result := Result + '"';
-  End;
-Var
+  end;
+
+var
   lcCurrentToken: TSourceToken;
-  Index1: Integer;
-Begin
+  liStackIndex:   integer;
+begin
   // must accept something
   Assert(peTokenTypes <> []);
+
   { read tokens up to and including the specified one.
     Add them to the parse tree at the current growing point  }
-  Index1 := fcTokenList.StackIndex; {AdemBaba}
-  While Index1 < fcTokenList.Count Do Begin
+  liStackIndex := fcTokenList.StackIndex;
+  while liStackIndex < fcTokenList.Count do
+  begin
     //lcCurrentToken := fcTokenList.ExtractFirst;
-    lcCurrentToken := fcTokenList.Extract(Index1);
-    Assert(lcCurrentToken <> Nil);
+    lcCurrentToken := fcTokenList.Extract(liStackIndex);
+    Assert(lcCurrentToken <> nil);
     TopNode.AddChild(lcCurrentToken);
     // the the match must be the first solid token
-    If lcCurrentToken.TokenType In peTokenTypes Then Break
-    Else If Not (lcCurrentToken.TokenType In NotSolidTokens) Then Raise TEParseError.Create('Unexpected token, expected ' + DescribeTarget, lcCurrentToken);
-    Inc(Index1);
-  End;
+    if lcCurrentToken.TokenType in peTokenTypes then
+      Break
+    else if not (lcCurrentToken.TokenType in NotSolidTokens) then
+      raise TEParseError.Create('Unexpected token, expected ' +
+        DescribeTarget, lcCurrentToken);
+    Inc(liStackIndex);
+  end;
 
-  inc(fiTokenCount);
-  If (fiTokenCount Mod UPDATE_INTERVAL) = 0 Then Application.ProcessMessages;
-End;
+  Inc(fiTokenCount);
+  if (fiTokenCount mod UPDATE_INTERVAL) = 0 then
+    Application.ProcessMessages;
+end;
 
-Procedure TBuildParseTree.Recognise(Const peTokenType: TTokenType);
-Begin
+procedure TBuildParseTree.Recognise(const peTokenType: TTokenType);
+begin
   Recognise([peTokenType]);
-End;
+end;
 
-Function TBuildParseTree.PushNode(Const peNodeType: TParseTreeNodeType): TParseTreeNode;
-Begin
+function TBuildParseTree.PushNode(const peNodeType: TParseTreeNodeType): TParseTreeNode;
+begin
   Result := TParseTreeNode.Create;
   Result.NodeType := peNodeType;
-  If fcStack.Count > 0 Then Begin
+
+  if fcStack.Count > 0 then
+  begin
     TopNode.AddChild(Result);
     Result.Parent := TopNode;
-  End Else fcRoot := Result;
+  end
+  else
+    fcRoot := Result;
+
   fcStack.Push(Result);
-End;
+end;
 
-Function TBuildParseTree.PopNode: TParseTreeNode;
-Begin
+function TBuildParseTree.PopNode: TParseTreeNode;
+begin
   Result := fcStack.Pop;
-End;
+end;
 
-Function TBuildParseTree.TopNode: TParseTreeNode;
-Begin
+function TBuildParseTree.TopNode: TParseTreeNode;
+begin
   Result := fcStack.Peek;
-End;
+end;
 
 {a unit / type/var name }
 
-Function TBuildParseTree.IdentifierNext: Boolean;
-Var
+function TBuildParseTree.IdentifierNext: boolean;
+var
   lc: TSourceToken;
-Begin
-  lc := fcTokenList.FirstSolidToken;
+begin
+  lc     := fcTokenList.FirstSolidToken;
   { We have to admit directives and type names as identifiers. see TestBogusDirectives.pas for the reasons why }
   Result := IsIdentifierToken(lc);
-End;
+end;
 
 {-------------------------------------------------------------------------------
   recognisers for the parse tree  top to bottom
@@ -382,19 +391,19 @@ End;
   All the productions should be here, in the same order
 }
 
-Procedure TBuildParseTree.RecogniseGoal;
-Var
+procedure TBuildParseTree.RecogniseGoal;
+var
   lc: TSourceToken;
-Begin
+begin
   // Goal -> (Program | Package  | Library  | Unit)
 
-  If fcTokenList.Count < 1 Then
-    Raise TEParseError.Create('No source to parse', Nil);
+  if fcTokenList.Count < 1 then
+    raise TEParseError.Create('No source to parse', nil);
 
   lc := fcTokenList.FirstSolidToken;
-  Assert(lc <> Nil);
+  Assert(lc <> nil);
 
-  Case lc.TokenType Of
+  case lc.TokenType of
     ttProgram:
       RecogniseProgram;
     ttPackage:
@@ -403,13 +412,13 @@ Begin
       RecogniseLibrary;
     ttUnit:
       RecogniseUnit;
-  Else
-    Raise TEParseError.Create('Expected program, package, library, unit', lc);
-  End
-End;
+    else
+      raise TEParseError.Create('Expected program, package, library, unit', lc);
+  end
+end;
 
-Procedure TBuildParseTree.RecogniseProgram;
-Begin
+procedure TBuildParseTree.RecogniseProgram;
+begin
   // Program -> [PROGRAM Ident ['(' IdentList ')'] ';']  ProgramBlock '.'
   PushNode(nProgram);
 
@@ -417,16 +426,17 @@ Begin
   Recognise(ttProgram);
 
   PushNode(nUnitName);
-  RecogniseIdentifier(False);
+  RecogniseIdentifier(false);
   PopNode;
 
-  If fcTokenList.FirstSolidTokenType = ttOpenBracket Then Begin
+  if fcTokenList.FirstSolidTokenType = ttOpenBracket then
+  begin
     Recognise(ttOpenBracket);
-    RecogniseIdentList(False);
+    RecogniseIdentList(false);
     Recognise(ttCloseBracket);
-  End;
+  end;
 
-  If fcTokenList.FirstSolidTokenType = ttSemiColon Then
+  if fcTokenList.FirstSolidTokenType = ttSemiColon then
     Recognise(ttSemicolon);
 
   PopNode;
@@ -435,10 +445,10 @@ Begin
   RecogniseFileEnd;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseUnit;
-Begin
+procedure TBuildParseTree.RecogniseUnit;
+begin
   // Unit -> UNIT Ident ';' InterfaceSection ImplementationSection InitSection '.'
   PushNode(nUnit);
 
@@ -446,21 +456,22 @@ Begin
   Recognise(ttUnit);
 
   PushNode(nUnitName);
-  RecogniseIdentifier(False);
+  RecogniseIdentifier(false);
   PopNode;
 
   { unit can be "deprecated platform library" }
-  If fcTokenList.FirstSolidTokenType In HintDirectives Then Begin
+  if fcTokenList.FirstSolidTokenType in HintDirectives then
+  begin
     PushNode(nHintDirectives);
 
-    While fcTokenList.FirstSolidTokenType In HintDirectives Do
+    while fcTokenList.FirstSolidTokenType in HintDirectives do
       Recognise(HintDirectives);
 
     PopNode;
-  End;
+  end;
 
   { or platform }
-  If fcTokenList.FirstSolidTokenType = ttPlatform Then
+  if fcTokenList.FirstSolidTokenType = ttPlatform then
     Recognise(ttPlatform);
 
   Recognise(ttSemicolon);
@@ -473,10 +484,10 @@ Begin
   RecogniseFileEnd;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecognisePackage;
-Begin
+procedure TBuildParseTree.RecognisePackage;
+begin
   // Package -> PACKAGE Ident ';' [RequiresClause] [ContainsClause] END '.'
   PushNode(nPackage);
 
@@ -484,25 +495,25 @@ Begin
   Recognise(ttPackage);
 
   PushNode(nUnitName);
-  RecogniseIdentifier(False);
+  RecogniseIdentifier(false);
   PopNode;
   Recognise(ttSemicolon);
   PopNode;
 
-  If fcTokenList.FirstSolidTokenType = ttRequires Then
+  if fcTokenList.FirstSolidTokenType = ttRequires then
     RecogniseRequiresClause;
 
-  If fcTokenList.FirstSolidTokenType = ttContains Then
+  if fcTokenList.FirstSolidTokenType = ttContains then
     RecogniseContainsClause;
 
   Recognise(ttEnd);
   RecogniseFileEnd;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseLibrary;
-Begin
+procedure TBuildParseTree.RecogniseLibrary;
+begin
   // Library -> LIBRARY Ident ';' ProgramBlock '.'
   PushNode(nLibrary);
 
@@ -510,7 +521,7 @@ Begin
   Recognise(ttLibrary);
 
   PushNode(nUnitName);
-  RecogniseIdentifier(False);
+  RecogniseIdentifier(false);
   PopNode;
   Recognise(ttSemicolon);
   PopNode;
@@ -519,40 +530,41 @@ Begin
   RecogniseFileEnd;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseFileEnd;
-Var
-  Index1: Integer;
+procedure TBuildParseTree.RecogniseFileEnd;
+var
+  liCurrentIndex: integer;
   lcCurrentToken: TSourceToken;
-Begin
+begin
   Recognise(ttDot);
 
   { delphi accepts anything after the final end }
-  Index1 := fcTokenList.StackIndex; {AdemBaba}
-  While Index1 < fcTokenList.Count Do Begin
-    lcCurrentToken := fcTokenList.Extract(Index1);
+  liCurrentIndex := fcTokenList.StackIndex; {AdemBaba}
+  while liCurrentIndex < fcTokenList.Count do
+  begin
+    lcCurrentToken := fcTokenList.Extract(liCurrentIndex);
     TopNode.AddChild(lcCurrentToken);
-    Inc(Index1);
-  End;
-End;
+    Inc(liCurrentIndex);
+  end;
+end;
 
-Procedure TBuildParseTree.RecogniseProgramBlock;
-Var
+procedure TBuildParseTree.RecogniseProgramBlock;
+var
   lc: TSourceToken;
-Begin
+begin
   // ProgramBlock -> [UsesClause] Block
 
   lc := fcTokenList.FirstSolidToken;
 
-  If lc.TokenType = ttUses Then
-    RecogniseUsesClause(True);
+  if lc.TokenType = ttUses then
+    RecogniseUsesClause(true);
 
   RecogniseBlock;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseUsesClause(Const pbInFiles: Boolean);
-Begin
+procedure TBuildParseTree.RecogniseUsesClause(const pbInFiles: boolean);
+begin
   // UsesClause -> USES IdentList ';'
   PushNode(nUses);
 
@@ -563,50 +575,52 @@ Begin
 
   RecogniseUsesItem(pbInFiles);
 
-  While fcTokenList.FirstSolidTokenType = ttComma Do Begin
+  while fcTokenList.FirstSolidTokenType = ttComma do
+  begin
     Recognise(ttComma);
     RecogniseUsesItem(pbInFiles);
-  End;
+  end;
 
   PopNode;
 
   Recognise(ttSemicolon);
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseUsesItem(Const pbInFiles: Boolean);
-Begin
+procedure TBuildParseTree.RecogniseUsesItem(const pbInFiles: boolean);
+begin
   PushNode(nUsesItem);
 
-  RecogniseIdentifier(False);
+  RecogniseIdentifier(false);
 
-  If pbInFiles And (fcTokenList.FirstSolidTokenType = ttIn) Then Begin
+  if pbInFiles and (fcTokenList.FirstSolidTokenType = ttIn) then
+  begin
     Recognise(ttIn);
     Recognise(ttLiteralString);
-  End;
+  end;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseInterfaceSection;
-Begin
+procedure TBuildParseTree.RecogniseInterfaceSection;
+begin
   // InterfaceSection -> INTERFACE [UsesClause] [InterfaceDecl]...
 
   PushNode(nInterfaceSection);
 
   Recognise(ttInterface);
 
-  If fcTokenList.FirstSolidTokenType = ttUses Then
-    RecogniseUsesClause(False);
+  if fcTokenList.FirstSolidTokenType = ttUses then
+    RecogniseUsesClause(false);
 
   RecogniseInterfaceDecls;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseInterfaceDecls;
-Begin
+procedure TBuildParseTree.RecogniseInterfaceDecls;
+begin
   { a list of InterfaceDecl sections
     e.g.
 
@@ -618,15 +632,16 @@ Begin
       NB also threadvar
 
   }
-  While fcTokenList.FirstSolidTokenType In [ttConst, ttResourceString, ttType, ttVar, ttThreadVar] + ProcedureWords Do
+  while fcTokenList.FirstSolidTokenType in [ttConst, ttResourceString,
+      ttType, ttVar, ttThreadVar] + ProcedureWords do
     RecogniseInterfaceDecl;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseInterfaceDecl;
-Var
+procedure TBuildParseTree.RecogniseInterfaceDecl;
+var
   lc: TSourceToken;
   lt: TTokenType;
-Begin
+begin
   {
    InterfaceDecl -> ConstSection
        -> TypeSection
@@ -638,7 +653,7 @@ Begin
   lc := fcTokenList.FirstSolidToken;
   lt := fcTokenList.FirstSolidTokenType;
 
-  Case lt Of
+  case lt of
     ttConst, ttResourceString:
       RecogniseConstSection;
     ttType:
@@ -647,18 +662,18 @@ Begin
       RecogniseVarSection;
     ttProcedure, ttFunction:
       RecogniseExportedHeading;
-  Else
-    Raise TEParseError.Create('Expected const, type, var, procedure or function', lc);
-  End;
+    else
+      raise TEParseError.Create('Expected const, type, var, procedure or function', lc);
+  end;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseExportedHeading;
-Var
+procedure TBuildParseTree.RecogniseExportedHeading;
+var
   lc: TSourceToken;
   lt: TTokenType;
-Begin
+begin
   { ExportedHeading
      -> ProcedureHeading ';' [Directive]
      -> FunctionHeading ';' [Directive] }
@@ -666,24 +681,26 @@ Begin
   lc := fcTokenList.FirstSolidToken;
   lt := lc.TokenType;
 
-  Case lt Of
-    ttProcedure: Begin
-        RecogniseProcedureHeading(False, False);
-      End;
-    ttFunction: Begin
-        RecogniseFunctionHeading(False, False);
-      End;
-  Else
-    Raise TEParseError.Create('Expected function or procedure', lc);
-  End;
+  case lt of
+    ttProcedure:
+    begin
+      RecogniseProcedureHeading(false, false);
+    end;
+    ttFunction:
+    begin
+      RecogniseFunctionHeading(false, false);
+    end;
+    else
+      raise TEParseError.Create('Expected function or procedure', lc);
+  end;
 
   { the ';' is ommited by lazy programmers in some rare occasions}
-  If fcTokenList.FirstSolidTokenType = ttSemicolon Then
+  if fcTokenList.FirstSolidTokenType = ttSemicolon then
     Recognise(ttSemicolon);
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseImplementationSection;
-Begin
+procedure TBuildParseTree.RecogniseImplementationSection;
+begin
   {
     ImplementationSection -> IMPLEMENTATION
          [UsesClause]
@@ -693,19 +710,19 @@ Begin
 
   Recognise(ttImplementation);
 
-  If fcTokenList.FirstSolidTokenType = ttUses Then
-    RecogniseUsesClause(False);
+  if fcTokenList.FirstSolidTokenType = ttUses then
+    RecogniseUsesClause(false);
 
   RecogniseDeclSections;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseBlock;
-Var
+procedure TBuildParseTree.RecogniseBlock;
+var
   lc: TSourceToken;
   lt: TTokenType;
-Begin
+begin
   { Block -> [DeclSection] CompoundStmt }
 
   lc := fcTokenList.FirstSolidToken;
@@ -715,19 +732,19 @@ Begin
 
   // [DeclSection]
 
-  If lt In (Declarations + ProcedureWords) Then
+  if lt in (Declarations + ProcedureWords) then
     RecogniseDeclSections;
 
-  If fcTokenList.FirstSolidTokenType = ttAsm Then
+  if fcTokenList.FirstSolidTokenType = ttAsm then
     RecogniseAsmBlock
-  Else
+  else
     RecogniseCompoundStmnt;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseDeclSections;
-Begin
+procedure TBuildParseTree.RecogniseDeclSections;
+begin
   { a list of Decl sections
     e.g.
 
@@ -739,16 +756,16 @@ Begin
       class procedure TFoo.bar;
 
   }
-  While fcTokenList.FirstSolidTokenType In
-    [ttClass] + Declarations + ProcedureWords Do
+  while fcTokenList.FirstSolidTokenType in
+    [ttClass] + Declarations + ProcedureWords do
     RecogniseDeclSection;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseDeclSection;
-Var
+procedure TBuildParseTree.RecogniseDeclSection;
+var
   lc: TSourceToken;
   lt: TTokenType;
-Begin
+begin
   PushNode(nDeclSection);
   {
    DeclSection
@@ -762,7 +779,7 @@ Begin
   lc := fcTokenList.FirstSolidToken;
   lt := fcTokenList.FirstSolidTokenType;
 
-  Case lt Of
+  case lt of
     ttLabel:
       RecogniseLabelDeclSection;
     ttConst, ttResourceString:
@@ -775,15 +792,16 @@ Begin
       RecogniseProcedureDeclSection;
     ttExports:
       RecogniseExportsSection;
-  Else
-    Raise TEParseError.Create('Expected label, const, type, var, procedure or function', lc);
-  End;
+    else
+      raise TEParseError.Create(
+        'Expected label, const, type, var, procedure or function', lc);
+  end;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseLabelDeclSection;
-Begin
+procedure TBuildParseTree.RecogniseLabelDeclSection;
+begin
   {
     LabelDeclSection -> LABEL LabelId
     this grammer can't be right. Can be mutiple labels and must have semicolon
@@ -802,47 +820,49 @@ Begin
 
   RecogniseLabel;
 
-  While fcTokenList.FirstSolidTokenType = ttComma Do Begin
+  while fcTokenList.FirstSolidTokenType = ttComma do
+  begin
     Recognise(ttComma);
     RecogniseLabel;
-  End;
+  end;
 
   PopNode;
 
   Recognise(ttSemicolon);
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseLabel;
-Begin
-  If fcTokenList.FirstSolidTokenType = ttNumber Then
+procedure TBuildParseTree.RecogniseLabel;
+begin
+  if fcTokenList.FirstSolidTokenType = ttNumber then
     Recognise(ttNumber)
-  Else
+  else
     // no unit qualifier
     RecogniseIdentifier(false);
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseConstSection;
-Begin
+procedure TBuildParseTree.RecogniseConstSection;
+begin
   {
     ConstSection -> CONST (ConstantDecl ';')...
   }
   PushNode(nConstSection);
   Recognise([ttConst, ttResourceString]);
 
-  While fcTokenList.FirstSolidWordType In IdentifierTypes Do Begin
+  while fcTokenList.FirstSolidWordType in IdentifierTypes do
+  begin
     RecogniseConstantDecl;
     Recognise(ttSemicolon);
-  End;
+  end;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseConstantDecl;
-Var
+procedure TBuildParseTree.RecogniseConstantDecl;
+var
   lc: TSourceToken;
-Begin
+begin
   {
   ConstantDecl
     -> Ident '=' ConstExpr
@@ -857,48 +877,50 @@ Begin
 
   PushNode(nConstDecl);
 
-  RecogniseIdentifier(False);
+  RecogniseIdentifier(false);
 
   lc := fcTokenList.FirstSolidToken;
 
-  If lc.TokenType = ttEquals Then Begin
+  if lc.TokenType = ttEquals then
+  begin
     Recognise(ttEquals);
     RecogniseConstantExpression;
-  End
-  Else
-    If lc.TokenType = ttColon Then Begin
+  end
+  else if lc.TokenType = ttColon then
+  begin
     Recognise(ttColon);
     //RecogniseTypeId;
     RecogniseType;
     Recognise(ttEquals);
     RecogniseTypedConstant;
-  End
-  Else
-    Raise TEParseError.Create('Expected equals or colon', lc);
+  end
+  else
+    raise TEParseError.Create('Expected equals or colon', lc);
 
   { can be deprecated library platform }
   RecogniseHintDirectives;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseTypeSection;
-Begin
+procedure TBuildParseTree.RecogniseTypeSection;
+begin
   {
   TypeSection -> TYPE (TypeDecl ';')...
   }
   PushNode(nTypeSection);
   Recognise(ttType);
 
-  While fcTokenList.FirstSolidWordType In IdentifierTypes Do Begin
+  while fcTokenList.FirstSolidWordType in IdentifierTypes do
+  begin
     RecogniseTypeDecl;
-  End;
+  end;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseTypeDecl;
-Begin
+procedure TBuildParseTree.RecogniseTypeDecl;
+begin
   {
   TypeDecl -> Ident '=' Type
      -> Ident '=' RestrictedType
@@ -908,19 +930,20 @@ Begin
 
   PushNode(nTypeDecl);
 
-  RecogniseIdentifier(False);
+  RecogniseIdentifier(false);
   Recognise(ttEquals);
 
   // type or restricted type
-  If (fcTokenList.FirstSolidTokenType In [ttObject, ttClass, ttInterface, ttDispInterface]) Then
+  if (fcTokenList.FirstSolidTokenType in [ttObject, ttClass, ttInterface,
+    ttDispInterface]) then
     RecogniseRestrictedType
-  Else
+  else
     RecogniseType;
 
   Recognise(ttSemicolon);
 
   PopNode;
-End;
+end;
 
 { helper proc for RecogniseTypedConstant
   need to distinguish
@@ -933,58 +956,63 @@ End;
   and if it is an array with one element then it is "((f: x))"
 }
 
-Function TBuildParseTree.ArrayConstantNext: boolean;
-Var
+function TBuildParseTree.ArrayConstantNext: boolean;
+var
   liIndex: integer;
   liBracketLevel: integer;
-  tt: TTokenType;
-Begin
-  Result := False;
+  tt:      TTokenType;
+begin
+  Result := false;
 
-  If fcTokenList.FirstSolidTokenType <> ttOpenBracket Then
+  if fcTokenList.FirstSolidTokenType <> ttOpenBracket then
     exit;
 
   liBracketLevel := 0;
   liIndex := fcTokenList.StackIndex; {AdemBaba}
   // scan past the open bracket
-  While fcTokenList.SourceTokens[liIndex].TokenType <> ttOpenBracket Do inc(liIndex);
+  while fcTokenList.SourceTokens[liIndex].TokenType <> ttOpenBracket do
+    Inc(liIndex);
 
-  inc(liIndex);
+  Inc(liIndex);
 
   // look forward to find the first comma or semicolon
-  While True Do Begin
-    If liIndex >= fcTokenList.Count Then
+  while true do
+  begin
+    if liIndex >= fcTokenList.Count then
       break;
 
     tt := fcTokenList.SourceTokens[liIndex].TokenType;
 
-    If tt = ttOpenBracket Then
-      inc(liBracketLevel)
-    Else If tt = ttCloseBracket Then
-      dec(liBracketLevel)
-    Else If (tt = ttComma) And (liBracketLevel = 0) Then Begin
-      Result := True;
+    if tt = ttOpenBracket then
+      Inc(liBracketLevel)
+    else if tt = ttCloseBracket then
+      Dec(liBracketLevel)
+    else if (tt = ttComma) and (liBracketLevel = 0) then
+    begin
+      Result := true;
       break;
-    End
-    Else If (tt = ttSemicolon) And (liBracketLevel = 0) Then Begin
-      Result := False;
+    end
+    else if (tt = ttSemicolon) and (liBracketLevel = 0) then
+    begin
+      Result := false;
       break;
-    End
+    end
       { if we get an semicolon at bracket level 2, it means an array of records
         e.g.
           Const MyFooRecArray = ((x: 2; y:3), (x: 5; y: 6)); }
-    Else If (tt = ttSemicolon) And (liBracketLevel = 1) Then Begin
-      Result := True;
+    else if (tt = ttSemicolon) and (liBracketLevel = 1) then
+    begin
+      Result := true;
       break;
-    End;
+    end;
 
-    inc(liIndex);
-  End;
+    Inc(liIndex);
+  end;
 
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseTypedConstant;
-Begin
+procedure TBuildParseTree.RecogniseTypedConstant;
+begin
   { TypedConstant -> (ConstExpr | ArrayConstant | RecordConstant)
 
    How to tell these apart?
@@ -1000,20 +1028,22 @@ Begin
     You can't look for the word 'array' in the just-parsed text
     as an alias type could be used
    }
-  If (fcTokenList.FirstSolidTokenType = ttOpenBracket) And
-    (fcTokenList.SolidWordType(2) In IdentifierTypes) And
-    (fcTokenList.SolidTokenType(3) = ttColon) Then Begin
+  if (fcTokenList.FirstSolidTokenType = ttOpenBracket) and
+    (fcTokenList.SolidWordType(2) in IdentifierTypes) and
+    (fcTokenList.SolidTokenType(3) = ttColon) then
+  begin
     RecogniseRecordConstant;
-  End
-  Else If (ArrayConstantNext) Then Begin
+  end
+  else if (ArrayConstantNext) then
+  begin
     RecogniseArrayConstant
-  End
-  Else
+  end
+  else
     RecogniseConstantExpression;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseArrayConstant;
-Begin
+procedure TBuildParseTree.RecogniseArrayConstant;
+begin
   // ArrayConstant -> '(' TypedConstant/','... ')'
 
   PushNode(nArrayConstant);
@@ -1021,18 +1051,19 @@ Begin
   Recognise(ttOpenBracket);
 
   RecogniseTypedConstant;
-  While (fcTokenList.FirstSolidTokenType = ttComma) Do Begin
+  while (fcTokenList.FirstSolidTokenType = ttComma) do
+  begin
     Recognise(ttComma);
     RecogniseTypedConstant;
-  End;
+  end;
 
   Recognise(ttCloseBracket);
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseRecordConstant;
-Begin
+procedure TBuildParseTree.RecogniseRecordConstant;
+begin
   // RecordConstant -> '(' RecordFieldConstant/';'... ')'
 
   PushNode(nRecordConstant);
@@ -1040,36 +1071,37 @@ Begin
   Recognise(ttOpenBracket);
 
   RecogniseRecordFieldConstant;
-  While (fcTokenList.FirstSolidTokenType = ttSemicolon) Do Begin
+  while (fcTokenList.FirstSolidTokenType = ttSemicolon) do
+  begin
     Recognise(ttSemicolon);
 
-    If fcTokenList.FirstSolidTokenType = ttCloseBracket Then
+    if fcTokenList.FirstSolidTokenType = ttCloseBracket then
       break;
 
     RecogniseRecordFieldConstant;
-  End;
+  end;
 
   Recognise(ttCloseBracket);
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseRecordFieldConstant;
-Begin
+procedure TBuildParseTree.RecogniseRecordFieldConstant;
+begin
   // RecordFieldConstant -> Ident ':' TypedConstant
 
   PushNode(nRecordFieldConstant);
 
-  RecogniseIdentifier(False);
+  RecogniseIdentifier(false);
   Recognise(ttColon);
   RecogniseTypedConstant;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseType;
-Var
+procedure TBuildParseTree.RecogniseType;
+var
   lc, lc2: TSourceToken;
-Begin
+begin
   {
   Type
     -> TypeId
@@ -1087,21 +1119,23 @@ Begin
 
   PushNode(nType);
 
-  lc := fcTokenList.FirstSolidToken;
+  lc  := fcTokenList.FirstSolidToken;
   lc2 := fcTokenList.SolidToken(2);
 
   { type can be prefixed with a unit name, e.g.
     Classes.TList; }
-  If lc2.TokenType = ttDot Then Begin
-    RecogniseIdentifier(False);
+  if lc2.TokenType = ttDot then
+  begin
+    RecogniseIdentifier(false);
     Recognise(ttDot);
-  End;
+  end;
 
-  If (lc.TokenType = ttType) Then Begin
+  if (lc.TokenType = ttType) then
+  begin
     { this can be a prefix. See help under "Declaring types".
       an e.g. is in TestDeclarations.pas }
     Recognise(ttType);
-  End;
+  end;
   (*
   If (lc.TokenType = ttConst) Then Recognise(ttConst)
   Else If (lc.TokenType In RealTypes + OrdTypes) Then RecogniseSimpleType
@@ -1119,60 +1153,68 @@ Begin
   End Else RecogniseSimpleType;
   *)
 
-  Case lc.TokenType Of  {I am not sure this is faster. But it sure avoids mixing tokentypes in the conditionals}
+  case lc.TokenType of
+  {I am not sure this is faster. But it sure avoids mixing tokentypes in the conditionals}
     ttConst: Recognise(ttConst);
     ttReal48,
-      ttReal,
-      ttSingle,
-      ttDouble,
-      ttExtended,
-      ttCurrency,
-      ttComp,
-      ttShortInt,
-      ttSmallInt,
-      ttInteger,
-      ttByte,
-      ttLongInt,
-      ttInt64,
-      ttWord,
-      ttBoolean,
-      ttByteBool,
-      ttWordBool,
-      ttLongBool,
-      ttChar,
-      ttWideChar,
-      ttLongWord,
-      ttPChar: RecogniseSimpleType; {RealTypes + OrdTypes}
+    ttReal,
+    ttSingle,
+    ttDouble,
+    ttExtended,
+    ttCurrency,
+    ttComp,
+    ttShortInt,
+    ttSmallInt,
+    ttInteger,
+    ttByte,
+    ttLongInt,
+    ttInt64,
+    ttWord,
+    ttBoolean,
+    ttByteBool,
+    ttWordBool,
+    ttLongBool,
+    ttChar,
+    ttWideChar,
+    ttLongWord,
+    ttPChar: RecogniseSimpleType; {RealTypes + OrdTypes}
     ttOpenBracket: RecogniseSimpleType; {enumerated types}
     ttPacked,
-      ttArray,
-      ttSet,
-      ttFile,
-      ttRecord: RecogniseStrucType;
+    ttArray,
+    ttSet,
+    ttFile,
+    ttRecord: RecogniseStrucType;
     ttHat: RecognisePointerType;
     ttString,
-      ttAnsiString,
-      ttWideString: RecogniseStringType; {StringWords}
+    ttAnsiString,
+    ttWideString: RecogniseStringType; {StringWords}
     ttProcedure,
-      ttFunction: RecogniseProcedureType;
+    ttFunction: RecogniseProcedureType;
     ttVariant,
-      ttOleVariant: RecogniseVariantType; {VariantTypes}
-  Else
-    If (lc.TokenType = ttClass) And (lc2.TokenType = ttOf) Then RecogniseClassRefType
-    Else If (lc.WordType In IdentifierTypes) Then Begin
+    ttOleVariant: RecogniseVariantType; {VariantTypes}
+    else
+      if (lc.TokenType = ttClass) and (lc2.TokenType = ttOf) then
+        RecogniseClassRefType
+      else if (lc.WordType in IdentifierTypes) then
+      begin
       { could be a subrange on an enum, e.g. "clBlue .. clBlack". NB: this can also be Low(Integer) .. High(Integer) }
-      If (AnsiSameText(lc.SourceCode, 'Low')) Or (fcTokenList.SolidTokenType(2) = ttDoubleDot) Then RecogniseSubRangeType
-      Else RecogniseTypeId; // some previously declared type that this simple prog does not know of
-    End Else RecogniseSimpleType;
-  End;
+        if (AnsiSameText(lc.SourceCode, 'Low')) or
+          (fcTokenList.SolidTokenType(2) = ttDoubleDot) then
+          RecogniseSubRangeType
+        else
+          RecogniseTypeId; // some previously declared type that this simple prog does not know of
+      end
+      else
+        RecogniseSimpleType;
+  end;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseRestrictedType;
-Var
+procedure TBuildParseTree.RecogniseRestrictedType;
+var
   lc: TSourceToken;
-Begin
+begin
   {
   RestrictedType
     -> ObjectType
@@ -1183,45 +1225,45 @@ Begin
   PushNode(nRestrictedType);
 
   lc := fcTokenList.FirstSolidToken;
-  Case lc.TokenType Of
+  case lc.TokenType of
     ttObject:
       RecogniseObjectType;
     ttClass:
       RecogniseClassType;
     ttInterface, ttDispInterface:
       RecogniseInterfaceType;
-  Else
-    Raise TEParseError.Create('Expected object, class or interface', lc);
-  End;
+    else
+      raise TEParseError.Create('Expected object, class or interface', lc);
+  end;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseClassRefType;
-Begin
+procedure TBuildParseTree.RecogniseClassRefType;
+begin
   // ClassRefType -> CLASS OF TypeId
 
   Recognise(ttClass);
   Recognise(ttOf);
   RecogniseTypeId;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseSimpleType;
-Var
+procedure TBuildParseTree.RecogniseSimpleType;
+var
   lc: TSourceToken;
-Begin
+begin
   // SimpleType -> (OrdinalType | RealType)
 
   lc := fcTokenList.FirstSolidToken;
 
-  If lc.TokenType In RealTypes Then
+  if lc.TokenType in RealTypes then
     RecogniseRealType
-  Else
+  else
     RecogniseOrdinalType;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseRealType;
-Begin
+procedure TBuildParseTree.RecogniseRealType;
+begin
   { RealType
      -> REAL48
      -> REAL
@@ -1232,26 +1274,26 @@ Begin
      -> COMP
   }
   Recognise(RealTypes);
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseOrdinalType;
-Var
+procedure TBuildParseTree.RecogniseOrdinalType;
+var
   lc: TSourceToken;
-Begin
+begin
   // OrdinalType -> (SubrangeType | EnumeratedType | OrdIdent)
 
   lc := fcTokenList.FirstSolidToken;
 
-  If lc.TokenType = ttOpenBracket Then
+  if lc.TokenType = ttOpenBracket then
     RecogniseEnumeratedType
-  Else If lc.TokenType In OrdTypes Then
+  else if lc.TokenType in OrdTypes then
     RecogniseOrdIdent
-  Else
+  else
     RecogniseSubRangeType;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseOrdIdent;
-Begin
+procedure TBuildParseTree.RecogniseOrdIdent;
+begin
   {
    OrdIdent
      -> SHORTINT
@@ -1268,10 +1310,10 @@ Begin
      -> PCHAR
     }
   Recognise(OrdTypes);
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseVariantType;
-Begin
+procedure TBuildParseTree.RecogniseVariantType;
+begin
   {
     VariantType
       -> VARIANT
@@ -1280,10 +1322,10 @@ Begin
 
   Recognise(VariantTypes);
 
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseSubrangeType;
-Begin
+procedure TBuildParseTree.RecogniseSubrangeType;
+begin
   { SubrangeType -> ConstExpr '..' ConstExpr
     this fails when an array is indexed on an entire type, eg
     'BoolArray: array[Boolean] of Boolean;'
@@ -1291,7 +1333,8 @@ Begin
   PushNode(nSubrangeType);
 
   RecogniseConstantExpression;
-  If fcTokenList.FirstSolidTokenType = ttDoubleDot Then Begin
+  if fcTokenList.FirstSolidTokenType = ttDoubleDot then
+  begin
     Recognise(ttDoubleDot);
 
     { recognising any expr is a bad idea here, as "a = 3" is an expression
@@ -1299,26 +1342,26 @@ Begin
       this could be "const ValidCharSet: set of 'A'..'z' = ['A'..'Z','a'..'z'];"
 
        }
-    RecogniseExpr(False);
-  End;
+    RecogniseExpr(false);
+  end;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseEnumeratedType;
-Begin
+procedure TBuildParseTree.RecogniseEnumeratedType;
+begin
   // EnumeratedType -> '(' IdentList ')'
   PushNode(nEnumeratedType);
 
   Recognise(ttOpenBracket);
-  RecogniseIdentList(False);
+  RecogniseIdentList(false);
   Recognise(ttCloseBracket);
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseStringType;
-Begin
+procedure TBuildParseTree.RecogniseStringType;
+begin
   {
     StringType
       -> STRING
@@ -1327,32 +1370,34 @@ Begin
        -> STRING '[' ConstExpr ']'
    }
 
-  If fcTokenList.FirstSolidTokenType = ttString Then Begin
+  if fcTokenList.FirstSolidTokenType = ttString then
+  begin
     Recognise(ttString);
-    If fcTokenList.FirstSolidTokenType = ttOpenSquareBracket Then Begin
+    if fcTokenList.FirstSolidTokenType = ttOpenSquareBracket then
+    begin
       // e.g. var f = String[30];
       Recognise(ttOpenSquareBracket);
       RecogniseConstantExpression;
       Recognise(ttCloseSquareBracket);
 
-    End;
-  End
-  Else
+    end;
+  end
+  else
     Recognise([ttAnsiString, ttWideString]);
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseStrucType;
-Var
+procedure TBuildParseTree.RecogniseStrucType;
+var
   lc: TSourceToken;
-Begin
+begin
   // StrucType -> [PACKED] (ArrayType | SetType | FileType | RecType)
 
-  If fcTokenList.FirstSolidTokenType = ttPacked Then
+  if fcTokenList.FirstSolidTokenType = ttPacked then
     Recognise(ttPacked);
 
   lc := fcTokenList.FirstSolidToken;
 
-  Case lc.TokenType Of
+  case lc.TokenType of
     ttArray:
       RecogniseArrayType;
     ttSet:
@@ -1361,141 +1406,146 @@ Begin
       RecogniseFileType;
     ttRecord:
       RecogniseRecordType;
-  Else
-    Raise TEParseError.Create('Expected array, set, file or record type', lc);
-  End;
-End;
+    else
+      raise TEParseError.Create('Expected array, set, file or record type', lc);
+  end;
+end;
 
-Procedure TBuildParseTree.RecogniseArrayType;
-Begin
+procedure TBuildParseTree.RecogniseArrayType;
+begin
   // ArrayType -> ARRAY ['[' OrdinalType/','... ']'] OF Type
   PushNode(nArrayType);
 
   Recognise(ttArray);
 
-  If fcTokenList.FirstSolidTokenType = ttOpenSquarebracket Then Begin
+  if fcTokenList.FirstSolidTokenType = ttOpenSquarebracket then
+  begin
     Recognise(ttOpenSquareBracket);
 
     RecogniseOrdinalType;
-    While fcTokenList.FirstSolidTokenType = ttComma Do Begin
+    while fcTokenList.FirstSolidTokenType = ttComma do
+    begin
       Recognise(ttComma);
       RecogniseOrdinalType;
-    End;
+    end;
 
     Recognise(ttCloseSquareBracket);
-  End;
+  end;
   Recognise(ttOf);
   RecogniseType;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseRecordType;
-Begin
+procedure TBuildParseTree.RecogniseRecordType;
+begin
   // RecType -> RECORD [FieldList] END
 
   PushNode(nRecordType);
 
   Recognise(ttRecord);
-  If fcTokenList.FirstSolidTokenType <> ttEnd Then
+  if fcTokenList.FirstSolidTokenType <> ttEnd then
     RecogniseFieldList;
   Recognise(ttEnd);
 
   RecogniseHintDirectives;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseFieldList;
-Begin
+procedure TBuildParseTree.RecogniseFieldList;
+begin
   // FieldList ->  FieldDecl/';'... [VariantSection] [';']
 
-  While (Not (fcTokenList.FirstSolidTokenType In [ttEnd, ttCase]))
-    And (Not (fcTokenList.FirstSolidTokenType = ttCloseBracket)) Do Begin
+  while ( not (fcTokenList.FirstSolidTokenType in [ttEnd, ttCase])) and
+    ( not (fcTokenList.FirstSolidTokenType = ttCloseBracket)) do
+  begin
     RecogniseFieldDecl;
-    If fcTokenList.FirstSolidTokenType = ttSemicolon Then
+    if fcTokenList.FirstSolidTokenType = ttSemicolon then
       Recognise(ttSemicolon)
-    Else
+    else
       Break;
-  End;
+  end;
 
-  If fcTokenList.FirstSolidTokenType = ttCase Then
+  if fcTokenList.FirstSolidTokenType = ttCase then
     RecogniseVariantSection;
 
-  If fcTokenList.FirstSolidTokenType = ttSemicolon Then
+  if fcTokenList.FirstSolidTokenType = ttSemicolon then
     Recognise(ttSemicolon);
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseFieldDecl;
-Begin
+procedure TBuildParseTree.RecogniseFieldDecl;
+begin
   // FieldDecl -> IdentList ':' Type
   PushNode(nFieldDeclaration);
 
-  RecogniseIdentList(False);
+  RecogniseIdentList(false);
   Recognise(ttColon);
   RecogniseType;
 
   RecogniseHintDirectives;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseVariantSection;
-Begin
+procedure TBuildParseTree.RecogniseVariantSection;
+begin
   PushNode(nRecordVariantSection);
 
   // VariantSection -> CASE [Ident ':'] TypeId OF RecVariant/';'...
   Recognise(ttCase);
 
   // is there an 'of' 2 tokens hence? If not, must be 'ident:' first
-  If Not (fcTokenList.SolidTokenType(2) = ttOf) Then Begin
-    RecogniseIdentifier(False);
+  if not (fcTokenList.SolidTokenType(2) = ttOf) then
+  begin
+    RecogniseIdentifier(false);
     Recognise(ttColon);
-  End;
+  end;
 
   RecogniseTypeId;
   Recognise(ttOf);
 
   // I have tested and that there must be at least 1 case in a var section
-  Repeat
+  repeat
     RecogniseRecVariant;
 
     // semicolon is optional on the last one
-    If fcTokenList.FirstSolidTokenType = ttSemicolon Then
+    if fcTokenList.FirstSolidTokenType = ttSemicolon then
       Recognise(ttSemicolon)
-    Else
+    else
       break;
 
-  Until (fcTokenList.FirstSolidTokenType In [ttEnd, ttCloseBracket]);
+  until (fcTokenList.FirstSolidTokenType in [ttEnd, ttCloseBracket]);
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseRecVariant;
-Begin
+procedure TBuildParseTree.RecogniseRecVariant;
+begin
   // RecVariant -> ConstExpr/','...  ':' '(' [FieldList] ')'
 
   PushNode(nRecordVariant);
 
   RecogniseConstantExpression;
-  While fcTokenList.FirstSolidTokenType = ttComma Do Begin
+  while fcTokenList.FirstSolidTokenType = ttComma do
+  begin
     Recognise(ttComma);
     RecogniseConstantExpression;
-  End;
+  end;
 
   Recognise(ttColon);
   Recognise(ttOpenBracket);
 
-  If fcTokenList.FirstSolidTokenType <> ttCloseBracket Then
+  if fcTokenList.FirstSolidTokenType <> ttCloseBracket then
     RecogniseFieldList;
 
   Recognise(ttCloseBracket);
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseSetType;
-Begin
+procedure TBuildParseTree.RecogniseSetType;
+begin
   { SetType -> SET OF OrdinalType
 
   cannot limit it to ord types, as this will not parse the below:
@@ -1518,10 +1568,10 @@ Begin
   RecogniseType;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseFileType;
-Begin
+procedure TBuildParseTree.RecogniseFileType;
+begin
   {
    FileType -> FILE OF TypeId
 
@@ -1529,90 +1579,96 @@ Begin
   }
 
   Recognise(ttFile);
-  If fcTokenList.FirstSolidTokenType = ttOf Then Begin
+  if fcTokenList.FirstSolidTokenType = ttOf then
+  begin
     Recognise(ttOf);
     RecogniseTypeId;
-  End;
-End;
+  end;
+end;
 
-Procedure TBuildParseTree.RecognisePointerType;
-Begin
+procedure TBuildParseTree.RecognisePointerType;
+begin
   // PointerType -> '^' TypeId
   Recognise(ttHat);
   RecogniseTypeId;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseProcedureType;
-Begin
+procedure TBuildParseTree.RecogniseProcedureType;
+begin
   PushNode(nProcedureType);
 
   // ProcedureType -> (ProcedureHeading | FunctionHeading) [OF OBJECT]
-  If fcTokenList.FirstSolidTokenType = ttProcedure Then
-    RecogniseProcedureHeading(True, False)
-  Else If fcTokenList.FirstSolidTokenType = ttFunction Then
-    RecogniseFunctionHeading(True, False)
-  Else
-    Raise TEParseError.Create('Expected procedure or function type', fcTokenList.FirstSolidToken);
+  if fcTokenList.FirstSolidTokenType = ttProcedure then
+    RecogniseProcedureHeading(true, false)
+  else if fcTokenList.FirstSolidTokenType = ttFunction then
+    RecogniseFunctionHeading(true, false)
+  else
+    raise TEParseError.Create('Expected procedure or function type',
+      fcTokenList.FirstSolidToken);
 
-  If fcTokenList.FirstSolidTokenType = ttOf Then Begin
+  if fcTokenList.FirstSolidTokenType = ttOf then
+  begin
     Recognise(ttOf);
     Recognise(ttObject);
-  End;
+  end;
 
   RecogniseProcedureDirectives;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseVarSection;
-Const
+procedure TBuildParseTree.RecogniseVarSection;
+const
   END_VAR_SECTION: TTokenTypeSet =
-  [ttVar, ttThreadVar, ttConst, ttLabel, ttResourceString, ttType,
+    [ttVar, ttThreadVar, ttConst, ttLabel, ttResourceString, ttType,
     ttBegin, ttEnd, ttImplementation, ttInitialization,
     ttProcedure, ttFunction, ttConstructor, ttDestructor, ttClass, ttAsm];
-Begin
+begin
   PushNode(nVarSection);
 
   // VarSection -> VAR (VarDecl ';')...
   Recognise([ttVar, ttThreadvar]);
 
-  Repeat
+  repeat
     RecogniseVarDecl;
     Recognise(ttSemicolon);
-  Until (fcTokenList.FirstSolidTokenType In END_VAR_SECTION);
+  until (fcTokenList.FirstSolidTokenType in END_VAR_SECTION);
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseVarDecl;
-Var
+procedure TBuildParseTree.RecogniseVarDecl;
+var
   lc: TSourceToken;
-Begin
+begin
   // VarDecl -> IdentList ':' Type [(ABSOLUTE (Ident | ConstExpr)) | '=' ConstExpr]
 
   PushNode(nVarDecl);
 
-  RecogniseIdentList(False);
+  RecogniseIdentList(false);
   Recognise(ttColon);
   RecogniseType;
 
   lc := fcTokenList.FirstSolidToken;
 
-  If lc.TokenType = ttAbsolute Then Begin
+  if lc.TokenType = ttAbsolute then
+  begin
     PushNode(nAbsoluteVar);
     Recognise(ttAbsolute);
 
-    If (fcTokenList.FirstSolidWordType In IdentifierTypes) Then
-      RecogniseIdentifier(False)
-    Else
+    if (fcTokenList.FirstSolidWordType in IdentifierTypes) then
+      RecogniseIdentifier(false)
+    else
       RecogniseConstantExpression;
 
     PopNode;
-  End
-  Else Begin
+  end
+  else
+  begin
     RecogniseHintDirectives;
 
-    If fcTokenList.FirstSolidTokenType = ttEquals Then Begin
+    if fcTokenList.FirstSolidTokenType = ttEquals then
+    begin
       PushNode(nVariableInit);
 
       Recognise(ttEquals);
@@ -1623,17 +1679,17 @@ Begin
       RecogniseTypedConstant;
 
       PopNode;
-    End;
-  End;
+    end;
+  end;
 
   { yes, they can occur here too }
   RecogniseHintDirectives;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseExpr(Const pbAllowRelop: Boolean);
-Begin
+procedure TBuildParseTree.RecogniseExpr(const pbAllowRelop: boolean);
+begin
   { Expression -> SimpleExpression [RelOp SimpleExpression]...
 
     nb this doesn't parse
@@ -1644,31 +1700,35 @@ Begin
 
   RecogniseSimpleExpression;
 
-  If pbAllowRelop Then Begin
-    While fcTokenList.FirstSolidTokenType In RelationalOperators Do Begin
+  if pbAllowRelop then
+  begin
+    while fcTokenList.FirstSolidTokenType in RelationalOperators do
+    begin
       RecogniseRelop;
       RecogniseSimpleExpression;
-    End;
-  End;
+    end;
+  end;
 
   // added this to cope with real usage - see TestCastSimple
-  If fcTokenList.FirstSolidTokenType = ttDot Then Begin
+  if fcTokenList.FirstSolidTokenType = ttDot then
+  begin
     Recognise(ttDot);
     RecogniseExpr(true);
-  End;
+  end;
 
   //likewise need to cope with pchar(foo)^
-  If fcTokenList.FirstSolidTokenType = ttHat Then Begin
+  if fcTokenList.FirstSolidTokenType = ttHat then
+  begin
     Recognise(ttHat);
-  End;
+  end;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseSimpleExpression;
+procedure TBuildParseTree.RecogniseSimpleExpression;
 {var
   lc: TSourceToken;}
-Begin
+begin
   { SimpleExpression -> ['+' | '-'] Term [AddOp Term]...
 
     the plus/minus prefix is a red herring
@@ -1684,32 +1744,34 @@ Begin
     Recognise(wPlus);
  }
   RecogniseTerm;
-  While fcTokenList.FirstSolidTokenType In AddOperators Do Begin
+  while fcTokenList.FirstSolidTokenType in AddOperators do
+  begin
     RecogniseAddOp;
     RecogniseTerm;
-  End;
-End;
+  end;
+end;
 
-Procedure TBuildParseTree.RecogniseTerm;
-Begin
+procedure TBuildParseTree.RecogniseTerm;
+begin
   // Term -> Factor [MulOp Factor]...
 
   PushNode(nTerm);
 
   RecogniseFactor;
 
-  While fcTokenList.FirstSolidTokenType In MulOperators Do Begin
+  while fcTokenList.FirstSolidTokenType in MulOperators do
+  begin
     RecogniseMulOp;
     RecogniseFactor;
-  End;
+  end;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseFactor;
-Var
+procedure TBuildParseTree.RecogniseFactor;
+var
   lc: TSourceToken;
-Begin
+begin
   {
   Factor
     -> Designator ['(' ExprList ')']
@@ -1736,65 +1798,76 @@ Begin
    }
   lc := fcTokenList.FirstSolidToken;
 
-  If lc.TokenType = ttInherited Then Begin
+  if lc.TokenType = ttInherited then
+  begin
     Recognise(ttInherited);
 
     RecogniseDesignator;
-    If fcTokenList.FirstSolidTokenType = ttOpenBracket Then Begin
+    if fcTokenList.FirstSolidTokenType = ttOpenBracket then
+    begin
       RecogniseActualParams;
-    End;
-  End
-  Else If (IdentifierNext) Then Begin
+    end;
+  end
+  else if (IdentifierNext) then
+  begin
     RecogniseDesignator;
-    If fcTokenList.FirstSolidTokenType = ttOpenBracket Then Begin
+    if fcTokenList.FirstSolidTokenType = ttOpenBracket then
+    begin
       RecogniseActualParams;
-    End;
-  End
-  Else If (fcTokenList.FirstSolidTokenType = ttNumber) Then Begin
+    end;
+  end
+  else if (fcTokenList.FirstSolidTokenType = ttNumber) then
+  begin
     Recognise(ttNumber);
-  End
-  Else If (fcTokenList.FirstSolidTokenType = ttLiteralString) Then Begin
+  end
+  else if (fcTokenList.FirstSolidTokenType = ttLiteralString) then
+  begin
     Recognise(ttLiteralString);
-  End
-  Else If (fcTokenList.FirstSolidTokenType In BuiltInConstants) Then Begin
+  end
+  else if (fcTokenList.FirstSolidTokenType in BuiltInConstants) then
+  begin
     // nil, true, false
     Recognise(BuiltInConstants);
-  End
-  Else If (fcTokenList.FirstSolidTokenType = ttOpenBracket) Then Begin
+  end
+  else if (fcTokenList.FirstSolidTokenType = ttOpenBracket) then
+  begin
     Recognise(ttOpenBracket);
 
     { can be empty brackets }
-    If fcTokenList.FirstSolidTokenType <> ttCloseBracket Then
-      RecogniseExpr(True);
+    if fcTokenList.FirstSolidTokenType <> ttCloseBracket then
+      RecogniseExpr(true);
     Recognise(ttCloseBracket);
 
     //!!! recognise expressions like (Foo.Stuff['x'].Pointer)^.MyIndex
-  End
-  Else If (fcTokenList.FirstSolidTokenType = ttNot) Then Begin
+  end
+  else if (fcTokenList.FirstSolidTokenType = ttNot) then
+  begin
     Recognise(ttNot);
     RecogniseFactor;
-  End
-  Else If fcTokenList.FirstSolidTokenType In PossiblyUnarySymbolOperators Then Begin
+  end
+  else if fcTokenList.FirstSolidTokenType in PossiblyUnarySymbolOperators then
+  begin
     PushNode(nUnaryOp);
     Recognise(PossiblyUnarySymbolOperators);
     RecogniseFactor;
 
     PopNode;
-  End
-  Else If (fcTokenList.FirstSolidTokenType = ttOpenSquareBracket) Then Begin
+  end
+  else if (fcTokenList.FirstSolidTokenType = ttOpenSquareBracket) then
+  begin
     RecogniseSetConstructor;
-  End
-  Else
-    Raise TEParseError.Create('unexpected token in factor', lc);
+  end
+  else
+    raise TEParseError.Create('unexpected token in factor', lc);
 
-  If fcTokenList.FirstSolidTokenType In [ttHat, ttDot, ttOpenSquareBracket] Then
+  if fcTokenList.FirstSolidTokenType in [ttHat, ttDot, ttOpenSquareBracket] then
     RecogniseDesignatorTail;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseRelOp;
-Var
+procedure TBuildParseTree.RecogniseRelOp;
+var
   lc: TSourceToken;
-Begin
+begin
   {RelOp
   -> '>'
   -> '<'
@@ -1808,28 +1881,28 @@ Begin
 
   lc := fcTokenList.FirstSolidToken;
 
-  If lc.TokenType In RelationalOperators Then
+  if lc.TokenType in RelationalOperators then
     Recognise(RelationalOperators)
-  Else
-    Raise TEParseError.Create('unexpected token in rel op', lc);
-End;
+  else
+    raise TEParseError.Create('unexpected token in rel op', lc);
+end;
 
-Procedure TBuildParseTree.RecogniseAddOp;
-Var
+procedure TBuildParseTree.RecogniseAddOp;
+var
   lc: TSourceToken;
-Begin
+begin
   lc := fcTokenList.FirstSolidToken;
 
-  If lc.TokenType In AddOperators Then
+  if lc.TokenType in AddOperators then
     Recognise(AddOperators)
-  Else
-    Raise TEParseError.Create('unexpected token in add op', lc);
-End;
+  else
+    raise TEParseError.Create('unexpected token in add op', lc);
+end;
 
-Procedure TBuildParseTree.RecogniseMulOp;
-Var
+procedure TBuildParseTree.RecogniseMulOp;
+var
   lc: TSourceToken;
-Begin
+begin
   {
   MulOp
     -> '*'
@@ -1843,14 +1916,14 @@ Begin
   }
   lc := fcTokenList.FirstSolidToken;
 
-  If lc.TokenType In MulOperators Then
+  if lc.TokenType in MulOperators then
     Recognise(MulOperators)
-  Else
-    Raise TEParseError.Create('unexpected token in mul op', lc);
-End;
+  else
+    raise TEParseError.Create('unexpected token in mul op', lc);
+end;
 
-Procedure TBuildParseTree.RecogniseDesignator;
-Begin
+procedure TBuildParseTree.RecogniseDesignator;
+begin
   { Designator -> QualId ['.' Ident | '[' ExprList ']' | '^']...
 
     Need brackets here too for hard typecasts like
@@ -1858,7 +1931,7 @@ Begin
   }
   PushNode(nDesignator);
 
-  If fcTokenList.FirstSolidTokenType = ttAtSign Then
+  if fcTokenList.FirstSolidTokenType = ttAtSign then
     Recognise(ttAtSign);
 
   RecogniseQualId;
@@ -1866,126 +1939,139 @@ Begin
   RecogniseDesignatorTail;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseDesignatorTail;
-Const
+procedure TBuildParseTree.RecogniseDesignatorTail;
+const
   DESIGNATOR_TAIL_TOKENS = [ttDot, ttOpenBracket, ttOpenSquareBracket, ttHat,
     ttPlus, ttMinus];
-Begin
+begin
 
-  While (fcTokenList.FirstSolidTokenType In DESIGNATOR_TAIL_TOKENS) Do Begin
-    Case fcTokenList.FirstSolidTokenType Of
-      ttDot: Begin
-          Recognise(ttDot);
-          RecogniseIdentifier(False);
-        End;
-      ttHat: Begin
-          Recognise(ttHat);
+  while (fcTokenList.FirstSolidTokenType in DESIGNATOR_TAIL_TOKENS) do
+  begin
+    case fcTokenList.FirstSolidTokenType of
+      ttDot:
+      begin
+        Recognise(ttDot);
+        RecogniseIdentifier(false);
+      end;
+      ttHat:
+      begin
+        Recognise(ttHat);
           // and after the deref operator ?
-        End;
-      ttOpenSquareBracket: Begin
-          Recognise(ttOpenSquareBracket);
-          RecogniseExprList;
-          Recognise(ttCloseSquareBracket);
-        End;
-      ttOpenBracket: Begin
-          RecogniseActualParams;
-        End;
-      ttPlus, ttMinus: Begin
-          Recognise([ttPlus, ttMinus]);
-          RecogniseExpr(True);
-        End;
-    Else
-      Assert(False, 'Should not be here - bad token type');
-    End;
-  End;
-End;
+      end;
+      ttOpenSquareBracket:
+      begin
+        Recognise(ttOpenSquareBracket);
+        RecogniseExprList;
+        Recognise(ttCloseSquareBracket);
+      end;
+      ttOpenBracket:
+      begin
+        RecogniseActualParams;
+      end;
+      ttPlus, ttMinus:
+      begin
+        Recognise([ttPlus, ttMinus]);
+        RecogniseExpr(true);
+      end;
+      else
+        Assert(false, 'Should not be here - bad token type');
+    end;
+  end;
+end;
 
-Procedure TBuildParseTree.RecogniseSetConstructor;
-Begin
+procedure TBuildParseTree.RecogniseSetConstructor;
+begin
   // SetConstructor -> '[' [SetElement/','...] ']'
 
   Recognise(ttOpenSquareBracket);
 
-  While fcTokenList.FirstSolidTokenType <> ttCloseSquareBracket Do Begin
+  while fcTokenList.FirstSolidTokenType <> ttCloseSquareBracket do
+  begin
     RecogniseSetElement;
-    If fcTokenList.FirstSolidTokenType = ttComma Then
+    if fcTokenList.FirstSolidTokenType = ttComma then
       Recognise(ttComma)
-    Else
+    else
       break; // no comma -> no more items
-  End;
+  end;
 
   Recognise(ttCloseSquareBracket);
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseSetElement;
-Begin
+procedure TBuildParseTree.RecogniseSetElement;
+begin
   // SetElement -> Expression ['..' Expression]
 
-  RecogniseExpr(True);
-  If fcTokenList.FirstSolidTokenType = ttDoubleDot Then Begin
+  RecogniseExpr(true);
+  if fcTokenList.FirstSolidTokenType = ttDoubleDot then
+  begin
     Recognise(ttDoubleDot);
-    RecogniseExpr(False);
-  End;
-End;
+    RecogniseExpr(false);
+  end;
+end;
 
-Procedure TBuildParseTree.RecogniseExprList;
-Begin
+procedure TBuildParseTree.RecogniseExprList;
+begin
   // ExprList -> Expression/','...
 
-  RecogniseExpr(True);
-  While fcTokenList.FirstSolidTokenType = ttComma Do Begin
+  RecogniseExpr(true);
+  while fcTokenList.FirstSolidTokenType = ttComma do
+  begin
     Recognise(ttComma);
-    RecogniseExpr(True);
-  End;
-End;
+    RecogniseExpr(true);
+  end;
+end;
 
-Procedure TBuildParseTree.RecogniseStatement;
-Const
+procedure TBuildParseTree.RecogniseStatement;
+const
   BLOCK_END: TTokenTypeSet = [ttEnd, ttFinally, ttExcept];
-Var
+var
   lc: TSourceToken;
-Begin
+begin
   // Statement -> [LabelId ':'] [SimpleStatement | StructStmt]
 
   PushNode(nStatement);
 
   // empty statement
-  If fcTokenList.FirstSolidTokenType = ttSemicolon Then Begin
+  if fcTokenList.FirstSolidTokenType = ttSemicolon then
+  begin
     PopNode;
     Exit;
-  End;
+  end;
 
-  If fcTokenList.FirstSolidTokenType = ttEnd Then Begin
+  if fcTokenList.FirstSolidTokenType = ttEnd then
+  begin
     PopNode;
     Exit;
-  End;
+  end;
 
   CheckLabelPrefix;
 
   lc := fcTokenList.FirstSolidToken;
 
   { anything more? can just be a label at the end of the proc/block }
-  If Not (lc.TokenType In BLOCK_END) Then Begin
+  if not (lc.TokenType in BLOCK_END) then
+  begin
 
-    If lc.TokenType In StructStatementWords Then
+    if lc.TokenType in StructStatementWords then
       RecogniseStructStmnt
-    Else
+    else
       RecogniseSimpleStmnt;
-  End;
+  end;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.CheckLabelPrefix;
-Var
+procedure TBuildParseTree.CheckLabelPrefix;
+var
   lc2: TSourceToken;
   lbColonSecond: boolean;
-Begin
+begin
   lc2 := fcTokenList.SolidToken(2);
   lbColonSecond := (lc2.TokenType = ttColon);
-  If (lbColonSecond) Then Begin
+  if (lbColonSecond) then
+  begin
     PushNode(nStatementLabel);
     RecogniseLabel;
     Recognise(ttColon);
@@ -1993,32 +2079,33 @@ Begin
 
     { can be followed by another label  }
     CheckLabelPrefix
-  End
+  end
 
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseStatementList(Const peEndTokens: TTokenTypeSet);
-Begin
+procedure TBuildParseTree.RecogniseStatementList(const peEndTokens: TTokenTypeSet);
+begin
   // StmtList -> Statement/';'...
   PushNode(nStatementList);
 
-  While Not (fcTokenList.FirstSolidTokenType In peEndTokens) Do Begin
+  while not (fcTokenList.FirstSolidTokenType in peEndTokens) do
+  begin
     RecogniseStatement;
 
     // last semicolon is optional
-    If fcTokenList.FirstSolidTokenType = ttSemicolon Then
+    if fcTokenList.FirstSolidTokenType = ttSemicolon then
       Recognise(ttSemicolon)
-    Else
+    else
       break;
-  End;
+  end;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseSimpleStmnt;
-Var
+procedure TBuildParseTree.RecogniseSimpleStmnt;
+var
   lc: TSourceToken;
-Begin
+begin
   {
   SimpleStatement
     -> Designator ['(' ExprList ')']
@@ -2041,36 +2128,41 @@ Begin
 
   lc := fcTokenList.FirstSolidToken;
 
-  If (IdentifierNext) Or (lc.TokenType In [ttOpenBracket, ttAtSign]) Then Begin
+  if (IdentifierNext) or (lc.TokenType in [ttOpenBracket, ttAtSign]) then
+  begin
     // should be fullblown expression?
     RecogniseDesignator;
 
-    If fcTokenList.FirstSolidTokenType = ttOpenBracket Then Begin
+    if fcTokenList.FirstSolidTokenType = ttOpenBracket then
+    begin
       RecogniseActualParams;
-    End;
+    end;
 
     // can be a hat after the close backets to deref the return value
-    If fcTokenList.FirstSolidTokenType = ttHat Then
+    if fcTokenList.FirstSolidTokenType = ttHat then
       Recognise(ttHat);
 
     // dot next ?
-    If fcTokenList.FirstSolidTokenType = ttDot Then Begin
+    if fcTokenList.FirstSolidTokenType = ttDot then
+    begin
       Recognise(ttDot);
       RecogniseSimpleStmnt;
-    End
+    end
 
-    Else If fcTokenList.FirstSolidTokenType = ttAssign Then Begin
+    else if fcTokenList.FirstSolidTokenType = ttAssign then
+    begin
       PushNode(nAssignment);
 
       Recognise(ttAssign);
-      RecogniseExpr(True);
+      RecogniseExpr(true);
 
       PopNode;
-    End;
+    end;
 
     // else nothing at all is also ok. i.e. procedure call with no params
-  End
-  Else If lc.TokenType = ttInherited Then Begin
+  end
+  else if lc.TokenType = ttInherited then
+  begin
     { can be one of
       "inherited;
       inherited Foo;
@@ -2081,43 +2173,47 @@ Begin
       }
 
     Recognise(ttInherited);
-    If IdentifierNext Then
+    if IdentifierNext then
       RecogniseSimpleStmnt;
-  End
-  Else If lc.TokenType = ttGoto Then Begin
+  end
+  else if lc.TokenType = ttGoto then
+  begin
     Recognise(ttGoto);
     RecogniseLabel;
-  End
-  Else If lc.TokenType = ttRaise Then Begin
+  end
+  else if lc.TokenType = ttRaise then
+  begin
     RecogniseRaise;
-  End
-  Else If lc.TokenType = ttSemicolon Then Begin
+  end
+  else if lc.TokenType = ttSemicolon then
+  begin
     // empty statement
     // this gets doen later in common code Recognise(ttSemicolon);
-  End
-  Else
-    Raise TEParseError.Create('expected simple statement', lc);
+  end
+  else
+    raise TEParseError.Create('expected simple statement', lc);
 
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseRaise;
-Begin
+procedure TBuildParseTree.RecogniseRaise;
+begin
   // another omission - raise expr  or just raise (in except block)
   Recognise(ttRaise);
-  If Not (fcTokenList.FirstSolidTokenType In [ttSemicolon, ttEnd, ttElse]) Then
-    RecogniseExpr(True);
+  if not (fcTokenList.FirstSolidTokenType in [ttSemicolon, ttEnd, ttElse]) then
+    RecogniseExpr(true);
 
   // can be at addr
-  If fcTokenList.FirstSolidTokenType = ttAt Then Begin
+  if fcTokenList.FirstSolidTokenType = ttAt then
+  begin
     Recognise(ttAt);
-    RecogniseExpr(True);
-  End;
-End;
+    RecogniseExpr(true);
+  end;
+end;
 
-Procedure TBuildParseTree.RecogniseStructStmnt;
-Var
+procedure TBuildParseTree.RecogniseStructStmnt;
+var
   lc: TSourceToken;
-Begin
+begin
   {
     StructStmt
       -> CompoundStmt
@@ -2142,7 +2238,7 @@ Begin
 
   lc := fcTokenList.FirstSolidToken;
 
-  Case lc.TokenType Of
+  case lc.TokenType of
     ttBegin:
       RecogniseCompoundStmnt;
     ttAsm:
@@ -2161,30 +2257,30 @@ Begin
       RecogniseWithStmnt;
     ttTry:
       RecogniseTryStatement;
-  Else
-    Raise TEParseError.Create('expected structured statement', lc);
-  End;
+    else
+      raise TEParseError.Create('expected structured statement', lc);
+  end;
 
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseCompoundStmnt;
-Begin
+procedure TBuildParseTree.RecogniseCompoundStmnt;
+begin
   { CompoundStmt -> BEGIN StmtList END }
   PushNode(nCompoundStatement);
   Recognise(ttBegin);
   RecogniseStatementList([ttEnd]);
   Recognise(ttEnd);
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseIfStmnt;
-Begin
+procedure TBuildParseTree.RecogniseIfStmnt;
+begin
   // IfStmt -> IF Expression THEN Statement [ELSE Statement]
 
   Recognise(ttIf);
 
   PushNode(nIfCondition);
-  RecogniseExpr(True);
+  RecogniseExpr(true);
   PopNode;
 
   Recognise(ttThen);
@@ -2192,52 +2288,54 @@ Begin
   PushNode(nIfBlock);
 
   { if body can be completely missing - go straight to else }
-  If fcTokenList.FirstSolidTokenType <> ttElse Then
+  if fcTokenList.FirstSolidTokenType <> ttElse then
     RecogniseStatement;
   PopNode;
 
-  If fcTokenList.FirstSolidTokenType = ttElse Then Begin
+  if fcTokenList.FirstSolidTokenType = ttElse then
+  begin
     Recognise(ttElse);
     PushNode(nElseBlock);
-    If Not (fcTokenList.FirstSolidTokenType In [ttElse, ttEnd]) Then
+    if not (fcTokenList.FirstSolidTokenType in [ttElse, ttEnd]) then
       RecogniseStatement;
     PopNode;
-  End;
-End;
+  end;
+end;
 
-Procedure TBuildParseTree.RecogniseCaseStmnt;
-Begin
+procedure TBuildParseTree.RecogniseCaseStmnt;
+begin
   // CaseStmt -> CASE Expression OF CaseSelector/';'... [ELSE Statement] [';'] END
   PushNode(nCaseStatement);
 
   Recognise(ttCase);
 
   PushNode(nBlockHeaderExpr);
-  RecogniseExpr(True);
+  RecogniseExpr(true);
   PopNode;
 
   Recognise(ttOf);
 
-  While Not (fcTokenList.FirstSolidTokenType In [ttElse, ttEnd]) Do
+  while not (fcTokenList.FirstSolidTokenType in [ttElse, ttEnd]) do
     RecogniseCaseSelector;
 
-  If fcTokenList.FirstSolidTokenType = ttElse Then Begin
+  if fcTokenList.FirstSolidTokenType = ttElse then
+  begin
     PushNode(nElseCase);
     Recognise(ttElse);
     RecogniseStatementList([ttEnd]);
     PopNode;
-  End;
+  end;
 
-  If fcTokenList.FirstSolidTokenType = ttSemicolon Then
+  if fcTokenList.FirstSolidTokenType = ttSemicolon then
     Recognise(ttSemicolon);
 
   Recognise(ttEnd);
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseCaseSelector;
-Begin
+procedure TBuildParseTree.RecogniseCaseSelector;
+begin
   // CaseSelector -> CaseLabel/','... ':' Statement ';'
 
   PushNode(nCaseSelector);
@@ -2245,42 +2343,45 @@ Begin
   PushNode(nCaseLabels);
   RecogniseCaseLabel;
 
-  While (fcTokenList.FirstSolidTokenType = ttComma) Do Begin
+  while (fcTokenList.FirstSolidTokenType = ttComma) do
+  begin
     Recognise(ttComma);
     RecogniseCaseLabel;
-  End;
+  end;
 
   Recognise(ttColon);
   PopNode;
 
   { semicolon is optional in the last case before the else }
-  If Not (fcTokenList.FirstSolidTokenType In [ttElse, ttEnd]) Then Begin
+  if not (fcTokenList.FirstSolidTokenType in [ttElse, ttEnd]) then
+  begin
     RecogniseStatement;
 
-    If fcTokenList.FirstSolidTokenType = ttSemicolon Then
+    if fcTokenList.FirstSolidTokenType = ttSemicolon then
       Recognise(ttSemicolon);
-  End;
+  end;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseCaseLabel;
-Begin
+procedure TBuildParseTree.RecogniseCaseLabel;
+begin
   // CaseLabel -> ConstExpr ['..' ConstExpr]
 
   PushNode(nCaseLabel);
 
   RecogniseConstantExpression;
-  If (fcTokenList.FirstSolidTokenType = ttDoubleDot) Then Begin
+  if (fcTokenList.FirstSolidTokenType = ttDoubleDot) then
+  begin
     Recognise(ttDoubleDot);
     RecogniseConstantExpression;
-  End;
+  end;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseRepeatStmnt;
-Begin
+procedure TBuildParseTree.RecogniseRepeatStmnt;
+begin
   { RepeatStmt -> REPEAT Statement UNTIL Expression
 
    Incorect - it is a statement list
@@ -2292,31 +2393,31 @@ Begin
   Recognise(ttUntil);
 
   PushNode(nLoopHeaderExpr);
-  RecogniseExpr(True);
+  RecogniseExpr(true);
   PopNode;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseWhileStmnt;
-Begin
+procedure TBuildParseTree.RecogniseWhileStmnt;
+begin
   // WhileStmt -> WHILE Expression DO Statement
   PushNode(nWhileStatement);
 
   Recognise(ttWhile);
 
   PushNode(nLoopHeaderExpr);
-  RecogniseExpr(True);
+  RecogniseExpr(true);
   PopNode;
 
   Recognise(ttDo);
   RecogniseStatement;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseForStmnt;
-Begin
+procedure TBuildParseTree.RecogniseForStmnt;
+begin
   // ForStmt -> FOR QualId ':=' Expression (TO | DOWNTO) Expression DO Statement
   PushNode(nForStatement);
 
@@ -2325,23 +2426,23 @@ Begin
   Recognise(ttAssign);
 
   PushNode(nLoopHeaderExpr);
-  RecogniseExpr(True);
+  RecogniseExpr(true);
   PopNode;
 
   Recognise([ttTo, ttDownto]);
 
   PushNode(nLoopHeaderExpr);
-  RecogniseExpr(True);
+  RecogniseExpr(true);
   PopNode;
 
   Recognise([ttDo]);
   RecogniseStatement;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseWithStmnt;
-Begin
+procedure TBuildParseTree.RecogniseWithStmnt;
+begin
   { WithStmt -> WITH IdentList DO Statement
 
    it's not an identlist, but an expression list
@@ -2359,12 +2460,12 @@ Begin
   RecogniseStatement;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseTryStatement;
-Var
+procedure TBuildParseTree.RecogniseTryStatement;
+var
   lc: TSourceToken;
-Begin
+begin
   { um. right, I'll have to wing this one
     as borland neglected to mention it at all
 
@@ -2385,35 +2486,37 @@ Begin
   PopNode;
 
   lc := fcTokenList.FirstSolidToken;
-  Case lc.TokenType Of
-    ttFinally: Begin
-        PushNode(nFinallyBlock);
+  case lc.TokenType of
+    ttFinally:
+    begin
+      PushNode(nFinallyBlock);
 
-        Recognise(ttFinally);
-        RecogniseStatementList([ttEnd]);
-        Recognise(ttEnd);
+      Recognise(ttFinally);
+      RecogniseStatementList([ttEnd]);
+      Recognise(ttEnd);
 
-        PopNode;
-      End;
-    ttExcept: Begin
-        PushNode(nExceptBlock);
+      PopNode;
+    end;
+    ttExcept:
+    begin
+      PushNode(nExceptBlock);
 
-        Recognise(ttExcept);
-        RecogniseExceptionHandlerBlock;
-        Recognise(ttEnd);
+      Recognise(ttExcept);
+      RecogniseExceptionHandlerBlock;
+      Recognise(ttEnd);
 
-        PopNode;
-      End
-  Else
-    Raise TEParseError.Create('expected except or finally', lc);
+      PopNode;
+    end
+    else
+      raise TEParseError.Create('expected except or finally', lc);
 
-  End;
+  end;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseExceptionHandlerBlock;
-Begin
+procedure TBuildParseTree.RecogniseExceptionHandlerBlock;
+begin
   { um. Double-um
     can be a statement list
      or those 'on Excepttype' thingies
@@ -2446,20 +2549,22 @@ Begin
   }
   PushNode(nExceptionHandlers);
 
-  If fcTokenList.FirstSolidTokenType In [ttOn, ttElse] Then Begin
-    While fcTokenList.FirstSolidTokenType In [ttOn, ttElse] Do
+  if fcTokenList.FirstSolidTokenType in [ttOn, ttElse] then
+  begin
+    while fcTokenList.FirstSolidTokenType in [ttOn, ttElse] do
       RecogniseExceptionHandler;
-  End
-  Else Begin
+  end
+  else
+  begin
     // can be 0 or more statements
     RecogniseStatementList([ttEnd]);
-  End;
+  end;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseExceptionHandler;
-Begin
+procedure TBuildParseTree.RecogniseExceptionHandler;
+begin
   {
     ExceptionSpecifier
         -> 'on' [ident ':'] ExceptType 'do' Statement
@@ -2467,37 +2572,40 @@ Begin
   }
   PushNode(nOnExceptionHandler);
 
-  If fcTokenList.FirstSolidTokenType = ttElse Then Begin
+  if fcTokenList.FirstSolidTokenType = ttElse then
+  begin
     Recognise(ttElse);
     RecogniseStatement;
-  End
-  Else If fcTokenList.FirstSolidTokenType = ttOn Then Begin
+  end
+  else if fcTokenList.FirstSolidTokenType = ttOn then
+  begin
     Recognise(ttOn);
-    If fcTokenList.SolidTokenType(2) = ttColon Then Begin
-      RecogniseIdentifier(False);
+    if fcTokenList.SolidTokenType(2) = ttColon then
+    begin
+      RecogniseIdentifier(false);
       Recognise(ttColon);
-    End;
+    end;
 
-    RecogniseIdentifier(True);
+    RecogniseIdentifier(true);
     Recognise(ttDo);
 
     { special case - empty statement block, go straight on to the else }
-    If fcTokenList.FirstSolidTokenType <> ttElse Then
+    if fcTokenList.FirstSolidTokenType <> ttElse then
       RecogniseStatement;
-  End
-  Else
+  end
+  else
     RecogniseStatement;
 
-  If fcTokenList.FirstSolidTokenType = ttSemicolon Then
+  if fcTokenList.FirstSolidTokenType = ttSemicolon then
     Recognise(ttSemicolon);
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseProcedureDeclSection;
-Var
+procedure TBuildParseTree.RecogniseProcedureDeclSection;
+var
   lc: TSourceToken;
-Begin
+begin
   {
   ProcedureDeclSection
     -> ProcedureDecl
@@ -2506,7 +2614,7 @@ Begin
 
   lc := fcTokenList.FirstSolidToken;
 
-  Case lc.TokenType Of
+  case lc.TokenType of
     ttProcedure:
       RecogniseProcedureDecl;
     ttFunction:
@@ -2516,47 +2624,48 @@ Begin
     ttDestructor:
       RecogniseDestructorDecl;
 
-    ttClass: Begin
+    ttClass:
+    begin
         // class proc or function
-        Case fcTokenList.SolidTokenType(2) Of
-          ttProcedure:
-            RecogniseProcedureDecl;
-          ttFunction:
-            RecogniseFunctionDecl;
-        Else
-          Raise TEParseError.Create('expected class procedure or class function', lc);
-        End;
-      End;
-  Else
-    Raise TEParseError.Create('expected procedure or function', lc);
-  End;
+      case fcTokenList.SolidTokenType(2) of
+        ttProcedure:
+          RecogniseProcedureDecl;
+        ttFunction:
+          RecogniseFunctionDecl;
+        else
+          raise TEParseError.Create('expected class procedure or class function', lc);
+      end;
+    end;
+    else
+      raise TEParseError.Create('expected procedure or function', lc);
+  end;
 
-End;
+end;
 
 { the proc/function is forward or extern (ie has no body)
   if the word 'forward' or 'extern' is in the directives
   these are also valid param names }
 
-Function IsForwardExtern(pt: TParseTreeNode): Boolean;
-Var
+function IsForwardExtern(pt: TParseTreeNode): boolean;
+var
   lcDirectives: TParseTreeNode;
-Begin
-  Assert(pt <> Nil);
+begin
+  Assert(pt <> nil);
 
-  If pt.NodeType In ProcedureNodes Then
+  if pt.NodeType in ProcedureNodes then
     pt := pt.GetImmediateChild(ProcedureHeadings);
 
-  Assert(pt <> Nil);
+  Assert(pt <> nil);
 
   lcDirectives := pt.GetImmediateChild(nProcedureDirectives);
 
-  Result := (lcDirectives <> Nil) And lcDirectives.HasChildNode([ttExternal, ttForward])
-End;
+  Result := (lcDirectives <> nil) and lcDirectives.HasChildNode([ttExternal, ttForward])
+end;
 
-Procedure TBuildParseTree.RecogniseProcedureDecl;
-Var
+procedure TBuildParseTree.RecogniseProcedureDecl;
+var
   lcTop: TParseTreeNode;
-Begin
+begin
   { ProcedureDecl -> ProcedureHeading ';' [Directive] Block ';'
 
     NB: the block is omitted if there is a 'forward' or external' directive
@@ -2564,10 +2673,10 @@ Begin
   }
   PushNode(nProcedureDecl);
 
-  RecogniseProcedureHeading(False, False);
+  RecogniseProcedureHeading(false, false);
 
   { the ';' is ommited by lazy programmers in some rare occasions}
-  If fcTokenList.FirstSolidTokenType = ttSemicolon Then
+  if fcTokenList.FirstSolidTokenType = ttSemicolon then
     Recognise(ttSemicolon);
 
   { if the proc declaration has the directive external or forward,
@@ -2575,61 +2684,63 @@ Begin
     note that though 'forward' is a spectacularly unfortunate variable name,
     it has happened, e.g. in ActnMenus.pas }
   lcTop := TParseTreeNode(fcStack.Peek);
-  If Not IsForwardExtern(lcTop) Then Begin
+  if not IsForwardExtern(lcTop) then
+  begin
     RecogniseBlock;
     Recognise(ttSemicolon);
-  End;
+  end;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseFunctionDecl;
-Var
+procedure TBuildParseTree.RecogniseFunctionDecl;
+var
   lcTop: TParseTreeNode;
-Begin
+begin
   // ProcedureDecl -> FunctionHeading ';' [Directive] Block ';'
 
   PushNode(nFunctionDecl);
 
-  RecogniseFunctionHeading(False, False);
+  RecogniseFunctionHeading(false, false);
   { the ';' is ommited by lazy programmers in some rare occasions}
-  If fcTokenList.FirstSolidTokenType = ttSemicolon Then
+  if fcTokenList.FirstSolidTokenType = ttSemicolon then
     Recognise(ttSemicolon);
 
   //opt
-  If fcTokenList.FirstSolidTokenType In ProcedureDirectives Then
+  if fcTokenList.FirstSolidTokenType in ProcedureDirectives then
     RecogniseProcedureDirectives;
 
   { if the proc declaration has the directive external or forward,
     it will not have a body }
   lcTop := TParseTreeNode(fcStack.Peek);
-  If Not IsForwardExtern(lcTop) Then Begin
+  if not IsForwardExtern(lcTop) then
+  begin
     RecogniseBlock;
     Recognise(ttSemicolon);
-  End;
+  end;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseConstructorDecl;
-Begin
+procedure TBuildParseTree.RecogniseConstructorDecl;
+begin
   // ProcedureDecl -> ProcedureHeading ';' [Directive] Block ';'
 
   PushNode(nConstructorDecl);
 
-  RecogniseConstructorHeading(False);
+  RecogniseConstructorHeading(false);
   Recognise(ttSemicolon);
 
-  If fcTokenList.FirstSolidTokenType In ProcedureDirectives Then
+  if fcTokenList.FirstSolidTokenType in ProcedureDirectives then
     RecogniseProcedureDirectives;
   RecogniseBlock;
   Recognise(ttSemicolon);
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseDestructorDecl;
-Begin
+procedure TBuildParseTree.RecogniseDestructorDecl;
+begin
   // ProcedureDecl -> ProcedureHeading ';' [Directive] Block ';'
 
   PushNode(nDestructorDecl);
@@ -2637,52 +2748,56 @@ Begin
   RecogniseDestructorHeading(false);
   Recognise(ttSemicolon);
 
-  If fcTokenList.FirstSolidTokenType In ProcedureDirectives Then
+  if fcTokenList.FirstSolidTokenType in ProcedureDirectives then
     RecogniseProcedureDirectives;
   RecogniseBlock;
   Recognise(ttSemicolon);
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseFunctionHeading(Const pbAnon, pbCanInterfaceMap: Boolean);
-Begin
+procedure TBuildParseTree.RecogniseFunctionHeading(
+  const pbAnon, pbCanInterfaceMap: boolean);
+begin
   // FunctionHeading -> FUNCTION Ident [FormalParameters] ':' (SimpleType | STRING)
   PushNode(nFunctionHeading);
 
   // class procs
-  If fcTokenList.FirstSolidTokenType = ttClass Then
+  if fcTokenList.FirstSolidTokenType = ttClass then
     Recognise(ttClass);
 
   Recognise(ttFunction);
-  If Not pbAnon Then
-    RecogniseMethodName(False);
+  if not pbAnon then
+    RecogniseMethodName(false);
 
-  If fcTokenList.FirstSolidTokenType = ttOpenBracket Then
+  if fcTokenList.FirstSolidTokenType = ttOpenBracket then
     RecogniseFormalParameters;
 
   { the colon and type is in fact optional in
     - external fns
     - when making good on a forward }
-  If fcTokenList.FirstSolidTokenType = ttColon Then Begin
+  if fcTokenList.FirstSolidTokenType = ttColon then
+  begin
     Recognise(ttColon);
     PushNode(nFunctionReturnType);
     RecogniseType;
     PopNode;
-  End;
+  end;
 
   RecogniseProcedureDirectives;
 
-  If pbCanInterfaceMap And (fcTokenList.FirstSolidTokenType = ttEquals) Then Begin
+  if pbCanInterfaceMap and (fcTokenList.FirstSolidTokenType = ttEquals) then
+  begin
     Recognise(ttEquals);
-    RecogniseIdentifier(False);
-  End;
+    RecogniseIdentifier(false);
+  end;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseProcedureHeading(Const pbAnon, pbCanInterfaceMap: Boolean);
-Begin
+procedure TBuildParseTree.RecogniseProcedureHeading(
+  const pbAnon, pbCanInterfaceMap: boolean);
+begin
   { ProcedureHeading -> PROCEDURE Ident [FormalParameters]
 
     can also map to an interface name
@@ -2699,28 +2814,29 @@ Begin
 
   PushNode(nProcedureHeading);
 
-  If fcTokenList.FirstSolidTokenType = ttClass Then
+  if fcTokenList.FirstSolidTokenType = ttClass then
     Recognise(ttClass);
 
   Recognise(ttProcedure);
-  If Not pbAnon Then
-    RecogniseMethodName(False);
+  if not pbAnon then
+    RecogniseMethodName(false);
 
-  If fcTokenList.FirstSolidTokenType = ttOpenBracket Then
+  if fcTokenList.FirstSolidTokenType = ttOpenBracket then
     RecogniseFormalParameters;
 
   RecogniseProcedureDirectives;
 
-  If pbCanInterfaceMap And (fcTokenList.FirstSolidTokenType = ttEquals) Then Begin
+  if pbCanInterfaceMap and (fcTokenList.FirstSolidTokenType = ttEquals) then
+  begin
     Recognise(ttEquals);
-    RecogniseIdentifier(False);
-  End;
+    RecogniseIdentifier(false);
+  end;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseFormalParameters;
-Begin
+procedure TBuildParseTree.RecogniseFormalParameters;
+begin
   // FormalParameters -> '(' FormalParm/';'... ')'
 
   PushNode(nFormalParams);
@@ -2729,23 +2845,25 @@ Begin
 
   { funciton Foo(); is accepted so must allow empty brackets }
 
-  If fcTokenList.FirstSolidTokenType <> ttCloseBracket Then Begin
+  if fcTokenList.FirstSolidTokenType <> ttCloseBracket then
+  begin
     RecogniseFormalParam;
-    While fcTokenList.FirstSolidTokenType = ttSemicolon Do Begin
+    while fcTokenList.FirstSolidTokenType = ttSemicolon do
+    begin
       Recognise(ttSemicolon);
       RecogniseFormalParam;
-    End;
-  End;
+    end;
+  end;
 
   Recognise(ttCloseBracket);
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseFormalParam;
-Const
+procedure TBuildParseTree.RecogniseFormalParam;
+const
   PARAM_PREFIXES: TTokenTypeSet = [ttVar, ttConst];
-Begin
+begin
   PushNode(nFormalParam);
 
   { FormalParm -> [VAR | CONST | OUT] Parameter
@@ -2757,22 +2875,23 @@ Begin
     if another name follows it is a prefix
   }
 
-  If fcTokenList.FirstSolidTokenType In PARAM_PREFIXES Then
+  if fcTokenList.FirstSolidTokenType in PARAM_PREFIXES then
     Recognise(PARAM_PREFIXES)
-  Else If fcTokenList.FirstSolidTokenType = ttOut Then Begin
-    If IsIdentifierToken(fcTokenList.SolidToken(2)) Then
+  else if fcTokenList.FirstSolidTokenType = ttOut then
+  begin
+    if IsIdentifierToken(fcTokenList.SolidToken(2)) then
       Recognise(ttOut);
-  End;
+  end;
 
   RecogniseParameter;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseParameter;
-Var
+procedure TBuildParseTree.RecogniseParameter;
+var
   lbArray: boolean;
-Begin
+begin
   { Parameter
     -> IdentList  [':' ([ARRAY OF] SimpleType | STRING | FILE)]
     -> Ident ':' SimpleType '=' ConstExpr
@@ -2788,32 +2907,36 @@ Begin
     procedure foo(bar: array of TMyRecord);
 
   }
-  lbArray := False;
-  RecogniseIdentList(False);
-  If fcTokenList.FirstSolidTokenType = ttColon Then Begin
+  lbArray := false;
+  RecogniseIdentList(false);
+  if fcTokenList.FirstSolidTokenType = ttColon then
+  begin
     Recognise(ttColon);
 
-    If fcTokenList.FirstSolidTokenType = ttArray Then Begin
+    if fcTokenList.FirstSolidTokenType = ttArray then
+    begin
       Recognise(ttArray);
       Recognise(ttOf);
-      lbArray := True;
-    End;
+      lbArray := true;
+    end;
 
     // type is optional in params ie procedure foo(var pp);
-    If (lbArray) Or (Not (fcTokenList.FirstSolidTokenType In [ttSemicolon, ttCloseBracket])) Then
+    if (lbArray) or ( not (fcTokenList.FirstSolidTokenType in
+      [ttSemicolon, ttCloseBracket])) then
       RecogniseType;
 
-    If fcTokenList.FirstSolidTokenType = ttEquals Then Begin
+    if fcTokenList.FirstSolidTokenType = ttEquals then
+    begin
       Recognise(ttEquals);
       RecogniseConstantExpression;
-    End;
-  End;
-End;
+    end;
+  end;
+end;
 
-Procedure TBuildParseTree.RecogniseProcedureDirectives;
-Var
+procedure TBuildParseTree.RecogniseProcedureDirectives;
+var
   lbFirstPass: boolean;
-Begin
+begin
   { these are semi-colon seperated
 
     want to leave 'Function foo;' as is,
@@ -2822,44 +2945,51 @@ Begin
     external is more complex
   }
 
-  If (fcTokenList.FirstSolidTokenType In ProcedureDirectives) Or
-    ((fcTokenList.FirstSolidTokenType = ttSemicolon) And (fcTokenList.SolidTokenType(2) In ProcedureDirectives)) Then Begin
+  if (fcTokenList.FirstSolidTokenType in ProcedureDirectives) or
+    ((fcTokenList.FirstSolidTokenType = ttSemicolon) and
+    (fcTokenList.SolidTokenType(2) in ProcedureDirectives)) then
+  begin
     PushNode(nProcedureDirectives);
 
-    If fcTokenList.FirstSolidTokenType = ttSemiColon Then
+    if fcTokenList.FirstSolidTokenType = ttSemiColon then
       Recognise(ttSemiColon);
-    lbFirstPass := True;
+    lbFirstPass := true;
 
-    While (fcTokenList.FirstSolidTokenType In ProcedureDirectives) Or
-      ((fcTokenList.FirstSolidTokenType = ttSemicolon) And (fcTokenList.SolidTokenType(2) In ProcedureDirectives)) Do Begin
-      If (Not lbFirstPass) And (fcTokenList.FirstSolidTokenType = ttSemiColon) Then
+    while (fcTokenList.FirstSolidTokenType in ProcedureDirectives) or
+      ((fcTokenList.FirstSolidTokenType = ttSemicolon) and
+        (fcTokenList.SolidTokenType(2) in ProcedureDirectives)) do
+    begin
+      if ( not lbFirstPass) and (fcTokenList.FirstSolidTokenType = ttSemiColon) then
         Recognise(ttSemiColon);
 
-      Case fcTokenList.FirstSolidTokenType Of
-        ttExternal: Begin
-            RecogniseExternalProcDirective;
-          End;
-        ttDispId: Begin
-            Recognise(ttDispId);
-            RecogniseConstantExpression;
-          End;
-        ttMessage: Begin
-            Recognise(ttMessage);
-            RecogniseConstantExpression;
-          End;
-      Else
-        Recognise(ProcedureDirectives);
-      End;
+      case fcTokenList.FirstSolidTokenType of
+        ttExternal:
+        begin
+          RecogniseExternalProcDirective;
+        end;
+        ttDispId:
+        begin
+          Recognise(ttDispId);
+          RecogniseConstantExpression;
+        end;
+        ttMessage:
+        begin
+          Recognise(ttMessage);
+          RecogniseConstantExpression;
+        end;
+        else
+          Recognise(ProcedureDirectives);
+      end;
 
-      lbFirstPass := False;
-    End;
+      lbFirstPass := false;
+    end;
 
     PopNode;
-  End;
-End;
+  end;
+end;
 
-Procedure TBuildParseTree.RecogniseExternalProcDirective;
-Begin
+procedure TBuildParseTree.RecogniseExternalProcDirective;
+begin
   { right, i'll fake this one
 
     ExternalProcDirective ->
@@ -2868,20 +2998,22 @@ Begin
   PushNode(nExternalDirective);
 
   Recognise(ttExternal);
-  If fcTokenList.FirstSolidTokenType In (IdentiferTokens + [ttLiteralString]) Then Begin
+  if fcTokenList.FirstSolidTokenType in (IdentiferTokens + [ttLiteralString]) then
+  begin
     Recognise((IdentiferTokens + [ttLiteralString]));
 
-    If fcTokenList.FirstSolidTokenType = ttName Then Begin
+    if fcTokenList.FirstSolidTokenType = ttName then
+    begin
       Recognise(ttName);
       RecogniseConstantExpression;
-    End;
-  End;
+    end;
+  end;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseObjectType;
-Begin
+procedure TBuildParseTree.RecogniseObjectType;
+begin
   { ObjectType -> OBJECT [ObjHeritage] [ObjFieldList] [MethodList] END
 
       arg this is badly broken, need to
@@ -2891,7 +3023,7 @@ Begin
 
   Recognise(ttObject);
 
-  If fcTokenList.FirstSolidTokenType = ttOpenBracket Then
+  if fcTokenList.FirstSolidTokenType = ttOpenBracket then
     RecogniseObjHeritage;
 
   // swiped this from the delphi object defs
@@ -2900,51 +3032,51 @@ Begin
   Recognise(ttEnd);
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseObjHeritage;
-Begin
+procedure TBuildParseTree.RecogniseObjHeritage;
+begin
   // ObjHeritage -> '(' QualId ')'
 
   Recognise(ttOpenBracket);
   RecogniseQualId;
   Recognise(ttCloseBracket);
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseConstructorHeading(Const pbDeclaration: boolean);
-Begin
+procedure TBuildParseTree.RecogniseConstructorHeading(const pbDeclaration: boolean);
+begin
   //ConstructorHeading -> CONSTRUCTOR Ident [FormalParameters]
   PushNode(nConstructorHeading);
 
   Recognise(ttConstructor);
-  RecogniseMethodName(Not pbDeclaration);
-  If fcTokenList.FirstSolidTokenType = ttOpenBracket Then
+  RecogniseMethodName( not pbDeclaration);
+  if fcTokenList.FirstSolidTokenType = ttOpenBracket then
     RecogniseFormalParameters;
 
   RecogniseProcedureDirectives;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseDestructorHeading(Const pbDeclaration: boolean);
-Begin
+procedure TBuildParseTree.RecogniseDestructorHeading(const pbDeclaration: boolean);
+begin
   //DestructorHeading -> DESTRUCTOR Ident [FormalParameters]
   PushNode(nDestructorHeading);
 
   Recognise(ttDestructor);
-  RecogniseMethodName(Not pbDeclaration);
-  If fcTokenList.FirstSolidTokenType = ttOpenBracket Then
+  RecogniseMethodName( not pbDeclaration);
+  if fcTokenList.FirstSolidTokenType = ttOpenBracket then
     RecogniseFormalParameters;
 
   RecogniseProcedureDirectives;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseInitSection;
-Var
+procedure TBuildParseTree.RecogniseInitSection;
+var
   lc: TSourceToken;
-Begin
+begin
   {
     InitSection
       -> INITIALIZATION StmtList [FINALIZATION StmtList] END
@@ -2956,35 +3088,39 @@ Begin
 
   PushNode(nInitSection);
 
-  Case lc.TokenType Of
-    ttInitialization: Begin
-        Recognise(ttInitialization);
-        RecogniseStatementList([ttEnd, ttFinalization]);
+  case lc.TokenType of
+    ttInitialization:
+    begin
+      Recognise(ttInitialization);
+      RecogniseStatementList([ttEnd, ttFinalization]);
 
-        If fcTokenList.FirstSolidTokenType = ttFinalization Then Begin
-          Recognise(ttFinalization);
-          RecogniseStatementList([ttEnd]);
-        End;
-
-        Recognise(ttEnd);
-      End;
-    ttBegin: Begin
-        Recognise(ttBegin);
+      if fcTokenList.FirstSolidTokenType = ttFinalization then
+      begin
+        Recognise(ttFinalization);
         RecogniseStatementList([ttEnd]);
-        Recognise(ttEnd);
-      End;
-    ttEnd: Begin
-        Recognise(ttEnd);
-      End
-  Else
-    Raise TEParseError.Create('expected initialisation, begin or end', lc);
-  End;
+      end;
+
+      Recognise(ttEnd);
+    end;
+    ttBegin:
+    begin
+      Recognise(ttBegin);
+      RecogniseStatementList([ttEnd]);
+      Recognise(ttEnd);
+    end;
+    ttEnd:
+    begin
+      Recognise(ttEnd);
+    end
+    else
+      raise TEParseError.Create('expected initialisation, begin or end', lc);
+  end;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseClassType;
-Begin
+procedure TBuildParseTree.RecogniseClassType;
+begin
   {
   ClassType -> CLASS [ClassHeritage]
        [ClassFieldList]
@@ -3012,26 +3148,29 @@ Begin
 
   Recognise(ttClass);
 
-  If fcTokenList.FirstSolidTokenType = ttSemicolon Then Begin
+  if fcTokenList.FirstSolidTokenType = ttSemicolon then
+  begin
     PopNode;
     exit;
-  End;
+  end;
 
-  If fcTokenList.FirstSolidTokenType = ttOf Then Begin
+  if fcTokenList.FirstSolidTokenType = ttOf then
+  begin
     Recognise(ttOf);
-    RecogniseIdentifier(False);
+    RecogniseIdentifier(false);
     PopNode;
     exit;
-  End;
+  end;
 
-  If fcTokenList.FirstSolidTokenType = ttOpenBracket Then
+  if fcTokenList.FirstSolidTokenType = ttOpenBracket then
     RecogniseClassHeritage;
 
   // can end here
-  If fcTokenList.FirstSolidTokenType = ttSemicolon Then Begin
+  if fcTokenList.FirstSolidTokenType = ttSemicolon then
+  begin
     PopNode;
     exit;
-  End;
+  end;
 
   RecogniseClassBody;
   Recognise(ttEnd);
@@ -3039,53 +3178,54 @@ Begin
   RecogniseHintDirectives;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseClassHeritage;
-Begin
+procedure TBuildParseTree.RecogniseClassHeritage;
+begin
   PushNode(nClassHeritage);
 
   // ClassHeritage -> '(' IdentList ')'
   Recognise(ttOpenBracket);
-  RecogniseIdentList(True);
+  RecogniseIdentList(true);
   Recognise(ttCloseBracket);
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseClassVisibility;
-Begin
+procedure TBuildParseTree.RecogniseClassVisibility;
+begin
   // ClassVisibility -> [PUBLIC | PROTECTED | PRIVATE | PUBLISHED]
 
   Recognise(ClassVisibility);
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseClassBody;
-Begin
+procedure TBuildParseTree.RecogniseClassBody;
+begin
   //ClassBody -> classdeclarations (access classdeclarations) ...
   PushNode(nClassBody);
 
-  RecogniseClassDeclarations(False);
+  RecogniseClassDeclarations(false);
 
-  While (fcTokenList.FirstSolidTokenType In ClassVisibility) Do Begin
+  while (fcTokenList.FirstSolidTokenType in ClassVisibility) do
+  begin
     PushNode(nClassVisibility);
     RecogniseClassVisibility;
-    RecogniseClassDeclarations(False);
+    RecogniseClassDeclarations(false);
     PopNode;
-  End;
+  end;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseClassDeclarations(Const pbInterface: Boolean);
-Const
+procedure TBuildParseTree.RecogniseClassDeclarations(const pbInterface: boolean);
+const
   // can declare thse things in a class
   CLASS_DECL_WORDS = [ttProcedure, ttFunction,
     ttConstructor, ttDestructor, ttProperty, ttClass];
-Var
+var
   lc: TSourceToken;
-  lbStarted: Boolean;
-Begin
+  lbStarted: boolean;
+begin
   { this is a superset of delphi.
     in dcc these must be ordered vars, then fns then properties
 
@@ -3110,84 +3250,91 @@ Begin
      eg
       " class function ClassName: ShortString; "
    }
-  lbStarted := False;
+  lbStarted := false;
 
-  While (fcTokenList.FirstSolidTokenType In CLASS_DECL_WORDS) Or
-    (fcTokenList.FirstSolidWordType In IdentifierTypes) Do Begin
+  while (fcTokenList.FirstSolidTokenType in CLASS_DECL_WORDS) or
+    (fcTokenList.FirstSolidWordType in IdentifierTypes) do
+  begin
     // only make this node if it will have children
-    If Not lbStarted Then
+    if not lbStarted then
       PushNode(nClassDeclarations);
-    lbStarted := True;
+    lbStarted := true;
 
     lc := fcTokenList.FirstSolidToken;
 
     // these end the visibility section
-    If fcTokenList.FirstSolidTokenType In (ClassVisibility + [ttEnd]) Then
+    if fcTokenList.FirstSolidTokenType in (ClassVisibility + [ttEnd]) then
       break;
 
-    Case lc.TokenType Of
+    case lc.TokenType of
       ttProcedure:
-        RecogniseProcedureHeading(False, True);
+        RecogniseProcedureHeading(false, true);
       ttFunction:
-        RecogniseFunctionHeading(False, True);
-      ttClass: Begin
+        RecogniseFunctionHeading(false, true);
+      ttClass:
+      begin
           // must be followed by 'procedure' or 'function'
-          Case fcTokenList.SolidTokenType(2) Of
-            ttProcedure:
-              RecogniseProcedureHeading(False, True);
-            ttFunction:
-              RecogniseFunctionHeading(False, True);
-          Else
-            Raise TEParseError.Create('Expected class procedure or class function', lc);
-          End;
+        case fcTokenList.SolidTokenType(2) of
+          ttProcedure:
+            RecogniseProcedureHeading(false, true);
+          ttFunction:
+            RecogniseFunctionHeading(false, true);
+          else
+            raise TEParseError.Create('Expected class procedure or class function', lc);
+        end;
 
-        End;
-      ttConstructor: Begin
+      end;
+      ttConstructor:
+      begin
           // no constructor on interface
-          If pbInterface Then
-            Raise TEParseError.Create('unexpected token', lc);
-          RecogniseConstructorHeading(True);
-        End;
-      ttDestructor: Begin
+        if pbInterface then
+          raise TEParseError.Create('unexpected token', lc);
+        RecogniseConstructorHeading(true);
+      end;
+      ttDestructor:
+      begin
           // no constructor on interface
-          If pbInterface Then
-            Raise TEParseError.Create('unexpected token', lc);
-          RecogniseDestructorHeading(True);
-        End;
+        if pbInterface then
+          raise TEParseError.Create('unexpected token', lc);
+        RecogniseDestructorHeading(true);
+      end;
       ttProperty:
         RecogniseProperty;
-    Else Begin
+      else
+      begin
         // end of this list with next visibility section or class end?
-        If lc.TokenType In CLASS_DECL_WORDS + [ttEnd] Then Begin
+        if lc.TokenType in CLASS_DECL_WORDS + [ttEnd] then
+        begin
           break;
-        End
+        end
           // vars start with an identifier
-        Else If lc.TokenType In IdentiferTokens Then Begin
+        else if lc.TokenType in IdentiferTokens then
+        begin
           // no vars on interface
-          If pbInterface Then
-            Raise TEParseError.Create('unexpected token', lc);
+          if pbInterface then
+            raise TEParseError.Create('unexpected token', lc);
 
           RecogniseVarDecl;
-        End
-        Else
-          Raise TEParseError.Create('unexpected token', lc);
-      End;
-    End;
+        end
+        else
+          raise TEParseError.Create('unexpected token', lc);
+      end;
+    end;
 
     // semicolon after each def.
-    If fcTokenList.FirstSolidTokenType = ttSemicolon Then
+    if fcTokenList.FirstSolidTokenType = ttSemicolon then
       Recognise(ttSemicolon)
-    Else
+    else
       Break; // except the last
 
-  End;
+  end;
 
-  If lbStarted Then
+  if lbStarted then
     PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseProperty;
-Begin
+procedure TBuildParseTree.RecogniseProperty;
+begin
   {PropertyList -> PROPERTY  Ident [PropertyInterface]  PropertySpecifiers
 
   There is also the syntax of reclaring properties to raise visibility
@@ -3197,13 +3344,14 @@ Begin
 
   Recognise(ttProperty);
 
-  RecogniseIdentifier(False);
+  RecogniseIdentifier(false);
 
   { this is omitted if it is a property redeclaration for visibility raising
     in that case it may still have directives and hints }
-  If fcTokenList.FirstSolidTokenType In [ttColon, ttOpenSquareBracket] Then Begin
+  if fcTokenList.FirstSolidTokenType in [ttColon, ttOpenSquareBracket] then
+  begin
     RecognisePropertyInterface;
-  End;
+  end;
 
   RecognisePropertySpecifiers;
 
@@ -3211,23 +3359,23 @@ Begin
   RecogniseHintDirectives;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecognisePropertyInterface;
-Begin
+procedure TBuildParseTree.RecognisePropertyInterface;
+begin
   // PropertyInterface -> [PropertyParameterList] ':' Ident
 
-  If fcTokenList.FirstSolidTokenType <> ttColon Then
+  if fcTokenList.FirstSolidTokenType <> ttColon then
     RecognisePropertyParameterList;
 
   Recognise(ttColon);
 
   // recongising any type is overkill but hey
   RecogniseType;
-End;
+end;
 
-Procedure TBuildParseTree.RecognisePropertyParameterList;
-Begin
+procedure TBuildParseTree.RecognisePropertyParameterList;
+begin
   { PropertyParameterList -> '[' (IdentList ':' TypeId)/';'... ']'
 
    this forgets const and var, e.g.
@@ -3238,33 +3386,33 @@ Begin
   PushNode(nPropertyParameterList);
 
   Recognise(ttOpenSquareBracket);
-  Repeat
-    If (fcTokenList.FirstSolidTokenType In [ttConst, ttVar, ttOut]) Then
+  repeat
+    if (fcTokenList.FirstSolidTokenType in [ttConst, ttVar, ttOut]) then
       Recognise([ttConst, ttVar, ttOut]);
 
-    RecogniseIdentList(False);
+    RecogniseIdentList(false);
     Recognise(ttColon);
     RecogniseTypeId;
 
-    If fcTokenList.FirstSolidTokenType = ttSemicolon Then
+    if fcTokenList.FirstSolidTokenType = ttSemicolon then
       Recognise(ttSemicolon)
-    Else
+    else
       break;
 
-  Until fcTokenList.FirstSolidTokenType = ttCloseSquareBracket;
+  until fcTokenList.FirstSolidTokenType = ttCloseSquareBracket;
 
   Recognise(ttCloseSquareBracket);
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecognisePropertySpecifiers;
-Var
+procedure TBuildParseTree.RecognisePropertySpecifiers;
+var
   lc: TSourceToken;
-Const
+const
   PROPERTY_SPECIFIERS: TTokenTypeSet = [ttIndex, ttRead, ttWrite, ttStored,
-  ttDefault, ttNoDefault, ttImplements, ttDispId, ttReadOnly, ttWriteOnly];
-Begin
+    ttDefault, ttNoDefault, ttImplements, ttDispId, ttReadOnly, ttWriteOnly];
+begin
   {
    PropertySpecifiers ->
      [INDEX ConstExpr]
@@ -3281,90 +3429,105 @@ Begin
    }
   lc := fcTokenList.FirstSolidToken;
 
-  While lc.TokenType In PROPERTY_SPECIFIERS Do Begin
+  while lc.TokenType in PROPERTY_SPECIFIERS do
+  begin
     PushNode(nPropertySpecifier);
 
-    Case lc.TokenType Of
-      ttIndex: Begin
-          Recognise(ttIndex);
-          RecogniseConstantExpression;
-        End;
-      ttRead: Begin
-          Recognise(ttRead);
-          RecognisePropertyAccess;
-        End;
-      ttWrite: Begin
-          Recognise(ttWrite);
-          RecognisePropertyAccess;
-        End;
-      ttStored: Begin
-          Recognise(ttStored);
-          RecogniseConstantExpression;
-        End;
-      ttDefault: Begin
-          Recognise(ttDefault);
-          RecogniseConstantExpression;
-        End;
-      ttNoDefault: Begin
-          Recognise(ttNoDefault);
-        End;
-      ttImplements: Begin
-          Recognise(ttImplements);
-          RecogniseTypeId;
+    case lc.TokenType of
+      ttIndex:
+      begin
+        Recognise(ttIndex);
+        RecogniseConstantExpression;
+      end;
+      ttRead:
+      begin
+        Recognise(ttRead);
+        RecognisePropertyAccess;
+      end;
+      ttWrite:
+      begin
+        Recognise(ttWrite);
+        RecognisePropertyAccess;
+      end;
+      ttStored:
+      begin
+        Recognise(ttStored);
+        RecogniseConstantExpression;
+      end;
+      ttDefault:
+      begin
+        Recognise(ttDefault);
+        RecogniseConstantExpression;
+      end;
+      ttNoDefault:
+      begin
+        Recognise(ttNoDefault);
+      end;
+      ttImplements:
+      begin
+        Recognise(ttImplements);
+        RecogniseTypeId;
 
           { can be a lost of them, e.g. "implements foo, bar" }
-          While fcTokenList.FirstSolidTokenType = ttComma Do Begin
-            Recognise(ttComma);
-            RecogniseTypeId;
-          End;
-        End;
-      ttDispId: Begin
-          Recognise(ttDispId);
-          RecogniseConstantExpression;
-        End;
-      ttReadOnly: Begin
-          Recognise(ttReadOnly);
-        End;
-      ttWriteOnly: Begin
-          Recognise(ttWriteOnly);
-        End;
-    Else
-      Raise TEParseError.Create('expected proeprty specifier', fcTokenList.FirstSolidToken);
-    End;
+        while fcTokenList.FirstSolidTokenType = ttComma do
+        begin
+          Recognise(ttComma);
+          RecogniseTypeId;
+        end;
+      end;
+      ttDispId:
+      begin
+        Recognise(ttDispId);
+        RecogniseConstantExpression;
+      end;
+      ttReadOnly:
+      begin
+        Recognise(ttReadOnly);
+      end;
+      ttWriteOnly:
+      begin
+        Recognise(ttWriteOnly);
+      end;
+      else
+        raise TEParseError.Create('expected proeprty specifier',
+          fcTokenList.FirstSolidToken);
+    end;
 
     PopNode;
     lc := fcTokenList.FirstSolidToken;
 
-  End;
-End;
+  end;
+end;
 
-Procedure TBuildParseTree.RecognisePropertyAccess;
-Begin
+procedure TBuildParseTree.RecognisePropertyAccess;
+begin
   { property access is the bit after the "read" or "write" in a property declaration
     This is usually just a procedure, function or simple var
     but sometimes it is a record or array field, .. or both e.g. "FDummy[0].ERX" }
 
-  RecogniseIdentifier(False);
+  RecogniseIdentifier(false);
 
   { array access }
-  If fcTokenList.FirstSolidTokenType = ttOpenSquareBracket Then Begin
+  if fcTokenList.FirstSolidTokenType = ttOpenSquareBracket then
+  begin
     Recognise(ttOpenSquareBracket);
     // this is evaluated at compile-time, so we expect a constant subscript, e.g. "FDummy[0]"
     RecogniseConstantExpression;
     Recognise(ttCloseSquareBracket);
-  End;
+  end;
 
   { record field }
-  If fcTokenList.FirstSolidTokenType = ttDot Then Begin
+  if fcTokenList.FirstSolidTokenType = ttDot then
+  begin
     Recognise(ttDot);
     // after the dot can be more structure, so recurse
     RecognisePropertyAccess;
-  End
+  end
 
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseInterfaceType;
-Begin
+procedure TBuildParseTree.RecogniseInterfaceType;
+begin
   {
     InterfaceType -> INTERFACE [InterfaceHeritage]
          [ClassMethodList]
@@ -3379,71 +3542,73 @@ Begin
   PushNode(nInterfaceType);
   Recognise(InterfaceWords);
 
-  If fcTokenList.FirstSolidTokenType = ttSemicolon Then Begin
+  if fcTokenList.FirstSolidTokenType = ttSemicolon then
+  begin
     PopNode;
     exit;
-  End;
+  end;
 
-  If fcTokenList.FirstSolidTokenType = ttOpenBracket Then
+  if fcTokenList.FirstSolidTokenType = ttOpenBracket then
     RecogniseInterfaceHeritage;
 
-  If fcTokenList.FirstSolidTokenType = ttOpenSquareBracket Then
+  if fcTokenList.FirstSolidTokenType = ttOpenSquareBracket then
     RecogniseInterfaceGuid;
 
-  If fcTokenList.FirstSolidTokenType <> ttEnd Then Begin
+  if fcTokenList.FirstSolidTokenType <> ttEnd then
+  begin
     PushNode(nInterfaceBody);
-    RecogniseClassDeclarations(True);
+    RecogniseClassDeclarations(true);
     PopNode;
-  End;
+  end;
 
   Recognise(ttEnd);
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseInterfaceGuid;
-Begin
+procedure TBuildParseTree.RecogniseInterfaceGuid;
+begin
   // interface guid can be a litteral string, or occasionally a string constant
   PushNode(nInterfaceTypeGuid);
 
   Recognise(ttOpenSquareBracket);
-  If fcTokenList.FirstSolidTokenType = ttLiteralString Then
+  if fcTokenList.FirstSolidTokenType = ttLiteralString then
     Recognise(ttLiteralString)
-  Else
-    RecogniseIdentifier(False);
+  else
+    RecogniseIdentifier(false);
 
   Recognise(ttCloseSquareBracket);
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseInterfaceHeritage;
-Begin
+procedure TBuildParseTree.RecogniseInterfaceHeritage;
+begin
   // InterfaceHeritage -> '(' IdentList ')'
   PushNode(nInterfaceHeritage);
 
   Recognise(ttOpenBracket);
-  RecogniseIdentList(True);
+  RecogniseIdentList(true);
   Recognise(ttCloseBracket);
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseRequiresClause;
-Begin
+procedure TBuildParseTree.RecogniseRequiresClause;
+begin
   // RequiresClause -> REQUIRES IdentList... ';'
 
   PushNode(nRequires);
 
   Recognise(ttRequires);
-  RecogniseIdentList(False);
+  RecogniseIdentList(false);
   Recognise(ttSemicolon);
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseContainsClause;
-Begin
+procedure TBuildParseTree.RecogniseContainsClause;
+begin
   // ContainsClause -> CONTAINS IdentList... ';'
 
   { it's not an ident list it's a unit list can be
@@ -3459,30 +3624,32 @@ Begin
 
   PushNode(nIdentList);
 
-  RecogniseUsesItem(True);
-  While fcTokenList.FirstSolidTokenType = ttComma Do Begin
+  RecogniseUsesItem(true);
+  while fcTokenList.FirstSolidTokenType = ttComma do
+  begin
     Recognise(ttComma);
-    RecogniseUsesItem(True);
-  End;
+    RecogniseUsesItem(true);
+  end;
   PopNode;
 
   Recognise(ttSemicolon);
 
   PopNode;
-End;
+end;
 
 { worker for RecogniseIdentList }
 
-Procedure TBuildParseTree.RecogniseIdentValue;
-Begin
-  If fcTokenList.FirstSolidTokenType = ttEquals Then Begin
+procedure TBuildParseTree.RecogniseIdentValue;
+begin
+  if fcTokenList.FirstSolidTokenType = ttEquals then
+  begin
     Recognise(ttEquals);
-    RecogniseExpr(True);
-  End;
-End;
+    RecogniseExpr(true);
+  end;
+end;
 
-Procedure TBuildParseTree.RecogniseIdentList(Const pbCanHaveUnitQualifier: Boolean);
-Begin
+procedure TBuildParseTree.RecogniseIdentList(const pbCanHaveUnitQualifier: boolean);
+begin
   { IdentList -> Ident/','...
 
     now in D6 enum types can have numeric values
@@ -3493,22 +3660,23 @@ Begin
   RecogniseIdentifier(pbCanHaveUnitQualifier);
   RecogniseIdentValue;
 
-  While fcTokenList.FirstSolidTokenType = ttComma Do Begin
+  while fcTokenList.FirstSolidTokenType = ttComma do
+  begin
     Recognise(ttComma);
     RecogniseIdentifier(pbCanHaveUnitQualifier);
     RecogniseIdentValue;
-  End;
+  end;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseConstantExpression;
-Begin
-  RecogniseExpr(True);
-End;
+procedure TBuildParseTree.RecogniseConstantExpression;
+begin
+  RecogniseExpr(true);
+end;
 
-Procedure TBuildParseTree.RecogniseQualId;
-Begin
+procedure TBuildParseTree.RecogniseQualId;
+begin
   { typecast, e.g. "(x as Ty)"
      or just bracketed, as in (x).y();
 
@@ -3520,90 +3688,94 @@ Begin
       -> ident
       ->(pointervar + expr)
   }
-  If (fcTokenList.FirstSolidTokenType = ttOpenBracket) Then Begin
+  if (fcTokenList.FirstSolidTokenType = ttOpenBracket) then
+  begin
     PushNode(nBracketedQual);
     Recognise(ttOpenBracket);
     RecogniseDesignator;
 
-    If (fcTokenList.FirstSolidTokenType = ttAs) Then Begin
+    if (fcTokenList.FirstSolidTokenType = ttAs) then
+    begin
       Recognise(ttAs);
-      RecogniseIdentifier(True);
-    End;
+      RecogniseIdentifier(true);
+    end;
     Recognise(ttCloseBracket);
     PopNode;
-  End
-  Else
+  end
+  else
     // a simple ident - e.g. "x"
-    RecogniseIdentifier(True);
-End;
+    RecogniseIdentifier(true);
+end;
 
-Procedure TBuildParseTree.RecogniseIdentifier(Const pbCanHaveUnitQualifier: Boolean);
-Var
+procedure TBuildParseTree.RecogniseIdentifier(const pbCanHaveUnitQualifier: boolean);
+var
   lc: TSourceToken;
-Begin
+begin
   lc := fcTokenList.FirstSolidToken;
 
-  If Not (IdentifierNext) Then
-    Raise TEParseError.Create('Expected identifer', lc);
+  if not (IdentifierNext) then
+    raise TEParseError.Create('Expected identifer', lc);
 
   PushNode(nIdentifier);
   Recognise(IdentiferTokens);
 
   { tokens can be qualified by a unit name }
-  If pbCanHaveUnitQualifier And (fcTokenList.FirstSolidTokenType = ttDot) Then Begin
+  if pbCanHaveUnitQualifier and (fcTokenList.FirstSolidTokenType = ttDot) then
+  begin
     Recognise(ttDot);
     Recognise(IdentiferTokens);
-  End;
+  end;
 
   PopNode;
-End;
+end;
 
 { the name of a procedure/function/constructor can be
   a plain name or classname.methodname }
 
-Procedure TBuildParseTree.RecogniseMethodName(Const pbClassNameCompulsory: Boolean);
-Begin
-  If Not (IdentifierNext) Then
-    Raise TEParseError.Create('Expected identifer', fcTokenList.FirstSolidToken);
+procedure TBuildParseTree.RecogniseMethodName(const pbClassNameCompulsory: boolean);
+begin
+  if not (IdentifierNext) then
+    raise TEParseError.Create('Expected identifer', fcTokenList.FirstSolidToken);
 
   Recognise(IdentiferTokens);
 
-  If (fcTokenList.FirstSolidTokenType = ttDot) Or pbClassNameCompulsory Then Begin
+  if (fcTokenList.FirstSolidTokenType = ttDot) or pbClassNameCompulsory then
+  begin
     Recognise(ttDot);
-    RecogniseIdentifier(False);
-  End
-End;
+    RecogniseIdentifier(false);
+  end
+end;
 
-Procedure TBuildParseTree.RecogniseTypeId;
-Var
+procedure TBuildParseTree.RecogniseTypeId;
+var
   lc: TSourceToken;
-Begin
+begin
   lc := fcTokenList.FirstSolidToken;
 
   { a type is an identifier. Or a file or other Reserved word }
-  If lc.TokenType In BuiltInTypes Then
+  if lc.TokenType in BuiltInTypes then
     Recognise(BuiltInTypes)
-  Else If lc.TokenType = ttFile Then
+  else if lc.TokenType = ttFile then
     Recognise(ttFile)
-  Else
-    RecogniseIdentifier(True);
-End;
+  else
+    RecogniseIdentifier(true);
+end;
 
-Procedure TBuildParseTree.RecogniseAsmBlock;
-Begin
+procedure TBuildParseTree.RecogniseAsmBlock;
+begin
   PushNode(nAsm);
 
   Recognise(ttAsm);
-  While fcTokenList.FirstSolidTokenType <> ttEnd Do
+  while fcTokenList.FirstSolidTokenType <> ttEnd do
     RecogniseAsmStatement;
 
   Recognise(ttEnd);
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseAsmStatement;
-Begin
+procedure TBuildParseTree.RecogniseAsmStatement;
+begin
   { um.
 
     AsmStatement
@@ -3625,68 +3797,74 @@ Begin
 
   PushNode(nAsmStatement);
 
-  If fcTokenList.FirstSolidTokenType = ttAtSign Then Begin
-    RecogniseAsmLabel(True);
-  End
-  Else Begin
+  if fcTokenList.FirstSolidTokenType = ttAtSign then
+  begin
+    RecogniseAsmLabel(true);
+  end
+  else
+  begin
     RecogniseAsmOpcode;
 
     RecogniseWhiteSpace;
 
-    While Not (fcTokenList.FirstTokenType In [ttSemicolon, ttReturn, ttComment, ttEnd]) Do Begin
-      If fcTokenList.FirstSolidTokenType = ttComma Then
+    while not (fcTokenList.FirstTokenType in [ttSemicolon, ttReturn,
+        ttComment, ttEnd]) do
+    begin
+      if fcTokenList.FirstSolidTokenType = ttComma then
         Recognise(ttComma);
       RecogniseAsmParam;
 
       RecogniseWhiteSpace;
 
-      If fcTokenList.FirstSolidTokenType = ttEnd Then
+      if fcTokenList.FirstSolidTokenType = ttEnd then
         Break;
 
-      If fcTokenList.FirstSolidTokenType = ttSemiColon Then Begin
+      if fcTokenList.FirstSolidTokenType = ttSemiColon then
+      begin
         Recognise(ttSemiColon);
         break;
-      End;
-    End;
+      end;
+    end;
 
-  End;
+  end;
 
   PopNode;
-End;
+end;
 
 { purpose: to consume white space
   make sure that buffertokens(0)
   contains a retunr, comment or solid token }
 
-Procedure TBuildParseTree.RecogniseWhiteSpace;
-Begin
-  While fcTokenList.FirstTokenType = ttWhiteSpace Do
+procedure TBuildParseTree.RecogniseWhiteSpace;
+begin
+  while fcTokenList.FirstTokenType = ttWhiteSpace do
     Recognise(ttWhiteSpace);
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseAsmIdent;
-Var
+procedure TBuildParseTree.RecogniseAsmIdent;
+var
   lc: TSourceToken;
-Begin
+begin
   PushNode(nAsmIdent);
 
   { can contain '@' signs }
   lc := fcTokenList.FirstSolidToken;
 
-  If Not (lc.TokenType In IdentiferTokens + [ttAtSign]) Then
-    Raise TEParseError.Create('Expected asm identifer', lc);
+  if not (lc.TokenType in IdentiferTokens + [ttAtSign]) then
+    raise TEParseError.Create('Expected asm identifer', lc);
 
-  While (lc.TokenType In IdentiferTokens + [ttAtSign]) Do Begin
+  while (lc.TokenType in IdentiferTokens + [ttAtSign]) do
+  begin
     Recognise(IdentiferTokens + [ttAtSign]);
     { whitespace ends this so no fcTokenList.FirstSolidToken }
     lc := fcTokenList.First;
-  End;
+  end;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseAsmOpcode;
-Begin
+procedure TBuildParseTree.RecogniseAsmOpcode;
+begin
   { these are all short (3 chars? 4 chars)
 
     but it's too large a cast and varies from CPU to CPU
@@ -3696,32 +3874,33 @@ Begin
     e.g. SHL
    }
   PushNode(nASMOpcode);
-  If IdentifierNext Then
-    RecogniseIdentifier(False)
-  Else If WordTypeOfToken(fcTokenList.FirstSolidTokenType) In TextualWordTypes Then
+  if IdentifierNext then
+    RecogniseIdentifier(false)
+  else if WordTypeOfToken(fcTokenList.FirstSolidTokenType) in TextualWordTypes then
     // match anything
     Recognise(fcTokenList.FirstSolidTokenType)
-  Else
-    Raise TEParseError.Create('Expected asm opcode', fcTokenList.FirstSolidToken);
+  else
+    raise TEParseError.Create('Expected asm opcode', fcTokenList.FirstSolidToken);
 
   PopNode;
-End;
+end;
 
-Function IsAsmLabel(Const pt: TSourceToken): boolean;
-Begin
-  Result := False;
-  If pt = Nil Then
+function IsAsmLabel(const pt: TSourceToken): boolean;
+begin
+  Result := false;
+  if pt = nil then
     exit;
-  Result := (pt.TokenType In [ttNumber, ttIdentifier, ttAtSign]) Or
-    (pt.WordType In [wtReservedWord, wtReservedWordDirective, wtBuiltInConstant, wtBuiltInType]);
-End;
+  Result := (pt.TokenType in [ttNumber, ttIdentifier, ttAtSign]) or
+    (pt.WordType in [wtReservedWord, wtReservedWordDirective,
+    wtBuiltInConstant, wtBuiltInType]);
+end;
 
-Procedure TBuildParseTree.RecogniseAsmLabel(Const pbColon: boolean);
-Begin
+procedure TBuildParseTree.RecogniseAsmLabel(const pbColon: boolean);
+begin
   PushNode(nAsmLabel);
 
   Recognise(ttAtSign);
-  If fcTokenList.FirstSolidTokenType = ttAtSign Then
+  if fcTokenList.FirstSolidTokenType = ttAtSign then
     Recognise(ttAtSign);
 
   { label can be a number, eg "@@1:"
@@ -3730,24 +3909,26 @@ Begin
     can also be a delphi keyword, e.g. "@@repeat:"
   }
 
-  While IsAsmLabel(fcTokenList.First) Do Begin
+  while IsAsmLabel(fcTokenList.First) do
+  begin
     Recognise(fcTokenList.FirstTokenType);
-  End;
+  end;
 
-  If pbColon Then
+  if pbColon then
     Recognise(ttColon);
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseAsmParam;
-Const
-  ASM_EXPRESSION_START = [ttOpenBracket, ttOpenSquareBracket, ttNumber, ttNot, ttLiteralString,
+procedure TBuildParseTree.RecogniseAsmParam;
+const
+  ASM_EXPRESSION_START = [ttOpenBracket, ttOpenSquareBracket, ttNumber,
+    ttNot, ttLiteralString,
     ttTrue, ttFalse, ttPlus, ttMinus, ttType, ttOffset];
-Var
+var
   lc: TSourceToken;
   lbHasLabel: boolean;
-Begin
+begin
   { um.
 
   AsmParam
@@ -3757,73 +3938,77 @@ Begin
     -> Ident(number)
   }
 
-  lbHasLabel := False;
+  lbHasLabel := false;
   PushNode(nAsmParam);
 
   lc := fcTokenList.FirstSolidToken;
 
-  If lc.TokenType = ttAtSign Then Begin
-    RecogniseAsmLabel(False);
-    lbHasLabel := True;
+  if lc.TokenType = ttAtSign then
+  begin
+    RecogniseAsmLabel(false);
+    lbHasLabel := true;
 
-    If fcTokenList.FirstSolidTokenType = ttDot Then
+    if fcTokenList.FirstSolidTokenType = ttDot then
       Recognise(ttDot);
-  End;
+  end;
 
-  If IdentifierNext Or (lc.TokenType In ASM_EXPRESSION_START) Then Begin
+  if IdentifierNext or (lc.TokenType in ASM_EXPRESSION_START) then
+  begin
     RecogniseAsmExpr;
-  End
-  Else Begin
-    If Not lbHasLabel Then
-      Raise TEParseError.Create('Expected asm param', lc);
-  End;
+  end
+  else
+  begin
+    if not lbHasLabel then
+      raise TEParseError.Create('Expected asm param', lc);
+  end;
 
   PopNode;
-End;
+end;
 
-Const
+const
   ASM_OPERATORS = [ttPlus, ttMinus, ttAnd, ttOr, ttTimes, ttFloatDiv, ttPtr, ttColon];
 
   { having to wing this one. it is like expressions, but different }
 
-Procedure TBuildParseTree.RecogniseAsmExpr;
-Var
+procedure TBuildParseTree.RecogniseAsmExpr;
+var
   lc: TSourceToken;
-Begin
+begin
   RecogniseAsmFactor;
 
   { can't go past returns }
   lc := fcTokenList.FirstTokenWithExclusion([ttWhiteSpace]);
-  While lc.TokenType In ASM_OPERATORS Do Begin
+  while lc.TokenType in ASM_OPERATORS do
+  begin
     RecogniseAsmOperator;
     RecogniseAsmFactor;
     lc := fcTokenList.FirstTokenWithExclusion([ttWhiteSpace]);
-  End;
-End;
+  end;
+end;
 
-Procedure TBuildParseTree.RecogniseAsmOperator;
-Begin
+procedure TBuildParseTree.RecogniseAsmOperator;
+begin
   Recognise(ASM_OPERATORS);
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseAsmFactor;
-Begin
-  If fcTokenList.FirstSolidTokenType = ttNot Then
+procedure TBuildParseTree.RecogniseAsmFactor;
+begin
+  if fcTokenList.FirstSolidTokenType = ttNot then
     Recognise(ttNot);
 
-  If fcTokenList.FirstSolidTokenType = ttMinus Then
+  if fcTokenList.FirstSolidTokenType = ttMinus then
     Recognise(ttMinus);
 
-  If fcTokenList.FirstSolidTokenType = ttAt Then
+  if fcTokenList.FirstSolidTokenType = ttAt then
     Recognise(ttAt);
 
-  If fcTokenList.FirstSolidTokenType = ttType Then
+  if fcTokenList.FirstSolidTokenType = ttType then
     Recognise(ttType);
 
-  If fcTokenList.FirstSolidTokenType = ttOffset Then
+  if fcTokenList.FirstSolidTokenType = ttOffset then
     Recognise(ttOffset);
 
-  Case fcTokenList.FirstSolidTokenType Of
+  case fcTokenList.FirstSolidTokenType of
     ttNumber:
       Recognise(ttNumber);
     ttLiteralString:
@@ -3832,56 +4017,64 @@ Begin
       Recognise(ttTrue);
     ttFalse:
       Recognise(ttFalse);
-    ttOpenBracket: Begin
-        Recognise(ttOpenBracket);
-        RecogniseAsmExpr;
-        Recognise(ttCloseBracket);
-      End;
-    ttOpenSquareBracket: Begin
-        Recognise(ttOpenSquareBracket);
-        RecogniseAsmExpr;
-        Recognise(ttCloseSquareBracket);
-      End
-  Else Begin
+    ttOpenBracket:
+    begin
+      Recognise(ttOpenBracket);
+      RecogniseAsmExpr;
+      Recognise(ttCloseBracket);
+    end;
+    ttOpenSquareBracket:
+    begin
+      Recognise(ttOpenSquareBracket);
+      RecogniseAsmExpr;
+      Recognise(ttCloseSquareBracket);
+    end
+    else
+    begin
       RecogniseAsmIdent;
-    End
-  End;
+    end
+  end;
 
-  While fcTokenList.FirstSolidTokenType In [ttDot] Do Begin
+  while fcTokenList.FirstSolidTokenType in [ttDot] do
+  begin
     Recognise([ttDot]);
 
-    If fcTokenList.FirstSolidTokenType = ttAtSign Then
+    if fcTokenList.FirstSolidTokenType = ttAtSign then
       Recognise(ttAtSign);
     RecogniseAsmIdent;
-  End;
+  end;
 
-  If fcTokenList.FirstSolidTokenType = ttOpenBracket Then Begin
+  if fcTokenList.FirstSolidTokenType = ttOpenBracket then
+  begin
     Recognise(ttOpenBracket);
     RecogniseAsmFactor;
     Recognise(ttCloseBracket);
-  End;
+  end;
 
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseHintDirectives;
-Begin
-  If ((fcTokenList.FirstSolidTokenType = ttSemicolon) And (fcTokenList.SolidTokenType(2) In HintDirectives)) Or
-    (fcTokenList.FirstSolidTokenType In HintDirectives) Then Begin
-    If fcTokenList.FirstSolidTokenType = ttSemicolon Then
+procedure TBuildParseTree.RecogniseHintDirectives;
+begin
+  if ((fcTokenList.FirstSolidTokenType = ttSemicolon) and
+    (fcTokenList.SolidTokenType(2) in HintDirectives)) or
+    (fcTokenList.FirstSolidTokenType in HintDirectives) then
+  begin
+    if fcTokenList.FirstSolidTokenType = ttSemicolon then
       Recognise(ttSemicolon);
 
     PushNode(nHintDirectives);
 
-    While (fcTokenList.FirstSolidTokenType In HintDirectives) Do Begin
+    while (fcTokenList.FirstSolidTokenType in HintDirectives) do
+    begin
       Recognise(HintDirectives);
-    End;
+    end;
 
     PopNode;
-  End;
-End;
+  end;
+end;
 
-Procedure TBuildParseTree.RecognisePropertyDirectives;
-Const
+procedure TBuildParseTree.RecognisePropertyDirectives;
+const
   { this can be specified at the end after a semicolon
   so it's not just in the specifiers
 
@@ -3890,132 +4083,144 @@ Const
   for non-array properties it is followed by an identifier
   }
   PropertyDirectives = [ttDefault, ttNoDefault, ttStored];
-Begin
-  If ((fcTokenList.FirstSolidTokenType = ttSemicolon) And (fcTokenList.SolidTokenType(2) In PropertyDirectives)) Or
-    (fcTokenList.FirstSolidTokenType In PropertyDirectives) Then Begin
-    If fcTokenList.FirstSolidTokenType = ttSemicolon Then
+begin
+  if ((fcTokenList.FirstSolidTokenType = ttSemicolon) and
+    (fcTokenList.SolidTokenType(2) in PropertyDirectives)) or
+    (fcTokenList.FirstSolidTokenType in PropertyDirectives) then
+  begin
+    if fcTokenList.FirstSolidTokenType = ttSemicolon then
       Recognise(ttSemicolon);
 
-    While fcTokenList.FirstSolidTokenType In PropertyDirectives Do Begin
+    while fcTokenList.FirstSolidTokenType in PropertyDirectives do
+    begin
       PushNode(nPropertyDirective);
 
-      Case fcTokenList.FirstSolidTokenType Of
-        ttDefault: Begin
-            Recognise(ttDefault);
-            If fcTokenList.FirstSolidTokenType <> ttSemicolon Then
-              RecogniseConstantExpression;
-          End;
-        ttNoDefault: Begin
-            Recognise(ttNoDefault);
-          End;
-        ttStored: Begin
-            Recognise(ttStored);
-            If fcTokenList.FirstSolidTokenType <> ttSemicolon Then
-              RecogniseConstantExpression;
-          End;
-      End;
+      case fcTokenList.FirstSolidTokenType of
+        ttDefault:
+        begin
+          Recognise(ttDefault);
+          if fcTokenList.FirstSolidTokenType <> ttSemicolon then
+            RecogniseConstantExpression;
+        end;
+        ttNoDefault:
+        begin
+          Recognise(ttNoDefault);
+        end;
+        ttStored:
+        begin
+          Recognise(ttStored);
+          if fcTokenList.FirstSolidTokenType <> ttSemicolon then
+            RecogniseConstantExpression;
+        end;
+      end;
 
       PopNode;
-    End;
+    end;
 
-  End;
+  end;
 
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseExportsSection;
-Begin
+procedure TBuildParseTree.RecogniseExportsSection;
+begin
   PushNode(nExports);
 
   Recognise(ttExports);
   RecogniseExportedProc;
 
   // more to come?
-  While fcTokenList.FirstTokenType <> ttSemicolon Do Begin
+  while fcTokenList.FirstTokenType <> ttSemicolon do
+  begin
     Recognise(ttComma);
     RecogniseExportedProc;
-  End;
+  end;
 
   Recognise(ttSemicolon);
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseExportedProc;
-Const
+procedure TBuildParseTree.RecogniseExportedProc;
+const
   ExportedDirectives: TTokenTypeSet = [ttName, ttIndex, ttResident];
-Var
+var
   lc: TSourceToken;
-Begin
+begin
   PushNode(nExportedProc);
 
-  RecogniseIdentifier(True);
+  RecogniseIdentifier(true);
 
-  If fcTokenList.FirstSolidTokenType = ttOpenBracket Then
+  if fcTokenList.FirstSolidTokenType = ttOpenBracket then
     RecogniseFormalParameters;
 
-  While fcTokenList.FirstSolidTokenType In ExportedDirectives Do Begin
+  while fcTokenList.FirstSolidTokenType in ExportedDirectives do
+  begin
     lc := fcTokenList.FirstSolidToken;
 
-    Case lc.TokenType Of
-      ttName: Begin
-          Recognise(ttName);
-          Recognise(IdentiferTokens + [ttLiteralString]);
-        End;
-      ttIndex: Begin
-          Recognise(ttIndex);
-          Recognise(ttNumber);
-        End;
+    case lc.TokenType of
+      ttName:
+      begin
+        Recognise(ttName);
+        Recognise(IdentiferTokens + [ttLiteralString]);
+      end;
+      ttIndex:
+      begin
+        Recognise(ttIndex);
+        Recognise(ttNumber);
+      end;
       ttResident:
         Recognise(ttResident);
-    Else
-      Raise TEParseError.Create('Expected export directive', lc);
-    End;
-  End;
+      else
+        raise TEParseError.Create('Expected export directive', lc);
+    end;
+  end;
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseActualParams;
-Var
+procedure TBuildParseTree.RecogniseActualParams;
+var
   lbMore: boolean;
-Begin
+begin
   PushNode(nActualParams);
 
   Recognise(ttOpenBracket);
 
-  If fcTokenList.FirstSolidTokenType <> ttCloseBracket Then Begin
+  if fcTokenList.FirstSolidTokenType <> ttCloseBracket then
+  begin
     //RecogniseExprList;
 
-    Repeat
+    repeat
       RecogniseActualParam;
 
       lbMore := fcTokenList.FirstSolidTokenType = ttComma;
-      If lbMore Then
+      if lbMore then
         Recognise(ttComma);
 
-    Until Not lbMore;
+    until not lbMore;
 
-  End;
+  end;
 
   Recognise(ttCloseBracket);
 
   PopNode;
-End;
+end;
 
-Procedure TBuildParseTree.RecogniseActualParam;
-Const
+procedure TBuildParseTree.RecogniseActualParam;
+const
   EXPR_TYPES = [ttNumber, ttIdentifier, ttLiteralString,
     ttPlus, ttMinus, ttOpenBracket, ttOpenSquareBracket, ttNot, ttInherited];
-Var
+var
   lc: TSourceToken;
-Begin
+begin
   lc := fcTokenList.FirstSolidToken;
 
   { all kinds of reserved words can sometimes be param names
     thanks to COM and named params
     See LittleTest43.pas }
-  If (Not (lc.TokenType In EXPR_TYPES)) And StrIsAlphaNum(lc.SourceCode) And
-    (Not IsIdentifierToken(lc)) Then Begin
+  if ( not (lc.TokenType in EXPR_TYPES)) and StrIsAlphaNum(lc.SourceCode) and
+    ( not IsIdentifierToken(lc)) then
+  begin
     { quick surgery. Perhaps even a hack -
       reclasify the token, as it isn't what it thinks it is
       e.g. if this word is 'then', then
@@ -4025,30 +4230,34 @@ Begin
 
     { this must be a named value, e.g. "end = 3". See LittleTest43.pas for e.g.s }
     Recognise(ttAssign);
-    RecogniseExpr(True);
-  End
-  Else Begin
-    RecogniseExpr(True);
+    RecogniseExpr(true);
+  end
+  else
+  begin
+    RecogniseExpr(true);
 
     { ole named param syntax, e.g.
       " MSWord.TextToTable(ConvertFrom := 2, NumColumns := 3);"
     }
 
-    If fcTokenList.FirstSolidTokenType = ttAssign Then Begin
+    if fcTokenList.FirstSolidTokenType = ttAssign then
+    begin
       Recognise(ttAssign);
-      RecogniseExpr(True);
-    End
+      RecogniseExpr(true);
+    end
 
       { str width specifiers e.g. " Str(val:0, S);" this is an odd wart on the syntax }
-    Else If fcTokenList.FirstSolidTokenType = ttColon Then Begin
+    else if fcTokenList.FirstSolidTokenType = ttColon then
+    begin
       { can be more than one of them }
-      While fcTokenList.FirstSolidTokenType = ttColon Do Begin
+      while fcTokenList.FirstSolidTokenType = ttColon do
+      begin
         Recognise(ttColon);
-        RecogniseExpr(True);
-      End;
-    End;
-  End;
-End;
+        RecogniseExpr(true);
+      end;
+    end;
+  end;
+end;
 
-End.
+end.
 

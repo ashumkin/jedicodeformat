@@ -1,4 +1,4 @@
-Unit SourceTokenList;
+unit SourceTokenList;
 
 { AFS 24 Dec 2002
   A list of source tokens
@@ -30,246 +30,256 @@ under the License.
 ------------------------------------------------------------------------------*)
 {*)}
 
-Interface
+interface
 
-Uses
+uses
   { delphi }
   Contnrs,
   { local }
   SourceToken,
   Tokens;
 
-Type
+type
   { inherit not encapsulate, for speed }
-  TSourceTokenList = Class(TObjectList)
+  TSourceTokenList = class(TObjectList)
   Private
     { This is to keep an index of the next non-nil item
       when reading items out of the list
       List.Extract is a bit slow }
-    FStackIndex: Integer;
+    FStackIndex: integer;
 
-    Function GetItem(const piIndex: Integer): TSourceToken;
-    Procedure SetItem(const piIndex: Integer; const pcObject: TSourceToken);
+    function GetItem(const piIndex: integer): TSourceToken;
+    procedure SetItem(const piIndex: integer; const pcObject: TSourceToken);
   Public
-    Constructor Create;
-    Destructor Destroy; Override;
+    constructor Create;
+    destructor Destroy; override;
 
-    Procedure Clear; Override;
+    procedure Clear; override;
 
-    Function Add(const pcToken: TSourceToken): Integer;
-    Procedure SetXYPositions;
-    Procedure Insert(const piIndex: Integer; const pcItem: TSourceToken);
-    Function Extract(const piIndex: Integer): TSourceToken; {CHANGED. This is now relative to StackIndex}
-    Procedure Delete(const piIndex: Integer);
-    Function First: TSourceToken; {CHANGED. This is now relative to StackIndex}
-    Function FirstTokenType: TTokenType; {CHANGED. This is now relative to StackIndex}
-    Function FirstWordType: TWordType; {CHANGED. This is now relative to StackIndex}
-    Function FirstSolidToken: TSourceToken; {CHANGED. This is now relative to StackIndex}
-    Function FirstSolidTokenType: TTokenType; {CHANGED. This is now relative to StackIndex}
-    Function FirstSolidWordType: TWordType; {CHANGED. This is now relative to StackIndex}
-    Function FirstTokenWithExclusion(Const AExclusions: TTokenTypeSet): TSourceToken; {CHANGED. This is now relative to StackIndex}
-    Function SolidToken(piIndex: integer): TSourceToken; {CHANGED. This is now relative to StackIndex}
-    Function SolidTokenType(const piIndex: integer): TTokenType; {CHANGED. This is now relative to StackIndex}
-    Function SolidWordType(const piIndex: integer): TWordType; {CHANGED. This is now relative to StackIndex}
+    function Add(const pcToken: TSourceToken): integer;
+    procedure SetXYPositions;
+    procedure Insert(const piIndex: integer; const pcItem: TSourceToken);
+    function Extract(const piIndex: integer): TSourceToken;
+ {CHANGED. This is now relative to StackIndex}
+    procedure Delete(const piIndex: integer);
+    function First: TSourceToken;      {CHANGED. This is now relative to StackIndex}
+    function FirstTokenType: TTokenType; {CHANGED. This is now relative to StackIndex}
+    function FirstWordType: TWordType; {CHANGED. This is now relative to StackIndex}
+    function FirstSolidToken: TSourceToken; {CHANGED. This is now relative to StackIndex}
+    function FirstSolidTokenType: TTokenType;
+ {CHANGED. This is now relative to StackIndex}
+    function FirstSolidWordType: TWordType; {CHANGED. This is now relative to StackIndex}
+    function FirstTokenWithExclusion(const AExclusions: TTokenTypeSet): TSourceToken;
+ {CHANGED. This is now relative to StackIndex}
+    function SolidToken(piIndex: integer): TSourceToken;
+ {CHANGED. This is now relative to StackIndex}
+    function SolidTokenType(const piIndex: integer): TTokenType;
+ {CHANGED. This is now relative to StackIndex}
+    function SolidWordType(const piIndex: integer): TWordType;
+ {CHANGED. This is now relative to StackIndex}
 
-    Property SourceTokens[const piIndex: Integer]: TSourceToken Read GetItem Write SetItem;
+    property SourceTokens[const piIndex: integer]: TSourceToken
+      Read GetItem Write SetItem;
 
-    Property StackIndex: Integer Read FStackIndex; {This is to keep an index of the next non-nil item}
-  End;
+    property StackIndex: integer Read FStackIndex;
+ {This is to keep an index of the next non-nil item}
+  end;
 
-Implementation
+implementation
 
-Uses
-  { delphi } SysUtils,
-  { local } JcfMiscFunctions;
+uses
+  { delphi }SysUtils,
+  { local }JcfMiscFunctions;
 
-Constructor TSourceTokenList.Create;
-Begin
+constructor TSourceTokenList.Create;
+begin
   FStackIndex := 0;
-  OwnsObjects := True;
-  Inherited Create(False);
-End;
+  OwnsObjects := true;
+  inherited Create(false);
+end;
 
-Destructor TSourceTokenList.Destroy;
-Begin
-  Inherited Destroy;
-End;
+destructor TSourceTokenList.Destroy;
+begin
+  inherited Destroy;
+end;
 
-Procedure TSourceTokenList.Clear;
-Begin
-  Inherited Clear;
+procedure TSourceTokenList.Clear;
+begin
+  inherited Clear;
   FStackIndex := 0;
-End;
+end;
 
-Function TSourceTokenList.GetItem(const piIndex: Integer): TSourceToken;
-Begin
+function TSourceTokenList.GetItem(const piIndex: integer): TSourceToken;
+begin
   Result := TSourceToken(List^[piIndex]);
-End;
+end;
 
-Procedure TSourceTokenList.SetItem(const piIndex: Integer; const pcObject: TSourceToken);
-Begin
-  Inherited SetItem(piIndex, pcObject);
-End;
+procedure TSourceTokenList.SetItem(const piIndex: integer; const pcObject: TSourceToken);
+begin
+  inherited SetItem(piIndex, pcObject);
+end;
 
-Function TSourceTokenList.First: TSourceToken;
-Begin
+function TSourceTokenList.First: TSourceToken;
+begin
   Result := TSourceToken(List^[FStackIndex]);
-End;
+end;
 
-Function TSourceTokenList.FirstTokenType: TTokenType;
-Begin
+function TSourceTokenList.FirstTokenType: TTokenType;
+begin
   Result := ttUnknown;
-  If Count > 0
-    Then Result := TSourceToken(Inherited GetItem(FStackIndex)).TokenType;
-End;
+  if Count > 0 then
+    Result := TSourceToken(inherited GetItem(FStackIndex)).TokenType;
+end;
 
-Function TSourceTokenList.FirstWordType: TWordType;
-Begin
+function TSourceTokenList.FirstWordType: TWordType;
+begin
   Result := wtNotAWord;
-  If Count > 0 Then
+  if Count > 0 then
     Result := First.WordType;
-End;
+end;
 
-Function TSourceTokenList.FirstSolidTokenType: TTokenType;
-Var
+function TSourceTokenList.FirstSolidTokenType: TTokenType;
+var
   lc: TSourceToken;
-Begin
+begin
   Result := ttUnknown;
-  lc := FirstSolidToken;
-  If lc <> Nil Then
+  lc     := FirstSolidToken;
+  if lc <> nil then
     Result := lc.TokenType;
-End;
+end;
 
-Function TSourceTokenList.FirstSolidWordType: TWordType;
-Var
+function TSourceTokenList.FirstSolidWordType: TWordType;
+var
   lc: TSourceToken;
-Begin
+begin
   Result := wtNotAWord;
-  lc := FirstSolidToken;
-  If lc <> Nil Then
+  lc     := FirstSolidToken;
+  if lc <> nil then
     Result := lc.WordType;
-End;
+end;
 
-Function TSourceTokenList.FirstTokenWithExclusion(Const AExclusions: TTokenTypeSet): TSourceToken;
-Var
+function TSourceTokenList.FirstTokenWithExclusion(
+  const AExclusions: TTokenTypeSet): TSourceToken;
+var
   liLoop: integer;
   lcItem: TSourceToken;
-Begin
-  Result := Nil;
+begin
+  Result := nil;
   liLoop := FStackIndex;
-  While liLoop < Count Do
-  Begin
+  while liLoop < Count do
+  begin
     lcItem := TSourceToken(List^[liLoop]);
-    If Not (lcItem.TokenType In AExclusions) Then
-    Begin
+    if not (lcItem.TokenType in AExclusions) then
+    begin
       Result := lcItem;
       break;
-    End;
+    end;
     Inc(liLoop);
-  End;
-End;
+  end;
+end;
 
-Function TSourceTokenList.Add(const pcToken: TSourceToken): Integer;
-Begin
-  Result := Inherited Add(pcToken);
-End;
+function TSourceTokenList.Add(const pcToken: TSourceToken): integer;
+begin
+  Result := inherited Add(pcToken);
+end;
 
-Function TSourceTokenList.FirstSolidToken: TSourceToken;
-Begin
+function TSourceTokenList.FirstSolidToken: TSourceToken;
+begin
   Result := SolidToken(1);
-End;
+end;
 
-Function TSourceTokenList.SolidToken(piIndex: integer): TSourceToken;
-Var
-  liLoop: integer;
+function TSourceTokenList.SolidToken(piIndex: integer): TSourceToken;
+var
+  liLoop:      integer;
   lcTestToken: TSourceToken;
-Begin
+begin
   Assert(piIndex > 0);
-  Result := Nil;
+  Result := nil;
   liLoop := FStackIndex;
 
-  While liLoop < Count Do
-  Begin
+  while liLoop < Count do
+  begin
     lcTestToken := TSourceToken(List^[liLoop]);
-    If (lcTestToken <> Nil) And lcTestToken.IsSolid Then
-    Begin
+    if (lcTestToken <> nil) and lcTestToken.IsSolid then
+    begin
       // found a solid token.
-      
-      If piIndex > 1 Then
-        dec(piIndex) // go further
-      Else
-      Begin
+
+      if piIndex > 1 then
+        Dec(piIndex) // go further
+      else
+      begin
         // found it
         Result := lcTestToken;
         break;
-      End;
-    End;
+      end;
+    end;
     Inc(liLoop);
-  End;
-End;
+  end;
+end;
 
-Function TSourceTokenList.SolidTokenType(const piIndex: integer): TTokenType;
-Var
+function TSourceTokenList.SolidTokenType(const piIndex: integer): TTokenType;
+var
   lc: TSourceToken;
-Begin
+begin
   Result := ttUnknown;
-  lc := SolidToken(piIndex);
-  If lc <> Nil Then
+  lc     := SolidToken(piIndex);
+  if lc <> nil then
     Result := lc.TokenType;
-End;
+end;
 
-Function TSourceTokenList.SolidWordType(const piIndex: integer): TWordType;
-Var
+function TSourceTokenList.SolidWordType(const piIndex: integer): TWordType;
+var
   lc: TSourceToken;
-Begin
+begin
   Result := wtNotAWord;
-  lc := SolidToken(piIndex);
-  If lc <> Nil Then
+  lc     := SolidToken(piIndex);
+  if lc <> nil then
     Result := lc.WordType;
-End;
+end;
 
-Procedure TSourceTokenList.SetXYPositions;
-Var
-  liLoop: integer;
+procedure TSourceTokenList.SetXYPositions;
+var
+  liLoop:   integer;
   liX, liY: integer;
-  lcToken: TSourceToken;
-Begin
-  liX := 1;
-  liY := 1;
+  lcToken:  TSourceToken;
+begin
+  liX    := 1;
+  liY    := 1;
   liLoop := FStackIndex;
-  While liLoop < count Do Begin
+  while liLoop < Count do
+  begin
     lcToken := TSourceToken(List^[liLoop]);
     lcToken.XPosition := liX;
     lcToken.YPosition := liY;
     AdvanceTextPos(lcToken.SourceCode, liX, liY);
     Inc(liLoop);
-  End;
-End;
+  end;
+end;
 
-Function TSourceTokenList.Extract(const piIndex: Integer): TSourceToken;
-Begin
+function TSourceTokenList.Extract(const piIndex: integer): TSourceToken;
+begin
   {Here I am not doing any index checking at all.
     This thing needs to be FAST. Access to here is quite controlled anyway.}
-  Result := TSourceToken(List^[piIndex]);
-  List^[piIndex] := Nil;
+  Result      := TSourceToken(List^[piIndex]);
+  List^[piIndex] := nil;
   FStackIndex := piIndex + 1;
-End;
+end;
 
-Procedure TSourceTokenList.Insert(const piIndex: Integer; const pcItem: TSourceToken);
-Begin
-  If FStackIndex <> 0 Then
-    Raise Exception.Create('Insert Not allowed in Stack mode');
+procedure TSourceTokenList.Insert(const piIndex: integer; const pcItem: TSourceToken);
+begin
+  if FStackIndex <> 0 then
+    raise Exception.Create('Insert Not allowed in Stack mode');
 
-  Inherited Insert(piIndex, pcItem);
-End;
+  inherited Insert(piIndex, pcItem);
+end;
 
-Procedure TSourceTokenList.Delete(const piIndex: Integer);
-Begin
-  If FStackIndex <> 0 Then
-    Raise Exception.Create('Delete Not allowed in Stack mode');
+procedure TSourceTokenList.Delete(const piIndex: integer);
+begin
+  if FStackIndex <> 0 then
+    raise Exception.Create('Delete Not allowed in Stack mode');
 
-  Inherited Delete(piIndex);
-End;
+  inherited Delete(piIndex);
+end;
 
-End.
+end.
 
