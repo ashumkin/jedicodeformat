@@ -28,8 +28,6 @@ under the License.
 
 interface
 
-uses VisitParseTree;
-
 type
 
   TBaseTreeNodeVisitor = class(TObject)
@@ -43,14 +41,14 @@ type
   public
     constructor Create; virtual;
 
-    { these are called when visiting interior nodes before and after thier children }
-    procedure PreVisitParseTreeNode(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); virtual;
+    { these are called when visiting interior nodes before and after thier children
+      Must return true if the visited node is deleted, or if nodes are inserted before it
+      ie if the cuurent node's index is not correct and the same after the visit}
+    function PreVisitParseTreeNode(const pcNode: TObject): Boolean; virtual;
     procedure PostVisitParseTreeNode(const pcNode: TObject); virtual;
 
     { this is called when visiting a leaf node (ie a source token) }
-    procedure VisitSourceToken(const pcToken: TObject;
-      var prVisitResult: TRVisitResult); virtual;
+    function VisitSourceToken(const pcToken: TObject): Boolean; virtual;
 
     function FinalSummary(var psMessage: string): boolean; virtual;
     function IsIncludedInSettings: boolean; virtual;
@@ -84,10 +82,10 @@ begin
   psMessage := '';
 end;
 
-procedure TBaseTreeNodeVisitor.PreVisitParseTreeNode(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TBaseTreeNodeVisitor.PreVisitParseTreeNode(const pcNode: TObject): Boolean;
 begin
   // do nothing, here for override
+  Result := False;
 end;
 
 procedure TBaseTreeNodeVisitor.PostVisitParseTreeNode(const pcNode: TObject);
@@ -95,10 +93,10 @@ begin
   // do nothing, here for override
 end;
 
-procedure TBaseTreeNodeVisitor.VisitSourceToken(const pcToken: TObject;
-  var prVisitResult: TRVisitResult);
+function TBaseTreeNodeVisitor.VisitSourceToken(const pcToken: TObject): Boolean;
 begin
   // do nothing, here for override
+  Result := False;
 end;
 
 function TBaseTreeNodeVisitor.IsIncludedInSettings: boolean;

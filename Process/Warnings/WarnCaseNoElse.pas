@@ -36,7 +36,7 @@ under the License.
 
 interface
 
-uses Warning, VisitParseTree;
+uses Warning;
 
 type
 
@@ -44,8 +44,7 @@ type
   public
     constructor Create; override;
 
-    procedure PreVisitParseTreeNode(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function PreVisitParseTreeNode(const pcNode: TObject): Boolean; override;
   end;
 
 
@@ -65,11 +64,11 @@ begin
   HasSourceTokenVisit := True;
 end;
 
-procedure TWarnCaseNoElse.PreVisitParseTreeNode(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TWarnCaseNoElse.PreVisitParseTreeNode(const pcNode: TObject): Boolean;
 var
   lcNode: TParseTreeNode;
 begin
+  Result := False;
   lcNode := TParseTreeNode(pcNode);
 
   // when we have a case statement, does it have an else?

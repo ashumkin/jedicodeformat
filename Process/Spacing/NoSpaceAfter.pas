@@ -26,8 +26,7 @@ under the License.
 
 interface
 
-uses SwitchableVisitor, VisitParseTree, SourceToken;
-
+uses SwitchableVisitor, SourceToken;
 
 type
   TNoSpaceAfter = class(TSwitchableVisitor)
@@ -35,8 +34,7 @@ type
     fcLastSolidToken: TSourceToken;
     fbSafeToRemoveReturn: boolean;  // this taken from NoReturnBefore
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): boolean; override;
   public
     constructor Create; override;
 
@@ -134,12 +132,12 @@ begin
   FormatFlags := FormatFlags + [eRemoveSpace];
 end;
 
-procedure TNoSpaceAfter.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TNoSpaceAfter.EnabledVisitSourceToken(const pcNode: TObject): boolean;
 var
   lcSourceToken: TSourceToken;
   lcNextSolid:   TSourceToken;
 begin
+  Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
   if lcSourceToken.TokenType = ttWhiteSpace then

@@ -26,15 +26,13 @@ interface
 { AFS 9 Dec 1999
   Single space after : }
 
-uses SwitchableVisitor, VisitParseTree;
-
+uses SwitchableVisitor;
 
 type
   TSingleSpaceAfter = class(TSwitchableVisitor)
   private
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): boolean; override;
   public
     constructor Create; override;
 
@@ -239,12 +237,12 @@ begin
   FormatFlags := FormatFlags + [eAddSpace, eRemoveSpace, eRemoveReturn];
 end;
 
-procedure TSingleSpaceAfter.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TSingleSpaceAfter.EnabledVisitSourceToken(const pcNode: TObject): boolean;
 var
   lcSourceToken: TSourceToken;
   lcNext, lcNew: TSourceToken;
 begin
+  Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
   { exclude if a comment is next }

@@ -27,13 +27,12 @@ under the License.
 
 interface
 
-uses SwitchableVisitor, VisitParseTree;
+uses SwitchableVisitor;
 
 type
   TSpaceBeforeColon = class(TSwitchableVisitor)
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): boolean; override;
   public
     constructor Create; override;
 
@@ -123,15 +122,16 @@ begin
   FormatFlags := FormatFlags + [eAddSpace, eRemoveSpace];
 end;
 
-procedure TSpaceBeforeColon.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TSpaceBeforeColon.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
   lcSourceToken, lcPrev: TSourceToken;
   liSpaces: integer;
 begin
-  lcSourceToken := TSourceToken(pcNode);
-  if lcSourceToken = nil then
+  Result := False;
+  if pcNode = nil then
     exit;
+
+  lcSourceToken := TSourceToken(pcNode);
 
   if lcSourceToken.TokenType <> ttColon then
     exit;
@@ -151,8 +151,8 @@ begin
     end
     else
     begin
-      prVisitResult.Action  := aInsertBefore;
-      prVisitResult.NewItem := NewSpace(liSpaces);
+      Result := True;
+      lcSourceToken.AddSiblingBefore(NewSpace(liSpaces));
     end;
   end
   else

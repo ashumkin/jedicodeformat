@@ -27,7 +27,7 @@ under the License.
 
 interface
 
-uses SourceToken, SwitchableVisitor, VisitParseTree;
+uses SourceToken, SwitchableVisitor;
 
 
 type
@@ -43,8 +43,7 @@ type
     function NeedsNoReturn(const pt: TSourceToken): boolean;
 
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): Boolean; override;
 
   public
     constructor Create; override;
@@ -253,11 +252,11 @@ begin
   Result := (fcLastSolidToken <> nil) and (fcLastSolidToken.TokenType = ttComment)
 end;
 
-procedure TNoReturnAfter.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TNoReturnAfter.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
   lcSourceToken: TSourceToken;
 begin
+  Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
   if (lcSourceToken.TokenType = ttReturn) and

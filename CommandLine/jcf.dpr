@@ -43,7 +43,6 @@ uses
   SourceTokenList in '..\Parse\SourceTokenList.pas',
   VisitSetXY in '..\Process\VisitSetXY.pas',
   BaseVisitor in '..\Process\BaseVisitor.pas',
-  VisitParseTree in '..\Process\VisitParseTree.pas',
   JcfMiscFunctions in '..\Utils\JcfMiscFunctions.pas',
   FileUtils in '..\Utils\FileUtils.pas',
   JCFLog in '..\Utils\JcfLog.pas',

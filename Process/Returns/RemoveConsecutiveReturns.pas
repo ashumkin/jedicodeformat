@@ -27,14 +27,13 @@ interface
   Remove consecutive returns
   ie put an upper limit on the number of blank lines in a row }
 
-uses SwitchableVisitor, VisitParseTree;
+uses SwitchableVisitor;
 
 type
   TRemoveConsecutiveReturns = class(TSwitchableVisitor)
   private
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): boolean; override;
   public
     constructor Create; override;
 
@@ -55,12 +54,12 @@ begin
   FormatFlags := FormatFlags + [eRemoveReturn];
 end;
 
-procedure TRemoveConsecutiveReturns.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TRemoveConsecutiveReturns.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
   lcSourceToken: TSourceToken;
   liCount: integer;
 begin
+  Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
   liCount := 0;

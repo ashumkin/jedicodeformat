@@ -29,28 +29,27 @@ under the License.
 interface
 
 
-uses Warning, VisitParseTree;
+uses Warning;
 
 type
 
   TWarnRealType = class(TWarning)
   public
-    procedure EnabledVisitSourceToken(const pcToken: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcToken: TObject): Boolean; override;
   end;
 
 implementation
 
 uses SourceToken, ParseTreeNodeType, Tokens;
 
-procedure TWarnRealType.EnabledVisitSourceToken(const pcToken: TObject;
-  var prVisitResult: TRVisitResult);
+function TWarnRealType.EnabledVisitSourceToken(const pcToken: TObject): Boolean;
 const
   REAL_WARNING = ' This type is obsolete and is seldom useful';
   // + 'See the help for details';
 var
   lcToken: TSourceToken;
 begin
+  Result := False;
   lcToken := TSourceToken(pcToken);
 
   if not lcToken.HasParentNode(nType) then

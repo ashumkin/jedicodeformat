@@ -27,15 +27,13 @@ under the License.
 
 interface
 
-uses SwitchableVisitor, VisitParseTree;
-
+uses SwitchableVisitor;
 
 type
   TRemoveSpaceAtLineEnd = class(TSwitchableVisitor)
   private
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): Boolean; override;
   public
     constructor Create; override;
 
@@ -55,11 +53,11 @@ begin
   FormatFlags := FormatFlags + [eRemoveSpace];
 end;
 
-procedure TRemoveSpaceAtLineEnd.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TRemoveSpaceAtLineEnd.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
   lcSourceToken, lcNext: TSourceToken;
 begin
+  Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
   { is this white space? }

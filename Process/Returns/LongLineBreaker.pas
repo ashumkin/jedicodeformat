@@ -33,7 +33,7 @@ under the License.
 
 interface
 
-uses SwitchableVisitor, VisitParseTree, IntList, SourceTokenList;
+uses SwitchableVisitor, IntList, SourceTokenList;
 
 
 type
@@ -45,8 +45,7 @@ type
 
     procedure FixPos;
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): Boolean; override;
   public
     constructor Create; override;
     destructor Destroy; override;
@@ -536,8 +535,7 @@ begin
 end;
 
 
-procedure TLongLineBreaker.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TLongLineBreaker.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 const
   GOOD_BREAK_THRESHHOLD = 50;
   ANY_BREAK_THRESHHOLD  = -10;
@@ -551,9 +549,7 @@ var
   liPlaceToBreak: integer;
   lcBreakToken, lcNewToken: TSourceToken;
 begin
-  { turned off by settings? }
-  if FormatSettings.Returns.RebreakLines = rbOff then
-    exit;
+  Result := False;
 
   lcSourceToken := TSourceToken(pcNode);
 

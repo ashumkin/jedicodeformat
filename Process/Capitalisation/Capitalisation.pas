@@ -27,15 +27,13 @@ under the License.
 
 interface
 
-uses SwitchableVisitor, VisitParseTree;
-
+uses SwitchableVisitor;
 
 type
   TCapitalisation = class(TSwitchableVisitor)
   private
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): Boolean; override;
   public
     constructor Create; override;
 
@@ -81,11 +79,11 @@ begin
   FormatFlags := FormatFlags + [eCapsReservedWord];
 end;
 
-procedure TCapitalisation.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TCapitalisation.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
   lcSourceToken: TSourceToken;
 begin
+  Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
   case lcSourceToken.WordType of

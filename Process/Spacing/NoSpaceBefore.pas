@@ -28,15 +28,14 @@ under the License.
 
 interface
 
-uses SwitchableVisitor, VisitParseTree;
+uses SwitchableVisitor;
 
 type
   TNoSpaceBefore = class(TSwitchableVisitor)
   private
     fbSafeToRemoveReturn: boolean;  // this taken from NoReturnBefore
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): boolean; override;
   public
     constructor Create; override;
 
@@ -120,12 +119,12 @@ begin
   FormatFlags := FormatFlags + [eRemoveSpace];
 end;
 
-procedure TNoSpaceBefore.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TNoSpaceBefore.EnabledVisitSourceToken(const pcNode: TObject): boolean;
 var
   lcSourceToken: TSourceToken;
   lcNext: TSourceToken;
 begin
+  Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
   // not safe to remove return at a comment like this

@@ -29,13 +29,12 @@ interface
   Obfuscation
 }
 
-uses SwitchableVisitor, VisitParseTree;
+uses SwitchableVisitor;
 
 type
   TReduceWhiteSpace = class(TSwitchableVisitor)
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): Boolean; override;
   public
     constructor Create; override;
   end;
@@ -51,11 +50,11 @@ begin
   FormatFlags := FormatFlags + [eObfuscate];
 end;
 
-procedure TReduceWhiteSpace.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TReduceWhiteSpace.EnabledVisitSourceToken(const pcNode: TObject): boolean;
 var
   lcSourceToken: TSourceToken;
 begin
+  Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
   if lcSourceToken.TokenType = ttWhiteSpace then

@@ -30,24 +30,23 @@ under the License.
 
 interface
 
-uses BaseVisitor, VisitParseTree;
+uses BaseVisitor;
 
 type
   TVisitStripEmptySpace = class(TBaseTreeNodeVisitor)
   public
-    procedure VisitSourceToken(const pcToken: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function VisitSourceToken(const pcToken: TObject): Boolean; override;
   end;
 
 implementation
 
 uses SourceToken, Tokens;
 
-procedure TVisitStripEmptySpace.VisitSourceToken(const pcToken: TObject;
-  var prVisitResult: TRVisitResult);
+function TVisitStripEmptySpace.VisitSourceToken(const pcToken: TObject): Boolean;
 var
   lcSourceToken, lcNext: TSourceToken;
 begin
+  Result := False;
   lcSourceToken := TSourceToken(pcToken);
 
   if (lcSourceToken <> nil) and (lcSourceToken.TokenType = ttWhiteSpace) then
@@ -55,7 +54,7 @@ begin
     { remove }
     if (lcSourceToken.SourceCode = '') then
     begin
-      prVisitResult.Action := aDelete;
+      lcSourceToken.Free;
     end
     else
     begin
@@ -63,8 +62,8 @@ begin
       { consolidate }
       if (lcNext <> nil) and (lcNext.TokenType = ttWhiteSpace) then
       begin
-        lcNext.SourceCode    := lcNext.SourceCode + lcSourceToken.SourceCode;
-        prVisitResult.Action := aDelete;
+        lcNext.SourceCode := lcNext.SourceCode + lcSourceToken.SourceCode;
+        lcSourceToken.Free;
       end;
     end;
   end;

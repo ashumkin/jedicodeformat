@@ -26,13 +26,12 @@ under the License.
 
 interface
 
-uses SwitchableVisitor, VisitParseTree;
+uses SwitchableVisitor;
 
 type
   TRemoveBlankLine = class(TSwitchableVisitor)
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): Boolean; override;
   public
     constructor Create; override;
   end;
@@ -50,11 +49,11 @@ begin
   FormatFlags := FormatFlags + [eObfuscate];
 end;
 
-procedure TRemoveBlankLine.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TRemoveBlankLine.EnabledVisitSourceToken(const pcNode: TObject): boolean;
 var
   lcSourceToken, lcNext: TSourceToken;
 begin
+  Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
   if lcSourceToken.TokenType <> ttReturn then

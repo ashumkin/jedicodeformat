@@ -27,14 +27,13 @@ interface
   process to standardise the number of returns
   after the final "end." of the unit }
 
-uses SwitchableVisitor, VisitParseTree;
+uses SwitchableVisitor;
 
 type
   TReturnsAfterFinalEnd = class(TSwitchableVisitor)
   private
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): Boolean; override;
   public
     constructor Create; override;
 
@@ -55,13 +54,13 @@ begin
   FormatFlags := FormatFlags + [eAddReturn, eRemoveReturn];
 end;
 
-procedure TReturnsAfterFinalEnd.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TReturnsAfterFinalEnd.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
   lcSourceToken:     TSourceToken;
   lcCurrent, lcPrev: TSourceToken;
   liReturnsWanted, liReturnsFound: integer;
 begin
+  Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
   if (lcSourceToken.TokenType = ttDot) and

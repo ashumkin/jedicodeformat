@@ -23,14 +23,12 @@ under the License.
 
 interface
 
-uses SourceToken, SwitchableVisitor, VisitParseTree;
-
+uses SourceToken, SwitchableVisitor;
 
 type
   TRemoveBlankLinesAfterProcHeader = class(TSwitchableVisitor)
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): Boolean; override;
 
   public
     constructor Create; override;
@@ -77,20 +75,20 @@ begin
   FormatFlags := FormatFlags + [eRemoveReturn];
 end;
 
-procedure TRemoveBlankLinesAfterProcHeader.EnabledVisitSourceToken(
-  const pcNode: TObject; var prVisitResult: TRVisitResult);
+function TRemoveBlankLinesAfterProcHeader.EnabledVisitSourceToken(
+  const pcNode: TObject): Boolean;
 var
   lcSourceToken:  TSourceToken;
   lcNext, lcTest: TSourceToken;
   liReturnCount:  integer;
   liMaxReturns:   integer;
 begin
+  Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
   { must be in procedure declarations or directives}
   if not lcSourceToken.HasParentNode(ProcedureNodes) then
     exit;
-
 
   if lcSourceToken.TokenType <> ttReturn then
     exit;

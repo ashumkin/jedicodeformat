@@ -60,11 +60,10 @@ type
     procedure AddChild(const pcChild: TParseTreeNode);
     procedure AddSiblingAfter(const pcChild: TParseTreeNode);
     procedure AddSiblingBefore(const pcChild: TParseTreeNode);
-    procedure SelfDestruct;
 
     procedure InsertChild(const piIndex: integer; const pcChild: TParseTreeNode);
-    function RemoveChild(const pcChild: TParseTreeNode): integer; overload;
-    function RemoveChild(const piIndex: integer): integer; overload;
+    function RemoveChild(const pcChild: TParseTreeNode): Boolean; overload;
+    function RemoveChild(const piIndex: integer): Boolean; overload;
 
     function IndexOfChild(const pcChild: TParseTreeNode): integer;
     function IndexOfSelf: integer;
@@ -157,6 +156,10 @@ begin
   FreeAndNil(fcChildNodes);
   FreeAndNil(fcNestings);
 
+  { detatch from the tree }
+  if (Parent <> nil) and (Parent.fcChildNodes <> nil) then
+    Parent.fcChildNodes.Extract(self);
+
   inherited;
 end;
 
@@ -201,12 +204,6 @@ begin
   Parent.InsertChild(IndexOfSelf, pcChild);
 end;
 
-procedure TParseTreeNode.SelfDestruct;
-begin
-  Assert(Parent <> nil);
-  Parent.RemoveChild(self);
-end;
-
 procedure TParseTreeNode.InsertChild(const piIndex: integer;
   const pcChild: TParseTreeNode);
 begin
@@ -214,19 +211,19 @@ begin
   fcChildNodes.Insert(piIndex, pcChild);
 end;
 
-function TParseTreeNode.RemoveChild(const pcChild: TParseTreeNode): integer;
+function TParseTreeNode.RemoveChild(const pcChild: TParseTreeNode): Boolean;
 begin
-  Result := fcChildNodes.Remove(pcChild);
+  Result := RemoveChild(fcChildNodes.IndexOf(pcChild));
 end;
 
-function TParseTreeNode.RemoveChild(const piIndex: integer): integer;
+function TParseTreeNode.RemoveChild(const piIndex: integer): Boolean;
 begin
-  if (piIndex < 0) or (piIndex >= ChildNodeCount) then
+  Result := (piIndex >= 0) and (piIndex < ChildNodeCount);
+  if  Result then
   begin
-    Result := -1;
-  end
-  else
-    Result := fcChildNodes.Remove(fcChildNodes[piIndex]);
+    ChildNodes[piIndex].Parent := nil;
+    fcChildNodes.Delete(piIndex);
+  end;
 end;
 
 function TParseTreeNode.IndexOfChild(const pcChild: TParseTreeNode): integer;

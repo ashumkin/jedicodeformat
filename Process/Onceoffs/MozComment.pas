@@ -31,7 +31,7 @@ unit MozComment;
 
 interface
 
-uses BaseVisitor, SourceToken, VisitParseTree;
+uses BaseVisitor, SourceToken;
 
 type
   TMozComment = class(TBaseTreeNodeVisitor)
@@ -42,8 +42,7 @@ type
   public
     constructor Create; override;
 
-    procedure VisitSourceToken(const pcToken: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function VisitSourceToken(const pcToken: TObject): Boolean; override;
     function IsIncludedInSettings: boolean; override;
   end;
 
@@ -117,14 +116,14 @@ begin
 end;
 
 
-procedure TMozComment.VisitSourceToken(const pcToken: TObject;
-  var prVisitResult: TRVisitResult);
+function TMozComment.VisitSourceToken(const pcToken: TObject): Boolean;
 var
   lsFile:      string;
   lsComment:   string;
   lcToken, lcNewComment: TSourceToken;
   lbInContext: boolean;
 begin
+  Result := False;
   if fbWorkIsDone then
     exit;
 

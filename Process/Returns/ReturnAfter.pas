@@ -27,15 +27,13 @@ under the License.
 
 interface
 
-uses SwitchableVisitor, VisitParseTree;
-
+uses SwitchableVisitor;
 
 type
   TReturnAfter = class(TSwitchableVisitor)
   private
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): Boolean; override;
   public
     constructor Create; override;
 
@@ -465,13 +463,13 @@ begin
   FormatFlags := FormatFlags + [eAddReturn];
 end;
 
-procedure TReturnAfter.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TReturnAfter.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
   lcNext, lcCommentTest, lcNextSpace: TSourceToken;
   liReturnsNeeded: integer;
   lcSourceToken:   TSourceToken;
 begin
+  Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
   { check the next significant token  }

@@ -29,13 +29,12 @@ under the License.
 
 interface
 
-uses SwitchableVisitor, VisitParseTree;
+uses SwitchableVisitor;
 
 type
   TRemoveUnneededWhiteSpace = class(TSwitchableVisitor)
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): Boolean; override;
   public
     constructor Create; override;
   end;
@@ -164,11 +163,12 @@ begin
   FormatFlags := FormatFlags + [eObfuscate];
 end;
 
-procedure TRemoveUnneededWhiteSpace.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TRemoveUnneededWhiteSpace.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
   lcSpace, lcBefore, lcAfter: TSourceToken;
 begin
+  Result := False;
+
   { this visitor needs to operate on the white space token
     depending on what comes before and after it
   }

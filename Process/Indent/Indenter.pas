@@ -31,14 +31,13 @@ under the License.
 
 interface
 
-uses SwitchableVisitor, VisitParseTree;
+uses SwitchableVisitor;
 
 
 type
   TIndenter = class(TSwitchableVisitor)
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): Boolean; override;
   public
     constructor Create; override;
   end;
@@ -384,14 +383,14 @@ begin
   FormatFlags := FormatFlags + [eIndent];
 end;
 
-procedure TIndenter.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TIndenter.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
   lcSourceToken: TSourceToken;
   lcPrev: TSourceToken;
   liPos:  integer;
   liDesiredIndent: integer;
 begin
+  Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
   if IsFirstSolidTokenOnLine(lcSourceToken) then
@@ -420,8 +419,8 @@ begin
     end
     else if liDesiredIndent > liPos then
     begin
-      prVisitResult.Action  := aInsertBefore;
-      prVisitResult.NewItem := NewSpace(liDesiredIndent - liPos);
+      Result := True;
+      lcSourceToken.AddSiblingBefore(NewSpace(liDesiredIndent - liPos));
     end;
   end;
 

@@ -60,16 +60,14 @@ under the License.
 
 interface
 
-uses SwitchableVisitor, VisitParseTree, ParseTreeNodeType;
-
+uses SwitchableVisitor, ParseTreeNodeType;
 
 type
   TBlockStyles = class(TSwitchableVisitor)
   private
 
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): Boolean; override;
   public
     constructor Create; override;
 
@@ -172,12 +170,12 @@ begin
   FormatFlags := FormatFlags + [eBlockStyle, eAddReturn, eRemoveReturn];
 end;
 
-procedure TBlockStyles.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TBlockStyles.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
   leStyle: TBlockNewLineStyle;
   lcSourceToken, lcNextReturn, lcNextComment: TSourceToken;
 begin
+  Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
   if (lcSourceToken.TokenType in BreakWords) or IsLabelColon(lcSourceToken) or

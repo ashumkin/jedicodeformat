@@ -34,7 +34,7 @@ uses
   Classes,
   { local }
   SourceToken,
-  SwitchableVisitor, VisitParseTree;
+  SwitchableVisitor;
 
 type
   TUsesClauseInsert = class(TSwitchableVisitor)
@@ -47,8 +47,7 @@ type
     procedure CreateUses(const pcToken: TSourceToken; const pbInterface: boolean);
 
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): Boolean; override;
   public
     constructor Create; override;
 
@@ -87,12 +86,12 @@ begin
     FormatSettings.UsesClause.InsertImplementationEnabled);
 end;
 
-procedure TUsesClauseInsert.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TUsesClauseInsert.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
   lcSourceToken: TSourceToken;
   lbInterface, lbImplementation: boolean;
 begin
+  Result := False;
   if pcNode = nil then
     exit;
 

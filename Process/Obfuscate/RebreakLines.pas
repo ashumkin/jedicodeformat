@@ -29,15 +29,14 @@ under the License.
 
 interface
 
-uses SwitchableVisitor, VisitParseTree;
+uses SwitchableVisitor;
 
 type
   TRebreakLines = class(TSwitchableVisitor)
   private
     xPos: integer;
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): Boolean; override;
   public
     constructor Create; override;
   end;
@@ -55,8 +54,7 @@ begin
   xPos := 1;
 end;
 
-procedure TRebreakLines.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TRebreakLines.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 const
   LINE_LENGTH = 80;
 var
@@ -64,8 +62,8 @@ var
   lcNext, lcNew: TSourceToken;
   liLen:   integer;
 begin
+  Result := False;
   lcToken := TSourceToken(pcNode);
-
 
   if lcToken.TokenType = ttReturn then
     xPos := 0

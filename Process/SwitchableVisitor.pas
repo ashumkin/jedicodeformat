@@ -28,7 +28,7 @@ under the License.
 
 interface
 
-uses BaseVisitor, VisitParseTree, FormatFlags;
+uses BaseVisitor, FormatFlags;
 
 type
 
@@ -46,14 +46,12 @@ type
     // every token is inspected, even when the visitor is disabled
     procedure InspectSourceToken(const pcToken: TObject); virtual;
     // this is only called when the processor is enabled
-    procedure EnabledVisitSourceToken(const pcToken: TObject;
-      var prVisitResult: TRVisitResult); virtual;
+    function EnabledVisitSourceToken(const pcToken: TObject): Boolean; virtual;
 
   public
     constructor Create; override;
 
-    procedure VisitSourceToken(const pcToken: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function VisitSourceToken(const pcToken: TObject): Boolean; override;
 
     property FormatFlags: TFormatFlags Read feFormatFlags Write feFormatFlags;
   end;
@@ -98,10 +96,10 @@ begin
 end;
 
 
-procedure TSwitchableVisitor.EnabledVisitSourceToken(const pcToken: TObject;
-  var prVisitResult: TRVisitResult);
+function TSwitchableVisitor.EnabledVisitSourceToken(const pcToken: TObject): Boolean;
 begin
   // here for override
+  Result := False;
 end;
 
 procedure TSwitchableVisitor.InspectSourceToken(const pcToken: TObject);
@@ -109,15 +107,16 @@ begin
   // here for override
 end;
 
-procedure TSwitchableVisitor.VisitSourceToken(const pcToken: TObject;
-  var prVisitResult: TRVisitResult);
+function TSwitchableVisitor.VisitSourceToken(const pcToken: TObject): Boolean;
 begin
   CheckEnabled(pcToken);
 
   InspectSourceToken(pcToken);
 
   if fbEnabled then
-    EnabledVisitSourceToken(pcToken, prVisitResult);
+    Result := EnabledVisitSourceToken(pcToken)
+  else
+    Result:= False;
 end;
 
 end.

@@ -64,7 +64,6 @@ contains
   FormatFlags in '..\Process\FormatFlags.pas',
   Nesting in '..\Process\Nesting.pas',
   SwitchableVisitor in '..\Process\SwitchableVisitor.pas',
-  VisitParseTree in '..\Process\VisitParseTree.pas',
   VisitSetNesting in '..\Process\VisitSetNesting.pas',
   VisitSetXY in '..\Process\VisitSetXY.pas',
   fShowParseTree in '..\Parse\UI\fShowParseTree.pas' {frmShowParseTree},

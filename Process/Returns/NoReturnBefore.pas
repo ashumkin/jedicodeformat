@@ -27,8 +27,7 @@ under the License.
 
 interface
 
-uses SwitchableVisitor, VisitParseTree;
-
+uses SwitchableVisitor;
 
 type
   TNoReturnBefore = class(TSwitchableVisitor)
@@ -36,8 +35,7 @@ type
     fbSafeToRemoveReturn: boolean;
 
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): Boolean; override;
 
   public
     constructor Create; override;
@@ -113,12 +111,12 @@ begin
   FormatFlags := FormatFlags + [eRemoveReturn];
 end;
 
-procedure TNoReturnBefore.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TNoReturnBefore.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
   lcSourceToken: TSourceToken;
   lcNext: TSourceToken;
 begin
+  Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
   // not safe to remove return at a comment like this

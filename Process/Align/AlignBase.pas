@@ -28,8 +28,7 @@ unit AlignBase;
 
 interface
 
-uses SwitchableVisitor, VisitParseTree, SourceToken,
-  SourceTokenList;
+uses SwitchableVisitor, SourceToken, SourceTokenList;
 
 type
 
@@ -59,8 +58,7 @@ type
     procedure OnTokenRead(const pt: TSourceToken); virtual;
     procedure ResetState; virtual;
 
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): boolean; override;
   public
     constructor Create; override;
     destructor Destroy; override;
@@ -90,11 +88,11 @@ begin
 end;
 
 
-procedure TAlignBase.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TAlignBase.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
   lcToken: TSourceToken;
 begin
+  Result := False;
   lcToken := TSourceToken(pcNode);
 
   if StillSuspended(lcToken) then

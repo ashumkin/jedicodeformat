@@ -31,8 +31,7 @@ under the License.
 
 interface
 
-uses BaseVisitor, VisitParseTree;
-
+uses BaseVisitor;
 
 type
   TBasicStats = class(TBaseTreeNodeVisitor)
@@ -53,10 +52,8 @@ type
   public
     constructor Create; override;
 
-    procedure PreVisitParseTreeNode(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
-    procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
-      override;
+    function PreVisitParseTreeNode(const pcNode: TObject): boolean; override;
+    function VisitSourceToken(const pcNode: TObject): Boolean; override;
     function FinalSummary(var psMessage: string): boolean; override;
 
     function IsIncludedInSettings: boolean; override;
@@ -105,11 +102,11 @@ begin
   HasSourceTokenVisit := True;
 end;
 
-procedure TBasicStats.PreVisitParseTreeNode(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TBasicStats.PreVisitParseTreeNode(const pcNode: TObject): Boolean;
 var
   lcNode: TParseTreeNode;
 begin
+  Result := False;
   lcNode := TParseTreeNode(pcNode);
 
   case lcNode.NodeType of
@@ -149,12 +146,12 @@ begin
 
 end;
 
-procedure TBasicStats.VisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TBasicStats.VisitSourceToken(const pcNode: TObject): Boolean;
 var
   lcSourceToken: TSourceToken;
   liLen: integer;
 begin
+  Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
   // a file with no returns has one line

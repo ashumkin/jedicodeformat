@@ -41,7 +41,7 @@ under the License.
 
 interface
 
-uses Warning, VisitParseTree;
+uses Warning;
 
 type
 
@@ -51,8 +51,7 @@ type
   public
     constructor Create; override;
 
-    procedure PreVisitParseTreeNode(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function PreVisitParseTreeNode(const pcNode: TObject): Boolean; override;
   end;
 
 
@@ -119,13 +118,13 @@ begin
   HasSourceTokenVisit := False;
 end;
 
-procedure TWarnAssignToFunctionName.PreVisitParseTreeNode(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TWarnAssignToFunctionName.PreVisitParseTreeNode(const pcNode: TObject): Boolean;
 var
   lcNode: TParseTreeNode;
   lcFunctionHeading: TParseTreeNode;
   lsName: string;
 begin
+  Result := False;
   lcNode := TParseTreeNode(pcNode);
 
   if lcNode.NodeType <> nFunctionDecl then

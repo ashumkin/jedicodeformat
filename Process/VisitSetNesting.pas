@@ -29,7 +29,7 @@ uses
   { delphi }
   Contnrs,
   { local }
-  BaseVisitor, VisitParseTree, Nesting;
+  BaseVisitor, Nesting;
 
 type
 
@@ -44,11 +44,9 @@ type
     constructor Create; override;
     destructor Destroy; override;
 
-    procedure PreVisitParseTreeNode(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function PreVisitParseTreeNode(const pcNode: TObject): Boolean; override;
     procedure PostVisitParseTreeNode(const pcNode: TObject); override;
-    procedure VisitSourceToken(const pcToken: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function VisitSourceToken(const pcToken: TObject): Boolean; override;
 
     function FinalSummary(var psMessage: string): boolean; override;
   end;
@@ -86,16 +84,16 @@ begin
   Result    := (psMessage <> '');
 end;
 
-procedure TVisitSetNestings.PreVisitParseTreeNode(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TVisitSetNestings.PreVisitParseTreeNode(const pcNode: TObject): Boolean;
 begin
+  Result := False;
   // increment when you enter
   ProcessNode(pcNode, True);
 end;
 
 procedure TVisitSetNestings.PostVisitParseTreeNode(const pcNode: TObject);
 begin
-  // decrement when you exit 
+  // decrement when you exit
   ProcessNode(pcNode, False);
 end;
 
@@ -192,11 +190,11 @@ begin
   end;
 end;
 
-procedure TVisitSetNestings.VisitSourceToken(const pcToken: TObject;
-  var prVisitResult: TRVisitResult);
+function TVisitSetNestings.VisitSourceToken(const pcToken: TObject): Boolean;
 var
   lcToken: TSourceToken;
 begin
+  Result := False;
   lcToken := TSourceToken(pcToken);
 
   case lcToken.TokenType of

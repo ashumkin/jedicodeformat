@@ -29,8 +29,7 @@ under the License.
 
 interface
 
-
-uses Warning, VisitParseTree;
+uses Warning;
 
 type
 
@@ -38,8 +37,7 @@ type
   public
     constructor Create; override;
 
-    procedure PreVisitParseTreeNode(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function PreVisitParseTreeNode(const pcNode: TObject): Boolean; override;
   end;
 
 implementation
@@ -55,12 +53,12 @@ begin
   HasSourceTokenVisit := False;
 end;
 
-procedure TWarnEmptyBlock.PreVisitParseTreeNode(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TWarnEmptyBlock.PreVisitParseTreeNode(const pcNode: TObject): Boolean;
 var
   lcNode: TParseTreeNode;
   liSolidChildCount: integer;
 begin
+  Result := False;
   lcNode := TParseTreeNode(pcNode);
 
   // only look in statements

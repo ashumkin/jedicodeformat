@@ -23,8 +23,7 @@ under the License.
 
 interface
 
-uses SwitchableVisitor, VisitParseTree;
-
+uses SwitchableVisitor;
 
 type
   TFindReplace = class(TSwitchableVisitor)
@@ -32,8 +31,7 @@ type
     fiCount: integer;
 
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): Boolean; override;
   public
     constructor Create; override;
 
@@ -75,14 +73,14 @@ begin
 end;
 
 
-procedure TFindReplace.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TFindReplace.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
   lcSourceToken: TSourceToken;
 begin
+  Result := False;
+
   if pcNode = nil then
     exit;
-
   lcSourceToken := TSourceToken(pcNode);
 
   if lcSourceToken.SourceCode = '' then

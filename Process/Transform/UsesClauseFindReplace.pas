@@ -32,7 +32,7 @@ interface
 uses
   { local }
   SourceToken,
-  SwitchableVisitor, VisitParseTree;
+  SwitchableVisitor;
 
 type
   TUsesClauseFindReplace = class(TSwitchableVisitor)
@@ -43,8 +43,7 @@ type
     function MatchesSearch(const ps: string): boolean;
 
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): Boolean; override;
   public
     constructor Create; override;
 
@@ -80,12 +79,12 @@ begin
     FormatSettings.UsesClause.InsertImplementationEnabled);
 end;
 
-procedure TUsesClauseFindReplace.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TUsesClauseFindReplace.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
   lcSourceToken, lcSepAfter, lcSepBefore: TSourceToken;
   lbInterface, lbImplementation: boolean;
 begin
+  Result := False;
   if pcNode = nil then
     exit;
 

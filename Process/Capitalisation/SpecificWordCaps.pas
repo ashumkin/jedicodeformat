@@ -26,8 +26,7 @@ under the License.
 }
 interface
 
-uses SwitchableVisitor, VisitParseTree;
-
+uses SwitchableVisitor;
 
 type
   TSpecificWordCaps = class(TSwitchableVisitor)
@@ -36,8 +35,7 @@ type
     lsLastChange: string;
 
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): boolean; override;
   public
     constructor Create; override;
 
@@ -119,16 +117,12 @@ begin
   end;
 end;
 
-procedure TSpecificWordCaps.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TSpecificWordCaps.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
   lcSourceToken: TSourceToken;
   lsChange:      string;
 begin
-  if not FormatSettings.SpecificWordCaps.Enabled then
-    exit;
-
-
+  Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
   if Excluded(lcSourceToken) then

@@ -34,15 +34,13 @@ interface
      "Result := myObject. read ;" compiles, but looks all wrong
 }
 
-uses SwitchableVisitor, VisitParseTree;
-
+uses SwitchableVisitor;
 
 type
   TSingleSpaceBefore = class(TSwitchableVisitor)
   private
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): boolean; override;
   public
     constructor Create; override;
 
@@ -173,11 +171,11 @@ begin
   FormatFlags := FormatFlags + [eAddSpace, eRemoveSpace, eRemoveReturn];
 end;
 
-procedure TSingleSpaceBefore.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TSingleSpaceBefore.EnabledVisitSourceToken(const pcNode: TObject): boolean;
 var
   lcSourceToken, lcNext, lcNew: TSourceToken;
 begin
+  Result := False;
   lcSourceToken := TSourceToken(pcNode);
   lcNext := lcSourceToken.NextToken;
 

@@ -44,7 +44,6 @@ uses
   JCFLog in '..\..\Utils\JcfLog.pas',
   TestAdvanceTextPos in 'TestAdvanceTextPos.pas',
   TestFileParse in 'TestFileParse.pas',
-  VisitParseTree in '..\..\Process\VisitParseTree.pas',
   BaseVisitor in '..\..\Process\BaseVisitor.pas',
   VisitSetXY in '..\..\Process\VisitSetXY.pas',
   RemoveComment in '..\..\Process\Obfuscate\RemoveComment.pas',

@@ -23,14 +23,12 @@ under the License.
 
 interface
 
-uses SourceToken, SwitchableVisitor, VisitParseTree;
-
+uses SourceToken, SwitchableVisitor;
 
 type
   TRemoveReturnsBeforeEnd = class(TSwitchableVisitor)
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): Boolean; override;
 
   public
     constructor Create; override;
@@ -49,8 +47,7 @@ begin
   inherited;
 end;
 
-procedure TRemoveReturnsBeforeEnd.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TRemoveReturnsBeforeEnd.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
   lcSourceToken: TSourceToken;
   lcNext: TSourceToken;
@@ -58,6 +55,7 @@ var
   liReturnCount: integer;
   liMaxReturns: integer;
 begin
+  Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
   if lcSourceToken.TokenType <> ttReturn then

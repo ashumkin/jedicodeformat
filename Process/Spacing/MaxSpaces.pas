@@ -26,8 +26,7 @@ interface
 { AFS 4 Jan 2002
   convert spaces tabs }
 
-uses SwitchableVisitor, VisitParseTree;
-
+uses SwitchableVisitor;
 
 type
   TMaxSpaces = class(TSwitchableVisitor)
@@ -35,8 +34,7 @@ type
     fsSpaces: string;
 
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): boolean; override;
   public
     constructor Create; override;
 
@@ -59,11 +57,11 @@ begin
   FormatFlags := FormatFlags + [eRemoveSpace];
 end;
 
-procedure TMaxSpaces.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TMaxSpaces.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
   lcSourceToken, lcNext: TSourceToken;
 begin
+  Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
   { only look at white space }

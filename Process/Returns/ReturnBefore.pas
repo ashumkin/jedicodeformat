@@ -27,7 +27,7 @@ under the License.
 
 interface
 
-uses SwitchableVisitor, VisitParseTree;
+uses SwitchableVisitor;
 
 
 type
@@ -37,8 +37,7 @@ type
   protected
     procedure InspectSourceToken(const pcToken: TObject); override;
 
-    procedure EnabledVisitSourceToken(const pcToken: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcToken: TObject): Boolean; override;
   public
     constructor Create; override;
 
@@ -298,13 +297,13 @@ begin
   FormatFlags := FormatFlags + [eAddReturn];
 end;
 
-procedure TReturnBefore.EnabledVisitSourceToken(const pcToken: TObject;
-  var prVisitResult: TRVisitResult);
+function TReturnBefore.EnabledVisitSourceToken(const pcToken: TObject): Boolean;
 var
   lcSourceToken: TSourceToken;
   lcNext: TSourceToken;
   liReturnsNeeded: integer;
 begin
+  Result := False;
   lcSourceToken := TSourceToken(pcToken);
   lcNext := lcSourceToken.NextToken;
   if lcNext = nil then
@@ -323,18 +322,18 @@ begin
 
   if liReturnsNeeded > 0 then
   begin
+    // current token index changed 
+    Result := True;
 
     case liReturnsNeeded of
       1:
       begin
-        prVisitResult.Action  := aInsertBefore;
-        prVisitResult.NewItem := NewReturn;
+        lcSourceToken.AddSiblingBefore(NewReturn);
       end;
       2:
       begin
-        prVisitResult.Action   := aInsertBefore;
-        prVisitResult.NewItem  := NewReturn;
-        prVisitResult.NewItem2 := NewReturn;
+        lcSourceToken.AddSiblingBefore(NewReturn);
+        lcSourceToken.AddSiblingBefore(NewReturn);
       end;
       else
       begin

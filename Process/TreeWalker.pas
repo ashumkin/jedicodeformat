@@ -38,7 +38,7 @@ interface
   The first being generating the parse tree
 }
 
-uses ParseTreeNode, BaseVisitor, VisitParseTree;
+uses ParseTreeNode, BaseVisitor;
 
 type
   TTreeWalker = class(TObject)
@@ -62,7 +62,6 @@ type
     fcVisitor: TBaseTreeNodeVisitor;
 
     procedure InitialiseFlags;
-    procedure ProcessAction(const pcNode: TParseTreeNode; const prResults: TRVisitResult);
     procedure VisitTree(const pcNode: TParseTreeNode);
 
   public
@@ -83,46 +82,12 @@ begin
   fbHasSourceTokenVisit := fcVisitor.HasSourceTokenVisit;
 end;
 
-procedure TTreeWalker.ProcessAction(const pcNode: TParseTreeNode; const prResults: TRVisitResult);
-var
-  lcParent: TParseTreeNode;
-begin
-  case prResults.Action of
-    aNone: ;
-    aDelete:
-    begin
-      lcParent := pcNode.Parent;
-       // remove current node from parent
-      lcParent.RemoveChild(pcNode);
-      fbRecalcIndex := True;
-    end;
-    aInsertBefore:
-    begin
-      // must have a new item
-      Assert(prResults.NewItem <> nil);
-
-      lcParent := pcNode.Parent;
-
-      lcParent.InsertChild(lcParent.IndexOfChild(pcNode),
-        TParseTreeNode(prResults.NewItem));
-      if prResults.NewItem2 <> nil then
-        lcParent.InsertChild(lcParent.IndexOfChild(pcNode),
-          TParseTreeNode(prResults.NewItem2));
-
-      fbRecalcIndex := True;
-    end;
-    else
-      Assert(False, 'Unhandled action ' + IntToStr(Ord(prResults.action)));
-  end;
-end;
-
 procedure TTreeWalker.VisitTree(const pcNode: TParseTreeNode);
 const
   { if a node has more than this number of direct children, then something is very wrong
    can have lots in some "header" units that just list a lot of consts }
   MAX_NODE_CHILDREN = 32768;
 var
-  lrResults: TRVisitResult;
   liLoop: Integer;
   lcChildNode: TParseTreeNode;
   liNewIndex: Integer;
@@ -130,26 +95,13 @@ begin
   if pcNode.IsLeaf then
   begin
     if fbHasSourceTokenVisit then
-    begin
-      ClearVisitResult(lrResults);
-
-      fcVisitor.VisitSourceToken(pcNode, lrResults);
-      if lrResults.Action <> aNone then
-        ProcessAction(pcNode, lrResults);
-    end;
+      fbRecalcIndex := fcVisitor.VisitSourceToken(pcNode);
   end
   else
   begin
     { not leaf - visit children }
     if fbHasPreVisit then
-    begin
-      ClearVisitResult(lrResults);
-
-      fcVisitor.PreVisitParseTreeNode(pcNode, lrResults);
-      if lrResults.Action <> aNone then
-        ProcessAction(pcNode, lrResults);
-    end;
-
+      fbRecalcIndex := fcVisitor.PreVisitParseTreeNode(pcNode);
 
     if pcNode.ChildNodeCount > MAX_NODE_CHILDREN then
     begin

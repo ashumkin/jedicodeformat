@@ -26,8 +26,7 @@ interface
 { AFS 4 Jan 2002
   convert tabs to spaces }
 
-uses SwitchableVisitor, VisitParseTree;
-
+uses SwitchableVisitor;
 
 type
   TTabToSpace = class(TSwitchableVisitor)
@@ -35,8 +34,7 @@ type
     fsSpaces: string;
 
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): boolean; override;
   public
     constructor Create; override;
 
@@ -58,12 +56,12 @@ begin
   FormatFlags := FormatFlags + [eAddSpace, eRemoveSpace];
 end;
 
-procedure TTabToSpace.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TTabToSpace.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
   lcSourceToken: TSourceToken;
   ls: string;
 begin
+  Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
   if not (lcSourceToken.TokenType in [ttWhiteSpace, ttComment]) then

@@ -29,14 +29,13 @@ under the License.
 
 interface
 
-uses Warning, VisitParseTree;
+uses Warning;
 
 type
 
   TWarnDestroy = class(TWarning)
   public
-    procedure EnabledVisitSourceToken(const pcToken: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcToken: TObject): Boolean; override;
   end;
 
 implementation
@@ -45,12 +44,12 @@ uses
   { delphi }SysUtils,
   { local }SourceToken, ParseTreeNodeType, ParseTreeNode;
 
-procedure TWarnDestroy.EnabledVisitSourceToken(const pcToken: TObject;
-  var prVisitResult: TRVisitResult);
+function TWarnDestroy.EnabledVisitSourceToken(const pcToken: TObject): Boolean;
 var
   lcToken:    TSourceToken;
   lcFunction: TParseTreeNode;
 begin
+  Result := False;
   lcToken := TSourceToken(pcToken);
 
   { look in statements }

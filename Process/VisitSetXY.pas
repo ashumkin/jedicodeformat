@@ -26,7 +26,7 @@ under the License.
 
 interface
 
-uses BaseVisitor, VisitParseTree;
+uses BaseVisitor;
 
 type
   TVisitSetXY = class(TBaseTreeNodeVisitor)
@@ -36,8 +36,7 @@ type
   public
     constructor Create; override;
 
-    procedure VisitSourceToken(const pcToken: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function VisitSourceToken(const pcToken: TObject): Boolean; override;
   end;
 
 implementation
@@ -56,11 +55,11 @@ begin
   fiSolidTokenOnLineIndex := 0;
 end;
 
-procedure TVisitSetXY.VisitSourceToken(const pcToken: TObject;
-  var prVisitResult: TRVisitResult);
+function TVisitSetXY.VisitSourceToken(const pcToken: TObject): boolean;
 var
   lcToken: TSourceToken;
 begin
+  Result := False;
   lcToken := TSourceToken(pcToken);
 
   lcToken.XPosition := fiX;

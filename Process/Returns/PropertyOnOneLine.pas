@@ -27,14 +27,12 @@ under the License.
 
 interface
 
-uses SourceToken, SwitchableVisitor, VisitParseTree;
-
+uses SourceToken, SwitchableVisitor;
 
 type
   TPropertyOnOneLine = class(TSwitchableVisitor)
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): Boolean; override;
 
   public
     constructor Create; override;
@@ -52,12 +50,12 @@ begin
   FormatFlags := FormatFlags + [eRemoveReturn, eRemoveSpace];
 end;
 
-procedure TPropertyOnOneLine.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TPropertyOnOneLine.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
   lcSourceToken: TSourceToken;
   lcNext, lcNext2, lcNextSolid: TSourceToken;
 begin
+  Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
   // never remove a return at the end of a comment like this one! ->

@@ -27,14 +27,13 @@ interface
   Remove empty comments
 }
 
-uses SwitchableVisitor, VisitParseTree;
+uses SwitchableVisitor;
 
 type
   TRemoveEmptyComment = class(TSwitchableVisitor)
   private
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject;
-      var prVisitResult: TRVisitResult); override;
+    function EnabledVisitSourceToken(const pcNode: TObject): Boolean; override;
   public
     constructor Create; override;
 
@@ -56,12 +55,12 @@ begin
   FormatFlags := FormatFlags + [eRemoveComments];
 end;
 
-procedure TRemoveEmptyComment.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
+function TRemoveEmptyComment.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
   lcSourceToken: TSourceToken;
   lsCommentText: string;
 begin
+  Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
   case lcSourceToken.CommentStyle of
