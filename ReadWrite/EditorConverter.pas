@@ -88,7 +88,7 @@ begin
     lcBuffer := pciUnit as IOTAEditBuffer;
     if lcBuffer.IsReadOnly then
     begin
-      SendStatusMessage(lcBuffer.FileName, 'Unit is read only. Cannot format ');
+      SendStatusMessage(lcBuffer.FileName, 'Unit is read only. Cannot format ', -1, -1);
       exit;
     end;
   end;
@@ -104,8 +104,12 @@ begin
     DoConvertUnit;
 
     fsCurrentUnitName := '';
-    SendStatusMessage(lcBuffer.FileName, 'Formatted unit');
-    Inc(fiConvertCount);
+
+    if not ConvertError then
+    begin
+      SendStatusMessage(lcBuffer.FileName, 'Formatted unit', -1, -1);
+      Inc(fiConvertCount);
+    end;
 
   finally
     EditorReader.SetEditorUnit(nil);

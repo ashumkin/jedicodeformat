@@ -88,13 +88,13 @@ var
 begin
   if psInput = '' then
   begin
-    SendStatusMessage('', 'Select a file');
+    SendStatusMessage('', 'Select a file', -1, -1);
     exit;
   end;
 
   if not FileExists(psInput) then
   begin
-    SendStatusMessage(psInput, 'The file "' + psInput + '" does not exist');
+    SendStatusMessage(psInput, 'The file "' + psInput + '" does not exist', -1, -1);
     exit;
   end;
 
@@ -125,7 +125,7 @@ begin
 
   if GetRegSettings.LogLevel in [eLogFiles, eLogTokens] then
     Log.Write(lsMessage);
-  SendStatusMessage(psInput, lsMessage);
+  SendStatusMessage(psInput, lsMessage, -1, -1);
   fsOriginalFileName := psInput;
 
   lsOut := GetRegSettings.GetOutputFileName(psInput, peBackupMode);
@@ -134,7 +134,7 @@ begin
   begin
     if lsOut = '' then
     begin
-      SendStatusMessage(psInput, 'No output/backup file specifed');
+      SendStatusMessage(psInput, 'No output/backup file specifed', -1, -1);
       exit;
     end;
 
@@ -259,7 +259,7 @@ var
 begin
   if not DirectoryExists(psDir) then
   begin
-    SendStatusMessage('', 'The directory ' + psDir + ' does not exist');
+    SendStatusMessage('', 'The directory ' + psDir + ' does not exist', -1, -1);
     exit;
   end;
 
@@ -274,7 +274,7 @@ begin
   lsMessage := 'Processing directory ' + lsDir;
   //if Settings.Log.LogLevel in [eLogFiles, eLogTokens] then
   Log.Write(lsMessage);
-  SendStatusMessage('', lsMessage);
+  SendStatusMessage('', lsMessage, -1, -1);
 
   lsNames := TStringList.Create;
   try { finally free }

@@ -140,8 +140,10 @@ begin
 end;
 
 procedure TfrBasic.DisplayOutputFile;
+{$IFNDEF IDEPLUGGIN}
 var
   bShowOutput: Boolean;
+{$ENDIF}
 begin
   case GetCurrentBackupMode of
     cmInPlace:

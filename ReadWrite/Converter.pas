@@ -67,7 +67,7 @@ type
 
     { call this to report the current state of the proceedings }
     procedure SendStatusMessage(const psFile, psMessage: string;
-      const piY: integer = -1; const piX: integer = -1); virtual;
+      const piY, piX: integer); virtual;
     { last thing }
     procedure FinalSummary;
 
@@ -254,7 +254,7 @@ begin
   else if fiConvertCount > 1 then
     lsMessage := 'Finished processing ' + DescribeFileCount(fiConvertCount);
 
-  SendStatusMessage('', lsMessage);
+  SendStatusMessage('', lsMessage, -1, -1);
 
   Log.EmptyLine;
   Log.Write(lsMessage);

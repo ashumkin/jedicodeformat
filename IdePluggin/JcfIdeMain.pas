@@ -310,6 +310,10 @@ var
   lciMessages: IOTAMessageServices40;
   hRes: HResult;
 begin
+  { no empty lines in this log }
+  if psMessage = '' then
+    exit;
+
   hRes := BorlandIDEServices.QueryInterface(IOTAMessageServices40, lciMessages);
   if hRes <> S_OK then
     exit;
@@ -319,7 +323,7 @@ begin
   if (piY >= 0) and (piX >= 0) then
     lciMessages.AddToolMessage(psFile, psMessage, 'JCF', piY, piX)
   else
-    lciMessages.AddTitleMessage('JCF:' + psFile + ' ' + psMessage);
+    lciMessages.AddTitleMessage('JCF: ' + psFile + ' ' + psMessage);
 
 end;
 
