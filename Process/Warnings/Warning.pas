@@ -74,13 +74,13 @@ begin
 
   if lcToken <> nil then
   begin
-    lsMessage := lsMessage  + ' near ' + lcToken.Describe + ' ' + lcToken.DescribePosition;
+    lsMessage := lsMessage  + ' near ' + lcToken.Describe;
     lsProc := GetProcedureName(lcToken, True, False);
     if lsProc <> '' then
       lsMessage := lsMessage  + ' in ' + GetBlockType(lcToken) + ' ' + lsProc;
   end;
 
-  fOnWarning(lsMessage);
+  fOnWarning('', lsMessage, lcToken.YPosition, lcToken.XPosition);
 end;
 
 

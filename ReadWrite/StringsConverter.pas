@@ -45,7 +45,8 @@ type
     function CreateWriter: TCodeWriter; override;
     function OriginalFileName: string; override;
 
-    procedure SendStatusMessage(const psMessage: string); override;
+    procedure SendStatusMessage(const psFile, psMessage: string;
+      const piY, piX: integer); override;
 
   public
     constructor Create;
@@ -61,8 +62,7 @@ type
 
 implementation
 
-{ TStringsConverter }
-
+uses SysUtils;
 
 constructor TStringsConverter.Create;
 begin
@@ -121,11 +121,19 @@ begin
   (fcWriter as TStringsWriter).OutputStrings := pcStrings;
 end;
 
-procedure TStringsConverter.SendStatusMessage(const psMessage: string);
+procedure TStringsConverter.SendStatusMessage(const psFile, psMessage: string;
+  const piY, piX: integer);
+var
+  lsWholeMessage: string;
 begin
   if fcMessageStrings <> nil then
   begin
-    fcMessageStrings.Add(psMessage);
+    lsWholeMessage := psMessage;
+    if (piY >= 0) and (piX >= 0) then
+      lsWholeMessage := lsWholeMessage + ' at line ' + IntToStr(piY) + ' col ' + IntToStr(piX);
+
+
+    fcMessageStrings.Add(lsWholeMessage);
   end;
 
 end;

@@ -42,9 +42,7 @@ type
 
     procedure MakeEditorConverter;
 
-    procedure LogIDEMessage(const ps: string);
-    procedure LogToolMessage(const psFileName, psMessage: string;
-      const piLine, piCol: integer);
+    procedure LogIDEMessage(const psFile, psMessage: string; const piY, piX: integer);
     procedure FormatFile(const psFileName: string);
 
     procedure ClearToolMessages;
@@ -153,7 +151,7 @@ begin
   lciEditor := lciEditManager.TopBuffer;
   if (lciEditor = nil) or (lciEditor.EditViewCount = 0) then
   begin
-    LogIdeMessage('No current window');
+    LogIdeMessage('', 'No current window', 0, 0);
     exit;
   end;
 
@@ -307,7 +305,7 @@ begin
     DoFormatCurrentIDEWindow(nil);
 end;
 
-procedure TJcfIdeMain.LogIDEMessage(const ps: string);
+procedure TJcfIdeMain.LogIDEMessage(const psFile, psMessage: string; const piY, piX: integer);
 var
   lciMessages: IOTAMessageServices40;
   hRes: HResult;
@@ -318,22 +316,11 @@ begin
   if lciMessages = nil then
     exit;
 
-  lciMessages.AddTitleMessage('JCF: ' + ps);
-end;
+  if (piY >= 0) and (piX >= 0) then
+    lciMessages.AddToolMessage(psFile, psMessage, 'JCF', piY, piX)
+  else
+    lciMessages.AddTitleMessage('JCF:' + psFile + ' ' + psMessage);
 
-procedure TJcfIdeMain.LogToolMessage(const psFileName, psMessage: string;
-  const piLine, piCol: integer);
-var
-  lciMessages: IOTAMessageServices40;
-  hRes: HResult;
-begin
-  hRes := BorlandIDEServices.QueryInterface(IOTAMessageServices40, lciMessages);
-  if hRes <> S_OK then
-    exit;
-  if lciMessages = nil then
-    exit;
-
-  lciMessages.AddToolMessage(psFileName, psMessage, 'jcf', piLine, piCol);
 end;
 
 

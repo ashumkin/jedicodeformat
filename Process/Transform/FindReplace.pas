@@ -37,7 +37,6 @@ type
     constructor Create; override;
 
     function IsIncludedInSettings: boolean; override;
-    { return true if you want the message logged}
     function FinalSummary(var psMessage: string): Boolean; override;
 
   end;

@@ -102,7 +102,7 @@ type
   private
     fcConverter: TFileConverter;
 
-    procedure ShowStatusMesssage(const ps: string);
+    procedure ShowStatusMesssage(const psFile, psMessage: string; const piY, piX: integer);
 
     procedure DoFormat;
     procedure ShowAbout;
@@ -246,9 +246,10 @@ begin
 end;
 
 
-procedure TfrmMain.ShowStatusMesssage(const ps: string);
+procedure TfrmMain.ShowStatusMesssage(const psFile, psMessage: string;
+  const piY, piX: integer);
 begin
-  mOutput.Lines.Add(ps);
+  mOutput.Lines.Add(psMessage);
   mOutput.CurrentLine := mOutput.Lines.Count -1;
   if mOutput.Lines.Count > 1 then
     mOutput.ScrollBars := ssVertical

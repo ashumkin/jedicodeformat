@@ -65,8 +65,10 @@ type
     fcReader: TCodeReader;
     fcWriter: TCodeWriter;
 
-    procedure DoShowMessage(const psMessage: string); virtual;
-    procedure SendStatusMessage(const ps: string); virtual;
+    procedure DoShowMessage(const psFile, psMessage: string;
+      const piY: integer = -1; const piX: integer = -1); virtual;
+    procedure SendStatusMessage(const psFile, psMessage: string;
+      const piY: integer = -1; const piX: integer = -1); virtual;
     procedure FinalSummary;
 
     procedure DoConvertUnit;
@@ -173,19 +175,33 @@ begin
   Result := nil;
 end;
 
-procedure TConverter.SendStatusMessage(const ps: string);
+procedure TConverter.SendStatusMessage(const psFile, psMessage: string; const piY, piX: integer);
+var
+  lsFile: string;
 begin
   if Assigned(fOnStatusMessage) then
-    fOnStatusMessage(ps);
+  begin
+    lsFile := psFile;
+    if lsFile = '' then
+      // process doesn't know the file name? we do
+      lsFile := OriginalFileName;
+
+    fOnStatusMessage(lsFile, psMessage, piY, piX);
+  end;
 end;
 
 { for failures, use console output, not showmessage in gui mode }
-procedure TConverter.DoShowMessage(const psMessage: string);
+procedure TConverter.DoShowMessage(const psFile, psMessage: string; const piY, piX: integer);
 begin
   if fbGuiMessages then
-    ShowMessage(psMessage)
+  begin
+    if (piY >= 0) and (piX >= 0) then
+      ShowMessage(psMessage + ' at line ' + IntToStr(piY) + ' col ' + IntToStr(piX))
+    else
+      ShowMessage(psMessage);
+  end
   else
-    SendStatusMessage(psMessage);
+    SendStatusMessage(psFile, psMessage, piY, piX);
 end;
 
 
@@ -220,7 +236,7 @@ begin
   else if fiConvertCount > 1 then
     lsMessage := 'Finished processing ' + DescribeFileCount(fiConvertCount);
 
-  SendStatusMessage(lsMessage);
+  SendStatusMessage('', lsMessage);
 
   Log.EmptyLine;
   Log.Write(lsMessage);
@@ -284,7 +300,7 @@ begin
 
       if fbConvertError or fcBuildParseTree.ParseError then
       begin
-        DoShowMessage(fcBuildParseTree.ParseErrorMessage + ' in ' + OriginalFileName);
+        DoShowMessage(OriginalFileName, fcBuildParseTree.ParseErrorMessage);
 
         fbConvertError := True;
         fsConvertErrorMessage := fcBuildParseTree.ParseErrorMessage;
@@ -317,7 +333,7 @@ begin
   except
     on E: Exception do
     begin
-      SendStatusMessage('Could not convert the unit: ' + E.Message);
+      SendStatusMessage(OriginalFileName, 'Could not convert the unit: ' + E.Message);
       fbConvertError := True;
       fsConvertErrorMessage := E.Message;
     end;

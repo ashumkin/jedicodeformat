@@ -36,8 +36,14 @@ uses ParseTreeNode, SourceToken;
 function NewReturn: TSourceToken;
 function NewSpace(const piLength: integer): TSourceToken;
 
+procedure InsertTokenAfter(const pt, ptNew: TSourceToken);
+procedure InsertTokenBefore(const pt, ptNew: TSourceToken);
+
 function InsertReturnAfter(const pt: TSourceToken): TSourceToken;
 function InsertSpacesBefore(const pt: TSourceToken; const piSpaces: integer): TSourceToken;
+
+{ effectively remove the token by making it empty }
+procedure BlankToken(const pt: TSourceToken);
 
 { return the name of the procedure around any parse tree node or source token
   empty string if there is none }
@@ -144,6 +150,15 @@ begin
   Result.SourceCode := StrRepeat(AnsiSpace, piLength);
 end;
 
+procedure InsertTokenAfter(const pt, ptNew: TSourceToken);
+begin
+  pt.Parent.InsertChild(pt.IndexOfSelf + 1, ptNew);
+end;
+
+procedure InsertTokenBefore(const pt, ptNew: TSourceToken);
+begin
+  pt.Parent.InsertChild(pt.IndexOfSelf, ptNew);
+end;
 
 function InsertReturnAfter(const pt: TSourceToken): TSourceToken;
 begin
@@ -151,7 +166,8 @@ begin
   Assert(pt.Parent <> nil);
 
   Result := NewReturn;
-  pt.Parent.InsertChild(pt.IndexOfSelf + 1, Result);
+
+  InsertTokenAfter(pt, Result);
 end;
 
 function InsertSpacesBefore(const pt: TSourceToken; const piSpaces: integer): TSourceToken;
@@ -161,6 +177,12 @@ begin
 
   Result := NewSpace(piSpaces);
   pt.Parent.InsertChild(pt.IndexOfSelf, Result);
+end;
+
+procedure BlankToken(const pt: TSourceToken);
+begin
+  pt.TokenType := ttWhiteSpace;
+  pt.SourceCode := '';
 end;
 
 { given a function header parse tree node, extract the fn name underneath it }

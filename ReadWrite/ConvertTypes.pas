@@ -31,7 +31,10 @@ type
   TSourceMode = (fmSingleFile, fmDirectory, fmDirectoryRecursive);
 
 type
-  TStatusMessageProc = procedure(const ps: string) of object;
+  { type for a proc to receive a message
+  from the depths of the fornatter to the ui
+  many of them have a line x,y specified }
+  TStatusMessageProc = procedure(const psFile, psMessage: string; const piX, piY: integer) of object;
 
 
 type

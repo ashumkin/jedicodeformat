@@ -11,13 +11,13 @@ interface
 }
 
 
-Type
+type
   TWhatever = class
-    public
-     function MemberFoo: integer;
-     function memberBar: integer;
+  public
+    function MemberFoo: integer;
+    function memberBar: integer;
 
-     procedure EmptyMember;
+    procedure EmptyMember;
   end;
 
 
@@ -25,11 +25,11 @@ implementation
 
 uses Classes, TestDeclarations;
 
-var                      
+var
   Fred: real;
 
 var
-  fi, fifi, fo, fun: Real48;
+  fi, fifi, fo, fun: real48;
 
 procedure BadDestructor;
 var
@@ -51,11 +51,11 @@ procedure BadCases;
 var
   li, li2: integer;
 begin
-  li := Random(10);
+  li  := Random(10);
   li2 := Random(10);
 
   case li of
-    1: inc(li);
+    1: Inc(li);
     else
       case li of
         1: BadDestructor;
@@ -119,11 +119,13 @@ begin
 end;
 
 function Twhatever.MemberBar: integer;
+
   function fish: integer;
   begin
     fish := 3;
     fish := fish + 1;
   end;
+
 begin
   MemberBar := fish + 3;
 end;
@@ -136,13 +138,13 @@ begin
 
 end;
 
-Function Fred1: integer;
+function Fred1: integer;
 begin
   TestDeclarations.Fred1 := 3;  // this is not an assign to the function name
   Result := 3;
 end;
 
-Function Fred2: integer;
+function Fred2: integer;
 begin
   TestWarnings.Fred2 := 3;  // this *is* an assign to the function name
   Result := 3;
@@ -152,11 +154,11 @@ end;
 { assing to function name,
   interesting in that you can't do this with 'Result'
   but pathological case }
-Function Level1: integer;
+function Level1: integer;
 
-  Function Level2: integer;
+  function Level2: integer;
 
-    Function Level3: integer;
+    function Level3: integer;
     begin
       Level1 := 5;
       Level2 := 6;
@@ -174,3 +176,4 @@ begin
 end;
 
 end.
+

@@ -36,6 +36,7 @@ type
 
   TEditorConverter = class(TConverter)
   private
+    fsCurrentUnitName: string;
 
     function EditorReader: TEditorReader;
     function EditorWriter: TEditorWriter;
@@ -87,7 +88,7 @@ begin
     lcBuffer := pciUnit as IOTAEditBuffer;
     if lcBuffer.IsReadOnly then
     begin
-      SendStatusMessage('Unit is read only. Cannot format ' + lcBuffer.FileName);
+      SendStatusMessage(lcBuffer.FileName, 'Unit is read only. Cannot format ');
       exit;
     end;
   end;
@@ -97,10 +98,13 @@ begin
     EditorReader.Clear;
     EditorReader.SetEditorUnit(pciUnit);
     EditorWriter.SetEditorUnit(pciUnit);
+    fsCurrentUnitName := lcBuffer.FileName;
 
     // now convert
     DoConvertUnit;
-    SendStatusMessage('Formatted unit ' + lcBuffer.FileName);
+
+    fsCurrentUnitName := '';
+    SendStatusMessage(lcBuffer.FileName, 'Formatted unit');
     Inc(fiConvertCount);
 
   finally
@@ -141,7 +145,10 @@ end;
 
 function TEditorConverter.OriginalFileName: string;
 begin
-  Result := 'IDE';
+  if fsCurrentUnitName <> '' then
+    Result := fsCurrentUnitName
+  else
+    Result := 'IDE';
 end;
 
 end.

@@ -11,7 +11,7 @@ package JcfIde7;
 {$LOCALSYMBOLS ON}
 {$LONGSTRINGS ON}
 {$OPENSTRINGS ON}
-{$OPTIMIZATION ON}
+{$OPTIMIZATION OFF}
 {$OVERFLOWCHECKS OFF}
 {$RANGECHECKS OFF}
 {$REFERENCEINFO ON}
@@ -160,6 +160,7 @@ contains
   fJcfExceptionDisplay in '..\Ui\fJcfExceptionDisplay.pas' {ExceptionDialog},
   frUnitCaps in '..\Ui\Settings\frUnitCaps.pas' {frUnitNameCaps: TFrame},
   SettingsTypes in '..\Settings\SettingsTypes.pas',
-  ReturnsAfterFinalEnd in '..\Process\Returns\ReturnsAfterFinalEnd.pas';
+  ReturnsAfterFinalEnd in '..\Process\Returns\ReturnsAfterFinalEnd.pas',
+  ConvertTypes in '..\ReadWrite\ConvertTypes.pas';
 
 end.

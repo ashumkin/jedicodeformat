@@ -54,22 +54,10 @@ uses
   JcfRegistrySettings, JcfSettings, TestConstants, ReturnAfter;
 
 procedure TTestUsesReturns.Setup;
-var
-  lsSettingsFileName: string;
 begin
   inherited;
 
-  if not GetRegSettings.HasRead then
-    GetRegSettings.ReadAll;
-
-  { use clarify test settings }
-  lsSettingsFileName := GetTestSettingsFileName;
-  Check(FileExists(lsSettingsFileName), 'Settings file ' + lsSettingsFileName + ' not found');
-
-  GetRegSettings.FormatConfigFileName := lsSettingsFileName;
-  FormatSettings; // create and read
-  FormatSettings.Obfuscate.Enabled := False;
-
+  InitTestSettings;
   FormatSettings.Returns.UsesClauseOnePerLine := True;
 end;
 
@@ -145,5 +133,5 @@ begin
   TestProcessResult(TReturnAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);end;
 
 initialization
- TestFramework.RegisterTest(TTestUsesReturns.Suite);
+ TestFramework.RegisterTest('Processes', TTestUsesReturns.Suite);
 end.

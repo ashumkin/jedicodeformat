@@ -147,7 +147,10 @@ uses
   frUnitCaps in '..\Ui\Settings\frUnitCaps.pas' {frUnitNameCaps: TFrame},
   FindReplace in '..\Process\Transform\FindReplace.pas',
   fJcfExceptionDisplay in '..\Ui\fJcfExceptionDisplay.pas' {ExceptionDialog},
-  ReturnsAfterFinalEnd in '..\Process\Returns\ReturnsAfterFinalEnd.pas';
+  ReturnsAfterFinalEnd in '..\Process\Returns\ReturnsAfterFinalEnd.pas',
+  UsesClauseInsert in '..\Process\Transform\UsesClauseInsert.pas',
+  UsesClauseRemove in '..\Process\Transform\UsesClauseRemove.pas',
+  UsesClauseFindReplace in '..\Process\Transform\UsesClauseFindReplace.pas';
 
 {$R *.res}
 

@@ -344,7 +344,7 @@ end;
 
 type TStatusMsgReceiver = Class(Tobject)
   public
-    procedure OnReceiveStatusMessage(const ps: string);
+    procedure OnReceiveStatusMessage(const psFile, psMessage: string; const piX, piY: integer);
 end;
 
 var
@@ -352,9 +352,10 @@ var
   lcStatus: TStatusMsgReceiver;
 { TStatusMsgReceiver }
 
-procedure TStatusMsgReceiver.OnReceiveStatusMessage(const ps: string);
+procedure TStatusMsgReceiver.OnReceiveStatusMessage(const psFile, psMessage: string; const piX, piY: integer);
 begin
-  WriteLn(ps);
+  WriteLn(psFile + ' :' + psMessage +
+    ' at line ' + IntToStr(piY) + ' pos ' + IntToStr(piX));
 end;
 
 { main program starts here }

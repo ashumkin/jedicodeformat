@@ -68,10 +68,12 @@ const
 implementation
 
 uses SysUtils, Dialogs,
-  ConvertTypes;
+  ConvertTypes, JcfRegistrySettings, TestConstants;
 
 procedure TBaseTestProcess.Setup;
 begin
+  inherited;
+
   fcConvert := TTestConverter.Create;
 
   fcInput := TStringList.Create;
@@ -81,6 +83,8 @@ begin
   fcConvert.InputStrings := fcInput;
   fcConvert.OutputStrings := fcOutput;
   fcConvert.MessageStrings := fcMessages;
+
+  InitTestSettings;
 end;
 
 procedure TBaseTestProcess.TearDown;

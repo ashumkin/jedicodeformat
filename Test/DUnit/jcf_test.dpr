@@ -94,6 +94,7 @@ uses
   TestIfElseBreaks in 'TestIfElseBreaks.pas',
   TestUsesReturns in 'TestUsesReturns.pas',
   TestFindReplace in 'TestFindReplace.pas',
+  TestUsesFindReplace in 'TestUsesFindReplace.pas',
   BaseTestProcess in 'BaseTestProcess.pas',
   NoReturnBefore in '..\..\Process\Returns\NoReturnBefore.pas',
   NoSpaceAfter in '..\..\Process\Spacing\NoSpaceAfter.pas',
@@ -145,7 +146,10 @@ uses
   SetPreprocessor in '..\..\Settings\SetPreProcessor.pas',
   FindReplace in '..\..\Process\Transform\FindReplace.pas',
   fJcfExceptionDisplay in '..\..\Ui\fJcfExceptionDisplay.pas' {ExceptionDialog},
-  ReturnsAfterFinalEnd in '..\..\Process\Returns\ReturnsAfterFinalEnd.pas';
+  ReturnsAfterFinalEnd in '..\..\Process\Returns\ReturnsAfterFinalEnd.pas',
+  UsesClauseRemove in '..\..\Process\Transform\UsesClauseRemove.pas',
+  UsesClauseFindReplace in '..\..\Process\Transform\UsesClauseFindReplace.pas',
+  UsesClauseInsert in '..\..\Process\Transform\UsesClauseInsert.pas';
 
 {
   gpprof in '..\..\..\..\..\Program Files\GpProfile\gpprof.pas',

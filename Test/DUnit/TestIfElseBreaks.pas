@@ -143,5 +143,5 @@ begin
 end;
 
 initialization
- TestFramework.RegisterTest(TTestIfElseBreaks.Suite);
+ TestFramework.RegisterTest('Processes', TTestIfElseBreaks.Suite);
 end.

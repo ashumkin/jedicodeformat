@@ -115,5 +115,5 @@ begin
 end;
 
 initialization
- TestFramework.RegisterTest(TTestFindReplace.Suite);
+ TestFramework.RegisterTest('Processes', TTestFindReplace.Suite);
 end.

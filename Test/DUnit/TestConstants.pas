@@ -38,9 +38,12 @@ function GetRefOutFilesDir: string;
 
 function GetTestSettingsFileName: string;
 
+procedure InitTestSettings;
+
 implementation
 
-uses SysUtils, JclStrings;
+uses SysUtils, JclStrings,
+  JcfRegistrySettings, JcfSettings;
 
 var
   msEXEFilesDir: string = '';
@@ -97,4 +100,22 @@ function GetTestSettingsFileName: string;
 begin
   Result := GetTestFilesDir + 'JCFTestSettings.cfg';
 end;
+
+procedure InitTestSettings;
+var
+  lsSettingsFileName: string;
+begin
+  if not GetRegSettings.HasRead then
+    GetRegSettings.ReadAll;
+
+  { use clarify test settings }
+  lsSettingsFileName := GetTestSettingsFileName;
+  if not(FileExists(lsSettingsFileName)) then
+    Raise Exception.Create('Settings file ' + lsSettingsFileName + ' not found');
+
+  GetRegSettings.FormatConfigFileName := lsSettingsFileName;
+  FormatSettings; // create and read
+  FormatSettings.Obfuscate.Enabled := False;
+end;
+
 end.

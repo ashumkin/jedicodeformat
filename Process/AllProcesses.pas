@@ -71,7 +71,7 @@ uses
   FixCase, RemoveComment, RemoveBlankLine, RemoveReturn, ReduceWhiteSpace,
   RemoveConsecutiveWhiteSpace, RemoveUnneededWhiteSpace, RebreakLines,
   { transform }
-  FindReplace,
+  FindReplace, UsesClauseInsert, UsesClauseRemove, UsesClauseFindReplace,
   { warnings }
   Warning, WarnEmptyBlock, WarnRealType, WarnAssignToFunctionName,
   WarnCaseNoElse, WarnDestroy,
@@ -119,7 +119,7 @@ begin
       fcRoot.VisitTree(lc);
 
       if lc.FinalSummary(lsMessage) then
-        OnMessage(lsMessage);
+        OnMessage('', lsMessage, -1, -1);
 
       Application.ProcessMessages;
     end;
@@ -190,6 +190,9 @@ end;
 procedure TAllProcesses.Transform;
 begin
   ApplyVisitorType(TFindReplace);
+  ApplyVisitorType(TUsesClauseInsert);
+  ApplyVisitorType(TUsesClauseRemove);
+  ApplyVisitorType(TUsesClauseFindReplace);
 end;
 
 

@@ -323,5 +323,5 @@ begin
 end;
 
 initialization
- TestFramework.RegisterTest(TTestSpacing.Suite);
+ TestFramework.RegisterTest('Processes', TTestSpacing.Suite);
 end.

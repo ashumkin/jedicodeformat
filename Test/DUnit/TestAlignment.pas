@@ -354,5 +354,5 @@ begin
 end;
 
 initialization
- TestFramework.RegisterTest(TTestAlignment.Suite);
+ TestFramework.RegisterTest('Processes', TTestAlignment.Suite);
 end.

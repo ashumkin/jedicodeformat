@@ -200,21 +200,10 @@ uses
 
 
 procedure TTestFileParse.Setup;
-var
-  lsSettingsFileName: string;
 begin
   inherited;
 
-  if not GetRegSettings.HasRead then
-    GetRegSettings.ReadAll;
-
-  { use clarify test settings }
-  lsSettingsFileName := GetTestSettingsFileName;
-  Check(FileExists(lsSettingsFileName), 'Settings file ' + lsSettingsFileName + ' not found');
-
-  GetRegSettings.FormatConfigFileName := lsSettingsFileName;
-  FormatSettings; // create and read
-  FormatSettings.Obfuscate.Enabled := False;
+  InitTestSettings;
 end;
 
 
@@ -662,7 +651,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestWarnings;
 begin
-  TestParseFile('TestWarnings', 700);
+  TestParseFile('TestWarnings', 702);
 end;
 
 procedure TTestFileParse.TestParse_TestWith;

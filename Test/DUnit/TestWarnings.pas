@@ -167,5 +167,5 @@ begin
 end;
 
 initialization
- TestFramework.RegisterTest(TTestWarnings.Suite);
+ TestFramework.RegisterTest('Processes', TTestWarnings.Suite);
 end.
