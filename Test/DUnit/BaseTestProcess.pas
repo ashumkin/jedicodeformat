@@ -164,9 +164,6 @@ begin
   fcConvert.RunAll := False;
   fcConvert.SingleProcess := processType;
 
-  // debug test
-  //fcConvert.ShowParseTreeOption := eShowAlways;
-
   try
     fcConvert.Convert;
   finally

@@ -58,11 +58,19 @@ begin
   Result := False;
 
   { directives in context are excluded }
-  if pt.HasParentNode(DirectiveNodes)  then
+  if pt.HasParentNode(DirectiveNodes) then
   begin
     Result := True;
     exit;
   end;
+
+  // asm has other rules
+  if pt.HasParentNode(nAsm) then
+  begin
+    Result := True;
+    exit;
+  end;
+
 
   { built in types that are actually being used as types are excluded
     eg.
@@ -118,6 +126,7 @@ var
 begin
   if not FormatSettings.SpecificWordCaps.Enabled then
     exit;
+
 
   lcSourceToken := TSourceToken(pcNode);
 

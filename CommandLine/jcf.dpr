@@ -21,6 +21,7 @@ under the License.
 ------------------------------------------------------------------------------*)
 {*)}
 
+{$WARN UNIT_PLATFORM OFF}
 uses
   SysUtils,
   FileCtrl,

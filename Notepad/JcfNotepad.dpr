@@ -133,17 +133,16 @@ uses
   frReservedCapsSettings in '..\Ui\Settings\frReservedCapsSettings.pas' {frReservedCapsSettings: TFrame},
   frClarifyLongLineBreaker in '..\Ui\Settings\frClarifyLongLineBreaker.pas' {fClarifyLongLineBreaker: TFrame},
   fRegistrySettings in '..\Ui\fRegistrySettings.pas' {fmRegistrySettings},
-  MozComment in '..\Process\Onceoffs\MozComment.pas',
   Tokens in '..\Parse\Tokens.pas',
   SettingsTypes in '..\Settings\SettingsTypes.pas',
   SetWordList in '..\Settings\SetWordList.pas',
-  UnitNameCaps in '..\Process\Capitalisation\UnitNameCaps.pas';
+  UnitNameCaps in '..\Process\Capitalisation\UnitNameCaps.pas',
+  ConditionalCompilationProcessing in '..\Parse\ConditionalCompilationProcessing.pas';
 
 {$R *.res}
 
 begin
   Application.Initialize;
-  Application.HelpFile := 'C:\Code\JcfCheckout\CodeFormat\Jcf2\Output\CodeFormat.hlp';
   Application.Title := 'Jedi Delphi Code Format Notepad';
   Application.CreateForm(TfmJCFNotepad, fmJCFNotepad);
   Application.Run;

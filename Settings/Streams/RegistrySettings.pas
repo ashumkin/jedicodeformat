@@ -137,8 +137,8 @@ end;
 procedure TSettingsRegistryOutput.Write(const psTagName: string; const pdValue: Double);
 begin
   Assert(fReg <> nil);
-  // WTF? WriteFLoat is broken in D6?
-  fReg.WriteString(fsSection, psTagName, FloatToStr(pdValue));
+  // WTF? WriteFloat is broken in D6?
+  fReg.WriteString(fsSection, psTagName, Float2Str(pdValue));
 end;
 
 // method from JCFSetBase

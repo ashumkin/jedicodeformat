@@ -56,7 +56,7 @@ uses
 
 const
   WordsReturnBefore: TTokenTypeSet =
-    [ttBegin, ttEnd, ttUntil, ttElse, ttTry, ttFinally, ttExcept];
+    [ttBegin, ttEnd, ttUntil, ttElse, ttTry, ttFinally, ttExcept, ttConditionalCompilationRemoved];
 
   WordsBlankLineBefore: TTokenTypeSet =
     [ttImplementation, ttInitialization, ttFinalization, ttUses];
@@ -221,8 +221,8 @@ begin
     exit;
   end;
 
-  { nested procs get it as well }
-  if (pt.TokenType in ProcedureWords) and (not pt.HasParentNode(nProcedureDecl)) and
+  { nested procs and top level procs get it as well }
+  if (pt.TokenType in ProcedureWords) and
     (not IsClassFunction(pt)) and
     (not pt.HasParentNode(nType)) then
   begin

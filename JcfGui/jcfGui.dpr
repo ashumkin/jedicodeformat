@@ -136,18 +136,17 @@ uses
   FileWriter in '..\ReadWrite\FileWriter.pas',
   FileReader in '..\ReadWrite\FileReader.pas',
   fRegistrySettings in '..\Ui\fRegistrySettings.pas' {fmRegistrySettings},
-  MozComment in '..\Process\Onceoffs\MozComment.pas',
   Tokens in '..\Parse\Tokens.pas',
   SettingsTypes in '..\Settings\SettingsTypes.pas',
   SetWordList in '..\Settings\SetWordList.pas',
-  frUnitCaps in '..\Ui\Settings\frUnitCaps.pas' {frUnitNameCaps: TFrame};
+  frUnitCaps in '..\Ui\Settings\frUnitCaps.pas' {frUnitNameCaps: TFrame},
+  ConditionalCompilationProcessing in '..\Parse\ConditionalCompilationProcessing.pas';
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.Title := 'Jedi Delphi Code Format';
-  Application.HelpFile := 'C:\Code\JcfCheckout\CodeFormat\Jcf2\Output\CodeFormat.hlp';
   Application.CreateForm(TfrmMain, frmMain);
   Application.Run;
 end.

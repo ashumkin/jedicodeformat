@@ -199,6 +199,9 @@ type
     procedure RecogniseAsmParam;
     procedure RecogniseAsmStatement;
     procedure RecogniseAsmExpr;
+    procedure RecogniseAsmOperator;
+    procedure RecogniseAsmFactor;
+
     procedure RecogniseAsmIdent;
     procedure RecogniseAsmOpcode;
     procedure RecogniseAsmLabel(const pbColon: boolean);
@@ -345,10 +348,9 @@ begin
     TopNode.AddChild(lcCurrentToken);
 
     // the the match must be the first solid token
-    if (not (lcCurrentToken.TokenType in [ttReturn, ttWhiteSpace, ttComment])) and
-      (not Matched) then
+    if (not (lcCurrentToken.TokenType in NotSolidTokens)) and (not Matched) then
     begin
-        Raise TEParseError.Create('Unexpected token, expected ' + DescribeTarget, lcCurrentToken);
+      Raise TEParseError.Create('Unexpected token, expected ' + DescribeTarget, lcCurrentToken);
     end;
 
   until Matched;
@@ -709,8 +711,9 @@ begin
       Raise TEParseError.Create('Expected function or procedure', lc);
   end;
 
-  Recognise(ttSemicolon);
-  RecogniseProcedureDirectives;
+  { the ';' is ommited by lazy programmers in some rare occasions}
+  if TokenList.FirstSolidTokenType = ttSemicolon then
+    Recognise(ttSemicolon);
 end;
 
 procedure TBuildParseTree.RecogniseImplementationSection;
@@ -2596,7 +2599,10 @@ begin
   PushNode(nProcedureDecl);
 
   RecogniseProcedureHeading(False, False);
-  Recognise(ttSemicolon);
+
+  { the ';' is ommited by lazy programmers in some rare occasions}
+  if TokenList.FirstSolidTokenType = ttSemicolon then
+    Recognise(ttSemicolon);
 
   { if the proc declaration has the directive external or forward,
     it will not have a body
@@ -2621,7 +2627,10 @@ begin
   PushNode(nFunctionDecl);
 
   RecogniseFunctionHeading(False, False);
-  Recognise(ttSemicolon);
+  { the ';' is ommited by lazy programmers in some rare occasions}
+  if TokenList.FirstSolidTokenType = ttSemicolon then
+    Recognise(ttSemicolon);
+
   //opt
   if TokenList.FirstSolidTokenType in ProcedureDirectives then
     RecogniseProcedureDirectives;
@@ -3692,7 +3701,7 @@ begin
 
     RecogniseWhiteSpace;
 
-    while not (TokenList.FirstTokenType in [ttSemicolon, ttReturn, ttComment]) do
+    while not (TokenList.FirstTokenType in [ttSemicolon, ttReturn, ttComment, ttEnd]) do
     begin
       if TokenList.FirstSolidTokenType = ttComma then
         Recognise(ttComma);
@@ -3733,15 +3742,16 @@ begin
   { can contain '@' signs }
   lc := TokenList.FirstSolidToken;
 
-  if not (lc.TokenType in IdentiferTokens + [ttAt]) then
-     Raise TEParseError.Create('Expected asm identifer', TokenList.FirstSolidToken);
+  if not (lc.TokenType in IdentiferTokens + [ttAtSign]) then
+     Raise TEParseError.Create('Expected asm identifer', lc);
 
-  while (lc.TokenType in IdentiferTokens + [ttAt]) do
+  while (lc.TokenType in IdentiferTokens + [ttAtSign]) do
   begin
-    Recognise(IdentiferTokens + [ttAt]);
+    Recognise(IdentiferTokens + [ttAtSign]);
     { whitespace ends this so no TokenList.FirstSolidToken }
     lc := TokenList.First;
   end;
+
 
   PopNode;
 end;
@@ -3775,7 +3785,7 @@ begin
   Result := False;
   if pt = nil then
     exit;
-  Result := (pt.TokenType in [ttNumber, ttIdentifier]) or
+  Result := (pt.TokenType in [ttNumber, ttIdentifier, ttAtSign]) or
     (pt.WordType in [wtReservedWord, wtReservedWordDirective, wtBuiltInConstant, wtBuiltInType]);
 end;
 
@@ -3806,6 +3816,9 @@ end;
 
 
 procedure TBuildParseTree.RecogniseAsmParam;
+const
+  ASM_EXPRESSION_START = [ttOpenBracket, ttOpenSquareBracket, ttNumber, ttNot, ttLiteralString,
+      ttTrue, ttFalse, ttPlus, ttMinus, ttType, ttOffset];
 var
   lc: TSourceToken;
   lbHasLabel: boolean;
@@ -3833,44 +3846,9 @@ begin
       Recognise(ttDot);
   end;
 
-  if lc.TokenType = ttOpenSquareBracket then
-  begin
-    Recognise(ttOpenSquareBracket);
-    RecogniseAsmExpr;
-    Recognise(ttCloseSquareBracket);
-
-    while TokenList.FirstSolidTokenType = ttDot do
-    begin
-      Recognise(ttDot);
-
-      if TokenList.FirstSolidTokenType = ttAtSign then
-        Recognise(ttAtSign);
-      RecogniseAsmIdent;
-    end;
-  end
-  else if (lc.TokenType in [ttNumber, ttNot, ttLiteralString, ttTrue, ttFalse, ttPlus, ttMinus]) then
+  if IdentifierNext or (lc.TokenType in ASM_EXPRESSION_START) then
   begin
     RecogniseAsmExpr;
-  end
-  else if IdentifierNext then
-  begin
-    RecogniseAsmIdent;
-
-    while TokenList.FirstSolidTokenType = ttDot do
-    begin
-      Recognise(ttDot);
-
-      if TokenList.FirstSolidTokenType = ttAtSign then
-        Recognise(ttAtSign);
-      RecogniseAsmIdent;
-    end;
-
-    if TokenList.FirstSolidTokenType = ttOpenBracket then
-    begin
-      Recognise(ttOpenBracket);
-      Recognise(ttNumber);
-      Recognise(ttCloseBracket);
-    end;
   end
   else
   begin
@@ -3881,9 +3859,91 @@ begin
   PopNode;
 end;
 
+const
+  ASM_OPERATORS = [ttPlus, ttMinus, ttAnd, ttOr, ttTimes, ttFloatDiv, ttPtr, ttColon];
+
+{ having to wing this one. it is like expressions, but different }
 procedure TBuildParseTree.RecogniseAsmExpr;
+var
+  lc: TSourceToken;
 begin
-  RecogniseExpr;
+  RecogniseAsmFactor;
+
+  { can't go past returns }
+  lc := TokenList.FirstTokenWithExclusion([ttWhiteSpace]);
+  while lc.TokenType in ASM_OPERATORS do
+  begin
+    RecogniseAsmOperator;
+    RecogniseAsmFactor;
+    lc := TokenList.FirstTokenWithExclusion([ttWhiteSpace]);
+  end;
+end;
+
+procedure TBuildParseTree.RecogniseAsmOperator;
+begin
+  Recognise(ASM_OPERATORS);
+end;
+
+procedure TBuildParseTree.RecogniseAsmFactor;
+begin
+  if TokenList.FirstSolidTokenType = ttNot then
+    Recognise(ttNot);
+
+  if TokenList.FirstSolidTokenType = ttMinus then
+    Recognise(ttMinus);
+
+  if TokenList.FirstSolidTokenType = ttAt then
+    Recognise(ttAt);
+
+  if TokenList.FirstSolidTokenType = ttType then
+    Recognise(ttType);
+
+  if TokenList.FirstSolidTokenType = ttOffset then
+    Recognise(ttOffset);
+
+  case TokenList.FirstSolidTokenType of
+    ttNumber:
+      Recognise(ttNumber);
+    ttLiteralString:
+      Recognise(ttLiteralString);
+    ttTrue:
+      Recognise(ttTrue);
+    ttFalse:
+      Recognise(ttFalse);
+    ttOpenBracket:
+    begin
+      Recognise(ttOpenBracket);
+      RecogniseAsmExpr;
+      Recognise(ttCloseBracket);
+    end;
+    ttOpenSquareBracket:
+    begin
+      Recognise(ttOpenSquareBracket);
+      RecogniseAsmExpr;
+      Recognise(ttCloseSquareBracket);
+    end
+    else
+    begin
+      RecogniseAsmIdent;
+    end
+  end;
+
+  while TokenList.FirstSolidTokenType in [ttDot] do
+  begin
+    Recognise([ttDot]);
+
+    if TokenList.FirstSolidTokenType = ttAtSign then
+      Recognise(ttAtSign);
+    RecogniseAsmIdent;
+  end;
+
+  if TokenList.FirstSolidTokenType = ttOpenBracket then
+  begin
+    Recognise(ttOpenBracket);
+    RecogniseAsmFactor;
+    Recognise(ttCloseBracket);
+  end;
+
 end;
 
 
@@ -4033,6 +4093,13 @@ begin
       if TokenList.FirstSolidTokenType = ttAssign then
       begin
         Recognise(ttAssign);
+        RecogniseExpr;
+      end;
+
+      { str width specifiers e.g. " Str(val:0, S);" this is an odd wart on the syntax }
+      if TokenList.FirstSolidTokenType = ttColon then
+      begin
+        Recognise(ttColon);
         RecogniseExpr;
       end;
 

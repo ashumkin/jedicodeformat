@@ -68,7 +68,7 @@ uses
   TestFramework;
 
 const
-  EXPECTED_FILE_COUNT = 119;
+  EXPECTED_FILE_COUNT = 130;
 
 procedure TTestCommandline.SetUp;
 begin
@@ -104,6 +104,7 @@ begin
   lsSaveExt := GetRegSettings.OutputExtension;
 
   try
+    GetRegSettings.ReadAll;
     GetRegSettings.OutputExtension := fsOutputExt;
     GetRegSettings.WriteAll;
 

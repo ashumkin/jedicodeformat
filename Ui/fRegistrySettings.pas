@@ -92,6 +92,7 @@ type
 
 implementation
 
+{$WARN UNIT_PLATFORM OFF}
 uses
   { delphi }
   FileCtrl,

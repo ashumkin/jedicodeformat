@@ -256,7 +256,7 @@ end;
 // this also works for TDateTime
 procedure TSettingsStreamOutput.Write(const psTagName: string; const pdValue: Double);
 begin
-  Write(psTagName, FloatToStr(pdValue));
+  Write(psTagName, Float2Str(pdValue));
 end;
 
 procedure TSettingsStreamOutput.Write(const psTagName: string; const pcValue: TStrings);
@@ -404,19 +404,27 @@ var
   lbFound: Boolean;
   lsNewText: string;
 begin
-  InternalGetValue(psTag, lsNewText, lbFound);
-  if lbFound and (lsNewText <> '') then
-  begin
-    // cope with some old data 
-    if AnsiSameText(lsNewText, 'true') then
-      Result := 1
-    else if AnsiSameText(lsNewText, 'false') then
-      Result := 0
+  try
+    InternalGetValue(psTag, lsNewText, lbFound);
+    if lbFound and (lsNewText <> '') then
+    begin
+      // cope with some old data
+      if AnsiSameText(lsNewText, 'true') then
+        Result := 1
+      else if AnsiSameText(lsNewText, 'false') then
+        Result := 0
+      else
+        Result := StrToInt(lsNewText);
+    end
     else
-      Result := StrToInt(lsNewText);
-  end
-  else
-    Result := piDefault;
+      Result := piDefault;
+  except
+    on E: Exception do
+      Raise Exception.Create('Could not read integer setting' + AnsiLineBreak +
+        'name: ' + psTag + AnsiLineBreak +
+        'value: ' + lsNewText + AnsiLineBreak + E.Message);
+  end;
+
 end;
 
 function TSettingsInputString.Read(const psTag: string; const pfDefault: double): double;
@@ -424,11 +432,18 @@ var
   lbFound: Boolean;
   lsNewText: string;
 begin
-  InternalGetValue(psTag, lsNewText, lbFound);
-  if lbFound then
-    Result := StrToFloat(lsNewText)
-  else
-    Result := pfDefault;
+  try
+    InternalGetValue(psTag, lsNewText, lbFound);
+    if lbFound then
+      Result := Str2Float(lsNewText)
+    else
+      Result := pfDefault;
+  except
+    on E: Exception do
+      Raise Exception.Create('Could not read float setting' + AnsiLineBreak +
+        'name: ' + psTag + AnsiLineBreak +
+        'value: ' + lsNewText + AnsiLineBreak + E.Message);
+  end;
 end;
 
 function TSettingsInputString.Read(const psTag: string; const pbDefault: boolean): boolean;
@@ -436,11 +451,19 @@ var
   lbFound: Boolean;
   lsNewText: string;
 begin
-  InternalGetValue(psTag, lsNewText, lbFound);
-  if lbFound then
-    Result := StrToBoolean(lsNewText)
-  else
-    Result := pbDefault;
+  try
+    InternalGetValue(psTag, lsNewText, lbFound);
+    if lbFound then
+      Result := StrToBoolean(lsNewText)
+    else
+      Result := pbDefault;
+  except
+    on E: Exception do
+      Raise Exception.Create('Could not read boolean setting' + AnsiLineBreak +
+        'name: ' + psTag + AnsiLineBreak +
+        'value: ' + lsNewText + AnsiLineBreak + E.Message);
+  end;
+
 end;
 
 function TSettingsInputString.Read(const psTag: string; const pcStrings: TStrings): Boolean;

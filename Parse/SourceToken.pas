@@ -43,7 +43,6 @@ type
     fiXPosition, fiYPosition: integer;
     fiSolidTokenOnLineIndex: integer;
 
-
   protected
   public
     constructor Create;

@@ -384,7 +384,10 @@ begin
     fmSingleFile:
       ProcessFile(Input);
     fmDirectory, fmDirectoryRecursive:
+    begin
       ProcessDirectory(Input);
+      SendStatusMessage('Finished processing ' + IntToStr(fiConvertCount) + ' files');
+    end
     else
       raise Exception.Create('TConverter.Convert: Bad file recurse type');
   end;

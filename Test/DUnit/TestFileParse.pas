@@ -79,6 +79,12 @@ type
     procedure TestParse_LittleTest32;
     procedure TestParse_LittleTest33;
     procedure TestParse_LittleTest34;
+    procedure TestParse_LittleTest35;
+    procedure TestParse_LittleTest36;
+    procedure TestParse_LittleTest37;
+    procedure TestParse_LittleTest38;
+    procedure TestParse_LittleTest39;
+    procedure TestParse_LittleTest40;
 
     procedure TestParse_TestAbsolute;
     procedure TestParse_TestAlign;
@@ -148,6 +154,13 @@ type
     procedure TestParse_TestRunOnConst;
     procedure TestParse_TestRunOnDef;
     procedure TestParse_TestRunOnLine;
+
+    procedure TestParse_TestSimpleIfDef;
+    procedure TestParse_TestSimpleIfDef2;
+    procedure TestParse_TestSimpleIfDef3;
+    procedure TestParse_TestSimpleIfDef4;
+    procedure TestParse_TestSimpleIfDef5;
+
     procedure TestParse_TestTestMH;
     procedure TestParse_TestTPObjects;
     procedure TestParse_TestTry;
@@ -271,7 +284,7 @@ end;
 
 procedure TTestFileParse.TestParse_Empty1;
 begin
-  TestParseFile('EmptyTest1', 17);
+  TestParseFile('EmptyTest1', 18);
 end;
 
 procedure TTestFileParse.TestParse_fFormTest;
@@ -654,7 +667,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 927);
+  TestParseFile('Testcases.dpr', 1015);
 end;
 
 
@@ -872,6 +885,62 @@ end;
 procedure TTestFileParse.TestParse_LittleTest34;
 begin
   TestParseFile('LittleTest34', 78);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest35;
+begin
+  TestParseFile('LittleTest35', 38);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest36;
+begin
+  TestParseFile('LittleTest36', 77);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest37;
+begin
+  TestParseFile('LittleTest37', 76);
+end;
+
+procedure TTestFileParse.TestParse_TestSimpleIfDef;
+begin
+  TestParseFile('TestSimpleIfDef', 54);
+end;
+
+procedure TTestFileParse.TestParse_TestSimpleIfDef2;
+begin
+  TestParseFile('TestSimpleIfDef2', 33);
+end;
+
+procedure TTestFileParse.TestParse_TestSimpleIfDef3;
+begin
+  TestParseFile('TestSimpleIfDef3', 83);
+end;
+
+procedure TTestFileParse.TestParse_TestSimpleIfDef4;
+begin
+  TestParseFile('TestSimpleIfDef4', 92);
+end;
+
+procedure TTestFileParse.TestParse_TestSimpleIfDef5;
+begin
+  TestParseFile('TestSimpleIfDef5', 39);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest38;
+begin
+  TestParseFile('LittleTest38', 53);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest39;
+begin
+  TestParseFile('LittleTest39', 56);
+
+end;
+
+procedure TTestFileParse.TestParse_LittleTest40;
+begin
+  TestParseFile('LittleTest40', 139);
 end;
 
 initialization

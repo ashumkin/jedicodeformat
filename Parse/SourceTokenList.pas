@@ -59,6 +59,7 @@ type
     function FirstSolidToken: TSourceToken;
     function FirstSolidTokenType: TTokenType;
     function FirstSolidWordType: TWordType;
+    function FirstTokenWithExclusion(const peExclusions: TTokenTypeSet): TSourceToken;
 
     function SolidToken(piIndex: integer): TSourceToken;
     function SolidTokenType(piIndex: integer): TTokenType;
@@ -68,6 +69,8 @@ type
     procedure Insert(const piPos: integer; const pcToken: TSourceToken);
 
     function ExtractFirst: TSourceToken;
+    function Extract(const piIndex: integer): TSourceToken;
+    procedure Remove(const piIndex: integer);
 
     property SourceTokens[const piIndex: integer]: TSourceToken read GetSourceToken;
 end;
@@ -158,6 +161,24 @@ begin
     Result := lc.WordType;
 end;
 
+function TSourceTokenList.FirstTokenWithExclusion(const peExclusions: TTokenTypeSet): TSourceToken;
+var
+  liLoop: integer;
+  lcItem: TSourceToken;
+begin
+  Result := nil;
+
+  for liLoop := 0 to Count - 1 do
+  begin
+    lcItem := SourceTokens[liLoop];
+    if not (lcItem.TokenType in peExclusions) then
+    begin
+      Result := lcItem;
+      break;
+    end;
+  end;
+end;
+
 
 procedure TSourceTokenList.Add(const pcToken: TSourceToken);
 begin
@@ -232,6 +253,20 @@ function TSourceTokenList.ExtractFirst: TSourceToken;
 begin
   Result := SourceTokens[0];
   fcList.Extract(Result);
+end;
+
+function TSourceTokenList.Extract(const piIndex: integer): TSourceToken;
+begin
+  Result := SourceTokens[piIndex];
+  fcList.Extract(Result);
+end;
+
+procedure TSourceTokenList.Remove(const piIndex: integer);
+var
+  lcRem: TSourceToken;
+begin
+  lcRem := SourceTokens[piIndex];
+  fcList.Remove(lcRem);
 end;
 
 

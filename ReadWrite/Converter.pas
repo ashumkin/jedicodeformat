@@ -113,8 +113,8 @@ implementation
 
 uses
   { delphi } Windows, SysUtils, Dialogs, Controls, Forms,
-  { local } SourceTokenList, fShowParseTree, JcfSettings,
-  AllProcesses;
+  { local } SourceTokenList, fShowParseTree, JcfSettings, JcfRegistrySettings,
+  AllProcesses, ConditionalCompilationProcessing;
 
 
 constructor TConverter.Create;
@@ -139,7 +139,7 @@ begin
   { wire them together }
   fcTokeniser.Reader := fcReader;
 
-  feShowParseTree := eShowOnError;
+  feShowParseTree := GetRegSettings.ShowParseTreeOption;
 end;
 
 destructor TConverter.Destroy;
@@ -265,13 +265,18 @@ begin
 
         lcTokenList.SetXYPositions;
 
+        // remove conditional compilation stuph
+        RemoveConditionalCompilation(lcTokenList);
+
           // make a parse tree from it
         fcBuildParseTree.TokenList := lcTokenList;
         fcBuildParseTree.BuildParseTree;
       finally
         if (fbConvertError or fcBuildParseTree.ParseError) then
         begin
-          // free tokens still in the list
+          { if there was a parse error, the rest of the unit was not parsed
+           there may still be tokens in the list
+           Free them or face a small but annoying memory leak. }
           lcTokenList.ClearAndFree;
         end;
 

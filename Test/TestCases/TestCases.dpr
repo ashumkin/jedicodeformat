@@ -111,7 +111,18 @@ uses
   LittleTest31 in 'LittleTest31.pas',
   LittleTest32 in 'LittleTest32.pas',
   LittleTest33 in 'LittleTest33.pas',
-  LittleTest34 in 'LittleTest34.pas';
+  LittleTest34 in 'LittleTest34.pas',
+  TestSimpleIfdef in 'TestSimpleIfdef.pas',
+  TestSimpleIfdef2 in 'TestSimpleIfdef2.pas',
+  TestSimpleIfdef3 in 'TestSimpleIfdef3.pas',
+  LittleTest35 in 'LittleTest35.pas',
+  LittleTest36 in 'LittleTest36.pas',
+  LittleTest37 in 'LittleTest37.pas',
+  TestSimpleIfDef4 in 'TestSimpleIfDef4.pas',
+  TestSimpleIfDef5 in 'TestSimpleIfDef5.pas',
+  LittleTest38 in 'LittleTest38.pas',
+  LittleTest39 in 'LittleTest39.pas',
+  LittleTest40 in 'LittleTest40.pas';
 
 {$R *.res}
 

@@ -186,6 +186,10 @@ begin
   if Reader.Current <> '{' then
     exit;
 
+  pcToken.TokenType    := ttComment;
+  pcToken.SourceCode := Reader.Current;
+  Reader.Consume;
+
   { compiler directive are the comments with a $ just after the open-curly
     this is always the case }
   if Reader.Current = '$' then
@@ -197,8 +201,7 @@ begin
   while (Reader.Last <> '}') and not (Reader.BufferEndOfFile) do
     Reader.IncBuffer;
 
-  pcToken.TokenType    := ttComment;
-  pcToken.SourceCode   := Reader.ConsumeBuffer;
+  pcToken.SourceCode   := pcToken.SourceCode + Reader.ConsumeBuffer;
   Result               := True;
 end;
 
@@ -637,6 +640,10 @@ function TBuildTokenList.TryPunctuation(const pcToken: TSourceToken): boolean;
     { '<' or '<' can only be followed by '<', '>' or '='.
      Beware of "if x<-1" }
     if (chLast in ['<', '>']) and not (ch in ['<', '>', '=']) then
+      exit;
+
+    // ':' can be followed by '='
+    if (chLast = ':') and (ch <> '=') then
       exit;
 
     Result := IsPuncChar(ch);

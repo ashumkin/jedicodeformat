@@ -65,7 +65,7 @@ uses
   { local }
   JcfSettings, SetClarify, VisitSetXY,
   { once-offs }
-  MozComment,
+  //MozComment,
   { obfuscate}
   FixCase, RemoveComment, RemoveBlankLine, RemoveReturn, ReduceWhiteSpace,
   RemoveConsecutiveWhiteSpace, RemoveUnneededWhiteSpace, RebreakLines,
@@ -219,6 +219,7 @@ end;
 
 procedure TAllProcesses.LineBreaking;
 begin
+
   ApplyVisitorType(TReturnChars);
 
   ApplyVisitorType(TPropertyOnOneLine);

@@ -71,6 +71,7 @@ uses
 
 function DisplayFloat(const ex: extended): string;
 begin
+  // use the localised version for display
   Result := FloatToStrF(ex, ffNumber, 9, 2);
 end;
 

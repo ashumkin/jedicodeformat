@@ -58,6 +58,8 @@ type
     ttReturn, // CR & LF chars
     ttWhiteSpace, // spaces & tabs
     ttComment, // one of these
+    ttConditionalCompilationRemoved,
+
 
     ttNumber, // a numeric constant
     ttLiteralString, // 'This is a string'
@@ -171,6 +173,8 @@ type
     ttLocal,
     ttImplements,
     ttReintroduce,
+    ttOffset, // used in asm
+    ttPtr, // likewise
 
     { Delphi 6 directives }
     ttDeprecated,
@@ -264,7 +268,7 @@ const
   CloseBrackets: TTokenTypeSet = [ttCloseBracket, ttCloseSquareBracket];
 
 
-  NotSolidTokens: TTokenTypeSet = [ttWhiteSpace, ttComment, ttReturn];
+  NotSolidTokens: TTokenTypeSet = [ttWhiteSpace, ttComment, ttReturn, ttConditionalCompilationRemoved];
 
   { procedure can have local declarations of vars, const and yes, types }
   Declarations: TTokenTypeSet = [ttConst, ttResourceString, ttVar, ttThreadVar, ttType, ttLabel, ttExports];
@@ -396,7 +400,7 @@ type
 
 
 const
-  KeywordTextMap: array [0..159] of TRTokenTextMap =
+  KeywordTextMap: array [0..161] of TRTokenTextMap =
     (
     // once were tokens
     (sToken: ';'; eWordType: wtNotAWord; eToken: ttSemicolon),
@@ -510,6 +514,8 @@ const
 
     (sToken: 'implements'; eWordType: wtReservedWordDirective; eToken: ttImplements),
     (sToken: 'reintroduce'; eWordType: wtReservedWordDirective; eToken: ttReintroduce),
+    (sToken: 'offset'; eWordType: wtReservedWordDirective; eToken: ttOffset),
+    (sToken: 'ptr'; eWordType: wtReservedWordDirective; eToken: ttPtr),
 
     { D6 directives }
     (sToken: 'deprecated'; eWordType: wtReservedWordDirective; eToken: ttDeprecated),
@@ -618,46 +624,67 @@ var
 begin
   lbFound := False;
 
-  if peToken = ttPunctuation then
-  begin
-    Result := 'Unknown punctuation';
-    lbFound := True;
-  end
-  else
-  if peToken = ttUnknown then
-  begin
-    Result := 'Unknown';
-    lbFound := True;
-  end
-  else if peToken = ttIdentifier then
-  begin
-    // identifier not in the list as it has no fixed text
-    Result := 'Identifier';
-    lbFound := True;
-  end
-  else if peToken = ttNumber then
-  begin
-    Result := 'Number';
-    lbFound := True;
-  end
-  else if peToken = ttLiteralString then
-  begin
-    Result := 'Literal string';
-    lbFound := True;
-  end
-  else
-  begin
-    for liLoop := Low(KeywordTextMap) to High(KeywordTextMap) do
+  case peToken of
+    ttPunctuation:
     begin
-      if peToken = KeywordTextMap[liLoop].eToken then
+      Result := 'Unknown punctuation';
+      lbFound := True;
+    end;
+    ttUnknown:
+    begin
+      Result := 'Unknown';
+      lbFound := True;
+    end;
+    ttReturn:
+    begin
+      Result := 'Return';
+      lbFound := True;
+    end;
+    ttWhiteSpace:
+    begin
+      Result := 'White space';
+      lbFound := True;
+    end;
+    ttIdentifier:
+    begin
+      // identifier not in the list as it has no fixed text
+      Result := 'Identifier';
+      lbFound := True;
+    end;
+    ttNumber:
+    begin
+      Result := 'Number';
+      lbFound := True;
+    end;
+    ttLiteralString:
+    begin
+      Result := 'Literal string';
+      lbFound := True;
+    end;
+    ttComment:
+    begin
+      Result := 'comment';
+      lbFound := True;
+    end;
+    ttConditionalCompilationRemoved:
+    begin
+      Result := 'cond compilation removed';
+      lbFound := True;
+    end
+    else
+    begin
+      for liLoop := Low(KeywordTextMap) to High(KeywordTextMap) do
       begin
-        Result := KeywordTextMap[liLoop].sToken;
-        lbFound := True;
-        break;
+        if peToken = KeywordTextMap[liLoop].eToken then
+        begin
+          Result := KeywordTextMap[liLoop].sToken;
+          lbFound := True;
+          break;
+        end;
       end;
     end;
   end;
-  
+
   if not lbFound then
     Result := 'Token ' + IntToStr(Ord(peToken)) + ' not found';
 end;

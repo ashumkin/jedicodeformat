@@ -54,7 +54,7 @@ uses
 const
   WordsJustReturnAfter: TTokenTypeSet = [ttBegin, ttRepeat,
     ttTry, ttExcept, ttFinally, ttLabel,
-    ttInitialization, ttFinalization, ttThen, ttDo];
+    ttInitialization, ttFinalization, ttThen, ttDo, ttConditionalCompilationRemoved];
   // can't add 'interface' as it has a second meaning :(
 
   { blank line is 2 returns }

@@ -42,6 +42,10 @@ function GetLastDir(psPath: string): string;
 
 function StrToBoolean(ps: string): boolean;
 
+function Str2Float(const s: string): double;
+function Float2Str(const d: double): string;
+
+
 { delphi-string wrapper for the win32 pchar api }
 function GetWinDir: string;
 
@@ -62,6 +66,35 @@ begin
   Result := StrIsOneOf(ps, ['t', 'true', 'y', 'yes', '1']);
 end;
 
+{ these come from Ralf Steinhaeusser
+  you see, in Germany, the default decimal sep char is a ',' not a '.'
+  values with a '.' will not be read correctly  by StrToFloat
+  and values written will contain a ','
+
+  We want the config files to be portable so
+  *always* use the '.' character when reading or writing
+  This is not for localised display, but for consistent storage
+}
+//  like StrToFloat but expects a "." instead of the decimal-seperator-character
+function Str2Float(const s: string): double;
+var
+  code: integer;
+begin
+  Val(s, result, Code);
+  if code <> 0 then
+    raise EConvertError.Create(s + ' is not a valid floating point string');
+end;
+
+// Like FloatToStr, but gives back a dot (.) as decimalseparator
+function Float2Str(const d: double): string;
+var
+  OrgSep: char;
+begin
+  OrgSep := DecimalSeparator;
+  DecimalSeparator := '.';
+  Result := FloatToStr(d);
+  DecimalSeparator := OrgSep;
+end;
 
 function PadNumber(const pi: integer): AnsiString;
 begin

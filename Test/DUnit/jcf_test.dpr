@@ -131,7 +131,8 @@ uses
   RemoveSpaceAtLineEnd in '..\..\Process\Spacing\RemoveSpaceAtLineEnd.pas',
   Tokens in '..\..\Parse\Tokens.pas',
   SetWordList in '..\..\Settings\SetWordList.pas',
-  UnitNameCaps in '..\..\Process\Capitalisation\UnitNameCaps.pas';
+  UnitNameCaps in '..\..\Process\Capitalisation\UnitNameCaps.pas',
+  ConditionalCompilationProcessing in '..\..\Parse\ConditionalCompilationProcessing.pas';
 
 {$R *.res}
 

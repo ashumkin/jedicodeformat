@@ -75,6 +75,12 @@ type
     procedure TestClarify_LittleTest32;
     procedure TestClarify_LittleTest33;
     procedure TestClarify_LittleTest34;
+    procedure TestClarify_LittleTest35;
+    procedure TestClarify_LittleTest36;
+    procedure TestClarify_LittleTest37;
+    procedure TestClarify_LittleTest38;
+    procedure TestClarify_LittleTest39;
+    procedure TestClarify_LittleTest40;
 
     procedure TestClarify_TestAbsolute;
     procedure TestClarify_TestAlign;
@@ -147,6 +153,13 @@ type
     procedure TestClarify_TestRunOnConst;
     procedure TestClarify_TestRunOnDef;
     procedure TestClarify_TestRunOnLine;
+
+    procedure TestClarify_TestSimpleIfDef;
+    procedure TestClarify_TestSimpleIfDef2;
+    procedure TestClarify_TestSimpleIfDef3;
+    procedure TestClarify_TestSimpleIfDef4;
+    procedure TestClarify_TestSimpleIfDef5;
+
     procedure TestClarify_TestTPObjects;
     procedure TestClarify_TestTry;
     procedure TestClarify_TestTypeDefs;
@@ -869,6 +882,61 @@ end;
 procedure TFullTestClarify.TestClarify_LittleTest34;
 begin
   TestClarifyFile('LittleTest34');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest35;
+begin
+  TestClarifyFile('LittleTest35');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest36;
+begin
+  TestClarifyFile('LittleTest36');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest37;
+begin
+  TestClarifyFile('LittleTest37');
+end;
+
+procedure TFullTestClarify.TestClarify_TestSimpleIfDef;
+begin
+  TestClarifyFile('TestSimpleIfDef');
+end;
+
+procedure TFullTestClarify.TestClarify_TestSimpleIfDef2;
+begin
+  TestClarifyFile('TestSimpleIfDef2');
+end;
+
+procedure TFullTestClarify.TestClarify_TestSimpleIfDef3;
+begin
+  TestClarifyFile('TestSimpleIfDef3');
+end;
+
+procedure TFullTestClarify.TestClarify_TestSimpleIfDef4;
+begin
+  TestClarifyFile('TestSimpleIfDef4');
+end;
+
+procedure TFullTestClarify.TestClarify_TestSimpleIfDef5;
+begin
+  TestClarifyFile('TestSimpleIfDef5');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest38;
+begin
+  TestClarifyFile('LittleTest38');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest39;
+begin
+  TestClarifyFile('LittleTest39');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest40;
+begin
+  TestClarifyFile('LittleTest40');
 end;
 
 initialization

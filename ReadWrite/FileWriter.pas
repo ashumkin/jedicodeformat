@@ -83,7 +83,9 @@ begin
   { write the file }
   AssignFile(lfOutput, OutputFileName);
   Rewrite(lfOutput, 1);
+  {$WARNINGS OFF}
   BlockWrite(lfOutput, pChars^, Length(fsDestText));
+  {$WARNINGS ON}
   CloseFile(lfOutput);
 
   { reset state }

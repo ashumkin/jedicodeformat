@@ -76,6 +76,12 @@ type
     procedure TestObfuscate_LittleTest32;
     procedure TestObfuscate_LittleTest33;
     procedure TestObfuscate_LittleTest34;
+    procedure TestObfuscate_LittleTest35;
+    procedure TestObfuscate_LittleTest36;
+    procedure TestObfuscate_LittleTest37;
+    procedure TestObfuscate_LittleTest38;
+    procedure TestObfuscate_LittleTest39;
+    procedure TestObfuscate_LittleTest40;
 
     procedure TestObfuscate_TestAbsolute;
     procedure TestObfuscate_TestAlign;
@@ -146,6 +152,13 @@ type
     procedure TestObfuscate_TestRunOnConst;
     procedure TestObfuscate_TestRunOnDef;
     procedure TestObfuscate_TestRunOnLine;
+
+    procedure TestObfuscate_TestSimpleIfdef;
+    procedure TestObfuscate_TestSimpleIfdef2;
+    procedure TestObfuscate_TestSimpleIfdef3;
+    procedure TestObfuscate_TestSimpleIfdef4;
+    procedure TestObfuscate_TestSimpleIfdef5;
+
     procedure TestObfuscate_TestTestMH;
     procedure TestObfuscate_TestTPObjects;
     procedure TestObfuscate_TestTry;
@@ -897,6 +910,61 @@ end;
 procedure TTestObfuscate.TestObfuscate_LittleTest34;
 begin
   TestObfuscateFile('LittleTest34');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest35;
+begin
+  TestObfuscateFile('LittleTest35');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest36;
+begin
+  TestObfuscateFile('LittleTest36');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest37;
+begin
+  TestObfuscateFile('LittleTest37');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest38;
+begin
+  TestObfuscateFile('LittleTest38');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest39;
+begin
+  TestObfuscateFile('LittleTest39');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest40;
+begin
+  TestObfuscateFile('LittleTest40');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestSimpleIfdef;
+begin
+  TestObfuscateFile('TestSimpleIfdef');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestSimpleIfdef2;
+begin
+  TestObfuscateFile('TestSimpleIfdef2');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestSimpleIfdef3;
+begin
+  TestObfuscateFile('TestSimpleIfdef3');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestSimpleIfdef4;
+begin
+  TestObfuscateFile('TestSimpleIfdef4');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestSimpleIfdef5;
+begin
+  TestObfuscateFile('TestSimpleIfdef5');
 end;
 
 initialization
