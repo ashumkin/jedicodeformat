@@ -212,18 +212,20 @@ begin
   if (lcToken = nil) or (lcToken.TokenType <> ttWhiteSpace) then
     pcList.InsertChild(0, NewSpace(1));
 
-  { return after comments }
-  if FormatSettings.Transform.BreakUsesSortOnComment then
+  { return after all comments if BreakUsesSortOnComment
+  otherwise just after // comments }
+  for liLoop := pcList.ChildNodeCount - 2 downto 0 do
   begin
-    for liLoop := pcList.ChildNodeCount - 2 downto 0 do
-    begin
-      lcItem := pcList.ChildNodes[liLoop];
+    lcItem := pcList.ChildNodes[liLoop];
 
-      if lcItem is TSourceToken then
+    if lcItem is TSourceToken then
+    begin
+      { commas will have migrated to the top }
+      lcToken := TSourceToken(lcItem);
+
+      if lcToken.TokenType = ttComment then
       begin
-        { commas will have migrated to the top }
-        lcToken := TSourceToken(lcItem);
-        if lcToken.TokenType = ttComment then
+        if (lcToken.CommentStyle = eDoubleSlash) or (FormatSettings.Transform.BreakUsesSortOnComment) then
         begin
           lcNext := lcToken.NextTokenWithExclusions([ttWhiteSpace]);
           if lcNext.TokenType <> ttReturn then
