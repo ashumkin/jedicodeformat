@@ -61,7 +61,7 @@ type
   end;
 
   THasDefaults = class(TUserHasDefaults)
-  // two different syntaxes - semicolon in one not other
+    // two different syntaxes - semicolon in one not other
     property Def1 default 1;
     property Def2; default;
 

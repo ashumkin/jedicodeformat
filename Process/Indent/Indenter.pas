@@ -1,5 +1,28 @@
 unit Indenter;
 
+{(*}
+(*------------------------------------------------------------------------------
+ Delphi Code formatter source code
+
+The Original Code is Indenter, released May 2003.
+The Initial Developer of the Original Code is Anthony Steele.
+Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
+All Rights Reserved.
+Contributor(s): Anthony Steele.
+
+The contents of this file are subject to the Mozilla Public License Version 1.1
+(the "License"). you may not use this file except in compliance with the License.
+You may obtain a copy of the License at http://www.mozilla.org/NPL/
+
+Software distributed under the License is distributed on an "AS IS" basis,
+WITHOUT WARRANTY OF ANY KIND, either express or implied.
+See the License for the specific language governing rights and limitations
+under the License.
+------------------------------------------------------------------------------*)
+{*)}
+
+interface
+
 { AFS 23 Feb 2003
   process to indent tokens
   Will borrow some old code, but mostly new
@@ -8,31 +31,7 @@ unit Indenter;
   of all the processes
 }
 
-{(*}
-(*------------------------------------------------------------------------------
- Delphi Code formatter source code 
-
-The Original Code is Indenter, released May 2003.
-The Initial Developer of the Original Code is Anthony Steele. 
-Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
-All Rights Reserved. 
-Contributor(s): Anthony Steele. 
-
-The contents of this file are subject to the Mozilla Public License Version 1.1
-(the "License"). you may not use this file except in compliance with the License.
-You may obtain a copy of the License at http://www.mozilla.org/NPL/
-
-Software distributed under the License is distributed on an "AS IS" basis,
-WITHOUT WARRANTY OF ANY KIND, either express or implied.
-See the License for the specific language governing rights and limitations 
-under the License.
-------------------------------------------------------------------------------*)
-{*)}
-
-interface
-
 uses SwitchableVisitor;
-
 
 type
   TIndenter = class(TSwitchableVisitor)
@@ -45,10 +44,96 @@ type
 implementation
 
 uses
+  { delphi }
+  SysUtils,
+  { jcf }
   JclStrings,
   SourceToken, Nesting, FormatFlags, JcfSettings, TokenUtils,
-  Tokens, ParseTreeNode, ParseTreeNodeType;
+  Tokens, ParseTreeNode, ParseTreeNodeType, SetIndent;
 
+{ true if the specified token type occurs before pt on the line }
+function HasPreceedingTokenTypeOnLine(const pt: TSourceToken; const ptt: TTokenTypeSet): Boolean;
+var
+  lcTest: TSourceToken;
+begin
+  Result := False;
+  lcTest := pt;
+
+  repeat
+    lcTest := lcTest.PriorToken;
+    if lcTest <> nil then
+      Result := (lcTest.TokenType in ptt);
+
+  until Result or (lcTest = nil) or (lcTest.TokenType = ttReturn);
+end;
+
+function HasPreceedingSolidToken(const pt: TSourceToken): Boolean;
+var
+  lcTest: TSourceToken;
+begin
+  Result := False;
+  lcTest := pt;
+
+  repeat
+    lcTest := lcTest.PriorToken;
+    if lcTest <> nil then
+      Result := lcTest.IsSolid;
+
+  until Result or (lcTest = nil) or (lcTest.TokenType = ttReturn);
+end;
+
+function HasSolidTokenBeforeUnderSameParent(const pt: TSourceToken): Boolean;
+var
+  lcParent: TParseTreeNode;
+  liLoop: integer;
+begin
+  Result := False;
+  lcParent := pt.Parent;
+
+  for liLoop := 0 to lcParent.IndexOfChild(pt) do
+  begin
+    if lcParent.ChildNodes[liLoop] is TSourceToken then
+    begin
+      if TSourceToken(lcParent.ChildNodes[liLoop]).IsSolid then
+      begin
+        Result := True;
+        break;
+      end;
+    end;
+  end;
+end;
+
+
+function IsIndented(const pt: TSourceToken): Boolean;
+begin
+  Result := IsFirstSolidTokenOnLine(pt);
+  if Result then
+  begin
+    { don't indent } // when there's a comment before the token on a line
+    if HasPreceedingTokenTypeOnLine(pt, [ttComment]) then
+      Result := False;
+  end
+  else if IsSingleLineComment(pt) and (pt.CommentStyle <> eCompilerDirective) then
+  begin
+    { if it's a single line comment, with nothing on the line before it
+      then may want to indent it }
+    if not HasPreceedingSolidToken(pt) then
+    begin
+      if pt.HasParentNode(nBlock) then
+      begin
+        Result := FormatSettings.Indent.KeepCommentsWithCodeInProcs;
+      end
+      else if pt.HasParentNode([nClassType, nInterfaceType]) then
+      begin
+        Result := FormatSettings.Indent.KeepCommentsWithCodeInClassDef;
+      end
+      else if pt.HasParentNode([nDeclSection]) then
+        Result := FormatSettings.Indent.KeepCommentsWithCodeInGlobals
+      else
+        Result := FormatSettings.Indent.KeepCommentsWithCodeElsewhere;
+    end;
+  end;
+end;
 
 { is this token in an expression that starts on a previous line }
 function IsRunOnExpr(const pt: TSourceToken): boolean;
@@ -138,12 +223,12 @@ begin
       liIndentCount := 2;
 
     // run on lines in properties
-    if pt.HasParentNode(nProperty) and (pt.TokenType <> ttProperty) then
+    if pt.HasParentNode(nProperty) and (not (pt.TokenType  in [ttProperty, ttComment])) then
       Inc(liIndentCount);
 
     // run on lines in procs
     if pt.HasParentNode(ProcedureHeadings) and
-      ( not (pt.TokenType in (ProcedureWords + [ttClass]))) then
+      ( not (pt.TokenType in (ProcedureWords + [ttClass, ttComment]))) then
       Inc(liIndentCount);
 
     lbHasIndentedDecl := True;
@@ -156,7 +241,7 @@ begin
     var
       bar: integer;
   }
-  else if pt.HasParentNode(nDeclSection) and ( not pt.HasParentNode(ProcedureNodes)) then
+  else if pt.HasParentNode(nDeclSection) and (not pt.HasParentNode(ProcedureNodes)) then
   begin
     if pt.TokenType in Declarations + ProcedureWords then
     begin
@@ -263,7 +348,8 @@ begin
     { run on lines such as
       SomeArray[
        index] := 3; }
-    if ( not lbHasIndentedRunOnLine) and pt.HasParentNode(nDesignator) then
+    if ( not lbHasIndentedRunOnLine) and pt.HasParentNode(nDesignator) and
+      (pt.TokenType <> ttComment) then
     begin
       lcParent := pt.Parent;
       if lcParent.NodeType = nIdentifier then
@@ -357,7 +443,8 @@ begin
     ( not pt.HasParentNode(nStatementLabel)) then
     Inc(liIndentCount);
 
-  Assert(liIndentCount >= 0);
+  Assert(liIndentCount >= 0, 'Indent count = ' + IntToStr(liIndentCount) +
+    ' for ' + pt.Describe);
 
   Result := FormatSettings.Indent.SpacesForIndentLevel(liIndentCount);
 
@@ -372,7 +459,6 @@ begin
         Result := Result + FormatSettings.Indent.IndentBeginEndSpaces;
       end;
     end;
-
   end;
 
 end;
@@ -393,7 +479,7 @@ begin
   Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
-  if IsFirstSolidTokenOnLine(lcSourceToken) then
+  if IsIndented(lcSourceToken) then
   begin
     liDesiredIndent := CalculateIndent(lcSourceToken);
     liPos := lcSourceToken.XPosition - 1;
@@ -405,8 +491,8 @@ begin
       lcPrev := lcSourceToken.PriorToken;
       if (lcPrev <> nil) and (lcPrev.TokenType = ttWhiteSpace) then
       begin
-        lcPrev.SourceCode := StrRepeat(AnsiSpace, liDesiredIndent -
-          lcPrev.XPosition + 1);
+        lcPrev.SourceCode :=
+          StrRepeat(AnsiSpace, liDesiredIndent - lcPrev.XPosition + 1);
       end;
       {
       else if liDesiredIndent > 0 then

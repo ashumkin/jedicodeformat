@@ -38,7 +38,7 @@ type
     property DRXummy: TDummy Read FDummy[0] Write FDummy[0];
     property E: longword Read FDummy[0].ERX Write FDummy[0].ERX;
 
-  // "undeclared Identifier 'RL' " Property AL: Byte Read FDummy[0].RL Write FDummy[0].RL;
+    // "undeclared Identifier 'RL' " Property AL: Byte Read FDummy[0].RL Write FDummy[0].RL;
   end;
 
 implementation

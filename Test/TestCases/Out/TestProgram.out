@@ -59,7 +59,7 @@ uses
 
   procedure InitPatternManager;
   begin
-  { set up the pattern manager }
+    { set up the pattern manager }
     ciPatternManager := CoPatternManager.Create;
     ciPatternManager.ExcludeList(CMandalaSettings.ExcludedPatterns);
   end;
@@ -175,7 +175,7 @@ begin
     end;
 
   finally
-   { free the forms }
+    { free the forms }
     if Assigned(frmMain) then
     begin
       frmMain.Release;

@@ -16,7 +16,7 @@ type
   Fred = class
 
   public
-      { these are well known but not built-in and so are legal to redefine here }
+    { these are well known but not built-in and so are legal to redefine here }
     procedure word;
     procedure DWord;
     function TComponent(ps: string): string;

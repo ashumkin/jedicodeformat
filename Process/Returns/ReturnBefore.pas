@@ -187,8 +187,6 @@ end;
 
 
 function NeedsReturn(const pt, ptNext: TSourceToken): boolean;
-{var
-  lcPrev: TSourceToken;}
 begin
   Result := False;
 
@@ -300,7 +298,7 @@ end;
 function TReturnBefore.EnabledVisitSourceToken(const pcToken: TObject): Boolean;
 var
   lcSourceToken: TSourceToken;
-  lcNext: TSourceToken;
+  lcNext, lcPrev: TSourceToken;
   liReturnsNeeded: integer;
 begin
   Result := False;
@@ -324,6 +322,10 @@ begin
   begin
     // current token index changed 
     Result := True;
+
+    lcPrev := lcSourceToken.PriorToken;
+    if lcPrev.TokenType = ttWhiteSpace then
+      BlankToken(lcPrev);
 
     case liReturnsNeeded of
       1:

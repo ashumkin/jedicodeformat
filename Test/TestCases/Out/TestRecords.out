@@ -37,7 +37,7 @@ type
   end;
 
 
-   { egs from the help, deformatted a bit }
+{ egs from the help, deformatted a bit }
 type
 
 
@@ -48,7 +48,7 @@ type
     Day: 1..31;
   end;
 
-{ missing final colons }
+  { missing final colons }
   TFooRec = record
     s1, s2: string
   end;
@@ -86,7 +86,7 @@ type
       true: (Baz: pchar);
       false: (Wibble: integer;
         Fish: integer);
-// not allowed! liFred: integer;
+    // not allowed! liFred: integer;
   end;
 
   // nested records
@@ -108,7 +108,7 @@ type
         case boolean of
           false: (liGoop: integer);
           true: (lcGlorp: currency);
-  // comment here means next line cannot be brought up
+        // comment here means next line cannot be brought up
       );
   end;
 
@@ -150,7 +150,7 @@ type
 
   TShapeList = (Rectangle, Triangle, Circle, Ellipse, Other);
 
-    { in this case the variant is not tagged }
+  { in this case the variant is not tagged }
   TFigure = record
     liFoo: integer;
     case TShapeList of
@@ -182,7 +182,7 @@ end;
 
 procedure HasAnonRecordVar;
 var
-{ as before, only more fsck'd - a var with no type }
+  { as before, only more fsck'd - a var with no type }
   lRec: record
     Foo: integer;
     Bar: (Trout, Mackrel, Rain, Earth);
@@ -201,7 +201,7 @@ end;
 procedure HasAnonRecordVars2;
 var
   li: integer;
-{ as before, only more fsck'd - a var with no type }
+  { as before, only more fsck'd - a var with no type }
   lRec1: record
     Foo: integer;
     Bar: (Trout, Mackrel, Rain, Earth);

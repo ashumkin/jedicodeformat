@@ -35,7 +35,6 @@ type
     procedure TestClarifyFile(const psName: string); overload;
 
   protected
-    procedure Setup; override;
 
   published
     { one test for each file}
@@ -120,6 +119,7 @@ type
     procedure TestClarify_TestCharLiterals;
     procedure TestClarify_TestClassLines;
     procedure TestClarify_TestCommentIndent;
+    procedure TestClarify_TestCommentIndent2;
     procedure TestClarify_TestConstRecords;
     procedure TestClarify_TestD6;
     procedure TestClarify_TestDeclarations2;
@@ -222,23 +222,6 @@ uses
 
 { TFullTestClarify }
 
-procedure TFullTestClarify.Setup;
-var
-  lsSettingsFileName: string;
-begin
-  inherited;
-
-  if not GetRegSettings.HasRead then
-    GetRegSettings.ReadAll;
-
-  lsSettingsFileName := GetTestSettingsFileName;
-  Check(FileExists(lsSettingsFileName), 'Settings file ' + lsSettingsFileName +
-    ' not found');
-
-  GetRegSettings.FormatConfigFileName := lsSettingsFileName;
-  FormatSettings; // create and read
-  FormatSettings.Obfuscate.Enabled := False;
-end;
 
 procedure TFullTestClarify.TestClarifyFile(const psName: string);
 var
@@ -441,6 +424,11 @@ end;
 procedure TFullTestClarify.TestClarify_TestCommentIndent;
 begin
   TestClarifyFile('TestCommentIndent');
+end;
+
+procedure TFullTestClarify.TestClarify_TestCommentIndent2;
+begin
+  TestClarifyFile('TestCommentIndent2');
 end;
 
 procedure TFullTestClarify.TestClarify_TestConstRecords;

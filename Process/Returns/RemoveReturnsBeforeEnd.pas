@@ -66,7 +66,7 @@ begin
 
   lcNext := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace, ttReturn]);
 
-  if lcNext.TokenType <> ttEnd then
+  if (lcNext = nil) or (lcNext.TokenType <> ttEnd) then
     exit;
 
   liReturnCount := 0;

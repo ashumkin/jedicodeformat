@@ -1,15 +1,13 @@
 unit testasm;interface procedure procasm1;procedure procasm2;procedure procasm3;
 implementation uses dialogs;procedure procasm1;var li1,li2:integer;lb:boolean;begin
-li1:=random(10);li2:=random(10);
-asm
+li1:=random(10);li2:=random(10);asm
 mov eax,li1
 push dword ptr[edx]
 mov edx,[ebp+8]
 add esp,4
 call dword ptr procasm2
 mov lb,al
-end;li1:=li1+li2;end;procedure procasm2;
-asm
+end;li1:=li1+li2;end;procedure procasm2;asm
 test cl,cl
 jne @@isdll
 mov eax,[edx+eax*4]
@@ -42,15 +40,13 @@ xchg ecx,[eax]
 call procasm2
 xchg ecx,[eax]
 mov[edx],ecx
-end;li1:=li1+li2;li2:=random(10);if li2>5 then begin showmessage('More Asm');
-asm
+end;li1:=li1+li2;li2:=random(10);if li2>5 then begin showmessage('More Asm');asm
 mov[edx],ecx
 mov ecx,[edx]
 push eax
 xchg ecx,[eax]
 end;li2:=li1+li2;end;end;type tfish=(goldfish,tetra,hake,haddock,trout,salmon,catfish
 ,bass,eel,shark);const pond:array[0..6]of tfish=(goldfish,goldfish,eel,haddock,shark
-,trout,salmon);procedure testcomplexasm;begin 
-asm
+,trout,salmon);procedure testcomplexasm;begin asm
 movzx eax,tfish(pond[edx])
 end;end;end. 

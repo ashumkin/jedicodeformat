@@ -37,7 +37,7 @@ var
 begin
   NewRange := Max(NewRange, Position);
 
- // CORRECT
+  // CORRECT
   case Control.Align of
     alLeft, alNone: NewRange := Max(NewRange, Position);
     alRight: Inc(AlignMargin, Control.Width);
@@ -98,7 +98,7 @@ begin
       j := x;
   end;
 
-   // naked cases, complex labels, an else
+  // naked cases, complex labels, an else
   case x of
     csStart, csBegin:
       j := UpdateValue;
@@ -109,7 +109,7 @@ begin
       Inc(j);
   end;
 
-   // block cases, complex labels, no else
+  // block cases, complex labels, no else
   case x of
     csStart, csBegin:
     begin
@@ -130,7 +130,7 @@ begin
     end;
   end;
 
-   // block cases, complex labels, an else
+  // block cases, complex labels, an else
   case x of
     csStart, csBegin:
     begin
@@ -180,7 +180,7 @@ begin
         x := x + UpdateValue;
   end;
 
-   // naked else with funky stuff therein
+  // naked else with funky stuff therein
   case x of
     csStart, csBegin:
       j := UpdateValue;
@@ -313,7 +313,9 @@ end;
 procedure LayOutMyCaseStatement;
 var
   iA, iB1, iCC2: integer;
-begin  // empty statement
+begin
+
+  // empty statement
   ;
   ;
   ;

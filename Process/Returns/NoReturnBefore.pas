@@ -114,7 +114,7 @@ end;
 function TNoReturnBefore.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
   lcSourceToken: TSourceToken;
-  lcNext: TSourceToken;
+  lcNext, lcNextComment: TSourceToken;
 begin
   Result := False;
   lcSourceToken := TSourceToken(pcNode);
@@ -133,7 +133,19 @@ begin
 
     if HasNoReturnBefore(lcNext) then
     begin
-      BlankToken(lcSourceToken);
+      { must still check for the case of
+          try
+            Statement;
+          except
+            // a comment
+            ;
+          end;
+
+      -- the return before the comment should not be removed
+      }
+      lcNextComment := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace, ttReturn]);
+      if (lcNextComment <> nil) and (lcNextComment.TokenType <> ttComment) then
+        BlankToken(lcSourceToken);
     end;
   end;
 end;

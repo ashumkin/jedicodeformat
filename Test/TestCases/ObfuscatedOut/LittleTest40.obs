@@ -1,5 +1,4 @@
-unit littletest40;interface implementation procedure foo;begin
-asm
+unit littletest40;interface implementation procedure foo;begin asm
 @foo_@bar_:
 mov ecx,(type tinitcontext)/4
 lea edi,[ebp-(type foo)-(type foo)]

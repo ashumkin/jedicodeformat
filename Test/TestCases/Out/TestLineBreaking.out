@@ -125,17 +125,17 @@ begin
   ls1 := 'this string is getting longer and longer and longer ' +
     FloatToStrF(12.3456789012, ffExponent, 8, 9);
 
-  { this comment }lf := ((1.23456789 + 2.34567890) * -12.34567890) +
+  { this comment }  lf := ((1.23456789 + 2.34567890) * -12.34567890) +
     ((1.23456789 + 2.34567890));
-  { this comment  will }lf :=
+  { this comment  will }  lf :=
     ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890));
-  { this comment  will affect }lf :=
+  { this comment  will affect }  lf :=
     ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890));
-  { this comment  will affect line }lf :=
+  { this comment  will affect line }  lf :=
     ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890));
-  { this comment  will affect line spacing }lf :=
+  { this comment  will affect line spacing }  lf :=
     ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890));
-  { this comment  will affect line spacing in some way }lf :=
+  { this comment  will affect line spacing in some way }  lf :=
     ((1.23456789 + 2.34567890) * -12.34567890) + ((1.23456789 + 2.34567890));
 
 

@@ -144,7 +144,7 @@ end;
  that formats wrong in v0.52
 }
 procedure TestRayMalone;
- // these defs are dummies to get the code sample to compile
+// these defs are dummies to get the code sample to compile
 const
   cFwdSlash: char = '/';
   cpVendorToken   = 1;
@@ -155,7 +155,7 @@ var
   aProduct: integer;
   aProductInfoItem: integer;
 begin
- //The Delete statement gets indented  4 spaces instead of two.
+  //The Delete statement gets indented  4 spaces instead of two.
   while (Length(aPath) > 1) and (Pos(cFwdSlash, aPath) = 1) do
     Delete(aPath, 1, 1);
 
@@ -168,7 +168,7 @@ begin
   while Length(aPath) > 1 do
     Delete(aPath, 1, 1);
 
- //The following has a While statement, an And statement, and a Begin statement. It allso indents what appears to be two caracters too many. But it corrects iteself on the third line:
+  //The following has a While statement, an And statement, and a Begin statement. It allso indents what appears to be two caracters too many. But it corrects iteself on the third line:
   while not EOF and (Fields[cpVendorToken] = aVendorToken) do
   begin
     aProduct := 3;

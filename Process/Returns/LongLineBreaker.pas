@@ -1,15 +1,5 @@
 unit LongLineBreaker;
 
-{ AFS 10 March 2003
-  With the Indenter, this is the other big & inportant process.
-  Its job is to break long lines.
-  This is more complex than most.
-  If the line is too long, then the entire line is inspected
-  and each token thereon is given a score
-  The token with the 'best' (lowest? Highest?) score is where
-  (before? after?) the line will be broken 
-}
-
 {(*}
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code 
@@ -33,6 +23,16 @@ under the License.
 
 interface
 
+{ AFS 10 March 2003
+  With the Indenter, this is the other big & inportant process.
+  Its job is to break long lines.
+  This is more complex than most.
+  If the line is too long, then the entire line is inspected
+  and each token thereon is given a score
+  The token with the 'best' (lowest? Highest?) score is where
+  (before? after?) the line will be broken 
+}
+
 uses SwitchableVisitor, IntList, SourceTokenList;
 
 
@@ -42,8 +42,8 @@ type
     fcScores: TIntList;
     fcTokens: TSourceTokenList;
 
-
     procedure FixPos;
+
   protected
     function EnabledVisitSourceToken(const pcNode: TObject): Boolean; override;
   public

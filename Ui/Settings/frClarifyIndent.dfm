@@ -129,4 +129,12 @@ inherited fClarifyIndent: TfClarifyIndent
     Caption = 'Keep single-line comments with code in class definitions'
     TabOrder = 10
   end
+  object cbKeepWithElsewhere: TCheckBox
+    Left = 4
+    Top = 224
+    Width = 253
+    Height = 17
+    Caption = 'Keep single-line comments with code elsewhere'
+    TabOrder = 11
+  end
 end

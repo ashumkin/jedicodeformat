@@ -1,7 +1,6 @@
 unit testasmstructs;interface implementation uses activex;const atvarmask=$3F;attypemask
 =$7F;atbyref=$80;procedure foo(calldesc:pcalldesc;namedargdispids,result:pointer)
-;var dispparams:tdispparams;
-asm
+;var dispparams:tdispparams;asm
 and eax,not 3
 @resulttable:
 mov ebx,calldesc

@@ -34,7 +34,7 @@ type
     function DispId: integer; safecall;
     function ProtecTED: boolean;
 
-      { are these keywords or directives? }
+    { are these keywords or directives? }
     procedure Contains;
     procedure Requires;
     procedure Package;

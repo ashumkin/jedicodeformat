@@ -5,7 +5,7 @@ unit TestExclusion;
  it is test cases for the code formatting utility
 
  This unit test the exclusions comments }
- {(*}  {*)}
+ {(*}{*)}
 
 { between these two comments, no code formatting is done }
 
@@ -40,7 +40,7 @@ function GetLimit: integer;
 begin
 Result := 20;
 end;
-{ can format again } {*)}
+{ can format again }{*)}
   begin
     Result := Random(GetLimit);
   end;

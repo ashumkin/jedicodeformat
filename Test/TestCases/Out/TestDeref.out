@@ -43,7 +43,7 @@ begin
   // the goal of this unit is to get the following silly line to compile
   foo.GetBar(1).Stuff['fish'].MyFudgeFactor.GetBar(2).Name := 'Jiim';
 
-   // let's try this one
+  // let's try this one
   ls := foo.Stuff['fish'].GetBar(1).MyFudgeFactor.GetBar(2).Name;
 end;
 

@@ -31,7 +31,7 @@ begin
     raise Exception.Create('Word OLE server not found');
     Exit;
   end;
- { 'End'?!?! Since when is 'end' a valid identifier!?!?  I cannae believe it capt'n! }
+  { 'End'?!?! Since when is 'end' a valid identifier!?!?  I cannae believe it capt'n! }
   FRng := FDoc.Range(start := 0, end := 0); {<-- HERE}
 
  { right, if end works, let's see what other reserved words we can abuse

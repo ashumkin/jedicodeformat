@@ -16,11 +16,11 @@ var
 
 type
 
-{ a forward }
+  { a forward }
   TFoo    = class;
-{another typedef }
+  {another typedef }
   counter = integer;
-{ make good on the forward - must be in the same type block }
+  { make good on the forward - must be in the same type block }
   TFoo    = class(TPersistent);
 
 

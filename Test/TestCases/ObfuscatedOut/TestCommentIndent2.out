@@ -1,0 +1,60 @@
+unit testcommentindent2;
+
+interface
+
+uses SysUtils;
+
+const
+  foo = 3;
+
+var
+  lb: boolean;
+
+type
+  aninteger = integer;
+
+  tfooclass = class
+  public
+    procedure bar;
+  end;
+
+implementation
+
+uses Dialogs, Classes;
+
+procedure tfooclass.bar;
+const
+  limit = 99;
+var
+  licounter: integer;
+begin
+  for licounter := 0 to limit do
+  begin
+    lb := not lb;
+  end;
+end;
+
+procedure testtry;
+begin
+  try
+    lb := not lb;
+  except;
+  end;
+  try
+    lb := not lb;
+  except
+    on e: Exception do
+      ShowMessage('Era');
+  end;
+end;
+
+initialization
+  lb := false;
+  begin
+    lb := not lb;
+  end;
+
+finalization
+  lb := false;
+end.
+ 

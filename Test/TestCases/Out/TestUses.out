@@ -15,14 +15,14 @@ uses { as usual } SysUtils, { some delphi stuff } ComCtrls,
     for testing
   }
   Classes, // a single line comment
-{ another unit }Windows;
+  { another unit } Windows;
 
 
 implementation
 
 uses
-{ delphi }ActiveX,
-{ local }TestClassLines,
+  { delphi } ActiveX,
+  { local } TestClassLines,
   TestCast;
 
 

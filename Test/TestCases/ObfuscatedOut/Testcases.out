@@ -3,7 +3,8 @@ program testcases;
 uses
   Forms,
   emptytest1 in 'EmptyTest1.pas',
-  fformtest in 'fFormTest.pas' {FormTest},
+  fformtest in 'fFormTest.pas'
+  {FormTest},
   littletest1 in 'LittleTest1.pas',
   littletest2 in 'LittleTest2.pas',
   littletest3 in 'LittleTest3.pas',
@@ -145,7 +146,8 @@ uses
   littletest57 in 'LittleTest57.pas',
   littletest58 in 'LittleTest58.pas',
   littletest59 in 'LittleTest59.pas',
-  littletest60 in 'LittleTest60.pas';
+  littletest60 in 'LittleTest60.pas',
+  testcommentindent2 in 'TestCommentIndent2.pas';
 
 {$R *.res}
 begin

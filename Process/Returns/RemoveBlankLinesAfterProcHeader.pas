@@ -51,7 +51,7 @@ begin
   { assume we're already under a procedure decl as tested below }
 
   { before the begin }
-  if ptToken.HasParentNode(nCompoundStatement) and
+  if ptToken.HasParentNode([nCompoundStatement] + ProcedureNodes) and
     (ptNextSolidToken.TokenType = ttBegin) then
   begin
     Result := True;

@@ -16,7 +16,7 @@ function Baz: integer; platform;
 
 type
 
-// int subrange type
+  // int subrange type
   TFoo  = 0..300;
   TFoo2 = 1 + 1 .. (300 * 7);
 
@@ -84,7 +84,7 @@ type
     function baz: integer;
   end platform deprecated;
 
-// enums with numbers
+  // enums with numbers
   TCounters = (ni, spon, herring = 12, wibble, fish = 42);
 
   TCounters2 = (soy = 1 + 1, monkey = ((3 * 2) - 1), Shatner);

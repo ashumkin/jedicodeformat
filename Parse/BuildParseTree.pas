@@ -217,13 +217,14 @@ type
     procedure RecogniseAsmOpcode;
     procedure RecogniseAsmLabel(const pbColon: boolean);
     procedure RecogniseWhiteSpace;
+    procedure RecogniseNotSolidTokens;
 
     procedure RecogniseHintDirectives;
     procedure RecognisePropertyDirectives;
     procedure RecogniseExternalProcDirective;
 
-    procedure Recognise(const peTokenTypes: TTokenTypeSet); overload;
-    procedure Recognise(const peTokenType: TTokenType); overload;
+    procedure Recognise(const peTokenTypes: TTokenTypeSet; const pbKeepTrailingWhiteSpace: Boolean = False); overload;
+    procedure Recognise(const peTokenType: TTokenType; const pbKeepTrailingWhiteSpace: Boolean = False); overload;
 
     function PushNode(const peNodeType: TParseTreeNodeType): TParseTreeNode;
     function PopNode: TParseTreeNode;
@@ -312,7 +313,8 @@ end;
 {-------------------------------------------------------------------------------
   recogniser support }
 
-procedure TBuildParseTree.Recognise(const peTokenTypes: TTokenTypeSet);
+procedure TBuildParseTree.Recognise(const peTokenTypes: TTokenTypeSet;
+  const pbKeepTrailingWhiteSpace: Boolean = False);
 
   function DescribeTarget: string;
   begin
@@ -323,38 +325,47 @@ procedure TBuildParseTree.Recognise(const peTokenTypes: TTokenTypeSet);
   end;
 
 var
-  lcCurrentToken:      TSourceToken;
-  liCurrentTokenIndex: integer;
+  lcCurrentToken:  TSourceToken;
 begin
   // must accept something
   Assert(peTokenTypes <> []);
 
   { read tokens up to and including the specified one.
     Add them to the parse tree at the current growing point  }
-  liCurrentTokenIndex := fcTokenList.CurrentTokenIndex;
-  while liCurrentTokenIndex < fcTokenList.Count do
+  while not fcTokenList.EOF do
   begin
-    lcCurrentToken := fcTokenList.Extract(liCurrentTokenIndex);
+    lcCurrentToken := fcTokenList.Extract;
     Assert(lcCurrentToken <> nil);
 
     TopNode.AddChild(lcCurrentToken);
     // the the match must be the first solid token
     if lcCurrentToken.TokenType in peTokenTypes then
-      Break
+    begin
+      // found it
+      Break;
+    end
+    // accept any white space until we find it
     else if not (lcCurrentToken.TokenType in NotSolidTokens) then
       raise TEParseError.Create('Unexpected token, expected ' +
         DescribeTarget, lcCurrentToken);
-    Inc(liCurrentTokenIndex);
   end;
 
   Inc(fiTokenCount);
   if (fiTokenCount mod UPDATE_INTERVAL) = 0 then
     Application.ProcessMessages;
+
+  { add trailing white space
+    fixes some problems, causes others
+    problem is that comments are not well-attached }
+  // add trailing white space
+  if pbKeepTrailingWhiteSpace then
+    RecogniseNotSolidTokens;
 end;
 
-procedure TBuildParseTree.Recognise(const peTokenType: TTokenType);
+procedure TBuildParseTree.Recognise(const peTokenType: TTokenType;
+  const pbKeepTrailingWhiteSpace: Boolean = False);
 begin
-  Recognise([peTokenType]);
+  Recognise([peTokenType], pbKeepTrailingWhiteSpace);
 end;
 
 function TBuildParseTree.PushNode(const peNodeType: TParseTreeNodeType): TParseTreeNode;
@@ -545,18 +556,15 @@ end;
 
 procedure TBuildParseTree.RecogniseFileEnd;
 var
-  liCurrentIndex: integer;
   lcCurrentToken: TSourceToken;
 begin
   Recognise(ttDot);
 
   { delphi accepts anything after the final end }
-  liCurrentIndex := fcTokenList.CurrentTokenIndex;
-  while liCurrentIndex < fcTokenList.Count do
+  while not fcTokenList.EOF do
   begin
-    lcCurrentToken := fcTokenList.Extract(liCurrentIndex);
+    lcCurrentToken := fcTokenList.Extract;
     TopNode.AddChild(lcCurrentToken);
-    Inc(liCurrentIndex);
   end;
 end;
 
@@ -584,6 +592,8 @@ begin
   // IdentList -> Ident/','...
   PushNode(nIdentList);
 
+  RecogniseNotSolidTokens;
+
   RecogniseUsesItem(pbInFiles);
 
   while fcTokenList.FirstSolidTokenType = ttComma do
@@ -597,6 +607,8 @@ begin
   Recognise(ttSemicolon);
 
   PopNode;
+
+  RecogniseNotSolidTokens;
 end;
 
 procedure TBuildParseTree.RecogniseUsesItem(const pbInFiles: boolean);
@@ -620,7 +632,7 @@ begin
 
   PushNode(nInterfaceSection);
 
-  Recognise(ttInterface);
+  Recognise(ttInterface, True);
 
   if fcTokenList.FirstSolidTokenType = ttUses then
     RecogniseUsesClause(False);
@@ -678,6 +690,8 @@ begin
   end;
 
   PopNode;
+
+  RecogniseNotSolidTokens;
 end;
 
 procedure TBuildParseTree.RecogniseExportedHeading;
@@ -719,7 +733,7 @@ begin
   }
   PushNode(nImplementationSection);
 
-  Recognise(ttImplementation);
+  Recognise(ttImplementation, True);
 
   if fcTokenList.FirstSolidTokenType = ttUses then
     RecogniseUsesClause(False);
@@ -809,6 +823,8 @@ begin
   end;
 
   PopNode;
+
+  RecogniseNotSolidTokens;
 end;
 
 procedure TBuildParseTree.RecogniseLabelDeclSection;
@@ -2042,6 +2058,8 @@ const
 var
   lc: TSourceToken;
 begin
+  RecogniseNotSolidTokens;
+
   // Statement -> [LabelId ':'] [SimpleStatement | StructStmt]
 
   PushNode(nStatement);
@@ -2110,6 +2128,8 @@ begin
       Recognise(ttSemicolon)
     else
       break;
+    
+    RecogniseNotSolidTokens;
   end;
 
   PopNode;
@@ -2607,6 +2627,8 @@ begin
     ExceptionHandlers -> ExceptionSpecifier
 
   }
+  RecogniseNotSolidTokens;
+
   PushNode(nExceptionHandlers);
 
   if fcTokenList.FirstSolidTokenType in [ttOn, ttElse] then
@@ -2649,6 +2671,8 @@ begin
     RecogniseIdentifier(True);
     Recognise(ttDo);
 
+    RecogniseNotSolidTokens;
+
     { special case - empty statement block, go straight on to the else }
     if fcTokenList.FirstSolidTokenType <> ttElse then
       RecogniseStatement;
@@ -2660,6 +2684,8 @@ begin
     Recognise(ttSemicolon);
 
   PopNode;
+
+  RecogniseNotSolidTokens;
 end;
 
 procedure TBuildParseTree.RecogniseProcedureDeclSection;
@@ -2738,6 +2764,8 @@ begin
   { the ';' is ommited by lazy programmers in some rare occasions}
   if fcTokenList.FirstSolidTokenType = ttSemicolon then
     Recognise(ttSemicolon);
+
+  RecogniseNotSolidTokens;
 
   { if the proc declaration has the directive external or forward,
     it will not have a body
@@ -2853,6 +2881,8 @@ begin
   end;
 
   PopNode;
+
+  RecogniseNotSolidTokens;
 end;
 
 procedure TBuildParseTree.RecogniseProcedureHeading(
@@ -2893,6 +2923,8 @@ begin
   end;
 
   PopNode;
+
+  RecogniseNotSolidTokens;
 end;
 
 procedure TBuildParseTree.RecogniseFormalParameters;
@@ -3151,12 +3183,12 @@ begin
   case lc.TokenType of
     ttInitialization:
     begin
-      Recognise(ttInitialization);
+      Recognise(ttInitialization, True);
       RecogniseStatementList([ttEnd, ttFinalization]);
 
       if fcTokenList.FirstSolidTokenType = ttFinalization then
       begin
-        Recognise(ttFinalization);
+        Recognise(ttFinalization, True);
         RecogniseStatementList([ttEnd]);
       end;
 
@@ -3893,13 +3925,23 @@ end;
 
 { purpose: to consume white space
   make sure that buffertokens(0)
-  contains a retunr, comment or solid token }
+  contains a return, comment or solid token }
 
 procedure TBuildParseTree.RecogniseWhiteSpace;
 begin
   while fcTokenList.FirstTokenType = ttWhiteSpace do
     Recognise(ttWhiteSpace);
 end;
+
+procedure TBuildParseTree.RecogniseNotSolidTokens;
+begin
+  while (fcTokenList.CurrentTokenIndex < fcTokenList.Count) and
+    (fcTokenList.FirstTokenType in NotSolidTokens) do
+  begin
+    TopNode.AddChild(fcTokenList.Extract);
+  end;
+end;
+
 
 procedure TBuildParseTree.RecogniseAsmIdent;
 var

@@ -44,7 +44,7 @@ type
 
 implementation
 
-uses JcfSettings, FormatFlags, SourceToken, Tokens;
+uses JcfSettings, FormatFlags, SourceToken, Tokens, TokenUtils;
 
 
 constructor TRemoveSpaceAtLineEnd.Create;
@@ -67,7 +67,7 @@ begin
     lcNext := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace]);
     if (lcNext <> nil) and (lcNext.TokenType = ttReturn) then
     begin
-      lcSourceToken.SourceCode := '';
+      BlankToken(lcSourceToken);
     end;
   end;
 

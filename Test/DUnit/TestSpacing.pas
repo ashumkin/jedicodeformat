@@ -255,7 +255,7 @@ const
   OUT_UNIT_TEXT = 'unit Test;' + AnsiLineBreak + AnsiLineBreak + 'interface' +
     AnsiLineBreak + AnsiLineBreak +
     'implementation' + AnsiLineBreak + AnsiLineBreak +
-    'procedure foo; ' + AnsiLineBreak + 'begin a := 2; ' + AnsiLineBreak +
+    'procedure foo;' + AnsiLineBreak + 'begin a := 2;' + AnsiLineBreak +
     'end;' + AnsiLineBreak + AnsiLineBreak + 'end.';
 begin
   TestProcessResult(TReturnBefore, IN_UNIT_TEXT, OUT_UNIT_TEXT);

@@ -423,8 +423,13 @@ end;
 
 function InProcedureDeclarations(const pt: TsourceToken): boolean;
 begin
-  Result := (pt.HasParentNode(ProcedureNodes) and
-    (pt.HasParentNode(InProcedureDeclSections)))
+  if pt.HasParentNode(ProcedureNodes) then
+  begin
+    Result := (pt.HasParentNode(InProcedureDeclSections));
+       //or pt.HasParentNode(ProcedureNodes, 1);
+  end
+  else
+    Result := False;
 end;
 
 function InDeclarations(const pt: TsourceToken): boolean;

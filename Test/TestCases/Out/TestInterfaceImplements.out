@@ -6,7 +6,7 @@ unit TestInterfaceImplements;
 
 interface
 
-  { Eg from the help }
+{ Eg from the help }
 type
 
   IMyInterface = interface

@@ -143,8 +143,7 @@ type
     property OutputExtension: string Read GetOutputExtension Write fsOutputExtension;
 
     function GetOutputFileName(const psIn: string): string; overload;
-    function GetOutputFileName(const psIn: string; peMode: TBackupMode): string;
-      overload;
+    function GetOutputFileName(const psIn: string; peMode: TBackupMode): string; overload;
 
     function Output: string;
 
@@ -155,7 +154,6 @@ type
 
     property ExclusionsFiles: TStringList Read fcExclusionsFiles;
     property ExclusionsDirs: TStringList Read fcExclusionsDirs;
-
   end;
 
 function GetRegSettings: TJCFRegistrySettings;

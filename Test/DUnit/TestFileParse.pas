@@ -122,6 +122,7 @@ type
     procedure TestParse_TestCharLiterals;
     procedure TestParse_TestClassLines;
     procedure TestParse_TestCommentIndent;
+    procedure TestParse_TestCommentIndent2;
     procedure TestParse_TestConstRecords;
     procedure TestParse_TestD6;
     procedure TestParse_TestDeclarations;
@@ -412,6 +413,11 @@ begin
   TestParseFile('TestCommentIndent', 549);
 end;
 
+procedure TTestFileParse.TestParse_TestCommentIndent2;
+begin
+  TestParseFile('TestCommentIndent2', 361);
+end;
+
 procedure TTestFileParse.TestParse_TestConstRecords;
 begin
   TestParseFile('TestConstRecords', 760);
@@ -680,7 +686,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 1199);
+  TestParseFile('Testcases.dpr', 1207);
 end;
 
 

@@ -121,6 +121,7 @@ type
     procedure TestObfuscate_TestCharLiterals;
     procedure TestObfuscate_TestClassLines;
     procedure TestObfuscate_TestCommentIndent;
+    procedure TestObfuscate_TestCommentIndent2;
     procedure TestObfuscate_TestConstRecords;
     procedure TestObfuscate_TestD6;
     procedure TestObfuscate_TestDeclarations;
@@ -451,6 +452,11 @@ end;
 procedure TTestObfuscate.TestObfuscate_TestCommentIndent;
 begin
   TestObfuscateFile('TestCommentIndent');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestCommentIndent2;
+begin
+  TestObfuscateFile('TestCommentIndent2');
 end;
 
 procedure TTestObfuscate.TestObfuscate_TestConstRecords;

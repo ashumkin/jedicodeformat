@@ -43,6 +43,7 @@ type
     fbKeepCommentsWithCodeInProcs: boolean;
     fbKeepCommentsWithCodeInGlobals: boolean;
     fbKeepCommentsWithCodeInClassDef: boolean;
+    fbKeepCommentsWithCodeElsewhere: boolean;
 
   protected
   public
@@ -73,6 +74,8 @@ type
       Read fbKeepCommentsWithCodeInGlobals Write fbKeepCommentsWithCodeInGlobals;
     property KeepCommentsWithCodeInClassDef: boolean
       Read fbKeepCommentsWithCodeInClassDef Write fbKeepCommentsWithCodeInClassDef;
+    property KeepCommentsWithCodeElsewhere: boolean
+      Read fbKeepCommentsWithCodeElsewhere Write fbKeepCommentsWithCodeElsewhere;
 
   end;
 
@@ -91,9 +94,10 @@ const
   REG_INDENT_BEGIN_END = 'IndentBeginEnd';
   REG_INDENT_BEGIN_END_SPACES = 'IndentbeginEndSpaces';
 
-  REG_KEEP_COMMENTS_WTH_CODE_CLASS_DEF  = 'KeepCommentsWithCodeInClassDef';
-  REG_KEEP_COMMENTS_WTH_CODE_IN_PROCS   = 'KeepCommentsWithCodeInProcs';
-  REG_KEEP_COMMENTS_WTH_CODE_IN_GLOBALS = 'KeepCommentsWithCodeInGlobals';
+  REG_KEEP_COMMENTS_WITH_CODE_CLASS_DEF  = 'KeepCommentsWithCodeInClassDef';
+  REG_KEEP_COMMENTS_WITH_CODE_IN_PROCS   = 'KeepCommentsWithCodeInProcs';
+  REG_KEEP_COMMENTS_WITH_CODE_IN_GLOBALS = 'KeepCommentsWithCodeInGlobals';
+  REG_KEEP_COMMENTS_WITH_CODE_ELSEWHERE = 'KeepCommentsWithCodeElsewhere';
 
 constructor TSetIndent.Create;
 begin
@@ -118,11 +122,13 @@ begin
   fiIndentBeginEndSpaces := pcStream.Read(REG_INDENT_BEGIN_END_SPACES, 1);
 
   fbKeepCommentsWithCodeInGlobals  :=
-    pcStream.Read(REG_KEEP_COMMENTS_WTH_CODE_IN_GLOBALS, True);
+    pcStream.Read(REG_KEEP_COMMENTS_WITH_CODE_IN_GLOBALS, True);
   fbKeepCommentsWithCodeInProcs    :=
-    pcStream.Read(REG_KEEP_COMMENTS_WTH_CODE_IN_PROCS, True);
+    pcStream.Read(REG_KEEP_COMMENTS_WITH_CODE_IN_PROCS, True);
   fbKeepCommentsWithCodeInClassDef :=
-    pcStream.Read(REG_KEEP_COMMENTS_WTH_CODE_CLASS_DEF, True);
+    pcStream.Read(REG_KEEP_COMMENTS_WITH_CODE_CLASS_DEF, True);
+  fbKeepCommentsWithCodeElsewhere :=
+    pcStream.Read(REG_KEEP_COMMENTS_WITH_CODE_ELSEWHERE, True);
 end;
 
 procedure TSetIndent.WriteToStream(const pcOut: TSettingsOutput);
@@ -138,9 +144,11 @@ begin
   pcOut.Write(REG_INDENT_CLASSES, fbIndentClasses);
   pcOut.Write(REG_INDENT_PROCEDURES, fbIndentProcedures);
 
-  pcOut.Write(REG_KEEP_COMMENTS_WTH_CODE_IN_GLOBALS, fbKeepCommentsWithCodeInGlobals);
-  pcOut.Write(REG_KEEP_COMMENTS_WTH_CODE_IN_PROCS, fbKeepCommentsWithCodeInProcs);
-  pcOut.Write(REG_KEEP_COMMENTS_WTH_CODE_CLASS_DEF, fbKeepCommentsWithCodeInClassDef);
+  pcOut.Write(REG_KEEP_COMMENTS_WITH_CODE_IN_GLOBALS, fbKeepCommentsWithCodeInGlobals);
+  pcOut.Write(REG_KEEP_COMMENTS_WITH_CODE_IN_PROCS, fbKeepCommentsWithCodeInProcs);
+  pcOut.Write(REG_KEEP_COMMENTS_WITH_CODE_CLASS_DEF, fbKeepCommentsWithCodeInClassDef);
+  pcOut.Write(REG_KEEP_COMMENTS_WITH_CODE_ELSEWHERE, fbKeepCommentsWithCodeElsewhere);
+
 
   pcOut.Write(REG_INDENT_BEGIN_END, fbIndentBeginEnd);
   pcOut.Write(REG_INDENT_BEGIN_END_SPACES, fiIndentBeginEndSpaces);

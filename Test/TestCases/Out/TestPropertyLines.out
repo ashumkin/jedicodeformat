@@ -76,13 +76,14 @@ type
     property Fred1: integer Read FFred1 Write SetFred1;
 
     property Fred2: integer
-      // a comment that my cause trouble
+    // a comment that my cause trouble
       Read FFred2
-      // a comment that my cause trouble
+    // a comment that my cause trouble
       Write SetFred2;
 
-    property Fred3      { a comment that my cause trouble }:
-      (* a comment that my cause trouble *)integer Read FFred3 Write SetFred3;
+    property Fred3
+    { a comment that my cause trouble }:
+    (* a comment that my cause trouble *)  integer Read FFred3 Write SetFred3;
 
     property Fred4: integer Read
     // a comment that my cause trouble

@@ -32,8 +32,9 @@ uses
 type
   TTestFile = class(TTestCase)
   protected
-    procedure TestFileContentsSame(const psFileName1, psFileName2: string);
+    procedure Setup; override;
 
+    procedure TestFileContentsSame(const psFileName1, psFileName2: string);
   end;
 
 implementation
@@ -42,7 +43,16 @@ uses
   { delphi }
   SysUtils,
   { jcl }
-  JclStrings;
+  JclStrings,
+  { jcf }
+  TestConstants;
+
+procedure TTestFile.Setup;
+begin
+  inherited;
+
+  InitTestSettings;
+end;
 
 procedure TTestFile.TestFileContentsSame(const psFileName1, psFileName2: string);
 var

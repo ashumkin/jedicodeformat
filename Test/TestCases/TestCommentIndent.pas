@@ -1,7 +1,10 @@
 unit TestCommentIndent;
 
 { AFS 8 May 2001
-  Test the comment indenting options }
+  Test the comment indenting options
+
+ This unit compiles but is not semantically meaningfull
+ it is test cases for the code formatting utility }
 
 interface
 

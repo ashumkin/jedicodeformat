@@ -41,7 +41,7 @@ const
     );
 
 
-  { same again, but using a type alias }
+{ same again, but using a type alias }
 type
   TDIObjectDataFormatArray = array[0..0] of TDIObjectDataFormat;
 

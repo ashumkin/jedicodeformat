@@ -628,7 +628,7 @@ end;
 { find the first leaf before this one }
 function TParseTreeNode.PriorLeafNode: TParseTreeNode;
 var
-  lcFocus, lcParent: TParseTreeNode;
+  lcFocus, lcParent, lcLeaf: TParseTreeNode;
 begin
   // get the node before this one
   Result := Parent.FirstNodeBefore(Self);
@@ -655,7 +655,14 @@ begin
       // result is a bare branch. Move on
       Result := Result.PriorLeafNode
     else
-      Result := Result.LastLeaf;
+    begin
+      lcLeaf := Result.LastLeaf;
+      if lcLeaf = nil then
+        // result is a bare branch. Move on
+        Result := Result.PriorLeafNode
+      else
+        Result := lcLeaf;
+    end;
   end;
 end;
 

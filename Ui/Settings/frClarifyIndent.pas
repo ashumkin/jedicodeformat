@@ -46,6 +46,7 @@ type
     cbKeepWithInProc: TCheckBox;
     cbKeepWithInGlobals: TCheckBox;
     cbKeepWithInClassDef: TCheckBox;
+    cbKeepWithElsewhere: TCheckBox;
     procedure cbIndentBeginEndClick(Sender: TObject);
     procedure cbHasFirstLevelIndentClick(Sender: TObject);
   private
@@ -90,6 +91,7 @@ begin
     cbKeepWithInProc.Checked     := KeepCommentsWithCodeInProcs;
     cbKeepWithInGlobals.Checked  := KeepCommentsWithCodeInGlobals;
     cbKeepWithInClassDef.Checked := KeepCommentsWithCodeInClassDef;
+    cbKeepWithElsewhere.Checked  := KeepCommentsWithCodeElsewhere;
   end;
 
   cbIndentBeginEndClick(nil);
@@ -115,6 +117,8 @@ begin
     KeepCommentsWithCodeInProcs    := cbKeepWithInProc.Checked;
     KeepCommentsWithCodeInGlobals  := cbKeepWithInGlobals.Checked;
     KeepCommentsWithCodeInClassDef := cbKeepWithInClassDef.Checked;
+    KeepCommentsWithCodeElsewhere  := cbKeepWithElsewhere.Checked;
+
   end;
 end;
 

@@ -1,0 +1,6 @@
+unit testcommentindent2;interface uses sysutils;const foo=3;var lb:boolean;type 
+aninteger=integer;tfooclass=class public procedure bar;end;implementation uses dialogs
+,classes;procedure tfooclass.bar;const limit=99;var licounter:integer;begin for licounter
+:=0 to limit do begin lb:=not lb;end;end;procedure testtry;begin try lb:=not lb;except
+;end;try lb:=not lb;except on e:exception do showmessage('Era');end;end;initialization
+lb:=false;begin lb:=not lb;end;finalization lb:=false;end. 

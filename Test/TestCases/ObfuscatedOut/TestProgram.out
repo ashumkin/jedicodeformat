@@ -25,7 +25,8 @@ uses
   noscreensaver in 'Classes\NoScreenSaver.pas',
   patterncreatethread in 'Pattern\PatternCreateThread.pas',
   patterndisplaythread in 'Pattern\PatternDisplayThread.pas',
-  directdrawform in 'DirectDrawForm.pas' {frmDirectDraw},
+  directdrawform in 'DirectDrawForm.pas'
+  {frmDirectDraw},
   mainform in 'MainForm.pas' {frmMain},
   aboutform in 'AboutForm.pas' {frmAbout},
   stringfunctions in '..\Functions\StringFunctions.pas' {this is a long comment, as there might be a long form name which should not be line-broken},

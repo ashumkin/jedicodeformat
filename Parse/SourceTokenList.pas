@@ -65,7 +65,8 @@ type
     function Add(const pcToken: TSourceToken): integer;
     procedure SetXYPositions;
     procedure Insert(const piIndex: integer; const pcItem: TSourceToken);
-    function Extract(const piIndex: integer): TSourceToken;
+    function Extract: TSourceToken;
+    function EOF: boolean;
     procedure Delete(const piIndex: integer);
 
     { not relative to current token index }
@@ -263,15 +264,21 @@ begin
   end;
 end;
 
-function TSourceTokenList.Extract(const piIndex: integer): TSourceToken;
+function TSourceTokenList.Extract: TSourceToken;
 begin
   { remove the current item and advance to the next item
 
     Here I am not doing any index checking at all.
     This thing needs to be FAST. Access to here is quite controlled anyway.}
-  Result := TSourceToken(List^[piIndex]);
-  List^[piIndex] := nil;
-  fiCurrentTokenIndex := piIndex + 1;
+  Result := TSourceToken(List^[fiCurrentTokenIndex]);
+  List^[fiCurrentTokenIndex] := nil;
+
+  inc(fiCurrentTokenIndex);
+end;
+
+function TSourceTokenList.EOF: boolean;
+begin
+  Result := fiCurrentTokenIndex >= Count;
 end;
 
 procedure TSourceTokenList.Insert(const piIndex: integer; const pcItem: TSourceToken);

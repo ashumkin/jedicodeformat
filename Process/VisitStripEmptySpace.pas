@@ -55,6 +55,7 @@ begin
     if (lcSourceToken.SourceCode = '') then
     begin
       lcSourceToken.Free;
+      Result := True;
     end
     else
     begin
@@ -64,6 +65,7 @@ begin
       begin
         lcNext.SourceCode := lcNext.SourceCode + lcSourceToken.SourceCode;
         lcSourceToken.Free;
+        Result := True;
       end;
     end;
   end;

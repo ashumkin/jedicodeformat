@@ -11,7 +11,8 @@ implementation
 
 uses
 {$IFDEF MSWINDOWS}
-  SysUtils{$ELSE}
+  SysUtils
+{$ELSE}
 FooLinux
 
 {$ENDIF};

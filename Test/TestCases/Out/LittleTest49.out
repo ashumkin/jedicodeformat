@@ -23,7 +23,7 @@ begin
     if Foo > 3 then
       goto gTarget;
 
-      // label just before finally
+    // label just before finally
     gTarget:
   finally
     Foo;
@@ -41,7 +41,7 @@ begin
     if Foo > 3 then
       goto gTarget;
 
-      // label just before except
+    // label just before except
     gTarget:
   except
     Bar;

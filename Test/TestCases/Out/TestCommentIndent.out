@@ -1,27 +1,30 @@
 unit TestCommentIndent;
 
 { AFS 8 May 2001
-  Test the comment indenting options }
+  Test the comment indenting options
+
+ This unit compiles but is not semantically meaningfull
+ it is test cases for the code formatting utility }
 
 interface
 
-  // this is a left-aligned single-line comment
-  { this is a left-aligned single-line comment }
-  (* this is a left-aligned single-line comment *)
-  // this is an indented single-line comment
-  { this is an indented single-line comment }
-  (* this is an indented single-line comment *)
-                // this is an extremely indented single-line comment
-                { this is an extremely indented single-line comment }
-                (* this is an extremely indented single-line comment *)
+ // this is a left-aligned single-line comment
+ { this is a left-aligned single-line comment }
+ (* this is a left-aligned single-line comment *)
+ // this is an indented single-line comment
+ { this is an indented single-line comment }
+ (* this is an indented single-line comment *)
+ // this is an extremely indented single-line comment
+ { this is an extremely indented single-line comment }
+ (* this is an extremely indented single-line comment *)
 
 const
   fred   = 3;
-// a comment
+  // a comment
   jim    = 3;
-{ another comment }
+  { another comment }
   spon   = 4;
-(* last single-line comment *)
+  (* last single-line comment *)
   wibble = 67;
   { a comment
     may span
@@ -29,10 +32,10 @@ const
   Fish   = 'cod';
 
 procedure Proc1;
-  // a comment
-  // in two parts
+ // a comment
+ // in two parts
 procedure Proc2;
-  { another comment }
+{ another comment }
 procedure Proc3;
   (* this is
      a longer comment
@@ -42,7 +45,7 @@ procedure Proc4;
 
 type
   TFred = integer;
-// foo!
+  // foo!
   TBar  = integer;
 { a
   long
@@ -52,18 +55,18 @@ type
   TAClass = class(TObject)
   public
     procedure Proc1;
-// an other comment
+    // an other comment
     procedure Proc2;
 { a
   multiline comment }
     procedure Proc3;
-                { single-line comment, out of whack }
+    { single-line comment, out of whack }
     procedure Proc4;
 
     procedure Proc5(
-      // a parameter - this comment should not be pulled up to the previous line
+    // a parameter - this comment should not be pulled up to the previous line
       p1: integer;
-      // another param
+    // another param
       p2: string);
 
     { this one eshould end up on one line}
@@ -77,19 +80,19 @@ var
   li1, li2: integer;
 begin
   li1 := 0;
-// init to zero
+  // init to zero
   li2 := Random(3);
 
   if li2 > 1 then
   begin
     li1 := 3;
-// a comment
+    // a comment
     li1 := li1 + Random(3);
-{ another comment }
+    { another comment }
     if li1 > 3 then
     begin
       li2 := 0;
-  (* yet another comment *)
+      (* yet another comment *)
       li2 := li2 + 3;
 {  this comment
    has several lines

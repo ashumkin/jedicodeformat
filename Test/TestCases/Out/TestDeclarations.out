@@ -12,7 +12,7 @@ unit TestDeclarations;
 
 interface
 
-  { untyped consts }
+{ untyped consts }
 const
   FRED_CONST_1 = 34;
   FRED_CONST_TWO = 'Fred';
@@ -20,7 +20,7 @@ const
   MO_MONEY = 123.45;
   PIGS_CAN_FLY = false;
 
-{ typed constants }
+  { typed constants }
   FRED_NAME: string    = 'Fred!';
   FRED_COUNT: integer  = 2;
   FRED_MONEY: currency = 234.4;
@@ -34,12 +34,12 @@ const
   TinyAmount  = -9.9E-10;
 
 
-  { resourcestring consts }
+{ resourcestring consts }
 resourcestring
   CreateError = 'Cannot create fred %s';
-        {  for explanations of format specifiers, }
+  {  for explanations of format specifiers, }
   OpenError   = 'Cannot open fool %s';
-            { see 'Format strings' in the online Help }
+  { see 'Format strings' in the online Help }
   LineTooLong = 'Line too silly';
   ProductName = 'CodeFormat\000\000';
   SomeResourceString = GIMP;
@@ -59,7 +59,7 @@ type
 
 const
 
-{ funny chars }
+  { funny chars }
   BIT_TWIDDLED: integer = $F00F;
   HEX_VALUE: integer    = $0BADBEEF;
   MY_FAVORITE_LETTER: char = #96;
@@ -68,14 +68,14 @@ const
 type
   TStuff      = (eThis, eThat, eTheOther, eSomethingElse, Fish, Wibble, Spon);
   TStuffSet   = set of TStuff;
-{ subrange on an enumerated type }
+  { subrange on an enumerated type }
   TSillyStuff = Fish .. Spon;
 
 const
   MyStuff    = [eThis, eTheOther];
   OtherStuff = [eThat, eSomethingElse];
 
-  // found this as  a code e.g. in the kylix docs, doesn't compile in D5
+// found this as  a code e.g. in the kylix docs, doesn't compile in D5
   {
 type
   TSizeEnumWithAssignedOrds =
@@ -135,7 +135,7 @@ begin
     Result := Result * 2;
   end;
 
- { array dereference }
+  { array dereference }
   MyFluggle[Result] := MyFlig[piFred + 1] + MyFlig[MyFlig[piFred + 1]] > 10;
 end;
 

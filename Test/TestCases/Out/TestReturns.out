@@ -27,7 +27,8 @@ begin
     ShowMessage('Fred');
   end;
 
-  if 1 < 5  // this is a dangerous comment
+  if 1 < 5
+  // this is a dangerous comment
   then
     Dec(i);
 

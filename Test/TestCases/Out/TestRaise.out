@@ -38,7 +38,7 @@ begin
   try
     Result := StrToDate(DateStr);
   except
-      // Ignore EConvertError exceptions
+    // Ignore EConvertError exceptions
     on EConvertError do
       ;
     // and math errors

@@ -37,7 +37,7 @@ type
       var pcsString: string]: boolean Read GetComplexArrayProp;
 
   published
-  { properties, plain to complex}
+    { properties, plain to complex}
     property Bar: integer Read fiBar Write fiBar;
     property Baz: integer index 3 Read fiBaz Write fiBaz;
     property Wibble: integer Read fiWibble Write fiWibble stored false;
