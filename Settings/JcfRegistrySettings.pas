@@ -417,15 +417,37 @@ begin
 end;
 
 function TJCFRegistrySettings.DirIsExcluded(const psDir: string): boolean;
+var
+  liPos: integer;
+  lsBareDir: string;
 begin
-  { !!! check without paths  }
+  { exact match  }
   Result := (fcExclusionsDirs.IndexOf(psDir) >= 0);
+
+  if not Result then
+  begin
+    liPos := StrLastPos('/', psDir);
+    if liPos > 0 then
+    begin
+      lsBareDir := StrRestOf(psDir, liPos + 1);
+      Result := (fcExclusionsDirs.IndexOf(lsBareDir) >= 0);
+    end;
+  end;
 end;
 
 function TJCFRegistrySettings.FileIsExcluded(const psFile: string): boolean;
+var
+  lsBareFile: string;
 begin
-  { !!! check without paths & extensions ! }
+  { exact match  }
   Result := (fcExclusionsFiles.IndexOf(psFile) >= 0);
+
+  if not Result then
+  begin
+    // no exact match? then extract the bare file name - no path or ext
+    lsBareFile :=  PathExtractFileNameNoExt(psFile);
+    Result := (fcExclusionsFiles.IndexOf(lsBareFile) >= 0);
+  end;
 end;
 
 function TJCFRegistrySettings.GetOutputFileName(const psIn: string;

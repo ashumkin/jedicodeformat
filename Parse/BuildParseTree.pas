@@ -74,7 +74,7 @@ type
     procedure RecogniseProcedureHeading(const pbAnon: Boolean);
     procedure RecogniseFunctionHeading(const pbAnon: Boolean);
     procedure RecogniseCompoundStmnt;
-    procedure RecogniseStmntList(const peEndWords: TWordSet);
+    procedure RecogniseStatementList(const peEndWords: TWordSet);
     procedure RecogniseStatement;
 
     procedure RecogniseTypeId;
@@ -1905,7 +1905,7 @@ begin
   PopNode;
 end;
 
-procedure TBuildParseTree.RecogniseStmntList(const peEndWords: TWordSet);
+procedure TBuildParseTree.RecogniseStatementList(const peEndWords: TWordSet);
 begin
   // StmtList -> Statement/';'...
   PushNode(nStatementList);
@@ -2059,7 +2059,7 @@ begin
   { CompoundStmt -> BEGIN StmtList END }
   PushNode(nCompoundStatement);
   Recognise(wBegin);
-  RecogniseStmntList([wEnd]);
+  RecogniseStatementList([wEnd]);
   Recognise(wEnd);
   PopNode;
 end;
@@ -2112,7 +2112,7 @@ begin
   begin
     PushNode(nElseCase);
     Recognise(wElse);
-    RecogniseStmntList([wEnd]);
+    RecogniseStatementList([wEnd]);
     PopNode;
   end;
 
@@ -2269,7 +2269,7 @@ begin
   PushNode(nTryBlock);
 
   Recognise(wTry);
-  RecogniseStmntList([wEnd, wFinally, wExcept]);
+  RecogniseStatementList([wEnd, wFinally, wExcept]);
 
   PopNode;
 
@@ -2280,7 +2280,7 @@ begin
       PushNode(nFinallyBlock);
 
       Recognise(wFinally);
-      RecogniseStmntList([wEnd]);
+      RecogniseStatementList([wEnd]);
       Recognise(wEnd);
 
       PopNode;
@@ -2306,7 +2306,8 @@ end;
 procedure TBuildParseTree.RecogniseExceptionHandlerBlock;
 begin
   { um. Double-um
-    can be a statement or those 'on Excepttype' thingies
+    can be a statement list
+     or those 'on Excepttype' thingies
     ie
 
     try
@@ -2343,9 +2344,8 @@ begin
   end
   else
   begin
-    RecogniseStatement;
-    if TokenList.FirstSolidTokenType = ttSemiColon then
-      Recognise(ttSemiColon);
+    // can be 0 or more statements 
+    RecogniseStatementList([wEnd]);
   end;
 
   PopNode;
@@ -2827,12 +2827,12 @@ begin
     wInitialization:
     begin
       Recognise(wInitialization);
-      RecogniseStmntList([wEnd, wFinalization]);
+      RecogniseStatementList([wEnd, wFinalization]);
 
       if TokenList.FirstSolidTokenWord = wFinalization then
       begin
         Recognise(wFinalization);
-        RecogniseStmntList([wEnd]);
+        RecogniseStatementList([wEnd]);
       end;
 
       Recognise(wEnd);
@@ -2840,7 +2840,7 @@ begin
     wBegin:
     begin
       Recognise(wBegin);
-      RecogniseStmntList([wEnd]);
+      RecogniseStatementList([wEnd]);
       Recognise(wEnd);
     end;
     wEnd:

@@ -144,5 +144,55 @@ begin
   end;
 end;
 
+procedure TestReraise;
+begin
+  try
+    TesttryProc;
+  except
+    ShowMessage('There was an exception');
+    Raise;
+  end;
+end;
+
+procedure TestReraise2;
+var
+  li: integer;
+begin
+  try
+    TesttryProc;
+  except
+    ShowMessage('There was an exception');
+    // whole buncha statements
+    ShowMessage('There was an exception');
+    li := 0;
+    ShowMessage('There was an exception');
+    for li := 0 to 10 do
+      ShowMessage('There was an exception');
+    begin
+      TesttryProc;
+    end;
+    Raise;
+  end;
+end;
+
+procedure TestBigFinally;
+var
+  li: integer;
+begin
+  try
+    TesttryProc;
+  finally
+    ShowMessage('There was an exception');
+    // whole buncha statements
+    ShowMessage('There was an exception');
+    li := 0;
+    ShowMessage('There was an exception');
+    for li := 0 to 10 do
+      ShowMessage('There was an exception');
+    begin
+      TesttryProc;
+    end;
+  end;
+end;
 
 end.

@@ -38,7 +38,7 @@ type
     edtBackupExt: TEdit;
     edtOutputExt: TEdit;
     cbLogTime: TCheckBox;
-    TabSheet1: TTabSheet;
+    tsExclusions: TTabSheet;
     lblFilesCaption: TLabel;
     lblDirsCaption: TLabel;
     mFiles: TJvMemo;
@@ -52,6 +52,7 @@ type
     procedure FormResize(Sender: TObject);
     procedure sbSpecifedDirClick(Sender: TObject);
     procedure btnViewLogClick(Sender: TObject);
+    procedure tsExclusionsResize(Sender: TObject);
   private
     fsSpecifiedDirectory: string;
 
@@ -220,6 +221,17 @@ begin
   rgLogDir.Items[0] := 'Temp: ' + GetWindowsTempFolder;
   rgLogDir.Items[1] := 'Application: ' +  PathAddSeparator(ExtractFileDir(ParamStr(0)));
   rgLogDir.Items[2] := 'Specified: ' + fsSpecifiedDirectory;
+end;
+
+procedure TfmRegistrySettings.tsExclusionsResize(Sender: TObject);
+const
+  SPACING = 8;
+begin
+  mFiles.Left := SPACING;
+  mFiles.Width := tsExclusions.ClientWidth - (SPACING * 2);
+
+  mDirs.Left := SPACING;
+  mDirs.Width := tsExclusions.ClientWidth - (SPACING * 2);
 end;
 
 end.

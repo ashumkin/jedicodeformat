@@ -4,7 +4,7 @@ object fmRegistrySettings: TfmRegistrySettings
   BorderStyle = bsDialog
   Caption = 'JCF Notepad registry settings'
   ClientHeight = 309
-  ClientWidth = 546
+  ClientWidth = 480
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,9 +19,9 @@ object fmRegistrySettings: TfmRegistrySettings
   object pgPages: TPageControl
     Left = 0
     Top = 0
-    Width = 546
+    Width = 480
     Height = 264
-    ActivePage = tsLogFile
+    ActivePage = tsExclusions
     Align = alClient
     TabOrder = 0
     object tsGeneral: TTabSheet
@@ -190,9 +190,10 @@ object fmRegistrySettings: TfmRegistrySettings
         TabOrder = 6
       end
     end
-    object TabSheet1: TTabSheet
+    object tsExclusions: TTabSheet
       Caption = '&Exclusions'
       ImageIndex = 2
+      OnResize = tsExclusionsResize
       object lblFilesCaption: TLabel
         Left = 8
         Top = 4
@@ -234,25 +235,25 @@ object fmRegistrySettings: TfmRegistrySettings
   object pnlBottom: TPanel
     Left = 0
     Top = 264
-    Width = 546
+    Width = 480
     Height = 45
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 1
     object btnOK: TBitBtn
-      Left = 168
+      Left = 159
       Top = 9
       Width = 75
-      Height = 28
+      Height = 30
       TabOrder = 0
       OnClick = btnOKClick
       Kind = bkOK
     end
     object btnCancel: TBitBtn
-      Left = 256
+      Left = 247
       Top = 9
       Width = 75
-      Height = 28
+      Height = 30
       TabOrder = 1
       OnClick = btnCancelClick
       Kind = bkCancel

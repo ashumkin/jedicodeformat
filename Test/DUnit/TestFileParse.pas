@@ -533,7 +533,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestTry;
 begin
-  TestParseFile('TestTry', 608);
+  TestParseFile('TestTry', 845);
 end;
 
 procedure TTestFileParse.TestParse_TestTypeDefs;
