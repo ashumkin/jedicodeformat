@@ -114,7 +114,24 @@ begin
 
     li2 := li1 + li2;
   end;
+end;
 
+type
+  TFish =
+    (GoldFish, tetra, hake, haddock, trout,
+    salmon, catfish, bass, eel, shark);
+
+const
+  Pond: array [0..6] of TFish =
+    (GoldFish, GoldFish, eel, haddock, shark, trout, salmon);
+
+
+procedure TestComplexAsm;
+begin
+  // sourceforge snag 926926
+  asm
+    MOVZX   EAX, TFish(Pond[EDX])
+  end;
 end;
 
 end.

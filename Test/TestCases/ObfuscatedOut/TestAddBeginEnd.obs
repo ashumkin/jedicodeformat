@@ -1,0 +1,10 @@
+unit testaddbeginend;interface implementation procedure testif;var str1:string;bfoo
+:boolean;ifish:integer;begin if bfoo then str1:='';if bfoo then begin str1:='';end
+;if bfoo then str1:='troo'else str1:='fals';if bfoo then begin str1:='troo';end else
+str1:='fals';if bfoo then begin str1:='troo';end else begin str1:='fals';end;if bfoo
+then str1:='troo'else begin str1:='fals';end;end;procedure testcases;var str1:string
+;bfoo:boolean;ifish:integer;begin case ifish of 1:bfoo:=true;2:begin bfoo:=false;
+end;else bfoo:=false;end;case ifish of 1:bfoo:=true;else begin bfoo:=false;end end
+;case ifish of 1:bfoo:=true;else bfoo:=false;str1:='troo';end;end;procedure testloop
+;var lbtest:boolean;sfoo:string;liloop:integer;begin while lbtest do lbtest:=not 
+lbtest;for liloop:=0 to 10 do sfoo:=sfoo+'-';end;end.

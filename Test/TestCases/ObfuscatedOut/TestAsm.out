@@ -85,5 +85,18 @@ begin
   end;
 end;
 
+type
+  tfish = (goldfish, tetra, hake, haddock, trout, salmon, catfish, bass, eel, shark);
+
+const
+  pond: array[0..6] of tfish = (goldfish, goldfish, eel, haddock, shark, trout, salmon);
+
+procedure testcomplexasm;
+begin
+  asm
+    movzx eax,tfish(pond[edx])
+  end;
+end;
+
 end.
  
