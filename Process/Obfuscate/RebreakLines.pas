@@ -8,31 +8,32 @@ unit RebreakLines;
 
 interface
 
-uses BaseVisitor, VisitParseTree;
+uses SwitchableVisitor, VisitParseTree;
 
 type
-  TRebreakLines = class(TBaseTreeNodeVisitor)
-    private
-      xPos: integer;
-    public
-      constructor Create; override;
-      
-      procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  TRebreakLines = class(TSwitchableVisitor)
+  private
+    xPos: integer;
+  protected
+    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  public
+    constructor Create; override;
   end;
 
 implementation
 
 uses
   JclStrings,
-  SourceToken, TokenType;
+  SourceToken, TokenType, FormatFlags;
 
 constructor TRebreakLines.Create;
 begin
   inherited;
+  FormatFlags := FormatFlags + [eObfuscate];
   xPos := 1;
 end;
 
-procedure TRebreakLines.VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TRebreakLines.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   lcToken: TSourceToken;
   lcNext, lcNew: TSourceToken;

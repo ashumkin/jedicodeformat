@@ -44,7 +44,7 @@ begin
   inherited;
   fbEnabled := True;
 
-  //by default, format unless alll processors are turned off
+  //by default, format unless all processors are turned off
   feFormatFlags := [eAllFormat];
 end;
 

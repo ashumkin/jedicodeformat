@@ -2,21 +2,29 @@ unit RemoveReturn;
 
 interface
 
-uses BaseVisitor, VisitParseTree;
+uses SwitchableVisitor, VisitParseTree;
 
 type
-  TRemoveReturn = class(TBaseTreeNodeVisitor)
-    public
-      procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  TRemoveReturn = class(TSwitchableVisitor)
+  protected
+    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  public
+    constructor Create; override;
   end;
 
 
 
 implementation
 
-uses ParseTreeNode, SourceToken, TokenType, ParseTreeNodeType;
+uses ParseTreeNode, SourceToken, TokenType, ParseTreeNodeType, FormatFlags;
 
-procedure TRemoveReturn.VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+constructor TRemoveReturn.Create;
+begin
+  inherited;
+  FormatFlags := FormatFlags + [eObfuscate];
+end;
+
+procedure TRemoveReturn.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   lcSourceToken, lcPrev: TSourceToken;
 begin

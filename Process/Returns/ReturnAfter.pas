@@ -229,7 +229,7 @@ begin
   end;
 
   { return after 'type' unless it's the second type in "type foo = type integer;" }
-  if (pt.Word = wType) and (pt.Nestings.Total = 0) and
+  if (pt.Word = wType) and (pt.HasParentNode(nTypeSection, 1)) and
     (not pt.IsOnRightOf(nTypeDecl, wEquals)) then
   begin
     Result := True;

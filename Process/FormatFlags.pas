@@ -10,6 +10,7 @@ interface
 type
 
   TFormatFlag = (eAllFormat,
+    eObfuscate,
     eAddSpace, eRemoveSpace,
     eAddReturn, eRemoveReturn,
     eAlignVars, eAlignConst, eAlignTypeDef, eAlignAssign,  eAlignComment,
@@ -57,9 +58,11 @@ type
   end;
 
 const
-  FORMAT_FLAG_NAMES: array[1..26] of TRFlagNameData =
+  FORMAT_FLAG_NAMES: array[1..27] of TRFlagNameData =
   (
   (sName: 'format'; eFlags: [eAllFormat]),
+  (sName: 'obfuscate'; eFlags: [eObfuscate]),
+
 
   (sName: 'space'; eFlags: [eAddSpace, eRemoveSpace]),
   (sName: 'addspace'; eFlags: [eAddSpace]),

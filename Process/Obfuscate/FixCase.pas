@@ -6,12 +6,14 @@ unit FixCase;
 
 interface
 
-uses BaseVisitor, VisitParseTree;
+uses SwitchableVisitor, VisitParseTree;
 
 type
-  TFixCase = class(TBaseTreeNodeVisitor)
+  TFixCase = class(TSwitchableVisitor)
+  protected
+    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
   public
-    procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    constructor Create; override;
   end;
 
 
@@ -20,7 +22,7 @@ implementation
 uses
   { delphi } SysUtils,
   { jcl } JclStrings,
-  { local } SourceToken, TokenType, ParseTreeNodeType, JcfSettings;
+  { local } SourceToken, TokenType, ParseTreeNodeType, JcfSettings, FormatFlags;
 
 
 { identify the cases where the compiler is case sensitive
@@ -69,7 +71,13 @@ begin
 end;
 
 
-procedure TFixCase.VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+constructor TFixCase.Create;
+begin
+  inherited;
+  FormatFlags := FormatFlags + [eObfuscate];
+end;
+
+procedure TFixCase.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
 begin

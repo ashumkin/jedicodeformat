@@ -5,20 +5,28 @@ unit RemoveBlankLine;
 
 interface
 
-uses BaseVisitor, VisitParseTree;
+uses SwitchableVisitor, VisitParseTree;
 
 type
-  TRemoveBlankLine = class(TBaseTreeNodeVisitor)
-    public
-      procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  TRemoveBlankLine = class(TSwitchableVisitor)
+  protected
+    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  public
+    constructor Create; override;
   end;
 
 implementation
 
-uses ParseTreeNode, SourceToken, TokenType, ParseTreeNodeType;
+uses ParseTreeNode, SourceToken, TokenType, ParseTreeNodeType, FormatFlags;
 
 
-procedure TRemoveBlankLine.VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+constructor TRemoveBlankLine.Create;
+begin
+  inherited;
+  FormatFlags := FormatFlags + [eObfuscate];
+end;
+
+procedure TRemoveBlankLine.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   lcSourceToken, lcNext: TSourceToken;
 begin

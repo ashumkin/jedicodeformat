@@ -66,7 +66,7 @@ procedure TfObfuscateSettings.Read;
 begin
   with FormatSettings.Obfuscate do
   begin
-    cbEnabled.Enabled := Enabled;
+    cbEnabled.Checked := Enabled;
     rgObfuscateCaps.ItemIndex  := Ord(Caps);
     cbRemoveWhiteSpace.Checked := RemoveWhiteSpace;
     cbRemoveComments.Checked   := RemoveComments;
@@ -79,7 +79,7 @@ procedure TfObfuscateSettings.Write;
 begin
   with FormatSettings.Obfuscate do
   begin
-    Enabled := cbEnabled.Enabled;
+    Enabled := cbEnabled.Checked;
     Caps := TCapitalisationType(rgObfuscateCaps.ItemIndex);
     RemoveWhiteSpace := cbRemoveWhiteSpace.Checked;
     RemoveComments := cbRemoveComments.Checked;

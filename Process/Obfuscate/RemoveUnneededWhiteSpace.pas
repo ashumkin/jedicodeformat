@@ -8,19 +8,21 @@ unit RemoveUnneededWhiteSpace;
 
 interface
 
-uses BaseVisitor, VisitParseTree;
+uses SwitchableVisitor, VisitParseTree;
 
 type
-  TRemoveUnneededWhiteSpace = class(TBaseTreeNodeVisitor)
-    public
-      procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  TRemoveUnneededWhiteSpace = class(TSwitchableVisitor)
+  protected
+    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  public
+    constructor Create; override;
   end;
 
 implementation
 
 uses
   JclStrings,
-  { local } SourceToken, TokenType, WordMap, ParseTreeNodeType;
+  { local } SourceToken, TokenType, WordMap, ParseTreeNodeType, FormatFlags;
 
 function TextOrNumberString(const str: string): boolean;
 var
@@ -104,7 +106,13 @@ begin
 end;
 
 
-procedure TRemoveUnneededWhiteSpace.VisitSourceToken(const pcNode: TObject;
+constructor TRemoveUnneededWhiteSpace.Create;
+begin
+  inherited;
+  FormatFlags := FormatFlags + [eObfuscate];
+end;
+
+procedure TRemoveUnneededWhiteSpace.EnabledVisitSourceToken(const pcNode: TObject;
   var prVisitResult: TRVisitResult);
 var
   lcSpace, lcBefore, lcAfter: TSourceToken;

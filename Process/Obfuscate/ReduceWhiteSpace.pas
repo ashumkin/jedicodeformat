@@ -8,20 +8,28 @@ unit ReduceWhiteSpace;
 
 interface
 
-uses BaseVisitor, VisitParseTree;
+uses SwitchableVisitor, VisitParseTree;
 
 type
-  TReduceWhiteSpace = class(TBaseTreeNodeVisitor)
-    public
-      procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  TReduceWhiteSpace = class(TSwitchableVisitor)
+  protected
+    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  public
+    constructor Create; override;
   end;
 
 
 implementation
 
-uses SourceToken, TokenType;
+uses SourceToken, TokenType, FormatFlags;
 
-procedure TReduceWhiteSpace.VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+constructor TReduceWhiteSpace.Create;
+begin
+  inherited;
+  FormatFlags := FormatFlags + [eObfuscate];
+end;
+
+procedure TReduceWhiteSpace.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
 begin
@@ -29,7 +37,6 @@ begin
 
   if lcSourceToken.TokenType = ttWhiteSpace then
     lcSourceToken.SourceCode := ' ';
-
 end;
 
 end.

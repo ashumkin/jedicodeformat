@@ -8,12 +8,14 @@ unit RemoveComment;
 
 interface
 
-uses BaseVisitor, VisitParseTree;
+uses SwitchableVisitor, VisitParseTree;
 
 type
-  TRemoveComment = class(TBaseTreeNodeVisitor)
-    public
-      procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  TRemoveComment = class(TSwitchableVisitor)
+  protected
+    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  public
+    constructor Create; override;
   end;
 
 
@@ -51,7 +53,13 @@ begin
 
 end;
 
-procedure TRemoveComment.VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+constructor TRemoveComment.Create;
+begin
+  inherited;
+  FormatFlags := FormatFlags + [eObfuscate];
+end;
+
+procedure TRemoveComment.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
 begin

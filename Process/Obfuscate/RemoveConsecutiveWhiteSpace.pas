@@ -9,22 +9,30 @@ unit RemoveConsecutiveWhiteSpace;
 
 interface
 
-uses BaseVisitor, VisitParseTree;
+uses SwitchableVisitor, VisitParseTree;
 
 type
-  TRemoveConsecutiveWhiteSpace = class(TBaseTreeNodeVisitor)
-    private
-      fbWhiteSpaceLast: boolean;
-    public
-      procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  TRemoveConsecutiveWhiteSpace = class(TSwitchableVisitor)
+  private
+    fbWhiteSpaceLast: boolean;
+  protected
+    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  public
+    constructor Create; override;
   end;
 
 
 implementation
 
-uses SourceToken, TokenType;
+uses SourceToken, TokenType, FormatFlags;
 
-procedure TRemoveConsecutiveWhiteSpace.VisitSourceToken(const pcNode: TObject;
+constructor TRemoveConsecutiveWhiteSpace.Create;
+begin
+  inherited;
+  FormatFlags := FormatFlags + [eObfuscate];
+end;
+
+procedure TRemoveConsecutiveWhiteSpace.EnabledVisitSourceToken(const pcNode: TObject;
   var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
