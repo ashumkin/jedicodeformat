@@ -359,15 +359,24 @@ begin
         Raise Exception.Create('Exception tokenising "' + psExpression + '": ' + E.Message);
     end;
 
-    // parse
-    try
-      lcParser.Tokens := lcTokeniser.Tokens;
-      lcParser.DefinedSymbols := fcDefinedSymbols;
+    { !! unknown syntax. Accept expression as true ? fix in later version }
+    if lcTokeniser.HasError then
+    begin
+      Result := True;
+    end
+    else
+    begin
+                                             
+      // parse
+      try
+        lcParser.Tokens := lcTokeniser.Tokens;
+        lcParser.DefinedSymbols := fcDefinedSymbols;
 
-      Result := lcParser.Parse;
-    except
-      on E: Exception do
-        Raise Exception.Create('Exception parsing "' + psExpression + '": ' + E.Message);
+        Result := lcParser.Parse;
+      except
+        on E: Exception do
+          Raise Exception.Create('Exception parsing "' + psExpression + '": ' + E.Message);
+      end;
     end;
   finally
     lcTokeniser.Free;

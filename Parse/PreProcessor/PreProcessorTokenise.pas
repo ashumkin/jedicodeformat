@@ -18,6 +18,7 @@ type
   private
     fsExpr: string;
     fiCurrentIndex: integer;
+    fbHasError: Boolean;
 
     fcTokens: TPreProcessorTokenList;
 
@@ -36,6 +37,7 @@ type
 
     property Expression: string read fsExpr write fsExpr;
     property Tokens: TPreProcessorTokenList read fcTokens;
+    property HasError: boolean read fbHasError;
   end;
 
 implementation
@@ -71,11 +73,17 @@ procedure TPreProcessorTokeniser.Tokenise;
 begin
   fcTokens.Clear;
   fiCurrentIndex := 1;
+  fbHasError := False;
 
   while fiCurrentIndex <= Length(fsExpr) do
   begin
     if not TryConsumeFixedSymbol then
-      TryConsumeIdentifier;
+      if not TryConsumeIdentifier then
+      begin
+        // unknown/unsupported Syntax. :(
+        fbHasError := True;
+        break;
+      end;
 
     ConsumeWhiteSpace;
   end;
