@@ -1,6 +1,6 @@
 HelpScribble project file.
 12
-...
+`cbbajbek Vap.-1N53O79Q
 0
 1
 JEDI Delphi Code Format
@@ -38,8 +38,8 @@ Writing
 
 
 FALSE
-43
-{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fmodern Courier New;}}
+41
+{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fmodern Courier New;}{\f3\fnil\fcharset0 Arial;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green128\blue0;}
 \viewkind4\uc1\pard\cf1\b\f0\fs32 Jedi Code Format V\lang2057\f1 2.0 Beta 6\cf0\lang1031\b0\f0\fs20 
 \par \cf2\{keepn\}
@@ -67,8 +67,8 @@ FALSE
 \par \lang2057\f1\tab\cf3\strike Blocks\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 10\lang1031\f0 0\}
 \par \lang2057\f1\tab\cf3\strike Align\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 11\lang1031\f0 0\}
 \par \lang2057\f1\tab\cf3\strike Capitalisation\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 12\lang1031\f0 0\}
-\par \lang2057\f1\tab\cf3\strike Find and replace\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 14\lang1031\f0 0\}
-\par \lang2057\f1\tab\cf3\strike Find and replace on uses\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 15\lang1031\f0 0\}
+\par \lang2057\f1\tab\cf3\strike Find and replace\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 13\lang1031\f0 0\}
+\par \lang2057\f1\tab\cf3\strike Find and replace on uses\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 14\lang1031\f0 0\}
 \par \cf0 
 \par \cf3\lang3079\strike\f1 Command line parameters\cf2\strike0\{linkID=200\}
 \par \cf3\strike Special Comments\cf2\lang1031\strike0\f0\{linkID=210\}
@@ -76,11 +76,9 @@ FALSE
 \par Th\f1 e newest version of the Jedi Code Format can always be found at \f0 
 \par \cf1\strike\f2 http://jedicodeformat.sourceforge.net/\cf2\strike0\{link=*! ExecFile("http://jedicodeformat.sourceforge.net/")\}\cf0\f0 
 \par \f1 
-\par \f2\fs22\{rtf=\\brdrb\}
-\par \{rtf=\\pard\}
-\par \f1\fs20 
+\par Helpfile by \cf3\strike Ralf Steinhaeusser\cf2\strike0\{linkID=1000\}
 \par 
-\par Helpfile (c) 2001-2003 by \cf3\strike Ralf Steinhaeusser\cf2\strike0\{linkID=1000\}\cf0 
+\par \cf0\f3 Last change : August 18th, 2003\f1 
 \par }
 12
 Scribble12
@@ -945,7 +943,7 @@ Writing
 
 
 FALSE
-25
+21
 {\rtf1\ansi\ansicpg1252\deff0\deflang3079{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil Arial;}{\f2\fswiss Arial;}{\f3\fmodern Courier New;}{\f4\fswiss\fcharset0 Arial;}{\f5\fnil Courier New;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;}
 \viewkind4\uc1\pard\cf1\lang1031\b\fs32 Info...\cf0\lang3079\b0\f1\fs20 
@@ -957,19 +955,15 @@ FALSE
 \par I really love the tool but I sometimes have to play around with the options to find out what they do. 
 \par That's why I put together this help file...
 \par 
-\par Feel free to send additions/corrections, better explanations or whatever concerning this helpfile to \cf1\strike\f3 codeformat@spoonworx.com\cf2\strike0\{link=*! ExecFile("mailto:codeformat@spoonworx.com")\}\cf0\f2 . 
+\par Feel free to send additions/corrections, better explanations or whatever concerning this helpfile to \cf1\strike\f3 codeformat@spoonworx.com\cf2\strike0\{link=*! ExecFile("mailto:codeformat@spoonworx.com")\}\cf0\f2 . \lang3079\f4 You can also get the source for this helpfile from the Sourceforge CVS. The helpfile is created using HelpScribble, and you can use the free demo-version (available from the Helpscribble-homepage from \cf1\strike\f5 http://www.helpscribble.com\cf2\strike0\{link=*! ExecFile("http://www.helpscribble.com")\}\cf0\f4 ) to make changes to this helpfile. If you will send us your modified helpfile (the source), we will try to include your changes into the next possible release.
+\par \lang1031\f2 
 \par \f4 C\f2 omments regarding the program should be sent to Anthony Steele (\cf1\strike\f3 anthonysteele@users.sourceforge.net\cf2\strike0\{link=*! ExecFile("anthonysteele@users.sourceforge.net")\}\cf0\f2 ).
 \par \lang3079\f1 
 \par \lang1031\f0 Borland styleguides can be found at
 \par \cf1\strike\f5 http://community.borland.com/article/0,1410,10280,00.html\cf2\strike0\{link=*! ExecFile("http://community.borland.com/article/0,1410,10280,00.html")\}\cf0\f0 
 \par 
-\par \f3\fs22\{rtf=\\box\}
-\par \f0\fs20 Ralf Steinhaeusser,
-\par SpoonworX Inc.
-\par \f3\fs22\{rtf=\\pard\}
-\par \f0\fs20 
-\par 
-\par Last change : August 17th, 2003\lang3079\f1 
+\par Ralf Steinhaeusser,
+\par SpoonworX Inc.\lang3079\f1 
 \par }
 1
 main="",(120,44,658,726),0,(255,255,255),(255,255,196),0
