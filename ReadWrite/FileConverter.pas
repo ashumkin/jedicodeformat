@@ -126,7 +126,7 @@ begin
   SendStatusMessage(lsMessage);
   fsOriginalFileName := psInput;
 
-  lsOut := FormatSettings.FileSettings.GetOutputFileName(psInput);
+  lsOut := FormatSettings.FileSettings.GetOutputFileName(psInput, peBackupMode);
 
   if BackupMode <> cmInplace then
   begin

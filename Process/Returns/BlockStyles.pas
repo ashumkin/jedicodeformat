@@ -155,7 +155,7 @@ begin
   end;
 
 
-  if not (lcSourceToken.Word in BreakWords) or IsLabelColon(lcSourceToken) or IsCaseColon(lcSourceToken) then
+  if (lcSourceToken.Word in BreakWords) or IsLabelColon(lcSourceToken) or IsCaseColon(lcSourceToken) then
   begin
     leStyle := GetStyle(lcSourceToken);
 

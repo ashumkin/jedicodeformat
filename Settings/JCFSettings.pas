@@ -66,6 +66,7 @@ type
 
     procedure Read;
     procedure ReadFromFile(const psFileName: string);
+    procedure ReadDefaults;
     procedure Write;
 
     procedure ToStream(const pcStream: TSettingsOutput);
@@ -105,18 +106,18 @@ constructor TFormatSettings.Create;
 begin
   inherited;
 
-  fcFile     := TSetFile.Create;
-  fcObfuscate     := TSetObfuscate.Create;
-  fcClarify     := TSetClarify.Create;
-  fcIndent     := TSetIndent.Create;
-  fcSpaces     := TSetSpaces.Create;
+  fcFile := TSetFile.Create;
+  fcObfuscate := TSetObfuscate.Create;
+  fcClarify := TSetClarify.Create;
+  fcIndent := TSetIndent.Create;
+  fcSpaces := TSetSpaces.Create;
   fcReturns := TSetReturns.Create;
-  fcCaps     := TSetCaps.Create;
-  fcSpecificWordCaps     := TSetAnyWordCaps.Create;
-  fcAlign     := TSetAlign.Create;
-  fcReplace     := TSetReplace.Create;
-  fcUses     := TSetUses.Create;
-  fcLog     := TSetLog.Create;
+  fcCaps := TSetCaps.Create;
+  fcSpecificWordCaps := TSetAnyWordCaps.Create;
+  fcAlign := TSetAlign.Create;
+  fcReplace := TSetReplace.Create;
+  fcUses := TSetUses.Create;
+  fcLog := TSetLog.Create;
   fcUI := TSetUi.Create;
 
   Read;
@@ -147,10 +148,6 @@ const
   CODEFORMAT_SETTINGS_SECTION = 'JediCodeFormatSettings';
 
 procedure TFormatSettings.Read;
-var
-  lsSettingsFileName: string;
-  lsText: string;
-  lcFile: TSettingsInputString;
 begin
   // use the Settings File if it exists
   ReadFromFile(GetRegSettings.FormatConfigFileName);
@@ -158,7 +155,6 @@ end;
 
 procedure TFormatSettings.ReadFromFile(const psFileName: string);
 var
-  lsSettingsFileName: string;
   lsText: string;
   lcFile: TSettingsInputString;
 begin
@@ -174,6 +170,19 @@ begin
     finally
       lcFile.free;
     end;
+  end;
+end;
+
+
+procedure TFormatSettings.ReadDefaults;
+var
+  lcSetDummy: TSettingsInputDummy;
+begin
+  lcSetDummy := TSettingsInputDummy.Create;
+  try
+    FromStream(lcSetDummy);
+  finally
+    lcSetDummy.free;
   end;
 end;
 

@@ -120,6 +120,20 @@ type
     property Text: string read fsText;
   end;
 
+
+  { dummy impl that always returns the default }
+  TSettingsInputDummy = class(TSettingsInput)
+  private
+  public
+    function ExtractSection(const psSection: string): TSettingsInput;  override;
+    function HasTag(const psTag: string): boolean; override;
+
+    function Read(const psTag, psDefault: string): string; override;
+    function Read(const psTag: string; const piDefault: integer): integer; override;
+    function Read(const psTag: string; const pbDefault: boolean): boolean; override;
+    function Read(const psTag: string; const pcStrings: TStrings): boolean;  override;
+  end;
+
 implementation
 
 uses
@@ -425,5 +439,40 @@ begin
   InternalGetValue(psTag, lsDummy, Result);
 end;
 
+
+{ TSettingsInputDummy }
+
+function TSettingsInputDummy.Read(const psTag: string;
+  const piDefault: integer): integer;
+begin
+  Result := piDefault;
+end;
+
+function TSettingsInputDummy.Read(const psTag, psDefault: string): string;
+begin
+  Result := psDefault;
+end;
+
+function TSettingsInputDummy.ExtractSection(const psSection: string): TSettingsInput;
+begin
+  Result := TSettingsInputDummy.Create;
+end;
+
+function TSettingsInputDummy.HasTag(const psTag: string): boolean;
+begin
+  Result := True;
+end;
+
+function TSettingsInputDummy.Read(const psTag: string;
+  const pbDefault: boolean): boolean;
+begin
+  Result := pbDefault;
+end;
+
+function TSettingsInputDummy.Read(const psTag: string;
+  const pcStrings: TStrings): boolean;
+begin
+  Result := True;
+end;
 
 end.

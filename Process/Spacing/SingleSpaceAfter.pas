@@ -178,6 +178,14 @@ begin
       exit;
     end;
   end;
+
+  // else if
+  if (pt.Word = wElse) and (ptNext.Word = wIf) and InStatements(pt) then
+  begin
+    Result := True;
+    exit;
+  end;
+
 end;
 
 
