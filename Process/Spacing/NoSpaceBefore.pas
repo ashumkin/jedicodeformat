@@ -34,6 +34,11 @@ function HasNoSpaceBefore(const pt: TSourceToken): boolean;
 begin
   Result := False;
 
+  // '@@' in asm, e.g. "JE @@initTls" needs the space
+
+  if (pt.Word = wAtSign) and pt.HasParentNode(nAsmStatement) then
+    exit;
+
   if pt.TokenType in NoSpaceAnywhere then
   begin
     Result := True;
