@@ -324,6 +324,21 @@ function TBuildTokenList.TryLiteralString(const pcToken: TSourceToken): boolean;
     Result := True;
   end;
 
+  function TryHatLiteralChar(const pcToken: TSourceToken): boolean;
+  begin
+    Result := False;
+    if Reader.Current <> '^' then
+      exit;
+
+    pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
+    Reader.Consume;
+
+    { can be any single char A-Z and symbols }
+    pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
+    Reader.Consume;
+  end;
+
+
   function TryLiteralChar(const pcToken: TSourceToken): boolean;
   begin
     Result := False;
@@ -360,26 +375,44 @@ function TBuildTokenList.TryLiteralString(const pcToken: TSourceToken): boolean;
     end;
   end;
 
+var
+  lbHatCharConstant: Boolean;
 begin
   Result := False;
+  lbHatCharConstant := False;
 
-  { read any sequence of literal chars , eg #$F or #32#32  oR even #27#$1E }
-  while Reader.Current in ['#', AnsiSingleQuote] do
+  if Reader.Current = '^' then
   begin
-    if Reader.Current = '#' then
-    begin
-      if TryLiteralChar(pcToken) then
-        Result := True;
-    end
-    else if Reader.Current = AnsiSingleQuote then
-    begin
-      if TrySubString(pcToken) then
-        Result := True;
-    end;
+    { compound char const is, for e.g. ^M'foo' or ^M^N or ^M#13 }
+    if Reader.BufferChar(2) in ['^', AnsiSingleQuote, '#'] then
+      lbHatCharConstant := True;
   end;
 
-  if Result then
-    pcToken.TokenType := ttLiteralString;
+  if (Reader.Current in ['#', AnsiSingleQuote]) or lbHatCharConstant then
+  begin
+    { read any sequence of literal chars , eg #$F or #32#32 or even #27#$1E }
+    while Reader.Current in ['#', AnsiSingleQuote, '^'] do
+    begin
+      if Reader.Current = '#' then
+      begin
+        if TryLiteralChar(pcToken) then
+          Result := True;
+      end
+      else if Reader.Current = AnsiSingleQuote then
+      begin
+        if TrySubString(pcToken) then
+          Result := True;
+      end
+      else if Reader.Current = '^' then
+      begin
+        if TryHatLiteralChar(pcToken) then
+          Result := True;
+      end;
+    end;
+
+    if Result then
+      pcToken.TokenType := ttLiteralString;
+  end;
 end;
 
 { these can happen inside asm

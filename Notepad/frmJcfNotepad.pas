@@ -25,13 +25,17 @@ interface
 
 uses
   { delphi }
-  Windows, SysUtils, Classes, Controls, Forms,
+  Windows, Messages, SysUtils, Classes, Controls, Forms,
   Dialogs, StdCtrls, ComCtrls, ExtCtrls, ActnList,
   Buttons, Menus,
   { Jedi }
-  JvMRUManager, JvMemo,
-  { local }StringsConverter, JcfRegistrySettings, JvFormPlacement,
-  JvComponent, JvExStdCtrls;
+  JvMRUManager, JvMemo, JvComponent, JvExStdCtrls, JvFormPlacement,
+  { local }
+  JcfRegistrySettings,  StringsConverter;
+
+{ have to do file pos display *after* various processing }
+const
+  WM_SHOWFILEPOS = WM_USER + 42;
 
 type
   TfmJCFNotepad = class(TForm)
@@ -116,6 +120,7 @@ type
     procedure mOutputEnter(Sender: TObject);
     procedure mInputClick(Sender: TObject);
     procedure mOutputClick(Sender: TObject);
+    procedure mInputKeyPress(Sender: TObject; var Key: Char);
   private
     fcConvert: TStringsConverter;
 
@@ -125,7 +130,9 @@ type
     procedure AddCheckMRU(const psFile: string);
 
     procedure ShowFilePos;
+    procedure SendShowFilePos;
 
+    procedure OnReceiveShowFilePos(var msg: TMessage); message WM_SHOWFILEPOS;
   public
   end;
 
@@ -182,7 +189,7 @@ begin
   AddCheckMRU(psFileName);
 
   CheckInputState;
-  ShowFilePos;
+  SendShowFilePos;
 end;
 
 procedure TfmJCFNotepad.AddCheckMRU(const psFile: string);
@@ -227,7 +234,7 @@ end;
 procedure TfmJCFNotepad.pcPagesChange(Sender: TObject);
 begin
   CheckCutPasteState;
-  ShowFilePos;
+  SendShowFilePos;
 end;
 
 procedure TfmJCFNotepad.actGoExecute(Sender: TObject);
@@ -491,36 +498,54 @@ begin
   sb1.Panels[0].Text := lsPos;
 end;
 
+procedure TfmJCFNotepad.SendShowFilePos;
+begin
+  { send a note to yourself to redisplay this
+    as soon as the current operation is finished }
+  PostMessage(Handle, WM_SHOWFILEPOS, 0, 0);
+end;
+
+{ triggered by SendShowFilePos }
+procedure TfmJCFNotepad.OnReceiveShowFilePos(var msg: TMessage);
+begin
+  ShowFilePos;
+end;
+
 procedure TfmJCFNotepad.mOutputKeyUp(Sender: TObject; var Key: word;
   Shift: TShiftState);
 begin
-  ShowFilePos;
+  SendShowFilePos;
 end;
 
 procedure TfmJCFNotepad.mInputKeyDown(Sender: TObject; var Key: word;
   Shift: TShiftState);
 begin
-  ShowFilePos;
+  SendShowFilePos;
 end;
 
 procedure TfmJCFNotepad.mInputEnter(Sender: TObject);
 begin
-  ShowFilePos;
+  SendShowFilePos;
 end;
 
 procedure TfmJCFNotepad.mOutputEnter(Sender: TObject);
 begin
-  ShowFilePos;
+  SendShowFilePos;
 end;
 
 procedure TfmJCFNotepad.mInputClick(Sender: TObject);
 begin
-  ShowFilePos;
+  SendShowFilePos;
 end;
 
 procedure TfmJCFNotepad.mOutputClick(Sender: TObject);
 begin
-  ShowFilePos;
+  SendShowFilePos;
+end;
+
+procedure TfmJCFNotepad.mInputKeyPress(Sender: TObject; var Key: Char);
+begin
+  SendShowFilePos;
 end;
 
 end.

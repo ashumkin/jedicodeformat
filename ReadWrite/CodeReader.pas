@@ -77,8 +77,10 @@ type
     procedure IncBuffer;
     procedure DecBuffer;
 
+    function BufferChar(const piIndex: integer): char;
     function BufferCharsLeft(const piLength: integer): string;
     function BufferCharsRight(const piLength: integer): string;
+
 
     function EndOfFile: boolean;
     function BufferEndOfFile: boolean;
@@ -169,6 +171,11 @@ end;
 function TCodeReader.GetBuffer: string;
 begin
   Result := Copy(fsSource, fiReadIndex, BufferLength);
+end;
+
+function TCodeReader.BufferChar(const piIndex: integer): char;
+begin
+  Result := fsSource[fiReadIndex + piIndex];
 end;
 
 function TCodeReader.BufferCharsLeft(const piLength: integer): string;

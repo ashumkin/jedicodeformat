@@ -61,5 +61,24 @@ begin
   str := hat_foo + ^ @ + ^] + ^^ + ^ - + ^\ + ^[;
 end;
 
+procedure testhatcharliteralsinstrings;
+var
+  str1: string;
+begin
+  str1 :=
+    'prefix'^M + 'substr2';
+  str1 := 'prefix'^M'foo' + 'substr2';
+  str1 := 'prefix'^M'foo'#23 + 'substr2'#56;
+  str1 := 'prefix'^M'foo'^M'bar'^N + 'substr2'^O;
+  str1 := 'prefix'#13^M#12^@'foo'#10^M'bar';
+  str1 := ^m;
+  str1 := ^m + 'substr2';
+  str1 := ^M'foo' + 'substr2';
+  str1 := ^M^N^@'foo' + 'substr2';
+  str1 := ^M'foo'#23 + 'substr2'#56;
+  str1 := ^M'foo'^M'bar'^N + 'substr2'^O;
+  str1 := #13^M#12^@'foo'#10^M'bar';
+end;
+
 end.
  

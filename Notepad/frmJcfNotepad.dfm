@@ -102,7 +102,7 @@ object fmJCFNotepad: TfmJCFNotepad
         OnClick = mInputClick
         OnEnter = mInputEnter
         OnKeyDown = mInputKeyDown
-        OnKeyUp = mInputKeyUp
+        OnKeyUp = mInputKeyDown
         OnMouseUp = mInputMouseUp
       end
     end

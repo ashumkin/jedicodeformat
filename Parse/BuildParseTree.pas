@@ -1842,7 +1842,8 @@ begin
    A char constant can be represented by '^G' for a ctrl-g char etc
    This caused problems when it is the likes of '^@' or '^]'
 
-   see Sourceforge bug #888862 and TestCharLiterals.pas
+   see Sourceforge bugs #888862, #913439
+   and test case code in TestCharLiterals.pas
    }
   lbOldStyleCharEscape := False;
   if fcTokenList.FirstSolidTokenType = ttHat then
@@ -1862,7 +1863,7 @@ begin
   end
   else
   begin
-    { notmal path }
+    { normal path }
     PushNode(nUnaryOp);
     Recognise(PossiblyUnarySymbolOperators);
     RecogniseFactor;

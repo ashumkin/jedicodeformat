@@ -399,7 +399,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCharLiterals;
 begin
-  TestParseFile('TestCharLiterals', 422);
+  TestParseFile('TestCharLiterals', 581);
 end;
 
 procedure TTestFileParse.TestParse_TestClassLines;

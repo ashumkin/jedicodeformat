@@ -6,4 +6,9 @@ ls:='Fred';ls:=#13;ls:=#12'Fred'#32'Fred'#22;end;const str1=^m;hat_foo=^a;hat_ba
 =^b;hat_fish=^f;hat_wibble=^q;hat_spon=^z;hat_at=^@;hat_frown=^[;hat_hmm=^\;hat_smile
 =^];hat_hat=^^;hat_under=^_;var hat1:char=^h;hat2:char=^j;hat3:char=^m;procedure 
 hatbaby;var str:string;ch:char;begin str:=hat_foo+^m;ch:=^n;str:=hat_foo+^@+^]+^^
-+^-+^\+^[;end;end. 
++^-+^\+^[;end;procedure testhatcharliteralsinstrings;var str1:string;begin str1:=
+'prefix'^M+'substr2';str1:='prefix'^M'foo'+'substr2';str1:='prefix'^M'foo'#23+'substr2'#56
+;str1:='prefix'^M'foo'^M'bar'^N+'substr2'^O;str1:='prefix'#13^M#12^@'foo'#10^M'bar'
+;str1:=^m;str1:=^m+'substr2';str1:=^M'foo'+'substr2';str1:=^M^N^@'foo'+'substr2';
+str1:=^M'foo'#23+'substr2'#56;str1:=^M'foo'^M'bar'^N+'substr2'^O;str1:=#13^M#12^@'foo'#10^M'bar'
+;end;end. 
