@@ -48,11 +48,15 @@ type
     constructor Create;
 
     function Describe: string; override;
-    procedure AcceptVisitor(const pcVisitor: IVisitParseTree); override;
+    procedure AcceptVisitor(const pcVisitor: IVisitParseTree; var prVisitResults: TRVisitResult); override;
 
     function IsSolid: boolean;
 
     function HasChildNode(const peWords: TWordSet): Boolean; override;
+
+    function NextToken: TSourceToken;
+    function PriorToken: TSourceToken;
+
 
     property TokenType: TTokenType read feTokenType write feTokenType;
     property SourceCode: string read fsSourceCode write fsSourceCode;
@@ -105,10 +109,21 @@ begin
 end;
 
 
-procedure TSourceToken.AcceptVisitor(const pcVisitor: IVisitParseTree);
+procedure TSourceToken.AcceptVisitor(const pcVisitor: IVisitParseTree; var prVisitResults: TRVisitResult);
 begin
   Assert(pcVisitor <> nil);
-  pcVisitor.VisitSourceToken(self);
+  pcVisitor.VisitSourceToken(self, prVisitResults);
+end;
+
+
+function TSourceToken.NextToken: TSourceToken;
+begin
+  Result := TSourceToken(NextLeafNode);
+end;
+
+function TSourceToken.PriorToken: TSourceToken;
+begin
+  Result := TSourceToken(PriorLeafNode);
 end;
 
 end.

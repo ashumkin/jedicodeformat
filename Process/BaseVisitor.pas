@@ -13,21 +13,30 @@ type
 
   TBaseTreeNodeVisitor = class(TInterfacedObject, IVisitParseTree)
   public
-    procedure VisitParseTreeNode(const pcNode: TObject); virtual;
-    procedure VisitSourceToken(const pcToken: TObject); virtual;
+    procedure VisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult); virtual;
+    procedure VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult); virtual;
 
+    constructor Create; virtual;
   end;
+
+type
+  TTreeNodeVisitorType = class of TBaseTreeNodeVisitor;
 
 implementation
 
-{ TBaseTreeNodeVisitor }
 
-procedure TBaseTreeNodeVisitor.VisitParseTreeNode(const pcNode: TObject);
+// need a virtual constructor for the create-by-class-ref
+constructor TBaseTreeNodeVisitor.Create;
+begin
+  inherited;
+end;
+
+procedure TBaseTreeNodeVisitor.VisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult);
 begin
   // do nothing
 end;
 
-procedure TBaseTreeNodeVisitor.VisitSourceToken(const pcToken: TObject);
+procedure TBaseTreeNodeVisitor.VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult);
 begin
   // do nothing
 end;

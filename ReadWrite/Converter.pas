@@ -101,7 +101,8 @@ implementation
 
 uses
   { delphi } Windows, SysUtils, Dialogs, Controls,
-  { local } SourceTokenList, fShowParseTree;
+  { local } SourceTokenList, fShowParseTree, JcfSettings,
+  ObfuscateControl;
 
 
 constructor TConverter.Create;
@@ -238,17 +239,26 @@ begin
       lcTokenList.Free;
     end;
 
-    {!!! debug code }
     if fcBuildParseTree.ParseError then
     begin
+      {!!! debug code
       ShowMessage(fcBuildParseTree.ParseErrorMessage);
-      ShowParseTree(fcBuildParseTree.Root);
+      ShowParseTree(fcBuildParseTree.Root);}
 
       fbConvertError := True;
       fsConvertErrorMessage := fcBuildParseTree.ParseErrorMessage;
     end
     else
     begin
+      // do the processes
+      if Settings.Obfuscate.Enabled then
+      begin
+        Obfuscate(fcBuildParseTree.Root);
+      end
+      else
+      begin
+      end;
+
       fcWriter.Root := fcBuildParseTree.Root;
       fcWriter.WriteAll;
       fcWriter.Close;

@@ -5,7 +5,7 @@ unit VisitSetXY;
 
 interface
 
-uses BaseVisitor;
+uses BaseVisitor, VisitParseTree;
 
 type
   TVisitSetXY = class(TBaseTreeNodeVisitor)
@@ -13,16 +13,16 @@ type
     // running totals
     fiX, fiY: integer;
   public
-    constructor Create;
+    constructor Create; override;
 
-    procedure VisitSourceToken(const pcToken: TObject); override;
+    procedure VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult); override;
 
   end;
 
 implementation
 
 uses
-  MiscFunctions, SourceToken;
+  JcfMiscFunctions, SourceToken;
 
 { TVisitSetXY }
 
@@ -34,7 +34,7 @@ begin
   fiY := 1;
 end;
 
-procedure TVisitSetXY.VisitSourceToken(const pcToken: TObject);
+procedure TVisitSetXY.VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult);
 var
   lcToken: TSourceToken;
 begin

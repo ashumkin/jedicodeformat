@@ -12,7 +12,8 @@ interface
 
 uses
   {delphi } Contnrs,
-  { local } WordMap, VisitParseTree;
+  { local } WordMap, VisitParseTree, ParseTreeNodeType;
+
 
 type
 
@@ -20,7 +21,7 @@ type
   private
     fcParent: TParseTreeNode;
     fcChildNodes: TObjectList;
-    fsName: string;
+    feNodeType: TParseTreeNodeType;
 
     function GetChildNodes(const piIndex: integer): TParseTreeNode;
   protected
@@ -34,23 +35,38 @@ type
 
     function NewChild: TParseTreeNode;
     procedure AddChild(const pcChild: TParseTreeNode);
+    procedure InsertChild(const piIndex: Integer; const pcChild: TParseTreeNode);
+    function RemoveChild(const pcChild: TParseTreeNode): integer;
+    function IndexOfChild(const pcChild: TParseTreeNode): integer;
+
+    function FirstLeaf: TParseTreeNode;
+    function LastLeaf: TParseTreeNode;
+    function PriorLeafNode: TParseTreeNode;
+    function NextLeafNode: TParseTreeNode;
+
+    function FirstNodeBefore(const pcChild: TParseTreeNode): TParseTreeNode;
+    function FirstNodeAfter(const pcChild: TParseTreeNode): TParseTreeNode;
 
     function Level: integer;
     function HasChildren: boolean;
     function Root: TParseTreeNode;
+
     function HasChildNode(const peWords: TWordSet): Boolean; virtual;
+    function HasParentNode(const peNodeTypes: TParseTreeNodeTypeSet): Boolean; overload;
+    function HasParentNode(const peNodeType: TParseTreeNodeType): Boolean; overload;
 
     function Describe: string; virtual;
 
-    procedure AcceptVisitor(const pcVisitor: IVisitParseTree); virtual;
+    procedure AcceptVisitor(const pcVisitor: IVisitParseTree; var prVisitResults: TRVisitResult); virtual;
 
     { visit self and all child nodes }
     procedure VisitTree(const pcVisitor: IVisitParseTree);
 
     property Parent: TParseTreeNode read fcParent write fcParent;
     property ChildNodes[const piIndex: integer]: TParseTreeNode read GetChildNodes;
-    property Name: string read fsName write fsName;
+    property NodeType: TParseTreeNodeType read feNodeType write feNodeType;
   end;
+
 
 implementation
 
@@ -61,7 +77,10 @@ begin
   inherited Create;
 
   fcParent := nil;
+  feNodeType := nUnknown;
+
   fcChildNodes := TObjectList.Create;
+  fcChildNodes.OwnsObjects := True;
 end;
 
 destructor TParseTreeNode.Destroy;
@@ -96,6 +115,23 @@ begin
   fcChildNodes.Add(pcChild);
 end;
 
+procedure TParseTreeNode.InsertChild(const piIndex: Integer; const pcChild: TParseTreeNode);
+begin
+  pcChild.fcParent := self;
+  fcChildNodes.Insert(piIndex, pcChild);
+end;
+
+function TParseTreeNode.RemoveChild(const pcChild: TParseTreeNode): integer;
+begin
+  Result := fcChildNodes.Remove(pcChild);
+end;
+
+
+function TParseTreeNode.IndexOfChild(const pcChild: TParseTreeNode): integer;
+begin
+  Result := fcChildNodes.IndexOf(pcChild);
+end;
+
 { how far down the tree is this node? }
 function TParseTreeNode.Level: integer;
 begin
@@ -113,7 +149,7 @@ end;
 
 function TParseTreeNode.Describe: string;
 begin
-  Result := Name;
+  Result := NodeTypeToString(NodeType);
 end;
 
 
@@ -170,21 +206,177 @@ begin
   end;
 end;
 
-procedure TParseTreeNode.AcceptVisitor(const pcVisitor: IVisitParseTree);
+function TParseTreeNode.HasParentNode(const peNodeTypes: TParseTreeNodeTypeSet): Boolean;
+begin
+  Result := (NodeType in peNodeTypes);
+
+  // try above
+  if (not Result) and (Parent <> nil) then
+    Result := Parent.HasParentNode(peNodeTypes);
+end;
+
+function TParseTreeNode.HasParentNode(const peNodeType: TParseTreeNodeType): Boolean;
+begin
+  Result := HasParentNode([peNodeType]);
+end;
+
+
+procedure TParseTreeNode.AcceptVisitor(const pcVisitor: IVisitParseTree; var prVisitResults: TRVisitResult);
 begin
   Assert(pcVisitor <> nil);
-  pcVisitor.VisitParseTreeNode(self);
+  pcVisitor.VisitParseTreeNode(self, prVisitResults);
 end;
 
 procedure TParseTreeNode.VisitTree(const pcVisitor: IVisitParseTree);
 var
-  liLoop: integer;
+  liLoop, liNewIndex: integer;
+  lcNode: TParseTreeNode;
+  lrVisitResult: TRVisitResult;
 begin
-  AcceptVisitor(pcVisitor);
+  ClearVisitResult(lrVisitResult);
+  AcceptVisitor(pcVisitor, lrVisitResult);
+  // process the results
 
-  for liLoop := 0 to ChildNodeCount - 1 do
-    ChildNodes[liLoop].VisitTree(pcVisitor);
+  case lrVisitResult.action of
+    aNone: ;
+    aDelete:
+    begin
+      // remove self - do it via the parent
+      Parent.RemoveChild(self);
+      // can't go on here, no more self
+      exit;
+    end;
+    aInsertAfter:
+    begin
+      // must have a new item
+      Assert(lrVisitResult.NewItem <> nil);
+      Parent.InsertChild(Parent.IndexOfChild(self) + 1,  TParseTreeNode(lrVisitResult.NewItem));
+    end
+    else
+      Assert(false, 'Unhandled action ' + IntToStr(Ord(lrVisitResult.action)));
+  end;
 
+
+  liLoop := 0;
+  while liLoop < ChildNodeCount do
+  begin
+    lcNode := ChildNodes[liLoop];
+    lcNode.VisitTree(pcVisitor);
+
+    { has this node been removed?
+      if so, don't increment counter, as the next item will now be in this slot }
+    liNewIndex := IndexOfChild(lcNode);
+
+    if liNewIndex <> liLoop then
+    begin
+      { it has moved during processing. }
+      if liNewIndex < 0 then
+      begin
+        { deleted. Nothing to do.
+          Don't even inc the loop counter
+          as the next item will now be in this slot
+        }
+      end
+      else
+        Assert(False);
+    end
+    else
+      inc(liLoop);
+  end;
+end;
+
+function TParseTreeNode.FirstLeaf: TParseTreeNode;
+begin
+  if ChildNodeCount = 0 then
+    Result := self // I am a leaf
+  else
+    Result := ChildNodes[0].FirstLeaf; // go down
+end;
+
+function TParseTreeNode.LastLeaf: TParseTreeNode;
+begin
+  if ChildNodeCount = 0 then
+    Result := self // I am a leaf
+  else
+    Result := ChildNodes[ChildNodeCount - 1].FirstLeaf; // go down
+end;
+
+{ find the first leaf before this one }
+function TParseTreeNode.PriorLeafNode: TParseTreeNode;
+var
+  lcFocus, lcParent: TParseTreeNode;
+begin
+  // get the node before this one
+  Result := Parent.FirstNodeBefore(Self);
+
+  if Result = nil then
+  begin
+    { climb the tree until we reach the top or a node with stuff before this }
+    lcParent := Parent;
+
+    While (Result = nil) and (lcParent <> nil) do
+    begin
+      lcFocus := lcParent;
+      lcParent := lcParent.Parent;
+
+      if lcParent <> nil then
+        Result := lcParent.FirstNodeBefore(lcFocus);
+    end;
+  end;
+
+  // result may not be a leaf node
+  if Result <> nil then
+    Result := Result.LastLeaf;
+end;
+
+function TParseTreeNode.NextLeafNode: TParseTreeNode;
+var
+  lcFocus, lcParent: TParseTreeNode;
+begin
+  // get the node after this one
+  Result := Parent.FirstNodeAfter(Self);
+
+  if Result = nil then
+  begin
+    { climb the tree until we reach the top or a node with stuff before this }
+    lcParent := Parent;
+
+    While (Result = nil) and (lcParent <> nil) do
+    begin
+      lcFocus := lcParent;
+      lcParent := lcParent.Parent;
+
+      Result := lcParent.FirstNodeAfter(lcFocus);
+    end;
+  end;
+
+  // result may not be a leaf node
+  if Result <> nil then
+    Result := Result.FirstLeaf;
+end;
+
+function TParseTreeNode.FirstNodeBefore(const pcChild: TParseTreeNode): TParseTreeNode;
+var
+  liIndex: integer;
+begin
+
+  liIndex := IndexOfChild(pcChild);
+  if liIndex > 0 then
+    Result := ChildNodes[liIndex - 1]
+  else
+    Result := nil;
+end;
+
+function TParseTreeNode.FirstNodeAfter(const pcChild: TParseTreeNode): TParseTreeNode;
+var
+  liIndex: integer;
+begin
+
+  liIndex := IndexOfChild(pcChild);
+  if liIndex < (ChildNodeCount - 1) then
+    Result := ChildNodes[liIndex + 1]
+  else
+    Result := nil;
 end;
 
 end.

@@ -8,8 +8,6 @@ uses
 type
  TTestParse = class(TTestCase)
  private
-    procedure TestFileContentsSame(const psFileName1, psFileName2: string);
-
     procedure TestParseFile(const psInFileName, psRefOutput: string; const piTokenCount: integer); overload;
     procedure TestParseFile(const psName: string; const piTokenCount: integer); overload;
  published
@@ -141,18 +139,6 @@ begin
   //TestFileContentsSame(lsOutFileName, psRefOutput);
 end;
 
-procedure TTestParse.TestFileContentsSame(const psFileName1, psFileName2: string);
-var
-  lsFile1, lsFile2: string;
-begin
-  lsFile1 := FileToString(psFileName1);
-  lsFile2 := FileToString(psFileName2);
-
-  // check contents the same 
-  if (lsFile1 <> lsFile2) then
-    Fail('Files differ ' + psFileName1 + ' and ' + psFileName2);
-end;
-
 
 procedure TTestParse.TestCreate;
 var
@@ -173,7 +159,6 @@ procedure TTestParse.TestParseFile(const psName: string; const piTokenCount: int
 begin
   TestParseFile(TEST_FILES_DIR + psName + '.pas',
     REF_OUT_FILES_DIR + psName + '.out', piTokenCount)
-
 end;
 
 procedure TTestParse.TestParse_Empty1;

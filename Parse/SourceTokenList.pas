@@ -51,7 +51,7 @@ implementation
 
 uses
   { delphi } SysUtils,
-  { local } MiscFunctions;
+  { local } JcfMiscFunctions;
 
 constructor TSourceTokenList.Create;
 begin
