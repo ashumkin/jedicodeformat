@@ -192,6 +192,7 @@ type
     procedure RecognisePropertyInterface;
     procedure RecognisePropertyParameterList;
     procedure RecognisePropertySpecifiers;
+    procedure RecognisePropertyAccess;
     procedure RecogniseRequiresClause;
     procedure RecogniseInterfaceGuid;
     procedure RecogniseClassHeritage;
@@ -3422,26 +3423,12 @@ begin
       ttRead:
       begin
         Recognise(ttRead);
-        RecogniseIdentifier(False);
-
-        { record field }
-        if TokenList.FirstSolidTokenType = ttDot then
-        begin
-          Recognise(ttDot);
-          RecogniseIdentifier(False);
-        end;
+        RecognisePropertyAccess;
       end;
       ttWrite:
       begin
         Recognise(ttWrite);
-        RecogniseIdentifier(False);
-
-        { record field }
-        if TokenList.FirstSolidTokenType = ttDot then
-        begin
-          Recognise(ttDot);
-          RecogniseIdentifier(False);
-        end;
+        RecognisePropertyAccess;
       end;
       ttStored:
       begin
@@ -3490,6 +3477,33 @@ begin
     lc := TokenList.FirstSolidToken;
 
   end;
+end;
+
+procedure TBuildParseTree.RecognisePropertyAccess;
+begin
+  { property access is the bit after the "read" or "write" in a property declaration
+    This is usually just a procedure, function or simple var
+    but sometimes it is a record or array field, .. or both e.g. "FDummy[0].ERX" }
+
+  RecogniseIdentifier(False);
+
+  { array access }
+  if TokenList.FirstSolidTokenType = ttOpenSquareBracket then
+  begin
+    Recognise(ttOpenSquareBracket);
+    // this is evaluated at compile-time, so we expect a constant subscript, e.g. "FDummy[0]"
+    RecogniseConstantExpression;
+    Recognise(ttCloseSquareBracket);
+  end;
+
+  { record field }
+  if TokenList.FirstSolidTokenType = ttDot then
+  begin
+    Recognise(ttDot);
+    // after the dot can be more structure, so recurse
+    RecognisePropertyAccess;
+  end
+
 end;
 
 procedure TBuildParseTree.RecogniseInterfaceType;

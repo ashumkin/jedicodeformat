@@ -1,0 +1,5 @@
+unit littletest58;interface type tdummy=record case integer of 0:(erx:longword;word
+:record filler:word;case integer of 0:(rx:word;byte:record rh:byte;rl:byte;end;);
+end;);end;tsomeobject=class(TObject)private fdummy:array[0..8]of tdummy;public property
+drxummy:tdummy read fdummy[0]write fdummy[0];property e:longword read fdummy[0].erx
+write fdummy[0].erx;end;implementation end. 

@@ -1,0 +1,46 @@
+unit LittleTest58;
+
+{ AFS 12 Nov 2003
+
+ This unit compiles but is not semantically meaningfull
+ it is test cases for the code formatting utility
+
+ Another case reported by Adem Baba
+}
+
+interface
+
+type
+
+
+  TDummy = record
+    case integer of
+      0: (
+        ERX: longword;
+        word: record
+          Filler: word;
+          case integer of
+            0: (
+            RX: word;
+            byte: record
+              RH: byte;
+              RL: byte;
+            end;
+            );
+        end;
+      );
+  end;
+
+  TSomeObject = class(TObject)
+  Private
+    FDummy: array[0..8] of TDummy;
+  Public
+    property DRXummy: TDummy Read FDummy[0] Write FDummy[0];
+    property E: longword Read FDummy[0].ERX Write FDummy[0].ERX;
+
+  // "undeclared Identifier 'RL' " Property AL: Byte Read FDummy[0].RL Write FDummy[0].RL;
+  end;
+
+implementation
+
+end.
