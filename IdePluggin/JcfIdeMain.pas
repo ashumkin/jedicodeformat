@@ -42,7 +42,9 @@ type
 
     procedure MakeEditorConverter;
 
-    procedure LogIDEMessage(const ps: string); overload;
+    procedure LogIDEMessage(const ps: string);
+    procedure LogToolMessage(const psFileName, psMessage: string;
+      const piLine, piCol: integer);
     procedure FormatFile(const psFileName: string);
 
     procedure ClearToolMessages;
@@ -318,6 +320,23 @@ begin
 
   lciMessages.AddTitleMessage('JCF: ' + ps);
 end;
+
+procedure TJcfIdeMain.LogToolMessage(const psFileName, psMessage: string;
+  const piLine, piCol: integer);
+var
+  lciMessages: IOTAMessageServices40;
+  hRes: HResult;
+begin
+  hRes := BorlandIDEServices.QueryInterface(IOTAMessageServices40, lciMessages);
+  if hRes <> S_OK then
+    exit;
+  if lciMessages = nil then
+    exit;
+
+  lciMessages.AddToolMessage(psFileName, psMessage, 'jcf', piLine, piCol);
+end;
+
+
 
 procedure TJcfIdeMain.MakeEditorConverter;
 begin

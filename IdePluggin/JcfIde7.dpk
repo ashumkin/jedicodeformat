@@ -157,6 +157,8 @@ contains
   UnitNameCaps in '..\Process\Capitalisation\UnitNameCaps.pas',
   RemoveSpaceAtLineEnd in '..\Process\Spacing\RemoveSpaceAtLineEnd.pas',
   FindReplace in '..\Process\Transform\FindReplace.pas',
-  fJcfExceptionDisplay in '..\Ui\fJcfExceptionDisplay.pas' {ExceptionDialog};
+  fJcfExceptionDisplay in '..\Ui\fJcfExceptionDisplay.pas' {ExceptionDialog},
+  frUnitCaps in '..\Ui\Settings\frUnitCaps.pas' {frUnitNameCaps: TFrame},
+  SettingsTypes in '..\Settings\SettingsTypes.pas';
 
 end.

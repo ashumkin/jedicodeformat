@@ -22,9 +22,9 @@ type
     procedure DisplayErrorMessage(const sMessage: string; const psCaption: string = '');
   end;
 
-var
+{var
   mfExceptionDialog: TExceptionDialog;
-
+}
 implementation
 
 uses JclStrings;
@@ -59,9 +59,15 @@ begin
 end;
 
 initialization
+
+{ not in use yet- fails badly in IDE pluggin
   mfExceptionDialog := TExceptionDialog.Create(Application);
+ // don't do this in IDE - will catch delphi's exceptions
   Application.OnException := mfExceptionDialog.DisplayException;
 
+}
 finalization
-  // not needed, owner (application) does this - mfExceptionDialog.Release;
+
+// don't free it!
+
 end.

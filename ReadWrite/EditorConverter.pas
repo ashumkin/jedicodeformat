@@ -46,6 +46,7 @@ type
     function OriginalFileName: string; override;
 
   public
+    constructor Create;
 
     procedure ConvertUnit(const pciUnit: IOTASourceEditor);
 
@@ -106,6 +107,14 @@ begin
     EditorReader.SetEditorUnit(nil);
     EditorWriter.SetEditorUnit(nil);
   end;
+end;
+
+constructor TEditorConverter.Create;
+begin
+  inherited;
+
+  // send them to the IDE message pane
+  GuiMessages := False;
 end;
 
 function TEditorConverter.CreateReader: TCodeReader;

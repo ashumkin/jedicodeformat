@@ -112,7 +112,7 @@ implementation
 uses
   { delphi } Windows, SysUtils, Dialogs, Controls, Forms,
   { local } SourceTokenList, fShowParseTree, JcfSettings, JcfRegistrySettings,
-  AllProcesses, Preprocessor, fJcfExceptionDisplay;
+  AllProcesses, Preprocessor;
 
 
 constructor TConverter.Create;
@@ -183,7 +183,7 @@ end;
 procedure TConverter.DoShowMessage(const psMessage: string);
 begin
   if fbGuiMessages then
-    mfExceptionDialog.DisplayErrorMessage(psMessage)
+    ShowMessage(psMessage)
   else
     SendStatusMessage(psMessage);
 end;
@@ -217,7 +217,7 @@ begin
     lsMessage := 'Nothing done'
   else if fbAbort then
     lsMessage := 'Aborted after ' + DescribeFileCount(fiConvertCount)
-  else
+  else if fiConvertCount > 1 then
     lsMessage := 'Finished processing ' + DescribeFileCount(fiConvertCount);
 
   SendStatusMessage(lsMessage);
