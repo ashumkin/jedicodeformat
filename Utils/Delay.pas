@@ -53,8 +53,8 @@ interface
 uses Extctrls;
 
 type
-  TProcedure = procedure;
-  TObjectProcedure = procedure of object;
+  TProcedure = procedure(var pbTryAgain: Boolean);
+  TObjectProcedure = procedure(var pbTryAgain: Boolean) of object;
 
   TDelay = class(TObject)
   private
@@ -90,6 +90,9 @@ implementation
 
 uses SysUtils;
 
+const
+  DEFAULT_DELAY = 50;
+
 { TDelay }
 constructor TDelay.Create;
 begin
@@ -99,7 +102,7 @@ begin
   fcProc := nil;
   fcObjectProc := nil;
 
-  fiDelay := 500; // default 1/2 sec
+  fiDelay := DEFAULT_DELAY; // default 1/2 sec
   fbDone := False;
 end;
 
@@ -111,19 +114,34 @@ end;
 
 
 procedure TDelay.DoItNow(Sender: TObject);
+var
+  lbDoAgain: Boolean;
 begin
   Assert(fcTimer <> nil);
-    { no longer timing }
+
+  lbDoAgain := False;
+  // disable until finished
   fcTimer.Enabled := False;
-  fcTimer.OnTimer := nil;
 
   if Assigned(fcProc) then
-    fcProc;
+    fcProc(lbDoAgain);
   if assigned(fcObjectProc) then
-    fcObjectProc;
+    fcObjectProc(lbDoAgain);
 
   //FreeAndNil(fcTimer); this causes problems in IDE plug-ins
-  fbDone := True;
+
+  // stop unless the proc called raised the falg
+  if lbDoAgain then
+  begin
+    // restart
+    fcTimer.Enabled := True;
+  end
+  else
+  begin
+    fbDone := True;
+      { no longer timing }
+    fcTimer.OnTimer := nil;
+  end;
 end;
 
 procedure TDelay.DoItSoon;

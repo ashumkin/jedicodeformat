@@ -77,55 +77,10 @@ var
   lcJCFIDE: TJcfIdeMain;
   { object to delay registration }
   lcDelayedRegister: TDelay;
+  miTries: integer = 0;
 
-
-procedure AddMenuItems;
-var
-  fcMainMenu: TMenuItem;
-
-  procedure AddMenuItem(const psName: string; const pcHandler: TNotifyEvent);
-  var
-    lcItem: TMenuItem;
-  begin
-    Assert(psName <> '');
-    // must have a callback unless it's a seperator line
-    Assert(Assigned(pcHandler) or (psName = '-'));
-
-    lcItem := TMenuItem.Create(fcMainMenu);
-    Assert(lcItem <> nil);
-
-    lcItem.Caption := psName;
-    lcItem.OnClick := pcHandler;
-
-    Assert(fcMainMenu <> nil);
-    fcMainMenu.Add(lcItem);
-  end;
-
-var
-  fcToolsMenu: TMenuItem;
-begin
-  { this doesn't work during program startup?!? }
-  fcToolsMenu := GetToolsMenu;
-  if fcToolsMenu = nil then
-    exit;
-
-  { I make these in the Register proc, &
-    I'll free them in finalization }
-  fcMainMenu := TMenuItem.Create(fcToolsMenu);
-  fcMainMenu.Caption := FORMAT_MENU_NAME;
-  fcToolsMenu.Insert(fcToolsMenu.Count, fcMainMenu);
-
-  //liShortcut := Shortcut(ord('K'), [ssCtrl]);
-  AddMenuItem(FORMAT_CURRENT_NAME, lcJCFIDE.DoFormatCurrentIDEWindow);
-  AddMenuItem(FORMAT_PROJECT_NAME, lcJCFIDE.DoFormatProject);
-  AddMenuItem(FORMAT_OPEN_NAME, lcJCFIDE.DoFormatOpen);
-
-  AddMenuItem('-', nil);
-  AddMenuItem(FORMAT_REG_SETTINGS_MENU_NAME, lcJCFIDE.DoRegistrySettings);
-  AddMenuItem(FORMAT_SETTINGS_MENU_NAME, lcJCFIDE.DoFormatSettings);
-  AddMenuItem(FORMAT_ABOUT_MENU_NAME, lcJCFIDE.DoAbout);
-
-end;
+const
+  MAX_TRIES = 20;
 
 { called from Finalization }
 procedure RemoveMenuItems;
@@ -166,6 +121,76 @@ begin
   end;
 
   FreeAndNil(fcMainMenu);
+end;
+
+
+procedure AddMenuItems(var pbDoAgain: Boolean);
+var
+  fcMainMenu: TMenuItem;
+
+  procedure AddMenuItem(const psName: string; const pcHandler: TNotifyEvent);
+  var
+    lcItem: TMenuItem;
+  begin
+    Assert(psName <> '');
+    // must have a callback unless it's a seperator line
+    Assert(Assigned(pcHandler) or (psName = '-'));
+
+    lcItem := TMenuItem.Create(fcMainMenu);
+    Assert(lcItem <> nil);
+
+    lcItem.Caption := psName;
+    lcItem.OnClick := pcHandler;
+
+    Assert(fcMainMenu <> nil);
+    fcMainMenu.Add(lcItem);
+  end;
+
+var
+  fcToolsMenu: TMenuItem;
+begin
+  { give up after trying several times }
+  if miTries >= MAX_TRIES then
+    exit;
+
+  inc(miTries);
+
+  { this doesn't work during program startup?!? }
+  fcToolsMenu := GetToolsMenu;
+  if fcToolsMenu = nil then
+    exit;
+
+  { I make these in the Register proc, &
+    I'll free them in finalization }
+  fcMainMenu := TMenuItem.Create(fcToolsMenu);
+  fcMainMenu.Caption := FORMAT_MENU_NAME;
+  fcToolsMenu.Insert(fcToolsMenu.Count, fcMainMenu);
+
+  // is it in there ?
+  fcMainMenu := fcToolsMenu.Find(FORMAT_MENU_NAME);
+
+  if (fcMainMenu <> nil) then
+  begin
+    //liShortcut := Shortcut(ord('K'), [ssCtrl]);
+    AddMenuItem(FORMAT_CURRENT_NAME, lcJCFIDE.DoFormatCurrentIDEWindow);
+    AddMenuItem(FORMAT_PROJECT_NAME, lcJCFIDE.DoFormatProject);
+    AddMenuItem(FORMAT_OPEN_NAME, lcJCFIDE.DoFormatOpen);
+
+    AddMenuItem('-', nil);
+    AddMenuItem(FORMAT_REG_SETTINGS_MENU_NAME, lcJCFIDE.DoRegistrySettings);
+    AddMenuItem(FORMAT_SETTINGS_MENU_NAME, lcJCFIDE.DoFormatSettings);
+    AddMenuItem(FORMAT_ABOUT_MENU_NAME, lcJCFIDE.DoAbout);
+
+    // debug ShowMessage('menu add succeeded on try #' + IntToStr(miTries));
+    pbDoAgain := False;
+  end
+  else
+  begin
+    // do over
+    pbDoAgain := True;
+    RemoveMenuItems;
+    Sleep(0);
+  end;
 end;
 
 procedure Register;

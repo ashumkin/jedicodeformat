@@ -609,7 +609,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 615);
+  TestParseFile('Testcases.dpr', 623);
 end;
 
 
