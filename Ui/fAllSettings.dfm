@@ -3,7 +3,7 @@ object FormAllSettings: TFormAllSettings
   Top = 106
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
   BorderStyle = bsDialog
-  Caption = 'Jedi Code Format settings'
+  Caption = 'JCF Format settings'
   ClientHeight = 386
   ClientWidth = 522
   Color = clBtnFace

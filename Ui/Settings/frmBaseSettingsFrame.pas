@@ -2,7 +2,7 @@
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code 
 
-The Original Code is SettingsFrame.pas, released April 2000.
+The Original Code is frmBaseSettingsFrame.pas, released April 2000.
 The Initial Developer of the Original Code is Anthony Steele. 
 Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
 All Rights Reserved. 

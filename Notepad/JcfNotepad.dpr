@@ -98,32 +98,30 @@ uses
   AlignComment in '..\Process\Align\AlignComment.pas',
   JCFDropTarget in '..\Utils\DragDrop\JCFDropTarget.pas',
   frDrop in '..\Utils\DragDrop\frDrop.pas' {FrameDrop: TFrame},
-  SettingsFrame in '..\Ui\Settings\SettingsFrame.pas' {frSettingsFrame: TFrame},
-  frAbout in '..\Ui\Settings\frAbout.pas' {FrameAbout: TFrame},
   JCFHelp in '..\Utils\JCFHelp.pas',
   fAbout in '..\Ui\fAbout.pas' {frmAboutBox},
+  frmBaseSettingsFrame in '..\Ui\Settings\frmBaseSettingsFrame.pas' {frSettingsFrame: TFrame},
   fAllSettings in '..\Ui\fAllSettings.pas' {FormAllSettings},
+  frFiles in '..\Ui\Settings\frFiles.pas' {fFiles: TFrame},
+  frObfuscateSettings in '..\Ui\Settings\frObfuscateSettings.pas' {fObfuscateSettings: TFrame},
+  frUses in '..\Ui\Settings\frUses.pas' {fUses: TFrame},
   frAnyCapsSettings in '..\Ui\Settings\frAnyCapsSettings.pas' {frAnyCapsSettings: TFrame},
   frBasicSettings in '..\Ui\Settings\frBasicSettings.pas' {frBasic: TFrame},
   frClarify in '..\Ui\Settings\frClarify.pas' {fClarify: TFrame},
   frClarifyAlign in '..\Ui\Settings\frClarifyAlign.pas' {fClarifyAlign: TFrame},
   frClarifyBlocks in '..\Ui\Settings\frClarifyBlocks.pas' {fClarifyBlocks: TFrame},
   frClarifyIndent in '..\Ui\Settings\frClarifyIndent.pas' {fClarifyIndent: TFrame},
-  frClarifyLongLineBreaker in '..\Ui\Settings\frClarifyLongLineBreaker.pas' {fClarifyLongLineBreaker: TFrame},
+  frClarifyReturns in '..\Ui\Settings\frClarifyReturns.pas' {fClarifyReturns: TFrame},
   frClarifySpaces in '..\Ui\Settings\frClarifySpaces.pas' {fClarifySpaces: TFrame},
   frExcludeFiles in '..\Ui\Settings\frExcludeFiles.pas' {fExcludeFiles: TFrame},
-  frFiles in '..\Ui\Settings\frFiles.pas' {fFiles: TFrame},
-  frObfuscateSettings in '..\Ui\Settings\frObfuscateSettings.pas' {fObfuscateSettings: TFrame},
   frReplace in '..\Ui\Settings\frReplace.pas' {fReplace: TFrame},
   frReservedCapsSettings in '..\Ui\Settings\frReservedCapsSettings.pas' {frReservedCapsSettings: TFrame},
-  frUses in '..\Ui\Settings\frUses.pas' {fUses: TFrame},
-  frClarifyReturns in '..\Ui\Settings\frClarifyReturns.pas' {fClarifyReturns: TFrame};
+  frClarifyLongLineBreaker in '..\Ui\Settings\frClarifyLongLineBreaker.pas' {fClarifyLongLineBreaker: TFrame};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.CreateForm(TfmJCFNotepad, fmJCFNotepad);
-  Application.CreateForm(TfmNotepadSettings, fmNotepadSettings);
   Application.Run;
 end.

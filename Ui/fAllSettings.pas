@@ -11,7 +11,7 @@ uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, Buttons, ExtCtrls, ComCtrls, ImgList,
   { local }
-  JCFSettings, SettingsFrame;
+  JCFSettings, frmBaseSettingsFrame;
 
 type
   TFormAllSettings = class(TForm)
@@ -37,7 +37,6 @@ type
     procedure RemoveAll(const pbSave: Boolean);
 
   protected
-    procedure AddCustomTreeItems; virtual;
     function GetFrameType(const psName: string): TSettingsFrameClass; virtual;
 
   public
@@ -49,16 +48,41 @@ implementation
 
 {$R *.DFM}
 
-
 uses
+  { contained frames }
   frFiles, frObfuscateSettings,
   frClarify, frClarifySpaces, frClarifyIndent,
   frClarifyReturns, frClarifyLongLineBreaker,
   frClarifyBlocks, frClarifyAlign,
   frExcludeFiles, frReplace,
-  frReservedCapsSettings, frAnyCapsSettings, frUses, frAbout, frBasicSettings,
+  frReservedCapsSettings, frAnyCapsSettings, frUses, frBasicSettings,
   JcfHelp;
 
+
+type
+  TFrameMapRecord = record
+    FrameName: string;
+    FrameClass: TsettingsFrameClass;
+  end;
+
+const
+  FrameMap: array[0..14] of TFrameMapRecord = (
+  (FrameName: 'Logging'; FrameClass: TfFiles),
+  (FrameName: 'Obfuscate'; FrameClass: TfObfuscateSettings),
+  (FrameName: 'Clarify'; FrameClass: TfClarify),
+  (FrameName: 'Spaces'; FrameClass: TfClarifySpaces),
+  (FrameName: 'Indentation'; FrameClass: TfClarifyIndent),
+  (FrameName: 'Long lines'; FrameClass: TfClarifyLongLineBreaker),
+  (FrameName: 'Returns'; FrameClass: TfClarifyReturns),
+  (FrameName: 'Blocks'; FrameClass: TfClarifyBlocks),
+  (FrameName: 'Align'; FrameClass: TfClarifyAlign),
+  (FrameName: 'Object Pascal'; FrameClass: TfrReservedCapsSettings),
+  (FrameName: 'Any Word'; FrameClass: TfrAnyCapsSettings),
+  (FrameName: 'Exclusions'; FrameClass: TfExcludeFiles),
+  (FrameName: 'Find and replace'; FrameClass: TfReplace),
+  (FrameName: 'Uses'; FrameClass: TfUses),
+  (FrameName: 'Basic'; FrameClass: TfrBasic)
+  );
 
 { TFormAllSettings }
 
@@ -67,8 +91,6 @@ var
   lcNode: TTreeNode;
 begin
   Assert(Settings <> nil);
-
-  AddCustomTreeItems;
 
   tvFrames.FullExpand;
 
@@ -108,44 +130,20 @@ begin
 end;
 
 function TFormAllSettings.GetFrameType(const psName: string): TsettingsFrameClass;
+var
+  liLoop: integer;
 begin
   Result := nil;
-  // find the frame?
 
-  // replace this with a record list name -> class map
-
-  if AnsiSameText(psName, 'Logging') then
-    Result := TfFiles
-  else if AnsiSameText(psName, 'Obfuscate') then
-    Result := TfObfuscateSettings
-  else if AnsiSameText(psName, 'Clarify') then
-    Result := TfClarify
-  else if AnsiSameText(psName, 'Spaces') then
-    Result := TfClarifySpaces
-  else if AnsiSameText(psName, 'Indentation') then
-    Result := TfClarifyIndent
-  else if AnsiSameText(psName, 'Long lines') then
-    Result := TfClarifyLongLineBreaker
-  else if AnsiSameText(psName, 'Returns') then
-    Result := TfClarifyReturns
-  else if AnsiSameText(psName, 'Blocks') then
-    Result := TfClarifyBlocks
-  else if AnsiSameText(psName, 'Align') then
-    Result := TfClarifyAlign
-  else if AnsiSameText(psName, 'Object Pascal') then
-    Result := TfrReservedCapsSettings
-  else if AnsiSameText(psName, 'Any Word') then
-    Result := TfrAnyCapsSettings
-  else if AnsiSameText(psName, 'Exclusions') then
-    Result := TfExcludeFiles
-  else if AnsiSameText(psName, 'Find and replace') then
-    Result := TfReplace
-  else if AnsiSameText(psName, 'Uses') then
-    Result := TfUses
-  else if AnsiSameText(psName, 'About') then
-    Result := TFrameAbout
-  else if AnsiSameText(psName, 'Basic') then
-    Result := TfrBasic;
+  // find the frame is the data?
+  for liLoop := Low(FrameMap) to High(FrameMap) do
+  begin
+    if AnsiSameText(psName, FrameMap[liLoop].FrameName) then
+    begin
+      Result := FrameMap[liLoop].FrameClass;
+      break;
+    end;
+  end;
 end;
 
 procedure TFormAllSettings.tvFramesChange(Sender: TObject; Node: TTreeNode);
@@ -255,11 +253,6 @@ begin
   { save the last selected node }
   if tvFrames.Selected <> nil then
     Settings.Ui.LastSettingsPage := tvFrames.Selected.Text;
-end;
-
-procedure TFormAllSettings.AddCustomTreeItems;
-begin
-  // here for overide;
 end;
 
 end.

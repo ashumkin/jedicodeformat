@@ -100,7 +100,7 @@ implementation
 uses
   ClipBrd,
   JclStrings,
-  Converter, ConvertTypes, fAbout, fNotepadSettings;
+  Converter, ConvertTypes, fAbout, fNotepadSettings, fAllSettings;
 
 {$R *.dfm}
 
@@ -367,23 +367,15 @@ begin
 end;
 
 procedure TfmJCFNotepad.mnuParseSettingsClick(Sender: TObject);
-begin
-end;
-{
 var
-  lfAllSettings: TfrmAllSettings;
-  lcSet: TJCFSettings;
+  lfAllSettings: TFormAllSettings;
 begin
-  lcSet := JcfSettings;
-
-
-  lfAllSettings := TfrmAllSettings.Create(self);
+  lfAllSettings := TFormAllSettings.Create(self);
   try
     lfAllSettings.Execute;
   finally
     lfAllSettings.Release;
   end;
 end;
-}
 
 end.
