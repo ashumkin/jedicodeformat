@@ -8,7 +8,7 @@ const
 type
 
   TSoy = record
-    Monkey: string[SOYSOYSOYMAKESYOUSTRONG];
+    Monkey:      string[SOYSOYSOYMAKESYOUSTRONG];
     GreekIsland: integer;
   end;
 

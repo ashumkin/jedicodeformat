@@ -10,8 +10,8 @@ interface
 
 type
   TFred = record
-    fi1: integer;
-    fc2: currency;
+    fi1:      integer;
+    fc2:      currency;
     Ganzfeld: string;
   end;
 

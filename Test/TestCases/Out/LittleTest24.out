@@ -8,8 +8,8 @@ interface
 
 type
   TShatner = record
-    Fish: integer;
-    soy: boolean;
+    Fish:   integer;
+    soy:    boolean;
     Monkey: string;
   end;
 

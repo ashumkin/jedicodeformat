@@ -15,9 +15,9 @@ type
   PDIObjectDataFormat = ^TDIObjectDataFormat;
 
   TDIObjectDataFormat = record
-    pguid: PGUID;
-    dwOfs: DWORD;
-    dwType: DWORD;
+    pguid:   PGUID;
+    dwOfs:   DWORD;
+    dwType:  DWORD;
     dwFlags: DWORD;
   end;
 

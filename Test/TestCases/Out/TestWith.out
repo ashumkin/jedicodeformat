@@ -18,31 +18,31 @@ type
   end;
 
   TRecordTwo = record
-    Baz: integer;
-    Fish: string;
+    Baz:    integer;
+    Fish:   string;
     Wibble: TRecordOne;
   end;
 
   TRecordThree = record
-    Spon: integer;
-    Plud: string;
+    Spon:   integer;
+    Plud:   string;
     Monkey: TRecordOne;
-    Soy: TRecordTwo;
+    Soy:    TRecordTwo;
   end;
 
   TRecordFour = record
-    Kirk: integer;
-    Spock: string;
+    Kirk:   integer;
+    Spock:  string;
     Picard: TRecordTwo;
-    Data: TRecordThree;
+    Data:   TRecordThree;
   end;
 
   TRecordFive = record
-    Worf: integer;
-    Troy: string;
+    Worf:  integer;
+    Troy:  string;
     Riker: TRecordTwo;
-    Q: TRecordThree;
-    Borg: TRecordFour;
+    Q:     TRecordThree;
+    Borg:  TRecordFour;
   end;
 
 

@@ -10,13 +10,13 @@ type
 
   TTerse = class(TObject)
   private
-    fiX1: integer;
-    FiX6: integer;
-    FiX5: integer;
-    FiX8: integer;
-    FiX2: integer;
-    FiX3: integer;
-    FiX9: integer;
+    fiX1:  integer;
+    FiX6:  integer;
+    FiX5:  integer;
+    FiX8:  integer;
+    FiX2:  integer;
+    FiX3:  integer;
+    FiX9:  integer;
     FiX12: integer;
   public
     property X1: integer Read fiX1;
@@ -35,13 +35,13 @@ type
 
   TVerbose = class(TObject)
   private
-    fiX1: integer;
-    FiX6: integer;
-    FiX5: integer;
-    FiX8: integer;
-    FiX2: integer;
-    FiX3: integer;
-    FiX9: integer;
+    fiX1:  integer;
+    FiX6:  integer;
+    FiX5:  integer;
+    FiX8:  integer;
+    FiX2:  integer;
+    FiX3:  integer;
+    FiX9:  integer;
     FiX12: integer;
   public
     property X1: integer Read fiX1 Write FiX1;

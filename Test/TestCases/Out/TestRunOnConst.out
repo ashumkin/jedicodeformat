@@ -16,9 +16,9 @@ type
   TFnorfType = (eFnord1, eFnord2, eTheOtherFnord);
 
   TFnordRecord = record
-    sWord: string;
+    sWord:      string;
     eFnordType: TFnorfType;
-    bTheOther: boolean;
+    bTheOther:  boolean;
   end;
 
 

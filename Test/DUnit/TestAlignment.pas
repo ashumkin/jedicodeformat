@@ -54,14 +54,17 @@ type
     procedure TestAlignTypedef;
     procedure TestAlignTypedef2;
 
+    procedure TestAlignFields;
+    procedure TestAlignFields2;
   end;
 
 implementation
 
 uses
+  SysUtils,
   JclStrings,
   JcfSettings, AlignConst, AlignVars, AlignAssign, AlignComment,
-  AlignTypedef, SysUtils;
+  AlignTypedef, AlignField;
 
 procedure TTestAlignment.Setup;
 begin
@@ -334,7 +337,7 @@ const
     '  barnee = string; ' + AnsiLineBreak +
     UNIT_FOOTER;
 begin
-  TestProcessResult(TALignTypedef, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+  TestProcessResult(TAlignTypedef, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
 procedure TTestAlignment.TestAlignTypedef2;
@@ -353,7 +356,63 @@ const
     '  Baaaaaaz = float; ' + AnsiLineBreak +
     UNIT_FOOTER;
 begin
-  TestProcessResult(TALignTypedef, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+  TestProcessResult(TAlignTypedef, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestAlignment.TestAlignFields;
+const
+  IN_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
+    ' type ' + AnsiLineBreak +
+    '  foo = class ' + AnsiLineBreak +
+    '  private' + AnsiLineBreak +
+    '   aaaa: integer;' + AnsiLineBreak +
+    '   aaaaaa: integer;' + AnsiLineBreak +
+    '   aa: integer;' + AnsiLineBreak +
+    '  public' + AnsiLineBreak +
+    '   fi: integer;' + AnsiLineBreak +
+    '   fi1: integer;' + AnsiLineBreak +
+    '   fi111: integer;' + AnsiLineBreak +
+    '  end; ' + AnsiLineBreak +
+    UNIT_FOOTER;
+
+  OUT_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
+    ' type ' + AnsiLineBreak +
+    '  foo = class ' + AnsiLineBreak +
+    '  private' + AnsiLineBreak +
+    '   aaaa:   integer;' + AnsiLineBreak +
+    '   aaaaaa: integer;' + AnsiLineBreak +
+    '   aa:     integer;' + AnsiLineBreak +
+    '  public' + AnsiLineBreak +
+    '   fi:    integer;' + AnsiLineBreak +
+    '   fi1:   integer;' + AnsiLineBreak +
+    '   fi111: integer;' + AnsiLineBreak +
+    '  end; ' + AnsiLineBreak +
+    UNIT_FOOTER;
+begin
+  TestProcessResult(TAlignField, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestAlignment.TestAlignFields2;
+const
+  IN_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
+    ' type ' + AnsiLineBreak +
+    '  TRfoo = record ' + AnsiLineBreak +
+    '   fi: integer;' + AnsiLineBreak +
+    '   fi1: integer;' + AnsiLineBreak +
+    '   fi111: integer;' + AnsiLineBreak +
+    '  end; ' + AnsiLineBreak +
+    UNIT_FOOTER;
+
+  OUT_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
+    ' type ' + AnsiLineBreak +
+    '  TRfoo = record ' + AnsiLineBreak +
+    '   fi:    integer;' + AnsiLineBreak +
+    '   fi1:   integer;' + AnsiLineBreak +
+    '   fi111: integer;' + AnsiLineBreak +
+    '  end; ' + AnsiLineBreak +
+    UNIT_FOOTER;
+begin
+  TestProcessResult(TAlignField, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
 initialization

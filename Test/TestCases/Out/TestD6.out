@@ -63,8 +63,8 @@ type
   end platform;
 
   TThing7 = record
-    Bar: integer;
-    Foo: integer deprecated;
+    Bar:  integer;
+    Foo:  integer deprecated;
     Bar2: integer;
     Foo2: integer library;
   end;
