@@ -35,6 +35,9 @@ type
 
     procedure TestAddToCaseStatement;
     procedure TestRemoveFromCaseStatement;
+
+    procedure TestAddToifForStatement;
+    procedure TestRemoveFromIfForStatement;
   end;
 
 implementation
@@ -168,6 +171,21 @@ const
     UNIT_FOOTER;
 
 
+  IF_FOR_STATEMENT_TEXT_NO_BEGIN =
+    UNIT_HEADER +
+    '  if i > 3 then' + AnsiLineBreak +
+    '    for i := 1 to 3 do ' + AnsiLineBreak +
+    '      ShowMessage(''big'');' +
+    UNIT_FOOTER;
+
+  IF_FOR_STATEMENT_TEXT_WITH_BEGIN =
+    UNIT_HEADER +
+    '  if i > 3 then' + AnsiLineBreak +
+    '    begin for i := 1 to 3 do ' + AnsiLineBreak +
+    '      begin ShowMessage(''big'') end; end;' +
+    UNIT_FOOTER;
+
+
 procedure TTestAddBeginEnd.TestRemoveFromIfStatement;
 begin
   FormatSettings.Transform.BeginEndStyle := ebNever;
@@ -281,6 +299,22 @@ begin
 
   TestProcessResult(TAddBeginEnd, CASE_STATEMENT_TEXT_WITH_BEGIN,
     CASE_STATEMENT_TEXT_NO_BEGIN);
+end;
+
+procedure TTestAddBeginEnd.TestAddToIfForStatement;
+begin
+  FormatSettings.Transform.BeginEndStyle := ebNever;
+
+  TestProcessResult(TAddBeginEnd, IF_FOR_STATEMENT_TEXT_WITH_BEGIN,
+    IF_FOR_STATEMENT_TEXT_NO_BEGIN);
+end;
+
+procedure TTestAddBeginEnd.TestRemoveFromIfForStatement;
+begin
+  FormatSettings.Transform.BeginEndStyle := ebNever;
+
+  TestProcessResult(TAddBeginEnd, IF_FOR_STATEMENT_TEXT_WITH_BEGIN,
+    IF_FOR_STATEMENT_TEXT_NO_BEGIN);
 end;
 
 initialization

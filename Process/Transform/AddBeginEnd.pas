@@ -66,12 +66,18 @@ end;
 procedure AddBlockChild(const pcNode: TParseTreeNode);
 var
   liIndex: integer;
+  lcTop: TParseTreeNode;
   lcStatement, lcCompound, lcStatementList: TParseTreeNode;
   lcBegin, lcEnd: TSourceToken;
 begin
   { this is an if block or the like
     with a single statement under it  }
-  lcStatement := pcNode.GetImmediateChild(nStatement);
+  if pcNode.NodeType = nElseCase then
+    lcTop := pcNode.GetImmediateChild(nStatementList)
+  else
+    lcTop := pcNode;
+
+  lcStatement := lcTop.GetImmediateChild(nStatement);
 
   if lcStatement = nil then
   begin
@@ -79,10 +85,13 @@ begin
     liIndex := 0;
   end
   else
-    liIndex := pcNode.IndexOfChild(lcStatement);
+  begin
+    liIndex := lcTop.IndexOfChild(lcStatement);
+    Assert(liIndex >= 0);
+  end;
 
   { temporarily take it out }
-  pcNode.ExtractChild(lcStatement);
+  lcTop.ExtractChild(lcStatement);
 
   { need some new nodes:
     statement
@@ -95,7 +104,7 @@ begin
     }
     lcCompound := TParseTreeNode.Create;
     lcCompound.NodeType := nCompoundStatement;
-    pcNode.InsertChild(liIndex, lcCompound);
+    lcTop.InsertChild(liIndex, lcCompound);
 
     lcBegin := TSourceToken.Create;
     lcBegin.SourceCode := 'begin';
@@ -121,21 +130,27 @@ end;
 
 procedure RemoveBlockChild(const pcNode: TParseTreeNode);
 var
-  lcTop: TParseTreeNode;
+  lcTop, lcTopStatement: TParseTreeNode;
   lcCompoundStatement: TParseTreeNode;
   lcStatementList: TParseTreeNode;
   lcStatement: TParseTreeNode;
+  liIndex: integer;
 begin
-  { this one is for the else case }
-  lcTop := pcNode.GetImmediateChild(nStatementList);
-  if lcTop = nil then
+  if pcNode.NodeType = nElseCase then
+    lcTop := pcNode.GetImmediateChild(nStatementList)
+  else
     lcTop := pcNode;
 
-  lcTop := lcTop.GetImmediateChild(nStatement);
-  if lcTop = nil then
+  Assert(lcTop <> nil);
+
+  lcTopStatement := lcTop.GetImmediateChild(nStatement);
+  if lcTopStatement = nil then
     exit;
 
-  lcCompoundStatement := lcTop.GetImmediateChild(nCompoundStatement);
+  liIndex := lcTop.IndexOfChild(lcTopStatement);
+  Assert(liIndex >= 0);
+
+  lcCompoundStatement := lcTopStatement.GetImmediateChild(nCompoundStatement);
   if lcCompoundStatement = nil then
     exit;
 
@@ -149,11 +164,15 @@ begin
 
   lcStatement := lcStatementList.GetImmediateChild(nStatement);
 
-  // right, put this single statement in at the top
-  lcStatementList.ExtractChild(lcStatement);
+  if lcStatement <> nil then
+  begin
+    // right, put this single statement in at the top
+    lcStatementList.ExtractChild(lcStatement);
+    lcTop.InsertChild(liIndex, lcStatement);
+  end;
+
   // and free the rest of the scaffolding
-  lcTop.Free;
-  pcNode.AddChild(lcStatement);
+  lcTopStatement.Free;
 end;
 
 constructor TAddBeginEnd.Create;
