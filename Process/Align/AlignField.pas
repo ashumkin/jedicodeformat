@@ -69,8 +69,13 @@ uses
   FormatFlags, 
   JcfSettings, ParseTreeNodeType, Tokens, TokenUtils;
 
+{ Adding 'nClassDeclarations' causes the top part of a form
+(ie without a visiblity specifier) to be aligned.
+  This is probably the desired behaviour. 
+}
 const
-  FORMATTED_SECTIONS: TParseTreeNodeTypeSet = [nClassVisibility, nFieldDeclaration];
+  FORMATTED_SECTIONS: TParseTreeNodeTypeSet =
+    [nClassVisibility, nClassDeclarations, nFieldDeclaration];
 
 constructor TAlignField.Create;
 begin
