@@ -57,7 +57,7 @@ type
     procedure TestParse_TestLineBreaking;
     procedure TestParse_TestLocalTypes;
     procedure TestParse_TestLongStrings;
-    procedure TestParse_TestMarkoV;
+    procedure TestParse_TestMarcoV;
     procedure TestParse_TestMixedModeCaps;
     procedure TestParse_TestMVB;
     procedure TestParse_TestNested;
@@ -85,6 +85,8 @@ type
     procedure TestParse_TestUses;
     procedure TestParse_TestUsesChanges;
     procedure TestParse_TestWarnings;
+
+   procedure TestParse_TestCases;
 end;
 
 implementation
@@ -96,7 +98,7 @@ uses
 
 const
   TEST_FILES_DIR = 'C:\Code\Delphi\JcfCheckout\CodeFormat\Jcf2\Test\TestCases\';
-  REF_OUT_FILES_DIR = 'C:\Code\Delphi\jcf2\TestCases\Obfuscated\';
+  OBS_OUT_FILES_DIR = 'C:\Code\Delphi\JcfCheckout\CodeFormat\Jcf2\Test\TestCases\ObfuscatedOut\';
 
 
 procedure TTestObfuscate.TestParseFile(const psInFileName,
@@ -120,6 +122,7 @@ begin
 
     lcConverter.Input := psInFileName;
 
+
     lcConverter.Convert;
 
     Check(not lcConverter.ConvertError, 'Convert failed for ' +
@@ -134,7 +137,7 @@ begin
     lcConverter.Free;
   end;
 
-  //TestFileContentsSame(lsOutFileName, psRefOutput);
+  TestFileContentsSame(lsOutFileName, psRefOutput);
 end;
 
 procedure TTestObfuscate.TestFileContentsSame(const psFileName1,
@@ -151,9 +154,36 @@ begin
 end;
 
 procedure TTestObfuscate.TestParseFile(const psName: string);
+var
+  lsInName, lsObsFileName, lsRemadeFileName: string;
 begin
-  TestParseFile(TEST_FILES_DIR + psName + '.pas',
-    REF_OUT_FILES_DIR + psName + '.out')
+  { does it have an file extension? }
+  if Pos('.', psName) > 0 then
+  begin
+    lsInName := psName;
+    lsObsFileName := StrBefore('.', psName) + '.obs';
+    lsRemadeFileName := StrBefore('.', psName) + '.out';
+  end
+  else
+  begin
+    lsInName := psName + '.pas';
+    lsObsFileName := psName + '.obs';
+    lsRemadeFileName := psName + '.out';
+  end;
+
+  Settings.FileSettings.OutputExtension := 'obs';
+
+  TestParseFile(TEST_FILES_DIR + lsInName,
+    OBS_OUT_FILES_DIR + lsObsFileName)
+
+  {
+    // test re-obfuscating 
+
+  Settings.FileSettings.OutputExtension := 'out';
+
+  TestParseFile(TEST_FILES_DIR + lsObsFileName,
+    OBS_OUT_FILES_DIR + lsRemadeFileName)
+  }
 end;
 
 procedure TTestObfuscate.TestParse_Empty1;
@@ -372,9 +402,9 @@ begin
   TestParseFile('TestLongStrings');
 end;
 
-procedure TTestObfuscate.TestParse_TestMarkoV;
+procedure TTestObfuscate.TestParse_TestMarcoV;
 begin
-  TestParseFile('TestMarkoV');
+  TestParseFile('TestMarcoV');
 end;
 
 procedure TTestObfuscate.TestParse_TestTestMH;
@@ -505,6 +535,11 @@ end;
 procedure TTestObfuscate.TestParse_TestWarnings;
 begin
   TestParseFile('TestWarnings');
+end;
+
+procedure TTestObfuscate.TestParse_TestCases;
+begin
+  TestParseFile('Testcases.dpr');
 end;
 
 initialization

@@ -60,7 +60,7 @@ type
     procedure TestParse_TestLineBreaking;
     procedure TestParse_TestLocalTypes;
     procedure TestParse_TestLongStrings;
-    procedure TestParse_TestMarkoV;
+    procedure TestParse_TestMarcoV;
     procedure TestParse_TestMixedModeCaps;
     procedure TestParse_TestMVB;
     procedure TestParse_TestNested;
@@ -87,6 +87,9 @@ type
     procedure TestParse_TestUses;
     procedure TestParse_TestUsesChanges;
     procedure TestParse_TestWarnings;
+
+   procedure TestParse_TestCases;
+
  end;
 
 implementation
@@ -156,9 +159,23 @@ end;
 
 
 procedure TTestParse.TestParseFile(const psName: string; const piTokenCount: integer);
+var
+  lsInName, lsOutName: string;
 begin
-  TestParseFile(TEST_FILES_DIR + psName + '.pas',
-    REF_OUT_FILES_DIR + psName + '.out', piTokenCount)
+  { does it have an file extension? }
+  if Pos('.', psName) > 0 then
+  begin
+    lsInName := psName;
+    lsOutName := StrBefore('.', psName) + '.out';
+  end
+  else
+  begin
+    lsInName := psName + '.pas';
+    lsOutName := psName + '.out';
+  end;
+
+  TestParseFile(TEST_FILES_DIR + lsInName,
+    REF_OUT_FILES_DIR + lsOutName, piTokenCount)
 end;
 
 procedure TTestParse.TestParse_Empty1;
@@ -377,9 +394,9 @@ begin
   TestParseFile('TestLongStrings', 163);
 end;
 
-procedure TTestParse.TestParse_TestMarkoV;
+procedure TTestParse.TestParse_TestMarcoV;
 begin
-  TestParseFile('TestMarkoV', 241);
+  TestParseFile('TestMarcoV', 241);
 end;
 
 procedure TTestParse.TestParse_TestTestMH;
@@ -510,6 +527,11 @@ end;
 procedure TTestParse.TestParse_TestWarnings;
 begin
   TestParseFile('TestWarnings', 558);
+end;
+
+procedure TTestParse.TestParse_TestCases;
+begin
+  TestParseFile('Testcases.dpr', 551);
 end;
 
 initialization
