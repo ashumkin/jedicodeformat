@@ -48,6 +48,7 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bbHelpClick(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
+    procedure FormShow(Sender: TObject);
   private
     frLastFrame: TfrSettingsFrame;
 
@@ -116,15 +117,7 @@ const
 { TFormAllSettings }
 
 procedure TFormAllSettings.Execute;
-var
-  lcNode: TTreeNode;
 begin
-  tvFrames.FullExpand;
-
-  lcNode := GetTreeNodeByName(GetRegSettings.LastSettingsPage);               
-  if lcNode <> nil then
-    lcNode.Selected := True;
-
   ShowModal;
 
   if (ModalResult = mrOk) and FormatSettings.Dirty then
@@ -144,12 +137,12 @@ begin
     exit;
 
   lf := lcType.Create(self);
+  lf.Parent := pnlSet;
 
   { read }
   lf.Read;
 
   { show }
-  lf.Parent := pnlSet;
   lf.Left   := 0;
   lf.Top    := 0;
   lf.Width  := pnlSet.ClientWidth;
@@ -296,6 +289,17 @@ procedure TFormAllSettings.FormKeyUp(Sender: TObject; var Key: word;
 begin
   if Key = VK_F1 then
     bbHelpClick(nil);
+end;
+
+procedure TFormAllSettings.FormShow(Sender: TObject);
+var
+  lcNode: TTreeNode;
+begin
+  tvFrames.FullExpand;
+
+  lcNode := GetTreeNodeByName(GetRegSettings.LastSettingsPage);
+  if lcNode <> nil then
+    lcNode.Selected := True;
 end;
 
 end.

@@ -28,7 +28,7 @@ uses
   Classes, Controls, Forms,
   StdCtrls,
     { local }
-  JvMemo, frmBaseSettingsFrame;
+  JvMemo, frmBaseSettingsFrame, JvExStdCtrls;
 
 type
   TfReplace = class(TfrSettingsFrame)

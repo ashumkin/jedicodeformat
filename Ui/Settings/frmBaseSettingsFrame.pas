@@ -47,7 +47,7 @@ type
     procedure CallOnChange;
 
   public
-    constructor Create(AOwner: TComponent); override;
+    constructor Create(aOwner: TComponent); override;
 
     procedure Read; virtual; abstract;
     procedure Write; virtual; abstract;
@@ -69,7 +69,7 @@ uses JCFHelp;
 {$R *.DFM}
 
 
-constructor TfrSettingsFrame.Create(Aowner: TComponent);
+constructor TfrSettingsFrame.Create(aOwner: TComponent);
 begin
   inherited;
   fcOnChange    := nil;

@@ -28,7 +28,7 @@ uses
   SysUtils, Classes, Controls, Forms,
   StdCtrls,
   { local }
-  frmBaseSettingsFrame, JvMemo;
+  frmBaseSettingsFrame, JvMemo, JvExStdCtrls;
 
 type
   TfFiles = class(TfrSettingsFrame)
@@ -43,7 +43,6 @@ type
 
 
   public
-    constructor Create(AOwner: TComponent); override;
 
     procedure Read; override;
     procedure Write; override;
@@ -57,11 +56,6 @@ uses
     { local }FileUtils, JcfRegistrySettings, JcfSettings;
 
 {$R *.DFM}
-
-constructor TfFiles.Create(AOwner: TComponent);
-begin
-  inherited;
-end;
 
 procedure TfFiles.Read;
 var

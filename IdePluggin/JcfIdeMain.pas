@@ -34,12 +34,13 @@ uses
   { delphi design time }
   ToolsAPI,
   { local}
-  EditorConverter;
+  EditorConverter, FileCOnverter;
 
 type
   TJcfIdeMain = class(TObject)
   private
     fcEditorConverter: TEditorConverter;
+    fcFileConverter: TFileConverter;
 
     procedure MakeEditorConverter;
 
@@ -69,7 +70,8 @@ implementation
 
 uses
   { delphi }Menus, Dialogs, Controls,
-  { jcl }JclStrings, JcfDllExtern;
+  { jcl }JclStrings,
+  { local }fAllSettings, fAbout, JcfRegistrySettings, fRegistrySettings;
 
 
 function FileIsAllowedType(const psFileName: string): boolean;
@@ -122,16 +124,15 @@ end;
 constructor TJcfIdeMain.Create;
 begin
   inherited;
-  { created on demand }
+  { both of these are created on demand }
   fcEditorConverter := nil;
-
-  JcfReadRegistrySettings;
-  JcfLoadDefaultSettingsFile;
+  fcFileConverter   := nil;
 end;
 
 destructor TJcfIdeMain.Destroy;
 begin
   FreeAndNil(fcEditorConverter);
+  FreeAndNil(fcFileConverter);
   inherited;
 end;
 
@@ -244,24 +245,55 @@ begin
   if not FileIsAllowedType(psFileName) then
     exit;
 
-  JcfSetOnFileFormatStatusMessage(LogIDEMessage);
-  // todo: pass over backup & out settings
-  JcfProcessFile(psFileName);
+  if fcFileConverter = nil then
+  begin
+    fcFileConverter := TFileConverter.Create;
+    fcFileConverter.OnStatusMessage := LogIDEMessage;
+  end;
+
+  fcFileConverter.ProcessFile(psFileName);
 end;
 
 procedure TJcfIdeMain.DoFormatSettings(Sender: TObject);
+var
+  lfAllSettings: TFormAllSettings;
 begin
-  JcfShowFormatSettings;
+  if not GetRegSettings.HasRead then
+    GetRegSettings.ReadAll;
+
+  lfAllSettings := TFormAllSettings.Create(nil);
+  try
+    lfAllSettings.Execute;
+  finally
+    lfAllSettings.Release;
+  end;
 end;
 
 procedure TJcfIdeMain.DoAbout(Sender: TObject);
+var
+  lcAbout: TfrmAboutBox;
 begin
-  JcfShowAbout;
+  lcAbout := TfrmAboutBox.Create(nil);
+  try
+    lcAbout.ShowModal;
+  finally
+    lcAbout.Free;
+  end;
 end;
 
 procedure TJcfIdeMain.DoRegistrySettings(Sender: TObject);
+var
+  lcAbout: TfmRegistrySettings;
 begin
-  JcfShowRegistrySettings;
+  if not GetRegSettings.HasRead then
+    GetRegSettings.ReadAll;
+
+  lcAbout := TfmRegistrySettings.Create(nil);
+  try
+    lcAbout.Execute;
+  finally
+    lcAbout.Free;
+  end;
 end;
 
 procedure TJcfIdeMain.ShortcutKeyCallback(const Context: IOTAKeyContext;
