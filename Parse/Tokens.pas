@@ -397,13 +397,13 @@ type
   TPreProcessorSymbolTypeSet = set of TPreProcessorSymbolType;
 
 const
-  OLD_PREPROC_BLOCK_END = [ppElseIf, ppElse, ppEndIf];
-  NEW_PREPROC_BLOCK_END = [ppElseIf, ppElse, ppIfEnd];
+  PREPROC_BLOCK_END = [ppElseIf, ppElse, ppEndIf, ppIfEnd];
 
 procedure GetPreprocessorSymbolData(const psSourceCode: string;
   var peSymbolType: TPreProcessorSymbolType; var psText: string);
 
 function PreProcSymbolTypeToString(const peSymbolType: TPreProcessorSymbolType): string;
+function PreProcSymbolTypeSetToString(const peSymbolTypes: TPreProcessorSymbolTypeSet): string;
 
 implementation
 
@@ -1008,6 +1008,24 @@ begin
     else
       Assert(False);
   end;
+end;
+
+function PreProcSymbolTypeSetToString(const peSymbolTypes: TPreProcessorSymbolTypeSet): string;
+var
+  leLoop: TPreProcessorSymbolType;
+begin
+  Result := '';
+
+  for leLoop := Low(TPreProcessorSymbolType) to High(TPreProcessorSymbolType) do
+  begin
+    if leLoop in peSymbolTypes then
+    begin
+      if Result <> '' then
+        Result := Result + ', ';
+      Result := Result + PreProcSymbolTypeToString(leLoop);
+    end;
+  end;
+
 end;
 
 initialization

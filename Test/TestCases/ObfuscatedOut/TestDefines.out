@@ -64,11 +64,9 @@ end;
 
 {$IFEND}
 {$IF Defined(FOO) and defined(BAR) and defined(FISH)}
-
   6 wakka wakka wakka
 {$IFEND}
 {$IF (Defined(FOO) or defined(BAR)) and defined(FISH)}
-
   7 wakka wakka wakka
 {$IFEND}
 {$DEFINE FISH}

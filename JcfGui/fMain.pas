@@ -248,8 +248,16 @@ end;
 
 procedure TfrmMain.ShowStatusMesssage(const psFile, psMessage: string;
   const piY, piX: integer);
+var
+  lsMessage: string;
 begin
-  mOutput.Lines.Add(psMessage);
+  { show the message }
+  lsMessage := psMessage;
+  if (piX > 0) and (piY > 0) then
+    lsMessage := lsMessage + ' near line ' + IntToStr(piY) + ' col ' + IntToStr(piX);
+  mOutput.Lines.Add(lsMessage);
+
+  { scroll into view and check the srollbar }
   mOutput.CurrentLine := mOutput.Lines.Count -1;
   if mOutput.Lines.Count > 1 then
     mOutput.ScrollBars := ssVertical

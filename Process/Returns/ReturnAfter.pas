@@ -287,11 +287,17 @@ begin
     exit;
   end;
 
-  { return before compiler directives }
-  if (pt.CommentStyle = eCompilerDirective) and (ptNext.TokenType <> ttConditionalCompilationRemoved) then
+  { return before compiler directives
+    NB ptNext is the next *solid* token
+    cond comp removed is not solid }
+  if (pt.CommentStyle = eCompilerDirective) then
   begin
-    Result := True;
-    exit;
+    lcNext := pt.NextTokenWithExclusions([ttWhiteSpace]);
+    if (lcNext <> nil)and (lcNext.TokenType <> ttConditionalCompilationRemoved) then
+    begin
+      Result := True;
+      exit;
+    end;
   end;
   
   { return after 'type' unless it's the second type in "type foo = type integer;" }

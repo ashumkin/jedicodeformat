@@ -6,7 +6,6 @@ implementation
 
 procedure Foo; cdecl; export;
 {$IFDEF LINUX}
-
 var
   I: Integer;
 begin

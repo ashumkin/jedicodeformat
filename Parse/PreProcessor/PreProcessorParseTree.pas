@@ -56,7 +56,8 @@ type
 
     procedure ParseNonPreProc(const peEndTokens: TPreProcessorSymbolTypeSet);
     procedure ParseOptTail(pbAlreadyMatchedClause: boolean);
-    procedure ParsePreProcessorDirective(const peSymbolType: TPreProcessorSymbolType);
+    procedure ParsePreProcessorDirective(const peSymbolType: TPreProcessorSymbolType); overload;
+    procedure ParsePreProcessorDirective(const peSymbolTypes: TPreProcessorSymbolTypeSet); overload;
 
     procedure RemoveDefinedSymbol(const psSymbol: string);
     function SymbolIsDefined(const psSymbol: string): boolean;
@@ -274,9 +275,9 @@ begin
   fbPreprocessorIncluded := lbEval;
   inc(fiCurrentIndex);
 
-  ParseNonPreProc(OLD_PREPROC_BLOCK_END);
+  ParseNonPreProc(PREPROC_BLOCK_END);
   ParseOptTail(lbEval or (not lbWasIncluded));
-  ParsePreProcessorDirective(ppEndIf);
+  ParsePreProcessorDirective([ppEndIf, ppIfEnd]);
 
   fbPreprocessorIncluded := lbWasIncluded;
 end;
@@ -295,9 +296,9 @@ begin
   fbPreprocessorIncluded := lbEval;
   inc(fiCurrentIndex);
 
-  ParseNonPreProc(NEW_PREPROC_BLOCK_END);
+  ParseNonPreProc(PREPROC_BLOCK_END);
   ParseOptTail(lbEval);
-  ParsePreProcessorDirective(ppIfEnd);
+  ParsePreProcessorDirective([ppEndIf, ppIfEnd]);
   fbPreprocessorIncluded := lbWasIncluded;
 
 end;
@@ -316,9 +317,9 @@ begin
   fbPreprocessorIncluded := lbEval;
   inc(fiCurrentIndex);
 
-  ParseNonPreProc(OLD_PREPROC_BLOCK_END);
+  ParseNonPreProc(PREPROC_BLOCK_END);
   ParseOptTail(lbEval);
-  ParsePreProcessorDirective(ppEndIf);
+  ParsePreProcessorDirective([ppEndIf, ppIfEnd]);
 
   fbPreprocessorIncluded := lbWasIncluded;
 end;
@@ -337,28 +338,34 @@ begin
   fbPreprocessorIncluded := lbEval;
   inc(fiCurrentIndex);
 
-  ParseNonPreProc(OLD_PREPROC_BLOCK_END);
+  ParseNonPreProc(PREPROC_BLOCK_END);
   ParseOptTail(lbEval);
-  ParsePreProcessorDirective(ppEndIf);
+  ParsePreProcessorDirective([ppEndIf, ppIfEnd]);
   fbPreprocessorIncluded := lbWasIncluded;
 end;
 
 procedure TPreProcessorParseTree.ParsePreProcessorDirective(const peSymbolType: TPreProcessorSymbolType);
+begin
+  ParsePreProcessorDirective([peSymbolType]);
+end;
+
+procedure TPreProcessorParseTree.ParsePreProcessorDirective(const peSymbolTypes: TPreProcessorSymbolTypeSet);
 var
   lcToken: TSourceToken;
 begin
   lcToken := CurrentToken;
-  Assert(lcToken <> nil, 'nil token, expected '  + PreProcSymbolTypeToString(peSymbolType));
+  Assert(lcToken <> nil, 'nil token, expected '  + PreProcSymbolTypeSetToString(peSymbolTypes));
 
   if lcToken.CommentStyle <> eCompilerDirective then
-    Raise TEParseError.Create('Expected compiler directive', lcToken);
+    raise TEParseError.Create('Expected compiler directive', lcToken);
 
-  if lcToken.PreprocessorSymbol <> peSymbolType then
-    Raise TEParseError.Create('Expected compiler directive ' +
-      PreProcSymbolTypeToString(peSymbolType), lcToken);
+  if not (lcToken.PreprocessorSymbol in peSymbolTypes) then
+    raise TEParseError.Create('Expected compiler directive ' +
+      PreProcSymbolTypeSetToString(peSymbolTypes), lcToken);
 
   inc(fiCurrentIndex);
 end;
+
 
 procedure TPreProcessorParseTree.ParseNonPreProc(const peEndTokens: TPreProcessorSymbolTypeSet);
 var
