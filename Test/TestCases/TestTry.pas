@@ -75,6 +75,54 @@ end;
 end;
 end;
 
+procedure TestSimpleElse;
+begin
+  try
+    TestTryProc;
+  except
+    on E2: EInvalidArgument do
+      ShowMessage('There was an invalid arg exception: ' + E2.Message);
+    else
+      Raise;
+  end;
+
+  try
+    TestTryProc;
+  except
+    on E: EMathError do
+    begin
+      ShowMessage('There was a math error: ' + E.Message);
+    end
+    else
+    begin
+      Raise;
+    end;
+  end;
+
+  try
+    TestTryProc;
+  except
+    on E: EMathError do
+    begin
+      ShowMessage('There was a math error: ' + E.Message);
+    end
+    else ;
+  end;
+
+  try
+    TestTryProc;
+  except
+    on E: EMathError do
+    begin
+      ShowMessage('There was a math error: ' + E.Message);
+    end
+    else
+    begin
+    end;
+  end;
+
+end;
+
 
 procedure MoreComplexExceptionHandler;
 var

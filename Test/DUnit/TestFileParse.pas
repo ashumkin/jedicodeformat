@@ -180,7 +180,7 @@ end;
 
 procedure TTestFileParse.TestParse_Empty1;
 begin
-  TestParseFile('EmptyTest1', 15);
+  TestParseFile('EmptyTest1', 17);
 end;
 
 procedure TTestFileParse.TestParse_fFormTest;
@@ -506,7 +506,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestTry;
 begin
-  TestParseFile('TestTry', 391);
+  TestParseFile('TestTry', 608);
 end;
 
 procedure TTestFileParse.TestParse_TestTypeDefs;

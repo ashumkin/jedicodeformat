@@ -171,13 +171,15 @@ begin
         if (pt.Word in ParamTypes) and pt.HasParentNode(nProcedureType) then
             inc(liIndentCount);
       end
-    end
-    else
-    begin
-     { procedure formal params are not in the block }
-      if pt.HasParentNode(nFormalParams) then
-        inc(liIndentCount);
     end;
+
+   { procedure formal params are not in the block }
+    if pt.HasParentNode(nFormalParams) then
+      inc(liIndentCount);
+
+    // else as an outdent for an exception block
+    if (pt.Word = wElse) and pt.HasParentNode(nOnExceptionHandler, 1) then
+      dec(liIndentCount);
 
     if pt.Nestings.GetLevel(nlCaseSelector) > 0 then
     begin
@@ -242,7 +244,10 @@ begin
     either in or out of a proc }
 
   if pt.HasParentNode(nEnumeratedType) and (RoundBracketLevel(pt) > 0) then
+  begin
     inc(liIndentCount);
+    lbHasIndentedRunOnLine := True;
+  end;
 
   { run on expression }
   if not lbHasIndentedRunOnLine then
