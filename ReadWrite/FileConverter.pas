@@ -186,6 +186,7 @@ begin
       raise Exception.Create('TFileConverter.ProcessFile: ' +
         'could not rename source file ' + psInput + ' to ' + lsTemp);
 
+    FileReader.Clear;
     FileReader.SourceFileName := lsTemp;
     FileWriter.OutputFileName := psInput;
   end
@@ -199,6 +200,7 @@ begin
       raise Exception.Create('TFileConverter.ProcessFile: ' +
         'could not rename source file ' + psInput + ' to ' + lsOut);
 
+    FileReader.Clear;
     FileReader.SourceFileName := lsOut;
     FileWriter.OutputFileName := psInput;
   end

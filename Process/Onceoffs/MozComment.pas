@@ -31,18 +31,18 @@ unit MozComment;
 
 interface
 
-uses SwitchableVisitor, SourceToken, VisitParseTree;
+uses BaseVisitor, SourceToken, VisitParseTree;
 
 type
-  TMozComment = class(TSwitchableVisitor)
+  TMozComment = class(TBaseTreeNodeVisitor)
   private
-    bHasMoz: boolean;
+    fbWorkIsDone: boolean;
   protected
 
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
 
+    procedure VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult); override;
     function IsIncludedInSettings: boolean; override;
   end;
 
@@ -52,7 +52,8 @@ implementation
 uses
   { delphi } SysUtils,
   JclStrings,
-  { local } TokenUtils, WordMap, JcfSettings, TokenType, SetClarify;
+  { local } TokenUtils, WordMap, JcfSettings, TokenType, ParseTreeNodeType,
+  SetClarify;
 
 
 const
@@ -84,13 +85,28 @@ const
     '------------------------------------------------------------------------------*)' +
     AnsiLineBreak + NOFORMAT_OFF + AnsiLineBreak + AnsiLineBreak;
 
+function FirstOpportunityForMozInsert(const pt: TSourceToken): Boolean;
+begin
+  Result := False;
 
-  { TMozComment }
+  if (pt.Word = wUses) and pt.HasParentNode(nUses, 2) and
+    pt.HasParentNode(TopOfProgramSections, 2) then
+  begin
+    { just before first uses clause in program, etc }
+    Result := True;
+  end
+  else if (pt.Word = wInterface) and pt.HasParentNode(nUnit, 2) then
+  begin
+    // before interface in unit 
+    Result := True;
+  end;
+end;
+
 
 constructor TMozComment.Create;
 begin
   inherited;
-  bHasMoz := False;
+  fbWorkIsDone := False;
 end;
 
 function TMozComment.IsIncludedInSettings: boolean;
@@ -100,52 +116,47 @@ begin
 end;
 
 
-procedure TMozComment.EnabledVisitSourceToken(const pcNode: TObject;
-  var prVisitResult: TRVisitResult);
-const
-  UnitStart: TWordSet = [wUnit, wProgram, wLibrary];
+procedure TMozComment.VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult);
 var
   lsFile:    string;
   lsComment: string;
   lcToken, lcNewComment: TSourceToken;
   lbInContext: boolean;
 begin
-  lcToken := TSourceToken(pcNode);
+  if fbWorkIsDone then
+    exit;
 
-  lbInContext := ((lcToken.Word in UnitStart) or (lcToken.TokenType = ttComment)) and not bHasMoz;
+  lcToken := TSourceToken(pcToken);
+
+  if (lcToken.TokenType = ttComment) and (Pos(MozURL, lcToken.SourceCode) > 0) then
+  begin
+    fbWorkIsDone := True;
+    exit;
+  end;
+
+  lbInContext := FirstOpportunityForMozInsert(lcToken);
   if not lbInContext then
     exit;
 
-  if (lcToken.TokenType = ttComment) then
-  begin
-    { check for existing Moz. comment
-     Any comment with the Moz. licence URL is assumed to be it }
+  { get the file name but remove the path
+    This will be inserted into the standard comment string
+  }
 
-    if Pos(MozURL, lcToken.SourceCode) > 0 then
-      bHasMoz := True;
-  end
-  else
-  begin
-    { get the file name but remove the path
-      This will be inserted into the standard comment string
-    }
+  lsFile := UnitName(lcToken);
 
-    lsFile := UnitName(lcToken);
+  lsComment := MozCommentString;
+  lsComment := StringReplace(lsComment, '<FileName>', lsFile, [rfReplaceAll]);
+  lsComment := StringReplace(lsComment, '<Date>', FormatDateTime('mmmm yyyy', Date),
+    [rfReplaceAll]);
 
-    lsComment := MozCommentString;
-    lsComment := StringReplace(lsComment, '<FileName>', lsFile, [rfReplaceAll]);
-    lsComment := StringReplace(lsComment, '<Date>', FormatDateTime('mmmm yyyy', Date),
-      [rfReplaceAll]);
+  // put the comment in front of the unit start word
+  lcNewComment := TSourceToken.Create;
+  lcNewComment.TokenType := ttComment;
+  lcNewComment.SourceCode := lsComment;
 
-    // put the comment in front of the unit start word
-    lcNewComment := TSourceToken.Create;
-    lcNewComment.TokenType := ttComment;
-    lcNewComment.SourceCode := lsComment;
+  lcToken.Parent.InsertChild(lcToken.IndexOfSelf, lcNewComment);
 
-    lcToken.Parent.InsertChild(lcToken.IndexOfSelf, lcNewComment);
-
-    bHasMoz := True;
-  end;
+  fbWorkIsDone := True;
 end;
 
 end.

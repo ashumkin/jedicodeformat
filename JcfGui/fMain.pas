@@ -231,11 +231,11 @@ end;
 
 procedure TfrmMain.FormDestroy(Sender: TObject);
 begin
-  GetRegSettings.WriteAll;
-  GetRegSettings.MRUFiles := nil;
-
   frBasic.Write;
   FreeAndNil(fcConverter);
+
+  GetRegSettings.WriteAll;
+  GetRegSettings.MRUFiles := nil;
 end;
 
 
