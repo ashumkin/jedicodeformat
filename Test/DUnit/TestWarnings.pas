@@ -33,6 +33,7 @@ type
 
     // case without else block
     procedure TestCaseNoElse1;
+    procedure TestCaseNoElse2;
 
  end;
 
@@ -134,6 +135,14 @@ const
   UNIT_TEXT = UNIT_HEADER +  'procedure fred; var li: integer; begin case li of 1: end; end; ' + UNIT_FOOTER;
 begin
   TestWarnings(UNIT_TEXT,'Case statement has no else case');
+end;
+
+procedure TTestWarnings.TestCaseNoElse2;
+const
+  // this one has an else, should have no warning
+  UNIT_TEXT = UNIT_HEADER +  'procedure fred; var li: integer; begin case li of 1: ; else; end; end; ' + UNIT_FOOTER;
+begin
+  TestNoWarnings(UNIT_TEXT);
 end;
 
 initialization

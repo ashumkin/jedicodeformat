@@ -38,13 +38,11 @@ var
 begin
   lcNode := TParseTreeNode(pcNode);
 
-  if lcNode.NodeType <> nCaseStatement then
-    exit;
-
-  // we have a case statement
-  if not lcNode.HasChildNode([wElse], 1) then
+  // when we have a case statement, does it have an else?
+  if (lcNode.NodeType = nCaseStatement) and
+    (not lcNode.HasChildNode(nElseCase, 1)) then
   begin
-     SendWarning(lcNode, 'Case statement has no else case');
+    SendWarning(lcNode, 'Case statement has no else case');
   end;
 end;
 
