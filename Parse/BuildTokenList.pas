@@ -472,7 +472,13 @@ end;
 
 function CharIsWhiteSpaceNoReturn(const ch: AnsiChar): boolean;
 begin
-  Result := CharIsWhiteSpace(ch) and (ch <> AnsiLineFeed) and (ch <> AnsiCarriageReturn);
+  { 7 April 2004 following sf snag 928460 and discussion in newsgroups
+    must accept all other chars < 32 as white space }
+
+  // Result := CharIsWhiteSpace(ch) and (ch <> AnsiLineFeed) and (ch <> AnsiCarriageReturn);
+
+  Result := (Ord(ch) <= Ord(AnsiSpace)) and
+    (not (ch in [AnsiLineFeed, AnsiCarriageReturn, AnsiNull]));
 end;
 
 function TBuildTokenList.TryWhiteSpace(const pcToken: TSourceToken): boolean;
