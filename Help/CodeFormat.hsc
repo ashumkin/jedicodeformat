@@ -1,6 +1,6 @@
 HelpScribble project file.
 12
-...
+`cbbajbek Vap.-1N53O79Q
 0
 1
 JEDI Delphi Code Format
@@ -82,7 +82,7 @@ FALSE
 \par \f1 
 \par Helpfile by \cf3\strike Ralf Steinhaeusser\cf2\strike0\{linkID=1000\}
 \par 
-\par \cf0\f3 Last change : 20.11.2003\f1 
+\par \cf0\f3 Last change : 15.6.2004\f1 
 \par }
 12
 Scribble12
