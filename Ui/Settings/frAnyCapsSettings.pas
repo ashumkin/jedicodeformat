@@ -57,7 +57,7 @@ uses JcfHelp, JcfSettings;
 constructor TfrAnyCapsSettings.Create(AOwner: TComponent);
 begin
   inherited;
-  fiHelpContext := HELP_CAPITALISATION;
+  fiHelpContext := HELP_CLARIFY_CAPITALISATION;
 end;
 
 

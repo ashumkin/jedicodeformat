@@ -58,7 +58,7 @@ uses JcfHelp, JcfSettings;
 constructor TfReplace.Create(AOwner: TComponent);
 begin
   inherited;
-  fiHelpContext := HELP_FIND_AND_REPLACE;
+  fiHelpContext := HELP_CLARIFY_FIND_AND_REPLACE;
 end;
 
 procedure TfReplace.Read;

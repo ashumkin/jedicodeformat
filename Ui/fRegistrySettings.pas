@@ -74,6 +74,8 @@ type
     procedure sbSpecifedDirClick(Sender: TObject);
     procedure btnViewLogClick(Sender: TObject);
     procedure tsExclusionsResize(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     fsSpecifiedDirectory: string;
 
@@ -96,7 +98,7 @@ uses
   { jcl }
   JclFileUtils, JclShell, JclSysInfo,
   { jcf }
-  ConvertTypes, JcfRegistrySettings, JcfSettings;
+  ConvertTypes, JcfRegistrySettings, JcfSettings, JCFHelp;
 
 {$R *.dfm}
 
@@ -253,6 +255,14 @@ begin
 
   mDirs.Left := SPACING;
   mDirs.Width := tsExclusions.ClientWidth - (SPACING * 2);
+end;
+
+procedure TfmRegistrySettings.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_F1 then
+    Application.HelpContext(HELP_MAIN);
+
 end;
 
 end.

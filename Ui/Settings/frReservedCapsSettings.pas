@@ -58,7 +58,7 @@ uses SettingsTypes, JcfHelp, JcfSettings;
 constructor TfrReservedCapsSettings.Create(AOwner: TComponent);
 begin
   inherited;
-  fiHelpContext := HELP_CAPITALISATION;
+  fiHelpContext := HELP_CLARIFY_CAPITALISATION;
 end;
 
 procedure TfrReservedCapsSettings.cbEnableClick(Sender: TObject);

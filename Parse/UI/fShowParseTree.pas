@@ -63,6 +63,8 @@ type
       Selected: Boolean);
     procedure lvTokensDblClick(Sender: TObject);
     procedure tvParseTreeDblClick(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     fcRootNode: TParseTreeNode;
     procedure ShowTreeNodeDetails(const pcNode: TParseTreeNode);
@@ -79,7 +81,7 @@ implementation
 
 {$R *.dfm}
 
-uses SourceToken, Tokens;
+uses SourceToken, Tokens, JCFHelp;
 
 procedure ShowParseTree(const pcRoot: TParseTreeNode);
 var
@@ -289,6 +291,13 @@ begin
     end;
   end;
 
+end;
+
+procedure TfrmShowParseTree.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_F1 then
+    Application.HelpContext(HELP_MAIN);
 end;
 
 end.

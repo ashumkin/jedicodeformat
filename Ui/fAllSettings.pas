@@ -47,6 +47,8 @@ type
     procedure bbCancelClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bbHelpClick(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     frLastFrame: TfrSettingsFrame;
 
@@ -271,6 +273,13 @@ begin
   { save the last selected node }
   if tvFrames.Selected <> nil then
     GetRegSettings.LastSettingsPage := tvFrames.Selected.Text;
+end;
+
+procedure TFormAllSettings.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_F1 then
+    bbHelpClick(nil);
 end;
 
 end.

@@ -108,6 +108,8 @@ type
     procedure mInputMouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure Contents1Click(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     fcConvert: TStringsConverter;
 
@@ -427,6 +429,14 @@ end;
 procedure TfmJCFNotepad.Contents1Click(Sender: TObject);
 begin
   Application.HelpContext(HELP_MAIN);
+end;
+
+procedure TfmJCFNotepad.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+ if Key = VK_F1 then
+  Application.HelpContext(HELP_MAIN);
+
 end;
 
 end.

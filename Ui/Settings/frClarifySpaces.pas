@@ -74,7 +74,7 @@ uses JcfHelp, JcfSettings;
 constructor TfClarifySpaces.Create(AOwner: TComponent);
 begin
   inherited;
-  fiHelpContext := HELP_SPACES;
+  fiHelpContext := HELP_CLARIFY_SPACES;
 end;
 
 

@@ -70,7 +70,7 @@ uses JcfSettings, JcfHelp;
 constructor TfClarifyAlign.Create(AOwner: TComponent);
 begin
   inherited;
-  fiHelpContext := HELP_ALIGN;
+  fiHelpContext := HELP_CLARIFY_ALIGN;
 end;
 
 

@@ -64,7 +64,7 @@ uses Tokens, SettingsTypes, JcfSettings, SetReturns, JcfHelp;
 constructor TfClarifyReturns.Create(AOwner: TComponent);
 begin
   inherited;
-  fiHelpContext := HELP_RETURNS;
+  fiHelpContext := HELP_CLARIFY_RETURNS;
 end;
 
 {-------------------------------------------------------------------------------

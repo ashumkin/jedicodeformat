@@ -140,7 +140,7 @@ FALSE
 \par }
 20
 Scribble20
-Gerneral Registry Settings
+General Registry Settings
 
 
 
@@ -995,7 +995,7 @@ FALSE
 \par }
 1000
 Scribble1000
-Issues
+Info...
 Info
 
 

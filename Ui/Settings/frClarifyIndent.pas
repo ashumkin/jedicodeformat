@@ -65,7 +65,7 @@ uses JcfHelp, JcfSettings, SetIndent;
 constructor TfClarifyIndent.Create(AOwner: TComponent);
 begin
   inherited;
-  fiHelpContext := HELP_INDENTATION;
+  fiHelpContext := HELP_CLARIFY_INDENTATION;
 end;
 
 {-------------------------------------------------------------------------------

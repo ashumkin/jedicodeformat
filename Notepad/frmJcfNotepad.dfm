@@ -10,10 +10,12 @@ object fmJCFNotepad: TfmJCFNotepad
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
+  KeyPreview = True
   Menu = MainMenu1
   OldCreateOrder = False
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  OnKeyUp = FormKeyUp
   OnResize = FormResize
   OnShow = FormShow
   PixelsPerInch = 96

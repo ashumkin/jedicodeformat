@@ -56,7 +56,7 @@ uses JcfSettings, SetReturns, JcfHelp;
 constructor TfClarifyLongLineBreaker.Create(AOwner: TComponent);
 begin
   inherited;
-  fiHelpContext := HELP_RETURNS;
+  fiHelpContext := HELP_CLARIFY_LONG_LINES;
 end;
 
 {-------------------------------------------------------------------------------

@@ -12,10 +12,12 @@ object frmMain: TfrmMain
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
+  KeyPreview = True
   Menu = mnuMain
   OldCreateOrder = False
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  OnKeyUp = FormKeyUp
   PixelsPerInch = 96
   TextHeight = 13
   object sb: TStatusBar

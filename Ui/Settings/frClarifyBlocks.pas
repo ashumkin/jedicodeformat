@@ -59,7 +59,7 @@ uses JcfSettings, SettingsTypes, JcfHelp;
 constructor TfClarifyBlocks.Create(AOwner: TComponent);
 begin
   inherited;
-  fiHelpContext := HELP_BLOCKS;
+  fiHelpContext := HELP_CLARIFY_BLOCKS;
 end;
 
 

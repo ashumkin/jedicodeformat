@@ -59,7 +59,7 @@ uses JcfSettings, SettingsTypes, JcfHelp, SetObfuscate;
 constructor TfObfuscateSettings.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  fiHelpContext := HELP_OBFUSTCATE;
+  fiHelpContext := HELP_OBFUSCATE_SETTINGS;
 end;
 
 procedure TfObfuscateSettings.Read;

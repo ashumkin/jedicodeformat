@@ -93,6 +93,8 @@ type
     procedure mnuRegistrySettingsClick(Sender: TObject);
     procedure mruFilesClick(Sender: TObject; const RecentName,
       Caption: String; UserData: Integer);
+    procedure FormKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     fcConverter: TFileConverter;
 
@@ -373,6 +375,13 @@ procedure TfrmMain.mruFilesClick(Sender: TObject; const RecentName,
   Caption: String; UserData: Integer);
 begin
   frBasic.DoFileOpen(RecentName);
+end;
+
+procedure TfrmMain.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_F1 then
+    Application.HelpContext(HELP_MAIN);
 end;
 
 end.

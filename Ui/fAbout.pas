@@ -44,6 +44,8 @@ type
     procedure imgOpenSourceClick(Sender: TObject);
     procedure lblMPLClick(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
   public
   end;
@@ -56,7 +58,7 @@ implementation
 uses
   { delphi } URLMon,
   { jcl } JclStrings,
-  { local } VersionConsts;
+  { local } VersionConsts, JCFHelp;
 
 procedure ShowURL(const ps: string);
 var
@@ -106,6 +108,14 @@ begin
 
   hlHomePage.Left := SPACING;
   hlHomePage.Width := pnlClient.ClientWidth - (2 * SPACING);
+end;
+
+procedure TfrmAboutBox.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_F1 then
+    Application.HelpContext(HELP_MAIN);
+
 end;
 
 end.

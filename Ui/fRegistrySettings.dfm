@@ -11,8 +11,10 @@ object fmRegistrySettings: TfmRegistrySettings
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   Position = poScreenCenter
+  OnKeyUp = FormKeyUp
   OnResize = FormResize
   PixelsPerInch = 96
   TextHeight = 13

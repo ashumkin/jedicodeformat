@@ -11,9 +11,11 @@ object frmAboutBox: TfrmAboutBox
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = True
   Position = poScreenCenter
   OnCreate = FormCreate
+  OnKeyUp = FormKeyUp
   OnResize = FormResize
   PixelsPerInch = 96
   TextHeight = 13

@@ -12,10 +12,12 @@ object FormAllSettings: TFormAllSettings
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   Position = poScreenCenter
   OnClose = FormClose
   OnCreate = FormCreate
+  OnKeyUp = FormKeyUp
   PixelsPerInch = 96
   TextHeight = 13
   object tvFrames: TTreeView

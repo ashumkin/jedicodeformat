@@ -15,7 +15,7 @@ K=0
 L=1
 M=0
 N=1
-O=0
+O=1
 P=1
 Q=0
 R=0
@@ -134,3 +134,14 @@ OriginalFilename=
 ProductName=
 ProductVersion=1.0.0.0
 Comments=
+[HistoryLists\hlUnitAliases]
+Count=1
+Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
+[HistoryLists\hlUnitOutputDirectory]
+Count=2
+Item0=C:\Code\JcfCheckout\CodeFormat\Jcf2\Output
+Item1=..\Output
+[HistoryLists\hlOutputDirectorry]
+Count=2
+Item0=C:\Code\JcfCheckout\CodeFormat\Jcf2\Output
+Item1=..\Output

@@ -63,7 +63,7 @@ uses
 constructor TfUses.Create(AOwner: TComponent);
 begin
   inherited;
-  fiHelpContext := HELP_FIND_ANDREPLACE_USES;
+  fiHelpContext := HELP_CLARIFY_FIND_AND_REPLACE_USES;
 end;
 
 
