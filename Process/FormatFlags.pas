@@ -154,6 +154,8 @@ begin
   if not (AnsiSameText(lsPrefix, FORMAT_COMMENT_PREFIX)) then
     exit;
 
+  // should be a valid jcf flag directive after here
+  Result := True;
   lsRest := Trim(StrRestOf(psComment, 7));
 
   { rest should read <setting>=<state>
@@ -183,26 +185,27 @@ begin
       raise;
   end;
 
-  // accept jcf:all=on to reset state to normal by removing all flags 
+  lbFlagFound := False;
+  
+  // accept jcf:all=on to reset state to normal by removing all flags
   if AnsiSameText(lsSetting, 'all') then
   begin
     peFlags := ALL_FLAGS;
-    Result := True;
-    exit;
-  end;
-
-  { match the setting from the table }
-  lbFlagFound := False;
-  for liLoop := low(FORMAT_FLAG_NAMES) to high(FORMAT_FLAG_NAMES) do
+    lbFlagFound := True;
+  end
+  else
   begin
-    if AnsiSameText(lsSetting, FORMAT_FLAG_NAMES[liLoop].sName) then
+    { match the setting from the table }
+    for liLoop := low(FORMAT_FLAG_NAMES) to high(FORMAT_FLAG_NAMES) do
     begin
-      peFlags := FORMAT_FLAG_NAMES[liLoop].eFlags;
-      lbFlagFound := True;
-      break;
+      if AnsiSameText(lsSetting, FORMAT_FLAG_NAMES[liLoop].sName) then
+      begin
+        peFlags := FORMAT_FLAG_NAMES[liLoop].eFlags;
+        lbFlagFound := True;
+        break;
+      end;
     end;
   end;
-
 
   if not lbFlagFound then
   begin

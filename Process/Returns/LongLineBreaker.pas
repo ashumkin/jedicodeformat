@@ -183,6 +183,9 @@ const
   GOOD_PLACE      = 10;
   EXCELLENT_PLACE = 30;
   AWESOME_PLACE   = 40;
+
+var
+  lcPrev, lcNext: TSourceToken;
 begin
   Assert(pcToken <> nil);
 
@@ -195,27 +198,67 @@ begin
       piScoreBefore := VERY_BAD_PLACE;
       piScoreAfter := BAD_PLACE;
     end;
-    { it is Goodish to break after a colon
-      unless in a parameter list or var declaration }
+    { it is better to break after a colon than before }
     ttColon:
     begin
-      if InDeclarations(pcToken) or pcToken.HasParentNode(nFormalParams) then
+      piScoreBefore := VERY_BAD_PLACE;
+      piScoreAfter := SEMI_GOOD_PLACE;
+    end;
+    ttOpenBracket:
+    begin
+      { if this is a fn def or call, break after. }
+      if IsActualParamOpenBracket(pcToken) or IsFormalParamOpenBracket(pcToken) then
       begin
-        piScoreBefore := BAD_PLACE;
-        piScoreAfter := VERY_BAD_PLACE;
+        piScoreBefore := VERY_BAD_PLACE;
+        piScoreAfter := GOOD_PLACE;
+      end
+      { If it not a fn call but is in an expr then break before }
+      else if pcToken.HasParentNode(nExpression) then
+      begin
+        piScoreBefore := GOOD_PLACE;
+        piScoreAfter := BAD_PLACE;
       end
       else
       begin
-        piScoreBefore := SEMI_BAD_PLACE;
-        piScoreAfter := SEMI_GOOD_PLACE;
+        // class defs and stuph Break after
+        piScoreBefore := VERY_BAD_PLACE;
+        piScoreAfter := GOOD_PLACE;
       end;
+
     end;
-    { or just before close brackets or a semicolon -
+    { or just before close brackets -
       better to break after these }
     ttCloseBracket, ttCloseSquareBracket:
     begin
-     piScoreBefore := VERY_BAD_PLACE;
+      piScoreBefore := VERY_BAD_PLACE;
       piScoreAfter := GOOD_PLACE;
+
+      if pcToken.HasParentNode(nExpression) then
+      begin
+        lcNext := pcToken.NextSolidToken;
+        if lcNext <> nil then
+        begin
+          if lcNext.TokenType = ttOperator then
+          begin
+             { operator next? want to break after it instead of after the ')'
+              (for e.g after the + in 'a := (x - y) + z; }
+             piScoreAfter := BAD_PLACE;
+          end
+          else if (lcNext.TokenType in [ttCloseBracket, ttCloseSquareBracket]) then
+          begin
+            { more close brackets coming? break after them instead }
+             piScoreAfter := VERY_BAD_PLACE;
+          end
+          else
+          begin
+            { no operator next, no bracket next.
+              Is this the last of multiple brackets ? }
+            lcPrev := pcToken.PriorSolidToken;
+            if (lcPrev.TokenType in [ttCloseBracket, ttCloseSquareBracket]) then
+              piScoreAfter := EXCELLENT_PLACE;
+          end;
+        end;
+      end;
     end;
     { break after the semicolon is awesome, before is terrible}
     ttSemiColon:
@@ -399,12 +442,21 @@ var
 begin
   lcSourceToken := TSourceToken(pcNode);
 
+  // don't break lines in dpr program uses clause
+  if lcSourceToken.HasParentNode(nUses) and lcSourceToken.HasParentNode(nProgram) then
+    exit;
+
   { line can start with a return or with a multiline comment }
   if not (lcSourceToken.TokenType in [ttReturn, ttComment]) then
     exit;
 
+  // double-slash coments are never multiline
   if (lcSourceToken.TokenType = ttComment) and (lcSourceToken.CommentStyle = eDoubleSlash) then
     exit;
+  // if the comment is one-line then don't bother
+  if (lcSourceToken.TokenType = ttComment) and (Pos (AnsiLineBreak, lcSourceToken.SourceCode) <= 0) then
+    exit;
+
 
   // read until the next return
   lcNext := lcSourceToken.NextToken;
@@ -486,6 +538,11 @@ begin
   for liLoop := 0 to fcTokens.Count - 1 do
   begin
     lcNext := fcTokens.SourceTokens[liLoop];
+
+    if  liTotalWidth - (lcNext.XPosition - 1) < 0 then
+    begin
+      Self := Self;
+    end;
 
     // xpos is indexed from 1
     liScoreAfter := NearEndScore(liTotalWidth - (lcNext.XPosition - 2));

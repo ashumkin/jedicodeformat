@@ -155,7 +155,6 @@ begin
 
   ApplyVisitorType(TSpaceBeforeColon);
   ApplyVisitorType(TVisitStripEmptySpace);
-
 end;
 
 

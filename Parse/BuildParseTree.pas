@@ -1604,8 +1604,8 @@ begin
 end;
 
 procedure TBuildParseTree.RecogniseSimpleExpression;
-var
-  lc: TSourceToken;
+{var
+  lc: TSourceToken;}
 begin
   { SimpleExpression -> ['+' | '-'] Term [AddOp Term]...
 
@@ -1613,9 +1613,10 @@ begin
     RecogniseFactor does that with a unary operator
   }
 
-  lc := TokenList.FirstSolidToken;
 
 {
+  lc := TokenList.FirstSolidToken;
+
   if lc.Word = wMinus then
     Recognise(wMinus)
   else if lc.Word = wPlus then

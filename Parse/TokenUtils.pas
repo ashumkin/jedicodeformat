@@ -62,6 +62,9 @@ function IsUnaryOperator(const pt: TSourceToken): boolean;
 
 function InFormalParams(const pt: TSourceToken): boolean;
 
+function IsActualParamOpenBracket(const pt: TSourceToken): boolean;
+function IsFormalParamOpenBracket(const pt: TSourceToken): boolean;
+
 implementation
 
 uses
@@ -345,6 +348,15 @@ begin
   Result := (RoundBracketLevel(pt) = 1) and pt.HasParentNode(nFormalParams);
 end;
 
+function IsActualParamOpenBracket(const pt: TSourceToken): boolean;
+begin
+  Result := (pt.TokenType = ttOpenBracket) and (pt.HasParentNode(nActualParams, 1));
+end;
+
+function IsFormalParamOpenBracket(const pt: TSourceToken): boolean;
+begin
+  Result := (pt.TokenType = ttOpenBracket) and (pt.HasParentNode(nFormalParams, 1));
+end;
 
 
 end.
