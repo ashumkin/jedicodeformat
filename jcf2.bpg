@@ -9,7 +9,7 @@ MAKE = $(ROOT)\bin\make.exe -$(MAKEFLAGS) -f$**
 DCC = $(ROOT)\bin\dcc32.exe $**
 BRCC = $(ROOT)\bin\brcc32.exe $**
 #------------------------------------------------------------------------------
-PROJECTS = JcfNotepad.exe jcf_test.exe TestCases.exe
+PROJECTS = JcfNotepad.exe jcf.exe jcf_test.exe TestCases.exe
 #------------------------------------------------------------------------------
 default: $(PROJECTS)
 #------------------------------------------------------------------------------
@@ -21,6 +21,9 @@ TestCases.exe: Test\TestCases\TestCases.dpr
   $(DCC)
 
 JcfNotepad.exe: Notepad\JcfNotepad.dpr
+  $(DCC)
+
+jcf.exe: CommandLine\jcf.dpr
   $(DCC)
 
 

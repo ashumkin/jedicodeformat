@@ -100,7 +100,7 @@ begin
   begin
     lsTemp := PathExtractFileNameNoExt(psInput);
 
-    if Settings.FileSettings.FileIsExcluded(lsTemp) then
+    if FormatSettings.FileSettings.FileIsExcluded(lsTemp) then
     begin
       Log.Write('Exluded file: ' + psInput);
       exit;
@@ -126,7 +126,7 @@ begin
   SendStatusMessage(lsMessage);
   fsOriginalFileName := psInput;
 
-  lsOut := Settings.FileSettings.GetOutputFileName(psInput);
+  lsOut := FormatSettings.FileSettings.GetOutputFileName(psInput);
 
   if BackupMode <> cmInplace then
   begin
@@ -237,7 +237,7 @@ begin
     exit;
   end;
 
-  if Settings.FileSettings.DirIsExcluded(GetLastDir(psDir)) then
+  if FormatSettings.FileSettings.DirIsExcluded(GetLastDir(psDir)) then
   begin
     Log.Write('Exluded dir: ' + psDir);
     exit;
@@ -340,7 +340,7 @@ procedure TFileConverter.Convert;
 var
   dwStart, dwElapsed: DWord;
 begin
-  if Settings.Log.LogTime then
+  if FormatSettings.Log.LogTime then
     dwStart := GetTickCount
   else
     dwStart := 0;
@@ -361,7 +361,7 @@ begin
       raise Exception.Create('TConverter.Convert: Bad file recurse type');
   end;
 
-  if Settings.Log.LogTime then
+  if FormatSettings.Log.LogTime then
   begin
     dwElapsed := GetTickCount - dwStart;
     Log.Write('Run took ' + FloatToStr(dwElapsed / 1000) + ' seconds')
@@ -370,8 +370,8 @@ begin
   FinalSummary;
   Log.CloseLog;
 
-  if Settings.Log.ViewLogAfterRun then
-    Settings.Log.ViewLog;
+  if FormatSettings.Log.ViewLogAfterRun then
+    FormatSettings.Log.ViewLog;
 end;
 
 

@@ -65,6 +65,7 @@ type
     destructor Destroy; override;
 
     procedure Read;
+    procedure ReadFromFile(const psFileName: string);
     procedure Write;
 
     procedure ToStream(const pcStream: TSettingsOutput);
@@ -152,14 +153,21 @@ var
   lcFile: TSettingsInputString;
 begin
   // use the Settings File if it exists
-  lsSettingsFileName := GetRegSettings.FormatConfigFileName;
+  ReadFromFile(GetRegSettings.FormatConfigFileName);
+end;
 
-  if FileExists(lsSettingsFileName) then
+procedure TFormatSettings.ReadFromFile(const psFileName: string);
+var
+  lsSettingsFileName: string;
+  lsText: string;
+  lcFile: TSettingsInputString;
+begin
+  if FileExists(psFileName) then
   begin
     // debug ShowMessage('Reading settings from file ' + lsSettingsFileName);
 
       // now we know the file exists - try get settings from it
-    lsText := FileToString(lsSettingsFileName);
+    lsText := FileToString(psFileName);
     lcFile := TSettingsInputString.Create(lsText);
     try
       FromStream(lcFile);
@@ -173,6 +181,9 @@ procedure TFormatSettings.Write;
 var
   lcFile: TSettingsStreamOutput;
 begin
+  if GetRegSettings.FormatConfigFileName = '' then
+    exit;
+    
   // use the Settings File 
   lcFile := TSettingsStreamOutput.Create(GetRegSettings.FormatConfigFileName);
   try
