@@ -1517,7 +1517,7 @@ const
   END_VAR_SECTION: TTokenTypeSet =
     [ttVar, ttThreadVar, ttConst, ttLabel, ttResourceString, ttType,
       ttBegin, ttEnd, ttImplementation, ttInitialization,
-      ttProcedure, ttFunction, ttConstructor, ttDestructor];
+      ttProcedure, ttFunction, ttConstructor, ttDestructor, ttClass];
 begin
   PushNode(nVarSection);
 

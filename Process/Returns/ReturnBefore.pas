@@ -107,9 +107,9 @@ begin
   end;
 
   { start of class function body }
-  if (pt.TokenType = ttClass) and (IsClassFunction(pt)) and
-    (not pt.HasParentNode(nDeclSection)) and
-    (pt.HasParentNode(nImplementationSection)) then
+  if (pt.TokenType = ttClass) and
+    (not pt.HasParentNode([nVarDecl, nConstDecl, nClassDeclarations])) and
+    (pt.HasParentNode(nFunctionHeading, 1)) then
   begin
     Result := True;
     exit;
@@ -230,8 +230,10 @@ begin
     exit;
   end;
 
-  { class function }
-  if (pt.TokenType = ttClass) and pt.HasParentNode(nProcedureDecl) then
+  { start of class function decl in class }
+  if (pt.TokenType = ttClass) and pt.HasParentNode([nProcedureDecl, nFunctionDecl]) and
+    pt.HasParentNode(nClassDeclarations) and
+    (not pt.HasParentNode([nVarDecl, nConstDecl])) then
   begin
     Result := True;
     exit;

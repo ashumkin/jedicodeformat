@@ -10,7 +10,7 @@ interface
 
 var
   Fred, Blogs: integer;
-  McGonnigle, McTavish, mcathini: string;
+  McGonnigle, McTavish, Macathini: string;
 
 implementation
 
