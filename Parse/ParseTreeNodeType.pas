@@ -50,6 +50,7 @@ type
     nVarDecl,
     nAbsoluteVar,
     nVariableInit,
+    nDesignator,
     nExpression,
     nTerm,
     nUnaryOp,
@@ -230,6 +231,8 @@ begin
       Result := 'Absolute var';
     nVariableInit:
       Result := 'Variable init';
+    nDesignator:
+      Result := 'Designator';
     nExpression:
       Result := 'Expression';
     nTerm:

@@ -35,6 +35,7 @@ type
     procedure TestObfuscate_TestBogusTypes;
     procedure TestObfuscate_TestCaseBlock;
     procedure TestObfuscate_TestCast;
+    procedure TestObfuscate_TestCastSimple;
     procedure TestObfuscate_TestCharLiterals;
     procedure TestObfuscate_TestClassLines;
     procedure TestObfuscate_TestCommentIndent;
@@ -82,7 +83,6 @@ type
     procedure TestObfuscate_TestRunOnConst;
     procedure TestObfuscate_TestRunOnDef;
     procedure TestObfuscate_TestRunOnLine;
-    procedure TestObfuscate_TestSimpleCast;
     procedure TestObfuscate_TestTestMH;
     procedure TestObfuscate_TestTPObjects;
     procedure TestObfuscate_TestTry;
@@ -312,7 +312,7 @@ begin
   TestObfuscateFile('TestCast');
 end;
 
-procedure TTestObfuscate.TestObfuscate_TestSimpleCast;
+procedure TTestObfuscate.TestObfuscate_TestCastSimple;
 begin
   TestObfuscateFile('TestCastSimple');
 end;

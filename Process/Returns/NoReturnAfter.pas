@@ -48,7 +48,7 @@ end;
 function TNoReturnAfter.NeedsNoReturn(const pt: TSourceToken): boolean;
 const
   NoReturnWords: TWordSet = [wProcedure, wFunction,
-    wConstructor, wDestructor, wProperty];
+    wConstructor, wDestructor, wProperty, wGoto];
 var
   lcSetReturns: TSetReturns;
   ptNext: TSourceToken;

@@ -124,6 +124,15 @@ begin
       leNestType := nlProcedure;
       lbHasNesting := True;
     end;
+    nStatement:
+    begin
+      { the statement with the label is nested }
+      if (lcNode.ChildNodeCount > 0) and (lcNode.ChildNodes[0].NodeType = nStatementLabel) then
+      begin
+        leNestType := nlStatementLabel;
+        lbHasNesting := True;
+      end;
+    end;
   end;
 
   { test for a begin..end block with no other indent }

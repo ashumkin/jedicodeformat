@@ -1791,6 +1791,7 @@ begin
     Need brackets here too for hard typecasts like
       pointer(foo)
   }
+  PushNode(nDesignator);
 
   RecogniseQualId;
 
@@ -1816,6 +1817,8 @@ begin
     else
       Assert(False, 'Should not be here - bad token type');
   end;
+
+  PopNode;
 end;
 
 procedure TBuildParseTree.RecogniseSetConstructor;

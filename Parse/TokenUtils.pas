@@ -82,6 +82,7 @@ function ProcedureHasBody(const pt: TParseTreeNode): boolean;
 
 function IsDfmIncludeDirective(const pt: TSourceToken): boolean;
 
+function FirstSolidChild(const pt: TParseTreeNode): TParseTreeNode;
 
 implementation
 
@@ -504,7 +505,34 @@ begin
   // form dfm comment
   Result := (pt.TokenType = ttComment) and AnsiSameText(pt.SourceCode, '{$R *.dfm}') and
     pt.HasParentNode(nImplementationSection, 4);
+end;
 
+{ get the first child node that is not a space leaf}
+function FirstSolidChild(const pt: TParseTreeNode): TParseTreeNode;
+var
+  liLoop: integer;
+  lcChild: TParseTreeNode;
+begin
+  Result := nil;
+  for liLoop := 0 to pt.ChildNodeCount - 1 do
+  begin
+    lcChild := pt.ChildNodes[liLoop];
+
+    if (lcChild is TSourceToken) then
+    begin
+      if TSourceToken(lcChild).IsSolid then
+      begin
+        Result := lcChild;
+        break;
+      end;
+    end
+    else
+    begin
+      Result := lcChild;
+      break;
+    end;
+
+  end;
 end;
 
 end.

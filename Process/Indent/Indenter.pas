@@ -91,6 +91,7 @@ var
   liIndentCount: integer;
   lbHasIndentedRunOnLine: Boolean;
   lbHasIndentedDecl: boolean;
+  lcChild: TParseTreeNode;
 begin
   Result := 0;
   lbHasIndentedRunOnLine := False;
@@ -232,10 +233,24 @@ begin
         inc(liIndentCount);
 
     end;
-
+                                                       
     if (pt.Word = wOn) and pt.HasParentNode(nOnExceptionHandler, 1) then
       dec(liIndentCount);
-  end;
+
+    { run on lines such as
+      SomeArray[
+       index] := 3; }
+    if pt.HasParentNode(nDesignator) then
+    begin
+      lcChild := FirstSolidChild(pt.Parent);
+      if (pt <> lcChild) then
+      begin
+        inc(liIndentCount);
+        lbHasIndentedRunOnLine := True;
+      end;
+    end;
+
+  end; // proceudres
 
   { record declaration stuph }
   if pt.HasParentNode(nRecordType) then
@@ -305,6 +320,12 @@ begin
 
   if (not lbHasIndentedRunOnLine) and pt.HasParentNode(nArrayConstant) and
     ((RoundBracketLevel(pt) > 0) or (pt.TokenType in [ttOpenBracket, ttCloseBracket])) then
+    inc(liIndentCount);
+
+  // indent statement after label
+  if (not lbHasIndentedRunOnLine) and
+    (pt.Nestings.GetLevel(nlStatementLabel) > 0) and
+      (not pt.HasParentNode(nStatementLabel)) then
     inc(liIndentCount);
 
   Assert(liIndentCount >= 0);

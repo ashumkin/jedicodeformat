@@ -156,8 +156,12 @@ begin
   { const or var as parameter var types }
   if (pt.Word in ParamTypes) and (pt.HasParentNode(nFormalParams)) then
   begin
-    Result := True;
-    exit;
+    // beware of 'procedure foo (bar: array of const);' and the like
+    if not ((pt.Word = wConst) and pt.HasParentNode(nType, 1)) then
+    begin
+      Result := True;
+      exit;
+    end;
   end;
 
   if (pt.Word in ParamTypes) and pt.HasParentNode(nPropertyParameterList) and

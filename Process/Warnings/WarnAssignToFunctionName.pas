@@ -54,14 +54,18 @@ uses
 function GetIdentifierBeforeAssign(const pcNode: TParseTreeNode): TSourceToken;
 var
   liLoop: integer;
+  lcDes: TParseTreeNode;
   lcChildNode: TParseTreeNode;
   lcSourceToken: TSourceToken;
 begin
   Result := nil;
+  Assert(pcNode <> nil);
 
-  for liLoop := 0 to pcNode.ChildNodeCount - 1 do
+  lcDes := pcNode.GetImmediateChild(nDesignator);
+
+  for liLoop := 0 to lcDes.ChildNodeCount - 1 do
   begin
-    lcChildNode := pcNode.ChildNodes[liLoop];
+    lcChildNode := lcDes.ChildNodes[liLoop];
 
     if lcChildNode is TSourceToken then
     begin
@@ -112,7 +116,7 @@ begin
 
     // this is an assign statement. Look at the LHS
     lcLeftName := GetIdentifierBeforeAssign(lcNode);
-
+    Assert(lcLeftName <> nil);
     if AnsiSameText(lcLeftName.SourceCode, psFnName) then
     begin
       SendWarning(lcLeftName,

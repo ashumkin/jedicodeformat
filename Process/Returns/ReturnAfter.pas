@@ -265,6 +265,22 @@ begin
     exit;
   end;
 
+  { record varaint with of}
+  if (pt.Word = wOf) and pt.HasParentNode(nRecordVariantSection, 1) then
+  begin
+    Result := True;
+    exit;
+  end;
+
+
+  { label : }
+  if (pt.TokenType = ttColon) and pt.HasParentNode(nStatementLabel, 1) then
+  begin
+    Result := True;
+    exit;
+  end;
+
+
   { end without semicolon or dot, or hint directive }
   if (pt.Word = wEnd) and (not (ptNext.TokenType in [ttSemiColon, ttDot]))  and
     (not (ptNext.Word in HintDirectives)) then

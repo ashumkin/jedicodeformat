@@ -25,7 +25,8 @@ TNestingLevelType = (
   nlRecordType,
   nlRecordVariantSection,
   nlProcedure,
-  nlRoundBracket, nlSquareBracket);
+  nlRoundBracket, nlSquareBracket,
+  nlStatementLabel);
 
 { store a nesting level for one of the above enums
   a record-ish type}
@@ -64,7 +65,8 @@ TNestingLevelList = class(TObject)
     function FinalTest: string;
     function Total: integer;
 
-    property Items[const piIndedx: integer]: TNestingLevelItem read GetItems;
+    property Items[const piIndex: integer]: TNestingLevelItem read GetItems;
+
 end;
 
 implementation
