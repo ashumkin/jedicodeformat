@@ -58,7 +58,7 @@ uses
   NoSpaceAfter, NoSpaceBefore, SingleSpaceBefore, SingleSpaceAfter,
   SpaceBeforeColon, VisitStripEmptySpace,
   {indent}
-  VisitSetNesting, Indenter;
+  VisitSetNesting, Indenter, LongLineBreaker;
 
 constructor TAllProcesses.Create;
 begin
@@ -183,6 +183,9 @@ begin
   ApplyVisitorType(TReturnAfter);
 
   ApplyVisitorType(TBlockStyles);
+
+  ApplyVisitorType(TVisitSetXY);
+  ApplyVisitorType(TLongLineBreaker);
 end;
 
 

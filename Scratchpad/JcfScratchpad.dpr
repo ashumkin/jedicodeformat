@@ -79,14 +79,16 @@ uses
   SpecificWordCaps in '..\Process\Capitalisation\SpecificWordCaps.pas',
   Capitalisation in '..\Process\Capitalisation\Capitalisation.pas',
   Indenter in '..\Process\Indent\Indenter.pas',
-  TestDeclarations in '..\Test\TestCases\TestDeclarations.pas',
-  TestDeclIndent in '..\Test\TestCases\TestDeclIndent.pas',
-  TestNestedRecords in '..\Test\TestCases\TestNestedRecords.pas',
   PropertyOnOneLine in '..\Process\Spacing\PropertyOnOneLine.pas',
   SpaceBeforeColon in '..\Process\Spacing\SpaceBeforeColon.pas',
   VisitStripEmptySpace in '..\Process\VisitStripEmptySpace.pas',
   RemoveBlankLinesAfterProcHeader in '..\Process\Spacing\RemoveBlankLinesAfterProcHeader.pas',
-  RemoveBlankLinesInVars in '..\Process\Spacing\RemoveBlankLinesInVars.pas';
+  RemoveBlankLinesInVars in '..\Process\Spacing\RemoveBlankLinesInVars.pas',
+  ReturnChars in '..\Process\Spacing\ReturnChars.pas',
+  RemoveReturnsBeforeEnd in '..\Process\Spacing\RemoveReturnsBeforeEnd.pas',
+  RemoveReturnsAfterBegin in '..\Process\Spacing\RemoveReturnsAfterBegin.pas',
+  LongLineBreaker in '..\Process\Returns\LongLineBreaker.pas',
+  IntList in '..\Utils\IntList.pas';
 
 {$R *.res}
 

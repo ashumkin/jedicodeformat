@@ -51,11 +51,16 @@ function SemicolonNext(const pt: TSourceToken): boolean;
   or in asm }
 function InStatements(const pt: TSourceToken): Boolean;
 function InProcedureDeclarations(const pt: TsourceToken): Boolean;
+function InDeclarations(const pt: TsourceToken): Boolean;
 
 function IsCaseColon(const pt: TSourceToken): boolean;
 function IsLabelColon(const pt: TSourceToken): boolean;
 
 function IsFirstSolidTokenOnLine(const pt: TSourceToken): boolean;
+
+function IsUnaryOperator(const pt: TSourceToken): boolean;
+
+function InFormalParams(const pt: TSourceToken): boolean;
 
 implementation
 
@@ -300,6 +305,12 @@ begin
   Result := (pt.HasParentNode(ProcedureNodes) and (pt.HasParentNode(InProcedureDeclSections)))
 end;
 
+function InDeclarations(const pt: TsourceToken): Boolean;
+begin
+  Result := (not InStatements(pt)) and (not pt.HasParentNode(nAsm)) and
+    pt.HasParentNode(nDeclSection);
+end;
+
 function IsLabelColon(const pt: TSourceToken): boolean;
 begin
   Result := (pt.TokenType = ttColon) and pt.HasParentNode(nStatementLabel, 1);
@@ -314,6 +325,21 @@ end;
 function IsFirstSolidTokenOnLine(const pt: TSourceToken): boolean;
 begin
   Result := pt.IsSolid and (pt.SolidTokenOnLineIndex = 0);
+end;
+
+function IsUnaryOperator(const pt: TSourceToken): boolean;
+begin
+  Assert(pt.TokenType = ttOperator);
+
+  // is there a term to the left of this?
+
+  // ??
+  Result := pt.IndexOfSelf = 0;
+end;
+
+function InFormalParams(const pt: TSourceToken): boolean;
+begin
+  Result := (RoundBracketLevel(pt) = 1) and pt.HasParentNode(nFormalParams);
 end;
 
 end.

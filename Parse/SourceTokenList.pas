@@ -25,6 +25,8 @@ type
     destructor Destroy; override;
 
     function Count: integer;
+    procedure Clear;
+    
     procedure Add(const pcToken: TSourceToken);
     procedure SetXYPositions;
 
@@ -71,6 +73,11 @@ end;
 function TSourceTokenList.Count: integer;
 begin
   Result := fcList.Count;
+end;
+
+procedure TSourceTokenList.Clear;
+begin
+  fcList.Clear;
 end;
 
 function TSourceTokenList.GetSourceToken(const piIndex: integer): TSourceToken;
@@ -215,7 +222,7 @@ begin
 
     AdvanceTextPos(lcToken.SourceCode, liX, liY);
   end;
-
 end;
+
 
 end.

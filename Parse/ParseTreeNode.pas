@@ -33,7 +33,6 @@ type
     function ChildNodeCount: integer;
     function RecursiveChildCount: integer;
     function MaxDepth: integer;
-    function IndexOfSelf: integer;
 
     function NewChild: TParseTreeNode;
     procedure AddChild(const pcChild: TParseTreeNode);
@@ -42,6 +41,7 @@ type
     function RemoveChild(const piIndex: integer): integer; overload;
 
     function IndexOfChild(const pcChild: TParseTreeNode): integer;
+    function IndexOfSelf: integer;
     function SolidChildCount: integer; virtual;
 
     function FirstLeaf: TParseTreeNode;
@@ -181,6 +181,14 @@ end;
 function TParseTreeNode.IndexOfChild(const pcChild: TParseTreeNode): integer;
 begin
   Result := fcChildNodes.IndexOf(pcChild);
+end;
+
+function TParseTreeNode.IndexOfSelf: integer;
+begin
+  if Parent = nil then
+    Result := 0
+  else
+    Result := Parent.IndexOfChild(self);
 end;
 
 { how far down the tree is this node? }
@@ -856,14 +864,5 @@ begin
     end;
   end;
 end;
-
-function TParseTreeNode.IndexOfSelf: integer;
-begin
-  if Parent = nil then
-    Result := 0
-  else
-    Result := Parent.IndexOfChild(self); 
-end;
-
 
 end.

@@ -56,6 +56,22 @@ begin
 
 end;
 
+// easy pieces for the line breaker
+function ThisFunctionNameIsFourty_Characters_Long(const ps1, ps2: string): string;
+begin
+  Result := ps1 + ps2;
+end;
+
+procedure EasyPieces;
+var
+  ls1, ls2, ls3: string;
+begin
+  ls1 := 'this string is fourty characters long ' + 'this string is fourty characters long ' + 'this string is fourty characters long ';
+
+  ls2 := ThisFunctionNameIsFourty_Characters_Long('this string is fourty characters long ', 'this string is fourty characters long ');
+end;
+
+// something harder
 procedure BreakIt;
 var
   lsString: string;
