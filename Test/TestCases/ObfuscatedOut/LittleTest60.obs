@@ -1,0 +1,2 @@
+unit test;interface implementation const boolconst:5=(2+2)..(1=1)=false;validcharset
+:set of'A'..'z'=['A'..'Z','a'..'z'];end.
