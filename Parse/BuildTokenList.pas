@@ -493,7 +493,7 @@ begin
   if not CharIsDigit(Reader.Current) then
     exit;
 
-  if (Reader.Current = DecimalSeparator) or (Reader.Current = '-') then
+  if (Reader.Current = '.') or (Reader.Current = '-') then
     exit;
 
   pcToken.TokenType  := ttNumber;
@@ -509,10 +509,10 @@ begin
     ie one dat = decimal
     two dots = end of number
   }
-  while CharIsDigit(Reader.Current) or (Reader.Current = DecimalSeparator) do
+  while CharIsDigit(Reader.Current) or (Reader.Current = '.') do
   begin
     // have we got to the dot?
-    if (Reader.Current = DecimalSeparator) then
+    if (Reader.Current = '.') then
     begin
       if Reader.BufferCharsLeft(2) = '..' then
         break;
@@ -555,6 +555,8 @@ begin
   Result := True;
 end;
 
+{ NB: do not localise '.' with DecimalSeperator
+  Delphi source code does *not* change for this }
 function TBuildTokenList.TryHexNumber(const pcToken: TSourceToken): boolean;
 var
   lbHasDecimalSep: boolean;
@@ -571,10 +573,10 @@ begin
   lbHasDecimalSep := False;
 
   { concat any subsequent number chars }
-  while (Reader.Current in AnsiHexDigits) or (Reader.Current = DecimalSeparator) do
+  while (Reader.Current in AnsiHexDigits) or (Reader.Current = '.') do
   begin
     // have we got to the dot?
-    if (Reader.Current = DecimalSeparator) then
+    if (Reader.Current = '.') then
     begin
       if Reader.BufferCharsLeft(2) = '..' then
         break;

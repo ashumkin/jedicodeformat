@@ -111,6 +111,14 @@ type
     procedure Contents1Click(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure mOutputKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure mInputKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure mInputEnter(Sender: TObject);
+    procedure mOutputEnter(Sender: TObject);
+    procedure mInputClick(Sender: TObject);
+    procedure mOutputClick(Sender: TObject);
   private
     fcConvert: TStringsConverter;
 
@@ -118,6 +126,8 @@ type
     procedure CheckCutPasteState;
     procedure DoFileOpen(const psFileName: string);
     procedure AddCheckMRU(const psFile: string);
+
+    procedure ShowFilePos;
 
   public
   end;
@@ -172,10 +182,11 @@ begin
 
   GetRegSettings.InputDir := ExtractFilePath(psFileName);
   mInput.Text := FileToString(psFileName);
-  sb1.SimpleText := psFileName;
+  sb1.Panels[1].Text := psFileName;
   AddCheckMRU(psFileName);
 
   CheckInputState;
+  ShowFilePos;
 end;
 
 procedure TfmJCFNotepad.AddCheckMRU(const psFile: string);
@@ -219,6 +230,7 @@ end;
 procedure TfmJCFNotepad.pcPagesChange(Sender: TObject);
 begin
   CheckCutPasteState;
+  ShowFilePos;
 end;
 
 procedure TfmJCFNotepad.actGoExecute(Sender: TObject);
@@ -256,8 +268,8 @@ begin
 
   if OpenDialog1.Execute then
   begin
-    DoFileOpen(OpenDialog1.FileName);
     pcPages.ActivePage := tsInput;
+    DoFileOpen(OpenDialog1.FileName);
   end;
 end;
 
@@ -283,7 +295,7 @@ begin
   begin
     GetRegSettings.OutputDir := ExtractFilePath(SaveDialog1.FileName);
     StringToFile(SaveDialog1.FileName, mOutput.Text);
-    sb1.SimpleText := 'Saved output: ' + SaveDialog1.FileName;
+    sb1.Panels[1].Text := 'Saved output: ' + SaveDialog1.FileName;
     AddCheckMRU(SaveDialog1.FileName);
   end;
 end;
@@ -301,6 +313,8 @@ begin
   GetRegSettings.ReadAll;
 
   mruFiles.RemoveInvalid;
+
+  pcPages.ActivePage := tsInput;
 end;
 
 procedure TfmJCFNotepad.FormDestroy(Sender: TObject);
@@ -378,7 +392,7 @@ begin
   begin
     GetRegSettings.OutputDir := ExtractFilePath(SaveDialog1.FileName);
     StringToFile(SaveDialog1.FileName, mInput.Text);
-    sb1.SimpleText := 'Saved input as ' + SaveDialog1.FileName;
+    sb1.Panels[1].Text := 'Saved input as ' + SaveDialog1.FileName;
     AddCheckMRU(SaveDialog1.FileName);
   end;
 end;
@@ -436,6 +450,67 @@ begin
  if Key = VK_F1 then
   Application.HelpContext(HELP_MAIN);
 
+end;
+
+procedure TfmJCFNotepad.ShowFilePos;
+const
+  POS_NUM_LEN = 4;
+var
+  liX, liY: integer;
+  lsPos: string;
+begin
+  if pcPages.ActivePage = tsInput then
+  begin
+    liX := mInput.CaretPos.X;
+    liY := mInput.CaretPos.Y;
+  end
+  else
+  begin
+    liX := mOutput.CaretPos.X;
+    liY := mOutput.CaretPos.Y;
+  end;
+
+  { index in delphi is 1-based not 0-based,
+    ie starts at line 1 char 1}
+  inc(liX);
+  inc(liY);
+
+  lsPos := StrPadLeft(IntToStr(liY), POS_NUM_LEN, ' ') + ':' +
+    StrPadLeft(IntToStr(liX), POS_NUM_LEN, ' ');
+    
+  sb1.Panels[0].Text := lsPos;
+end;
+
+procedure TfmJCFNotepad.mOutputKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  ShowFilePos;
+end;
+
+procedure TfmJCFNotepad.mInputKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  ShowFilePos;
+end;
+
+procedure TfmJCFNotepad.mInputEnter(Sender: TObject);
+begin
+  ShowFilePos;
+end;
+
+procedure TfmJCFNotepad.mOutputEnter(Sender: TObject);
+begin
+  ShowFilePos;
+end;
+
+procedure TfmJCFNotepad.mInputClick(Sender: TObject);
+begin
+  ShowFilePos;
+end;
+
+procedure TfmJCFNotepad.mOutputClick(Sender: TObject);
+begin
+  ShowFilePos;
 end;
 
 end.

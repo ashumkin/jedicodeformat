@@ -25,7 +25,13 @@ object fmJCFNotepad: TfmJCFNotepad
     Top = 407
     Width = 688
     Height = 19
-    Panels = <>
+    Panels = <
+      item
+        Width = 60
+      end
+      item
+        Width = 50
+      end>
   end
   object pnlTop: TPanel
     Left = 0
@@ -70,7 +76,7 @@ object fmJCFNotepad: TfmJCFNotepad
     Top = 28
     Width = 688
     Height = 379
-    ActivePage = tsInput
+    ActivePage = tsOutput
     Align = alClient
     TabOrder = 2
     OnChange = pcPagesChange
@@ -94,6 +100,9 @@ object fmJCFNotepad: TfmJCFNotepad
         ReadOnly = False
         ScrollBars = ssVertical
         TabOrder = 0
+        OnClick = mInputClick
+        OnEnter = mInputEnter
+        OnKeyDown = mInputKeyDown
         OnKeyUp = mInputKeyUp
         OnMouseUp = mInputMouseUp
       end
@@ -109,7 +118,7 @@ object fmJCFNotepad: TfmJCFNotepad
         Caption = 'Messages'
       end
       object mOutput: TJvMemo
-        Left = 8
+        Left = 12
         Top = 16
         Width = 185
         Height = 89
@@ -127,6 +136,9 @@ object fmJCFNotepad: TfmJCFNotepad
         ReadOnly = True
         ScrollBars = ssVertical
         TabOrder = 0
+        OnClick = mOutputClick
+        OnEnter = mOutputEnter
+        OnKeyUp = mOutputKeyUp
       end
       object mMessages: TJvMemo
         Left = 32
