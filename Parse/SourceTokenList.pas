@@ -133,14 +133,14 @@ function TSourceTokenList.FirstTokenType: TTokenType;
 begin
   Result := ttUnknown;
   if Count > 0 then
-    Result := TSourceToken(inherited GetItem(fiCurrentTokenIndex)).TokenType;
+    Result := TSourceToken(List^[fiCurrentTokenIndex]).TokenType;
 end;
 
 function TSourceTokenList.FirstWordType: TWordType;
 begin
   Result := wtNotAWord;
   if Count > 0 then
-    Result := TSourceToken(inherited GetItem(fiCurrentTokenIndex)).WordType;
+    Result := TSourceToken(List^[fiCurrentTokenIndex]).WordType;
 end;
 
 function TSourceTokenList.FirstSolidTokenType: TTokenType;
@@ -163,8 +163,7 @@ begin
     Result := lc.WordType;
 end;
 
-function TSourceTokenList.FirstTokenWithExclusion(
-  const AExclusions: TTokenTypeSet): TSourceToken;
+function TSourceTokenList.FirstTokenWithExclusion(const AExclusions: TTokenTypeSet): TSourceToken;
 var
   liLoop: integer;
   lcItem: TSourceToken;
@@ -262,7 +261,9 @@ end;
 
 function TSourceTokenList.Extract(const piIndex: integer): TSourceToken;
 begin
-  {Here I am not doing any index checking at all.
+  { remove the current item and advance to the next item
+
+    Here I am not doing any index checking at all.
     This thing needs to be FAST. Access to here is quite controlled anyway.}
   Result      := TSourceToken(List^[piIndex]);
   List^[piIndex] := nil;
