@@ -30,7 +30,7 @@ type
   TSortUses = class(TBaseTreeNodeVisitor)
   private
 
-    procedure SortUsesInSections(pcUses: TParseTreeNode);
+    procedure SortUsesInSections(const pcUsesIdentList: TParseTreeNode);
 
   protected
   public
@@ -48,7 +48,7 @@ uses
   Contnrs, Classes, SysUtils, Math,
   { local }
   ParseTreeNodeType, SourceToken, Tokens, JcfSettings,
-  SetTransform, TokenUtils;
+  SetTransform, TokenUtils, SortUsesData;
 
 function GetSortableToken(pcNode: TParseTreeNode): TSourceToken;
 var
@@ -74,167 +74,6 @@ begin
     if lcTest <> nil then
       Result := TSourceToken(lcTest);
   end;
-
-end;
-
-function AlphaNameSort(Item1, Item2: Pointer): integer;
-var
-  lc1, lc2: TParseTreeNode;
-  lcToken1, lcToken2: TSourceToken;
-begin
-  lc1 := TParseTreeNode(Item1);
-  lc2 := TParseTreeNode(Item2);
-
-  lcToken1 := GetSortableToken(lc1);
-  lcToken2 := GetSortableToken(lc2);
-
-  if lcToken1 = nil then
-    Result := -1
-  else if lcToken2 = nil then
-    Result := 1
-  else
-  begin
-    Result := AnsiCompareText(lcToken1.SourceCode, lcToken2.SourceCode);
-  end;
-end;
-
-function ReverseAlphaNameSort(Item1, Item2: Pointer): integer;
-begin
-  Result := AlphaNameSort(Item1, Item2) * -1;
-end;
-
-function LengthNameSort(Item1, Item2: Pointer): integer;
-var
-  lc1, lc2: TParseTreeNode;
-  lcToken1, lcToken2: TSourceToken;
-begin
-  lc1 := TParseTreeNode(Item1);
-  lc2 := TParseTreeNode(Item2);
-
-  lcToken1 := GetSortableToken(lc1);
-  lcToken2 := GetSortableToken(lc2);
-
-  if lcToken1 = nil then
-    Result := -1
-  else if lcToken2 = nil then
-    Result := 1
-  else
-  begin
-    Result := Sign(Length(lcToken1.SourceCode) - Length(lcToken2.SourceCode));
-
-    { Lenght has more sort collisions that alphabetic
-      same length -> Alphabetic sort }
-    if Result = 0 then
-      Result := AnsiCompareText(lcToken1.SourceCode, lcToken2.SourceCode);
-  end;
-end;
-
-function ReverseLengthNameSort(Item1, Item2: Pointer): integer;
-var
-  lc1, lc2: TParseTreeNode;
-  lcToken1, lcToken2: TSourceToken;
-begin
-  lc1 := TParseTreeNode(Item1);
-  lc2 := TParseTreeNode(Item2);
-
-  lcToken1 := GetSortableToken(lc1);
-  lcToken2 := GetSortableToken(lc2);
-
-  if lcToken1 = nil then
-    Result := -1
-  else if lcToken2 = nil then
-    Result := 1
-  else
-  begin
-    Result := Sign(Length(lcToken2.SourceCode) - Length(lcToken1.SourceCode));
-
-    { Soting the other way by length, but still forwards alphbetically }
-    if Result = 0 then
-      Result := AnsiCompareText(lcToken1.SourceCode, lcToken2.SourceCode);
-  end;
-end;
-
-procedure RepunctuateUses(const pcList: TParseTreeNode);
-var
-  liLoop: integer;
-  lcItem: TParseTreeNode;
-  lcToken, lcNext, lcNew: TSourceToken;
-  lbFoundLast: Boolean;
-begin
-  { remove existing punctuation }
-  for liLoop := pcList.ChildNodeCount - 1 downto 0 do
-  begin
-    lcItem := pcList.ChildNodes[liLoop];
-    if lcItem is TSourceToken then
-    begin
-      { commas will have migrated to the top }
-      lcToken := TSourceToken(lcItem);
-      if lcToken.TokenType = ttComma then
-        pcList.RemoveChild(liLoop)
-
-      { likewise returns }
-      else if lcToken.TokenType = ttReturn then
-      begin
-        lcNext := lcToken.NextTokenWithExclusions([ttWhiteSpace]);
-        if (lcNext <> nil) and (lcNext.TokenType = ttReturn) then
-          pcList.RemoveChild(liLoop);
-      end;
-    end;
-  end;
-
-  { commas after all uses items but the last }
-  lbFoundLast := False;
-  for liLoop := pcList.ChildNodeCount - 1 downto 0 do
-  begin
-    lcItem := pcList.ChildNodes[liLoop];
-
-    if (lcItem.NodeType = nUsesItem) then
-    begin
-      if not lbFoundLast then
-      begin
-        lbFoundLast := True;
-      end
-      else
-      begin
-        lcNew := TSourceToken.Create;
-
-        lcNew.TokenType := ttComma;
-        lcNew.SourceCode := ',';
-
-        pcList.InsertChild(liLoop + 1, lcNew);
-      end;
-    end;
-  end;
-
-  { a space before the first one }
-  lcItem := pcList.ChildNodes[0];
-  lcToken := TSourceToken(lcItem.FirstLeaf);
-  if (lcToken = nil) or (lcToken.TokenType <> ttWhiteSpace) then
-    pcList.InsertChild(0, NewSpace(1));
-
-  { return after all comments if BreakUsesSortOnComment
-  otherwise just after // comments }
-  for liLoop := pcList.ChildNodeCount - 2 downto 0 do
-  begin
-    lcItem := pcList.ChildNodes[liLoop];
-
-    if lcItem is TSourceToken then
-    begin
-      { commas will have migrated to the top }
-      lcToken := TSourceToken(lcItem);
-
-      if lcToken.TokenType = ttComment then
-      begin
-        if (lcToken.CommentStyle = eDoubleSlash) or (FormatSettings.Transform.BreakUsesSortOnComment) then
-        begin
-          lcNext := lcToken.NextTokenWithExclusions([ttWhiteSpace]);
-          if lcNext.TokenType <> ttReturn then
-            pcList.InsertChild(liLoop + 1, NewReturn);
-        end;
-      end;
-    end;
-  end;
-
 end;
 
 constructor TSortUses.Create;
@@ -262,6 +101,9 @@ begin
   if lcNode.NodeType <> nUses then
     exit;
 
+  if FormatSettings.Transform.SortUsesNoComments and lcNode.HasChildNode([ttComment]) then
+    exit;
+
   { is it turned on in this section? }
   if lcNode.HasParentNode(nInterfaceSection) then
   begin
@@ -280,104 +122,181 @@ begin
   if lcIdentList <> nil then
   begin
     SortUsesInSections(lcIdentList);
-    RepunctuateUses(lcIdentList);
   end;
 end;
 
-procedure TSortUses.SortUsesInSections(pcUses: TParseTreeNode);
+procedure CleanEnd(const pcRootNode: TParseTreeNode);
 var
-  leBreakTokens, leExcludeTokens: TTokenTypeSet;
-  lcSections: TObjectList;
-  lcCurrentSection: TObjectList;
-  liLoop: integer;
-  lcItem: TParseTreeNode;
-  lcToken: TSourceToken;
+  lcLastLeaf, lcRemove: TSourceToken;
+begin
+  lcLastLeaf := TSourceToken(pcRootNode.LastLeaf);
 
-  liSectionLoop, liItemLoop: integer;
+  while (lcLastLeaf <> nil) and (lcLastLeaf.TokenType in [ttComma, ttWhiteSpace, ttReturn]) do
+  begin
+    lcRemove := lcLastLeaf;
+    lcLastLeaf := lcLastLeaf.PriorToken;
+
+    { abort after a // comment }
+    if (lcRemove.TokenType = ttReturn) and
+      (lcLastLeaf.TokenType = ttComment) and (lcLastLeaf.CommentStyle = eDoubleSlash) then
+        break;
+
+    lcRemove.Parent.RemoveChild(lcRemove);
+  end;
+end;
+
+procedure RemoveAllChildrenOnwards(const pcParent, pcChild: TParseTreeNode);
+var
+  lcChild, lcLast: TParseTreeNode;
+begin
+  if pcChild = nil then
+    lcChild := pcParent.FirstLeaf
+  else
+    lcChild := pcChild;
+
+  while (lcChild <> nil) and lcChild.HasParentNode(pcParent) do
+  begin
+    lcLast := lcChild;
+    lcChild := lcChild.NextLeafNode;
+    lcLast.Parent.ExtractChild(lcLast);
+  end;
+
+end;
+
+procedure TSortUses.SortUsesInSections(const pcUsesIdentList: TParseTreeNode);
+var
+  lcToken: TSourceToken;
+  lcSections: TObjectList;
+  lcCurrentSection: TUsesSection;
+
+  procedure CollectWhiteSpace;
+  begin
+    { start with a breaking section for the starting white space and comments where they are }
+    while (lcToken <> nil) and (not lcToken.IsSolid) do
+    begin
+      lcCurrentSection.AddToken(lcToken);
+      lcToken := lcToken.NextToken;
+    end;
+  end;
+
+  procedure NewSection(const pbSorted: Boolean);
+  begin
+    lcCurrentSection := TUsesSection.Create;
+    lcCurrentSection.Sorted := pbSorted;
+    lcSections.Add(lcCurrentSection);
+  end;
+
+var
+  leBreakTokens: TTokenTypeSet;
+  lbStartFirstSection: boolean;
+  lbStartUsesItem: boolean;
+  liSectionLoop: integer;
+
 begin
   leBreakTokens := [];
-  leExcludeTokens := [ttWhiteSpace];
 
   if FormatSettings.Transform.BreakUsesSortOnReturn then
-    Include(leBreakTokens, ttReturn)
-  else
-    Include(leExcludeTokens, ttReturn);
+    Include(leBreakTokens, ttReturn);
 
   if FormatSettings.Transform.BreakUsesSortOnComment then
-    Include(leBreakTokens, ttComment)
-  else
-    Include(leExcludeTokens, ttComment);
+    Include(leBreakTokens, ttComment);
 
   { sections is a list of lists
     each section is a list of parse tree nodes
     Each section is sorted }
   lcSections := TObjectList.Create;
   lcSections.OwnsObjects := True;
+  lbStartFirstSection := True;
+  lbStartUsesItem := True;
   
   try
-    { at least one section }
-    lcCurrentSection := TObjectList.Create;
-    lcCurrentSection.OwnsObjects := False;
-    
-    lcSections.Add(lcCurrentSection);
+    { at least one section, but can be more }
+    NewSection(True);
 
     { each child node is in a section }
-    for liLoop := 0 to pcUses.ChildNodeCount - 1 do
+    lcToken := TSourceToken(pcUsesIdentList.FirstLeaf);
+    if (lcToken <> nil) and (not lcToken.IsSolid) then
     begin
-      lcItem := pcUses.ChildNodes[liLoop];
+      lcCurrentSection.Sorted := False;
 
-      lcToken := TSourceToken(lcItem.FirstLeaf);
-      if lcToken.TokenType in leExcludeTokens then
-        lcToken := lcToken.NextTokenWithExclusions(leExcludeTokens);
-
-      { end of section, start of the next  }
-      if (lcToken.TokenType in leBreakTokens) and
-        (liLoop < (pcUses.ChildNodeCount - 1 )) and
-        (liLoop > 0) then
-      begin
-        lcCurrentSection := TObjectList.Create;
-        lcCurrentSection.OwnsObjects := False;
-        lcSections.Add(lcCurrentSection);
-      end;
-
-      lcCurrentSection.Add(lcItem);
+      CollectWhiteSpace;
+      NewSection(True);
     end;
 
-    { remove original entries, but don't free them }
-    while pcUses.ChildNodeCount > 0 do
-      pcUses.ExtractChild(pcUses.ChildNodes[0]);
+    while (lcToken <> nil) and lcToken.HasParentNode(nIdentList) and lcToken.HasParentNode(nUses) do
+    begin
+      { end of section, start of the next }
+      if (lcToken.TokenType in leBreakTokens) and (not lbStartUsesItem) then
+      begin
+        { the break token is in a non-sorted section }
+        NewSection(False);
+        lcCurrentSection.AddToken(lcToken);
+        lcToken := lcToken.NextToken;
 
-    { sort each section }
+        CollectWhiteSpace;
+        NewSection(True);
+        continue;
+      end;
+
+      if IsIdentifier(lcToken) and (lcToken.HasParentNode(nUsesItem, 2)) then
+      begin
+        if not lbStartUsesItem then
+        begin
+          lcCurrentSection.AddUsesItem;
+          lbStartUsesItem := True;
+        end;
+      end
+      else
+      begin
+        // a uses item contains exactly one identifier.
+        lbStartUsesItem := False;
+      end;
+
+      lcCurrentSection.AddToken(lcToken);
+
+      { don't end the first section until it's begun }
+      if lbStartFirstSection and (not (lcToken.TokenType in NotSolidTokens)) then
+        lbStartFirstSection := False;
+
+      lcToken := lcToken.NextToken;
+    end;
+
+    { remove the unsorted tokens }
+    RemoveAllChildrenOnwards(pcUsesIdentList, nil);
+
+    { sort each section, and reattach it  }
     for liSectionLoop := 0 to lcSections.Count - 1 do
     begin
-      lcCurrentSection := TObjectList(lcSections.Items[liSectionLoop]);
+      lcCurrentSection := TUsesSection(lcSections.Items[liSectionLoop]);
 
-      { sort this section }
-      case FormatSettings.Transform.UsesSortOrder of
-        eAlpha:
-          lcCurrentSection.Sort(AlphaNameSort);
-        eReverseAlpha:
-          lcCurrentSection.Sort(ReverseAlphaNameSort);
-        eShortToLong:
-          lcCurrentSection.Sort(LengthNameSort);
-        eLongToShort:
-          lcCurrentSection.Sort(ReverseLengthNameSort);
-        else
-          Assert(False);
+      if lcCurrentSection.Sorted then
+      begin
+
+        { sort this section }
+        case FormatSettings.Transform.UsesSortOrder of
+          eAlpha:
+            lcCurrentSection.Sort(AlphaNameSort);
+          eReverseAlpha:
+            lcCurrentSection.Sort(ReverseAlphaNameSort);
+          eShortToLong:
+            lcCurrentSection.Sort(LengthNameSort);
+          eLongToShort:
+            lcCurrentSection.Sort(ReverseLengthNameSort);
+          else
+            Assert(False);
+        end;
       end;
 
       {  repopulate the original parent with sorted items }
-      for liItemLoop := 0 to lcCurrentSection.Count - 1 do
-      begin
-        lcItem := TParseTreeNode(lcCurrentSection.Items[liItemLoop]);
-        pcUses.AddChild(lcItem);
-      end;
-
+      lcCurrentSection.AttachTo(pcUsesIdentList);
     end;
 
   finally
     lcSections.Free;
   end;
+
+  { no comma or space before the semicolon }
+  CleanEnd(pcUsesIdentList);
 
 end;
 
