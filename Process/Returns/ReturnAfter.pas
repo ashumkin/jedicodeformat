@@ -256,7 +256,7 @@ var
 begin
   Result := False;
 
-  if pt.HasParentNode(nUses) then
+  if pt.HasParentNode(nUses) and FormatSettings.Returns.UsesClauseOnePerLine then
   begin
     if (pt.TokenType = ttUses) then
     begin
@@ -264,17 +264,14 @@ begin
       exit;
     end;
 
-    if FormatSettings.Returns.UsesClauseOnePerLine and pt.HasParentNode(nUses) then
+    if (pt.TokenType in [ttComma, ttUses]) then
     begin
-      if (pt.TokenType in [ttComma, ttUses]) then
+      // add a return, unless there's a comment just after the comma
+      lcNext := pt.NextTokenWithExclusions([ttWhiteSpace]);
+      if (lcNext <> nil) and (lcNext.TokenType <> ttComment) then
       begin
-        // add a return, unless there's a comment just after the comma
-        lcNext := pt.NextTokenWithExclusions([ttWhiteSpace]);
-        if (lcNext <> nil) and (lcNext.TokenType <> ttComment) then
-        begin
-          Result := True;
-          exit;
-        end;
+        Result := True;
+        exit;
       end;
     end;
   end;

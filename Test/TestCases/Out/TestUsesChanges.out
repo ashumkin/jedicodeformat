@@ -12,7 +12,6 @@ interface
 uses SysUtils, ComCtrls, Classes, Windows,
   Fred, Jim, Bob;
 
-
 implementation
 
 uses Peter, Paul, Ralph;
