@@ -34,15 +34,17 @@ uses Warning, VisitParseTree;
 type
 
   TWarnRealType = class(TWarning)
-    public
-      procedure EnabledVisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult); override;
+  public
+    procedure EnabledVisitSourceToken(const pcToken: TObject;
+      var prVisitResult: TRVisitResult); override;
   end;
 
 implementation
 
 uses SourceToken, ParseTreeNodeType, Tokens;
 
-procedure TWarnRealType.EnabledVisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult);
+procedure TWarnRealType.EnabledVisitSourceToken(const pcToken: TObject;
+  var prVisitResult: TRVisitResult);
 const
   REAL_WARNING = ' This type is obsolete and is seldom useful';
   // + 'See the help for details';

@@ -56,7 +56,7 @@ type
     procedure TestFormatClarify;
     procedure TestFormatObfuscate;
 
-end;
+  end;
 
 implementation
 
@@ -89,15 +89,15 @@ end;
 
 procedure TTestCommandline.CompareFileToRef(const psFileName: string);
 begin
-  TestFileContentsSame(GetTestFilesDir + psFileName,  fsRefDir + psFileName);
+  TestFileContentsSame(GetTestFilesDir + psFileName, fsRefDir + psFileName);
   DeleteFile(GetTestFilesDir + psFileName);
 end;
 
 procedure TTestCommandline.RunJcfCommandline;
 var
-  lsJcfExe: string;
-  liLoop: integer;
-  lbRes: boolean;
+  lsJcfExe:  string;
+  liLoop:    integer;
+  lbRes:     boolean;
 var
   lsSaveExt: string;
 begin
@@ -157,8 +157,8 @@ begin
   fsOutputExt := 'out';
   fsJcfParams := ' -config="' + GetTestSettingsFileName +
     '" -out -D "' + GetTestFilesDir + '"';
-  fsRefDir := GetRefOutFilesDir;
-  fsFileMask := '*.out';
+  fsRefDir    := GetRefOutFilesDir;
+  fsFileMask  := '*.out';
 
   RunJcfCommandline;
 end;
@@ -166,14 +166,15 @@ end;
 procedure TTestCommandline.TestFormatObfuscate;
 begin
   fsOutputExt := 'obs';
-  fsJcfParams := ' -obfuscate -config="' + GetTestFilesDir + 'JCFObfuscateSettings.cfg" ' +
+  fsJcfParams := ' -obfuscate -config="' + GetTestFilesDir +
+    'JCFObfuscateSettings.cfg" ' +
     '-out -D "' + GetTestFilesDir + '"';
-  fsRefDir := GetObsOutFilesDir;
-  fsFileMask := '*.obs';
+  fsRefDir    := GetObsOutFilesDir;
+  fsFileMask  := '*.obs';
 
   RunJcfCommandline;
 end;
 
 initialization
- TestFramework.RegisterTest(TTestCommandline.Suite);
+  TestFramework.RegisterTest(TTestCommandline.Suite);
 end.

@@ -35,10 +35,10 @@ uses {$WARNINGS OFF} FileCtrl {$WARNINGS ON};
 
 function FileIsReadOnly(const ps: string): boolean;
 
-function SelectDirectory(const Caption: string; const Root: WideString;
-  out Directory: string): Boolean; overload;
+function SelectDirectory(const Caption: string; const Root: widestring;
+  out Directory: string): boolean; overload;
 function SelectDirectory(var Directory: string; Options: TSelectDirOpts;
-  HelpCtx: Longint): Boolean; overload;
+  HelpCtx: longint): boolean; overload;
 
 implementation
 
@@ -77,7 +77,8 @@ end;
 {$IFDEF LINUX}
   This bit will not compile under linux yet
   as the above win32 fns won't work there .
+
+
 {$ENDIF}
 
 end.
-

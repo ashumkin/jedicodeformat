@@ -35,14 +35,16 @@ uses BaseVisitor, VisitParseTree;
 type
   TVisitStripEmptySpace = class(TBaseTreeNodeVisitor)
   public
-    procedure VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult); override;
+    procedure VisitSourceToken(const pcToken: TObject;
+      var prVisitResult: TRVisitResult); override;
   end;
 
 implementation
 
 uses SourceToken, Tokens;
 
-procedure TVisitStripEmptySpace.VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult);
+procedure TVisitStripEmptySpace.VisitSourceToken(const pcToken: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcSourceToken, lcNext: TSourceToken;
 begin
@@ -61,7 +63,7 @@ begin
       { consolidate }
       if (lcNext <> nil) and (lcNext.TokenType = ttWhiteSpace) then
       begin
-        lcNext.SourceCode := lcNext.SourceCode + lcSourceToken.SourceCode;
+        lcNext.SourceCode    := lcNext.SourceCode + lcSourceToken.SourceCode;
         prVisitResult.Action := aDelete;
       end;
     end;

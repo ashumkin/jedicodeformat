@@ -31,18 +31,18 @@ type
   private
     fiIndentSpaces: integer;
     fiFirstLevelIndent: integer;
-    fbHasFirstLevelIndent: Boolean;
+    fbHasFirstLevelIndent: boolean;
 
     fbIndentGlobals: boolean;
     fbIndentClasses: boolean;
     fbIndentProcedures: boolean;
-    fbIndentBeginEnd: Boolean;
+    fbIndentBeginEnd: boolean;
 
     fiIndentBeginEndSpaces: integer;
 
-    fbKeepCommentsWithCodeInProcs: Boolean;
-    fbKeepCommentsWithCodeInGlobals: Boolean;
-    fbKeepCommentsWithCodeInClassDef: Boolean;
+    fbKeepCommentsWithCodeInProcs: boolean;
+    fbKeepCommentsWithCodeInGlobals: boolean;
+    fbKeepCommentsWithCodeInClassDef: boolean;
 
   protected
   public
@@ -53,24 +53,26 @@ type
 
     function SpacesForIndentLevel(const piLevel: integer): integer;
 
-    property IndentSpaces: integer read fiIndentSpaces write fiIndentSpaces;
+    property IndentSpaces: integer Read fiIndentSpaces Write fiIndentSpaces;
     { first level can be indented differently }
-    property FirstLevelIndent: integer read fiFirstLevelIndent write fiFirstLevelIndent;
-    property HasFirstLevelIndent: boolean read fbHasFirstLevelIndent write fbHasFirstLevelIndent;
+    property FirstLevelIndent: integer Read fiFirstLevelIndent Write fiFirstLevelIndent;
+    property HasFirstLevelIndent: boolean Read fbHasFirstLevelIndent
+      Write fbHasFirstLevelIndent;
 
-    property IndentGlobals: boolean read fbIndentGlobals write fbIndentGlobals;
-    property IndentClasses: boolean read fbIndentClasses write fbIndentClasses;
-    property IndentProcedures: boolean read fbIndentProcedures write fbIndentProcedures;
+    property IndentGlobals: boolean Read fbIndentGlobals Write fbIndentGlobals;
+    property IndentClasses: boolean Read fbIndentClasses Write fbIndentClasses;
+    property IndentProcedures: boolean Read fbIndentProcedures Write fbIndentProcedures;
 
-    property IndentBeginEnd: Boolean read fbIndentBeginEnd write fbIndentBeginEnd;
-    property IndentBeginEndSpaces: integer read fiIndentBeginEndSpaces write fiIndentBeginEndSpaces;
+    property IndentBeginEnd: boolean Read fbIndentBeginEnd Write fbIndentBeginEnd;
+    property IndentBeginEndSpaces: integer Read fiIndentBeginEndSpaces
+      Write fiIndentBeginEndSpaces;
 
-    property KeepCommentsWithCodeInProcs: Boolean
-      read fbKeepCommentsWithCodeInProcs write fbKeepCommentsWithCodeInProcs;
-    property KeepCommentsWithCodeInGlobals: Boolean
-      read fbKeepCommentsWithCodeInGlobals write fbKeepCommentsWithCodeInGlobals;
-    property KeepCommentsWithCodeInClassDef: Boolean
-      read fbKeepCommentsWithCodeInClassDef write fbKeepCommentsWithCodeInClassDef;
+    property KeepCommentsWithCodeInProcs: boolean
+      Read fbKeepCommentsWithCodeInProcs Write fbKeepCommentsWithCodeInProcs;
+    property KeepCommentsWithCodeInGlobals: boolean
+      Read fbKeepCommentsWithCodeInGlobals Write fbKeepCommentsWithCodeInGlobals;
+    property KeepCommentsWithCodeInClassDef: boolean
+      Read fbKeepCommentsWithCodeInClassDef Write fbKeepCommentsWithCodeInClassDef;
 
   end;
 
@@ -79,7 +81,7 @@ implementation
 const
   REG_INDENTATION_SPACES = 'IndentationSpaces';
 
-  REG_FIRST_LEVEL_INDENT = 'FirstLevelIndent';
+  REG_FIRST_LEVEL_INDENT     = 'FirstLevelIndent';
   REG_HAS_FIRST_LEVEL_INDENT = 'HasFirstLevelIndent';
 
   REG_INDENT_GLOBALS    = 'IndentGlobals';
@@ -89,8 +91,8 @@ const
   REG_INDENT_BEGIN_END = 'IndentBeginEnd';
   REG_INDENT_BEGIN_END_SPACES = 'IndentbeginEndSpaces';
 
-  REG_KEEP_COMMENTS_WTH_CODE_CLASS_DEF = 'KeepCommentsWithCodeInClassDef';
-  REG_KEEP_COMMENTS_WTH_CODE_IN_PROCS = 'KeepCommentsWithCodeInProcs';
+  REG_KEEP_COMMENTS_WTH_CODE_CLASS_DEF  = 'KeepCommentsWithCodeInClassDef';
+  REG_KEEP_COMMENTS_WTH_CODE_IN_PROCS   = 'KeepCommentsWithCodeInProcs';
   REG_KEEP_COMMENTS_WTH_CODE_IN_GLOBALS = 'KeepCommentsWithCodeInGlobals';
 
 constructor TSetIndent.Create;
@@ -105,19 +107,22 @@ begin
 
   fiIndentSpaces := pcStream.Read(REG_INDENTATION_SPACES, 2);
 
-  fiFirstLevelIndent := pcStream.Read(REG_FIRST_LEVEL_INDENT, 2);
+  fiFirstLevelIndent    := pcStream.Read(REG_FIRST_LEVEL_INDENT, 2);
   fbHasFirstLevelIndent := pcStream.Read(REG_HAS_FIRST_LEVEL_INDENT, False);
 
   fbIndentGlobals    := pcStream.Read(REG_INDENT_GLOBALS, True);
   fbIndentClasses    := pcStream.Read(REG_INDENT_CLASSES, True);
   fbIndentProcedures := pcStream.Read(REG_INDENT_PROCEDURES, True);
 
-  fbIndentBeginEnd  := pcStream.Read(REG_INDENT_BEGIN_END, False);
+  fbIndentBeginEnd := pcStream.Read(REG_INDENT_BEGIN_END, False);
   fiIndentBeginEndSpaces := pcStream.Read(REG_INDENT_BEGIN_END_SPACES, 1);
 
-  fbKeepCommentsWithCodeInGlobals := pcStream.Read(REG_KEEP_COMMENTS_WTH_CODE_IN_GLOBALS, True);
-  fbKeepCommentsWithCodeInProcs := pcStream.Read(REG_KEEP_COMMENTS_WTH_CODE_IN_PROCS, True);
-  fbKeepCommentsWithCodeInClassDef := pcStream.Read(REG_KEEP_COMMENTS_WTH_CODE_CLASS_DEF, True);
+  fbKeepCommentsWithCodeInGlobals  :=
+    pcStream.Read(REG_KEEP_COMMENTS_WTH_CODE_IN_GLOBALS, True);
+  fbKeepCommentsWithCodeInProcs    :=
+    pcStream.Read(REG_KEEP_COMMENTS_WTH_CODE_IN_PROCS, True);
+  fbKeepCommentsWithCodeInClassDef :=
+    pcStream.Read(REG_KEEP_COMMENTS_WTH_CODE_CLASS_DEF, True);
 end;
 
 procedure TSetIndent.WriteToStream(const pcOut: TSettingsOutput);

@@ -58,7 +58,7 @@ begin
   with FormatSettings.Comments do
   begin
     cbRemoveEmptyDoubleSlashComments.Checked := RemoveEmptyDoubleSlashComments;
-    cbRemoveEmptyCurlyBraceComments.Checked := RemoveEmptyCurlyBraceComments;
+    cbRemoveEmptyCurlyBraceComments.Checked  := RemoveEmptyCurlyBraceComments;
   end;
 end;
 
@@ -67,7 +67,7 @@ begin
   with FormatSettings.Comments do
   begin
     RemoveEmptyDoubleSlashComments := cbRemoveEmptyDoubleSlashComments.Checked;
-    RemoveEmptyCurlyBraceComments := cbRemoveEmptyCurlyBraceComments.Checked;
+    RemoveEmptyCurlyBraceComments  := cbRemoveEmptyCurlyBraceComments.Checked;
   end;
 end;
 

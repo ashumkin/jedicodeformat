@@ -36,21 +36,22 @@ type
     fcLastSolidToken: TSourceToken;
     fbDoneWork: boolean;
 
-    function NoDeclarationBefore: Boolean;
-    function CommentBefore: Boolean;
-    function NoSemiColonBefore: Boolean;
+    function NoDeclarationBefore: boolean;
+    function CommentBefore: boolean;
+    function NoSemiColonBefore: boolean;
 
     function NeedsNoReturn(const pt: TSourceToken): boolean;
 
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
 
   public
     constructor Create; override;
 
     function IsIncludedInSettings: boolean; override;
 
-    property DoneWork: boolean read fbDoneWork;
+    property DoneWork: boolean Read fbDoneWork;
   end;
 
 
@@ -64,7 +65,7 @@ constructor TNoReturnAfter.Create;
 begin
   inherited;
   fcLastSolidToken := nil;
-  fbDoneWork := False;
+  fbDoneWork  := False;
   FormatFlags := FormatFlags + [eRemoveReturn];
 end;
 
@@ -100,7 +101,7 @@ begin
       in a proc body }
     if pt.TokenType = ttColon then
     begin
-      if (not InStatements(pt)) and (RoundBracketLevel(pt) = 0) then
+      if ( not InStatements(pt)) and (RoundBracketLevel(pt) = 0) then
       begin
         Result := True;
         exit;
@@ -199,7 +200,7 @@ begin
   end;
 
   if lcSetReturns.RemoveVarReturns and (pt.TokenType <> ttSemiColon) and
-    (not (pt.TokenType in Declarations)) and pt.HasParentNode(nVarDecl) then
+    ( not (pt.TokenType in Declarations)) and pt.HasParentNode(nVarDecl) then
   begin
     if NoDeclarationBefore and NoSemicolonBefore and ptNext.HasParentNode(nVarDecl) then
     begin
@@ -215,7 +216,8 @@ begin
   end;
 
   // guid in interface
-  if (pt.TokenType = ttOpenSquareBracket) and pt.HasParentNode(nInterfaceTypeGuid, 1) then
+  if (pt.TokenType = ttOpenSquareBracket) and
+    pt.HasParentNode(nInterfaceTypeGuid, 1) then
   begin
     Result := True;
     exit;
@@ -234,22 +236,25 @@ begin
   end;
 end;
 
-function TNoReturnAfter.NoDeclarationBefore: Boolean;
+function TNoReturnAfter.NoDeclarationBefore: boolean;
 begin
-  Result := (fcLastSolidToken = nil) or (not (fcLastSolidToken.TokenType in Declarations));
+  Result := (fcLastSolidToken = nil) or
+    ( not (fcLastSolidToken.TokenType in Declarations));
 end;
 
-function TNoReturnAfter.NoSemiColonBefore: Boolean;
+function TNoReturnAfter.NoSemiColonBefore: boolean;
 begin
-  Result := (fcLastSolidToken = nil) or (not (fcLastSolidToken.TokenType = ttSemiColon));
+  Result := (fcLastSolidToken = nil) or
+    ( not (fcLastSolidToken.TokenType = ttSemiColon));
 end;
 
-function TNoReturnAfter.CommentBefore: Boolean;
+function TNoReturnAfter.CommentBefore: boolean;
 begin
   Result := (fcLastSolidToken <> nil) and (fcLastSolidToken.TokenType = ttComment)
 end;
 
-procedure TNoReturnAfter.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TNoReturnAfter.EnabledVisitSourceToken(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
 begin
@@ -266,7 +271,7 @@ begin
   begin
 
     { store for next time }
-     if not (lcSourceToken.TokenType in [ttWhiteSpace, ttReturn]) then
+    if not (lcSourceToken.TokenType in [ttWhiteSpace, ttReturn]) then
       fcLastSolidToken := lcSourceToken;
   end;
 end;

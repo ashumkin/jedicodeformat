@@ -25,8 +25,8 @@ interface
 
 uses
   { delphi }
-  SysUtils, Classes, Controls, Forms, 
-  StdCtrls, 
+  SysUtils, Classes, Controls, Forms,
+  StdCtrls,
   { local }
   frmBaseSettingsFrame, JvMemo;
 
@@ -53,8 +53,8 @@ implementation
 
 uses
     { delphi }
-    { jcl } JclFileUtils,
-    { local } FileUtils, JcfRegistrySettings, JcfSettings;
+    { jcl }JclFileUtils,
+    { local }FileUtils, JcfRegistrySettings, JcfSettings;
 
 {$R *.DFM}
 
@@ -79,21 +79,22 @@ begin
   begin
     if FileIsReadOnly(lcSet.FormatConfigFileName) then
     begin
-      lblStatus.Caption := 'File is read only';
+      lblStatus.Caption     := 'File is read only';
       mDescription.ReadOnly := True;
       mDescription.ParentColor := True;
     end
     else
     begin
-      lblStatus.Caption := 'File is writable';
+      lblStatus.Caption     := 'File is writable';
       mDescription.ReadOnly := False;
     end;
 
     { from the file, about itself}
-    lblDate.Caption := 'Date file written: ' +
-      FormatDateTime(ShortDateFormat + ' ' + ShortTimeFormat, FormatSettings.WriteDateTime);
+    lblDate.Caption    := 'Date file written: ' +
+      FormatDateTime(ShortDateFormat + ' ' + ShortTimeFormat,
+      FormatSettings.WriteDateTime);
     lblVersion.Caption := 'Version that wrote this file: ' + FormatSettings.WriteVersion;
-    mDescription.Text := FormatSettings.Description;
+    mDescription.Text  := FormatSettings.Description;
 
   end;
 end;
@@ -109,27 +110,27 @@ const
 begin
   inherited;
 
-  lblFormatFileName.Left := SPACING;
+  lblFormatFileName.Left  := SPACING;
   lblFormatFileName.Width := ClientWidth - (lblFormatFileName.Left + SPACING);
 
   // file name is varaible height due to wrap. Rest go below
   lblStatus.Left := SPACING;
-  lblStatus.Top := lblFormatFileName.Top + lblFormatFileName.Height + SPACING;
+  lblStatus.Top  := lblFormatFileName.Top + lblFormatFileName.Height + SPACING;
 
   lblDate.Left := SPACING;
-  lblDate.Top := lblStatus.Top + lblStatus.Height + SPACING;
+  lblDate.Top  := lblStatus.Top + lblStatus.Height + SPACING;
 
   lblVersion.Left := SPACING;
-  lblVersion.Top := lblDate.Top + lblDate.Height + SPACING;
+  lblVersion.Top  := lblDate.Top + lblDate.Height + SPACING;
 
   lblDescription.Left := SPACING;
-  lblDescription.Top := lblVersion.Top + lblVersion.Height + SPACING;
+  lblDescription.Top  := lblVersion.Top + lblVersion.Height + SPACING;
 
-  mDescription.Left := SPACING;
-  mDescription.Top := lblDescription.Top + lblDescription.Height + SPACING;
-  mDescription.Height := CLientHeight - (mDescription.Top + SPACING); 
+  mDescription.Left   := SPACING;
+  mDescription.Top    := lblDescription.Top + lblDescription.Height + SPACING;
+  mDescription.Height := CLientHeight - (mDescription.Top + SPACING);
 
-  mDescription.Left := SPACING;
+  mDescription.Left  := SPACING;
   mDescription.Width := ClientWidth - (mDescription.Left + SPACING);
 
 end;

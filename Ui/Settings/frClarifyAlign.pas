@@ -25,8 +25,8 @@ interface
 
 uses
   { delphi }
-  Classes, Controls, Forms, 
-  StdCtrls, 
+  Classes, Controls, Forms,
+  StdCtrls,
   { local}
   JvEdit, JvTypedEdit, frmBaseSettingsFrame;
 
@@ -110,7 +110,7 @@ begin
     edtMinColumn.Value   := MinColumn;
     edtMaxColumn.Value   := MaxColumn;
     edtMaxVariance.Value := MaxVariance;
-    eMaxUnaligned.Value := MaxUnalignedStatements;
+    eMaxUnaligned.Value  := MaxUnalignedStatements;
   end;
 end;
 

@@ -192,7 +192,7 @@ const
     '  a: integer;' + AnsiLineBreak +
     '  bee: string;' + AnsiLineBreak +
     '  deedee: float;' + AnsiLineBreak +
-    'begin' +  AnsiLineBreak +
+    'begin' + AnsiLineBreak +
     ' a := 3;' + AnsiLineBreak +
     ' bee := ''foo'';' + AnsiLineBreak +
     ' deedee := 34.56;' + AnsiLineBreak +
@@ -227,7 +227,7 @@ const
     '  a: integer;' + AnsiLineBreak +
     '  bee: string;' + AnsiLineBreak +
     '  deedee: float;' + AnsiLineBreak +
-    'begin' +  AnsiLineBreak +
+    'begin' + AnsiLineBreak +
     ' a      := 3;' + AnsiLineBreak +
     ' bee    := ''foo'';' + AnsiLineBreak +
     ' deedee := 34.56;' + AnsiLineBreak +
@@ -249,7 +249,7 @@ const
     '  a, aa: integer;' + AnsiLineBreak +
     '  bee, bee2: string;' + AnsiLineBreak +
     '  deedee, deedee2: float;' + AnsiLineBreak +
-    'begin' +  AnsiLineBreak +
+    'begin' + AnsiLineBreak +
     ' a := 3;' + AnsiLineBreak +
     ' bee := ''foo'';' + AnsiLineBreak +
     ' deedee := 34.56;' + AnsiLineBreak +
@@ -267,7 +267,7 @@ const
     '  a, aa: integer;' + AnsiLineBreak +
     '  bee, bee2: string;' + AnsiLineBreak +
     '  deedee, deedee2: float;' + AnsiLineBreak +
-    'begin' +  AnsiLineBreak +
+    'begin' + AnsiLineBreak +
     ' a      := 3;' + AnsiLineBreak +
     ' bee    := ''foo'';' + AnsiLineBreak +
     ' deedee := 34.56;' + AnsiLineBreak +
@@ -339,19 +339,19 @@ const
     ' type ' + AnsiLineBreak +
     '  foo = integer; ' + AnsiLineBreak +
     '  barnee = string; ' + AnsiLineBreak +
-    '  Baaaaaaz = float; ' +  AnsiLineBreak +
+    '  Baaaaaaz = float; ' + AnsiLineBreak +
     UNIT_FOOTER;
 
   OUT_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
     ' type ' + AnsiLineBreak +
     '  foo      = integer; ' + AnsiLineBreak +
     '  barnee   = string; ' + AnsiLineBreak +
-    '  Baaaaaaz = float; ' +  AnsiLineBreak +
+    '  Baaaaaaz = float; ' + AnsiLineBreak +
     UNIT_FOOTER;
 begin
   TestProcessResult(TALignTypedef, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
 initialization
- TestFramework.RegisterTest('Processes', TTestAlignment.Suite);
+  TestFramework.RegisterTest('Processes', TTestAlignment.Suite);
 end.

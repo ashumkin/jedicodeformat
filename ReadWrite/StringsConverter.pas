@@ -24,8 +24,8 @@ under the License.
 interface
 
 uses
-  { delphi } Classes,
-  { local } Converter, CodeReader, CodeWriter, StringsReader, StringsWriter;
+  { delphi }Classes,
+  { local }Converter, CodeReader, CodeWriter, StringsReader, StringsWriter;
 
 type
   TStringsConverter = class(TConverter)
@@ -53,9 +53,9 @@ type
 
     procedure Convert; override;
 
-    property InputStrings: TStrings read GetInputStrings write SetInputStrings;
-    property OutputStrings: TStrings read GetOutputStrings write SetOutputStrings;
-    property MessageStrings: TStrings read GetMessageStrings write SetMessageStrings;
+    property InputStrings: TStrings Read GetInputStrings Write SetInputStrings;
+    property OutputStrings: TStrings Read GetOutputStrings Write SetOutputStrings;
+    property MessageStrings: TStrings Read GetMessageStrings Write SetMessageStrings;
 
   end;
 
@@ -133,7 +133,8 @@ begin
   begin
     lsWholeMessage := psMessage;
     if (piY >= 0) and (piX >= 0) then
-      lsWholeMessage := lsWholeMessage + ' at line ' + IntToStr(piY) + ' col ' + IntToStr(piX);
+      lsWholeMessage := lsWholeMessage + ' at line ' + IntToStr(piY) +
+        ' col ' + IntToStr(piX);
 
 
     fcMessageStrings.Add(lsWholeMessage);

@@ -43,7 +43,7 @@ type
     function StillSuspended(const pc: TSourceToken): boolean;
     procedure IndentAll(const piIndent: integer);
 
-    procedure AddToken(const pcToken: TSOurceToken; const pbAligned: Boolean);
+    procedure AddToken(const pcToken: TSOurceToken; const pbAligned: boolean);
 
   protected
 
@@ -59,18 +59,19 @@ type
     procedure OnTokenRead(const pt: TSourceToken); virtual;
     procedure ResetState; virtual;
 
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
     destructor Destroy; override;
-end;
+  end;
 
 implementation
 
 uses
-  { delphi } SysUtils, Math,
-  { jcl } 
-  { jcf } JcfSettings, TokenUtils;
+  { delphi }SysUtils, Math,
+  { jcl }
+  { jcf }JcfSettings, TokenUtils;
 
 { TAlignBase }
 
@@ -78,7 +79,7 @@ constructor TAlignBase.Create;
 begin
   inherited;
   fcResumeToken := nil;
-  fcTokens := TSourceTokenList.Create;
+  fcTokens      := TSourceTokenList.Create;
 end;
 
 
@@ -89,7 +90,8 @@ begin
 end;
 
 
-procedure TAlignBase.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TAlignBase.EnabledVisitSourceToken(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcToken: TSourceToken;
 begin
@@ -109,7 +111,7 @@ end;
 procedure TAlignBase.AlignTheBlock(const pcToken: TSourceToken);
 var
   liCurrent, liLastKnownAlignedStatement: integer;
-  lcCurrent: TSourceToken;
+  lcCurrent:    TSourceToken;
   lbDone, lbFirst, bThisStatementIsAligned, lbThisTokenIsAligned: boolean;
   liMaxIndent, liMinIndent: integer;
   liThisIndent: integer;
@@ -136,7 +138,7 @@ begin
 
   liCurrent := 0;
   repeat
-    inc(liCurrent);
+    Inc(liCurrent);
     lcCurrent := lcCurrent.NextToken;
 
     if lcCurrent <> nil then
@@ -152,14 +154,14 @@ begin
 
   with FormatSettings do
   begin
-    liSettingsMin := Align.MinColumn;
-    liSettingsMax := Align.MaxColumn;
+    liSettingsMin  := Align.MinColumn;
+    liSettingsMax  := Align.MaxColumn;
     liSettingsMaxVariance := Align.MaxVariance;
     liMaxUnaligned := Align.MaxUnalignedStatements;
   end;
 
   { locate block end - include all consecutive aligned statements }
-  lbDone := False;
+  lbDone  := False;
   lbFirst := True;
   liUnalignedCount := 0;
   liAlignedCount := 1;
@@ -216,7 +218,7 @@ begin
           liLastKnownAlignedStatement := liCurrent;
           liUnalignedCount := 0;
           bThisStatementIsAligned := False;
-          inc(liAlignedCount);
+          Inc(liAlignedCount);
         end
         else
         begin
@@ -224,7 +226,7 @@ begin
             depending on the config, this could be just 1 unalaigned statement
             or it could be more
           }
-          inc(liUnalignedCount);
+          Inc(liUnalignedCount);
           if liUnalignedCount > liMaxUnaligned then
             lbDone := True;
         end;
@@ -233,7 +235,7 @@ begin
       if TokenEndsAlignment(lcCurrent) then
         lbDone := True;
 
-      inc(liCurrent);
+      Inc(liCurrent);
       lcCurrent := lcCurrent.NextToken;
       OnTokenRead(lcCurrent);
     end; { not EOF }
@@ -254,7 +256,7 @@ var
   liLoop: integer;
   lcCurrent, lcNew: TSourceToken;
 begin
-  for liLoop := fcTokens.count - 1 downto 0 do
+  for liLoop := fcTokens.Count - 1 downto 0 do
   begin
     lcCurrent := fcTokens.SourceTokens[liLoop];
 
@@ -302,11 +304,10 @@ begin
 
 end;
 
-procedure TAlignBase.AddToken(const pcToken: TSourceToken;
-  const pbAligned: Boolean);
+procedure TAlignBase.AddToken(const pcToken: TSourceToken; const pbAligned: boolean);
 begin
   Assert(pcToken <> nil);
-  
+
   if pbAligned then
     pcToken.UserTag := 1
   else

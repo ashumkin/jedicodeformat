@@ -28,7 +28,7 @@ unit JCFSettings;
 interface
 
 uses
-  { local } SetObfuscate, SetClarify,
+  { local }SetObfuscate, SetClarify,
   SetIndent, SetSpaces, SetReturns,
   SetComments, SetCaps, SetWordList,
   SetAlign, SetReplace, SetUses, SetPreProcessor,
@@ -54,11 +54,11 @@ type
 
     fcReplace: TSetReplace;
 
-    fbWriteOnExit: Boolean;
-    fbDirty: Boolean;
+    fbWriteOnExit: boolean;
+    fbDirty: boolean;
     fsDescription: string;
     fdtWriteDateTime: TDateTime;
-    fsWriteVersion: String;
+    fsWriteVersion: string;
 
     procedure FromStream(const pcStream: TSettingsInput);
 
@@ -77,29 +77,29 @@ type
 
     procedure ToStream(const pcStream: TSettingsOutput);
 
-    property Description: string read fsDescription write fsDescription;
-    property WriteDateTime: TDateTime read fdtWriteDateTime write fdtWriteDateTime;
-    property WriteVersion: string read fsWriteVersion write fsWriteVersion;
+    property Description: string Read fsDescription Write fsDescription;
+    property WriteDateTime: TDateTime Read fdtWriteDateTime Write fdtWriteDateTime;
+    property WriteVersion: string Read fsWriteVersion Write fsWriteVersion;
 
-    property Obfuscate: TSetObfuscate read fcObfuscate;
-    property Clarify: TSetClarify read fcClarify;
-    property Indent: TSetIndent read fcIndent;
-    property Spaces: TSetSpaces read fcSpaces;
-    property Returns: TSetReturns read fcReturns;
-    property Comments: TSetComments read fcComments;
+    property Obfuscate: TSetObfuscate Read fcObfuscate;
+    property Clarify: TSetClarify Read fcClarify;
+    property Indent: TSetIndent Read fcIndent;
+    property Spaces: TSetSpaces Read fcSpaces;
+    property Returns: TSetReturns Read fcReturns;
+    property Comments: TSetComments Read fcComments;
 
-    property Caps: TSetCaps read fcCaps;
-    property SpecificWordCaps: TSetWordList read fcSpecificWordCaps;
-    property UnitNameCaps: TSetWordList read fcUnitNameCaps;
-    property PreProcessor: TSetPreProcessor read fcPreProcessor;
+    property Caps: TSetCaps Read fcCaps;
+    property SpecificWordCaps: TSetWordList Read fcSpecificWordCaps;
+    property UnitNameCaps: TSetWordList Read fcUnitNameCaps;
+    property PreProcessor: TSetPreProcessor Read fcPreProcessor;
 
 
-    property Align: TSetAlign read fcAlign;
-    property Replace: TSetReplace read fcReplace;
-    property UsesClause: TSetUses read fcUses;
+    property Align: TSetAlign Read fcAlign;
+    property Replace: TSetReplace Read fcReplace;
+    property UsesClause: TSetUses Read fcUses;
 
-    property WriteOnExit: Boolean read fbWriteOnExit write fbWriteOnExit;
-    property Dirty: Boolean read fbDirty write fbDirty;
+    property WriteOnExit: boolean Read fbWriteOnExit Write fbWriteOnExit;
+    property Dirty: boolean Read fbDirty Write fbDirty;
   end;
 
 function FormatSettings: TFormatSettings;
@@ -107,10 +107,10 @@ function FormatSettings: TFormatSettings;
 implementation
 
 uses
-  { delphi } SysUtils, Dialogs, 
-  { jcl } JclStrings,
-  { local } JCFSetBase, 
-   JcfRegistrySettings;
+  { delphi }SysUtils, Dialogs,
+  { jcl }JclStrings,
+  { local }JCFSetBase,
+  JcfRegistrySettings;
 
 
 constructor TFormatSettings.Create;
@@ -118,10 +118,10 @@ begin
   inherited;
 
   fcObfuscate := TSetObfuscate.Create;
-  fcClarify := TSetClarify.Create;
-  fcIndent := TSetIndent.Create;
-  fcSpaces := TSetSpaces.Create;
-  fcReturns := TSetReturns.Create;
+  fcClarify   := TSetClarify.Create;
+  fcIndent    := TSetIndent.Create;
+  fcSpaces    := TSetSpaces.Create;
+  fcReturns   := TSetReturns.Create;
 
   fcComments := TSetComments.Create;
 
@@ -130,9 +130,9 @@ begin
   fcUnitNameCaps := TSetWordList.Create('UnitNameCaps');
   fcPreProcessor := TSetPreProcessor.Create;
 
-  fcAlign := TSetAlign.Create;
+  fcAlign   := TSetAlign.Create;
   fcReplace := TSetReplace.Create;
-  fcUses := TSetUses.Create;
+  fcUses    := TSetUses.Create;
 
   Read;
 
@@ -147,13 +147,14 @@ begin
     WriteOnExit := False;
 
   try
-    if WriteOnExit and Dirty and (not FileIsReadOnly(GetRegSettings.FormatConfigFileName)) then
+    if WriteOnExit and Dirty and
+      ( not FileIsReadOnly(GetRegSettings.FormatConfigFileName)) then
       Write;
   except
     on e: Exception do
       MessageDlg('Error writing settings file ' +
-        GetRegSettings.FormatConfigFileName + AnsiLineBreak + ' :' + 
-        E.Message, mtError, [mbOk], 0);
+        GetRegSettings.FormatConfigFileName + AnsiLineBreak + ' :' +
+        E.Message, mtError, [mbOK], 0);
   end;
 
   FreeAndNil(fcObfuscate);
@@ -177,7 +178,7 @@ end;
 const
   CODEFORMAT_SETTINGS_SECTION = 'JediCodeFormatSettings';
 
-  REG_VERSION = 'WriteVersion';
+  REG_VERSION     = 'WriteVersion';
   REG_WRITE_DATETIME = 'WriteDateTime';
   REG_DESCRIPTION = 'Description';
 
@@ -202,14 +203,14 @@ begin
     try
       FromStream(lcFile);
     finally
-      lcFile.free;
+      lcFile.Free;
     end;
   end
   else
   begin
     MessageDlg('The settings file "' + psFileName + '" does not exist.' + AnsiLineBreak +
-     'The formatter will work better if it is configured to use a valid settings file',
-     mtError, [mbOk], 0);
+      'The formatter will work better if it is configured to use a valid settings file',
+      mtError, [mbOK], 0);
   end;
 end;
 
@@ -222,7 +223,7 @@ begin
   try
     FromStream(lcSetDummy);
   finally
-    lcSetDummy.free;
+    lcSetDummy.Free;
   end;
 end;
 
@@ -232,13 +233,13 @@ var
 begin
   if GetRegSettings.FormatConfigFileName = '' then
     exit;
-    
+
   // use the Settings File 
   lcFile := TSettingsStreamOutput.Create(GetRegSettings.FormatConfigFileName);
   try
     ToStream(lcFile);
   finally
-    lcFile.free;
+    lcFile.Free;
   end;
 
 end;
@@ -309,8 +310,8 @@ begin
   end;
 
   try
-    fsWriteVersion := pcStream.Read(REG_VERSION, '');
-    fsDescription := pcStream.Read(REG_DESCRIPTION, '');
+    fsWriteVersion   := pcStream.Read(REG_VERSION, '');
+    fsDescription    := pcStream.Read(REG_DESCRIPTION, '');
     fdtWriteDateTime := pcStream.Read(REG_WRITE_DATETIME, 0.0);
 
     ReadFromStream(fcObfuscate);
@@ -322,7 +323,7 @@ begin
     ReadFromStream(fcSpecificWordCaps);
     ReadFromStream(fcUnitNameCaps);
     ReadFromStream(fcPreProcessor);
-    
+
     ReadFromStream(fcAlign);
     ReadFromStream(fcReplace);
     ReadFromStream(fcUses);
@@ -349,12 +350,13 @@ procedure TFormatSettings.MakeConsistent;
 begin
   { one consistency check so far
     - if linebreaking is off, then "remove returns in expressions" must also be off }
-    
-  if Returns.RebreakLines =  rbOff then
+
+  if Returns.RebreakLines = rbOff then
     Returns.RemoveExpressionReturns := False;
 end;
 
 initialization
+
 finalization
   FreeAndNil(mcFormatSettings);
 end.

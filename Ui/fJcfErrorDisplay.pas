@@ -24,8 +24,8 @@ type
   end;
 
 procedure ShowExceptionDialog(const pE: Exception);
-procedure ShowErrorMessageDialog(const psMessage: string;
-  const psCaption: string; const piY, piX: integer);
+procedure ShowErrorMessageDialog(const psMessage: string; const psCaption: string;
+  const piY, piX: integer);
 
 implementation
 
@@ -41,12 +41,12 @@ begin
   try
     frm.DisplayException(pe);
   finally
-    frm.free;
+    frm.Free;
   end;
 end;
 
-procedure ShowErrorMessageDialog(const psMessage: string;
-  const psCaption: string; const piY, piX: integer);
+procedure ShowErrorMessageDialog(const psMessage: string; const psCaption: string;
+  const piY, piX: integer);
 var
   frm: TExceptionDialog;
 begin
@@ -54,7 +54,7 @@ begin
   try
     frm.DisplayErrorMessage(psMessage, psCaption, piY, piX);
   finally
-    frm.free;
+    frm.Free;
   end;
 end;
 
@@ -73,15 +73,18 @@ begin
     lcParseError := TEParseError(pE);
 
     Caption := 'JCF Parse error';
-    mExceptionMessage.Text := lcParseError.Message + ' near ' + lcParseError.TokenMessage;
+    mExceptionMessage.Text := lcParseError.Message + ' near ' +
+      lcParseError.TokenMessage;
 
     if (lcParseError.XPosition > 0) or (lcParseError.YPosition > 0) then
     begin
       mExceptionMessage.Text := mExceptionMessage.Text + AnsiLineBreak +
-         'At line ' + IntToStr(lcParseError.YPosition) + ' col ' + IntToStr(lcParseError.XPosition);
+        'At line ' + IntToStr(lcParseError.YPosition) + ' col ' +
+        IntToStr(lcParseError.XPosition);
 
       if lcParseError.FileName <> '' then
-        mExceptionMessage.Text := mExceptionMessage.Text +  ' in ' + lcParseError.FileName;
+        mExceptionMessage.Text :=
+          mExceptionMessage.Text + ' in ' + lcParseError.FileName;
     end;
   end
   else
@@ -96,7 +99,7 @@ begin
 end;
 
 procedure TExceptionDialog.DisplayErrorMessage(const sMessage: string;
-   const psCaption: string; const piY, piX: integer);
+  const psCaption: string; const piY, piX: integer);
 begin
   if psCaption <> '' then
     Caption := psCaption
@@ -106,8 +109,8 @@ begin
   mExceptionMessage.Text := sMessage;
   if (piY > 0) or (piX > 0) then
   begin
-    mExceptionMessage.Text := mExceptionMessage.Text +  AnsiLineBreak +
-       ' at line ' + IntToStr(piY) + ' col ' + IntToStr(piX);
+    mExceptionMessage.Text := mExceptionMessage.Text + AnsiLineBreak +
+      ' at line ' + IntToStr(piY) + ' col ' + IntToStr(piX);
   end;
 
   ShowModal;
@@ -117,12 +120,12 @@ procedure TExceptionDialog.FormResize(Sender: TObject);
 const
   PAD = 4;
 begin
-  btnOk.Top := ClientHeight - (btnOk.Height + PAD);
+  btnOk.Top  := ClientHeight - (btnOk.Height + PAD);
   btnOk.Left := (ClientWidth - btnOk.Width) div 2;
 
-  mExceptionMessage.Left := PAD;
-  mExceptionMessage.Top := PAD;
-  mExceptionMessage.Width := ClientWidth - (PAD * 2);
+  mExceptionMessage.Left   := PAD;
+  mExceptionMessage.Top    := PAD;
+  mExceptionMessage.Width  := ClientWidth - (PAD * 2);
   mExceptionMessage.Height := ClientHeight - (btnOk.Height + (PAD * 3));
 end;
 

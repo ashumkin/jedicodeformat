@@ -5,9 +5,9 @@ interface
 { preprocessor symbols }
 
 uses
-  Classes, Controls, Forms, 
+  Classes, Controls, Forms,
   StdCtrls, JvMemo,
-   { local} frmBaseSettingsFrame;
+   { local}frmBaseSettingsFrame;
 
 type
   TfPreProcessor = class(TfrSettingsFrame)
@@ -64,20 +64,20 @@ procedure TfPreProcessor.FrameResize(Sender: TObject);
 var
   liClientHeight: integer;
 begin
-  liClientHeight :=  ClientHeight -
+  liClientHeight := ClientHeight -
     (cbEnable.Top + cbEnable.Height +
-      lblCompilerOptions.Height + lblSymbols.Height +
-      (GUI_PAD * 3));
+    lblCompilerOptions.Height + lblSymbols.Height +
+    (GUI_PAD * 3));
 
   mSymbols.Height := (liClientHeight div 2);
-  mSymbols.Left := 0;
-  mSymbols.Width := ClientWidth;
+  mSymbols.Left   := 0;
+  mSymbols.Width  := ClientWidth;
 
   lblCompilerOptions.Top := mSymbols.Top + mSymbols.Height + GUI_PAD;
-  mOptions.Top := lblCompilerOptions.Top + lblCompilerOptions.Height + GUI_PAD;
+  mOptions.Top    := lblCompilerOptions.Top + lblCompilerOptions.Height + GUI_PAD;
   mOptions.Height := ClientHeight - mOptions.Top;
-  mOptions.Left := 0;
-  mOptions.Width := ClientWidth;
+  mOptions.Left   := 0;
+  mOptions.Width  := ClientWidth;
 
 end;
 

@@ -68,7 +68,8 @@ type
   private
 
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
 
@@ -171,25 +172,27 @@ begin
   FormatFlags := FormatFlags + [eBlockStyle, eAddReturn, eRemoveReturn];
 end;
 
-procedure TBlockStyles.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TBlockStyles.EnabledVisitSourceToken(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
   leStyle: TBlockNewLineStyle;
   lcSourceToken, lcNextReturn, lcNextComment: TSourceToken;
 begin
   lcSourceToken := TSourceToken(pcNode);
 
-  if (lcSourceToken.TokenType in BreakWords) or IsLabelColon(lcSourceToken) or IsCaseColon(lcSourceToken) then
+  if (lcSourceToken.TokenType in BreakWords) or IsLabelColon(lcSourceToken) or
+    IsCaseColon(lcSourceToken) then
   begin
     leStyle := GetStyle(lcSourceToken);
 
     case leStyle of
-      eLeave:; // do nothing, leave as is
+      eLeave: ; // do nothing, leave as is
       eAlways:
       begin
         lcNextReturn := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace, ttComment]);
         if (lcNextReturn <> nil) and (lcNextReturn.TokenType <> ttReturn) then
         begin
-          prVisitResult.Action := aInsertAfter;
+          prVisitResult.Action  := aInsertAfter;
           prVisitResult.NewItem := NewReturn;
         end;
       end;
@@ -209,7 +212,7 @@ begin
               (lcNextReturn.NextToken.TokenType = ttWhiteSpace) then
 
             // null space as it's next to space already
-            lcNextReturn.SourceCode := ''
+              lcNextReturn.SourceCode := ''
             else
               // keep a space
               lcNextReturn.SourceCode := ' ';

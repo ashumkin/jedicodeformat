@@ -29,7 +29,8 @@ uses SourceToken, SwitchableVisitor, VisitParseTree;
 type
   TRemoveBlankLinesAfterProcHeader = class(TSwitchableVisitor)
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
 
   public
     constructor Create; override;
@@ -41,7 +42,8 @@ implementation
 
 uses JcfSettings, FormatFlags, Tokens, ParseTreeNodeType;
 
-function IsPlaceForBlankLineRemoval(const ptToken, ptNextSolidToken: TSourceToken): boolean;
+function IsPlaceForBlankLineRemoval(const ptToken, ptNextSolidToken:
+  TSourceToken): boolean;
 begin
   Result := False;
 
@@ -51,7 +53,8 @@ begin
   { assume we're already under a procedure decl as tested below }
 
   { before the begin }
-  if ptToken.HasParentNode(nCompoundStatement) and (ptNextSolidToken.TokenType = ttBegin) then
+  if ptToken.HasParentNode(nCompoundStatement) and
+    (ptNextSolidToken.TokenType = ttBegin) then
   begin
     Result := True;
     exit;
@@ -77,10 +80,10 @@ end;
 procedure TRemoveBlankLinesAfterProcHeader.EnabledVisitSourceToken(
   const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
-  lcSourceToken: TSourceToken;
+  lcSourceToken:  TSourceToken;
   lcNext, lcTest: TSourceToken;
-  liReturnCount: integer;
-  liMaxReturns: integer;
+  liReturnCount:  integer;
+  liMaxReturns:   integer;
 begin
   lcSourceToken := TSourceToken(pcNode);
 
@@ -112,10 +115,10 @@ begin
     if (lcTest.TokenType = ttReturn) then
     begin
       // allow two returns -> 1 blank line
-      inc(liReturnCount);
+      Inc(liReturnCount);
       if (liReturnCount > liMaxReturns) then
       begin
-        lcTest.TokenType := ttWhiteSpace;
+        lcTest.TokenType  := ttWhiteSpace;
         lcTest.SourceCode := '';
       end;
     end;

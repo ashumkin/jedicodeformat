@@ -63,10 +63,10 @@ type
     ttConditionalCompilationRemoved,
 
 
-    ttNumber, // a numeric constant
+    ttNumber,        // a numeric constant
     ttLiteralString, // 'This is a string'
-    ttSemicolon, // ;
-    ttColon, // :
+    ttSemicolon,     // ;
+    ttColon,         // :
     ttComma,
     ttOpenBracket,
     ttCloseBracket,
@@ -74,7 +74,7 @@ type
     ttCloseSquareBracket,
     ttDot,
     ttDoubleDot, // '..' as in '[1 .. 2]'
-    ttAssign, // :=
+    ttAssign,    // :=
 
     ttIdentifier, // a user-defined name for a var, type, unit, etc
 
@@ -176,7 +176,7 @@ type
     ttImplements,
     ttReintroduce,
     ttOffset, // used in asm
-    ttPtr, // likewise
+    ttPtr,    // likewise
 
     { Delphi 6 directives }
     ttDeprecated,
@@ -258,7 +258,7 @@ const
 
 
   { all tokens spelled with a-z }
-  TextualTokens: TTokenTypeSet = [ttIdentifier .. ttXor];
+  TextualTokens: TTokenTypeSet   = [ttIdentifier .. ttXor];
   IdentiferTokens: TTokenTypeSet = [ttIdentifier .. ttXor];
 
   { same as above, with numbers added }
@@ -270,16 +270,19 @@ const
   CloseBrackets: TTokenTypeSet = [ttCloseBracket, ttCloseSquareBracket];
 
 
-  NotSolidTokens: TTokenTypeSet = [ttWhiteSpace, ttComment, ttReturn, ttConditionalCompilationRemoved];
+  NotSolidTokens: TTokenTypeSet =
+    [ttWhiteSpace, ttComment, ttReturn, ttConditionalCompilationRemoved];
 
   { procedure can have local declarations of vars, const and yes, types }
-  Declarations: TTokenTypeSet = [ttConst, ttResourceString, ttVar, ttThreadVar, ttType, ttLabel, ttExports];
+  Declarations: TTokenTypeSet =
+    [ttConst, ttResourceString, ttVar, ttThreadVar, ttType, ttLabel, ttExports];
 
   ParamTypes: TTokenTypeSet = [ttVar, ttConst, ttOut];
 
-  BlockOutdentWords: TTokenTypeSet = [ttVar, ttThreadVar, ttConst, ttResourceString, ttType, ttLabel,
+  BlockOutdentWords: TTokenTypeSet =
+    [ttVar, ttThreadVar, ttConst, ttResourceString, ttType, ttLabel,
     ttBegin, ttEnd, ttTry, ttFinally, ttExcept,
-    ttWhile,  ttFor, ttRepeat, ttUntil, ttWith,
+    ttWhile, ttFor, ttRepeat, ttUntil, ttWith,
     ttAsm, ttCase, ttInitialization, ttFinalization];
 
   PropertyDirectives: TTokenTypeSet =
@@ -297,16 +300,19 @@ const
 
   VariableDirectives: TTokenTypeSet = [ttAbsolute, ttDeprecated, ttLibrary, ttPlatform];
 
-  ClassVisibility: TTokenTypeSet = [ttPrivate, ttProtected, ttPublic, ttPublished, ttAutomated];
+  ClassVisibility: TTokenTypeSet =
+    [ttPrivate, ttProtected, ttPublic, ttPublished, ttAutomated];
 
   ProcedureDirectives: TTokenTypeSet = [ttExternal, ttPascal, ttSafecall, ttAbstract,
     ttAutomated, ttFar, ttStdcall, ttAssembler, ttInline, ttForward,
     ttVirtual, ttCdecl, ttMessage, ttName, ttRegister, ttDispId,
-    ttNear, ttDynamic, ttExport, ttOverride, ttResident, ttLocal, ttOverload, ttReintroduce,
+    ttNear, ttDynamic, ttExport, ttOverride, ttResident, ttLocal,
+    ttOverload, ttReintroduce,
     ttDeprecated, ttLibrary, ttPlatform];
 
-  ClassDirectives: TTokenTypeSet = [ttPrivate, ttProtected, ttPublic, ttPublished, ttAutomated];
-  HintDirectives: TTokenTypeSet = [ttDeprecated, ttLibrary, ttPlatform];
+  ClassDirectives: TTokenTypeSet =
+    [ttPrivate, ttProtected, ttPublic, ttPublished, ttAutomated];
+  HintDirectives: TTokenTypeSet  = [ttDeprecated, ttLibrary, ttPlatform];
 
   AllDirectives: TTokenTypeSet = [ttAbsolute, ttExternal, ttPascal, ttSafecall,
     ttAbstract, ttFar, ttPrivate, ttStdcall, ttAssembler, ttForward,
@@ -319,8 +325,9 @@ const
 
   ProcedureWords: TTokenTypeSet = [ttProcedure, ttFunction, ttConstructor, ttDestructor];
 
-  StructuredTypeWords: TTokenTypeSet = [ttClass, ttObject, ttInterface, ttDispinterface, ttRecord];
-  ObjectTypeWords: TTokenTypeSet = [ttClass, ttObject, ttInterface, ttDispinterface];
+  StructuredTypeWords: TTokenTypeSet =
+    [ttClass, ttObject, ttInterface, ttDispinterface, ttRecord];
+  ObjectTypeWords: TTokenTypeSet     = [ttClass, ttObject, ttInterface, ttDispinterface];
 
   InterfaceWords: TTokenTypeSet = [ttInterface, ttDispinterface];
 
@@ -361,11 +368,12 @@ const
   UsesWords: TTokenTypeSet = [ttUses, ttRequires, ttContains];
 
   BuiltInConstants: TTokenTypeSet = [ttNil, ttTrue, ttFalse];
-  BuiltInTypes: TTokenTypeSet = [ttBoolean .. ttOleVariant];
+  BuiltInTypes: TTokenTypeSet     = [ttBoolean .. ttOleVariant];
 
 
 { interpret a string as a token }
-procedure TypeOfToken(const psWord: string; var peWordType: TWordType; var peToken: TTokenType); overload;
+procedure TypeOfToken(const psWord: string; var peWordType: TWordType;
+  var peToken: TTokenType); overload;
 function TypeOfToken(const psWord: string): TTokenType; overload;
 function WordTypeOfToken(const peTokenType: TTokenType): TWordType; overload;
 
@@ -379,7 +387,7 @@ function TokenTypesToString(const peTokens: TTokenTypeSet): string;
 { chars used to make the comment }
 { these} (* or these *) // or these
 type
-  TCommentStyle = (eNotAComment, eDoubleSlash, eBracketStar,
+  TCommentStyle    = (eNotAComment, eDoubleSlash, eBracketStar,
     eCurlyBrace, eCompilerDirective);
   TCommentStyleSet = set of TCommentStyle;
 
@@ -403,7 +411,8 @@ procedure GetPreprocessorSymbolData(const psSourceCode: string;
   var peSymbolType: TPreProcessorSymbolType; var psText: string);
 
 function PreProcSymbolTypeToString(const peSymbolType: TPreProcessorSymbolType): string;
-function PreProcSymbolTypeSetToString(const peSymbolTypes: TPreProcessorSymbolTypeSet): string;
+function PreProcSymbolTypeSetToString(
+  const peSymbolTypes: TPreProcessorSymbolTypeSet): string;
 
 implementation
 
@@ -419,7 +428,7 @@ uses SysUtils,
 type
   TRTokenTextMap = record
     sToken: string;
-    iLength: Integer; // length of string above
+    iLength: integer; // length of string above
     eWordType: TWordType;
     eToken: TTokenType;
   end;
@@ -434,7 +443,7 @@ const
 
 var
   { final number of keywords added }
-  miKeyWordCount: Integer;
+  miKeyWordCount: integer;
 
   { the keyword data }
   mrKeywordTextMap: array of TRTokenTextMap;
@@ -443,30 +452,31 @@ var
     this indexes where in the array tokens of a particular length start }
   miKeywordLengthIndexes: array[1 .. LONGEST_KEYWORD_LEN + 1] of integer;
 
-Procedure AddKeyWord(psToken: string; const peWordType: TWordType; const peToken: TTokenType);
+procedure AddKeyWord(psToken: string; const peWordType: TWordType;
+  const peToken: TTokenType);
 var
   liLength: integer;
-Begin
+begin
   { the UpperCase fn seems to be safe from locale -
     it works on chars a..z and we are not feeding it any accented chars   }
   psToken := Trim(UpperCase(psToken));
 
   liLength := Length(psToken);
   Assert(liLength <= LONGEST_KEYWORD_LEN,
-    'Found a longer token: ' + psToken + ' length '  + IntToStr(liLength));
+    'Found a longer token: ' + psToken + ' length ' + IntToStr(liLength));
 
-  mrKeywordTextMap[miKeyWordCount].sToken := psToken;
+  mrKeywordTextMap[miKeyWordCount].sToken  := psToken;
   mrKeywordTextMap[miKeyWordCount].iLength := liLength;
 
   mrKeywordTextMap[miKeyWordCount].eWordType := peWordType;
-  mrKeywordTextMap[miKeyWordCount].eToken := peToken;
+  mrKeywordTextMap[miKeyWordCount].eToken    := peToken;
 
   Inc(miKeyWordCount);
   Assert(miKeyWordCount < INITIAL_MAX_KEYWORDS);
 end;
 
 procedure AddKeyWords;
-Begin
+begin
   {NOTES: Adding the keywords to a dynamic array adds negligible overhead but
   it is quite flexible as we can add stuff later. Array size is not fixed
 
@@ -669,10 +679,10 @@ Begin
 end;
 
 { sort order for the keyword data array }
-function KeyWordCompare(const prMap1, prMap2: TRTokenTextMap): Integer;
-Var
-  liIndex: Integer;
-Begin
+function KeyWordCompare(const prMap1, prMap2: TRTokenTextMap): integer;
+var
+  liIndex: integer;
+begin
   { first sort by length }
   Result := prMap1.iLength - prMap2.iLength;
   if Result <> 0 then
@@ -682,17 +692,17 @@ Begin
   liIndex := 1;
   while (Result = 0) and (liIndex <= prMap1.iLength) do
   begin
-   Result := Ord(prMap1.sToken[liIndex]) - Ord(prMap2.sToken[liIndex]);
-   Inc(liIndex);
+    Result := Ord(prMap1.sToken[liIndex]) - Ord(prMap2.sToken[liIndex]);
+    Inc(liIndex);
   end;
-End;
+end;
 
-Procedure SortKeywords;
+procedure SortKeywords;
 var
-  liIndex: Integer;
-  lrSwap: TRTokenTextMap;
-  lbDoneWork: Boolean;
-Begin
+  liIndex:    integer;
+  lrSwap:     TRTokenTextMap;
+  lbDoneWork: boolean;
+begin
   {We have a fairly small number of items, < 200.
     Bubble sort is good enough, if not the best here }
 
@@ -703,7 +713,8 @@ Begin
 
     for liIndex := 0 to (miKeyWordCount - 2) do
     begin
-      If KeyWordCompare(mrKeywordTextMap[Succ(liIndex)], mrKeywordTextMap[liIndex]) < 0 then
+      if KeyWordCompare(mrKeywordTextMap[Succ(liIndex)],
+        mrKeywordTextMap[liIndex]) < 0 then
       begin
         { swap the items }
         lrSwap := mrKeywordTextMap[Succ(liIndex)];
@@ -744,19 +755,20 @@ end;
 
 
 { turn text to enum. Assumes data is sorted out and sorted }
-procedure TypeOfToken(const psWord: string; var peWordType: TWordType; var peToken: TTokenType);
+procedure TypeOfToken(const psWord: string; var peWordType: TWordType;
+  var peToken: TTokenType);
 var
-  liMapItemLoop: integer;
-  liCharIndex: integer;
+  liMapItemLoop:  integer;
+  liCharIndex:    integer;
   liStart, liEnd: integer;
-  liTokenLength: integer;
-  lbFoundItem: boolean;
+  liTokenLength:  integer;
+  lbFoundItem:    boolean;
 begin
   Assert(psWord <> '');
 
   { if its not found in the list, it is unknown }
   peWordType := wtNotAWord;
-  peToken := ttUnknown;
+  peToken    := ttUnknown;
 
   // the token in should already be trimmed
   liTokenLength := Length(psWord);
@@ -768,7 +780,7 @@ begin
   // where in the map do we find tokens of this length?
   liStart := miKeywordLengthIndexes[liTokenLength];
   // tokens of this length stop when the longer ones start :)
-  liEnd := miKeywordLengthIndexes[liTokenLength + 1] - 1;
+  liEnd   := miKeywordLengthIndexes[liTokenLength + 1] - 1;
 
   { of course the ultimate would be binary search not for-loop
     but it is questionable if that is needed
@@ -777,22 +789,24 @@ begin
   begin
     { 'a simplified version of Boyer-Moore comparison technique' }
     if (mrKeywordTextMap[liMapItemLoop].sToken[1] = UpCase(psWord[1])) and
-      (mrKeywordTextMap[liMapItemLoop].sToken[liTokenLength] = UpCase(psWord[liTokenLength])) then
+      (mrKeywordTextMap[liMapItemLoop].sToken[liTokenLength] =
+      UpCase(psWord[liTokenLength])) then
     begin
       lbFoundItem := True;
       liCharIndex := 2;
       {We have already checked the 2 ends of the string. Check the rest }
-      while lbFoundItem And (liCharIndex < liTokenLength) do
+      while lbFoundItem and (liCharIndex < liTokenLength) do
       begin
         lbFoundItem := lbFoundItem and
-          (mrKeywordTextMap[liMapItemLoop].sToken[liCharIndex] = UpCase(psWord[liCharIndex]));
+          (mrKeywordTextMap[liMapItemLoop].sToken[liCharIndex] =
+          UpCase(psWord[liCharIndex]));
         Inc(liCharIndex);
       end;
 
       if lbFoundItem then
       begin
         peWordType := mrKeywordTextMap[liMapItemLoop].eWordType;
-        peToken := mrKeywordTextMap[liMapItemLoop].eToken;
+        peToken    := mrKeywordTextMap[liMapItemLoop].eToken;
         break;
       end;
 
@@ -811,55 +825,55 @@ end;
 function TokenTypeToString(const peToken: TTokenType): string;
 var
   lbFound: boolean;
-  liLoop: integer;
+  liLoop:  integer;
 begin
   lbFound := False;
 
   case peToken of
     ttPunctuation:
     begin
-      Result := 'Unknown punctuation';
+      Result  := 'Unknown punctuation';
       lbFound := True;
     end;
     ttUnknown:
     begin
-      Result := 'Unknown';
+      Result  := 'Unknown';
       lbFound := True;
     end;
     ttReturn:
     begin
-      Result := 'Return';
+      Result  := 'Return';
       lbFound := True;
     end;
     ttWhiteSpace:
     begin
-      Result := 'White space';
+      Result  := 'White space';
       lbFound := True;
     end;
     ttIdentifier:
     begin
       // identifier not in the list as it has no fixed text
-      Result := 'Identifier';
+      Result  := 'Identifier';
       lbFound := True;
     end;
     ttNumber:
     begin
-      Result := 'Number';
+      Result  := 'Number';
       lbFound := True;
     end;
     ttLiteralString:
     begin
-      Result := 'Literal string';
+      Result  := 'Literal string';
       lbFound := True;
     end;
     ttComment:
     begin
-      Result := 'comment';
+      Result  := 'comment';
       lbFound := True;
     end;
     ttConditionalCompilationRemoved:
     begin
-      Result := 'cond compilation removed';
+      Result  := 'cond compilation removed';
       lbFound := True;
     end
     else
@@ -868,7 +882,7 @@ begin
       begin
         if peToken = mrKeywordTextMap[liLoop].eToken then
         begin
-          Result := mrKeywordTextMap[liLoop].sToken;
+          Result  := mrKeywordTextMap[liLoop].sToken;
           lbFound := True;
           break;
         end;
@@ -939,14 +953,14 @@ const
     '{$ELSE',
     '{$ENDIF',
     '{$IFEND'
-  );
+    );
 
 
 { given a token, identify the preprocessor symbol and the text after it }
 procedure GetPreprocessorSymbolData(const psSourceCode: string;
   var peSymbolType: TPreProcessorSymbolType; var psText: string);
 var
-  leLoop: TPreProcessorSymbolType;
+  leLoop:    TPreProcessorSymbolType;
   liItemLen: integer;
 begin
   peSymbolType := ppNone;
@@ -959,7 +973,7 @@ begin
 
     liItemLen := Length(PreProcessorSymbolData[leLoop]);
     if AnsiSameText(StrLeft(psSourceCode, liItemLen), PreProcessorSymbolData[leLoop]) and
-      (not CharIsAlpha(psSourceCode[liItemLen + 1])) then
+      ( not CharIsAlpha(psSourceCode[liItemLen + 1])) then
     begin
       peSymbolType := leLoop;
       break;
@@ -1010,7 +1024,8 @@ begin
   end;
 end;
 
-function PreProcSymbolTypeSetToString(const peSymbolTypes: TPreProcessorSymbolTypeSet): string;
+function PreProcSymbolTypeSetToString(
+  const peSymbolTypes: TPreProcessorSymbolTypeSet): string;
 var
   leLoop: TPreProcessorSymbolType;
 begin

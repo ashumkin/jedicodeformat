@@ -55,13 +55,14 @@ end;
 
 function TAlignTypedef.IsIncludedInSettings: boolean;
 begin
-  Result := (not FormatSettings.Obfuscate.Enabled) and FormatSettings.Align.AlignTypedef;
+  Result := ( not FormatSettings.Obfuscate.Enabled) and
+    FormatSettings.Align.AlignTypedef;
 end;
 
 function TAlignTypedef.IsTokenInContext(const pt: TSourceToken): boolean;
 begin
-  Result := pt.HasParentNode(nTypeDecl) and (not pt.HasParentNode(ObjectTypes)) and
-    ((not FormatSettings.Align.InterfaceOnly) or (pt.HasParentNode(nInterfaceSection)));
+  Result := pt.HasParentNode(nTypeDecl) and ( not pt.HasParentNode(ObjectTypes)) and
+    (( not FormatSettings.Align.InterfaceOnly) or (pt.HasParentNode(nInterfaceSection)));
 end;
 
 function TAlignTypedef.TokenEndsAlignment(const pt: TSourceToken): boolean;
@@ -70,7 +71,7 @@ begin
   Result := IsBlankLineEnd(pt);
 end;
 
-function InStructuredTypeBody(const pt: TSourceToken): Boolean;
+function InStructuredTypeBody(const pt: TSourceToken): boolean;
 begin
   Result := pt.HasParentNode(ObjectTypes + [nRecordType]);
   if Result then
@@ -91,7 +92,7 @@ begin
   end
   else
   begin
-    Result := (not pt.HasParentNode(nTypeDecl)) or
+    Result := ( not pt.HasParentNode(nTypeDecl)) or
       (pt.TokenType in [ttSemiColon]) or InStructuredTypeBody(pt);
   end;
 end;

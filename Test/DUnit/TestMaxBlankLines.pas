@@ -49,13 +49,13 @@ uses
 procedure TTestRemoveBlankLines.Setup;
 begin
   inherited;
-  FormatSettings.Returns.MaxConsecutiveBlankLines := 4;
+  FormatSettings.Returns.MaxConsecutiveBlankLines    := 4;
   FormatSettings.Returns.RemoveConsecutiveBlankLines := True;
 end;
 
 procedure TTestRemoveBlankLines.TestNone;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + UNIT_FOOTER;
   OUT_UNIT_TEXT = UNIT_HEADER + UNIT_FOOTER;
 begin
   TestProcessResult(TRemoveConsecutiveReturns, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -63,7 +63,7 @@ end;
 
 procedure TTestRemoveBlankLines.Test1;
 const
-  IN_UNIT_TEXT = UNIT_HEADER +
+  IN_UNIT_TEXT  = UNIT_HEADER +
     AnsiLineBreak + AnsiLineBreak +
     AnsiLineBreak + AnsiLineBreak +
     AnsiLineBreak + AnsiLineBreak +
@@ -78,5 +78,5 @@ begin
 end;
 
 initialization
- TestFramework.RegisterTest('Processes', TTestRemoveBlankLines.Suite);
+  TestFramework.RegisterTest('Processes', TTestRemoveBlankLines.Suite);
 end.

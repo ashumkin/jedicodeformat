@@ -34,19 +34,21 @@ uses Warning, VisitParseTree;
 type
 
   TWarnDestroy = class(TWarning)
-    public
-      procedure EnabledVisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult); override;
+  public
+    procedure EnabledVisitSourceToken(const pcToken: TObject;
+      var prVisitResult: TRVisitResult); override;
   end;
 
 implementation
 
 uses
-  { delphi } SysUtils,
-  { local } SourceToken, ParseTreeNodeType, ParseTreeNode;
+  { delphi }SysUtils,
+  { local }SourceToken, ParseTreeNodeType, ParseTreeNode;
 
-procedure TWarnDestroy.EnabledVisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult);
+procedure TWarnDestroy.EnabledVisitSourceToken(const pcToken: TObject;
+  var prVisitResult: TRVisitResult);
 var
-  lcToken: TSourceToken;
+  lcToken:    TSourceToken;
   lcFunction: TParseTreeNode;
 begin
   lcToken := TSourceToken(pcToken);
@@ -65,7 +67,7 @@ begin
     exit;
 
   SendWarning(lcToken, 'Destroy should not normally be called. ' +
-      'You may want to use FreeAndNil(MyObj), or MyObj.Free, or MyForm.Release');
+    'You may want to use FreeAndNil(MyObj), or MyObj.Free, or MyForm.Release');
 end;
 
 end.

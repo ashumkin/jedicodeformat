@@ -33,8 +33,8 @@ type
 
   TSetComments = class(TSetBase)
   private
-    fbRemoveEmptyDoubleSlashComments: Boolean;
-    fbRemoveEmptyCurlyBraceComments: Boolean;
+    fbRemoveEmptyDoubleSlashComments: boolean;
+    fbRemoveEmptyCurlyBraceComments: boolean;
 
   protected
   public
@@ -43,15 +43,17 @@ type
     procedure WriteToStream(const pcOut: TSettingsOutput); override;
     procedure ReadFromStream(const pcStream: TSettingsInput); override;
 
-    property RemoveEmptyDoubleSlashComments: Boolean read fbRemoveEmptyDoubleSlashComments write fbRemoveEmptyDoubleSlashComments;
-    property RemoveEmptyCurlyBraceComments: Boolean read fbRemoveEmptyCurlyBraceComments write fbRemoveEmptyCurlyBraceComments;
+    property RemoveEmptyDoubleSlashComments: boolean
+      Read fbRemoveEmptyDoubleSlashComments Write fbRemoveEmptyDoubleSlashComments;
+    property RemoveEmptyCurlyBraceComments: boolean
+      Read fbRemoveEmptyCurlyBraceComments Write fbRemoveEmptyCurlyBraceComments;
   end;
 
 implementation
 
 const
-  REG_REMOVE_EMPTY_DOUBLE_SLASH_COMMENTS  = 'RemoveEmptyDoubleSlashComments';
-  REG_REMOVE_EMPTY_CURLY_BRACE_COMMENTS = 'RemoveEmptyCurlyBraceComments';
+  REG_REMOVE_EMPTY_DOUBLE_SLASH_COMMENTS = 'RemoveEmptyDoubleSlashComments';
+  REG_REMOVE_EMPTY_CURLY_BRACE_COMMENTS  = 'RemoveEmptyCurlyBraceComments';
 
 constructor TSetComments.Create;
 begin
@@ -63,8 +65,10 @@ procedure TSetComments.ReadFromStream(const pcStream: TSettingsInput);
 begin
   Assert(pcStream <> nil);
 
-  fbRemoveEmptyDoubleSlashComments  := pcStream.Read(REG_REMOVE_EMPTY_DOUBLE_SLASH_COMMENTS, True);
-  fbRemoveEmptyCurlyBraceComments := pcStream.Read(REG_REMOVE_EMPTY_CURLY_BRACE_COMMENTS, True);
+  fbRemoveEmptyDoubleSlashComments :=
+    pcStream.Read(REG_REMOVE_EMPTY_DOUBLE_SLASH_COMMENTS, True);
+  fbRemoveEmptyCurlyBraceComments  :=
+    pcStream.Read(REG_REMOVE_EMPTY_CURLY_BRACE_COMMENTS, True);
 end;
 
 procedure TSetComments.WriteToStream(const pcOut: TSettingsOutput);

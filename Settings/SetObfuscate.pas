@@ -28,7 +28,7 @@ unit SetObfuscate;
 interface
 
 uses
-  { local } JCFSetBase, SettingsTypes, SettingsStream;
+  { local }JCFSetBase, SettingsTypes, SettingsStream;
 
 type
 
@@ -48,14 +48,14 @@ type
     procedure WriteToStream(const pcOut: TSettingsOutput); override;
     procedure ReadFromStream(const pcStream: TSettingsInput); override;
 
-    property Enabled: boolean read fbEnabled write fbEnabled;
+    property Enabled: boolean Read fbEnabled Write fbEnabled;
 
-    property Caps: TCapitalisationType read feCaps write feCaps;
+    property Caps: TCapitalisationType Read feCaps Write feCaps;
 
-    property RemoveComments: boolean read fbRemoveComments write fbRemoveComments;
-    property RemoveWhiteSpace: boolean read fbRemoveWhiteSpace write fbRemoveWhiteSpace;
-    property RemoveIndent: boolean read fbRemoveIndent write fbRemoveIndent;
-    property RebreakLines: boolean read fbRebreakLines write fbRebreakLines;
+    property RemoveComments: boolean Read fbRemoveComments Write fbRemoveComments;
+    property RemoveWhiteSpace: boolean Read fbRemoveWhiteSpace Write fbRemoveWhiteSpace;
+    property RemoveIndent: boolean Read fbRemoveIndent Write fbRemoveIndent;
+    property RebreakLines: boolean Read fbRebreakLines Write fbRebreakLines;
 
   end;
 

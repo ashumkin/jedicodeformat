@@ -35,7 +35,8 @@ type
     fsSpaces: string;
 
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
 
@@ -52,14 +53,15 @@ uses
 constructor TSpaceToTab.Create;
 begin
   inherited;
-  fsSpaces := StrRepeat(AnsiSpace, FormatSettings.Spaces.SpacesForTab);
+  fsSpaces    := StrRepeat(AnsiSpace, FormatSettings.Spaces.SpacesForTab);
   FormatFlags := FormatFlags + [eAddSpace, eRemoveSpace];
 end;
 
-procedure TSpaceToTab.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TSpaceToTab.EnabledVisitSourceToken(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
-  ls, lsTab: string;
+  ls, lsTab:     string;
 begin
   lcSourceToken := TSourceToken(pcNode);
 
@@ -67,7 +69,7 @@ begin
     exit;
 
   { can't pass property as var parameter so ls local var is used }
-  ls := lcSourceToken.SourceCode;
+  ls    := lcSourceToken.SourceCode;
   lsTab := AnsiTab;
   StrReplace(ls, fsSpaces, lsTab, [rfReplaceAll]);
   lcSourceToken.SourceCode := ls;

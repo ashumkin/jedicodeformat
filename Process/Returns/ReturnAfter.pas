@@ -34,7 +34,8 @@ type
   TReturnAfter = class(TSwitchableVisitor)
   private
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
 
@@ -48,7 +49,7 @@ uses
   { delphi }
   SysUtils,
   { local }
-  TokenUtils, SourceToken, Tokens, 
+  TokenUtils, SourceToken, Tokens,
   ParseTreeNodeType, ParseTreeNode, JcfSettings, FormatFlags;
 
 const
@@ -118,7 +119,7 @@ end;
 
 
 // does this 'end' end an object type, ie class or interface
-function EndsObjectType(const pt: TSourceToken): Boolean;
+function EndsObjectType(const pt: TSourceToken): boolean;
 begin
   Result := False;
 
@@ -126,11 +127,11 @@ begin
     exit;
 
   if (BlockLevel(pt) = 0) and pt.HasParentNode([nClassType, nInterfaceType], 1) then
-      Result := True;
+    Result := True;
 end;
 
 // does this 'end' end a procedure, function or method
-function EndsProcedure(const pt: TSourceToken): Boolean;
+function EndsProcedure(const pt: TSourceToken): boolean;
 var
   lcParent: TParseTreeNode;
 begin
@@ -199,9 +200,9 @@ begin
   { semicolon that ends a proc or is between procs e.g. end of uses clause }
   if (pt.TokenType = ttSemiColon) then
   begin
-    if (not pt.HasParentNode(ProcedureNodes)) and
+    if ( not pt.HasParentNode(ProcedureNodes)) and
       (BlockLevel(pt) = 0) and
-      (not pt.HasParentNode(nDeclSection)) then
+      ( not pt.HasParentNode(nDeclSection)) then
     begin
       Result := True;
       exit;
@@ -215,7 +216,8 @@ begin
 
        procedure foo;
     }
-    if pt.HasParentNode([nVarSection, nConstSection]) and (ptNext.TokenType in ProcedureWords) then
+    if pt.HasParentNode([nVarSection, nConstSection]) and
+      (ptNext.TokenType in ProcedureWords) then
     begin
       Result := True;
       exit;
@@ -223,7 +225,7 @@ begin
 
     // at the end of type block with a proc next. but not in a class def
     if pt.HasParentNode(nTypeSection) and (ptNext.TokenType in ProcedureWords) and
-      (not pt.HasParentNode(ObjectBodies)) then
+      ( not pt.HasParentNode(ObjectBodies)) then
     begin
       Result := True;
       exit;
@@ -234,7 +236,8 @@ begin
     { 'end' at end of type def or proc
       There can be hint directives between the type/proc and the 'end'
     }
-    while (lcPrev <> nil) and (lcPrev.TokenType <> ttEnd) and lcPrev.HasParentNode(nHintDirectives, 2) do
+    while (lcPrev <> nil) and (lcPrev.TokenType <> ttEnd) and
+      lcPrev.HasParentNode(nHintDirectives, 2) do
       lcPrev := lcPrev.PriorToken;
 
     if (lcPrev.TokenType = ttEnd) and (pt.TokenType <> ttDot) then
@@ -293,16 +296,16 @@ begin
   if (pt.CommentStyle = eCompilerDirective) then
   begin
     lcNext := pt.NextTokenWithExclusions([ttWhiteSpace]);
-    if (lcNext <> nil)and (lcNext.TokenType <> ttConditionalCompilationRemoved) then
+    if (lcNext <> nil) and (lcNext.TokenType <> ttConditionalCompilationRemoved) then
     begin
       Result := True;
       exit;
     end;
   end;
-  
+
   { return after 'type' unless it's the second type in "type foo = type integer;" }
   if (pt.TokenType = ttType) and (pt.HasParentNode(nTypeSection, 1)) and
-    (not pt.IsOnRightOf(nTypeDecl, ttEquals)) then
+    ( not pt.IsOnRightOf(nTypeDecl, ttEquals)) then
   begin
     Result := True;
     exit;
@@ -334,7 +337,8 @@ begin
    - it is an "else if"
    - it is an else case of a case statement
    block styles takes care of these }
-  if (pt.TokenType = ttElse) and (ptNext.TokenType <> ttIf) and not (pt.HasParentNode(nElseCase, 1)) then
+  if (pt.TokenType = ttElse) and (ptNext.TokenType <> ttIf) and not
+    (pt.HasParentNode(nElseCase, 1)) then
   begin
     Result := True;
     exit;
@@ -364,8 +368,8 @@ begin
 
 
   { end without semicolon or dot, or hint directive }
-  if (pt.TokenType = ttEnd) and (not (ptNext.TokenType in [ttSemiColon, ttDot]))  and
-    (not (ptNext.TokenType in HintDirectives)) then
+  if (pt.TokenType = ttEnd) and ( not (ptNext.TokenType in [ttSemiColon, ttDot])) and
+    ( not (ptNext.TokenType in HintDirectives)) then
   begin
     Result := True;
     exit;
@@ -393,9 +397,8 @@ begin
       - there is no classheritage node containing the brackets and base types thereunder
       - it's not the metaclass syntax 'foo = class of bar; ' }
   if (pt.TokenType = ttClass) and
-    pt.HasParentNode([nClassType, nInterfaceType], 1) and
-    not (pt.Parent.HasChildNode(nClassHeritage, 1)) and
-    not (ptNext.TokenType = ttOf) then
+    pt.HasParentNode([nClassType, nInterfaceType], 1) and not
+    (pt.Parent.HasChildNode(nClassHeritage, 1)) and not (ptNext.TokenType = ttOf) then
   begin
     Result := True;
     exit;
@@ -432,7 +435,7 @@ begin
 
   { end of class heritage }
   if (pt.HasParentNode(nRestrictedType)) and
-    (not pt.HasParentNode(nClassVisibility)) and
+    ( not pt.HasParentNode(nClassVisibility)) and
     (ptNext.HasParentNode(nClassVisibility)) then
   begin
     Result := True;
@@ -447,7 +450,8 @@ begin
   end;
 
   // guid in interface
-  if (pt.TokenType = ttCloseSquareBracket) and pt.HasParentNode(nInterfaceTypeGuid, 1) then
+  if (pt.TokenType = ttCloseSquareBracket) and
+    pt.HasParentNode(nInterfaceTypeGuid, 1) then
   begin
     Result := True;
     exit;
@@ -461,11 +465,12 @@ begin
   FormatFlags := FormatFlags + [eAddReturn];
 end;
 
-procedure TReturnAfter.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TReturnAfter.EnabledVisitSourceToken(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcNext, lcCommentTest, lcNextSpace: TSourceToken;
   liReturnsNeeded: integer;
-  lcSourceToken: TSourceToken;
+  lcSourceToken:   TSourceToken;
 begin
   lcSourceToken := TSourceToken(pcNode);
 
@@ -491,12 +496,12 @@ begin
 
   if (lcNext.TokenType = ttReturn) then
   begin
-    dec(liReturnsNeeded);
+    Dec(liReturnsNeeded);
 
     // is there a second return?
     lcNext := lcNext.NextTokenWithExclusions([ttWhiteSpace]);
     if (lcNext.TokenType = ttReturn) then
-      dec(liReturnsNeeded);
+      Dec(liReturnsNeeded);
   end;
 
   if liReturnsNeeded < 1 then
@@ -519,7 +524,8 @@ begin
   if lcCommentTest = nil then
     exit;
 
-  if (lcCommentTest.TokenType = ttComment) and (lcCommentTest.CommentStyle = eDoubleSlash) then
+  if (lcCommentTest.TokenType = ttComment) and
+    (lcCommentTest.CommentStyle = eDoubleSlash) then
     exit;
 
   { white space that was on the end of the line shouldn't be carried over
@@ -531,13 +537,13 @@ begin
   case liReturnsNeeded of
     1:
     begin
-      prVisitResult.Action := aInsertAfter;
+      prVisitResult.Action  := aInsertAfter;
       prVisitResult.NewItem := NewReturn;
     end;
     2:
     begin
-      prVisitResult.Action := aInsertAfter;
-      prVisitResult.NewItem := NewReturn;
+      prVisitResult.Action   := aInsertAfter;
+      prVisitResult.NewItem  := NewReturn;
       prVisitResult.NewItem2 := NewReturn;
     end;
     else

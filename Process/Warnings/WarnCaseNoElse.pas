@@ -41,8 +41,9 @@ uses Warning, VisitParseTree;
 type
 
   TWarnCaseNoElse = class(TWarning)
-    public
-      procedure PreVisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  public
+    procedure PreVisitParseTreeNode(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   end;
 
 
@@ -53,7 +54,8 @@ uses
 
 
 
-procedure TWarnCaseNoElse.PreVisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TWarnCaseNoElse.PreVisitParseTreeNode(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcNode: TParseTreeNode;
 begin
@@ -61,7 +63,7 @@ begin
 
   // when we have a case statement, does it have an else?
   if (lcNode.NodeType = nCaseStatement) and
-    (not lcNode.HasChildNode(nElseCase, 1)) then
+    ( not lcNode.HasChildNode(nElseCase, 1)) then
   begin
     SendWarning(lcNode, 'Case statement has no else case');
   end;

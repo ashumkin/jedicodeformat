@@ -35,7 +35,7 @@ type
   TSwitchableVisitor = class(TBaseTreeNodeVisitor)
   private
     // is this processs on?
-    fbEnabled: Boolean;
+    fbEnabled: boolean;
     // on/off flags that this processor responds to
     feFormatFlags: TFormatFlags;
 
@@ -46,14 +46,16 @@ type
     // every token is inspected, even when the visitor is disabled
     procedure InspectSourceToken(const pcToken: TObject); virtual;
     // this is only called when the processor is enabled
-    procedure EnabledVisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult); virtual;
+    procedure EnabledVisitSourceToken(const pcToken: TObject;
+      var prVisitResult: TRVisitResult); virtual;
 
   public
     constructor Create; override;
 
-    procedure VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult); override;
+    procedure VisitSourceToken(const pcToken: TObject;
+      var prVisitResult: TRVisitResult); override;
 
-    property FormatFlags: TFormatFlags read feFormatFlags write feFormatFlags;
+    property FormatFlags: TFormatFlags Read feFormatFlags Write feFormatFlags;
   end;
 
 implementation
@@ -74,7 +76,7 @@ var
   lcToken: TSourceToken;
   leFlags: TFormatFlags;
   lsError: string;
-  lbHasFlags: Boolean;
+  lbHasFlags: boolean;
   lbOn: boolean;
 begin
   lcToken := TSourceToken(pcToken);
@@ -86,9 +88,9 @@ begin
 
   if not lbHasFlags then
     exit;
-    
+
   if lsError <> '' then
-    Raise TEParseError.Create(lsError, lcToken);
+    raise TEParseError.Create(lsError, lcToken);
 
   // does this flag affect us? 
   if (FormatFlags * leFlags) <> [] then
@@ -96,7 +98,8 @@ begin
 end;
 
 
-procedure TSwitchableVisitor.EnabledVisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult);
+procedure TSwitchableVisitor.EnabledVisitSourceToken(const pcToken: TObject;
+  var prVisitResult: TRVisitResult);
 begin
   // here for override
 end;

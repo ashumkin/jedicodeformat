@@ -46,17 +46,18 @@ uses Warning, VisitParseTree;
 type
 
   TWarnAssignToFunctionName = class(TWarning)
-    private
-      procedure WarnAllAssigns(const psFnName: string; const pcRoot: TObject);
-    public
-      procedure PreVisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  private
+    procedure WarnAllAssigns(const psFnName: string; const pcRoot: TObject);
+  public
+    procedure PreVisitParseTreeNode(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   end;
 
 
 implementation
 
 uses
-  { delphi } SysUtils,
+  { delphi }SysUtils,
   ParseTreeNode, ParseTreeNodeType, SourceToken, Tokens, TokenUtils;
 
 
@@ -74,7 +75,7 @@ uses
 function GetIdentifierBeforeAssign(const pcNode: TParseTreeNode): TSourceToken;
 var
   liLoop: integer;
-  lcDes: TParseTreeNode;
+  lcDes:  TParseTreeNode;
   lcChildNode: TParseTreeNode;
   lcSourceToken: TSourceToken;
 begin
@@ -106,7 +107,8 @@ begin
   end;
 end;
 
-procedure TWarnAssignToFunctionName.PreVisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TWarnAssignToFunctionName.PreVisitParseTreeNode(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcNode: TParseTreeNode;
   lcFunctionHeading: TParseTreeNode;
@@ -130,9 +132,9 @@ end;
 procedure TWarnAssignToFunctionName.WarnAllAssigns(const psFnName: string;
   const pcRoot: TObject);
 var
-  lcNode: TParseTreeNode;
+  lcNode:     TParseTreeNode;
   lcLeftName: TSourceToken;
-  liLoop: integer;
+  liLoop:     integer;
 begin
   Assert(pcRoot <> nil);
   lcNode := TParseTreeNode(pcRoot);
@@ -149,7 +151,7 @@ begin
     begin
       SendWarning(lcLeftName,
         'Assignment to the function name "' + psFnName +
-          '" is deprecated, Use assignment to "Result"');
+        '" is deprecated, Use assignment to "Result"');
     end;
   end
   else

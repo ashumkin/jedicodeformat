@@ -25,7 +25,7 @@ interface
 
 uses
   { delphi }
-  Classes, Controls, Forms, 
+  Classes, Controls, Forms,
   StdCtrls, ExtCtrls,
   { local }
   frmBaseSettingsFrame;
@@ -64,10 +64,10 @@ end;
 procedure TfrReservedCapsSettings.cbEnableClick(Sender: TObject);
 begin
   rgReservedWords.Enabled := cbEnable.Checked;
-  rgConstants.Enabled     := cbEnable.Checked;
-  rgDirectives.Enabled    := cbEnable.Checked;
-  rgOperators.Enabled     := cbEnable.Checked;
-  rgTypes.Enabled         := cbEnable.Checked;
+  rgConstants.Enabled := cbEnable.Checked;
+  rgDirectives.Enabled := cbEnable.Checked;
+  rgOperators.Enabled := cbEnable.Checked;
+  rgTypes.Enabled := cbEnable.Checked;
 end;
 
 procedure TfrReservedCapsSettings.Read;
@@ -77,10 +77,10 @@ begin
   with FormatSettings.Caps do
   begin
     rgReservedWords.ItemIndex := Ord(ReservedWords);
-    rgConstants.ItemIndex     := Ord(Constants);
-    rgDirectives.ItemIndex    := Ord(Directives);
-    rgOperators.ItemIndex     := Ord(Operators);
-    rgTypes.ItemIndex         := Ord(Types);
+    rgConstants.ItemIndex := Ord(Constants);
+    rgDirectives.ItemIndex := Ord(Directives);
+    rgOperators.ItemIndex := Ord(Operators);
+    rgTypes.ItemIndex := Ord(Types);
   end;
 end;
 
@@ -91,10 +91,10 @@ begin
   with FormatSettings.Caps do
   begin
     ReservedWords := TCapitalisationType(rgReservedWords.ItemIndex);
-    Constants     := TCapitalisationType(rgConstants.ItemIndex);
-    Directives    := TCapitalisationType(rgDirectives.ItemIndex);
-    Operators     := TCapitalisationType(rgOperators.ItemIndex);
-    Types         := TCapitalisationType(rgTypes.ItemIndex);
+    Constants := TCapitalisationType(rgConstants.ItemIndex);
+    Directives := TCapitalisationType(rgDirectives.ItemIndex);
+    Operators := TCapitalisationType(rgOperators.ItemIndex);
+    Types := TCapitalisationType(rgTypes.ItemIndex);
   end;
 end;
 

@@ -1,4 +1,5 @@
 unit UsesClauseFindReplace;
+
 {(*}
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code
@@ -39,15 +40,16 @@ type
     fiCount: integer;
     fbHasFind: boolean;
 
-    function MatchesSearch(const ps: string): Boolean;
+    function MatchesSearch(const ps: string): boolean;
 
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
 
     function IsIncludedInSettings: boolean; override;
-    function FinalSummary(var psMessage: string): Boolean; override;
+    function FinalSummary(var psMessage: string): boolean; override;
 
   end;
 
@@ -82,7 +84,7 @@ procedure TUsesClauseFindReplace.EnabledVisitSourceToken(const pcNode: TObject;
   var prVisitResult: TRVisitResult);
 var
   lcSourceToken, lcSepAfter, lcSepBefore: TSourceToken;
-  lbInterface, lbImplementation: Boolean;
+  lbInterface, lbImplementation: boolean;
 begin
   if pcNode = nil then
     exit;
@@ -114,7 +116,7 @@ begin
     { first instance, convert the name }
     fbHasFind := True;
     lcSourceToken.SourceCode := FormatSettings.UsesClause.GetReplace;
-    inc(fiCount);
+    Inc(fiCount);
   end
   else
   begin
@@ -148,14 +150,14 @@ begin
   end;
 end;
 
-function TUsesClauseFindReplace.FinalSummary(var psMessage: string): Boolean;
+function TUsesClauseFindReplace.FinalSummary(var psMessage: string): boolean;
 begin
   Result := (fiCount > 0);
   if Result then
     psMessage := 'Uses clause find/replace: ' + IntToStr(fiCount) + ' changes were made';
 end;
 
-function TUsesClauseFindReplace.MatchesSearch(const ps: string): Boolean;
+function TUsesClauseFindReplace.MatchesSearch(const ps: string): boolean;
 begin
   Result := FormatSettings.UsesClause.Find.IndexOf(ps) >= 0;
 end;

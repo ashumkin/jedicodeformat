@@ -32,15 +32,15 @@ unit SetUses;
 interface
 
 uses
-  { delphi } Classes,
-  { local } JCFSetBase, SettingsStream;
+  { delphi }Classes,
+  { local }JCFSetBase, SettingsStream;
 
 type
 
   TSetUses = class(TSetBase)
   private
-    fbRemoveEnabled, fbInsertInterfaceEnabled,
-      fbInsertImplementationEnabled, fbFindReplaceEnabled: Boolean;
+    fbRemoveEnabled, fbInsertInterfaceEnabled, fbInsertImplementationEnabled,
+    fbFindReplaceEnabled: boolean;
 
     fsRemove, fsInsertInterface, fsInsertImplementation, fsFind, fsReplace: TStringList;
 
@@ -55,16 +55,19 @@ type
 
     function GetReplace: string;
 
-    property RemoveEnabled: Boolean read fbRemoveEnabled write fbRemoveEnabled;
-    property InsertInterfaceEnabled: Boolean read fbInsertInterfaceEnabled write fbInsertInterfaceEnabled;
-    property InsertImplementationEnabled: Boolean read fbInsertImplementationEnabled write fbInsertImplementationEnabled;
-    property FindReplaceEnabled: Boolean read fbFindReplaceEnabled write fbFindReplaceEnabled;
+    property RemoveEnabled: boolean Read fbRemoveEnabled Write fbRemoveEnabled;
+    property InsertInterfaceEnabled: boolean
+      Read fbInsertInterfaceEnabled Write fbInsertInterfaceEnabled;
+    property InsertImplementationEnabled: boolean
+      Read fbInsertImplementationEnabled Write fbInsertImplementationEnabled;
+    property FindReplaceEnabled: boolean Read fbFindReplaceEnabled
+      Write fbFindReplaceEnabled;
 
-    property Remove: TStringList read fsRemove;
-    property InsertInterface: TStringList read fsInsertInterface;
-    property InsertImplementation: TStringList read fsInsertImplementation;
-    property Find: TStringList read fsFind;
-    property Replace: TStringList read fsReplace;
+    property Remove: TStringList Read fsRemove;
+    property InsertInterface: TStringList Read fsInsertInterface;
+    property InsertImplementation: TStringList Read fsInsertImplementation;
+    property Find: TStringList Read fsFind;
+    property Replace: TStringList Read fsReplace;
   end;
 
 implementation
@@ -77,10 +80,10 @@ const
   REG_INSERT_IMPLEMENTATION_ENABLED = 'InsertImplementationEnabled';
   REG_FIND_REPLACE_ENABLED = 'FindReplaceEnabled';
 
-  REG_REMOVE = 'Remove';
+  REG_REMOVE  = 'Remove';
   REG_INSERT_INTERFACE = 'InsertInterface';
   REG_INSERT_IMPLEMENTATION = 'InsertImplementation';
-  REG_FIND = 'Find';
+  REG_FIND    = 'Find';
   REG_REPLACE = 'Replace';
 
 constructor TSetUses.Create;
@@ -88,10 +91,10 @@ begin
   inherited;
   SetSection('Uses');
 
-  fsRemove := TStringList.Create;
+  fsRemove  := TStringList.Create;
   fsInsertInterface := TStringList.Create;
   fsInsertImplementation := TStringList.Create;
-  fsFind := TStringList.Create;
+  fsFind    := TStringList.Create;
   fsReplace := TStringList.Create;
 end;
 
@@ -124,9 +127,10 @@ procedure TSetUses.ReadFromStream(const pcStream: TSettingsInput);
 begin
   Assert(pcStream <> nil);
 
-  fbRemoveEnabled := pcStream.Read(REG_REMOVE_ENABLED, False);
+  fbRemoveEnabled      := pcStream.Read(REG_REMOVE_ENABLED, False);
   fbInsertInterfaceEnabled := pcStream.Read(REG_INSERT_INTERFACE_ENABLED, False);
-  fbInsertImplementationEnabled := pcStream.Read(REG_INSERT_IMPLEMENTATION_ENABLED, False);
+  fbInsertImplementationEnabled :=
+    pcStream.Read(REG_INSERT_IMPLEMENTATION_ENABLED, False);
   fbFindReplaceEnabled := pcStream.Read(REG_FIND_REPLACE_ENABLED, False);
 
   pcStream.Read(REG_REMOVE, fsRemove);

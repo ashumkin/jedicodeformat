@@ -69,8 +69,8 @@ type
 
     procedure WriteAll;
 
-    property Root: TParseTreeNode read fcRoot write fcRoot;
-    property BOF: boolean read fbBOF;
+    property Root: TParseTreeNode Read fcRoot Write fcRoot;
+    property BOF: boolean Read fbBOF;
   end;
 
 implementation
@@ -107,7 +107,7 @@ end;
 procedure TCodeWriter.WriteOut(const pt: TSourceToken);
 begin
   WriteOut(pt.SourceCode);
-  inc(fiTokensWritten);
+  Inc(fiTokensWritten);
 end;
 
 

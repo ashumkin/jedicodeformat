@@ -81,8 +81,8 @@ implementation
 
 uses
  { delphi }
- { jcl } jclFileUtils,
- { local } FileUtils, JcfHelp, JcfSettings, JcfRegistrySettings;
+ { jcl }jclFileUtils,
+ { local }FileUtils, JcfHelp, JcfSettings, JcfRegistrySettings;
 
 {$R *.DFM}
 
@@ -100,7 +100,7 @@ begin
   {$ELSE}
   lbShowFileName := True;
   {$ENDIF}
-                                 
+
   lblInput.Visible  := lbShowFileName;
   lblOutput.Visible := lbShowFileName;
   edtInput.Visible  := lbShowFileName;
@@ -142,7 +142,7 @@ end;
 procedure TfrBasic.DisplayOutputFile;
 {$IFNDEF IDEPLUGGIN}
 var
-  bShowOutput: Boolean;
+  bShowOutput: boolean;
 {$ENDIF}
 begin
   case GetCurrentBackupMode of
@@ -229,7 +229,7 @@ begin
 
   lcRegSet.SourceMode := GetCurrentSourceMode;
   lcRegSet.BackupMode := GetCurrentBackupMode;
-  lcRegSet.Input := edtInput.Text;
+  lcRegSet.Input      := edtInput.Text;
 end;
 
 function TfrBasic.GetGoHint: string;
@@ -266,7 +266,8 @@ begin
   if psName = '' then
   begin
     // get a file name
-    lsDir := IncludeTrailingPathDelimiter(ExtractFileDir(edtInput.Text)); // strip out the dir
+    lsDir := IncludeTrailingPathDelimiter(ExtractFileDir(edtInput.Text));
+ // strip out the dir
 
     dlgOpen.InitialDir := lsDir;
 
@@ -363,14 +364,14 @@ end;
 
 procedure TfrBasic.FrameResize(Sender: TObject);
 const
-  SPACING = 8;
+  SPACING     = 8;
   SMALL_SPACE = 2;
 begin
   inherited;
 
   // these fill width
-  sbOpen.Left := ClientWidth - (sbOpen.Width + SPACING);
-  edtInput.Width := (sbOpen.Left - SMALL_SPACE) - edtInput.Left;
+  sbOpen.Left     := ClientWidth - (sbOpen.Width + SPACING);
+  edtInput.Width  := (sbOpen.Left - SMALL_SPACE) - edtInput.Left;
   edtOutput.Width := (ClientWidth - SPACING) - edtOutput.Left;
 end;
 

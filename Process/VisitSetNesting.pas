@@ -34,21 +34,23 @@ uses
 type
 
   TVisitSetNestings = class(TBaseTreeNodeVisitor)
-    private
-      fcRunningTotals: TNestingLevelList;
-      fcIndentNodes: TObjectList;
+  private
+    fcRunningTotals: TNestingLevelList;
+    fcIndentNodes: TObjectList;
 
-      procedure ProcessNode(const pcNode: TObject; const pbIncrement: boolean);
+    procedure ProcessNode(const pcNode: TObject; const pbIncrement: boolean);
 
-    public
+  public
     constructor Create; override;
     destructor Destroy; override;
 
-    procedure PreVisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure PreVisitParseTreeNode(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
     procedure PostVisitParseTreeNode(const pcNode: TObject); override;
-    procedure VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult); override;
+    procedure VisitSourceToken(const pcToken: TObject;
+      var prVisitResult: TRVisitResult); override;
 
-    function FinalSummary(var psMessage: string): Boolean; override;
+    function FinalSummary(var psMessage: string): boolean; override;
   end;
 
 
@@ -63,9 +65,9 @@ constructor TVisitSetNestings.Create;
 begin
   inherited;
 
-   fcRunningTotals := TNestingLevelList.Create;
-   fcIndentNodes := TObjectList.Create;
-   fcIndentNodes.OwnsObjects := False;
+  fcRunningTotals := TNestingLevelList.Create;
+  fcIndentNodes   := TObjectList.Create;
+  fcIndentNodes.OwnsObjects := False;
 end;
 
 destructor TVisitSetNestings.Destroy;
@@ -75,13 +77,14 @@ begin
   inherited;
 end;
 
-function TVisitSetNestings.FinalSummary(var psMessage: string): Boolean;
+function TVisitSetNestings.FinalSummary(var psMessage: string): boolean;
 begin
   psMessage := fcRunningTotals.FinalTest;
-  Result := (psMessage <> '');
+  Result    := (psMessage <> '');
 end;
 
-procedure TVisitSetNestings.PreVisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TVisitSetNestings.PreVisitParseTreeNode(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 begin
   // increment when you enter
   ProcessNode(pcNode, True);
@@ -93,15 +96,16 @@ begin
   ProcessNode(pcNode, False);
 end;
 
-procedure TVisitSetNestings.ProcessNode(const pcNode: TObject; const pbIncrement: boolean);
+procedure TVisitSetNestings.ProcessNode(const pcNode: TObject;
+  const pbIncrement: boolean);
 var
-  lcNode: TParseTreeNode;
+  lcNode:     TParseTreeNode;
   lcNextLeaf: TSourceToken;
   leNestType: TNestingLevelType;
-  lbHasNesting: Boolean;
+  lbHasNesting: boolean;
 begin
   lbHasNesting := False;
-  leNestType := nlProcedure; // must have value to supress warning
+  leNestType   := nlProcedure; // must have value to supress warning
 
   lcNode := TParseTreeNode(pcNode);
 
@@ -111,7 +115,7 @@ begin
     nRepeatStatement, nWhileStatement, nForStatement,
     nWithStatement, nOnExceptionHandler, nInitSection:
     begin
-      leNestType := nlBlock;
+      leNestType   := nlBlock;
       lbHasNesting := True;
     end;
     nElseBlock:
@@ -123,50 +127,52 @@ begin
 
       if (lcNextLeaf = nil) or (lcNextLeaf.TokenType <> ttIf) then
       begin
-        leNestType := nlBlock;
+        leNestType   := nlBlock;
         lbHasNesting := True;
       end;
     end;
     nCaseSelector, nElseCase:
     begin
-      leNestType := nlCaseSelector;
+      leNestType   := nlCaseSelector;
       lbHasNesting := True;
     end;
     nRecordType:
     begin
-      leNestType := nlRecordType;
+      leNestType   := nlRecordType;
       lbHasNesting := True;
     end;
     nRecordVariantSection:
     begin
-      leNestType := nlRecordVariantSection;
+      leNestType   := nlRecordVariantSection;
       lbHasNesting := True;
     end;
     nProcedureDecl, nFunctionDecl, nConstructorDecl, nDestructorDecl:
     begin
-      leNestType := nlProcedure;
+      leNestType   := nlProcedure;
       lbHasNesting := True;
     end;
     nStatement:
     begin
       { the statement with the label is nested }
-      if (lcNode.ChildNodeCount > 0) and (lcNode.ChildNodes[0].NodeType = nStatementLabel) then
+      if (lcNode.ChildNodeCount > 0) and (lcNode.ChildNodes[0].NodeType =
+        nStatementLabel) then
       begin
-        leNestType := nlStatementLabel;
+        leNestType   := nlStatementLabel;
         lbHasNesting := True;
       end;
     end;
   end;
 
   { test for a begin..end block with no other indent }
-  if (not lbHasNesting) and (lcNode.Parent <> nil) and
+  if ( not lbHasNesting) and (lcNode.Parent <> nil) and
     (lcNode.NodeType = nCompoundStatement) then
   begin
     if (fcIndentNodes.IndexOf(lcNode.Parent) < 0) and
-      ((fcIndentNodes.IndexOf(lcNode.Parent.Parent) < 0) or (lcNode.Parent.NodeType <> nStatement)) and
-      (not lcNode.HasParentNode(nElseCase, 3)) then
+      ((fcIndentNodes.IndexOf(lcNode.Parent.Parent) < 0) or
+      (lcNode.Parent.NodeType <> nStatement)) and
+      ( not lcNode.HasParentNode(nElseCase, 3)) then
     begin
-      leNestType := nlBlock;
+      leNestType   := nlBlock;
       lbHasNesting := True;
     end;
   end;
@@ -183,7 +189,8 @@ begin
   end;
 end;
 
-procedure TVisitSetNestings.VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult);
+procedure TVisitSetNestings.VisitSourceToken(const pcToken: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcToken: TSourceToken;
 begin

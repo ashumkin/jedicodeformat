@@ -34,7 +34,8 @@ uses SwitchableVisitor, VisitParseTree;
 type
   TRemoveComment = class(TSwitchableVisitor)
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
   end;
@@ -80,7 +81,8 @@ begin
   FormatFlags := FormatFlags + [eObfuscate];
 end;
 
-procedure TRemoveComment.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TRemoveComment.EnabledVisitSourceToken(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
 begin
@@ -93,7 +95,7 @@ begin
   begin
     if not CommentMustStay(lcSourceToken) then
     begin
-      lcSourceToken.TokenType := ttWhiteSpace;
+      lcSourceToken.TokenType  := ttWhiteSpace;
       lcSourceToken.SourceCode := ' ';
     end;
   end;

@@ -26,7 +26,7 @@ under the License.
 interface
 
 uses
- TestFile;
+  TestFile;
 
 type
   TFullTestClarify = class(TTestFile)
@@ -37,7 +37,7 @@ type
   protected
     procedure Setup; override;
 
- published
+  published
     { one test for each file}
     procedure TestClarify_EmptyTest1;
     procedure TestClarify_fFormTest;
@@ -204,7 +204,7 @@ type
     procedure TestClarify_TestProcBlankLines;
 
     procedure TestClarify_TestCases;
-end;
+  end;
 
 
 implementation
@@ -232,7 +232,8 @@ begin
     GetRegSettings.ReadAll;
 
   lsSettingsFileName := GetTestSettingsFileName;
-  Check(FileExists(lsSettingsFileName), 'Settings file ' + lsSettingsFileName + ' not found');
+  Check(FileExists(lsSettingsFileName), 'Settings file ' + lsSettingsFileName +
+    ' not found');
 
   GetRegSettings.FormatConfigFileName := lsSettingsFileName;
   FormatSettings; // create and read
@@ -262,10 +263,9 @@ begin
     GetRefOutFilesDir + lsClearFileName)
 end;
 
-procedure TFullTestClarify.TestClarifyFile(const psInFileName,
-  psRefOutput: string);
+procedure TFullTestClarify.TestClarifyFile(const psInFileName, psRefOutput: string);
 var
-  lcConverter: TFileConverter;
+  lcConverter:   TFileConverter;
   lsOutFileName: string;
 begin
   Check(FileExists(psInFileName), 'input file ' + psInFileName + ' not found');
@@ -275,7 +275,7 @@ begin
 
   lcConverter := TFileConverter.Create;
   try
-    lcConverter.YesAll := True;
+    lcConverter.YesAll      := True;
     lcConverter.GuiMessages := False;
 
     { see also TestFileParse }
@@ -286,7 +286,7 @@ begin
     lcConverter.Input := psInFileName;
     lcConverter.Convert;
 
-    Check(not lcConverter.ConvertError, 'Convert failed for ' +
+    Check( not lcConverter.ConvertError, 'Convert failed for ' +
       ExtractFileName(psInFileName));
 
     lsOutFileName := lcConverter.OutFileName;
@@ -1089,5 +1089,5 @@ begin
 end;
 
 initialization
- TestFramework.RegisterTest(TFullTestClarify.Suite);
+  TestFramework.RegisterTest(TFullTestClarify.Suite);
 end.

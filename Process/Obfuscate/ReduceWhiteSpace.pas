@@ -34,7 +34,8 @@ uses SwitchableVisitor, VisitParseTree;
 type
   TReduceWhiteSpace = class(TSwitchableVisitor)
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
   end;
@@ -50,7 +51,8 @@ begin
   FormatFlags := FormatFlags + [eObfuscate];
 end;
 
-procedure TReduceWhiteSpace.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TReduceWhiteSpace.EnabledVisitSourceToken(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
 begin

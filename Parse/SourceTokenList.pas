@@ -69,7 +69,8 @@ type
     procedure Delete(const piIndex: integer);
 
     { not relative to current token index }
-    property SourceTokens[const piIndex: integer]: TSourceToken Read GetItem Write SetItem;
+    property SourceTokens[const piIndex: integer]: TSourceToken
+      Read GetItem Write SetItem;
 
     {This is to keep an index of the next non-nil item}
     property CurrentTokenIndex: integer Read fiCurrentTokenIndex;
@@ -99,8 +100,8 @@ uses
 constructor TSourceTokenList.Create;
 begin
   fiCurrentTokenIndex := 0;
-  OwnsObjects := true;
-  inherited Create(false);
+  OwnsObjects := True;
+  inherited Create(False);
 end;
 
 destructor TSourceTokenList.Destroy;
@@ -163,7 +164,8 @@ begin
     Result := lc.WordType;
 end;
 
-function TSourceTokenList.FirstTokenWithExclusion(const AExclusions: TTokenTypeSet): TSourceToken;
+function TSourceTokenList.FirstTokenWithExclusion(
+  const AExclusions: TTokenTypeSet): TSourceToken;
 var
   liLoop: integer;
   lcItem: TSourceToken;
@@ -265,7 +267,7 @@ begin
 
     Here I am not doing any index checking at all.
     This thing needs to be FAST. Access to here is quite controlled anyway.}
-  Result      := TSourceToken(List^[piIndex]);
+  Result := TSourceToken(List^[piIndex]);
   List^[piIndex] := nil;
   fiCurrentTokenIndex := piIndex + 1;
 end;
@@ -287,4 +289,3 @@ begin
 end;
 
 end.
-

@@ -25,7 +25,7 @@ interface
 
 uses
   { delphi }
-  Classes, Controls, Forms, 
+  Classes, Controls, Forms,
   StdCtrls,
   { local }
   frmBaseSettingsFrame;
@@ -58,7 +58,7 @@ implementation
 {$R *.DFM}
 
 uses
-  { local } JcfHelp, JcfSettings;
+  { local }JcfHelp, JcfSettings;
 
 constructor TfUses.Create(AOwner: TComponent);
 begin
@@ -71,10 +71,10 @@ procedure TfUses.Read;
 begin
   with FormatSettings.UsesClause do
   begin
-    cbRemoveEnabled.Checked := RemoveEnabled;
+    cbRemoveEnabled.Checked   := RemoveEnabled;
     cbInsertInterface.Checked := InsertInterfaceEnabled;
     cbInsertImplementation.Checked := InsertImplementationEnabled;
-    cbFindReplace.Checked := FindReplaceEnabled;
+    cbFindReplace.Checked     := FindReplaceEnabled;
 
     mRemove.Lines.Assign(Remove);
     mInsertInterface.Lines.Assign(InsertInterface);
@@ -93,7 +93,7 @@ procedure TfUses.Write;
 begin
   with FormatSettings.UsesClause do
   begin
-    RemoveEnabled := cbRemoveEnabled.Checked;
+    RemoveEnabled      := cbRemoveEnabled.Checked;
     InsertInterfaceEnabled := cbInsertInterface.Checked;
     InsertImplementationEnabled := cbInsertImplementation.Checked;
     FindReplaceEnabled := cbFindReplace.Checked;
@@ -124,7 +124,7 @@ end;
 
 procedure TfUses.cbFindReplaceClick(Sender: TObject);
 begin
-  mFind.Enabled := cbFindReplace.Checked;
+  mFind.Enabled    := cbFindReplace.Checked;
   mReplace.Enabled := cbFindReplace.Checked;
 end;
 

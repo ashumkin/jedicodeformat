@@ -32,8 +32,8 @@ unit Converter;
 interface
 
 uses
-  { delphi } SysUtils,
-  { local } ConvertTypes, ParseTreeNode,
+  { delphi }SysUtils,
+  { local }ConvertTypes, ParseTreeNode,
   CodeReader, CodeWriter, BuildTokenList,
   BuildParseTree, JCFLog;
 
@@ -87,8 +87,8 @@ type
 
     procedure BeforeConvert;
 
-    property OnStatusMessage: TStatusMessageProc Read fOnStatusMessage
-      Write fOnStatusMessage;
+    property OnStatusMessage: TStatusMessageProc
+      Read fOnStatusMessage Write fOnStatusMessage;
 
     property YesAll: boolean Read fbYesAll Write fbYesAll;
     property GuiMessages: boolean Read fbGuiMessages Write fbGuiMessages;
@@ -114,7 +114,7 @@ begin
   inherited;
 
   { state }
-  fbGuiMessages := true;
+  fbGuiMessages := True;
   fbYesAll      := False;
 
   { create owned objects }

@@ -45,7 +45,7 @@ type
     procedure WriteToStream(const pcStream: TSettingsOutput); virtual;
     procedure ReadFromStream(const pcStream: TSettingsInput); virtual;
 
-    property Section: string read fsSection;
+    property Section: string Read fsSection;
   end;
 
 implementation
@@ -58,13 +58,13 @@ end;
 procedure TSetBase.WriteToStream(const pcStream: TSettingsOutput);
 begin
  // do nothing - here for override
- Assert(False, 'Class ' + ClassName + ' must override TSetBase.WriteToStream');
+  Assert(False, 'Class ' + ClassName + ' must override TSetBase.WriteToStream');
 end;
 
 procedure TSetBase.ReadFromStream(const pcStream: TSettingsInput);
 begin
  // do nothing - here for override
- Assert(False, 'Class ' + ClassName + ' must override TSetBase.ReadFromStream');
+  Assert(False, 'Class ' + ClassName + ' must override TSetBase.ReadFromStream');
 end;
 
 

@@ -65,7 +65,7 @@ uses
 constructor TAlignAssign.Create;
 begin
   inherited;
-  FormatFlags := FormatFlags + [eAlignAssign];
+  FormatFlags      := FormatFlags + [eAlignAssign];
   fiStartBlockLevel := -1;
   fiStartCaseLevel := -1;
 end;
@@ -74,14 +74,14 @@ procedure TAlignAssign.ResetState;
 begin
   inherited;
   fiStartBlockLevel := -1;
-  fiStartCaseLevel := -1;
+  fiStartCaseLevel  := -1;
 end;
 
 
 { a token that ends an assign block }
 function TAlignAssign.IsIncludedInSettings: boolean;
 begin
-  Result := (not FormatSettings.Obfuscate.Enabled) and FormatSettings.Align.AlignAssign;
+  Result := ( not FormatSettings.Obfuscate.Enabled) and FormatSettings.Align.AlignAssign;
 end;
 
 function TAlignAssign.IsTokenInContext(const pt: TSourceToken): boolean;
@@ -101,7 +101,7 @@ begin
   else
   begin
     Result := (pt.TokenType = ttSemiColon) or (pt.WordType = wtReservedWord) or
-      (not InStatements(pt));
+      ( not InStatements(pt));
   end;
 end;
 

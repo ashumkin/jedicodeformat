@@ -27,16 +27,16 @@ uses SwitchableVisitor, ConvertTypes;
 
 type
   TWarning = class(TSwitchableVisitor)
-    private
-      fOnWarning: TStatusMessageProc;
+  private
+    fOnWarning: TStatusMessageProc;
 
-    protected
-      procedure SendWarning(const pcNode: TObject; const psMessage: string);
+  protected
+    procedure SendWarning(const pcNode: TObject; const psMessage: string);
 
-    public
-      property OnWarning: TStatusMessageProc read fOnWarning write fOnWarning;
+  public
+    property OnWarning: TStatusMessageProc Read fOnWarning Write fOnWarning;
 
-      constructor Create; override;
+    constructor Create; override;
   end;
 
 
@@ -74,10 +74,10 @@ begin
 
   if lcToken <> nil then
   begin
-    lsMessage := lsMessage  + ' near ' + lcToken.Describe;
-    lsProc := GetProcedureName(lcToken, True, False);
+    lsMessage := lsMessage + ' near ' + lcToken.Describe;
+    lsProc    := GetProcedureName(lcToken, True, False);
     if lsProc <> '' then
-      lsMessage := lsMessage  + ' in ' + GetBlockType(lcToken) + ' ' + lsProc;
+      lsMessage := lsMessage + ' in ' + GetBlockType(lcToken) + ' ' + lsProc;
   end;
 
   fOnWarning('', lsMessage, lcToken.YPosition, lcToken.XPosition);

@@ -28,8 +28,8 @@ under the License.
 interface
 
 uses
-  { delphi design time } ToolsAPI,
-  { local } Converter, CodeReader, CodeWriter, EditorReader, EditorWriter;
+  { delphi design time }ToolsAPI,
+  { local }Converter, CodeReader, CodeWriter, EditorReader, EditorWriter;
 
 type
 

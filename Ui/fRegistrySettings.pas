@@ -28,7 +28,7 @@ interface
 uses
   { delphi }
   Windows, SysUtils, Classes, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, ExtCtrls, ComCtrls, 
+  Dialogs, StdCtrls, Buttons, ExtCtrls, ComCtrls,
   { JCL }
   JvTypedEdit, JvMemo, JvEdit;
 
@@ -68,15 +68,14 @@ type
     procedure btnOKClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnClearMRUClick(Sender: TObject);
-    procedure eSettingsFileKeyUp(Sender: TObject; var Key: Word;
+    procedure eSettingsFileKeyUp(Sender: TObject; var Key: word;
       Shift: TShiftState);
     procedure sbFileClick(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure sbSpecifedDirClick(Sender: TObject);
     procedure btnViewLogClick(Sender: TObject);
     procedure tsExclusionsResize(Sender: TObject);
-    procedure FormKeyUp(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
+    procedure FormKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
   private
     fsSpecifiedDirectory: string;
 
@@ -113,7 +112,7 @@ begin
 
   { general }
   eSettingsFile.Text := lcSet.FormatConfigFileName;
-  cbWriteSettingsFile.Checked :=lcSet.WriteSettingsFile;
+  cbWriteSettingsFile.Checked := lcSet.WriteSettingsFile;
 
   eMRUMaxItems.Value := lcSet.MRUMaxItems;
   rgShowParseTree.ItemIndex := Ord(lcSet.ShowParseTreeOption);
@@ -201,10 +200,10 @@ begin
 end;
 
 procedure TfmRegistrySettings.eSettingsFileKeyUp(Sender: TObject;
-  var Key: Word; Shift: TShiftState);
+  var Key: word; Shift: TShiftState);
 begin
   if Key = VK_RETURN then
-    sbFileClick(sender);
+    sbFileClick(Sender);
 end;
 
 procedure TfmRegistrySettings.sbFileClick(Sender: TObject);
@@ -217,7 +216,7 @@ end;
 
 procedure TfmRegistrySettings.FormResize(Sender: TObject);
 const
-  SPACING = 8;
+  SPACING     = 8;
   SMALL_SPACE = 4;
 begin
   sbFile.Left := tsGeneral.ClientWidth - (sbFile.Width + SPACING);
@@ -248,7 +247,8 @@ end;
 procedure TfmRegistrySettings.ShowDirs;
 begin
   rgLogDir.Items[0] := 'Temp: ' + GetWindowsTempFolder;
-  rgLogDir.Items[1] := 'Application: ' +  IncludeTrailingPathDelimiter(ExtractFileDir(ParamStr(0)));
+  rgLogDir.Items[1] := 'Application: ' + IncludeTrailingPathDelimiter(
+    ExtractFileDir(ParamStr(0)));
   rgLogDir.Items[2] := 'Specified: ' + fsSpecifiedDirectory;
 end;
 
@@ -256,14 +256,14 @@ procedure TfmRegistrySettings.tsExclusionsResize(Sender: TObject);
 const
   SPACING = 8;
 begin
-  mFiles.Left := SPACING;
+  mFiles.Left  := SPACING;
   mFiles.Width := tsExclusions.ClientWidth - (SPACING * 2);
 
-  mDirs.Left := SPACING;
+  mDirs.Left  := SPACING;
   mDirs.Width := tsExclusions.ClientWidth - (SPACING * 2);
 end;
 
-procedure TfmRegistrySettings.FormKeyUp(Sender: TObject; var Key: Word;
+procedure TfmRegistrySettings.FormKeyUp(Sender: TObject; var Key: word;
   Shift: TShiftState);
 begin
   if Key = VK_F1 then

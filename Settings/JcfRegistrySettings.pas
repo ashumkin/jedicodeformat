@@ -34,8 +34,8 @@ under the License.
 interface
 
 uses
-  { delphi } Registry, Classes,
-  { local } ConvertTypes;
+  { delphi }Registry, Classes,
+  { local }ConvertTypes;
 
 type
   TLogLevel = (eLogErrorsOnly, eLogFiles, eLogTokens);
@@ -45,7 +45,7 @@ type
   TJCFRegistrySettings = class(TObject)
   private
     fcReg: TRegIniFile;
-    fbHasRead: Boolean;
+    fbHasRead: boolean;
 
     { general settings }
     fShowParseTreeOption: TShowParseTreeOption;
@@ -84,7 +84,7 @@ type
 
     procedure ReadMRUFiles;
     procedure WriteMRUFiles;
-    
+
     procedure ReadStrings(const psSection, psKey: string; pcStrings: TStrings);
     procedure WriteStrings(const psSection, psKey: string; pcStrings: TStrings);
     function GetBackupExtension: string;
@@ -94,62 +94,67 @@ type
     constructor Create;
     destructor Destroy; override;
 
-    function CanClearMRU: Boolean;
+    function CanClearMRU: boolean;
     procedure ClearMRU;
 
     procedure ReadAll;
     procedure WriteAll;
 
-    property HasRead: boolean read fbHasRead;
+    property HasRead: boolean Read fbHasRead;
 
     { general settings }
-    property FormatConfigFileName: string read fsFormatConfigFileName write fsFormatConfigFileName;
-    property WriteSettingsFile: boolean read fbWriteSettingsFile write fbWriteSettingsFile;
+    property FormatConfigFileName: string Read fsFormatConfigFileName
+      Write fsFormatConfigFileName;
+    property WriteSettingsFile: boolean Read fbWriteSettingsFile
+      Write fbWriteSettingsFile;
 
     { ui settings }
-    property ShowParseTreeOption: TShowParseTreeOption read fShowParseTreeOption write fShowParseTreeOption;
-    property LastSettingsPage: string read fsLastSettingsPage write fsLastSettingsPage;
+    property ShowParseTreeOption: TShowParseTreeOption
+      Read fShowParseTreeOption Write fShowParseTreeOption;
+    property LastSettingsPage: string Read fsLastSettingsPage Write fsLastSettingsPage;
 
     { notepad settings }
-    property InputDir: string read fsInputDir write fsInputDir;
-    property OutputDir: string read fsOutputDir write fsOutputDir;
+    property InputDir: string Read fsInputDir Write fsInputDir;
+    property OutputDir: string Read fsOutputDir Write fsOutputDir;
 
     { MRU files settings }
-    property MRUMaxItems: integer read fiMRUMaxItems write fiMRUMaxItems;
-    property MRUFiles: TStrings read fcMRUFiles write fcMRUFiles;
+    property MRUMaxItems: integer Read fiMRUMaxItems Write fiMRUMaxItems;
+    property MRUFiles: TStrings Read fcMRUFiles Write fcMRUFiles;
 
     { log settings }
     function LogDirectory: string;
     function LogFileName: string;
 
-    property LogLevel: TLogLevel read feLogLevel write feLogLevel;
-    property LogPlace: TLogPlace read feLogPlace write feLogPlace;
-    property SpecifiedDirectory: string read fsSpecifiedDirectory write fsSpecifiedDirectory;
+    property LogLevel: TLogLevel Read feLogLevel Write feLogLevel;
+    property LogPlace: TLogPlace Read feLogPlace Write feLogPlace;
+    property SpecifiedDirectory: string Read fsSpecifiedDirectory
+      Write fsSpecifiedDirectory;
 
-    property ViewLogAfterRun: boolean read fbViewLogAfterRun write fbViewLogAfterRun;
-    property LogTime: boolean read fbLogTime write fbLogTime;
-    property LogStats: boolean read fbLogStats write fbLogStats;
+    property ViewLogAfterRun: boolean Read fbViewLogAfterRun Write fbViewLogAfterRun;
+    property LogTime: boolean Read fbLogTime Write fbLogTime;
+    property LogStats: boolean Read fbLogStats Write fbLogStats;
 
     procedure ViewLog;
 
     { files settings }
-    property BackupMode: TBackupMode read feBackupMode write feBackupMode;
-    property SourceMode: TSourceMode read feSourceMode write feSourceMode;
-    property BackupExtension: string read GetBackupExtension write fsBackupExtension;
-    property OutputExtension: string read GetOutputExtension write fsOutputExtension;
+    property BackupMode: TBackupMode Read feBackupMode Write feBackupMode;
+    property SourceMode: TSourceMode Read feSourceMode Write feSourceMode;
+    property BackupExtension: string Read GetBackupExtension Write fsBackupExtension;
+    property OutputExtension: string Read GetOutputExtension Write fsOutputExtension;
 
     function GetOutputFileName(const psIn: string): string; overload;
-    function GetOutputFileName(const psIn: string; peMode: TBackupMode): string; overload;
+    function GetOutputFileName(const psIn: string; peMode: TBackupMode): string;
+      overload;
 
     function Output: string;
 
     function FileIsExcluded(const psFile: string): boolean;
     function DirIsExcluded(const psDir: string): boolean;
 
-    property Input: string read fsInput write fsInput;
+    property Input: string Read fsInput Write fsInput;
 
-    property ExclusionsFiles: TStringList read fcExclusionsFiles;
-    property ExclusionsDirs: TStringList read fcExclusionsDirs;
+    property ExclusionsFiles: TStringList Read fcExclusionsFiles;
+    property ExclusionsDirs: TStringList Read fcExclusionsDirs;
 
   end;
 
@@ -169,8 +174,8 @@ const
   REG_GENERAL_SECTION = 'General';
   REG_NOTEPAD_SECTION = 'NotepadSettings';
   REG_MRU_FILES_SECTION = 'MRUFiles';
-  REG_LOG_SECTION = 'Log';
-  REG_UI_SECTION = 'UI';
+  REG_LOG_SECTION   = 'Log';
+  REG_UI_SECTION    = 'UI';
   REG_FILES_SECTION = 'Files';
 
   REG_LOG_LEVEL = 'LogLevel';
@@ -182,15 +187,15 @@ const
 
   REG_LAST_SETTINGS_PAGE = 'LastSettingsPage';
 
-  REG_INPUT       = 'Input';
+  REG_INPUT = 'Input';
 
   REG_BACKUP_MODE = 'BackupMode';
   REG_SOURCE_MODE = 'SourceMode';
   REG_BACKUP_EXT  = 'BackupExt';
   REG_OUTPUT_EXT  = 'OutputExt';
 
-  REG_EXCLUSIONS_FILES  = 'ExclusionsFiles';
-  REG_EXCLUSIONS_DIRS   = 'ExclusionsDirs';
+  REG_EXCLUSIONS_FILES = 'ExclusionsFiles';
+  REG_EXCLUSIONS_DIRS  = 'ExclusionsDirs';
 
 { AFS 10 Oct 2001
  Migrate to file-based settings,  ie
@@ -209,21 +214,22 @@ begin
   fcReg := TRegIniFile.Create(REG_ROOT_KEY);
 
   fcExclusionsFiles := TStringList.Create;
-  fcExclusionsDirs := TStringList.Create;
+  fcExclusionsDirs  := TStringList.Create;
 end;
 
 destructor TJCFRegistrySettings.Destroy;
 begin
   FreeAndNil(fcExclusionsFiles);
   FreeAndNil(fcExclusionsDirs);
-  
+
   FreeAndNil(fcReg);
   inherited;
 end;
 
-procedure TJCFRegistrySettings.ReadStrings(const psSection, psKey: string; pcStrings: TStrings);
+procedure TJCFRegistrySettings.ReadStrings(const psSection, psKey: string;
+  pcStrings: TStrings);
 var
-  lsKey, lsValue: String;
+  lsKey, lsValue: string;
   liCount: integer;
 begin
   Assert(pcStrings <> nil);
@@ -233,21 +239,22 @@ begin
 
   while True do
   begin
-    lsKey := psKey + IntToStr(liCount);
+    lsKey   := psKey + IntToStr(liCount);
     lsValue := fcReg.ReadString(psSection, lsKey, '');
     if lsValue = '' then
       break // done
     else
       pcStrings.Add(lsValue);
 
-    inc(liCount);
+    Inc(liCount);
   end;
 end;
 
 
-procedure TJCFRegistrySettings.WriteStrings(const psSection, psKey: string; pcStrings: TStrings);
+procedure TJCFRegistrySettings.WriteStrings(const psSection, psKey: string;
+  pcStrings: TStrings);
 var
-  lsKey: string;
+  lsKey:  string;
   liLoop: integer;
 begin
   Assert(pcStrings <> nil);
@@ -267,7 +274,7 @@ end;
 procedure TJCFRegistrySettings.ReadMRUFiles;
 var
   lcItems: TStringList;
-  liLoop: integer;
+  liLoop:  integer;
 begin
   if fcMRUFiles = nil then
     exit;
@@ -296,14 +303,15 @@ procedure TJCFRegistrySettings.WriteMRUFiles;
 begin
   if fcMRUFiles = nil then
     exit;
-    
+
   WriteStrings(REG_MRU_FILES_SECTION, 'MRUFile', fcMRUFiles);
 end;
 
 procedure TJCFRegistrySettings.ReadAll;
 begin
   { general section }
-  fsFormatConfigFileName := fcReg.ReadString(REG_GENERAL_SECTION, 'FormatConfigFileName', '');
+  fsFormatConfigFileName := fcReg.ReadString(REG_GENERAL_SECTION,
+    'FormatConfigFileName', '');
   if fsFormatConfigFileName = '' then
     fsFormatConfigFileName := GetDefaultSettingsFileName;
 
@@ -311,7 +319,7 @@ begin
 
 
   {notpad settings }
-  InputDir := fcReg.ReadString(REG_NOTEPAD_SECTION, 'InputDir', '');
+  InputDir  := fcReg.ReadString(REG_NOTEPAD_SECTION, 'InputDir', '');
   OutputDir := fcReg.ReadString(REG_NOTEPAD_SECTION, 'OutputDir', '');
 
   { MRU section }
@@ -319,21 +327,26 @@ begin
   ReadMRUFiles;
 
   { log section }
-  feLogLevel := TLogLevel(fcReg.ReadInteger(REG_LOG_SECTION, REG_LOG_LEVEL, Ord(eLogFiles)));
-  feLogPlace := TLogPlace(fcReg.ReadInteger(REG_LOG_SECTION, REG_LOG_PLACE, Ord(eLogTempDir)));
-  fsSpecifiedDirectory := fcReg.ReadString(REG_LOG_SECTION, REG_SPECIFIED_DIRECTORY, 'c:\');
+  feLogLevel := TLogLevel(fcReg.ReadInteger(REG_LOG_SECTION, REG_LOG_LEVEL,
+    Ord(eLogFiles)));
+  feLogPlace := TLogPlace(fcReg.ReadInteger(REG_LOG_SECTION, REG_LOG_PLACE,
+    Ord(eLogTempDir)));
+  fsSpecifiedDirectory := fcReg.ReadString(REG_LOG_SECTION,
+    REG_SPECIFIED_DIRECTORY, 'c:\');
   fbViewLogAfterRun := fcReg.ReadBool(REG_LOG_SECTION, REG_VIEW_LOG_AFTER_RUN, False);
   fbLogTime  := fcReg.ReadBool(REG_LOG_SECTION, REG_LOG_TIME, False);
   fbLogStats := fcReg.ReadBool(REG_LOG_SECTION, REG_LOG_STATS, False);
 
   { ui }
-  fsLastSettingsPage := fcReg.ReadString(REG_UI_SECTION, REG_LAST_SETTINGS_PAGE, '');
-  ShowParseTreeOption :=  TShowParseTreeOption(
+  fsLastSettingsPage  := fcReg.ReadString(REG_UI_SECTION, REG_LAST_SETTINGS_PAGE, '');
+  ShowParseTreeOption := TShowParseTreeOption(
     fcReg.ReadInteger(REG_UI_SECTION, 'ParseTreeOption', Ord(eShowOnError)));
 
   { files}
-  feBackupMode := TBackupMode(fcReg.ReadInteger(REG_FILES_SECTION, REG_BACKUP_MODE, Ord(cmSeperateOutput)));
-  feSourceMode := TSourceMode(fcReg.ReadInteger(REG_FILES_SECTION, REG_SOURCE_MODE, Ord(fmSingleFile)));
+  feBackupMode := TBackupMode(fcReg.ReadInteger(REG_FILES_SECTION,
+    REG_BACKUP_MODE, Ord(cmSeperateOutput)));
+  feSourceMode := TSourceMode(fcReg.ReadInteger(REG_FILES_SECTION,
+    REG_SOURCE_MODE, Ord(fmSingleFile)));
   fsInput      := fcReg.ReadString(REG_FILES_SECTION, REG_INPUT, '');
 
   fsBackupExtension := fcReg.ReadString(REG_FILES_SECTION, REG_BACKUP_EXT, 'bak');
@@ -384,7 +397,7 @@ begin
   WriteStrings(REG_FILES_SECTION, REG_EXCLUSIONS_DIRS, fcExclusionsDirs);
 end;
 
-function TJCFRegistrySettings.CanClearMRU: Boolean;
+function TJCFRegistrySettings.CanClearMRU: boolean;
 begin
   Result := (MRUFiles <> nil) and (MRUFiles.Count > 0);
 end;
@@ -446,7 +459,7 @@ end;
 
 function TJCFRegistrySettings.DirIsExcluded(const psDir: string): boolean;
 var
-  liPos: integer;
+  liPos:     integer;
   lsBareDir: string;
 begin
   { exact match  }
@@ -458,7 +471,7 @@ begin
     if liPos > 0 then
     begin
       lsBareDir := StrRestOf(psDir, liPos + 1);
-      Result := (fcExclusionsDirs.IndexOf(lsBareDir) >= 0);
+      Result    := (fcExclusionsDirs.IndexOf(lsBareDir) >= 0);
     end;
   end;
 end;
@@ -473,8 +486,8 @@ begin
   if not Result then
   begin
     // no exact match? then extract the bare file name - no path or ext
-    lsBareFile :=  PathExtractFileNameNoExt(psFile);
-    Result := (fcExclusionsFiles.IndexOf(lsBareFile) >= 0);
+    lsBareFile := PathExtractFileNameNoExt(psFile);
+    Result     := (fcExclusionsFiles.IndexOf(lsBareFile) >= 0);
   end;
 end;
 
@@ -537,6 +550,7 @@ begin
 end;
 
 initialization
+
 finalization
   FreeAndNil(mcRegistrySettings);
 end.

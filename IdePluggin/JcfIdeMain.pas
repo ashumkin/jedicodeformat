@@ -30,9 +30,9 @@ under the License.
 interface
 
 uses
-  { delphi } Windows, SysUtils, Classes,
-  { delphi design time } ToolsAPI,
-  { local} EditorConverter, FileCOnverter;
+  { delphi }Windows, SysUtils, Classes,
+  { delphi design time }ToolsAPI,
+  { local}EditorConverter, FileCOnverter;
 
 type
   TJcfIdeMain = class(TObject)
@@ -67,9 +67,9 @@ type
 implementation
 
 uses
-  { delphi } Menus, Dialogs, Controls,
-  { jcl } JclStrings,
-  { local } fAllSettings, fAbout, JcfRegistrySettings, fRegistrySettings;
+  { delphi }Menus, Dialogs, Controls,
+  { jcl }JclStrings,
+  { local }fAllSettings, fAbout, JcfRegistrySettings, fRegistrySettings;
 
 
 function FileIsAllowedType(const psFileName: string): boolean;
@@ -124,7 +124,7 @@ begin
   inherited;
   { both of these are created on demand }
   fcEditorConverter := nil;
-  fcFileConverter := nil;
+  fcFileConverter   := nil;
 end;
 
 destructor TJcfIdeMain.Destroy;
@@ -195,11 +195,11 @@ end;
 
 procedure TJcfIdeMain.DoFormatOpen(Sender: TObject);
 var
-  hRes: HResult;
+  hRes:      HResult;
   lciEditManager: IOTAEditorServices;
   lciIterateBuffers: IOTAEditBufferIterator;
   lciEditor: IOTASourceEditor;
-  liLoop: integer;
+  liLoop:    integer;
 begin
   hRes := BorlandIDEServices.QueryInterface(IOTAEditorServices, lciEditManager);
   if hRes <> S_OK then
@@ -222,7 +222,7 @@ begin
     lciEditor := lciIterateBuffers.EditBuffers[liLoop];
 
     // check that it's open, and a .pas or .dpr
-    if (lciEditor <> nil ) and (lciEditor.EditViewCount > 0) and
+    if (lciEditor <> nil) and (lciEditor.EditViewCount > 0) and
       (FileIsAllowedType(lciEditor.FileName)) then
     begin
       fcEditorConverter.ConvertUnit(lciEditor);
@@ -304,7 +304,8 @@ begin
     DoFormatCurrentIDEWindow(nil);
 end;
 
-procedure TJcfIdeMain.LogIDEMessage(const psFile, psMessage: string; const piY, piX: integer);
+procedure TJcfIdeMain.LogIDEMessage(const psFile, psMessage: string;
+  const piY, piX: integer);
 var
   lciMessages: IOTAMessageServices40;
   hRes: HResult;

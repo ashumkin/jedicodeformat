@@ -26,9 +26,9 @@ interface
 uses
   { delphi }
   Windows, Classes, Graphics, Forms, Controls, StdCtrls,
-   Buttons, ExtCtrls,
+  Buttons, ExtCtrls,
    { JVCL }
-   JvHotLink, JvLabel;
+  JvHotLink, JvLabel;
 
 type
   TfrmAboutBox = class(TForm)
@@ -44,8 +44,7 @@ type
     procedure imgOpenSourceClick(Sender: TObject);
     procedure lblMPLClick(Sender: TObject);
     procedure FormResize(Sender: TObject);
-    procedure FormKeyUp(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
+    procedure FormKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
   private
   public
   end;
@@ -56,13 +55,13 @@ implementation
 {$R *.DFM}
 
 uses
-  { delphi } URLMon,
-  { jcl } JclStrings,
-  { local } VersionConsts, JCFHelp;
+  { delphi }URLMon,
+  { jcl }JclStrings,
+  { local }VersionConsts, JCFHelp;
 
 procedure ShowURL(const ps: string);
 var
-  lws: WideString;
+  lws: widestring;
 begin
   lws := ps;
   HLinkNavigateString(nil, pWideChar(lws));
@@ -92,7 +91,7 @@ begin
   mWhat.Text := ls;
 
   hlHomePage.Caption := 'Find more information on the web at ' + PROGRAM_HOME_PAGE;
-  hlHomePage.Url := PROGRAM_HOME_PAGE;
+  hlHomePage.Url     := PROGRAM_HOME_PAGE;
 end;
 
 
@@ -100,18 +99,17 @@ procedure TfrmAboutBox.FormResize(Sender: TObject);
 const
   SPACING = 8;
 begin
-  mWarning.Left := SPACING;
+  mWarning.Left  := SPACING;
   mWarning.Width := pnlClient.ClientWidth - (2 * SPACING);
 
-  lblMPL.Left := SPACING;
+  lblMPL.Left  := SPACING;
   lblMPL.Width := pnlClient.ClientWidth - (2 * SPACING);
 
-  hlHomePage.Left := SPACING;
+  hlHomePage.Left  := SPACING;
   hlHomePage.Width := pnlClient.ClientWidth - (2 * SPACING);
 end;
 
-procedure TfrmAboutBox.FormKeyUp(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
+procedure TfrmAboutBox.FormKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
 begin
   if Key = VK_F1 then
     Application.HelpContext(HELP_MAIN);

@@ -44,15 +44,15 @@ type
   public
     constructor Create; override;
 
-    procedure Close;  override;
+    procedure Close; override;
 
-    property OutputFileName: string read FOutputFileName write SetOutputFileName;
+    property OutputFileName: string Read FOutputFileName Write SetOutputFileName;
   end;
 
 implementation
 
 uses
- { delphi } SysUtils;
+ { delphi }SysUtils;
 
 constructor TFileWriter.Create;
 begin
@@ -75,10 +75,10 @@ begin
     exit;
 
   Assert(OutputFileName <> '');
-  Assert(not FileExists(OutputFileName));
+  Assert( not FileExists(OutputFileName));
 
   BeforeWrite;
-  pChars := PChar(fsDestText);
+  pChars := pchar(fsDestText);
 
   { write the file }
   AssignFile(lfOutput, OutputFileName);
@@ -90,8 +90,8 @@ begin
 
   { reset state }
   FOutputFileName := '';
-  fsDestText      := '';
-  fbBOF           := True;
+  fsDestText := '';
+  fbBOF := True;
 end;
 
 end.

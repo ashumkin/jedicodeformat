@@ -144,17 +144,17 @@ type
     nExportedProc
     );
 
-TParseTreeNodeTypeSet = set of TParseTreeNodeType;
+  TParseTreeNodeTypeSet = set of TParseTreeNodeType;
 
 const
-  DirectiveNodes: TParseTreeNodeTypeSet =
+  DirectiveNodes: TParseTreeNodeTypeSet    =
     [nProcedureDirectives, nExternalDirective, nHintDirectives, nPropertyDirective];
-  ProcedureNodes: TParseTreeNodeTypeSet =
+  ProcedureNodes: TParseTreeNodeTypeSet    =
     [nProcedureDecl, nFunctionDecl, nConstructorDecl, nDestructorDecl];
   ProcedureHeadings: TParseTreeNodeTypeSet =
     [nFunctionHeading, nProcedureHeading, nConstructorHeading, nDestructorHeading];
 
-  ObjectTypes: TParseTreeNodeTypeSet = [nObjectType, nClassType, nInterfaceType];
+  ObjectTypes: TParseTreeNodeTypeSet  = [nObjectType, nClassType, nInterfaceType];
   ObjectBodies: TParseTreeNodeTypeSet = [nClassBody, nInterfaceBody];
 
   { can declare these at the start of a procedure }
@@ -168,7 +168,8 @@ const
   TopOfFileSection = [nProgram, nPackage, nLibrary, nUnit];
 
   { can find these blocks of def/dels outside of anything }
-  nTopLevelSections = [nTypeSection, nConstSection, nVarSection, nLabelDeclSection, nExports];
+  nTopLevelSections = [nTypeSection, nConstSection, nVarSection,
+    nLabelDeclSection, nExports];
 
 
 
@@ -394,7 +395,7 @@ begin
     nAsmParam:
       Result := 'asm param';
     nAsmLabel:
-      result := 'asm label';
+      Result := 'asm label';
     nHintDirectives:
       Result := 'hint directives';
     nPropertyDirective:

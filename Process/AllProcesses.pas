@@ -26,12 +26,12 @@ under the License.
 interface
 
 uses
-  { delphi } 
+  { delphi }
   ParseTreeNode, BaseVisitor, ConvertTypes;
 
 type
 
-TAllProcesses = class(TObject)
+  TAllProcesses = class(TObject)
   private
     fcOnMessages: TStatusMessageProc;
     fcRoot: TParseTreeNode;
@@ -55,8 +55,8 @@ TAllProcesses = class(TObject)
 
     procedure Execute(const pcRoot: TParseTreeNode);
 
-    property OnMessage: TStatusMessageProc read fcOnMessages write fcOnMessages;
-end;
+    property OnMessage: TStatusMessageProc Read fcOnMessages Write fcOnMessages;
+  end;
 
 implementation
 
@@ -156,7 +156,7 @@ begin
 
     // run the once-offs too?
     if FormatSettings.Clarify.OnceOffs = eDoRun then
-       OnceOffs;
+      OnceOffs;
 
     // stats last
     ApplyVisitorType(TBasicStats);

@@ -34,7 +34,8 @@ uses SwitchableVisitor, VisitParseTree;
 type
   TRemoveUnneededWhiteSpace = class(TSwitchableVisitor)
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
   end;
@@ -43,8 +44,8 @@ implementation
 
 uses
   JclStrings,
-  { local } SourceToken, Tokens, ParseTreeNodeType,
-    FormatFlags, TokenUtils;
+  { local }SourceToken, Tokens, ParseTreeNodeType,
+  FormatFlags, TokenUtils;
 
 function TextOrNumberString(const str: string): boolean;
 var
@@ -134,7 +135,8 @@ begin
     exit;
   end;
 
-  if (pt1.TokenType in TextOrNumberTokens) and (pt2.TokenType = ttAtSign) and (pt1.HasParentnode(nAsm)) then
+  if (pt1.TokenType in TextOrNumberTokens) and (pt2.TokenType = ttAtSign) and
+    (pt1.HasParentnode(nAsm)) then
   begin
     Result := False;
     exit;

@@ -61,7 +61,8 @@ begin
 
   { use clarify test settings }
   lsSettingsFileName := GetTestSettingsFileName;
-  Check(FileExists(lsSettingsFileName), 'Settings file ' + lsSettingsFileName + ' not found');
+  Check(FileExists(lsSettingsFileName), 'Settings file ' + lsSettingsFileName +
+    ' not found');
 
   GetRegSettings.FormatConfigFileName := lsSettingsFileName;
   FormatSettings; // create and read
@@ -82,7 +83,7 @@ end;
 
 procedure TTestFindReplace.TestNoAction;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + UNIT_FOOTER;
   OUT_UNIT_TEXT = UNIT_HEADER + UNIT_FOOTER;
 begin
   TestProcessResult(TFindReplace, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -90,7 +91,7 @@ end;
 
 procedure TTestFindReplace.TestProc;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' procedure Foo; begin end; ' + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure Foo; begin end; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = UNIT_HEADER + ' procedure Bar; begin end; ' + UNIT_FOOTER;
 begin
   TestProcessResult(TFindReplace, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -98,20 +99,22 @@ end;
 
 procedure TTestFindReplace.TestVar;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' procedure Foo2; var Foo: integer; begin end; ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure Foo2; var Bar: integer; begin end; ' + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure Foo2; var Foo: integer; begin end; ' +
+    UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure Foo2; var Bar: integer; begin end; ' +
+    UNIT_FOOTER;
 begin
   TestProcessResult(TFindReplace, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
 procedure TTestFindReplace.TestType;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' procedure Foo2; var a: Foo; begin end; ' + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure Foo2; var a: Foo; begin end; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = UNIT_HEADER + ' procedure Foo2; var a: Bar; begin end; ' + UNIT_FOOTER;
 begin
   TestProcessResult(TFindReplace, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
 initialization
- TestFramework.RegisterTest('Processes', TTestFindReplace.Suite);
+  TestFramework.RegisterTest('Processes', TTestFindReplace.Suite);
 end.

@@ -32,7 +32,8 @@ uses SwitchableVisitor, VisitParseTree;
 type
   TSpaceBeforeColon = class(TSwitchableVisitor)
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
 
@@ -59,7 +60,8 @@ begin
     { in procedure params }
     Result := lcSpaces.SpacesBeforeColonParam;
   end
-  else if pt.HasParentNode(nFunctionHeading) and not (pt.HasParentNode(nFormalParams)) then
+  else if pt.HasParentNode(nFunctionHeading) and not
+    (pt.HasParentNode(nFormalParams)) then
   begin
     // function result type
     Result := lcSpaces.SpacesBeforeColonFn;
@@ -106,7 +108,7 @@ begin
   begin
     Result := 0; // !!!
   end
-  else 
+  else
   begin
     Result := 0;
     // assertion failure brings the house down
@@ -149,7 +151,7 @@ begin
     end
     else
     begin
-      prVisitResult.Action := aInsertBefore;
+      prVisitResult.Action  := aInsertBefore;
       prVisitResult.NewItem := NewSpace(liSpaces);
     end;
   end

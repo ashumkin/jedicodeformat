@@ -29,7 +29,7 @@ interface
 
 uses
   { delphi }
-  Windows, SysUtils, Classes, Controls, Forms, 
+  Windows, SysUtils, Classes, Controls, Forms,
   StdCtrls, Buttons, ExtCtrls, ComCtrls,
   { local }
   JCFSettings, frmBaseSettingsFrame;
@@ -47,8 +47,7 @@ type
     procedure bbCancelClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure bbHelpClick(Sender: TObject);
-    procedure FormKeyUp(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
+    procedure FormKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
   private
     frLastFrame: TfrSettingsFrame;
 
@@ -57,7 +56,7 @@ type
     procedure GetFrameForNode(const pcNode: TTreeNode);
     function GetCurrentFrame: TfrSettingsFrame;
 
-    procedure RemoveAll(const pbSave: Boolean);
+    procedure RemoveAll(const pbSave: boolean);
 
   protected
     function GetFrameType(const psName: string): TSettingsFrameClass; virtual;
@@ -91,25 +90,25 @@ type
 
 const
   FrameMap: array[0..17] of TFrameMapRecord = (
-  (FrameName: 'Format file'; FrameClass: TfFiles),
-  (FrameName: 'Obfuscate'; FrameClass: TfObfuscateSettings),
-  (FrameName: 'Clarify'; FrameClass: TfClarify),
-  (FrameName: 'Spaces'; FrameClass: TfClarifySpaces),
-  (FrameName: 'Indentation'; FrameClass: TfClarifyIndent),
-  (FrameName: 'Long lines'; FrameClass: TfClarifyLongLineBreaker),
-  (FrameName: 'Returns'; FrameClass: TfClarifyReturns),
-  (FrameName: 'Blank lines'; FrameClass: TfBlankLines),
-  (FrameName: 'Blocks'; FrameClass: TfClarifyBlocks),
-  (FrameName: 'Align'; FrameClass: TfClarifyAlign),
-  (FrameName: 'Object Pascal'; FrameClass: TfrReservedCapsSettings),
-  (FrameName: 'Any Word'; FrameClass: TfrAnyCapsSettings),
-  (FrameName: 'Unit Name'; FrameClass: TfrUnitNameCaps),
-  (FrameName: 'Find and replace'; FrameClass: TfReplace),
-  (FrameName: 'Uses'; FrameClass: TfUses),
-  (FrameName: 'Basic'; FrameClass: TfrBasic),
-  (FrameName: 'PreProcessor'; FrameClass: TfPreProcessor),
-  (FrameName: 'Comments'; FrameClass: TfComments)
-  );
+    (FrameName: 'Format file'; FrameClass: TfFiles),
+    (FrameName: 'Obfuscate'; FrameClass: TfObfuscateSettings),
+    (FrameName: 'Clarify'; FrameClass: TfClarify),
+    (FrameName: 'Spaces'; FrameClass: TfClarifySpaces),
+    (FrameName: 'Indentation'; FrameClass: TfClarifyIndent),
+    (FrameName: 'Long lines'; FrameClass: TfClarifyLongLineBreaker),
+    (FrameName: 'Returns'; FrameClass: TfClarifyReturns),
+    (FrameName: 'Blank lines'; FrameClass: TfBlankLines),
+    (FrameName: 'Blocks'; FrameClass: TfClarifyBlocks),
+    (FrameName: 'Align'; FrameClass: TfClarifyAlign),
+    (FrameName: 'Object Pascal'; FrameClass: TfrReservedCapsSettings),
+    (FrameName: 'Any Word'; FrameClass: TfrAnyCapsSettings),
+    (FrameName: 'Unit Name'; FrameClass: TfrUnitNameCaps),
+    (FrameName: 'Find and replace'; FrameClass: TfReplace),
+    (FrameName: 'Uses'; FrameClass: TfUses),
+    (FrameName: 'Basic'; FrameClass: TfrBasic),
+    (FrameName: 'PreProcessor'; FrameClass: TfPreProcessor),
+    (FrameName: 'Comments'; FrameClass: TfComments)
+    );
 
 { TFormAllSettings }
 
@@ -129,7 +128,7 @@ end;
 procedure TFormAllSettings.GetFrameForNode(const pcNode: TTreeNode);
 var
   lcType: TSettingsFrameClass;
-  lf: TfrSettingsFrame;
+  lf:     TfrSettingsFrame;
 begin
   if pcNode.Data <> nil then
     exit;
@@ -145,9 +144,9 @@ begin
 
   { show }
   lf.Parent := pnlSet;
-  lf.Left := 0;
-  lf.Top := 0;
-  lf.Width := pnlSet.ClientWidth;
+  lf.Left   := 0;
+  lf.Top    := 0;
+  lf.Width  := pnlSet.ClientWidth;
   lf.Height := pnlSet.ClientHeight;
 
   pcNode.Data := lf;
@@ -211,11 +210,11 @@ begin
   Close;
 end;
 
-procedure TFormAllSettings.RemoveAll(const pbSave: Boolean);
+procedure TFormAllSettings.RemoveAll(const pbSave: boolean);
 var
   liLoop: integer;
   lcItem: TTreeNode;
-  lf: TfrSettingsFrame;
+  lf:     TfrSettingsFrame;
 begin
   { retrieve frames from the tree nodes and save them }
   for liLoop := 0 to tvFrames.Items.Count - 1 do
@@ -269,13 +268,13 @@ procedure TFormAllSettings.bbHelpClick(Sender: TObject);
 var
   lcFrame: TfrSettingsFrame;
 begin
-    lcFrame := GetCurrentFrame;
-    if lcFrame = nil then
-    begin
-      Application.HelpContext(HELP_MAIN);
-    end
-    else
-      lcFrame.ShowContextHelp;
+  lcFrame := GetCurrentFrame;
+  if lcFrame = nil then
+  begin
+    Application.HelpContext(HELP_MAIN);
+  end
+  else
+    lcFrame.ShowContextHelp;
 end;
 
 procedure TFormAllSettings.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -285,7 +284,7 @@ begin
     GetRegSettings.LastSettingsPage := tvFrames.Selected.Text;
 end;
 
-procedure TFormAllSettings.FormKeyUp(Sender: TObject; var Key: Word;
+procedure TFormAllSettings.FormKeyUp(Sender: TObject; var Key: word;
   Shift: TShiftState);
 begin
   if Key = VK_F1 then

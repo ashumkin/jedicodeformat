@@ -26,8 +26,8 @@ interface
 { writer class for use in IDE pluggin - writes to the editor interface }
 
 uses
-  { delphi design time } ToolsApi,
-  { local } CodeWriter;
+  { delphi design time }ToolsApi,
+  { local }CodeWriter;
 
 type
 
@@ -82,7 +82,7 @@ begin
   { delete what's there }
   lciEditorWriter.DeleteTo(High(integer));
   { put the changed text in instead }
-  lciEditorWriter.Insert(PChar(fsDestText));
+  lciEditorWriter.Insert(pchar(fsDestText));
 
   { delete after the 'end.' }
   //liEndPos := PosOfLastSolidText(fsDestText);

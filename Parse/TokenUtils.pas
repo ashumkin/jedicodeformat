@@ -40,28 +40,30 @@ procedure InsertTokenAfter(const pt, ptNew: TSourceToken);
 procedure InsertTokenBefore(const pt, ptNew: TSourceToken);
 
 function InsertReturnAfter(const pt: TSourceToken): TSourceToken;
-function InsertSpacesBefore(const pt: TSourceToken; const piSpaces: integer): TSourceToken;
+function InsertSpacesBefore(const pt: TSourceToken;
+  const piSpaces: integer): TSourceToken;
 
 { effectively remove the token by making it empty }
 procedure BlankToken(const pt: TSourceToken);
 
 { return the name of the procedure around any parse tree node or source token
   empty string if there is none }
-function GetProcedureName(const pcNode: TParseTreeNode;
-  const pbFullName: boolean; const pbTopmost: boolean): string;
+function GetProcedureName(const pcNode: TParseTreeNode; const pbFullName: boolean;
+  const pbTopmost: boolean): string;
 
 
 { depending on context, one of Procedure, function, constructor, destructor }
 function GetBlockType(const pcNode: TParseTreeNode): string;
 
 
-function ExtractNameFromFunctionHeading(const pcNode: TParseTreeNode; const pbFullName: boolean): string;
+function ExtractNameFromFunctionHeading(const pcNode: TParseTreeNode;
+  const pbFullName: boolean): string;
 
 function IsClassFunction(const pt: TSourceToken): boolean;
 
-function RHSExprEquals(const pt: TSourceToken): Boolean;
+function RHSExprEquals(const pt: TSourceToken): boolean;
 
-function RHSTypeEquals(const pt: TSourceToken): Boolean;
+function RHSTypeEquals(const pt: TSourceToken): boolean;
 
 function IsClassDirective(const pt: TSourceToken): boolean;
 
@@ -80,9 +82,9 @@ function SemicolonNext(const pt: TSourceToken): boolean;
 
   False if it is vars, consts, types etc
   or in asm }
-function InStatements(const pt: TSourceToken): Boolean;
-function InProcedureDeclarations(const pt: TsourceToken): Boolean;
-function InDeclarations(const pt: TsourceToken): Boolean;
+function InStatements(const pt: TSourceToken): boolean;
+function InProcedureDeclarations(const pt: TsourceToken): boolean;
+function InDeclarations(const pt: TsourceToken): boolean;
 
 function IsCaseColon(const pt: TSourceToken): boolean;
 function IsLabelColon(const pt: TSourceToken): boolean;
@@ -112,12 +114,12 @@ function IsGenericResIncludeDirective(const pt: TSourceToken): boolean;
 
 function FirstSolidChild(const pt: TParseTreeNode): TParseTreeNode;
 
-function InFilesUses(const pt: TParseTreeNode): Boolean;
+function InFilesUses(const pt: TParseTreeNode): boolean;
 
 
 function Root(const pt: TParseTreeNode): TParseTreeNode;
 
-function UnitName(const pt: TParseTreeNode): String;
+function UnitName(const pt: TParseTreeNode): string;
 
 { use to build a parse tree}
 function IsIdentifierToken(const pt: TSourceToken): boolean;
@@ -173,7 +175,8 @@ begin
   InsertTokenAfter(pt, Result);
 end;
 
-function InsertSpacesBefore(const pt: TSourceToken; const piSpaces: integer): TSourceToken;
+function InsertSpacesBefore(const pt: TSourceToken;
+  const piSpaces: integer): TSourceToken;
 begin
   Assert(pt <> nil);
   Assert(pt.Parent <> nil);
@@ -184,7 +187,7 @@ end;
 
 procedure BlankToken(const pt: TSourceToken);
 begin
-  pt.TokenType := ttWhiteSpace;
+  pt.TokenType  := ttWhiteSpace;
   pt.SourceCode := '';
 end;
 
@@ -192,7 +195,7 @@ end;
 function ExtractNameFromFunctionHeading(const pcNode: TParseTreeNode;
   const pbFullName: boolean): string;
 var
-  liLoop: integer;
+  liLoop:      integer;
   lcChildNode: TParseTreeNode;
   lcSourceToken: TSourceToken;
   lcNameToken: TSourceToken;
@@ -245,7 +248,8 @@ begin
       lcPriorToken2 := lcPriorToken1.PriorSolidToken;
       if (lcPriorToken2 <> nil) and (lcPriorToken2.TokenType in IdentiferTokens) then
       begin
-        Result := lcPriorToken2.SourceCode + lcPriorToken1.SourceCode + lcNameToken.SourceCode;
+        Result := lcPriorToken2.SourceCode + lcPriorToken1.SourceCode +
+          lcNameToken.SourceCode;
       end;
     end;
   end
@@ -256,8 +260,8 @@ begin
   end;
 end;
 
-function GetProcedureName(const pcNode: TParseTreeNode;
-  const pbFullName: boolean; const pbTopmost: boolean): string;
+function GetProcedureName(const pcNode: TParseTreeNode; const pbFullName: boolean;
+  const pbTopmost: boolean): string;
 var
   lcFunction, lcTemp, lcHeading: TParseTreeNode;
 begin
@@ -279,7 +283,7 @@ begin
     while lcTemp <> nil do
     begin
       lcFunction := lcTemp;
-      lcTemp := lcFunction.GetParentNode(ProcedureNodes);
+      lcTemp     := lcFunction.GetParentNode(ProcedureNodes);
     end;
   end;
 
@@ -321,12 +325,12 @@ begin
   Result := pt.IsOnRightOf(ProcedureHeadings, [ttClass]);
 end;
 
-function RHSExprEquals(const pt: TSourceToken): Boolean;
+function RHSExprEquals(const pt: TSourceToken): boolean;
 begin
   Result := pt.IsOnRightOf(nExpression, ttEquals);
 end;
 
-function RHSTypeEquals(const pt: TSourceToken): Boolean;
+function RHSTypeEquals(const pt: TSourceToken): boolean;
 begin
   Result := pt.IsOnRightOf(nType, ttEquals);
 end;
@@ -339,7 +343,7 @@ begin
 
   Result := (pt.TokenType in ClassDirectives) and
     pt.HasParentNode(nClassVisibility, 1) and
-    (not (pt.HasParentNode(ProcedureNodes + [nProperty])));
+    ( not (pt.HasParentNode(ProcedureNodes + [nProperty])));
 end;
 
 function RoundBracketLevel(const pt: TSourceToken): integer;
@@ -395,28 +399,29 @@ var
 begin
   Result := False;
 
- if pt <> nil then
- begin
-  lcNext := pt.NextSolidToken;
-  if lcNext <> nil then
-    Result := (lcNext.TokenType = ttSemiColon);
- end;
+  if pt <> nil then
+  begin
+    lcNext := pt.NextSolidToken;
+    if lcNext <> nil then
+      Result := (lcNext.TokenType = ttSemiColon);
+  end;
 end;
 
-function InStatements(const pt: TSourceToken): Boolean;
+function InStatements(const pt: TSourceToken): boolean;
 begin
   Result := pt.HasParentNode(nStatementList) or pt.HasParentNode(nBlock);
-  Result := Result and (not pt.HasParentNode(nAsm));
+  Result := Result and ( not pt.HasParentNode(nAsm));
 end;
 
-function InProcedureDeclarations(const pt: TsourceToken): Boolean;
+function InProcedureDeclarations(const pt: TsourceToken): boolean;
 begin
-  Result := (pt.HasParentNode(ProcedureNodes) and (pt.HasParentNode(InProcedureDeclSections)))
+  Result := (pt.HasParentNode(ProcedureNodes) and
+    (pt.HasParentNode(InProcedureDeclSections)))
 end;
 
-function InDeclarations(const pt: TsourceToken): Boolean;
+function InDeclarations(const pt: TsourceToken): boolean;
 begin
-  Result := (not InStatements(pt)) and (not pt.HasParentNode(nAsm)) and
+  Result := ( not InStatements(pt)) and ( not pt.HasParentNode(nAsm)) and
     pt.HasParentNode(nDeclSection);
 end;
 
@@ -476,7 +481,7 @@ begin
     exit;
 
   // otherwise, if it contains a return it's not single line 
-  if (Pos (AnsiLineBreak, pcToken.SourceCode) <= 0) then
+  if (Pos(AnsiLineBreak, pcToken.SourceCode) <= 0) then
     exit;
 
   Result := True;
@@ -527,7 +532,7 @@ end;
 
 function IdentListNameCount(const pcNode: TParseTreeNode): integer;
 var
-  liLoop: integer;
+  liLoop:     integer;
   lcLeafItem: TParseTreeNode;
 begin
   Result := 0;
@@ -541,7 +546,7 @@ begin
     lcLeafItem := pcNode.ChildNodes[liLoop];
     if (lcLeafItem is TSourceToken) and
       (TSourceToken(lcLeafItem).TokenType = ttWord) then
-        inc(Result);
+      Inc(Result);
   end;
 end;
 
@@ -577,7 +582,7 @@ end;
 { get the first child node that is not a space leaf}
 function FirstSolidChild(const pt: TParseTreeNode): TParseTreeNode;
 var
-  liLoop: integer;
+  liLoop:  integer;
   lcChild: TParseTreeNode;
 begin
   Result := nil;
@@ -602,7 +607,7 @@ begin
 end;
 
 { these uses clauses can specify file names for the units }
-function InFilesUses(const pt: TParseTreeNode): Boolean;
+function InFilesUses(const pt: TParseTreeNode): boolean;
 begin
   Assert(pt <> nil);
   Result := pt.HasParentNode(nUses) and
@@ -616,7 +621,7 @@ begin
     Result := Result.Parent;
 end;
 
-function UnitName(const pt: TParseTreeNode): String;
+function UnitName(const pt: TParseTreeNode): string;
 var
   lcRoot: TParseTreeNode;
   lcUnitHeader: TParseTreeNode;

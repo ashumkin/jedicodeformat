@@ -25,7 +25,7 @@ interface
 
 uses
   { delphi }
-  Classes, Controls, Forms, 
+  Classes, Controls, Forms,
   StdCtrls, ExtCtrls,
   { local}
   JvEdit, JvTypedEdit, frmBaseSettingsFrame;
@@ -68,7 +68,7 @@ begin
   begin
     { line breaking }
     edtMaxLineLength.Value := MaxLineLength;
-    rgRebreakLongLines.ItemIndex := ord(RebreakLines);
+    rgRebreakLongLines.ItemIndex := Ord(RebreakLines);
   end;
 end;
 
@@ -78,7 +78,7 @@ begin
   begin
     { line breaking }
     MaxLineLength := edtMaxLineLength.Value;
-    RebreakLines := TWhenToRebreakLines(rgRebreakLongLines.ItemIndex);
+    RebreakLines  := TWhenToRebreakLines(rgRebreakLongLines.ItemIndex);
   end;
 end;
 

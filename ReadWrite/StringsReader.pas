@@ -29,8 +29,8 @@ under the License.
 interface
 
 uses
-  { delphi } Classes,
-  { local } CodeReader;
+  { delphi }Classes,
+  { local }CodeReader;
 
 type
   TStringsReader = class(TCodeReader)
@@ -44,7 +44,7 @@ type
   public
     procedure Clear; override;
 
-    property InputStrings: TStrings read FcInputStrings write FcInputStrings;
+    property InputStrings: TStrings Read FcInputStrings Write FcInputStrings;
   end;
 
 

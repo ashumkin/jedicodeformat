@@ -161,7 +161,6 @@ contains
   SettingsTypes in '..\Settings\SettingsTypes.pas',
   ReturnsAfterFinalEnd in '..\Process\Returns\ReturnsAfterFinalEnd.pas',
   ConvertTypes in '..\ReadWrite\ConvertTypes.pas',
-  LittleTest57 in '..\Test\TestCases\LittleTest57.pas',
   UsesClauseRemove in '..\Process\Transform\UsesClauseRemove.pas',
   UsesClauseFindReplace in '..\Process\Transform\UsesClauseFindReplace.pas',
   UsesClauseInsert in '..\Process\Transform\UsesClauseInsert.pas',

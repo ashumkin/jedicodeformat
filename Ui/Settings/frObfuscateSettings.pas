@@ -25,7 +25,7 @@ interface
 
 uses
   { delphi }
-  Classes, Controls, Forms, 
+  Classes, Controls, Forms,
   StdCtrls, ExtCtrls,
   { local }
   frmBaseSettingsFrame;
@@ -66,12 +66,12 @@ procedure TfObfuscateSettings.Read;
 begin
   with FormatSettings.Obfuscate do
   begin
-    cbEnabled.Checked := Enabled;
-    rgObfuscateCaps.ItemIndex  := Ord(Caps);
+    cbEnabled.Checked      := Enabled;
+    rgObfuscateCaps.ItemIndex := Ord(Caps);
     cbRemoveWhiteSpace.Checked := RemoveWhiteSpace;
-    cbRemoveComments.Checked   := RemoveComments;
-    cbRemoveIndent.Checked     := RemoveIndent;
-    cbRebreak.Checked          := RebreakLines;
+    cbRemoveComments.Checked := RemoveComments;
+    cbRemoveIndent.Checked := RemoveIndent;
+    cbRebreak.Checked      := RebreakLines;
   end;
 end;
 
@@ -80,7 +80,7 @@ begin
   with FormatSettings.Obfuscate do
   begin
     Enabled := cbEnabled.Checked;
-    Caps := TCapitalisationType(rgObfuscateCaps.ItemIndex);
+    Caps    := TCapitalisationType(rgObfuscateCaps.ItemIndex);
     RemoveWhiteSpace := cbRemoveWhiteSpace.Checked;
     RemoveComments := cbRemoveComments.Checked;
     RemoveIndent := CbRemoveIndent.Checked;

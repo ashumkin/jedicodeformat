@@ -32,7 +32,8 @@ uses SwitchableVisitor, VisitParseTree;
 type
   TFixCase = class(TSwitchableVisitor)
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
   end;
@@ -41,9 +42,9 @@ type
 implementation
 
 uses
-  { delphi } SysUtils,
-  { jcl } JclStrings,
-  { local } Tokens, SourceToken, SettingsTypes,
+  { delphi }SysUtils,
+  { jcl }JclStrings,
+  { local }Tokens, SourceToken, SettingsTypes,
   ParseTreeNodeType, JcfSettings, FormatFlags, TokenUtils;
 
 
@@ -87,7 +88,7 @@ begin
       pt.SourceCode := AnsiLowerCase(pt.SourceCode);
     ctMixed:
       pt.SourceCode := StrSmartCase(pt.SourceCode, []);
-    ctLeaveAlone:;
+    ctLeaveAlone: ;
   end;
 end;
 
@@ -98,7 +99,8 @@ begin
   FormatFlags := FormatFlags + [eObfuscate];
 end;
 
-procedure TFixCase.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TFixCase.EnabledVisitSourceToken(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
 begin

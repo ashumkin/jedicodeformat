@@ -52,9 +52,11 @@ type
   protected
   public
 
-    procedure PreVisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
-    procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
-    function FinalSummary(var psMessage: string): Boolean; override;
+    procedure PreVisitParseTreeNode(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
+    procedure VisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+      override;
+    function FinalSummary(var psMessage: string): boolean; override;
 
     function IsIncludedInSettings: boolean; override;
   end;
@@ -101,31 +103,31 @@ begin
 
   case lcNode.NodeType of
     nTypeDecl:
-      inc(fiTypes);
+      Inc(fiTypes);
     nConstDecl:
-      inc(fiConsts);
+      Inc(fiConsts);
     nClassType:
-      inc(fiClasses);
+      Inc(fiClasses);
     nInterfaceType:
-      inc(fiInterfaces);
-    else ; // no nothing
+      Inc(fiInterfaces);
+    else; // no nothing
   end;
 
   { procedure/fn/constructor/destructor }
   if (lcNode.NodeType in ProcedureNodes) and lcNode.HasChildNode(nBlock) then
     { if it has a block of code under it, it counts as a proc }
-    inc(fiAllProcs);
+    Inc(fiAllProcs);
 
   { can only export a global procedure or function - not a constructor or destructor
     don't count procs in a class or itnerface def }
   if (lcNode.NodeType in [nFunctionHeading, nProcedureHeading]) and
-   lcNode.HasParentNode(nInterfaceSection) and
-   (not lcNode.HasParentNode([nClassType, nInterfaceType, nProcedureType])) then
-   inc(fiInterfaceProcs);
+    lcNode.HasParentNode(nInterfaceSection) and
+    ( not lcNode.HasParentNode([nClassType, nInterfaceType, nProcedureType])) then
+    Inc(fiInterfaceProcs);
 
   // find global vars
-  if (lcNode.NodeType = nVarDecl) and (not lcNode.HasParentNode(nClassType)) and
-    (not lcNode.HasParentNode(nblock)) then
+  if (lcNode.NodeType = nVarDecl) and ( not lcNode.HasParentNode(nClassType)) and
+    ( not lcNode.HasParentNode(nblock)) then
   begin
 
     if lcNode.HasParentNode(nInterfaceSection) then
@@ -148,64 +150,72 @@ begin
   if (fiLines = 0) then
     fiLines := 1;
 
-  inc (fiTotalTokens);
+  Inc(fiTotalTokens);
   liLen := Length(lcSourceToken.SourceCode);
   fiTotalChars := fiTotalChars + liLen;
 
   case lcSourceToken.TokenType of
     ttComment:
     begin
-      inc(fiCommentTokens);
+      Inc(fiCommentTokens);
       fiCommentChars := fiCommentChars + liLen;
 
       fiLines := fiLines + StrStrCount(lcSourceToken.SourceCode, AnsiLineBreak);
     end;
     ttReturn:
     begin
-      inc(fiLines);
-      inc(fiSpaceTokens);
+      Inc(fiLines);
+      Inc(fiSpaceTokens);
       fiSpaceChars := fiSpaceChars + liLen;
     end;
     ttWhiteSpace:
     begin
-      inc(fiSpaceTokens);
+      Inc(fiSpaceTokens);
       fiSpaceChars := fiSpaceChars + liLen;
     end;
     else
     begin
-      inc(fiSolidTokens);
+      Inc(fiSolidTokens);
       fiSolidChars := fiSolidChars + liLen;
     end;
   end;
 end;
 
-function TBasicStats.FinalSummary(var psMessage: string): Boolean;
+function TBasicStats.FinalSummary(var psMessage: string): boolean;
 begin
   Result := True;
 
   psMessage := AnsiLineBreak + 'Basic numbers and averages: ' + AnsiLineBreak +
-    'Unit is ' + IntToStr(fiLines) + ' lines long' +  AnsiLineBreak +
-    'Unit has ' + IntToStr(fiTotalTokens) + ' tokens in '  +
-    IntToStr(fiTotalChars) + ' characters: ' +  AnsiLineBreak +
+    'Unit is ' + IntToStr(fiLines) + ' lines long' + AnsiLineBreak +
+    'Unit has ' + IntToStr(fiTotalTokens) + ' tokens in ' +
+    IntToStr(fiTotalChars) + ' characters: ' + AnsiLineBreak +
     DisplayRatio(fiTotalChars, fiTotalTokens) + ' chars per token' + AnsiLineBreak +
-    DisplayRatio(fiTotalChars, fiLines) + ' chars per line ' +  AnsiLineBreak +
-    DisplayRatio(fiTotalTokens, fiLines) + ' tokens per line ' +  AnsiLineBreak + AnsiLineBreak;
+    DisplayRatio(fiTotalChars, fiLines) + ' chars per line ' + AnsiLineBreak +
+    DisplayRatio(fiTotalTokens, fiLines) + ' tokens per line ' +
+    AnsiLineBreak + AnsiLineBreak;
 
   psMessage := psMessage +
-    IntToStr(fiCommentTokens) + ' comments in ' + IntToStr(fiCommentChars) + ' characters ' + AnsiLineBreak +
-    DisplayRatio(fiCommentChars, fiCommentTokens) + ' chars per comment' + AnsiLineBreak +
-    DisplayPercent(fiCommentChars, fiTotalChars) + ' of chars are comments ' + AnsiLineBreak + AnsiLineBreak;
+    IntToStr(fiCommentTokens) + ' comments in ' + IntToStr(fiCommentChars) +
+    ' characters ' + AnsiLineBreak +
+    DisplayRatio(fiCommentChars, fiCommentTokens) + ' chars per comment' +
+    AnsiLineBreak +
+    DisplayPercent(fiCommentChars, fiTotalChars) + ' of chars are comments ' +
+    AnsiLineBreak + AnsiLineBreak;
 
   psMessage := psMessage +
-    IntToStr(fiSpaceTokens) + ' spacing and return tokens in ' + IntToStr(fiSpaceChars) + ' characters ' +   AnsiLineBreak +
+    IntToStr(fiSpaceTokens) + ' spacing and return tokens in ' +
+    IntToStr(fiSpaceChars) + ' characters ' + AnsiLineBreak +
     DisplayRatio(fiSpaceChars, fiSpaceTokens) + ' chars per token' + AnsiLineBreak +
-    DisplayPercent(fiSpaceChars, fiTotalChars) + ' of chars are spacing ' + AnsiLineBreak + AnsiLineBreak;
+    DisplayPercent(fiSpaceChars, fiTotalChars) + ' of chars are spacing ' +
+    AnsiLineBreak + AnsiLineBreak;
 
   psMessage := psMessage +
-    IntToStr(fiSolidTokens) + ' solid tokens in ' + IntToStr(fiSolidChars) + ' characters ' +  AnsiLineBreak +
+    IntToStr(fiSolidTokens) + ' solid tokens in ' + IntToStr(fiSolidChars) +
+    ' characters ' + AnsiLineBreak +
     DisplayRatio(fiSolidChars, fiSolidTokens) + ' chars per token' + AnsiLineBreak +
     DisplayPercent(fiSolidChars, fiTotalChars) + ' of chars are solid' + AnsiLineBreak +
-    DisplayPercent(fiSolidTokens, fiTotalTokens) + ' of tokens are solid' + AnsiLineBreak + AnsiLineBreak;
+    DisplayPercent(fiSolidTokens, fiTotalTokens) + ' of tokens are solid' +
+    AnsiLineBreak + AnsiLineBreak;
 
   psMessage := psMessage +
     IntToStr(fiConsts) + ' constants ' + AnsiLineBreak +
@@ -217,7 +227,8 @@ begin
   psMessage := psMessage +
     IntToStr(liInterfaceGlobalVars) + ' global vars in interface ' + AnsiLineBreak +
     IntToStr(liGlobalVars) + ' global vars in rest of unit ' + AnsiLineBreak +
-    IntToStr(fiInterfaceProcs) + ' procedures in interface ' + AnsiLineBreak + AnsiLineBreak;
+    IntToStr(fiInterfaceProcs) + ' procedures in interface ' +
+    AnsiLineBreak + AnsiLineBreak;
 
 end;
 

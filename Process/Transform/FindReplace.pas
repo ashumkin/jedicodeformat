@@ -32,12 +32,13 @@ type
     fiCount: integer;
 
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
 
     function IsIncludedInSettings: boolean; override;
-    function FinalSummary(var psMessage: string): Boolean; override;
+    function FinalSummary(var psMessage: string): boolean; override;
 
   end;
 
@@ -66,7 +67,7 @@ begin
   Result := FormatSettings.Replace.Enabled;
 end;
 
-function TFindReplace.FinalSummary(var psMessage: string): Boolean;
+function TFindReplace.FinalSummary(var psMessage: string): boolean;
 begin
   Result := (fiCount > 0);
   if Result then
@@ -91,7 +92,7 @@ begin
     exit;
 
   lcSourceToken.SourceCode := FormatSettings.Replace.Replace(lcSourceToken.SourceCode);
-  inc(fiCount);
+  Inc(fiCount);
 end;
 
 end.

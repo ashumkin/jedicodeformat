@@ -40,8 +40,8 @@ type
     feCaseLabelStyle: TBlockNewLineStyle;
 
   protected
-   procedure Setup; override;
-   procedure TearDown; override;
+    procedure Setup; override;
+    procedure TearDown; override;
 
   published
     procedure TestCaseStatementLeave1;
@@ -80,7 +80,7 @@ const
 
   UNIT_TEXT_NEW_LINE = UNIT_HEADER + ' procedure foo; begin' +
     ' case x of ' +
-    ' 1:' +  AnsiLineBreak +
+    ' 1:' + AnsiLineBreak +
     ' Bar; ' +
     ' 2:' + AnsiLineBreak +
     ' Fish; ' +
@@ -105,21 +105,21 @@ begin
   inherited;
 
   feSaveCaseElseStyle := FormatSettings.Returns.CaseElseStyle;
-  feCaseLabelStyle := FormatSettings.Returns.CaseLabelStyle;
+  feCaseLabelStyle    := FormatSettings.Returns.CaseLabelStyle;
 end;
 
 procedure TTestBlockReturns.TearDown;
 begin
   inherited;
 
-  FormatSettings.Returns.CaseElseStyle := feSaveCaseElseStyle;
+  FormatSettings.Returns.CaseElseStyle  := feSaveCaseElseStyle;
   FormatSettings.Returns.CaseLabelStyle := feCaseLabelStyle;
 end;
 
 
 procedure TTestBlockReturns.TestCaseStatementAlways1;
 begin
-  FormatSettings.Returns.CaseElseStyle := eAlways;
+  FormatSettings.Returns.CaseElseStyle  := eAlways;
   FormatSettings.Returns.CaseLabelStyle := eAlways;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_IN_LINE, UNIT_TEXT_NEW_LINE);
@@ -127,7 +127,7 @@ end;
 
 procedure TTestBlockReturns.TestCaseStatementAlways2;
 begin
-  FormatSettings.Returns.CaseElseStyle := eAlways;
+  FormatSettings.Returns.CaseElseStyle  := eAlways;
   FormatSettings.Returns.CaseLabelStyle := eAlways;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_NEW_LINE, UNIT_TEXT_NEW_LINE);
@@ -135,7 +135,7 @@ end;
 
 procedure TTestBlockReturns.TestCaseStatementAlways3;
 begin
-  FormatSettings.Returns.CaseElseStyle := eAlways;
+  FormatSettings.Returns.CaseElseStyle  := eAlways;
   FormatSettings.Returns.CaseLabelStyle := eAlways;
 
   TestProcessResult(TBlockStyles, OUT_UNIT_TEXT_JUST_ELSE_NEWLINE, UNIT_TEXT_NEW_LINE);
@@ -144,7 +144,7 @@ end;
 
 procedure TTestBlockReturns.TestCaseStatementJustElse1;
 begin
-  FormatSettings.Returns.CaseElseStyle := eAlways;
+  FormatSettings.Returns.CaseElseStyle  := eAlways;
   FormatSettings.Returns.CaseLabelStyle := eNever;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_IN_LINE, OUT_UNIT_TEXT_JUST_ELSE_NEWLINE);
@@ -152,7 +152,7 @@ end;
 
 procedure TTestBlockReturns.TestCaseStatementJustElse2;
 begin
-  FormatSettings.Returns.CaseElseStyle := eAlways;
+  FormatSettings.Returns.CaseElseStyle  := eAlways;
   FormatSettings.Returns.CaseLabelStyle := eNever;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_NEW_LINE, OUT_UNIT_TEXT_JUST_ELSE_NEWLINE);
@@ -160,15 +160,16 @@ end;
 
 procedure TTestBlockReturns.TestCaseStatementJustElse3;
 begin
-  FormatSettings.Returns.CaseElseStyle := eAlways;
+  FormatSettings.Returns.CaseElseStyle  := eAlways;
   FormatSettings.Returns.CaseLabelStyle := eNever;
 
-  TestProcessResult(TBlockStyles, OUT_UNIT_TEXT_JUST_ELSE_NEWLINE, OUT_UNIT_TEXT_JUST_ELSE_NEWLINE);
+  TestProcessResult(TBlockStyles, OUT_UNIT_TEXT_JUST_ELSE_NEWLINE,
+    OUT_UNIT_TEXT_JUST_ELSE_NEWLINE);
 end;
 
 procedure TTestBlockReturns.TestCaseStatementLeave1;
 begin
-  FormatSettings.Returns.CaseElseStyle := eLeave;
+  FormatSettings.Returns.CaseElseStyle  := eLeave;
   FormatSettings.Returns.CaseLabelStyle := eLeave;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_NEW_LINE, UNIT_TEXT_NEW_LINE);
@@ -176,7 +177,7 @@ end;
 
 procedure TTestBlockReturns.TestCaseStatementLeave2;
 begin
-  FormatSettings.Returns.CaseElseStyle := eLeave;
+  FormatSettings.Returns.CaseElseStyle  := eLeave;
   FormatSettings.Returns.CaseLabelStyle := eLeave;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_IN_LINE, UNIT_TEXT_IN_LINE);
@@ -184,15 +185,16 @@ end;
 
 procedure TTestBlockReturns.TestCaseStatementLeave3;
 begin
-  FormatSettings.Returns.CaseElseStyle := eLeave;
+  FormatSettings.Returns.CaseElseStyle  := eLeave;
   FormatSettings.Returns.CaseLabelStyle := eLeave;
 
-  TestProcessResult(TBlockStyles, OUT_UNIT_TEXT_JUST_ELSE_NEWLINE, OUT_UNIT_TEXT_JUST_ELSE_NEWLINE);
+  TestProcessResult(TBlockStyles, OUT_UNIT_TEXT_JUST_ELSE_NEWLINE,
+    OUT_UNIT_TEXT_JUST_ELSE_NEWLINE);
 end;
 
 procedure TTestBlockReturns.TestCaseStatementNever1;
 begin
-  FormatSettings.Returns.CaseElseStyle := eNever;
+  FormatSettings.Returns.CaseElseStyle  := eNever;
   FormatSettings.Returns.CaseLabelStyle := eNever;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_NEW_LINE, UNIT_TEXT_IN_LINE);
@@ -200,7 +202,7 @@ end;
 
 procedure TTestBlockReturns.TestCaseStatementNever2;
 begin
-  FormatSettings.Returns.CaseElseStyle := eNever;
+  FormatSettings.Returns.CaseElseStyle  := eNever;
   FormatSettings.Returns.CaseLabelStyle := eNever;
 
   TestProcessResult(TBlockStyles, OUT_UNIT_TEXT_JUST_ELSE_NEWLINE, UNIT_TEXT_IN_LINE);
@@ -208,12 +210,12 @@ end;
 
 procedure TTestBlockReturns.TestCaseStatementNever3;
 begin
-  FormatSettings.Returns.CaseElseStyle := eNever;
+  FormatSettings.Returns.CaseElseStyle  := eNever;
   FormatSettings.Returns.CaseLabelStyle := eNever;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_NEW_LINE, UNIT_TEXT_IN_LINE);
 end;
 
 initialization
- TestFramework.RegisterTest('Processes', TTestBlockReturns.Suite);
+  TestFramework.RegisterTest('Processes', TTestBlockReturns.Suite);
 end.

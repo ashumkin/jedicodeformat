@@ -36,7 +36,8 @@ type
   private
     xPos: integer;
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
   end;
@@ -54,13 +55,14 @@ begin
   xPos := 1;
 end;
 
-procedure TRebreakLines.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TRebreakLines.EnabledVisitSourceToken(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 const
   LINE_LENGTH = 80;
 var
   lcToken: TSourceToken;
   lcNext, lcNew: TSourceToken;
-  liLen: integer;
+  liLen:   integer;
 begin
   lcToken := TSourceToken(pcNode);
 
@@ -75,8 +77,9 @@ begin
     begin
       { no space directly after the new return }
       lcNext := lcToken.NextToken;
-      if (lcNext <> nil) and (lcNext.TokenType = ttWhiteSpace) and (lcNext.SourceCode <> '') then
-          BlankToken(lcNext);
+      if (lcNext <> nil) and (lcNext.TokenType = ttWhiteSpace) and
+        (lcNext.SourceCode <> '') then
+        BlankToken(lcNext);
 
       { need a return? }
       if (lcNext <> nil) and (lcNext.TokenType <> ttReturn) then
@@ -86,7 +89,7 @@ begin
         lcNew := TSourceToken.Create;
         lcNew.TokenType := ttReturn;
         lcNew.SourceCode := AnsiLineBreak;
-        XPos := 0;
+        XPos  := 0;
 
         prVisitResult.NewItem := lcNew;
       end;

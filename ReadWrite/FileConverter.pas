@@ -24,8 +24,8 @@ under the License.
 interface
 
 uses
-  { delphi } Classes,
-  { local } Converter, CodeReader, CodeWriter, FileReader, FileWriter,
+  { delphi }Classes,
+  { local }Converter, CodeReader, CodeWriter, FileReader, FileWriter,
   ConvertTypes;
 
 { AFS 11 Jan 2K
@@ -35,7 +35,7 @@ uses
 
 type
 
-TFileConverter = class(TConverter)
+  TFileConverter = class(TConverter)
   private
     fsInput: string;
     peBackupMode: TBackupMode;
@@ -63,20 +63,20 @@ TFileConverter = class(TConverter)
 
     procedure Convert; override;
 
-    property BackupMode: TBackupMode read peBackupMode write peBackupMode;
-    property SourceMode: TSourceMode read peSourceMode write peSourceMode;
-    property Input: string read fsInput write fsInput;
+    property BackupMode: TBackupMode Read peBackupMode Write peBackupMode;
+    property SourceMode: TSourceMode Read peSourceMode Write peSourceMode;
+    property Input: string Read fsInput Write fsInput;
 
     // details of the last file converted
-    property OutFileName: string read fsOutFileName;
+    property OutFileName: string Read fsOutFileName;
   end;
 
 implementation
 
 uses
-  { delphi } Windows, SysUtils, Dialogs, Controls, Forms,
-  { jcl } JclFileUtils,
-  { local } FileUtils, JcfMiscFunctions, JCFLog, JcfRegistrySettings;
+  { delphi }Windows, SysUtils, Dialogs, Controls, Forms,
+  { jcl }JclFileUtils,
+  { local }FileUtils, JcfMiscFunctions, JCFLog, JcfRegistrySettings;
 
 
 
@@ -148,7 +148,7 @@ begin
       if wRes = mrAll then
       begin
         YesAll := True;
-        wRes     := mrYes;
+        wRes   := mrYes;
       end;
 
       if wRes = mrYes then
@@ -227,7 +227,7 @@ begin
     if ConvertError then
     begin
       // restore the backup
-      CopyFile(PChar(lsOut),PChar(psInput), False);
+      CopyFile(pchar(lsOut), pchar(psInput), False);
     end
 
   end
@@ -236,14 +236,14 @@ begin
     if ConvertError then
     begin
       // restore the backup
-      CopyFile(PChar(lsTemp), PChar(psInput), False);
+      CopyFile(pchar(lsTemp), pchar(psInput), False);
     end
     else
     begin
       // remove the backup
       if not DeleteFile(lsTemp) then
         Log.WriteError('TFileConverter.ProcessFile: ' +
-        'Failed to delete temp file ' + lsTemp + ' for ' + psInput);
+          'Failed to delete temp file ' + lsTemp + ' for ' + psInput);
     end;
 
   end;
@@ -373,8 +373,8 @@ begin
   else
     dwStart := 0;
 
-  fbAbort  := False;
-  fiConvertCount  := 0;
+  fbAbort := False;
+  fiConvertCount := 0;
 
   { all processors must check thier inclusion settings
     as this may have changed from the UI }

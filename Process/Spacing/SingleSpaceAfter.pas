@@ -33,7 +33,8 @@ type
   TSingleSpaceAfter = class(TSwitchableVisitor)
   private
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
 
@@ -50,7 +51,7 @@ uses
   SourceToken, Tokens, ParseTreeNodeType, JcfSettings,
   FormatFlags, TokenUtils;
 
-  const
+const
   SingleSpaceAfterTokens: TTokenTypeSet = [ttColon, ttAssign, ttComma];
 
   SingleSpaceAfterWords: TTokenTypeSet = [
@@ -142,7 +143,8 @@ begin
       type
         TFredProc = procedure(var psFred: integer); }
 
-    if (pt.HasParentNode(nProcedureType, 2)) and (ptNext.TokenType in [ttOpenBracket, ttSemiColon]) then
+    if (pt.HasParentNode(nProcedureType, 2)) and (ptNext.TokenType in
+      [ttOpenBracket, ttSemiColon]) then
       Result := False
     else
       Result := True;
@@ -152,7 +154,7 @@ begin
 
   { + or - but only if it is a binary operator, ie a term to the left of it }
   if (pt.TokenType in PossiblyUnaryOperators) and (pt.HasParentNode(nExpression)) and
-    (not IsUnaryOperator(pt)) then
+    ( not IsUnaryOperator(pt)) then
   begin
     Result := True;
     exit;
@@ -191,7 +193,7 @@ begin
   end;
 
   if (pt.TokenType in ParamTypes) and pt.HasParentNode(nPropertyParameterList) and
-     pt.IsOnRightOf(nPropertyParameterList, ttOpenSquareBracket) then
+    pt.IsOnRightOf(nPropertyParameterList, ttOpenSquareBracket) then
   begin
     Result := True;
     exit;
@@ -200,7 +202,8 @@ begin
   { signle space after read, write etc in property }
   if pt.HasParentNode(nProperty) then
   begin
-    if (pt.TokenType in [ttProperty, ttRead, ttWrite, ttDefault, ttStored, ttImplements]) and
+    if (pt.TokenType in [ttProperty, ttRead, ttWrite, ttDefault,
+      ttStored, ttImplements]) and
       (ptNext.TokenType <> ttSemiColon) then
     begin
       Result := True;
@@ -236,7 +239,8 @@ begin
   FormatFlags := FormatFlags + [eAddSpace, eRemoveSpace, eRemoveReturn];
 end;
 
-procedure TSingleSpaceAfter.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TSingleSpaceAfter.EnabledVisitSourceToken(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
   lcNext, lcNew: TSourceToken;
@@ -274,7 +278,7 @@ begin
       lcNew.TokenType := ttWhiteSpace;
       lcNew.SourceCode := AnsiSpace;
 
-      prVisitResult.Action := aInsertAfter;
+      prVisitResult.Action  := aInsertAfter;
       prVisitResult.NewItem := lcNew;
     end;
 

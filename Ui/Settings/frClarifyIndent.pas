@@ -19,14 +19,14 @@ WITHOUT WARRANTY OF ANY KIND, either express or implied.
 See the License for the specific language governing rights and limitations
 under the License.
 ------------------------------------------------------------------------------*)
-{*)}                               
+{*)}
 
 interface
 
 uses
   { delphi }
-  Classes, Controls, Forms, 
-  StdCtrls, 
+  Classes, Controls, Forms,
+  StdCtrls,
   { local}
   JvEdit, JvTypedEdit, frmBaseSettingsFrame;
 
@@ -78,15 +78,15 @@ begin
     cbIndentProcedures.Checked := IndentProcedures;
     cbIndentClasses.Checked    := IndentClasses;
 
-    edtIndentSpaces.Value := IndentSpaces;
+    edtIndentSpaces.Value    := IndentSpaces;
     cbIndentBeginEnd.Checked := IndentBeginEnd;
     eIndentBeginEndSpaces.Value := IndentBeginEndSpaces;
 
     cbHasFirstLevelIndent.Checked := HasFirstLevelIndent;
     eFirstLevelIndent.Value := FirstLevelIndent;
 
-    cbKeepWithInProc.Checked := KeepCommentsWithCodeInProcs;
-    cbKeepWithInGlobals.Checked := KeepCommentsWithCodeInGlobals;
+    cbKeepWithInProc.Checked     := KeepCommentsWithCodeInProcs;
+    cbKeepWithInGlobals.Checked  := KeepCommentsWithCodeInGlobals;
     cbKeepWithInClassDef.Checked := KeepCommentsWithCodeInClassDef;
   end;
 
@@ -103,15 +103,15 @@ begin
     IndentProcedures := cbIndentProcedures.Checked;
     IndentClasses    := cbIndentClasses.Checked;
 
-    IndentSpaces := edtIndentSpaces.Value;
+    IndentSpaces   := edtIndentSpaces.Value;
     IndentBeginEnd := cbIndentBeginEnd.Checked;
     IndentBeginEndSpaces := eIndentBeginEndSpaces.Value;
 
     HasFirstLevelIndent := cbHasFirstLevelIndent.Checked;
-    FirstLevelIndent := eFirstLevelIndent.Value;
+    FirstLevelIndent    := eFirstLevelIndent.Value;
 
-    KeepCommentsWithCodeInProcs := cbKeepWithInProc.Checked;
-    KeepCommentsWithCodeInGlobals := cbKeepWithInGlobals.Checked;
+    KeepCommentsWithCodeInProcs    := cbKeepWithInProc.Checked;
+    KeepCommentsWithCodeInGlobals  := cbKeepWithInGlobals.Checked;
     KeepCommentsWithCodeInClassDef := cbKeepWithInClassDef.Checked;
   end;
 end;

@@ -67,7 +67,7 @@ end;
 
 procedure TTestUsesReturns.Test0;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + UNIT_FOOTER;
   OUT_UNIT_TEXT = SPACED_UNIT_HEADER + UNIT_FOOTER;
 begin
   TestProcessResult(TReturnAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -75,16 +75,16 @@ end;
 
 procedure TTestUsesReturns.Test1;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' uses foo; ' + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + ' uses foo; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = SPACED_UNIT_HEADER + AnsiLineBreak +
-    ' uses' + AnsiLineBreak + 'foo;' + AnsiLineBreak  + UNIT_FOOTER;
+    ' uses' + AnsiLineBreak + 'foo;' + AnsiLineBreak + UNIT_FOOTER;
 begin
   TestProcessResult(TReturnAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
 procedure TTestUsesReturns.Test2;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' uses foo, bar; ' + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + ' uses foo, bar; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = SPACED_UNIT_HEADER + AnsiLineBreak +
     ' uses' + AnsiLineBreak +
     'foo,' + AnsiLineBreak +
@@ -96,7 +96,7 @@ end;
 
 procedure TTestUsesReturns.Test3;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' uses foo, bar, fish; ' + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + ' uses foo, bar, fish; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = SPACED_UNIT_HEADER + AnsiLineBreak +
     ' uses' + AnsiLineBreak +
     'foo,' + AnsiLineBreak +
@@ -110,7 +110,7 @@ end;
 
 procedure TTestUsesReturns.TestComment1;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' uses foo {foo}, bar, fish; ' + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + ' uses foo {foo}, bar, fish; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = SPACED_UNIT_HEADER + AnsiLineBreak +
     ' uses' + AnsiLineBreak +
     'foo {foo},' + AnsiLineBreak +
@@ -122,7 +122,7 @@ end;
 
 procedure TTestUsesReturns.TestComment2;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' uses foo, {foo} bar, fish; ' + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + ' uses foo, {foo} bar, fish; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = SPACED_UNIT_HEADER + AnsiLineBreak +
     ' uses' + AnsiLineBreak +
     'foo, {foo} bar,' + AnsiLineBreak +
@@ -132,5 +132,5 @@ begin
 end;
 
 initialization
- TestFramework.RegisterTest('Processes', TTestUsesReturns.Suite);
+  TestFramework.RegisterTest('Processes', TTestUsesReturns.Suite);
 end.

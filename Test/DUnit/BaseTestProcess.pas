@@ -39,24 +39,27 @@ type
 
     procedure TestNoWarnings(const psUnit: string);
     procedure TestWarnings(const psUnit: string; const psWarningMatch: string); overload;
-    procedure TestWarnings(const psUnit: string; const psWarningMatches: array of string); overload;
-    procedure TestWarnings(const psUnit: string; const piMatchCount: integer; const psWarningMatches: array of string); overload;
+    procedure TestWarnings(const psUnit: string;
+      const psWarningMatches: array of string); overload;
+    procedure TestWarnings(const psUnit: string; const piMatchCount: integer;
+      const psWarningMatches: array of string); overload;
 
-    procedure TestProcessResult(processType: TTreeNodeVisitorType; const psIn, psOut: string);
+    procedure TestProcessResult(processType: TTreeNodeVisitorType;
+      const psIn, psOut: string);
 
   protected
     procedure Setup; override;
     procedure TearDown; override;
   published
 
- end;
+  end;
 
 const
   INTERFACE_HEADER = 'unit Test;' + AnsiLineBreak +
     'interface' + AnsiLineBreak;
-  UNIT_HEADER = INTERFACE_HEADER +
+  UNIT_HEADER      = INTERFACE_HEADER +
     'implementation' + AnsiLineBreak;
-  UNIT_FOOTER = AnsiLineBreak + 'end.';
+  UNIT_FOOTER      = AnsiLineBreak + 'end.';
 
 
   SPACED_INTERFACE_HEADER = 'unit Test;' + AnsiLineBreak + AnsiLineBreak +
@@ -76,12 +79,12 @@ begin
 
   fcConvert := TTestConverter.Create;
 
-  fcInput := TStringList.Create;
-  fcOutput := TStringList.Create;
+  fcInput    := TStringList.Create;
+  fcOutput   := TStringList.Create;
   fcMessages := TStringList.Create;
 
-  fcConvert.InputStrings := fcInput;
-  fcConvert.OutputStrings := fcOutput;
+  fcConvert.InputStrings   := fcInput;
+  fcConvert.OutputStrings  := fcOutput;
   fcConvert.MessageStrings := fcMessages;
 
   InitTestSettings;
@@ -114,7 +117,7 @@ procedure TBaseTestProcess.TestWarnings(const psUnit: string;
   const piMatchCount: integer; const psWarningMatches: array of string);
 var
   lbFound: boolean;
-  liLoop: integer;
+  liLoop:  integer;
 begin
   fcInput.Text := psUnit;
 
@@ -130,7 +133,8 @@ begin
     // containing certain text
     lbFound := (StrIPos(psWarningMatches[liLoop], fcMessages.Text) > 0);
 
-    Check(lbFound, psWarningMatches[liLoop] + ' was not found in output ' + fcMessages.Text);
+    Check(lbFound, psWarningMatches[liLoop] + ' was not found in output ' +
+      fcMessages.Text);
   end;
 
   fcConvert.Clear;
@@ -157,7 +161,8 @@ begin
     ps2 := StrRestOf(ps2, 2);
   end;
 
-  while (length(ps1) > 0) and (length(ps2) > 0) and (ps1[length(ps1)] = ps2[length(ps2)]) do
+  while (length(ps1) > 0) and (length(ps2) > 0) and
+    (ps1[length(ps1)] = ps2[length(ps2)]) do
   begin
     ps1 := StrChopRight(ps1, 1);
     ps2 := StrChopRight(ps2, 1);
@@ -166,12 +171,13 @@ begin
   Result := ps1 + '<->' + ps2;
 end;
 
-procedure TBaseTestProcess.TestProcessResult(processType: TTreeNodeVisitorType; const psIn, psOut: string);
+procedure TBaseTestProcess.TestProcessResult(processType: TTreeNodeVisitorType;
+  const psIn, psOut: string);
 var
   lsOut: string;
 begin
   // run just this process
-  fcInput.Text := psIn;
+  fcInput.Text     := psIn;
   fcConvert.RunAll := False;
   fcConvert.SingleProcess := processType;
 
@@ -199,10 +205,11 @@ begin
   if (lsOut <> psOut) then
   begin
     ShowMessage(MarkReturns(lsOut) +
-      AnsiLineBreak + AnsiLineBreak + '-- should have been --' + AnsiLineBreak + AnsiLineBreak +
+      AnsiLineBreak + AnsiLineBreak + '-- should have been --' +
+      AnsiLineBreak + AnsiLineBreak +
       MarkReturns(psOut));
 
-    ShowMessage (DiffText(lsOut, psOut));
+    ShowMessage(DiffText(lsOut, psOut));
   end;
  { }
 

@@ -33,7 +33,8 @@ type
   TReturnsAfterFinalEnd = class(TSwitchableVisitor)
   private
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
 
@@ -54,10 +55,10 @@ begin
   FormatFlags := FormatFlags + [eAddReturn, eRemoveReturn];
 end;
 
-procedure TReturnsAfterFinalEnd.EnabledVisitSourceToken(
-  const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TReturnsAfterFinalEnd.EnabledVisitSourceToken(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
-  lcSourceToken: TSourceToken;
+  lcSourceToken:     TSourceToken;
   lcCurrent, lcPrev: TSourceToken;
   liReturnsWanted, liReturnsFound: integer;
 begin
@@ -67,7 +68,7 @@ begin
     (lcSourceToken.HasParentNode(TopOfFileSection, 1)) then
   begin
     // count the returns
-    lcCurrent := lcSourceToken;
+    lcCurrent      := lcSourceToken;
     liReturnsWanted := FormatSettings.Returns.NumReturnsAfterFinalEnd;
     liReturnsFound := 0;
 
@@ -75,17 +76,17 @@ begin
     begin
       if lcCurrent.TokenType = ttReturn then
       begin
-        inc(liReturnsFound);
+        Inc(liReturnsFound);
 
         lcPrev := lcCurrent.PriorToken;
 
-        if (liReturnsFound > liReturnsWanted) and (not lcPrev.IsSolid) then
+        if (liReturnsFound > liReturnsWanted) and ( not lcPrev.IsSolid) then
         begin
           { this returns is surplus - remove it }
           BlankToken(lcCurrent);
         end;
       end;
-      
+
       lcCurrent := lcCurrent.NextToken;
     end;
 
@@ -93,7 +94,7 @@ begin
     while liReturnsFound < liReturnsWanted do
     begin
       InsertReturnAfter(lcSourceToken);
-      inc(liReturnsFound);
+      Inc(liReturnsFound);
     end;
   end;
 end;

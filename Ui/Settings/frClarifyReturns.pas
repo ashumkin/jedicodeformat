@@ -25,7 +25,7 @@ interface
 
 uses
   { delphi }
-  Classes, Controls, Forms, 
+  Classes, Controls, Forms,
   StdCtrls, ExtCtrls,
   { local}
   JvEdit, frmBaseSettingsFrame;
@@ -73,10 +73,10 @@ procedure TfClarifyReturns.Read;
 begin
   with FormatSettings.Returns do
   begin
-    cbRemoveReturns.Checked := RemoveBadReturns;
+    cbRemoveReturns.Checked     := RemoveBadReturns;
     cbRemovePropertyReturns.Checked := RemovePropertyReturns;
     cbRemoveProcDefReturns.Checked := RemoveProcedureDefReturns;
-    cbRemoveVarReturns.Checked := RemoveVarReturns;
+    cbRemoveVarReturns.Checked  := RemoveVarReturns;
     cbRemoveExprReturns.Checked := RemoveExpressionReturns;
 
     cbInsertReturns.Checked := AddGoodReturns;
@@ -90,14 +90,14 @@ procedure TfClarifyReturns.Write;
 begin
   with FormatSettings.Returns do
   begin
-    RemoveBadReturns := cbRemoveReturns.Checked;
+    RemoveBadReturns      := cbRemoveReturns.Checked;
     RemovePropertyReturns := cbRemovePropertyReturns.Checked;
     RemoveProcedureDefReturns := cbRemoveProcDefReturns.Checked;
-    RemoveVarReturns := cbRemoveVarReturns.Checked;
+    RemoveVarReturns      := cbRemoveVarReturns.Checked;
     RemoveExpressionReturns := cbRemoveExprReturns.Checked;
 
     AddGoodReturns := cbInsertReturns.Checked;
-    UsesClauseOnePerLine := cbUsesClauseOnePerLine.Checked ;
+    UsesClauseOnePerLine := cbUsesClauseOnePerLine.Checked;
 
     ReturnChars := TReturnChars(rgReturnChars.ItemIndex);
   end;

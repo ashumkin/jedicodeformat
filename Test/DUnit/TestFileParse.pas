@@ -24,20 +24,20 @@ under the License.
 interface
 
 uses
- TestFrameWork;
+  TestFrameWork;
 
 type
- TTestFileParse = class(TTestCase)
- private
+  TTestFileParse = class(TTestCase)
+  private
     procedure TestParseFile(psInFileName: string; const piTokenCount: integer); overload;
 
- protected
-   procedure Setup; override;
+  protected
+    procedure Setup; override;
 
 
- published
-   procedure TestDirs;
-   procedure TestCreate;
+  published
+    procedure TestDirs;
+    procedure TestCreate;
 
 
     { one proc for each file,
@@ -201,16 +201,16 @@ type
     procedure TestParse_TestVarParam;
     procedure TestParse_TestWith;
 
-   procedure TestParse_TestCases;
-   procedure TestParse_TestPackage;
-   procedure TestParse_TestProcBlankLines;
+    procedure TestParse_TestCases;
+    procedure TestParse_TestPackage;
+    procedure TestParse_TestProcBlankLines;
 
- end;
+  end;
 
 implementation
 
 uses
-  { delphi } SysUtils,
+  { delphi }SysUtils,
   JclFileUtils,
   FileConverter, ConvertTypes, JcfSettings, JcfRegistrySettings,
   TestConstants;
@@ -241,12 +241,13 @@ begin
 
   lcConverter := TFileConverter.Create;
   try
-    lcConverter.YesAll := True;
+    lcConverter.YesAll      := True;
     lcConverter.GuiMessages := False;
 
     { see also TestFullClarify }
     lsSettingsFileName := GetTestSettingsFileName;
-    Check(FileExists(lsSettingsFileName), 'Settings file ' + lsSettingsFileName + ' not found');
+    Check(FileExists(lsSettingsFileName), 'Settings file ' +
+      lsSettingsFileName + ' not found');
 
     FormatSettings.ReadFromFile(lsSettingsFileName);
     FormatSettings.Obfuscate.Enabled := False;
@@ -259,7 +260,7 @@ begin
 
     lcConverter.Convert;
 
-    Check(not lcConverter.ConvertError, 'Convert failed for ' +
+    Check( not lcConverter.ConvertError, 'Convert failed for ' +
       ExtractFileName(psInFileName));
 
     lsOutFileName := lcConverter.OutFileName;
@@ -287,8 +288,10 @@ end;
 
 procedure TTestFileParse.TestDirs;
 begin
-  Check(DirectoryExists(GetTestFilesDir), 'Test files dir ' + GetTestFilesDir + ' not found');
-  Check(DirectoryExists(GetRefOutFilesDir), 'Test files ref out dir ' + GetTestFilesDir + ' not found');
+  Check(DirectoryExists(GetTestFilesDir), 'Test files dir ' +
+    GetTestFilesDir + ' not found');
+  Check(DirectoryExists(GetRefOutFilesDir), 'Test files ref out dir ' +
+    GetTestFilesDir + ' not found');
 end;
 
 
@@ -1078,5 +1081,5 @@ begin
 end;
 
 initialization
- TestFramework.RegisterTest(TTestFileParse.Suite);
+  TestFramework.RegisterTest(TTestFileParse.Suite);
 end.

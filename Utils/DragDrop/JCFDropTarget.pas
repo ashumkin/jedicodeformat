@@ -52,9 +52,10 @@ type
     function GetShiftState: TShiftState;
   public
     constructor Create(ADropInterface: TTeDropInterface); virtual;
-    property DataObject: IDataObject read GetDataObject;
-    property DragOperation: TTeDragOperation read GetDragOperation write SetDragOperation;
-    property ShiftState: TShiftState read GetShiftState;
+    property DataObject: IDataObject Read GetDataObject;
+    property DragOperation: TTeDragOperation Read GetDragOperation
+      Write SetDragOperation;
+    property ShiftState: TShiftState Read GetShiftState;
   end;
 
   TComDragObjectClass = class of TTeComDragObject;
@@ -72,7 +73,7 @@ type
     FShiftState: TShiftState;
     FDragObject: TTeComDragObject;
   public
-    property CFDropTarget: TTeDropTarget read FDropTarget;
+    property CFDropTarget: TTeDropTarget Read FDropTarget;
 
     constructor Create(AWinControl: TWinControl); virtual;
     destructor Destroy; override;
@@ -91,12 +92,12 @@ type
     function DragOver(grfKeyState: longint; pt: TPoint;
       var dwEffect: longint): HResult; virtual;
     function DragLeave: HResult; virtual;
-    function Drop(const dataObj: IDataObject; grfKeyState: longint; pt: TPoint;
-      var dwEffect: longint): HResult; virtual;
+    function Drop(const dataObj: IDataObject; grfKeyState: longint;
+      pt: TPoint; var dwEffect: longint): HResult; virtual;
 
-    property DataObject: IDataObject read FDataObject;
-    property DragOperation: TTeDragOperation read FDragOperation write FDragOperation;
-    property ShiftState: TShiftState read FShiftState;
+    property DataObject: IDataObject Read FDataObject;
+    property DragOperation: TTeDragOperation Read FDragOperation Write FDragOperation;
+    property ShiftState: TShiftState Read FShiftState;
   end;
 
   TTeDropTarget = class(TInterfacedObject, IDropTarget)
@@ -109,11 +110,12 @@ type
 
     procedure SetLifeState(Value: TTeDropTargetLifeState);
   public
-    property DropHWND: HWND read FDropHWnd;
-    property DropWinControl: TWinControl read FDropWinControl;
-    property LifeState: TTeDropTargetLifeState read FLifeState write SetLifeState;
+    property DropHWND: HWND Read FDropHWnd;
+    property DropWinControl: TWinControl Read FDropWinControl;
+    property LifeState: TTeDropTargetLifeState Read FLifeState Write SetLifeState;
 
-    constructor Create(AWinControl: TWinControl; ADropInterface: TTeDropInterface); virtual;
+    constructor Create(AWinControl: TWinControl;
+      ADropInterface: TTeDropInterface); virtual;
     procedure BeforeDestruction; override;
 
     function ToState_Exists: HResult;
@@ -126,8 +128,8 @@ type
     function DragOver(grfKeyState: longint; pt: TPoint;
       var dwEffect: longint): HResult; stdcall;
     function DragLeave: HResult; stdcall;
-    function Drop(const dataObj: IDataObject; grfKeyState: longint; pt: TPoint;
-      var dwEffect: longint): HResult; stdcall;
+    function Drop(const dataObj: IDataObject; grfKeyState: longint;
+      pt: TPoint; var dwEffect: longint): HResult; stdcall;
   end;
 
 var
@@ -147,11 +149,11 @@ begin
   Result := 0;
   if Handle <> 0 then
   begin
-    DragRec.Pos     := Pos;
-    DragRec.Target  := Target;
-    DragRec.Source  := Source;
+    DragRec.Pos := Pos;
+    DragRec.Target := Target;
+    DragRec.Source := Source;
     DragRec.Docking := False;
-    Result          := SendMessage(Handle, CM_DRAG, longint(Msg), longint(@DragRec));
+    Result := SendMessage(Handle, CM_DRAG, longint(Msg), longint( @DragRec));
   end;
 end;
 
@@ -159,9 +161,10 @@ function DragFindWindow(const Pos: TPoint): HWND;
 begin
   Result := WindowFromPoint(Pos);
   while Result <> 0 do
-    if not Assigned(FindControl(Result)) then Result := GetParent(Result)
-  else 
-    Exit;
+    if not Assigned(FindControl(Result)) then
+      Result := GetParent(Result)
+    else
+      Exit;
 end;
 
 function TTeDropInterface.DragFindTarget(const Pos: TPoint; var Handle: HWND): Pointer;
@@ -180,7 +183,7 @@ end;
 
 function TTeDropInterface.DragTo(const Pos: TPoint): boolean;
 var
-  Target:       TControl;
+  Target: TControl;
   TargetHandle: HWND;
 begin
   Target := DragFindTarget(Pos, TargetHandle);
@@ -202,7 +205,7 @@ constructor TTeDropInterface.Create(AWinControl: TWinControl);
 begin
   inherited Create;
   FWinControl := AWinControl;
-  FDropTarget := nil;              
+  FDropTarget := nil;
   FDragObject := ComDragObjectClass.Create(Self);
 end;
 
@@ -211,7 +214,8 @@ begin
   inherited;
   if Assigned(FDragObject) then
     FDragObject.FDropInterface := nil;
-  if Assigned(FDropTarget) then FDropTarget.Free;
+  if Assigned(FDropTarget) then
+    FDropTarget.Free;
 end;
 
 function TTeDropInterface.DropTarget_Create: HResult;
@@ -259,29 +263,39 @@ end;
 function CreateShiftState(grfKeyState: longint): TShiftState;
 begin
   Result := [];
-  if (grfKeyState and MK_CONTROL) = MK_CONTROL then Include(Result, ssCtrl);
-  if (grfKeyState and MK_SHIFT) = MK_SHIFT then Include(Result, ssShift);
+  if (grfKeyState and MK_CONTROL) = MK_CONTROL then
+    Include(Result, ssCtrl);
+  if (grfKeyState and MK_SHIFT) = MK_SHIFT then
+    Include(Result, ssShift);
 //  if (grfKeyState and MK_ALT)     = MK_ALT     then Include (Result, ssAlt);
-  if (grfKeyState and MK_LBUTTON) = MK_LBUTTON then Include(Result, ssLeft);
-  if (grfKeyState and MK_MBUTTON) = MK_MBUTTON then Include(Result, ssMiddle);
-  if (grfKeyState and MK_RBUTTON) = MK_RBUTTON then Include(Result, ssRight);
+  if (grfKeyState and MK_LBUTTON) = MK_LBUTTON then
+    Include(Result, ssLeft);
+  if (grfKeyState and MK_MBUTTON) = MK_MBUTTON then
+    Include(Result, ssMiddle);
+  if (grfKeyState and MK_RBUTTON) = MK_RBUTTON then
+    Include(Result, ssRight);
 end;
 
 function CreateDragOperation(ShiftState: TShiftState): TTeDragOperation;
 begin
   Result := doMove; // muss noch geändert werden;
-  if ssCtrl in ShiftState then Result := doCopy;
-  if ssShift in ShiftState then Result := doMove;
-  if (ssCtrl in ShiftState) and (ssShift in ShiftState) then Result := doLink;
+  if ssCtrl in ShiftState then
+    Result := doCopy;
+  if ssShift in ShiftState then
+    Result := doMove;
+  if (ssCtrl in ShiftState) and (ssShift in ShiftState) then
+    Result := doLink;
 end;
 
-function TTeDropInterface.DragEnter(const dataObj: IDataObject; grfKeyState: longint;
-  pt: TPoint; var dwEffect: longint): HResult;
+function TTeDropInterface.DragEnter(const dataObj: IDataObject;
+  grfKeyState: longint; pt: TPoint; var dwEffect: longint): HResult;
 begin
   Result   := S_OK;
   dwEffect := DROPEFFECT_NONE;
-  if not Assigned(FWinControl) then exit;
-  if not Assigned(FDragObject) then exit;
+  if not Assigned(FWinControl) then
+    exit;
+  if not Assigned(FDragObject) then
+    exit;
   try
     FShiftState    := CreateShiftState(grfKeyState);
     FDragOperation := CreateDragOperation(FShiftState);
@@ -299,8 +313,10 @@ function TTeDropInterface.DragOver(grfKeyState: longint; pt: TPoint;
 begin
   Result   := S_OK;
   dwEffect := DROPEFFECT_NONE;
-  if not Assigned(FWinControl) then exit;
-  if not Assigned(FDragObject) then exit;
+  if not Assigned(FWinControl) then
+    exit;
+  if not Assigned(FDragObject) then
+    exit;
   try
     FShiftState    := CreateShiftState(grfKeyState);
     FDragOperation := CreateDragOperation(FShiftState);
@@ -315,13 +331,15 @@ end;
 function TTeDropInterface.DragLeave: HResult;
 begin
   Result := S_OK;
-  if not Assigned(FWinControl) then exit;
-  if not Assigned(FDragObject) then exit;
+  if not Assigned(FWinControl) then
+    exit;
+  if not Assigned(FDragObject) then
+    exit;
   try
     DoDragOver(dmDragLeave);
     FDragObject.DragTarget := nil;
     FDragObject.DragHandle := 0;
-    FDataObject            := nil;
+    FDataObject := nil;
   except
     Result := E_UNEXPECTED;
   end;
@@ -332,8 +350,10 @@ function TTeDropInterface.Drop(const dataObj: IDataObject; grfKeyState: longint;
 begin
   Result   := S_OK;
   dwEffect := DROPEFFECT_NONE;
-  if not Assigned(FWinControl) then exit;
-  if not Assigned(FDragObject) then exit;
+  if not Assigned(FWinControl) then
+    exit;
+  if not Assigned(FDragObject) then
+    exit;
   try
     FDataObject := dataObj;
     try
@@ -352,7 +372,8 @@ begin
   end;
 end;
 
-constructor TTeDropTarget.Create(AWinControl: TWinControl; ADropInterface: TTeDropInterface);
+constructor TTeDropTarget.Create(AWinControl: TWinControl;
+  ADropInterface: TTeDropInterface);
 begin
   inherited Create;
   FDropWinControl := AWinControl;
@@ -362,11 +383,13 @@ end;
 
 procedure TTeDropTarget.BeforeDestruction;
 begin
-  if Assigned(FDropInterface) then FDropInterface.DropTarget_Forget;
+  if Assigned(FDropInterface) then
+    FDropInterface.DropTarget_Forget;
 
   if FLifeState > lsLocked then
   begin
-    while RefCount < 2 do _AddRef;
+    while RefCount < 2 do
+      _AddRef;
     ActiveX.RevokeDragDrop(FDropHWND);
     FDropHWND  := 0;
     FLifeState := lsLocked;
@@ -374,7 +397,8 @@ begin
 
   if FLifeState > lsExists then
   begin
-    while RefCount < 2 do _AddRef;
+    while RefCount < 2 do
+      _AddRef;
     ActiveX.CoLockObjectExternal(Self as IDropTarget, False, False);
     FLifeState := lsExists;
   end;
@@ -383,7 +407,8 @@ end;
 function TTeDropTarget.ToState_Exists: HResult;
 begin
   Result := S_OK;
-  if LifeState = lsRegd then Result := ToState_Locked;
+  if LifeState = lsRegd then
+    Result := ToState_Locked;
 
   if LifeState = lsLocked then
   begin
@@ -399,27 +424,32 @@ begin
   if LifeState = lsExists then
   begin
     Result := ActiveX.CoLockObjectExternal(Self as IDropTarget, True, False);
-    if Result = S_OK then LifeState := lsLocked;
+    if Result = S_OK then
+      LifeState := lsLocked;
   end;
 
   if LifeState = lsRegd then
   begin
-    while RefCount < 2 do _AddRef;
+    while RefCount < 2 do
+      _AddRef;
     Result    := ActiveX.RevokeDragDrop(FDropHWND);
     FDropHWND := 0;
-    if Result = S_OK then LifeState := lsLocked;
+    if Result = S_OK then
+      LifeState := lsLocked;
   end;
 end;
 
 function TTeDropTarget.ToState_Regd: HResult;
 begin
   Result := S_OK;
-  if LifeState = lsExists then Result := ToState_Locked;
+  if LifeState = lsExists then
+    Result := ToState_Locked;
   if LifeState = lsLocked then
   begin
     FDropHWND := FDropWinControl.Handle;
     Result    := ActiveX.RegisterDragDrop(FDropHWND, Self as IDropTarget);
-    if Result = S_OK then LifeState := lsRegd;
+    if Result = S_OK then
+      LifeState := lsRegd;
   end;
 end;
 
@@ -428,8 +458,8 @@ begin
   FLifeState := Value;
 end;
 
-function TTeDropTarget.DragEnter(const dataObj: IDataObject; grfKeyState: longint;
-  pt: TPoint; var dwEffect: longint): HResult;
+function TTeDropTarget.DragEnter(const dataObj: IDataObject;
+  grfKeyState: longint; pt: TPoint; var dwEffect: longint): HResult;
 begin
   if Assigned(FDropInterface) then
     Result := FDropInterface.DragEnter(dataObj, grfKeyState, pt, dwEffect)
@@ -437,7 +467,8 @@ begin
     Result := E_UNEXPECTED;
 end;
 
-function TTeDropTarget.DragOver(grfKeyState: longint; pt: TPoint; var dwEffect: longint): HResult;
+function TTeDropTarget.DragOver(grfKeyState: longint; pt: TPoint;
+  var dwEffect: longint): HResult;
 begin
   if Assigned(FDropInterface) then
     Result := FDropInterface.DragOver(grfKeyState, pt, dwEffect)

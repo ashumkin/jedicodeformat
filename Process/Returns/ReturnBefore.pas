@@ -37,7 +37,8 @@ type
   protected
     procedure InspectSourceToken(const pcToken: TObject); override;
 
-    procedure EnabledVisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcToken: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
 
@@ -82,8 +83,8 @@ begin
    }
 
   if (pt.TokenType in ProcedureWords) and
-    (not pt.IsOnRightOf(nTypeDecl, ttEquals)) and
-    (not IsClassFunction(pt)) and
+    ( not pt.IsOnRightOf(nTypeDecl, ttEquals)) and
+    ( not IsClassFunction(pt)) and
     (ProcedureHasBody(pt)) then
   begin
     Result := True;
@@ -101,7 +102,7 @@ begin
       except for:
       type t2 = type integer; }
   if (pt.TokenType in Declarations) and (pt.Nestings.Total = 0) and
-    (not pt.IsOnRightOf(nTypeDecl, ttEquals)) then
+    ( not pt.IsOnRightOf(nTypeDecl, ttEquals)) then
   begin
     Result := True;
     exit;
@@ -109,7 +110,7 @@ begin
 
   { start of class function body }
   if (pt.TokenType = ttClass) and
-    (not pt.HasParentNode([nVarDecl, nConstDecl, nClassDeclarations])) and
+    ( not pt.HasParentNode([nVarDecl, nConstDecl, nClassDeclarations])) and
     (pt.HasParentNode(nFunctionHeading, 1)) then
   begin
     Result := True;
@@ -143,7 +144,7 @@ begin
     begin
       // identifier
       lcParent := pt.Parent;
-      if lcParent.NodeType  = nIdentifier then
+      if lcParent.NodeType = nIdentifier then
         lcParent := lcParent.Parent
       else
         lcParent := nil;
@@ -223,8 +224,8 @@ begin
     is legal, only a return before the first one
 
    var, const, type but not in parameter list }
-  if (pt.TokenType in Declarations) and pt.HasParentNode(nTopLevelSections, 1)
-    and (not pt.IsOnRightOf(nTypeDecl, ttEquals)) then
+  if (pt.TokenType in Declarations) and pt.HasParentNode(nTopLevelSections, 1) and
+    ( not pt.IsOnRightOf(nTypeDecl, ttEquals)) then
   begin
     Result := True;
     exit;
@@ -233,7 +234,7 @@ begin
   { procedure & function in class def get return but not blank line before }
   if (pt.TokenType in ProcedureWords + [ttProperty]) and
     (pt.HasParentNode([nClassType, nClassType])) and
-    (not IsClassFunction(pt)) then
+    ( not IsClassFunction(pt)) then
   begin
     Result := True;
     exit;
@@ -241,8 +242,8 @@ begin
 
   { nested procs and top level procs get it as well }
   if (pt.TokenType in ProcedureWords) and
-    (not IsClassFunction(pt)) and
-    (not pt.HasParentNode(nType)) then
+    ( not IsClassFunction(pt)) and
+    ( not pt.HasParentNode(nType)) then
   begin
     Result := True;
     exit;
@@ -251,7 +252,7 @@ begin
   { start of class function decl in class }
   if (pt.TokenType = ttClass) and pt.HasParentNode([nProcedureDecl, nFunctionDecl]) and
     pt.HasParentNode(nClassDeclarations) and
-    (not pt.HasParentNode([nVarDecl, nConstDecl])) then
+    ( not pt.HasParentNode([nVarDecl, nConstDecl])) then
   begin
     Result := True;
     exit;
@@ -280,7 +281,8 @@ begin
   end;
 
   // guid in interface
-  if (pt.TokenType = ttOpenSquareBracket) and pt.HasParentNode(nInterfaceTypeGuid, 1) then
+  if (pt.TokenType = ttOpenSquareBracket) and
+    pt.HasParentNode(nInterfaceTypeGuid, 1) then
   begin
     Result := True;
     exit;
@@ -296,7 +298,8 @@ begin
   FormatFlags := FormatFlags + [eAddReturn];
 end;
 
-procedure TReturnBefore.EnabledVisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult);
+procedure TReturnBefore.EnabledVisitSourceToken(const pcToken: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
   lcNext: TSourceToken;
@@ -324,13 +327,13 @@ begin
     case liReturnsNeeded of
       1:
       begin
-        prVisitResult.Action := aInsertBefore;
+        prVisitResult.Action  := aInsertBefore;
         prVisitResult.NewItem := NewReturn;
       end;
       2:
       begin
-        prVisitResult.Action := aInsertBefore;
-        prVisitResult.NewItem := NewReturn;
+        prVisitResult.Action   := aInsertBefore;
+        prVisitResult.NewItem  := NewReturn;
         prVisitResult.NewItem2 := NewReturn;
       end;
       else
@@ -353,12 +356,12 @@ begin
 
     if we encounter the tokens <return> <spaces> <word-needing-return before> the flag must be set true
    }
-   fiReturnsBefore := fiNextReturnsBefore;
+  fiReturnsBefore := fiNextReturnsBefore;
 
   lcSourceToken := TSourceToken(pcToken);
 
   if (lcSourceToken.TokenType = ttReturn) then
-    inc(fiNextReturnsBefore)
+    Inc(fiNextReturnsBefore)
   else if not (lcSourceToken.TokenType in [ttReturn, ttWhiteSpace, ttComment]) then
     fiNextReturnsBefore := 0;
 

@@ -31,7 +31,7 @@ interface
 uses
   {delphi }
   Classes, Controls,
-  Forms, 
+  Forms,
   { local }
   frDrop;
 
@@ -54,7 +54,7 @@ type
 
     procedure ShowContextHelp;
 
-    property OnChange: TNotifyEvent read fcOnChange write fcOnChange;
+    property OnChange: TNotifyEvent Read fcOnChange Write fcOnChange;
   end;
 
   TSettingsFrameClass = class of TfrSettingsFrame;
@@ -72,7 +72,7 @@ uses JCFHelp;
 constructor TfrSettingsFrame.Create(Aowner: TComponent);
 begin
   inherited;
-  fcOnChange := nil;
+  fcOnChange    := nil;
   fiHelpContext := 0;
 end;
 

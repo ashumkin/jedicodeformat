@@ -31,8 +31,8 @@ under the License.
 interface
 
 uses
-  {delphi } Contnrs,
-  { local } Tokens, VisitParseTree, ParseTreeNodeType, Nesting;
+  {delphi }Contnrs,
+  { local }Tokens, VisitParseTree, ParseTreeNodeType, Nesting;
 
 
 type
@@ -58,7 +58,7 @@ type
 
     function NewChild: TParseTreeNode;
     procedure AddChild(const pcChild: TParseTreeNode);
-    procedure InsertChild(const piIndex: Integer; const pcChild: TParseTreeNode);
+    procedure InsertChild(const piIndex: integer; const pcChild: TParseTreeNode);
     function RemoveChild(const pcChild: TParseTreeNode): integer; overload;
     function RemoveChild(const piIndex: integer): integer; overload;
 
@@ -74,59 +74,74 @@ type
 
     function FirstNodeBefore(const pcChild: TParseTreeNode): TParseTreeNode;
     function FirstNodeAfter(const pcChild: TParseTreeNode): TParseTreeNode;
-    function GetImmediateChild(const peNodeTypes: TParseTreeNodeTypeSet): TParseTreeNode; overload;
-    function GetImmediateChild(const peNodeType: TParseTreeNodeType): TParseTreeNode; overload;
+    function GetImmediateChild(const peNodeTypes: TParseTreeNodeTypeSet): TParseTreeNode;
+      overload;
+    function GetImmediateChild(const peNodeType: TParseTreeNodeType): TParseTreeNode;
+      overload;
 
     function Level: integer;
     function HasChildren: boolean;
-    function IsLeaf: Boolean; virtual;
+    function IsLeaf: boolean; virtual;
     function Root: TParseTreeNode;
 
-    function HasChildNode(const peTokens: TTokenTypeSet): Boolean; overload; virtual;
-    function HasChildNode(const peTokens: TTokenTypeSet; const piMaxDepth: integer): Boolean; overload; virtual;
-    function HasChildNode(const peToken: TTokenType; const piMaxDepth: integer): Boolean; overload; virtual;
-    function HasChildNode(const peNodes: TParseTreeNodeTypeSet; const piMaxDepth: integer): Boolean; overload; virtual;
-    function HasChildNode(const peNode: TParseTreeNodeType; const piMaxDepth: integer): Boolean; overload; virtual;
-    function HasChildNode(const peNode: TParseTreeNodeType): Boolean; overload; virtual;
+    function HasChildNode(const peTokens: TTokenTypeSet): boolean; overload; virtual;
+    function HasChildNode(const peTokens: TTokenTypeSet;
+      const piMaxDepth: integer): boolean; overload; virtual;
+    function HasChildNode(const peToken: TTokenType; const piMaxDepth: integer): boolean;
+      overload; virtual;
+    function HasChildNode(const peNodes: TParseTreeNodeTypeSet;
+      const piMaxDepth: integer): boolean; overload; virtual;
+    function HasChildNode(const peNode: TParseTreeNodeType;
+      const piMaxDepth: integer): boolean; overload; virtual;
+    function HasChildNode(const peNode: TParseTreeNodeType): boolean; overload; virtual;
 
-    function HasParentNode(const peNodeTypes: TParseTreeNodeTypeSet): Boolean; overload;
-    function HasParentNode(const peNodeType: TParseTreeNodeType): Boolean; overload;
+    function HasParentNode(const peNodeTypes: TParseTreeNodeTypeSet): boolean; overload;
+    function HasParentNode(const peNodeType: TParseTreeNodeType): boolean; overload;
 
-    function HasParentNode(const peNodeTypes: TParseTreeNodeTypeSet; const piMaxDepth: integer): Boolean; overload;
-    function HasParentNode(const peNodeType: TParseTreeNodeType; const piMaxDepth: integer): Boolean; overload;
+    function HasParentNode(const peNodeTypes: TParseTreeNodeTypeSet;
+      const piMaxDepth: integer): boolean; overload;
+    function HasParentNode(const peNodeType: TParseTreeNodeType;
+      const piMaxDepth: integer): boolean; overload;
 
-    function GetParentNode(const peNodeTypes: TParseTreeNodeTypeSet): TParseTreeNode; overload;
-    function GetParentNode(const peNodeType: TParseTreeNodeType): TParseTreeNode; overload;
+    function GetParentNode(const peNodeTypes: TParseTreeNodeTypeSet): TParseTreeNode;
+      overload;
+    function GetParentNode(const peNodeType: TParseTreeNodeType): TParseTreeNode;
+      overload;
 
 
     { this one needs some explanation. Need to answer questions like
      'Is this node in a type decl, on the right of an equal sign
      So we find if we have a predecessor of one of peWords in the subtree rooted at peNodeTypes }
-    function IsOnRightOf(const peRootNodeTypes: TParseTreeNodeTypeSet; const peTokens: TTokenTypeSet): Boolean; overload;
-    function IsOnRightOf(const peRootNodeType: TParseTreeNodeType; const peToken: TTokenType): Boolean; overload;
+    function IsOnRightOf(const peRootNodeTypes: TParseTreeNodeTypeSet;
+      const peTokens: TTokenTypeSet): boolean; overload;
+    function IsOnRightOf(const peRootNodeType: TParseTreeNodeType;
+      const peToken: TTokenType): boolean; overload;
 
     { same with parse tree interior nodes }
-    function IsOnRightOf(const peRootNodeTypes, peNodes: TParseTreeNodeTypeSet): Boolean; overload;
-    function IsOnRightOf(const peRootNodeType, peNode: TParseTreeNodeType): Boolean; overload;
+    function IsOnRightOf(const peRootNodeTypes, peNodes: TParseTreeNodeTypeSet): boolean;
+      overload;
+    function IsOnRightOf(const peRootNodeType, peNode: TParseTreeNodeType): boolean;
+      overload;
 
 
     function Describe: string; virtual;
 
-    procedure AcceptVisitor(const pcVisitor: IVisitParseTree; var prVisitResults: TRVisitResult); virtual;
+    procedure AcceptVisitor(const pcVisitor: IVisitParseTree;
+      var prVisitResults: TRVisitResult); virtual;
 
     { visit self and all child nodes }
     procedure VisitTree(const pcVisitor: IVisitParseTree);
 
-    property Parent: TParseTreeNode read fcParent write fcParent;
-    property ChildNodes[const piIndex: integer]: TParseTreeNode read GetChildNodes;
-    property NodeType: TParseTreeNodeType read feNodeType write feNodeType;
+    property Parent: TParseTreeNode Read fcParent Write fcParent;
+    property ChildNodes[const piIndex: integer]: TParseTreeNode Read GetChildNodes;
+    property NodeType: TParseTreeNodeType Read feNodeType Write feNodeType;
 
-    property Nestings: TNestingLevelList read fcNestings;
+    property Nestings: TNestingLevelList Read fcNestings;
 
     { use tag is for temp use of any process.
       No process is guaranteed any input value here
       Create for alignment processes }
-    property UserTag: integer read fiUserTag write fiUserTag;
+    property UserTag: integer Read fiUserTag Write fiUserTag;
 
   end;
 
@@ -139,7 +154,7 @@ constructor TParseTreeNode.Create;
 begin
   inherited Create;
 
-  fcParent := nil;
+  fcParent   := nil;
   feNodeType := nUnknown;
 
   fcChildNodes := TObjectList.Create;
@@ -151,7 +166,7 @@ end;
 destructor TParseTreeNode.Destroy;
 begin
   FreeAndNil(fcChildNodes);
-  FreeANdNil(fcNestings);
+  FreeAndNil(fcNestings);
 
   inherited;
 end;
@@ -181,7 +196,8 @@ begin
   fcChildNodes.Add(pcChild);
 end;
 
-procedure TParseTreeNode.InsertChild(const piIndex: Integer; const pcChild: TParseTreeNode);
+procedure TParseTreeNode.InsertChild(const piIndex: integer;
+  const pcChild: TParseTreeNode);
 begin
   pcChild.fcParent := self;
   fcChildNodes.Insert(piIndex, pcChild);
@@ -229,7 +245,7 @@ begin
   Result := (ChildNodeCount > 0);
 end;
 
-function TParseTreeNode.IsLeaf: Boolean;
+function TParseTreeNode.IsLeaf: boolean;
 begin
   Result := False;
 end;
@@ -248,7 +264,7 @@ begin
   liMaxChildDepth := 0;
 
   // one deeper than the deepest child
-  For liLoop := 0 to ChildNodeCount - 1 do
+  for liLoop := 0 to ChildNodeCount - 1 do
   begin
     liChildDepth := ChildNodes[liLoop].MaxDepth;
 
@@ -266,7 +282,7 @@ begin
 
   Result := 1;
 
-  For liLoop := 0 to ChildNodeCount - 1 do
+  for liLoop := 0 to ChildNodeCount - 1 do
     Result := Result + ChildNodes[liLoop].RecursiveChildCount;
 end;
 
@@ -280,7 +296,7 @@ begin
 end;
 
 
-function TParseTreeNode.HasChildNode(const peTokens: TTokenTypeSet): Boolean;
+function TParseTreeNode.HasChildNode(const peTokens: TTokenTypeSet): boolean;
 var
   liLoop: integer;
 begin
@@ -294,7 +310,8 @@ begin
   end;
 end;
 
-function TParseTreeNode.HasChildNode(const peTokens: TTokenTypeSet; const piMaxDepth: integer): Boolean;
+function TParseTreeNode.HasChildNode(const peTokens: TTokenTypeSet;
+  const piMaxDepth: integer): boolean;
 var
   liLoop: integer;
 begin
@@ -311,14 +328,15 @@ begin
   end;
 end;
 
-function TParseTreeNode.HasChildNode(const peToken: TTokenType; const piMaxDepth: integer): Boolean;
+function TParseTreeNode.HasChildNode(const peToken: TTokenType;
+  const piMaxDepth: integer): boolean;
 begin
   Result := HasChildNode([peToken], piMaxDepth);
 end;
 
 
 function TParseTreeNode.HasChildNode(const peNodes: TParseTreeNodeTypeSet;
-  const piMaxDepth: integer): Boolean;
+  const piMaxDepth: integer): boolean;
 var
   liLoop: integer;
 begin
@@ -337,33 +355,35 @@ begin
   end;
 end;
 
-function TParseTreeNode.HasChildNode(const peNode: TParseTreeNodeType; const piMaxDepth: integer): Boolean;
+function TParseTreeNode.HasChildNode(const peNode: TParseTreeNodeType;
+  const piMaxDepth: integer): boolean;
 begin
   Result := HasChildNode([peNode], piMaxDepth);
 end;
 
-function TParseTreeNode.HasChildNode(const peNode: TParseTreeNodeType): Boolean;
+function TParseTreeNode.HasChildNode(const peNode: TParseTreeNodeType): boolean;
 begin
   // get the child down to any depth
   Result := HasChildNode([peNode], High(integer));
 end;
 
-function TParseTreeNode.HasParentNode(const peNodeTypes: TParseTreeNodeTypeSet): Boolean;
+function TParseTreeNode.HasParentNode(const peNodeTypes: TParseTreeNodeTypeSet): boolean;
 begin
   Result := (NodeType in peNodeTypes);
 
   // try above
-  if (not Result) and (Parent <> nil) then
+  if ( not Result) and (Parent <> nil) then
     Result := Parent.HasParentNode(peNodeTypes);
 end;
 
-function TParseTreeNode.HasParentNode(const peNodeType: TParseTreeNodeType): Boolean;
+function TParseTreeNode.HasParentNode(const peNodeType: TParseTreeNodeType): boolean;
 begin
   Result := HasParentNode([peNodeType]);
 end;
 
 
-function TParseTreeNode.GetParentNode(const peNodeTypes: TParseTreeNodeTypeSet): TParseTreeNode;
+function TParseTreeNode.GetParentNode(const peNodeTypes: TParseTreeNodeTypeSet):
+TParseTreeNode;
 begin
   if (NodeType in peNodeTypes) then
   begin
@@ -379,35 +399,39 @@ begin
   end;
 end;
 
-function TParseTreeNode.HasParentNode(const peNodeTypes: TParseTreeNodeTypeSet; const piMaxDepth: integer): Boolean;
+function TParseTreeNode.HasParentNode(const peNodeTypes: TParseTreeNodeTypeSet;
+  const piMaxDepth: integer): boolean;
 begin
   Result := (NodeType in peNodeTypes);
 
   // try above
-  if (not Result) and (Parent <> nil) and (piMaxDepth > 0) then
+  if ( not Result) and (Parent <> nil) and (piMaxDepth > 0) then
     Result := Parent.HasParentNode(peNodeTypes, (piMaxDepth - 1));
 end;
 
-function TParseTreeNode.HasParentNode(const peNodeType: TParseTreeNodeType; const piMaxDepth: integer): Boolean;
+function TParseTreeNode.HasParentNode(const peNodeType: TParseTreeNodeType;
+  const piMaxDepth: integer): boolean;
 begin
   Result := HasParentNode([peNodeType], piMaxDepth);
 end;
 
 
-function TParseTreeNode.GetParentNode(const peNodeType: TParseTreeNodeType): TParseTreeNode;
+function TParseTreeNode.GetParentNode(const peNodeType: TParseTreeNodeType):
+TParseTreeNode;
 begin
   Result := GetParentNode([peNodeType]);
 end;
 
 { a copy of the above with different types }
 function TParseTreeNode.IsOnRightOf(const peRootNodeTypes: TParseTreeNodeTypeSet;
-  const peTokens: TTokenTypeSet): Boolean;
+  const peTokens: TTokenTypeSet): boolean;
 var
-  lbSearchDone: Boolean;
+  lbSearchDone: boolean;
 
-  function GetFirstMatch(const pcRoot: TParseTreeNode; const peTokens: TTokenTypeSet): TParseTreeNode;
+  function GetFirstMatch(const pcRoot: TParseTreeNode;
+  const peTokens: TTokenTypeSet): TParseTreeNode;
   var
-    liLoop: integer;
+    liLoop:  integer;
     lcChild: TParseTreeNode;
   begin
     Result := nil;
@@ -442,7 +466,7 @@ var
 
       if lbSearchDone then
         break;
-   end;
+    end;
   end;
 
 var
@@ -466,19 +490,21 @@ begin
 end;
 
 function TParseTreeNode.IsOnRightOf(const peRootNodeType: TParseTreeNodeType;
-  const peToken: TTokenType): Boolean;
+  const peToken: TTokenType): boolean;
 begin
   Result := IsOnRightOf([peRootNodeType], [peToken]);
 end;
 
 
-function TParseTreeNode.IsOnRightOf(const peRootNodeTypes, peNodes: TParseTreeNodeTypeSet): Boolean;
+function TParseTreeNode.IsOnRightOf(const peRootNodeTypes, peNodes:
+  TParseTreeNodeTypeSet): boolean;
 var
-  lbSearchDone: Boolean;
+  lbSearchDone: boolean;
 
-  function GetFirstMatch(const pcRoot: TParseTreeNode; const peNodes: TParseTreeNodeTypeSet): TParseTreeNode;
+  function GetFirstMatch(const pcRoot: TParseTreeNode;
+  const peNodes: TParseTreeNodeTypeSet): TParseTreeNode;
   var
-    liLoop: integer;
+    liLoop:  integer;
     lcChild: TParseTreeNode;
   begin
     Result := nil;
@@ -512,7 +538,7 @@ var
 
       if lbSearchDone then
         break;
-   end;
+    end;
   end;
 
 var
@@ -536,12 +562,14 @@ begin
   Result := (lcFirstMatch <> nil);
 end;
 
-function TParseTreeNode.IsOnRightOf(const peRootNodeType,  peNode: TParseTreeNodeType): Boolean;
+function TParseTreeNode.IsOnRightOf(const peRootNodeType, peNode:
+  TParseTreeNodeType): boolean;
 begin
   Result := IsOnRightOf([peRootNodeType], [peNode])
 end;
 
-procedure TParseTreeNode.AcceptVisitor(const pcVisitor: IVisitParseTree; var prVisitResults: TRVisitResult);
+procedure TParseTreeNode.AcceptVisitor(const pcVisitor: IVisitParseTree;
+  var prVisitResults: TRVisitResult);
 begin
   Assert(pcVisitor <> nil);
   pcVisitor.PreVisitParseTreeNode(self, prVisitResults);
@@ -565,31 +593,35 @@ begin
   case lrVisitResult.Action of
     aNone: ;
     aDelete:
-     begin
+    begin
        // remove self - do it via the parent
-       Parent.RemoveChild(self);
+      Parent.RemoveChild(self);
        // can't go on here, no more self
-       exit;
+      exit;
     end;
     aInsertAfter:
     begin
       // must have a new item
       Assert(lrVisitResult.NewItem <> nil);
-      Parent.InsertChild(Parent.IndexOfChild(self) + 1,  TParseTreeNode(lrVisitResult.NewItem));
+      Parent.InsertChild(Parent.IndexOfChild(self) + 1,
+        TParseTreeNode(lrVisitResult.NewItem));
       if lrVisitResult.NewItem2 <> nil then
-        Parent.InsertChild(Parent.IndexOfChild(self) + 2,  TParseTreeNode(lrVisitResult.NewItem2));
+        Parent.InsertChild(Parent.IndexOfChild(self) + 2,
+          TParseTreeNode(lrVisitResult.NewItem2));
     end;
     aInsertBefore:
     begin
       // must have a new item
       Assert(lrVisitResult.NewItem <> nil);
 
-      Parent.InsertChild(Parent.IndexOfChild(self),  TParseTreeNode(lrVisitResult.NewItem));
+      Parent.InsertChild(Parent.IndexOfChild(self),
+        TParseTreeNode(lrVisitResult.NewItem));
       if lrVisitResult.NewItem2 <> nil then
-        Parent.InsertChild(Parent.IndexOfChild(self),  TParseTreeNode(lrVisitResult.NewItem2));
+        Parent.InsertChild(Parent.IndexOfChild(self),
+          TParseTreeNode(lrVisitResult.NewItem2));
     end;
     else
-      Assert(false, 'Unhandled action ' + IntToStr(Ord(lrVisitResult.action)));
+      Assert(False, 'Unhandled action ' + IntToStr(Ord(lrVisitResult.action)));
   end;
 
 
@@ -612,7 +644,7 @@ begin
     if ChildNodeCount > MAX_NODE_CHILDREN then
     begin
       // some parse or insert process has gone bezerk
-      Raise Exception.Create('Too many child nodes ' + IntToStr(ChildNodeCount));
+      raise Exception.Create('Too many child nodes ' + IntToStr(ChildNodeCount));
     end;
   end;
 
@@ -637,7 +669,7 @@ begin
     while (Result = nil) and (liLoop < ChildNodeCount) do
     begin
       Result := ChildNodes[liLoop].FirstLeaf; // go down
-      inc(liLoop)
+      Inc(liLoop)
     end;
   end;
 end;
@@ -674,7 +706,7 @@ begin
     while (Result = nil) and (liLoop >= 0) do
     begin
       Result := ChildNodes[liLoop].LastLeaf; // go down
-      dec(liLoop)
+      Dec(liLoop)
     end;
   end;
 end;
@@ -692,9 +724,9 @@ begin
     { climb the tree until we reach the top or a node with stuff before this }
     lcParent := Parent;
 
-    While (Result = nil) and (lcParent <> nil) do
+    while (Result = nil) and (lcParent <> nil) do
     begin
-      lcFocus := lcParent;
+      lcFocus  := lcParent;
       lcParent := lcParent.Parent;
 
       if lcParent <> nil then
@@ -705,7 +737,7 @@ begin
   // result may not be a leaf node
   if Result <> nil then
   begin
-    if (Result.ChildNodeCount = 0) and (not Result.IsLeaf) then
+    if (Result.ChildNodeCount = 0) and ( not Result.IsLeaf) then
       // result is a bare branch. Move on
       Result := Result.PriorLeafNode
     else
@@ -728,7 +760,7 @@ begin
 
     while (Result = nil) and (lcParent <> nil) do
     begin
-      lcFocus := lcParent;
+      lcFocus  := lcParent;
       lcParent := lcParent.Parent;
 
       if lcParent <> nil then
@@ -739,7 +771,7 @@ begin
   // result may not be a leaf node
   if Result <> nil then
   begin
-    if (Result.ChildNodeCount = 0) and (not Result.IsLeaf) then
+    if (Result.ChildNodeCount = 0) and ( not Result.IsLeaf) then
       // result is a bare branch. Move on
       Result := Result.NextLeafNode
     else
@@ -784,14 +816,15 @@ begin
 
 end;
 
-function TParseTreeNode.GetImmediateChild(const peNodeTypes: TParseTreeNodeTypeSet): TParseTreeNode;
+function TParseTreeNode.GetImmediateChild(const peNodeTypes: TParseTreeNodeTypeSet):
+TParseTreeNode;
 var
   liLoop: integer;
   lcNode: TParseTreeNode;
 begin
   Result := nil;
 
-  for liLoop := 0 to ChildNodeCount -1 do
+  for liLoop := 0 to ChildNodeCount - 1 do
   begin
     lcNode := ChildNodes[liLoop];
 
@@ -803,7 +836,8 @@ begin
   end;
 end;
 
-function TParseTreeNode.GetImmediateChild(const peNodeType: TParseTreeNodeType): TParseTreeNode;
+function TParseTreeNode.GetImmediateChild(const peNodeType: TParseTreeNodeType):
+TParseTreeNode;
 begin
   Result := GetImmediateChild([peNodeType]);
 end;

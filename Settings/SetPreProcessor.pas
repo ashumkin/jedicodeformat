@@ -15,7 +15,7 @@ uses
 type
   TSetPreProcessor = class(TSetBase)
   private
-    fbEnabled: Boolean;
+    fbEnabled: boolean;
     fcDefinedSymbols: TStringList;
     fcDefinedOptions: TStringList;
 
@@ -28,13 +28,13 @@ type
     procedure WriteToStream(const pcOut: TSettingsOutput); override;
     procedure ReadFromStream(const pcStream: TSettingsInput); override;
 
-    property Enabled: boolean read fbEnabled write fbEnabled;
+    property Enabled: boolean Read fbEnabled Write fbEnabled;
 
     function OptionIsDefined(const psOption: string): boolean;
     function SymbolIsDefined(const psSymbol: string): boolean;
 
-    property DefinedSymbols: TStringList read fcDefinedSymbols write fcDefinedSymbols;
-    property DefinedOptions: TStringList read fcDefinedOptions write fcDefinedOptions;
+    property DefinedSymbols: TStringList Read fcDefinedSymbols Write fcDefinedSymbols;
+    property DefinedOptions: TStringList Read fcDefinedOptions Write fcDefinedOptions;
 
   end;
 
@@ -43,7 +43,7 @@ implementation
 uses SysUtils;
 
 const
-  REG_ENABLED    = 'Enabled';
+  REG_ENABLED = 'Enabled';
   REG_DEFINED_SYMBOLS = 'DefinedSymbols';
   REG_DEFINED_OPTIONS = 'DefinedOptions';
 

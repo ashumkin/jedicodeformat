@@ -35,8 +35,7 @@ type
   private
 
     fbEnabled: boolean;
-    feReservedWords, feOperators,
-    feDirectives, feConstants,
+    feReservedWords, feOperators, feDirectives, feConstants,
     feTypes: TCapitalisationType;
 
   protected
@@ -46,14 +45,15 @@ type
     procedure WriteToStream(const pcOut: TSettingsOutput); override;
     procedure ReadFromStream(const pcStream: TSettingsInput); override;
 
-    property Enabled: boolean read fbEnabled write fbEnabled;
+    property Enabled: boolean Read fbEnabled Write fbEnabled;
 
-    property ReservedWords: TCapitalisationType read feReservedWords write feReservedWords;
+    property ReservedWords: TCapitalisationType
+      Read feReservedWords Write feReservedWords;
 
-    property Operators: TCapitalisationType read feOperators write feOperators;
-    property Directives: TCapitalisationType read feDirectives write feDirectives;
-    property Constants: TCapitalisationType read feConstants write feConstants;
-    property Types: TCapitalisationType read feTypes write feTypes;
+    property Operators: TCapitalisationType Read feOperators Write feOperators;
+    property Directives: TCapitalisationType Read feDirectives Write feDirectives;
+    property Constants: TCapitalisationType Read feConstants Write feConstants;
+    property Types: TCapitalisationType Read feTypes Write feTypes;
 
   end;
 
@@ -82,11 +82,12 @@ begin
 
   fbEnabled := pcStream.Read(REG_ENABLED, True);
 
-  feReservedWords := TCapitalisationType(pcStream.Read(REG_RESERVED_WORDS, Ord(ctLower)));
-  feOperators     := TCapitalisationType(pcStream.Read(REG_OPERATORS, Ord(ctLower)));
-  feDirectives    := TCapitalisationType(pcStream.Read(REG_DIRECTIVES, Ord(ctLower)));
-  feConstants     := TCapitalisationType(pcStream.Read(REG_CONSTANTS, Ord(ctLower)));
-  feTypes         := TCapitalisationType(pcStream.Read(Reg_TYPES, Ord(ctLower)));
+  feReservedWords := TCapitalisationType(pcStream.Read(REG_RESERVED_WORDS,
+    Ord(ctLower)));
+  feOperators := TCapitalisationType(pcStream.Read(REG_OPERATORS, Ord(ctLower)));
+  feDirectives := TCapitalisationType(pcStream.Read(REG_DIRECTIVES, Ord(ctLower)));
+  feConstants := TCapitalisationType(pcStream.Read(REG_CONSTANTS, Ord(ctLower)));
+  feTypes := TCapitalisationType(pcStream.Read(Reg_TYPES, Ord(ctLower)));
 end;
 
 procedure TSetCaps.WriteToStream(const pcOut: TSettingsOutput);

@@ -24,8 +24,8 @@ interface
 
 uses
   { delphi }
-  Classes, Controls, Forms, 
-  StdCtrls, 
+  Classes, Controls, Forms,
+  StdCtrls,
   { local}
   JvTypedEdit, frmBaseSettingsFrame, JvEdit;
 
@@ -69,14 +69,14 @@ procedure TfBlankLines.Read;
 begin
   with FormatSettings.Returns do
   begin
-    cbRemoveVarBlankLines.Checked := RemoveVarBlankLines;
+    cbRemoveVarBlankLines.Checked   := RemoveVarBlankLines;
     cbRemoveBlankLinesAfterProcHeader.Checked := RemoveProcHeaderBlankLines;
     cbRemoveBlockBlankLines.Checked := RemoveBlockBlankLines;
 
     eNumReturnsAfterFinalEnd.Value := NumReturnsAfterFinalEnd;
 
     cbRemoveConsecutiveBlankLines.Checked := RemoveConsecutiveBlankLines;
-    edtMaxConsecutiveBlankLines.Value := MaxConsecutiveBlankLines;
+    edtMaxConsecutiveBlankLines.Value     := MaxConsecutiveBlankLines;
   end;
 end;
 
@@ -84,7 +84,7 @@ procedure TfBlankLines.Write;
 begin
   with FormatSettings.Returns do
   begin
-    RemoveVarBlankLines := cbRemoveVarBlankLines.Checked;
+    RemoveVarBlankLines   := cbRemoveVarBlankLines.Checked;
     RemoveProcHeaderBlankLines := cbRemoveBlankLinesAfterProcHeader.Checked;
     RemoveBlockBlankLines := cbRemoveBlockBlankLines.Checked;
 
@@ -92,7 +92,7 @@ begin
 
     RemoveConsecutiveBlankLines := cbRemoveConsecutiveBlankLines.Checked;
     // this value is always at least 2
-    MaxConsecutiveBlankLines := Max(edtMaxConsecutiveBlankLines.Value, 2);
+    MaxConsecutiveBlankLines    := Max(edtMaxConsecutiveBlankLines.Value, 2);
   end;
 end;
 

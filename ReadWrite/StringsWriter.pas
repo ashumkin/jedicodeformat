@@ -28,8 +28,8 @@ under the License.
 interface
 
 uses
-  { delphi } Classes,
-  { local } CodeWriter;
+  { delphi }Classes,
+  { local }CodeWriter;
 
 type
   TStringsWriter = class(TCodeWriter)
@@ -41,9 +41,9 @@ type
 
   public
     constructor Create; override;
-    procedure Close;  override;
+    procedure Close; override;
 
-    property OutputStrings: TStrings read fcOutputStrings write fcOutputStrings;
+    property OutputStrings: TStrings Read fcOutputStrings Write fcOutputStrings;
   end;
 
 implementation

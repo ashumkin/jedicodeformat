@@ -73,15 +73,15 @@ type
 
     function BuildTokenList: TSourceTokenList;
 
-    property Reader: TCodeReader read fcReader write fcReader;
+    property Reader: TCodeReader Read fcReader Write fcReader;
   end;
 
 
 implementation
 
 uses
-    { delphi } Forms,
-    { jcl } JclStrings;
+    { delphi }Forms,
+    { jcl }JclStrings;
 
 { TBuildTokenList }
 
@@ -103,17 +103,17 @@ var
   procedure DoAllTheTries;
   begin
     { first look for return }
-    if TryReturn(lcNewToken) then 
+    if TryReturn(lcNewToken) then
       exit;
     { comments }
-    if TryCurlyComment(lcNewToken) then 
+    if TryCurlyComment(lcNewToken) then
       exit;
-    if TrySlashComment(lcNewToken) then 
+    if TrySlashComment(lcNewToken) then
       exit;
-    if TryBracketStarComment(lcNewToken) then 
+    if TryBracketStarComment(lcNewToken) then
       exit;
     { the rest }
-    if TryWhiteSpace(lcNewToken) then 
+    if TryWhiteSpace(lcNewToken) then
       exit;
     if TryLiteralString(lcNewToken) then
       exit;
@@ -122,7 +122,7 @@ var
 
     if TryWord(lcNewToken) then
       exit;
-    if TryNumber(lcNewToken) then 
+    if TryNumber(lcNewToken) then
       exit;
     if TryHexNumber(lcNewToken) then
       exit;
@@ -152,7 +152,7 @@ begin
   else
   begin
     Reader.BufferLength := 1;
-    lcNewToken  := TSourceToken.Create;
+    lcNewToken := TSourceToken.Create;
     DoAllTheTries;
 
     lcNewToken.WordType := WordTypeOfToken(lcNewToken.TokenType);
@@ -179,13 +179,13 @@ begin
   Reader.IncBuffer;
 
   { until *) or End of file }
-  while (Reader.BufferCharsRight(2) <> '*)') and (not Reader.BufferEndOfFile) do
+  while (Reader.BufferCharsRight(2) <> '*)') and ( not Reader.BufferEndOfFile) do
     Reader.IncBuffer;
 
-  pcToken.TokenType    := ttComment;
+  pcToken.TokenType := ttComment;
   pcToken.CommentStyle := eBracketStar;
-  pcToken.SourceCode   := Reader.ConsumeBuffer;
-  Result               := True;
+  pcToken.SourceCode := Reader.ConsumeBuffer;
+  Result := True;
 end;
 
 
@@ -195,7 +195,7 @@ begin
   if Reader.Current <> '{' then
     exit;
 
-  pcToken.TokenType    := ttComment;
+  pcToken.TokenType  := ttComment;
   pcToken.SourceCode := Reader.Current;
   Reader.Consume;
 
@@ -210,8 +210,8 @@ begin
   while (Reader.Last <> '}') and not (Reader.BufferEndOfFile) do
     Reader.IncBuffer;
 
-  pcToken.SourceCode   := pcToken.SourceCode + Reader.ConsumeBuffer;
-  Result               := True;
+  pcToken.SourceCode := pcToken.SourceCode + Reader.ConsumeBuffer;
+  Result := True;
 end;
 
 function TBuildTokenList.TrySlashComment(const pcToken: TSourceToken): boolean;
@@ -228,18 +228,18 @@ begin
   if Reader.BufferCharsLeft(2) <> '//' then
     exit;
 
-  while (not CharIsReturn(Reader.Last)) and (not Reader.BufferEndOfFile) do
+  while ( not CharIsReturn(Reader.Last)) and ( not Reader.BufferEndOfFile) do
     Reader.IncBuffer;
 
   liLen := Reader.BufferLength;
   if CharIsReturn(Reader.Last) then
-    dec(liLen);
+    Dec(liLen);
   Reader.BufferLength := liLen;
 
-  pcToken.TokenType    := ttComment;
+  pcToken.TokenType := ttComment;
   pcToken.CommentStyle := eDoubleSlash;
-  pcToken.SourceCode   := Reader.ConsumeBuffer;
-  Result               := True;
+  pcToken.SourceCode := Reader.ConsumeBuffer;
+  Result := True;
 end;
 
 
@@ -274,8 +274,8 @@ function TBuildTokenList.TryLiteralString(const pcToken: TSourceToken): boolean;
   function TrySubString(const pcToken: TSourceToken): boolean;
   var
     lbFoundEnd: boolean;
-    liLen:      integer;
-    lCh:        char;
+    liLen: integer;
+    lCh: char;
   begin
     Result := False;
 
@@ -321,7 +321,7 @@ function TBuildTokenList.TryLiteralString(const pcToken: TSourceToken): boolean;
     Reader.BufferLength := liLen;
 
     pcToken.SourceCode := pcToken.SourceCode + Reader.ConsumeBuffer;
-    Result             := True;
+    Result := True;
   end;
 
   function TryLiteralChar(const pcToken: TSourceToken): boolean;
@@ -474,9 +474,9 @@ begin
   if Reader.Buffer <> ':=' then
     exit;
 
-  pcToken.TokenType  := ttAssign;
+  pcToken.TokenType := ttAssign;
   pcToken.SourceCode := Reader.ConsumeBuffer;
-  Result             := True;
+  Result := True;
 end;
 
 function TBuildTokenList.TryNumber(const pcToken: TSourceToken): boolean;
@@ -549,7 +549,7 @@ begin
     end;
 
     { exponent must be integer }
-    while CharIsDigit(Reader.Current)  do
+    while CharIsDigit(Reader.Current) do
     begin
       pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
       Reader.Consume;
@@ -600,7 +600,7 @@ begin
 end;
 
 { try the range '..' operator and object access  '.' operator }
-function TBuildTokenList.TryDots(const pcToken: TSourceToken): Boolean;
+function TBuildTokenList.TryDots(const pcToken: TSourceToken): boolean;
 begin
   Result := False;
 
@@ -618,7 +618,7 @@ begin
   end
   else
   begin
-    pcToken.TokenType  := ttDot;
+    pcToken.TokenType := ttDot;
   end;
 
   Result := True;
@@ -650,9 +650,9 @@ function TBuildTokenList.TryPunctuation(const pcToken: TSourceToken): boolean;
     { these have meanings on thier own and should not be recognised as part of the punc.
      e.g '=(' is not a punctation symbol, but 2 of them ( for e.g. in const a=(3);
      simlarly ');' is 2 puncs }
-   UnitaryPunctuation: set of char = [
-     AnsiSingleQuote, '"', '(', ')', '[', ']', '{',
-     '#', '$', '_', ';', '@', '^', ','];
+    UnitaryPunctuation: set of char = [
+      AnsiSingleQuote, '"', '(', ')', '[', ']', '{',
+      '#', '$', '_', ';', '@', '^', ','];
 
    { these can't have anything following them:
     for e.g, catch the case if a=-1 then ...
@@ -661,7 +661,7 @@ function TBuildTokenList.TryPunctuation(const pcToken: TSourceToken): boolean;
       also a:=a*-1;
       q:=q--1; // q equals q minus minus-one. It sucks but it compiles so it must be parsed
       etc }
-   SingleChars : set of char = ['=', '+', '-', '*', '/'];
+    SingleChars: set of char = ['=', '+', '-', '*', '/'];
 
   begin
     Result := False;
@@ -685,16 +685,16 @@ function TBuildTokenList.TryPunctuation(const pcToken: TSourceToken): boolean;
   end;
 
 var
-  leWordType: TWordType;
+  leWordType:  TWordType;
   leTokenType: TTokenType;
-  lcLast: char;
+  lcLast:      char;
 begin
   Result := False;
 
   if not IsPuncChar(Reader.Current) then
     exit;
 
-  pcToken.TokenType  := ttPunctuation;
+  pcToken.TokenType := ttPunctuation;
   lcLast := Reader.Current;
   pcToken.SourceCode := lcLast;
   Reader.Consume;
@@ -734,19 +734,19 @@ function TBuildTokenList.BuildTokenList: TSourceTokenList;
 const
   UPDATE_INTERVAL = 4096; // big incre,ents here, this is fatser than parsing
 var
-  lcList: TSourceTokenList;
-  lcNew: TSourceToken;
+  lcList:    TSourceTokenList;
+  lcNew:     TSourceToken;
   liCounter: integer;
 begin
   liCounter := 0;
-  lcList := TSourceTokenList.Create;
+  lcList    := TSourceTokenList.Create;
 
   while not Reader.EndOfFile do
   begin
     lcNew := GetNextToken;
     lcList.Add(lcNew);
 
-    inc(liCounter);
+    Inc(liCounter);
     if (liCounter mod UPDATE_INTERVAL) = 0 then
       Application.ProcessMessages;
   end;

@@ -18,12 +18,12 @@ type
   private
     fsExpr: string;
     fiCurrentIndex: integer;
-    fbHasError: Boolean;
+    fbHasError: boolean;
 
     fcTokens: TPreProcessorExpressionTokenList;
 
     function Rest: string;
-    function StartsWith(const ps: string): Boolean;
+    function StartsWith(const ps: string): boolean;
 
     function TryConsumeFixedSymbol: boolean;
     function TryConsumeIdentifier: boolean;
@@ -35,9 +35,9 @@ type
 
     procedure Tokenise;
 
-    property Expression: string read fsExpr write fsExpr;
-    property Tokens: TPreProcessorExpressionTokenList read fcTokens;
-    property HasError: boolean read fbHasError;
+    property Expression: string Read fsExpr Write fsExpr;
+    property Tokens: TPreProcessorExpressionTokenList Read fcTokens;
+    property HasError: boolean Read fbHasError;
   end;
 
 implementation
@@ -64,7 +64,7 @@ begin
   Result := StrRestOf(fsExpr, fiCurrentIndex);
 end;
 
-function TPreProcessorExpressionTokeniser.StartsWith(const ps: string): Boolean;
+function TPreProcessorExpressionTokeniser.StartsWith(const ps: string): boolean;
 begin
   Result := AnsiSameText(StrLeft(Rest, length(ps)), ps);
 end;
@@ -73,7 +73,7 @@ procedure TPreProcessorExpressionTokeniser.Tokenise;
 begin
   fcTokens.Clear;
   fiCurrentIndex := 1;
-  fbHasError := False;
+  fbHasError     := False;
 
   while fiCurrentIndex <= Length(fsExpr) do
   begin
@@ -92,10 +92,10 @@ end;
 
 function TPreProcessorExpressionTokeniser.TryConsumeFixedSymbol: boolean;
 var
-  leLoop: TPreProcessorSymbol;
+  leLoop:  TPreProcessorSymbol;
   lbFound: boolean;
 begin
-  result := False;
+  Result := False;
 
   for leLoop := low(SYMBOL_DATA) to high(SYMBOL_DATA) do
   begin
@@ -124,7 +124,7 @@ begin
   begin
     liStart := fiCurrentIndex;
     while CharIsAlphaNum(fsExpr[fiCurrentIndex]) do
-      inc(fiCurrentIndex);
+      Inc(fiCurrentIndex);
 
     Result := True;
 
@@ -138,7 +138,7 @@ procedure TPreProcessorExpressionTokeniser.ConsumeWhiteSpace;
 begin
   // this lexer can ignore the white space
   while (fiCurrentIndex < Length(fsExpr)) and CharIsWhiteSpace(fsExpr[fiCurrentIndex]) do
-    inc(fiCurrentIndex);
+    Inc(fiCurrentIndex);
 end;
 
 end.

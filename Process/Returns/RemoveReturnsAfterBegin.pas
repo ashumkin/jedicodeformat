@@ -29,7 +29,8 @@ uses SourceToken, SwitchableVisitor, VisitParseTree;
 type
   TRemoveReturnsAfterBegin = class(TSwitchableVisitor)
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
 
   public
     constructor Create; override;
@@ -40,6 +41,7 @@ type
 implementation
 
 uses JcfSettings, Tokens, TokenUtils;
+
 { TRemoveReturnsAfterBegin }
 
 constructor TRemoveReturnsAfterBegin.Create;
@@ -48,8 +50,8 @@ begin
 
 end;
 
-procedure TRemoveReturnsAfterBegin.EnabledVisitSourceToken(
-  const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TRemoveReturnsAfterBegin.EnabledVisitSourceToken(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
   lcNext: TSourceToken;
@@ -77,10 +79,10 @@ begin
     if (lcTest.TokenType = ttReturn) then
     begin
       // allow two returns -> 1 blank line
-      inc(liReturnCount);
+      Inc(liReturnCount);
       if (liReturnCount > liMaxReturns) then
       begin
-        lcTest.TokenType := ttWhiteSpace;
+        lcTest.TokenType  := ttWhiteSpace;
         lcTest.SourceCode := '';
       end;
     end;

@@ -35,15 +35,17 @@ uses Warning, VisitParseTree;
 type
 
   TWarnEmptyBlock = class(TWarning)
-    public
-      procedure PreVisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  public
+    procedure PreVisitParseTreeNode(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   end;
 
 implementation
 
 uses ParseTreeNode, ParseTreeNodeType;
 
-procedure TWarnEmptyBlock.PreVisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TWarnEmptyBlock.PreVisitParseTreeNode(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcNode: TParseTreeNode;
   liSolidChildCount: integer;
@@ -58,7 +60,7 @@ begin
     e.g. 'begin' and 'end'
   }
   liSolidChildCount := lcNode.SolidChildCount;
-  
+
   if liSolidChildCount = 2 then
   begin
     if lcNode.NodeType = nCompoundStatement then
@@ -83,7 +85,7 @@ begin
       SendWarning(lcNode, 'Empty try block');
     end;
   end;
-  
+
 end;
 
 end.

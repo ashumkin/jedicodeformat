@@ -58,13 +58,13 @@ type
   public
     procedure Clear; override;
 
-    property SourceFileName: string read FsSourceFileName write SetSourceFileName;
+    property SourceFileName: string Read FsSourceFileName Write SetSourceFileName;
   end;
 
 implementation
 
 uses
-  {delphi } SysUtils,
+  {delphi }SysUtils,
   JclStrings;
 
 { TFileReader }

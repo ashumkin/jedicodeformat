@@ -42,7 +42,7 @@ type
 
     fiMinColumn, fiMaxColumn, fiMaxVariance: integer;
     fiMaxUnalignedStatements: integer;
-   fbInterfaceOnly: boolean;
+    fbInterfaceOnly: boolean;
 
   protected
   public
@@ -51,19 +51,20 @@ type
     procedure WriteToStream(const pcOut: TSettingsOutput); override;
     procedure ReadFromStream(const pcStream: TSettingsInput); override;
 
-    property AlignAssign: boolean read fbAlignAssign write fbAlignAssign;
-    property AlignConst: boolean read fbAlignConst write fbAlignConst;
-    property AlignTypeDef: boolean read fbAlignTypeDef write fbAlignTypeDef;
-    property AlignVar: boolean read fbAlignVar write fbAlignVar;
+    property AlignAssign: boolean Read fbAlignAssign Write fbAlignAssign;
+    property AlignConst: boolean Read fbAlignConst Write fbAlignConst;
+    property AlignTypeDef: boolean Read fbAlignTypeDef Write fbAlignTypeDef;
+    property AlignVar: boolean Read fbAlignVar Write fbAlignVar;
 
-    property AlignComment: boolean read fbAlignComment write fbAlignComment;
+    property AlignComment: boolean Read fbAlignComment Write fbAlignComment;
 
-    property MinColumn: integer read fiMinColumn write fiMinColumn;
-    property MaxColumn: integer read fiMaxColumn write fiMaxColumn;
-    property MaxVariance: integer read fiMaxVariance write fiMaxVariance;
-    property MaxUnalignedStatements: integer read fiMaxUnalignedStatements write fiMaxUnalignedStatements;
+    property MinColumn: integer Read fiMinColumn Write fiMinColumn;
+    property MaxColumn: integer Read fiMaxColumn Write fiMaxColumn;
+    property MaxVariance: integer Read fiMaxVariance Write fiMaxVariance;
+    property MaxUnalignedStatements: integer
+      Read fiMaxUnalignedStatements Write fiMaxUnalignedStatements;
 
-    property InterfaceOnly: boolean read fbInterfaceOnly write fbInterfaceOnly;
+    property InterfaceOnly: boolean Read fbInterfaceOnly Write fbInterfaceOnly;
   end;
 
 
@@ -98,7 +99,7 @@ begin
   fbAlignAssign  := pcStream.Read(REG_ALIGN_ASSIGN, False);
   fbAlignConst   := pcStream.Read(REG_ALIGN_CONST, False);
   fbAlignTypedef := pcStream.Read(REG_ALIGN_TYPEDEF, False);
-  fbAlignVar    := pcStream.Read(REG_ALIGN_VAR, False);
+  fbAlignVar     := pcStream.Read(REG_ALIGN_VAR, False);
   fbAlignComment := pcStream.Read(REG_ALIGN_COMMENT, False);
 
   fbInterfaceOnly := pcStream.Read(REG_INTERFACE_ONLY, False);

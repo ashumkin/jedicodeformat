@@ -25,7 +25,7 @@ interface
 
 uses
   { delphi }
-  Classes, Controls, Forms, 
+  Classes, Controls, Forms,
   StdCtrls, ExtCtrls,
   { local}
   frmBaseSettingsFrame;
@@ -65,7 +65,7 @@ begin
   with FormatSettings.Clarify do
   begin
     rgRunOnceOffs.ItemIndex := Ord(OnceOffs);
-    cbWarnings.Checked := Warnings;
+    cbWarnings.Checked      := Warnings;
   end;
 end;
 

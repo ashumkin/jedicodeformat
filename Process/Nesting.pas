@@ -40,34 +40,35 @@ uses Contnrs;
 
 type
 
-TNestingLevelType = (
-  nlBlock, // generic code indent
-  nlCaseSelector,
-  nlRecordType,
-  nlRecordVariantSection,
-  nlProcedure,
-  nlRoundBracket, nlSquareBracket,
-  nlStatementLabel);
+  TNestingLevelType = (
+    nlBlock, // generic code indent
+    nlCaseSelector,
+    nlRecordType,
+    nlRecordVariantSection,
+    nlProcedure,
+    nlRoundBracket, nlSquareBracket,
+    nlStatementLabel);
 
 { store a nesting level for one of the above enums
   a record-ish type}
-TNestingLevelItem = class(TObject)
+  TNestingLevelItem = class(TObject)
   private
     feItemType: TNestingLevelType;
     fiNestingLevel: integer;
   public
 
-    property ItemType: TNestingLevelType read feItemType write feItemType;
-    property NestingLevel: integer read fiNestingLevel write fiNestingLevel;
-end;
+    property ItemType: TNestingLevelType Read feItemType Write feItemType;
+    property NestingLevel: integer Read fiNestingLevel Write fiNestingLevel;
+  end;
 
 
 { a list of the items above }
-TNestingLevelList = class(TObject)
+  TNestingLevelList = class(TObject)
   private
     fcList: TObjectList;
 
-    function GetItem(const peItemType: TNestingLevelType; const pbCreate: boolean): TNestingLevelItem;
+    function GetItem(const peItemType: TNestingLevelType;
+      const pbCreate: boolean): TNestingLevelItem;
     function GetItems(const piIndex: integer): TNestingLevelItem;
 
   public
@@ -86,9 +87,9 @@ TNestingLevelList = class(TObject)
     function FinalTest: string;
     function Total: integer;
 
-    property Items[const piIndex: integer]: TNestingLevelItem read GetItems;
+    property Items[const piIndex: integer]: TNestingLevelItem Read GetItems;
 
-end;
+  end;
 
 implementation
 
@@ -112,7 +113,8 @@ begin
   Result := fcList.Count;
 end;
 
-function TNestingLevelList.GetItem(const peItemType: TNestingLevelType; const pbCreate: boolean): TNestingLevelItem;
+function TNestingLevelList.GetItem(const peItemType: TNestingLevelType;
+  const pbCreate: boolean): TNestingLevelItem;
 var
   liLoop: integer;
   lcItem: TNestingLevelItem;
@@ -167,7 +169,7 @@ begin
     Result := 0
   else
     Result := lcItem.NestingLevel;
-end;                                               
+end;
 
 
 { at the end of it all, all should be back to zero }
@@ -229,12 +231,13 @@ var
   lcItem: TNestingLevelItem;
 begin
 
-  Result := 0;;
+  Result := 0;
+  ;
 
   for liLoop := 0 to Count - 1 do
   begin
     lcItem := Items[liLoop];
-    Result := Result +  lcItem.NestingLevel;
+    Result := Result + lcItem.NestingLevel;
   end;
 end;
 

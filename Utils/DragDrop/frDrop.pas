@@ -35,9 +35,9 @@ interface
 
 uses
   { delphi }
-  Windows, SysUtils, Classes, Controls, Forms, 
+  Windows, SysUtils, Classes, Controls, Forms,
   ActiveX, ComObj, ShellAPI,
-  { Drop } JCFDropTarget;
+  { Drop }JCFDropTarget;
 
 type
   TFrameDrop = class(TFrame)
@@ -64,7 +64,7 @@ type
     procedure CreateWnd; override;
     procedure DestroyWnd; override;
 
-    property IsDropActive: boolean read fbIsDropActive write fbIsDropActive;
+    property IsDropActive: boolean Read fbIsDropActive Write fbIsDropActive;
   end;
 
   { helper fns }
@@ -79,8 +79,8 @@ implementation
 function GetFormat(const pciData: IDataObject; const piFormatId: integer;
   var prFormatEtc: TFormatEtc): boolean;
 var
-  hRes:       integer;
-  lciEnum:    IEnumFormatEtc;
+  hRes:    integer;
+  lciEnum: IEnumFormatEtc;
   lrFormatEtc: TFormatEtc;
   liReturned: integer;
 begin
@@ -224,7 +224,7 @@ end;
 procedure TFrameDrop.ProcessFileMedium(const lrMedium: TStgMedium);
 const
   cnMaxFileNameLen = 255;
-  cnMINUSONE       = $FFFFFFFF;
+  cnMINUSONE = $FFFFFFFF;
 var
   lgHandle:   THandle;
   nCount, i:  integer;
@@ -258,11 +258,11 @@ end;
 procedure TFrameDrop.ProcessTextMedium(const lrMedium: TStgMedium);
 const
   cnMaxFileNameLen = 255;
-  cnMINUSONE       = $FFFFFFFF;
+  cnMINUSONE = $FFFFFFFF;
 var
   lgHandle: THandle;
-  lpChar:   PChar;
-  ls:       string;
+  lpChar: pchar;
+  ls: string;
 begin
   lgHandle := lrMedium.hGlobal;
 

@@ -34,7 +34,8 @@ type
   TRemoveSpaceAtLineEnd = class(TSwitchableVisitor)
   private
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
 
@@ -54,8 +55,8 @@ begin
   FormatFlags := FormatFlags + [eRemoveSpace];
 end;
 
-procedure TRemoveSpaceAtLineEnd.EnabledVisitSourceToken(
-  const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TRemoveSpaceAtLineEnd.EnabledVisitSourceToken(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcSourceToken, lcNext: TSourceToken;
 begin

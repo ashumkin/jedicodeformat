@@ -44,8 +44,8 @@ type
     procedure WriteToStream(const pcOut: TSettingsOutput); override;
     procedure ReadFromStream(const pcStream: TSettingsInput); override;
 
-    property OnceOffs: TOnceOffsOption read feOnceOffs write feOnceOffs;
-    property Warnings: boolean read fbWarnings write fbWarnings;
+    property OnceOffs: TOnceOffsOption Read feOnceOffs Write feOnceOffs;
+    property Warnings: boolean Read fbWarnings Write fbWarnings;
   end;
 
 implementation

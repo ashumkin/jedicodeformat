@@ -17,7 +17,7 @@ WITHOUT WARRANTY OF ANY KIND, either express or implied.
 See the License for the specific language governing rights and limitations
 under the License.
 ------------------------------------------------------------------------------*)
-{*)}                               
+{*)}
 
 unit frClarifySpaces;
 
@@ -25,8 +25,8 @@ interface
 
 uses
   { delphi }
-  Classes, Controls, Forms, 
-  StdCtrls, 
+  Classes, Controls, Forms,
+  StdCtrls,
   { local}
   JvTypedEdit, JvEdit, frmBaseSettingsFrame;
 
@@ -93,19 +93,19 @@ begin
     edtSpacesPerTab.Value  := SpacesPerTab;
     edtSpacesForTab.Value  := SpacesForTab;
 
-    cbFixSpacing.Checked   := FixSpacing;
+    cbFixSpacing.Checked := FixSpacing;
 
     cbSpaceClassHeritage.Checked := SpaceBeforeClassHeritage;
 
-    eSpaceBeforeColonVar.Value := SpacesBeforeColonVar;
+    eSpaceBeforeColonVar.Value   := SpacesBeforeColonVar;
     eSpaceBeforeColonParam.Value := SpacesBeforeColonParam;
-    eSpaceBeforeColonFn.Value := SpacesBeforeColonFn;
+    eSpaceBeforeColonFn.Value    := SpacesBeforeColonFn;
     eSpacesBeforeColonClassVar.Value := SpacesBeforeColonClassVar;
 
     eSpacesBeforeCaseLabel.Value := SpacesBeforeColonCaseLabel;
-    eSpacesBeforeLabel.Value := SpacesBeforeColonLabel;
+    eSpacesBeforeLabel.Value     := SpacesBeforeColonLabel;
 
-    cbMaxSpaces.Checked := UseMaxSpacesInCode;
+    cbMaxSpaces.Checked      := UseMaxSpacesInCode;
     edtMaxSpacesInCode.Value := MaxSpacesInCode;
   end;
 
@@ -124,19 +124,19 @@ begin
     SpacesPerTab := edtSpacesPerTab.Value;
     SpacesForTab := edtSpacesForTab.Value;
 
-    FixSpacing   := cbFixSpacing.Checked;
+    FixSpacing := cbFixSpacing.Checked;
 
     SpaceBeforeClassHeritage := cbSpaceClassHeritage.Checked;
 
-    SpacesBeforeColonVar := eSpaceBeforeColonVar.Value;
+    SpacesBeforeColonVar   := eSpaceBeforeColonVar.Value;
     SpacesBeforeColonParam := eSpaceBeforeColonParam.Value;
-    SpacesBeforeColonFn := eSpaceBeforeColonFn.Value;
+    SpacesBeforeColonFn    := eSpaceBeforeColonFn.Value;
     SpacesBeforeColonClassVar := eSpacesBeforeColonClassVar.Value;
     SpacesBeforeColonCaseLabel := eSpacesBeforeCaseLabel.Value;
     SpacesBeforeColonLabel := eSpacesBeforeLabel.Value;
 
     UseMaxSpacesInCode := cbMaxSpaces.Checked;
-    MaxSpacesInCode := edtMaxSpacesInCode.Value;
+    MaxSpacesInCode    := edtMaxSpacesInCode.Value;
   end;
 end;
 

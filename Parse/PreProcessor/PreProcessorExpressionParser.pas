@@ -72,20 +72,20 @@ type
     fcTokens: TPreProcessorExpressionTokenList;
     fcDefinedSymbols: TStrings;
 
-    function ParseExpr: Boolean;
-    function ParseTerm: Boolean;
+    function ParseExpr: boolean;
+    function ParseTerm: boolean;
 
     function CurrentTokenType: TPreProcessorSymbol;
-    function MoreTokens: Boolean;
+    function MoreTokens: boolean;
 
     procedure Consume(const peType: TPreProcessorSymbol);
-    function SymbolIsDefined(const psSymbol: string): Boolean;
-    function SymbolIsDeclared(const psSymbol: string): Boolean;
+    function SymbolIsDefined(const psSymbol: string): boolean;
+    function SymbolIsDeclared(const psSymbol: string): boolean;
   public
-    function Parse: Boolean;
+    function Parse: boolean;
 
-    property Tokens: TPreProcessorExpressionTokenList read  fcTokens write fcTokens;
-    property DefinedSymbols: TStrings read fcDefinedSymbols write fcDefinedSymbols;
+    property Tokens: TPreProcessorExpressionTokenList Read fcTokens Write fcTokens;
+    property DefinedSymbols: TStrings Read fcDefinedSymbols Write fcDefinedSymbols;
 
   end;
 
@@ -98,25 +98,25 @@ procedure TPreProcessorExpressionParser.Consume(const peType: TPreProcessorSymbo
 begin
   Assert(CurrentTokenType = peType,
     'expected token ' + PreProcessorSymbolToString(peType) +
-    ' got ' +  PreProcessorSymbolToString(CurrentTokenType) +
+    ' got ' + PreProcessorSymbolToString(CurrentTokenType) +
     ' at position ' + IntToStr(fiCurrentIndex));
-  inc(fiCurrentIndex)
+  Inc(fiCurrentIndex)
 end;
 
 function TPreProcessorExpressionParser.CurrentTokenType: TPreProcessorSymbol;
 begin
-  If fiCurrentIndex < fcTokens.Count Then
+  if fiCurrentIndex < fcTokens.Count then
     Result := fcTokens.Items[fiCurrentIndex].Symbol
   else
     Result := eNone;
 end;
 
-function TPreProcessorExpressionParser.MoreTokens: Boolean;
+function TPreProcessorExpressionParser.MoreTokens: boolean;
 begin
   Result := fcTokens.Count > fiCurrentIndex;
 end;
 
-function TPreProcessorExpressionParser.Parse: Boolean;
+function TPreProcessorExpressionParser.Parse: boolean;
 begin
   Assert(fcTokens <> nil);
   Assert(fcTokens.Count > 0);
@@ -125,12 +125,12 @@ begin
   Result := ParseExpr;
 
   if MoreTokens then
-    Raise PreProcessorParseFailedException.Create('Expression has trailing tokens');
+    raise PreProcessorParseFailedException.Create('Expression has trailing tokens');
 end;
 
-function TPreProcessorExpressionParser.ParseExpr: Boolean;
+function TPreProcessorExpressionParser.ParseExpr: boolean;
 var
-  lbExprResult: Boolean;
+  lbExprResult: boolean;
 begin
   Result := ParseTerm;
 
@@ -157,13 +157,14 @@ begin
       end;
       else
       begin
-        Raise PreProcessorParseFailedException.Create('Preprocessor expression could not be parsed');
+        raise PreProcessorParseFailedException.Create(
+          'Preprocessor expression could not be parsed');
       end;
     end;
   end;
 end;
 
-function TPreProcessorExpressionParser.ParseTerm: Boolean;
+function TPreProcessorExpressionParser.ParseTerm: boolean;
 begin
 
   case CurrentTokenType of
@@ -214,18 +215,19 @@ begin
     else
     begin
       CurrentTokenType;
-      Raise PreProcessorParseFailedException.Create('Preprocessor term could not be parsed');
+      raise PreProcessorParseFailedException.Create(
+        'Preprocessor term could not be parsed');
     end;
   end;
 end;
 
 
-function TPreProcessorExpressionParser.SymbolIsDefined(const psSymbol: string): Boolean;
+function TPreProcessorExpressionParser.SymbolIsDefined(const psSymbol: string): boolean;
 begin
   Result := DefinedSymbols.IndexOf(psSymbol) >= 0;
 end;
 
-function TPreProcessorExpressionParser.SymbolIsDeclared(const psSymbol: string): Boolean;
+function TPreProcessorExpressionParser.SymbolIsDeclared(const psSymbol: string): boolean;
 begin
   { 'Declared returns true if the argument passed to it
     is a valid declared Delphi identifier visible within the current scope.'

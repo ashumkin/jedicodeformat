@@ -35,7 +35,8 @@ type
     fsSpaces: string;
 
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
 
@@ -53,11 +54,12 @@ uses
 constructor TTabToSpace.Create;
 begin
   inherited;
-  fsSpaces := StrRepeat(AnsiSpace, FormatSettings.Spaces.SpacesPerTab);
+  fsSpaces    := StrRepeat(AnsiSpace, FormatSettings.Spaces.SpacesPerTab);
   FormatFlags := FormatFlags + [eAddSpace, eRemoveSpace];
 end;
 
-procedure TTabToSpace.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TTabToSpace.EnabledVisitSourceToken(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
   ls: string;

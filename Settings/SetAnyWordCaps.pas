@@ -28,8 +28,8 @@ unit SetAnyWordCaps;
 interface
 
 uses
-    { delphi } Classes,
-    { local } JCFSetBase, SettingsStream;
+    { delphi }Classes,
+    { local }JCFSetBase, SettingsStream;
 
 type
 
@@ -49,15 +49,15 @@ type
     procedure WriteToStream(const pcOut: TSettingsOutput); override;
     procedure ReadFromStream(const pcStream: TSettingsInput); override;
 
-    property Enabled: boolean read fbEnabled write fbEnabled;
-    property Words: TStringList read fcWords;
+    property Enabled: boolean Read fbEnabled Write fbEnabled;
+    property Words: TStringList Read fcWords;
 
   end;
 
 implementation
 
 uses
-    { delphi } SysUtils, Dialogs;
+    { delphi }SysUtils, Dialogs;
 
 const
   REG_ENABLED = 'Enabled';
@@ -127,7 +127,7 @@ constructor TSetAnyWordCaps.Create;
 begin
   inherited;
   SetSection('SpecificWordCaps');
-  
+
   fcWords := TStringList.Create;
   fcWords.Duplicates := dupIgnore;
 end;

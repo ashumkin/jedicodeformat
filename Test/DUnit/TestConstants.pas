@@ -47,11 +47,11 @@ uses SysUtils, JclStrings,
 
 var
   msEXEFilesDir: string = '';
-  msBaseDir: string = '';
+  msBaseDir:     string = '';
 
 procedure GenerateDirs;
 const
-  OUTPUT_DIR: string = '\output\';
+  OUTPUT_DIR: string      = '\output\';
   OUTPUT_DIR_LEN: integer = 8;
 begin
   // calculate this once, read the app path
@@ -110,8 +110,8 @@ begin
 
   { use clarify test settings }
   lsSettingsFileName := GetTestSettingsFileName;
-  if not(FileExists(lsSettingsFileName)) then
-    Raise Exception.Create('Settings file ' + lsSettingsFileName + ' not found');
+  if not (FileExists(lsSettingsFileName)) then
+    raise Exception.Create('Settings file ' + lsSettingsFileName + ' not found');
 
   GetRegSettings.FormatConfigFileName := lsSettingsFileName;
   FormatSettings; // create and read

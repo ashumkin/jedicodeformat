@@ -34,15 +34,14 @@ uses
   TestConstants;
 
 
-function TTestPreprocessorTokens.EvalPreProcessorExpression(
-  const ps: string): boolean;
+function TTestPreprocessorTokens.EvalPreProcessorExpression(const ps: string): boolean;
 begin
   Result := fcPreProcessor.EvalPreProcessorExpression(ps);
 end;
 
 procedure TTestPreprocessorTokens.TestFalse(const ps: string);
 begin
-  Check(not EvalPreProcessorExpression(ps), ps + ' is true');
+  Check( not EvalPreProcessorExpression(ps), ps + ' is true');
 end;
 
 procedure TTestPreprocessorTokens.TestTrue(const ps: string);
@@ -67,7 +66,8 @@ begin
   inherited;
 
   lsSettingsFileName := GetTestSettingsFileName;
-  Check(FileExists(lsSettingsFileName), 'Settings file ' + lsSettingsFileName + ' not found');
+  Check(FileExists(lsSettingsFileName), 'Settings file ' + lsSettingsFileName +
+    ' not found');
 
   GetRegSettings.FormatConfigFileName := lsSettingsFileName;
 
@@ -167,6 +167,5 @@ begin
 end;
 
 initialization
- TestFramework.RegisterTest(TTestPreprocessorTokens.Suite);
+  TestFramework.RegisterTest(TTestPreprocessorTokens.Suite);
 end.
-

@@ -38,12 +38,12 @@ type
 
     function GetTokenMessage: string;
   public
-    Constructor Create(const psMessage: string; const pcToken: TSourceToken);
+    constructor Create(const psMessage: string; const pcToken: TSourceToken);
 
-    property FileName: string read fsFileName write fsFileName;
-    property TokenMessage: string read GetTokenMessage;
-    property XPosition: integer read fiXPosition;
-    property YPosition: integer read fiYPosition;
+    property FileName: string Read fsFileName Write fsFileName;
+    property TokenMessage: string Read GetTokenMessage;
+    property XPosition: integer Read fiXPosition;
+    property YPosition: integer Read fiYPosition;
 
   end;
 

@@ -32,13 +32,14 @@ uses SourceToken, SwitchableVisitor, VisitParseTree;
 
 type
   TPropertyOnOneLine = class(TSwitchableVisitor)
-    protected
-      procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+  protected
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
 
-    public
-      constructor Create; override;
+  public
+    constructor Create; override;
 
-      function IsIncludedInSettings: boolean; override;
+    function IsIncludedInSettings: boolean; override;
   end;
 
 implementation
@@ -60,7 +61,8 @@ begin
   lcSourceToken := TSourceToken(pcNode);
 
   // never remove a return at the end of a comment like this one! ->
-  if (lcSourceToken.TokenType = ttComment) and (lcSourceToken.CommentStyle = eDoubleSlash) then
+  if (lcSourceToken.TokenType = ttComment) and
+    (lcSourceToken.CommentStyle = eDoubleSlash) then
     exit;
 
   lcNext := lcSourceToken.NextToken;
@@ -92,7 +94,7 @@ begin
 
     if (lcNext.TokenType = ttReturn) then
     begin
-      lcNext.TokenType := ttWhiteSpace;
+      lcNext.TokenType  := ttWhiteSpace;
       lcNext.SourceCode := ' ';
     end
     else if lcNext.TokenType = ttWhiteSpace then

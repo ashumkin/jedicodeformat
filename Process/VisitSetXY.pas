@@ -36,7 +36,8 @@ type
   public
     constructor Create; override;
 
-    procedure VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult); override;
+    procedure VisitSourceToken(const pcToken: TObject;
+      var prVisitResult: TRVisitResult); override;
 
   end;
 
@@ -57,7 +58,8 @@ begin
   fiSolidTokenOnLineIndex := 0;
 end;
 
-procedure TVisitSetXY.VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult);
+procedure TVisitSetXY.VisitSourceToken(const pcToken: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcToken: TSourceToken;
 begin
@@ -69,10 +71,11 @@ begin
 
   if lcToken.TokenType = ttReturn then
     fiSolidTokenOnLineIndex := 0
-  else if (lcToken.TokenType = ttComment) and (Pos(AnsiLineBreak, lcToken.SourceCode) > 0) then
+  else if (lcToken.TokenType = ttComment) and
+    (Pos(AnsiLineBreak, lcToken.SourceCode) > 0) then
     fiSolidTokenOnLineIndex := 0
   else if lcToken.IsSolid then
-    inc(fiSolidTokenOnLineIndex);
+    Inc(fiSolidTokenOnLineIndex);
 
   // keep count
   AdvanceTextPos(lcToken.SourceCode, fiX, fiY);

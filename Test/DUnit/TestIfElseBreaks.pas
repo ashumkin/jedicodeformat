@@ -54,19 +54,19 @@ const
     AnsiLineBreak +
     'procedure TestBreaks;' + AnsiLineBreak +
     'begin' + AnsiLineBreak +
-    'if True then'+ AnsiLineBreak +
-    '  ShowMessage(''twoo'');'+ AnsiLineBreak +
+    'if True then' + AnsiLineBreak +
+    '  ShowMessage(''twoo'');' + AnsiLineBreak +
     AnsiLineBreak +
-    'if True then'+ AnsiLineBreak +
-    '  ShowMessage(''twoo'')'+ AnsiLineBreak +
-    'else'+ AnsiLineBreak +
-    '  ShowMessage(''false'');'+ AnsiLineBreak +
+    'if True then' + AnsiLineBreak +
+    '  ShowMessage(''twoo'')' + AnsiLineBreak +
+    'else' + AnsiLineBreak +
+    '  ShowMessage(''false'');' + AnsiLineBreak +
     AnsiLineBreak +
-    'if True then'+ AnsiLineBreak +
-    '  ShowMessage(''twoo'')'+ AnsiLineBreak +
-    'else'+ AnsiLineBreak +
-    ' if True then'+ AnsiLineBreak +
-    '  ShowMessage(''twoo'')'+ AnsiLineBreak +
+    'if True then' + AnsiLineBreak +
+    '  ShowMessage(''twoo'')' + AnsiLineBreak +
+    'else' + AnsiLineBreak +
+    ' if True then' + AnsiLineBreak +
+    '  ShowMessage(''twoo'')' + AnsiLineBreak +
     'else' + AnsiLineBreak +
     '  ShowMessage(''false'');' + AnsiLineBreak +
     'end;' + AnsiLineBreak +
@@ -84,18 +84,18 @@ const
     AnsiLineBreak +
     'procedure TestBreaks;' + AnsiLineBreak +
     'begin' + AnsiLineBreak +
-    'if True then'+ AnsiLineBreak +
-    '  ShowMessage(''twoo'');'+ AnsiLineBreak +
+    'if True then' + AnsiLineBreak +
+    '  ShowMessage(''twoo'');' + AnsiLineBreak +
     AnsiLineBreak +
-    'if True then'+ AnsiLineBreak +
-    '  ShowMessage(''twoo'')'+ AnsiLineBreak +
-    'else'+ AnsiLineBreak +
-    '  ShowMessage(''false'');'+ AnsiLineBreak +
+    'if True then' + AnsiLineBreak +
+    '  ShowMessage(''twoo'')' + AnsiLineBreak +
+    'else' + AnsiLineBreak +
+    '  ShowMessage(''false'');' + AnsiLineBreak +
     AnsiLineBreak +
-    'if True then'+ AnsiLineBreak +
-    '  ShowMessage(''twoo'')'+ AnsiLineBreak +
-    'else if True then'+ AnsiLineBreak +
-    '  ShowMessage(''twoo'')'+ AnsiLineBreak +
+    'if True then' + AnsiLineBreak +
+    '  ShowMessage(''twoo'')' + AnsiLineBreak +
+    'else if True then' + AnsiLineBreak +
+    '  ShowMessage(''twoo'')' + AnsiLineBreak +
     'else' + AnsiLineBreak +
     '  ShowMessage(''false'');' + AnsiLineBreak +
     'end;' + AnsiLineBreak +
@@ -108,11 +108,11 @@ procedure TTestIfElseBreaks.Setup;
 begin
   inherited;
 
-  leSaveIfElseStyle := FormatSettings.Returns.ElseIfStyle;
+  leSaveIfElseStyle    := FormatSettings.Returns.ElseIfStyle;
   leSaveBareBlockStyle := FormatSettings.Returns.BlockStyle;
 
   leSaveCaseLabelStyle := FormatSettings.Returns.CaseLabelStyle;
-  leSaveCaseElseStyle := FormatSettings.Returns.CaseElseStyle;
+  leSaveCaseElseStyle  := FormatSettings.Returns.CaseElseStyle;
 end;
 
 procedure TTestIfElseBreaks.Teardown;
@@ -120,24 +120,24 @@ begin
   inherited;
 
   FormatSettings.Returns.ElseIfStyle := leSaveIfElseStyle;
-  FormatSettings.Returns.BlockStyle := leSaveBareBlockStyle;
+  FormatSettings.Returns.BlockStyle  := leSaveBareBlockStyle;
 
   FormatSettings.Returns.CaseLabelStyle := leSaveCaseLabelStyle;
-  FormatSettings.Returns.CaseElseStyle := leSaveCaseElseStyle;
+  FormatSettings.Returns.CaseElseStyle  := leSaveCaseElseStyle;
 end;
 
 procedure TTestIfElseBreaks.TestBlockStyleNever;
 const
-  IN_TEXT = UNIT_HEADER +
+  IN_TEXT  = UNIT_HEADER +
     'procedure foo;' + AnsiLineBreak +
-    'begin'  + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
     'if bar then ' + AnsiLineBreak +
     ' Fish();' + AnsiLineBreak +
     'end;' + AnsiLineBreak +
     UNIT_FOOTER;
   OUT_TEXT = UNIT_HEADER +
     'procedure foo;' + AnsiLineBreak +
-    'begin'  + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
     'if bar then  Fish();' + AnsiLineBreak +
     'end;' + AnsiLineBreak +
     UNIT_FOOTER;
@@ -151,7 +151,7 @@ procedure TTestIfElseBreaks.TestBlockStyleNeverWithComment;
 const
   IN_TEXT = UNIT_HEADER +
     'procedure foo;' + AnsiLineBreak +
-    'begin'  + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
     'if bar then // noremove' + AnsiLineBreak +
     ' Fish();' + AnsiLineBreak +
     'end;' + AnsiLineBreak +
@@ -164,9 +164,9 @@ end;
 
 procedure TTestIfElseBreaks.TestIfElseStyleNever;
 const
-  IN_TEXT = UNIT_HEADER +
+  IN_TEXT  = UNIT_HEADER +
     'procedure foo;' + AnsiLineBreak +
-    'begin'  + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
     'if bar then' + AnsiLineBreak +
     ' Fish()' + AnsiLineBreak +
     'else if spon then' + AnsiLineBreak +
@@ -175,7 +175,7 @@ const
     UNIT_FOOTER;
   OUT_TEXT = UNIT_HEADER +
     'procedure foo;' + AnsiLineBreak +
-    'begin'  + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
     'if bar then Fish()' + AnsiLineBreak +
     'else if spon then Wibble();' + AnsiLineBreak +
     'end;' + AnsiLineBreak +
@@ -188,9 +188,9 @@ end;
 
 procedure TTestIfElseBreaks.TestIfElseNeverWithComment;
 const
-  IN_TEXT = UNIT_HEADER +
+  IN_TEXT  = UNIT_HEADER +
     'procedure foo;' + AnsiLineBreak +
-    'begin'  + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
     'if bar then // comment' + AnsiLineBreak +
     ' Fish()' + AnsiLineBreak +
     'else if spon then // comment' + AnsiLineBreak +
@@ -199,7 +199,7 @@ const
     UNIT_FOOTER;
   OUT_TEXT = UNIT_HEADER +
     'procedure foo;' + AnsiLineBreak +
-    'begin'  + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
     'if bar then // comment' + AnsiLineBreak +
     ' Fish()' + AnsiLineBreak +
     'else if spon then // comment' + AnsiLineBreak +
@@ -261,11 +261,11 @@ const
     '  case i of' + AnsiLineBreak +
     '    1: ShowMessage(''1 ... OK'');' + AnsiLineBreak +
     '    else ShowMessage(''else ... OK'');' + AnsiLineBreak +
-    '   end;' +  AnsiLineBreak +
+    '   end;' + AnsiLineBreak +
     '  end;' + AnsiLineBreak + AnsiLineBreak +
     'end.';
 
-    CASE_STATEMENT_IN_TEXT_BREAKS =
+  CASE_STATEMENT_IN_TEXT_BREAKS =
     'unit CaseTest;' + AnsiLineBreak + AnsiLineBreak +
     'interface ' + AnsiLineBreak + AnsiLineBreak +
     'implementation' + AnsiLineBreak + AnsiLineBreak +
@@ -277,64 +277,70 @@ const
     ' ShowMessage(''1 ... OK'');' + AnsiLineBreak +
     '    else' + AnsiLineBreak +
     ' ShowMessage(''else ... OK'');' + AnsiLineBreak +
-    '   end;' +  AnsiLineBreak +
+    '   end;' + AnsiLineBreak +
     '  end;' + AnsiLineBreak + AnsiLineBreak +
     'end.';
 
 procedure TTestIfElseBreaks.TestCaseStatementNever1;
 begin
   FormatSettings.Returns.CaseLabelStyle := eNever;
-  FormatSettings.Returns.CaseElseStyle := eNever;
+  FormatSettings.Returns.CaseElseStyle  := eNever;
 
   // no breaks - text without breaks is left as is
-  TestProcessResult(TBlockStyles, CASE_STATEMENT_IN_TEXT_NO_BREAKS, CASE_STATEMENT_IN_TEXT_NO_BREAKS);
+  TestProcessResult(TBlockStyles, CASE_STATEMENT_IN_TEXT_NO_BREAKS,
+    CASE_STATEMENT_IN_TEXT_NO_BREAKS);
 end;
 
 procedure TTestIfElseBreaks.TestCaseStatementNever2;
 begin
   FormatSettings.Returns.CaseLabelStyle := eNever;
-  FormatSettings.Returns.CaseElseStyle := eNever;
+  FormatSettings.Returns.CaseElseStyle  := eNever;
 
   // no breaks - text with breaks is altered
-  TestProcessResult(TBlockStyles, CASE_STATEMENT_IN_TEXT_BREAKS, CASE_STATEMENT_IN_TEXT_NO_BREAKS);
+  TestProcessResult(TBlockStyles, CASE_STATEMENT_IN_TEXT_BREAKS,
+    CASE_STATEMENT_IN_TEXT_NO_BREAKS);
 end;
 
 procedure TTestIfElseBreaks.TestCaseStatementLeaveAsIs1;
 begin
   FormatSettings.Returns.CaseLabelStyle := eLeave;
-  FormatSettings.Returns.CaseElseStyle := eLeave;
+  FormatSettings.Returns.CaseElseStyle  := eLeave;
 
   // leave as is - text with no breaks is left as is
-  TestProcessResult(TBlockStyles, CASE_STATEMENT_IN_TEXT_NO_BREAKS, CASE_STATEMENT_IN_TEXT_NO_BREAKS);
+  TestProcessResult(TBlockStyles, CASE_STATEMENT_IN_TEXT_NO_BREAKS,
+    CASE_STATEMENT_IN_TEXT_NO_BREAKS);
 end;
 
 procedure TTestIfElseBreaks.TestCaseStatementLeaveAsIs2;
 begin
   FormatSettings.Returns.CaseLabelStyle := eLeave;
-  FormatSettings.Returns.CaseElseStyle := eLeave;
+  FormatSettings.Returns.CaseElseStyle  := eLeave;
 
   // leave as is - text with breaks is left as is
-  TestProcessResult(TBlockStyles, CASE_STATEMENT_IN_TEXT_BREAKS, CASE_STATEMENT_IN_TEXT_BREAKS);
+  TestProcessResult(TBlockStyles, CASE_STATEMENT_IN_TEXT_BREAKS,
+    CASE_STATEMENT_IN_TEXT_BREAKS);
 end;
 
 procedure TTestIfElseBreaks.TestCaseStatementAlways1;
 begin
   FormatSettings.Returns.CaseLabelStyle := eAlways;
-  FormatSettings.Returns.CaseElseStyle := eAlways;
+  FormatSettings.Returns.CaseElseStyle  := eAlways;
 
   // breaks - text without breaks has them inserted
-  TestProcessResult(TBlockStyles, CASE_STATEMENT_IN_TEXT_NO_BREAKS, CASE_STATEMENT_IN_TEXT_BREAKS);
+  TestProcessResult(TBlockStyles, CASE_STATEMENT_IN_TEXT_NO_BREAKS,
+    CASE_STATEMENT_IN_TEXT_BREAKS);
 end;
 
 procedure TTestIfElseBreaks.TestCaseStatementAlways2;
 begin
   FormatSettings.Returns.CaseLabelStyle := eAlways;
-  FormatSettings.Returns.CaseElseStyle := eAlways;
+  FormatSettings.Returns.CaseElseStyle  := eAlways;
 
   // breaks - text with breaks is left as is
-  TestProcessResult(TBlockStyles, CASE_STATEMENT_IN_TEXT_BREAKS, CASE_STATEMENT_IN_TEXT_BREAKS);
+  TestProcessResult(TBlockStyles, CASE_STATEMENT_IN_TEXT_BREAKS,
+    CASE_STATEMENT_IN_TEXT_BREAKS);
 end;
 
 initialization
- TestFramework.RegisterTest('Processes', TTestIfElseBreaks.Suite);
+  TestFramework.RegisterTest('Processes', TTestIfElseBreaks.Suite);
 end.

@@ -27,14 +27,14 @@ under the License.
 interface
 
 uses
- TestFrameWork;
+  TestFrameWork;
 
 type
   TTestFile = class(TTestCase)
   protected
     procedure TestFileContentsSame(const psFileName1, psFileName2: string);
 
-end;
+  end;
 
 implementation
 
@@ -57,7 +57,7 @@ begin
   // first check lengths
   CheckEquals(Length(lsFile1), Length(lsFile2),
     'Files lengths differ, ' +
-    IntToStr(Length(lsFile1)) + ' vs ' + IntToStr(Length(lsFile2)) +  ' ' +
+    IntToStr(Length(lsFile1)) + ' vs ' + IntToStr(Length(lsFile2)) + ' ' +
     psFileName1 + ' and ' + psFileName2);
 
 

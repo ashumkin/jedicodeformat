@@ -41,7 +41,8 @@ type
   TSingleSpaceBefore = class(TSwitchableVisitor)
   private
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
 
@@ -91,12 +92,12 @@ begin
   are the only exceptions to the rule of a space before an operator }
   if (pt.TokenType in Operators) then
   begin
-    if (pt.TokenType = ttHat) or 
+    if (pt.TokenType = ttHat) or
       (IsUnaryOperator(pt) and IsUnaryOperator(pt.PriorSolidToken)) then
       Result := False
     else
       Result := True;
-      
+
     exit;
   end;
 
@@ -143,7 +144,8 @@ begin
   { signle space before read, write etc in property }
   if pt.HasParentNode(nProperty) then
   begin
-    if (pt.TokenType in [ttProperty, ttRead, ttWrite, ttDefault, ttStored, ttNoDefault, ttImplements]) then
+    if (pt.TokenType in [ttProperty, ttRead, ttWrite, ttDefault,
+      ttStored, ttNoDefault, ttImplements]) then
     begin
       Result := True;
       exit;
@@ -162,7 +164,6 @@ begin
     end;
   end;
 
-
 end;
 
 
@@ -172,7 +173,8 @@ begin
   FormatFlags := FormatFlags + [eAddSpace, eRemoveSpace, eRemoveReturn];
 end;
 
-procedure TSingleSpaceBefore.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TSingleSpaceBefore.EnabledVisitSourceToken(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcSourceToken, lcNext, lcNew: TSourceToken;
 begin
@@ -202,11 +204,10 @@ begin
       lcNew.TokenType := ttWhiteSpace;
       lcNew.SourceCode := AnsiSpace;
 
-      prVisitResult.Action := aInsertAfter;
+      prVisitResult.Action  := aInsertAfter;
       prVisitResult.NewItem := lcNew;
     end;
   end;
-
 
 end;
 

@@ -83,8 +83,8 @@ type
     function EndOfFile: boolean;
     function BufferEndOfFile: boolean;
 
-    property Buffer: string read GetBuffer;
-    property BufferLength: integer read fiBufferLength write SetBufferLength;
+    property Buffer: string Read GetBuffer;
+    property BufferLength: integer Read fiBufferLength Write SetBufferLength;
   end;
 
 implementation
@@ -99,7 +99,7 @@ end;
 
 procedure TCodeReader.Clear;
 begin
-  fsSource       := '';
+  fsSource := '';
   fiSourceLength := 0;
 
   fiReadIndex    := -1;
@@ -130,7 +130,7 @@ end;
 
 procedure TCodeReader.IncBuffer;
 begin
-  inc(fiBufferLength);
+  Inc(fiBufferLength);
 
   { chop to the remaining length }
   if (fiReadIndex + fiBufferLength - 1) > fiSourceLength then
@@ -139,7 +139,7 @@ end;
 
 procedure TCodeReader.DecBuffer;
 begin
-  dec(fiBufferLength);
+  Dec(fiBufferLength);
   if fiBufferLength < 1 then
     fiBufferLength := 1;
 end;
@@ -147,14 +147,14 @@ end;
 
 procedure TCodeReader.Consume;
 begin
-  inc(fiReadIndex);
+  Inc(fiReadIndex);
 end;
 
 procedure TCodeReader.Consume(piChars: integer);
 begin
   Assert(piChars > 0);
-  inc(fiReadIndex, piChars);
-  dec(fiBufferLength, piChars);
+  Inc(fiReadIndex, piChars);
+  Dec(fiBufferLength, piChars);
   if fiBufferLength < 1 then
     fiBufferLength := 1;
 end;

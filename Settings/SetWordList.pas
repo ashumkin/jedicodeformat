@@ -29,8 +29,8 @@ unit SetWordList;
 interface
 
 uses
-    { delphi } Classes,
-    { local } JCFSetBase, SettingsStream;
+    { delphi }Classes,
+    { local }JCFSetBase, SettingsStream;
 
 type
 
@@ -56,15 +56,15 @@ type
     procedure WriteToStream(const pcOut: TSettingsOutput); override;
     procedure ReadFromStream(const pcStream: TSettingsInput); override;
 
-    property Enabled: boolean read fbEnabled write fbEnabled;
-    property Words: TStringList read fcWords;
+    property Enabled: boolean Read fbEnabled Write fbEnabled;
+    property Words: TStringList Read fcWords;
 
   end;
 
 implementation
 
 uses
-    { delphi } SysUtils;
+    { delphi }SysUtils;
 
 const
   REG_ENABLED = 'Enabled';

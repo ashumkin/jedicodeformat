@@ -25,7 +25,7 @@ interface
 
 uses
   { delphi }
-  Classes, Controls, Forms, 
+  Classes, Controls, Forms,
   StdCtrls, ExtCtrls,
   { local}
   frmBaseSettingsFrame;
@@ -77,11 +77,11 @@ begin
     rgLabelBegin.ItemIndex := Ord(LabelBeginStyle);
     rglabel.ItemIndex      := Ord(LabelStyle);
     rgEndElse.ItemIndex    := Ord(EndElseStyle);
-    rgCaseLabel.ItemIndex := Ord(CaseLabelStyle);
-    rgElseIf.ItemIndex := Ord(ElseIfStyle);
+    rgCaseLabel.ItemIndex  := Ord(CaseLabelStyle);
+    rgElseIf.ItemIndex     := Ord(ElseIfStyle);
 
     rgCaseLabel.ItemIndex := Ord(CaseLabelStyle);
-    rgElseCase.ItemIndex := Ord(CaseElseStyle);
+    rgElseCase.ItemIndex  := Ord(CaseElseStyle);
   end;
 end;
 
@@ -97,8 +97,8 @@ begin
     EndElseStyle    := TBlockNewLineStyle(rgEndElse.ItemIndex);
     ElseIfStyle     := TBlockNewLineStyle(rgElseIf.ItemIndex);
 
-    CaseLabelStyle  := TBlockNewLineStyle(rgCaseLabel.ItemIndex);
-    CaseElseStyle   := TBlockNewLineStyle(rgElseCase.ItemIndex);
+    CaseLabelStyle := TBlockNewLineStyle(rgCaseLabel.ItemIndex);
+    CaseElseStyle  := TBlockNewLineStyle(rgElseCase.ItemIndex);
   end;
 end;
 

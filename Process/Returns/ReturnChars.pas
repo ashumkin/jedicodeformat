@@ -29,7 +29,8 @@ uses SourceToken, SwitchableVisitor, VisitParseTree;
 type
   TReturnChars = class(TSwitchableVisitor)
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
 
   public
     constructor Create; override;
@@ -61,7 +62,7 @@ var
 begin
   lcSourceToken := TSourceToken(pcNode);
 
-  if  (lcSourceToken.TokenType <> ttReturn) then
+  if (lcSourceToken.TokenType <> ttReturn) then
     exit;
 
   case FormatSettings.Returns.ReturnChars of

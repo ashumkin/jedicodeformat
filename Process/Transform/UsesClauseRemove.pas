@@ -1,4 +1,5 @@
 unit UsesClauseRemove;
+
 {(*}
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code
@@ -37,17 +38,18 @@ type
   TUsesClauseRemove = class(TSwitchableVisitor)
   private
     fiCount: integer;
-    fbDoneInterface, fbDoneImplementation: Boolean;
+    fbDoneInterface, fbDoneImplementation: boolean;
 
-    function MatchesSearch(const ps: string): Boolean;
+    function MatchesSearch(const ps: string): boolean;
 
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
 
     function IsIncludedInSettings: boolean; override;
-    function FinalSummary(var psMessage: string): Boolean; override;
+    function FinalSummary(var psMessage: string): boolean; override;
 
   end;
 
@@ -84,7 +86,7 @@ procedure TUsesClauseRemove.EnabledVisitSourceToken(const pcNode: TObject;
   var prVisitResult: TRVisitResult);
 var
   lcSourceToken, lcSepAfter, lcSepBefore: TSourceToken;
-  lbInterface, lbImplementation: Boolean;
+  lbInterface, lbImplementation: boolean;
 begin
   if pcNode = nil then
     exit;
@@ -139,14 +141,14 @@ begin
   end;
 end;
 
-function TUsesClauseRemove.FinalSummary(var psMessage: string): Boolean;
+function TUsesClauseRemove.FinalSummary(var psMessage: string): boolean;
 begin
   Result := (fiCount > 0);
   if Result then
     psMessage := 'Uses clause removal: ' + IntToStr(fiCount) + ' removals were made';
 end;
 
-function TUsesClauseRemove.MatchesSearch(const ps: string): Boolean;
+function TUsesClauseRemove.MatchesSearch(const ps: string): boolean;
 begin
   Result := FormatSettings.UsesClause.Remove.IndexOf(ps) >= 0;
 end;

@@ -36,13 +36,14 @@ type
     lsLastChange: string;
 
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
 
     function IsIncludedInSettings: boolean; override;
     { return true if you want the message logged}
-    function FinalSummary(var psMessage: string): Boolean; override;
+    function FinalSummary(var psMessage: string): boolean; override;
   end;
 
 implementation
@@ -100,10 +101,10 @@ begin
   inherited;
   fiCount      := 0;
   lsLastChange := '';
-  FormatFlags := FormatFlags + [eCapsSpecificWord];
+  FormatFlags  := FormatFlags + [eCapsSpecificWord];
 end;
 
-function TSpecificWordCaps.FinalSummary(var psMessage: string): Boolean;
+function TSpecificWordCaps.FinalSummary(var psMessage: string): boolean;
 begin
   Result := (fiCount > 0);
 
@@ -118,10 +119,11 @@ begin
   end;
 end;
 
-procedure TSpecificWordCaps.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TSpecificWordCaps.EnabledVisitSourceToken(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
-  lsChange: string;
+  lsChange:      string;
 begin
   if not FormatSettings.SpecificWordCaps.Enabled then
     exit;
@@ -140,9 +142,9 @@ begin
     // case-sensitive test - see if anything to do.
     if AnsiCompareStr(lcSourceToken.SourceCode, lsChange) <> 0 then
     begin
-      lsLastChange  := lcSourceToken.SourceCode + ' to ' + lsChange;
+      lsLastChange := lcSourceToken.SourceCode + ' to ' + lsChange;
       lcSourceToken.SourceCode := lsChange;
-      inc(fiCount);
+      Inc(fiCount);
     end;
   end;
 end;

@@ -42,14 +42,14 @@ type
     fiMaxLineLength: integer;
 
     { return removal and adding }
-    fbRemoveBadReturns: Boolean;
-    fbAddGoodReturns: Boolean;
+    fbRemoveBadReturns: boolean;
+    fbAddGoodReturns: boolean;
     fbUsesClauseOnePerLine: boolean;
 
-    fbRemoveExpressionReturns: Boolean;
-    fbRemoveVarReturns: Boolean;
-    fbRemovePropertyReturns: Boolean;
-    fbRemoveProcedureDefReturns: Boolean;
+    fbRemoveExpressionReturns: boolean;
+    fbRemoveVarReturns: boolean;
+    fbRemovePropertyReturns: boolean;
+    fbRemoveProcedureDefReturns: boolean;
 
     fbRemoveBlockBlankLines: boolean;
     fbRemoveVarBlankLines: boolean;
@@ -67,7 +67,7 @@ type
 
     feReturnChars: TReturnChars;
 
-    fbRemoveConsecutiveBlankLines: Boolean;
+    fbRemoveConsecutiveBlankLines: boolean;
     fiMaxConsecutiveBlankLines: integer;
 
   protected
@@ -77,86 +77,93 @@ type
     procedure WriteToStream(const pcOut: TSettingsOutput); override;
     procedure ReadFromStream(const pcStream: TSettingsInput); override;
 
-    property RebreakLines: TWhenToRebreakLines read feRebreakLines write feRebreakLines;
-    property MaxLineLength: integer read fiMaxLineLength write fiMaxLineLength;
+    property RebreakLines: TWhenToRebreakLines Read feRebreakLines Write feRebreakLines;
+    property MaxLineLength: integer Read fiMaxLineLength Write fiMaxLineLength;
 
-    property NumReturnsAfterFinalEnd: integer read fiNumReturnsAfterFinalEnd
-      write fiNumReturnsAfterFinalEnd;
+    property NumReturnsAfterFinalEnd: integer
+      Read fiNumReturnsAfterFinalEnd Write fiNumReturnsAfterFinalEnd;
 
-    property RemoveBadReturns: boolean read fbRemoveBadReturns write fbRemoveBadReturns;
-    property AddGoodReturns: boolean read fbAddGoodReturns write fbAddGoodReturns;
-    property UsesClauseOnePerLine: Boolean read fbUsesClauseOnePerLine write fbUsesClauseOnePerLine;
+    property RemoveBadReturns: boolean Read fbRemoveBadReturns Write fbRemoveBadReturns;
+    property AddGoodReturns: boolean Read fbAddGoodReturns Write fbAddGoodReturns;
+    property UsesClauseOnePerLine: boolean Read fbUsesClauseOnePerLine
+      Write fbUsesClauseOnePerLine;
 
-    property RemoveExpressionReturns: boolean read fbRemoveExpressionReturns write fbRemoveExpressionReturns;
-    property RemoveVarReturns: boolean read fbRemoveVarReturns write fbRemoveVarReturns;
-    property RemovePropertyReturns: boolean read fbRemovePropertyReturns write fbRemovePropertyReturns;
-    property RemoveProcedureDefReturns: Boolean read fbRemoveProcedureDefReturns
-      write fbRemoveProcedureDefReturns;
+    property RemoveExpressionReturns: boolean
+      Read fbRemoveExpressionReturns Write fbRemoveExpressionReturns;
+    property RemoveVarReturns: boolean Read fbRemoveVarReturns Write fbRemoveVarReturns;
+    property RemovePropertyReturns: boolean
+      Read fbRemovePropertyReturns Write fbRemovePropertyReturns;
+    property RemoveProcedureDefReturns: boolean
+      Read fbRemoveProcedureDefReturns Write fbRemoveProcedureDefReturns;
 
-    property RemoveBlockBlankLines: boolean read fbRemoveBlockBlankLines write fbRemoveBlockBlankLines;
-    property RemoveVarBlankLines: boolean read fbRemoveVarBlankLines write fbRemoveVarBlankLines;
-    property RemoveProcHeaderBlankLines: boolean read fbRemoveProcHeaderBlankLines
-      write fbRemoveProcHeaderBlankLines;
+    property RemoveBlockBlankLines: boolean
+      Read fbRemoveBlockBlankLines Write fbRemoveBlockBlankLines;
+    property RemoveVarBlankLines: boolean Read fbRemoveVarBlankLines
+      Write fbRemoveVarBlankLines;
+    property RemoveProcHeaderBlankLines: boolean
+      Read fbRemoveProcHeaderBlankLines Write fbRemoveProcHeaderBlankLines;
 
 
-    property BlockStyle: TBlockNewLineStyle read feBlockStyle write feBlockStyle;
-    property BlockBeginStyle: TBlockNewLineStyle read feBlockBeginStyle
-      write feBlockBeginStyle;
-    property LabelStyle: TBlockNewLineStyle read feLabelStyle write feLabelStyle;
-    property LabelBeginStyle: TBlockNewLineStyle read feLabelBeginStyle
-      write feLabelBeginStyle;
-    property CaseLabelStyle: TBlockNewLineStyle read feCaseLabelStyle write feCaseLabelStyle;
-    property CaseElseStyle: TBlockNewLineStyle read feCaseElseStyle write feCaseElseStyle;
+    property BlockStyle: TBlockNewLineStyle Read feBlockStyle Write feBlockStyle;
+    property BlockBeginStyle: TBlockNewLineStyle
+      Read feBlockBeginStyle Write feBlockBeginStyle;
+    property LabelStyle: TBlockNewLineStyle Read feLabelStyle Write feLabelStyle;
+    property LabelBeginStyle: TBlockNewLineStyle
+      Read feLabelBeginStyle Write feLabelBeginStyle;
+    property CaseLabelStyle: TBlockNewLineStyle
+      Read feCaseLabelStyle Write feCaseLabelStyle;
+    property CaseElseStyle: TBlockNewLineStyle
+      Read feCaseElseStyle Write feCaseElseStyle;
 
-    property EndElseStyle: TBlockNewLineStyle read feEndElseStyle write feEndElseStyle;
-    property ElseIfStyle: TBlockNewLineStyle read feElseIfStyle write feElseIfStyle;
+    property EndElseStyle: TBlockNewLineStyle Read feEndElseStyle Write feEndElseStyle;
+    property ElseIfStyle: TBlockNewLineStyle Read feElseIfStyle Write feElseIfStyle;
 
-    property ReturnChars: TReturnChars read  feReturnChars write feReturnChars;
+    property ReturnChars: TReturnChars Read feReturnChars Write feReturnChars;
 
-    property RemoveConsecutiveBlankLines: Boolean
-      read fbRemoveConsecutiveBlankLines write fbRemoveConsecutiveBlankLines;
+    property RemoveConsecutiveBlankLines: boolean
+      Read fbRemoveConsecutiveBlankLines Write fbRemoveConsecutiveBlankLines;
     property MaxConsecutiveBlankLines: integer
-      read fiMaxConsecutiveBlankLines write fiMaxConsecutiveBlankLines;
+      Read fiMaxConsecutiveBlankLines Write fiMaxConsecutiveBlankLines;
 
   end;
 
 implementation
 
 const
-  REG_WHEN_REBREAK_LINES   = 'WhenRebreakLines';
-  REG_MAX_LINE_LENGTH = 'MaxLineLength';
+  REG_WHEN_REBREAK_LINES = 'WhenRebreakLines';
+  REG_MAX_LINE_LENGTH    = 'MaxLineLength';
 
   REG_NUM_RETURNS_AFTER_FINAL_END = 'NumReturnsAfterFinalEnd';
 
   REG_ALIGN_ASSIGN = 'AlignAssign';
 
   REG_REMOVE_BAD_RETURNS = 'RemoveBadReturns';
-  REG_ADD_GOOD_RETURNS = 'AddGoodReturns';
-  REG_USES_ONE_PER_LINE = 'UsesOnePerLine';
+  REG_ADD_GOOD_RETURNS   = 'AddGoodReturns';
+  REG_USES_ONE_PER_LINE  = 'UsesOnePerLine';
 
   REG_REMOVE_EXPRESSION_RETURNS = 'RemoveExpressionReturns';
-  REG_REMOVE_VAR_RETURNS = 'RemoveVarReturns';
+  REG_REMOVE_VAR_RETURNS      = 'RemoveVarReturns';
   REG_REMOVE_PROC_HEADER_BLANK_LINES = 'RemoveProcHeaderBlankLines';
   REG_REMOVE_PROPERTY_RETURNS = 'NoReturnsInProperty';
   REG_REMOVE_PROCEDURE_DEF_RETURNS = 'RemoveProcedureDefReturns';
 
   REG_REMOVE_BLOCK_BLANK_LINES = 'RemoveReturns';
-  REG_REMOVE_VAR_BLANK_LINES = 'RemoveVarBlankLines';
+  REG_REMOVE_VAR_BLANK_LINES   = 'RemoveVarBlankLines';
 
   { block line breaking styles }
-  REG_BLOCK_STYLE       = 'Block';
+  REG_BLOCK_STYLE      = 'Block';
   REG_BLOCK_BEGIN_STYLE = 'BlockBegin';
-  REG_LABEL_STYLE       = 'Label';
+  REG_LABEL_STYLE      = 'Label';
   REG_LABEL_BEGIN_STYLE = 'LabelBegin';
-  REG_CASE_LABEL_STYLE  = 'CaseLabel';
+  REG_CASE_LABEL_STYLE = 'CaseLabel';
   REG_CASE_ELSE_STYLE  = 'CaseElse';
-  REG_END_ELSE_STYLE    = 'EndElse';
-  REG_ELSE_IF_STYLE     = 'ElseIf';
+  REG_END_ELSE_STYLE   = 'EndElse';
+  REG_ELSE_IF_STYLE    = 'ElseIf';
 
   REG_RETURN_CHARS = 'ReturnChars';
 
   REG_REMOVE_CONSECUTIVE_BLANK_LINES = 'RemoveConsecutiveBlankLines';
-  REG_MAX_CONSECUTIVE_BLANK_LINES = 'MaxConsecutiveBlankLines';
+  REG_MAX_CONSECUTIVE_BLANK_LINES    = 'MaxConsecutiveBlankLines';
 
 constructor TSetReturns.Create;
 begin
@@ -168,37 +175,45 @@ procedure TSetReturns.ReadFromStream(const pcStream: TSettingsInput);
 begin
   Assert(pcStream <> nil);
 
-  feRebreakLines  := TWhenToRebreakLines(pcStream.Read(REG_WHEN_REBREAK_LINES, Ord(rbOnlyIfGood)));
+  feRebreakLines  := TWhenToRebreakLines(pcStream.Read(REG_WHEN_REBREAK_LINES,
+    Ord(rbOnlyIfGood)));
   fiMaxLineLength := pcStream.Read(REG_MAX_LINE_LENGTH, 90);
 
   fiNumReturnsAfterFinalEnd := pcStream.Read(REG_NUM_RETURNS_AFTER_FINAL_END, 1);
 
   fbRemoveBadReturns := pcStream.Read(REG_REMOVE_BAD_RETURNS, True);
-  fbAddGoodReturns := pcStream.Read(REG_ADD_GOOD_RETURNS, True);
+  fbAddGoodReturns   := pcStream.Read(REG_ADD_GOOD_RETURNS, True);
   fbUsesClauseOnePerLine := pcStream.Read(REG_USES_ONE_PER_LINE, False);
 
   fbRemoveExpressionReturns := pcStream.Read(REG_REMOVE_EXPRESSION_RETURNS, False);
-  fbRemoveVarReturns := pcStream.Read(REG_REMOVE_VAR_RETURNS, True);
+  fbRemoveVarReturns      := pcStream.Read(REG_REMOVE_VAR_RETURNS, True);
   fbRemovePropertyReturns := pcStream.Read(REG_REMOVE_PROPERTY_RETURNS, True);
   fbRemoveProcedureDefReturns := pcStream.Read(REG_REMOVE_PROCEDURE_DEF_RETURNS, False);
 
   fbRemoveBlockBlankLines := pcStream.Read(REG_REMOVE_BLOCK_BLANK_LINES, True);
-  fbRemoveVarBlankLines := pcStream.Read(REG_REMOVE_VAR_BLANK_LINES, False);
-  fbRemoveProcHeaderBlankLines := pcStream.Read(REG_REMOVE_PROC_HEADER_BLANK_LINES, True);
+  fbRemoveVarBlankLines   := pcStream.Read(REG_REMOVE_VAR_BLANK_LINES, False);
+  fbRemoveProcHeaderBlankLines :=
+    pcStream.Read(REG_REMOVE_PROC_HEADER_BLANK_LINES, True);
 
   feBlockStyle      := TBlockNewLineStyle(pcStream.Read(REG_BLOCK_STYLE, Ord(eLeave)));
-  feBlockBeginStyle := TBlockNewLineStyle(pcStream.Read(REG_BLOCK_BEGIN_STYLE, Ord(eLeave)));
+  feBlockBeginStyle := TBlockNewLineStyle(pcStream.Read(REG_BLOCK_BEGIN_STYLE,
+    Ord(eLeave)));
   feLabelStyle      := TBlockNewLineStyle(pcStream.Read(REG_LABEL_STYLE, Ord(eLeave)));
-  feLabelBeginStyle := TBlockNewLineStyle(pcStream.Read(REG_LABEL_BEGIN_STYLE, Ord(eLeave)));
-  feCaseLabelStyle  := TBlockNewLineStyle(pcStream.Read(REG_CASE_LABEL_STYLE, Ord(eLeave)));
-  feCaseElseStyle  := TBlockNewLineStyle(pcStream.Read(REG_CASE_ELSE_STYLE, Ord(eLeave)));
-  feEndElseStyle    := TBlockNewLineStyle(pcStream.Read(REG_END_ELSE_STYLE, Ord(eLeave)));
+  feLabelBeginStyle := TBlockNewLineStyle(pcStream.Read(REG_LABEL_BEGIN_STYLE,
+    Ord(eLeave)));
+  feCaseLabelStyle  := TBlockNewLineStyle(pcStream.Read(REG_CASE_LABEL_STYLE,
+    Ord(eLeave)));
+  feCaseElseStyle   := TBlockNewLineStyle(pcStream.Read(REG_CASE_ELSE_STYLE,
+    Ord(eLeave)));
+  feEndElseStyle    := TBlockNewLineStyle(pcStream.Read(REG_END_ELSE_STYLE,
+    Ord(eLeave)));
   feElseIfStyle     := TBlockNewLineStyle(pcStream.Read(REG_ELSE_IF_STYLE, Ord(eNever)));
 
   feReturnChars := TReturnChars(pcStream.Read(REG_RETURN_CHARS, Ord(rcLeaveAsIs)));
 
-  fbRemoveConsecutiveBlankLines := pcStream.Read(REG_REMOVE_CONSECUTIVE_BLANK_LINES, True);
-  fiMaxConsecutiveBlankLines := pcStream.Read(REG_MAX_CONSECUTIVE_BLANK_LINES, 4);
+  fbRemoveConsecutiveBlankLines :=
+    pcStream.Read(REG_REMOVE_CONSECUTIVE_BLANK_LINES, True);
+  fiMaxConsecutiveBlankLines    := pcStream.Read(REG_MAX_CONSECUTIVE_BLANK_LINES, 4);
 end;
 
 procedure TSetReturns.WriteToStream(const pcOut: TSettingsOutput);
@@ -229,7 +244,7 @@ begin
   pcOut.Write(REG_LABEL_BEGIN_STYLE, Ord(feLabelBeginStyle));
   pcOut.Write(REG_CASE_LABEL_STYLE, Ord(feCaseLabelStyle));
   pcOut.Write(REG_CASE_ELSE_STYLE, Ord(feCaseElseStyle));
- 
+
   pcOut.Write(REG_END_ELSE_STYLE, Ord(feEndElseStyle));
   pcOut.Write(REG_ELSE_IF_STYLE, Ord(feElseIfStyle));
 

@@ -25,7 +25,7 @@ type
 { used to recognise tokens - all expect identifiers have fixed text }
 const
   SYMBOL_DATA: array[eOpenBracket .. eFalse] of string =
-     ('(', ')', 'defined', 'declared', 'and', 'or', 'not', 'true', 'false');
+    ('(', ')', 'defined', 'declared', 'and', 'or', 'not', 'true', 'false');
 
 type
 
@@ -34,8 +34,8 @@ type
     feSymbol: TPreProcessorSymbol;
     fsSourceCode: string;
   public
-    property Symbol: TPreProcessorSymbol read feSymbol write feSymbol;
-    property SourceCode: string read fsSOurceCode write fsSourceCode;
+    property Symbol: TPreProcessorSymbol Read feSymbol Write feSymbol;
+    property SourceCode: string Read fsSOurceCode Write fsSourceCode;
   end;
 
   TPreProcessorExpressionTokenList = class(TObject)
@@ -48,11 +48,12 @@ type
     constructor Create;
     destructor Destroy; override;
 
-    function Add(const peSymbol: TPreProcessorSymbol; psText: string): TPreProcessorExpressionToken;
+    function Add(const peSymbol: TPreProcessorSymbol;
+      psText: string): TPreProcessorExpressionToken;
     procedure Clear;
 
-    property Items[const piIndex: integer]: TPreProcessorExpressionToken read GetItems;
-    property Count:  integer read GetCount;
+    property Items[const piIndex: integer]: TPreProcessorExpressionToken Read GetItems;
+    property Count: integer Read GetCount;
   end;
 
 function PreProcessorSymbolToString(const peSymbol: TPreProcessorSymbol): string;
@@ -85,20 +86,21 @@ begin
       Result := 'true';
     eFalse:
       Result := 'false';
-  else
-    Assert(false);
+    else
+      Assert(False);
   end;
 
 end;
 
 { TPreProcessorExpressionTokenList }
 
-function TPreProcessorExpressionTokenList.Add(const peSymbol: TPreProcessorSymbol; psText: string): TPreProcessorExpressionToken;
+function TPreProcessorExpressionTokenList.Add(const peSymbol: TPreProcessorSymbol;
+  psText: string): TPreProcessorExpressionToken;
 begin
   Result := TPreProcessorExpressionToken.Create;
   Result.Symbol := peSymbol;
   Result.SourceCode := psText;
-  
+
   fcList.Add(Result);
 end;
 
@@ -126,14 +128,14 @@ begin
   Result := fcList.Count;
 end;
 
-function TPreProcessorExpressionTokenList.GetItems(const piIndex: integer): TPreProcessorExpressionToken;
+function TPreProcessorExpressionTokenList.GetItems(
+  const piIndex: integer): TPreProcessorExpressionToken;
 begin
-  If piIndex < fcList.Count Then
+  if piIndex < fcList.Count then
     Result := TPreProcessorExpressionToken(fcList[piIndex])
   else
-    Result := Nil;
+    Result := nil;
 end;
 
 
 end.
-

@@ -42,7 +42,7 @@ type
 
     fiXPosition, fiYPosition: integer;
     fiSolidTokenOnLineIndex: integer;
-    fbPreprocessedOut: Boolean;
+    fbPreprocessedOut: boolean;
 
     fePreprocessorSymbol: TPreProcessorSymbolType;
     fsPreProcessorText: string;
@@ -54,16 +54,18 @@ type
     function Describe: string; override;
     function DescribePosition: string;
 
-    procedure AcceptVisitor(const pcVisitor: IVisitParseTree; var prVisitResults: TRVisitResult); override;
+    procedure AcceptVisitor(const pcVisitor: IVisitParseTree;
+      var prVisitResults: TRVisitResult); override;
 
     function IsSolid: boolean;
 
-    function HasChildNode(const peTokens: TTokenTypeSet): Boolean; override;
-    function HasChildNode(const peTokens: TTokenTypeSet; const piMaxDepth: integer): Boolean; override;
+    function HasChildNode(const peTokens: TTokenTypeSet): boolean; override;
+    function HasChildNode(const peTokens: TTokenTypeSet;
+      const piMaxDepth: integer): boolean; override;
 
     function SolidChildCount: integer; override;
     function FirstSolidLeaf: TParseTreeNode; override;
-    function IsLeaf: Boolean; override;
+    function IsLeaf: boolean; override;
 
     { navigating the source tree as if it was a list }
     function NextToken: TSourceToken;
@@ -75,20 +77,21 @@ type
 
     procedure GeneratePreProcessorData;
 
-    property TokenType: TTokenType read feTokenType write feTokenType;
-    property WordType: TWordType read feWordType write feWordType;
+    property TokenType: TTokenType Read feTokenType Write feTokenType;
+    property WordType: TWordType Read feWordType Write feWordType;
 
-    property SourceCode: string read fsSourceCode write fsSourceCode;
-    property CommentStyle: TCommentStyle read feCommentStyle write feCommentStyle;
+    property SourceCode: string Read fsSourceCode Write fsSourceCode;
+    property CommentStyle: TCommentStyle Read feCommentStyle Write feCommentStyle;
 
-    property XPosition: integer read fiXPosition write fiXPosition;
-    property YPosition: integer read fiYPosition write fiYPosition;
-    property SolidTokenOnLineIndex: integer read fiSolidTokenOnLineIndex write fiSolidTokenOnLineIndex;
+    property XPosition: integer Read fiXPosition Write fiXPosition;
+    property YPosition: integer Read fiYPosition Write fiYPosition;
+    property SolidTokenOnLineIndex: integer
+      Read fiSolidTokenOnLineIndex Write fiSolidTokenOnLineIndex;
 
-    property PreprocessorSymbol: TPreProcessorSymbolType read fePreprocessorSymbol;
-    property PreProcessorText: string read fsPreProcessorText;
+    property PreprocessorSymbol: TPreProcessorSymbolType Read fePreprocessorSymbol;
+    property PreProcessorText: string Read fsPreProcessorText;
 
-    property PreprocessedOut: Boolean read fbPreprocessedOut write fbPreprocessedOut;
+    property PreprocessedOut: boolean Read fbPreprocessedOut Write fbPreprocessedOut;
   end;
 
   TSourceTokenProcedure = procedure(const pt: TSourceToken) of object;
@@ -111,7 +114,7 @@ begin
   feTokenType  := ttUnknown;
   fsSourceCode := '';
 
-  feWordType := wtNotAWord;
+  feWordType     := wtNotAWord;
   feCommentStyle := eNotAComment;
 
   fiXPosition := -1;
@@ -119,8 +122,8 @@ begin
   fiSolidTokenOnLineIndex := -1;
 
   fePreprocessorSymbol := ppNone;
-  fsPreProcessorText := '';
-  fbPreprocessedOut := False;
+  fsPreProcessorText   := '';
+  fbPreprocessedOut    := False;
 end;
 
 
@@ -153,12 +156,13 @@ begin
   end;
 end;
 
-function TSourceToken.HasChildNode(const peTokens: TTokenTypeSet): Boolean;
+function TSourceToken.HasChildNode(const peTokens: TTokenTypeSet): boolean;
 begin
   Result := (TokenType in peTokens);
 end;
 
-function TSourceToken.HasChildNode(const peTokens: TTokenTypeSet; const piMaxDepth: integer): Boolean;
+function TSourceToken.HasChildNode(const peTokens: TTokenTypeSet;
+  const piMaxDepth: integer): boolean;
 begin
   Result := (TokenType in peTokens);
 end;
@@ -169,7 +173,8 @@ begin
 end;
 
 
-procedure TSourceToken.AcceptVisitor(const pcVisitor: IVisitParseTree; var prVisitResults: TRVisitResult);
+procedure TSourceToken.AcceptVisitor(const pcVisitor: IVisitParseTree;
+  var prVisitResults: TRVisitResult);
 begin
   Assert(pcVisitor <> nil);
   pcVisitor.VisitSourceToken(self, prVisitResults);
@@ -206,11 +211,12 @@ function TSourceToken.NextSolidToken: TSourceToken;
 begin
   Result := NextToken;
 
-  while (Result <> nil) and (not Result.IsSolid) do
+  while (Result <> nil) and ( not Result.IsSolid) do
     Result := Result.NextToken;
 end;
 
-function TSourceToken.NextTokenWithExclusions(const peExclusions: TTokenTypeSet): TSourceToken;
+function TSourceToken.NextTokenWithExclusions(
+  const peExclusions: TTokenTypeSet): TSourceToken;
 begin
   Result := NextToken;
 
@@ -218,7 +224,8 @@ begin
     Result := Result.NextToken;
 end;
 
-function TSourceToken.PriorTokenWithExclusions(const peExclusions: TTokenTypeSet): TSourceToken;
+function TSourceToken.PriorTokenWithExclusions(
+  const peExclusions: TTokenTypeSet): TSourceToken;
 begin
   Result := PriorToken;
 
@@ -231,7 +238,7 @@ function TSourceToken.PriorSolidToken: TSourceToken;
 begin
   Result := PriorToken;
 
-  while (Result <> nil) and (not Result.IsSolid) do
+  while (Result <> nil) and ( not Result.IsSolid) do
     Result := Result.PriorToken;
 end;
 
@@ -251,7 +258,7 @@ begin
     Result := nil;
 end;
 
-function TSourceToken.IsLeaf: Boolean;
+function TSourceToken.IsLeaf: boolean;
 begin
   Result := True;
 end;

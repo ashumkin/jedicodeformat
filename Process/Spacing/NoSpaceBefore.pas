@@ -35,7 +35,8 @@ type
   private
     fbSafeToRemoveReturn: boolean;  // this taken from NoReturnBefore
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
 
@@ -110,7 +111,6 @@ begin
     exit;
   end;
 
-
 end;
 
 constructor TNoSpaceBefore.Create;
@@ -120,7 +120,8 @@ begin
   FormatFlags := FormatFlags + [eRemoveSpace];
 end;
 
-procedure TNoSpaceBefore.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TNoSpaceBefore.EnabledVisitSourceToken(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
   lcNext: TSourceToken;
@@ -128,13 +129,15 @@ begin
   lcSourceToken := TSourceToken(pcNode);
 
   // not safe to remove return at a comment like this
-  if (lcSourceToken.TokenType = ttComment) and (lcSourceToken.CommentStyle = eDoubleSlash) then
+  if (lcSourceToken.TokenType = ttComment) and
+    (lcSourceToken.CommentStyle = eDoubleSlash) then
     fbSafeToRemoveReturn := False
   else if (lcSourceToken.TokenType <> ttReturn) then
     fbSafeToRemoveReturn := True;
 
   // work on whitespace and returns
-  if (not (lcSourceToken.TokenType in [ttWhiteSpace, ttReturn])) or (not fbSafeToRemoveReturn) then
+  if ( not (lcSourceToken.TokenType in [ttWhiteSpace, ttReturn])) or
+    ( not fbSafeToRemoveReturn) then
     exit;
 
   lcNext := lcSourceToken.NextToken;

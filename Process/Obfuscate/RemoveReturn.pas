@@ -28,7 +28,8 @@ uses SwitchableVisitor, VisitParseTree;
 type
   TRemoveReturn = class(TSwitchableVisitor)
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
   end;
@@ -45,7 +46,8 @@ begin
   FormatFlags := FormatFlags + [eObfuscate];
 end;
 
-procedure TRemoveReturn.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TRemoveReturn.EnabledVisitSourceToken(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcSourceToken, lcPrev: TSourceToken;
 begin
@@ -62,12 +64,13 @@ begin
   // never remove the return after a comment like this
   lcPrev := lcSourceToken.PriorTokenWithExclusions([ttWhiteSpace]);
 
-  if (lcPrev <> nil) and (lcPrev.TokenType = ttComment) and (lcPrev.CommentStyle = eDoubleSlash) then
+  if (lcPrev <> nil) and (lcPrev.TokenType = ttComment) and
+    (lcPrev.CommentStyle = eDoubleSlash) then
     exit;
 
   // transmute to white space  - may be needed as seperator
   lcSourceToken.SourceCode := ' ';
-  lcSourceToken.TokenType := ttWhiteSpace;
+  lcSourceToken.TokenType  := ttWhiteSpace;
 end;
 
 end.

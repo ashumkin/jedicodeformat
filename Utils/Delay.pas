@@ -50,11 +50,11 @@ under the License.
 
 interface
 
-uses Extctrls;
+uses ExtCtrls;
 
 type
-  TProcedure = procedure(var pbTryAgain: Boolean);
-  TObjectProcedure = procedure(var pbTryAgain: Boolean) of object;
+  TProcedure = procedure(var pbTryAgain: boolean);
+  TObjectProcedure = procedure(var pbTryAgain: boolean) of object;
 
   TDelay = class(TObject)
   private
@@ -65,7 +65,7 @@ type
     fcObjectProc: TObjectProcedure;
 
     fcTimer: TTimer;
-    fbDone: Boolean;
+    fbDone: boolean;
 
     procedure DoItNow(Sender: TObject);
   public
@@ -75,14 +75,14 @@ type
     procedure DoItSoon;
 
     { how long to delay in Miliseconds}
-    property Delay: integer read fiDelay write fiDelay;
+    property Delay: integer Read fiDelay Write fiDelay;
 
     { done yet? }
-    property Done: Boolean read fbDone;
+    property Done: boolean Read fbDone;
 
     { proc to call }
-    property Proc: TProcedure read fcProc write fcProc;
-    property objectProc: TobjectProcedure read fcObjectProc write fcObjectProc;
+    property Proc: TProcedure Read fcProc Write fcProc;
+    property objectProc: TobjectProcedure Read fcObjectProc Write fcObjectProc;
   end;
 
 
@@ -100,11 +100,11 @@ begin
   inherited;
 
   fcTimer := nil; // create the timer when needed
-  fcProc := nil;
+  fcProc  := nil;
   fcObjectProc := nil;
 
   fiDelay := DEFAULT_DELAY; // default 1/2 sec
-  fbDone := False;
+  fbDone  := False;
 end;
 
 destructor TDelay.Destroy;
@@ -116,7 +116,7 @@ end;
 
 procedure TDelay.DoItNow(Sender: TObject);
 var
-  lbDoAgain: Boolean;
+  lbDoAgain: boolean;
 begin
   Assert(fcTimer <> nil);
 

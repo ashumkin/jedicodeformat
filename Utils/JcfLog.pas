@@ -59,10 +59,10 @@ type
     procedure CloseLog;
 
     // can't change file at runtime
-    property FileName: string read fsLogFileName;
+    property FileName: string Read fsLogFileName;
 
     // can change log level
-    property LogLevel: TLogLevel read feLogLevel write feLogLevel;
+    property LogLevel: TLogLevel Read feLogLevel Write feLogLevel;
   end;
 
 function Log: TJCFLog;
@@ -153,6 +153,7 @@ end;
 
 initialization
   mcLog := nil;
+
 finalization
   FreeAndNil(mcLog);
 end.

@@ -45,7 +45,8 @@ type
 
     procedure FixPos;
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
     destructor Destroy; override;
@@ -65,7 +66,7 @@ uses
   TokenUtils, JcfMiscFunctions, Tokens, ParseTreeNode, ParseTreeNodeType;
 
 
-function EndsFunctionReturnType(const pt: TSourceToken): Boolean;
+function EndsFunctionReturnType(const pt: TSourceToken): boolean;
 var
   lcPrev: TSourceToken;
 begin
@@ -80,10 +81,10 @@ end;
 
 function PositionScore(const piIndex, piIndexOfFirstSolidToken, piPos: integer): integer;
 const
-  NOGO_PLACE = -100; // the pits
-  PLATEAU    = 100; // the baseline
-  PAST_END   = 0;
-  ROOFSLOPE  = 5; // the plateau slopes a bit up to a point /\
+  NOGO_PLACE   = -100; // the pits
+  PLATEAU      = 100;  // the baseline
+  PAST_END     = 0;
+  ROOFSLOPE    = 5; // the plateau slopes a bit up to a point /\
   INCREASE_TO_RIGHT_FACTOR = 15; // and it also slopes to the right
   WIDTH_SCORE_FACTOR = 5;
   TO_FAR_SCORE_FACTOR = 10;
@@ -106,8 +107,8 @@ begin
 
   { middle of the actual line (ie from first token pos to max length) }
   liEffectiveWidth := FormatSettings.Returns.MaxLineLength - piIndexOfFirstSolidToken;
-  liMidPoint       := (liEffectiveWidth div 2) + piIndexOfFirstSolidToken;
-  liOneThirdPoint  := (liEffectiveWidth div 3) + piIndexOfFirstSolidToken;
+  liMidPoint      := (liEffectiveWidth div 2) + piIndexOfFirstSolidToken;
+  liOneThirdPoint := (liEffectiveWidth div 3) + piIndexOfFirstSolidToken;
 
   if piPos < liOneThirdPoint then
   begin
@@ -118,7 +119,8 @@ begin
     { this is the distance from the first tokne  }
     liEffectivePos := piPos - piIndexOfFirstSolidToken;
 
-    Result := NOGO_PLACE + ((PLATEAU - NOGO_PLACE) * liEffectivePos * 3) div liEffectiveWidth;
+    Result := NOGO_PLACE + ((PLATEAU - NOGO_PLACE) * liEffectivePos * 3) div
+      liEffectiveWidth;
   end
   else if piPos < FormatSettings.Returns.MaxLineLength then
   begin
@@ -204,8 +206,8 @@ const
 
   penalties: array[1..15] of integer = (
     113, 98, 85, 72, 61,
-     50, 41, 32, 25, 18,
-     13,  8,  5,  2,  1);
+    50, 41, 32, 25, 18,
+    13, 8, 5, 2, 1);
 begin
   Assert(piSpacesToEnd >= 0, 'Spaces to end is ' + IntToStr(piSpacesToEnd));
   if piSpacesToEnd > TAIL_SIZE then
@@ -217,6 +219,7 @@ begin
     Result := penalties[piSpacesToEnd];
   end;
 end;
+
 { scoring - based on the current token,
   score how aestetically pleasing a line break after this token would be }
 procedure ScoreToken(const pcToken: TSourceToken;
@@ -240,7 +243,7 @@ var
 begin
   Assert(pcToken <> nil);
   piScoreBefore := 0;
-  piScoreAfter := 0;
+  piScoreAfter  := 0;
 
   if pcToken.TokenType in Operators then
   begin
@@ -256,12 +259,12 @@ begin
       if (pcToken.TokenType = ttEquals) and pcToken.HasParentNode(nConstDecl) then
       begin
         { '=' in a const def is like a ':='}
-        piScoreAfter := GOOD4;
+        piScoreAfter  := GOOD4;
         piScoreBefore := BAD2;
       end
       else
       begin
-        piScoreAfter := GOOD1;
+        piScoreAfter  := GOOD1;
         piScoreBefore := BAD2;
       end;
     end;
@@ -276,13 +279,13 @@ begin
       ttDot:
       begin
         piScoreBefore := BAD2;
-        piScoreAfter := BAD1;
+        piScoreAfter  := BAD1;
       end;
       { it is better to break after a colon than before }
       ttColon:
       begin
         piScoreBefore := BAD2;
-        piScoreAfter := HALF_GOOD;
+        piScoreAfter  := HALF_GOOD;
       end;
       ttOpenBracket:
       begin
@@ -290,19 +293,19 @@ begin
         if IsActualParamOpenBracket(pcToken) or IsFormalParamOpenBracket(pcToken) then
         begin
           piScoreBefore := BAD2;
-          piScoreAfter := GOOD1;
+          piScoreAfter  := GOOD1;
         end
         { If it not a fn call but is in an expr then break before }
         else if pcToken.HasParentNode(nExpression) then
         begin
           piScoreBefore := GOOD1;
-          piScoreAfter := BAD1;
+          piScoreAfter  := BAD1;
         end
         else
         begin
           // class defs and stuph Break after
           piScoreBefore := BAD2;
-          piScoreAfter := GOOD1;
+          piScoreAfter  := GOOD1;
         end;
 
       end;
@@ -311,7 +314,7 @@ begin
       ttCloseBracket, ttCloseSquareBracket:
       begin
         piScoreBefore := BAD2;
-        piScoreAfter := GOOD1;
+        piScoreAfter  := GOOD1;
 
         if pcToken.HasParentNode(nExpression) then
         begin
@@ -322,12 +325,12 @@ begin
             begin
                { operator next? want to break after it instead of after the ')'
                 (for e.g after the + in 'a := (x - y) + z; }
-               piScoreAfter := BAD1;
+              piScoreAfter := BAD1;
             end
             else if (lcNext.TokenType in [ttCloseBracket, ttCloseSquareBracket]) then
             begin
               { more close brackets coming? break after them instead }
-               piScoreAfter := BAD2;
+              piScoreAfter := BAD2;
             end
             else
             begin
@@ -347,19 +350,19 @@ begin
         begin
           // if this semicolon ends the function return type, even better
           piScoreBefore := BAD3;
-          piScoreAfter := GOOD5;
+          piScoreAfter  := GOOD5;
         end
         else
         begin
           piScoreBefore := BAD2;
-          piScoreAfter := GOOD4;
+          piScoreAfter  := GOOD4;
         end;
       end;
       { It is good to break after := not before }
       ttAssign:
       begin
         piScoreBefore := BAD2;
-        piScoreAfter := GOOD3;
+        piScoreAfter  := GOOD3;
       end;
       ttComma:
       begin
@@ -378,7 +381,7 @@ begin
       ttWhiteSpace:
       begin
         piScoreBefore := GOOD1;
-        piScoreAfter := BAD1;
+        piScoreAfter  := BAD1;
       end;
 
       { words }
@@ -387,19 +390,19 @@ begin
       ttThen, ttOf, ttDo:
       begin
         piScoreBefore := BAD2;
-        piScoreAfter := GOOD4;
+        piScoreAfter  := GOOD4;
       end;
       { in the unlikely event that one of these is embedded in a long line }
       ttBegin, ttEnd:
       begin
         // good to break before, even better to break after
         piScoreBefore := GOOD1;
-        piScoreAfter := GOOD4;
+        piScoreAfter  := GOOD4;
       end;
       ttConst:
       begin
         piScoreBefore := BAD1;
-        piScoreAfter := GOOD1;
+        piScoreAfter  := GOOD1;
       end;
     end;
   end;
@@ -415,7 +418,7 @@ begin
         if pcToken.HasParentNode(nProperty) then
         begin
           piScoreBefore := GOOD4;
-          piScoreAfter := BAD2;
+          piScoreAfter  := BAD2;
         end;
       end;
       ttWrite, ttImplements:
@@ -423,7 +426,7 @@ begin
         if pcToken.HasParentNode(nProperty) then
         begin
           piScoreBefore := GOOD3;
-          piScoreAfter := BAD2;
+          piScoreAfter  := BAD2;
         end;
       end;
       ttExternal:
@@ -432,7 +435,7 @@ begin
         if pcToken.HasParentNode(nExternalDirective) then
         begin
           piScoreBefore := HALF_GOOD;
-          piScoreAfter := BAD1;
+          piScoreAfter  := BAD1;
         end;
       end;
       ttDefault:
@@ -441,17 +444,18 @@ begin
         if pcToken.HasParentNode(nProperty) then
         begin
           piScoreBefore := BAD1;
-          piScoreAfter := GOOD1;
+          piScoreAfter  := GOOD1;
         end;
 
       end;
     end;
 
-    if pcToken.HasParentNode(nPropertyParameterList) and (pcToken.TokenType = ttConst) then
+    if pcToken.HasParentNode(nPropertyParameterList) and
+      (pcToken.TokenType = ttConst) then
     begin
       { breaking before const not after }
       piScoreBefore := GOOD3;
-      piScoreAfter := BAD2;
+      piScoreAfter  := BAD2;
     end;
   end;
 
@@ -460,16 +464,16 @@ begin
   begin
     case pcToken.TokenType of
       ttArray, ttOf:
-        begin
-          piScoreBefore := BAD1;
-          piScoreAfter := BAD1;
-        end;
-        ttConst, ttVar, ttOut:
-        begin
+      begin
+        piScoreBefore := BAD1;
+        piScoreAfter  := BAD1;
+      end;
+      ttConst, ttVar, ttOut:
+      begin
           { breaking in these would be breaking inside a parameter}
-          piScoreBefore := GOOD3;
-          piScoreAfter := BAD2;
-        end;
+        piScoreBefore := GOOD3;
+        piScoreAfter  := BAD2;
+      end;
     end;
   end
 
@@ -484,8 +488,8 @@ constructor TLongLineBreaker.Create;
 begin
   inherited;
   FormatFlags := FormatFlags + [eLineBreaking];
-  fcScores := TIntList.Create;
-  fcTokens := TSourceTokenList.Create;
+  fcScores    := TIntList.Create;
+  fcTokens    := TSourceTokenList.Create;
 end;
 
 destructor TLongLineBreaker.Destroy;
@@ -499,13 +503,13 @@ procedure TLongLineBreaker.FixPos;
 var
   liLoop, liPos: integer;
   lt: TSourceToken;
-  lbStarted: Boolean;
+  lbStarted: boolean;
 begin
-  liPos := 1; // XPos is indexed from 1
+  liPos     := 1; // XPos is indexed from 1
   lbStarted := False;
 
   // look through the token list and reset X pos of all tokens after the inserted returns
-  for liLoop := 0 to fcTokens.Count -1 do
+  for liLoop := 0 to fcTokens.Count - 1 do
   begin
     lt := fcTokens.SourceTokens[liLoop];
 
@@ -515,7 +519,7 @@ begin
     case lt.TokenType of
       ttReturn:
       begin
-        liPos := 1;
+        liPos     := 1;
         lbStarted := True;
       end;
       ttComment:
@@ -536,7 +540,7 @@ procedure TLongLineBreaker.EnabledVisitSourceToken(const pcNode: TObject;
   var prVisitResult: TRVisitResult);
 const
   GOOD_BREAK_THRESHHOLD = 50;
-  ANY_BREAK_THRESHHOLD = -10;
+  ANY_BREAK_THRESHHOLD  = -10;
 var
   lcSourceToken: TSourceToken;
   lcNext: TSourceToken;
@@ -574,7 +578,7 @@ begin
 
   fcTokens.Clear;
 
-  while (lcNext <> nil) and (not IsLineBreaker(lcNext)) do
+  while (lcNext <> nil) and ( not IsLineBreaker(lcNext)) do
   begin
     fcTokens.Add(lcNext);
 
@@ -630,7 +634,7 @@ begin
   liTempWidth := liInitWidth;
   for liLoop := 0 to fcTokens.Count - 1 do
   begin
-    lcNext := fcTokens.SourceTokens[liLoop];
+    lcNext      := fcTokens.SourceTokens[liLoop];
     liTempWidth := liTempWidth + Length(lcNext.SourceCode);
 
     { these scores are simply property of one token }
@@ -642,7 +646,7 @@ begin
   begin
     lcNext := fcTokens.SourceTokens[liLoop];
 
-    if  liTotalWidth - (lcNext.XPosition - 1) < 0 then
+    if liTotalWidth - (lcNext.XPosition - 1) < 0 then
     begin
       Self := Self;
     end;

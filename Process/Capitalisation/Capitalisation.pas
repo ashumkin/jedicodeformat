@@ -34,7 +34,8 @@ type
   TCapitalisation = class(TSwitchableVisitor)
   private
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
 
@@ -65,8 +66,7 @@ begin
       pct.SourceCode := AnsiLowerCase(pct.SourceCode);
     ctMixed:
       pct.SourceCode := StrSmartCase(pct.SourceCode, []);
-    ctLeaveAlone:
-      ;
+    ctLeaveAlone: ;
   end;
 end;
 
@@ -81,7 +81,8 @@ begin
   FormatFlags := FormatFlags + [eCapsReservedWord];
 end;
 
-procedure TCapitalisation.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TCapitalisation.EnabledVisitSourceToken(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
 begin

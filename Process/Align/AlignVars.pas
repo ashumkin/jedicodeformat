@@ -58,7 +58,7 @@ type
 implementation
 
 uses
-  { local} Tokens, FormatFlags, JcfSettings,
+  { local}Tokens, FormatFlags, JcfSettings,
   ParseTreeNodeType,
   TokenUtils, Nesting;
 
@@ -75,7 +75,7 @@ function AlignedToken(const pt: TSourceToken): boolean;
 const
   NOT_ALIGNED: TTokenTypeSet = [ttWhiteSpace, ttReturn, ttComment, ttSemiColon, ttColon];
 begin
-  Result := (not (pt.TokenType in NOT_ALIGNED)) and
+  Result := ( not (pt.TokenType in NOT_ALIGNED)) and
     pt.HasParentNode(nVarSection) and pt.IsOnRightOf(nVarDecl, ttColon);
 end;
 
@@ -117,14 +117,14 @@ begin
   end
   else
   begin
-    Result := (pt.TokenType = ttSemiColon) or (not pt.HasParentNode(nVarSection));
+    Result := (pt.TokenType = ttSemiColon) or ( not pt.HasParentNode(nVarSection));
   end;
 end;
 
 function TAlignVars.IsTokenInContext(const pt: TSourceToken): boolean;
 begin
   Result := (pt.HasParentNode(nVarSection)) and (RoundBracketLevel(pt) < 1) and
-    ((not FormatSettings.Align.InterfaceOnly) or (pt.HasParentNode(nInterfaceSection)));
+    (( not FormatSettings.Align.InterfaceOnly) or (pt.HasParentNode(nInterfaceSection)));
 end;
 
 function TAlignVars.TokenIsAligned(const pt: TSourceToken): boolean;
@@ -143,7 +143,7 @@ end;
 
 function TAlignVars.IsIncludedInSettings: boolean;
 begin
-  Result := (not FormatSettings.Obfuscate.Enabled) and FormatSettings.Align.AlignVar;
+  Result := ( not FormatSettings.Obfuscate.Enabled) and FormatSettings.Align.AlignVar;
 end;
 
 

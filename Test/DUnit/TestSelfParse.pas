@@ -56,11 +56,10 @@ uses
 const
   MAX_DIR_DEPTH = 2;
 
-procedure TTestSelfParse.TestParseDir(const psDir: string;
-  const piDepth: integer);
+procedure TTestSelfParse.TestParseDir(const psDir: string; const piDepth: integer);
 var
-  liLoop: integer;
-  lcFiles: TStringList;
+  liLoop:    integer;
+  lcFiles:   TStringList;
   lcSubdirs: TStringList;
 begin
   { test parse all the .pas, .dpr, .dpk files in this dir }
@@ -99,7 +98,7 @@ end;
 
 procedure TTestSelfParse.TestParseFile(const psInFileName: string);
 var
-  lcConverter: TFileConverter;
+  lcConverter:   TFileConverter;
   lsOutFileName: string;
 begin
 
@@ -107,12 +106,12 @@ begin
 
   lcConverter := TFileConverter.Create;
   try
-    lcConverter.YesAll := True;
+    lcConverter.YesAll      := True;
     lcConverter.GuiMessages := False;
 
     // init and read the format settings
     GetRegSettings.FormatConfigFileName := GetTestSettingsFileName;
-    FormatSettings.Obfuscate.Enabled := False;
+    FormatSettings.Obfuscate.Enabled    := False;
 
     lcConverter.SourceMode := fmSingleFile;
     lcConverter.BackupMode := cmSeperateOutput;
@@ -124,7 +123,7 @@ begin
     lcConverter.Convert;
     lsOutFileName := lcConverter.OutFileName;
 
-    Check(not lcConverter.ConvertError, 'Convert failed for ' +
+    Check( not lcConverter.ConvertError, 'Convert failed for ' +
       ExtractFileName(psInFileName));
 
     lsOutFileName := lcConverter.OutFileName;
@@ -145,5 +144,5 @@ begin
 end;
 
 initialization
- TestFramework.RegisterTest(TTestSelfParse.Suite);
+  TestFramework.RegisterTest(TTestSelfParse.Suite);
 end.

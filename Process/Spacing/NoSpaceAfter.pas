@@ -31,15 +31,16 @@ uses SwitchableVisitor, VisitParseTree, SourceToken;
 
 type
   TNoSpaceAfter = class(TSwitchableVisitor)
-    private
-      fcLastSolidToken: TSourceToken;
-      fbSafeToRemoveReturn: boolean;  // this taken from NoReturnBefore
-    protected
-      procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
-    public
-      constructor Create; override;
+  private
+    fcLastSolidToken: TSourceToken;
+    fbSafeToRemoveReturn: boolean;  // this taken from NoReturnBefore
+  protected
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
+  public
+    constructor Create; override;
 
-      function IsIncludedInSettings: boolean; override;
+    function IsIncludedInSettings: boolean; override;
   end;
 
 
@@ -74,7 +75,8 @@ begin
   { no space between method name and open bracket for param list
     no space between type & bracket for cast
     no space between fn name & params for procedure call }
-  if pt.HasParentNode([nProcedureDecl, nFunctionDecl, nConstructorDecl, nDestructorDecl, nStatementList]) and
+  if pt.HasParentNode([nProcedureDecl, nFunctionDecl, nConstructorDecl,
+    nDestructorDecl, nStatementList]) and
     (IsIdentifier(pt) or (pt.TokenType in BuiltInTypes)) then
   begin
     if (ptNext.TokenType in OpenBrackets) then
@@ -87,7 +89,8 @@ begin
   { the above takes care of procedure headers but not procedure type defs
    eg type TFred = procedure(i: integer) of object;
     note no space before the open bracket }
-   if pt.HasParentNode(nTypeDecl) and (pt.IsOnRightOf(nTypeDecl, ttEquals)) and (pt.TokenType in ProcedureWords) then
+  if pt.HasParentNode(nTypeDecl) and (pt.IsOnRightOf(nTypeDecl, ttEquals)) and
+    (pt.TokenType in ProcedureWords) then
   begin
     if (ptNext.TokenType in OpenBrackets) then
     begin
@@ -97,7 +100,8 @@ begin
   end;
 
   { no space after unary operator in expression }
-  if pt.HasParentNode(nExpression) and IsUnaryOperator(pt) and (not StrHasAlpha(pt.SourceCode)) then
+  if pt.HasParentNode(nExpression) and IsUnaryOperator(pt) and
+    ( not StrHasAlpha(pt.SourceCode)) then
   begin
     Result := True;
     exit;
@@ -111,8 +115,8 @@ begin
     see SingleSpaceAfter
 
     also applies to type TFoo = interface(IDispatch) }
-  if (pt.HasParentNode(nRestrictedType)) and (pt.TokenType in ObjectTypeWords)
-    and (not (FormatSettings.Spaces.SpaceBeforeClassHeritage)) then
+  if (pt.HasParentNode(nRestrictedType)) and (pt.TokenType in ObjectTypeWords) and
+    ( not (FormatSettings.Spaces.SpaceBeforeClassHeritage)) then
   begin
     if (ptNext.TokenType in [ttOpenBracket, ttSemiColon]) then
     begin
@@ -130,10 +134,11 @@ begin
   FormatFlags := FormatFlags + [eRemoveSpace];
 end;
 
-procedure TNoSpaceAfter.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TNoSpaceAfter.EnabledVisitSourceToken(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
-  lcNextSolid: TSourceToken;
+  lcNextSolid:   TSourceToken;
 begin
   lcSourceToken := TSourceToken(pcNode);
 
@@ -149,7 +154,7 @@ begin
   else
   begin
     { store for next time }
-     if not (lcSourceToken.TokenType in [ttWhiteSpace, ttReturn]) then
+    if not (lcSourceToken.TokenType in [ttWhiteSpace, ttReturn]) then
       fcLastSolidToken := lcSourceToken;
   end;
 end;

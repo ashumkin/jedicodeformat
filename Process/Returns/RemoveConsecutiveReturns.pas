@@ -33,7 +33,8 @@ type
   TRemoveConsecutiveReturns = class(TSwitchableVisitor)
   private
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
 
@@ -54,8 +55,8 @@ begin
   FormatFlags := FormatFlags + [eRemoveReturn];
 end;
 
-procedure TRemoveConsecutiveReturns.EnabledVisitSourceToken(
-  const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TRemoveConsecutiveReturns.EnabledVisitSourceToken(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
   liCount: integer;
@@ -66,7 +67,7 @@ begin
 
   while (lcSourceToken <> nil) and (lcSourceToken.TokenType = ttReturn) do
   begin
-    inc(liCount);
+    Inc(liCount);
 
     if (liCount - 1) > FormatSettings.Returns.MaxConsecutiveBlankLines then
     begin

@@ -28,8 +28,8 @@ unit SetReplace;
 interface
 
 uses
-    { delphi } Classes,
-    { local } JCFSetBase, SettingsStream;
+    { delphi }Classes,
+    { local }JCFSetBase, SettingsStream;
 
 type
 
@@ -54,16 +54,16 @@ type
     function HasWord(const psWord: string): boolean;
     procedure SplitWords;
 
-    property Enabled: boolean read fbEnabled write fbEnabled;
-    property Words: TStringList read fcWords;
+    property Enabled: boolean Read fbEnabled Write fbEnabled;
+    property Words: TStringList Read fcWords;
 
   end;
 
 implementation
 
 uses
-    { delphi } SysUtils,
-    { jcl } JclStrings;
+    { delphi }SysUtils,
+    { jcl }JclStrings;
 
 const
   REG_ENABLED = 'Enabled';
@@ -108,8 +108,7 @@ begin
   pcOut.Write(REG_WORDS, fcWords);
 end;
 
-procedure TSetReplace.SplitWord(const ps: string; var psOut1,
-  psOut2: string);
+procedure TSetReplace.SplitWord(const ps: string; var psOut1, psOut2: string);
 var
   liPos: integer;
 begin
@@ -132,7 +131,7 @@ var
 begin
   fcLeftWords.Clear;
   fcRightWords.Clear;
-  
+
   for liLoop := 0 to fcWords.Count - 1 do
   begin
     SplitWord(fcWords.Strings[liLoop], ls1, ls2);

@@ -31,7 +31,8 @@ uses SwitchableVisitor, VisitParseTree;
 type
   TRemoveBlankLine = class(TSwitchableVisitor)
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
   end;
@@ -39,7 +40,7 @@ type
 implementation
 
 uses
-  SourceToken, Tokens, 
+  SourceToken, Tokens,
   FormatFlags, TokenUtils;
 
 
@@ -49,7 +50,8 @@ begin
   FormatFlags := FormatFlags + [eObfuscate];
 end;
 
-procedure TRemoveBlankLine.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TRemoveBlankLine.EnabledVisitSourceToken(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcSourceToken, lcNext: TSourceToken;
 begin
@@ -60,7 +62,8 @@ begin
 
   { find next, excluding spaces and comments, except '//' comment }
   lcNext := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace]);
-  while (lcNext <> nil) and (lcNext.TokenType = ttComment) and (lcNext.CommentStyle <> eDoubleSlash) do
+  while (lcNext <> nil) and (lcNext.TokenType = ttComment) and
+    (lcNext.CommentStyle <> eDoubleSlash) do
     lcNext := lcNext.NextTokenWithExclusions([ttWhiteSpace]);
 
   {

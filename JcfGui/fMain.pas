@@ -35,7 +35,7 @@ uses
   ActnList, StdActns, ToolWin, ImgList,
   { local }
   FileConverter, JCFSettings,
-  frBasicSettings,  JvMRUList, JvPlacemnt,
+  frBasicSettings, JvMRUList, JvPlacemnt,
   JvMemo, frDrop, frmBaseSettingsFrame;
 
 type
@@ -95,15 +95,15 @@ type
     procedure mnuSaveSettingsAsClick(Sender: TObject);
     procedure actHelpContentsExecute(Sender: TObject);
     procedure mnuRegistrySettingsClick(Sender: TObject);
-    procedure mruFilesClick(Sender: TObject; const RecentName,
-      Caption: String; UserData: Integer);
-    procedure FormKeyUp(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
+    procedure mruFilesClick(Sender: TObject; const RecentName, Caption: string;
+      UserData: integer);
+    procedure FormKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure FormResize(Sender: TObject);
   private
     fcConverter: TFileConverter;
 
-    procedure ShowStatusMesssage(const psFile, psMessage: string; const piY, piX: integer);
+    procedure ShowStatusMesssage(const psFile, psMessage: string;
+      const piY, piX: integer);
 
     procedure DoFormat;
     procedure ShowAbout;
@@ -120,8 +120,8 @@ implementation
 {$R *.DFM}
 
 uses
-  { jcl } JclFileUtils, 
-  { local } fAbout, ConvertTypes, fAllSettings, fRegistrySettings,
+  { jcl }JclFileUtils,
+  { local }fAbout, ConvertTypes, fAllSettings, fRegistrySettings,
   SettingsStream, JCFHelp, JcfRegistrySettings;
 
 
@@ -187,7 +187,7 @@ begin
       exit;
   end;
 
-  fcConverter.Input := lsSource;
+  fcConverter.Input      := lsSource;
   fcConverter.BackupMode := frBasic.GetCurrentBackupMode;
   fcConverter.SourceMode := frBasic.GetCurrentSourceMode;
 
@@ -259,7 +259,7 @@ begin
   mOutput.Lines.Add(lsMessage);
 
   { scroll into view and check the srollbar }
-  mOutput.CurrentLine := mOutput.Lines.Count -1;
+  mOutput.CurrentLine := mOutput.Lines.Count - 1;
   if mOutput.Lines.Count > 1 then
     mOutput.ScrollBars := ssVertical
   else
@@ -346,10 +346,10 @@ begin
 
   dlgSaveConfig := TSaveDialog.Create(self);
   try
-    dlgSaveConfig.FileName := 'Saved.cfg';
+    dlgSaveConfig.FileName   := 'Saved.cfg';
     dlgSaveConfig.InitialDir := ExtractFilePath(Application.ExeName);
     dlgSaveConfig.DefaultExt := '.cfg';
-    dlgSaveCOnfig.Filter := CONFIG_FILTER;
+    dlgSaveCOnfig.Filter     := CONFIG_FILTER;
 
     if dlgSaveConfig.Execute then
     begin
@@ -367,7 +367,7 @@ begin
   try
     FormatSettings.ToStream(lcFile);
   finally
-    lcFile.free;
+    lcFile.Free;
   end;
 
 end;
@@ -392,14 +392,13 @@ begin
   end;
 end;
 
-procedure TfrmMain.mruFilesClick(Sender: TObject; const RecentName,
-  Caption: String; UserData: Integer);
+procedure TfrmMain.mruFilesClick(Sender: TObject; const RecentName, Caption: string;
+  UserData: integer);
 begin
   frBasic.DoFileOpen(RecentName);
 end;
 
-procedure TfrmMain.FormKeyUp(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
+procedure TfrmMain.FormKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
 begin
   if Key = VK_F1 then
     Application.HelpContext(HELP_MAIN);
@@ -407,13 +406,13 @@ end;
 
 procedure TfrmMain.FormResize(Sender: TObject);
 begin
-  frBasic.Left := 0;
-  frBasic.Top := tlbTop.Top + tlbTop.Height;
+  frBasic.Left  := 0;
+  frBasic.Top   := tlbTop.Top + tlbTop.Height;
   frBasic.Width := ClientWidth;
 
-  mOutput.Left := 2;
-  mOutput.Width := ClientWidth - 4;
-  mOutput.Top := lblLog.Top + lblLog.Height + 4;
+  mOutput.Left   := 2;
+  mOutput.Width  := ClientWidth - 4;
+  mOutput.Top    := lblLog.Top + lblLog.Height + 4;
   mOutput.Height := ClientHeight - (mOutput.Top + 4);
 end;
 

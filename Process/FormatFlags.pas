@@ -34,7 +34,7 @@ type
     eObfuscate,
     eAddSpace, eRemoveSpace,
     eAddReturn, eRemoveReturn,
-    eAlignVars, eAlignConst, eAlignTypeDef, eAlignAssign,  eAlignComment,
+    eAlignVars, eAlignConst, eAlignTypeDef, eAlignAssign, eAlignComment,
     eCapsReservedWord, eCapsSpecificWord,
     eIndent, eLineBreaking, eBlockStyle,
     eWarning,
@@ -56,13 +56,11 @@ type
   TFormatFlags = set of TFormatFlag;
 
 { read a comment for comment enabled flag data }
-function ReadCommentJcfFlags(psComment: string;
-  var psError: string;
-  var peFlags: TFormatFlags;
-  var pbOn: boolean): boolean;
+function ReadCommentJcfFlags(psComment: string; var psError: string;
+  var peFlags: TFormatFlags; var pbOn: boolean): boolean;
 
 const
-  FORMAT_COMMENT_PREFIX = '//jcf:';
+  FORMAT_COMMENT_PREFIX     = '//jcf:';
   FORMAT_COMMENT_PREFIX_LEN = 6;
 
   ALL_FLAGS: TFormatFlags = [Low(TFormatFlag)..High(TFormatFlag)];
@@ -70,8 +68,8 @@ const
 implementation
 
 uses
-  { delphi } SysUtils,
-  { Jcl} JclStrings, JclSysUtils;
+  { delphi }SysUtils,
+  { Jcl}JclStrings, JclSysUtils;
 
 type
   TRFlagNameData = record
@@ -81,51 +79,52 @@ type
 
 const
   FORMAT_FLAG_NAMES: array[1..28] of TRFlagNameData =
-  (
-  (sName: 'format'; eFlags: [eAllFormat]),
-  (sName: 'obfuscate'; eFlags: [eObfuscate]),
+    (
+    (sName: 'format'; eFlags: [eAllFormat]),
+    (sName: 'obfuscate'; eFlags: [eObfuscate]),
 
 
-  (sName: 'space'; eFlags: [eAddSpace, eRemoveSpace]),
-  (sName: 'addspace'; eFlags: [eAddSpace]),
-  (sName: 'removespace'; eFlags: [eRemoveSpace]),
+    (sName: 'space'; eFlags: [eAddSpace, eRemoveSpace]),
+    (sName: 'addspace'; eFlags: [eAddSpace]),
+    (sName: 'removespace'; eFlags: [eRemoveSpace]),
 
 
-  (sName: 'return'; eFlags: [eAddReturn, eRemoveReturn]),
-  (sName: 'addreturn'; eFlags: [eAddReturn]),
-  (sName: 'removereturn'; eFlags: [eRemoveReturn]),
+    (sName: 'return'; eFlags: [eAddReturn, eRemoveReturn]),
+    (sName: 'addreturn'; eFlags: [eAddReturn]),
+    (sName: 'removereturn'; eFlags: [eRemoveReturn]),
 
-  (sName: 'add'; eFlags: [eAddReturn, eAddSpace]),
-  (sName: 'remove'; eFlags: [eRemoveReturn, eRemoveSpace]),
-
-
-  (sName: 'align'; eFlags: [eAlignVars, eAlignConst, eAlignTypeDef, eAlignAssign, eAlignComment]),
-  (sName: 'aligndef'; eFlags: [eAlignVars, eAlignConst, eAlignTypeDef]),
-  (sName: 'alignfn'; eFlags: [eAlignVars, eAlignAssign]),
-
-  (sName: 'alignvars'; eFlags: [eAlignVars]),
-  (sName: 'alignconst'; eFlags: [eAlignConst]),
-  (sName: 'aligntypedef'; eFlags: [eAlignTypeDef]),
-  (sName: 'aligncomment'; eFlags: [eAlignComment]),
-
-  (sName: 'alignassign'; eFlags: [eAlignAssign]),
-
-  (sName: 'indent'; eFlags: [eIndent]),
-
-  (sName: 'caps'; eFlags: [eCapsReservedWord, eCapsSpecificWord]),
-  (sName: 'capsreservedwords'; eFlags: [eCapsReservedWord]),
-  (sName: 'capsspecificword'; eFlags: [eCapsSpecificWord]),
+    (sName: 'add'; eFlags: [eAddReturn, eAddSpace]),
+    (sName: 'remove'; eFlags: [eRemoveReturn, eRemoveSpace]),
 
 
-  (sName: 'linebreaking'; eFlags: [eLineBreaking]),
-  (sName: 'blockstyle'; eFlags: [eBlockStyle]),
+    (sName: 'align'; eFlags: [eAlignVars, eAlignConst, eAlignTypeDef,
+    eAlignAssign, eAlignComment]),
+    (sName: 'aligndef'; eFlags: [eAlignVars, eAlignConst, eAlignTypeDef]),
+    (sName: 'alignfn'; eFlags: [eAlignVars, eAlignAssign]),
 
-  (sName: 'warnings'; eFlags: [eWarning]),
-  (sName: 'findreplace'; eFlags: [eFindReplace]),
-  (sName: 'findreplaceuses'; eFlags: [eFindReplaceUses]),
+    (sName: 'alignvars'; eFlags: [eAlignVars]),
+    (sName: 'alignconst'; eFlags: [eAlignConst]),
+    (sName: 'aligntypedef'; eFlags: [eAlignTypeDef]),
+    (sName: 'aligncomment'; eFlags: [eAlignComment]),
 
-  (sName: 'reovecomments'; eFlags: [eRemoveComments])
-  );
+    (sName: 'alignassign'; eFlags: [eAlignAssign]),
+
+    (sName: 'indent'; eFlags: [eIndent]),
+
+    (sName: 'caps'; eFlags: [eCapsReservedWord, eCapsSpecificWord]),
+    (sName: 'capsreservedwords'; eFlags: [eCapsReservedWord]),
+    (sName: 'capsspecificword'; eFlags: [eCapsSpecificWord]),
+
+
+    (sName: 'linebreaking'; eFlags: [eLineBreaking]),
+    (sName: 'blockstyle'; eFlags: [eBlockStyle]),
+
+    (sName: 'warnings'; eFlags: [eWarning]),
+    (sName: 'findreplace'; eFlags: [eFindReplace]),
+    (sName: 'findreplaceuses'; eFlags: [eFindReplaceUses]),
+
+    (sName: 'reovecomments'; eFlags: [eRemoveComments])
+    );
 
 
 { can stop and restart formating using these comments
@@ -156,17 +155,15 @@ end;
   psFlags returns the set of flags referenced
   pbOn tells if they were turned on or off
 }
-function ReadCommentJcfFlags(psComment: string;
-  var psError: string;
-  var peFlags: TFormatFlags;
-  var pbOn: boolean): boolean;
+function ReadCommentJcfFlags(psComment: string; var psError: string;
+  var peFlags: TFormatFlags; var pbOn: boolean): boolean;
 var
   lsPrefix, lsRest: string;
   lsSetting, lsState: string;
-  lbFlagFound: Boolean;
-  liLoop: integer;
+  lbFlagFound: boolean;
+  liLoop:      integer;
 begin
-  Result := False;
+  Result  := False;
   psError := '';
 
   // translate {(*} comments to jcf:format=on comments
@@ -189,12 +186,13 @@ begin
     where the setting is one of the format flags, and the state is 'on' or 'off'
   }
   lsSetting := Trim(StrBefore('=', lsRest));
-  lsState := Trim(StrAfter('=', lsRest));
+  lsState   := Trim(StrAfter('=', lsRest));
 
   { is the comment well formed? }
   if (lsSetting = '') or (lsState = '') then
   begin
-    psError := 'Comment ' + StrDoubleQuote(psComment) + ' has prefix but cannot be parsed';
+    psError := 'Comment ' + StrDoubleQuote(psComment) +
+      ' has prefix but cannot be parsed';
     exit;
   end;
 
@@ -213,11 +211,11 @@ begin
   end;
 
   lbFlagFound := False;
-  
+
   // accept jcf:all=on to reset state to normal by removing all flags
   if AnsiSameText(lsSetting, 'all') then
   begin
-    peFlags := ALL_FLAGS;
+    peFlags     := ALL_FLAGS;
     lbFlagFound := True;
   end
   else
@@ -227,7 +225,7 @@ begin
     begin
       if AnsiSameText(lsSetting, FORMAT_FLAG_NAMES[liLoop].sName) then
       begin
-        peFlags := FORMAT_FLAG_NAMES[liLoop].eFlags;
+        peFlags     := FORMAT_FLAG_NAMES[liLoop].eFlags;
         lbFlagFound := True;
         break;
       end;

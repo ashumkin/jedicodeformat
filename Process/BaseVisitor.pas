@@ -37,11 +37,13 @@ type
   public
     constructor Create; virtual;
 
-    procedure PreVisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult); virtual;
+    procedure PreVisitParseTreeNode(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); virtual;
     procedure PostVisitParseTreeNode(const pcNode: TObject); virtual;
-    procedure VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult); virtual;
+    procedure VisitSourceToken(const pcToken: TObject;
+      var prVisitResult: TRVisitResult); virtual;
 
-    function FinalSummary(var psMessage: string): Boolean; virtual;
+    function FinalSummary(var psMessage: string): boolean; virtual;
     function IsIncludedInSettings: boolean; virtual;
   end;
 
@@ -57,14 +59,15 @@ begin
   inherited;
 end;
 
-function TBaseTreeNodeVisitor.FinalSummary(var psMessage: string): Boolean;
+function TBaseTreeNodeVisitor.FinalSummary(var psMessage: string): boolean;
 begin
   // no message
-  Result := False;
+  Result    := False;
   psMessage := '';
 end;
 
-procedure TBaseTreeNodeVisitor.PreVisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TBaseTreeNodeVisitor.PreVisitParseTreeNode(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 begin
   // do nothing, here for override
 end;
@@ -74,7 +77,8 @@ begin
   // do nothing, here for override
 end;
 
-procedure TBaseTreeNodeVisitor.VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult);
+procedure TBaseTreeNodeVisitor.VisitSourceToken(const pcToken: TObject;
+  var prVisitResult: TRVisitResult);
 begin
   // do nothing, here for override
 end;

@@ -73,7 +73,7 @@ type
     function Top: integer;
     function Pop: integer;
 
-    property Items [const piIndex: integer]: integer read GetItem write SetItem;
+    property Items[const piIndex: integer]: integer Read GetItem Write SetItem;
   end;
 
 implementation
@@ -130,7 +130,7 @@ end;
 function TIntList.IndexOfMax: integer;
 var
   liItem, liMax: integer;
-  liLoop:        integer;
+  liLoop: integer;
 begin
   Result := -1;
   liMax  := Low(integer);
@@ -154,7 +154,7 @@ begin
   if Count > 0 then
   begin
     Result := Items[Count - 1];
-    fcList.Delete(Count -1);
+    fcList.Delete(Count - 1);
   end
   else
     Result := 0;

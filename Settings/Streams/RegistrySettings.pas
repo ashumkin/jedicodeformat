@@ -32,8 +32,8 @@ interface
     this object serves as both the root and the section
   }
 uses
-  { delphi } Registry, Classes,
-  { local } SettingsStream;
+  { delphi }Registry, Classes,
+  { local }SettingsStream;
 
 type
 
@@ -54,7 +54,7 @@ type
     procedure Write(const psTagName, psValue: string); override;
     procedure Write(const psTagName: string; const piValue: integer); override;
     procedure Write(const psTagName: string; const pbValue: boolean); override;
-    procedure Write(const psTagName: string; const pdValue: Double); override;
+    procedure Write(const psTagName: string; const pdValue: double); override;
     procedure Write(const psTagName: string; const pcValue: TStrings); override;
   end;
 
@@ -62,7 +62,7 @@ type
   private
     fReg: TRegIniFile;
     fsSection: string;
-    fbOwnReg: Boolean;
+    fbOwnReg: boolean;
 
   public
     constructor Create(const psRootKey: string); overload;
@@ -84,8 +84,8 @@ type
 implementation
 
 uses
-  { delphi } SysUtils,
-  { local } JcfMiscFunctions;
+  { delphi }SysUtils,
+  { local }JcfMiscFunctions;
 
 {-------------------------------------------------------------------------------
   Settings Output Registry }
@@ -134,7 +134,7 @@ begin
   fReg.WriteBool(fsSection, psTagName, pbValue);
 end;
 
-procedure TSettingsRegistryOutput.Write(const psTagName: string; const pdValue: Double);
+procedure TSettingsRegistryOutput.Write(const psTagName: string; const pdValue: double);
 begin
   Assert(fReg <> nil);
   // WTF? WriteFloat is broken in D6?
@@ -142,7 +142,8 @@ begin
 end;
 
 // method from JCFSetBase
-procedure TSettingsRegistryOutput.Write(const psTagName: string; const pcValue: TStrings);
+procedure TSettingsRegistryOutput.Write(const psTagName: string;
+  const pcValue: TStrings);
 var
   liLoop: integer;
   lsItem: string;
@@ -171,19 +172,20 @@ begin
   fReg.OpenKey(psRootKey, True);
 
   fsSection := '';
-  fbOwnReg := True;
+  fbOwnReg  := True;
 end;
 
-constructor TSettingsInputRegistry.Create(const pcReg: TRegIniFile; const psSection: string);
+constructor TSettingsInputRegistry.Create(const pcReg: TRegIniFile;
+  const psSection: string);
 begin
   Assert(psSection <> '');
   Assert(pcReg <> nil);
 
   inherited Create;
 
-  fReg := pcReg;
+  fReg      := pcReg;
   fsSection := psSection;
-  fbOwnReg := False;
+  fbOwnReg  := False;
 end;
 
 
@@ -212,7 +214,7 @@ var
 begin
   Assert(fReg <> nil);
   lsValue := fReg.ReadString(fsSection, psTag, NON_EXISISTENCE_MARKER);
-  Result := (lsValue <> NON_EXISISTENCE_MARKER);
+  Result  := (lsValue <> NON_EXISISTENCE_MARKER);
 end;
 
 function TSettingsInputRegistry.Read(const psTag: string): string;
@@ -227,13 +229,15 @@ begin
   Result := fReg.ReadString(fsSection, psTag, psDefault)
 end;
 
-function TSettingsInputRegistry.Read(const psTag: string; const piDefault: integer): integer;
+function TSettingsInputRegistry.Read(const psTag: string;
+  const piDefault: integer): integer;
 begin
   Assert(fReg <> nil);
   Result := fReg.ReadInteger(fsSection, psTag, piDefault)
 end;
 
-function TSettingsInputRegistry.Read(const psTag: string; const pbDefault: boolean): boolean;
+function TSettingsInputRegistry.Read(const psTag: string;
+  const pbDefault: boolean): boolean;
 begin
   Assert(fReg <> nil);
   Result := fReg.ReadBool(fsSection, psTag, pbDefault)
@@ -241,7 +245,8 @@ end;
 
 
 // method from JcfSetBase
-function TSettingsInputRegistry.Read(const psTag: string; const pcStrings: TStrings): boolean;
+function TSettingsInputRegistry.Read(const psTag: string;
+  const pcStrings: TStrings): boolean;
 var
   lsItemName, lsItem: string;
   liCount, liLoop:    integer;

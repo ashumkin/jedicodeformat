@@ -55,16 +55,16 @@ type
     procedure TestCaseNoElse1;
     procedure TestCaseNoElse2;
 
- end;
+  end;
 
 
 implementation
 
 const
   EMPTY_BEGIN_END = 'Empty begin..end block';
-  EMPTY_TRY = 'Empty try block';
+  EMPTY_TRY      = 'Empty try block';
   EMPTY_EXCEPT_END = 'Empty except..end';
-  EMPTY_FINALLY_END  = 'Empty finally..end';
+  EMPTY_FINALLY_END = 'Empty finally..end';
   REAL_TYPE_USED = 'Real type used';
   REAL48_TYPE_USED = 'Real48 type used';
 
@@ -100,14 +100,16 @@ end;
 
 procedure TTestWarnings.TestEmptyTryFinally;
 const
-  UNIT_TEXT = UNIT_HEADER + ' procedure fred; begin try finally end; end; ' + UNIT_FOOTER;
+  UNIT_TEXT = UNIT_HEADER + ' procedure fred; begin try finally end; end; ' +
+    UNIT_FOOTER;
 begin
   TestWarnings(UNIT_TEXT, [EMPTY_TRY, EMPTY_FINALLY_END]);
 end;
 
 procedure TTestWarnings.TestAssignToFunctionName;
 const
-  UNIT_TEXT = UNIT_HEADER + ' function fred: integer; begin fred := 3; end; ' + UNIT_FOOTER;
+  UNIT_TEXT = UNIT_HEADER + ' function fred: integer; begin fred := 3; end; ' +
+    UNIT_FOOTER;
 begin
   TestWarnings(UNIT_TEXT, 'Assignment to the function name');
 end;
@@ -129,14 +131,16 @@ end;
 
 procedure TTestWarnings.TestRealType3;
 const
-  UNIT_TEXT = UNIT_HEADER + ' procedure fred; var foo: Real48; begin end; ' + UNIT_FOOTER;
+  UNIT_TEXT = UNIT_HEADER + ' procedure fred; var foo: Real48; begin end; ' +
+    UNIT_FOOTER;
 begin
   TestWarnings(UNIT_TEXT, [EMPTY_BEGIN_END, REAL48_TYPE_USED]);
 end;
 
 procedure TTestWarnings.TestRealType4;
 const
-  UNIT_TEXT = UNIT_HEADER + ' procedure fred; var foo: Real48; bar: real; begin end; ' + UNIT_FOOTER;
+  UNIT_TEXT = UNIT_HEADER + ' procedure fred; var foo: Real48; bar: real; begin end; ' +
+    UNIT_FOOTER;
 begin
   TestWarnings(UNIT_TEXT, [EMPTY_BEGIN_END, REAL_TYPE_USED, REAL48_TYPE_USED]);
 end;
@@ -157,15 +161,18 @@ end;
 
 procedure TTestWarnings.TestCaseNoElse1;
 const
-  UNIT_TEXT = UNIT_HEADER +  'procedure fred; var li: integer; begin case li of 1: end; end; ' + UNIT_FOOTER;
+  UNIT_TEXT = UNIT_HEADER +
+    'procedure fred; var li: integer; begin case li of 1: end; end; ' + UNIT_FOOTER;
 begin
-  TestWarnings(UNIT_TEXT,'Case statement has no else case');
+  TestWarnings(UNIT_TEXT, 'Case statement has no else case');
 end;
 
 procedure TTestWarnings.TestCaseNoElse2;
 const
   // this one has an else, should have no warning
-  UNIT_TEXT = UNIT_HEADER +  'procedure fred; var li: integer; begin case li of 1: ; else; end; end; ' + UNIT_FOOTER;
+  UNIT_TEXT = UNIT_HEADER +
+    'procedure fred; var li: integer; begin case li of 1: ; else; end; end; ' +
+    UNIT_FOOTER;
 begin
   TestNoWarnings(UNIT_TEXT);
 end;
@@ -173,5 +180,5 @@ end;
 
 
 initialization
- TestFramework.RegisterTest('Processes', TTestWarnings.Suite);
+  TestFramework.RegisterTest('Processes', TTestWarnings.Suite);
 end.

@@ -42,7 +42,8 @@ type
   public
     constructor Create; override;
 
-    procedure VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult); override;
+    procedure VisitSourceToken(const pcToken: TObject;
+      var prVisitResult: TRVisitResult); override;
     function IsIncludedInSettings: boolean; override;
   end;
 
@@ -50,9 +51,9 @@ type
 implementation
 
 uses
-  { delphi } SysUtils,
+  { delphi }SysUtils,
   JclStrings,
-  { local } Tokens, TokenUtils, JcfSettings,
+  { local }Tokens, TokenUtils, JcfSettings,
   SettingsTypes, ParseTreeNodeType, SetClarify;
 
 
@@ -85,7 +86,7 @@ const
     '------------------------------------------------------------------------------*)' +
     AnsiLineBreak + NOFORMAT_OFF + AnsiLineBreak + AnsiLineBreak;
 
-function FirstOpportunityForMozInsert(const pt: TSourceToken): Boolean;
+function FirstOpportunityForMozInsert(const pt: TSourceToken): boolean;
 begin
   Result := False;
 
@@ -111,15 +112,16 @@ end;
 
 function TMozComment.IsIncludedInSettings: boolean;
 begin
-  Result := (not FormatSettings.Obfuscate.Enabled) and
+  Result := ( not FormatSettings.Obfuscate.Enabled) and
     (FormatSettings.Clarify.OnceOffs <> eDoNotRun)
 end;
 
 
-procedure TMozComment.VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult);
+procedure TMozComment.VisitSourceToken(const pcToken: TObject;
+  var prVisitResult: TRVisitResult);
 var
-  lsFile:    string;
-  lsComment: string;
+  lsFile:      string;
+  lsComment:   string;
   lcToken, lcNewComment: TSourceToken;
   lbInContext: boolean;
 begin

@@ -35,7 +35,8 @@ type
     fsSpaces: string;
 
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
 
@@ -54,11 +55,12 @@ uses
 constructor TMaxSpaces.Create;
 begin
   inherited;
-  fsSpaces := StrRepeat(AnsiSpace, FormatSettings.Spaces.MaxSpacesInCode);
+  fsSpaces    := StrRepeat(AnsiSpace, FormatSettings.Spaces.MaxSpacesInCode);
   FormatFlags := FormatFlags + [eRemoveSpace];
 end;
 
-procedure TMaxSpaces.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TMaxSpaces.EnabledVisitSourceToken(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcSourceToken, lcNext: TSourceToken;
 begin

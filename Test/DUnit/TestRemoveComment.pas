@@ -52,13 +52,13 @@ procedure TTestRemoveComment.Setup;
 begin
   inherited;
   FormatSettings.Comments.RemoveEmptyDoubleSlashComments := True;
-  FormatSettings.Comments.RemoveEmptyCurlyBraceComments := True;
+  FormatSettings.Comments.RemoveEmptyCurlyBraceComments  := True;
 end;
 
 
 procedure TTestRemoveComment.TestNone;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + UNIT_FOOTER;
   OUT_UNIT_TEXT = UNIT_HEADER + UNIT_FOOTER;
 begin
   TestProcessResult(TRemoveComment, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -107,5 +107,5 @@ begin
 end;
 
 initialization
- TestFramework.RegisterTest('Processes', TTestRemoveComment.Suite);
+  TestFramework.RegisterTest('Processes', TTestRemoveComment.Suite);
 end.

@@ -36,7 +36,8 @@ type
     fbSafeToRemoveReturn: boolean;
 
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
 
   public
     constructor Create; override;
@@ -51,8 +52,8 @@ uses SourceToken, TokenUtils, Tokens, ParseTreeNodeType,
 
 function HasNoReturnBefore(const pt: TSourceToken): boolean;
 const
-  NoReturnTokens: TTokenTypeSet = [ttAssign, ttColon, ttSemiColon];
-  ProcNoReturnWords: TTokenTypeSet   = [ttThen, ttDo];
+  NoReturnTokens: TTokenTypeSet    = [ttAssign, ttColon, ttSemiColon];
+  ProcNoReturnWords: TTokenTypeSet = [ttThen, ttDo];
 begin
   Result := False;
 
@@ -78,14 +79,15 @@ begin
   { no return in record def before the record keyword, likewise class & interface
     be carefull with the word 'class' as it also denotes (static) class fns. }
   if pt.HasParentNode(nTypeDecl) and (pt.TokenType in StructuredTypeWords) and
-    (not pt.HasParentNode(nClassVisibility)) then
+    ( not pt.HasParentNode(nClassVisibility)) then
   begin
     Result := True;
     exit;
   end;
 
   // guid in interface
-  if (pt.TokenType = ttCloseSquareBracket) and pt.HasParentNode(nInterfaceTypeGuid, 1) then
+  if (pt.TokenType = ttCloseSquareBracket) and
+    pt.HasParentNode(nInterfaceTypeGuid, 1) then
   begin
     Result := True;
     exit;
@@ -111,7 +113,8 @@ begin
   FormatFlags := FormatFlags + [eRemoveReturn];
 end;
 
-procedure TNoReturnBefore.EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TNoReturnBefore.EnabledVisitSourceToken(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
   lcNext: TSourceToken;
@@ -119,7 +122,8 @@ begin
   lcSourceToken := TSourceToken(pcNode);
 
   // not safe to remove return at a comment like this
-  if (lcSourceToken.TokenType = ttComment) and (lcSourceToken.CommentStyle = eDoubleSlash) then
+  if (lcSourceToken.TokenType = ttComment) and
+    (lcSourceToken.CommentStyle = eDoubleSlash) then
     fbSafeToRemoveReturn := False
   else if (lcSourceToken.TokenType <> ttReturn) then
     fbSafeToRemoveReturn := True;

@@ -38,8 +38,8 @@ under the License.
 
 interface
 
-function PadNumber(const pi: integer): AnsiString;
-function StrHasAlpha(const str: AnsiString): boolean;
+function PadNumber(const pi: integer): ansistring;
+function StrHasAlpha(const str: ansistring): boolean;
 function GetLastDir(psPath: string): string;
 
 function StrToBoolean(ps: string): boolean;
@@ -60,8 +60,8 @@ function LastLineLength(const ps: string): integer;
 implementation
 
 uses
-  { delphi } SysUtils, Windows,
-  { jcl } JclStrings, JclFileUtils, JclSysUtils;
+  { delphi }SysUtils, Windows,
+  { jcl }JclStrings, JclFileUtils, JclSysUtils;
 
 function StrToBoolean(ps: string): boolean;
 begin
@@ -88,9 +88,10 @@ begin
     StrReplace(s, DecimalSeparator, '.');
   end;
 
-  Val(s, result, Code);
+  Val(s, Result, Code);
   if code <> 0 then
-    raise EConvertError.Create('Str2Float: ' + s + ' is not a valid floating point string');
+    raise EConvertError.Create('Str2Float: ' + s +
+      ' is not a valid floating point string');
 end;
 
 // Like FloatToStr, but gives back a dot (.) as decimalseparator
@@ -104,12 +105,12 @@ begin
   DecimalSeparator := OrgSep;
 end;
 
-function PadNumber(const pi: integer): AnsiString;
+function PadNumber(const pi: integer): ansistring;
 begin
   Result := IntToStrZeroPad(pi, 3);
 end;
 
-function StrHasAlpha(const str: AnsiString): boolean;
+function StrHasAlpha(const str: ansistring): boolean;
 var
   liLoop: integer;
 begin
@@ -151,12 +152,12 @@ function GetWinDir: string;
 const
   LEN: integer = 255;
 var
-  lsBuffer: String;
+  lsBuffer: string;
 begin
   SetLength(lsBuffer, LEN);
-  FillChar(pChar(lsBuffer)^, LEN, 0);
+  FillChar(pchar(lsBuffer)^, LEN, 0);
 
-  GetWindowsDirectory(pChar(lsBuffer), LEN);
+  GetWindowsDirectory(pchar(lsBuffer), LEN);
 
   Result := Trim(lsBuffer);
 end;
@@ -172,9 +173,9 @@ begin
     exit;
   end;
 
-  lsOldExt  := ExtractFileExt(psFileName);
+  lsOldExt := ExtractFileExt(psFileName);
   liMainFileNameLength := Length(psFileName) - Length(lsOldExt);
-  Result := StrLeft(psFileName, liMainFileNameLength);
+  Result   := StrLeft(psFileName, liMainFileNameLength);
 
   Result := Result + '.' + psExt;
 end;
@@ -190,7 +191,7 @@ var
 begin
   if (ps = AnsiCarriageReturn) or (ps = AnsiCrLf) or (ps = AnsiLineFeed) then
   begin
-    inc(piY);
+    Inc(piY);
     piX := 1; // XPos is indexed from 1
   end
   else

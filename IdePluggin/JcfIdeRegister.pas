@@ -27,7 +27,7 @@ under the License.
 interface
 
 uses
-  { delphi } Windows, SysUtils, Classes, ToolsAPI;
+  { delphi }Windows, SysUtils, Classes, ToolsAPI;
 
 
 procedure Register;
@@ -35,8 +35,8 @@ procedure Register;
 implementation
 
 uses
-  { delphi } Menus, ActnList,
-  { local } JcfIdeMain, Delay;
+  { delphi }Menus, ActnList,
+  { local }JcfIdeMain, Delay;
 
 const
   MENU_TOOLS = '&Tools';
@@ -74,7 +74,7 @@ end;
 { the object that does all the work
   - created the first time that a JCF menu item is selected }
 var
-  lcJCFIDE: TJcfIdeMain;
+  lcJCFIDE:    TJcfIdeMain;
   { object to delay registration }
   lcDelayedRegister: TDelay;
   { count the number of times that the plugin menus have been attempted }
@@ -132,13 +132,13 @@ begin
   Result      := NTAServices.ActionList;
 end;
 
-procedure AddMenuItems(var pbDoAgain: Boolean);
+procedure AddMenuItems(var pbDoAgain: boolean);
 var
   fcMainMenu: TMenuItem;
 
   procedure AddMenuItem(const psName: string; const pcHandler: TNotifyEvent);
   var
-    lcItem: TMenuItem;
+    lcItem:   TMenuItem;
     lcAction: TAction;
   begin
     Assert(psName <> '');
@@ -155,14 +155,14 @@ var
     end
     else
     begin
-      lcAction           := TAction.Create(fcMainMenu);
-      lcAction.Category  := StripHotKey(FORMAT_MENU_NAME);
-      lcAction.Name      :=
+      lcAction      := TAction.Create(fcMainMenu);
+      lcAction.Category := StripHotKey(FORMAT_MENU_NAME);
+      lcAction.Name :=
         'jcf' + StringReplace(StripHotKey(psName), ' ', '', [rfReplaceAll]) + 'Action';
-      lcAction.Caption   := psName;
+      lcAction.Caption := psName;
       lcAction.OnExecute := pcHandler;
       lcAction.ActionList := IDEactionList;
-      lcItem.Action      := lcAction;
+      lcItem.Action := lcAction;
     end;
 
     Assert(fcMainMenu <> nil);
@@ -176,7 +176,7 @@ begin
   if miMenuTries >= MAX_TRIES then
     exit;
 
-  inc(miMenuTries);
+  Inc(miMenuTries);
 
   { this doesn't work during program startup?!? }
   fcToolsMenu := GetToolsMenu;

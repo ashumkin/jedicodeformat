@@ -58,28 +58,37 @@ type
     procedure WriteToStream(const pcOut: TSettingsOutput); override;
     procedure ReadFromStream(const pcStream: TSettingsInput); override;
 
-    property TabsToSpaces: boolean read fbTabsToSpaces write fbTabsToSpaces;
-    property SpacesToTabs: boolean read fbSpacesToTabs write fbSpacesToTabs;
+    property TabsToSpaces: boolean Read fbTabsToSpaces Write fbTabsToSpaces;
+    property SpacesToTabs: boolean Read fbSpacesToTabs Write fbSpacesToTabs;
 
-    property SpacesPerTab: integer read fiSpacesPerTab write fiSpacesPerTab;
-    property SpacesForTab: integer read fiSpacesForTab write fiSpacesForTab;
+    property SpacesPerTab: integer Read fiSpacesPerTab Write fiSpacesPerTab;
+    property SpacesForTab: integer Read fiSpacesForTab Write fiSpacesForTab;
 
-    property FixSpacing: boolean read fbFixSpacing write fbFixSpacing;
+    property FixSpacing: boolean Read fbFixSpacing Write fbFixSpacing;
 
-    property SpaceBeforeClassHeritage: boolean read fbSpaceBeforeClassHeritage write
-      fbSpaceBeforeClassHeritage;
+    property SpaceBeforeClassHeritage: boolean
+      Read fbSpaceBeforeClassHeritage Write fbSpaceBeforeClassHeritage;
 
-    property SpacesBeforeColonVar: integer read fiSpacesBeforeColonVar write fiSpacesBeforeColonVar;
-    property SpacesBeforeColonConst: integer read fiSpacesBeforeColonConst write fiSpacesBeforeColonConst;
-    property SpacesBeforeColonParam: integer read fiSpacesBeforeColonParam write fiSpacesBeforeColonParam;
-    property SpacesBeforeColonFn: integer read fiSpacesBeforeColonFn write fiSpacesBeforeColonFn;
-    property SpacesBeforeColonClassVar: integer read fiSpacesBeforeColonClassVar write fiSpacesBeforeColonClassVar;
-    property SpacesBeforeColonRecordField: integer read fiSpacesBeforeColonRecordField write fiSpacesBeforeColonRecordField;
-    property SpacesBeforeColonCaseLabel: integer read fiSpacesBeforeColonCaseLabel write fiSpacesBeforeColonCaseLabel;
-    property SpacesBeforeColonLabel: integer read fiSpacesBeforeColonLabel write fiSpacesBeforeColonLabel;
+    property SpacesBeforeColonVar: integer Read fiSpacesBeforeColonVar
+      Write fiSpacesBeforeColonVar;
+    property SpacesBeforeColonConst: integer
+      Read fiSpacesBeforeColonConst Write fiSpacesBeforeColonConst;
+    property SpacesBeforeColonParam: integer
+      Read fiSpacesBeforeColonParam Write fiSpacesBeforeColonParam;
+    property SpacesBeforeColonFn: integer Read fiSpacesBeforeColonFn
+      Write fiSpacesBeforeColonFn;
+    property SpacesBeforeColonClassVar: integer
+      Read fiSpacesBeforeColonClassVar Write fiSpacesBeforeColonClassVar;
+    property SpacesBeforeColonRecordField: integer
+      Read fiSpacesBeforeColonRecordField Write fiSpacesBeforeColonRecordField;
+    property SpacesBeforeColonCaseLabel: integer
+      Read fiSpacesBeforeColonCaseLabel Write fiSpacesBeforeColonCaseLabel;
+    property SpacesBeforeColonLabel: integer
+      Read fiSpacesBeforeColonLabel Write fiSpacesBeforeColonLabel;
 
-    property MaxSpacesInCode: integer read fiMaxSpacesInCode write fiMaxSpacesInCode;
-    property UseMaxSpacesInCode: boolean read fbUseMaxSpacesInCode write fbUseMaxSpacesInCode;
+    property MaxSpacesInCode: integer Read fiMaxSpacesInCode Write fiMaxSpacesInCode;
+    property UseMaxSpacesInCode: boolean Read fbUseMaxSpacesInCode
+      Write fbUseMaxSpacesInCode;
   end;
 
 implementation
@@ -90,20 +99,20 @@ const
   SET_SPACES_PER_TAB = 'SpacesPerTab';
   SET_SPACES_FOR_TAB = 'SpacesForTab';
 
-  SET_FIX_SPACING    = 'FixSpacing';
+  SET_FIX_SPACING = 'FixSpacing';
 
   SET_SPACE_BEFORE_CLASS_HERITAGE = 'SpaceBeforeClassHeritage';
 
-  SET_SPACES_BEFORE_COLON_VAR = 'SpacesBeforeColonVar';
+  SET_SPACES_BEFORE_COLON_VAR   = 'SpacesBeforeColonVar';
   SET_SPACES_BEFORE_COLON_CONST = 'SpacesBeforeColonConst';
   SET_SPACES_BEFORE_COLON_PARAM = 'SpacesBeforeColonParam';
-  SET_SPACES_BEFORE_COLON_FN = 'SpacesBeforeColonFn';
+  SET_SPACES_BEFORE_COLON_FN    = 'SpacesBeforeColonFn';
   SET_SPACES_BEFORE_COLON_CLASS_VAR = 'SpacesBeforeColonClassVar';
-  SET_SPACES_BEFORE_COLON_RECORD_FIELD =  'SpacesBeforeColonRecordField';
+  SET_SPACES_BEFORE_COLON_RECORD_FIELD = 'SpacesBeforeColonRecordField';
   SET_SPACES_BEFORE_COLON_CASE_LABEL = 'SpacesBeforeColonCaseLabel';
   SET_SPACES_BEFORE_COLON_LABEL = 'SpacesBeforeColonLabel';
 
-  SET_MAX_SPACES_IN_CODE = 'MaxSpacesInCode';
+  SET_MAX_SPACES_IN_CODE     = 'MaxSpacesInCode';
   SET_USE_MAX_SPACES_IN_CODE = 'UseMaxSpacesInCode';
 
 constructor TSetSpaces.Create;
@@ -116,27 +125,28 @@ procedure TSetSpaces.ReadFromStream(const pcStream: TSettingsInput);
 begin
   Assert(pcStream <> nil);
 
-  fbTabsToSpaces  := pcStream.Read(SET_TABS_TO_SPACES, True);
-  fbSpacesToTabs  := pcStream.Read(SET_SPACES_TO_TABS, False);
+  fbTabsToSpaces := pcStream.Read(SET_TABS_TO_SPACES, True);
+  fbSpacesToTabs := pcStream.Read(SET_SPACES_TO_TABS, False);
 
-  fiSpacesPerTab  := pcStream.Read(SET_SPACES_PER_TAB, 2);
-  fiSpacesForTab  := pcStream.Read(SET_SPACES_FOR_TAB, 2);
+  fiSpacesPerTab := pcStream.Read(SET_SPACES_PER_TAB, 2);
+  fiSpacesForTab := pcStream.Read(SET_SPACES_FOR_TAB, 2);
 
-  fbFixSpacing  := pcStream.Read(SET_FIX_SPACING, True);
+  fbFixSpacing := pcStream.Read(SET_FIX_SPACING, True);
 
   fbSpaceBeforeClassHeritage := pcStream.Read(SET_SPACE_BEFORE_CLASS_HERITAGE, False);
 
-  fiSpacesBeforeColonVar := pcStream.Read(SET_SPACES_BEFORE_COLON_VAR, 0);
+  fiSpacesBeforeColonVar   := pcStream.Read(SET_SPACES_BEFORE_COLON_VAR, 0);
   fiSpacesBeforeColonConst := pcStream.Read(SET_SPACES_BEFORE_COLON_CONST, 0);
   fiSpacesBeforeColonParam := pcStream.Read(SET_SPACES_BEFORE_COLON_PARAM, 0);
-  fiSpacesBeforeColonFn := pcStream.Read(SET_SPACES_BEFORE_COLON_FN, 0);
+  fiSpacesBeforeColonFn    := pcStream.Read(SET_SPACES_BEFORE_COLON_FN, 0);
   fiSpacesBeforeColonClassVar := pcStream.Read(SET_SPACES_BEFORE_COLON_CLASS_VAR, 0);
-  fiSpacesBeforeColonRecordField := pcStream.Read(SET_SPACES_BEFORE_COLON_RECORD_FIELD, 0);
+  fiSpacesBeforeColonRecordField :=
+    pcStream.Read(SET_SPACES_BEFORE_COLON_RECORD_FIELD, 0);
 
   fiSpacesBeforeColonCaseLabel := pcStream.Read(SET_SPACES_BEFORE_COLON_CASE_LABEL, 0);
-  fiSpacesBeforeColonLabel := pcStream.Read(SET_SPACES_BEFORE_COLON_LABEL, 0);
+  fiSpacesBeforeColonLabel     := pcStream.Read(SET_SPACES_BEFORE_COLON_LABEL, 0);
 
-  fiMaxSpacesInCode := pcStream.Read(SET_MAX_SPACES_IN_CODE, 2);
+  fiMaxSpacesInCode    := pcStream.Read(SET_MAX_SPACES_IN_CODE, 2);
   fbUseMaxSpacesInCode := pcStream.Read(SET_USE_MAX_SPACES_IN_CODE, False);
 end;
 

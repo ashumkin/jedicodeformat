@@ -1,5 +1,5 @@
 unit TestTextAfterUnitEnd;
-   
+
 { AFS Noc 2003
   Test text after unit end  }
 

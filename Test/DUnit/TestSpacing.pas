@@ -109,8 +109,10 @@ end;
 
 procedure TTestSpacing.TestNoReturnAfter;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin if ' + AnsiLineBreak + '(foo) then ; end; ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin if (foo) then ; end; ' + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure foo; begin if ' + AnsiLineBreak +
+    '(foo) then ; end; ' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin if (foo) then ; end; ' +
+    UNIT_FOOTER;
 begin
   FormatSettings.Returns.RemoveBadReturns := True;
   TestProcessResult(TNoReturnAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -118,7 +120,8 @@ end;
 
 procedure TTestSpacing.TestNoReturnBefore;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin a ' + AnsiLineBreak + ':= 2; end; ' + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure foo; begin a ' + AnsiLineBreak +
+    ':= 2; end; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin a := 2; end; ' + UNIT_FOOTER;
 begin
   FormatSettings.Returns.RemoveBadReturns := True;
@@ -127,7 +130,7 @@ end;
 
 procedure TTestSpacing.TestNoSpaceAfter;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin a := ( 2); end; ' + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure foo; begin a := ( 2); end; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin a := (2); end; ' + UNIT_FOOTER;
 begin
   TestProcessResult(TNoSpaceAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -135,7 +138,7 @@ end;
 
 procedure TTestSpacing.TestNoSpaceBefore;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo ; begin a := 2 ; end ; ' + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure foo ; begin a := 2 ; end ; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin a := 2; end; ' + UNIT_FOOTER;
 begin
   TestProcessResult(TNoSpaceBefore, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -143,7 +146,8 @@ end;
 
 procedure TTestSpacing.TestNoSpaceBefore2;
 const
-  IN_UNIT_TEXT = INTERFACE_HEADER + 'function foo (i : integer) : integer ; far ; stdcall ;' +
+  IN_UNIT_TEXT  = INTERFACE_HEADER +
+    'function foo (i : integer) : integer ; far ; stdcall ;' +
     ' implementation ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = INTERFACE_HEADER + 'function foo(i: integer): integer; far; stdcall;' +
     ' implementation ' + UNIT_FOOTER;
@@ -156,17 +160,19 @@ end;
 procedure TTestSpacing.TestNoSpaceBeforeColon;
 const
   //JcfSettings.SetSpaces.SpacesBeforeColonFn := 0;
-  IN_UNIT_TEXT = UNIT_HEADER + ' function foo : integer; begin result := 2; end; ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = UNIT_HEADER + ' function foo: integer; begin result := 2; end; ' + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + ' function foo : integer; begin result := 2; end; ' +
+    UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' function foo: integer; begin result := 2; end; ' +
+    UNIT_FOOTER;
 begin
   TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
 procedure TTestSpacing.TestNoSpaceAfterOperator;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' function foo: ' + AnsiLineBreak +
+  IN_UNIT_TEXT  = UNIT_HEADER + ' function foo: ' + AnsiLineBreak +
     '  integer; begin result := 2 + 2; end; ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = UNIT_HEADER + ' function foo: '  + AnsiLineBreak +
+  OUT_UNIT_TEXT = UNIT_HEADER + ' function foo: ' + AnsiLineBreak +
     '  integer; begin result := 2 + 2; end; ' + UNIT_FOOTER;
 begin
   TestProcessResult(TNoSpaceAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -174,9 +180,9 @@ end;
 
 procedure TTestSpacing.TestNoSpaceAfterOperator2;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' function foo: ' + AnsiLineBreak +
+  IN_UNIT_TEXT  = UNIT_HEADER + ' function foo: ' + AnsiLineBreak +
     '  integer; begin result := 2 * - 2; end; ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = UNIT_HEADER + ' function foo: '  + AnsiLineBreak +
+  OUT_UNIT_TEXT = UNIT_HEADER + ' function foo: ' + AnsiLineBreak +
     '  integer; begin result := 2 * -2; end; ' + UNIT_FOOTER;
 begin
   TestProcessResult(TNoSpaceAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -184,7 +190,7 @@ end;
 
 procedure TTestSpacing.TestSingleSpaceBefore;
 const
-  IN_UNIT_TEXT = UNIT_HEADER +  ' procedure foo; begin a    := 2; end; ' + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure foo; begin a    := 2; end; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin a := 2; end; ' + UNIT_FOOTER;
 begin
   TestProcessResult(TSingleSpaceBefore, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -192,7 +198,7 @@ end;
 
 procedure TTestSpacing.TestSingleSpaceAfter;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin a :=2; end; ' + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure foo; begin a :=2; end; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin a := 2; end; ' + UNIT_FOOTER;
 begin
   TestProcessResult(TSingleSpaceAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -200,7 +206,7 @@ end;
 
 procedure TTestSpacing.TestSingleSpaceAfter2;
 const
-  IN_UNIT_TEXT = INTERFACE_HEADER + 'function foo(i:integer):integer;far;stdcall;' +
+  IN_UNIT_TEXT  = INTERFACE_HEADER + 'function foo(i:integer):integer;far;stdcall;' +
     ' implementation ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = INTERFACE_HEADER + 'function foo(i: integer): integer; far; stdcall;' +
     ' implementation ' + UNIT_FOOTER;
@@ -210,9 +216,11 @@ end;
 
 procedure TTestSpacing.TestSingleSPaceAfter3;
 const
-  IN_UNIT_TEXT = INTERFACE_HEADER + 'type TFredProc =procedure(var psFred:integer)of Object;' +
+  IN_UNIT_TEXT  = INTERFACE_HEADER +
+    'type TFredProc =procedure(var psFred:integer)of Object;' +
     ' implementation ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = INTERFACE_HEADER + 'type TFredProc = procedure(var psFred: integer)of Object;' +
+  OUT_UNIT_TEXT = INTERFACE_HEADER +
+    'type TFredProc = procedure(var psFred: integer)of Object;' +
     ' implementation ' + UNIT_FOOTER;
 begin
   TestProcessResult(TSingleSpaceAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -221,8 +229,10 @@ end;
 
 procedure TTestSpacing.TestSingleSpaceAfterColon;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' function foo:   integer; begin result := 2; end; ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = UNIT_HEADER + ' function foo: integer; begin result := 2; end; ' + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + ' function foo:   integer; begin result := 2; end; ' +
+    UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' function foo: integer; begin result := 2; end; ' +
+    UNIT_FOOTER;
 begin
   TestProcessResult(TSingleSpaceAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -230,9 +240,9 @@ end;
 
 procedure TTestSpacing.TestSingleSpaceAfterColon2;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' function foo: ' + AnsiLineBreak +
+  IN_UNIT_TEXT  = UNIT_HEADER + ' function foo: ' + AnsiLineBreak +
     '  integer; begin result := 2; end; ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = UNIT_HEADER + ' function foo: '  + AnsiLineBreak +
+  OUT_UNIT_TEXT = UNIT_HEADER + ' function foo: ' + AnsiLineBreak +
     '  integer; begin result := 2; end; ' + UNIT_FOOTER;
 begin
   TestProcessResult(TSingleSpaceAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -241,7 +251,7 @@ end;
 
 procedure TTestSpacing.TestReturnBefore;
 const
-  IN_UNIT_TEXT = UNIT_HEADER +  'procedure foo; begin a := 2; end;' + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + 'procedure foo; begin a := 2; end;' + UNIT_FOOTER;
   OUT_UNIT_TEXT = 'unit Test;' + AnsiLineBreak + AnsiLineBreak + 'interface' +
     AnsiLineBreak + AnsiLineBreak +
     'implementation' + AnsiLineBreak + AnsiLineBreak +
@@ -254,7 +264,8 @@ end;
 procedure TTestSpacing.TestReturnAfter;
 const
   UNLINED_UNIT_HEADER = 'unit Test; interface implementation';
-  IN_UNIT_TEXT = UNLINED_UNIT_HEADER + ' procedure foo; begin a := 2; end;' + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNLINED_UNIT_HEADER + ' procedure foo; begin a := 2; end;' +
+    UNIT_FOOTER;
   OUT_UNIT_TEXT = 'unit Test;' + AnsiLineBreak + AnsiLineBreak +
     'interface' + AnsiLineBreak + AnsiLineBreak +
     'implementation' + AnsiLineBreak + AnsiLineBreak +
@@ -267,7 +278,7 @@ end;
 
 procedure TTestSpacing.TestBlankLinesAfterProcHeader;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + 'procedure foo;' + AnsiLineBreak + AnsiLineBreak +
+  IN_UNIT_TEXT  = UNIT_HEADER + 'procedure foo;' + AnsiLineBreak + AnsiLineBreak +
     AnsiLineBreak + AnsiLineBreak + 'begin a := 2; end; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = UNIT_HEADER + 'procedure foo;' + AnsiLineBreak + AnsiLineBreak +
     'begin a := 2; end; ' + UNIT_FOOTER;
@@ -277,7 +288,7 @@ end;
 
 procedure TTestSpacing.TestBlankLinesAfterBegin;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin' + AnsiLineBreak + AnsiLineBreak +
+  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure foo; begin' + AnsiLineBreak + AnsiLineBreak +
     AnsiLineBreak + AnsiLineBreak + 'end; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin' + AnsiLineBreak + AnsiLineBreak +
     'end; ' + UNIT_FOOTER;
@@ -287,7 +298,7 @@ end;
 
 procedure TTestSpacing.TestBlankLinesBeforeEnd;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin' + AnsiLineBreak + AnsiLineBreak +
+  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure foo; begin' + AnsiLineBreak + AnsiLineBreak +
     AnsiLineBreak + AnsiLineBreak + 'end; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin' + AnsiLineBreak + AnsiLineBreak +
     'end; ' + UNIT_FOOTER;
@@ -350,7 +361,8 @@ end;
 
 procedure TTestSpacing.TestTabToSpace;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo;' + AnsiTab + 'begin a := 2; end; ' + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure foo;' + AnsiTab +
+    'begin a := 2; end; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo;  begin a := 2; end; ' + UNIT_FOOTER;
 begin
   TestProcessResult(TTabToSpace, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -358,16 +370,19 @@ end;
 
 procedure TTestSpacing.TestSpaceToTab;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo;  begin a := 2; end; ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo;' + AnsiTab + 'begin a := 2; end; ' + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure foo;  begin a := 2; end; ' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo;' + AnsiTab +
+    'begin a := 2; end; ' + UNIT_FOOTER;
 begin
   TestProcessResult(TSpaceToTab, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
 procedure TTestSpacing.TestMaxSpaces4;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo;   begin   a    :=  2;        end;  ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo;   begin   a    :=  2;    end;  ' + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure foo;   begin   a    :=  2;        end;  ' +
+    UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo;   begin   a    :=  2;    end;  ' +
+    UNIT_FOOTER;
 begin
   FormatSettings.Spaces.MaxSpacesInCode := 4;
   TestProcessResult(TMaxSpaces, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -376,8 +391,10 @@ end;
 
 procedure TTestSpacing.TestMaxSpaces3;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo;   begin   a    :=  2;    end;  ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo;   begin   a   :=  2;   end;  ' + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure foo;   begin   a    :=  2;    end;  ' +
+    UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo;   begin   a   :=  2;   end;  ' +
+    UNIT_FOOTER;
 begin
   FormatSettings.Spaces.MaxSpacesInCode := 3;
   TestProcessResult(TMaxSpaces, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -386,8 +403,10 @@ end;
 
 procedure TTestSpacing.TestMaxSpaces2;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo;   begin   a    :=  2;     end;  ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo;  begin  a  :=  2;  end;  ' + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure foo;   begin   a    :=  2;     end;  ' +
+    UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo;  begin  a  :=  2;  end;  ' +
+    UNIT_FOOTER;
 begin
   FormatSettings.Spaces.MaxSpacesInCode := 2;
   TestProcessResult(TMaxSpaces, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -395,7 +414,8 @@ end;
 
 procedure TTestSpacing.TestMaxSpaces1;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo;   begin   a    :=  2;    end;  ' + UNIT_FOOTER;
+  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure foo;   begin   a    :=  2;    end;  ' +
+    UNIT_FOOTER;
   OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin a := 2; end; ' + UNIT_FOOTER;
 begin
   FormatSettings.Spaces.MaxSpacesInCode := 1;
@@ -403,5 +423,5 @@ begin
 end;
 
 initialization
- TestFramework.RegisterTest('Processes', TTestSpacing.Suite);
+  TestFramework.RegisterTest('Processes', TTestSpacing.Suite);
 end.

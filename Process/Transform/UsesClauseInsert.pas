@@ -40,19 +40,20 @@ type
   TUsesClauseInsert = class(TSwitchableVisitor)
   private
     fiCount: integer;
-    fbDoneInterface, fbDoneImplementation: Boolean;
+    fbDoneInterface, fbDoneImplementation: boolean;
 
-    procedure SetDoneSection(const pbInterface: Boolean);
+    procedure SetDoneSection(const pbInterface: boolean);
     procedure AddUses(const pcToken: TSourceToken; const psList: TStrings);
-    procedure CreateUses(const pcToken: TSourceToken; const pbInterface: Boolean);
+    procedure CreateUses(const pcToken: TSourceToken; const pbInterface: boolean);
 
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
 
     function IsIncludedInSettings: boolean; override;
-    function FinalSummary(var psMessage: string): Boolean; override;
+    function FinalSummary(var psMessage: string): boolean; override;
 
   end;
 
@@ -90,7 +91,7 @@ procedure TUsesClauseInsert.EnabledVisitSourceToken(const pcNode: TObject;
   var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
-  lbInterface, lbImplementation: Boolean;
+  lbInterface, lbImplementation: boolean;
 begin
   if pcNode = nil then
     exit;
@@ -102,13 +103,14 @@ begin
     (lcSourceToken.HasParentNode(TopOfFileSection, 1)) then
   begin
     // any uses clauses omitted that need to be here?
-    if (not fbDoneInterface) and (FormatSettings.UsesClause.InsertInterfaceEnabled) and
+    if ( not fbDoneInterface) and (FormatSettings.UsesClause.InsertInterfaceEnabled) and
       (FormatSettings.UsesClause.InsertInterface.Count > 0) then
     begin
       CreateUses(lcSourceToken, True);
     end;
 
-    if (not fbDoneImplementation) and (FormatSettings.UsesClause.InsertImplementationEnabled) and
+    if ( not fbDoneImplementation) and
+      (FormatSettings.UsesClause.InsertImplementationEnabled) and
       (FormatSettings.UsesClause.InsertImplementation.Count > 0) then
     begin
       CreateUses(lcSourceToken, False);
@@ -139,20 +141,19 @@ begin
     SetDoneSection(lbInterface);
   end;
 
-
 end;
 
-function TUsesClauseInsert.FinalSummary(var psMessage: string): Boolean;
+function TUsesClauseInsert.FinalSummary(var psMessage: string): boolean;
 begin
   Result := (fiCount > 0);
   if Result then
     psMessage := 'Uses clause insertion: ' + IntToStr(fiCount) + ' insertions were made';
 end;
 
-procedure TUsesClauseInsert.SetDoneSection(const pbInterface: Boolean);
+procedure TUsesClauseInsert.SetDoneSection(const pbInterface: boolean);
 begin
   if pbInterface then
-    fbDoneInterface := True
+    fbDoneInterface      := True
   else
     fbDoneImplementation := True;
 end;
@@ -183,7 +184,7 @@ begin
 end;
 
 procedure TUsesClauseInsert.CreateUses(const pcToken: TSourceToken;
-  const pbInterface: Boolean);
+  const pbInterface: boolean);
 var
   lcRoot, lcSection: TParseTreeNode;
   lcKeyWord, lcNew: TSourceToken;
@@ -225,14 +226,14 @@ begin
 
   lcNew := NewSpace(1);
   lcSection.InsertChild(liInsertPos, lcNew);
-  inc(liInsertPos);
+  Inc(liInsertPos);
 
   lcNew := TSourceToken.Create;
   lcNew.TokenType := ttUses;
   lcNew.SourceCode := 'uses';
 
   lcSection.InsertChild(liInsertPos, lcNew);
-  inc(liInsertPos);
+  Inc(liInsertPos);
 
 
   for liLoop := 0 to lcInserts.Count - 1 do
@@ -240,7 +241,7 @@ begin
     { space }
     lcNew := NewSpace(1);
     lcSection.InsertChild(liInsertPos, lcNew);
-    inc(liInsertPos);
+    Inc(liInsertPos);
 
     { uses item }
     lcNew := TSourceToken.Create;
@@ -248,23 +249,23 @@ begin
     lcNew.SourceCode := lcInserts.Strings[liLoop];
 
     lcSection.InsertChild(liInsertPos, lcNew);
-    inc(liInsertPos);
+    Inc(liInsertPos);
 
     { , or ;}
     lcNew := TSourceToken.Create;
     if liLoop = (lcInserts.Count - 1) then
     begin
-      lcNew.TokenType := ttSemiColon;
+      lcNew.TokenType  := ttSemiColon;
       lcNew.SourceCode := ';';
     end
     else
     begin
-      lcNew.TokenType := ttComma;
+      lcNew.TokenType  := ttComma;
       lcNew.SourceCode := ',';
     end;
 
     lcSection.InsertChild(liInsertPos, lcNew);
-    inc(liInsertPos);
+    Inc(liInsertPos);
   end;
 end;
 

@@ -34,7 +34,8 @@ type
   { type for a proc to receive a message
   from the depths of the fornatter to the ui
   many of them have a line x,y specified }
-  TStatusMessageProc = procedure(const psFile, psMessage: string; const piY, piX: integer) of object;
+  TStatusMessageProc = procedure(const psFile, psMessage: string;
+    const piY, piX: integer) of object;
 
 
 type
@@ -57,5 +58,3 @@ const
 implementation
 
 end.
-
-

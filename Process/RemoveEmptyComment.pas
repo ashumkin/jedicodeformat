@@ -33,7 +33,8 @@ type
   TRemoveEmptyComment = class(TSwitchableVisitor)
   private
   protected
-    procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
+    procedure EnabledVisitSourceToken(const pcNode: TObject;
+      var prVisitResult: TRVisitResult); override;
   public
     constructor Create; override;
 
@@ -55,8 +56,8 @@ begin
   FormatFlags := FormatFlags + [eRemoveComments];
 end;
 
-procedure TRemoveEmptyComment.EnabledVisitSourceToken(
-  const pcNode: TObject; var prVisitResult: TRVisitResult);
+procedure TRemoveEmptyComment.EnabledVisitSourceToken(const pcNode: TObject;
+  var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
   lsCommentText: string;
@@ -85,20 +86,18 @@ begin
           BlankToken(lcSourceToken);
       end;
     end;
-    eBracketStar, eCompilerDirective:
-        ; // always leave these
-    eNotAComment:
-      ; // this is not a comment
+    eBracketStar, eCompilerDirective: ; // always leave these
+    eNotAComment: ; // this is not a comment
     else
       // should not be here
-      Assert(false);
+      Assert(False);
   end;
 end;
 
 function TRemoveEmptyComment.IsIncludedInSettings: boolean;
 begin
   Result := FormatSettings.Comments.RemoveEmptyDoubleSlashComments or
-     FormatSettings.Comments.RemoveEmptyCurlyBraceComments;
+    FormatSettings.Comments.RemoveEmptyCurlyBraceComments;
 end;
 
 end.

@@ -43,9 +43,10 @@ type
   public
     constructor Create;
 
-    property RunAll: boolean read fbRunAll write fbRunAll;
-    property SingleProcess: TTreeNodeVisitorType read fcSingleProcess write fcSingleProcess;
-    
+    property RunAll: boolean Read fbRunAll Write fbRunAll;
+    property SingleProcess: TTreeNodeVisitorType
+      Read fcSingleProcess Write fcSingleProcess;
+
   end;
 
 implementation

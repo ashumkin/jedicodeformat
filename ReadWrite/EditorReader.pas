@@ -28,14 +28,14 @@ interface
 { reader class for use in IDE pluggin - reads from editor interface }
 
 uses
-  { delphi - design time } ToolsApi,
-  { local } CodeReader;
+  { delphi - design time }ToolsApi,
+  { local }CodeReader;
 
 type
 
 
 
-TEditorReader = class(TCodeReader)
+  TEditorReader = class(TCodeReader)
   private
     fciUnit: IOTASourceEditor;
   protected
@@ -44,7 +44,7 @@ TEditorReader = class(TCodeReader)
   public
     constructor Create; override;
     procedure SetEditorUnit(const pciUnit: IOTASourceEditor);
-end;
+  end;
 
 
 implementation
@@ -63,14 +63,14 @@ end;
 procedure TEditorReader.ReadFromSource;
 const
   // 10 kb at a time should do it
- BUF_SIZE = 10240;
+  BUF_SIZE = 10240;
  //BUF_SIZE = 120; // small for testing
 var
   lciEditorReader: IOTAEditReader;
-  lsBuf: string;
-  lpBuf: PChar;
+  lsBuf:  string;
+  lpBuf:  pchar;
   liActualSize, liPos: integer;
-  lbDone: Boolean;
+  lbDone: boolean;
   //liLoopCount: integer;
 begin
   { get a reader from the unit }
@@ -91,7 +91,7 @@ begin
   begin
     // clear the buffer
     SetLength(lsBuf, BUF_SIZE);
-    lpBuf := PChar(lsBuf);
+    lpBuf := pchar(lsBuf);
     FillChar(lpBuf^, BUF_SIZE, 0);
 
     // get some text into the buffer
@@ -107,10 +107,11 @@ begin
 
      The way is to ensure that you only append as many characters as you've actually read (liActualSize bytes)
      from the buffer into the fSource. }
-    fsSource := fsSource + Copy(lsBuf, 1, liActualSize);      //WP: Changed from just adding lsBuf
+    fsSource := fsSource + Copy(lsBuf, 1, liActualSize);
+      //WP: Changed from just adding lsBuf
 
     // more stuff to read after this?
-    liPos := liPos + liActualSize;
+    liPos  := liPos + liActualSize;
     lbDone := (liActualSize < BUF_SIZE);
     //inc(liLoopCount);
   end;

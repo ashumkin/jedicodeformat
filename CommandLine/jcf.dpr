@@ -1,4 +1,5 @@
 program jcf;
+
 {$APPTYPE CONSOLE}
 {(*}
 (*------------------------------------------------------------------------------
@@ -140,230 +141,237 @@ uses
 
 const
   ABOUT_COMMANDLINE =
-  'Jedi Code Format V' + PROGRAM_VERSION + AnsiLineBreak +
-  ' ' + PROGRAM_DATE + AnsiLineBreak +
-  ' A Delphi Object-Pascal Source code formatter' + AnsiLineBreak  +
-  ' A GUI version of this program is also available' + AnsiLineBreak +
-  ' Latest version at ' + PROGRAM_HOME_PAGE + AnsiLineBreak + AnsiLineBreak +
-  'Syntax: jcf [options] path/filename ' +  AnsiLineBreak +
-  ' Parameters to the command-line program: ' + AnsiLineBreak + AnsiLineBreak +
+    'Jedi Code Format V' + PROGRAM_VERSION + AnsiLineBreak +
+    ' ' + PROGRAM_DATE + AnsiLineBreak +
+    ' A Delphi Object-Pascal Source code formatter' + AnsiLineBreak +
+    ' A GUI version of this program is also available' + AnsiLineBreak +
+    ' Latest version at ' + PROGRAM_HOME_PAGE + AnsiLineBreak + AnsiLineBreak +
+    'Syntax: jcf [options] path/filename ' + AnsiLineBreak +
+    ' Parameters to the command-line program: ' + AnsiLineBreak + AnsiLineBreak +
 
-  ' Mode of operation: ' + AnsiLineBreak +
-  ' -obfuscate Obfuscate mode or ' + AnsiLineBreak +
-  ' -clarify Clarify mode' + AnsiLineBreak +
-  '   When neither is specified, registry setting will be used.' +  AnsiLineBreak +
-  '   This normally means clarify.' +  AnsiLineBreak  + AnsiLineBreak +
+    ' Mode of operation: ' + AnsiLineBreak +
+    ' -obfuscate Obfuscate mode or ' + AnsiLineBreak +
+    ' -clarify Clarify mode' + AnsiLineBreak +
+    '   When neither is specified, registry setting will be used.' + AnsiLineBreak +
+    '   This normally means clarify.' + AnsiLineBreak + AnsiLineBreak +
 
-  ' Mode of source: ' + AnsiLineBreak +
-  ' -F Format a file. The file name must be specified.' + AnsiLineBreak +
-  ' -D Format a directory. The directory name must be specified.' + AnsiLineBreak +
-  ' -R Format a directory tree. The root directory name must be specified.' + AnsiLineBreak +
-  '  When no file mode is specified, registry setting will be used.' +  AnsiLineBreak + AnsiLineBreak +
+    ' Mode of source: ' + AnsiLineBreak +
+    ' -F Format a file. The file name must be specified.' + AnsiLineBreak +
+    ' -D Format a directory. The directory name must be specified.' + AnsiLineBreak +
+    ' -R Format a directory tree. The root directory name must be specified.' +
+    AnsiLineBreak +
+    '  When no file mode is specified, registry setting will be used.' +
+    AnsiLineBreak + AnsiLineBreak +
 
-  ' Mode of output: ' + AnsiLineBreak +
-  ' -inplace change the source file without backup' + AnsiLineBreak +
-  ' -out output to a new file' + AnsiLineBreak +
-  ' -backup change the file and leave the original file as a backup' + AnsiLineBreak +
-  '  If no output mode is specified, registry setting will be used.' +  AnsiLineBreak + AnsiLineBreak +
+    ' Mode of output: ' + AnsiLineBreak +
+    ' -inplace change the source file without backup' + AnsiLineBreak +
+    ' -out output to a new file' + AnsiLineBreak +
+    ' -backup change the file and leave the original file as a backup' + AnsiLineBreak +
+    '  If no output mode is specified, registry setting will be used.' +
+    AnsiLineBreak + AnsiLineBreak +
 
-  ' Other options: ' + AnsiLineBreak +
-  ' -config=filename  To specify a named configuration file' + AnsiLineBreak +
-  ' -y No prompts to overwrite files etc. Yes is assumed ' + AnsiLineBreak +
-  ' -? Display this help' + AnsiLineBreak;
+    ' Other options: ' + AnsiLineBreak +
+    ' -config=filename  To specify a named configuration file' + AnsiLineBreak +
+    ' -y No prompts to overwrite files etc. Yes is assumed ' + AnsiLineBreak +
+    ' -? Display this help' + AnsiLineBreak;
 
 var
-  fbCmdLineShowHelp: Boolean;
-  fbQuietFail: Boolean;
+  fbCmdLineShowHelp: boolean;
+  fbQuietFail: boolean;
 
-  fbCmdLineObfuscate: Boolean;
-  fbCmdLineClarify: Boolean;
+  fbCmdLineObfuscate: boolean;
+  fbCmdLineClarify:   boolean;
 
-  fbHasSourceMode: Boolean;
+  fbHasSourceMode:     boolean;
   feCmdLineSourceMode: TSourceMode;
 
-  fbHasBackupMode: Boolean;
+  fbHasBackupMode:     boolean;
   feCmdLineBackupMode: TBackupMode;
 
-  fbYesAll: Boolean;
+  fbYesAll: boolean;
 
-  fbHasNamedConfigFile: Boolean;
-  fsConfigFileName: string;
+  fbHasNamedConfigFile: boolean;
+  fsConfigFileName:     string;
 
-function StripParamPrefix(const ps: string): string;
-begin
-  Result := ps;
-
-  if StrLeft(Result, 1) = '/' then
-    Result := StrRestOf(Result, 2);
-  if StrLeft(ps, 1) = '\' then
-    Result := StrRestOf(Result, 2);
-  if StrLeft(Result, 1) = '-' then
-    Result := StrRestOf(Result, 2);
-end;
-
-procedure ParseCommandLine;
-var
-  liLoop: integer;
-  lsOpt: string;
-  lsPath: string;
-begin
-  fbCmdLineShowHelp := (ParamCount = 0);
-  fbQuietFail := False;
-  fbCmdLineObfuscate := False;
-  fbCmdLineClarify := False;
-  fbHasSourceMode := False;
-  fbHasBackupMode := False;
-  fbYesAll := False;
-  fbHasNamedConfigFile := False;
-  fsConfigFileName := '';
-
-  for liLoop := 1 to ParamCount do
+  function StripParamPrefix(const ps: string): string;
   begin
+    Result := ps;
+
+    if StrLeft(Result, 1) = '/' then
+      Result := StrRestOf(Result, 2);
+    if StrLeft(ps, 1) = '\' then
+      Result := StrRestOf(Result, 2);
+    if StrLeft(Result, 1) = '-' then
+      Result := StrRestOf(Result, 2);
+  end;
+
+  procedure ParseCommandLine;
+  var
+    liLoop: integer;
+    lsOpt:  string;
+    lsPath: string;
+  begin
+    fbCmdLineShowHelp := (ParamCount = 0);
+    fbQuietFail := False;
+    fbCmdLineObfuscate := False;
+    fbCmdLineClarify := False;
+    fbHasSourceMode := False;
+    fbHasBackupMode := False;
+    fbYesAll := False;
+    fbHasNamedConfigFile := False;
+    fsConfigFileName := '';
+
+    for liLoop := 1 to ParamCount do
+    begin
     { look for something that is not a -/\ param }
-    lsOpt := ParamStr(liLoop);
+      lsOpt := ParamStr(liLoop);
 
-    if (StrLeft(lsOpt, 1) <> '-') and (StrLeft(lsOpt, 1) <> '/') and
-      (StrLeft(lsOpt, 1) <> '\') and (StrLeft(lsOpt, 1) <> '?') then
-    begin
+      if (StrLeft(lsOpt, 1) <> '-') and (StrLeft(lsOpt, 1) <> '/') and
+        (StrLeft(lsOpt, 1) <> '\') and (StrLeft(lsOpt, 1) <> '?') then
+      begin
       // must be a path
-      lsPath := StrTrimQuotes(lsOpt);
-      continue;
-    end;
+        lsPath := StrTrimQuotes(lsOpt);
+        continue;
+      end;
 
-    lsOpt := StripParamPrefix(lsOpt);
+      lsOpt := StripParamPrefix(lsOpt);
 
-    if lsOpt = '?' then
-    begin
-      fbCmdLineShowHelp := True;
-      break;
-    end
-    else if AnsiSameText(lsOpt, 'obfuscate') then
-    begin
-      fbCmdLineObfuscate := True;
-      fbCmdLineClarify := False;
-    end
-    else if AnsiSameText(lsOpt, 'clarify') then
-    begin
-      fbCmdLineObfuscate := False;
-      fbCmdLineClarify := True;
-    end
+      if lsOpt = '?' then
+      begin
+        fbCmdLineShowHelp := True;
+        break;
+      end
+      else if AnsiSameText(lsOpt, 'obfuscate') then
+      begin
+        fbCmdLineObfuscate := True;
+        fbCmdLineClarify   := False;
+      end
+      else if AnsiSameText(lsOpt, 'clarify') then
+      begin
+        fbCmdLineObfuscate := False;
+        fbCmdLineClarify   := True;
+      end
 
-    else if AnsiSameText(lsOpt, 'inplace') then
-    begin
-      fbHasBackupMode := True;
-      feCmdLineBackupMode := cmInPlace;
-    end
-    else if AnsiSameText(lsOpt, 'out') then
-    begin
-      fbHasBackupMode := True;
-      feCmdLineBackupMode := cmSeperateOutput;
-    end
-    else if AnsiSameText(lsOpt, 'backup') then
-    begin
-      fbHasBackupMode := True;
-      feCmdLineBackupMode := cmInPlaceWithBackup;
-    end
+      else if AnsiSameText(lsOpt, 'inplace') then
+      begin
+        fbHasBackupMode     := True;
+        feCmdLineBackupMode := cmInPlace;
+      end
+      else if AnsiSameText(lsOpt, 'out') then
+      begin
+        fbHasBackupMode     := True;
+        feCmdLineBackupMode := cmSeperateOutput;
+      end
+      else if AnsiSameText(lsOpt, 'backup') then
+      begin
+        fbHasBackupMode     := True;
+        feCmdLineBackupMode := cmInPlaceWithBackup;
+      end
 
-    else if AnsiSameText(lsOpt, 'f') then
+      else if AnsiSameText(lsOpt, 'f') then
+      begin
+        fbHasSourceMode     := True;
+        feCmdLineSourceMode := fmSingleFile;
+      end
+      else if AnsiSameText(lsOpt, 'd') then
+      begin
+        fbHasSourceMode     := True;
+        feCmdLineSourceMode := fmDirectory;
+      end
+      else if AnsiSameText(lsOpt, 'r') then
+      begin
+        fbHasSourceMode     := True;
+        feCmdLineSourceMode := fmDirectoryRecursive;
+      end
+      else if AnsiSameText(lsOpt, 'y') then
+      begin
+        fbYesAll := True;
+      end
+      else if StrFind('config', lsOpt) = 1 then
+      begin
+        fbHasNamedConfigFile := True;
+        fsConfigFileName     := StrAfter('=', lsOpt);
+      end
+      else
+      begin
+        WriteLn('Unknown option ' + StrDoubleQuote(lsOpt));
+        WriteLn;
+        fbCmdLineShowHelp := True;
+        break;
+      end;
+    end; // for loop
+
+    if lsPath = '' then
     begin
-      fbHasSourceMode := True;
-      feCmdLineSourceMode := fmSingleFile;
-    end
-    else if AnsiSameText(lsOpt, 'd') then
-    begin
-      fbHasSourceMode := True;
-      feCmdLineSourceMode := fmDirectory;
-    end
-    else if AnsiSameText(lsOpt, 'r') then
-    begin
-      fbHasSourceMode := True;
-      feCmdLineSourceMode := fmDirectoryRecursive;
-    end
-    else if AnsiSameText(lsOpt, 'y') then
-    begin
-      fbYesAll := True;
-    end
-    else if StrFind('config', lsOpt) = 1 then
-    begin
-     fbHasNamedConfigFile := True;
-     fsConfigFileName := StrAfter('=', lsOpt);
-    end
-    else
-    begin
-      WriteLn('Unknown option ' +  StrDoubleQuote(lsOpt));
+      WriteLn('No path found');
       WriteLn;
       fbCmdLineShowHelp := True;
-      break;
     end;
-  end; // for loop
-
-  if lsPath = '' then
-  begin
-    WriteLn('No path found');
-    WriteLn;
-    fbCmdLineShowHelp := True;
-  end;
 
   { read settings from file? }
-  if fbHasNamedConfigFile and (fsConfigFileName <> '') then
-  begin
-    if FileExists(fsConfigFileName) then
+    if fbHasNamedConfigFile and (fsConfigFileName <> '') then
     begin
-      FormatSettings.ReadFromFile(fsConfigFileName);
-    end
-    else
-    begin
-      WriteLn('Named config file ' + fsConfigFileName + ' was not found');
-      WriteLn;
-      fbQuietFail := True;
-    end
-  end;
+      if FileExists(fsConfigFileName) then
+      begin
+        FormatSettings.ReadFromFile(fsConfigFileName);
+      end
+      else
+      begin
+        WriteLn('Named config file ' + fsConfigFileName + ' was not found');
+        WriteLn;
+        fbQuietFail := True;
+      end
+    end;
 
   { write to settings }
-  if fbHasSourceMode then
-    GetRegSettings.SourceMode := feCmdLineSourceMode;
-  if fbHasBackupMode then
-    GetRegSettings.BackupMode := feCmdLineBackupMode;
+    if fbHasSourceMode then
+      GetRegSettings.SourceMode := feCmdLineSourceMode;
+    if fbHasBackupMode then
+      GetRegSettings.BackupMode := feCmdLineBackupMode;
 
-  if not fbCmdLineShowHelp then
-  begin
-    if GetRegSettings.SourceMode = fmSingleFile then
+    if not fbCmdLineShowHelp then
     begin
-      if not FileExists(lsPath) then
+      if GetRegSettings.SourceMode = fmSingleFile then
       begin
-        WriteLn('File ' +  StrDoubleQuote(lsPath) + ' not found');
-        fbQuietFail := True;
-      end;
-    end
-    else
-    begin
-      if not DirectoryExists(lsPath) then
+        if not FileExists(lsPath) then
+        begin
+          WriteLn('File ' + StrDoubleQuote(lsPath) + ' not found');
+          fbQuietFail := True;
+        end;
+      end
+      else
       begin
-        WriteLn('Directory ' +  StrDoubleQuote(lsPath) + ' not found');
-        fbQuietFail := True;
+        if not DirectoryExists(lsPath) then
+        begin
+          WriteLn('Directory ' + StrDoubleQuote(lsPath) + ' not found');
+          fbQuietFail := True;
+        end;
       end;
     end;
+
+    GetRegSettings.Input := lsPath;
+    FormatSettings.Obfuscate.Enabled := fbCmdLineObfuscate;
   end;
 
-  GetRegSettings.Input := lsPath;
-  FormatSettings.Obfuscate.Enabled := fbCmdLineObfuscate;
-end;
-
-type TStatusMsgReceiver = Class(Tobject)
+type
+  TStatusMsgReceiver = class(TObject)
   public
-    procedure OnReceiveStatusMessage(const psFile, psMessage: string; const piX, piY: integer);
-end;
+    procedure OnReceiveStatusMessage(const psFile, psMessage: string;
+      const piX, piY: integer);
+  end;
 
 var
   lcConvert: TFileConverter;
-  lcStatus: TStatusMsgReceiver;
+  lcStatus:  TStatusMsgReceiver;
+
 { TStatusMsgReceiver }
 
-procedure TStatusMsgReceiver.OnReceiveStatusMessage(const psFile, psMessage: string; const piX, piY: integer);
-begin
-  WriteLn(psFile + ' :' + psMessage +
-    ' at line ' + IntToStr(piY) + ' pos ' + IntToStr(piX));
-end;
+  procedure TStatusMsgReceiver.OnReceiveStatusMessage(const psFile, psMessage: string;
+  const piX, piY: integer);
+  begin
+    WriteLn(psFile + ' :' + psMessage +
+      ' at line ' + IntToStr(piY) + ' pos ' + IntToStr(piX));
+  end;
 
 { main program starts here }
 begin
@@ -394,7 +402,7 @@ begin
       // use command line settings
       lcConvert.YesAll := fbYesAll;
       lcConvert.GuiMessages := False;
-      lcConvert.SourceMode :=  GetRegSettings.SourceMode;
+      lcConvert.SourceMode := GetRegSettings.SourceMode;
       lcConvert.BackupMode := GetRegSettings.BackupMode;
       lcConvert.Input := GetRegSettings.Input;
 

@@ -40,7 +40,7 @@ type
     fiCurrentTokenIndex: integer;
 
     { state from the preprocessor statements }
-    fbPreprocessorIncluded: Boolean;
+    fbPreprocessorIncluded: boolean;
     fcDefinedSymbols: TStringList;
 
     procedure ParseProcessorBlock;
@@ -56,8 +56,10 @@ type
 
     procedure ParseNonPreProc(const peEndTokens: TPreProcessorSymbolTypeSet);
     procedure ParseOptTail(pbAlreadyMatchedClause: boolean);
-    procedure ParsePreProcessorDirective(const peSymbolType: TPreProcessorSymbolType); overload;
-    procedure ParsePreProcessorDirective(const peSymbolTypes: TPreProcessorSymbolTypeSet); overload;
+    procedure ParsePreProcessorDirective(const peSymbolType: TPreProcessorSymbolType);
+      overload;
+    procedure ParsePreProcessorDirective(
+      const peSymbolTypes: TPreProcessorSymbolTypeSet); overload;
 
     procedure RemoveDefinedSymbol(const psSymbol: string);
     function SymbolIsDefined(const psSymbol: string): boolean;
@@ -174,7 +176,7 @@ procedure TPreProcessorParseTree.NextToken;
 const
   UPDATE_INTERVAL = 512;
 begin
-  inc(fiCurrentTokenIndex);
+  Inc(fiCurrentTokenIndex);
 
   if (fiCurrentTokenIndex mod UPDATE_INTERVAL) = 0 then
     Application.ProcessMessages;
@@ -183,7 +185,7 @@ end;
 function TPreProcessorParseTree.CurrentToken: TSourceToken;
 begin
   if fcTokens = nil then
-    Result:= nil
+    Result := nil
   else if fiCurrentTokenIndex >= fcTokens.Count then
     Result := nil
   else
@@ -192,7 +194,7 @@ end;
 
 procedure TPreProcessorParseTree.ProcessTokenList(const pcTokens: TSourceTokenList);
 var
-  liLoop: integer;
+  liLoop:  integer;
   lcToken: TSourceToken;
 begin
   Assert(pcTokens <> nil);
@@ -209,7 +211,7 @@ begin
 
 
   {   unit -> non-preproc [preproc non-preproc]... }
-  fiCurrentTokenIndex := 0;
+  fiCurrentTokenIndex    := 0;
   fbPreprocessorIncluded := True;
 
   while fiCurrentTokenIndex < pcTokens.Count do
@@ -281,7 +283,7 @@ begin
 end;
 
 
-procedure TPreProcessorParseTree.ParseIfDef(const psSymbol: string); 
+procedure TPreProcessorParseTree.ParseIfDef(const psSymbol: string);
 var
   lbEval, lbWasIncluded: boolean;
 begin
@@ -301,7 +303,7 @@ begin
   { must not include the else block if
    - the expr was true & the first block was in
    - the whole thing is inside a larger block that's out }
-  ParseOptTail(lbEval or (not lbWasIncluded));
+  ParseOptTail(lbEval or ( not lbWasIncluded));
   ParsePreProcessorDirective([ppEndIf, ppIfEnd]);
 
   fbPreprocessorIncluded := lbWasIncluded;
@@ -309,7 +311,7 @@ end;
 
 procedure TPreProcessorParseTree.ParseIfExpr(const psExpr: string);
 var
-  lbEval, lbWasIncluded: Boolean;
+  lbEval, lbWasIncluded: boolean;
 begin
   lbWasIncluded := fbPreprocessorIncluded;
 
@@ -325,7 +327,7 @@ begin
   { must not include the else block if
    - the expr was true & the first block was in
    - the whole thing is inside a larger block that's out }
-  ParseOptTail(lbEval or (not lbWasIncluded));
+  ParseOptTail(lbEval or ( not lbWasIncluded));
   ParsePreProcessorDirective([ppEndIf, ppIfEnd]);
   fbPreprocessorIncluded := lbWasIncluded;
 
@@ -333,7 +335,7 @@ end;
 
 procedure TPreProcessorParseTree.ParseIfNotDef(const psSymbol: string);
 var
-  lbEval, lbWasIncluded: Boolean;
+  lbEval, lbWasIncluded: boolean;
 begin
   lbWasIncluded := fbPreprocessorIncluded;
 
@@ -349,7 +351,7 @@ begin
   { must not include the else block if
    - the expr was true & the first block was in
    - the whole thing is inside a larger block that's out }
-  ParseOptTail(lbEval or (not lbWasIncluded));
+  ParseOptTail(lbEval or ( not lbWasIncluded));
   ParsePreProcessorDirective([ppEndIf, ppIfEnd]);
 
   fbPreprocessorIncluded := lbWasIncluded;
@@ -357,7 +359,7 @@ end;
 
 procedure TPreProcessorParseTree.ParseIfOpt(const psOption: string);
 var
-  lbEval, lbWasIncluded: Boolean;
+  lbEval, lbWasIncluded: boolean;
 begin
   lbWasIncluded := fbPreprocessorIncluded;
 
@@ -373,22 +375,25 @@ begin
   { must not include the else block if
    - the expr was true & the first block was in
    - the whole thing is inside a larger block that's out }
-  ParseOptTail(lbEval or (not lbWasIncluded));
+  ParseOptTail(lbEval or ( not lbWasIncluded));
   ParsePreProcessorDirective([ppEndIf, ppIfEnd]);
   fbPreprocessorIncluded := lbWasIncluded;
 end;
 
-procedure TPreProcessorParseTree.ParsePreProcessorDirective(const peSymbolType: TPreProcessorSymbolType);
+procedure TPreProcessorParseTree.ParsePreProcessorDirective(
+  const peSymbolType: TPreProcessorSymbolType);
 begin
   ParsePreProcessorDirective([peSymbolType]);
 end;
 
-procedure TPreProcessorParseTree.ParsePreProcessorDirective(const peSymbolTypes: TPreProcessorSymbolTypeSet);
+procedure TPreProcessorParseTree.ParsePreProcessorDirective(
+  const peSymbolTypes: TPreProcessorSymbolTypeSet);
 var
   lcToken: TSourceToken;
 begin
   lcToken := CurrentToken;
-  Assert(lcToken <> nil, 'nil token, expected '  + PreProcSymbolTypeSetToString(peSymbolTypes));
+  Assert(lcToken <> nil, 'nil token, expected ' +
+    PreProcSymbolTypeSetToString(peSymbolTypes));
 
   if lcToken.CommentStyle <> eCompilerDirective then
     raise TEParseError.Create('Expected compiler directive', lcToken);
@@ -401,7 +406,8 @@ begin
 end;
 
 
-procedure TPreProcessorParseTree.ParseNonPreProc(const peEndTokens: TPreProcessorSymbolTypeSet);
+procedure TPreProcessorParseTree.ParseNonPreProc(
+  const peEndTokens: TPreProcessorSymbolTypeSet);
 var
   lcToken: TSourceToken;
 begin
@@ -449,11 +455,12 @@ procedure TPreProcessorParseTree.ParseElse(const pbAlreadyMatchedClause: boolean
 begin
   NextToken;
 
-  fbPreprocessorIncluded := (not pbAlreadyMatchedClause);
+  fbPreprocessorIncluded := ( not pbAlreadyMatchedClause);
   ParseNonPreProc([ppEndIf, ppIfEnd]);
 end;
 
-procedure TPreProcessorParseTree.ParseElseIf(const psExpr: string; var pbAlreadyMatchedClause: boolean);
+procedure TPreProcessorParseTree.ParseElseIf(const psExpr: string;
+  var pbAlreadyMatchedClause: boolean);
 begin
   if not pbAlreadyMatchedClause then
   begin
@@ -473,7 +480,7 @@ end;
 
 procedure TPreProcessorParseTree.AddDefinedSymbol(const psSymbol: string);
 begin
-  if (psSymbol <> '') and (not SymbolIsDefined(psSymbol)) then
+  if (psSymbol <> '') and ( not SymbolIsDefined(psSymbol)) then
     fcDefinedSymbols.Add(psSymbol);
 end;
 
@@ -491,16 +498,17 @@ begin
   Result := fcDefinedSymbols.IndexOf(psSymbol) >= 0;
 end;
 
-function TPreProcessorParseTree.EvalPreProcessorExpression(const psExpression: string): boolean;
+function TPreProcessorParseTree.EvalPreProcessorExpression(
+  const psExpression: string): boolean;
 var
   lcTokeniser: TPreProcessorExpressionTokeniser;
-  lcParser: TPreProcessorExpressionParser;
+  lcParser:    TPreProcessorExpressionParser;
 begin
   Result := False;
   Assert(psExpression <> '');
 
   lcTokeniser := TPreProcessorExpressionTokeniser.Create;
-  lcParser := TPreProcessorExpressionParser.Create;
+  lcParser    := TPreProcessorExpressionParser.Create;
   try
     // tokenise
     try
@@ -508,7 +516,8 @@ begin
       lcTokeniser.Tokenise;
     except
       on E: Exception do
-        Raise TEParseError.Create('Exception tokenising "' + psExpression + '": ' + E.Message, CurrentToken);
+        raise TEParseError.Create('Exception tokenising "' + psExpression +
+          '": ' + E.Message, CurrentToken);
     end;
 
     { !! unknown syntax. Accept expression as true ? fix in later version }
@@ -527,7 +536,8 @@ begin
         Result := lcParser.Parse;
       except
         on E: Exception do
-          Raise TEParseError.Create('Exception parsing "' + psExpression + '": ' + E.Message, CurrentToken);
+          raise TEParseError.Create('Exception parsing "' + psExpression +
+            '": ' + E.Message, CurrentToken);
       end;
     end;
   finally
@@ -540,7 +550,7 @@ end;
 { hide the bits that are preprocessed out }
 procedure TPreProcessorParseTree.CompactTokens;
 var
-  liLoop: integer;
+  liLoop:    integer;
   lsOutText: string;
   lcCurrentToken, lcExcludedText: TSourceToken;
 begin
@@ -569,7 +579,7 @@ begin
       fcTokens.Insert(liLoop, lcExcludedText);
     end
     else
-    inc(liLoop);
+      Inc(liLoop);
   end;
 end;
 

@@ -60,17 +60,16 @@ type
     procedure FormShow(Sender: TObject);
     procedure lvTokensClick(Sender: TObject);
     procedure lvTokensSelectItem(Sender: TObject; Item: TListItem;
-      Selected: Boolean);
+      Selected: boolean);
     procedure lvTokensDblClick(Sender: TObject);
     procedure tvParseTreeDblClick(Sender: TObject);
-    procedure FormKeyUp(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
+    procedure FormKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
   private
     fcRootNode: TParseTreeNode;
     procedure ShowTreeNodeDetails(const pcNode: TParseTreeNode);
 
   public
-    property RootNode: TParseTreeNode read fcRootNode write fcRootNode;
+    property RootNode: TParseTreeNode Read fcRootNode Write fcRootNode;
 
     procedure DisplayTree;
   end;
@@ -108,14 +107,15 @@ procedure TfrmShowParseTree.DisplayTree;
   procedure ShowTokensInList(const pcData: TParseTreeNode);
   var
     lcNewItem: TListItem;
-    lcToken: TSourceToken;
-    liLoop: integer;
-    lsDesc: string;
+    lcToken:   TSourceToken;
+    liLoop:    integer;
+    lsDesc:    string;
   begin
     { exclude this one as white space }
-    if (not cbShowWhiteSpace.Checked) and (not pcData.HasChildren) and
-      (pcData is TSourceToken) and (TSourceToken(pcData).TokenType in NotSolidTokens) then
-        exit;
+    if ( not cbShowWhiteSpace.Checked) and ( not pcData.HasChildren) and
+      (pcData is TSourceToken) and (TSourceToken(pcData).TokenType in
+      NotSolidTokens) then
+      exit;
 
     { list tokens }
     if (pcData is TSourceToken) then
@@ -129,34 +129,36 @@ procedure TfrmShowParseTree.DisplayTree;
       lcNewItem.SubItems.Add(lsDesc);
       lcNewItem.SubItems.Add(lcToken.SourceCode);
 
-       lcNewItem.Data := pcData;
+      lcNewItem.Data := pcData;
     end;
 
     // attach the children
-    for liLoop := 0 to  pcData.ChildNodeCount - 1 do
+    for liLoop := 0 to pcData.ChildNodeCount - 1 do
       ShowTokensInList(pcData.ChildNodes[liLoop]);
   end;
 
   procedure MakeNodeChildren(const pcGUIParent: TTreeNode; const pcData: TParseTreeNode);
   var
     lcNewItem: TTreeNode;
-    liLoop: integer;
+    liLoop:    integer;
   begin
     { exclude this one as white space }
-    if (not cbShowWhiteSpace.Checked) and (not pcData.HasChildren) and
-      (pcData is TSourceToken) and (TSourceToken(pcData).TokenType in NotSolidTokens) then
-        exit;
+    if ( not cbShowWhiteSpace.Checked) and ( not pcData.HasChildren) and
+      (pcData is TSourceToken) and (TSourceToken(pcData).TokenType in
+      NotSolidTokens) then
+      exit;
 
-    lcNewItem := tvParseTree.Items.AddChild(pcGUIParent, pcData.Describe);
+    lcNewItem      := tvParseTree.Items.AddChild(pcGUIParent, pcData.Describe);
     lcNewItem.Data := pcData;
 
     // attach the children
-    for liLoop := 0 to  pcData.ChildNodeCount - 1 do
+    for liLoop := 0 to pcData.ChildNodeCount - 1 do
       MakeNodeChildren(lcNewItem, pcData.ChildNodes[liLoop]);
   end;
 
 begin
-  lblTreeCount.Caption := 'Tree has ' + IntToStr(fcRootNode.RecursiveChildCount) + ' nodes';
+  lblTreeCount.Caption := 'Tree has ' + IntToStr(fcRootNode.RecursiveChildCount) +
+    ' nodes';
   lblTreeDepth.Caption := 'Tree has max depth of ' + IntToStr(fcRootNode.MaxDepth);
 
 
@@ -182,7 +184,7 @@ begin
 
 end;
 
-procedure TfrmShowParseTree.tvParseTreeChange(Sender: TObject;  Node: TTreeNode);
+procedure TfrmShowParseTree.tvParseTreeChange(Sender: TObject; Node: TTreeNode);
 begin
   if Node = nil then
     ShowTreeNodeDetails(nil)
@@ -196,16 +198,18 @@ begin
   if pcNode = nil then
   begin
     lblCurrent.Caption := 'Current: none';
-    lblDepth.Caption := 'Depth: -';
+    lblDepth.Caption   := 'Depth: -';
     lblImmediateChildCount.Caption := 'Immediate child count: -';
     lblTotalNodeCount.Caption := 'Total node count: -';
   end
   else
   begin
     lblCurrent.Caption := 'Current: ' + pcNode.Describe;
-    lblDepth.Caption := 'Level: ' + IntToStr(pcNode.Level);
-    lblImmediateChildCount.Caption := 'Immediate child count: ' + IntToStr(pcNode.ChildNodeCount);
-    lblTotalNodeCount.Caption := 'Total node count: ' + IntToStr(pcNode.RecursiveChildCount);
+    lblDepth.Caption   := 'Level: ' + IntToStr(pcNode.Level);
+    lblImmediateChildCount.Caption :=
+      'Immediate child count: ' + IntToStr(pcNode.ChildNodeCount);
+    lblTotalNodeCount.Caption :=
+      'Total node count: ' + IntToStr(pcNode.RecursiveChildCount);
   end;
 end;
 
@@ -229,7 +233,7 @@ begin
 end;
 
 procedure TfrmShowParseTree.lvTokensSelectItem(Sender: TObject;
-  Item: TListItem; Selected: Boolean);
+  Item: TListItem; Selected: boolean);
 begin
   if lvTokens.Selected = nil then
     ShowTreeNodeDetails(nil)
@@ -254,9 +258,9 @@ begin
   for liLoop := 0 to tvParseTree.Items.Count - 1 do
   begin
     lcItem := tvParseTree.Items[liLoop];
-    if lcItem.Data  = lpNode then
+    if lcItem.Data = lpNode then
     begin
-      lcItem.Selected := True;
+      lcItem.Selected    := True;
       pcPages.ActivePage := tsTree;
       break;
     end;
@@ -284,8 +288,8 @@ begin
     if lcItem.Data = lpNode then
     begin
       lcItem.Selected := True;
-      lcItem.Focused := True;
-      lcItem.MakeVisible(false); 
+      lcItem.Focused  := True;
+      lcItem.MakeVisible(False);
       pcPages.ActivePage := tsTokens;
       break;
     end;
@@ -293,7 +297,7 @@ begin
 
 end;
 
-procedure TfrmShowParseTree.FormKeyUp(Sender: TObject; var Key: Word;
+procedure TfrmShowParseTree.FormKeyUp(Sender: TObject; var Key: word;
   Shift: TShiftState);
 begin
   if Key = VK_F1 then
