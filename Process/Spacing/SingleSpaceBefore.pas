@@ -113,7 +113,8 @@ begin
   { program uses form link comment }
   if InFilesUses(pt) then
   begin
-    if ((pt.TokenType = ttComment) and (pt.CommentStyle = eCurly)) then
+    if ((pt.TokenType = ttComment) and (pt.CommentStyle = eCurly)) and
+      pt.IsOnRightOf(nUses, wUses) then
     begin
       Result := True;
       exit;

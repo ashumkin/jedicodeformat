@@ -189,7 +189,7 @@ begin
     TestFileContentsSame(lsOutFileName, psRefOutput);
 
     // clean up
-    //DeleteFile(lsOutFileName);
+    DeleteFile(lsOutFileName);
 
   finally
     lcConverter.Free;
