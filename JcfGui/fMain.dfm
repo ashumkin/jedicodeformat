@@ -1,11 +1,11 @@
 object frmMain: TfrmMain
-  Left = 391
-  Top = 284
+  Left = 205
+  Top = 224
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Jedi Code Format'
   ClientHeight = 255
-  ClientWidth = 485
+  ClientWidth = 537
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,7 +21,7 @@ object frmMain: TfrmMain
   object sb: TStatusBar
     Left = 0
     Top = 233
-    Width = 485
+    Width = 537
     Height = 22
     AutoHint = True
     Panels = <>
@@ -30,7 +30,7 @@ object frmMain: TfrmMain
   object tlbTop: TToolBar
     Left = 0
     Top = 0
-    Width = 485
+    Width = 537
     Height = 26
     AutoSize = True
     ButtonHeight = 24
@@ -109,16 +109,10 @@ object frmMain: TfrmMain
   inline frBasic: TfrBasic
     Left = 0
     Top = 26
-    Width = 485
+    Width = 537
     Height = 207
     Align = alClient
     TabOrder = 2
-    inherited sbOpen: TSpeedButton
-      Top = 143
-    end
-    inherited dlgOpen: TOpenDialog
-      Left = 228
-    end
   end
   object mnuMain: TMainMenu
     Images = ilStandardImages
@@ -150,6 +144,12 @@ object frmMain: TfrmMain
         Action = aOptions
         Caption = '&Format Settings..'
       end
+      object N1: TMenuItem
+        Caption = '-'
+      end
+      object mnuSaveSettingsAs: TMenuItem
+        Action = aSaveSettingsAs
+      end
     end
     object mnuHelp: TMenuItem
       Caption = '&Help'
@@ -163,8 +163,8 @@ object frmMain: TfrmMain
   end
   object ilStandardImages: TImageList
     AllocBy = 128
-    Left = 373
-    Top = 41
+    Left = 241
+    Top = 5
     Bitmap = {
       494C010106008000800010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000000002000001002000000000000000
@@ -4442,10 +4442,16 @@ object frmMain: TfrmMain
       ImageIndex = 5
       OnExecute = actHelpContentsExecute
     end
+    object aSaveSettingsAs: TAction
+      Category = 'Settings'
+      Caption = 'Save settings &as...'
+      Hint = 'Save a copy of format settings to a named file'
+      OnExecute = mnuSaveSettingsAsClick
+    end
   end
   object dlgSaveConfig: TSaveDialog
-    Left = 436
-    Top = 60
+    Left = 412
+    Top = 4
   end
   object mruFiles: TJvMRUManager
     Duplicates = dupIgnore
@@ -4453,7 +4459,17 @@ object frmMain: TfrmMain
     Capacity = 9
     RecentMenu = mnuFiles
     OnClick = mruFilesClick
-    Left = 297
-    Top = 48
+    Left = 373
+    Top = 4
+  end
+  object dlgOpen: TOpenDialog
+    DefaultExt = '*.pas'
+    Filter = 
+      'Delphi Source|*.pas|Delphi Project Source|*.dpr|text file|*.txt|' +
+      'All files|*.*'
+    Options = [ofHideReadOnly, ofPathMustExist, ofFileMustExist, ofEnableSizing]
+    Title = 'Select a Delphi source file'
+    Left = 244
+    Top = 20
   end
 end

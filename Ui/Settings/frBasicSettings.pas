@@ -29,6 +29,7 @@ uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   Buttons, StdCtrls, ExtCtrls,
   { local }
+  JvMRUList,
   ConvertTypes, frmBaseSettingsFrame;
 
 type
@@ -44,27 +45,37 @@ type
     dlgOpen: TOpenDialog;
     procedure rgFileRecurseClick(Sender: TObject);
     procedure rgBackupClick(Sender: TObject);
-    procedure sbOpenClick(Sender: TObject);
     procedure rgModeClick(Sender: TObject);
     procedure edtInputDragOver(Sender, Source: TObject; X, Y: integer;
       State: TDragState; var Accept: boolean);
     procedure edtInputDragDrop(Sender, Source: TObject; X, Y: integer);
     procedure edtInputKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
+    procedure sbOpenClick(Sender: TObject);
+    procedure FrameResize(Sender: TObject);
   private
-    procedure DisplayOutputFile;
-    function GetCurrentBackupMode: TBackupMode;
+    procedure AddCheckMRU(const psFile: string);
+
   protected
 
     procedure DragItemDropped(const piFormat: integer; const psItem: string); override;
 
   public
+    // ref to main form
+    mruFiles: TJvMRUManager;
+
     constructor Create(AOwner: TComponent); override;
 
     procedure Read; override;
     procedure Write; override;
 
+    function GetCurrentBackupMode: TBackupMode;
     function GetCurrentSourceMode: TSourceMode;
+    procedure SetCurrentSourceMode(const peValue: TSourceMode);
+
     function GetGoHint: string;
+
+    procedure DisplayOutputFile;
+    procedure DoFileOpen(const psName: string = '');
   end;
 
 implementation
@@ -120,6 +131,14 @@ begin
   Result := TSourceMode(rgFileRecurse.ItemIndex);
 end;
 
+procedure TfrBasic.SetCurrentSourceMode(const peValue: TSourceMode);
+begin
+  if GetCurrentSourceMode <> peValue then
+  begin
+    rgFileRecurse.ItemIndex := Ord(peValue);
+    rgFileRecurseClick(nil);
+  end;
+end;
 
 procedure TfrBasic.DisplayOutputFile;
 var
@@ -187,27 +206,6 @@ begin
   CallOnChange;
 end;
 
-procedure TfrBasic.sbOpenClick(Sender: TObject);
-var
-  lsDir: string;
-begin
-  lsDir := PathAddSeparator(ExtractFileDir(edtInput.Text)); // strip out the dir
-
-  dlgOpen.InitialDir := lsDir;
-
-  if GetCurrentSourceMode = fmSingleFile then
-  begin
-    if dlgOpen.Execute then
-      edtInput.Text := dlgOpen.FileName;
-
-    DisplayOutputFile;
-  end
-  else
-  begin
-    if SelectDirectory('select a directory', '', lsDir) then
-      edtInput.Text := PathAddSeparator(lsDir);
-  end;
-end;
 
 procedure TfrBasic.Read;
 begin
@@ -264,6 +262,88 @@ begin
   end;
 end;
 
+procedure TfrBasic.DoFileOpen(const psName: string);
+var
+  lsDir: string;
+begin
+
+  if psName = '' then
+  begin
+    // get a file name
+    lsDir := PathAddSeparator(ExtractFileDir(edtInput.Text)); // strip out the dir
+
+    dlgOpen.InitialDir := lsDir;
+
+    if GetCurrentSourceMode = fmSingleFile then
+    begin
+      if dlgOpen.Execute then
+      begin
+        edtInput.Text := dlgOpen.FileName;
+        AddCheckMRU(edtInput.Text);
+
+        DisplayOutputFile;
+      end;
+    end
+    else
+    begin
+      if SelectDirectory('select a directory', '', lsDir) then
+      begin
+        edtInput.Text := PathAddSeparator(lsDir);
+        AddCheckMRU(edtInput.Text);
+
+        DisplayOutputFile;
+      end;
+    end
+  end
+  else
+  begin
+
+    // have a name. Is it a dir or a file?
+    if DirectoryExists(psName) then
+    begin
+      edtInput.Text := PathAddSeparator(psName);
+
+      AddCheckMRU(edtInput.Text);
+      DisplayOutputFile;
+
+      if GetCurrentSourceMode = fmSingleFile then
+        SetCurrentSourceMode(fmDirectory);
+    end
+    else if FileExists(psName) then
+    begin
+      edtInput.Text := psName;
+
+      AddCheckMRU(edtInput.Text);
+      DisplayOutputFile;
+
+      if GetCurrentSourceMode <> fmSingleFile then
+        SetCUrrentSourceMode(fmSingleFile);
+    end;
+  end;
+end;
+
+
+procedure TfrBasic.AddCheckMRU(const psFile: string);
+var
+  liIndex: integer;
+begin
+  liIndex := mruFiles.Strings.IndexOf(psFile);
+
+  if (liIndex < 0) then
+  begin
+    mruFiles.Add(psFile, 0);
+    liIndex := mruFiles.Strings.IndexOf(psFile);
+  end;
+
+  mruFiles.Strings.Move(liIndex, 0);
+
+  while mruFiles.Strings.Count > mruFiles.Capacity do
+    mruFiles.Strings.Delete(mruFiles.Strings.Count - 1);
+end;
+
+{------------------------------------------------------------------------------
+  event handlers }
+
 procedure TfrBasic.edtInputDragOver(Sender, Source: TObject; X, Y: integer;
   State: TDragState; var Accept: boolean);
 begin
@@ -278,6 +358,24 @@ end;
 procedure TfrBasic.edtInputKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
 begin
   DisplayOutputFile;
+end;
+
+procedure TfrBasic.sbOpenClick(Sender: TObject);
+begin
+  DoFileOpen;
+end;
+
+procedure TfrBasic.FrameResize(Sender: TObject);
+const
+  SPACING = 8;
+  SMALL_SPACE = 2;
+begin
+  inherited;
+
+  // these fill width
+  sbOpen.Left := ClientWidth - (sbOpen.Width + SPACING);
+  edtInput.Width := (sbOpen.Left - SMALL_SPACE) - edtInput.Left;
+  edtOutput.Width := (ClientWidth - SPACING) - edtOutput.Left;
 end;
 
 end.

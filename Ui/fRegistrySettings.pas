@@ -44,7 +44,7 @@ implementation
 
 uses
   { jcf }
-  ConvertTypes;
+  ConvertTypes, JcfSettings;
 
 {$R *.dfm}
 
@@ -69,7 +69,12 @@ begin
   lcSet := GetRegSettings;
   Assert(lcSet <> nil);
 
-  lcSet.FormatConfigFileName := eSettingsFile.Text;
+  if lcSet.FormatConfigFileName <> eSettingsFile.Text then
+  begin
+    lcSet.FormatConfigFileName := eSettingsFile.Text;
+    FormatSettings.ReadFromFile(eSettingsFile.Text);
+  end;
+
   lcSet.MRUMaxItems := eMRUMaxItems.Value;
   lcSet.ShowParseTreeOption := TShowParseTreeOption(rgShowParseTree.ItemIndex);
 end;

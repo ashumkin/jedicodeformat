@@ -1,6 +1,7 @@
 inherited frBasic: TfrBasic
   Width = 456
   Height = 198
+  OnResize = FrameResize
   object lblOutput: TLabel
     Left = 4
     Top = 172

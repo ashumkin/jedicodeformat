@@ -32,9 +32,9 @@ uses
     { delphi }
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, Buttons, ExtCtrls, ComCtrls, Menus,
-  ActnList, ImgList, ToolWin,
+  ActnList, ImgList, ToolWin, StdActns,
     { local } FileConverter, JCFSettings, frFiles,
-  frBasicSettings,  frDrop, StdActns, frmBaseSettingsFrame, JvMRUList;
+  frBasicSettings,  frDrop,  frmBaseSettingsFrame, JvMRUList;
 
 type
   TfrmMain = class(TForm)
@@ -62,7 +62,6 @@ type
     aExit: TAction;
     tbtnToolButton4: TToolButton;
     btnClose: TToolButton;
-    frBasic: TfrBasic;
     OpenFile1: TMenuItem;
     mnuFormatSettings: TMenuItem;
     mnuViewLog: TMenuItem;
@@ -73,6 +72,11 @@ type
     mnuSettings: TMenuItem;
     mnuRegistrySettings: TMenuItem;
     mruFiles: TJvMRUManager;
+    dlgOpen: TOpenDialog;
+    frBasic: TfrBasic;
+    N1: TMenuItem;
+    mnuSaveSettingsAs: TMenuItem;
+    aSaveSettingsAs: TAction;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure mnuGoClick(Sender: TObject);
@@ -84,8 +88,7 @@ type
     procedure aOpenFilesExecute(Sender: TObject);
     procedure aOptionsExecute(Sender: TObject);
     procedure mnuViewLogClick(Sender: TObject);
-    procedure mnuSettingsToFileClick(Sender: TObject);
-    procedure mnuSettingsFromFileClick(Sender: TObject);
+    procedure mnuSaveSettingsAsClick(Sender: TObject);
     procedure actHelpContentsExecute(Sender: TObject);
     procedure mnuRegistrySettingsClick(Sender: TObject);
     procedure mruFilesClick(Sender: TObject; const RecentName,
@@ -98,7 +101,6 @@ type
     procedure DoFormat;
     procedure ShowAbout;
     procedure SettingsChange(Sender: TObject);
-    procedure AddCheckMRU(const psFile: string);
 
   public
   end;
@@ -174,6 +176,11 @@ begin
     if not OkDialog(lsMessage) then
       exit;
   end;
+
+  fcConverter.Input := lsSource;
+  fcConverter.BackupMode := frBasic.GetCurrentBackupMode;
+  fcConverter.SourceMode := frBasic.GetCurrentSourceMode;
+
   fcConverter.Convert;
 end;
 
@@ -189,23 +196,6 @@ begin
   end;
 end;
 
-procedure TfrmMain.AddCheckMRU(const psFile: string);
-var
-  liIndex: integer;
-begin
-  liIndex := mruFiles.Strings.IndexOf(psFile);
-
-  if (liIndex < 0) then
-  begin
-    mruFiles.Add(psFile, 0);
-    liIndex := mruFiles.Strings.IndexOf(psFile);
-  end;
-
-  mruFiles.Strings.Move(liIndex, 0);
-
-  while mruFiles.Strings.Count > mruFiles.Capacity do
-    mruFiles.Strings.Delete(mruFiles.Strings.Count - 1);
-end;
 
 
 {------------------------------------------------------------------------------
@@ -229,6 +219,7 @@ begin
   fcConverter := TFileConverter.Create;
   fcConverter.OnStatusMessage := ShowStatusMesssage;
 
+  frBasic.mruFiles := mruFiles;
   frBasic.Read;
   frBasic.OnChange := SettingsChange;
   SettingsChange(nil);
@@ -283,7 +274,7 @@ end;
 
 procedure TfrmMain.aOpenFilesExecute(Sender: TObject);
 begin
-  frBasic.sbOpenClick(Self);
+  frBasic.DoFileOpen;
 end;
 
 procedure TfrmMain.aOptionsExecute(Sender: TObject);
@@ -293,6 +284,7 @@ begin
   lfSet := TFormAllSettings.Create(Self);
   try
     lfSet.Execute;
+    frBasic.DisplayOutputFile;
   finally
     lfSet.Release;
   end;
@@ -301,11 +293,11 @@ end;
 procedure TfrmMain.SettingsChange(Sender: TObject);
 begin
   btnGo.Hint := frBasic.GetGoHint;
+
   if frBasic.GetCurrentSourceMode = fmSingleFile then
     tbtnOpenFiles.Hint := 'Select a source file'
   else
     tbtnOpenFiles.Hint := 'Select a source directory';
-
 end;
 
 procedure TfrmMain.mnuViewLogClick(Sender: TObject);
@@ -318,7 +310,7 @@ const
   CONFIG_FILTER = 'Config files (*.cfg)|*.cfg|Text files (*.txt)|' +
     '*.txt|XML files (*.xml)|*.xml|All files (*.*)|*.*';
 
-procedure TfrmMain.mnuSettingsToFileClick(Sender: TObject);
+procedure TfrmMain.mnuSaveSettingsAsClick(Sender: TObject);
 var
   lsName: string;
   dlgSaveConfig: TSaveDialog;
@@ -354,37 +346,7 @@ begin
 
 end;
 
-procedure TfrmMain.mnuSettingsFromFileClick(Sender: TObject);
-var
-  lcOpen: TOpenDialog;
-  lsName: string;
-begin
-  lsName := '';
 
-  lcOpen := TOpenDialog.Create(self);
-  try
-    lcOpen.InitialDir := GetWinDir;
-    lcOpen.Filter := CONFIG_FILTER;
-
-    if lcOpen.Execute then
-      lsName := lcOpen.FileName;
-  finally
-    lcOpen.Free;
-  end;
-
-  if lsName = '' then
-    exit;
-
-  if not FileExists(lsName) then
-  begin
-    ShowMessage('File ' + lsName + ' not found');
-    exit;
-  end;
-
-  // now we know the file exists - try get settings from it
-  FormatSettings.ReadFromFile(lsName);
-
-end;
 
 procedure TfrmMain.actHelpContentsExecute(Sender: TObject);
 begin
@@ -398,6 +360,7 @@ begin
   lfSettings := TfmRegistrySettings.Create(self);
   try
     lfSettings.Execute;
+    frBasic.DisplayOutputFile;
   finally
     lfSettings.Release;
   end;
@@ -406,7 +369,7 @@ end;
 procedure TfrmMain.mruFilesClick(Sender: TObject; const RecentName,
   Caption: String; UserData: Integer);
 begin
-  //DoFileOpen(RecentName);
+  frBasic.DoFileOpen(RecentName);
 end;
 
 end.
