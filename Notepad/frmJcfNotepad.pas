@@ -30,7 +30,8 @@ uses
   Buttons, Menus,
   { Jedi }
   JvMRUManager, JvMemo,
-  { local }StringsConverter, JcfRegistrySettings, JvFormPlacement;
+  { local }StringsConverter, JcfRegistrySettings, JvFormPlacement,
+  JvComponent, JvExStdCtrls;
 
 type
   TfmJCFNotepad = class(TForm)

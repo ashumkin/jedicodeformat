@@ -97,7 +97,6 @@ object fmJCFNotepad: TfmJCFNotepad
         Font.Name = 'Courier New'
         Font.Style = []
         ParentFont = False
-        ReadOnly = False
         ScrollBars = ssVertical
         TabOrder = 0
         OnClick = mInputClick
@@ -310,9 +309,6 @@ object fmJCFNotepad: TfmJCFNotepad
     Top = 24
   end
   object JvFormStorage1: TJvFormStorage
-    IniFileName = 'Software\Jedi\JediCodeFormat\'
-    IniSection = 'NotepadFormPos'
-    UseRegistry = True
     StoredValues = <>
     Left = 600
     Top = 8
