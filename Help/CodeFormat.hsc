@@ -25,7 +25,7 @@ TRUE
 FALSE
 FALSE
 FALSE
-19
+22
 10
 Scribble10
 Main
@@ -38,24 +38,38 @@ Writing
 
 
 FALSE
-29
+43
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fmodern Courier New;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green128\blue0;}
 \viewkind4\uc1\pard\cf1\b\f0\fs32 Jedi Code Format V\lang2057\f1 2.0 Beta 6\cf0\lang1031\b0\f0\fs20 
 \par \cf2\{keepn\}
 \par \cf0 
-\par This is the main documentation for the code formatter's configuration. 
+\par This is the main documentation for the \lang2057\f1 Jedi Code Formatter\lang1031\f0 .\lang2057\f1  \lang1031\f0 The formatter can standardise all aspects of Delphi Object Pascal source code formatting, including indentation, spacing and capitalisation\lang2057\f1 .\lang1031\f0  
 \par 
 \par \lang2057\f1 Not every \lang1031\f0 control\lang2057\f1  on the configuration is documented\lang1031\f0 . In many cases the control's captions should be self-explanatory.
 \par 
 \par This helpfile contains help on the the following topics:
-\par 
-\par \cf3\strike Basic settings\cf2\strike0\{linkID=40\}\cf0 
-\par \cf3\strike Logging\cf2\strike0\{linkID=18\}\cf0 
-\par \cf3\strike Exclusions\cf2\strike0\{linkID=30\}\cf0 
+\par \cf3\lang2057\strike\f1 
+\par Programs\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 12\lang1031\f0\}
+\par \cf0 
+\par \cf3\lang2057\strike\f1 Settings storage\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 15\lang1031\f0\}\cf0 
+\par \cf3\lang2057\strike\f1 Registry\lang1031\f0  settings\cf2\strike0\{linkID=\lang2057\f1 20\lang1031\f0\}
+\par \lang2057\f1\tab\cf3\strike Logging\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 24\lang1031\f0\}
+\par \lang2057\f1\tab\cf3\strike Exclusions\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 26\lang1031\f0\}
+\par \cf0 
+\par \cf3\lang2057\strike\f1 Basic Settings\cf2\lang1031\strike0\f0\{linkID=30\}\cf0 
 \par \cf3\strike Obfuscate Settings\cf2\strike0\{linkID=50\}\cf0 
-\par \cf3\strike Clarify Settings\cf2\strike0\{linkID=60\}\cf0 
-\par 
+\par \cf3\strike Clarify Settings\cf2\strike0\{linkID=60\}
+\par \lang2057\f1\tab\cf3\strike Spaces\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 7\lang1031\f0 0\}
+\par \lang2057\f1\tab\cf3\strike Indentation\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 8\lang1031\f0 0\}
+\par \lang2057\f1\tab\cf3\strike Long lines\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 85\lang1031\f0\}
+\par \lang2057\f1\tab\cf3\strike Returns\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 9\lang1031\f0 0\}
+\par \lang2057\f1\tab\cf3\strike Blocks\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 10\lang1031\f0 0\}
+\par \lang2057\f1\tab\cf3\strike Align\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 11\lang1031\f0 0\}
+\par \lang2057\f1\tab\cf3\strike Capitalisation\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 12\lang1031\f0 0\}
+\par \lang2057\f1\tab\cf3\strike Find and replace\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 14\lang1031\f0 0\}
+\par \lang2057\f1\tab\cf3\strike Find and replace on uses\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 15\lang1031\f0 0\}
+\par \cf0 
 \par \cf3\lang3079\strike\f1 Command line parameters\cf2\strike0\{linkID=200\}
 \par \cf3\strike Special Comments\cf2\lang1031\strike0\f0\{linkID=210\}
 \par \cf0 
@@ -67,6 +81,31 @@ FALSE
 \par \f1\fs20 
 \par 
 \par Helpfile (c) 2001-2003 by \cf3\strike Ralf Steinhaeusser\cf2\strike0\{linkID=1000\}\cf0 
+\par }
+12
+Scribble12
+Programs
+
+
+
+
+Writing
+
+
+
+FALSE
+12
+{\rtf1\ansi\ansicpg1252\deff0\deflang2057{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil Arial;}}
+{\colortbl ;\red0\green0\blue255;\red0\green0\blue0;}
+\viewkind4\uc1\pard\cf1\b\fs32 Programs\cf2\b0\f1\fs20 
+\par 
+\par \b\f0 jcf.exe\b0  \endash  commandline program suitable for batch files and old school Unix aficionados
+\par 
+\par \b jcfGui.exe\b0  \endash  a GUI interface to formatting files and directories.
+\par 
+\par \b JcfIde7.bpl\b0  \endash  the Delphi IDE plug-in compiled for Delphi 7. Requires JCL and JCVL. If anyone can compile this for D5 and D6 I will gladly upload it to Sourceforge.
+\par 
+\par \b JcfNotepad.exe\b0  is a new gui \endash  for experimenting with source and layout. Input source is loaded/typed/pasted into the input text area, and the formatter output is generated to the output text area.\f1 
 \par }
 15
 Scribble15
@@ -88,18 +127,18 @@ FALSE
 \par \cf0\f2 Some settings are stored in the \b registry \b0 under\f3  \lang1031 HKEY_CURRENT_USER\\Software\\Jedi\\JediCodeFormat\f2 . These are per-user settings, mostly UI settings like recently used files, logging options, showing parse tree on error. The path to the configuration file is stored here.
 \par 
 \par \f4 
-\par \f2 The \b configuration file\b0  has a default name of \f3 JcfSettings2.cfg\f2 . This file stores all the settings of how to format delphi source. The advanteges of keeping this data in a file not in the registry are:
+\par \f2 The \b configuration file\b0  has a default name of \f3 JcfSettings2.cfg\f2 . This file stores all the settings of how to format delphi source. The advantages of keeping this data in a file, not in the registry, are:
 \par \pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\fi240\li140\tx180 You can keep multiple format profiles by keeping multiple files
-\par {\pntext\f5\'B7\tab}Files can be exchanged by email and so on and can be edited in notepad
-\par {\pntext\f5\'B7\tab}Your colleages can all use the same settings file, if you keep it on a network drive.
+\par {\pntext\f5\'B7\tab}Files can be exchanged by email and so on, and can be edited in notepad
+\par {\pntext\f5\'B7\tab}You and your colleages can all use the same settings file, if you keep it on a network drive.
 \par {\pntext\f5\'B7\tab}\pard\li380\tx180 
-\par \pard\tx180 The configuration file format is inspired by XML, but I don't know enough XML and haven't found a reason yet to investigate if it is fully XML compiant or not. If you can edit plain text and undertsand tags inside "<" and ">" then the format shouldn't be difficult.
+\par \pard\tx180 The configuration file format is inspired by XML, but I don't know enough XML and haven't found a reason yet to investigate if it is fully XML compliant or not. However, if you can edit plain text and undertsand tags inside "<" and ">" then the format shouldn't be difficult.
 \par 
 \par \pard\cf2\lang2057\f1 
 \par }
-17
-Scribble17
-Registry Settings
+20
+Scribble20
+Gerneral Registry Settings
 
 
 
@@ -109,19 +148,21 @@ Writing
 
 
 FALSE
-9
+11
 {\rtf1\ansi\ansicpg1252\deff0\deflang2057{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil Arial;}}
 {\colortbl ;\red0\green0\blue255;\red0\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\fs32 Registry Settings\cf2\b0\f1\fs20 
 \par 
-\par \f0 Convert settings file: The path to the settings file.
-\par MRU max items: The number of items stored in the Most-Recently Used list of the File menu. When this number is exceeded, the bottom item, ie the least recently used file, will be removed.
-\par Show parse tree. JCF 2.0 generates a full parse tree of the input source file. This is useful for debugging, I recommend that you set this to "on error", which will show it only when the source cannot be parsed. The last token of the parse tree then will give you some idea of what the parser thought was going on.
+\par \b\f0 Convert settings file:\b0  The path to the settings file.
+\par 
+\par \b MRU max items:\b0  The number of items stored in the Most-Recently Used list of the File menu. When this number is exceeded, the bottom item, ie the least recently used file, will be removed.
+\par 
+\par \b Show parse tree:\b0  JCF 2.0 generates a full parse tree of the input source file. Showing this can be useful for debugging. I recommend that you set this to "on error", which will show it only when the source cannot be parsed. The last token of the parse tree then will give you some idea of what the parser thought was going on.
 \par \f1 
 \par }
-18
-Scribble18
-Logging
+24
+Scribble24
+Logging Registry Settings
 Logging settings
 
 
@@ -134,7 +175,7 @@ FALSE
 24
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fnil\fcharset2 Symbol;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;}
-\viewkind4\uc1\pard\cf1\b\f0\fs32 Logging settings\cf0\b0\fs20 
+\viewkind4\uc1\pard\cf1\b\f0\fs32 Logging Registry Settings settings\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
 \par \cf2\{bmc 30.bmp\}\cf0 
@@ -156,9 +197,9 @@ FALSE
 \par \b Log file directory.\b0  The directory where the log file (called CodeFormat.log)\f1  \f0 is generated. The system temp, application or a user specified directory can\f1  \f0 be used. If you want to see your warnings, look in the log.
 \par 
 \par }
-30
-Scribble30
-Exclusions
+26
+Scribble26
+Exclusions Registry Settings
 Exclusions
 
 
@@ -171,7 +212,7 @@ FALSE
 14
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fmodern Courier New;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;}
-\viewkind4\uc1\pard\cf1\b\f0\fs32 Exclusions\cf0\b0\fs20 
+\viewkind4\uc1\pard\cf1\b\f0\fs32 Exclusions Registry Settings\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
 \par Files and directories with names listed here will be excluded when a directory\lang3079\f1  \lang1031\f0 or directory tree is processed.
@@ -183,8 +224,8 @@ FALSE
 \par for e.g. in a project that uses COM and type libraries. the .pas files generated from the type libraries can be extremely large, and are regenerated by the compiler, so reformatting them is a waste of time.
 \par 
 \par }
-40
-Scribble40
+30
+Scribble30
 Basic settings
 Basic settings
 
@@ -195,21 +236,44 @@ Writing
 
 
 FALSE
-15
-{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}}
+18
+{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fnil\fcharset0 Courier New;}{\f3\fnil\fcharset0 Arial;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\f0\fs32 Basic settings\cf0\b0\fs20 
 \par \cf2\{keepn\}
 \par 
 \par \{bmc 20.bmp\}\cf0 
 \par 
-\par \b Mode:\b0  "Obfuscate" means to make unclear. You will want clarify not obfuscate.
-\par I did the obfuscation partly out of curiosity, partly as it is simple, and mostly to generate worst-case test units. It is not useful for production code, except to see how bad code layout can be but still compile.
+\par \lang2057\f1 These are found on the main form of the JCFGui program.
+\par \lang1031\f0 
+\par \b Mode:\b0  "Obfuscate" means to make unclear. You will want clarify not obfuscate.\lang2057\f1  \lang1031\f0 I did the obfuscation partly out of curiosity, partly as it is simple, and mostly to generate worst-case test units. It is not useful for production code, except to see how bad code layout can be but still compile.
 \par 
-\par \b Backup:\b0  I use "output to separate file" for testing.
+\par \b Backup:\b0  I use "output to separate file" for testing.\lang2057\f1  The input file is left intact, with the output file going to a new file, with the same directory and the same name, but a different extension, typically \f2 .out\f1 . 
 \par 
-\par For production runs it works better to put the output file where the input file used to be, with or without this program making a backup.  The output or backup file will have the same name and directory as the input file, with a different extension. See the file settings to change these extensions.
+\par For production use, I recommend that you use "backup to seperate file". The input file is formatted, but a copy of the prior file is kept, with the sme directory and name, but a different extension, typically \f2 .bak\f3 . If you really trust your source control system, you may want to use "no backup".\lang1031\f0 
 \par 
+\par See the file settings to change these extensions.
+\par 
+\par }
+40
+Scribble40
+Format file
+
+
+
+
+Writing
+
+
+
+FALSE
+7
+{\rtf1\ansi\ansicpg1252\deff0\deflang2057{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil Arial;}}
+{\colortbl ;\red0\green0\blue255;\red0\green0\blue0;}
+\viewkind4\uc1\pard\cf1\b\fs32 Format file
+\par 
+\par \cf2\b0\fs20 This page describes the format file location, if it is read-only, when it was written and by which version of the formatter. In the Description field you can describe the file.
+\par \f1 
 \par }
 50
 Scribble50
@@ -262,7 +326,7 @@ Writing
 
 
 FALSE
-30
+31
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fnil\fcharset0 Courier New;}{\f3\fnil\fcharset2 Symbol;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green128\blue0;}
 \viewkind4\uc1\pard\cf1\b\f0\fs32 Clarify Settings\cf0\b0\fs20 
@@ -278,12 +342,13 @@ FALSE
 \par {\pntext\f3\'B7\tab}Empty block, a\f2  begin ... end\f0  pair with nothing between them is a placeholder for code yet to be written and should be filled or removed.
 \par {\pntext\f3\'B7\tab}Assignment to the function name. This is an obsolete style. Rather use the \f2 Result \f0 variable.
 \par {\pntext\f3\'B7\tab}\pard 
-\par \b Run plug-ins:\b0  A flag for user code to hook into. If you write a custom processor,\f1  \f0 use-this flag to turn it on and off.
+\par \b Run plug-ins:\b0  A flag for user code to hook into. If you write a custom processor,\f1  \f0 use\lang2057\f1  \lang1031\f0 this flag to turn it on and off.
 \par 
 \par \f1 The clarifying algorithm can be configured via the following pages:\f0 
 \par 
 \par \cf3\strike Spaces\cf2\strike0\{linkID=70\}\cf0 
 \par \cf3\strike Indentation\cf2\strike0\{linkID=80\}\cf0 
+\par \cf3\lang2057\strike\f1 Long Lines\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 85\lang1031\f0\}\cf0 
 \par \cf3\strike Returns\cf2\strike0\{linkID=90\}\cf0 
 \par \cf3\strike Blocks\cf2\strike0\{linkID=100\}\cf0 
 \par \cf3\strike Align\cf2\strike0\{linkID=110\}\cf0 
@@ -350,7 +415,7 @@ Writing
 
 
 FALSE
-54
+53
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fmodern Courier New;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Indentation\cf0\b0\fs20 
@@ -389,7 +454,7 @@ FALSE
 \par 
 \par \b Keep single-line comments with code:\b0  These options will move single-line comments to start at the same indent level as the surrounding code.
 \par 
-\par \b Remove returns in variable declarations :\b0  Setting this option to true converts
+\par \b Remove returns in variable declarations :\b0  Setting this option to true converts\lang2057\f1 , for e.g.\lang1031\f0 
 \par 
 \par \f2 var
 \par   Num: word;
@@ -403,7 +468,27 @@ FALSE
 \par   Zun, Vorn: NStr;
 \par \f0 
 \par 
-\par (Todo : I don't really know what \b remove returns in expressions\b0  does, it is affected by Rebreak long lines I guess....)
+\par }
+85
+Scribble85
+Clarify: Long Lines
+
+
+
+
+Writing
+
+
+
+FALSE
+8
+{\rtf1\ansi\ansicpg1252\deff0\deflang2057{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil Arial;}{\f2\fswiss\fcharset0 Arial;}{\f3\fswiss Arial;}}
+{\colortbl ;\red0\green0\blue255;\red0\green0\blue0;}
+\viewkind4\uc1\pard\cf1\b\fs32 Clarify: Long Lines\cf2\b0\f1\fs20 
+\par 
+\par \cf0\b\f2 B\lang1031\f3 reak l\lang2057\f2 ines that are longer than the max line length\lang1031\f3 :\b0  A line longer than the \lang2057\b\f2 max line length \lang1031\b0\f3 threshold (the standards recommend 80 chars) will be broken if possible.\lang2057\f2 Each place on the line between source tokens is given a score\lang1031\f3  \lang2057\f2 based on how \lang1031\f3 aesthetically pleasing\lang2057\f2  it would be to break the line there.\lang1031\f3 
+\par \lang2057\b\f2 Usually:\b0   Break the line at the best place, if any place where the line can be broken is found.\b 
+\par Sometimes\b0 : Break the line at the best place, provided that the best place is good enough. This option is recommended.\cf2\f1 
 \par }
 90
 Scribble90
@@ -417,17 +502,15 @@ Writing
 
 
 FALSE
-93
-{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fnil\fcharset0 Courier New;}{\f3\fmodern Courier New;}{\f4\fmodern\fcharset0 Courier New;}}
+92
+{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fnil\fcharset0 Courier New;}{\f3\fmodern Courier New;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Returns\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
 \par \cf2\{bmc 90.bmp\}\cf0 
-\par 
-\par \b Rebreak long lines:\b0  A line longer than the threshold (the standards recommend 80 chars) will be broken if possible. The program will attempt to find the most aesthetically pleasing place to do this.
-\par 
-\par \b Insert returns, remove returns:\b0  These turn on a rules that set a single new line, double\lang3079\f1  \lang1031\f0 new line or no new line before or after certain tokens. For e.g., There is\lang3079\f1  \lang1031\f0 supposed to be a double new line after the \b\f2 interface \b0\f0 and \b\f2 implementation \b0\f0 keywords, so this is one of the misc. good places to have returns.
+\par \lang2057\f1 
+\par \lang1031\b\f0 Insert returns, remove returns:\b0  These turn on a rules that set a single new line, double\lang3079\f1  \lang1031\f0 new line or no new line before or after certain tokens. For e.g., There is\lang3079\f1  \lang1031\f0 supposed to be a double new line after the \b\f2 interface \b0\f0 and \b\f2 implementation \b0\f0 keywords, so this is one of the misc. good places to have returns.
 \par 
 \par \b Remove returns in expressions:\b0  Return removal is often an aesthetic choice. When coding an long expression, you may be in the habit in breaking the line in the place most aesthetically pleasing pace to you, e.g.
 \par 
@@ -456,6 +539,7 @@ FALSE
 \par \f3  procedure foo;
 \par  var
 \par   a: integer;
+\par 
 \par   b: string;
 \par begin
 \par 
@@ -467,7 +551,6 @@ FALSE
 \par   b: string;
 \par begin
 \par 
-\par \lang3079\f4 ???: \lang1031\f3 
 \par \f0 Remove returns after the procedure header, but before the opening begin or var/const/type
 \par declarations.
 \par  i.e.remove them here:
@@ -485,17 +568,18 @@ FALSE
 \par \b 
 \par Remove \f1 returns in variable declaration\f0 :\b0  e.g. turns 
 \par 
-\par \f2 Result := 'unit ' + UnitIdent + ';' + #13#10 + #13#10 +
-\par           'interface' + #13#10 + 
-\par           #13#10 +
-\par           'uses' + #13#10 + ....
+\par \f3  var
+\par   a: integer;
+\par 
+\par   b: string;
 \par \f0 
+\par 
 \par \f1 to
 \par 
-\par \f2 Result := 'unit ' + UnitIdent + ';' + #10#13 + #10#13 + 'interface' +
-\par           #10#13 + #10#13 + 'uses' + #10#13 + .....\f0 
-\par 
-\par 
+\par \f3  var
+\par   a: integer;
+\par   b: string;
+\par \f0 
 \par \b Number of returns after the final end:\b0  This setting standardises the way that
 \par the unit ends. The default value of 1 return after the end of the unit's text
 \par should please most people, but other values (for e.g. zero, or two) can be entered.
@@ -650,7 +734,7 @@ Writing
 
 FALSE
 13
-{\rtf1\ansi\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fmodern Courier New;}}
+{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fmodern Courier New;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Capitalisation\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
@@ -659,7 +743,7 @@ FALSE
 \par 
 \par \b Any Words:\b0  A number of well known identifiers  (e.g. \b\f2 TStringList\b0 , \b AnsiCompareText\b0 , \b mbOK\b0\f0 ) defined in Delphi's standard units have their default capitalisation specified here. This list can be extended or replaced. If you have defined a type, constant or variable and want to regularise the capitalisation, enter it here.
 \par 
-\par Note: As of release 0.22 this setting does not apply to directives, when they actually are used as directives. See the \cf1\strike\f2 change log\cf2\strike0\{link=*! ExecFile("http://users.iafrica.com/a/as/asteele/delphi/codeformat/changes.html")\}\cf0\f0  for comments.
+\par \lang2057\f1 T\lang1031\f0 his setting does not apply to directives, when they actually are used as directives. 
 \par 
 \par Some oddities may still occur:  For e.g. In the Source code formatter source code, "Word" is both a built in type and a token property name. One capitalisation is used for both contexts. This will be disambiguated in a later release. 
 \par }
@@ -675,15 +759,17 @@ Writing
 
 
 FALSE
-24
+26
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fmodern Courier New;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Find and replace\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
-\par \cf2\{bmc 130.bmp\}\cf0 
+\par \cf2\{bmc 130.bmp\}
 \par 
-\par Find and replace is an operation that can change the semantics of your code. It is thus turned off by default. It is up to you to turn it on and to enter reasonable values. Bad configuration here can eat your code.
+\par \cf0\lang2057\b\f1 This feature is not yet working in JCF 2.0. It will be enabled in a later release\b0 
+\par 
+\par F\lang1031\f0 ind and replace is an operation that can change the semantics of your code. It is thus turned off by default. It is up to you to turn it on and to enter reasonable values. Bad configuration here can eat your code.
 \par 
 \par Both the GUI and the processing of find and replace is quite simple in this release. The text to be found must be a single token, and must be a word, i.e. a the name of a procedure, unit, variable, etc. Regular expressions are not supported. matching is not case sensitive.
 \par 
@@ -712,7 +798,7 @@ Writing
 
 
 FALSE
-15
+17
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fmodern Courier New;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Find and replace on uses\cf0\b0\fs20 
@@ -720,7 +806,9 @@ FALSE
 \par 
 \par \cf2\{bmc 140.bmp\}\cf0 
 \par 
-\par This specifies operations upon uses clauses in all units processed. Check each option to turn it on. by default, all are off. unit names listed under "Remove" will be removed from any uses clause where they are found, unit names in the "insert into interface/implementation" will be inserted into all. "replace" will find occurrences or one or more of the items in  the lest-hand box and replace them will all of the items listed in the right-hand box. 
+\par \lang2057\b\f1 This feature is not working yet in V2.0. It will be enabled in a later beta.
+\par \lang1031\f0 
+\par \b0 This specifies operations upon uses clauses in all units processed. Check each option to turn it on. by default, all are off. unit names listed under "Remove" will be removed from any uses clause where they are found, unit names in the "insert into interface/implementation" will be inserted into all. "replace" will find occurrences or one or more of the items in  the lest-hand box and replace them will all of the items listed in the right-hand box. 
 \par 
 \par For e.g. you may have consolidated your constants files, and wish to replace references to units called \f2 DBConstants, LocalConst\f0  or \f2 ImageConst\f0  with one unit, \f2 AllConstants\f0 . Put  \f2 DBConstants, LocalConst\f0  and \f2 ImageConst\f0  in the left-hand box, and \f2 AllConstants\f0  in the right.
 \par 
