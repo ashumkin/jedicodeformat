@@ -671,7 +671,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestMessages;
 begin
-  TestParseFile('TestMessages', 85);
+  TestParseFile('TestMessages', 130);
 end;
 
 procedure TTestFileParse.TestParse_LittleTest10;

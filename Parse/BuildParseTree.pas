@@ -2785,7 +2785,7 @@ begin
         ttMessage:
         begin
           Recognise(ttMessage);
-          RecogniseIdentifier(False);
+          RecogniseConstantExpression;
         end;
         else
           Recognise(ProcedureDirectives);
@@ -3586,6 +3586,9 @@ begin
 
       if TokenList.FirstSolidTokenType = ttEnd then
         Break;
+
+      if TokenList.FirstSolidTokenType = ttSemiColon then
+        Recognise(ttSemiColon);
     end;
 
   end;
@@ -3640,7 +3643,10 @@ begin
     RecogniseIdentifier(False)
   else if WordTypeOfToken(TokenList.FirstSolidTokenType) in TextualWordTypes then
     // match anything 
-    Recognise(TokenList.FirstSolidTokenType);
+    Recognise(TokenList.FirstSolidTokenType)
+  else
+    Raise TEParseError.Create('Expected asm opcode', TokenList.FirstSolidToken);
+
 
   PopNode;
 end;
@@ -3685,7 +3691,7 @@ begin
       RecogniseAsmIdent;
     end;
   end
-  else if (lc.TokenType in [ttNumber, ttNot, ttLiteralString, ttTrue, ttFalse]) then
+  else if (lc.TokenType in [ttNumber, ttNot, ttLiteralString, ttTrue, ttFalse, ttPlus, ttMinus]) then
   begin
     RecogniseAsmExpr;
   end
