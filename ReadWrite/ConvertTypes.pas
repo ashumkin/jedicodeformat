@@ -23,13 +23,22 @@ unit ConvertTypes;
 
 interface
 
-{ settings on how to convert }
+{ settings on how to convert
+  this unit is simple type defs with no dependencies 
+}
 type
   TBackupMode = (cmInPlace, cmInPlaceWithBackup, cmSeperateOutput);
   TSourceMode = (fmSingleFile, fmDirectory, fmDirectoryRecursive);
 
 type
   TStatusMessageProc = procedure(const ps: string) of object;
+
+
+type
+  TShowParseTreeOption = (eShowAlways, eShowNever, eShowOnError);
+
+const
+  REG_ROOT_KEY = '\Software\Jedi\JediCodeFormat';
 
 implementation
 

@@ -86,9 +86,6 @@ type
     property UI: TSetUi read fcUi write fcUi;
   end;
 
-const
-  ROOT_KEY = '\Software\Jedi\JediCodeFormat';
-
 function Settings: TSettings;
 
 implementation
@@ -194,7 +191,7 @@ begin
   begin
     // debug ShowMessage('Reading settings from registry');
 
-    lcReg := TSettingsInputRegistry.Create(ROOT_KEY);
+    lcReg := TSettingsInputRegistry.Create(REG_ROOT_KEY);
 
     try
       FromStream(lcReg);
@@ -219,7 +216,7 @@ begin
   end;
 
   // debug ShowMessage('Writing registry');
-  lcReg := TSettingsRegistryOutput.Create(ROOT_KEY);
+  lcReg := TSettingsRegistryOutput.Create(REG_ROOT_KEY);
   try
     ToStream(lcReg);
   finally

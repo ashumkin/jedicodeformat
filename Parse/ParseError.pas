@@ -32,18 +32,17 @@ begin
 end;
 
 function TEParseError.GetTokenMessage: string;
+var
+  lsPos: string;
 begin
   if fcToken = nil then
     Result := ''
   else
   begin
     Result := fcToken.Describe;
-    if fcToken.YPosition > 0 then
-    begin
-      Result := Result + ' on line ' + IntToStr(fcToken.YPosition);
-      if fcToken.XPosition > 0 then
-        Result := Result + ' position ' + IntToStr(fcToken.XPosition);
-    end;
+    lsPos := fcToken.DescribePosition;
+    if lsPos <> '' then
+      Result := Result + ' ' + lsPos;
   end;
 
 end;

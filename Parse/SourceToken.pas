@@ -112,14 +112,11 @@ begin
 
   if YPosition > 0 then
   begin
-    Result := Result + 'Line ' + IntToStr(YPosition);
-  end;
+    Result := Result + 'on line ' + IntToStr(YPosition);
 
-  if XPosition > 0 then
-  begin
-    Result := Result + ' pos ' + IntToStr(XPosition);
+    if XPosition > 0 then
+      Result := Result + ' position ' + IntToStr(XPosition);
   end;
-
 end;
 
 function TSourceToken.HasChildNode(const peWords: TWordSet): Boolean;

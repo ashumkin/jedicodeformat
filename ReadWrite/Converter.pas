@@ -38,9 +38,8 @@ uses
     CodeReader, CodeWriter, BuildTokenList,
     BuildParseTree, JCFLog;
 
-type
-  TShowParseTreeOption = (eShowAlways, eShowNever, eShowOnError);
 
+type
   TConverter = class(TObject)
   private
     fcTokeniser: TBuildTokenList;

@@ -2711,17 +2711,22 @@ end;
 procedure TBuildParseTree.RecogniseConstructorHeading(const pbDeclaration: boolean);
 begin
   //ConstructorHeading -> CONSTRUCTOR Ident [FormalParameters]
+  PushNode(nProcedureHeading);
+
   Recognise(wConstructor);
   RecogniseMethodName(not pbDeclaration);
   if TokenList.FirstSolidTokenType = ttOpenBracket then
     RecogniseFormalParameters;
 
   RecogniseProcedureDirectives;
+
+  PopNode;
 end;
 
 procedure TBuildParseTree.RecogniseDestructorHeading(const pbDeclaration: boolean);
 begin
   //DestructorHeading -> DESTRUCTOR Ident [FormalParameters]
+  PushNode(nProcedureHeading);
 
   Recognise(wDestructor);
   RecogniseMethodName(not pbDeclaration);
@@ -2729,6 +2734,8 @@ begin
     RecogniseFormalParameters;
 
   RecogniseProcedureDirectives;
+
+  PopNode;
 end;
 
 procedure TBuildParseTree.RecogniseInitSection;

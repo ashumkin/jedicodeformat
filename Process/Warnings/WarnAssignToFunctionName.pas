@@ -36,46 +36,10 @@ implementation
 
 uses
   { delphi } SysUtils,
-  ParseTreeNode, ParseTreeNodeType, SourceToken, TokenType;
+  ParseTreeNode, ParseTreeNodeType, SourceToken, TokenType,
+  TokenUtils;
 
 
-{ given a function header parse tree node, extract the fn name underneath it }
-function ExtractNameFromFunctionHeading(const pcNode: TParseTreeNode): string;
-var
-  liLoop: integer;
-  lcChildNode: TParseTreeNode;
-  lcSourceToken: TSourceToken;
-begin
-  Result := '';
-
-  { function heading is of one of these forms
-      function foo(param: integer): integer;
-      function foo: integer;
-      function TBar.foo(param: integer): integer;
-      function TBar.foo: integer;
-
-    within the fn heading, the name will be last identifier before nFormalParams or ':'
-
-  }
-  for liLoop := 0 to pcNode.ChildNodeCount - 1 do
-  begin
-    lcChildNode := pcNode.ChildNodes[liLoop];
-
-    if lcChildNode.NodeType = nFormalParams then
-      break;
-
-    if lcChildNode is TSourceToken then
-    begin
-      lcSourceToken := TSourceToken(lcChildNode);
-
-      { keep the name of the last identifier }
-      if lcSourceToken.TokenType in IdentifierTypes then
-        Result := lcSourceToken.SourceCode
-      else if lcSourceToken.TokenType = ttColon then
-        break;
-    end;
-  end;
-end;
 
 { get the node that represents the identifier that is being assigned to
   node passed in will be statement

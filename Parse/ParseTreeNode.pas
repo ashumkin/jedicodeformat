@@ -61,6 +61,8 @@ type
 
     function HasParentNode(const peNodeTypes: TParseTreeNodeTypeSet): Boolean; overload;
     function HasParentNode(const peNodeType: TParseTreeNodeType): Boolean; overload;
+    function GetParentNode(const peNodeTypes: TParseTreeNodeTypeSet): TParseTreeNode; overload;
+    function GetParentNode(const peNodeType: TParseTreeNodeType): TParseTreeNode; overload;
 
     function Describe: string; virtual;
 
@@ -265,6 +267,29 @@ function TParseTreeNode.HasParentNode(const peNodeType: TParseTreeNodeType): Boo
 begin
   Result := HasParentNode([peNodeType]);
 end;
+
+
+function TParseTreeNode.GetParentNode(const peNodeTypes: TParseTreeNodeTypeSet): TParseTreeNode;
+begin
+  if (NodeType in peNodeTypes) then
+  begin
+    Result := self;
+  end
+  else
+  begin
+    Result := nil;
+
+    // try above
+    if (Parent <> nil) then
+      Result := Parent.GetParentNode(peNodeTypes);
+  end;
+end;
+
+function TParseTreeNode.GetParentNode(const peNodeType: TParseTreeNodeType): TParseTreeNode;
+begin
+  Result := GetParentNode([peNodeType]);
+end;
+
 
 
 procedure TParseTreeNode.AcceptVisitor(const pcVisitor: IVisitParseTree; var prVisitResults: TRVisitResult);
