@@ -28,7 +28,7 @@ interface
 
 uses
     { delphi } Windows,
-    { local } TokenType, WordMap, ParseTreeNode;
+    { local } TokenType, WordMap, ParseTreeNode, VisitParseTree;
 
 type
 
@@ -48,6 +48,8 @@ type
     constructor Create;
 
     function Describe: string; override;
+    procedure AcceptVisitor(const pcVisitor: IVisitParseTree); override;
+
     function IsSolid: boolean;
 
     function HasChildNode(const peWords: TWordSet): Boolean; override;
@@ -68,13 +70,6 @@ implementation
 uses
     { delphi } Classes, SysUtils,
     { local } JclStrings;
-
-
-function NewToken: TSourceToken;
-begin
-  Result := TSourceToken.Create;
-end;
-
 
 {-------------------------------------------------------------------------------
  TSourceToken }
@@ -107,6 +102,13 @@ end;
 function TSourceToken.IsSolid: boolean;
 begin
   Result := not (TokenType in NotSolidTokens);
+end;
+
+
+procedure TSourceToken.AcceptVisitor(const pcVisitor: IVisitParseTree);
+begin
+  Assert(pcVisitor <> nil);
+  pcVisitor.VisitSourceToken(self);
 end;
 
 end.

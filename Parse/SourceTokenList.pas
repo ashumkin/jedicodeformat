@@ -26,6 +26,7 @@ type
 
     function Count: integer;
     procedure Add(const pcToken: TSourceToken);
+    procedure SetXYPositions;
 
     function First: TSourceToken;
     function FirstTokenType: TTokenType;
@@ -48,7 +49,9 @@ end;
 
 implementation
 
-uses SysUtils;
+uses
+  { delphi } SysUtils,
+  { local } MiscFunctions;
 
 constructor TSourceTokenList.Create;
 begin
@@ -194,5 +197,25 @@ begin
   fcList.Extract(Result);
 end;
 
+
+procedure TSourceTokenList.SetXYPositions;
+var
+  liLoop: integer;
+  liX, liY: integer;
+  lcToken: TSourceToken;
+begin
+  liX := 1;
+  liY := 1;
+
+  for liLoop := 0 to count - 1 do
+  begin
+    lcToken := SourceTokens[liLoop];
+    lcToken.XPosition := liX;
+    lcToken.YPosition := liY;
+
+    AdvanceTextPos(lcToken.SourceCode, liX, liY);
+  end;
+
+end;
 
 end.

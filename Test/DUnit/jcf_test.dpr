@@ -23,7 +23,10 @@ uses
   MiscFunctions in '..\..\Utils\MiscFunctions.pas',
   FileUtils in '..\..\Utils\FileUtils.pas',
   JCFLog in '..\..\Utils\JcfLog.pas',
-  TestFileParse in 'TestFileParse.pas';
+  TestFileParse in 'TestFileParse.pas',
+  VisitParseTree in '..\..\Process\VisitParseTree.pas',
+  BaseVisitor in '..\..\Process\BaseVisitor.pas',
+  VisitSetXY in '..\..\Process\VisitSetXY.pas';
 
 {$R *.res}
 

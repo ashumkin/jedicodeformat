@@ -27,6 +27,8 @@ function GetWinDir: string;
 {not really a file fn - string file name manipulation}
 function SetFileNameExtension(const psFileName, psExt: string): string;
 
+procedure AdvanceTextPos(const ps: string; var piX, piY: integer);
+
 
 implementation
 
@@ -113,6 +115,38 @@ begin
   Result := StrLeft(psFileName, liMainFileNameLength);
 
   Result := Result + '.' + psExt;
+end;
+
+{ given an existing source pos, and a text string that adds at that pos,
+  calculate the new text pos
+  - if the text does not contain a newline, add its length onto the Xpos
+  - if the text contains newlines, then add on to the Y pos, and
+    set the X pos to the text length after the last newline }
+procedure AdvanceTextPos(const ps: string; var piX, piY: integer);
+var
+  liLastPos: integer;
+begin
+  if (ps = AnsiCarriageReturn) or (ps = AnsiCrLf) or (ps = AnsiLineFeed) then
+  begin
+    inc(piY);
+    piX := 1;
+  end
+  else
+  begin
+
+    liLastPos := StrLastPos(ANsiLineBreak, ps);
+    if liLastPos < 0 then
+    begin
+      piX := piX + Length(ps);
+    end
+    else
+    begin
+      // multiline
+      piY := piY + StrStrCount(ps, AnsiLineBreak);
+      PiX := Length(ps) - (liLastPos + Length(AnsiLineBreak));
+    end;
+  end;
+
 end;
 
 end.

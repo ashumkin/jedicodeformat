@@ -99,7 +99,7 @@ uses
   FileConverter, ConvertTypes;
 
 const
-  TEST_FILES_DIR = 'C:\Code\Delphi\jcf2\TestCases\';
+  TEST_FILES_DIR = 'C:\Code\Delphi\JcfCheckout\CodeFormat\Jcf2\Test\TestCases\';
   REF_OUT_FILES_DIR = 'C:\Code\Delphi\jcf2\TestCases\Out\';
 
 procedure TTestParse.TestParseFile(const psInFileName, psRefOutput: string;
@@ -124,7 +124,9 @@ begin
 
     lcConverter.Convert;
 
-    Check(not lcConverter.ConvertError, 'Convert failed for ' + psInFileName);
+    Check(not lcConverter.ConvertError, 'Convert failed for ' +
+      ExtractFileName(psInFileName) +
+      ' : ' + lcConverter.ConvertErrorMessage);
 
     lsOutFileName := lcConverter.OutFileName;
     Check(lsOutFileName <> '', 'No output file');

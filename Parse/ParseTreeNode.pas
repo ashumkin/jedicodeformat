@@ -12,7 +12,7 @@ interface
 
 uses
   {delphi } Contnrs,
-  { local } WordMap;
+  { local } WordMap, VisitParseTree;
 
 type
 
@@ -41,6 +41,11 @@ type
     function HasChildNode(const peWords: TWordSet): Boolean; virtual;
 
     function Describe: string; virtual;
+
+    procedure AcceptVisitor(const pcVisitor: IVisitParseTree); virtual;
+
+    { visit self and all child nodes }
+    procedure VisitTree(const pcVisitor: IVisitParseTree);
 
     property Parent: TParseTreeNode read fcParent write fcParent;
     property ChildNodes[const piIndex: integer]: TParseTreeNode read GetChildNodes;
@@ -163,6 +168,23 @@ begin
     if Result then
       break;
   end;
+end;
+
+procedure TParseTreeNode.AcceptVisitor(const pcVisitor: IVisitParseTree);
+begin
+  Assert(pcVisitor <> nil);
+  pcVisitor.VisitParseTreeNode(self);
+end;
+
+procedure TParseTreeNode.VisitTree(const pcVisitor: IVisitParseTree);
+var
+  liLoop: integer;
+begin
+  AcceptVisitor(pcVisitor);
+
+  for liLoop := 0 to ChildNodeCount - 1 do
+    ChildNodes[liLoop].VisitTree(pcVisitor);
+
 end;
 
 end.

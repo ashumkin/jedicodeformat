@@ -39,7 +39,11 @@ begin
   begin
     Result := fcToken.Describe;
     if fcToken.YPosition > 0 then
+    begin
       Result := Result + ' on line ' + IntToStr(fcToken.YPosition);
+      if fcToken.XPosition > 0 then
+        Result := Result + ' position ' + IntToStr(fcToken.XPosition);
+    end;
   end;
 
 end;
