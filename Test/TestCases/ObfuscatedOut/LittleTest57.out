@@ -15,7 +15,6 @@ begin
     else
       s := '';
 
-
 {$ELSE}
   {$IFNDEF FISHDANCE}
     if b then
@@ -35,7 +34,6 @@ begin
       S := b;
     end;
   
-
 {$ELSE}
     begin
       S := b;
@@ -45,9 +43,7 @@ begin
       S := b;
     end;
   
-
 {$ENDIF}
-
 {$ENDIF}
 
 end;

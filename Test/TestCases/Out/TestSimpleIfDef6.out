@@ -14,8 +14,7 @@ uses Windows;
      the unparsed block ends at the *second* endif }
   {$IFDEF FOO} 
     warrawak1
-  
-{$ENDIF}
+  {$ENDIF}
     warrawak2
 {$ENDIF}
 

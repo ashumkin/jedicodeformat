@@ -11,10 +11,8 @@ asm
 
 {$IFDEF FISH}
         call    TroutALaCreme
-
 {$ELSE}
         pop MealStack
-
 {$ENDIF}
       call  __EnjoyYourMeal
 @@ret:

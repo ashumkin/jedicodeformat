@@ -13,7 +13,6 @@ uses
   {$IFDEF FOO} 
     warrawak1
   
-
 {$ENDIF}
     warrawak2
 {$ENDIF}

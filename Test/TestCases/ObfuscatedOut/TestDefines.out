@@ -21,7 +21,6 @@ end;
 {$IFEND}
 {$IF defined(BAR)}
   2 wakka wakka wakka
-
 {$IFEND}
 {$IF not Defined(FOO)}
 
@@ -35,7 +34,6 @@ end;
 {$IFEND}
 {$IF Defined(FOO)}
   4 wakka wakka wakka
-
 {$IFEND}
 {$IF Defined(FOO) and defined(BAR)}
 
@@ -64,7 +62,6 @@ end;
 {$IFEND}
 {$IF (Defined(FOO) or defined(BAR)) and not defined(FISH)}
   8 wakka wakka wakka
-
 
 {$IFEND}
 {$IF not defined(FISH) and (Defined(FOO) or defined(BAR)) }

@@ -9,7 +9,6 @@ implementation
 {$ELSE}
     for this is not object-pascal, sha la la la la.
   
-
 {$ENDIF}
 {$UNDEF FOO}
 {$IFDEF FOO}

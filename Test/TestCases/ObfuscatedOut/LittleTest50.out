@@ -8,16 +8,13 @@ const
   soy = 3;
 {$ELSEIF Defined(BAR)}
  warrawak1
-
 {$IFEND}
 {$UNDEF FOO}
 {$IF Defined(FOO)}
   warrawak2
 
-
 {$ELSEIF Defined(BAR)}
  warrawak3
-
 {$IFEND}
 {$DEFINE BAR}
 {$IF Defined(FOO)}
@@ -33,7 +30,6 @@ const
 {$IF Defined(FOO)}
 
   warrawak5
-
 {$ELSEIF Defined(BAR)}
   warrawak6
 {$ELSEIF Defined(FISH)}

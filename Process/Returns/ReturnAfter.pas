@@ -256,6 +256,10 @@ var
 begin
   Result := False;
 
+  { these can include returns }
+  if pt.TokenType = ttConditionalCompilationRemoved then
+    exit;
+
   if pt.HasParentNode(nUses) and FormatSettings.Returns.UsesClauseOnePerLine then
   begin
     if (pt.TokenType = ttUses) then

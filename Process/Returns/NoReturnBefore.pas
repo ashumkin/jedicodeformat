@@ -46,12 +46,14 @@ type
 implementation
 
 uses SourceToken, TokenUtils, Tokens, ParseTreeNodeType,
-  JcfSettings, FormatFlags;
+  JcfSettings, FormatFlags, ParseTreeNode;
 
 function HasNoReturnBefore(const pt: TSourceToken): boolean;
 const
   NoReturnTokens: TTokenTypeSet    = [ttAssign, ttColon, ttSemiColon];
   ProcNoReturnWords: TTokenTypeSet = [ttThen, ttDo];
+var
+  lcPrev: TParseTreeNode;
 begin
   Result := False;
 
@@ -60,6 +62,20 @@ begin
 
   if pt.HasParentNode(nAsm) then
     exit;
+
+  { a semicolon should have a return before it if it is the only token in the statement
+    e.g.
+    begin
+     ;
+    end
+    }
+
+  if (pt.TokenType = ttSemiColon) then
+  begin
+    lcPrev := pt.Parent.FirstNodeBefore(pt);
+    if (lcPrev <> nil) and (lcPrev.NodeType = nStatement) then
+      exit;
+  end;
 
   if (pt.TokenType in NoReturnTokens + Operators) then
   begin
