@@ -45,7 +45,26 @@ IMyIterator = interface (IUnknown)
 end;
 
 IMyOtherIterator = interface (IUnknown) procedure First; safecall; procedure Next; safecall; end;
-implementation
 
+const
+  FOO_DISP_ID = 12;
+  BAR_DISP_ID = 1002;
+
+type
+  IFooDisp = dispinterface
+    ['{3050F1FF-98B5-11CF-BB82-00AA00CACE0B}']
+    procedure setAttribute(const strAttributeName: WideString; AttributeValue: OleVariant;
+      lFlags: Integer); dispid -2147417611;
+    function  getAttribute(const strAttributeName: WideString; lFlags: Integer): OleVariant; dispid FOO_DISP_ID;
+    function  removeAttribute(const strAttributeName: WideString; lFlags: Integer): WordBool; dispid -2147417609;
+    property className: WideString dispid BAR_DISP_ID + FOO_DISP_ID;
+    property id: WideString dispid (-1 * FOO_DISP_ID);
+
+    property onfilterchange: OleVariant dispid -2147412069;
+    property children: IDispatch readonly dispid -2147417075;
+    property all: IDispatch readonly dispid -2147417074;
+  end;
+
+implementation
 
 end.

@@ -141,7 +141,7 @@ type
     procedure RecogniseSetConstructor;
     procedure RecogniseSetElement;
     procedure RecogniseQualId;
-    procedure RecogniseConstExpr;
+    procedure RecogniseConstantExpression;
 
     procedure RecogniseSimpleExpression;
     procedure RecogniseSimpleStmnt;
@@ -843,7 +843,7 @@ begin
   if lc.TokenType = ttEquals then
   begin
     Recognise(ttEquals);
-    RecogniseConstExpr;
+    RecogniseConstantExpression;
   end
   else
   if lc.TokenType = ttColon then
@@ -984,7 +984,7 @@ begin
       RecogniseArrayConstant
     end
     else
-      RecogniseConstExpr;
+      RecogniseConstantExpression;
 end;
 
 
@@ -1228,11 +1228,11 @@ begin
   }
   PushNode(nSubrangeType);
 
-  RecogniseConstExpr;
+  RecogniseConstantExpression;
   if TokenList.FirstSolidTokenType = ttDoubleDot then
   begin
     Recognise(ttDoubleDot);
-    RecogniseConstExpr;
+    RecogniseConstantExpression;
   end;
 
   PopNode;
@@ -1415,11 +1415,11 @@ begin
 
  PushNode(nRecordVariant);
 
-  RecogniseConstExpr;
+  RecogniseConstantExpression;
   while TokenList.FirstSolidTokenType = ttComma do
   begin
     Recognise(ttComma);
-    RecogniseConstExpr;
+    RecogniseConstantExpression;
   end;
 
   Recognise(ttColon);
@@ -1547,7 +1547,7 @@ begin
     if (TokenList.FirstSolidWordType in IdentifierTypes) then
       RecogniseIdentifier
     else
-      RecogniseConstExpr;
+      RecogniseConstantExpression;
 
     PopNode;
   end
@@ -2168,11 +2168,11 @@ begin
 
   PushNode(nCaseLabel);
 
-  RecogniseConstExpr;
+  RecogniseConstantExpression;
   if (TokenList.FirstSolidTokenType = ttDoubleDot) then
   begin
     Recognise(ttDoubleDot);
-    RecogniseConstExpr;
+    RecogniseConstantExpression;
   end;
 
   PopNode;
@@ -2681,7 +2681,7 @@ begin
    if TokenList.FirstSolidTokenType = ttEquals then
    begin
     Recognise(ttEquals);
-    RecogniseConstExpr;
+    RecogniseConstantExpression;
    end;
   end;
 end;
@@ -2718,7 +2718,7 @@ begin
         ttDispId:
         begin
           Recognise(ttDispId);
-          Recognise(ttNumber);
+          RecogniseConstantExpression;
         end;
         ttMessage:
         begin
@@ -3187,7 +3187,7 @@ begin
       ttIndex:
       begin
         Recognise(ttIndex);
-        RecogniseConstExpr;
+        RecogniseConstantExpression;
       end;
       ttRead:
       begin
@@ -3205,12 +3205,12 @@ begin
         if TokenList.FirstSolidWordType in IdentifierTypes then
           RecogniseIdentifier
          else
-          RecogniseConstExpr;
+          RecogniseConstantExpression;
       end;
       ttDefault:
       begin
         Recognise(ttDefault);
-        RecogniseConstExpr;
+        RecogniseConstantExpression;
       end;
       ttNoDefault:
       begin
@@ -3224,7 +3224,7 @@ begin
       ttDispId:
       begin
         Recognise(ttDispId);
-        Recognise(ttNumber);
+        RecogniseConstantExpression;
       end;
       ttReadOnly:
       begin
@@ -3383,11 +3383,10 @@ begin
   PopNode;
 end;
 
-procedure TBuildParseTree.RecogniseConstExpr;
+procedure TBuildParseTree.RecogniseConstantExpression;
 begin
   RecogniseExpr;
 end;
-
 
 
 procedure TBuildParseTree.RecogniseQualId;
