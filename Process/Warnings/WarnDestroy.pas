@@ -42,11 +42,12 @@ implementation
 
 uses
   { delphi } SysUtils,
-  { local } SourceToken, ParseTreeNodeType;
+  { local } SourceToken, ParseTreeNodeType, ParseTreeNode;
 
 procedure TWarnDestroy.EnabledVisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult);
 var
   lcToken: TSourceToken;
+  lcFunction: TParseTreeNode;
 begin
   lcToken := TSourceToken(pcToken);
 
@@ -54,12 +55,17 @@ begin
   if not lcToken.HasParentNode(nBlock) then
     exit;
 
-  if AnsiSameText(lcToken.SourceCode, 'destroy') then
-  begin
-    SendWarning(lcToken, 'Destroy should not normally be called. ' +
-        'You may want to use FreeAndNil(MyObj), or MyObj.Free, or MyForm.Release');
-  end;
+  if not AnsiSameText(lcToken.SourceCode, 'destroy') then
+    exit;
 
+  { is OK in destructors as 'inherited destroy' }
+  lcFunction := lcToken.GetParentNode(ProcedureNodes + [nInitSection]);
+
+  if (lcFunction <> nil) and (lcFunction.NodeType = nDestructorDecl) then
+    exit;
+
+  SendWarning(lcToken, 'Destroy should not normally be called. ' +
+      'You may want to use FreeAndNil(MyObj), or MyObj.Free, or MyForm.Release');
 end;
 
 end.

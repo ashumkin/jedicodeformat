@@ -56,6 +56,10 @@ type
     procedure TestReplace2;
     procedure TestReplace3;
     procedure TestReplace4;
+    procedure TestReplace5;
+    procedure TestReplace6;
+    procedure TestReplace7;
+    procedure TestReplace8;
   end;
 
 implementation
@@ -261,6 +265,57 @@ begin
   FormatSettings.UsesClause.Find.Add('bar');
   TestProcessResult(TUsesClauseFindReplace, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
+
+procedure TTestUsesFindReplace.TestReplace5;
+const
+  IN_UNIT_TEXT = INTERFACE_HEADER + 'uses foo, Fish;' +  AnsiLineBreak +
+    'implementation' + AnsiLineBreak +
+    'uses bar, spon;' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = INTERFACE_HEADER + 'uses foo2, Fish;' + AnsiLineBreak +
+    'implementation' + AnsiLineBreak +
+    'uses  spon;' + UNIT_FOOTER;
+begin
+  FormatSettings.UsesClause.Find.Add('bar');
+  TestProcessResult(TUsesClauseFindReplace, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestUsesFindReplace.TestReplace6;
+const
+  IN_UNIT_TEXT = INTERFACE_HEADER + 'uses foo, Fish;' + AnsiLineBreak +
+    'implementation' + AnsiLineBreak +
+    'uses spon, bar;' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = INTERFACE_HEADER + 'uses foo2, Fish;' + AnsiLineBreak +
+    'implementation' + AnsiLineBreak +
+    'uses spon ;' + UNIT_FOOTER;
+begin
+  FormatSettings.UsesClause.Find.Add('bar');
+  TestProcessResult(TUsesClauseFindReplace, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestUsesFindReplace.TestReplace7;
+const
+  IN_UNIT_TEXT = INTERFACE_HEADER + 'uses foo, Fish;' + AnsiLineBreak +
+    'implementation' + AnsiLineBreak +
+    'uses bar;' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = INTERFACE_HEADER + 'uses foo2, Fish;' + AnsiLineBreak +
+    'implementation' + AnsiLineBreak + ' ' +
+    UNIT_FOOTER;
+begin
+  FormatSettings.UsesClause.Find.Add('bar');
+  TestProcessResult(TUsesClauseFindReplace, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestUsesFindReplace.TestReplace8;
+const
+  IN_UNIT_TEXT = INTERFACE_HEADER + 'uses foo, bar;' + AnsiLineBreak +
+    'implementation' + AnsiLineBreak +
+    'uses Fish;' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = INTERFACE_HEADER + 'uses foo2 ;' + AnsiLineBreak +
+    'implementation' + AnsiLineBreak +
+    'uses Fish;' + UNIT_FOOTER;
+begin
+  FormatSettings.UsesClause.Find.Add('bar');
+  TestProcessResult(TUsesClauseFindReplace, IN_UNIT_TEXT, OUT_UNIT_TEXT);end;
 
 initialization
  TestFramework.RegisterTest('Processes', TTestUsesFindReplace.Suite);

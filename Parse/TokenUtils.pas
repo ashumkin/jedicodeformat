@@ -249,11 +249,6 @@ begin
   end;
 end;
 
-const
-  PROCEDURE_NODE_TYPES: TParseTreeNodeTypeSet =
-    [nProcedureDecl, nFunctionDecl, nConstructorDecl, nDestructorDecl];
-
-
 function GetProcedureName(const pcNode: TParseTreeNode;
   const pbFullName: boolean; const pbTopmost: boolean): string;
 var
@@ -261,7 +256,7 @@ var
 begin
   Assert(pcNode <> nil);
 
-  lcFunction := pcNode.GetParentNode(PROCEDURE_NODE_TYPES);
+  lcFunction := pcNode.GetParentNode(ProcedureNodes);
 
   if lcFunction = nil then
   begin
@@ -273,11 +268,11 @@ begin
   if pbTopmost then
   begin
     { find the top level function }
-    lcTemp := lcFunction.GetParentNode(PROCEDURE_NODE_TYPES);
+    lcTemp := lcFunction.GetParentNode(ProcedureNodes);
     while lcTemp <> nil do
     begin
       lcFunction := lcTemp;
-      lcTemp := lcFunction.GetParentNode(PROCEDURE_NODE_TYPES);
+      lcTemp := lcFunction.GetParentNode(ProcedureNodes);
     end;
   end;
 
@@ -290,7 +285,7 @@ function GetBlockType(const pcNode: TParseTreeNode): string;
 var
   lcFunction: TParseTreeNode;
 begin
-  lcFunction := pcNode.GetParentNode(PROCEDURE_NODE_TYPES + [nInitSection]);
+  lcFunction := pcNode.GetParentNode(ProcedureNodes + [nInitSection]);
 
   if lcFunction = nil then
   begin

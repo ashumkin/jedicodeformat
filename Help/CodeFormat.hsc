@@ -41,7 +41,7 @@ FALSE
 42
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fmodern Courier New;}{\f3\fnil\fcharset0 Arial;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green128\blue0;}
-\viewkind4\uc1\pard\cf1\b\f0\fs32 Jedi Code Format V\lang2057\f1 2.0 Beta 8\cf0\lang1031\b0\f0\fs20 
+\viewkind4\uc1\pard\cf1\b\f0\fs32 Jedi Code Format V\lang2057\f1 2.0 Beta 9\cf0\lang1031\b0\f0\fs20 
 \par \cf2\{keepn\}
 \par \cf0 
 \par This is the main \lang2057\f1 help\lang1031\f0  for the \lang2057\f1 Jedi Code Formatter\lang1031\f0 .\lang2057\f1  \lang1031\f0 The formatter can standardise all aspects of Delphi Object Pascal source code formatting, including indentation, spacing and capitalisation\lang2057\f1 .\lang1031\f0  \lang2057\f1 The formatter is intended to be able to format all compilable Delphi Source code. Source that does not compile cannot always be formatted correctly.\lang1031\f0 
@@ -780,15 +780,13 @@ Writing
 
 
 FALSE
-17
+15
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fmodern Courier New;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Find and replace on uses\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
-\par \cf2\{bmc 140.\lang3079\f1 gif\lang1031\f0\}\cf0 
-\par 
-\par \lang2057\b\f1 This feature is not working yet in V2.0. It will be enabled in a later beta.
+\par \cf2\{bmc 140.\lang3079\f1 gif\lang1031\f0\}\cf0\lang2057\b\f1 
 \par \lang1031\f0 
 \par \b0 This specifies operations upon uses clauses in all units processed. Check each option to turn it on. by default, all are off. unit names listed under "Remove" will be removed from any uses clause where they are found, unit names in the "insert into interface/implementation" will be inserted into all. "replace" will find occurrences or one or more of the items in  the lest-hand box and replace them will all of the items listed in the right-hand box. 
 \par 

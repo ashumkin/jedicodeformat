@@ -137,6 +137,13 @@ begin
       if lcSepBefore.TokenType = ttComma then
       begin
         BlankToken(lcSepBefore);
+      end
+      else if lcSepBefore.TokenType = ttUses then
+      begin
+        { "uses" before, ";" after. There must have been only 1 unit in the uses clause
+          remove it entirely }
+        BlankToken(lcSepAfter);
+        BlankToken(lcSepBefore);
       end;
 
     end;

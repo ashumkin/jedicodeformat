@@ -149,7 +149,8 @@ uses
   ReturnsAfterFinalEnd in '..\..\Process\Returns\ReturnsAfterFinalEnd.pas',
   UsesClauseRemove in '..\..\Process\Transform\UsesClauseRemove.pas',
   UsesClauseFindReplace in '..\..\Process\Transform\UsesClauseFindReplace.pas',
-  UsesClauseInsert in '..\..\Process\Transform\UsesClauseInsert.pas';
+  UsesClauseInsert in '..\..\Process\Transform\UsesClauseInsert.pas',
+  TestWarnDestroy in '..\TestCases\TestWarnDestroy.pas';
 
 {
   gpprof in '..\..\..\..\..\Program Files\GpProfile\gpprof.pas',
