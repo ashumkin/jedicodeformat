@@ -9,7 +9,7 @@ uses
 type
   TTestAddBeginEnd = class(TBaseTestProcess)
   private
-    feSaveBeginEndStyle: TBlockBeginEnd;
+    feSaveBeginEndStyle: TTriOptionStyle;
   protected
     procedure Setup; override;
     procedure Teardown; override;
@@ -188,7 +188,7 @@ const
 
 procedure TTestAddBeginEnd.TestRemoveFromIfStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := ebNever;
+  FormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, IF_STATEMENT_TEXT_WITH_BEGIN,
     IF_STATEMENT_TEXT_NO_BEGIN);
@@ -196,7 +196,7 @@ end;
 
 procedure TTestAddBeginEnd.TestAddToIfStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := ebAlways;
+  FormatSettings.Transform.BeginEndStyle := eAlways;
 
   TestProcessResult(TAddBeginEnd, IF_STATEMENT_TEXT_NO_BEGIN,
     IF_STATEMENT_TEXT_WITH_BEGIN);
@@ -205,7 +205,7 @@ end;
 
 procedure TTestAddBeginEnd.TestAddToIfElseStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := ebAlways;
+  FormatSettings.Transform.BeginEndStyle := eAlways;
 
   TestProcessResult(TAddBeginEnd, IF_ELSE_STATEMENT_TEXT_NO_BEGIN,
     IF_ELSE_STATEMENT_TEXT_WITH_BEGIN);
@@ -214,7 +214,7 @@ end;
 
 procedure TTestAddBeginEnd.TestRemoveFromIfElseStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := ebNever;
+  FormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, IF_ELSE_STATEMENT_TEXT_WITH_BEGIN,
     IF_ELSE_STATEMENT_TEXT_NO_BEGIN);
@@ -222,7 +222,7 @@ end;
 
 procedure TTestAddBeginEnd.TestAddToDoubleIfStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := ebNever;
+  FormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, DOUBLE_IF_STATEMENT_TEXT_WITH_BEGIN,
     DOUBLE_IF_STATEMENT_TEXT_NO_BEGIN);
@@ -230,7 +230,7 @@ end;
 
 procedure TTestAddBeginEnd.TestRemoveFromDoubleIfStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := ebNever;
+  FormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, DOUBLE_IF_STATEMENT_TEXT_WITH_BEGIN,
     DOUBLE_IF_STATEMENT_TEXT_NO_BEGIN);
@@ -238,7 +238,7 @@ end;
 
 procedure TTestAddBeginEnd.TestAddToWhileStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := ebNever;
+  FormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, WHILE_STATEMENT_TEXT_WITH_BEGIN,
     WHILE_STATEMENT_TEXT_NO_BEGIN);
@@ -246,7 +246,7 @@ end;
 
 procedure TTestAddBeginEnd.TestRemoveFromWhileStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := ebNever;
+  FormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, WHILE_STATEMENT_TEXT_WITH_BEGIN,
     WHILE_STATEMENT_TEXT_NO_BEGIN);
@@ -254,7 +254,7 @@ end;
 
 procedure TTestAddBeginEnd.TestAddToForStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := ebNever;
+  FormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, FOR_STATEMENT_TEXT_WITH_BEGIN,
     FOR_STATEMENT_TEXT_NO_BEGIN);
@@ -262,7 +262,7 @@ end;
 
 procedure TTestAddBeginEnd.TestRemoveFromForStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := ebNever;
+  FormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, FOR_STATEMENT_TEXT_WITH_BEGIN,
     FOR_STATEMENT_TEXT_NO_BEGIN);
@@ -270,7 +270,7 @@ end;
 
 procedure TTestAddBeginEnd.TestAddToWithStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := ebNever;
+  FormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, WITH_STATEMENT_TEXT_WITH_BEGIN,
     WITH_STATEMENT_TEXT_NO_BEGIN);
@@ -278,7 +278,7 @@ end;
 
 procedure TTestAddBeginEnd.TestRemoveFromWithStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := ebNever;
+  FormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, WITH_STATEMENT_TEXT_WITH_BEGIN,
     WITH_STATEMENT_TEXT_NO_BEGIN);
@@ -287,7 +287,7 @@ end;
 
 procedure TTestAddBeginEnd.TestAddToCaseStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := ebNever;
+  FormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, WITH_STATEMENT_TEXT_WITH_BEGIN,
     WITH_STATEMENT_TEXT_NO_BEGIN);
@@ -295,7 +295,7 @@ end;
 
 procedure TTestAddBeginEnd.TestRemoveFromCaseStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := ebNever;
+  FormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, CASE_STATEMENT_TEXT_WITH_BEGIN,
     CASE_STATEMENT_TEXT_NO_BEGIN);
@@ -303,7 +303,7 @@ end;
 
 procedure TTestAddBeginEnd.TestAddToIfForStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := ebNever;
+  FormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, IF_FOR_STATEMENT_TEXT_WITH_BEGIN,
     IF_FOR_STATEMENT_TEXT_NO_BEGIN);
@@ -311,7 +311,7 @@ end;
 
 procedure TTestAddBeginEnd.TestRemoveFromIfForStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := ebNever;
+  FormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, IF_FOR_STATEMENT_TEXT_WITH_BEGIN,
     IF_FOR_STATEMENT_TEXT_NO_BEGIN);

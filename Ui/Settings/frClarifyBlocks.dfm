@@ -1,6 +1,6 @@
 inherited fClarifyBlocks: TfClarifyBlocks
-  Width = 448
-  Height = 351
+  Width = 353
+  Height = 344
   object Label1: TLabel
     Left = 4
     Top = 4
@@ -11,7 +11,7 @@ inherited fClarifyBlocks: TfClarifyBlocks
   object rgBlockBegin: TRadioGroup
     Left = 4
     Top = 24
-    Width = 130
+    Width = 120
     Height = 73
     Caption = 'Block with begin'
     Items.Strings = (
@@ -21,9 +21,9 @@ inherited fClarifyBlocks: TfClarifyBlocks
     TabOrder = 0
   end
   object rgLabelBegin: TRadioGroup
-    Left = 150
+    Left = 134
     Top = 24
-    Width = 130
+    Width = 110
     Height = 73
     Caption = 'Label with begin'
     Items.Strings = (
@@ -33,9 +33,9 @@ inherited fClarifyBlocks: TfClarifyBlocks
     TabOrder = 1
   end
   object rgLabel: TRadioGroup
-    Left = 150
+    Left = 134
     Top = 104
-    Width = 130
+    Width = 110
     Height = 73
     Caption = 'Label without begin'
     Items.Strings = (
@@ -47,7 +47,7 @@ inherited fClarifyBlocks: TfClarifyBlocks
   object rgBlock: TRadioGroup
     Left = 4
     Top = 104
-    Width = 130
+    Width = 120
     Height = 73
     Caption = 'Block without begin'
     Items.Strings = (
@@ -59,7 +59,7 @@ inherited fClarifyBlocks: TfClarifyBlocks
   object rgEndElse: TRadioGroup
     Left = 4
     Top = 180
-    Width = 130
+    Width = 120
     Height = 73
     Caption = 'between end and else'
     Items.Strings = (
@@ -71,9 +71,9 @@ inherited fClarifyBlocks: TfClarifyBlocks
   object rgCaseLabel: TRadioGroup
     Left = 4
     Top = 260
-    Width = 130
+    Width = 120
     Height = 73
-    Caption = 'Case label without begin'
+    Caption = 'Case without begin'
     Items.Strings = (
       'Always'
       'Leave as is'
@@ -81,9 +81,9 @@ inherited fClarifyBlocks: TfClarifyBlocks
     TabOrder = 6
   end
   object rgElseIf: TRadioGroup
-    Left = 148
+    Left = 132
     Top = 180
-    Width = 130
+    Width = 110
     Height = 73
     Caption = 'between else and if'
     Items.Strings = (
@@ -93,9 +93,9 @@ inherited fClarifyBlocks: TfClarifyBlocks
     TabOrder = 5
   end
   object rgElseCase: TRadioGroup
-    Left = 148
+    Left = 132
     Top = 260
-    Width = 130
+    Width = 90
     Height = 73
     Caption = 'Else case'
     Items.Strings = (
@@ -105,9 +105,9 @@ inherited fClarifyBlocks: TfClarifyBlocks
     TabOrder = 7
   end
   object rgElseBegin: TRadioGroup
-    Left = 288
-    Top = 28
-    Width = 89
+    Left = 252
+    Top = 24
+    Width = 90
     Height = 73
     Caption = 'Else begin'
     Items.Strings = (

@@ -36,8 +36,8 @@ uses
 type
   TTestCaseReturns = class(TBaseTestProcess)
   private
-    feSaveCaseElseStyle: TBlockNewLineStyle;
-    feCaseLabelStyle: TBlockNewLineStyle;
+    feSaveCaseElseStyle: TTriOptionStyle;
+    feCaseLabelStyle: TTriOptionStyle;
 
   protected
     procedure Setup; override;

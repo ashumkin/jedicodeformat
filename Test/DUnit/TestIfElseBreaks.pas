@@ -9,9 +9,10 @@ uses
 type
   TTestIfElseBreaks = class(TBaseTestProcess)
   private
-    leSaveIfElseStyle, leSaveBareBlockStyle: TBlockNewLineStyle;
-    leSaveCaseLabelStyle, leSaveCaseElseStyle: TBlockNewLineStyle;
-    leSaveEndElseStyle: TBlockNewLineStyle;
+    leSaveIfElseStyle, leSaveBareBlockStyle: TTriOptionStyle;
+    leSaveCaseLabelStyle, leSaveCaseElseStyle: TTriOptionStyle;
+    leSaveEndElseStyle: TTriOptionStyle;
+    leSaveElseBeginStyle: TTriOptionStyle;
 
   protected
     procedure Setup; override;
@@ -43,6 +44,11 @@ type
     procedure TestEndElseStyle4;
     procedure TestEndElseStyle5;
     procedure TestEndElseStyle6;
+
+    procedure TestAddElseBegin1;
+    procedure TestAddElseBegin2;
+    procedure TestRemoveElseBegin1;
+    procedure TestRemoveElseBegin2;
   end;
 
 implementation
@@ -123,6 +129,9 @@ begin
   leSaveCaseElseStyle  := FormatSettings.Returns.CaseElseStyle;
 
   leSaveEndElseStyle := FormatSettings.Returns.EndElseStyle;
+  leSaveElseBeginStyle := FormatSettings.Returns.ElseBeginStyle;
+
+  FormatSettings.Returns.ElseBeginStyle := eLeave;
 end;
 
 procedure TTestIfElseBreaks.Teardown;
@@ -136,6 +145,7 @@ begin
   FormatSettings.Returns.CaseElseStyle  := leSaveCaseElseStyle;
 
   FormatSettings.Returns.EndElseStyle := leSaveEndElseStyle;
+  FormatSettings.Returns.ElseBeginStyle := leSaveElseBeginStyle;
 end;
 
 procedure TTestIfElseBreaks.TestBlockStyleNever;
@@ -423,6 +433,55 @@ procedure TTestIfElseBreaks.TestEndElseStyle6;
 begin
   FormatSettings.Returns.EndElseStyle := eNever;
   TestProcessResult(TBlockStyles, UNBROKEN_END_ELSE_UNIT_TEXT, UNBROKEN_END_ELSE_UNIT_TEXT);
+end;
+
+const
+  ELSE_BEGIN_TEXT_NO_RETURN  = UNIT_HEADER +
+    'procedure foo;' + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
+    'if bar then // comment' + AnsiLineBreak +
+    ' Fish()' + AnsiLineBreak +
+    'else begin ' + AnsiLineBreak +
+    '   Wibble();' + AnsiLineBreak +
+    '  end;' + AnsiLineBreak +
+    'end;' + AnsiLineBreak +
+    UNIT_FOOTER;
+
+  ELSE_BEGIN_TEXT_WITH_RETURN = UNIT_HEADER +
+    'procedure foo;' + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
+    'if bar then // comment' + AnsiLineBreak +
+    ' Fish()' + AnsiLineBreak +
+    'else'+ AnsiLineBreak +
+    'begin ' + AnsiLineBreak +
+    '   Wibble();' + AnsiLineBreak +
+    '  end;' + AnsiLineBreak +
+    'end;' + AnsiLineBreak +
+    UNIT_FOOTER;
+
+
+procedure TTestIfElseBreaks.TestAddElseBegin1;
+begin
+  FormatSettings.Returns.ElseBeginStyle := eAlways;
+  TestProcessResult(TBlockStyles, ELSE_BEGIN_TEXT_WITH_RETURN, ELSE_BEGIN_TEXT_WITH_RETURN);
+end;
+
+procedure TTestIfElseBreaks.TestAddElseBegin2;
+begin
+  FormatSettings.Returns.ElseBeginStyle := eAlways;
+  TestProcessResult(TBlockStyles, ELSE_BEGIN_TEXT_NO_RETURN, ELSE_BEGIN_TEXT_WITH_RETURN);
+end;
+
+procedure TTestIfElseBreaks.TestRemoveElseBegin1;
+begin
+  FormatSettings.Returns.ElseBeginStyle := eNever;
+  TestProcessResult(TBlockStyles, ELSE_BEGIN_TEXT_WITH_RETURN, ELSE_BEGIN_TEXT_NO_RETURN);
+end;
+
+procedure TTestIfElseBreaks.TestRemoveElseBegin2;
+begin
+  FormatSettings.Returns.ElseBeginStyle := eNever;
+  TestProcessResult(TBlockStyles, ELSE_BEGIN_TEXT_NO_RETURN, ELSE_BEGIN_TEXT_NO_RETURN);
 end;
 
 initialization
