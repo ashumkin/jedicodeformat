@@ -14,6 +14,7 @@ type
       { AlignStatements overrides }
     function TokenIsAligned(const pt: TSourceToken): boolean; override;
     function TokenEndsStatement(const pt: TSourceToken): boolean; override;
+    function TokenEndsAlignment(const pt: TSourceToken): boolean; override;
 
   public
     constructor Create; override;
@@ -42,13 +43,18 @@ begin
     ((not Settings.Align.InterfaceOnly) or (pt.HasParentNode(nInterfaceSection)));
 end;
 
+function TAlignTypedef.TokenEndsAlignment(const pt: TSourceToken): boolean;
+begin
+  // alignment block ended by a blank line
+  Result := IsBlankLineEnd(pt);
+end;
+
 function TAlignTypedef.TokenEndsStatement(const pt: TSourceToken): boolean;
 begin
   { only look at solid tokens }
   if (pt.TokenType in [ttReturn, ttWhiteSpace]) then
   begin
-    // ended by a blank line
-    Result := IsBlankLineEnd(pt);
+    Result := False;
   end
   else
   begin

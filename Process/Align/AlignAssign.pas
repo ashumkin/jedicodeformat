@@ -43,6 +43,7 @@ type
       { AlignStatements overrides }
     function TokenIsAligned(const pt: TSourceToken): boolean; override;
     function TokenEndsStatement(const pt: TSourceToken): boolean; override;
+    function TokenEndsAlignment(const pt: TSourceToken): boolean; override;
 
     procedure ResetState; override;
   public
@@ -93,14 +94,19 @@ begin
   { only look at solid tokens }
   if (pt.TokenType in [ttReturn, ttWhiteSpace]) then
   begin
-    // ended by a blank line
-    Result := IsBlankLineEnd(pt);
+    Result := False;
   end
   else
   begin
     Result := (pt.TokenType in [ttSemiColon, ttEOF, ttReservedWord]) or
     (not InStatements(pt));
   end;
+end;
+
+function TAlignAssign.TokenEndsAlignment(const pt: TSourceToken): boolean;
+begin
+  // ended by a blank line
+  Result := IsBlankLineEnd(pt);
 end;
 
 function TAlignAssign.TokenIsAligned(const pt: TSourceToken): boolean;
@@ -115,6 +121,5 @@ begin
   Result := (pt.TokenType = ttAssign) and
     (fiStartBlockLevel = BlockLevel(pt)) and (fiStartCaseLevel = CaseLevel(pt));
 end;
-
 
 end.

@@ -53,6 +53,7 @@ type
     function TokenIsAligned(const pt: TSourceToken): boolean; virtual; abstract;
     function TokenEndsStatement(const pt: TSourceToken): boolean; virtual; abstract;
     function IsTokenInContext(const pt: TSourceToken): boolean; virtual;
+    function TokenEndsAlignment(const pt: TSourceToken): boolean; virtual;
 
       { override this to let the child class see the tokens as they come
       this is used by the align vars to detect the first non-white space token after the : }
@@ -240,6 +241,9 @@ begin
         end;
       end;
 
+      if TokenEndsAlignment(lcCurrent) then
+        bDone := True;
+
       inc(liCurrent);
     end; { not EOF }
   end; { while loop }
@@ -318,6 +322,11 @@ begin
     pcToken.UserTag := 0;
 
   fcTokens.Add(pcToken);
+end;
+
+function TAlignBase.TokenEndsAlignment(const pt: TSourceToken): boolean;
+begin
+  Result := False;
 end;
 
 end.
