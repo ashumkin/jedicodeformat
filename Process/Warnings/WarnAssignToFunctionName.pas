@@ -125,7 +125,7 @@ procedure TWarnAssignToFunctionName.WarnAllAssigns(const psFnName: string;
   const pcRoot: TObject);
 var
   lcNode: TParseTreeNode;
-  lcLeftName: TSOurceToken;
+  lcLeftName: TSourceToken;
   liLoop: integer;
 begin
   Assert(pcRoot <> nil);
@@ -136,7 +136,7 @@ begin
 
     // this is an assign statement. Look at the LHS
     lcLeftName := GetIdentifierBeforeAssign(lcNode);
-    Assert(lcLeftName <> nil);
+    Assert(lcLeftName <> nil, 'No id before assign');
     if AnsiSameText(lcLeftName.SourceCode, psFnName) then
     begin
       SendWarning(lcLeftName,

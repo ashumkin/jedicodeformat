@@ -181,6 +181,7 @@ type
     procedure TestParse_TestUses;
     procedure TestParse_TestUsesChanges;
     procedure TestParse_TestWarnings;
+    procedure TestParse_TestWarnDestroy;
     procedure TestParse_TestVarParam;
     procedure TestParse_TestWith;
 
@@ -661,7 +662,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 1079);
+  TestParseFile('Testcases.dpr', 1087);
 end;
 
 
@@ -975,6 +976,11 @@ end;
 procedure TTestFileParse.TestParse_LittleTest47;
 begin
   TestParseFile('LittleTest47', 268);
+end;
+
+procedure TTestFileParse.TestParse_TestWarnDestroy;
+begin
+  TestParseFile('TestWarnDestroy', 117);
 end;
 
 initialization

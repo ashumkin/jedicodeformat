@@ -181,6 +181,7 @@ type
     procedure TestObfuscate_TestUsesChanges;
     procedure TestObfuscate_TestVarParam;
     procedure TestObfuscate_TestWarnings;
+    procedure TestObfuscate_TestWarnDestroy;
     procedure TestObfuscate_TestWith;
 
    procedure TestObfuscate_TestCases;
@@ -1013,6 +1014,11 @@ end;
 procedure TTestObfuscate.TestObfuscate_LittleTest47;
 begin
   TestObfuscateFile('LittleTest47');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestWarnDestroy;
+begin
+  TestObfuscateFile('TestWarnDestroy');
 end;
 
 initialization

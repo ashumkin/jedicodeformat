@@ -130,7 +130,8 @@ uses
   LittleTest44 in 'LittleTest44.pas',
   LittleTest45 in 'LittleTest45.pas',
   LittleTest46 in 'LittleTest46.pas',
-  LittleTest47 in 'LittleTest47.pas';
+  LittleTest47 in 'LittleTest47.pas',
+  TestWarnDestroy in 'TestWarnDestroy.pas';
 
 {$R *.res}
 

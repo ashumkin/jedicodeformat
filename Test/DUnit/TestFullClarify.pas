@@ -181,6 +181,7 @@ type
 
     procedure TestClarify_TestVarParam;
     procedure TestClarify_TestWarnings;
+    procedure TestClarify_TestWarnDestroy;
     procedure TestClarify_TestWith;
 
     procedure TestClarify_TestPackage;
@@ -985,6 +986,11 @@ end;
 procedure TFullTestClarify.TestClarify_LittleTest47;
 begin
   TestClarifyFile('LittleTest47');
+end;
+
+procedure TFullTestClarify.TestClarify_TestWarnDestroy;
+begin
+  TestClarifyFile('TestWarnDestroy');
 end;
 
 initialization
