@@ -35,7 +35,9 @@ begin
 
   // first check lengths
   CheckEquals(Length(lsFile1), Length(lsFile2),
-    'Files lengths differ ' + psFileName1 + ' and ' + psFileName2);
+    'Files lengths differ, ' +
+    IntToStr(Length(lsFile1)) + ' vs ' + IntToStr(Length(lsFile2)) +  ' ' +
+    psFileName1 + ' and ' + psFileName2);
 
 
   // check contents the same
