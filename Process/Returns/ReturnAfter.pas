@@ -31,7 +31,7 @@ uses
 const
   WordsJustReturnAfter: TWordSet = [wBegin, wRepeat,
     wTry, wExcept, wFinally, wLabel,
-    wInitialization, wFinalization, wThen];
+    wInitialization, wFinalization, wThen, wDo];
   // can't add 'interface' as it has a second meaning :(
 
   { blank line is 2 returns }
@@ -182,6 +182,20 @@ begin
       exit;
     end;
 
+    { semicolon at end of block
+      e.g.
+       var
+         A: integer;
+         B: float; <- blank line here
+
+       procedure foo;
+    }
+    if pt.HasParentNode([nVarSection, nConstSection]) and (ptNext.Word in ProcedureWords) then
+    begin
+      Result := True;
+      exit;
+    end;
+
     lcPrev := pt.PriorToken;
     // 'end' at end of type def or proc
     if (lcPrev.Word = wEnd) and (pt.TokenType <> ttDot) then
@@ -261,7 +275,7 @@ begin
     exit;
   end;
 
-  // "TSomeCLass = class(TAncestorClass)" has a return after the close brackets
+  // "TSomeClass = class(TAncestorClass)" has a return after the close brackets
   if (pt.TokenType = ttCloseBracket) and
     pt.HasParentNode([nClassHeritage, nInterfaceHeritage], 1) then
   begin
@@ -294,7 +308,14 @@ begin
   { comma in uses clause of program or lib - these are 1 per line,
     using the 'in' keyword to specify the file  }
   if (pt.TokenType = ttComma) and pt.HasParentNode(nUses) and
-    pt.HasParentNode([nProgram, nLibrary]) then
+    pt.HasParentNode(TopOfProgramSections) then
+  begin
+    Result := True;
+    exit;
+  end;
+
+  // 'uses' in program, library or package
+  if (pt.Word = wUses) and pt.HasParentNode(TopOfProgramSections) then
   begin
     Result := True;
     exit;

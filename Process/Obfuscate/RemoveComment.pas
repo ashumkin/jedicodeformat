@@ -36,7 +36,7 @@ begin
   { all curly backets in the uses clause of a program/library def
    must be respected as they link files to dfms, com classes 'n stuff }
   if (pc.CommentStyle = eCurly) and
-    (pc.HasParentNode(InterfaceSections)) and pc.HasParentNode(UsesClauses) and
+    (pc.HasParentNode(TopOfProgramSections)) and pc.HasParentNode(UsesClauses) and
     pc.IsOnRightOf(UsesClauses, UsesWords) then
     Result := True;
 

@@ -27,7 +27,8 @@ implementation
 uses
   JclStrings,
   JcfMiscFunctions, TokenUtils,
-  SourceToken, TokenType, WordMap, Nesting, ParseTreeNodeType, JcfSettings,
+  SourceToken, TokenType, ParseTreeNode,
+  WordMap, Nesting, ParseTreeNodeType, JcfSettings,
   FormatFlags;
 
 const
@@ -40,7 +41,8 @@ const
 
 function NeedsBlankLine(const pt, ptNext: TSourceToken): boolean;
 var
-  lcNext: TSourceToken;
+  lcNext, lcPrev: TSourceToken;
+  lcParent: TParseTreeNode;
 begin
   Result := (pt.Word in WordsBlankLineBefore);
   if Result then
@@ -95,6 +97,33 @@ begin
   begin
     Result := True;
     exit;
+  end;
+
+
+  {
+    before class/interface def with body when it's not the first type.
+
+    e.g.
+      type
+        foo = integer;
+
+        TSOmeClass = class...
+
+    These start with a type name
+   and have a parent node nTypeDecl, which in turn owns a Restircted type -> Class type
+  }
+  lcPrev := pt.PriorSolidToken;
+  if (lcPrev <> nil) and (lcPrev.Word <> wType) and (pt.TokenType = ttWord) then
+  begin
+    lcParent := pt.Parent;
+
+    if (lcParent <> nil) and (lcParent.NodeType = nTypeDecl) and
+      lcParent.HasChildNode(ObjectTypes, 2) and
+      lcParent.HasChildNode([nClassDeclarations, nCLassBody], 3) then
+    begin
+      Result := True;
+      exit;
+    end;
   end;
 
   { end. where there is no initialization section code,
