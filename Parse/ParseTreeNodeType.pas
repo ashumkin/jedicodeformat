@@ -70,7 +70,8 @@ type
     nTryBlock,
     nFinallyBlock,
     nExceptBlock,
-    nExceptionHandler,
+    nExceptionHandlers,
+    nOnExceptionHandler,
     nProcedureDecl,
     nFunctionDecl,
     nConstructorDecl,
@@ -245,8 +246,10 @@ begin
       Result := 'finally block';
     nExceptBlock:
       Result := 'except block';
-    nExceptionHandler:
-      Result := 'Exception handler';
+    nExceptionHandlers:
+      Result := 'Exception handlers';
+    nOnExceptionHandler:
+      Result := 'On exception handler';
     nProcedureDecl:
       Result := 'Procedure decl';
     nFunctionDecl:

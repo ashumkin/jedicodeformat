@@ -34,7 +34,6 @@ begin
   if pt = nil then
     exit;
 
-
   { object types }
   if pt.HasParentNode(ObjectTypes) then
   begin
@@ -47,7 +46,7 @@ begin
     if pt.HasParentNode(nProperty) and (pt.Word <> wProperty) and (pt.IndexOfSelf > 0) then
       inc(liIndentCount);
 
-    if pt.HasParentNode(ProcedureHeadings) and (not (pt.Word in ProcedureWords)) and (pt.IndexOfSelf > 0) then
+    if pt.HasParentNode(ProcedureHeadings) and (not (pt.Word in (ProcedureWords + [wClass]))) and (pt.IndexOfSelf > 0) then
       inc(liIndentCount);
   end
 
@@ -97,14 +96,23 @@ begin
       liIndentCount := liIndentCount + (pt.Nestings.GetLevel(nlProcedure) - 1);
     }
 
-    { indent for run on line }
-    if (pt.Nestings.GetLevel(nlRoundBracket) + (pt.Nestings.GetLevel(nlSquareBracket)) > 0) then
-      liIndentCount := liIndentCount + 1;
-
     if pt.HasParentNode(nAsm) and pt.HasParentNode(nStatementList) then
       inc(liIndentCount);
 
+    { indent for run on line }
+    if (pt.Nestings.GetLevel(nlRoundBracket) + (pt.Nestings.GetLevel(nlSquareBracket)) > 0) then
+      inc(liIndentCount);
+
+    if pt.HasParentNode(nUses) and (pt.Word <> wUses) then
+      inc(liIndentCount);
+
   end;
+
+  if pt.HasParentNode(nRecordType) and pt.HasParentNode(nDeclSection) and (pt.Word <> wEnd) then
+    inc(liIndentCount);
+
+  if (pt.Word = wOn) and pt.HasParentNode(nOnExceptionHandler, 1) then
+    dec(liIndentCount);
 
   Assert(liIndentCount >= 0);
 

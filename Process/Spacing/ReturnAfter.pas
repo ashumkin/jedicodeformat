@@ -235,6 +235,8 @@ begin
 
   { check the next significant token  }
   lcNext := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace, ttComment]);
+  if lcNext = nil then
+    exit;
 
   if not NeedsReturn(lcSourceToken, lcNext) then
     exit;

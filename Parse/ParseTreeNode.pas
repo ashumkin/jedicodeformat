@@ -743,6 +743,7 @@ var
   lcFocus, lcParent: TParseTreeNode;
 begin
   // get the node after this one
+  Assert(Parent <> nil);
   Result := Parent.FirstNodeAfter(Self);
 
   if Result = nil then

@@ -2307,7 +2307,7 @@ begin
     ExceptionHandlers -> ExceptionSpecifier
 
   }
-  PushNode(nExceptionHandler);
+  PushNode(nExceptionHandlers);
 
   if TokenList.FirstSolidTokenWord in [wOn, wElse]  then
   begin
@@ -2331,6 +2331,8 @@ begin
       -> 'on' [ident ':'] ExceptType 'do' Statement
       -> 'else' Statement
 }
+  PushNode(nOnExceptionHandler);
+
   if TokenList.FirstSolidTokenWord = wElse then
   begin
     Recognise(wElse);
@@ -2354,6 +2356,8 @@ begin
 
   if TokenList.FirstSolidTokenType = ttSemiColon then
     Recognise(ttSemiColon);
+
+  PopNode;
 
 end;
 

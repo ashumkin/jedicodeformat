@@ -85,7 +85,8 @@ begin
   case lcNode.NodeType of
     nBlock, nCaseStatement, nElseCase,
     nIfBlock, nElseBlock, nTryBlock, nFinallyBlock, nExceptBlock,
-    nRepeatStatement, nWhileStatement, nForStatement, nWithStatement:
+    nRepeatStatement, nWhileStatement, nForStatement,
+    nWithStatement, nOnExceptionHandler:
     begin
       leNestType := nlBlock;
       lbHasNesting := True;
