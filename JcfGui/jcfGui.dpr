@@ -148,7 +148,8 @@ uses
   SetPreprocessor in '..\Settings\SetPreprocessor.pas',
   UnitNameCaps in '..\Process\Capitalisation\UnitNameCaps.pas',
   RemoveSpaceAtLineEnd in '..\Process\Spacing\RemoveSpaceAtLineEnd.pas',
-  FindReplace in '..\Process\Transform\FindReplace.pas';
+  FindReplace in '..\Process\Transform\FindReplace.pas',
+  LittleTest47 in '..\Test\TestCases\LittleTest47.pas';
 
 {$R *.res}
 

@@ -88,6 +88,7 @@ type
     procedure TestObfuscate_LittleTest44;
     procedure TestObfuscate_LittleTest45;
     procedure TestObfuscate_LittleTest46;
+    procedure TestObfuscate_LittleTest47;
 
     procedure TestObfuscate_TestAbsolute;
     procedure TestObfuscate_TestAlign;
@@ -1007,6 +1008,11 @@ end;
 procedure TTestObfuscate.TestObfuscate_LittleTest46;
 begin
   TestObfuscateFile('LittleTest46');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest47;
+begin
+  TestObfuscateFile('LittleTest47');
 end;
 
 initialization

@@ -985,6 +985,9 @@ end;
   note that expr can -> (expr)
   so we need to notice the comma
   is there a semicolon first or a comma
+
+  Array of records can be "((f: 1), (f: 2))"
+  and if it is an array with one element then it is "((f: x))"
 }
 function TBuildParseTree.ArrayConstantNext: boolean;
 var
@@ -1027,6 +1030,14 @@ begin
     begin
       Result := False;
       break;
+    end
+    { if we get an semicolon at bracket level 2, it means an array of records
+      e.g.
+        Const MyFooRecArray = ((x: 2; y:3), (x: 5; y: 6)); }
+    else if (tt = ttSemicolon) and (liBracketLevel = 1) then
+    begin
+      Result := True;
+      break;
     end;
 
     inc(liIndex);
@@ -1042,7 +1053,7 @@ begin
 
     The record constant must start with open brackets, a field name followed by a colon,
     e.g.   "AREC: TMap = (s1: 'Foo'; i1: 1; i2: 4);"
-     No complexity is permitted here. All that can vary is the name
+     No complexity is permitted here. All that can vary is the names
 
      Array and normal constants are trickier, as both can start with an
      arbitrary number of open brackets

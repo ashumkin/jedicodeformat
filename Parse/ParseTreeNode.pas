@@ -5,7 +5,6 @@ unit ParseTreeNode;
    - to give the code formatter a full parse tree
    in the recursive descent mould
    and thereby pave the way for a version 2.0
-   and e3ventually take over the world
 }
 
 {(*}
