@@ -138,8 +138,19 @@ end;
 
 destructor TFormatSettings.Destroy;
 begin
-  if WriteOnExit and (not FileIsReadOnly(GetRegSettings.FormatConfigFileName)) then
-    Write;
+  { user may have specified no-write }
+  if not GetRegSettings.WriteSettingsFile then
+    WriteOnExit := False;
+
+  try
+    if WriteOnExit and (not FileIsReadOnly(GetRegSettings.FormatConfigFileName)) then
+      Write;
+  except
+    on e: Exception do
+      MessageDlg('Error writing settings file ' +
+        GetRegSettings.FormatConfigFileName + AnsiLineBreak + ' :' + 
+        E.Message, mtError, [mbOk], 0);
+  end;
 
   FreeAndNil(fcObfuscate);
   FreeAndNil(fcClarify);

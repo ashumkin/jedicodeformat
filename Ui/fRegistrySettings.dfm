@@ -23,7 +23,7 @@ object fmRegistrySettings: TfmRegistrySettings
     Top = 0
     Width = 480
     Height = 264
-    ActivePage = tsExclusions
+    ActivePage = tsGeneral
     Align = alClient
     TabOrder = 0
     object tsGeneral: TTabSheet
@@ -45,7 +45,7 @@ object fmRegistrySettings: TfmRegistrySettings
       end
       object Label2: TLabel
         Left = 8
-        Top = 46
+        Top = 70
         Width = 74
         Height = 13
         Caption = 'MRU max items'
@@ -60,7 +60,7 @@ object fmRegistrySettings: TfmRegistrySettings
       end
       object eMRUMaxItems: TJvIntegerEdit
         Left = 110
-        Top = 42
+        Top = 66
         Width = 40
         Height = 21
         Alignment = taRightJustify
@@ -74,7 +74,7 @@ object fmRegistrySettings: TfmRegistrySettings
       end
       object btnClearMRU: TButton
         Left = 156
-        Top = 42
+        Top = 66
         Width = 75
         Height = 25
         Caption = 'Clear MRU'
@@ -83,7 +83,7 @@ object fmRegistrySettings: TfmRegistrySettings
       end
       object rgShowParseTree: TRadioGroup
         Left = 8
-        Top = 72
+        Top = 96
         Width = 185
         Height = 89
         Caption = 'Show parse tree during parse'
@@ -92,6 +92,14 @@ object fmRegistrySettings: TfmRegistrySettings
           'On parse error'
           'Never')
         TabOrder = 3
+      end
+      object cbWriteSettingsFile: TCheckBox
+        Left = 112
+        Top = 36
+        Width = 161
+        Height = 17
+        Caption = '&Write changes to settings file'
+        TabOrder = 4
       end
     end
     object tsLogFile: TTabSheet

@@ -53,6 +53,7 @@ type
     { ui settings }
     fsFormatConfigFileName: string;
     fsLastSettingsPage: string;
+    fbWriteSettingsFile: boolean;
 
     {notepad settings }
     fsInputDir: string;
@@ -103,6 +104,7 @@ type
 
     { general settings }
     property FormatConfigFileName: string read fsFormatConfigFileName write fsFormatConfigFileName;
+    property WriteSettingsFile: boolean read fbWriteSettingsFile write fbWriteSettingsFile;
 
     { ui settings }
     property ShowParseTreeOption: TShowParseTreeOption read fShowParseTreeOption write fShowParseTreeOption;
@@ -305,6 +307,8 @@ begin
   if fsFormatConfigFileName = '' then
     fsFormatConfigFileName := GetDefaultSettingsFileName;
 
+  fbWriteSettingsFile := fcReg.ReadBool(REG_GENERAL_SECTION, 'WriteSettingsFile', True);
+
 
   {notpad settings }
   InputDir := fcReg.ReadString(REG_NOTEPAD_SECTION, 'InputDir', '');
@@ -346,6 +350,7 @@ procedure TJCFRegistrySettings.WriteAll;
 begin
   { general section }
   fcReg.WriteString(REG_GENERAL_SECTION, 'FormatConfigFileName', fsFormatConfigFileName);
+  fcReg.WriteBool(REG_GENERAL_SECTION, 'WriteSettingsFile', fbWriteSettingsFile);
 
   { notepad section }
   fcReg.WriteString(REG_NOTEPAD_SECTION, 'InputDir', InputDir);

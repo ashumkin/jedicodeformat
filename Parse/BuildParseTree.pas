@@ -137,7 +137,7 @@ type
     procedure RecogniseAddOp;
     procedure RecogniseDesignator;
     procedure RecogniseDesignatorTail;
-    procedure RecogniseExpr;
+    procedure RecogniseExpr(const pbAllowRelop: Boolean);
     procedure RecogniseExprList;
     procedure RecogniseFactor;
     procedure RecogniseTerm;
@@ -1310,7 +1310,13 @@ begin
   if TokenList.FirstSolidTokenType = ttDoubleDot then
   begin
     Recognise(ttDoubleDot);
-    RecogniseConstantExpression;
+
+    { recognising any expr is a bad idea here, as "a = 3" is an expression
+      and we want this to end with a '='
+      this could be "const ValidCharSet: set of 'A'..'z' = ['A'..'Z','a'..'z'];"
+
+       }
+    RecogniseExpr(False);
   end;
 
   PopNode;
@@ -1658,7 +1664,7 @@ begin
   PopNode;
 end;
 
-procedure TBuildParseTree.RecogniseExpr;
+procedure TBuildParseTree.RecogniseExpr(const pbAllowRelop: Boolean);
 begin
   { Expression -> SimpleExpression [RelOp SimpleExpression]...
 
@@ -1670,17 +1676,20 @@ begin
 
   RecogniseSimpleExpression;
 
-  while TokenList.FirstSolidTokenType in RelationalOperators do
+  if pbAllowRelop then
   begin
-    RecogniseRelop;
-    RecogniseSimpleExpression;
+    while TokenList.FirstSolidTokenType in RelationalOperators do
+    begin
+      RecogniseRelop;
+      RecogniseSimpleExpression;
+    end;
   end;
 
   // added this to cope with real usage - see TestCastSimple
   if TokenList.FirstSolidTokenType = ttDot then
   begin
     Recognise(ttDot);
-    RecogniseExpr;
+    RecogniseExpr(true);
   end;
 
   //likewise need to cope with pchar(foo)^
@@ -1804,7 +1813,7 @@ begin
 
     { can be empty brackets }
     if TokenList.FirstSolidTokenType <> ttCloseBracket then
-      RecogniseExpr;
+      RecogniseExpr(True);
     Recognise(ttCloseBracket);
 
     //!!! recognise expressions like (Foo.Stuff['x'].Pointer)^.MyIndex
@@ -1944,7 +1953,7 @@ begin
       ttPlus, ttMinus:
       begin
         Recognise([ttPlus, ttMinus]);
-        RecogniseExpr;
+        RecogniseExpr(True);
       end;
       else
         Assert(False, 'Should not be here - bad token type');
@@ -1974,11 +1983,11 @@ procedure TBuildParseTree.RecogniseSetElement;
 begin
   // SetElement -> Expression ['..' Expression]
 
-  RecogniseExpr;
+  RecogniseExpr(True);
   if TokenList.FirstSolidTokenType = ttDoubleDot then
   begin
     Recognise(ttDoubleDot);
-    RecogniseExpr;
+    RecogniseExpr(False);
   end;
 end;
 
@@ -1987,11 +1996,11 @@ procedure TBuildParseTree.RecogniseExprList;
 begin
  // ExprList -> Expression/','...
 
-  RecogniseExpr;
+  RecogniseExpr(True);
   while TokenList.FirstSolidTokenType = ttComma do
   begin
     Recognise(ttComma);
-    RecogniseExpr;
+    RecogniseExpr(True);
   end;
 end;
 
@@ -2126,7 +2135,7 @@ begin
       PushNode(nAssignment);
 
       Recognise(ttAssign);
-      RecogniseExpr;
+      RecogniseExpr(True);
 
       PopNode;
     end;
@@ -2172,13 +2181,13 @@ begin
   // another omission - raise expr  or just raise (in except block)
   Recognise(ttRaise);
   if not (TokenList.FirstSolidTokenType in [ttSemicolon, ttEnd, ttElse]) then
-    RecogniseExpr;
+    RecogniseExpr(True);
 
   // can be at addr
   if TokenList.FirstSolidTokenType = ttAt then
   begin
     Recognise(ttAt);
-    RecogniseExpr;
+    RecogniseExpr(True);
   end;
 end;
 
@@ -2255,7 +2264,7 @@ begin
   Recognise(ttIf);
 
   PushNode(nIfCondition);
-  RecogniseExpr;
+  RecogniseExpr(True);
   PopNode;
 
   Recognise(ttThen);
@@ -2286,7 +2295,7 @@ begin
   Recognise(ttCase);
 
   PushNode(nBlockHeaderExpr);
-  RecogniseExpr;
+  RecogniseExpr(True);
   PopNode;
 
   Recognise(ttOf);
@@ -2370,7 +2379,7 @@ begin
   Recognise(ttUntil);
 
   PushNode(nLoopHeaderExpr);
-  RecogniseExpr;
+  RecogniseExpr(True);
   PopNode;
 
   PopNode;
@@ -2384,7 +2393,7 @@ begin
   Recognise(ttWhile);
 
   PushNode(nLoopHeaderExpr);
-  RecogniseExpr;
+  RecogniseExpr(True);
   PopNode;
 
   Recognise(ttDo);
@@ -2403,13 +2412,13 @@ begin
   Recognise(ttAssign);
 
   PushNode(nLoopHeaderExpr);
-  RecogniseExpr;
+  RecogniseExpr(True);
   PopNode;
 
   Recognise([ttTo, ttDownto]);
 
   PushNode(nLoopHeaderExpr);
-  RecogniseExpr;
+  RecogniseExpr(True);
   PopNode;
 
   Recognise([ttDo]);
@@ -3624,7 +3633,7 @@ begin
   if TokenList.FirstSolidTokenType = ttEquals then
   begin
     Recognise(ttEquals);
-    RecogniseExpr;
+    RecogniseExpr(True);
   end;
 end;
 
@@ -3652,7 +3661,7 @@ end;
 
 procedure TBuildParseTree.RecogniseConstantExpression;
 begin
-  RecogniseExpr;
+  RecogniseExpr(True);
 end;
 
 
@@ -4131,7 +4140,8 @@ var
 begin
   PushNode(nExportedProc);
 
-  RecogniseIdentifier(False);
+  RecogniseIdentifier(True);
+  
   if TokenList.FirstSolidTokenType = ttOpenBracket then
     RecogniseFormalParameters;
 
@@ -4212,11 +4222,11 @@ begin
 
     { this must be a named value, e.g. "end = 3". See LittleTest43.pas for e.g.s }
     Recognise(ttAssign);
-    RecogniseExpr;
+    RecogniseExpr(True);
   end
   else
   begin
-    RecogniseExpr;
+    RecogniseExpr(True);
 
     { ole named param syntax, e.g.
       " MSWord.TextToTable(ConvertFrom := 2, NumColumns := 3);"
@@ -4225,7 +4235,7 @@ begin
     if TokenList.FirstSolidTokenType = ttAssign then
     begin
       Recognise(ttAssign);
-      RecogniseExpr;
+      RecogniseExpr(True);
     end
 
     { str width specifiers e.g. " Str(val:0, S);" this is an odd wart on the syntax }
@@ -4235,7 +4245,7 @@ begin
       while TokenList.FirstSolidTokenType = ttColon do
       begin
         Recognise(ttColon);
-        RecogniseExpr;
+        RecogniseExpr(True);
       end;
     end;
   end;

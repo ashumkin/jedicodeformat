@@ -63,7 +63,7 @@ var
 begin
   lcSourceToken := TSourceToken(pcNode);
 
-  if (lcSourceToken.TokenType <> ttWhiteSpace) then
+  if not (lcSourceToken.TokenType in [ttWhiteSpace, ttComment]) then
     exit;
 
   { can't pass property as var parameter so ls local var is used }
