@@ -31,8 +31,10 @@ interface
 
 uses
   { delphi }Windows, SysUtils, Classes,
-  { delphi design time }ToolsAPI,
-  { local}EditorConverter, FileCOnverter;
+  { delphi design time }
+  ToolsAPI,
+  { local}
+  EditorConverter, FileCOnverter;
 
 type
   TJcfIdeMain = class(TObject)

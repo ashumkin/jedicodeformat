@@ -126,12 +126,11 @@ begin
   // now convert
   fcConverter.Convert;
 
-  WriteToIDE(pciUnit, fcConverter.OutputCode);
-
   fsCurrentUnitName := '';
 
   if not ConvertError then
   begin
+    WriteToIDE(pciUnit, fcConverter.OutputCode);
     SendStatusMessage(lcBuffer.FileName, 'Formatted unit', -1, -1);
     Inc(fiConvertCount);
   end;
