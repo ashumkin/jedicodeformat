@@ -18,11 +18,11 @@ uses SwitchableVisitor, VisitParseTree, IntList, SourceTokenList;
 type
   TLongLineBreaker = class(TSwitchableVisitor)
   private
-    lcScores: TIntList;
-    lcTokens: TSourceTokenList;
+    fcScores: TIntList;
+    fcTokens: TSourceTokenList;
 
 
-    procedure FixPos(piStart, piEnd: integer);
+    procedure FixPos;
   protected
     procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
   public
@@ -36,12 +36,13 @@ uses
   SysUtils, Classes,
   JclStrings,
   SourceToken, Nesting, FormatFlags, JcfSettings, SetReturns,
-  TokenUtils, TokenType, ParseTreeNode, ParseTreeNodeType, WordMap;
+  TokenUtils, JcfMiscFunctions, TokenType, ParseTreeNode, ParseTreeNodeType, WordMap;
 
 function PositionScore(const piIndex, piIndexOfFirstSolidToken, piPos: integer): integer;
 const
   NOGO_PLACE = -100; // the pits
   PLATEAU    = 100; // the baseline
+  PAST_END   = 0;
   ROOFSLOPE  = 5; // the plateau slopes a bit up to a point /\
   INCREASE_TO_RIGHT_FACTOR = 15; // and it also slopes to the right
   WIDTH_SCORE_FACTOR = 5;
@@ -93,13 +94,13 @@ begin
     { past the end}
     liOverFlow := piPos - Settings.Returns.MaxLineLength;
     Result     := PLATEAU - (liOverFlow * TO_FAR_SCORE_FACTOR);
-    if Result < NOGO_PLACE then
+    if Result < PAST_END then
     begin
-      fUnderflow := NOGO_PLACE - Result;
+      fUnderflow := PAST_END - Result;
       { must make is slightly lower the further we go -
       otherwise the last pos is found in lines that are far too long with no good place to break
       eg lines that start with a very long text string }
-      Result     := NOGO_PLACE - Round(fUnderflow * FAR_TO_FAR_SCORE_FACTOR);
+      Result     := PAST_END - Round(fUnderflow * FAR_TO_FAR_SCORE_FACTOR);
     end;
   end;
 
@@ -160,7 +161,7 @@ const
      50, 41, 32, 25, 18,
      13,  8,  5,  2,  1);
 begin
-  Assert(piSpacesToEnd >= 0);
+  Assert(piSpacesToEnd >= 0, 'Spaces to end is ' + IntToStr(piSpacesToEnd));
   if piSpacesToEnd > TAIL_SIZE then
   begin
     Result := 0;
@@ -331,31 +332,49 @@ constructor TLongLineBreaker.Create;
 begin
   inherited;
   FormatFlags := FormatFlags + [eLineBreaking];
-  lcScores := TIntList.Create;
-  lcTokens := TSourceTokenList.Create;
+  fcScores := TIntList.Create;
+  fcTokens := TSourceTokenList.Create;
 end;
 
 destructor TLongLineBreaker.Destroy;
 begin
-  FreeAndNil(lcScores);
-  FreeAndNil(lcTokens);
+  FreeAndNil(fcScores);
+  FreeAndNil(fcTokens);
   inherited;
 end;
 
-procedure TLongLineBreaker.FixPos(piStart, piEnd: integer);
+procedure TLongLineBreaker.FixPos;
 var
   liLoop, liPos: integer;
   lt: TSourceToken;
+  lbStarted: Boolean;
 begin
-  liPos := 0;
-  for liLoop := piStart to piEnd do
+  liPos := 1; // XPos is indexed from 1
+  lbStarted := False;
+
+  // look through the token list and reste X pos of all tokens after the inserted returns
+  for liLoop := 0 to fcTokens.Count -1 do
   begin
-    lt := lcTokens.SourceTokens[liLoop];
-    lt.XPosition := liPos;
+    lt := fcTokens.SourceTokens[liLoop];
+
+    if lbStarted then
+      lt.XPosition := liPos;
 
     case lt.TokenType of
-      ttEOF: break;
-      ttReturn: liPos := 0;
+      ttEOF:
+        break;
+      ttReturn:
+      begin
+        liPos := 1;
+        lbStarted := True;
+      end;
+      ttComment:
+      begin
+        if Pos(AnsiLineBreak, lt.SourceCode) <= 0 then
+          liPos := liPos + Length(lt.SourceCode)
+        else
+          liPos := LastLineLength(lt.SourceCode);
+      end
       else
         liPos := liPos + Length(lt.SourceCode);
     end;
@@ -371,33 +390,44 @@ const
 var
   lcSourceToken: TSourceToken;
   lcNext: TSourceToken;
-  liWidth: integer;
+  liInitWidth, liTotalWidth, liTempWidth: integer;
   liIndexOfFirstSolidToken: integer;
   liLoop: integer;
   liScoreBefore, liScoreAfter: integer;
   liPlaceToBreak: integer;
-  lcBreakToken: TSourceToken;
+  lcBreakToken, lcNewToken: TSourceToken;
 begin
   lcSourceToken := TSourceToken(pcNode);
 
-  if lcSourceToken.TokenType <> ttReturn then
+  { line can start with a return or with a multiline comment }
+  if not (lcSourceToken.TokenType in [ttReturn, ttComment]) then
+    exit;
+
+  if (lcSourceToken.TokenType = ttComment) and (lcSourceToken.CommentStyle = eDoubleSlash) then
     exit;
 
   // read until the next return
   lcNext := lcSourceToken.NextToken;
   liIndexOfFirstSolidToken := -1;
-  liWidth := 0;
-  lcTokens.Clear;
+
+  if lcSourceToken.TokenType = ttReturn then
+    liInitWidth := 0
+  else
+    liInitWidth := LastLineLength(lcSourceToken.SourceCode);
+
+  liTotalWidth := liInitWidth;
+
+  fcTokens.Clear;
 
   while (lcNext <> nil) and (not (lcNext.TokenType in [ttReturn, ttComment])) do
   begin
-    lcTokens.Add(lcNext);
+    fcTokens.Add(lcNext);
 
     { record which token starts the line's solid text - don't want to break before it }
     if (lcNext.TokenType <> ttWhiteSpace) and (liIndexOfFirstSolidToken = -1) then
-      liIndexOfFirstSolidToken := lcTokens.Count - 1;
+      liIndexOfFirstSolidToken := fcTokens.Count - 1;
 
-    liWidth := liWidth + Length(lcNext.SourceCode);
+    liTotalWidth := liTotalWidth + Length(lcNext.SourceCode);
 
     lcNext := lcNext.NextToken;
   end;
@@ -411,7 +441,7 @@ begin
     exit;
 
   { if the line does not run on, exit now }
-  if liWidth < Settings.Returns.MaxLineLength then
+  if liTotalWidth < Settings.Returns.MaxLineLength then
     exit;
 
   { right, the line is too long.
@@ -427,83 +457,85 @@ begin
     scoring }
 
   { Set up scores - first the basics just for position on the line }
-  lcScores.Clear;
-  liWidth := 0;
+  fcScores.Clear;
 
   (* better coded this way
-  for liLoop := 0 to lcTokens.Count - 1 do
+  for liLoop := 0 to fcTokens.Count - 1 do
   begin
-    lcNext := lcTokens.SourceTokens[liLoop];
+    lcNext := fcTokens.SourceTokens[liLoop];
     liWidth := liWidth + Length(lcNext.SourceCode);
 
     { thse scores are simply property of one token }
     liScoreAfter := PositionScore(liLoop, liIndexOfFirstSolidToken, liWidth) +
       TreeScore(lcNext) + BracketScore(lcNext);
-    lcScores.Add(liScoreAfter);
+    fcScores.Add(liScoreAfter);
   end;  *)
 
   // easier to debug *this* way
-  for liLoop := 0 to lcTokens.Count - 1 do
+  liTempWidth := liInitWidth;
+  for liLoop := 0 to fcTokens.Count - 1 do
   begin
-    lcNext := lcTokens.SourceTokens[liLoop];
-    liWidth := liWidth + Length(lcNext.SourceCode);
+    lcNext := fcTokens.SourceTokens[liLoop];
+    liTempWidth := liTempWidth + Length(lcNext.SourceCode);
 
     { thse scores are simply property of one token }
-    liScoreAfter := PositionScore(liLoop, liIndexOfFirstSolidToken, liWidth);
-    lcScores.Add(liScoreAfter);
+    liScoreAfter := PositionScore(liLoop, liIndexOfFirstSolidToken, liTempWidth);
+    fcScores.Add(liScoreAfter);
   end;
 
-  for liLoop := 0 to lcTokens.Count - 1 do
+  for liLoop := 0 to fcTokens.Count - 1 do
   begin
-    lcNext := lcTokens.SourceTokens[liLoop];
-    liScoreAfter := NearEndScore(liWidth - lcNext.XPosition);
+    lcNext := fcTokens.SourceTokens[liLoop];
+
+    // xpos is indexed from 1
+    liScoreAfter := NearEndScore(liTotalWidth - (lcNext.XPosition - 2));
     // subtract this one - bad to break near end
-    lcScores.Items[liLoop] := lcScores.Items[liLoop] - liScoreAfter;
+    fcScores.Items[liLoop] := fcScores.Items[liLoop] - liScoreAfter;
   end;
 
-  for liLoop := 0 to lcTokens.Count - 1 do
+  for liLoop := 0 to fcTokens.Count - 1 do
   begin
-    lcNext := lcTokens.SourceTokens[liLoop];
+    lcNext := fcTokens.SourceTokens[liLoop];
     liScoreAfter := BracketScore(lcNext);
-    lcScores.Items[liLoop] := lcScores.Items[liLoop] + liScoreAfter;
+    fcScores.Items[liLoop] := fcScores.Items[liLoop] + liScoreAfter;
   end;
 
 
   { modify the weights based on the particular source code.
     This is what will make it work -
    it is better to break line at some syntax than at other }
-  for liLoop := 0 to lcTokens.Count - 1 do
+  for liLoop := 0 to fcTokens.Count - 1 do
   begin
-    lcNext := lcTokens.SourceTokens[liLoop];
+    lcNext := fcTokens.SourceTokens[liLoop];
 
     ScoreToken(lcNext, liScoreBefore, liScoreAfter);
 
     if liLoop > 0 then
-      lcScores.Items[liLoop - 1] := lcScores.Items[liLoop - 1] + liScoreBefore;
-    lcScores.Items[liLoop] := lcScores.Items[liLoop] + liScoreAfter;
+      fcScores.Items[liLoop - 1] := fcScores.Items[liLoop - 1] + liScoreBefore;
+    fcScores.Items[liLoop] := fcScores.Items[liLoop] + liScoreAfter;
   end;
 
   { Where shall we break, if anywhere? }
-  liPlaceToBreak := lcScores.IndexOfMax;
+  liPlaceToBreak := fcScores.IndexOfMax;
 
   { ignore the error conditions
    - is the break place before the first non-space token? }
   if (liPlaceToBreak < liIndexOfFirstSolidToken) then
     exit;
   { - is it at the end of the line already, just before the existing return?}
-  if (liPlaceToBreak >= (lcTokens.Count - 1)) then
+  if (liPlaceToBreak >= (fcTokens.Count - 1)) then
     exit;
 
   { best breakpointis not good enough? }
   if Settings.Returns.RebreakLines = rbOnlyIfGood then
   begin
-    if lcScores.Items[liPlaceToBreak] < GOOD_BREAK_THRESHHOLD then
+    if fcScores.Items[liPlaceToBreak] < GOOD_BREAK_THRESHHOLD then
       exit;
   end
   else
   begin
     Assert(Settings.Returns.RebreakLines = rbUsually);
-    if lcScores.Items[liPlaceToBreak] < ANY_BREAK_THRESHHOLD then
+    if fcScores.Items[liPlaceToBreak] < ANY_BREAK_THRESHHOLD then
       exit;
   end;
 
@@ -512,13 +544,15 @@ begin
     e.g. the only thing on the line is a *really* long string constant and it's semicolon
     The program must break because the line is too long,
     so only place it can break lines is before the semicolon }
-  lcBreakToken := lcTokens.SourceTokens[liPlaceToBreak];
+  lcBreakToken := fcTokens.SourceTokens[liPlaceToBreak];
 
   { go break! }
-  lcBreakToken.Parent.InsertChild(lcBreakToken.IndexOfSelf + 1, NewReturn); 
+  lcNewToken := NewReturn;
+  lcBreakToken.Parent.InsertChild(lcBreakToken.IndexOfSelf + 1, lcNewToken);
+  fcTokens.Insert(liPlaceToBreak + 1, lcNewToken);
 
   { the tokens in the buffer past liPlaceToBreak now have the wrong Xpos }
-  FixPos(liPlaceToBreak, lcTokens.Count - 1);
+  FixPos;
 end;
 
 
