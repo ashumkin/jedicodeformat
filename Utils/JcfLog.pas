@@ -73,23 +73,6 @@ uses
   SysUtils,
   JcfRegistrySettings;
 
-{ module var for singleton }
-var
-  mcLog: TJCFLog;
-
-function Log: TJCFLog;
-begin
-  if mcLog = nil then
-  begin
-    mcLog := TJCFLog.Create(GetRegSettings.LogFileName);
-  end;
-
-  Result := mcLog;
-end;
-
-{ TJCFLog }
-
-
 procedure TJCFLog.CloseLog;
 begin
   if fOpen then
@@ -154,5 +137,22 @@ begin
 end;
 
 
+{ module var for singleton }
+var
+  mcLog: TJCFLog;
 
+function Log: TJCFLog;
+begin
+  if mcLog = nil then
+  begin
+    mcLog := TJCFLog.Create(GetRegSettings.LogFileName);
+  end;
+
+  Result := mcLog;
+end;
+
+initialization
+  mcLog := nil;
+finalization
+  FreeAndNil(mcLog);
 end.

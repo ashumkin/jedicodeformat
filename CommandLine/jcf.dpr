@@ -131,7 +131,10 @@ uses
   ReturnsAfterFinalEnd in '..\Process\Returns\ReturnsAfterFinalEnd.pas',
   PreProcessorParseTree in '..\Parse\PreProcessor\PreProcessorParseTree.pas',
   RemoveEmptyComment in '..\Process\RemoveEmptyComment.pas',
-  RemoveConsecutiveReturns in '..\Process\Returns\RemoveConsecutiveReturns.pas';
+  RemoveConsecutiveReturns in '..\Process\Returns\RemoveConsecutiveReturns.pas',
+  UsesClauseFindReplace in '..\Process\Transform\UsesClauseFindReplace.pas',
+  UsesClauseInsert in '..\Process\Transform\UsesClauseInsert.pas',
+  UsesClauseRemove in '..\Process\Transform\UsesClauseRemove.pas';
 
 const
   ABOUT_COMMANDLINE =

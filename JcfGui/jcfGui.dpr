@@ -155,7 +155,10 @@ uses
   frComments in '..\Ui\Settings\frComments.pas' {fComments},
   SetComments in '..\Settings\SetComments.pas',
   frBlankLines in '..\Ui\Settings\frBlankLines.pas' {fBlankLines},
-  RemoveConsecutiveReturns in '..\Process\Returns\RemoveConsecutiveReturns.pas';
+  RemoveConsecutiveReturns in '..\Process\Returns\RemoveConsecutiveReturns.pas',
+  UsesClauseInsert in '..\Process\Transform\UsesClauseInsert.pas',
+  UsesClauseRemove in '..\Process\Transform\UsesClauseRemove.pas',
+  UsesClauseFindReplace in '..\Process\Transform\UsesClauseFindReplace.pas';
 
 {$R *.res}
 
