@@ -146,6 +146,8 @@ uses
 
 begin
   Application.Initialize;
+  Application.Title := 'Jedi Delphi Code Format';
+  Application.HelpFile := 'C:\Code\JcfCheckout\CodeFormat\Jcf2\Output\CodeFormat.hlp';
   Application.CreateForm(TfrmMain, frmMain);
   Application.Run;
 end.

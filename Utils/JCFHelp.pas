@@ -1,7 +1,5 @@
 unit JCFHelp;
 
-{ code interface to Ralf Steinhaeusser's help file }
-
 {(*}
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code 
@@ -24,6 +22,9 @@ under the License.
 {*)}
 
 interface
+
+{ code interface to JCF help file }
+
 
 const
 

@@ -276,6 +276,10 @@ object fmJCFNotepad: TfmJCFNotepad
     end
     object mnuHelp: TMenuItem
       Caption = '&Help'
+      object Contents1: TMenuItem
+        Caption = '&Contents'
+        OnClick = Contents1Click
+      end
       object mnuHelpAbout: TMenuItem
         Caption = '&About'
         OnClick = mnuHelpAboutClick

@@ -143,6 +143,8 @@ uses
 
 begin
   Application.Initialize;
+  Application.HelpFile := 'C:\Code\JcfCheckout\CodeFormat\Jcf2\Output\CodeFormat.hlp';
+  Application.Title := 'Jedi Delphi Code Format Notepad';
   Application.CreateForm(TfmJCFNotepad, fmJCFNotepad);
   Application.Run;
 end.

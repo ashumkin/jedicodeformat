@@ -80,6 +80,7 @@ type
     mnuShowRegSetting: TMenuItem;
     mnuFormatSettings: TMenuItem;
     ActCut: TAction;
+    Contents1: TMenuItem;
     procedure FormResize(Sender: TObject);
     procedure pcPagesChange(Sender: TObject);
     procedure actGoExecute(Sender: TObject);
@@ -106,6 +107,7 @@ type
     procedure ActCutExecute(Sender: TObject);
     procedure mInputMouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure Contents1Click(Sender: TObject);
   private
     fcConvert: TStringsConverter;
 
@@ -123,9 +125,12 @@ var
 implementation
 
 uses
+  { delphi }
   ClipBrd,
+  { jcl }
   JclStrings,
-  Converter, ConvertTypes, fAbout, fRegistrySettings, fAllSettings;
+  { local }
+  JCFHelp, Converter, ConvertTypes, fAbout, fRegistrySettings, fAllSettings;
 
 {$R *.dfm}
 
@@ -417,6 +422,11 @@ procedure TfmJCFNotepad.mInputMouseUp(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
   CheckCutPasteState;
+end;
+
+procedure TfmJCFNotepad.Contents1Click(Sender: TObject);
+begin
+  Application.HelpContext(HELP_MAIN);
 end;
 
 end.
