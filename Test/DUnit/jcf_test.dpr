@@ -151,7 +151,9 @@ uses
   UsesClauseInsert in '..\..\Process\Transform\UsesClauseInsert.pas',
   PreProcessorParseTree in '..\..\Parse\PreProcessor\PreProcessorParseTree.pas',
   RemoveEmptyComment in '..\..\Process\RemoveEmptyComment.pas',
-  RemoveConsecutiveReturns in '..\..\Process\Returns\RemoveConsecutiveReturns.pas';
+  RemoveConsecutiveReturns in '..\..\Process\Returns\RemoveConsecutiveReturns.pas',
+  TestRemoveComment in 'TestRemoveComment.pas',
+  TestMaxBlankLines in 'TestMaxBlankLines.pas';
 
 {
   gpprof in '..\..\..\..\..\Program Files\GpProfile\gpprof.pas',
