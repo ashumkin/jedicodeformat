@@ -39,4 +39,33 @@ begin
   ls := #12'Fred'#32'Fred'#22;
 end;
 
+{ hat char literals.
+  Undocumented, but works.
+  Described as "Old-style" - perhaps a Turbo-pascal holdover
+ Pointed out by Dimentiy }
+
+const
+ str1 = ^M;
+
+  HAT_FOO = ^A;
+  HAT_BAR = ^b;
+  HAT_FISH = ^F;
+  HAT_WIBBLE = ^q;
+  HAT_SPON = ^Z;
+
+var
+  hat1: char = ^h;
+  hat2: char = ^j;
+  hat3: char = ^m;
+
+procedure HatBaby;
+var
+ str: string;
+ ch: char;
+begin
+  str := HAT_FOO + ^M;
+  ch := ^N;
+end;
+
+
 end.

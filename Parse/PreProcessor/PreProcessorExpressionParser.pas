@@ -105,7 +105,10 @@ end;
 
 function TPreProcessorExpressionParser.CurrentTokenType: TPreProcessorSymbol;
 begin
-  Result := fcTokens.Items[fiCurrentIndex].Symbol;
+  If fiCurrentIndex < fcTokens.Count Then
+    Result := fcTokens.Items[fiCurrentIndex].Symbol
+  else
+    Result := eNone;
 end;
 
 function TPreProcessorExpressionParser.MoreTokens: Boolean;

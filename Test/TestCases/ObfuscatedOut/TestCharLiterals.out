@@ -32,5 +32,27 @@ begin
   ls := #12'Fred'#32'Fred'#22;
 end;
 
+const
+  str1     = ^m;
+  hat_foo  = ^a;
+  hat_bar  = ^b;
+  hat_fish = ^f;
+  hat_wibble = ^q;
+  hat_spon = ^z;
+
+var
+  hat1: char = ^h;
+  hat2: char = ^j;
+  hat3: char = ^m;
+
+procedure hatbaby;
+var
+  str: string;
+  ch:  char;
+begin
+  str := hat_foo + ^m;
+  ch  := ^n;
+end;
+
 end.
  

@@ -29,194 +29,190 @@ unit Converter;
   real subclasses for reading from disk and IDE respectively
 }
 
-
 interface
 
 uses
-    { delphi }Classes, SysUtils,
-    { local }ConvertTypes, ParseTreeNode,
-CodeReader, CodeWriter, BuildTokenList,
-BuildParseTree, JCFLog;
-
+  { delphi } Classes, SysUtils,
+  { local } ConvertTypes, ParseTreeNode,
+  CodeReader, CodeWriter, BuildTokenList,
+  BuildParseTree, JCFLog;
 
 type
-TConverter = class(TObject)
-private
-fcTokeniser: TBuildTokenList;
-fcBuildParseTree: TBuildParseTree;
+  TConverter = class(TObject)
+  private
+    fcTokeniser: TBuildTokenList;
+    fcBuildParseTree: TBuildParseTree;
 
-fbYesAll, fbGuiMessages: boolean;
-fiTokenCount: integer;
+    fbYesAll, fbGuiMessages: boolean;
+    fiTokenCount: integer;
 
-fbConvertError: boolean;
-fOnStatusMessage: TStatusMessageProc;
+    fbConvertError: boolean;
+    fOnStatusMessage: TStatusMessageProc;
 
-protected
-fbAbort: boolean;
-fiConvertCount: integer;
+  protected
+    fbAbort: boolean;
+    fiConvertCount: integer;
 
     // these are base class refs. this class's child will know what to insantiate
-fcReader: TCodeReader;
-fcWriter: TCodeWriter;
+    fcReader: TCodeReader;
+    fcWriter: TCodeWriter;
 
     { call this to display a parse error or other falure }
-procedure DoShowException(const pe: Exception);
+    procedure DoShowException(const pe: Exception);
 
     { call this to report the current state of the proceedings }
-procedure SendStatusMessage(const psFile, psMessage: string;
-const piY, piX: integer); virtual;
+    procedure SendStatusMessage(const psFile, psMessage: string;
+      const piY, piX: integer); virtual;
     { last thing }
-procedure FinalSummary;
+    procedure FinalSummary;
 
-procedure DoConvertUnit;
-function GetRoot: TParseTreeNode;
+    procedure DoConvertUnit;
+    function GetRoot: TParseTreeNode;
 
-function OriginalFileName: string; virtual;
+    function OriginalFileName: string; virtual;
 
     { abstract factories called in the constructor. override these }
-function CreateReader: TCodeReader; virtual;
-function CreateWriter: TCodeWriter; virtual;
+    function CreateReader: TCodeReader; virtual;
+    function CreateWriter: TCodeWriter; virtual;
 
     { this does the reformatting. Virtual method so can be overriden for testing }
-procedure ApplyProcesses; virtual;
+    procedure ApplyProcesses; virtual;
 
-public
-constructor Create;
-destructor Destroy; override;
+  public
+    constructor Create;
+    destructor Destroy; override;
 
-procedure Convert; virtual;
-procedure Clear; virtual;
+    procedure Convert; virtual;
+    procedure Clear; virtual;
 
-procedure BeforeConvert;
+    procedure BeforeConvert;
 
-property OnStatusMessage: TStatusMessageProc
-read fOnStatusMessage Write fOnStatusMessage;
+    property OnStatusMessage: TStatusMessageProc Read fOnStatusMessage
+      Write fOnStatusMessage;
 
-property YesAll: boolean Read fbYesAll Write fbYesAll;
-property GuiMessages: boolean Read fbGuiMessages Write fbGuiMessages;
+    property YesAll: boolean Read fbYesAll Write fbYesAll;
+    property GuiMessages: boolean Read fbGuiMessages Write fbGuiMessages;
 
-property TokenCount: integer Read fiTokenCount;
-property ConvertError: boolean Read fbConvertError;
+    property TokenCount: integer Read fiTokenCount;
+    property ConvertError: boolean Read fbConvertError;
 
-property Root: TParseTreeNode Read GetRoot;
-end;
+    property Root: TParseTreeNode Read GetRoot;
+  end;
 
 implementation
 
 uses
   { delphi }Windows, Dialogs, Controls, Forms,
   { local }SourceTokenList, fShowParseTree, JcfSettings, JcfRegistrySettings,
-AllProcesses, ParseError, fJcfErrorDisplay, PreProcessorParseTree;
+  AllProcesses, ParseError, fJcfErrorDisplay, PreProcessorParseTree;
 
 
 constructor TConverter.Create;
 begin
-inherited;
+  inherited;
 
   { state }
-fbGuiMessages := true;
-fbYesAll      := false;
+  fbGuiMessages := true;
+  fbYesAll      := False;
 
   { create owned objects }
-fcReader := CreateReader;
-Assert(fcReader <> nil);
+  fcReader := CreateReader;
+  Assert(fcReader <> nil);
 
-fcWriter := CreateWriter;
-Assert(fcWriter <> nil);
+  fcWriter := CreateWriter;
+  Assert(fcWriter <> nil);
 
-fcTokeniser := TBuildTokenList.Create;
+  fcTokeniser := TBuildTokenList.Create;
 
-fcBuildParseTree := TBuildParseTree.Create;
+  fcBuildParseTree := TBuildParseTree.Create;
 
   { wire them together }
-fcTokeniser.Reader := fcReader;
+  fcTokeniser.Reader := fcReader;
 end;
 
 destructor TConverter.Destroy;
 begin
-FreeAndNil(fcReader);
-FreeAndNil(fcWriter);
-FreeAndNil(fcTokeniser);
-FreeAndNil(fcBuildParseTree);
+  FreeAndNil(fcReader);
+  FreeAndNil(fcWriter);
+  FreeAndNil(fcTokeniser);
+  FreeAndNil(fcBuildParseTree);
 
-inherited;
+  inherited;
 end;
-
 
 procedure TConverter.Convert;
 begin
-Assert(false, ClassName + ' Must override TConverter.Convert');
+  Assert(False, ClassName + ' Must override TConverter.Convert');
 end;
-
 
 function TConverter.OriginalFileName: string;
 begin
-Assert(false, ClassName + ' Must override TConverter.OriginalFileName');
+  Assert(False, ClassName + ' Must override TConverter.OriginalFileName');
 end;
 
 
 function TConverter.CreateReader: TCodeReader;
 begin
-Assert(false, ClassName + ' Must override TConverter.CreateReader');
-Result := nil;
+  Assert(False, ClassName + ' Must override TConverter.CreateReader');
+  Result := nil;
 end;
 
 function TConverter.CreateWriter: TCodeWriter;
 begin
-Assert(false, ClassName + ' Must override TConverter.CreateWriter');
-Result := nil;
+  Assert(False, ClassName + ' Must override TConverter.CreateWriter');
+  Result := nil;
 end;
 
 procedure TConverter.SendStatusMessage(const psFile, psMessage: string;
-const piY, piX: integer);
+  const piY, piX: integer);
 var
-lsFile: string;
+  lsFile: string;
 begin
-if Assigned(fOnStatusMessage) then
-begin
-lsFile := psFile;
-if lsFile = '' then
+  if Assigned(fOnStatusMessage) then
+  begin
+    lsFile := psFile;
+    if lsFile = '' then
       // process doesn't know the file name? we do
-lsFile := OriginalFileName;
+      lsFile := OriginalFileName;
 
-fOnStatusMessage(lsFile, psMessage, piY, piX);
-end;
+    fOnStatusMessage(lsFile, psMessage, piY, piX);
+  end;
 end;
 
 { for failures, use console output, not showmessage in gui mode }
 procedure TConverter.DoShowException(const pe: Exception);
 var
-lcParseError: TEParseError;
-lsText: string;
+  lcParseError: TEParseError;
+  lsText: string;
 begin
-if fbGuiMessages then
-begin
-if (pE is TEParseError) then
-begin
-lcParseError := TEParseError(pE);
-lcParseError.FileName := OriginalFileName;
-end;
+  if fbGuiMessages then
+  begin
+    if (pE is TEParseError) then
+    begin
+      lcParseError := TEParseError(pE);
+      lcParseError.FileName := OriginalFileName;
+    end;
 
-ShowExceptionDialog(pe);
-end
-else
-begin
-if (pE is TEParseError) then
-begin
-lcParseError := TEParseError(pE);
+    ShowExceptionDialog(pe);
+  end
+  else
+  begin
+    if (pE is TEParseError) then
+    begin
+      lcParseError := TEParseError(pE);
 
-lsText := lcParseError.Message + ' near "' + lcParseError.TokenMessage + '"';
-if OriginalFileName <> '' then
-lsText := lsText + ' in ' + OriginalFileName;
+      lsText := lcParseError.Message + ' near "' + lcParseError.TokenMessage + '"';
+      if OriginalFileName <> '' then
+        lsText := lsText + ' in ' + OriginalFileName;
 
-SendStatusMessage(OriginalFileName, lsText, lcParseError.YPosition,
-lcParseError.XPosition);
-end
-else
-begin
-SendStatusMessage(OriginalFileName, pe.Message, -1, -1);
-end;
-end;
+      SendStatusMessage(OriginalFileName, lsText, lcParseError.YPosition,
+        lcParseError.XPosition);
+    end
+    else
+    begin
+      SendStatusMessage(OriginalFileName, pe.Message, -1, -1);
+    end;
+  end;
 end;
 
 
@@ -234,167 +230,163 @@ end;
 
 function DescribeFileCount(const piCount: integer): string;
 begin
-if piCount = 1 then
-Result := '1 file'
-else
-Result := IntToStr(piCount) + ' files';
+  if piCount = 1 then
+    Result := '1 file'
+  else
+    Result := IntToStr(piCount) + ' files';
 end;
 
 procedure TConverter.FinalSummary;
 var
-lsMessage: string;
+  lsMessage: string;
 begin
-if fiConvertCount = 0 then
-begin
-if ConvertError then
-lsMessage := 'Aborted due to error'
-else
-lsMessage := 'Nothing done';
-end
-else
-if fbAbort then
-lsMessage := 'Aborted after ' + DescribeFileCount(fiConvertCount)
-else
-if fiConvertCount > 1 then
-lsMessage := 'Finished processing ' + DescribeFileCount(fiConvertCount);
+  if fiConvertCount = 0 then
+  begin
+    if ConvertError then
+      lsMessage := 'Aborted due to error'
+    else
+      lsMessage := 'Nothing done';
+  end
+  else if fbAbort then
+    lsMessage := 'Aborted after ' + DescribeFileCount(fiConvertCount)
+  else if fiConvertCount > 1 then
+    lsMessage := 'Finished processing ' + DescribeFileCount(fiConvertCount);
 
-SendStatusMessage('', lsMessage, -1, -1);
+  SendStatusMessage('', lsMessage, -1, -1);
 
-Log.EmptyLine;
-Log.Write(lsMessage);
+  Log.EmptyLine;
+  Log.Write(lsMessage);
 end;
 
 procedure TConverter.Clear;
 begin
-fbYesAll := false;
+  fbYesAll := False;
 
-fcReader.Clear;
-fcWriter.Clear;
+  fcReader.Clear;
+  fcWriter.Clear;
 
-fiConvertCount := 0;
+  fiConvertCount := 0;
 end;
 
 procedure TConverter.DoConvertUnit;
 var
-lcTokenList: TSourceTokenList;
-leOldCursor: TCursor;
+  lcTokenList: TSourceTokenList;
+  leOldCursor: TCursor;
 begin
-fbConvertError := false;
+  fbConvertError := False;
 
-fcWriter.Clear;
+  fcWriter.Clear;
 
-leOldCursor := Screen.Cursor;
-try { finally normal cursor }
+  leOldCursor := Screen.Cursor;
+  try { finally normal cursor }
 
     // this can take a long time for large files
-Screen.Cursor := crHourGlass;
+    Screen.Cursor := crHourGlass;
 
     // turn text into tokens
-lcTokenList := fcTokeniser.BuildTokenList;
-try   { finally free the list  }
-try { show exceptions }
-fiTokenCount := lcTokenList.Count;
+    lcTokenList := fcTokeniser.BuildTokenList;
+    try   { finally free the list  }
+      try { show exceptions }
+        fiTokenCount := lcTokenList.Count;
 
-lcTokenList.SetXYPositions;
+        lcTokenList.SetXYPositions;
 
         // remove conditional compilation stuph
-if FormatSettings.PreProcessor.Enabled then
-RemoveConditionalCompilation(lcTokenList);
+        if FormatSettings.PreProcessor.Enabled then
+          RemoveConditionalCompilation(lcTokenList);
 
           // make a parse tree from it
-fcBuildParseTree.TokenList := lcTokenList;
-fcBuildParseTree.BuildParseTree;
+        fcBuildParseTree.TokenList := lcTokenList;
+        fcBuildParseTree.BuildParseTree;
 
-except
-on E: Exception do
-begin
-fbConvertError := true;
-DoShowException(E);
-end;
-end;
+      except
+        on E: Exception do
+        begin
+          fbConvertError := True;
+          DoShowException(E);
+        end;
+      end;
 
-if fbConvertError then
-begin
+      if fbConvertError then
+      begin
         { if there was a parse error, the rest of the unit was not parsed
          there may still be tokens in the list
          Free them or face a small but annoying memory leak. }
-lcTokenList.ClearAndFree;
-end;
+        lcTokenList.Clear;
+      end;
 
       // should not be any tokens left
-Assert(lcTokenList.Count = 0, 'Surplus tokens');
+      Assert(lcTokenList.Count = 0, 'Surplus tokens');
 
-finally
-lcTokenList.Free;
-end;
+    finally
+      lcTokenList.Free;
+    end;
 
-try { show exception }
+    try { show exception }
         // show the parse tree?
-if (GetRegSettings.ShowParseTreeOption = eShowAlways) or
-((GetRegSettings.ShowParseTreeOption = eShowOnError) and fbConvertError) then
-begin
-if fcBuildParseTree.Root <> nil then
-ShowParseTree(fcBuildParseTree.Root);
-end;
+      if (GetRegSettings.ShowParseTreeOption = eShowAlways) or
+        ((GetRegSettings.ShowParseTreeOption = eShowOnError) and fbConvertError) then
+      begin
+        if fcBuildParseTree.Root <> nil then
+          ShowParseTree(fcBuildParseTree.Root);
+      end;
 
-if not fbConvertError then
-begin
+      if not fbConvertError then
+      begin
         // do the processes
-ApplyProcesses;
+        ApplyProcesses;
 
-fcWriter.Root := fcBuildParseTree.Root;
-fcWriter.WriteAll;
-fcWriter.Close;
+        fcWriter.Root := fcBuildParseTree.Root;
+        fcWriter.WriteAll;
+        fcWriter.Close;
+      end;
+
+      fcBuildParseTree.Clear;
+
+    except
+      on E: Exception do
+      begin
+        DoShowException(E);
+        fbConvertError := True;
+      end;
+    end;
+
+  finally
+    Screen.Cursor := leOldCursor;
+  end;
+
 end;
-
-fcBuildParseTree.Clear;
-
-except
-on E: Exception do
-begin
-DoShowException(E);
-fbConvertError := true;
-end;
-end;
-
-finally
-Screen.Cursor := leOldCursor;
-end;
-
-end;
-
 
 
 procedure TConverter.ApplyProcesses;
 var
-lcProcess: TAllProcesses;
+  lcProcess: TAllProcesses;
 begin
-lcProcess := TAllProcesses.Create;
-try
-lcProcess.OnMessage := SendStatusMessage;
+  lcProcess := TAllProcesses.Create;
+  try
+    lcProcess.OnMessage := SendStatusMessage;
 
-try
-lcProcess.Execute(fcBuildParseTree.Root);
-except
-ShowParseTree(fcBuildParseTree.Root);
-raise;
-end;
-finally
-lcProcess.Free;
-end;
+    try
+      lcProcess.Execute(fcBuildParseTree.Root);
+    except
+      ShowParseTree(fcBuildParseTree.Root);
+      raise;
+    end;
+  finally
+    lcProcess.Free;
+  end;
 
 end;
 
 function TConverter.GetRoot: TParseTreeNode;
 begin
-Result := fcBuildParseTree.Root;
+  Result := fcBuildParseTree.Root;
 end;
 
 procedure TConverter.BeforeConvert;
 begin
-fiConvertCount := 0;
+  fiConvertCount := 0;
 end;
 
 
 end.
-

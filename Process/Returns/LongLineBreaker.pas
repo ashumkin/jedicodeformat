@@ -501,10 +501,10 @@ begin
   liPos := 1; // XPos is indexed from 1
   lbStarted := False;
 
-  // look through the token list and reste X pos of all tokens after the inserted returns
+  // look through the token list and reset X pos of all tokens after the inserted returns
   for liLoop := 0 to fcTokens.Count -1 do
   begin
-    lt := fcTokens.SourceTokens[liLoop];
+    lt := fcTokens.Items[liLoop];
 
     if lbStarted then
       lt.XPosition := liPos;

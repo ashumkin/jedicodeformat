@@ -560,7 +560,7 @@ begin
       while (lcCurrentToken <> nil) and lcCurrentToken.PreprocessedOut do
       begin
         lsOutText := lsOutText + lcCurrentToken.SourceCode;
-        fcTokens.Remove(liLoop);
+        fcTokens.Delete(liLoop);
         lcCurrentToken := fcTokens.SourceTokens[liLoop];
       end;
 

@@ -128,7 +128,10 @@ end;
 
 function TPreProcessorExpressionTokenList.GetItems(const piIndex: integer): TPreProcessorExpressionToken;
 begin
-  Result := TPreProcessorExpressionToken(fcList[piIndex]);
+  If piIndex < fcList.Count Then
+    Result := TPreProcessorExpressionToken(fcList[piIndex])
+  else
+    Result := Nil;
 end;
 
 
