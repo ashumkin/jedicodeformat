@@ -38,10 +38,7 @@ type
     mnuFileOpen: TMenuItem;
     mnuFileSaveOut: TMenuItem;
     mnuExit: TMenuItem;
-    mnuOptions: TMenuItem;
-    mnuAlwaysShowParseTree: TMenuItem;
-    mnuShowParseTreeonError: TMenuItem;
-    mnuNeverShowParseTree: TMenuItem;
+    mnuSettings: TMenuItem;
     actCopy: TAction;
     actPaste: TAction;
     N1: TMenuItem;
@@ -57,6 +54,9 @@ type
     mnuEditCopyMessages: TMenuItem;
     mnuFormat: TMenuItem;
     mnuFileSaveIn: TMenuItem;
+    mnuHelp: TMenuItem;
+    mnuHelpAbout: TMenuItem;
+    mnuShowAllSetting: TMenuItem;
     procedure FormResize(Sender: TObject);
     procedure pcPagesChange(Sender: TObject);
     procedure actGoExecute(Sender: TObject);
@@ -69,9 +69,6 @@ type
     procedure mnuExitClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-    procedure mnuAlwaysShowParseTreeClick(Sender: TObject);
-    procedure mnuNeverShowParseTreeClick(Sender: TObject);
-    procedure mnuShowParseTreeonErrorClick(Sender: TObject);
     procedure actCopyExecute(Sender: TObject);
     procedure actPasteExecute(Sender: TObject);
     procedure mruFilesClick(Sender: TObject; const RecentName,
@@ -81,6 +78,8 @@ type
     procedure mnuEditSelectAllClick(Sender: TObject);
     procedure mnuEditCopyMessagesClick(Sender: TObject);
     procedure mnuFileSaveInClick(Sender: TObject);
+    procedure mnuHelpAboutClick(Sender: TObject);
+    procedure mnuShowAllSettingClick(Sender: TObject);
   private
     fcConvert: TStringsConverter;
     fcSettings: TScratchpadSettings;
@@ -90,6 +89,7 @@ type
     procedure AddCheckMRU(const psFile: string);
 
   public
+    property ScratchpadSettings: TScratchpadSettings read fcSettings;
   end;
 
 var
@@ -100,7 +100,7 @@ implementation
 uses
   ClipBrd,
   JclStrings,
-  Converter, ConvertTypes;
+  Converter, ConvertTypes, fAbout, fAllNotepadSettings;
 
 {$R *.dfm}
 
@@ -203,10 +203,6 @@ end;
 
 procedure TfrmScratchpad.FormShow(Sender: TObject);
 begin
-  mnuAlwaysShowParseTree.Checked := (fcConvert.ShowParseTreeOption = eShowAlways);
-  mnuShowParseTreeonError.Checked := (fcConvert.ShowParseTreeOption = eShowOnError);
-  mnuNeverShowParseTree.Checked := (fcConvert.ShowParseTreeOption = eShowNever);
-
   CheckInputState;
   pcPagesChange(nil);
 end;
@@ -271,21 +267,6 @@ begin
 
   FreeAndNil(fcConvert);
   FreeAndNil(fcSettings);
-end;
-
-procedure TfrmScratchpad.mnuAlwaysShowParseTreeClick(Sender: TObject);
-begin
-  fcConvert.ShowParseTreeOption := eShowAlways;
-end;
-
-procedure TfrmScratchpad.mnuNeverShowParseTreeClick(Sender: TObject);
-begin
-  fcConvert.ShowParseTreeOption := eShowNever;
-end;
-
-procedure TfrmScratchpad.mnuShowParseTreeonErrorClick(Sender: TObject);
-begin
-  fcConvert.ShowParseTreeOption := eShowOnError;
 end;
 
 procedure TfrmScratchpad.actCopyExecute(Sender: TObject);
@@ -358,6 +339,42 @@ begin
     StringToFile(SaveDialog1.FileName, mInput.Text);
     sb1.SimpleText := 'Saved input' + SaveDialog1.FileName;
   end;
+end;
+
+procedure TfrmScratchpad.mnuHelpAboutClick(Sender: TObject);
+var
+  lfAbout: TfrmAboutBox;
+begin
+  lfAbout := TfrmAboutBox.Create(self);
+  try
+    lfAbout.ShowModal;
+  finally
+    lfAbout.Release;
+  end;
+end;
+
+procedure TfrmScratchpad.mnuShowAllSettingClick(Sender: TObject);
+var
+  lfAllSettings: TfrmNotepadAllSettings;
+  lcSet: TScratchpadSettings;
+begin
+  lcSet := ScratchpadSettings;
+
+  { can clear MRU? }
+  lcSet.CanClearMRU := (mruFiles.Strings.Count > 0);
+
+  lfAllSettings := TfrmNotepadAllSettings.Create(self);
+  try
+    lfAllSettings.Execute;
+  finally
+    lfAllSettings.Release;
+  end;
+
+  { was clear MRU requested }
+  if lcSet.ClearMRU then
+    mruFiles.Strings.Clear;
+
+  mruFiles.Capacity := lcSet.MRUMaxItems;
 end;
 
 end.

@@ -95,7 +95,31 @@ uses
   AlignAssign in '..\Process\Align\AlignAssign.pas',
   AlignVars in '..\Process\Align\AlignVars.pas',
   AlignTypedef in '..\Process\Align\AlignTypedef.pas',
-  AlignComment in '..\Process\Align\AlignComment.pas';
+  AlignComment in '..\Process\Align\AlignComment.pas',
+  JCFDropTarget in '..\Utils\DragDrop\JCFDropTarget.pas',
+  frDrop in '..\Utils\DragDrop\frDrop.pas' {FrameDrop: TFrame},
+  SettingsFrame in '..\Ui\Settings\SettingsFrame.pas' {frSettingsFrame: TFrame},
+  frAbout in '..\Ui\Settings\frAbout.pas' {FrameAbout: TFrame},
+  JCFHelp in '..\Utils\JCFHelp.pas',
+  fAbout in '..\Ui\fAbout.pas' {frmAboutBox},
+  frScratchpadSettings in 'frScratchpadSettings.pas' {FrameScratchpadSettings: TFrame},
+  fAllSettings in '..\Ui\fAllSettings.pas' {FormAllSettings},
+  frAnyCapsSettings in '..\Ui\Settings\frAnyCapsSettings.pas' {frAnyCapsSettings: TFrame},
+  frBasicSettings in '..\Ui\Settings\frBasicSettings.pas' {frBasic: TFrame},
+  frClarify in '..\Ui\Settings\frClarify.pas' {fClarify: TFrame},
+  frClarifyAlign in '..\Ui\Settings\frClarifyAlign.pas' {fClarifyAlign: TFrame},
+  frClarifyBlocks in '..\Ui\Settings\frClarifyBlocks.pas' {fClarifyBlocks: TFrame},
+  frClarifyIndent in '..\Ui\Settings\frClarifyIndent.pas' {fClarifyIndent: TFrame},
+  frClarifyLongLineBreaker in '..\Ui\Settings\frClarifyLongLineBreaker.pas' {fClarifyLongLineBreaker: TFrame},
+  frClarifySpaces in '..\Ui\Settings\frClarifySpaces.pas' {fClarifySpaces: TFrame},
+  frExcludeFiles in '..\Ui\Settings\frExcludeFiles.pas' {fExcludeFiles: TFrame},
+  frFiles in '..\Ui\Settings\frFiles.pas' {fFiles: TFrame},
+  frObfuscateSettings in '..\Ui\Settings\frObfuscateSettings.pas' {fObfuscateSettings: TFrame},
+  frReplace in '..\Ui\Settings\frReplace.pas' {fReplace: TFrame},
+  frReservedCapsSettings in '..\Ui\Settings\frReservedCapsSettings.pas' {frReservedCapsSettings: TFrame},
+  frUses in '..\Ui\Settings\frUses.pas' {fUses: TFrame},
+  frClarifyReturns in '..\Ui\Settings\frClarifyReturns.pas' {fClarifyReturns: TFrame},
+  fAllNotepadSettings in 'fAllNotepadSettings.pas' {frmNotepadAllSettings};
 
 {$R *.res}
 

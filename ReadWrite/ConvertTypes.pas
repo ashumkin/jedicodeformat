@@ -35,7 +35,7 @@ type
 
 
 type
-  TShowParseTreeOption = (eShowAlways, eShowNever, eShowOnError);
+  TShowParseTreeOption = (eShowAlways, eShowOnError, eShowNever);
 
 const
   REG_ROOT_KEY = '\Software\Jedi\JediCodeFormat';

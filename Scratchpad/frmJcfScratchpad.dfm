@@ -257,29 +257,19 @@ object frmScratchpad: TfrmScratchpad
         ShortCut = 16474
       end
     end
-    object mnuOptions: TMenuItem
-      Caption = '&Options'
-      object mnuAlwaysShowParseTree: TMenuItem
-        AutoCheck = True
-        Caption = '&Always show parse tree'
+    object mnuSettings: TMenuItem
+      Caption = '&Settings'
+      object mnuShowAllSetting: TMenuItem
+        Caption = '&Settings'
         GroupIndex = 1
-        RadioItem = True
-        OnClick = mnuAlwaysShowParseTreeClick
+        OnClick = mnuShowAllSettingClick
       end
-      object mnuShowParseTreeonError: TMenuItem
-        AutoCheck = True
-        Caption = 'Show parse tree on &error'
-        Checked = True
-        GroupIndex = 1
-        RadioItem = True
-        OnClick = mnuShowParseTreeonErrorClick
-      end
-      object mnuNeverShowParseTree: TMenuItem
-        AutoCheck = True
-        Caption = '&Never show parse tree'
-        GroupIndex = 1
-        RadioItem = True
-        OnClick = mnuNeverShowParseTreeClick
+    end
+    object mnuHelp: TMenuItem
+      Caption = 'Help'
+      object mnuHelpAbout: TMenuItem
+        Caption = 'About'
+        OnClick = mnuHelpAboutClick
       end
     end
   end
