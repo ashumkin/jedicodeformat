@@ -40,6 +40,7 @@ uses
 type
   TLogLevel = (eLogErrorsOnly, eLogFiles, eLogTokens);
   TLogPlace = (eLogTempDir, eLogAppDIr, eLogSpecifiedDir);
+  TFormatFileWriteOption = (eAlwaysWrite, eQuietFail, eNeverWrite);
 
 
   TJCFRegistrySettings = class(TObject)
@@ -53,8 +54,7 @@ type
     { ui settings }
     fsFormatConfigFileName: string;
     fsLastSettingsPage: string;
-    fbWriteSettingsFile: boolean;
-    fbWarnOnWriteFail: Boolean;
+    feFormatFileWriteOption: TFormatFileWriteOption;
 
     {notepad settings }
     fsInputDir: string;
@@ -104,13 +104,10 @@ type
 
     { general settings }
     property FormatConfigFileName: string read fsFormatConfigFileName write fsFormatConfigFileName;
-    property WriteSettingsFile: boolean read fbWriteSettingsFile write fbWriteSettingsFile;
-    property WarnOnWriteFail: Boolean read fbWarnOnWriteFail write fbWarnOnWriteFail;
-
+    property FormatFileWriteOption: TFormatFileWriteOption read feFormatFileWriteOption write feFormatFileWriteOption;
 
     { ui settings }
-    property ShowParseTreeOption: TShowParseTreeOption
-      read fShowParseTreeOption write fShowParseTreeOption;
+    property ShowParseTreeOption: TShowParseTreeOption read fShowParseTreeOption write fShowParseTreeOption;
     property LastSettingsPage: string read fsLastSettingsPage write fsLastSettingsPage;
 
     { notepad settings }
@@ -127,8 +124,7 @@ type
 
     property LogLevel: TLogLevel read feLogLevel write feLogLevel;
     property LogPlace: TLogPlace read feLogPlace write feLogPlace;
-    property SpecifiedDirectory: string read fsSpecifiedDirectory
-      write fsSpecifiedDirectory;
+    property SpecifiedDirectory: string read fsSpecifiedDirectory write fsSpecifiedDirectory;
 
     property ViewLogAfterRun: boolean read fbViewLogAfterRun write fbViewLogAfterRun;
     property LogTime: boolean read fbLogTime write fbLogTime;
@@ -312,8 +308,8 @@ begin
   if fsFormatConfigFileName = '' then
     fsFormatConfigFileName := GetDefaultSettingsFileName;
 
-  fbWriteSettingsFile := fcReg.ReadBool(REG_GENERAL_SECTION, 'WriteSettingsFile', True);
-  fbWarnOnWriteFail := fcReg.ReadBool(REG_GENERAL_SECTION, 'WarnOnWriteFail', True);
+  feFormatFileWriteOption := TFormatFileWriteOption(fcReg.ReadInteger(REG_GENERAL_SECTION,
+    'FormatFileWriteOption', Ord(eAlwaysWrite)));
 
   {notepad settings }
   InputDir  := fcReg.ReadString(REG_NOTEPAD_SECTION, 'InputDir', '');
@@ -357,8 +353,7 @@ procedure TJCFRegistrySettings.WriteAll;
 begin
   { general section }
   fcReg.WriteString(REG_GENERAL_SECTION, 'FormatConfigFileName', fsFormatConfigFileName);
-  fcReg.WriteBool(REG_GENERAL_SECTION, 'WriteSettingsFile', fbWriteSettingsFile);
-  fcReg.WriteBool(REG_GENERAL_SECTION, 'WarnOnWriteFail', fbWarnOnWriteFail);
+  fcReg.WriteInteger(REG_GENERAL_SECTION, 'FormatFileWriteOption', Ord(feFormatFileWriteOption));
 
   { notepad section }
   fcReg.WriteString(REG_NOTEPAD_SECTION, 'InputDir', InputDir);

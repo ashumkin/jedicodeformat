@@ -233,7 +233,7 @@ begin
 
   { user may have specified no-write }
   lcReg := GetRegSettings;
-  if not lcReg.WriteSettingsFile then
+  if lcReg.FormatFileWriteOption = eNeverWrite then
     exit;
 
   if lcReg.FormatConfigFileName = '' then
@@ -242,7 +242,7 @@ begin
   if FileIsReadOnly(lcReg.FormatConfigFileName) then
   begin
     { fail quietly? }
-    if lcReg.WarnOnWriteFail then
+    if lcReg.FormatFileWriteOption = eAlwaysWrite then
         MessageDlg('Error writing settings file: ' +
           lcReg.FormatConfigFileName + ' is read only', mtError, [mbOK], 0);
 
@@ -254,7 +254,7 @@ begin
   except
     on e: Exception do
     begin
-      if lcReg.WarnOnWriteFail then
+      if lcReg.FormatFileWriteOption = eAlwaysWrite then
       begin
         MessageDlg('Error writing settings file ' +
           GetRegSettings.FormatConfigFileName + AnsiLineBreak + ' :' +

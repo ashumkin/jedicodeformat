@@ -38,14 +38,14 @@ object fmRegistrySettings: TfmRegistrySettings
       end
       object Label1: TLabel
         Left = 8
-        Top = 12
+        Top = 10
         Width = 92
         Height = 13
         Caption = 'Convert settings file'
       end
       object Label2: TLabel
         Left = 8
-        Top = 94
+        Top = 206
         Width = 74
         Height = 13
         Caption = 'MRU max items'
@@ -59,8 +59,8 @@ object fmRegistrySettings: TfmRegistrySettings
         OnKeyUp = eSettingsFileKeyUp
       end
       object eMRUMaxItems: TJvValidateEdit
-        Left = 110
-        Top = 90
+        Left = 106
+        Top = 202
         Width = 40
         Height = 21
         CheckChars = '01234567890'
@@ -71,46 +71,42 @@ object fmRegistrySettings: TfmRegistrySettings
         MaxLength = 2
         MaxValue = 12.000000000000000000
         PasswordChar = #0
-        TabOrder = 2
+        TabOrder = 1
         Text = '0'
         Value = 0
       end
       object btnClearMRU: TButton
-        Left = 156
-        Top = 88
+        Left = 152
+        Top = 200
         Width = 75
         Height = 25
         Caption = 'Clear MRU'
-        TabOrder = 3
+        TabOrder = 2
         OnClick = btnClearMRUClick
       end
       object rgShowParseTree: TRadioGroup
         Left = 8
-        Top = 132
+        Top = 112
         Width = 185
-        Height = 89
-        Caption = 'Show parse tree during parse'
+        Height = 76
+        Caption = 'Show parse &tree during parse'
         Items.Strings = (
-          'Always'
-          'On parse error'
-          'Never')
+          '&Always'
+          '&On parse error'
+          '&Never')
+        TabOrder = 3
+      end
+      object rgWriteSettingsFile: TRadioGroup
+        Left = 8
+        Top = 32
+        Width = 185
+        Height = 76
+        Caption = '&Write settings file'
+        Items.Strings = (
+          '&Always'
+          '&Fail quietly'
+          '&Never')
         TabOrder = 4
-      end
-      object cbWriteSettingsFile: TCheckBox
-        Left = 112
-        Top = 36
-        Width = 161
-        Height = 17
-        Caption = '&Write changes to settings file'
-        TabOrder = 1
-      end
-      object cbWarnOnWriteFail: TCheckBox
-        Left = 112
-        Top = 60
-        Width = 161
-        Height = 17
-        Caption = 'Warn on write fail'
-        TabOrder = 5
       end
     end
     object tsLogFile: TTabSheet
@@ -280,7 +276,7 @@ object fmRegistrySettings: TfmRegistrySettings
   end
   object dlgOpen: TOpenDialog
     DefaultExt = '*.cfg'
-    Left = 380
-    Top = 36
+    Left = 428
+    Top = 60
   end
 end
