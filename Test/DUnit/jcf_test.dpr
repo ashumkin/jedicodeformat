@@ -54,7 +54,15 @@ uses
   SetUi in '..\..\Settings\SetUi.pas',
   SettingsStream in '..\..\Settings\Streams\SettingsStream.pas',
   RegistrySettings in '..\..\Settings\Streams\RegistrySettings.pas',
-  VersionConsts in '..\..\VersionConsts.pas';
+  VersionConsts in '..\..\VersionConsts.pas',
+  Capitalisation in '..\..\Process\Capitalisation\Capitalisation.pas',
+  SpecificWordCaps in '..\..\Process\Capitalisation\SpecificWordCaps.pas',
+  WarnCaseNoElse in '..\..\Process\Warnings\WarnCaseNoElse.pas',
+  Warning in '..\..\Process\Warnings\Warning.pas',
+  WarnDestroy in '..\..\Process\Warnings\WarnDestroy.pas',
+  WarnEmptyBlock in '..\..\Process\Warnings\WarnEmptyBlock.pas',
+  WarnRealType in '..\..\Process\Warnings\WarnRealType.pas',
+  WarnAssignToFunctionName in '..\..\Process\Warnings\WarnAssignToFunctionName.pas';
 
 {$R *.res}
 

@@ -139,5 +139,30 @@ begin
 end;
 
 
+{ assing to function name,
+  interesting in that you can't do this with 'Result'
+  but pathological case }
+Function Level1: integer;
+
+  Function Level2: integer;
+
+    Function Level3: integer;
+    begin
+      Level1 := 5;
+      Level2 := 6;
+      Level3 := 7;
+    end;
+
+  begin
+    Level1 := 3;
+    Level2 := Level3;
+  end;
+
+begin
+  Level1 := 0;
+  Level1 := Level2 + Level1;
+end;
+
+
 
 end.

@@ -90,8 +90,8 @@ MaxStackSize=1048576
 ImageBase=4194304
 ExeDescription=
 [Directories]
-OutputDir=C:\Code\Delphi\Jcf2\bin
-UnitOutputDir=C:\Code\Delphi\Jcf2\bin
+OutputDir=C:\Code\Delphi\JcfCheckout\CodeFormat\Jcf2\Output
+UnitOutputDir=C:\Code\Delphi\JcfCheckout\CodeFormat\Jcf2\Output
 PackageDLLOutputDir=
 PackageDCPOutputDir=
 SearchPath=
@@ -138,8 +138,10 @@ Comments=
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
 [HistoryLists\hlUnitOutputDirectory]
-Count=1
-Item0=C:\Code\Delphi\Jcf2\bin
+Count=2
+Item0=C:\Code\Delphi\JcfCheckout\CodeFormat\Jcf2\Output
+Item1=C:\Code\Delphi\Jcf2\bin
 [HistoryLists\hlOutputDirectorry]
-Count=1
-Item0=C:\Code\Delphi\Jcf2\bin
+Count=2
+Item0=C:\Code\Delphi\JcfCheckout\CodeFormat\Jcf2\Output
+Item1=C:\Code\Delphi\Jcf2\bin
