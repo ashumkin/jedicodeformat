@@ -1,0 +1,40 @@
+unit littletest49;
+
+interface
+
+implementation
+
+function foo: integer;
+begin
+  Result := random(10);
+end;
+
+procedure bar;
+label
+  gtarget;
+begin
+  try
+    if foo > 3 then
+      goto gtarget;
+    gtarget:
+  finally
+    foo;
+  end;
+end;
+
+procedure fish;
+label
+  gtarget;
+begin
+  bar;
+  try
+    if foo > 3 then
+      gotogtarget;
+    gtarget:
+  except
+    bar;
+  end;
+end;
+
+end.
+ 

@@ -1,0 +1,9 @@
+unit littletest47;interface uses windows;type pdiobjectdataformat=^tdiobjectdataformat
+;tdiobjectdataformat=record pguid:pguid;dwofs:dword;dwtype:dword;dwflags:dword;end
+;const guid_key:tguid='{55728220-D33C-11CF-BFC7-444553540000}';didft_button=$0000000C
+;didft_anyinstance=$00FFFF00;type tdikeyboardstate=array[0..255]of byte;dikeyboardstate
+=tdikeyboardstate;const _c_dfdikeyboard_objects:array[0..0]of tdiobjectdataformat
+=((pguid:@guid_key;dwofs:1;dwtype:didft_button or didft_anyinstance;dwflags:0));type
+tdiobjectdataformatarray=array[0..0]of tdiobjectdataformat;const _c_dfdikeyboard_objects2
+:tdiobjectdataformatarray=((pguid:@guid_key;dwofs:1;dwtype:didft_button or didft_anyinstance
+;dwflags:0));implementation end. 

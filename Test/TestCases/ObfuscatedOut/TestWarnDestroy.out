@@ -1,0 +1,29 @@
+unit testwarndestroy;
+
+interface
+
+type
+  tfoo = class
+  public
+    destructor Destroy; override;
+    procedure testcreate;
+  end;
+
+implementation
+
+destructor tfoo.Destroy;
+begin
+  inherited
+  Destroy;
+end;
+
+procedure tfoo.testcreate;
+var
+  lcfoo: tfoo;
+begin
+  lcfoo := tfoo.Create;
+  lcfoo.Destroy;
+end;
+
+end.
+ 

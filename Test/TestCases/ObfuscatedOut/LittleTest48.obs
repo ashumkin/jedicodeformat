@@ -1,0 +1,5 @@
+unit littletest48;interface type tfoo=record stuff:pchar;counter:integer;name:string
+;end;tbar=record flag:boolean;myfoo:tfoo;size:integer;end;tfish=record counter:integer
+;myfoo:tfoo;mybar:tbar;end;implementation function findthefish(const pisoy:integer
+):tfish;begin result.counter:=3;result.mybar.size:=(pisoy+1);result.mybar.myfoo.counter
+:=(pisoy+1);(result.myfoo.stuff+pisoy)^:=#0;end;end. 
