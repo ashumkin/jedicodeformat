@@ -48,11 +48,19 @@ type
     constructor Create;
 
     function Describe: string; override;
+    function DescribePosition: string;
+
     procedure AcceptVisitor(const pcVisitor: IVisitParseTree; var prVisitResults: TRVisitResult); override;
 
     function IsSolid: boolean;
 
     function HasChildNode(const peWords: TWordSet): Boolean; override;
+    function HasChildNode(const peWords: TWordSet; const piMaxDepth: integer): Boolean; override;
+    function HasChildNode(const peTokens: TTokenTypeSet; const piMaxDepth: integer): Boolean; override;
+
+    function SolidChildCount: integer; override;
+    function FirstSolidLeaf: TParseTreeNode; override;
+
 
     function NextToken: TSourceToken;
     function PriorToken: TSourceToken;
@@ -98,10 +106,37 @@ begin
     Result := Result + ' ' + SourceCode;
 end;
 
+function TSourceToken.DescribePosition: string;
+begin
+  Result := '';
+
+  if YPosition > 0 then
+  begin
+    Result := Result + 'Line ' + IntToStr(YPosition);
+  end;
+
+  if XPosition > 0 then
+  begin
+    Result := Result + ' pos ' + IntToStr(XPosition);
+  end;
+
+end;
+
 function TSourceToken.HasChildNode(const peWords: TWordSet): Boolean;
 begin
   Result := (Word in peWords);
 end;
+
+function TSourceToken.HasChildNode(const peWords: TWordSet; const piMaxDepth: integer): Boolean;
+begin
+  Result := (Word in peWords);
+end;
+
+function TSourceToken.HasChildNode(const peTokens: TTokenTypeSet; const piMaxDepth: integer): Boolean;
+begin
+  Result := (TokenType in peTokens);
+end;
+
 
 function TSourceToken.IsSolid: boolean;
 begin
@@ -124,6 +159,23 @@ end;
 function TSourceToken.PriorToken: TSourceToken;
 begin
   Result := TSourceToken(PriorLeafNode);
+end;
+
+
+function TSourceToken.SolidChildCount: integer;
+begin
+  if IsSolid then
+    Result := 1
+  else
+    Result := 0;
+end;
+
+function TSourceToken.FirstSolidLeaf: TParseTreeNode;
+begin
+  if IsSolid then
+    Result := self
+  else
+    Result := nil;
 end;
 
 end.

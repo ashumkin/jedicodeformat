@@ -13,10 +13,12 @@ type
 
   TBaseTreeNodeVisitor = class(TInterfacedObject, IVisitParseTree)
   public
+    constructor Create; virtual;
+
     procedure VisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult); virtual;
     procedure VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult); virtual;
 
-    constructor Create; virtual;
+    function FinalSummary(var psMessage: string): Boolean; virtual;
   end;
 
 type
@@ -29,6 +31,13 @@ implementation
 constructor TBaseTreeNodeVisitor.Create;
 begin
   inherited;
+end;
+
+function TBaseTreeNodeVisitor.FinalSummary(var psMessage: string): Boolean;
+begin
+  // no message
+  Result := False;
+  psMessage := '';
 end;
 
 procedure TBaseTreeNodeVisitor.VisitParseTreeNode(const pcNode: TObject; var prVisitResult: TRVisitResult);

@@ -61,6 +61,8 @@ procedure ShowParseTree(const pcRoot: TParseTreeNode);
 var
   lfParseTree: TfrmShowParseTree;
 begin
+  Assert(pcRoot <> nil);
+
   lfParseTree := TfrmShowParseTree.Create(Application);
   try
     lfParseTree.RootNode := pcRoot;

@@ -12,7 +12,7 @@ interface
 
 uses
   {delphi } Contnrs,
-  { local } WordMap, VisitParseTree, ParseTreeNodeType;
+  { local } WordMap, VisitParseTree, ParseTreeNodeType, TokenType;
 
 
 type
@@ -38,20 +38,27 @@ type
     procedure InsertChild(const piIndex: Integer; const pcChild: TParseTreeNode);
     function RemoveChild(const pcChild: TParseTreeNode): integer;
     function IndexOfChild(const pcChild: TParseTreeNode): integer;
+    function SolidChildCount: integer; virtual;
 
     function FirstLeaf: TParseTreeNode;
+    function FirstSolidLeaf: TParseTreeNode; virtual;
     function LastLeaf: TParseTreeNode;
     function PriorLeafNode: TParseTreeNode;
     function NextLeafNode: TParseTreeNode;
 
     function FirstNodeBefore(const pcChild: TParseTreeNode): TParseTreeNode;
     function FirstNodeAfter(const pcChild: TParseTreeNode): TParseTreeNode;
+    function GetImmediateChild(const peNodeTypes: TParseTreeNodeTypeSet): TParseTreeNode;
 
     function Level: integer;
     function HasChildren: boolean;
     function Root: TParseTreeNode;
 
-    function HasChildNode(const peWords: TWordSet): Boolean; virtual;
+    function HasChildNode(const peWords: TWordSet): Boolean; overload; virtual;
+    function HasChildNode(const peWords: TWordSet; const piMaxDepth: integer): Boolean; overload; virtual;
+    function HasChildNode(const peTokens: TTokenTypeSet; const piMaxDepth: integer): Boolean; overload; virtual;
+    function HasChildNode(const peToken: TTokenType; const piMaxDepth: integer): Boolean; overload; virtual;
+
     function HasParentNode(const peNodeTypes: TParseTreeNodeTypeSet): Boolean; overload;
     function HasParentNode(const peNodeType: TParseTreeNodeType): Boolean; overload;
 
@@ -206,6 +213,45 @@ begin
   end;
 end;
 
+function TParseTreeNode.HasChildNode(const peWords: TWordSet; const piMaxDepth: integer): Boolean;
+var
+  liLoop: integer;
+begin
+  Result := False;
+
+  if (piMaxDepth > 0) then
+  begin
+    for liLoop := 0 to ChildNodeCount - 1 do
+    begin
+      Result := ChildNodes[liLoop].HasChildNode(peWords, piMaxDepth - 1);
+      if Result then
+        break;
+    end;
+  end;
+end;
+
+function TParseTreeNode.HasChildNode(const peTokens: TTokenTypeSet; const piMaxDepth: integer): Boolean;
+var
+  liLoop: integer;
+begin
+  Result := False;
+
+  if (piMaxDepth > 0) then
+  begin
+    for liLoop := 0 to ChildNodeCount - 1 do
+    begin
+      Result := ChildNodes[liLoop].HasChildNode(peTokens, piMaxDepth - 1);
+      if Result then
+        break;
+    end;
+  end;
+end;
+
+function TParseTreeNode.HasChildNode(const peToken: TTokenType; const piMaxDepth: integer): Boolean;
+begin
+  Result := HasChildNode([peToken], piMaxDepth);
+end;
+
 function TParseTreeNode.HasParentNode(const peNodeTypes: TParseTreeNodeTypeSet): Boolean;
 begin
   Result := (NodeType in peNodeTypes);
@@ -293,6 +339,20 @@ begin
     Result := ChildNodes[0].FirstLeaf; // go down
 end;
 
+function TParseTreeNode.FirstSolidLeaf: TParseTreeNode;
+var
+  liLoop: integer;
+begin
+  Result := nil;
+
+  for liLoop := 0 to ChildNodeCount - 1 do
+  begin
+    Result := ChildNodes[liLoop].FirstSolidLeaf; // go down
+    if Result <> nil then
+      break;
+  end;
+end;
+
 function TParseTreeNode.LastLeaf: TParseTreeNode;
 begin
   if ChildNodeCount = 0 then
@@ -377,6 +437,38 @@ begin
     Result := ChildNodes[liIndex + 1]
   else
     Result := nil;
+end;
+
+function TParseTreeNode.SolidChildCount: integer;
+var
+  liLoop: integer;
+begin
+  Result := 0;
+
+  for liLoop := 0 to ChildNodeCount - 1 do
+  begin
+    Result := Result + ChildNodes[liLoop].SolidChildCount;
+  end;
+
+end;
+
+function TParseTreeNode.GetImmediateChild(const peNodeTypes: TParseTreeNodeTypeSet): TParseTreeNode;
+var
+  liLoop: integer;
+  lcNode: TParseTreeNode;
+begin
+  Result := nil;
+
+  for liLoop := 0 to ChildNodeCount -1 do
+  begin
+    lcNode := ChildNodes[liLoop];
+
+    if lcNode.NodeType in peNodeTypes then
+    begin
+      Result := lcNode;
+      break;
+    end;
+  end;
 end;
 
 end.

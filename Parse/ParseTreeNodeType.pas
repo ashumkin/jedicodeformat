@@ -52,8 +52,13 @@ type
     nIfCondition,
     nIfBlock,
     nElseBlock,
+    nCaseStatement,
     nCaseSelector,
     nCaseLabel,
+    nTryAndHandlerBlock,
+    nTryBlock,
+    nFinallyBlock,
+    nExceptBlock,
     nExceptionHandler,
     nProcedureDecl,
     nFunctionDecl,
@@ -87,6 +92,9 @@ type
     );
 
 TParseTreeNodeTypeSet = set of TParseTreeNodeType;
+
+const
+  DirectiveNodes = [nProcedureDirectives, nExternalDirective, nHintDirectives, nPropertyDirective];
 
 function NodeTypeToString(const pe: TParseTreeNodeType): string;
 
@@ -181,10 +189,20 @@ begin
       Result := 'If Block';
     nElseBlock:
       Result := 'Else block';
+    nCaseStatement:
+      Result := 'Case statement';
     nCaseSelector:
       Result := 'Case selector';
     nCaseLabel:
       Result := 'Case label';
+    nTryAndHandlerBlock:
+      Result := 'try and handler block';
+    nTryBlock:
+      Result := 'try block';
+    nFinallyBlock:
+      Result := 'finally block';
+    nExceptBlock:
+      Result := 'except block';
     nExceptionHandler:
       Result := 'Exception handler';
     nProcedureDecl:

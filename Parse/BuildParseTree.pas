@@ -248,6 +248,8 @@ end;
 
 
 procedure TBuildParseTree.BuildParseTree;
+var
+  lsTokenMessage: string;
 begin
   Assert(TokenList <> nil);
 
@@ -273,7 +275,10 @@ begin
     on E: TEParseError do
     begin
       fbParseError := True;
-      fsParseErrorMessage := E.Message + ' near ' + E.TokenMessage;
+      fsParseErrorMessage := E.Message;
+      lsTokenMessage := E.TokenMessage;
+      if lsTokenMessage <> '' then
+        fsParseErrorMessage :=  fsParseErrorMessage + ' near ' + lsTokenMessage;
     end;
     on E: exception do
     begin
@@ -435,7 +440,11 @@ var
 begin
   // Goal -> (Program | Package  | Library  | Unit)
 
+  if TokenList.Count < 1 then
+    Raise TEParseError.Create('No source to parse', nil);
+
  lc := TokenList.FirstSolidToken;
+ Assert(lc <> nil);
 
   if lc.TokenType <> ttReservedWord then
    Raise TEParseError.Create('Expected reserved word - program, package, library, unit', lc);
@@ -2061,6 +2070,7 @@ end;
 procedure TBuildParseTree.RecogniseCaseStmnt;
 begin
   // CaseStmt -> CASE Expression OF CaseSelector/';'... [ELSE Statement] [';'] END
+  PushNode(nCaseStatement);
 
   Recognise(wCase);
   RecogniseExpr;
@@ -2079,6 +2089,8 @@ begin
     Recognise(ttSemiColon);
 
   Recognise(wEnd);
+
+  PopNode;
 end;
 
 procedure TBuildParseTree.RecogniseCaseSelector;
@@ -2186,27 +2198,43 @@ begin
       -> except ExceptionHandlers 'end'
   }
 
+  PushNode(nTryAndHandlerBlock);
+
+  PushNode(nTryBlock);
+
   Recognise(wTry);
   RecogniseStmntList([wEnd, wFinally, wExcept]);
+
+  PopNode;
 
   lc := TokenList.FirstSolidToken;
   case lc.Word of
     wFinally:
     begin
+      PushNode(nFinallyBlock);
+
       Recognise(wFinally);
       RecogniseStmntList([wEnd]);
       Recognise(wEnd);
+
+      PopNode;
     end;
     wExcept:
     begin
+      PushNode(nExceptBlock);
+
       Recognise(wExcept);
       RecogniseExceptionHandlerBlock;
       Recognise(wEnd);
+
+      PopNode;
     end
     else
        Raise TEParseError.Create('expected except or finally', lc);
 
   end;
+
+  PopNode;
 end;
 
 procedure TBuildParseTree.RecogniseExceptionHandlerBlock;

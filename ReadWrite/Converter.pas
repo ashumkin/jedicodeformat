@@ -34,15 +34,18 @@ interface
 
 uses
     { delphi } Classes,
-    { local } ConvertTypes, CodeReader, CodeWriter, BuildTokenList,
+    { local } ConvertTypes, ParseTreeNode,
+    CodeReader, CodeWriter, BuildTokenList,
     BuildParseTree, JCFLog;
 
 type
+  TShowParseTreeOption = (eShowAlways, eShowNever, eShowOnError);
 
   TConverter = class(TObject)
   private
     fcTokeniser: TBuildTokenList;
     fcBuildParseTree: TBuildParseTree;
+    feShowParseTree: TShowParseTreeOption;
 
     { settings }
     //fcSettings: TSettings;
@@ -55,7 +58,7 @@ type
 
     fOnStatusMessage: TStatusMessageProc;
 
-    //procedure SetSettings(const pcValue: TSettings);
+    procedure Clarify(const fcRoot: TParseTreeNode);
 
   protected
     fbAbort: Boolean;
@@ -65,8 +68,8 @@ type
     fcReader: TCodeReader;
     fcWriter: TCodeWriter;
 
-    procedure DoShowMessage(const psMessage: string);
-    procedure SendStatusMessage(const ps: string);
+    procedure DoShowMessage(const psMessage: string); virtual;
+    procedure SendStatusMessage(const ps: string); virtual;
     procedure FinalSummary;
 
     procedure DoConvertUnit;
@@ -82,7 +85,7 @@ type
     destructor Destroy; override;
 
     procedure Convert; virtual;
-    procedure Reset;
+    procedure Clear; virtual;
 
     //property Settings: TSettings read fcSettings write SetSettings;
 
@@ -95,6 +98,9 @@ type
     property TokenCount: integer read fiTokenCount;
     property ConvertError: boolean read fbConvertError;
     property ConvertErrorMessage: string read fsConvertErrorMessage;
+
+    property ShowParseTreeOption: TShowParseTreeOption read feShowParseTree write feShowParseTree;
+
   end;
 
 implementation
@@ -102,7 +108,7 @@ implementation
 uses
   { delphi } Windows, SysUtils, Dialogs, Controls,
   { local } SourceTokenList, fShowParseTree, JcfSettings,
-  ObfuscateControl;
+  ObfuscateControl, AllWarnings;
 
 
 constructor TConverter.Create;
@@ -127,7 +133,7 @@ begin
   { wire them together }
   fcTokeniser.Reader := fcReader;
 
-  //fcSettings := nil;
+  feShowParseTree := eShowOnError;
 end;
 
 destructor TConverter.Destroy;
@@ -210,9 +216,12 @@ begin
   Log.Write(lsMessage);
 end;
 
-procedure TConverter.Reset;
+procedure TConverter.Clear;
 begin
   fbYesAll := False;
+
+  fcReader.Clear;
+  fcWriter.Clear;
 end;
 
 procedure TConverter.DoConvertUnit;
@@ -243,12 +252,19 @@ begin
     begin
       {!!! debug code }
       ShowMessage(fcBuildParseTree.ParseErrorMessage);
-      ShowParseTree(fcBuildParseTree.Root);
 
       fbConvertError := True;
       fsConvertErrorMessage := fcBuildParseTree.ParseErrorMessage;
-    end
-    else
+    end;
+
+    if (feShowParseTree = eShowAlways) or
+      ((feShowParseTree = eShowOnError) and (fcBuildParseTree.ParseError)) then
+    begin
+      if fcBuildParseTree.Root <> nil then
+        ShowParseTree(fcBuildParseTree.Root);
+    end;
+
+    if not fcBuildParseTree.ParseError then
     begin
       // do the processes
       if Settings.Obfuscate.Enabled then
@@ -257,6 +273,7 @@ begin
       end
       else
       begin
+        Clarify(fcBuildParseTree.Root);
       end;
 
       fcWriter.Root := fcBuildParseTree.Root;
@@ -273,6 +290,20 @@ begin
       fbConvertError := True;
       fsConvertErrorMessage := E.Message;
     end;
+  end;
+end;
+
+procedure TConverter.Clarify(const fcRoot: TParseTreeNode);
+var
+  lcWarnings: TAllWarnings;
+begin
+  // just warning so far
+  lcWarnings := TAllWarnings.Create;
+  try
+    lcWarnings.OnWarning := SendStatusMessage;
+    lcWarnings.Execute(fcRoot);
+  finally
+    lcWarnings.Free;
   end;
 end;
 
