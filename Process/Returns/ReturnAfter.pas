@@ -197,7 +197,12 @@ begin
     end;
 
     lcPrev := pt.PriorToken;
-    // 'end' at end of type def or proc
+    { 'end' at end of type def or proc
+      There can be hint directives between the type/proc and the 'end'
+    }
+    while (lcPrev <> nil) and (lcPrev.Word <> wEnd) and lcPrev.HasParentNode(nHintDirectives, 2) do
+      lcPrev := lcPrev.PriorToken;
+
     if (lcPrev.Word = wEnd) and (pt.TokenType <> ttDot) then
     begin
       if EndsObjectType(lcPrev) or EndsProcedure(lcPrev) then
@@ -342,6 +347,14 @@ begin
     Result := True;
     exit;
   end;
+
+  // guid in interface
+  if (pt.TokenType = ttCloseSquareBracket) and pt.HasParentNode(nInterfaceTypeGuid, 1) then
+  begin
+    Result := True;
+    exit;
+  end;
+
 end;
 
 constructor TReturnAfter.Create;

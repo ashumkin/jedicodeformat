@@ -124,7 +124,18 @@ begin
       Result := True;
       exit;
     end;
+
+    { likewise before a record type }
+    if (lcParent <> nil) and (lcParent.NodeType = nTypeDecl) and
+      lcParent.HasChildNode(nRecordType, 2) and
+      lcParent.HasChildNode(nFieldDeclaration, 3) then
+    begin
+      Result := True;
+      exit;
+    end;
+
   end;
+
 
   { end. where there is no initialization section code,
     ie 'end' is the first and only token in the init section   }
@@ -215,6 +226,14 @@ begin
     Result := True;
     exit;
   end;
+
+  // guid in interface
+  if (pt.TokenType = ttOpenSquareBracket) and pt.HasParentNode(nInterfaceTypeGuid, 1) then
+  begin
+    Result := True;
+    exit;
+  end;
+
 end;
 
 constructor TReturnBefore.Create;

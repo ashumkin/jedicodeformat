@@ -60,6 +60,13 @@ begin
     Result := True;
     exit;
   end;
+
+  // guid in interface
+  if (pt.TokenType = ttCloseSquareBracket) and pt.HasParentNode(nInterfaceTypeGuid, 1) then
+  begin
+    Result := True;
+    exit;
+  end;
 end;
 
 constructor TNoReturnBefore.Create;

@@ -265,12 +265,29 @@ begin
   { these apply everywhere
     mostly because they need to apply to decls
     either in or out of a proc }
-
   if pt.HasParentNode(nEnumeratedType) and (RoundBracketLevel(pt) > 0) then
   begin
     inc(liIndentCount);
     lbHasIndentedRunOnLine := True;
   end;
+
+  // indent for run-on const decl
+  if (not lbHasIndentedRunOnLine) and
+    pt.HasParentNode(nConstDecl) and pt.IsOnRightOf(nConstDecl, wEquals) then
+  begin
+    inc(liIndentCount);
+    lbHasIndentedRunOnLine := True;
+  end;
+
+  // indent for the type decl in a const
+  if (not lbHasIndentedRunOnLine) and
+    pt.HasParentNode(nConstDecl) and pt.IsOnRightOf(nConstDecl, ttColon) and
+    pt.HasParentNode(nType) then
+  begin
+    inc(liIndentCount);
+    lbHasIndentedRunOnLine := True;
+  end;
+
 
   { run on expression }
   if not lbHasIndentedRunOnLine then
@@ -286,7 +303,7 @@ begin
       inc(liIndentCount);
   end;
 
-  if pt.HasParentNode(nArrayConstant) and
+  if (not lbHasIndentedRunOnLine) and pt.HasParentNode(nArrayConstant) and
     ((RoundBracketLevel(pt) > 0) or (pt.TokenType in [ttOpenBracket, ttCloseBracket])) then
     inc(liIndentCount);
 

@@ -3248,9 +3248,13 @@ end;
 
 procedure TBuildParseTree.RecogniseInterfaceGuid;
 begin
+  PushNode(nInterfaceTypeGuid);
+
   Recognise(ttOpenSquareBracket);
   Recognise(ttLiteralString);
   Recognise(ttCloseSquareBracket);
+
+  PopNode;
 end;
 
 procedure TBuildParseTree.RecogniseInterfaceHeritage;
