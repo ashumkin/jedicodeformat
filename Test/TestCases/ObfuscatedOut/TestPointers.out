@@ -4,8 +4,8 @@ interface
 
 type
   tfred = record
-    fi1: integer;
-    fc2: currency;
+    fi1:      integer;
+    fc2:      currency;
     ganzfeld: string;
   end;
   ptfred  = ^tfred;

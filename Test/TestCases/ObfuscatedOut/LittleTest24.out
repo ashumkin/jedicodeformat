@@ -4,8 +4,8 @@ interface
 
 type
   tshatner = record
-    fish: integer;
-    soy: boolean;
+    fish:   integer;
+    soy:    boolean;
     monkey: string;
   end;
 

@@ -4,21 +4,21 @@ interface
 
 type
   tfoo = record
-    stuff: pchar;
+    stuff:   pchar;
     counter: integer;
-    Name: string;
+    Name:    string;
   end;
 
   tbar = record
-    flag: boolean;
+    flag:  boolean;
     myfoo: tfoo;
-    size: integer;
+    size:  integer;
   end;
 
   tfish = record
     counter: integer;
-    myfoo: tfoo;
-    mybar: tbar;
+    myfoo:   tfoo;
+    mybar:   tbar;
   end;
 
 implementation

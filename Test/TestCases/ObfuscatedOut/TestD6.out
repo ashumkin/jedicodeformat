@@ -52,8 +52,8 @@ type
   end platform;
 
   tthing7 = record
-    bar: integer;
-    foo: integer deprecated;
+    bar:  integer;
+    foo:  integer deprecated;
     bar2: integer;
     foo2: integer library;
   end;

@@ -22,8 +22,8 @@ var
     end;
   end;
   fooble3: record
-    fifoo: integer;
-    fsbar: string;
+    fifoo:  integer;
+    fsbar:  string;
     fooble: array[3..7] of record
       fifoo: integer;
       fsbar: string;
@@ -39,8 +39,8 @@ var
     fdbaz: double;
   end;
   fooble5: record
-    fifoo: integer;
-    fsbar: string;
+    fifoo:    integer;
+    fsbar:    string;
     fooble5a: array[3..7] of record
       fifoo: integer;
       fsbar: trsomerecord;
@@ -95,8 +95,8 @@ function test1(const p1: integer): boolean;
 
 type
   ttestrecord = record
-    fifoo: integer;
-    fsbar: string;
+    fifoo:    integer;
+    fsbar:    string;
     fooble5a: array[3..7] of record
       fifoo: integer;
       fsbar: string;
@@ -122,8 +122,8 @@ type
       ri: double;
     end;
     frwibble: record
-      i1: integer;
-      s1: string;
+      i1:   integer;
+      s1:   string;
       spon: array[1..9] of record
         i1: integer;
         s1: string;

@@ -5,13 +5,13 @@ interface
 type
   tterse = class(TObject)
   private
-    fix1: integer;
-    fix6: integer;
-    fix5: integer;
-    fix8: integer;
-    fix2: integer;
-    fix3: integer;
-    fix9: integer;
+    fix1:  integer;
+    fix6:  integer;
+    fix5:  integer;
+    fix8:  integer;
+    fix2:  integer;
+    fix3:  integer;
+    fix9:  integer;
     fix12: integer;
   public
     property x1: integer Read fix1;
@@ -30,13 +30,13 @@ type
 
   tverbose = class(TObject)
   private
-    fix1: integer;
-    fix6: integer;
-    fix5: integer;
-    fix8: integer;
-    fix2: integer;
-    fix3: integer;
-    fix9: integer;
+    fix1:  integer;
+    fix6:  integer;
+    fix5:  integer;
+    fix8:  integer;
+    fix2:  integer;
+    fix3:  integer;
+    fix9:  integer;
     fix12: integer;
   public
     property x1: integer Read fix1 Write fix1;

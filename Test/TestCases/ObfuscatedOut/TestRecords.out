@@ -15,23 +15,23 @@ type
   end;
 
   tlongrec = record
-    l1: tleftrec;
-    a: string;
-    b: currency;
-    c: string;
-    d: currency;
-    e: string;
-    f: currency;
+    l1:   tleftrec;
+    a:    string;
+    b:    currency;
+    c:    string;
+    d:    currency;
+    e:    string;
+    f:    currency;
     fred: boolean;
-    g: string;
-    h: currency;
+    g:    string;
+    h:    currency;
   end;
 
 type
   tdaterec = record
-    year: integer;
+    year:  integer;
     month: (jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, Dec);
-    day: 1..31;
+    day:   1..31;
   end;
 
   tfoorec = record

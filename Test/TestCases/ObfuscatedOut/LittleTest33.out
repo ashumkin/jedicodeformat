@@ -5,7 +5,7 @@ interface
 type
   tfoorecord = record
     fish: boolean;
-    bar: integer platform;
+    bar:  integer platform;
   end;
 
 implementation

@@ -4,9 +4,9 @@ interface
 
 type
   tfoorecord = packed record
-    soy: integer;
-    monkey: integer;
-    shatner: integer;
+    soy:      integer;
+    monkey:   integer;
+    shatner:  integer;
     mcflurry: integer;
   end;
 

@@ -8,9 +8,9 @@ type
   pdiobjectdataformat = ^tdiobjectdataformat;
 
   tdiobjectdataformat = record
-    pguid: pguid;
-    dwofs: dword;
-    dwtype: dword;
+    pguid:   pguid;
+    dwofs:   dword;
+    dwtype:  dword;
     dwflags: dword;
   end;
 

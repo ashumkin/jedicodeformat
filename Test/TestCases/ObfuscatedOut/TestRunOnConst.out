@@ -6,9 +6,9 @@ type
   tfnorftype = (efnord1, efnord2, etheotherfnord);
 
   tfnordrecord = record
-    sword: string;
+    sword:      string;
     efnordtype: tfnorftype;
-    btheother: boolean;
+    btheother:  boolean;
   end;
 
 const

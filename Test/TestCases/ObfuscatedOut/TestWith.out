@@ -9,31 +9,31 @@ type
   end;
 
   trecordtwo = record
-    baz: integer;
-    fish: string;
+    baz:    integer;
+    fish:   string;
     wibble: trecordone;
   end;
 
   trecordthree = record
-    spon: integer;
-    plud: string;
+    spon:   integer;
+    plud:   string;
     monkey: trecordone;
-    soy: trecordtwo;
+    soy:    trecordtwo;
   end;
 
   trecordfour = record
-    kirk: integer;
-    spock: string;
+    kirk:   integer;
+    spock:  string;
     picard: trecordtwo;
-    Data: trecordthree;
+    Data:   trecordthree;
   end;
 
   trecordfive = record
-    worf: integer;
-    troy: string;
+    worf:  integer;
+    troy:  string;
     riker: trecordtwo;
-    q: trecordthree;
-    borg: trecordfour;
+    q:     trecordthree;
+    borg:  trecordfour;
   end;
 
 implementation
