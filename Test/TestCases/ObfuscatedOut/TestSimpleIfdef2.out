@@ -9,7 +9,8 @@ uses{$IFDEF MSWINDOWS}
 
 FooLinux
 
-{$ENDIF};
+{$ENDIF}
+  ;
 
 end.
  
