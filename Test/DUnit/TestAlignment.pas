@@ -46,7 +46,7 @@ uses
 procedure TTestAlignment.Setup;
 begin
   inherited;
-  Settings.Align.MaxVariance := 5;
+  FormatSettings.Align.MaxVariance := 5;
 end;
 
 procedure TTestAlignment.TestAlignConst;

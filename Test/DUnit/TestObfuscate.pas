@@ -96,11 +96,8 @@ implementation
 uses
   { delphi } SysUtils,
   JclStrings,
-  FileConverter, ConvertTypes, JcfSettings;
+  FileConverter, ConvertTypes, JcfSettings, TestConstants;
 
-const
-  TEST_FILES_DIR = 'C:\Code\JcfCheckout\CodeFormat\Jcf2\Test\TestCases\';
-  OBS_OUT_FILES_DIR = 'C:\Code\JcfCheckout\CodeFormat\Jcf2\Test\TestCases\ObfuscatedOut\';
 
 
 procedure TTestObfuscate.TestObfuscateFile(const psInFileName,
@@ -110,7 +107,7 @@ var
   lsOutFileName: string;
 begin
   Check(FileExists(psInFileName), 'input file ' + psInFileName + ' not found');
-  Settings.Obfuscate.Enabled := True;
+  FormatSettings.Obfuscate.Enabled := True;
 
   // Check(FileExists(psRefOutput), 'reference output file ' + psRefOutput + ' not found');
 
@@ -137,7 +134,7 @@ begin
 
   finally
     lcConverter.Free;
-    Settings.Obfuscate.Enabled := False;
+    FormatSettings.Obfuscate.Enabled := False;
   end;
 
   TestFileContentsSame(lsOutFileName, psRefOutput);
@@ -180,7 +177,7 @@ begin
     //lsRemadeFileName := psName + '.out';
   end;
 
-  Settings.FileSettings.OutputExtension := 'obs';
+  FormatSettings.FileSettings.OutputExtension := 'obs';
 
   TestObfuscateFile(TEST_FILES_DIR + lsInName,
     OBS_OUT_FILES_DIR + lsObsFileName)
@@ -188,7 +185,7 @@ begin
   {
     // test re-obfuscating 
 
-  Settings.FileSettings.OutputExtension := 'out';
+  FormatSettings.FileSettings.OutputExtension := 'out';
 
   TestObfuscateFile(TEST_FILES_DIR + lsObsFileName,
     OBS_OUT_FILES_DIR + lsRemadeFileName)

@@ -100,12 +100,7 @@ implementation
 uses
   { delphi } SysUtils,
   JclStrings,
-  FileConverter, ConvertTypes, JcfSettings;
-
-const
-  TEST_FILES_DIR = 'C:\Code\JcfCheckout\CodeFormat\Jcf2\Test\TestCases\';
-  CLEAR_OUT_FILES_DIR = 'C:\Code\JcfCheckout\CodeFormat\Jcf2\Test\TestCases\Out\';
-
+  FileConverter, ConvertTypes, JcfSettings, TestConstants;
 
 { TTestClarify }
 
@@ -127,20 +122,19 @@ begin
     lsClearFileName := psName + '.out';
   end;
 
-  Settings.FileSettings.OutputExtension := 'out';
 
   TestClarifyFile(TEST_FILES_DIR + lsInName,
-    CLEAR_OUT_FILES_DIR + lsClearFileName)
+    REF_OUT_FILES_DIR + lsClearFileName)
 end;
 
 procedure TTestClarify.TestClarifyFile(const psInFileName,
   psRefOutput: string);
 var
   lcConverter: TFileConverter;
-  lsOutFileName: string;
+  lsOutFileName, lsSettingsFileName: string;
 begin
   Check(FileExists(psInFileName), 'input file ' + psInFileName + ' not found');
-  Settings.Obfuscate.Enabled := False;
+  FormatSettings.Obfuscate.Enabled := False;
 
   // Check(FileExists(psRefOutput), 'reference output file ' + psRefOutput + ' not found');
 
@@ -149,12 +143,16 @@ begin
     lcConverter.YesAll := True;
     lcConverter.GuiMessages := False;
 
+    { see also TestFileParse }
+    lsSettingsFileName := TEST_FILES_DIR + '\JCFTestSettings.cfg';
+    Check(FileExists(lsSettingsFileName), 'Settings file ' + lsSettingsFileName + ' not found');
+
+    FormatSettings.ReadFromFile(lsSettingsFileName);
     lcConverter.SourceMode := fmSingleFile;
     lcConverter.BackupMode := cmSeperateOutput;
+    FormatSettings.FileSettings.OutputExtension := 'out';
 
     lcConverter.Input := psInFileName;
-
-
     lcConverter.Convert;
 
     Check(not lcConverter.ConvertError, 'Convert failed for ' +
@@ -167,7 +165,7 @@ begin
 
   finally
     lcConverter.Free;
-    Settings.Obfuscate.Enabled := False;
+    FormatSettings.Obfuscate.Enabled := False;
   end;
 
   TestFileContentsSame(lsOutFileName, psRefOutput);

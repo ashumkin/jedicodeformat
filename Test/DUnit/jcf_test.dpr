@@ -38,7 +38,6 @@ uses
   TestObfuscate in 'TestObfuscate.pas',
   SetUses in '..\..\Settings\SetUses.pas',
   JCFSetBase in '..\..\Settings\JCFSetBase.pas',
-  JCFSettings in '..\..\Settings\JCFSettings.pas',
   SetAlign in '..\..\Settings\SetAlign.pas',
   SetAnyWordCaps in '..\..\Settings\SetAnyWordCaps.pas',
   SetCaps in '..\..\Settings\SetCaps.pas',
@@ -106,7 +105,11 @@ uses
   AlignVars in '..\..\Process\Align\AlignVars.pas',
   TestConverter in 'TestConverter.pas',
   AlignTypedef in '..\..\Process\Align\AlignTypedef.pas',
-  AlignComment in '..\..\Process\Align\AlignComment.pas';
+  AlignComment in '..\..\Process\Align\AlignComment.pas',
+  JcfRegistrySettings in '..\..\Settings\JcfRegistrySettings.pas',
+  JCFSettings in '..\..\Settings\JCFSettings.pas',
+  TestCommandLine in 'TestCommandLine.pas',
+  TestConstants in 'TestConstants.pas';
 
 {$R *.res}
 

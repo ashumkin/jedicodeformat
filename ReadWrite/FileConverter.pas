@@ -75,7 +75,7 @@ implementation
 uses
   { delphi } Windows, SysUtils, Dialogs, Controls,
   { jcl } JclFileUtils,
-  { local } FileUtils, JcfMiscFunctions, JCFLog, JcfSettings;
+  { local } FileUtils, JcfMiscFunctions, JCFLog, JcfSettings, SetLog;
 
 
 
@@ -121,7 +121,7 @@ begin
 
   lsMessage := 'Formatting file ' + psInput;
 
-  //if Settings.Log.LogLevel in [eLogFiles, eLogTokens] then
+  if FormatSettings.Log.LogLevel in [eLogFiles, eLogTokens] then
     Log.Write(lsMessage);
   SendStatusMessage(lsMessage);
   fsOriginalFileName := psInput;
@@ -205,6 +205,7 @@ begin
   begin
     { simple. Source is source, dest is dest }
 
+    FileReader.Clear;
     FileReader.SourceFileName := psInput;
     FileWriter.OutputFileName := lsOut;
     if FileExists(lsOut) then

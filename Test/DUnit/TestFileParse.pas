@@ -99,29 +99,29 @@ implementation
 uses
   { delphi } SysUtils,
   JclStrings,
-  FileConverter, ConvertTypes;                     
-
-const
-  TEST_FILES_DIR =    'C:\Code\JcfCheckout\CodeFormat\Jcf2\Test\TestCases\';
-  REF_OUT_FILES_DIR = 'C:\Code\JcfCheckout\CodeFormat\jcf2\Test\TestCases\Out\';
+  FileConverter, ConvertTypes, JcfSettings, testConstants;
 
 procedure TTestFileParse.TestParseFile(const psInFileName, psRefOutput: string;
   const piTokenCount: integer);
 var
   lcConverter: TFileConverter;
-  lsOutFileName: string;
+  lsSettingsFileName, lsOutFileName: string;
 begin
     Check(FileExists(psInFileName), 'input file ' + psInFileName + ' not found');
-
-  // Check(FileExists(psRefOutput), 'reference output file ' + psRefOutput + ' not found');
 
   lcConverter := TFileConverter.Create;
   try
     lcConverter.YesAll := True;
     lcConverter.GuiMessages := False;
 
+    { see also TestFullClarify }
+    lsSettingsFileName := TEST_FILES_DIR + '\JCFTestSettings.cfg';
+    Check(FileExists(lsSettingsFileName), 'Settings file ' + lsSettingsFileName + ' not found');
+
+    FormatSettings.ReadFromFile(lsSettingsFileName);
     lcConverter.SourceMode := fmSingleFile;
     lcConverter.BackupMode := cmSeperateOutput;
+    FormatSettings.FileSettings.OutputExtension := 'out';
 
     lcConverter.Input := psInFileName;
 
@@ -140,8 +140,6 @@ begin
   finally
     lcConverter.Free;
   end;
-
-  //TestFileContentsSame(lsOutFileName, psRefOutput);
 end;
 
 

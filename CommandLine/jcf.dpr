@@ -326,6 +326,7 @@ begin
   WriteLn(ps);
 end;
 
+{ main program starts here }
 begin
   lcStatus := TStatusMsgReceiver.Create;
 
@@ -347,7 +348,9 @@ begin
       // use command line settings
       lcConvert.YesAll := fbYesAll;
       lcConvert.GuiMessages := False;
-
+      lcConvert.SourceMode :=  FormatSettings.FileSettings.SourceMode;
+      lcConvert.BackupMode := FormatSettings.FileSettings.BackupMode;
+      lcConvert.Input := FormatSettings.FileSettings.Input;
 
       // do it!
       lcConvert.Convert;
@@ -356,5 +359,5 @@ begin
     end;
   end;
 
-  FreeANdNil(lcStatus);
+  FreeAndNil(lcStatus);
 end.

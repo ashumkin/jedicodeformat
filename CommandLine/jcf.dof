@@ -100,7 +100,7 @@ Conditionals=
 DebugSourceDirs=
 UsePackages=0
 [Parameters]
-RunParams=
+RunParams=-config=C:\Code\JcfCheckout\CodeFormat\Jcf2\Test\TestCases\JCFTestSettings.cfg -out -D C:\Code\JcfCheckout\CodeFormat\Jcf2\Test\TestCases
 HostApplication=
 Launcher=
 UseLauncher=0
@@ -127,8 +127,11 @@ CodePage=1252
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
 [HistoryLists\hlUnitOutputDirectory]
-Count=1
-Item0=..\Output
+Count=3
+Item0=C:\Code\JcfCheckout\CodeFormat\Jcf2\Output
+Item1=C:\Code\Delphi\JcfCheckout\CodeFormat\Jcf2\Output
+Item2=C:\Code\Delphi\Jcf2\bin
 [HistoryLists\hlOutputDirectorry]
-Count=1
-Item0=..\Output
+Count=2
+Item0=C:\Code\JcfCheckout\CodeFormat\Jcf2\Output
+Item1=C:\Code\Delphi\Jcf2\bin

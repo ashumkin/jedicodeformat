@@ -239,20 +239,20 @@ begin
     // turn test into tokens
     lcTokenList := fcTokeniser.BuildTokenList;
     try
-      lcTokenList.SetXYPositions;
       fiTokenCount := lcTokenList.Count;
 
-      // make a parse tree from it
+      lcTokenList.SetXYPositions;
+
+        // make a parse tree from it
       fcBuildParseTree.TokenList := lcTokenList;
       fcBuildParseTree.BuildParseTree;
     finally
       lcTokenList.Free;
     end;
 
-    if fcBuildParseTree.ParseError then
+    if fbConvertError or fcBuildParseTree.ParseError then
     begin
-      {!!! debug code }
-      ShowMessage(fcBuildParseTree.ParseErrorMessage);
+      DoShowMessage(fcBuildParseTree.ParseErrorMessage);
 
       fbConvertError := True;
       fsConvertErrorMessage := fcBuildParseTree.ParseErrorMessage;
