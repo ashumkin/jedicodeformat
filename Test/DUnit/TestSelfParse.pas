@@ -118,7 +118,7 @@ begin
     lcConverter.BackupMode := cmSeperateOutput;
     GetRegSettings.OutputExtension := 'out';
 
-    lcConverter.ShowParseTreeOption := eShowNever;
+    GetRegSettings.ShowParseTreeOption := eShowNever;
     lcConverter.Input := psInFileName;
 
     lcConverter.Convert;

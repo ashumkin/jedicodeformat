@@ -134,7 +134,6 @@ begin
       prVisitResult.Action := aDelete;
     end;
   end;
-
 end;
 
 function TNoReturnBefore.IsIncludedInSettings: boolean;

@@ -43,7 +43,6 @@ type
     fbKeepCommentsWithCodeInProcs: Boolean;
     fbKeepCommentsWithCodeInGlobals: Boolean;
     fbKeepCommentsWithCodeInClassDef: Boolean;
-    fbBorlandCaseIndent: Boolean;
 
   protected
   public
@@ -73,8 +72,6 @@ type
     property KeepCommentsWithCodeInClassDef: Boolean
       read fbKeepCommentsWithCodeInClassDef write fbKeepCommentsWithCodeInClassDef;
 
-    property BorlandCaseIndent: boolean read fbBorlandCaseIndent write fbBorlandCaseIndent;
-
   end;
 
 implementation
@@ -95,8 +92,6 @@ const
   REG_KEEP_COMMENTS_WTH_CODE_CLASS_DEF = 'KeepCommentsWithCodeInClassDef';
   REG_KEEP_COMMENTS_WTH_CODE_IN_PROCS = 'KeepCommentsWithCodeInProcs';
   REG_KEEP_COMMENTS_WTH_CODE_IN_GLOBALS = 'KeepCommentsWithCodeInGlobals';
-
-  REG_BORLAND_CASE_INDENT = 'BorlandCaseIndent';
 
 constructor TSetIndent.Create;
 begin
@@ -123,8 +118,6 @@ begin
   fbKeepCommentsWithCodeInGlobals := pcStream.Read(REG_KEEP_COMMENTS_WTH_CODE_IN_GLOBALS, True);
   fbKeepCommentsWithCodeInProcs := pcStream.Read(REG_KEEP_COMMENTS_WTH_CODE_IN_PROCS, True);
   fbKeepCommentsWithCodeInClassDef := pcStream.Read(REG_KEEP_COMMENTS_WTH_CODE_CLASS_DEF, True);
-
-  fbBorlandCaseIndent := pcStream.Read(REG_BORLAND_CASE_INDENT, True);
 end;
 
 procedure TSetIndent.WriteToStream(const pcOut: TSettingsOutput);
@@ -146,8 +139,6 @@ begin
 
   pcOut.Write(REG_INDENT_BEGIN_END, fbIndentBeginEnd);
   pcOut.Write(REG_INDENT_BEGIN_END_SPACES, fiIndentBeginEndSpaces);
-
-  pcOut.Write(REG_BORLAND_CASE_INDENT, fbBorlandCaseIndent);
 end;
 
 function TSetIndent.SpacesForIndentLevel(const piLevel: integer): integer;

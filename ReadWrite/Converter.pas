@@ -44,7 +44,6 @@ type
   private
     fcTokeniser: TBuildTokenList;
     fcBuildParseTree: TBuildParseTree;
-    feShowParseTree: TShowParseTreeOption;
 
     { settings }
     //fcSettings: TSettings;
@@ -105,7 +104,6 @@ type
     property ConvertError: boolean read fbConvertError;
     property ConvertErrorMessage: string read fsConvertErrorMessage;
 
-    property ShowParseTreeOption: TShowParseTreeOption read feShowParseTree write feShowParseTree;
     property Root: TParseTreeNode read GetRoot;
   end;
 
@@ -138,8 +136,6 @@ begin
 
   { wire them together }
   fcTokeniser.Reader := fcReader;
-
-  feShowParseTree := GetRegSettings.ShowParseTreeOption;
 end;
 
 destructor TConverter.Destroy;
@@ -294,8 +290,9 @@ begin
         fsConvertErrorMessage := fcBuildParseTree.ParseErrorMessage;
       end;
 
-      if (feShowParseTree = eShowAlways) or
-        ((feShowParseTree = eShowOnError) and (fcBuildParseTree.ParseError)) then
+      // show the parse tree?
+      if (GetRegSettings.ShowParseTreeOption = eShowAlways) or
+        ((GetRegSettings.ShowParseTreeOption = eShowOnError) and (fcBuildParseTree.ParseError)) then
       begin
         if fcBuildParseTree.Root <> nil then
           ShowParseTree(fcBuildParseTree.Root);

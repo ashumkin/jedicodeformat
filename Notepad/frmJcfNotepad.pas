@@ -227,7 +227,6 @@ begin
   fcConvert.InputStrings := mInput.Lines;
   fcConvert.OutputStrings := mOutput.Lines;
   fcConvert.MessageStrings := mMessages.Lines;
-  fcConvert.ShowParseTreeOption := GetRegSettings.ShowParseTreeOption;
 
   fcConvert.Convert;
   fcConvert.Clear;
@@ -297,7 +296,6 @@ end;
 procedure TfmJCFNotepad.FormCreate(Sender: TObject);
 begin
   fcConvert := TStringsConverter.Create;
-  fcConvert.ShowParseTreeOption := GetRegSettings.ShowParseTreeOption;
 
   GetRegSettings.MRUFiles := mruFiles.Strings;
   GetRegSettings.ReadAll;
