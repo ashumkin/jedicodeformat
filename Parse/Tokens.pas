@@ -243,7 +243,9 @@ type
     ttLessThan,
     ttGreaterThanOrEqual,
     ttLessThanOrEqual,
-    ttNotEqual);
+    ttNotEqual,
+    ttBackSlash { legal in char literals }
+    );
 
   TTokenTypeSet = set of TTokenType;
 
@@ -672,6 +674,7 @@ begin
   // these must come after the above as they are shorter
   AddKeyword('>', wtOperator, ttGreaterThan);
   AddKeyword('<', wtOperator, ttLessThan);
+  AddKeyword('\', wtOperator, ttBackSlash);
 
   {Now that we know how many keywords were added,
     we can set the actual size of the array }

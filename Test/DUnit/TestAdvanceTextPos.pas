@@ -8,10 +8,9 @@ unit TestAdvanceTextPos;
 interface
 
 uses
-  Classes,
   JclStrings,
   TestFrameWork,
-  TestConverter, JcfMiscFunctions;
+  JcfMiscFunctions;
 
 type
   TTestAdvanceTextPos = class(TTestCase)
@@ -26,7 +25,7 @@ type
 
 implementation
 
-uses SysUtils, ABTempFuncs;
+uses SysUtils;
 
 { 1 - idiot test.
   Adding an empty string should not advance the text pos }
@@ -43,7 +42,7 @@ begin
     begin
       liX := liXLoop;
       liy := liYLoop;
-      AbabaAdvanceTextPos('', lix, liy);
+      AdvanceTextPos('', lix, liy);
 
       CheckEquals(liXLoop, liX);
       CheckEquals(liYLoop, liY);
@@ -72,7 +71,7 @@ begin
       begin
         liX := liXLoop;
         liy := liYLoop;
-        AbabaAdvanceTextPos(lsTest, lix, liy);
+        AdvanceTextPos(lsTest, lix, liy);
 
         CheckEquals(liXLoop + liStringLengthLoop, liX,
           'X value for ' + IntToStr(liXLoop) + ' ' + IntToStr(liYLoop) + ' ' + IntToStr(liStringLengthLoop));
@@ -104,7 +103,7 @@ begin
       begin
         liX := liXLoop;
         liy := liYLoop;
-        AbabaAdvanceTextPos(lsTest, liX, liY);
+        AdvanceTextPos(lsTest, liX, liY);
 
         CheckEquals(1, liX,
           'X value for ' + IntToStr(liXLoop) + ' ' + IntToStr(liYLoop) + ' ' + IntToStr(liStringLengthLoop));
@@ -138,7 +137,7 @@ begin
       begin
         liX := liXLoop;
         liy := liYLoop;
-        AbabaAdvanceTextPos(lsTest, liX, liY);
+        AdvanceTextPos(lsTest, liX, liY);
 
         CheckEquals(1, liX,
           'X value for ' + IntToStr(liXLoop) + ' ' + IntToStr(liYLoop) + ' ' + IntToStr(liStringLengthLoop));
@@ -177,7 +176,7 @@ begin
       begin
         liX := liXLoop;
         liy := liYLoop;
-        AbabaAdvanceTextPos(lsTest, liX, liY);
+        AdvanceTextPos(lsTest, liX, liY);
 
         CheckEquals(liStringLengthLoop, liX,
           'X value for ' + IntToStr(liXLoop) + ' ' + IntToStr(liYLoop) + ' ' + IntToStr(liStringLengthLoop));
@@ -189,7 +188,7 @@ begin
         liy := liYLoop;
         lsTest2 := lsTest + 'fooo' + AnsiLinebreak;
 
-        AbabaAdvanceTextPos(lsTest2, liX, liY);
+        AdvanceTextPos(lsTest2, liX, liY);
 
         CheckEquals(1, liX,
           'X2 value for ' + IntToStr(liXLoop) + ' ' + IntToStr(liYLoop) + ' ' + IntToStr(liStringLengthLoop));

@@ -43,7 +43,7 @@ procedure InitTestSettings;
 implementation
 
 uses SysUtils, JclStrings,
-  JcfRegistrySettings, JcfSettings;
+  JcfRegistrySettings, JcfSettings, ConvertTypes;
 
 var
   msEXEFilesDir: string = '';
@@ -120,6 +120,7 @@ begin
   { some registry settings can be painfull in automated tests }
   GetRegSettings.LogTime := False;
   GetRegSettings.ViewLogAfterRun := False;
+  GetRegSettings.ShowParseTreeOption := eShowNever;
 end;
 
 end.

@@ -215,8 +215,8 @@ uses
 procedure TTestObfuscate.Setup;
 begin
   inherited;
-  if not GetRegSettings.HasRead then
-    GetRegSettings.ReadAll;
+
+  InitTestSettings;
 end;
 
 procedure TTestObfuscate.TestObfuscateFile(

@@ -3,6 +3,7 @@ unit testcharliterals;interface implementation procedure chars;const fred=#80;li
 :=#90+linebreak+#90#91+somechars+#90;ls2:=#$F#$A;ls2:=ls+#$1F+hexchars;end;procedure
 stringchars;const boo='Boo';hello='Hello'#13;olla=#10'Olla!';var ls:string;begin 
 ls:='Fred';ls:=#13;ls:=#12'Fred'#32'Fred'#22;end;const str1=^m;hat_foo=^a;hat_bar
-=^b;hat_fish=^f;hat_wibble=^q;hat_spon=^z;var hat1:char=^h;hat2:char=^j;hat3:char
-=^m;procedure hatbaby;var str:string;ch:char;begin str:=hat_foo+^m;ch:=^n;end;end
-. 
+=^b;hat_fish=^f;hat_wibble=^q;hat_spon=^z;hat_at=^@;hat_frown=^[;hat_hmm=^\;hat_smile
+=^];hat_hat=^^;hat_under=^_;var hat1:char=^h;hat2:char=^j;hat3:char=^m;procedure 
+hatbaby;var str:string;ch:char;begin str:=hat_foo+^m;ch:=^n;str:=hat_foo+^@+^]+^^
++^-+^\+^[;end;end. 

@@ -143,6 +143,7 @@ type
     procedure RecogniseExpr(const pbAllowRelop: boolean);
     procedure RecogniseExprList;
     procedure RecogniseFactor;
+    procedure RecogniseUnarySymbolFactor;
     procedure RecogniseTerm;
     procedure RecogniseMulOp;
     procedure RecogniseRelOp;
@@ -1141,74 +1142,41 @@ begin
       an e.g. is in TestDeclarations.pas }
     Recognise(ttType);
   end;
-  (*
-  If (lc.TokenType = ttConst) Then Recognise(ttConst)
-  Else If (lc.TokenType In RealTypes + OrdTypes) Then RecogniseSimpleType
-  Else If (lc.TokenType = ttOpenBracket) Then RecogniseSimpleType // for enumerated types
-  Else If (lc.TokenType In [ttPacked, ttArray, ttSet, ttFile, ttRecord]) Then RecogniseStrucType
-  Else If (lc.TokenType = ttHat) Then RecognisePointerType
-  Else If (lc.TokenType In StringWords) Then RecogniseStringType
-  Else If (lc.TokenType In [ttProcedure, ttFunction]) Then RecogniseProcedureType
-  Else If lc.TokenType In VariantTypes Then RecogniseVariantType
-  Else If (lc.TokenType = ttClass) And (lc2.TokenType = ttOf) Then RecogniseClassRefType
-  Else If (lc.WordType In IdentifierTypes) Then Begin
-    { could be a subrange on an enum, e.g. "clBlue .. clBlack". NB: this can also be Low(Integer) .. High(Integer) }
-    If (AnsiSameText(lc.SourceCode, 'Low')) Or (fcTokenList.SolidTokenType(2) = ttDoubleDot) Then RecogniseSubRangeType
-    Else RecogniseTypeId; // some previously declared type that this simple prog does not know of
-  End Else RecogniseSimpleType;
-  *)
 
+  { Adem Baba - used case for speed
+      not sure this is faster. But it sure avoids mixing tokentypes in the conditionals}
   case lc.TokenType of
-  {I am not sure this is faster. But it sure avoids mixing tokentypes in the conditionals}
     ttConst: Recognise(ttConst);
-    ttReal48,
-    ttReal,
-    ttSingle,
-    ttDouble,
-    ttExtended,
-    ttCurrency,
-    ttComp,
-    ttShortInt,
-    ttSmallInt,
-    ttInteger,
-    ttByte,
-    ttLongInt,
-    ttInt64,
-    ttWord,
-    ttBoolean,
-    ttByteBool,
-    ttWordBool,
-    ttLongBool,
-    ttChar,
-    ttWideChar,
-    ttLongWord,
-    ttPChar: RecogniseSimpleType; {RealTypes + OrdTypes}
-    ttOpenBracket: RecogniseSimpleType; {enumerated types}
-    ttPacked,
-    ttArray,
-    ttSet,
-    ttFile,
-    ttRecord: RecogniseStrucType;
-    ttHat: RecognisePointerType;
-    ttString,
-    ttAnsiString,
-    ttWideString: RecogniseStringType; {StringWords}
-    ttProcedure,
-    ttFunction: RecogniseProcedureType;
-    ttVariant,
-    ttOleVariant: RecogniseVariantType; {VariantTypes}
+    ttReal48, ttReal, ttSingle, ttDouble, ttExtended, ttCurrency, ttComp,
+    ttShortInt, ttSmallInt, ttInteger, ttByte, ttLongInt, ttInt64, ttWord,
+    ttBoolean, ttByteBool, ttWordBool, ttLongBool,
+    ttChar, ttWideChar, ttLongWord, ttPChar:
+      RecogniseSimpleType; {RealTypes + OrdTypes}
+    ttOpenBracket:
+      RecogniseSimpleType; {enumerated types}
+    ttPacked, ttArray, ttSet, ttFile, ttRecord:
+      RecogniseStrucType;
+    ttHat:
+      RecognisePointerType;
+    ttString, ttAnsiString, ttWideString:
+      RecogniseStringType; {StringWords}
+    ttProcedure, ttFunction:
+      RecogniseProcedureType;
+    ttVariant, ttOleVariant:
+      RecogniseVariantType; {VariantTypes}
     else
       if (lc.TokenType = ttClass) and (lc2.TokenType = ttOf) then
         RecogniseClassRefType
       else if (lc.WordType in IdentifierTypes) then
       begin
-      { could be a subrange on an enum, e.g. "clBlue .. clBlack". NB: this can also be Low(Integer) .. High(Integer) }
+        { could be a subrange on an enum,
+          e.g. "clBlue .. clBlack". NB: this can also be Low(Integer) .. High(Integer) }
         if (AnsiSameText(lc.SourceCode, 'Low')) or
           (fcTokenList.SolidTokenType(2) = ttDoubleDot) then
           RecogniseSubRangeType
         else
+          // some previously declared type that this simple prog does not know of
           RecogniseTypeId;
- // some previously declared type that this simple prog does not know of
       end
       else
         RecogniseSimpleType;
@@ -1814,7 +1782,7 @@ begin
       RecogniseActualParams;
     end;
   end
-  else if (IdentifierNext) then
+  else if (IsIdentifierToken(lc)) then
   begin
     RecogniseDesignator;
     if fcTokenList.FirstSolidTokenType = ttOpenBracket then
@@ -1822,20 +1790,20 @@ begin
       RecogniseActualParams;
     end;
   end
-  else if (fcTokenList.FirstSolidTokenType = ttNumber) then
+  else if (lc.TokenType = ttNumber) then
   begin
     Recognise(ttNumber);
   end
-  else if (fcTokenList.FirstSolidTokenType = ttLiteralString) then
+  else if (lc.TokenType = ttLiteralString) then
   begin
     Recognise(ttLiteralString);
   end
-  else if (fcTokenList.FirstSolidTokenType in BuiltInConstants) then
+  else if (lc.TokenType in BuiltInConstants) then
   begin
     // nil, true, false
     Recognise(BuiltInConstants);
   end
-  else if (fcTokenList.FirstSolidTokenType = ttOpenBracket) then
+  else if (lc.TokenType = ttOpenBracket) then
   begin
     Recognise(ttOpenBracket);
 
@@ -1843,31 +1811,64 @@ begin
     if fcTokenList.FirstSolidTokenType <> ttCloseBracket then
       RecogniseExpr(True);
     Recognise(ttCloseBracket);
-
-    //!!! recognise expressions like (Foo.Stuff['x'].Pointer)^.MyIndex
   end
-  else if (fcTokenList.FirstSolidTokenType = ttNot) then
+  else if (lc.TokenType = ttNot) then
   begin
     Recognise(ttNot);
     RecogniseFactor;
   end
-  else if fcTokenList.FirstSolidTokenType in PossiblyUnarySymbolOperators then
+  else if lc.TokenType in PossiblyUnarySymbolOperators then
   begin
-    PushNode(nUnaryOp);
-    Recognise(PossiblyUnarySymbolOperators);
-    RecogniseFactor;
-
-    PopNode;
+    RecogniseUnarySymbolFactor;
   end
-  else if (fcTokenList.FirstSolidTokenType = ttOpenSquareBracket) then
+  else if (lc.TokenType = ttOpenSquareBracket) then
   begin
     RecogniseSetConstructor;
   end
   else
     raise TEParseError.Create('unexpected token in factor', lc);
 
+  { can't use lc for FirstSolidToken any more, have moved on }
   if fcTokenList.FirstSolidTokenType in [ttHat, ttDot, ttOpenSquareBracket] then
     RecogniseDesignatorTail;
+end;
+
+procedure TBuildParseTree.RecogniseUnarySymbolFactor;
+var
+  lc2: TSourceToken;
+  lbOldStyleCharEscape: boolean;
+begin
+  {!!! special undocumented syntax held from Turbopascal
+   A char constant can be represented by '^G' for a ctrl-g char etc
+   This caused problems when it is the likes of '^@' or '^]'
+
+   see Sourceforge bug #888862 and TestCharLiterals.pas
+   }
+  lbOldStyleCharEscape := False;
+  if fcTokenList.FirstSolidTokenType = ttHat then
+  begin
+    lc2 := fcTokenList.SolidToken(2);
+    lbOldStyleCharEscape := (lc2 <> nil) and (Length(lc2.Sourcecode) = 1) and
+      not (CharIsAlpha(lc2.Sourcecode[1]));
+  end
+  else
+    lc2 := nil;
+
+  if lbOldStyleCharEscape then
+  begin
+    { bizarre char constant }
+    Recognise(ttHat);
+    Recognise(lc2.TokenType);
+  end
+  else
+  begin
+    { notmal path }
+    PushNode(nUnaryOp);
+    Recognise(PossiblyUnarySymbolOperators);
+    RecogniseFactor;
+    PopNode;
+  end;
+
 end;
 
 procedure TBuildParseTree.RecogniseRelOp;

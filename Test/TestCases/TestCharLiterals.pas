@@ -73,6 +73,8 @@ var
 begin
   str := HAT_FOO + ^M;
   ch := ^N;
+
+  str := HAT_FOO + ^@ + ^] + ^^ + ^- + ^\ + ^[;
 end;
 
 
