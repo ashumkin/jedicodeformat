@@ -8,10 +8,14 @@ uses
 type
   TTestObfuscate = class(TTestCase)
   private
-    procedure TestObfuscateFile(const psInFileName, psRefOutput: string); overload;
+    procedure TestObfuscateFile(const psInFileName,
+      psRefObsOutput, psRefClearOutput: string); overload;
     procedure TestObfuscateFile(const psName: string); overload;
 
     procedure TestFileContentsSame(const psFileName1, psFileName2: string);
+
+  protected
+    procedure Setup; override;
 
  published
 
@@ -99,18 +103,23 @@ uses
   FileConverter, ConvertTypes, JcfSettings, JcfRegistrySettings,
   TestConstants;
 
-
+procedure TTestObfuscate.Setup;
+begin
+  inherited;
+  if not GetRegSettings.HasRead then
+    GetRegSettings.ReadAll;
+end;
 
 procedure TTestObfuscate.TestObfuscateFile(const psInFileName,
-  psRefOutput: string);
+  psRefObsOutput, psRefClearOutput: string);
 var
   lcConverter: TFileConverter;
+  lsObsFileName: string;
   lsOutFileName: string;
 begin
   Check(FileExists(psInFileName), 'input file ' + psInFileName + ' not found');
   FormatSettings.Obfuscate.Enabled := True;
-
-  // Check(FileExists(psRefOutput), 'reference output file ' + psRefOutput + ' not found');
+  GetRegSettings.OutputExtension := 'obs';
 
   lcConverter := TFileConverter.Create;
   try
@@ -127,20 +136,48 @@ begin
 
     lcConverter.Convert;
 
-    Check(not lcConverter.ConvertError, 'Convert failed for ' +
+    Check(not lcConverter.ConvertError, 'Obfuscate failed for ' +
       ExtractFileName(psInFileName) +
+      ' : ' + lcConverter.ConvertErrorMessage);
+
+    lsObsFileName := lcConverter.OutFileName;
+    Check(lsObsFileName <> '', 'No obfuscated file');
+    Check(FileExists(lsObsFileName), 'obfuscated file ' + lsObsFileName + ' not found');
+
+    TestFileContentsSame(lsObsFileName, psRefObsOutput);
+
+    // now deobfuscate
+    FormatSettings.Obfuscate.Enabled := False;
+    GetRegSettings.OutputExtension := 'out';
+
+    lcConverter.Clear;
+    lcConverter.YesAll := True;
+    lcConverter.GuiMessages := False;
+    lcConverter.SourceMode := fmSingleFile;
+    lcConverter.BackupMode := cmSeperateOutput;
+
+    lcConverter.Input := lsObsFileName;
+    lcConverter.Convert;
+
+    Check(not lcConverter.ConvertError, 'Reclarify failed for ' +
+      ExtractFileName(lsObsFileName) +
       ' : ' + lcConverter.ConvertErrorMessage);
 
     lsOutFileName := lcConverter.OutFileName;
     Check(lsOutFileName <> '', 'No output file');
-    Check(FileExists(lsOutFileName), 'output file ' + lsOutFileName + ' not found');
+    Check(FileExists(lsOutFileName), 'output file ' + lsObsFileName + ' not found');
+
+    TestFileContentsSame(lsOutFileName, psRefClearOutput);
+
+    // clean up
+    DeleteFile(lsOutFileName);
+    DeleteFile(lsObsFileName);
 
   finally
     lcConverter.Free;
     FormatSettings.Obfuscate.Enabled := False;
   end;
 
-  TestFileContentsSame(lsOutFileName, psRefOutput);
 end;
 
 procedure TTestObfuscate.TestFileContentsSame(const psFileName1,
@@ -162,7 +199,7 @@ end;
 procedure TTestObfuscate.TestObfuscateFile(const psName: string);
 var
   lsInName, lsObsFileName: string;
-  // lsRemadeFileName: string;
+  lsRemadeFileName: string;
 begin
   Assert(psName <> '');
 
@@ -171,19 +208,19 @@ begin
   begin
     lsInName := psName;
     lsObsFileName := StrBefore('.', psName) + '.obs';
-    //lsRemadeFileName := StrBefore('.', psName) + '.out';
+    lsRemadeFileName := StrBefore('.', psName) + '.out';
   end
   else
   begin
     lsInName := psName + '.pas';
     lsObsFileName := psName + '.obs';
-    //lsRemadeFileName := psName + '.out';
+    lsRemadeFileName := psName + '.out';
   end;
 
   GetRegSettings.OutputExtension := 'obs';
 
   TestObfuscateFile(TEST_FILES_DIR + lsInName,
-    OBS_OUT_FILES_DIR + lsObsFileName)
+    OBS_OUT_FILES_DIR + lsObsFileName, OBS_OUT_FILES_DIR + lsRemadeFileName)
 
   {
     // test re-obfuscating 

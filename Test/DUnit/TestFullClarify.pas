@@ -13,6 +13,8 @@ type
     procedure TestClarifyFile(const psInFileName, psRefOutput: string); overload;
     procedure TestClarifyFile(const psName: string); overload;
 
+  protected
+    procedure Setup; override;
 
  published
   { one test for each file}
@@ -111,6 +113,13 @@ uses
 
 { TTestClarify }
 
+procedure TTestClarify.Setup;
+begin
+  inherited;
+  if not GetRegSettings.HasRead then
+    GetRegSettings.ReadAll;
+end;
+
 procedure TTestClarify.TestClarifyFile(const psName: string);
 var
   lsInName, lsClearFileName: string;
@@ -171,12 +180,16 @@ begin
     Check(lsOutFileName <> '', 'No output file');
     Check(FileExists(lsOutFileName), 'output file ' + lsOutFileName + ' not found');
 
+    TestFileContentsSame(lsOutFileName, psRefOutput);
+
+    // clean up
+    DeleteFile(lsOutFileName);
+
   finally
     lcConverter.Free;
     FormatSettings.Obfuscate.Enabled := False;
   end;
 
-  TestFileContentsSame(lsOutFileName, psRefOutput);
 end;
 
 

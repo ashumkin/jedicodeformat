@@ -637,6 +637,9 @@ begin
 end;
 
 procedure TParseTreeNode.VisitTree(const pcVisitor: IVisitParseTree);
+const
+  // if a node has more than this number of direct children, then something is very wrong
+  MAX_NODE_CHILDREN = 1024;
 var
   liLoop, liNewIndex: integer;
   lcNode: TParseTreeNode;
@@ -692,6 +695,12 @@ begin
       liLoop := liNewIndex + 1;
     { else case is that liNewIndex is -1 as the current item has been deleted.
       Stay at same index as the next item will now be in this slot }
+
+    if ChildNodeCount > MAX_NODE_CHILDREN then
+    begin
+      // some insert process has gone bezerk
+      Raise Exception.Create('Too many child nodes ' + IntToStr(ChildNodeCount));
+    end;
   end;
 
   pcVisitor.PostVisitParseTreeNode(self);

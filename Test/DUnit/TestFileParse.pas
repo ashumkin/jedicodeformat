@@ -10,6 +10,11 @@ type
  private
     procedure TestParseFile(const psInFileName, psRefOutput: string; const piTokenCount: integer); overload;
     procedure TestParseFile(const psName: string; const piTokenCount: integer); overload;
+
+ protected
+   procedure Setup; override;
+
+
  published
    procedure TestDirs;
    procedure TestCreate;
@@ -103,6 +108,15 @@ uses
   FileConverter, ConvertTypes, JcfSettings, JcfRegistrySettings,
   TestConstants;
 
+
+procedure TTestFileParse.Setup;
+begin
+  inherited;
+  if not GetRegSettings.HasRead then
+    GetRegSettings.ReadAll;
+end;
+
+
 procedure TTestFileParse.TestParseFile(const psInFileName, psRefOutput: string;
   const piTokenCount: integer);
 var
@@ -141,6 +155,9 @@ begin
 
     CheckEquals(piTokenCount, lcConverter.TokenCount, 'wrong number of tokens');
 
+    // clean up
+    DeleteFile(lsOutFileName);
+    
   finally
     lcConverter.Free;
   end;

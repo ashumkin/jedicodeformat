@@ -132,6 +132,9 @@ function NeedsReturn(const pt, ptNext: TSourceToken): boolean;
 begin
   Result := False;
 
+  if (pt.TokenType = ttReturn) then
+    exit;
+
   if (pt.TokenType in ReservedWordTokens) and (pt.Word in WordsJustReturnAfter) then
   begin
     Result := True;
@@ -261,7 +264,7 @@ begin
       // catch large values
       begin
         ... }
-  lcCommentTest := lcNext.NextTokenWithExclusions([ttWhiteSpace, ttReturn]);
+  lcCommentTest := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace, ttReturn]);
 
   if lcCommentTest = nil then
     exit;
