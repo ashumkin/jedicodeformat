@@ -65,6 +65,8 @@ type
     procedure TestObfuscate_TestAlign;
     procedure TestObfuscate_TestArray;
     procedure TestObfuscate_TestAsm;
+    procedure TestObfuscate_TestAtExpr;
+
     procedure TestObfuscate_TestBlankLineRemoval;
     procedure TestObfuscate_TestBogusDirectives;
     procedure TestObfuscate_TestBogusTypes;
@@ -738,6 +740,11 @@ end;
 procedure TTestObfuscate.TestObfuscate_LittleTest18;
 begin
   TestObfuscateFile('LittleTest18');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestAtExpr;
+begin
+  TestObfuscateFile('TestAtExpr');
 end;
 
 initialization

@@ -85,7 +85,8 @@ uses
   LittleTest15 in 'LittleTest15.pas',
   LittleTest16 in 'LittleTest16.pas',
   LittleTest17 in 'LittleTest17.pas',
-  LittleTest18 in 'LittleTest18.pas';
+  LittleTest18 in 'LittleTest18.pas',
+  TestAtExpr in 'TestAtExpr.pas';
 
 {$R *.res}
 

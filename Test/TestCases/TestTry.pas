@@ -13,10 +13,21 @@ implementation
 
 uses Dialogs, SysUtils, Math;
 
+procedure TestRaise;
+begin
+  raise Exception.Create('Monkey error: please insert soy');
+end;
+
+
+procedure TestRaiseAt;
+begin
+  raise Exception.Create('Shatner error: please insert toupee') at @TestRaiseAt;
+end;
+
 procedure TestTryRaise;
 begin
 
-try 
+try
   ShowMessage ('Start'); 
  except 
   ShowMessage ('except'); 

@@ -1517,7 +1517,7 @@ const
   END_VAR_SECTION: TTokenTypeSet =
     [ttVar, ttThreadVar, ttConst, ttLabel, ttResourceString, ttType,
       ttBegin, ttEnd, ttImplementation, ttInitialization,
-      ttProcedure, ttFunction, ttConstructor, ttDestructor, ttClass];
+      ttProcedure, ttFunction, ttConstructor, ttDestructor, ttClass, ttAsm];
 begin
   PushNode(nVarSection);
 
@@ -1813,6 +1813,9 @@ begin
   }
   PushNode(nDesignator);
 
+  if TokenList.FirstSolidTokenType = ttAtSign then
+    Recognise(ttAtSign);
+
   RecogniseQualId;
 
   while (TokenList.FirstSolidTokenType in [ttDot, ttOpenBracket, ttOpenSquareBracket, ttHat]) do
@@ -1973,8 +1976,9 @@ begin
 
   lc := TokenList.FirstSolidToken;
 
-  if (IdentifierNext) or (lc.TokenType = ttOpenBracket) then
+  if (IdentifierNext) or (lc.TokenType in [ttOpenBracket, ttAtSign]) then
   begin
+    // should be fullblown expression?
     RecogniseDesignator;
 
     if TokenList.FirstSolidTokenType = ttOpenBracket then
@@ -2029,6 +2033,13 @@ begin
     Recognise(ttRaise);
     if not (TokenList.FirstSolidTokenType in [ttSemicolon, ttEnd]) then
       RecogniseExpr;
+
+    // can be at addr
+    if TokenList.FirstSolidTokenType = ttAt then
+    begin
+      Recognise(ttAt);
+      RecogniseExpr;
+    end;
   end
   else if lc.TokenType = ttSemicolon then
   begin
@@ -3611,9 +3622,17 @@ begin
 
     but it's too large a cast and varies from CPU to CPU
     so I will not enumerate them all
+
+    some overlap with Delphi reserved words
+    e.g. SHL
    }
   PushNode(nASMOpcode);
-  RecogniseIdentifier(False);
+  if IdentifierNext then
+    RecogniseIdentifier(False)
+  else if WordTypeOfToken(TokenList.FirstSolidTokenType) in TextualWordTypes then
+    // match anything 
+    Recognise(TokenList.FirstSolidTokenType);
+
   PopNode;
 end;
 

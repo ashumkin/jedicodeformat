@@ -64,6 +64,7 @@ type
     procedure TestClarify_TestAlign;
     procedure TestClarify_TestArray;
     procedure TestClarify_TestAsm;
+    procedure TestClarify_TestAtExpr;
 
     procedure TestClarify_TestBlankLineRemoval;
     procedure TestClarify_TestBogusDirectives;
@@ -711,6 +712,11 @@ end;
 procedure TFullTestClarify.TestClarify_LittleTest18;
 begin
   TestClarifyFile('LittleTest18');
+end;
+
+procedure TFullTestClarify.TestClarify_TestAtExpr;
+begin
+  TestClarifyFile('TestAtExpr');
 end;
 
 initialization

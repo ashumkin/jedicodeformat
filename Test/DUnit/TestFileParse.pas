@@ -68,6 +68,7 @@ type
     procedure TestParse_TestAlign;
     procedure TestParse_TestArray;
     procedure TestParse_TestAsm;
+    procedure TestParse_TestAtExpr;
     procedure TestParse_TestBlankLineRemoval;
     procedure TestParse_TestBogusDirectives;
     procedure TestParse_TestBogusTypes;
@@ -596,7 +597,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestTry;
 begin
-  TestParseFile('TestTry', 890);
+  TestParseFile('TestTry', 939);
 end;
 
 procedure TTestFileParse.TestParse_TestTypeDefs;
@@ -626,7 +627,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 719);
+  TestParseFile('Testcases.dpr', 727);
 end;
 
 
@@ -714,6 +715,11 @@ end;
 procedure TTestFileParse.TestParse_LittleTest18;
 begin
   TestParseFile('LittleTest18', 102);
+end;
+
+procedure TTestFileParse.TestParse_TestAtExpr;
+begin
+  TestParseFile('TestAtExpr', 79);
 end;
 
 initialization
