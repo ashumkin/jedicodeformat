@@ -170,6 +170,7 @@ begin
   lcSet.ExclusionsFiles.Assign(mFiles.Lines);
   lcSet.ExclusionsDirs.Assign(mDirs.Lines);
 
+   lcSet.WriteAll;
 end;
 
 procedure TfmRegistrySettings.Execute;

@@ -81,7 +81,6 @@ type
     { this is ref not owned }
     fcMRUFiles: TStrings;
 
-
     procedure ReadMRUFiles;
     procedure WriteMRUFiles;
 
