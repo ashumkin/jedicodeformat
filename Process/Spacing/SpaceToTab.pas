@@ -57,17 +57,29 @@ end;
 
 function TSpaceToTab.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
-  lcSourceToken: TSourceToken;
-  ls, lsTab:     string;
+  lcSourceToken, lcNextToken: TSourceToken;
+  ls, lsTab: string;
 begin
   Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
-  if not (lcSourceToken.TokenType = ttWhiteSpace) then
+  { work only on whitespace tokens.
+    Indent spaces also occur in multiline comments, but leave them alone }
+  if (lcSourceToken.TokenType <> ttWhiteSpace) then
     exit;
 
-  { can't pass property as var parameter so ls local var is used }
-  ls    := lcSourceToken.SourceCode;
+  { Merge following space tokens
+    can't pass property as var parameter so ls local var is used }
+
+	ls := lcSourceToken.SourceCode;
+	lcNextToken := lcSourceToken.NextToken;
+	while (lcNextToken <> nil) and (lcNextToken.TokenType = ttWhiteSpace) do
+	begin
+		ls := ls + lcNextToken.SourceCode;
+		lcNextToken.SourceCode := '';
+		lcNextToken := lcNextToken.NextToken;
+	end;
+
   lsTab := AnsiTab;
   StrReplace(ls, fsSpaces, lsTab, [rfReplaceAll]);
   lcSourceToken.SourceCode := ls;

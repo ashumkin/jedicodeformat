@@ -211,6 +211,9 @@ type
     procedure TestObfuscate_TestProcBlankLines;
 
     procedure TestObfuscate_TestDephiNetUses;
+
+    procedure TestObfuscate_TestConstBug;
+    procedure TestObfuscate_TestForIn;
   end;
 
 implementation
@@ -1151,6 +1154,16 @@ end;
 procedure TTestObfuscate.TestObfuscate_TestDephiNetUses;
 begin
   TestObfuscateFile('TestDephiNetUses');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestConstBug;
+begin
+  TestObfuscateFile('TestConstBug');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestForIn;
+begin
+  TestObfuscateFile('TestForIn');
 end;
 
 initialization

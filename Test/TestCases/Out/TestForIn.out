@@ -1,0 +1,18 @@
+unit TestForIn;
+
+interface
+
+implementation
+
+type
+  TStringArray = array of string;
+
+procedure Demo1(const List: TStringArray);
+var
+  S: string;
+begin
+  for S in List do
+    writeln(S);
+end;
+
+end.

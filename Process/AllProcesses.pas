@@ -198,8 +198,8 @@ begin
       OnceOffs;
 
 
-  // Do this last - spaces may have been introduced above.
-  ApplyVisitorType(TSpaceToTab);
+    // Do this last - spaces may have been introduced above.
+    ApplyVisitorType(TSpaceToTab);
 
     // stats last
     ApplyVisitorType(TBasicStats);

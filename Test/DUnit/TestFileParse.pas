@@ -206,12 +206,15 @@ type
     procedure TestParse_TestWarnDestroy;
     procedure TestParse_TestVarParam;
     procedure TestParse_TestWith;
-
-    procedure TestParse_TestCases;
-    procedure TestParse_TestPackage;
     procedure TestParse_TestProcBlankLines;
 
     procedure TestParse_TestDephiNetUses;
+    procedure TestParse_TestForIn;
+
+    procedure TestParse_TestConstBug;
+
+    procedure TestParse_TestCases;
+    procedure TestParse_TestPackage;
 
   end;
 
@@ -693,7 +696,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 1233);
+  TestParseFile('Testcases.dpr', 1241);
 end;
 
 
@@ -1117,6 +1120,16 @@ end;
 procedure TTestFileParse.TestParse_TestDephiNetUses;
 begin
   TestParseFile('TestDephiNetUses', 143);
+end;
+
+procedure TTestFileParse.TestParse_TestConstBug;
+begin
+  TestParseFile('TestConstBug', 157);
+end;
+
+procedure TTestFileParse.TestParse_TestForIn;
+begin
+  TestParseFile('TestForIn', 76);
 end;
 
 initialization

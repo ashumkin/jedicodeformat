@@ -209,6 +209,8 @@ type
     procedure TestClarify_TestProcBlankLines;
 
     procedure TestClarify_TestDephiNetUses;
+    procedure TestClarify_TestConstBug;
+    procedure TestClarify_TestForIn;
 
     procedure TestClarify_TestCases;
   end;
@@ -1106,6 +1108,16 @@ end;
 procedure TFullTestClarify.TestClarify_TestDephiNetUses;
 begin
   TestClarifyFile('TestDephiNetUses');
+end;
+
+procedure TFullTestClarify.TestClarify_TestConstBug;
+begin
+  TestClarifyFile('TestConstBug');
+end;
+
+procedure TFullTestClarify.TestClarify_TestForIn;
+begin
+  TestClarifyFile('TestForIn');
 end;
 
 initialization

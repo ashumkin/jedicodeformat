@@ -1,0 +1,4 @@
+unit testconstbug;interface implementation procedure a(pb,pc:integer);begin end;
+var b,c:integer;const effrandlinks=28;effrandoben=15;effrandunten=effrandoben+102
+;effrandrechts=effrandlinks+293;effmax=4;effmin=1;efffaktor:extended=(effrandunten
+-effrandoben)/(effmax-effmin);procedure test;begin a(b,c);end;end. 

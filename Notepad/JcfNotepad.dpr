@@ -160,7 +160,8 @@ uses
   frClarifyBlocks in '..\Ui\Settings\frClarifyBlocks.pas' {fClarifyBlocks: TFrame},
   SortUses in '..\Process\Transform\SortUses.pas',
   SortUsesData in '..\Process\Transform\SortUsesData.pas',
-  Unit1 in '..\Test\TestCases\ChineseComment\Unit1.pas';
+  Unit1 in '..\Test\TestCases\ChineseComment\Unit1.pas',
+  test in '..\..\..\..\temp\test.pas';
 
 {$R *.res}
 

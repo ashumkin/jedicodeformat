@@ -1014,8 +1014,12 @@ begin
   while fcTokenList.SourceTokens[liIndex].TokenType <> ttOpenBracket do
     Inc(liIndex);
 
-  Inc(liIndex);
-
+  if fcTokenList.SourceTokens[liIndex].TokenType = ttOpenBracket then
+  begin
+    inc(liBracketLevel);
+    Inc(liIndex);
+  end;
+  
   // look forward to find the first comma or semicolon
   while True do
   begin
@@ -1028,7 +1032,7 @@ begin
       Inc(liBracketLevel)
     else if tt = ttCloseBracket then
       Dec(liBracketLevel)
-    else if (tt = ttComma) and (liBracketLevel = 0) then
+    else if (tt = ttComma) and (liBracketLevel = 1) then
     begin
       Result := True;
       break;
@@ -1041,13 +1045,19 @@ begin
       { if we get an semicolon at bracket level 2, it means an array of records
         e.g.
           Const MyFooRecArray = ((x: 2; y:3), (x: 5; y: 6)); }
-    else if (tt = ttSemicolon) and (liBracketLevel = 1) then
+    else if (tt = ttSemicolon) and (liBracketLevel = 2) then
     begin
       Result := True;
       break;
     end;
 
     Inc(liIndex);
+
+    if (liBracketLevel = 0)  then
+    begin
+      Result := False;
+      break;
+    end;
   end;
 
 end;
@@ -2541,23 +2551,41 @@ begin
 end;
 
 procedure TBuildParseTree.RecogniseForStmnt;
+var
+  lc: TSourceToken;
 begin
-  // ForStmt -> FOR QualId ':=' Expression (TO | DOWNTO) Expression DO Statement
+  { ForStmt -> FOR QualId ':=' Expression (TO | DOWNTO) Expression DO Statement
+
+    or Delphi 2005 syntax:
+    ForStmt ->  FOR QualId 'in' Expression DO Statement
+
+  }
   PushNode(nForStatement);
 
   Recognise(ttFor);
   RecogniseQualId;
-  Recognise(ttAssign);
 
-  PushNode(nLoopHeaderExpr);
-  RecogniseExpr(True);
-  PopNode;
+  lc := fcTokenList.FirstSolidToken;
+  if lc.TokenType = ttIn then
+  begin
+    // Delphi 2005 syntax
+    Recognise(ttIn);
+    RecogniseExpr(True);
+  end
+  else
+  begin
+    Recognise(ttAssign);
 
-  Recognise([ttTo, ttDownto]);
+    PushNode(nLoopHeaderExpr);
+    RecogniseExpr(True);
+    PopNode;
 
-  PushNode(nLoopHeaderExpr);
-  RecogniseExpr(True);
-  PopNode;
+    Recognise([ttTo, ttDownto]);
+
+    PushNode(nLoopHeaderExpr);
+    RecogniseExpr(True);
+    PopNode;
+  end;
 
   Recognise([ttDo]);
   RecogniseStatement;

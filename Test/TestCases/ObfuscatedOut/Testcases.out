@@ -149,7 +149,8 @@ uses
   testcommentindent2 in 'TestCommentIndent2.pas',
   fbracketprop in 'fBracketProp.pas' {Form1},
   testendelse in 'TestEndElse.pas',
-  testcondreturns in 'TestCondReturns.pas';
+  testcondreturns in 'TestCondReturns.pas',
+  testconstbug in 'TestConstBug.pas';
 
 {$R *.res}
 begin

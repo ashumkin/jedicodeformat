@@ -1,0 +1,19 @@
+unit testforin;
+
+interface
+
+implementation
+
+type
+  tstringarray = array of string;
+
+procedure demo1(const list: tstringarray);
+var
+  s: string;
+begin
+  for s in list do
+    writeln(s);
+end;
+
+end.
+ 
