@@ -31,7 +31,7 @@ uses
 const
   WordsJustReturnAfter: TWordSet = [wBegin, wRepeat,
     wTry, wExcept, wFinally, wLabel,
-    wInitialization, wFinalization];
+    wInitialization, wFinalization, wThen];
   // can't add 'interface' as it has a second meaning :(
 
   { blank line is 2 returns }
@@ -269,6 +269,20 @@ begin
     exit;
   end;
 
+  { otherwise "TSomeClass = class" has a return after "class"
+    determining features are
+      -  word = 'class'
+      -  immediate parent is the classtype/interfacetype tree node
+      - there is no classheritage node containing the brackets and base types thereunder
+      - it's not the metaclass syntax 'foo = class of bar; ' }
+  if (pt.Word = wClass) and
+    pt.HasParentNode([nClassType, nInterfaceType], 1) and
+    not (pt.Parent.HasChildNode(nClassHeritage, 1)) and
+    not (ptNext.Word = wOf) then
+  begin
+    Result := True;
+    exit;
+  end;
 
   { comma in exports clause }
   if (pt.TokenType = ttComma) and pt.HasParentNode(nExports) then
@@ -279,7 +293,8 @@ begin
 
   { comma in uses clause of program or lib - these are 1 per line,
     using the 'in' keyword to specify the file  }
-  if (pt.TokenType = ttComma) and pt.HasParentNode(nUses) and pt.IsOnRightOf(nUsesItem, wOf) then
+  if (pt.TokenType = ttComma) and pt.HasParentNode(nUses) and
+    pt.HasParentNode([nProgram, nLibrary]) then
   begin
     Result := True;
     exit;
@@ -323,7 +338,7 @@ begin
   lcSourceToken := TSourceToken(pcNode);
 
   { check the next significant token  }
-  lcNext := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace, ttComment]);
+  lcNext := lcSourceToken.NextSolidToken;
   if lcNext = nil then
     exit;
 
@@ -336,6 +351,10 @@ begin
     liReturnsNeeded := 0;
 
   if liReturnsNeeded < 1 then
+    exit;
+
+  lcNext := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace, ttComment]);
+  if lcNext = nil then
     exit;
 
   if (lcNext.TokenType = ttReturn) then

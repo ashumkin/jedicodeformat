@@ -172,6 +172,14 @@ begin
     exit;
   end;
 
+  { return before 'class' in class function }
+  if (pt.Word = wClass) and pt.HasParentNode(ProcedureHeadings) and
+    (RoundBracketLevel(pt) < 1) then
+  begin
+    Result := True;
+    exit;
+  end;
+
   { "uses UnitName in 'File'" has a blank line before UnitName }
   if (pt.TokenType = ttWord) and (pt.HasParentNode(nUses)) and (ptNext.Word = wIn) then
   begin
