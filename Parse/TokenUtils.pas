@@ -78,6 +78,8 @@ function IsBlankLineEnd(const pcToken: TSourceToken): boolean;
 function VarIdentCount(const pcNode: TParseTreeNode): integer;
 function IdentListNameCount(const pcNode: TParseTreeNode): integer;
 
+function ProcedureHasBody(const pt: TParseTreeNode): boolean;
+
 implementation
 
 uses
@@ -468,7 +470,7 @@ begin
   if pcNode.NodeType <> nIdentList then
     exit;
 
-  {and uner it we find words (names), commas and assorted white space
+  {and under it we find words (names), commas and assorted white space
    count the names }
   for liLoop := 0 to pcNode.ChildNodeCount - 1 do
   begin
@@ -477,6 +479,21 @@ begin
       (TSourceToken(lcLeafItem).TokenType = ttWord) then
         inc(Result);
   end;
+end;
+
+function ProcedureHasBody(const pt: TParseTreeNode): boolean;
+var
+  lcProcedureNode: TParseTreeNode;
+begin
+  Result := False;
+  if pt = nil then
+    exit;
+
+  lcProcedureNode := pt.GetParentNode(ProcedureNodes);
+  if lcProcedureNode = nil then
+    exit;
+
+  Result := lcProcedureNode.HasChildNode(nBlock, 1);
 end;
 
 end.

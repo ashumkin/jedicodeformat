@@ -190,7 +190,8 @@ procedure TTestSpacing.TestReturnBefore;
 const
   IN_UNIT_TEXT = UNIT_HEADER +  'procedure foo; begin a := 2; end;' + UNIT_FOOTER;
   OUT_UNIT_TEXT = 'unit Test;' + AnsiLineBreak + AnsiLineBreak + 'interface' +
-    AnsiLineBreak + AnsiLineBreak + 'implementation' + AnsiLineBreak +
+    AnsiLineBreak + AnsiLineBreak +
+    'implementation' + AnsiLineBreak + AnsiLineBreak +
     'procedure foo; ' + AnsiLineBreak + 'begin a := 2; ' + AnsiLineBreak +
     'end;' + AnsiLineBreak + AnsiLineBreak + 'end.';
 begin

@@ -50,14 +50,15 @@ begin
    but not in RHSEquals of type defs,
    but not in class & interface def,
    but not if precedeed by the class specified for class functions
-   but not if it is a contained function
+
 
    !! this mistakenly spaces proc forwards.
    }
 
-  if (pt.Word in [wProcedure, wFunction]) and  // pt.ProcedureHasBody and
-    (not pt.HasParentNode(nDeclSection)) and
-    (not IsClassFunction(pt)) and (pt.Nestings.GetLevel(nlProcedure) = 0) then
+  if (pt.Word in ProcedureWords) and
+    (not pt.IsOnRightOf(nTypeDecl, wEquals)) and
+    (not IsClassFunction(pt)) and
+    (ProcedureHasBody(pt)) then
   begin
     Result := True;
     exit;
