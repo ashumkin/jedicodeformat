@@ -34,8 +34,11 @@ uses
 type
   TTestSpacing = class(TBaseTestProcess)
   private
+    fbSaveIndentBeginEnd: boolean;
 
   protected
+    procedure Setup; override;
+    procedure Teardown; override;
   published
 
     procedure TestNoReturnAfter;
@@ -72,6 +75,9 @@ type
 
     procedure TestTabToSpace;
     procedure TestSpaceToTab;
+
+    procedure TestIndenter1;
+    procedure TestIndenter2;
   end;
 
 implementation
@@ -83,7 +89,22 @@ uses JclStrings,
   SingleSpaceBefore, SingleSpaceAfter,
   ReturnBefore, ReturnAfter, RemoveBlankLinesAfterProcHeader,
   RemoveReturnsAfterBegin, RemoveReturnsBeforeEnd, UnitNameCaps,
-  TabToSpace, SpaceToTab;
+  TabToSpace, SpaceToTab, Indenter;
+
+procedure TTestSpacing.Setup;
+begin
+  inherited;
+
+  fbSaveIndentBeginEnd := FormatSettings.Indent.IndentBeginEnd;
+end;
+
+procedure TTestSpacing.Teardown;
+begin
+  inherited;
+
+  FormatSettings.Indent.IndentBeginEnd := fbSaveIndentBeginEnd;
+end;
+
 
 procedure TTestSpacing.TestNoReturnAfter;
 const
@@ -342,6 +363,48 @@ begin
   TestProcessResult(TSpaceToTab, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
+
+procedure TTestSpacing.TestIndenter1;
+const
+  IN_UNIT_TEXT = UNIT_HEADER +
+     'function foo: integer;' + AnsiLineBreak +
+     'begin' + AnsiLineBreak +
+     'begin' + AnsiLineBreak +
+     'result := 2 + 2;' + AnsiLineBreak +
+     'end' + AnsiLineBreak +
+     'end;' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER +
+     'function foo: integer;' + AnsiLineBreak +
+     'begin' + AnsiLineBreak +
+     '  begin' + AnsiLineBreak +
+     '    result := 2 + 2;' + AnsiLineBreak +
+     '  end' + AnsiLineBreak +
+     'end;' + UNIT_FOOTER;
+begin
+  FormatSettings.Indent.IndentBeginEnd := False;
+  TestProcessResult(TIndenter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestSpacing.TestIndenter2;
+const
+  IN_UNIT_TEXT = UNIT_HEADER +
+     'function foo: integer;' + AnsiLineBreak +
+     'begin' + AnsiLineBreak +
+     'begin' + AnsiLineBreak +
+     'result := 2 + 2;' + AnsiLineBreak +
+     'end' + AnsiLineBreak +
+     'end;' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER +
+     'function foo: integer;' + AnsiLineBreak +
+     'begin' + AnsiLineBreak +
+     '   begin' + AnsiLineBreak +
+     '    result := 2 + 2;' + AnsiLineBreak +
+     '   end' + AnsiLineBreak +
+     'end;' + UNIT_FOOTER;
+begin
+  FormatSettings.Indent.IndentBeginEnd := True;
+  TestProcessResult(TIndenter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
 
 initialization
  TestFramework.RegisterTest('Processes', TTestSpacing.Suite);

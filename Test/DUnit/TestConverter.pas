@@ -45,10 +45,12 @@ type
 
     property RunAll: boolean read fbRunAll write fbRunAll;
     property SingleProcess: TTreeNodeVisitorType read fcSingleProcess write fcSingleProcess;
-
+    
   end;
 
 implementation
+
+uses VisitSetXY, VisitSetNesting;
 
 constructor TTestConverter.Create;
 begin
@@ -66,6 +68,23 @@ begin
     inherited
   else
   begin
+    // apply a visit setXY first
+    lcProcess := TVisitSetXY.Create;
+    try
+      GetRoot.VisitTree(lcProcess);
+    finally
+      lcProcess.Free;
+    end;
+
+    // and set up nesting levels
+    lcProcess := TVisitSetNestings.Create;
+    try
+      GetRoot.VisitTree(lcProcess);
+    finally
+      lcProcess.Free;
+    end;
+
+    // then apply the process
     lcProcess := SingleProcess.Create;
     try
       GetRoot.VisitTree(lcProcess);
