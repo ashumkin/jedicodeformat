@@ -130,7 +130,8 @@ uses
   fJcfErrorDisplay in '..\Ui\fJcfErrorDisplay.pas' {ExceptionDialog},
   ReturnsAfterFinalEnd in '..\Process\Returns\ReturnsAfterFinalEnd.pas',
   PreProcessorParseTree in '..\Parse\PreProcessor\PreProcessorParseTree.pas',
-  RemoveEmptyComment in '..\Process\RemoveEmptyComment.pas';
+  RemoveEmptyComment in '..\Process\RemoveEmptyComment.pas',
+  RemoveConsecutiveReturns in '..\Process\Returns\RemoveConsecutiveReturns.pas';
 
 const
   ABOUT_COMMANDLINE =

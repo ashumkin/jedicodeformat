@@ -153,7 +153,9 @@ uses
   PreProcessorParseTree in '..\Parse\PreProcessor\PreProcessorParseTree.pas',
   RemoveEmptyComment in '..\Process\RemoveEmptyComment.pas',
   SetComments in '..\Settings\SetComments.pas',
-  frComments in '..\Ui\Settings\frComments.pas' {fComments: TFrame};
+  frComments in '..\Ui\Settings\frComments.pas' {fComments: TFrame},
+  RemoveConsecutiveReturns in '..\Process\Returns\RemoveConsecutiveReturns.pas',
+  frBlankLines in '..\Ui\Settings\frBlankLines.pas' {fBlankLines: TFrame};
 
 {$R *.res}
 

@@ -150,7 +150,8 @@ uses
   UsesClauseFindReplace in '..\..\Process\Transform\UsesClauseFindReplace.pas',
   UsesClauseInsert in '..\..\Process\Transform\UsesClauseInsert.pas',
   PreProcessorParseTree in '..\..\Parse\PreProcessor\PreProcessorParseTree.pas',
-  RemoveEmptyComment in '..\..\Process\RemoveEmptyComment.pas';
+  RemoveEmptyComment in '..\..\Process\RemoveEmptyComment.pas',
+  RemoveConsecutiveReturns in '..\..\Process\Returns\RemoveConsecutiveReturns.pas';
 
 {
   gpprof in '..\..\..\..\..\Program Files\GpProfile\gpprof.pas',

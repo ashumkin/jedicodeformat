@@ -1,4 +1,4 @@
-unit RemoveEmptyComment;
+unit RemoveConsecutiveReturns;
 
 {(*}
 (*------------------------------------------------------------------------------
@@ -24,13 +24,13 @@ under the License.
 interface
 
 { AFS 9 Nov 2003
-  Remove empty comments
-}
+  Remove consecutive returns
+  ie put an upper limit on the number of blank lines in a row }
 
 uses SwitchableVisitor, VisitParseTree;
 
 type
-  TRemoveEmptyComment = class(TSwitchableVisitor)
+  TRemoveConsecutiveReturns = class(TSwitchableVisitor)
   private
   protected
     procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
@@ -49,56 +49,39 @@ uses
   FormatFlags, SourceToken, Tokens, TokenUtils, JcfSettings;
 
 
-constructor TRemoveEmptyComment.Create;
+constructor TRemoveConsecutiveReturns.Create;
 begin
   inherited;
-  FormatFlags := FormatFlags + [eRemoveComments];
+  FormatFlags := FormatFlags + [eRemoveReturn];
 end;
 
-procedure TRemoveEmptyComment.EnabledVisitSourceToken(
+procedure TRemoveConsecutiveReturns.EnabledVisitSourceToken(
   const pcNode: TObject; var prVisitResult: TRVisitResult);
 var
   lcSourceToken: TSourceToken;
-  lsCommentText: string;
+  liCount: integer;
 begin
   lcSourceToken := TSourceToken(pcNode);
 
-  case lcSourceToken.CommentStyle of
-    eDoubleSlash:
+  liCount := 0;
+
+  while (lcSourceToken <> nil) and (lcSourceToken.TokenType = ttReturn) do
+  begin
+    inc(liCount);
+
+    if liCount > FormatSettings.Returns.MaxConsecutiveReturns then
     begin
-      if FormatSettings.Comments.RemoveEmptyDoubleSlashComments then
-      begin
-        lsCommentText := StrAfter('//', lcSourceToken.SourceCode);
-        lsCommentText := Trim(lsCommentText);
-        if lsCommentText = '' then
-          BlankToken(lcSourceToken);
-      end;
+      BlankToken(lcSourceToken);
     end;
-    eCurlyBrace:
-    begin
-      if FormatSettings.Comments.RemoveEmptyCurlyBraceComments then
-      begin
-        lsCommentText := StrAfter('{', lcSourceToken.SourceCode);
-        lsCommentText := StrBefore('}', lsCommentText);
-        lsCommentText := Trim(lsCommentText);
-        if lsCommentText = '' then
-          BlankToken(lcSourceToken);
-      end;
-    end;
-    eBracketStar, eCompilerDirective:
-        ; // always leave these
-    eNotAComment:
-      ; // this is not a comment
-    else
-      // should not be here
-      Assert(false);
+
+    lcSourceToken := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace]);
   end;
+
 end;
 
-function TRemoveEmptyComment.IsIncludedInSettings: boolean;
+function TRemoveConsecutiveReturns.IsIncludedInSettings: boolean;
 begin
-  Result := FormatSettings.Comments.RemoveEmptyDoubleSlashComments or
-     FormatSettings.Comments.RemoveEmptyCurlyBraceComments;
+  Result := FormatSettings.Returns.RemoveConsecutiveReturns;
 end;
 
 end.

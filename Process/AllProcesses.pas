@@ -84,7 +84,7 @@ uses
   PropertyOnOneLine,
   RemoveBlankLinesAfterProcHeader, RemoveBlankLinesInVars,
   NoReturnBefore, NoReturnAfter, ReturnBefore, ReturnAfter,
-  BlockStyles, ReturnsAfterFinalEnd,
+  BlockStyles, ReturnsAfterFinalEnd, RemoveConsecutiveReturns,
   { spacing}
   NoSpaceAfter, NoSpaceBefore, SingleSpaceBefore, SingleSpaceAfter,
   SpaceBeforeColon, RemoveSpaceAtLineEnd, VisitStripEmptySpace,
@@ -113,7 +113,6 @@ begin
   try
     if lc.IsIncludedInSettings then
     begin
-
       if (lc is TWarning) then
         (lc as TWarning).OnWarning := OnMessage;
 
@@ -235,7 +234,6 @@ end;
 
 procedure TAllProcesses.LineBreaking;
 begin
-
   ApplyVisitorType(TReturnChars);
 
   ApplyVisitorType(TPropertyOnOneLine);
@@ -255,6 +253,7 @@ begin
 
   ApplyVisitorType(TNoReturnAfter);
   ApplyVisitorType(TNoReturnBefore);
+  ApplyVisitorType(TRemoveConsecutiveReturns);
 
   ApplyVisitorType(TVisitSetXY);
   ApplyVisitorType(TReturnBefore);

@@ -32,18 +32,13 @@ uses
 
 type
   TfClarifyReturns = class(TfrSettingsFrame)
-    eNumReturnsAfterFinalEnd: TJvIntegerEdit;
-    Label1: TLabel;
     rgReturnChars: TRadioGroup;
     GroupBox1: TGroupBox;
     cbRemoveProcDefReturns: TCheckBox;
     cbRemoveVarReturns: TCheckBox;
-    cbRemoveBlockBlankLines: TCheckBox;
     cbRemoveExprReturns: TCheckBox;
     cbRemovePropertyReturns: TCheckBox;
     cbRemoveReturns: TCheckBox;
-    cbRemoveBlankLinesAfterProcHeader: TCheckBox;
-    cbRemoveVarBlankLines: TCheckBox;
     gbInsert: TGroupBox;
     cbUsesClauseOnePerLine: TCheckBox;
     cbInsertReturns: TCheckBox;
@@ -77,19 +72,13 @@ procedure TfClarifyReturns.Read;
 begin
   with FormatSettings.Returns do
   begin
-    eNumReturnsAfterFinalEnd.Value := NumReturnsAfterFinalEnd;
-
-    cbInsertReturns.Checked := AddGoodReturns;
     cbRemoveReturns.Checked := RemoveBadReturns;
     cbRemovePropertyReturns.Checked := RemovePropertyReturns;
-    cbRemoveExprReturns.Checked := RemoveExpressionReturns;
-    cbRemoveVarReturns.Checked := RemoveVarReturns;
-    cbRemoveBlankLinesAfterProcHeader.Checked := RemoveProcHeaderBlankLines;
-
     cbRemoveProcDefReturns.Checked := RemoveProcedureDefReturns;
+    cbRemoveVarReturns.Checked := RemoveVarReturns;
+    cbRemoveExprReturns.Checked := RemoveExpressionReturns;
 
-    cbRemoveVarBlankLines.Checked := RemoveVarBlankLines;
-    cbRemoveBlockBlankLines.Checked := RemoveBlockBlankLines;
+    cbInsertReturns.Checked := AddGoodReturns;
     cbUsesClauseOnePerLine.Checked := UsesClauseOnePerLine;
 
     rgReturnChars.ItemIndex := Ord(ReturnChars);
@@ -100,23 +89,16 @@ procedure TfClarifyReturns.Write;
 begin
   with FormatSettings.Returns do
   begin
-    NumReturnsAfterFinalEnd := eNumReturnsAfterFinalEnd.Value;
-
-    AddGoodReturns := cbInsertReturns.Checked;
     RemoveBadReturns := cbRemoveReturns.Checked;
     RemovePropertyReturns := cbRemovePropertyReturns.Checked;
-    RemoveExpressionReturns := cbRemoveExprReturns.Checked;
-    RemoveVarReturns := cbRemoveVarReturns.Checked;
-    RemoveProcHeaderBlankLines := cbRemoveBlankLinesAfterProcHeader.Checked;
-
     RemoveProcedureDefReturns := cbRemoveProcDefReturns.Checked;
+    RemoveVarReturns := cbRemoveVarReturns.Checked;
+    RemoveExpressionReturns := cbRemoveExprReturns.Checked;
 
-    RemoveVarBlankLines := cbRemoveVarBlankLines.Checked;
-    RemoveBlockBlankLines := cbRemoveBlockBlankLines.Checked;
-    UsesClauseOnePerLine := cbUsesClauseOnePerLine.Checked;
+    AddGoodReturns := cbInsertReturns.Checked;
+    UsesClauseOnePerLine := cbUsesClauseOnePerLine.Checked ;
 
     ReturnChars := TReturnChars(rgReturnChars.ItemIndex);
-
   end;
 end;
 

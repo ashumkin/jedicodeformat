@@ -76,8 +76,9 @@ uses
   { contained frames }
   frFiles, frObfuscateSettings,
   frClarify, frClarifySpaces, frClarifyIndent,
-  frClarifyReturns, frClarifyLongLineBreaker,
-  frClarifyBlocks, frClarifyAlign, frReplace,
+  frClarifyReturns, frBlankLines,
+  frClarifyLongLineBreaker, frClarifyBlocks, frClarifyAlign,
+  frReplace,
   frReservedCapsSettings, frAnyCapsSettings, frUnitCaps,
   frUses, frBasicSettings, frPreProcessor, frComments;
 
@@ -89,7 +90,7 @@ type
   end;
 
 const
-  FrameMap: array[0..16] of TFrameMapRecord = (
+  FrameMap: array[0..17] of TFrameMapRecord = (
   (FrameName: 'Format file'; FrameClass: TfFiles),
   (FrameName: 'Obfuscate'; FrameClass: TfObfuscateSettings),
   (FrameName: 'Clarify'; FrameClass: TfClarify),
@@ -97,6 +98,7 @@ const
   (FrameName: 'Indentation'; FrameClass: TfClarifyIndent),
   (FrameName: 'Long lines'; FrameClass: TfClarifyLongLineBreaker),
   (FrameName: 'Returns'; FrameClass: TfClarifyReturns),
+  (FrameName: 'Blank lines'; FrameClass: TfBlankLines),
   (FrameName: 'Blocks'; FrameClass: TfClarifyBlocks),
   (FrameName: 'Align'; FrameClass: TfClarifyAlign),
   (FrameName: 'Object Pascal'; FrameClass: TfrReservedCapsSettings),

@@ -66,6 +66,9 @@ type
 
     feReturnChars: TReturnChars;
 
+    fbRemoveConsecutiveReturns: Boolean;
+    fiMaxConsecutiveReturns: integer;
+
   protected
   public
     constructor Create;
@@ -107,6 +110,10 @@ type
     property ElseIfStyle: TBlockNewLineStyle read feElseIfStyle write feElseIfStyle;
 
     property ReturnChars: TReturnChars read  feReturnChars write feReturnChars;
+
+    property RemoveConsecutiveReturns: Boolean read fbRemoveConsecutiveReturns write fbRemoveConsecutiveReturns;
+    property MaxConsecutiveReturns: integer read fiMaxConsecutiveReturns write fiMaxConsecutiveReturns;
+
   end;
 
 implementation
@@ -142,6 +149,9 @@ const
   REG_ELSE_IF_STYLE     = 'ElseIf';
 
   REG_RETURN_CHARS = 'ReturnChars';
+
+  REG_REMOVE_CONSECUTIVE_RETURNS = 'RemoveConsecutiveReturns';
+  REG_MAX_CONSECUTIVE_RETURNS = 'MaxConsecutiveReturns';
 
 constructor TSetReturns.Create;
 begin
@@ -180,6 +190,9 @@ begin
   feElseIfStyle     := TBlockNewLineStyle(pcStream.Read(REG_ELSE_IF_STYLE, Ord(eNever)));
 
   feReturnChars := TReturnChars(pcStream.Read(REG_RETURN_CHARS, Ord(rcLeaveAsIs)));
+
+  fbRemoveConsecutiveReturns := pcStream.Read(REG_REMOVE_CONSECUTIVE_RETURNS, True);
+  fiMaxConsecutiveReturns := pcStream.Read(REG_MAX_CONSECUTIVE_RETURNS, 4);
 end;
 
 procedure TSetReturns.WriteToStream(const pcOut: TSettingsOutput);
@@ -214,6 +227,9 @@ begin
   pcOut.Write(REG_ELSE_IF_STYLE, Ord(feElseIfStyle));
 
   pcOut.Write(REG_RETURN_CHARS, Ord(feReturnChars));
+
+  pcOut.Write(REG_REMOVE_CONSECUTIVE_RETURNS, fbRemoveConsecutiveReturns);
+  pcOut.Write(REG_MAX_CONSECUTIVE_RETURNS, fiMaxConsecutiveReturns);
 end;
 
 end.
