@@ -31,7 +31,17 @@ uses
 type
   TfrmAboutBox = class(TForm)
     bbOK: TBitBtn;
-    procedure mWarningEnter(Sender: TObject);
+    Panel1: TPanel;
+    imgOpenSource: TImage;
+    mWarning: TMemo;
+    mWhat: TMemo;
+    lblMPL: TStaticText;
+    lblHomePage: TStaticText;
+
+    procedure FormCreate(Sender: TObject);
+    procedure lblHomePageClick(Sender: TObject);
+    procedure imgOpenSourceClick(Sender: TObject);
+    procedure lblMPLClick(Sender: TObject);
   private
   public
   end;
@@ -44,11 +54,46 @@ implementation
 uses
   { delphi } URLMon,
   { jcl } JclStrings,
-  { local } ConvertTypes;
+  { local } VersionConsts;
 
-procedure TfrmAboutBox.mWarningEnter(Sender: TObject);
+procedure ShowURL(const ps: string);
+var
+  lws: WideString;
 begin
-  bbOK.SetFocus;
+  lws := ps;
+  HLinkNavigateString(nil, pWideChar(lws));
 end;
+
+
+procedure TfrmAboutBox.lblHomePageClick(Sender: TObject);
+begin
+  ShowURL(lblHomePage.Caption);
+end;
+
+procedure TfrmAboutBox.imgOpenSourceClick(Sender: TObject);
+begin
+  ShowURL('http://www.delphi-jedi.org')
+end;
+
+procedure TfrmAboutBox.lblMPLClick(Sender: TObject);
+begin
+  ShowURL(lblMPL.Caption)
+end;
+
+procedure TfrmAboutBox.FormCreate(Sender: TObject);
+var
+  ls: string;
+begin
+  inherited;
+
+  // show the version from the program constant
+  ls := mWhat.Text;
+  StrReplace(ls, '%VERSION%', PROGRAM_VERSION);
+  StrReplace(ls, '%DATE%', PROGRAM_DATE);
+  mWhat.Text := ls;
+
+  lblHomePage.Caption := PROGRAM_HOME_PAGE;
+end;
+
 
 end.
