@@ -1,19 +1,14 @@
 unit BuildParseTree;
 
 { AFS 27 October
- This unit will attempt to turn a token stream into a full parse tree
+ This unit turns a token stream into a full parse tree
  using the Recursive Descent method
 
- The token stream will still exist, but as the leaves of a tree structure
- This will be a preliminary step to putting a lot of the smarts
- e.g. (how many begin..end blocks is the current token within)
- in the tree not the stream
-
- Hence it currently fits into the toekn processing pipeline
- and does not cause any fuss.
+ The tokens are then the leaves of a tree structure
 
  The grammer is 'Appendix A Object Pascal grammar'
  As found on the borland Web site.
+ It is much extended via test cases as that is woefully incomplete
 }
 
 interface
@@ -1481,11 +1476,18 @@ end;
 
 procedure TBuildParseTree.RecogniseFileType;
 begin
-  // FileType -> FILE OF TypeId
+  {
+   FileType -> FILE OF TypeId
+
+   also just plain 'file'
+  }
 
   Recognise(wfile);
-  Recognise(wOf);
-  RecogniseTypeId;
+  if TokenList.FirstSolidTokenWord = wOf then
+  begin
+    Recognise(wOf);
+    RecogniseTypeId;
+  end;
 end;
 
 procedure TBuildParseTree.RecognisePointerType;
@@ -1605,6 +1607,12 @@ begin
   begin
     Recognise(ttDot);
     RecogniseExpr;
+  end;
+
+  //likewise need to cope with pchar(foo)^
+  if TokenList.FirstSolidTokenWord = wHat then
+  begin
+    Recognise(wHat);
   end;
 
   PopNode;
@@ -2175,15 +2183,14 @@ end;
 
 procedure TBuildParseTree.RecogniseRepeatStmnt;
 begin
-  // RepeatStmt -> REPEAT Statement UNTIL Expression
+  { RepeatStmt -> REPEAT Statement UNTIL Expression
+
+   Incorect - it is a statement list 
+  }
   PushNode(nRepeatStatement);
 
   Recognise(wRepeat);
-  RecogniseStatement;
-
-  if TokenList.FirstSolidTokenType = ttSemicolon then
-    Recognise(ttSemicolon);
-
+  RecogniseStatementList([wUntil]);
   Recognise(wUntil);
 
   PushNode(nLoopHeaderExpr);
@@ -3685,7 +3692,6 @@ begin
 
   PopNode;
 end;
-
 
 procedure TBuildParseTree.RecogniseActualParams;
 begin

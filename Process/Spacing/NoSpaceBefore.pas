@@ -60,7 +60,7 @@ begin
   end;
 
   { hat (dereference) in expression is unary postfix operator - so no space before it }
-  if (pt.HasParentNode(nExpression)) and (pt.word = wHat) then
+  if (pt.HasParentNode(nExpression)) and (pt.Word = wHat) then
   begin
     Result := True;
     exit;

@@ -59,10 +59,12 @@ begin
     exit;
   end;
 
-  { 'a := --3;' is the only exception to the rule of a space before an operator }
+  { 'a := --3;' and 'lc := ptr^;'
+  are the only exceptions to the rule of a space before an operator }
   if (pt.TokenType = ttOperator) then
   begin
-    if IsUnaryOperator(pt) and IsUnaryOperator(pt.PriorSolidToken) then
+    if (pt.Word = wHat) or 
+      (IsUnaryOperator(pt) and IsUnaryOperator(pt.PriorSolidToken)) then
       Result := False
     else
       Result := True;

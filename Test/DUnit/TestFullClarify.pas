@@ -92,6 +92,7 @@ type
   procedure TestClarify_TestTypeDefs;
   procedure TestClarify_TestUses;
   procedure TestClarify_TestUsesChanges;
+  procedure TestClarify_TestVarParam;
   procedure TestClarify_TestWarnings;
   procedure TestClarify_TestWith;
 
@@ -565,6 +566,11 @@ end;
 procedure TFullTestClarify.TestClarify_TestUsesChanges;
 begin
   TestClarifyFile('TestUsesChanges');
+end;
+
+procedure TFullTestClarify.TestClarify_TestVarParam;
+begin
+  TestClarifyFile('TestVarParam');
 end;
 
 procedure TFullTestClarify.TestClarify_TestWarnings;

@@ -91,6 +91,7 @@ type
     procedure TestObfuscate_TestTypeDefs;
     procedure TestObfuscate_TestUses;
     procedure TestObfuscate_TestUsesChanges;
+    procedure TestObfuscate_TestVarParam;
     procedure TestObfuscate_TestWarnings;
     procedure TestObfuscate_TestWith;
 
@@ -591,6 +592,11 @@ begin
   TestObfuscateFile('TestUsesChanges');
 end;
 
+procedure TTestObfuscate.TestObfuscate_TestVarParam;
+begin
+  TestObfuscateFile('TestVarParam');
+end;
+
 procedure TTestObfuscate.TestObfuscate_TestWarnings;
 begin
   TestObfuscateFile('TestWarnings');
@@ -610,7 +616,6 @@ procedure TTestObfuscate.TestObfuscate_TestProcBlankLines;
 begin
   TestObfuscateFile('TestProcBlankLines.pas');
 end;
-
 
 initialization
  TestFramework.RegisterTest(TTestObfuscate.Suite);

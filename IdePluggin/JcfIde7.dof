@@ -138,11 +138,10 @@ Comments=
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
 [HistoryLists\hlUnitOutputDirectory]
-Count=4
-Item0=..\Output
-Item1=C:\Code\JcfCheckout\CodeFormat\Jcf2\Output
-Item2=C:\Code\Delphi\JcfCheckout\CodeFormat\Jcf2\Output
-Item3=C:\Code\Delphi\Jcf2\bin
+Count=3
+Item0=C:\Code\JcfCheckout\CodeFormat\Jcf2\Output
+Item1=C:\Code\Delphi\JcfCheckout\CodeFormat\Jcf2\Output
+Item2=C:\Code\Delphi\Jcf2\bin
 [HistoryLists\hlOutputDirectorry]
 Count=2
 Item0=C:\Code\JcfCheckout\CodeFormat\Jcf2\Output

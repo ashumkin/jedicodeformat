@@ -147,6 +147,7 @@ contains
   SetReplace in '..\Settings\SetReplace.pas',
   SetReturns in '..\Settings\SetReturns.pas',
   SetSpaces in '..\Settings\SetSpaces.pas',
-  SetUses in '..\Settings\SetUses.pas';
+  SetUses in '..\Settings\SetUses.pas',
+  MozComment in '..\Process\Onceoffs\MozComment.pas';
 
 end.

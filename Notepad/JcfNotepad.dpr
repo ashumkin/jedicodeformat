@@ -114,7 +114,8 @@ uses
   frReplace in '..\Ui\Settings\frReplace.pas' {fReplace: TFrame},
   frReservedCapsSettings in '..\Ui\Settings\frReservedCapsSettings.pas' {frReservedCapsSettings: TFrame},
   frClarifyLongLineBreaker in '..\Ui\Settings\frClarifyLongLineBreaker.pas' {fClarifyLongLineBreaker: TFrame},
-  fRegistrySettings in '..\Ui\fRegistrySettings.pas' {fmRegistrySettings};
+  fRegistrySettings in '..\Ui\fRegistrySettings.pas' {fmRegistrySettings},
+  MozComment in '..\Process\Onceoffs\MozComment.pas';
 
 {$R *.res}
 

@@ -117,7 +117,8 @@ uses
   FileConverter in '..\ReadWrite\FileConverter.pas',
   FileWriter in '..\ReadWrite\FileWriter.pas',
   FileReader in '..\ReadWrite\FileReader.pas',
-  fRegistrySettings in '..\Ui\fRegistrySettings.pas' {fmRegistrySettings};
+  fRegistrySettings in '..\Ui\fRegistrySettings.pas' {fmRegistrySettings},
+  MozComment in '..\Process\Onceoffs\MozComment.pas';
 
 {$R *.res}
 

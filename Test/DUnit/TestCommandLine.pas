@@ -47,7 +47,7 @@ uses
   TestFramework;
 
 const
-  EXPECTED_FILE_COUNT = 75;
+  EXPECTED_FILE_COUNT = 76;
 
 procedure TTestCommandline.SetUp;
 begin
@@ -69,6 +69,7 @@ end;
 procedure TTestCommandline.CompareFileToRef(const psFileName: string);
 begin
   TestFileContentsSame(TEST_FILES_DIR + psFileName,  fsRefDir + psFileName);
+  DeleteFile(TEST_FILES_DIR + psFileName);
 end;
 
 procedure TTestCommandline.RunJcfCommandline;

@@ -78,6 +78,10 @@ var Fred1: integer;
 FredTwo: string;
     F3: Boolean;
 
+MyFile: File;
+MyIntFile: File of integer;
+
+
 type TFredProc = procedure(var psFred: INTeger) of Object;
   TFredFunction = function (const psFred: String): string;
 TMultiParamFn = function   (a: integer; b: string; c: currency): TObject;

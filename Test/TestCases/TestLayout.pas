@@ -162,5 +162,38 @@ begin
   lcThisIsALongNameForAStringList.Free;
 end;
 
+procedure TestRepeat;
+var
+  li: integer;
+begin
+  li := 0;
+  repeat
+    inc(li);
+  until li > 10;
+
+  li := 0;
+  repeat
+  begin
+    inc(li);
+  end
+  until li > 10;
+
+  li := 0;
+  repeat
+    inc(li);
+    dec(li);
+    inc(li);
+  until li > 100;
+
+  li := 0;
+  repeat
+    inc(li);
+    begin
+      dec(li);
+    end;
+    inc(li);
+  until li > 100;
+end;
+
 
 end.

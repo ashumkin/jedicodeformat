@@ -95,6 +95,7 @@ type
     procedure TestParse_TestUses;
     procedure TestParse_TestUsesChanges;
     procedure TestParse_TestWarnings;
+    procedure TestParse_TestVarParam;
     procedure TestParse_TestWith;
 
    procedure TestParse_TestCases;
@@ -321,7 +322,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestDeclarations;
 begin
-  TestParseFile('TestDeclarations', 985);
+  TestParseFile('TestDeclarations', 1003);
 end;
 
 
@@ -392,7 +393,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestLayout;
 begin
-  TestParseFile('TestLayout', 1051);
+  TestParseFile('TestLayout', 1227);
 end;
 
 procedure TTestFileParse.TestParse_TestLayoutBare;
@@ -572,7 +573,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 567);
+  TestParseFile('Testcases.dpr', 583);
 end;
 
 
@@ -584,6 +585,11 @@ end;
 procedure TTestFileParse.TestParse_TestProcBlankLines;
 begin
   TestParseFile('TestProcBlankLines', 64);
+end;
+
+procedure TTestFileParse.TestParse_TestVarParam;
+begin
+  TestParseFile('TestVarParam', 116);
 end;
 
 initialization
