@@ -76,7 +76,8 @@ uses
   TestPropertyInherited in 'TestPropertyInherited.pas',
   TestMessages in 'TestMessages.pas',
   LittleTest10 in 'LittleTest10.pas',
-  TestInheritedExpr in 'TestInheritedExpr.pas';
+  TestInheritedExpr in 'TestInheritedExpr.pas',
+  LittleTest11 in 'LittleTest11.pas';
 
 {$R *.res}
 

@@ -1,7 +1,11 @@
 unit LittleTest7;
 
 { AFS 9 June 2003
-  test operators without spacing
+
+ This unit compiles but is not semantically meaningfull
+ it is test cases for the code formatting utility
+
+  test basics of operators without spacing
   x<-1 should parse as 'x' '<' '-1' }
 
 interface

@@ -1,7 +1,10 @@
 unit LittleTest8;
 
 { AFS 9 June 2003
-  test basic class }
+ This unit compiles but is not semantically meaningfull
+ it is test cases for the code formatting utility
+
+ a minimal unit - test basic class }
 
 interface
 

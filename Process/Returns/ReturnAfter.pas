@@ -279,8 +279,15 @@ begin
   if (pt.TokenType in [ttVar, ttThreadVar, ttConst, ttResourceString]) and
     pt.HasParentNode([nVarSection, nConstSection]) then
   begin
-    Result := True;
-    exit;
+    { it is possible to have a constant that is of a procedure type using const
+     e.g. "const foo: procedure(const pi: integer)= nil;"
+     needless to say there is no return after the second "const"
+     even though it is in a const section }
+    if not pt.HasParentNode(nFormalParams) then
+    begin
+      Result := True;
+      exit;
+    end;
   end;
 
   { return after else unless there is an in }

@@ -4,8 +4,7 @@ unit LittleTest10;
  This unit compiles but is not semantically meaningfull
  it is test cases for the code formatting utility
 
- eg code submitted by Marcus Fuchs
-}
+ example code submitted by Marcus Fuchs }
 
 
 interface

@@ -55,6 +55,7 @@ type
     procedure TestParse_LittleTest8;
     procedure TestParse_LittleTest9;
     procedure TestParse_LittleTest10;
+    procedure TestParse_LittleTest11;
 
     procedure TestParse_TestAbsolute;
     procedure TestParse_TestAlign;
@@ -244,32 +245,32 @@ end;
 
 procedure TTestFileParse.TestParse_LittleTest1;
 begin
-  TestParseFile('LittleTest1', 25);
+  TestParseFile('LittleTest1', 28);
 end;
 
 procedure TTestFileParse.TestParse_LittleTest2;
 begin
-  TestParseFile('LittleTest2', 26);
+  TestParseFile('LittleTest2', 29);
 end;
 
 procedure TTestFileParse.TestParse_LittleTest3;
 begin
-  TestParseFile('LittleTest3', 39);
+  TestParseFile('LittleTest3', 42);
 end;
 
 procedure TTestFileParse.TestParse_LittleTest4;
 begin
-  TestParseFile('LittleTest4', 41);
+  TestParseFile('LittleTest4', 45);
 end;
 
 procedure TTestFileParse.TestParse_LittleTest5;
 begin
-  TestParseFile('LittleTest5', 54);
+  TestParseFile('LittleTest5', 58);
 end;
 
 procedure TTestFileParse.TestParse_LittleTest6;
 begin
-  TestParseFile('LittleTest6', 74);
+  TestParseFile('LittleTest6', 78);
 end;
 
 procedure TTestFileParse.TestParse_LittleTest7;
@@ -306,7 +307,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestBlankLineRemoval;
 begin
-  TestParseFile('TestBlankLineRemoval', 374);
+  TestParseFile('TestBlankLineRemoval', 373);
 end;
 
 procedure TTestFileParse.TestParse_TestBogusDirectives;
@@ -612,7 +613,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 647);
+  TestParseFile('Testcases.dpr', 655);
 end;
 
 
@@ -660,6 +661,11 @@ end;
 procedure TTestFileParse.TestParse_TestInheritedExpr;
 begin
   TestParseFile('TestInheritedExpr', 301);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest11;
+begin
+  TestParseFile('LittleTest11', 97);
 end;
 
 initialization

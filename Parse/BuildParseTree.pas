@@ -87,8 +87,8 @@ type
     procedure RecogniseProcedureDeclSection;
 
     // set pbAnon = true if the proc has no name
-    procedure RecogniseProcedureHeading(const pbAnon: Boolean);
-    procedure RecogniseFunctionHeading(const pbAnon: Boolean);
+    procedure RecogniseProcedureHeading(const pbAnon, pbCanInterfaceMap: Boolean);
+    procedure RecogniseFunctionHeading(const pbAnon, pbCanInterfaceMap: Boolean);
     procedure RecogniseCompoundStmnt;
     procedure RecogniseStatementList(const peEndTokens: TTokenTypeSet);
     procedure RecogniseStatement;
@@ -664,11 +664,11 @@ begin
   case lt of
     ttProcedure:
     begin
-      RecogniseProcedureHeading(false);
+      RecogniseProcedureHeading(False, False);
     end;
     ttFunction:
     begin
-      RecogniseFunctionHeading(false);
+      RecogniseFunctionHeading(False, False);
     end;
     else
       Raise TEParseError.Create('Expected function or procedure', lc);
@@ -1489,9 +1489,9 @@ begin
 
   // ProcedureType -> (ProcedureHeading | FunctionHeading) [OF OBJECT]
   if TokenList.FirstSolidTokenType = ttProcedure then
-    RecogniseProcedureHeading(True)
+    RecogniseProcedureHeading(True, False)
   else if TokenList.FirstSolidTokenType = ttFunction then
-    RecogniseFunctionHeading(True)
+    RecogniseFunctionHeading(True, False)
   else
     Raise TEParseError.Create('Expected procedure or function type', TokenList.FirstSolidToken);
 
@@ -2463,7 +2463,7 @@ begin
   }
   PushNode(nProcedureDecl);
 
-  RecogniseProcedureHeading(False);
+  RecogniseProcedureHeading(False, False);
   Recognise(ttSemicolon);
 
   if TokenList.FirstSolidTokenType in ProcedureDirectives then
@@ -2489,7 +2489,7 @@ begin
 
   PushNode(nFunctionDecl);
 
-  RecogniseFunctionHeading(False);
+  RecogniseFunctionHeading(False, False);
   Recognise(ttSemicolon);
   //opt
   if TokenList.FirstSolidTokenType in ProcedureDirectives then
@@ -2542,7 +2542,7 @@ begin
   PopNode;
 end;
 
-procedure TBuildParseTree.RecogniseFunctionHeading(const pbAnon: Boolean);
+procedure TBuildParseTree.RecogniseFunctionHeading(const pbAnon, pbCanInterfaceMap: Boolean);
 begin
   // FunctionHeading -> FUNCTION Ident [FormalParameters] ':' (SimpleType | STRING)
   PushNode(nFunctionHeading);
@@ -2571,7 +2571,7 @@ begin
 
   RecogniseProcedureDirectives;
 
-  if TokenList.FirstSolidTokenType = ttEquals then
+  if pbCanInterfaceMap and (TokenList.FirstSolidTokenType = ttEquals) then
   begin
     Recognise(ttEquals);
     RecogniseIdentifier;
@@ -2580,11 +2580,11 @@ begin
   PopNode;
 end;
 
-procedure TBuildParseTree.RecogniseProcedureHeading(const pbAnon: Boolean);
+procedure TBuildParseTree.RecogniseProcedureHeading(const pbAnon, pbCanInterfaceMap: Boolean);
 begin
   { ProcedureHeading -> PROCEDURE Ident [FormalParameters]
 
-    can also map to an itnerface name
+    can also map to an interface name
     e.g.
       type
         TFoo = class(TObject, IFoo)
@@ -2592,6 +2592,8 @@ begin
             procedure IFoo.P1 = MyP1;
             Procedure MyP1;
         end;
+
+        Or a constant
   }
 
   PushNode(nProcedureHeading);
@@ -2608,7 +2610,7 @@ begin
 
   RecogniseProcedureDirectives;
 
-  if TokenList.FirstSolidTokenType = ttEquals then
+  if pbCanInterfaceMap and (TokenList.FirstSolidTokenType = ttEquals) then
   begin
     Recognise(ttEquals);
     RecogniseIdentifier;
@@ -3033,17 +3035,17 @@ begin
 
     case lc.TokenType of
       ttProcedure:
-        RecogniseProcedureHeading(False);
+        RecogniseProcedureHeading(False, True);
       ttFunction:
-        RecogniseFunctionHeading(False);
+        RecogniseFunctionHeading(False, True);
       ttClass:
       begin
         // must be followed by 'procedure' or 'function'
         case TokenList.SolidTokenType(2) of
           ttProcedure:
-            RecogniseProcedureHeading(False);
+            RecogniseProcedureHeading(False, True);
           ttFunction:
-            RecogniseFunctionHeading(False);
+            RecogniseFunctionHeading(False, True);
           else
             Raise TEParseError.Create('Expected class procedure or class function', lc);
         end;

@@ -52,6 +52,7 @@ type
     procedure TestObfuscate_LittleTest8;
     procedure TestObfuscate_LittleTest9;
     procedure TestObfuscate_LittleTest10;
+    procedure TestObfuscate_LittleTest11;
 
     procedure TestObfuscate_TestAbsolute;
     procedure TestObfuscate_TestAlign;
@@ -684,6 +685,11 @@ end;
 procedure TTestObfuscate.TestObfuscate_TestInheritedExpr;
 begin
   TestObfuscateFile('TestInheritedExpr');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest11;
+begin
+  TestObfuscateFile('LittleTest11');
 end;
 
 initialization

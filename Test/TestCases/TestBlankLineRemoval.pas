@@ -4,9 +4,7 @@ unit TestBlankLineRemoval;
  This unit compiles but is not semantically meaningfull
  it is test cases for the code formatting utility
 
- This unit tests blank line removal
-}
-
+ This unit tests blank line removal }
 
 interface
 

@@ -56,6 +56,7 @@ type
     fsConvertErrorMessage: string;
 
     fOnStatusMessage: TStatusMessageProc;
+    function GetParseError: boolean;
 
   protected
     fbAbort: Boolean;
@@ -80,6 +81,8 @@ type
 
     { this does the reformatting. Virtual method so can be overriden for testing }
     procedure ApplyProcesses; virtual;
+
+    property ParseError: boolean read GetParseError; 
 
   public
     constructor Create;
@@ -109,7 +112,7 @@ type
 implementation
 
 uses
-  { delphi } Windows, SysUtils, Dialogs, Controls,
+  { delphi } Windows, SysUtils, Dialogs, Controls, Forms,
   { local } SourceTokenList, fShowParseTree, JcfSettings,
   AllProcesses;
 
@@ -240,7 +243,9 @@ end;
 procedure TConverter.DoConvertUnit;
 var
   lcTokenList: TSourceTokenList;
+  leOldCursor: TCursor;
 begin
+
   //Assert(Settings <> nil);
   fbConvertError := False;
   fsConvertErrorMessage := '';
@@ -248,46 +253,55 @@ begin
   try
     fcWriter.Clear;
 
-    // turn test into tokens
-    lcTokenList := fcTokeniser.BuildTokenList;
+    leOldCursor := Screen.Cursor;
     try
-      fiTokenCount := lcTokenList.Count;
+      // this can take a long time for large files
+      Screen.Cursor := crHourGlass;
 
-      lcTokenList.SetXYPositions;
+      // turn test into tokens
+      lcTokenList := fcTokeniser.BuildTokenList;
+      try
+        fiTokenCount := lcTokenList.Count;
 
-        // make a parse tree from it
-      fcBuildParseTree.TokenList := lcTokenList;
-      fcBuildParseTree.BuildParseTree;
+        lcTokenList.SetXYPositions;
+
+          // make a parse tree from it
+        fcBuildParseTree.TokenList := lcTokenList;
+        fcBuildParseTree.BuildParseTree;
+      finally
+        lcTokenList.Free;
+      end;
+
+      if fbConvertError or fcBuildParseTree.ParseError then
+      begin
+        DoShowMessage(fcBuildParseTree.ParseErrorMessage);
+
+        fbConvertError := True;
+        fsConvertErrorMessage := fcBuildParseTree.ParseErrorMessage;
+      end;
+
+      if (feShowParseTree = eShowAlways) or
+        ((feShowParseTree = eShowOnError) and (fcBuildParseTree.ParseError)) then
+      begin
+        if fcBuildParseTree.Root <> nil then
+          ShowParseTree(fcBuildParseTree.Root);
+      end;
+
+      if not fcBuildParseTree.ParseError then
+      begin
+        // do the processes
+        ApplyProcesses;
+
+        fcWriter.Root := fcBuildParseTree.Root;
+        fcWriter.WriteAll;
+        fcWriter.Close;
+      end;
+
+      fcBuildParseTree.Clear;
+
     finally
-      lcTokenList.Free;
+      Screen.Cursor := leOldCursor;
     end;
-
-    if fbConvertError or fcBuildParseTree.ParseError then
-    begin
-      DoShowMessage(fcBuildParseTree.ParseErrorMessage);
-
-      fbConvertError := True;
-      fsConvertErrorMessage := fcBuildParseTree.ParseErrorMessage;
-    end;
-
-    if (feShowParseTree = eShowAlways) or
-      ((feShowParseTree = eShowOnError) and (fcBuildParseTree.ParseError)) then
-    begin
-      if fcBuildParseTree.Root <> nil then
-        ShowParseTree(fcBuildParseTree.Root);
-    end;
-
-    if not fcBuildParseTree.ParseError then
-    begin
-      // do the processes
-      ApplyProcesses;
-
-      fcWriter.Root := fcBuildParseTree.Root;
-      fcWriter.WriteAll;
-      fcWriter.Close;
-    end;
-
-    fcBuildParseTree.Clear;
 
   except
     on E: Exception do
@@ -329,6 +343,11 @@ end;
 procedure TConverter.BeforeConvert;
 begin
   fiConvertCount := 0;
+end;
+
+function TConverter.GetParseError: boolean;
+begin
+  Result := (fcBuildParseTree <> nil) and (fcBuildParseTree.ParseError);
 end;
 
 end.

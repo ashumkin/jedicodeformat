@@ -217,15 +217,36 @@ begin
   end;
 
   fsOutFileName := lsOut;
-
   DoConvertUnit;
-
   Inc(fiConvertCount);
 
-  if BackupMode = cmInPlace then
-    if not DeleteFile(lsTemp) then
-      Log.WriteError('TFileConverter.ProcessFile: ' +
+  // unit is converted. Did it fail?
+
+  if BackupMode = cmInPlaceWithBackup then
+  begin
+    if ParseError then
+    begin
+      // restore the backup
+      CopyFile(PChar(lsOut),PChar(psInput), False);
+    end
+
+  end
+  else if BackupMode = cmInPlace then
+  begin
+    if ParseError then
+    begin
+      // restore the backup
+      CopyFile(PChar(lsTemp), PChar(psInput), False);
+    end
+    else
+    begin
+      // remove the backup
+      if not DeleteFile(lsTemp) then
+        Log.WriteError('TFileConverter.ProcessFile: ' +
         'Failed to delete temp file ' + lsTemp + ' for ' + psInput);
+    end;
+
+  end;
 end;
 
 procedure TFileConverter.ProcessDirectory(const psDir: string);
