@@ -41,7 +41,7 @@ FALSE
 42
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fmodern Courier New;}{\f3\fnil\fcharset0 Arial;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green128\blue0;}
-\viewkind4\uc1\pard\cf1\b\f0\fs32 Jedi Code Format V\lang2057\f1 2.0 Beta 7\cf0\lang1031\b0\f0\fs20 
+\viewkind4\uc1\pard\cf1\b\f0\fs32 Jedi Code Format V\lang2057\f1 2.0 Beta 8\cf0\lang1031\b0\f0\fs20 
 \par \cf2\{keepn\}
 \par \cf0 
 \par This is the main \lang2057\f1 help\lang1031\f0  for the \lang2057\f1 Jedi Code Formatter\lang1031\f0 .\lang2057\f1  \lang1031\f0 The formatter can standardise all aspects of Delphi Object Pascal source code formatting, including indentation, spacing and capitalisation\lang2057\f1 .\lang1031\f0  \lang2057\f1 The formatter is intended to be able to format all compilable Delphi Source code. Source that does not compile cannot always be formatted correctly.\lang1031\f0 
@@ -79,7 +79,7 @@ FALSE
 \par \f1 
 \par Helpfile by \cf3\strike Ralf Steinhaeusser\cf2\strike0\{linkID=1000\}
 \par 
-\par \cf0\f3 Last change : 1 September, 2003\f1 
+\par \cf0\f3 Last change : 9 September, 2003\f1 
 \par }
 12
 Scribble12
@@ -743,16 +743,14 @@ Writing
 
 
 FALSE
-26
+24
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fmodern Courier New;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Find and replace\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
 \par \cf2\{bmc 130.\lang3079\f1 gif\lang1031\f0\}
-\par 
-\par \cf0\lang2057\b\f1 This feature is not yet working in JCF 2.0. It will be enabled in a later release\b0 
-\par 
+\par \cf0\lang2057\f1 
 \par F\lang1031\f0 ind and replace is an operation that can change the semantics of your code. It is thus turned off by default. It is up to you to turn it on and to enter reasonable values. Bad configuration here can eat your code.
 \par 
 \par Both the GUI and the processing of find and replace is quite simple in this release. The text to be found must be a single token, and must be a word, i.e. a the name of a procedure, unit, variable, etc. Regular expressions are not supported. matching is not case sensitive.
