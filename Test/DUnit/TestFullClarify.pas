@@ -104,6 +104,7 @@ type
   procedure TestClarify_TestProgram;
   procedure TestClarify_TestProperties;
   procedure TestClarify_TestPropertyLines;
+  procedure TestClarify_TestPropertyInherited;
   procedure TestClarify_TestRecords;
   procedure TestClarify_TestReg;
   procedure TestClarify_TestReint;
@@ -548,6 +549,11 @@ end;
 procedure TFullTestClarify.TestClarify_TestProperties;
 begin
   TestClarifyFile('TestProperties');
+end;
+
+procedure TFullTestClarify.TestClarify_TestPropertyInherited;
+begin
+  TestClarifyFile('TestPropertyInherited');
 end;
 
 procedure TFullTestClarify.TestClarify_TestPropertyLines;

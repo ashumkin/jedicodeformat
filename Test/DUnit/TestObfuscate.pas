@@ -102,6 +102,7 @@ type
     procedure TestObfuscate_TestProgram;
     procedure TestObfuscate_TestProperties;
     procedure TestObfuscate_TestPropertyLines;
+    procedure TestObfuscate_TestPropertyInherited;
     procedure TestObfuscate_TestRecords;
     procedure TestObfuscate_TestReg;
     procedure TestObfuscate_TestReint;
@@ -660,6 +661,11 @@ end;
 procedure TTestObfuscate.TestObfuscate_TestDeref;
 begin
   TestObfuscateFile('TestDeref');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestPropertyInherited;
+begin
+  TestObfuscateFile('TestPropertyInherited');
 end;
 
 initialization
