@@ -92,7 +92,9 @@ uses
   TestUnitAllDirectives in 'TestUnitAllDirectives.pas',
   TestUnitDeprecated in 'TestUnitDeprecated.pas',
   TestUnitLibrary in 'TestUnitLibrary.pas',
-  LittleTest19 in 'LittleTest19.pas';
+  LittleTest19 in 'LittleTest19.pas',
+  LittleTest20 in 'LittleTest20.pas',
+  TestRaise in 'TestRaise.pas';
 
 {$R *.res}
 

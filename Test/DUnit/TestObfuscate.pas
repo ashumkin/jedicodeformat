@@ -61,6 +61,7 @@ type
     procedure TestObfuscate_LittleTest17;
     procedure TestObfuscate_LittleTest18;
     procedure TestObfuscate_LittleTest19;
+    procedure TestObfuscate_LittleTest20;
 
     procedure TestObfuscate_TestAbsolute;
     procedure TestObfuscate_TestAlign;
@@ -119,6 +120,7 @@ type
     procedure TestObfuscate_TestProperties;
     procedure TestObfuscate_TestPropertyLines;
     procedure TestObfuscate_TestPropertyInherited;
+    procedure TestObfuscate_TestRaise;
     procedure TestObfuscate_TestRecords;
     procedure TestObfuscate_TestReg;
     procedure TestObfuscate_TestReint;
@@ -783,6 +785,16 @@ end;
 procedure TTestObfuscate.TestObfuscate_LittleTest19;
 begin
   TestObfuscateFile('LittleTest19');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestRaise;
+begin
+  TestObfuscateFile('TestRaise');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest20;
+begin
+  TestObfuscateFile('LittleTest20');
 end;
 
 initialization

@@ -118,8 +118,10 @@ begin
     begin
       { if the else is immediately followed by if then it is not a block indent }
       lcNextLeaf := TSourceToken(lcNode.FirstLeaf);
-      lcNextLeaf := lcNextLeaf.NextSolidToken;
-      if not (lcNextLeaf.TokenType = ttIf) then
+      if lcNextLeaf <> nil then
+        lcNextLeaf := lcNextLeaf.NextSolidToken;
+
+      if (lcNextLeaf = nil) or (lcNextLeaf.TokenType <> ttIf) then
       begin
         leNestType := nlBlock;
         lbHasNesting := True;

@@ -64,6 +64,7 @@ type
     procedure TestParse_LittleTest17;
     procedure TestParse_LittleTest18;
     procedure TestParse_LittleTest19;
+    procedure TestParse_LittleTest20;
 
     procedure TestParse_TestAbsolute;
     procedure TestParse_TestAlign;
@@ -121,6 +122,7 @@ type
     procedure TestParse_TestProperties;
     procedure TestParse_TestPropertyLines;
     procedure TestParse_TestPropertyInherited;
+    procedure TestParse_TestRaise;
     procedure TestParse_TestRecords;
     procedure TestParse_TestReg;
     procedure TestParse_TestReint;
@@ -635,7 +637,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 775);
+  TestParseFile('Testcases.dpr', 791);
 end;
 
 
@@ -758,6 +760,16 @@ end;
 procedure TTestFileParse.TestParse_LittleTest19;
 begin
   TestParseFile('LittleTest19', 168);
+end;
+
+procedure TTestFileParse.TestParse_TestRaise;
+begin
+  TestParseFile('TestRaise', 519);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest20;
+begin
+  TestParseFile('LittleTest20', 62);
 end;
 
 initialization

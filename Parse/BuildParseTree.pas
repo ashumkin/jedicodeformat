@@ -159,6 +159,7 @@ type
     procedure RecogniseTryStatement;
     procedure RecogniseExceptionHandlerBlock;
     procedure RecogniseExceptionHandler;
+    procedure RecogniseRaise;
 
     procedure RecogniseFunctionDecl;
     procedure RecogniseProcedureDecl;
@@ -2054,17 +2055,7 @@ begin
   end
   else if lc.TokenType = ttRaise then
   begin
-    // another omission - raise expr  or just raise (in except block)
-    Recognise(ttRaise);
-    if not (TokenList.FirstSolidTokenType in [ttSemicolon, ttEnd]) then
-      RecogniseExpr;
-
-    // can be at addr
-    if TokenList.FirstSolidTokenType = ttAt then
-    begin
-      Recognise(ttAt);
-      RecogniseExpr;
-    end;
+    RecogniseRaise;
   end
   else if lc.TokenType = ttSemicolon then
   begin
@@ -2074,6 +2065,21 @@ begin
   else
     Raise TEParseError.Create('expected simple statement', lc);
 
+end;
+
+procedure TBuildParseTree.RecogniseRaise;
+begin
+  // another omission - raise expr  or just raise (in except block)
+  Recognise(ttRaise);
+  if not (TokenList.FirstSolidTokenType in [ttSemicolon, ttEnd, ttElse]) then
+    RecogniseExpr;
+
+  // can be at addr
+  if TokenList.FirstSolidTokenType = ttAt then
+  begin
+    Recognise(ttAt);
+    RecogniseExpr;
+  end;
 end;
 
 procedure TBuildParseTree.RecogniseStructStmnt;
@@ -2155,7 +2161,10 @@ begin
   Recognise(ttThen);
 
   PushNode(nIfBlock);
-  RecogniseStatement;
+
+  { if body can be completely missing - go straight to else }
+  if TokenList.FirstSolidTokenType <> ttElse then
+    RecogniseStatement;
   PopNode;
 
   if TokenList.FirstSolidTokenType = ttElse then
@@ -2452,7 +2461,9 @@ begin
     RecogniseIdentifier(True);
     Recognise(ttDo);
 
-    RecogniseStatement;
+    { special case - empty statement block, go straight on to the else }
+    if TokenList.FirstSolidTokenType <> ttElse then
+      RecogniseStatement;
   end
   else
     RecogniseStatement;
@@ -2461,7 +2472,6 @@ begin
     Recognise(ttSemicolon);
 
   PopNode;
-
 end;
 
 
