@@ -43,8 +43,8 @@ type
   published
     property Bar default 3;
     property Foo default FOO_DEFAULT + 1;
-    property Monkey Stored FIVE;
-    property Soy Stored FIVE + 1 nodefault;
+    property Monkey stored FIVE;
+    property Soy stored FIVE + 1 nodefault;
   end;
 
   { base class with array and scalar property }

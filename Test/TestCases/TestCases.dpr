@@ -88,10 +88,11 @@ uses
   LittleTest18 in 'LittleTest18.pas',
   TestAtExpr in 'TestAtExpr.pas',
   TestAsmStructs in 'TestAsmStructs.pas',
-  TestUnitPlatform in '..\TestCases\TestUnitPlatform.pas',
-  TestUnitAllDirectives in '..\TestCases\TestUnitAllDirectives.pas',
-  TestUnitDeprecated in '..\TestCases\TestUnitDeprecated.pas',
-  TestUnitLibrary in '..\TestCases\TestUnitLibrary.pas';
+  TestUnitPlatform in 'TestUnitPlatform.pas',
+  TestUnitAllDirectives in 'TestUnitAllDirectives.pas',
+  TestUnitDeprecated in 'TestUnitDeprecated.pas',
+  TestUnitLibrary in 'TestUnitLibrary.pas',
+  LittleTest19 in 'LittleTest19.pas';
 
 {$R *.res}
 

@@ -3166,8 +3166,9 @@ begin
   if TokenList.FirstSolidTokenType in [ttColon, ttOpenSquareBracket] then
   begin
     RecognisePropertyInterface;
-    RecognisePropertySpecifiers;
   end;
+
+  RecognisePropertySpecifiers;
 
   RecognisePropertyDirectives;
   RecogniseHintDirectives;
@@ -3266,10 +3267,7 @@ begin
       ttStored:
       begin
         Recognise(ttStored);
-        if TokenList.FirstSolidWordType in IdentifierTypes then
-          RecogniseIdentifier(False)
-         else
-          RecogniseConstantExpression;
+        RecogniseConstantExpression;
       end;
       ttDefault:
       begin

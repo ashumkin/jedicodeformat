@@ -60,6 +60,7 @@ type
     procedure TestObfuscate_LittleTest16;
     procedure TestObfuscate_LittleTest17;
     procedure TestObfuscate_LittleTest18;
+    procedure TestObfuscate_LittleTest19;
 
     procedure TestObfuscate_TestAbsolute;
     procedure TestObfuscate_TestAlign;
@@ -777,6 +778,11 @@ end;
 procedure TTestObfuscate.TestObfuscate_TestUnitPlatform;
 begin
   TestObfuscateFile('TestUnitPlatform');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest19;
+begin
+  TestObfuscateFile('LittleTest19');
 end;
 
 initialization

@@ -5,6 +5,7 @@ del *.~pas
 
 del .\out\*.bak
 del .\ObfuscatedOut\*.bak
+del .\AllDelphiSource\*.out
 
 
 pause

@@ -63,6 +63,7 @@ type
     procedure TestParse_LittleTest16;
     procedure TestParse_LittleTest17;
     procedure TestParse_LittleTest18;
+    procedure TestParse_LittleTest19;
 
     procedure TestParse_TestAbsolute;
     procedure TestParse_TestAlign;
@@ -634,7 +635,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 767);
+  TestParseFile('Testcases.dpr', 775);
 end;
 
 
@@ -752,6 +753,11 @@ end;
 procedure TTestFileParse.TestParse_TestUnitPlatform;
 begin
   TestParseFile('TestUnitPlatform', 17);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest19;
+begin
+  TestParseFile('LittleTest19', 168);
 end;
 
 initialization

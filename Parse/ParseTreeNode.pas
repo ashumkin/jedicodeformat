@@ -550,8 +550,10 @@ end;
 
 procedure TParseTreeNode.VisitTree(const pcVisitor: IVisitParseTree);
 const
-  // if a node has more than this number of direct children, then something is very wrong
-  MAX_NODE_CHILDREN = 1024;
+  { if a node has more than this number of direct children, then something is very wrong
+   can have lots in some "header" units that just list a lot of consts
+  }
+  MAX_NODE_CHILDREN = 32768;
 var
   liLoop, liNewIndex: integer;
   lcNode: TParseTreeNode;
@@ -610,7 +612,7 @@ begin
 
     if ChildNodeCount > MAX_NODE_CHILDREN then
     begin
-      // some insert process has gone bezerk
+      // some parse or insert process has gone bezerk
       Raise Exception.Create('Too many child nodes ' + IntToStr(ChildNodeCount));
     end;
   end;
