@@ -45,13 +45,11 @@ uses
   RegistrySettings in '..\Settings\Streams\RegistrySettings.pas',
   RemoveUnneededWhiteSpace in '..\Process\Obfuscate\RemoveUnneededWhiteSpace.pas',
   FixCase in '..\Process\Obfuscate\FixCase.pas',
-  ObfuscateControl in '..\Process\Obfuscate\ObfuscateControl.pas',
   RebreakLines in '..\Process\Obfuscate\RebreakLines.pas',
   ReduceWhiteSpace in '..\Process\Obfuscate\ReduceWhiteSpace.pas',
   RemoveComment in '..\Process\Obfuscate\RemoveComment.pas',
   RemoveConsecutiveWhiteSpace in '..\Process\Obfuscate\RemoveConsecutiveWhiteSpace.pas',
   RemoveReturn in '..\Process\Obfuscate\RemoveReturn.pas',
-  AllWarnings in '..\Process\Warnings\AllWarnings.pas',
   WarnRealType in '..\Process\Warnings\WarnRealType.pas',
   WarnAssignToFunctionName in '..\Process\Warnings\WarnAssignToFunctionName.pas',
   WarnCaseNoElse in '..\Process\Warnings\WarnCaseNoElse.pas',
@@ -62,7 +60,17 @@ uses
   ScratchpadSettings in 'ScratchpadSettings.pas',
   TokenUtils in '..\Parse\TokenUtils.pas',
   NoSpaceBefore in '..\Process\Spacing\NoSpaceBefore.pas',
-  NoSpaceAfter in '..\Process\Spacing\NoSpaceAfter.pas';
+  NoSpaceAfter in '..\Process\Spacing\NoSpaceAfter.pas',
+  SingleSpaceAfter in '..\Process\Spacing\SingleSpaceAfter.pas',
+  SingleSpaceBefore in '..\Process\Spacing\SingleSpaceBefore.pas',
+  ReturnAfter in '..\Process\Spacing\ReturnAfter.pas',
+  Nesting in '..\Process\Nesting.pas',
+  VisitSetNesting in '..\Process\VisitSetNesting.pas',
+  ReturnBefore in '..\Process\Spacing\ReturnBefore.pas',
+  NoReturnAfter in '..\Process\Spacing\NoReturnAfter.pas',
+  NoReturnBefore in '..\Process\Spacing\NoReturnBefore.pas',
+  AllProcesses in '..\Process\AllProcesses.pas',
+  RemoveBlankLine in '..\Process\Obfuscate\RemoveBlankLine.pas';
 
 {$R *.res}
 

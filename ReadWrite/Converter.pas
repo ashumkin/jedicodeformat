@@ -57,8 +57,6 @@ type
 
     fOnStatusMessage: TStatusMessageProc;
 
-    procedure Clarify(const fcRoot: TParseTreeNode);
-
   protected
     fbAbort: Boolean;
     fiCount: integer;
@@ -107,7 +105,7 @@ implementation
 uses
   { delphi } Windows, SysUtils, Dialogs, Controls,
   { local } SourceTokenList, fShowParseTree, JcfSettings,
-  ObfuscateControl, AllWarnings;
+  AllProcesses;
 
 
 constructor TConverter.Create;
@@ -226,6 +224,7 @@ end;
 procedure TConverter.DoConvertUnit;
 var
   lcTokenList: TSourceTokenList;
+  lcProcess: TAllProcesses;
 begin
   //Assert(Settings <> nil);
   fbConvertError := False;
@@ -266,13 +265,18 @@ begin
     if not fcBuildParseTree.ParseError then
     begin
       // do the processes
-      if Settings.Obfuscate.Enabled then
-      begin
-        Obfuscate(fcBuildParseTree.Root);
-      end
-      else
-      begin
-        Clarify(fcBuildParseTree.Root);
+      lcProcess := TAllProcesses.Create;
+      try
+        lcProcess.OnMessage := SendStatusMessage;
+
+        try
+          lcProcess.Execute(fcBuildParseTree.Root);
+        except
+          ShowParseTree(fcBuildParseTree.Root);
+          Raise;
+        end;
+      finally
+        lcProcess.Free;
       end;
 
       fcWriter.Root := fcBuildParseTree.Root;
@@ -292,18 +296,6 @@ begin
   end;
 end;
 
-procedure TConverter.Clarify(const fcRoot: TParseTreeNode);
-var
-  lcWarnings: TAllWarnings;
-begin
-  // just warning so far
-  lcWarnings := TAllWarnings.Create;
-  try
-    lcWarnings.OnWarning := SendStatusMessage;
-    lcWarnings.Execute(fcRoot);
-  finally
-    lcWarnings.Free;
-  end;
-end;
+
 
 end.

@@ -20,7 +20,7 @@ implementation
 
 uses
   JclStrings,
-  { local } SourceToken, TokenType;
+  { local } SourceToken, TokenType, WordMap, ParseTreeNodeType;
 
 function TextOrNumberString(const str: string): boolean;
 var
@@ -40,22 +40,11 @@ begin
   end;
 end;
 
-function OnlyOneText(const pt1, pt2: TSourceToken): boolean;
-var
-  b1, b2: boolean;
-begin
-  b1 := TextOrNumberString(pt1.SourceCode);
-  b2 := TextOrNumberString(pt2.SourceCode);
-
-  { one or the other, not both }
-  Result := b1 xor b2;
-end;
-
-
 
 const
-  MiscUnspacedTokens: TTokenTypeSet =
-    [ttLiteralString, ttSemiColon, ttColon, ttComma, ttDot, ttAssign, ttReturn];
+  MiscUnspacedTokens: TTokenTypeSet = [
+    ttLiteralString, ttSemiColon, ttColon, ttComma,
+    ttDot, ttDoubleDot, ttAssign, ttReturn];
 
 
 function NeedSpaceBetween(const pt1, pt2: TSourceToken): boolean;
@@ -68,8 +57,19 @@ begin
     exit;
   end;
 
+  { need to keep space before ASM @@ thingy}
+  if (pt2.Word = wAtSign) and pt2.HasParentNode(nAsmStatement) then
+    exit;
+
   { never need a space next to a bracket }
   if (pt1.TokenType in BracketTokens) or (pt2.TokenType in BracketTokens) then
+  begin
+    Result := False;
+    exit;
+  end;
+
+  { never need space around semicolon }
+  if (pt1.TokenType = ttSemiColon) or (pt2.TokenType = ttSemiColon) then
   begin
     Result := False;
     exit;
@@ -82,42 +82,26 @@ begin
     exit;
   end;
 
-  { don't need white space next to white space }
-  if (pt1.TokenType = ttWhiteSpace) or (pt2.TokenType = ttWhiteSpace) then
+  if (pt1.TokenType in TextOrNumberTokens) and (pt2.Word = wAtSign) and (pt1.HasParentnode(nAsm)) then
   begin
     Result := False;
     exit;
   end;
 
-  { if one token is text, and the other not, don't need white space
+  { if one token is text or number, and the other not, don't need white space
    for this numbers count as text, for e.g.
    "for liLoop := 0to3do" is not valid, neither is "for liLoop := 0 to3 do",
    must be for liLoop := 0 to 3 do
    }
 
-  if (pt1.TokenType in TextOrNumberTokens) and not (pt2.TokenType in TextOrNumberTokens)
-    then
+  if TextOrNumberString(pt1.SourceCode) then
   begin
+    { always space between two text/number tokens }
+    Result := TextOrNumberString(pt2.SourceCode);
+  end
+  else
     Result := False;
-    exit;
-  end;
 
-  {operators such as '<', '='  are counted as texual tokens
-   no space betwen such an operator and a different token
-
-   (unlike operators like 'in', 'is' which need a space between them & other words
-  }
-
-
-  if ((pt1.TokenType = ttOperator) or (pt2.TokenType = ttOperator)) and
-    (pt1.TokenType <> pt2.TokenType) then
-  begin
-    if OnlyOneText(pt1, pt2) then
-    begin
-      Result := False;
-      exit;
-    end;
-  end;
 end;
 
 
@@ -135,7 +119,12 @@ begin
     exit;
 
   lcBefore := lcSpace.PriorToken;
-  lcAfter := lcSPace.NextToken;
+  if lcBefore = nil then
+    exit;
+
+  lcAfter := lcSpace.NextToken;
+  if lcAfter = nil then
+    exit;
 
   if not NeedSpaceBetween(lcBefore, lcAfter) then
     prVisitResult.Action := aDelete;

@@ -90,8 +90,8 @@ MaxStackSize=1048576
 ImageBase=4194304
 ExeDescription=
 [Directories]
-OutputDir=C:\Code\Delphi\JcfCheckout\CodeFormat\Jcf2\Output
-UnitOutputDir=C:\Code\Delphi\JcfCheckout\CodeFormat\Jcf2\Output
+OutputDir=C:\Code\JcfCheckout\CodeFormat\Jcf2\Output
+UnitOutputDir=C:\Code\JcfCheckout\CodeFormat\Jcf2\Output
 PackageDLLOutputDir=
 PackageDCPOutputDir=
 SearchPath=
