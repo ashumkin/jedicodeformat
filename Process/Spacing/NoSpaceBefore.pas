@@ -26,10 +26,12 @@ uses SourceToken, TokenType, WordMap, ParseTreeNodeType, FormatFlags,
   TokenUtils;
 
 const
-  NoSpaceAnywhere: TTokenTypeSet = [ttSemiColon, ttDot, ttComma,
+  NoSpaceAnywhere: TTokenTypeSet = [ttDot, ttComma,
     ttCloseSquareBracket, ttCloseBracket];
 
 function HasNoSpaceBefore(const pt: TSourceToken): boolean;
+var
+  lcPrev: TSourceToken;
 begin
   Result := False;
 
@@ -44,6 +46,17 @@ begin
   begin
     Result := True;
     exit;
+  end;
+
+  // semicolon usually, except after 'begin' and another semicolon
+  if pt.TokenType = ttSemiColon then
+  begin
+    lcPrev := pt.PriorTokenWithExclusions(NotSolidTokens);
+    if not ((lcPrev.TokenType = ttSemiColon) or (lcPrev.Word = wBegin)) then
+    begin
+      Result := True;
+      exit;
+    end;
   end;
 
   { hat (dereference) in expression is unary postfix operator - so no space before it }

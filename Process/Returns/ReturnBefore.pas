@@ -50,15 +50,22 @@ begin
    but not in RHSEquals of type defs,
    but not in class & interface def,
    but not if precedeed by the class specified for class functions
+   but not if it doesn't have a proc body
 
-
-   !! this mistakenly spaces proc forwards.
+   IMHO should also have blank line before contained procs
    }
 
   if (pt.Word in ProcedureWords) and
     (not pt.IsOnRightOf(nTypeDecl, wEquals)) and
     (not IsClassFunction(pt)) and
     (ProcedureHasBody(pt)) then
+  begin
+    Result := True;
+    exit;
+  end;
+
+  // form dfm comment
+  if IsDfmIncludeDirective(pt) then
   begin
     Result := True;
     exit;

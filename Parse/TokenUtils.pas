@@ -80,6 +80,9 @@ function IdentListNameCount(const pcNode: TParseTreeNode): integer;
 
 function ProcedureHasBody(const pt: TParseTreeNode): boolean;
 
+function IsDfmIncludeDirective(const pt: TSourceToken): boolean;
+
+
 implementation
 
 uses
@@ -494,6 +497,14 @@ begin
     exit;
 
   Result := lcProcedureNode.HasChildNode(nBlock, 1);
+end;
+
+function IsDfmIncludeDirective(const pt: TSourceToken): boolean;
+begin
+  // form dfm comment
+  Result := (pt.TokenType = ttComment) and AnsiSameText(pt.SourceCode, '{$R *.dfm}') and
+    pt.HasParentNode(nImplementationSection, 4);
+
 end;
 
 end.

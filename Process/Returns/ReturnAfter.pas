@@ -152,13 +152,11 @@ begin
     exit;
 
   // form dfm comment
-  if (pt.TokenType = ttComment) and AnsiSameText(pt.SourceCode, '{$R *.dfm}') and
-    pt.HasParentNode(nImplementationSection, 4) then
+  if IsDfmIncludeDirective(pt) then
   begin
     Result := True;
     exit;
   end;
-
 
   if (pt.TokenType in ReservedWordTokens) and (pt.Word in WordsBlankLineAfter) then
   begin
