@@ -67,6 +67,8 @@ const
   PossiblyUnaryOperators: TTokenTypeSet = [ttPlus, ttMinus];
 
 function NeedsSingleSpace(const pt, ptNext: TSourceToken): boolean;
+var
+  lcSameLineToken: TSourceToken;
 begin
   Assert(pt <> nil);
   Assert(ptNext <> nil);
@@ -238,6 +240,18 @@ begin
     begin
       Result := True;
       exit;
+    end;
+
+    { else followed by something else on the same line,
+      e.g if block style brings up the following "begin" }
+    if (pt.TokenType = ttElse) then
+    begin
+      lcSameLineToken := pt.NexttokenWithExclusions([ttWhiteSpace]);
+      if (lcSameLineToken <> nil) and (not (lcSameLineToken.TokenType in [ttReturn, ttSemiColon])) then
+      begin
+        Result := True;
+        exit;
+      end;
     end;
   end;
 
