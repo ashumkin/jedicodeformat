@@ -32,7 +32,8 @@ uses
   SetIndent, SetSpaces, SetReturns,
   SetComments, SetCaps, SetWordList,
   SetAlign, SetReplace, SetUses, SetPreProcessor,
-  SettingsStream, VersionConsts;
+  SettingsStream, SetTransform,
+  VersionConsts;
 
 type
 
@@ -53,6 +54,8 @@ type
     fcUses: TSetUses;
 
     fcReplace: TSetReplace;
+
+    fcTransform: TSetTransform;
 
     fbWriteOnExit: boolean;
     fbDirty: boolean;
@@ -98,6 +101,8 @@ type
     property Replace: TSetReplace Read fcReplace;
     property UsesClause: TSetUses Read fcUses;
 
+    property Transform: TSetTransform read fcTransform;
+
     property WriteOnExit: boolean Read fbWriteOnExit Write fbWriteOnExit;
     property Dirty: boolean Read fbDirty Write fbDirty;
   end;
@@ -133,6 +138,7 @@ begin
   fcAlign   := TSetAlign.Create;
   fcReplace := TSetReplace.Create;
   fcUses    := TSetUses.Create;
+  fcTransform := TsetTransform.Create;
 
   Read;
 
@@ -172,6 +178,8 @@ begin
   FreeAndNil(fcReplace);
   FreeAndNil(fcAlign);
   FreeAndNil(fcUses);
+  FreeAndNil(fcTransform);
+  
   inherited;
 end;
 
@@ -274,6 +282,7 @@ begin
   WriteToStream(fcAlign);
   WriteToStream(fcReplace);
   WriteToStream(fcUses);
+  WriteToStream(fcTransform);
 
   pcStream.CloseSection(CODEFORMAT_SETTINGS_SECTION);
 end;
@@ -329,6 +338,7 @@ begin
     ReadFromStream(fcAlign);
     ReadFromStream(fcReplace);
     ReadFromStream(fcUses);
+    ReadFromStream(fcTransform);
   finally
     lcAllSettings.Free;
   end;

@@ -79,7 +79,7 @@ uses
   frClarifyLongLineBreaker, frClarifyBlocks, frClarifyAlign,
   frReplace,
   frReservedCapsSettings, frAnyCapsSettings, frUnitCaps,
-  frUses, frBasicSettings, frPreProcessor, frComments;
+  frUses, frBasicSettings, frPreProcessor, frComments, frTransform;
 
 
 type
@@ -89,7 +89,7 @@ type
   end;
 
 const
-  FrameMap: array[0..17] of TFrameMapRecord = (
+  FrameMap: array[0..18] of TFrameMapRecord = (
     (FrameName: 'Format file'; FrameClass: TfFiles),
     (FrameName: 'Obfuscate'; FrameClass: TfObfuscateSettings),
     (FrameName: 'Clarify'; FrameClass: TfClarify),
@@ -107,7 +107,8 @@ const
     (FrameName: 'Uses'; FrameClass: TfUses),
     (FrameName: 'Basic'; FrameClass: TfrBasic),
     (FrameName: 'PreProcessor'; FrameClass: TfPreProcessor),
-    (FrameName: 'Comments'; FrameClass: TfComments)
+    (FrameName: 'Comments'; FrameClass: TfComments),
+    (FrameName: 'Transform'; FrameClass: TfTransform)
     );
 
 { TFormAllSettings }

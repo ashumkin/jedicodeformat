@@ -159,7 +159,11 @@ uses
   UsesClauseRemove in '..\Process\Transform\UsesClauseRemove.pas',
   UsesClauseFindReplace in '..\Process\Transform\UsesClauseFindReplace.pas',
   MaxSpaces in '..\Process\Spacing\MaxSpaces.pas',
-  TreeWalker in '..\Process\TreeWalker.pas';
+  TreeWalker in '..\Process\TreeWalker.pas',
+  AddBlockEndSemicolon in '..\Process\Transform\AddBlockEndSemicolon.pas',
+  AddBeginEnd in '..\Process\Transform\AddBeginEnd.pas',
+  SetTransform in '..\Settings\SetTransform.pas',
+  frTransform in '..\Ui\Settings\frTransform.pas' {fTransform: TFrame};
 
 {$R *.res}
 

@@ -156,7 +156,11 @@ uses
   RemoveConsecutiveReturns in '..\Process\Returns\RemoveConsecutiveReturns.pas',
   frBlankLines in '..\Ui\Settings\frBlankLines.pas' {fBlankLines: TFrame},
   MaxSpaces in '..\Process\Spacing\MaxSpaces.pas',
-  TreeWalker in '..\Process\TreeWalker.pas';
+  TreeWalker in '..\Process\TreeWalker.pas',
+  AddBlockEndSemicolon in '..\Process\Transform\AddBlockEndSemicolon.pas',
+  AddBeginEnd in '..\Process\Transform\AddBeginEnd.pas',
+  SetTransform in '..\Settings\SetTransform.pas',
+  frTransform in '..\Ui\Settings\frTransform.pas' {fTransform: TFrame};
 
 {$R *.res}
 

@@ -137,7 +137,10 @@ uses
   UsesClauseRemove in '..\Process\Transform\UsesClauseRemove.pas',
   MaxSpaces in '..\Process\Spacing\MaxSpaces.pas',
   SetComments in '..\Settings\SetComments.pas',
-  TreeWalker in '..\Process\TreeWalker.pas';
+  TreeWalker in '..\Process\TreeWalker.pas',
+  AddBlockEndSemicolon in '..\Process\Transform\AddBlockEndSemicolon.pas',
+  AddBeginEnd in '..\Process\Transform\AddBeginEnd.pas',
+  SetTransform in '..\Settings\SetTransform.pas';
 
 const
   ABOUT_COMMANDLINE =

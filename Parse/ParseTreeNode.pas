@@ -79,6 +79,9 @@ type
     function GetImmediateChild(const peNodeTypes: TParseTreeNodeTypeSet): TParseTreeNode; overload;
     function GetImmediateChild(const peNodeType: TParseTreeNodeType): TParseTreeNode; overload;
 
+    function CountImmediateChild(const peNodeTypes: TParseTreeNodeTypeSet): integer; overload;
+    function CountImmediateChild(const peNodeType: TParseTreeNodeType): integer; overload;
+
     function Level: integer;
     function HasChildren: boolean;
     function IsLeaf: boolean; virtual;
@@ -737,8 +740,7 @@ begin
 
 end;
 
-function TParseTreeNode.GetImmediateChild(const peNodeTypes: TParseTreeNodeTypeSet):
-TParseTreeNode;
+function TParseTreeNode.GetImmediateChild(const peNodeTypes: TParseTreeNodeTypeSet): TParseTreeNode;
 var
   liLoop: integer;
   lcNode: TParseTreeNode;
@@ -763,5 +765,24 @@ begin
   Result := GetImmediateChild([peNodeType]);
 end;
 
+function TParseTreeNode.CountImmediateChild(const peNodeTypes: TParseTreeNodeTypeSet): integer;
+var
+  liLoop: integer;
+  lcNode: TParseTreeNode;
+begin
+  Result := 0;
 
+  for liLoop := 0 to ChildNodeCount - 1 do
+  begin
+    lcNode := ChildNodes[liLoop];
+
+    if lcNode.NodeType in peNodeTypes then
+      inc(Result);
+  end;
+end;
+
+function TParseTreeNode.CountImmediateChild(const peNodeType: TParseTreeNodeType): integer;
+begin
+  Result := CountImmediateChild([peNodeType]);
+end;
 end.

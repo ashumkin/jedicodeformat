@@ -39,31 +39,20 @@ type
 implementation
 
 uses ParseTreeNode, ParseTreeNodeType,
-  SourceToken, Tokens;
+  JcfSettings, SourceToken, Tokens, SetTransform;
 
 function IsBlockParent(const pcNode: TParseTreeNode): boolean;
+const
+  BLOCK_PARENTS: TParseTreeNodeTypeSet =
+    [nIfBlock, nElseBlock, nCaseSelector, nWhileStatement, nForStatement];
 begin
-  Result := False;
-
-  { a block for
-    - if block
-    - else block
-    - case label block
-  }
-  if pcNode.NodeType in [nIfBlock, nElseBlock, nCaseSelector,
-    nWhileStatement, nForStatement] then
-    Result := True;
-
-  { while, do, for statements etc }
+  Result := (pcNode <> nil) and (pcNode.NodeType in BLOCK_PARENTS);
 end;
 
 function HasBlockChild(const pcNode: TParseTreeNode): boolean;
 begin
-  Result := False;
-
-  // an if statement has a block
-  if pcNode.HasChildNode(nCompoundStatement, 2) then
-    Result := True;
+  { a compound statement is the begin..end block. }
+  Result := pcNode.HasChildNode(nCompoundStatement, 2);
 end;
 
 procedure AddBlockChild(const pcNode: TParseTreeNode);
@@ -73,12 +62,16 @@ var
   lcBegin, lcEnd: TSourceToken;
 begin
   { this is an if block or the like
-    with a single statement under it
-  }
-
+    with a single statement under it  }
   lcStatement := pcNode.GetImmediateChild(nStatement);
-  Assert(lcStatement <> nil);
-  liIndex := pcNode.IndexOfChild(lcStatement);
+
+  if lcStatement = nil then
+  begin
+    // a dangling else or the like
+    liIndex := 0;
+  end
+  else
+    liIndex := pcNode.IndexOfChild(lcStatement);
 
   { temporarily take it out }
   pcNode.ExtractChild(lcStatement);
@@ -106,12 +99,45 @@ begin
     lcCompound.AddChild(lcStatementList);
 
     { the original statement goes in the middle of this }
-    lcStatementList.AddChild(lcStatement);
+    if lcStatement <> nil then
+      lcStatementList.AddChild(lcStatement);
 
     lcEnd := TSourceToken.Create;
     lcEnd.SourceCode := 'end';
     lcEnd.TokenType := ttEnd;
     lcCompound.AddChild(lcEnd);
+end;
+
+procedure RemoveBlockChild(const pcNode: TParseTreeNode);
+var
+  lcTopStatement: TParseTreeNode;
+  lcCompoundStatement: TParseTreeNode;
+  lcStatementList: TParseTreeNode;
+  lcStatement: TParseTreeNode;
+begin
+  lcTopStatement := pcNode.GetImmediateChild(nStatement);
+  if lcTopStatement = nil then
+    exit;
+
+  lcCompoundStatement := lcTopStatement.GetImmediateChild(nCompoundStatement);
+  if lcCompoundStatement = nil then
+    exit;
+
+  lcStatementList := lcCompoundStatement.GetImmediateChild(nStatementList);
+  if lcStatementList = nil then
+    exit;
+
+  // if this begin...end owns more than one statement, we can't do it
+  if lcStatementList.CountImmediateChild(nStatement) > 1 then
+    exit;
+
+  lcStatement := lcStatementList.GetImmediateChild(nStatement);
+
+  // right, put this single statement in at the top
+  lcStatementList.ExtractChild(lcStatement);
+  // and free the rest of the scaffolding
+  lcTopStatement.Free;
+  pcNode.AddChild(lcStatement);
 end;
 
 constructor TAddBeginEnd.Create;
@@ -129,16 +155,23 @@ begin
   lcNode := TParseTreeNode(pcNode);
 
   if IsBlockParent(lcNode) then
-    if not HasBlockChild(lcNode) then
-      AddBlockChild(lcNode);
-
+  begin
+    if HasBlockChild(lcNode) then
+    begin
+      if FormatSettings.Transform.BeginEndStyle = ebNever then
+        RemoveBlockChild(lcNode);
+    end
+    else
+    begin
+      if FormatSettings.Transform.BeginEndStyle = ebAlways then
+        AddBlockChild(lcNode);
+    end;
+  end;
 end;
-
 
 function TAddBeginEnd.IsIncludedInSettings: boolean;
 begin
-  // todo - setting
-  Result := True;
+  Result := (FormatSettings.Transform.BeginEndStyle <> ebLeave);
 end;
 
 end.

@@ -38,7 +38,9 @@ type
     fcOnMessages: TStatusMessageProc;
     fcRoot: TParseTreeNode;
 
-    procedure ApplyVisitorType(const pcVisitorType: TTreeNodeVisitorType);
+    procedure ApplyVisitorType(const pcVisitorType: TTreeNodeVisitorType); overload;
+    procedure ApplyVisitorType(const pcVisitorType: TTreeNodeVisitorType;
+      const pcFollowSet: array of TTreeNodeVisitorType); overload;
 
     procedure Obfuscate;
 
@@ -75,7 +77,7 @@ uses
   RemoveConsecutiveWhiteSpace, RemoveUnneededWhiteSpace, RebreakLines,
   { transform }
   FindReplace, UsesClauseInsert, UsesClauseRemove, UsesClauseFindReplace,
-  RemoveEmptyComment,
+  RemoveEmptyComment, AddBeginEnd, AddBlockEndSemicolon,
   { warnings }
   Warning, WarnEmptyBlock, WarnRealType, WarnAssignToFunctionName,
   WarnCaseNoElse, WarnDestroy,
@@ -114,9 +116,22 @@ begin
 end;
 
 procedure TAllProcesses.ApplyVisitorType(const pcVisitorType: TTreeNodeVisitorType);
+begin
+  ApplyVisitorType(pcVisitorType, []);
+end;
+
+{ the idea behind the follow set is that
+  several processes are often used after a main one.
+  e.g. after the linebreaker, redo the VisitSetXY and the RemoveEmptySpace
+  if the main process doesn't fire due to settings, or makes no changes,
+  can save time by omitting the cleanup
+  }
+procedure TAllProcesses.ApplyVisitorType(const pcVisitorType: TTreeNodeVisitorType;
+  const pcFollowSet: array of TTreeNodeVisitorType);
 var
-  lc: TBaseTreeNodeVisitor;
+  lc, lcFollow: TBaseTreeNodeVisitor;
   lsMessage: string;
+  liLoop: integer;
 begin
   Assert(fcRoot <> nil);
 
@@ -133,11 +148,23 @@ begin
         OnMessage('', lsMessage, -1, -1);
 
       Application.ProcessMessages;
+
+      { if the main process fired, do the follow set too }
+      for liLoop := Low(pcFollowSet) to High(pcFollowSet) do
+      begin
+        lcFollow := pcFollowSet[liLoop].Create;
+        try
+          fcTreeWalker.Visit(fcRoot, lcFollow);
+        finally
+          lcFollow.Free;
+        end;
+      end;
+
     end;
   finally
     lc.Free;
   end;
-end;                                  
+end;
 
 procedure TAllProcesses.Execute(const pcRoot: TParseTreeNode);
 begin
@@ -178,10 +205,8 @@ procedure TAllProcesses.Obfuscate;
 begin
   // apply them all
   ApplyVisitorType(TFixCase);
-  ApplyVisitorType(TRemoveComment);
-  ApplyVisitorType(TVisitSetXY);
-  ApplyVisitorType(TRemoveBlankLine);
-  ApplyVisitorType(TVisitSetXY);
+  ApplyVisitorType(TRemoveComment, [TVisitSetXY]);
+  ApplyVisitorType(TRemoveBlankLine, [TVisitSetXY]);
   ApplyVisitorType(TRemoveReturn);
   ApplyVisitorType(TReduceWhiteSpace);
   ApplyVisitorType(TRemoveConsecutiveWhiteSpace);
@@ -208,15 +233,8 @@ begin
 
   ApplyVisitorType(TRemoveEmptyComment);
 
-  { !! test
-  ApplyVisitorType(TAddBeginEnd);
-  ApplyVisitorType(TVisitSetNestings);
-  ApplyVisitorType(TVisitSetXY);
-
-  ApplyVisitorType(TBlockEndSemicolon);
-  ApplyVisitorType(TVisitSetNestings);
-  ApplyVisitorType(TVisitSetXY);
-  }
+  ApplyVisitorType(TAddBeginEnd, [TVisitSetNestings, TVisitSetXY]);
+  ApplyVisitorType(TBlockEndSemicolon, [TVisitSetNestings, TVisitSetXY]);
 end;
 
 
@@ -261,32 +279,22 @@ procedure TAllProcesses.LineBreaking;
 begin
   ApplyVisitorType(TReturnChars);
 
-  ApplyVisitorType(TPropertyOnOneLine);
-  ApplyVisitorType(TVisitStripEmptySpace);
-
-  ApplyVisitorType(TRemoveBlankLinesAfterProcHeader);
-  ApplyVisitorType(TVisitStripEmptySpace);
-
-  ApplyVisitorType(TRemoveBlankLinesInVars);
-  ApplyVisitorType(TVisitStripEmptySpace);
-
-  ApplyVisitorType(TRemoveReturnsAfterBegin);
-  ApplyVisitorType(TVisitStripEmptySpace);
-
-  ApplyVisitorType(TRemoveReturnsBeforeEnd);
-  ApplyVisitorType(TVisitStripEmptySpace);
+  ApplyVisitorType(TPropertyOnOneLine, [TVisitStripEmptySpace]);
+  ApplyVisitorType(TRemoveBlankLinesAfterProcHeader, [TVisitStripEmptySpace]);
+  ApplyVisitorType(TRemoveBlankLinesInVars, [TVisitStripEmptySpace]);
+  ApplyVisitorType(TRemoveReturnsAfterBegin, [TVisitStripEmptySpace]);
+  ApplyVisitorType(TRemoveReturnsBeforeEnd, [TVisitStripEmptySpace]);
 
   ApplyVisitorType(TNoReturnAfter);
   ApplyVisitorType(TNoReturnBefore);
   ApplyVisitorType(TRemoveConsecutiveReturns);
 
   ApplyVisitorType(TVisitSetXY);
-  ApplyVisitorType(TReturnBefore);
+  ApplyVisitorType(TReturnBefore, [TVisitSetXY]);
 
-  ApplyVisitorType(TVisitSetXY);
-  ApplyVisitorType(TReturnAfter);
+  ApplyVisitorType(TReturnAfter, [TVisitSetXY]);
 
-  ApplyVisitorType(TBlockStyles);
+  ApplyVisitorType(TBlockStyles, [TVisitSetXY]);
 
   { long line breaking is a bit of a circular thing
     The indentation before the code on the line
@@ -296,11 +304,9 @@ begin
     Fortunately this is only an issue when code is really badly formatted
     e.g. de-obfucation }
 
-  ApplyVisitorType(TVisitStripEmptySpace);
-  ApplyVisitorType(TVisitSetXY);
-  ApplyVisitorType(TLongLineBreaker);
-
-  ApplyVisitorType(TReturnsAfterFinalEnd);
+  ApplyVisitorType(TVisitStripEmptySpace, [TVisitSetXY]);
+  ApplyVisitorType(TLongLineBreaker, [TVisitSetXY]);
+  ApplyVisitorType(TReturnsAfterFinalEnd, [TVisitSetXY]);
   ApplyVisitorType(TLongLineBreaker);
 end;
 
@@ -308,27 +314,16 @@ end;
 procedure TAllProcesses.Indent;
 begin
   ApplyVisitorType(TVisitSetXY);
-  ApplyVisitorType(TIndenter);
-  ApplyVisitorType(TVisitSetXY);
+  ApplyVisitorType(TIndenter, [TVisitSetXY]);
 end;
 
 procedure TAllProcesses.Align;
 begin
-
-  ApplyVisitorType(TVisitSetXY);
-  ApplyVisitorType(TAlignConst);
-
-  ApplyVisitorType(TVisitSetXY);
-  ApplyVisitorType(TAlignVars);
-
-  ApplyVisitorType(TVisitSetXY);
-  ApplyVisitorType(TAlignAssign);
-
-  ApplyVisitorType(TVisitSetXY);
-  ApplyVisitorType(TAlignTypedef);
-
-  ApplyVisitorType(TVisitSetXY);
-  ApplyVisitorType(TAlignComment);
+  ApplyVisitorType(TAlignConst, [TVisitSetXY]);
+  ApplyVisitorType(TAlignVars, [TVisitSetXY]);
+  ApplyVisitorType(TAlignAssign, [TVisitSetXY]);
+  ApplyVisitorType(TAlignTypedef, [TVisitSetXY]);
+  ApplyVisitorType(TAlignComment, [TVisitSetXY]);
 end;
 
 procedure TAllProcesses.OnceOffs;

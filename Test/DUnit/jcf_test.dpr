@@ -159,7 +159,10 @@ uses
   TestIndentation in 'TestIndentation.pas',
   MaxSpaces in '..\..\Process\Spacing\MaxSpaces.pas',
   TreeWalker in '..\..\Process\TreeWalker.pas',
-  SetComments in '..\..\Settings\SetComments.pas';
+  SetComments in '..\..\Settings\SetComments.pas',
+  AddBeginEnd in '..\..\Process\Transform\AddBeginEnd.pas',
+  AddBlockEndSemicolon in '..\..\Process\Transform\AddBlockEndSemicolon.pas',
+  SetTransform in '..\..\Settings\SetTransform.pas';
 
 {$R *.res}
 
