@@ -40,6 +40,7 @@ type
     procedure TestParse_TestCommentIndent;
     procedure TestParse_TestConstRecords;
     procedure TestParse_TestD6;
+    procedure TestParse_TestDeclarations;
     procedure TestParse_TestDeclarations2;
     procedure TestParse_TestDefaultParams;
     procedure TestParse_TestEmptyClass;
@@ -276,7 +277,13 @@ end;
 procedure TTestParse.TestParse_TestD6;
 begin
   TestParseFile('TestD6', 845);
-end;                                              
+end;
+
+procedure TTestParse.TestParse_TestDeclarations;
+begin
+  TestParseFile('TestDeclarations', 985);
+end;
+
 
 procedure TTestParse.TestParse_TestDeclarations2;
 begin
