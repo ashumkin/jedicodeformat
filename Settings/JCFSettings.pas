@@ -14,12 +14,16 @@ You may obtain a copy of the License at http://www.mozilla.org/NPL/
 
 Software distributed under the License is distributed on an "AS IS" basis,
 WITHOUT WARRANTY OF ANY KIND, either express or implied.
-See the License for the specific language governing rights and limitations 
+See the License for the specific language governing rights and limitations
 under the License.
 ------------------------------------------------------------------------------*)
 {*)}
 
 unit JCFSettings;
+
+{ this is the settings on how to parse. As of 2.0 this is always from a file
+  The file name is stored in registry
+  This allows centralised settings on a shared dir }
 
 interface
 
@@ -33,7 +37,7 @@ uses
 
 type
 
-  TSettings = class(TObject)
+  TFormatSettings = class(TObject)
   private
     fcLog: TSetLog;
     fcObfuscate: TSetObfuscate;
@@ -65,7 +69,6 @@ type
 
     procedure ToStream(const pcStream: TSettingsOutput);
 
-    procedure ReadFromFile(const psFileName: string);
 
     property Log: TSetLog read fcLog;
     property FileSettings: TSetFile read FcFile;
@@ -86,28 +89,18 @@ type
     property UI: TSetUi read fcUi write fcUi;
   end;
 
-function Settings: TSettings;
+function FormatSettings: TFormatSettings;
 
 implementation
 
 uses
   { delphi } SysUtils, Dialogs, Forms,
-  { jcl } JclStrings, JclFileUtils,
-  { local } ConvertTypes, JCFSetBase, JcfMiscFunctions, RegistrySettings;
+  { jcl } JclStrings,
+  { local } ConvertTypes, JCFSetBase, 
+   JcfRegistrySettings;
 
-var
-  // a module var
-  mcSettings: TSettings = nil;
 
-function Settings: TSettings;
-begin
-  if mcSettings = nil then
-    mcSettings := TSettings.Create;
-
-  Result := mcSettings;
-end;
-
-constructor TSettings.Create;
+constructor TFormatSettings.Create;
 begin
   inherited;
 
@@ -128,7 +121,7 @@ begin
   Read;
 end;
 
-destructor TSettings.Destroy;
+destructor TFormatSettings.Destroy;
 begin
   Write;
 
@@ -151,28 +144,15 @@ end;
 
 const
   CODEFORMAT_SETTINGS_SECTION = 'JediCodeFormatSettings';
-  DEFAULT_SETTINGS_FILE = 'JCFSettings.cfg';
 
-
-{ AFS 10 Oct 2001
- Migrate to file-based settings,  ie
-  - read from the settings file if it exists, else use the registry
-  - always write to the file
- }
-function SettingsFileName: string;
-begin
-  Result := PathAddSeparator(GetWinDir) + DEFAULT_SETTINGS_FILE;
-end;
-
-procedure TSettings.Read;
+procedure TFormatSettings.Read;
 var
   lsSettingsFileName: string;
   lsText: string;
   lcFile: TSettingsInputString;
-  lcReg: TSettingsInputRegistry;
 begin
   // use the Settings File if it exists
-  lsSettingsFileName := SettingsFileName;
+  lsSettingsFileName := GetRegSettings.FormatConfigFileName;
 
   if FileExists(lsSettingsFileName) then
   begin
@@ -186,47 +166,24 @@ begin
     finally
       lcFile.free;
     end;
-
-  end
-  else
-  begin
-    // debug ShowMessage('Reading settings from registry');
-
-    lcReg := TSettingsInputRegistry.Create(REG_ROOT_KEY);
-
-    try
-      FromStream(lcReg);
-    finally
-      lcReg.free;
-    end;
-
   end;
 end;
 
-procedure TSettings.Write;
+procedure TFormatSettings.Write;
 var
   lcFile: TSettingsStreamOutput;
-  lcReg: TSettingsRegistryOutput;
 begin
-  // use the Settings File if it exists
-  lcFile := TSettingsStreamOutput.Create(SettingsFileName);
+  // use the Settings File 
+  lcFile := TSettingsStreamOutput.Create(GetRegSettings.FormatConfigFileName);
   try
     ToStream(lcFile);
   finally
     lcFile.free;
   end;
 
-  // debug ShowMessage('Writing registry');
-  lcReg := TSettingsRegistryOutput.Create(REG_ROOT_KEY);
-  try
-    ToStream(lcReg);
-  finally
-    lcReg.free;
-  end;
-
 end;
 
-procedure TSettings.ToStream(const pcStream: TSettingsOutput);
+procedure TFormatSettings.ToStream(const pcStream: TSettingsOutput);
 
   procedure WriteToStream(const pcSet: TSetBase);
   begin
@@ -259,7 +216,7 @@ begin
   pcStream.CloseSection(CODEFORMAT_SETTINGS_SECTION);
 end;
 
-procedure TSettings.FromStream(const pcStream: TSettingsInput);
+procedure TFormatSettings.FromStream(const pcStream: TSettingsInput);
 var
   lcAllSettings: TSettingsInput;
 
@@ -282,7 +239,7 @@ var
 begin
 
   { basic test - we are only interested in the
-    <JediCodeFormatSettings> ... </JediCodeFormatSettings> part of the file
+    <JediCodeFormaTFormatSettings> ... </JediCodeFormaTFormatSettings> part of the file
     If this start & end is not present, then is is the wrong file }
   lcAllSettings := pcStream.ExtractSection(CODEFORMAT_SETTINGS_SECTION);
   if lcAllSettings = nil then
@@ -310,22 +267,21 @@ begin
   end;
 end;
 
-procedure TSettings.ReadFromFile(const psFileName: string);
-var
-  lsText: string;
-  lcFile: TSettingsInput;
-begin
-  Assert(psFileName <> '');
-  Assert(FileExists(psFileName));
 
-  // now we know the file exists - try get settings from it
-  lsText := FileToString(psFileName);
-  lcFile := TSettingsInputString.Create(lsText);
-  try
-    FromStream(lcFile);
-  finally
-    lcFile.free;
-  end;
+var
+  // a module var
+  mcFormatSettings: TFormatSettings = nil;
+
+function FormatSettings: TFormatSettings;
+begin
+  if mcFormatSettings = nil then
+    mcFormatSettings := TFormatSettings.Create;
+
+  Result := mcFormatSettings;
 end;
 
+
+initialization
+finalization
+  FreeAndNil(mcFormatSettings);
 end.

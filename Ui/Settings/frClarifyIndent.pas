@@ -60,7 +60,7 @@ implementation
 
 {$R *.DFM}
 
-uses TokenType, JcfHelp, SetIndent;
+uses TokenType, JcfHelp, JcfSettings, SetIndent;
 
 constructor TfClarifyIndent.Create(AOwner: TComponent);
 begin
@@ -73,7 +73,7 @@ end;
 
 procedure TfClarifyIndent.Read;
 begin
-  with Settings.Indent do
+  with FormatSettings.Indent do
   begin
     cbIndentGlobals.Checked    := IndentGlobals;
     cbIndentProcedures.Checked := IndentProcedures;
@@ -101,7 +101,7 @@ end;
 procedure TfClarifyIndent.Write;
 begin
 
-  with Settings.Indent do
+  with FormatSettings.Indent do
   begin
     IndentGlobals    := cbIndentGlobals.Checked;
     IndentProcedures := cbIndentProcedures.Checked;

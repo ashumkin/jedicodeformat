@@ -58,7 +58,7 @@ implementation
 
 {$R *.DFM}
 
-uses TokenType, SetReturns, JcfHelp;
+uses TokenType, jcfSettings, SetReturns, JcfHelp;
 
 
 constructor TfClarifyReturns.Create(AOwner: TComponent);
@@ -72,7 +72,7 @@ end;
 
 procedure TfClarifyReturns.Read;
 begin
-  with Settings.Returns do
+  with FormatSettings.Returns do
   begin
     eNumReturnsAfterFinalEnd.Value := NumReturnsAfterFinalEnd;
 
@@ -94,7 +94,7 @@ end;
 
 procedure TfClarifyReturns.Write;
 begin
-  with Settings.Returns do
+  with FormatSettings.Returns do
   begin
     NumReturnsAfterFinalEnd := eNumReturnsAfterFinalEnd.Value;
 

@@ -49,14 +49,14 @@ implementation
 {$R *.DFM}
 
 uses
+  JcfRegistrySettings, JcfHelp,
   { contained frames }
   frFiles, frObfuscateSettings,
   frClarify, frClarifySpaces, frClarifyIndent,
   frClarifyReturns, frClarifyLongLineBreaker,
   frClarifyBlocks, frClarifyAlign,
   frExcludeFiles, frReplace,
-  frReservedCapsSettings, frAnyCapsSettings, frUses, frBasicSettings,
-  JcfHelp;
+  frReservedCapsSettings, frAnyCapsSettings, frUses, frBasicSettings;
 
 
 type
@@ -90,11 +90,9 @@ procedure TFormAllSettings.Execute;
 var
   lcNode: TTreeNode;
 begin
-  Assert(Settings <> nil);
-
   tvFrames.FullExpand;
 
-  lcNode := GetTreeNodeByName(Settings.Ui.LastSettingsPage);
+  lcNode := GetTreeNodeByName(GetRegSettings.LastSettingsPage);
   if lcNode <> nil then
     lcNode.Selected := True;
 
@@ -116,7 +114,6 @@ begin
   lf := lcType.Create(self);
 
   { read }
-  lf.Settings := Settings;
   lf.Read;
 
   { show }
@@ -252,7 +249,7 @@ begin
 
   { save the last selected node }
   if tvFrames.Selected <> nil then
-    Settings.Ui.LastSettingsPage := tvFrames.Selected.Text;
+    GetRegSettings.LastSettingsPage := tvFrames.Selected.Text;
 end;
 
 end.

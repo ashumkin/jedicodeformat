@@ -53,7 +53,7 @@ implementation
 
 {$R *.DFM}
 
-uses TokenType, JcfHelp;
+uses TokenType, JcfHelp, JcfSettings;
 
 constructor TfrReservedCapsSettings.Create(AOwner: TComponent);
 begin
@@ -72,9 +72,9 @@ end;
 
 procedure TfrReservedCapsSettings.Read;
 begin
-  cbEnable.Checked := Settings.Caps.Enabled;
+  cbEnable.Checked := FormatSettings.Caps.Enabled;
 
-  with Settings.Caps do
+  with FormatSettings.Caps do
   begin
     rgReservedWords.ItemIndex := Ord(ReservedWords);
     rgConstants.ItemIndex     := Ord(Constants);
@@ -86,9 +86,9 @@ end;
 
 procedure TfrReservedCapsSettings.Write;
 begin
-  Settings.Caps.Enabled := cbEnable.Checked;
+  FormatSettings.Caps.Enabled := cbEnable.Checked;
 
-  with Settings.Caps do
+  with FormatSettings.Caps do
   begin
     ReservedWords := TCapitalisationType(rgReservedWords.ItemIndex);
     Constants     := TCapitalisationType(rgConstants.ItemIndex);

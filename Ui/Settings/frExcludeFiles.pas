@@ -66,7 +66,7 @@ implementation
 uses
   { delphi } 
   { jcl } JclStrings,
-  { local } JcfMiscFunctions, JcfHelp, JclFileUtils;
+  { local } JcfMiscFunctions, JcfHelp, JclFileUtils, JcfSettings;
 
 constructor TfExcludeFiles.Create(AOwner: TComponent);
 begin
@@ -77,14 +77,20 @@ end;
 
 procedure TfExcludeFiles.Read;
 begin
-  mFiles.Lines.Assign(Settings.FileSettings.ExclusionsFiles);
-  mDirs.Lines.Assign(Settings.FileSettings.ExclusionsDirs);
+  with FormatSettings.FileSettings do
+  begin
+    mFiles.Lines.Assign(ExclusionsFiles);
+    mDirs.Lines.Assign(ExclusionsDirs);
+  end;
 end;
 
 procedure TfExcludeFiles.Write;
 begin
-  Settings.FileSettings.ExclusionsFiles.Assign(mFiles.Lines);
-  Settings.FileSettings.ExclusionsDirs.Assign(mDirs.Lines);
+  with FormatSettings.FileSettings do
+  begin
+      ExclusionsFiles.Assign(mFiles.Lines);
+      ExclusionsDirs.Assign(mDirs.Lines);
+  end;
 end;
 
 procedure TfExcludeFiles.DragItemDropped(const piFormat: integer; const psItem: string);

@@ -27,8 +27,8 @@ uses
     { delphi }
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   StdCtrls, ExtCtrls,
-    { local }
-  JCFSettings, frmBaseSettingsFrame;
+  { local }
+  frmBaseSettingsFrame;
 
 type
   TfObfuscateSettings = class(TfrSettingsFrame)
@@ -51,7 +51,7 @@ implementation
 
 {$R *.DFM}
 
-uses TokenType, JcfHelp;
+uses JcfSettings, TokenType, JcfHelp;
 
 { TfObfuscateSettings }
 
@@ -63,7 +63,7 @@ end;
 
 procedure TfObfuscateSettings.Read;
 begin
-  with Settings.Obfuscate do
+  with FormatSettings.Obfuscate do
   begin
     rgObfuscateCaps.ItemIndex  := Ord(Caps);
     cbRemoveWhiteSpace.Checked := RemoveWhiteSpace;
@@ -75,7 +75,7 @@ end;
 
 procedure TfObfuscateSettings.Write;
 begin
-  with Settings.Obfuscate do
+  with FormatSettings.Obfuscate do
   begin
     Caps := TCapitalisationType(rgObfuscateCaps.ItemIndex);
     RemoveWhiteSpace := cbRemoveWhiteSpace.Checked;

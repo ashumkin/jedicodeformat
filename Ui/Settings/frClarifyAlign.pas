@@ -65,7 +65,7 @@ implementation
 
 {$R *.DFM}
 
-uses TokenType, JcfHelp;
+uses JcfSettings, TokenType, JcfHelp;
 
 constructor TfClarifyAlign.Create(AOwner: TComponent);
 begin
@@ -97,7 +97,7 @@ end;
 
 procedure TfClarifyAlign.Read;
 begin
-  with Settings.Align do
+  with FormatSettings.Align do
   begin
     cbAlignAsign.Checked   := AlignAssign;
     cbAlignConst.Checked   := AlignConst;
@@ -116,7 +116,7 @@ end;
 
 procedure TfClarifyAlign.Write;
 begin
-  with Settings.Align do
+  with FormatSettings.Align do
   begin
     AlignAssign  := cbAlignAsign.Checked;
     AlignConst   := cbAlignConst.Checked;

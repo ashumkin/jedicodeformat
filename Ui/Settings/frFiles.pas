@@ -62,7 +62,7 @@ implementation
 uses
     { delphi }
     { jcl } JclSysInfo, JclFileUtils,
-    { local } FileUtils, SetLog, JCFHelp;
+    { local } FileUtils, JcfSettings, SetLog, JCFHelp;
 
 {$R *.DFM}
 
@@ -92,8 +92,7 @@ end;
 
 procedure TfFiles.Read;
 begin
-  Assert(Settings <> nil);
-  with Settings.Log do
+  with FormatSettings.Log do
   begin
     rgLogLevel.ItemIndex := Ord(LogLevel);
     rgLogDir.ItemIndex   := Ord(LogPlace);
@@ -102,7 +101,7 @@ begin
     cbLogTime.Checked    := LogTime;
   end;
 
-  with Settings.FileSettings do
+  with FormatSettings.FileSettings do
   begin
     edtBackupExt.Text := BackupExtension;
     edtOutputExt.Text := OutputExtension;
@@ -113,7 +112,7 @@ end;
 
 procedure TfFiles.Write;
 begin
-  with Settings.Log do
+  with FormatSettings.Log do
   begin
     LogLevel := TLogLevel(rgLogLevel.ItemIndex);
     LogPlace := TLogPlace(rgLogDir.ItemIndex);
@@ -122,7 +121,7 @@ begin
     LogTime  := cbLogTime.Checked;
   end;
 
-  with Settings.FileSettings do
+  with FormatSettings.FileSettings do
   begin
     BackupExtension := edtBackupExt.Text;
     OutputExtension := edtOutputExt.Text;
@@ -131,7 +130,7 @@ end;
 
 procedure TfFiles.btnViewLogClick(Sender: TObject);
 begin
-  Settings.Log.ViewLog;
+  FormatSettings.Log.ViewLog;
 end;
 
 procedure TfFiles.FrameResize(Sender: TObject);

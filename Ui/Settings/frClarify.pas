@@ -48,7 +48,7 @@ implementation
 
 {$R *.DFM}
 
-uses TokenType, JCFHelp;
+uses JcfSettings, TokenType, JCFHelp;
 
 constructor TfClarify.Create(AOwner: TComponent);
 begin
@@ -62,7 +62,7 @@ end;
 
 procedure TfClarify.Read;
 begin
-  with Settings.Clarify do
+  with FormatSettings.Clarify do
   begin
     cbOnceOffs.Checked := OnceOffs;
     cbWarnings.Checked := Warnings;
@@ -71,7 +71,7 @@ end;
 
 procedure TfClarify.Write;
 begin
-  with Settings.Clarify do
+  with FormatSettings.Clarify do
   begin
     OnceOffs := cbOnceOffs.Checked;
     Warnings := cbWarnings.Checked;

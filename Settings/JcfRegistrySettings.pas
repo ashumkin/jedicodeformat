@@ -23,6 +23,7 @@ type
     { general settings }
     fShowParseTreeOption: TShowParseTreeOption;
     fsFormatConfigFileName: string;
+    fsLastSettingsPage: string;
 
     {notepad settings }
     fsInputDir: string;
@@ -51,6 +52,8 @@ type
     { general properties }
     property FormatConfigFileName: string read fsFormatConfigFileName write fsFormatConfigFileName;
     property ShowParseTreeOption: TShowParseTreeOption read fShowParseTreeOption write fShowParseTreeOption;
+    property LastSettingsPage: string read fsLastSettingsPage write fsLastSettingsPage;
+
 
     { notepad settings }
     property InputDir: string read fsInputDir write fsInputDir;
@@ -65,12 +68,29 @@ function GetRegSettings: TJCFRegistrySettings;
 
 implementation
 
-uses SysUtils;
+uses
+  { delphi }
+  SysUtils,
+  { jcl }
+  JclFileUtils, JclWin32,
+  { jcf }
+  JcfMiscFunctions;
 
 const
   REG_GENERAL_SECTION = 'General';
   REG_NOTEPAD_SECTION = 'NotepadSettings';
   REG_MRU_FILES_SECTION = 'MRUFiles';
+
+{ AFS 10 Oct 2001
+ Migrate to file-based settings,  ie
+  - read from the settings file if it exists, else use the registry
+  - always write to the file
+ }
+function GetDefaultSettingsFileName: string;
+begin
+  Result := PathAddSeparator(GetWinDir) + 'JCFSettings.cfg';
+end;
+
 
 constructor TJCFRegistrySettings.Create;
 begin
@@ -145,6 +165,10 @@ procedure TJCFRegistrySettings.ReadAll;
 begin
   { general section }
   fsFormatConfigFileName := fcReg.ReadString(REG_GENERAL_SECTION, 'FormatConfigFileName', '');
+  if fsFormatConfigFileName = '' then
+    fsFormatConfigFileName := GetDefaultSettingsFileName;
+
+  fsLastSettingsPage := fcReg.ReadString(REG_GENERAL_SECTION, 'LastSettingsPage', '');
   ShowParseTreeOption :=  TShowParseTreeOption(
     fcReg.ReadInteger(REG_GENERAL_SECTION, 'ParseTreeOption', Ord(eShowOnError)));
 
@@ -162,6 +186,7 @@ procedure TJCFRegistrySettings.WriteAll;
 begin
   { general section }
   fcReg.WriteString(REG_GENERAL_SECTION, 'FormatConfigFileName', fsFormatConfigFileName);
+  fcReg.WriteString(REG_GENERAL_SECTION, 'LastSettingsPage', fsLastSettingsPage);
   fcReg.WriteInteger(REG_GENERAL_SECTION, 'ParseTreeOption', Ord(ShowParseTreeOption));
 
   { notepad section }

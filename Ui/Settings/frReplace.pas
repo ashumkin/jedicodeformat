@@ -51,7 +51,7 @@ implementation
 
 {$R *.DFM}
 
-uses Jcfhelp;
+uses JcfHelp, JcfSettings;
 
 { TfReplace }
 
@@ -63,7 +63,7 @@ end;
 
 procedure TfReplace.Read;
 begin
-  with Settings.Replace do
+  with FormatSettings.Replace do
   begin
     cbEnable.Checked := Enabled;
     mWords.Lines.Assign(Words);
@@ -73,7 +73,7 @@ end;
 
 procedure TfReplace.Write;
 begin
-  with Settings.Replace do
+  with FormatSettings.Replace do
   begin
     Enabled := cbEnable.Checked;
     Words.Assign(mWords.Lines);

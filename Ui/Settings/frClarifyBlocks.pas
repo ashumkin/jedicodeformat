@@ -53,7 +53,7 @@ implementation
 
 {$R *.DFM}
 
-uses TokenType, JcfHelp;
+uses JcfSettings, TokenType, JcfHelp;
 
 constructor TfClarifyBlocks.Create(AOwner: TComponent);
 begin
@@ -67,7 +67,7 @@ end;
 
 procedure TfClarifyBlocks.Read;
 begin
-  with Settings.Returns do
+  with FormatSettings.Returns do
   begin
     { block styles }
     rgBlockBegin.ItemIndex := Ord(BlockBeginStyle);
@@ -81,7 +81,7 @@ end;
 
 procedure TfClarifyBlocks.Write;
 begin
-  with Settings.Returns do
+  with FormatSettings.Returns do
   begin
     { block styles }
     BlockBeginStyle := TBlockNewLineStyle(rgBlockBegin.ItemIndex);

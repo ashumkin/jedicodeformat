@@ -72,7 +72,7 @@ implementation
 uses
  { delphi }
  { jcl } jclFileUtils,
- { local } FileUtils, frUses, JcfHelp;
+ { local } FileUtils, JcfHelp, JcfSettings;
 
 {$R *.DFM}
 
@@ -137,11 +137,11 @@ begin
   end;
 
   {$IFNDEF IDEPLUGGIN}
-  if Settings = nil then
+  if FormatSettings = nil then
     edtOutput.Text := ''
   else
     edtOutput.Text :=
-      Settings.FileSettings.GetOutputFileName(edtInput.Text, GetCurrentBackupMode);
+      FormatSettings.FileSettings.GetOutputFileName(edtInput.Text, GetCurrentBackupMode);
 
   bShowOutput := (GetCurrentBackupMode <> cmInplace) and
     (GetCurrentSourceMode = fmSingleFIle);
@@ -211,15 +211,14 @@ end;
 
 procedure TfrBasic.Read;
 begin
-  Assert(Settings <> nil);
-  with Settings.FileSettings do
+  with FormatSettings.FileSettings do
   begin
     rgFileRecurse.ItemIndex := Ord(SourceMode);
     rgBackup.ItemIndex := Ord(BackupMode);
     edtInput.Text := Input;
   end;
 
-  if Settings.Obfuscate.Enabled then
+  if FormatSettings.Obfuscate.Enabled then
     rgMode.ItemIndex := 1
   else
     rgMode.ItemIndex := 0;
@@ -229,16 +228,14 @@ end;
 
 procedure TfrBasic.Write;
 begin
-  Assert(Settings <> nil);
-
-  with Settings.FileSettings do
+  with FormatSettings.FileSettings do
   begin
     SourceMode := GetCurrentSourceMode;
     BackupMode := GetCurrentBackupMode;
     Input      := edtInput.Text;
   end;
 
-  Settings.Obfuscate.Enabled := (rgMode.ItemIndex <> 0);
+  FormatSettings.Obfuscate.Enabled := (rgMode.ItemIndex <> 0);
 end;
 
 function TfrBasic.GetGoHint: string;

@@ -50,7 +50,7 @@ implementation
 
 {$R *.DFM}
 
-uses TokenType, SetReturns, JcfHelp;
+uses TokenType, JcfSettings, SetReturns, JcfHelp;
 
 
 constructor TfClarifyLongLineBreaker.Create(AOwner: TComponent);
@@ -64,7 +64,7 @@ end;
 
 procedure TfClarifyLongLineBreaker.Read;
 begin
-  with Settings.Returns do
+  with FormatSettings.Returns do
   begin
     { line breaking }
     edtMaxLineLength.Value := MaxLineLength;
@@ -74,7 +74,7 @@ end;
 
 procedure TfClarifyLongLineBreaker.Write;
 begin
-  with Settings.Returns do
+  with FormatSettings.Returns do
   begin
     { line breaking }
     MaxLineLength := edtMaxLineLength.Value;

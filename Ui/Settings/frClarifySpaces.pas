@@ -69,7 +69,7 @@ implementation
 
 {$R *.DFM}
 
-uses TokenType, JcfHelp;
+uses TokenType, JcfHelp, JcfSettings;
 
 constructor TfClarifySpaces.Create(AOwner: TComponent);
 begin
@@ -83,7 +83,7 @@ end;
 
 procedure TfClarifySpaces.Read;
 begin
-  with Settings.Spaces do
+  with FormatSettings.Spaces do
   begin
     cbTabsToSpaces.Checked := TabsToSpaces;
     cbSpacesToTabs.Checked := SpacesToTabs;
@@ -109,7 +109,7 @@ end;
 
 procedure TfClarifySpaces.Write;
 begin
-  with Settings.Spaces do
+  with FormatSettings.Spaces do
   begin
     TabsToSpaces := cbTabsToSpaces.Checked;
     SpacesToTabs := cbSpacesToTabs.Checked;

@@ -49,7 +49,7 @@ type
 
 implementation
 
-uses TokenType, JcfHelp;
+uses TokenType, JcfHelp, JcfSettings;
 
 {$R *.DFM}
 
@@ -63,7 +63,7 @@ end;
 
 procedure TfrAnyCapsSettings.Read;
 begin
-  with Settings.SpecificWordCaps do
+  with FormatSettings.SpecificWordCaps do
   begin
     cbEnableAnyWords.Checked := Enabled;
     mWords.Lines.Assign(Words);
@@ -72,9 +72,9 @@ end;
 
 procedure TfrAnyCapsSettings.Write;
 begin
-  Settings.Caps.Enabled := cbEnableAnyWords.Checked;
+  FormatSettings.Caps.Enabled := cbEnableAnyWords.Checked;
 
-  with Settings.SpecificWordCaps do
+  with FormatSettings.SpecificWordCaps do
   begin
     Enabled := cbEnableAnyWords.Checked;
     Words.Assign(mWords.Lines);

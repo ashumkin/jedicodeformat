@@ -37,7 +37,7 @@ implementation
 {$R *.DFM}
 
 uses
-  { local } JcfHelp;
+  { local } JcfHelp, JcfSettings;
 
 constructor TfUses.Create(AOwner: TComponent);
 begin
@@ -48,7 +48,7 @@ end;
 
 procedure TfUses.Read;
 begin
-  with Settings.UsesClause do
+  with FormatSettings.UsesClause do
   begin
     cbRemoveEnabled.Checked := RemoveEnabled;
     cbInsertInterface.Checked := InsertInterfaceEnabled;
@@ -70,7 +70,7 @@ end;
 
 procedure TfUses.Write;
 begin
-  with Settings.UsesClause do
+  with FormatSettings.UsesClause do
   begin
     RemoveEnabled := cbRemoveEnabled.Checked;
     InsertInterfaceEnabled := cbInsertInterface.Checked;

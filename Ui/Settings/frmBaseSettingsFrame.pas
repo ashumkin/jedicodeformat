@@ -39,7 +39,6 @@ type
     // event handler
     fcOnChange: TNotifyEvent;
 
-    fSettings: TSettings;
   protected
     fiHelpContext: THelpContext;
 
@@ -52,8 +51,6 @@ type
     procedure Write; virtual; abstract;
 
     procedure ShowContextHelp;
-
-    property Settings: TSettings read fSettings write fSettings;
 
     property OnChange: TNotifyEvent read fcOnChange write fcOnChange;
   end;
