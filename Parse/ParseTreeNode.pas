@@ -30,8 +30,10 @@ interface
    and thereby pave the way for a version 2.0
 }
 uses
-  {delphi }Contnrs,
-  { local }Tokens, ParseTreeNodeType, Nesting;
+  {delphi }
+  Contnrs, Classes,
+  { local }
+  Tokens, ParseTreeNodeType, Nesting;
 
 
 type
@@ -52,6 +54,8 @@ type
     destructor Destroy; override;
 
     function ChildNodeCount: integer;
+    procedure SortChildNodes(Compare: TListSortCompare);
+
     function RecursiveChildCount: integer;
     function MaxDepth: integer;
 
@@ -90,8 +94,7 @@ type
     function HasChildNode(const peTokens: TTokenTypeSet): boolean; overload; virtual;
     function HasChildNode(const peTokens: TTokenTypeSet;
       const piMaxDepth: integer): boolean; overload; virtual;
-    function HasChildNode(const peToken: TTokenType; const piMaxDepth: integer): boolean;
-      overload; virtual;
+    function HasChildNode(const peToken: TTokenType; const piMaxDepth: integer): boolean; overload; virtual;
     function HasChildNode(const peNodes: TParseTreeNodeTypeSet;
       const piMaxDepth: integer): boolean; overload; virtual;
     function HasChildNode(const peNode: TParseTreeNodeType;
@@ -169,6 +172,11 @@ end;
 function TParseTreeNode.ChildNodeCount: integer;
 begin
   Result := fcChildNodes.Count;
+end;
+
+procedure TParseTreeNode.SortChildNodes(Compare: TListSortCompare);
+begin
+  fcChildNodes.Sort(Compare);
 end;
 
 function TParseTreeNode.GetChildNodes(const piIndex: integer): TParseTreeNode;
@@ -785,4 +793,5 @@ function TParseTreeNode.CountImmediateChild(const peNodeType: TParseTreeNodeType
 begin
   Result := CountImmediateChild([peNodeType]);
 end;
+
 end.

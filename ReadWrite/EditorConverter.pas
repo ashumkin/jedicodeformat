@@ -28,48 +28,78 @@ under the License.
 interface
 
 uses
-  { delphi design time }ToolsAPI,
-  { local }Converter, CodeReader, CodeWriter, EditorReader, EditorWriter;
+  { delphi design time }
+  ToolsAPI,
+  { local }
+  Converter, ConvertTypes;
 
 type
 
-  TEditorConverter = class(TConverter)
+  TEditorConverter = class(TObject)
   private
-    fsCurrentUnitName: string;
+    { the string -> string converter }
+    fcConverter: TConverter;
 
-    function EditorReader: TEditorReader;
-    function EditorWriter: TEditorWriter;
+    { state }
+    fOnStatusMessage: TStatusMessageProc;
+    fsCurrentUnitName: string;
+    fiConvertCount: integer;
+
+    procedure SendStatusMessage(const psUnit, psMessage: string;
+      const piY, piX: integer);
+
+    function GetOnStatusMessage: TStatusMessageProc;
+    procedure SetOnStatusMessage(const Value: TStatusMessageProc);
+
+    function ReadFromIDE(const pcUnit: IOTASourceEditor): string;
+    procedure WriteToIDE(const pcUnit: IOTASourceEditor; const psText: string);
+
+    procedure FinalSummary;
+    function OriginalFileName: string;
+
   protected
-    { abstract factories called in the constructor. override these }
-    function CreateReader: TCodeReader; override;
-    function CreateWriter: TCodeWriter; override;
-    function OriginalFileName: string; override;
 
   public
     constructor Create;
+    destructor Destroy; override;
 
-    procedure ConvertUnit(const pciUnit: IOTASourceEditor);
+    procedure Convert(const pciUnit: IOTASourceEditor);
 
+    procedure Clear;
+
+    function ConvertError: Boolean;
+    function TokenCount: integer;
+
+    procedure BeforeConvert;
     procedure AfterConvert;
+
+    property OnStatusMessage: TStatusMessageProc read GetOnStatusMessage write SetOnStatusMessage;
   end;
 
 
 implementation
 
 uses
+  { delphi }
+  SysUtils,
   { local }
   JcfLog, JcfRegistrySettings;
 
-procedure TEditorConverter.AfterConvert;
+constructor TEditorConverter.Create;
 begin
-  FinalSummary;
-  Log.CloseLog;
-
-  if GetRegSettings.ViewLogAfterRun then
-    GetRegSettings.ViewLog;
+  inherited;
+  
+  fcConverter := TConverter.Create;
+  fcConverter.OnStatusMessage := SendStatusMessage;
 end;
 
-procedure TEditorConverter.ConvertUnit(const pciUnit: IOTASourceEditor);
+destructor TEditorConverter.Destroy;
+begin
+  FreeAndNil(fcConverter);
+  inherited;
+end;
+
+procedure TEditorConverter.Convert(const pciUnit: IOTASourceEditor);
 var
   lcBuffer: IOTAEditBuffer;
 begin
@@ -90,58 +120,134 @@ begin
     end;
   end;
 
-  try
-    { reader and writer need to know the unit to make a reader }
-    EditorReader.Clear;
-    EditorReader.SetEditorUnit(pciUnit);
-    EditorWriter.SetEditorUnit(pciUnit);
-    fsCurrentUnitName := lcBuffer.FileName;
+  fsCurrentUnitName := lcBuffer.FileName;
+  fcConverter.InputCode := ReadFromIDE(pciUnit);
 
-    // now convert
-    DoConvertUnit;
+  // now convert
+  fcConverter.Convert;
 
-    fsCurrentUnitName := '';
+  WriteToIDE(pciUnit, fcConverter.OutputCode);
 
-    if not ConvertError then
-    begin
-      SendStatusMessage(lcBuffer.FileName, 'Formatted unit', -1, -1);
-      Inc(fiConvertCount);
-    end;
+  fsCurrentUnitName := '';
 
-  finally
-    EditorReader.SetEditorUnit(nil);
-    EditorWriter.SetEditorUnit(nil);
+  if not ConvertError then
+  begin
+    SendStatusMessage(lcBuffer.FileName, 'Formatted unit', -1, -1);
+    Inc(fiConvertCount);
   end;
 end;
 
-constructor TEditorConverter.Create;
+function TEditorConverter.ReadFromIDE(const pcUnit: IOTASourceEditor): string;
+const
+  // 10 kb at a time should do it
+  BUF_SIZE = 10240;
+ //BUF_SIZE = 120; // small for testing
+var
+  lciEditorReader: IOTAEditReader;
+  lsBuf:  string;
+  lpBuf:  pchar;
+  liActualSize, liPos: integer;
+  lbDone: boolean;
+  //liLoopCount: integer;
 begin
-  inherited;
+  { get a reader from the unit }
+  Assert(pcUnit <> nil);
+  lciEditorReader := pcUnit.CreateReader;
+  Assert(lciEditorReader <> nil);
 
-  // send them to the IDE message pane
-  GuiMessages := False;
+  Result := '';
+
+  // read it all. Unfortunately the API dictates that we will work in chunks
+
+  liPos := 0;
+  //liLoopCount := 0;
+
+  lbDone := False;
+
+  while not lbDone do
+  begin
+    // clear the buffer
+    SetLength(lsBuf, BUF_SIZE);
+    lpBuf := pchar(lsBuf);
+    FillChar(lpBuf^, BUF_SIZE, 0);
+
+    // get some text into the buffer
+    liActualSize := lciEditorReader.GetText(liPos, lpBuf, BUF_SIZE);
+
+    // store it
+    {WP: Do not add the entire lsBuf to fsSource, as in cases where the entire source is less
+     than 10Kb in total, there will be junk in the last part of the buffer.
+     If this is copied, it shows up as extraneous tokens in the token list
+     after the end of the unit proper.
+     This then causes an assertion failure in procedure DoConvertUnit in unit Converter.pas,
+     When these extra tokens are found that were not consumed by BuildParseTree
+
+     The way is to ensure that you only append as many characters as you've actually read (liActualSize bytes)
+     from the buffer into the result. }
+    Result := Result + Copy(lsBuf, 1, liActualSize);
+      //WP: Changed from just adding lsBuf
+
+    // more stuff to read after this?
+    liPos  := liPos + liActualSize;
+    lbDone := (liActualSize < BUF_SIZE);
+    //inc(liLoopCount);
+  end;
 end;
 
-function TEditorConverter.CreateReader: TCodeReader;
+procedure TEditorConverter.WriteToIDE(const pcUnit: IOTASourceEditor; const psText: string);
+var
+  lciEditorWriter: IOTAEditWriter;
+//  liEndPos: integer;
 begin
-  Result := TEditorReader.Create;
+  if pcUnit = nil then
+    exit;
+
+  lciEditorWriter := pcUnit.CreateUndoableWriter;
+  Assert(lciEditorWriter <> nil);
+
+  if lciEditorWriter = nil then
+    exit;
+
+  { these next 2 steps should rather be done in one operation
+    so as to be unitary in the undo history
+    but I don't know how to do that, or if it is possible }
+
+  { delete what's there }
+  lciEditorWriter.DeleteTo(High(integer));
+  { put the changed text in instead }
+  lciEditorWriter.Insert(pchar(psText));
+
+  { delete after the 'end.' }
+  //liEndPos := PosOfLastSolidText(fsDestText);
+  //lciEditorWriter.CurrentPos
+
+  // ditch the interfaces
+  lciEditorWriter := nil;
 end;
 
-function TEditorConverter.CreateWriter: TCodeWriter;
+procedure TEditorConverter.AfterConvert;
 begin
-  Result := TEditorWriter.Create;
+  FinalSummary;
+  Log.CloseLog;
+
+  if GetRegSettings.ViewLogAfterRun then
+    GetRegSettings.ViewLog;
 end;
 
-function TEditorConverter.EditorReader: TEditorReader;
+procedure TEditorConverter.Clear;
 begin
-  Result := fcReader as TEditorReader;
-  Assert(Result <> nil);
+  fcConverter.Clear;
 end;
 
-function TEditorConverter.EditorWriter: TEditorWriter;
+
+function TEditorConverter.ConvertError: Boolean;
 begin
-  Result := fcWriter as TEditorWriter;
-  Assert(Result <> nil);
+  Result := fcConverter.ConvertError;
+end;
+
+function TEditorConverter.GetOnStatusMessage: TStatusMessageProc;
+begin
+  Result := fOnStatusMessage;
 end;
 
 function TEditorConverter.OriginalFileName: string;
@@ -150,6 +256,61 @@ begin
     Result := fsCurrentUnitName
   else
     Result := 'IDE';
+end;
+
+procedure TEditorConverter.SendStatusMessage(const psUnit,
+  psMessage: string; const piY, piX: integer);
+var
+  lsUnit: string;
+begin
+  lsUnit := psUnit;
+  if lsUnit = '' then
+    lsUnit := OriginalFileName;
+
+  if Assigned(fOnStatusMessage) then
+    fOnStatusMessage(lsUnit, psMessage, piY, piX);
+end;
+
+procedure TEditorConverter.SetOnStatusMessage(const Value: TStatusMessageProc);
+begin
+    fOnStatusMessage := Value;
+end;
+
+function TEditorConverter.TokenCount: integer;
+begin
+  Result := fcConverter.TokenCount;
+end;
+
+procedure TEditorConverter.FinalSummary;
+var
+  lsMessage: string;
+begin
+  if fiConvertCount = 0 then
+  begin
+    if ConvertError then
+      lsMessage := 'Aborted due to error'
+    else
+      lsMessage := 'Nothing done';
+  end
+  {
+  else if fbAbort then
+    lsMessage := 'Aborted after ' + DescribeFileCount(fiConvertCount)
+  }
+  else if fiConvertCount > 1 then
+    lsMessage := 'Finished processing ' + DescribeFileCount(fiConvertCount)
+  else
+    lsMessage := '';
+
+  if lsMessage <> '' then
+    SendStatusMessage('', lsMessage, -1, -1);
+
+  Log.EmptyLine;
+  Log.Write(lsMessage);
+end;
+
+procedure TEditorConverter.BeforeConvert;
+begin
+  fiConvertCount := 0;
 end;
 
 end.

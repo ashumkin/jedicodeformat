@@ -226,7 +226,6 @@ begin
   end;
 
   CompactTokens;
-
 end;
 
 procedure TPreProcessorParseTree.ParseProcessorBlock;

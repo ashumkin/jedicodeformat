@@ -604,6 +604,7 @@ begin
   while fcTokenList.FirstSolidTokenType = ttComma do
   begin
     Recognise(ttComma);
+    RecogniseNotSolidTokens;
     RecogniseUsesItem(pbInFiles);
   end;
 
@@ -627,6 +628,8 @@ begin
     Recognise(ttIn);
     Recognise(ttQuotedLiteralString);
   end;
+
+  RecogniseNotSolidTokens;
 
   PopNode;
 end;
@@ -2063,7 +2066,7 @@ end;
 
 procedure TBuildParseTree.RecogniseStatement;
 const
-  BLOCK_END: TTokenTypeSet = [ttEnd, ttFinally, ttExcept];
+  BLOCK_END: TTokenTypeSet = [ttEnd, ttFinally, ttExcept, ttUntil];
 var
   lc: TSourceToken;
   lct: TTokenType;

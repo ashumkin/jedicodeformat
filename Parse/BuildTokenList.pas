@@ -2,9 +2,9 @@
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code 
 
-The Original Code is Tokeniser.pas, released April 2000.
+The Original Code is BuildTokenList.pas, released April 2000.
 The Initial Developer of the Original Code is Anthony Steele. 
-Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
+Portions created by Anthony Steele are Copyright (C) 1999-2004 Anthony Steele.
 All Rights Reserved. 
 Contributor(s): Anthony Steele. 
 
@@ -29,15 +29,25 @@ unit BuildTokenList;
 interface
 
 uses
-  CodeReader, Tokens, SourceToken, SourceTokenList;
+  Tokens, SourceToken, SourceTokenList;
 
 type
 
   TBuildTokenList = class(TObject)
   private
-
     { property implementation }
-    fcReader: TCodeReader;
+    fsSourceCode: string;
+
+    { woker procs }
+    fiCurrentIndex: integer;
+
+    function Current: char;
+    function CurrentChars(const piCount: integer): string;
+    function ForwardChar(const piOffset: integer): char;
+    function ForwardChars(const piOffset, piCount: integer): string;
+    function Consume(const piCount: integer = 1): string;
+    function EndOfFile: boolean;
+    function EndOfFileAfter(const piChars: integer): boolean;
 
       { implementation of GetNextToken }
     function TryReturn(const pcToken: TSourceToken): boolean;
@@ -70,9 +80,10 @@ type
     constructor Create;
     destructor Destroy; override;
 
+    procedure Reset;
     function BuildTokenList: TSourceTokenList;
 
-    property Reader: TCodeReader Read fcReader Write fcReader;
+    property SourceCode: string read fsSourceCode write fsSourceCode;
   end;
 
 
@@ -89,7 +100,7 @@ uses
 constructor TBuildTokenList.Create;
 begin
   inherited;
-  fcReader := nil;
+  Reset;
 end;
 
 destructor TBuildTokenList.Destroy;
@@ -143,16 +154,15 @@ var
 
     { default }
     lcNewToken.TokenType  := ttUnknown;
-    lcNewToken.SourceCode := Reader.Current;
-    Reader.Consume(1);
+    lcNewToken.SourceCode := Current;
+    Consume(1);
   end;
 
 begin
-  if Reader.EndOfFile then
+  if EndOfFile then
     Result := nil
   else
   begin
-    Reader.BufferLength := 1;
     lcNewToken := TSourceToken.Create;
     DoAllTheTries;
 
@@ -165,81 +175,93 @@ end;
   worker fns for GetNextComment }
 
 function TBuildTokenList.TryBracketStarComment(const pcToken: TSourceToken): boolean;
+var
+  liCommentLength: integer;
 begin
   Result := False;
-  if not (Reader.Current = '(') then
+  if not (Current = '(') then
     exit;
 
-  Reader.BufferLength := 2;
 
-  if Reader.BufferCharsLeft(2) <> '(*' then
+  if CurrentChars(2) <> '(*' then
     exit;
 
   { if the comment starts with (*) that is not the end of the comment }
-  Reader.IncBuffer;
-  Reader.IncBuffer;
+  liCommentLength := 2;
 
   { until *) or End of file }
-  while (Reader.BufferCharsRight(2) <> '*)') and ( not Reader.BufferEndOfFile) do
-    Reader.IncBuffer;
+  while (not EndOfFileAfter(liCommentLength)) and (ForwardChars(liCommentLength, 2) <> '*)') do
+    Inc(liCommentLength);
+
+  // include the comment end
+  if (not EndOfFileAfter(liCommentLength)) and (ForwardChars(liCommentLength, 2) = '*)') then
+    Inc(liCommentLength, 2);
+
 
   pcToken.TokenType := ttComment;
   pcToken.CommentStyle := eBracketStar;
-  pcToken.SourceCode := Reader.ConsumeBuffer;
+  pcToken.SourceCode := CurrentChars(liCommentLength);
+  Consume(liCommentLength);
+  
   Result := True;
 end;
 
 
 function TBuildTokenList.TryCurlyComment(const pcToken: TSourceToken): boolean;
+var
+  liCommentLength: integer;
 begin
   Result := False;
-  if Reader.Current <> '{' then
+  if Current <> '{' then
     exit;
 
   pcToken.TokenType  := ttComment;
-  pcToken.SourceCode := Reader.Current;
-  Reader.Consume;
+  liCommentLength := 1;
 
   { compiler directive are the comments with a $ just after the open-curly
     this is always the case }
-  if Reader.Current = '$' then
+  if ForwardChar(1) = '$' then
     pcToken.CommentStyle := eCompilerDirective
   else
     pcToken.CommentStyle := eCurlyBrace;
 
   { comment is ended by close-curly or by EOF (bad source) }
-  while (Reader.Last <> '}') and not (Reader.BufferEndOfFile) do
-    Reader.IncBuffer;
+  while not EndOfFileAfter(liCommentLength) and (ForwardChars(liCommentLength, 1) <> '}') do
+    inc(liCommentLength);
 
-  pcToken.SourceCode := pcToken.SourceCode + Reader.ConsumeBuffer;
+  { include the closing brace }
+  if not EndOfFileAfter(liCommentLength) and (ForwardChars(liCommentLength, 1) = '}') then
+    inc(liCommentLength);
+
+
+  pcToken.SourceCode := CurrentChars(liCommentLength);
+  Consume(liCommentLength);
+  
   Result := True;
 end;
 
 function TBuildTokenList.TrySlashComment(const pcToken: TSourceToken): boolean;
 var
-  liLen: integer;
+  liCommentLength: integer;
 begin
   Result := False;
-  if Reader.Current <> '/' then
+  if Current <> '/' then
     exit;
-
-  Reader.BufferLength := 2;
 
   { until end of line or file }
-  if Reader.BufferCharsLeft(2) <> '//' then
+  if CurrentChars(2) <> '//' then
     exit;
 
-  while ( not CharIsReturn(Reader.Last)) and ( not Reader.BufferEndOfFile) do
-    Reader.IncBuffer;
+  liCommentLength := 2;
 
-  liLen := Reader.BufferLength;
-  if CharIsReturn(Reader.Last) then
-    Dec(liLen);
-  Reader.BufferLength := liLen;
+  while (not EndOfFileAfter(liCommentLength)) and (not CharIsReturn(ForwardChar(liCommentLength))) do
+    Inc(liCommentLength);
 
   pcToken.TokenType := ttComment;
   pcToken.CommentStyle := eDoubleSlash;
-  pcToken.SourceCode := Reader.ConsumeBuffer;
+  pcToken.SourceCode := CurrentChars(liCommentLength);
+  Consume(liCommentLength);
+
   Result := True;
 end;
 
@@ -249,21 +271,21 @@ var
   chNext: char;
 begin
   Result := False;
-  if not CharIsReturn(Reader.Current) then
+  if not CharIsReturn(Current) then
     exit;
 
   pcToken.TokenType  := ttReturn;
-  pcToken.SourceCode := Reader.Current;
-  Reader.Consume;
+  pcToken.SourceCode := Current;
+  Consume;
 
   { concat the next return char if it is not the same
     This will recognise <cr><lf> or <lf><cr>, but not <cr><cr> }
 
-  chNext := Reader.Current;
+  chNext := Current;
   if CharIsReturn(chNext) and (chNext <> pcToken.SourceCode[1]) then
   begin
     pcToken.SourceCode := pcToken.SourceCode + chNext;
-    Reader.Consume;
+    Consume;
   end;
   Result := True;
 end;
@@ -274,42 +296,42 @@ function TBuildTokenList.TryLiteralString(const pcToken: TSourceToken;
 begin
   Result := False;
 
-  if Reader.Current = pcDelimiter then
+  if Current = pcDelimiter then
   begin
     Result := True;
     { read the opening ' }
-    pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
-    Reader.Consume;
+    pcToken.SourceCode := pcToken.SourceCode + Current;
+    Consume;
 
     { read until the close ' }
     repeat
-      if Reader.Current = #0 then
+      if Current = #0 then
         break;
-      if Reader.Current in [AnsiLineFeed, AnsiCarriageReturn] then
+      if Current in [AnsiLineFeed, AnsiCarriageReturn] then
         Raise Exception.Create('Unterminated string: ' + pcToken.SourceCode);
 
       { two quotes in a row are still part of the string }
-      if (Reader.Current = pcDelimiter) then
+      if (Current = pcDelimiter) then
       begin
         { two consecutive quote chars inside string, read them }
-        if (Reader.BufferChar(1) = pcDelimiter) then
+        if (ForwardChar(1) = pcDelimiter) then
         begin
-          Reader.IncBuffer;
-          pcToken.SourceCode := pcToken.SourceCode + Reader.ConsumeBuffer;
+          pcToken.SourceCode := pcToken.SourceCode + CurrentChars(2);
+          Consume(2);
         end
         else
         begin
           { single quote char ends string }
-          pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
-          Reader.Consume;
+          pcToken.SourceCode := pcToken.SourceCode + Current;
+          Consume;
           break;
         end
       end
       else
       begin
         { normal char, read it }
-        pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
-        Reader.Consume;
+        pcToken.SourceCode := pcToken.SourceCode + Current;
+        Consume;
       end;
 
     until False;
@@ -329,17 +351,17 @@ function TBuildTokenList.TryWord(const pcToken: TSourceToken): boolean;
 begin
   Result := False;
 
-  if not IsWordChar(Reader.Current) then
+  if not IsWordChar(Current) then
     exit;
 
-  pcToken.SourceCode := Reader.Current;
-  Reader.Consume;
+  pcToken.SourceCode := Current;
+  Consume;
 
   { concat any subsequent word chars }
-  while IsWordChar(Reader.Current) or CharIsDigit(Reader.Current) do
+  while IsWordChar(Current) or CharIsDigit(Current) do
   begin
-    pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
-    Reader.Consume;
+    pcToken.SourceCode := pcToken.SourceCode + Current;
+    Consume;
   end;
 
   { try to recognise the word as built in }
@@ -364,18 +386,18 @@ end;
 function TBuildTokenList.TryWhiteSpace(const pcToken: TSourceToken): boolean;
 begin
   Result := False;
-  if not CharIsWhiteSpaceNoReturn(Reader.Current) then
+  if not CharIsWhiteSpaceNoReturn(Current) then
     exit;
 
   pcToken.TokenType  := ttWhiteSpace;
-  pcToken.SourceCode := Reader.Current;
-  Reader.Consume;
+  pcToken.SourceCode := Current;
+  Consume;
 
   { concat any subsequent return chars }
-  while CharIsWhiteSpaceNoReturn(Reader.Current) do
+  while CharIsWhiteSpaceNoReturn(Current) do
   begin
-    pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
-    Reader.Consume;
+    pcToken.SourceCode := pcToken.SourceCode + Current;
+    Consume;
   end;
 
   Result := True;
@@ -385,16 +407,16 @@ function TBuildTokenList.TryAssign(const pcToken: TSourceToken): boolean;
 begin
   Result := False;
 
-  if Reader.Current <> ':' then
+  if Current <> ':' then
     exit;
 
-  Reader.BufferLength := 2;
-
-  if Reader.Buffer <> ':=' then
+  if CurrentChars(2) <> ':=' then
     exit;
 
   pcToken.TokenType := ttAssign;
-  pcToken.SourceCode := Reader.ConsumeBuffer;
+  pcToken.SourceCode := CurrentChars(2);
+  Consume(2);
+  
   Result := True;
 end;
 
@@ -413,15 +435,15 @@ begin
     and -.3 is not legal at all }
 
   { first one must be a digit }
-  if not CharIsDigit(Reader.Current) then
+  if not CharIsDigit(Current) then
     exit;
 
-  if (Reader.Current = '.') or (Reader.Current = '-') then
+  if (Current = '.') or (Current = '-') then
     exit;
 
   pcToken.TokenType  := ttNumber;
-  pcToken.SourceCode := Reader.Current;
-  Reader.Consume;
+  pcToken.SourceCode := Current;
+  Consume;
   lbHasDecimalSep := False;
 
   { concat any subsequent number chars
@@ -432,12 +454,12 @@ begin
     ie one dat = decimal
     two dots = end of number
   }
-  while CharIsDigit(Reader.Current) or (Reader.Current = '.') do
+  while CharIsDigit(Current) or (Current = '.') do
   begin
     // have we got to the dot?
-    if (Reader.Current = '.') then
+    if (Current = '.') then
     begin
-      if Reader.BufferCharsLeft(2) = '..' then
+      if CurrentChars(2) = '..' then
         break;
 
       if lbHasDecimalSep then
@@ -447,31 +469,31 @@ begin
         lbHasDecimalSep := True;
     end;
 
-    pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
-    Reader.Consume;
+    pcToken.SourceCode := pcToken.SourceCode + Current;
+    Consume;
   end;
 
   { scientific notation suffix, eg 3e2 = 30, 2.1e-3 = 0.0021 }
 
   { check for a trailing 'e' }
-  if Reader.Current in ['e', 'E'] then
+  if Current in ['e', 'E'] then
   begin
     // sci notation mode
-    pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
-    Reader.Consume;
+    pcToken.SourceCode := pcToken.SourceCode + Current;
+    Consume;
 
     // can be a minus or plus here
-    if Reader.Current in ['-', '+'] then
+    if Current in ['-', '+'] then
     begin
-      pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
-      Reader.Consume;
+      pcToken.SourceCode := pcToken.SourceCode + Current;
+      Consume;
     end;
 
     { exponent must be integer }
-    while CharIsDigit(Reader.Current) do
+    while CharIsDigit(Current) do
     begin
-      pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
-      Reader.Consume;
+      pcToken.SourceCode := pcToken.SourceCode + Current;
+      Consume;
     end;
   end;
 
@@ -487,21 +509,21 @@ begin
   Result := False;
 
   { starts with a $ }
-  if Reader.Current <> '$' then
+  if Current <> '$' then
     exit;
 
   pcToken.TokenType  := ttNumber;
-  pcToken.SourceCode := Reader.Current;
-  Reader.Consume;
+  pcToken.SourceCode := Current;
+  Consume;
   lbHasDecimalSep := False;
 
   { concat any subsequent number chars }
-  while (Reader.Current in AnsiHexDigits) or (Reader.Current = '.') do
+  while (Current in AnsiHexDigits) or (Current = '.') do
   begin
     // have we got to the dot?
-    if (Reader.Current = '.') then
+    if (Current = '.') then
     begin
-      if Reader.BufferCharsLeft(2) = '..' then
+      if CurrentChars(2) = '..' then
         break;
 
       if lbHasDecimalSep then
@@ -511,8 +533,8 @@ begin
         lbHasDecimalSep := True;
     end;
 
-    pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
-    Reader.Consume;
+    pcToken.SourceCode := pcToken.SourceCode + Current;
+    Consume;
   end;
 
   Result := True;
@@ -523,17 +545,17 @@ function TBuildTokenList.TryDots(const pcToken: TSourceToken): boolean;
 begin
   Result := False;
 
-  if Reader.Current <> '.' then
+  if Current <> '.' then
     exit;
 
-  pcToken.SourceCode := Reader.Current;
-  Reader.Consume;
+  pcToken.SourceCode := Current;
+  Consume;
 
-  if Reader.Current = '.' then
+  if Current = '.' then
   begin
     pcToken.TokenType  := ttDoubleDot;
-    pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
-    Reader.Consume;
+    pcToken.SourceCode := pcToken.SourceCode + Current;
+    Consume;
   end
   else
   begin
@@ -610,20 +632,20 @@ var
 begin
   Result := False;
 
-  if not IsPuncChar(Reader.Current) then
+  if not IsPuncChar(Current) then
     exit;
 
   pcToken.TokenType := ttPunctuation;
-  lcLast := Reader.Current;
+  lcLast := Current;
   pcToken.SourceCode := lcLast;
-  Reader.Consume;
+  Consume;
 
   { concat any subsequent punc chars }
-  while FollowsPunctuation(lcLast, Reader.Current) do
+  while FollowsPunctuation(lcLast, Current) do
   begin
-    lcLast := Reader.Current;
+    lcLast := Current;
     pcToken.SourceCode := pcToken.SourceCode + lcLast;
-    Reader.Consume;
+    Consume;
   end;
 
   { try to recognise the punctuation as an operator }
@@ -640,11 +662,11 @@ function TBuildTokenList.TrySingleCharToken(const pcToken: TSourceToken): boolea
 begin
   Result := False;
 
-  pcToken.TokenType := TypeOfToken(Reader.Current);
+  pcToken.TokenType := TypeOfToken(Current);
   if pcToken.TokenType <> ttUnknown then
   begin
-    pcToken.SourceCode := Reader.Current;
-    Reader.Consume;
+    pcToken.SourceCode := Current;
+    Consume;
     Result := True;
   end;
 end;
@@ -657,10 +679,12 @@ var
   lcNew:     TSourceToken;
   liCounter: integer;
 begin
+  Assert(SourceCode <> '');
+
   liCounter := 0;
   lcList    := TSourceTokenList.Create;
 
-  while not Reader.EndOfFile do
+  while not EndOfFile do
   begin
     lcNew := GetNextToken;
     lcList.Add(lcNew);
@@ -671,6 +695,48 @@ begin
   end;
 
   Result := lcList;
+end;
+
+
+procedure TBuildTokenList.Reset;
+begin
+  fiCurrentIndex := 1;
+end;
+
+function TBuildTokenList.Current: char;
+begin
+  Result := fsSourceCode[fiCurrentIndex];
+end;
+
+function TBuildTokenList.CurrentChars(const piCount: integer): string;
+begin
+  Result := Copy(fsSourceCode, fiCurrentIndex, piCount);
+end;
+
+function TBuildTokenList.ForwardChar(const piOffset: integer): char;
+begin
+  Result := fsSourceCode[fiCurrentIndex + piOffset];
+end;
+
+function TBuildTokenList.ForwardChars(const piOffset, piCount: integer): string;
+begin
+  Result := Copy(fsSourceCode, fiCurrentIndex + piOffset, piCount);
+end;
+
+
+function TBuildTokenList.Consume(const piCount: integer): string;
+begin
+  inc(fiCurrentIndex, piCount);
+end;
+
+function TBuildTokenList.EndOfFile: boolean;
+begin
+  Result := fiCurrentIndex > Length(fsSourceCode);
+end;
+
+function TBuildTokenList.EndOfFileAfter(const piChars: integer): boolean;
+begin
+  Result := (fiCurrentIndex + piChars) > Length(fsSourceCode);
 end;
 
 

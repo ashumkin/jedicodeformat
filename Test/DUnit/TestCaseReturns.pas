@@ -36,8 +36,10 @@ uses
 type
   TTestCaseReturns = class(TBaseTestProcess)
   private
+    feSaveCaseLabelStyle: TTriOptionStyle;
+    feSaveCaseBeginStyle: TTriOptionStyle;
     feSaveCaseElseStyle: TTriOptionStyle;
-    feCaseLabelStyle: TTriOptionStyle;
+    feSaveCaseElseBeginStyle:  TTriOptionStyle;
 
   protected
     procedure Setup; override;
@@ -59,16 +61,32 @@ type
     procedure TestCaseStatementJustElse1;
     procedure TestCaseStatementJustElse2;
     procedure TestCaseStatementJustElse3;
+
+    procedure TestCaseStatementElseBegin1;
+    procedure TestCaseStatementElseBegin2;
+    procedure TestCaseStatementElseBegin3;
+    procedure TestCaseStatementElseBegin4;
+    procedure TestCaseStatementElseBegin5;
+    procedure TestCaseStatementElseBegin6;
+
+    procedure TestCaseBegin1;
+    procedure TestCaseBegin2;
+    procedure TestCaseBegin3;
+    procedure TestCaseBegin4;
+    procedure TestCaseBegin5;
+    procedure TestCaseBegin6;
   end;
 
 implementation
 
 uses JclStrings,
   JcfSettings,
-  BlockStyles;
+  BlockStyles, SetReturns;
 
 { TTestCaseReturns }
 const
+
+  { test breaking after case labels }
   UNIT_TEXT_IN_LINE = UNIT_HEADER + ' procedure foo; begin' +
     ' case x of ' +
     ' 1: Bar; ' +
@@ -100,20 +118,73 @@ const
     ' end; ' +
     UNIT_FOOTER;
 
+
+  { test breaking on else ... begin}
+  UNIT_TEXT_ELSE_BEGIN = UNIT_HEADER + ' procedure foo; begin' +
+    ' case x of ' +
+    ' 1:' + AnsiLineBreak +
+    'Bar; ' +
+    ' 2:' + AnsiLineBreak +
+    'Fish; ' +
+    ' else begin' + AnsiLineBreak +
+    'Spock; ' +
+    ' end; end; ' +
+    ' end; ' +
+    UNIT_FOOTER;
+
+
+  UNIT_TEXT_ELSE_BEGIN_NEWLINE = UNIT_HEADER + ' procedure foo; begin' +
+    ' case x of ' +
+    ' 1:' + AnsiLineBreak +
+    'Bar; ' +
+    ' 2:' + AnsiLineBreak +
+    'Fish; ' +
+    ' else' + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
+    'Spock; ' +
+    ' end; end; ' +
+    ' end; ' +
+    UNIT_FOOTER;
+
+  { test breaking on case: begin }
+  UNIT_TEXT_CASE_BEGIN = UNIT_HEADER + ' procedure foo; begin' +
+    ' case x of ' +
+    ' 1: begin Bar;  end ' +
+    ' 2: begin Fish; end ' +
+    ' end; ' +
+    ' end; ' +
+    UNIT_FOOTER;
+
+  UNIT_TEXT_CASE_BEGIN_NEW_LINE = UNIT_HEADER + ' procedure foo; begin' +
+    ' case x of ' +
+    ' 1:' + AnsiLineBreak +
+    'begin Bar;  end ' +
+    ' 2:' + AnsiLineBreak +
+    'begin Fish; end ' +
+    ' end; ' +
+    ' end; ' +
+    UNIT_FOOTER;
+
 procedure TTestCaseReturns.Setup;
 begin
   inherited;
 
+  feSaveCaseLabelStyle := FormatSettings.Returns.CaseLabelStyle;
+  feSaveCaseBeginStyle := FormatSettings.Returns.CaseBeginStyle;
+
   feSaveCaseElseStyle := FormatSettings.Returns.CaseElseStyle;
-  feCaseLabelStyle    := FormatSettings.Returns.CaseLabelStyle;
+  feSaveCaseElseBeginStyle := FormatSettings.Returns.CaseElseBeginStyle;
 end;
 
 procedure TTestCaseReturns.TearDown;
 begin
   inherited;
 
+  FormatSettings.Returns.CaseLabelStyle := feSaveCaseLabelStyle;
+  FormatSettings.Returns.CaseBeginStyle := feSaveCaseBeginStyle;
+
   FormatSettings.Returns.CaseElseStyle  := feSaveCaseElseStyle;
-  FormatSettings.Returns.CaseLabelStyle := feCaseLabelStyle;
+  FormatSettings.Returns.CaseElseBeginStyle := feSaveCaseElseBeginStyle;
 end;
 
 
@@ -140,6 +211,7 @@ begin
 
   TestProcessResult(TBlockStyles, OUT_UNIT_TEXT_JUST_ELSE_NEWLINE, UNIT_TEXT_NEW_LINE);
 end;
+
 
 
 procedure TTestCaseReturns.TestCaseStatementJustElse1;
@@ -214,6 +286,109 @@ begin
   FormatSettings.Returns.CaseLabelStyle := eNever;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_NEW_LINE, UNIT_TEXT_IN_LINE);
+end;
+
+procedure TTestCaseReturns.TestCaseStatementElseBegin1;
+begin
+  FormatSettings.Returns.CaseElseStyle      := eNever;
+  FormatSettings.Returns.CaseElseBeginStyle := eNever;
+  FormatSettings.Returns.CaseLabelStyle     := eLeave;
+
+  TestProcessResult(TBlockStyles, UNIT_TEXT_ELSE_BEGIN, UNIT_TEXT_ELSE_BEGIN);
+end;
+
+procedure TTestCaseReturns.TestCaseStatementElseBegin2;
+begin
+  FormatSettings.Returns.CaseElseStyle      := eNever;
+  FormatSettings.Returns.CaseElseBeginStyle := eNever;
+  FormatSettings.Returns.CaseLabelStyle     := eLeave;
+
+  TestProcessResult(TBlockStyles, UNIT_TEXT_ELSE_BEGIN_NEWLINE, UNIT_TEXT_ELSE_BEGIN);
+end;
+
+procedure TTestCaseReturns.TestCaseStatementElseBegin3;
+begin
+  FormatSettings.Returns.CaseElseStyle      := eNever;
+  FormatSettings.Returns.CaseElseBeginStyle := eLeave;
+  FormatSettings.Returns.CaseLabelStyle     := eLeave;
+
+  TestProcessResult(TBlockStyles, UNIT_TEXT_ELSE_BEGIN, UNIT_TEXT_ELSE_BEGIN);
+end;
+
+procedure TTestCaseReturns.TestCaseStatementElseBegin4;
+begin
+  FormatSettings.Returns.CaseElseStyle      := eNever;
+  FormatSettings.Returns.CaseElseBeginStyle := eLeave;
+  FormatSettings.Returns.CaseLabelStyle     := eLeave;
+
+  TestProcessResult(TBlockStyles, UNIT_TEXT_ELSE_BEGIN_NEWLINE, UNIT_TEXT_ELSE_BEGIN_NEWLINE);
+end;
+
+procedure TTestCaseReturns.TestCaseStatementElseBegin5;
+begin
+  FormatSettings.Returns.CaseElseStyle      := eNever;
+  FormatSettings.Returns.CaseElseBeginStyle := eAlways;
+  FormatSettings.Returns.CaseLabelStyle     := eLeave;
+
+  TestProcessResult(TBlockStyles, UNIT_TEXT_ELSE_BEGIN, UNIT_TEXT_ELSE_BEGIN_NEWLINE);
+end;
+
+procedure TTestCaseReturns.TestCaseStatementElseBegin6;
+begin
+  FormatSettings.Returns.CaseElseStyle      := eNever;
+  FormatSettings.Returns.CaseElseBeginStyle := eAlways;
+  FormatSettings.Returns.CaseLabelStyle     := eLeave;
+
+  TestProcessResult(TBlockStyles, UNIT_TEXT_ELSE_BEGIN_NEWLINE, UNIT_TEXT_ELSE_BEGIN_NEWLINE);
+end;
+
+
+procedure TTestCaseReturns.TestCaseBegin1;
+begin
+  FormatSettings.Returns.CaseBeginStyle := eLeave;
+  FormatSettings.Returns.CaseLabelStyle := eLeave;
+
+  TestProcessResult(TBlockStyles, UNIT_TEXT_CASE_BEGIN, UNIT_TEXT_CASE_BEGIN);
+end;
+
+procedure TTestCaseReturns.TestCaseBegin2;
+begin
+  FormatSettings.Returns.CaseBeginStyle := eLeave;
+  FormatSettings.Returns.CaseLabelStyle := eLeave;
+
+  TestProcessResult(TBlockStyles, UNIT_TEXT_CASE_BEGIN_NEW_LINE, UNIT_TEXT_CASE_BEGIN_NEW_LINE);
+end;
+
+procedure TTestCaseReturns.TestCaseBegin3;
+begin
+  FormatSettings.Returns.CaseBeginStyle := eAlways;
+  FormatSettings.Returns.CaseLabelStyle := eLeave;
+
+  TestProcessResult(TBlockStyles, UNIT_TEXT_CASE_BEGIN, UNIT_TEXT_CASE_BEGIN_NEW_LINE);
+end;
+
+procedure TTestCaseReturns.TestCaseBegin4;
+begin
+  FormatSettings.Returns.CaseBeginStyle := eAlways;
+  FormatSettings.Returns.CaseLabelStyle := eLeave;
+
+  TestProcessResult(TBlockStyles, UNIT_TEXT_CASE_BEGIN_NEW_LINE, UNIT_TEXT_CASE_BEGIN_NEW_LINE);
+end;
+
+procedure TTestCaseReturns.TestCaseBegin5;
+begin
+  FormatSettings.Returns.CaseBeginStyle := eNever;
+  FormatSettings.Returns.CaseLabelStyle := eLeave;
+
+  TestProcessResult(TBlockStyles, UNIT_TEXT_CASE_BEGIN, UNIT_TEXT_CASE_BEGIN);
+end;
+
+procedure TTestCaseReturns.TestCaseBegin6;
+begin
+  FormatSettings.Returns.CaseBeginStyle := eNever;
+  FormatSettings.Returns.CaseLabelStyle := eLeave;
+
+  TestProcessResult(TBlockStyles, UNIT_TEXT_CASE_BEGIN_NEW_LINE, UNIT_TEXT_CASE_BEGIN);
 end;
 
 initialization

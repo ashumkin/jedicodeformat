@@ -65,6 +65,43 @@ begin
   Result := pcNode.HasChildNode(nCompoundStatement, liDepth);
 end;
 
+{
+  it is not safe to remove the block from
+    if <cond1> then
+    begin
+      if <cond2> then
+        <statement1>
+    end
+    else
+      <statement2>;
+}
+function SafeToRemoveBeginEnd(const pcNode: TParseTreeNode): Boolean;
+const
+  { if there is an if stament with no else case immediately hereunder,
+  should find it by this depth }
+  IMMEDIATE_IF_DEPTH = 4;
+var
+  lcChildStmnt: TParseTreeNode;
+begin
+  Result := True;
+
+  { is this an if block? }
+  if (pcNode <> nil) and (pcNode.NodeType = nIfBlock) then
+  begin
+    { does it have an else case? }
+    if pcNode.Parent.HasChildNode(nElseBlock, 1) then
+    begin
+      lcChildStmnt := pcNode.GetImmediateChild(nStatement);
+
+      { does the if block contain an if statement? }
+      if (lcChildStmnt <> nil) and lcChildStmnt.HasChildNode(nIfBlock, IMMEDIATE_IF_DEPTH) and
+        (not lcChildStmnt.HasChildNode(nElseBlock, IMMEDIATE_IF_DEPTH)) then
+        Result := False;
+    end;
+  end;
+
+end;
+
 procedure AddBlockChild(const pcNode: TParseTreeNode);
 var
   liIndex: integer;
@@ -193,7 +230,7 @@ begin
 
   if IsBlockParent(lcNode) then
   begin
-    if HasBlockChild(lcNode) then
+    if HasBlockChild(lcNode) and SafeToRemoveBeginEnd(lcNode) then
     begin
       if FormatSettings.Transform.BeginEndStyle = eNever then
         RemoveBlockChild(lcNode);

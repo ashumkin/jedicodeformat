@@ -74,7 +74,7 @@ const
     ttConstructor, ttDestructor, ttProperty, ttGoto];
 var
   lcSetReturns: TSetReturns;
-  ptNext: TSourceToken;
+  lcNext, lcNext2: TSourceToken;
 begin
   Result := False;
 
@@ -174,11 +174,11 @@ begin
   end;
 
   { or just before them }
-  ptNext := pt.NextTokenWithExclusions([ttWhiteSpace, ttReturn]);
-  if ptNext = nil then
+  lcNext := pt.NextTokenWithExclusions([ttWhiteSpace, ttReturn]);
+  if lcNext = nil then
     exit;
 
-  if (ptNext.TokenType = ttComment) or CommentBefore then
+  if (lcNext.TokenType = ttComment) or CommentBefore then
   begin
     Result := False;
     exit;
@@ -191,7 +191,7 @@ begin
         a := a + 2
       end;    }
 
-    if ptNext.HasParentNode(nExpression) then
+    if lcNext.HasParentNode(nExpression) then
     begin
       Result := True;
       exit;
@@ -201,7 +201,7 @@ begin
   if lcSetReturns.RemoveVarReturns and (pt.TokenType <> ttSemiColon) and
     ( not (pt.TokenType in Declarations)) and pt.HasParentNode(nVarDecl) then
   begin
-    if NoDeclarationBefore and NoSemicolonBefore and ptNext.HasParentNode(nVarDecl) then
+    if NoDeclarationBefore and NoSemicolonBefore and lcNext.HasParentNode(nVarDecl) then
     begin
       Result := True;
       exit;
@@ -231,7 +231,20 @@ begin
       Result := True;
       exit;
     end;
+  end;
 
+  if pt.HasParentNode(nUses) then
+  begin
+    // no blank line in uses
+    lcNext := pt.NextTokenWithExclusions([ttWhitespace]);
+    if (lcNext <> nil) and (lcNext.TokenType = ttReturn) then
+    begin
+      lcNext2 := lcNext.NextTokenWithExclusions([ttWhitespace]);
+      if (lcNext2 <> nil) and (lcNext2.TokenType = ttReturn) then
+      begin
+        Result := True;
+      end;
+    end;
   end;
 end;
 

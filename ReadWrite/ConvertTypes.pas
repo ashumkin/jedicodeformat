@@ -34,9 +34,8 @@ type
   { type for a proc to receive a message
   from the depths of the fornatter to the ui
   many of them have a line x,y specified }
-  TStatusMessageProc = procedure(const psFile, psMessage: string;
+  TStatusMessageProc = procedure(const psUnit, psMessage: string;
     const piY, piX: integer) of object;
-
 
 type
   TShowParseTreeOption = (eShowAlways, eShowOnError, eShowNever);
@@ -55,6 +54,18 @@ const
     'Text files (*.txt)|*.txt|' +
     'All files (*.*)|*.*';
 
+function DescribeFileCount(const piCount: integer): string;
+
 implementation
+
+uses SysUtils;
+
+function DescribeFileCount(const piCount: integer): string;
+begin
+  if piCount = 1 then
+    Result := '1 file'
+  else
+    Result := IntToStr(piCount) + ' files';
+end;
 
 end.

@@ -77,7 +77,7 @@ uses
   RemoveConsecutiveWhiteSpace, RemoveUnneededWhiteSpace, RebreakLines,
   { transform }
   FindReplace, UsesClauseInsert, UsesClauseRemove, UsesClauseFindReplace,
-  RemoveEmptyComment, AddBeginEnd, AddBlockEndSemicolon,
+  RemoveEmptyComment, AddBeginEnd, AddBlockEndSemicolon, SortUses,
   { warnings }
   Warning, WarnEmptyBlock, WarnRealType, WarnAssignToFunctionName,
   WarnCaseNoElse, WarnDestroy,
@@ -236,6 +236,8 @@ begin
 
   ApplyVisitorType(TAddBeginEnd, [TVisitSetNestings, TVisitSetXY]);
   ApplyVisitorType(TBlockEndSemicolon, [TVisitSetNestings, TVisitSetXY]);
+
+  ApplyVisitorType(TSortUses, [TVisitSetXY]);
 end;
 
 
@@ -324,8 +326,8 @@ begin
   ApplyVisitorType(TAlignVars, [TVisitSetXY]);
   ApplyVisitorType(TAlignAssign, [TVisitSetXY]);
   ApplyVisitorType(TAlignTypedef, [TVisitSetXY]);
-  ApplyVisitorType(TAlignComment, [TVisitSetXY]);
   ApplyVisitorType(TAlignField, [TVisitSetXY]);
+  ApplyVisitorType(TAlignComment, [TVisitSetXY]);
 end;
 
 procedure TAllProcesses.OnceOffs;

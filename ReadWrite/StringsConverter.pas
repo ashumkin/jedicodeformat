@@ -24,39 +24,31 @@ under the License.
 interface
 
 uses
-  { delphi }Classes,
-  { local }Converter, CodeReader, CodeWriter, StringsReader, StringsWriter;
+  { delphi }
+  Classes,
+  { local }
+  Converter;
 
 type
-  TStringsConverter = class(TConverter)
+  TStringsConverter = class(TObject)
   private
     fcMessageStrings: TStrings;
 
-    procedure SetInputStrings(const pcStrings: TStrings);
-    procedure SetOutputStrings(const pcStrings: TStrings);
     procedure SetMessageStrings(const pcStrings: TStrings);
-
-    function GetInputStrings: TStrings;
-    function GetOutputStrings: TStrings;
     function GetMessageStrings: TStrings;
 
   protected
-    function CreateReader: TCodeReader; override;
-    function CreateWriter: TCodeWriter; override;
-    function OriginalFileName: string; override;
+    function OriginalFileName: string;
 
     procedure SendStatusMessage(const psFile, psMessage: string;
-      const piY, piX: integer); override;
+      const piY, piX: integer);
 
   public
     constructor Create;
 
-    procedure Convert; override;
+    procedure Convert;
 
-    property InputStrings: TStrings Read GetInputStrings Write SetInputStrings;
-    property OutputStrings: TStrings Read GetOutputStrings Write SetOutputStrings;
     property MessageStrings: TStrings Read GetMessageStrings Write SetMessageStrings;
-
   end;
 
 
@@ -74,19 +66,9 @@ end;
 procedure TStringsConverter.Convert;
 begin
   // show message on popup if there is no message output
-  GuiMessages := (fcMessageStrings = nil);
+  //GuiMessages := (fcMessageStrings = nil);
 
-  DoConvertUnit;
-end;
-
-function TStringsConverter.CreateReader: TCodeReader;
-begin
-  Result := TStringsReader.Create;
-end;
-
-function TStringsConverter.CreateWriter: TCodeWriter;
-begin
-  Result := TStringsWriter.Create;
+  //DoConvertUnit;
 end;
 
 function TStringsConverter.GetMessageStrings: TStrings;
@@ -94,15 +76,6 @@ begin
   Result := fcMessageStrings;
 end;
 
-function TStringsConverter.GetInputStrings: TStrings;
-begin
-  Result := (fcReader as TStringsReader).InputStrings;
-end;
-
-function TStringsConverter.GetOutputStrings: TStrings;
-begin
-  Result := (fcWriter as TStringsWriter).OutputStrings;
-end;
 
 function TStringsConverter.OriginalFileName: string;
 begin
@@ -112,16 +85,6 @@ end;
 procedure TStringsConverter.SetMessageStrings(const pcStrings: TStrings);
 begin
   fcMessageStrings := pcStrings;
-end;
-
-procedure TStringsConverter.SetInputStrings(const pcStrings: TStrings);
-begin
-  (fcReader as TStringsReader).InputStrings := pcStrings;
-end;
-
-procedure TStringsConverter.SetOutputStrings(const pcStrings: TStrings);
-begin
-  (fcWriter as TStringsWriter).OutputStrings := pcStrings;
 end;
 
 procedure TStringsConverter.SendStatusMessage(const psFile, psMessage: string;

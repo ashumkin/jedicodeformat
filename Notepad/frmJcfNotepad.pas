@@ -31,7 +31,7 @@ uses
   { Jedi }
   JvMRUManager, JvMemo, JvComponent, JvExStdCtrls, JvFormPlacement,
   { local }
-  JcfRegistrySettings,  StringsConverter;
+  JcfRegistrySettings,  Converter;
 
 { have to do file pos display *after* various processing }
 const
@@ -122,7 +122,9 @@ type
     procedure mOutputClick(Sender: TObject);
     procedure mInputKeyPress(Sender: TObject; var Key: Char);
   private
-    fcConvert: TStringsConverter;
+    fcConvert: TConverter;
+
+    procedure OnConvertStatusMessage(const psUnit, psMessage: string; const piY, piX: integer);
 
     procedure CheckInputState;
     procedure CheckCutPasteState;
@@ -147,7 +149,8 @@ uses
   { jcl }
   JclStrings,
   { local }
-  JCFHelp, ConvertTypes, fAbout, fRegistrySettings, fAllSettings;
+  JCFHelp, ConvertTypes, fAbout, fRegistrySettings, fAllSettings,
+  ParseError;
 
 {$R *.dfm}
 
@@ -240,20 +243,19 @@ end;
 procedure TfmJCFNotepad.actGoExecute(Sender: TObject);
 begin
   actGo.Enabled := False;
-  try
-    mMessages.Clear;
-    fcConvert.InputStrings   := mInput.Lines;
-    fcConvert.OutputStrings  := mOutput.Lines;
-    fcConvert.MessageStrings := mMessages.Lines;
 
-    fcConvert.Convert;
-    fcConvert.Clear;
+  mMessages.Clear;
+  fcConvert.OnStatusMessage := OnConvertStatusMessage;
 
-    pcPages.ActivePage := tsOutput;
-    pcPagesChange(nil);
-  finally
-    CheckInputState;
-  end;
+  fcConvert.InputCode := mInput.Lines.Text;
+  fcConvert.Convert;
+  mOutput.Lines.Text := fcConvert.OutputCode;
+  fcConvert.Clear;
+
+  pcPages.ActivePage := tsOutput;
+  pcPagesChange(nil);
+
+  CheckInputState;
 end;
 
 procedure TfmJCFNotepad.mInputKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
@@ -315,7 +317,7 @@ end;
 
 procedure TfmJCFNotepad.FormCreate(Sender: TObject);
 begin
-  fcConvert := TStringsConverter.Create;
+  fcConvert := TConverter.Create;
 
   GetRegSettings.MRUFiles := mruFiles.Strings;
   GetRegSettings.ReadAll;
@@ -546,6 +548,23 @@ end;
 procedure TfmJCFNotepad.mInputKeyPress(Sender: TObject; var Key: Char);
 begin
   SendShowFilePos;
+end;
+
+procedure TfmJCFNotepad.OnConvertStatusMessage(const psUnit,
+  psMessage: string; const piY, piX: integer);
+var
+  lsWholeMessage: string;
+begin
+  lsWholeMessage := psMessage;
+  if (piY >= 0) and (piX >= 0) then
+    lsWholeMessage := lsWholeMessage + ' at line ' + IntToStr(piY) +
+      ' col ' + IntToStr(piX);
+
+  mMessages.Lines.Add(lsWholeMessage);
+
+  { make it visible }
+  if pcPages.ActivePage <> tsOutput then
+    pcPages.ActivePage := tsOutput;
 end;
 
 end.

@@ -256,16 +256,25 @@ var
 begin
   Result := False;
 
-  if FormatSettings.Returns.UsesClauseOnePerLine and pt.HasParentNode(nUses) then
+  if pt.HasParentNode(nUses) then
   begin
-    if (pt.TokenType in [ttComma, ttUses]) then
+    if (pt.TokenType = ttUses) then
     begin
-      // add a return, unlees there's a comment just after the comma
-      lcNext := pt.NextTokenWithExclusions([ttWhiteSpace]);
-      if (lcNext <> nil) and (lcNext.TokenType <> ttComment) then
+      Result := True;
+      exit;
+    end;
+
+    if FormatSettings.Returns.UsesClauseOnePerLine and pt.HasParentNode(nUses) then
+    begin
+      if (pt.TokenType in [ttComma, ttUses]) then
       begin
-        Result := True;
-        exit;
+        // add a return, unless there's a comment just after the comma
+        lcNext := pt.NextTokenWithExclusions([ttWhiteSpace]);
+        if (lcNext <> nil) and (lcNext.TokenType <> ttComment) then
+        begin
+          Result := True;
+          exit;
+        end;
       end;
     end;
   end;

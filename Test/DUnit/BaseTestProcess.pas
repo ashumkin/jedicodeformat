@@ -27,13 +27,16 @@ uses
   Classes,
   JclStrings,
   TestFrameWork,
-  TestConverter, BaseVisitor;
+  BaseVisitor,
+  Converter;
 
 type
   TBaseTestProcess = class(TTestCase)
   private
-    fcConvert: TTestConverter;
-    fcInput, fcOutput, fcMessages: TStringList;
+    fcConvert: TConverter;
+    fcMessages: TStringList;
+
+    procedure OnStatusMessage(const psUnit, psMessage: string; const piY, piX: integer);
 
   protected
 
@@ -46,6 +49,9 @@ type
 
     procedure TestProcessResult(processType: TTreeNodeVisitorType;
       const psIn, psOut: string);
+
+    procedure TestFormatResult(const psIn, psOut: string);
+    procedure TestFormatPartResult(const psIn, psOut: string; const piStart, piEnd: integer);
 
   protected
     procedure Setup; override;
@@ -77,15 +83,10 @@ procedure TBaseTestProcess.Setup;
 begin
   inherited;
 
-  fcConvert := TTestConverter.Create;
-
-  fcInput    := TStringList.Create;
-  fcOutput   := TStringList.Create;
+  fcConvert := TConverter.Create;
   fcMessages := TStringList.Create;
 
-  fcConvert.InputStrings   := fcInput;
-  fcConvert.OutputStrings  := fcOutput;
-  fcConvert.MessageStrings := fcMessages;
+  fcConvert.OnStatusMessage := OnStatusMessage;
 
   InitTestSettings;
 end;
@@ -94,8 +95,6 @@ procedure TBaseTestProcess.TearDown;
 begin
   FreeAndNil(fcConvert);
 
-  FreeAndNil(fcInput);
-  FreeAndNil(fcOutput);
   FreeAndNil(fcMessages);
 end;
 
@@ -119,8 +118,8 @@ var
   lbFound: boolean;
   liLoop:  integer;
 begin
-  fcInput.Text := psUnit;
-
+  fcMessages.Clear;
+  fcConvert.InputCode := psUnit;
   fcConvert.Convert;
 
   // convert should work
@@ -177,22 +176,27 @@ end;
 
 procedure TBaseTestProcess.TestProcessResult(processType: TTreeNodeVisitorType;
   const psIn, psOut: string);
-var
-  lsOut: string;
 begin
   // run just this process
-  fcInput.Text     := psIn;
-  fcConvert.RunAll := False;
   fcConvert.SingleProcess := processType;
-
   try
-    fcConvert.Convert;
+    TestFormatResult(psIn, psOut);
   finally
-    fcConvert.RunAll := True;
     fcConvert.SingleProcess := nil;
   end;
 
-  lsOut := fcOutput.Text;
+end;
+
+procedure TBaseTestProcess.TestFormatResult(const psIn, psOut: string);
+var
+  lsOut: string;
+begin
+  fcMessages.Clear;
+  fcConvert.InputCode := psIn;
+
+  fcConvert.Convert;
+
+  lsOut := fcConvert.OutputCode;
 
   { an extra return is attached from using a stringlist
     if it wasn't there already
@@ -219,6 +223,50 @@ begin
 
   CheckEquals(Length(psOut), Length(lsOut), 'Results length mismatch');
   CheckEquals(psOut, lsOut, 'Bad result text');
+end;
+
+procedure TBaseTestProcess.TestFormatPartResult(const psIn, psOut: string; const piStart, piEnd: integer);
+var
+  lsOut: string;
+begin
+  fcMessages.Clear;
+  fcConvert.InputCode := psIn;
+
+  fcConvert.ConvertPart(piStart, piEnd);
+
+  lsOut := fcConvert.OutputCode;
+
+  { an extra return is attached from using a stringlist
+    if it wasn't there already
+    this is not ideal for TestTextAfterUnitEnd
+    but better than a trim
+  }
+  if (StrRight(lsOut, 2) = AnsiLineBreak) then
+  begin
+    lsOut := StrChopRight(lsOut, 2);
+  end;
+
+  { }
+  // debug
+  if (lsOut <> psOut) then
+  begin
+    ShowMessage(MarkReturns(lsOut) +
+      AnsiLineBreak + AnsiLineBreak + '-- should have been --' +
+      AnsiLineBreak + AnsiLineBreak +
+      MarkReturns(psOut));
+
+    ShowMessage(DiffText(lsOut, psOut));
+  end;
+ { }
+
+  CheckEquals(Length(psOut), Length(lsOut), 'Results length mismatch');
+  CheckEquals(psOut, lsOut, 'Bad result text');
+end;
+
+procedure TBaseTestProcess.OnStatusMessage(const psUnit, psMessage: string;
+  const piY, piX: integer);
+begin
+  fcMessages.Add(psMessage);
 end;
 
 end.

@@ -42,15 +42,11 @@ contains
   JCFIdeMain in 'JcfIdeMain.pas',
   JCFDropTarget in '..\Utils\DragDrop\JCFDropTarget.pas',
   frDrop in '..\Utils\DragDrop\frDrop.pas' {FrameDrop: TFrame},
-  EditorReader in '..\ReadWrite\EditorReader.pas',
-  EditorWriter in '..\ReadWrite\EditorWriter.pas',
   EditorConverter in '..\ReadWrite\EditorConverter.pas',
   Delay in '..\Utils\Delay.pas',
   JCFSetBase in '..\Settings\JCFSetBase.pas',
   Converter in '..\ReadWrite\Converter.pas',
   fAllSettings in '..\Ui\fAllSettings.pas' {FormAllSettings},
-  CodeReader in '..\ReadWrite\CodeReader.pas',
-  CodeWriter in '..\ReadWrite\CodeWriter.pas',
   fAbout in '..\Ui\fAbout.pas' {frmAboutBox},
   VersionConsts in '..\VersionConsts.pas',
   VisitStripEmptySpace in '..\Process\VisitStripEmptySpace.pas',
@@ -125,9 +121,7 @@ contains
   frReplace in '..\Ui\Settings\frReplace.pas' {fReplace: TFrame},
   frReservedCapsSettings in '..\Ui\Settings\frReservedCapsSettings.pas' {frReservedCapsSettings: TFrame},
   JCFHelp in '..\Utils\JCFHelp.pas',
-  FileWriter in '..\ReadWrite\FileWriter.pas',
   FileConverter in '..\ReadWrite\FileConverter.pas',
-  FileReader in '..\ReadWrite\FileReader.pas',
   IntList in '..\Utils\IntList.pas',
   FileUtils in '..\Utils\FileUtils.pas',
   SetAlign in '..\Settings\SetAlign.pas',
@@ -180,6 +174,7 @@ contains
   AddBeginEnd in '..\Process\Transform\AddBeginEnd.pas',
   SetTransform in '..\Settings\SetTransform.pas',
   frTransform in '..\Ui\Settings\frTransform.pas' {fTransform: TFrame},
-  AlignField in '..\Process\Align\AlignField.pas';
+  AlignField in '..\Process\Align\AlignField.pas',
+  frClarifyBlocks in '..\Ui\Settings\frClarifyBlocks.pas' {fClarifyBlocks: TFrame};
 
 end.

@@ -89,6 +89,21 @@ begin
 
 end;
 
+procedure TestLabelUntil;
+var
+  i: integer;
+  b: boolean;
+label
+  lbl;
+begin
+  repeat
+
+    if b then
+     goto lbl;
+
+    lbl:
+  until b;
+end;
 
 label Jim;
 begin

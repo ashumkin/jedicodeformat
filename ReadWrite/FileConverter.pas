@@ -24,86 +24,127 @@ under the License.
 interface
 
 uses
-  { delphi }Classes,
-  { local }Converter, CodeReader, CodeWriter, FileReader, FileWriter,
+  { delphi } Classes,
+  { local } Converter, 
   ConvertTypes;
 
-{ AFS 11 Jan 2K
-  file-specific stuff extracted from converter
-  to make way for a editor subclass with the same base class }
+{ AFS 7 July 04
+  rewrote this as a wrapper for the string->string converter
+  So basically it deals with file issues
+  and delegates the convertion to the wrapped TConverter
+}
 
 
 type
 
-  TFileConverter = class(TConverter)
+  TFileConverter = class(TObject)
   private
-    fsInput: string;
+    { the string-> string converter }
+    fcConverter: TConverter;
+
+    { state }
+    fOnStatusMessage: TStatusMessageProc;
     peBackupMode: TBackupMode;
     peSourceMode: TSourceMode;
 
+    { properties }
+    fsInput: string;
     fsOriginalFileName: string;
     fsOutFileName: string;
+    fbYesAll: boolean;
+    fbGuiMessages: Boolean;
+    fbAbort: boolean;
+    fiConvertCount: integer;
+
+    procedure SendStatusMessage(const psUnit, psMessage: string;
+      const piY, piX: integer);
 
     procedure GetFileNames(const psDir: string; psFiles: TStrings);
     procedure GetDirNames(const psDir: string; psFiles: TStrings);
 
-    function FileReader: TFileReader;
-    function FileWriter: TFileWriter;
+    function GetOnStatusMessage: TStatusMessageProc;
+    procedure SetOnStatusMessage(const Value: TStatusMessageProc);
+    procedure FinalSummary;
 
   protected
-    function OriginalFileName: string; override;
-
-    function CreateReader: TCodeReader; override;
-    function CreateWriter: TCodeWriter; override;
+    function OriginalFileName: string;
 
     procedure ProcessDirectory(const psDir: string);
 
   public
-    procedure ProcessFile(const psInput: string);
+    constructor Create;
+    destructor Destroy; override;
 
-    procedure Convert; override;
+    procedure ProcessFile(const psInputFileName: string);
+
+    procedure Convert;
+    procedure Clear;
+
+    function ConvertError: Boolean;
+    function TokenCount: integer;
+
+    procedure ConvertFile(const psInputFileName, psOutputFileName: string);
+
 
     property BackupMode: TBackupMode Read peBackupMode Write peBackupMode;
     property SourceMode: TSourceMode Read peSourceMode Write peSourceMode;
     property Input: string Read fsInput Write fsInput;
 
+    property YesAll: boolean read fbYesAll write fbYesAll;
+    property GuiMessages: Boolean read fbGuiMessages write fbGuiMessages;
+
+    property Abort: boolean read fbAbort write fbAbort;
+
     // details of the last file converted
     property OutFileName: string Read fsOutFileName;
+
+    property OnStatusMessage: TStatusMessageProc read GetOnStatusMessage write SetOnStatusMessage;
   end;
 
 implementation
 
 uses
   { delphi }Windows, SysUtils, Dialogs, Controls, Forms,
-  { jcl }JclFileUtils,
+  { jcl }JclFileUtils, JclStrings,
   { local }FileUtils, JcfMiscFunctions, JCFLog, JcfRegistrySettings;
 
+constructor TFileConverter.Create;
+begin
+  inherited;
+  fcConverter := TConverter.Create;
+  fcConverter.OnStatusMessage := SendStatusMessage;
+end;
 
+destructor TFileConverter.Destroy;
+begin
+  FreeAndNil(fcConverter);
+  inherited;
+end;
 
-procedure TFileConverter.ProcessFile(const psInput: string);
+procedure TFileConverter.ProcessFile(const psInputFileName: string);
 var
   lsMessage, lsOut, lsTemp: string;
   wRes: word;
 begin
-  if psInput = '' then
+  if psInputFileName = '' then
   begin
     SendStatusMessage('', 'Select a file', -1, -1);
     exit;
   end;
 
-  if not FileExists(psInput) then
+  if not FileExists(psInputFileName) then
   begin
-    SendStatusMessage(psInput, 'The file "' + psInput + '" does not exist', -1, -1);
+    SendStatusMessage(psInputFileName, 'The file "' + psInputFileName + '" does not exist', -1, -1);
     exit;
   end;
 
   if (SourceMode <> fmSingleFile) then
   begin
-    lsTemp := PathExtractFileNameNoExt(psInput);
+    lsTemp := PathExtractFileNameNoExt(psInputFileName);
 
     if GetRegSettings.FileIsExcluded(lsTemp) then
     begin
-      Log.Write('Exluded file: ' + psInput);
+      Log.Write('Exluded file: ' + psInputFileName);
       exit;
     end;
   end;
@@ -113,27 +154,27 @@ begin
     It is only safe when the source is read not written, ie "output to seperate file" backup mode
   }
 
-  if (BackupMode <> cmSeperateOutput) and (FileIsReadOnly(psInput)) then
+  if (BackupMode <> cmSeperateOutput) and (FileIsReadOnly(psInputFileName)) then
   begin
-    Log.WriteError('File: ' + psInput + ' cannot be processed as it is read only');
+    Log.WriteError('File: ' + psInputFileName + ' cannot be processed as it is read only');
     exit;
   end;
 
 
-  lsMessage := 'Formatting file ' + psInput;
+  lsMessage := 'Formatting file ' + psInputFileName;
 
   if GetRegSettings.LogLevel in [eLogFiles, eLogTokens] then
     Log.Write(lsMessage);
-  SendStatusMessage(psInput, lsMessage, -1, -1);
-  fsOriginalFileName := psInput;
+  SendStatusMessage(psInputFileName, lsMessage, -1, -1);
+  fsOriginalFileName := psInputFileName;
 
-  lsOut := GetRegSettings.GetOutputFileName(psInput, peBackupMode);
+  lsOut := GetRegSettings.GetOutputFileName(psInputFileName, peBackupMode);
 
   if BackupMode <> cmInplace then
   begin
     if lsOut = '' then
     begin
-      SendStatusMessage(psInput, 'No output/backup file specifed', -1, -1);
+      SendStatusMessage(psInputFileName, 'No output/backup file specifed', -1, -1);
       exit;
     end;
 
@@ -182,13 +223,11 @@ begin
         raise Exception.Create('TFileConverter.ProcessFile: ' +
           'Failed to delete temp file ' + lsTemp);
 
-    if not RenameFile(psInput, lsTemp) then
+    if not RenameFile(psInputFileName, lsTemp) then
       raise Exception.Create('TFileConverter.ProcessFile: ' +
-        'could not rename source file ' + psInput + ' to ' + lsTemp);
+        'could not rename source file ' + psInputFileName + ' to ' + lsTemp);
 
-    FileReader.Clear;
-    FileReader.SourceFileName := lsTemp;
-    FileWriter.OutputFileName := psInput;
+    //FileWriter.OutputFileName := psInput;
   end
   else if BackupMode = cmInPlaceWithBackup then
   begin
@@ -196,28 +235,24 @@ begin
       write processed code back to the original file }
 
 
-    if not RenameFile(psInput, lsOut) then
+    if not RenameFile(psInputFileName, lsOut) then
       raise Exception.Create('TFileConverter.ProcessFile: ' +
-        'could not rename source file ' + psInput + ' to ' + lsOut);
+        'could not rename source file ' + psInputFileName + ' to ' + lsOut);
 
-    FileReader.Clear;
-    FileReader.SourceFileName := lsOut;
-    FileWriter.OutputFileName := psInput;
   end
   else
   begin
     { simple. Source is source, dest is dest }
 
-    FileReader.Clear;
-    FileReader.SourceFileName := psInput;
-    FileWriter.OutputFileName := lsOut;
     if FileExists(lsOut) then
       raise Exception.Create('TFileConverter.ProcessFile: ' +
         'Destination file ' + lsOut + ' exists already');
   end;
 
   fsOutFileName := lsOut;
-  DoConvertUnit;
+
+  ConvertFile(psInputFileName, lsOut);
+
   Inc(fiConvertCount);
 
   // unit is converted. Did it fail?
@@ -227,7 +262,7 @@ begin
     if ConvertError then
     begin
       // restore the backup
-      CopyFile(pchar(lsOut), pchar(psInput), False);
+      CopyFile(pchar(lsOut), pchar(psInputFileName), False);
     end
 
   end
@@ -236,14 +271,14 @@ begin
     if ConvertError then
     begin
       // restore the backup
-      CopyFile(pchar(lsTemp), pchar(psInput), False);
+      CopyFile(pchar(lsTemp), pchar(psInputFileName), False);
     end
     else
     begin
       // remove the backup
       if not DeleteFile(lsTemp) then
         Log.WriteError('TFileConverter.ProcessFile: ' +
-          'Failed to delete temp file ' + lsTemp + ' for ' + psInput);
+          'Failed to delete temp file ' + lsTemp + ' for ' + psInputFileName);
     end;
 
   end;
@@ -404,30 +439,85 @@ begin
     GetRegSettings.ViewLog;
 end;
 
+procedure TFileConverter.ConvertFile(const psInputFileName, psOutputFileName: string);
+begin
+  fcConverter.InputCode := FileToString(psInputFileName);
+  fcConverter.Convert;
+  StringToFile(psOutputFileName, fcConverter.OutputCode);
+end;
+
 
 function TFileConverter.OriginalFileName: string;
 begin
   Result := fsOriginalFileName;
 end;
 
-function TFileConverter.CreateReader: TCodeReader;
+
+procedure TFileConverter.FinalSummary;
+var
+  lsMessage: string;
 begin
-  Result := TFileReader.Create;
+  if fiConvertCount = 0 then
+  begin
+    if ConvertError then
+      lsMessage := 'Aborted due to error'
+    else
+      lsMessage := 'Nothing done';
+  end
+  else if fbAbort then
+    lsMessage := 'Aborted after ' + DescribeFileCount(fiConvertCount)
+  else if fiConvertCount > 1 then
+    lsMessage := 'Finished processing ' + DescribeFileCount(fiConvertCount)
+  else
+    lsMessage := '';
+
+  if lsMessage <> '' then
+  begin
+    SendStatusMessage('', lsMessage, -1, -1);
+
+    Log.EmptyLine;
+    Log.Write(lsMessage);
+  end;
 end;
 
-function TFileConverter.CreateWriter: TCodeWriter;
+procedure TFileConverter.Clear;
 begin
-  Result := TFileWriter.Create;
+  fcConverter.Clear;
 end;
 
-function TFileConverter.FileReader: TFileReader;
+
+function TFileConverter.ConvertError: Boolean;
 begin
-  Result := fcReader as TFileReader;
+  Result := fcConverter.ConvertError;
 end;
 
-function TFileConverter.FileWriter: TFileWriter;
+
+function TFileConverter.TokenCount: integer;
 begin
-  Result := fcWriter as TFileWriter;
+  Result := fcConverter.TokenCount;
+end;
+
+function TFileConverter.GetOnStatusMessage: TStatusMessageProc;
+begin
+  Result := fOnStatusMessage;
+end;
+
+procedure TFileConverter.SetOnStatusMessage(const Value: TStatusMessageProc);
+begin
+  fOnStatusMessage := Value;
+end;
+
+procedure TFileConverter.SendStatusMessage(const psUnit, psMessage: string;
+  const piY, piX: integer);
+var
+  lsUnit: string;
+begin
+  lsUnit := psUnit;
+  if lsUnit = '' then
+    lsUnit := OriginalFileName;
+
+  if Assigned(fOnStatusMessage) then
+    fOnStatusMessage(lsUnit, psMessage, piY, piX);
 end;
 
 end.

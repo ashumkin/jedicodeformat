@@ -255,7 +255,8 @@ begin
   if iA > 20 then
     if IB > 5 then
       bA := False
-    else if IB > 6 then
+    else
+    if IB > 6 then
       BA := True
     else
       BA := False;

@@ -37,7 +37,7 @@ type
     fcSingleProcess: TTreeNodeVisitorType;
 
   protected
-    procedure ApplyProcesses; override;
+    procedure ApplyProcesses;
 
 
   public

@@ -157,8 +157,9 @@ begin
   MakeEditorConverter;
 
   ClearToolMessages;
+  fcEditorConverter.Clear;
   fcEditorConverter.BeforeConvert;
-  fcEditorConverter.ConvertUnit(lciEditor);
+  fcEditorConverter.Convert(lciEditor);
   fcEditorConverter.AfterConvert;
 end;
 
@@ -225,7 +226,7 @@ begin
     if (lciEditor <> nil) and (lciEditor.EditViewCount > 0) and
       (FileIsAllowedType(lciEditor.FileName)) then
     begin
-      fcEditorConverter.ConvertUnit(lciEditor);
+      fcEditorConverter.Convert(lciEditor);
     end;
   end;
 

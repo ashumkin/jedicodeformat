@@ -67,6 +67,8 @@ const
     ttGreaterThanOrEqual, ttLessThanOrEqual, ttNotEqual];
 
 function NeedsSpaceBefore(const pt: TSourceToken): boolean;
+var                         
+  lcPrev: TSourceToken;
 begin
   Result := False;
 
@@ -127,6 +129,17 @@ begin
     exit;
   end;
 
+  { comment just after uses clause }
+  if (pt.TokenType = ttComment) then
+  begin
+    lcPrev := pt.PriorSolidToken;
+    if (lcPrev <> nil) and (lcPrev.TokenType = ttUses) then
+    begin
+      Result := True;
+      exit;
+    end;
+  end;
+
   { 'absolute' as a var directive }
   if (pt.TokenType = ttAbsolute) and pt.HasParentNode(nAbsoluteVar) then
   begin
@@ -159,7 +172,7 @@ begin
   end;
 
 
-  { program uses form link comment }
+  { program uses clauses has a form link comment }
   if InFilesUses(pt) then
   begin
     if ((pt.TokenType = ttComment) and (pt.CommentStyle in CURLY_COMMENTS)) and

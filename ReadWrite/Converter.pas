@@ -4,8 +4,8 @@
 
 The Original Code is Converter.pas, released April 2000.
 The Initial Developer of the Original Code is Anthony Steele. 
-Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
-All Rights Reserved. 
+Portions created by Anthony Steele are Copyright (C) 1999-2004 Anthony Steele.
+All Rights Reserved.
 Contributor(s): Anthony Steele.
 
 The contents of this file are subject to the Mozilla Public License Version 1.1
@@ -21,82 +21,77 @@ under the License.
 
 unit Converter;
 
-{ AFS 28 Nov 1999
-  I don't want the controlling logic to be in a form
-  so this class has it
-
-  AFS 11 Jan 2K now a base class - file converter & editor converter are the
-  real subclasses for reading from disk and IDE respectively
+{
+  5 July 2004
+  Rewrote as a simpler sting->string converter.
+  For file or ide, there will be wrapper classes not subclasses.
+  Wrappers will also support the interface IConvert
 }
 
 interface
 
 uses
-  { delphi }SysUtils,
-  { local }ConvertTypes, ParseTreeNode,
-  CodeReader, CodeWriter, BuildTokenList,
-  BuildParseTree, JCFLog;
+  { delphi } SysUtils,
+  { local } ConvertTypes, ParseTreeNode,
+  BuildTokenList,
+  BuildParseTree, JCFLog, BaseVisitor;
 
 type
+
   TConverter = class(TObject)
   private
+    { the strings for the in and out code }
+    fsInputCode, fsOutputCode: string;
+
+    { classes to lex and parse the source }
     fcTokeniser: TBuildTokenList;
     fcBuildParseTree: TBuildParseTree;
 
-    fbYesAll, fbGuiMessages: boolean;
-    fiTokenCount: integer;
+    { used for testing - just run 1 process }
+    fcSingleProcess: TTreeNodeVisitorType;
 
+    { state }
+    fiTokenCount: integer;
     fbConvertError: boolean;
     fOnStatusMessage: TStatusMessageProc;
 
-  protected
-    fbAbort: boolean;
-    fiConvertCount: integer;
+    function GetOnStatusMessage: TStatusMessageProc;
+    procedure SetOnStatusMessage(const Value: TStatusMessageProc);
 
-    // these are base class refs. this class's child will know what to insantiate
-    fcReader: TCodeReader;
-    fcWriter: TCodeWriter;
-
-    { call this to display a parse error or other falure }
-    procedure DoShowException(const pe: Exception);
+    procedure SendExceptionMessage(const pe: Exception);
 
     { call this to report the current state of the proceedings }
-    procedure SendStatusMessage(const psFile, psMessage: string;
-      const piY, piX: integer); virtual;
-    { last thing }
-    procedure FinalSummary;
+    procedure SendStatusMessage(const psUnit, psMessage: string;
+      const piY, piX: integer);
 
-    procedure DoConvertUnit;
     function GetRoot: TParseTreeNode;
 
-    function OriginalFileName: string; virtual;
-
-    { abstract factories called in the constructor. override these }
-    function CreateReader: TCodeReader; virtual;
-    function CreateWriter: TCodeWriter; virtual;
-
     { this does the reformatting. Virtual method so can be overriden for testing }
-    procedure ApplyProcesses; virtual;
+    procedure ApplyProcesses;
+    procedure ApplySingleProcess;
 
   public
     constructor Create;
     destructor Destroy; override;
 
-    procedure Convert; virtual;
-    procedure Clear; virtual;
+    procedure Convert;
+    procedure ConvertPart(const piStartIndex, piEndIndex: integer);
 
-    procedure BeforeConvert;
+    procedure ShowParseTree;
+    procedure Clear;
 
-    property OnStatusMessage: TStatusMessageProc
-      Read fOnStatusMessage Write fOnStatusMessage;
+    procedure CollectOutput(const pcRoot: TParseTreeNode);
 
-    property YesAll: boolean Read fbYesAll Write fbYesAll;
-    property GuiMessages: boolean Read fbGuiMessages Write fbGuiMessages;
+    property InputCode: string read fsInputCode write fsInputCode;
+    property OutputCode: string read fsOutputCode write fsOutputCode;
 
     property TokenCount: integer Read fiTokenCount;
     property ConvertError: boolean Read fbConvertError;
 
     property Root: TParseTreeNode Read GetRoot;
+
+    property OnStatusMessage: TStatusMessageProc read GetOnStatusMessage write SetOnStatusMessage;
+    property SingleProcess: TTreeNodeVisitorType Read fcSingleProcess Write fcSingleProcess;
   end;
 
 implementation
@@ -104,180 +99,52 @@ implementation
 uses
   { delphi }
   Controls, Forms,
+  { JCL }
+  JclStrings,
   { local }
-  SourceTokenList, fShowParseTree, JcfSettings, JcfRegistrySettings,
-  AllProcesses, ParseError, fJcfErrorDisplay, PreProcessorParseTree;
+  SourceTokenList, SourceToken,
+  fShowParseTree, JcfSettings, JcfRegistrySettings,
+  AllProcesses, ParseError, fJcfErrorDisplay, PreProcessorParseTree,
+  TreeWalker, VisitSetXY, VisitSetNesting;
+
+function StrInsert(const psSub, psMain: string; const piPos: integer): string;
+begin
+  Result := StrLeft(psMain, piPos - 1) + psSub + StrRestOf(psMain, piPos);
+end;
 
 
 constructor TConverter.Create;
 begin
   inherited;
 
-  { state }
-  fbGuiMessages := True;
-  fbYesAll      := False;
-
-  { create owned objects }
-  fcReader := CreateReader;
-  Assert(fcReader <> nil);
-
-  fcWriter := CreateWriter;
-  Assert(fcWriter <> nil);
-
+  { owned objects }
   fcTokeniser := TBuildTokenList.Create;
-
   fcBuildParseTree := TBuildParseTree.Create;
-
-  { wire them together }
-  fcTokeniser.Reader := fcReader;
+  fcSingleProcess := nil;
 end;
 
 destructor TConverter.Destroy;
 begin
-  FreeAndNil(fcReader);
-  FreeAndNil(fcWriter);
   FreeAndNil(fcTokeniser);
   FreeAndNil(fcBuildParseTree);
 
   inherited;
 end;
 
-procedure TConverter.Convert;
-begin
-  Assert(False, ClassName + ' Must override TConverter.Convert');
-end;
-
-function TConverter.OriginalFileName: string;
-begin
-  Assert(False, ClassName + ' Must override TConverter.OriginalFileName');
-end;
-
-
-function TConverter.CreateReader: TCodeReader;
-begin
-  Assert(False, ClassName + ' Must override TConverter.CreateReader');
-  Result := nil;
-end;
-
-function TConverter.CreateWriter: TCodeWriter;
-begin
-  Assert(False, ClassName + ' Must override TConverter.CreateWriter');
-  Result := nil;
-end;
-
-procedure TConverter.SendStatusMessage(const psFile, psMessage: string;
-  const piY, piX: integer);
-var
-  lsFile: string;
-begin
-  if Assigned(fOnStatusMessage) then
-  begin
-    lsFile := psFile;
-    if lsFile = '' then
-      // process doesn't know the file name? we do
-      lsFile := OriginalFileName;
-
-    fOnStatusMessage(lsFile, psMessage, piY, piX);
-  end;
-end;
-
-{ for failures, use console output, not showmessage in gui mode }
-procedure TConverter.DoShowException(const pe: Exception);
-var
-  lcParseError: TEParseError;
-  lsText: string;
-begin
-  if fbGuiMessages then
-  begin
-    if (pE is TEParseError) then
-    begin
-      lcParseError := TEParseError(pE);
-      lcParseError.FileName := OriginalFileName;
-    end;
-
-    ShowExceptionDialog(pe);
-  end
-  else
-  begin
-    if (pE is TEParseError) then
-    begin
-      lcParseError := TEParseError(pE);
-
-      lsText := lcParseError.Message + ' near "' + lcParseError.TokenMessage + '"';
-      if OriginalFileName <> '' then
-        lsText := lsText + ' in ' + OriginalFileName;
-
-      SendStatusMessage(OriginalFileName, lsText, lcParseError.YPosition,
-        lcParseError.XPosition);
-    end
-    else
-    begin
-      SendStatusMessage(OriginalFileName, pe.Message, -1, -1);
-    end;
-  end;
-end;
-
-
-(*
-procedure TConverter.SetSettings(const pcValue: TSettings);
-begin
-  fcSettings := pcValue;
-
-  { tell the owned objects about it }
-  fcProcess.Settings   := pcValue;
-  fcTokeniser.Settings := pcValue;
-  fcLog.Settings       := pcValue;
-end;
-*)
-
-function DescribeFileCount(const piCount: integer): string;
-begin
-  if piCount = 1 then
-    Result := '1 file'
-  else
-    Result := IntToStr(piCount) + ' files';
-end;
-
-procedure TConverter.FinalSummary;
-var
-  lsMessage: string;
-begin
-  if fiConvertCount = 0 then
-  begin
-    if ConvertError then
-      lsMessage := 'Aborted due to error'
-    else
-      lsMessage := 'Nothing done';
-  end
-  else if fbAbort then
-    lsMessage := 'Aborted after ' + DescribeFileCount(fiConvertCount)
-  else if fiConvertCount > 1 then
-    lsMessage := 'Finished processing ' + DescribeFileCount(fiConvertCount);
-
-  SendStatusMessage('', lsMessage, -1, -1);
-
-  Log.EmptyLine;
-  Log.Write(lsMessage);
-end;
 
 procedure TConverter.Clear;
 begin
-  fbYesAll := False;
-
-  fcReader.Clear;
-  fcWriter.Clear;
-
-  fiConvertCount := 0;
+  fsInputCode := '';
+  fsOutputCode := '';
+  fcSingleProcess := nil;
 end;
 
-procedure TConverter.DoConvertUnit;
+procedure TConverter.Convert;
 var
   lcTokenList: TSourceTokenList;
   leOldCursor: TCursor;
 begin
   fbConvertError := False;
-
-  fcWriter.Clear;
 
   leOldCursor := Screen.Cursor;
   try { finally normal cursor }
@@ -286,11 +153,12 @@ begin
     Screen.Cursor := crHourGlass;
 
     // turn text into tokens
+    fcTokeniser.Reset;
+    fcTokeniser.SourceCode := InputCode;
     lcTokenList := fcTokeniser.BuildTokenList;
     try   { finally free the list  }
       try { show exceptions }
         fiTokenCount := lcTokenList.Count;
-
         lcTokenList.SetXYPositions;
 
         // remove conditional compilation stuph
@@ -305,7 +173,10 @@ begin
         on E: Exception do
         begin
           fbConvertError := True;
-          DoShowException(E);
+          SendExceptionMessage(E);
+
+          if (GetRegSettings.ShowParseTreeOption = eShowOnError) then
+            ShowParseTree;
         end;
       end;
 
@@ -324,23 +195,22 @@ begin
       lcTokenList.Free;
     end;
 
-    try { show exception }
-        // show the parse tree?
-      if (GetRegSettings.ShowParseTreeOption = eShowAlways) or
-        ((GetRegSettings.ShowParseTreeOption = eShowOnError) and fbConvertError) then
-      begin
-        if fcBuildParseTree.Root <> nil then
-          ShowParseTree(fcBuildParseTree.Root);
-      end;
+    try 
 
       if not fbConvertError then
       begin
-        // do the processes
-        ApplyProcesses;
+        if (GetRegSettings.ShowParseTreeOption = eShowAlways) then
+          ShowParseTree;
 
-        fcWriter.Root := fcBuildParseTree.Root;
-        fcWriter.WriteAll;
-        fcWriter.Close;
+        // do the processes
+        if Assigned(fcSingleProcess) then
+          ApplySingleProcess
+        else
+          ApplyProcesses;
+
+        // assemble the output string
+        fsOutputCode := '';
+        CollectOutput(fcBuildParseTree.Root);
       end;
 
       fcBuildParseTree.Clear;
@@ -348,8 +218,8 @@ begin
     except
       on E: Exception do
       begin
-        DoShowException(E);
         fbConvertError := True;
+        SendExceptionMessage(E);
       end;
     end;
 
@@ -359,7 +229,7 @@ begin
 
 end;
 
-
+{ this is what alters the code (in parse tree form) from source to output }
 procedure TConverter.ApplyProcesses;
 var
   lcProcess: TAllProcesses;
@@ -367,28 +237,170 @@ begin
   lcProcess := TAllProcesses.Create;
   try
     lcProcess.OnMessage := SendStatusMessage;
-
-    try
-      lcProcess.Execute(fcBuildParseTree.Root);
-    except
-      ShowParseTree(fcBuildParseTree.Root);
-      raise;
-    end;
+    
+    lcProcess.Execute(fcBuildParseTree.Root);
   finally
     lcProcess.Free;
   end;
-
 end;
+
+procedure TConverter.ApplySingleProcess;
+var
+  lcProcess: TBaseTreeNodeVisitor;
+  lcTreeWalker: TTreeWalker;
+begin
+  lcTreeWalker := TTreeWalker.Create;
+  try
+
+    // apply a visit setXY first
+    lcProcess := TVisitSetXY.Create;
+    try
+      lcTreeWalker.Visit(GetRoot, lcProcess);
+    finally
+      lcProcess.Free;
+    end;
+
+    // and set up nesting levels
+    lcProcess := TVisitSetNestings.Create;
+    try
+      lcTreeWalker.Visit(GetRoot, lcProcess);
+    finally
+      lcProcess.Free;
+    end;
+
+    // then apply the process
+    lcProcess := SingleProcess.Create;
+    try
+      lcTreeWalker.Visit(GetRoot, lcProcess);
+    finally
+      lcProcess.Free;
+    end;
+
+  finally
+    lcTreeWalker.Free;
+  end;
+end;
+
 
 function TConverter.GetRoot: TParseTreeNode;
 begin
   Result := fcBuildParseTree.Root;
 end;
 
-procedure TConverter.BeforeConvert;
+procedure TConverter.CollectOutput(const pcRoot: TParseTreeNode);
+var
+  liLoop: integer;
 begin
-  fiConvertCount := 0;
+  Assert(pcRoot <> nil);
+
+  // is it a leaf with source?
+  if (pcRoot is TSourceToken) then
+  begin
+    fsOutputCode := fsOutputCode + TSourceToken(pcRoot).SourceCode;
+  end
+  else
+  begin
+    // recurse, write out all child nodes
+    for liLoop := 0 to pcRoot.ChildNodeCount - 1 do
+    begin
+      CollectOutput(pcRoot.ChildNodes[liLoop])
+    end;
+  end;
 end;
 
+function TConverter.GetOnStatusMessage: TStatusMessageProc;
+begin
+  Result := fOnStatusMessage;
+end;
+
+procedure TConverter.SetOnStatusMessage(const Value: TStatusMessageProc);
+begin
+  fOnStatusMessage := Value;
+end;
+
+procedure TConverter.SendExceptionMessage(const pe: Exception);
+var
+  lsMessage: string;
+  liX, liY: integer;
+  leParseError: TEParseError;
+begin
+  lsMessage := 'Exception ' + pe.ClassName +
+        '  ' + pe.Message;
+
+  if pe is TEParseError then
+  begin
+    leParseError := TEParseError(pe);
+    lsMessage := lsMessage + AnsiLineBreak + 'Near ' + leParseError.TokenMessage;
+    liX := leParseError.XPosition;
+    liY := leParseError.YPosition;
+  end
+  else
+  begin
+    liX := -1;
+    liY := -1;
+  end;
+
+  SendStatusMessage('', lsMessage, liX, liY);
+end;
+
+procedure TConverter.SendStatusMessage(const psUnit, psMessage: string;
+  const piY, piX: integer);
+begin
+  if Assigned(fOnStatusMessage) then
+    fOnStatusMessage(psUnit, psMessage, piY, piX);
+end;
+
+procedure TConverter.ShowParseTree;
+begin
+  if fcBuildParseTree.Root <> nil then
+    fShowParseTree.ShowParseTree(fcBuildParseTree.Root);
+end;
+
+procedure TConverter.ConvertPart(const piStartIndex, piEndIndex: integer);
+const
+  FORMAT_START = '{<JCF_!*$>}';
+  FORMAT_END = '{</JCF_!*$>}';
+var
+  liRealInputStart, liRealInputEnd: integer;
+  liOutputStart, liOutputEnd: integer;
+  lsNewOutput: string;
+begin
+  Assert(piStartIndex >= 0);
+  Assert(piEndIndex >= piStartIndex);
+  Assert(piEndIndex <= Length(InputCode));
+
+  { round to nearest end of line }
+  liRealInputStart := piStartIndex;
+  liRealInputEnd := piEndIndex;
+
+  { get to the start of the line }
+  while (liRealInputStart > 1) and (not CharIsReturn(InputCode[liRealInputStart -1 ])) do
+    dec(liRealInputStart);
+
+  { get to the start of the next line }
+  while (liRealInputEnd < Length(InputCode)) and (not CharIsReturn(InputCode[liRealInputEnd])) do
+    inc(liRealInputEnd);
+  while (liRealInputEnd < Length(InputCode)) and (CharIsReturn(InputCode[liRealInputEnd])) do
+    inc(liRealInputEnd);
+
+  { put markers into the input }
+  fsInputCode := StrInsert(FORMAT_END, fsInputCode, liRealInputEnd);
+  fsInputCode := StrInsert(FORMAT_START, fsInputCode, liRealInputStart);
+
+  Convert;
+
+  { locate the markers in the output,
+    and replace before and after }
+  liOutputStart := Pos(FORMAT_START, fsOutputCode) + Length(FORMAT_START);
+  liOutputEnd := Pos(FORMAT_END, fsOutputCode);
+
+
+  { splice }
+  lsNewOutput := StrLeft(fsInputCode, liRealInputStart - 1);
+  lsNewOutput := lsNewOutput + Copy(fsOutputCode, liOutputStart, (liOutputEnd - liOutputStart));
+  lsNewOutput := lsNewOutput + StrRestOf(fsInputCode, liRealInputEnd + Length(FORMAT_START) + Length(FORMAT_END));
+
+  fsOutputCode := lsNewOutput;
+end;
 
 end.

@@ -33,12 +33,8 @@ uses
   SourceTokenList in '..\..\Parse\SourceTokenList.pas',
   fShowParseTree in '..\..\Parse\UI\fShowParseTree.pas' {frmShowParseTree},
   Converter in '..\..\ReadWrite\Converter.pas',
-  FileWriter in '..\..\ReadWrite\FileWriter.pas',
-  CodeReader in '..\..\ReadWrite\CodeReader.pas',
-  CodeWriter in '..\..\ReadWrite\CodeWriter.pas',
   ConvertTypes in '..\..\ReadWrite\ConvertTypes.pas',
   FileConverter in '..\..\ReadWrite\FileConverter.pas',
-  FileReader in '..\..\ReadWrite\FileReader.pas',
   JcfMiscFunctions in '..\..\Utils\JcfMiscFunctions.pas',
   FileUtils in '..\..\Utils\FileUtils.pas',
   JCFLog in '..\..\Utils\JcfLog.pas',
@@ -79,9 +75,7 @@ uses
   WarnAssignToFunctionName in '..\..\Process\Warnings\WarnAssignToFunctionName.pas',
   TokenUtils in '..\..\Parse\TokenUtils.pas',
   TestWarnings in 'TestWarnings.pas',
-  StringsWriter in '..\..\ReadWrite\StringsWriter.pas',
   StringsConverter in '..\..\ReadWrite\StringsConverter.pas',
-  StringsReader in '..\..\ReadWrite\StringsReader.pas',
   TabToSpace in '..\..\Process\Spacing\TabToSpace.pas',
   SpaceToTab in '..\..\Process\Spacing\SpaceToTab.pas',
   Nesting in '..\..\Process\Nesting.pas',
@@ -123,7 +117,6 @@ uses
   AlignConst in '..\..\Process\Align\AlignConst.pas',
   AlignAssign in '..\..\Process\Align\AlignAssign.pas',
   AlignVars in '..\..\Process\Align\AlignVars.pas',
-  TestConverter in 'TestConverter.pas',
   AlignTypedef in '..\..\Process\Align\AlignTypedef.pas',
   AlignComment in '..\..\Process\Align\AlignComment.pas',
   JcfRegistrySettings in '..\..\Settings\JcfRegistrySettings.pas',
@@ -164,7 +157,8 @@ uses
   AddBlockEndSemicolon in '..\..\Process\Transform\AddBlockEndSemicolon.pas',
   SetTransform in '..\..\Settings\SetTransform.pas',
   TestAddBeginEnd in 'TestAddBeginEnd.pas',
-  AlignField in '..\..\Process\Align\AlignField.pas';
+  AlignField in '..\..\Process\Align\AlignField.pas',
+  TestFormatPart in 'TestFormatPart.pas';
 
 {$R *.res}
 

@@ -28,10 +28,6 @@ uses
   FileCtrl,
   JclStrings,
   Converter in '..\ReadWrite\Converter.pas',
-  CodeReader in '..\ReadWrite\CodeReader.pas',
-  CodeWriter in '..\ReadWrite\CodeWriter.pas',
-  StringsReader in '..\ReadWrite\StringsReader.pas',
-  StringsWriter in '..\ReadWrite\StringsWriter.pas',
   FileConverter in '..\ReadWrite\FileConverter.pas',
   ConvertTypes in '..\ReadWrite\ConvertTypes.pas',
   BuildParseTree in '..\Parse\BuildParseTree.pas',
@@ -114,8 +110,6 @@ uses
   AlignVars in '..\Process\Align\AlignVars.pas',
   AlignTypedef in '..\Process\Align\AlignTypedef.pas',
   AlignComment in '..\Process\Align\AlignComment.pas',
-  FileWriter in '..\ReadWrite\FileWriter.pas',
-  FileReader in '..\ReadWrite\FileReader.pas',
   Tokens in '..\Parse\Tokens.pas',
   SetWordList in '..\Settings\SetWordList.pas',
   PreProcessorExpressionTokens in '..\Parse\PreProcessor\PreProcessorExpressionTokens.pas',
@@ -372,9 +366,20 @@ var
 
   procedure TStatusMsgReceiver.OnReceiveStatusMessage(const psFile, psMessage: string;
   const piX, piY: integer);
+  var
+    lsMessage: string;
   begin
-    WriteLn(psFile + ' :' + psMessage +
-      ' at line ' + IntToStr(piY) + ' pos ' + IntToStr(piX));
+    if Pos(psFile, psMessage) = 0 then
+      lsMessage := psFile + ': ' + psMessage
+    else
+      lsMessage := psMessage;
+
+    if (piY >= 0) then
+      lsMessage := lsMessage + ' at line ' + IntToStr(piY);
+    if (piX >= 0) then
+      lsMessage := lsMessage + ' pos ' + IntToStr(piX);
+
+    WriteLn(lsMessage);
   end;
 
 { main program starts here }

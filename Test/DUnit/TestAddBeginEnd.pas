@@ -38,6 +38,14 @@ type
 
     procedure TestAddToifForStatement;
     procedure TestRemoveFromIfForStatement;
+
+    procedure TestNestedIf1;
+    procedure TestNestedIf1_2;
+    procedure TestNestedIf1_3;
+
+    procedure TestNestedIf2;
+    procedure TestNestedIf3;
+    procedure TestNestedIf4;
   end;
 
 implementation
@@ -185,6 +193,49 @@ const
     '      begin ShowMessage(''big'') end; end;' +
     UNIT_FOOTER;
 
+  { in this case removing the begin..end is wrong
+    because it causes the else to attach to the inner if
+    Thus changing the program meaning }
+  NESTED_IF_TEXT_WITH_BEGIN1 =
+    UNIT_HEADER +
+    '  if i > 3 then' + AnsiLineBreak +
+    '  begin' + AnsiLineBreak +
+    '    if i > 5 then' + AnsiLineBreak +
+    '      ShowMessage(''bigger'')' + AnsiLineBreak +
+    '  end' + AnsiLineBreak +
+    '  else' + AnsiLineBreak +
+    '    ShowMessage(''big'');' +
+    UNIT_FOOTER;
+
+    NESTED_IF_WITH_ALL_BEGINS_1 =
+      UNIT_HEADER +
+    '  if i > 3 then' + AnsiLineBreak +
+    '  begin begin'+ AnsiLineBreak +
+    '    if i > 5 then' + AnsiLineBreak +
+    '      begin ShowMessage(''bigger'') end' + AnsiLineBreak +
+    '  end end' + AnsiLineBreak +
+    '  else' + AnsiLineBreak +
+    '    begin ShowMessage(''big'') end;' + 
+    UNIT_FOOTER;
+
+  NESTED_IF_TEXT_WITH_BEGIN2 =
+    UNIT_HEADER +
+    '  if i > 3 then' + AnsiLineBreak +
+    '    begin if i > 5 then' + AnsiLineBreak +
+    '     begin ShowMessage(''bigger'') end' + AnsiLineBreak +
+    '    else' + AnsiLineBreak +
+    '     begin ShowMessage(''big'') end end;' +
+    UNIT_FOOTER;
+
+  NESTED_IF_TEXT_NO_BEGIN2 =
+    UNIT_HEADER +
+    '  if i > 3 then' + AnsiLineBreak +
+    '    if i > 5 then' + AnsiLineBreak +
+    '     ShowMessage(''bigger'')' + AnsiLineBreak +
+    '    else' + AnsiLineBreak +
+    '     ShowMessage(''big'');' +
+    UNIT_FOOTER;
+
 
 procedure TTestAddBeginEnd.TestRemoveFromIfStatement;
 begin
@@ -316,6 +367,77 @@ begin
   TestProcessResult(TAddBeginEnd, IF_FOR_STATEMENT_TEXT_WITH_BEGIN,
     IF_FOR_STATEMENT_TEXT_NO_BEGIN);
 end;
+
+
+{ it's not alays safe to add or remove begin..end from nested if statements
+e.g.
+
+if a > 1 then
+begin
+  if a > 2 then
+    Foo
+end
+else
+  Bar;
+
+
+  is not the same as
+
+if a > 1 then
+  if a > 2 then
+    Foo
+else
+  Bar;
+
+}
+procedure TTestAddBeginEnd.TestNestedIf1;
+begin
+  FormatSettings.Transform.BeginEndStyle := eNever;
+
+  TestProcessResult(TAddBeginEnd, NESTED_IF_TEXT_WITH_BEGIN1,
+    NESTED_IF_TEXT_WITH_BEGIN1);
+end;
+
+
+procedure TTestAddBeginEnd.TestNestedIf1_2;
+begin
+  FormatSettings.Transform.BeginEndStyle := eAlways;
+
+  TestProcessResult(TAddBeginEnd, NESTED_IF_TEXT_WITH_BEGIN1,
+    NESTED_IF_WITH_ALL_BEGINS_1);
+end;
+
+
+procedure TTestAddBeginEnd.TestNestedIf1_3;
+begin
+  FormatSettings.Transform.BeginEndStyle := eNever;
+
+  TestProcessResult(TAddBeginEnd, NESTED_IF_WITH_ALL_BEGINS_1,
+    NESTED_IF_TEXT_WITH_BEGIN1);
+end;
+
+procedure TTestAddBeginEnd.TestNestedIf2;
+begin
+  FormatSettings.Transform.BeginEndStyle := eAlways;
+  TestProcessResult(TAddBeginEnd, NESTED_IF_TEXT_NO_BEGIN2,
+    NESTED_IF_TEXT_WITH_BEGIN2);
+end;
+
+procedure TTestAddBeginEnd.TestNestedIf3;
+begin
+  FormatSettings.Transform.BeginEndStyle := eNever;
+
+  TestProcessResult(TAddBeginEnd, NESTED_IF_TEXT_WITH_BEGIN2,
+    NESTED_IF_TEXT_NO_BEGIN2);
+end;
+
+procedure TTestAddBeginEnd.TestNestedIf4;
+begin
+  FormatSettings.Transform.BeginEndStyle := eAlways;
+
+  TestProcessResult(TAddBeginEnd, NESTED_IF_TEXT_NO_BEGIN2, NESTED_IF_TEXT_WITH_BEGIN2);
+end;
+
 
 initialization
   TestFramework.RegisterTest('Processes', TTestAddBeginEnd.Suite);

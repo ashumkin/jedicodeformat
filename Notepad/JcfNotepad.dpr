@@ -25,11 +25,6 @@ uses
   Forms,
   frmJcfNotepad in 'frmJcfNotepad.pas' {fmJCFNotepad},
   Converter in '..\ReadWrite\Converter.pas',
-  CodeReader in '..\ReadWrite\CodeReader.pas',
-  CodeWriter in '..\ReadWrite\CodeWriter.pas',
-  StringsReader in '..\ReadWrite\StringsReader.pas',
-  StringsWriter in '..\ReadWrite\StringsWriter.pas',
-  StringsConverter in '..\ReadWrite\StringsConverter.pas',
   ConvertTypes in '..\ReadWrite\ConvertTypes.pas',
   BuildParseTree in '..\Parse\BuildParseTree.pas',
   BuildTokenList in '..\Parse\BuildTokenList.pas',
@@ -162,7 +157,8 @@ uses
   SetTransform in '..\Settings\SetTransform.pas',
   frTransform in '..\Ui\Settings\frTransform.pas' {fTransform: TFrame},
   AlignField in '..\Process\Align\AlignField.pas',
-  frClarifyBlocks in '..\Ui\Settings\frClarifyBlocks.pas' {fClarifyBlocks: TFrame};
+  frClarifyBlocks in '..\Ui\Settings\frClarifyBlocks.pas' {fClarifyBlocks: TFrame},
+  SortUses in '..\Process\Transform\SortUses.pas';
 
 {$R *.res}
 
