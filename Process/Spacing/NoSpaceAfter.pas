@@ -89,7 +89,7 @@ begin
 
     also applies to type TFoo = interface(IDispatch) }
   if (pt.HasParentNode(nRestrictedType)) and (pt.Word in ObjectTypeWords)
-    and (not (Settings.Spaces.SpaceBeforeClassHeritage)) then
+    and (not (FormatSettings.Spaces.SpaceBeforeClassHeritage)) then
   begin
     if (ptNext.TokenType in [ttOpenBracket, ttSemiColon]) then
     begin

@@ -122,7 +122,7 @@ end;
 function TAlignVars.IsTokenInContext(const pt: TSourceToken): boolean;
 begin
   Result := (pt.HasParentNode(nVarSection)) and (RoundBracketLevel(pt) < 1) and
-    ((not Settings.Align.InterfaceOnly) or (pt.HasParentNode(nInterfaceSection)));
+    ((not FormatSettings.Align.InterfaceOnly) or (pt.HasParentNode(nInterfaceSection)));
 end;
 
 function TAlignVars.TokenIsAligned(const pt: TSourceToken): boolean;
@@ -141,7 +141,7 @@ end;
 
 function TAlignVars.IsIncludedInSettings: boolean;
 begin
-  Result := (not Settings.Obfuscate.Enabled) and Settings.Align.AlignVar;
+  Result := (not FormatSettings.Obfuscate.Enabled) and FormatSettings.Align.AlignVar;
 end;
 
 

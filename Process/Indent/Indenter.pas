@@ -284,7 +284,7 @@ begin
 
   Assert(liIndentCount >= 0);
 
-  Result := Settings.Indent.SpacesForIndentLevel(liIndentCount);
+  Result := FormatSettings.Indent.SpacesForIndentLevel(liIndentCount);
 end;
 
 constructor TIndenter.Create;

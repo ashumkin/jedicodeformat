@@ -170,7 +170,7 @@ begin
   { single space before class heritage ?
     see NoSpaceAfter }
   if (pt.HasParentNode(nRestrictedType)) and (pt.Word in ObjectTypeWords) and
-    (Settings.Spaces.SpaceBeforeClassHeritage) then
+    (FormatSettings.Spaces.SpaceBeforeClassHeritage) then
   begin
     if (ptNext.TokenType in [ttOpenBracket, ttSemiColon]) then
     begin

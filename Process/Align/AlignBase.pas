@@ -150,7 +150,7 @@ begin
   if (lcCurrent = nil) or (lcCurrent.TokenType = ttEOF) then
     exit;
 
-  with Settings do
+  with FormatSettings do
   begin
     liSettingsMin := Align.MinColumn;
     liSettingsMax := Align.MaxColumn;

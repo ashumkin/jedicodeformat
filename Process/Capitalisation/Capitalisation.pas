@@ -59,20 +59,20 @@ begin
 
   case lcSourceToken.TokenType of
     ttReservedWord:
-      FixCaps(lcSourceToken, Settings.Caps.ReservedWords);
+      FixCaps(lcSourceToken, FormatSettings.Caps.ReservedWords);
     ttReservedWordDirective:
     begin
       { directives can occur in other contexts - they are valid proc & variable names
         so we need to know if this one was parsed as a directive }
       if lcSourceToken.HasParentNode(DirectiveNodes) then
-        FixCaps(lcSourceToken, Settings.Caps.Directives);
+        FixCaps(lcSourceToken, FormatSettings.Caps.Directives);
     end;
     ttBuiltInConstant:
-      FixCaps(lcSourceToken, Settings.Caps.Constants);
+      FixCaps(lcSourceToken, FormatSettings.Caps.Constants);
     ttOperator:
-      FixCaps(lcSourceToken, Settings.Caps.Operators);
+      FixCaps(lcSourceToken, FormatSettings.Caps.Operators);
     ttBuiltInType:
-      FixCaps(lcSourceToken, Settings.Caps.Types);
+      FixCaps(lcSourceToken, FormatSettings.Caps.Types);
   end;
 end;
 

@@ -62,7 +62,7 @@ end;
 
 function TAlignConst.IsIncludedInSettings: boolean;
 begin
-  Result := (not Settings.Obfuscate.Enabled) and Settings.Align.AlignConst;
+  Result := (not FormatSettings.Obfuscate.Enabled) and FormatSettings.Align.AlignConst;
 end;
 
 { a token that ends an const block }
@@ -84,7 +84,7 @@ end;
 function TAlignConst.IsTokenInContext(const pt: TSourceToken): boolean;
 begin
   Result := (pt <> nil) and (pt.HasParentNode(nConstSection)) and
-    ((not Settings.Align.InterfaceOnly)) or (pt.HasParentNode(nInterfaceSection));
+    ((not FormatSettings.Align.InterfaceOnly)) or (pt.HasParentNode(nInterfaceSection));
 end;
 
 function TAlignConst.TokenIsAligned(const pt: TSourceToken): boolean;

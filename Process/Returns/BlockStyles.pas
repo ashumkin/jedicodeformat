@@ -75,7 +75,7 @@ begin
   if pt.Word = wEnd then
   begin
     if lcNextToken.Word = wElse then
-      Result := Settings.Returns.EndElseStyle;
+      Result := FormatSettings.Returns.EndElseStyle;
   end
   else if pt.TokenType = ttColon then
   begin
@@ -85,15 +85,15 @@ begin
         // always a return here
         Result := eAlways
       else
-        Result := Settings.Returns.CaseLabelStyle;
+        Result := FormatSettings.Returns.CaseLabelStyle;
     end
     else if IsLabelColon(pt) then
     begin
       { otherwise, is there a begin next? }
       if lcNextToken.Word = wBegin then
-        Result := Settings.Returns.LabelBeginStyle
+        Result := FormatSettings.Returns.LabelBeginStyle
       else
-        Result := Settings.Returns.LabelStyle;
+        Result := FormatSettings.Returns.LabelStyle;
     end;
   end
   else if (pt.Word = wElse) and (not pt.HasParentNode(nElseCase, 1)) and (lcNextToken.Word = wIf) then
@@ -127,9 +127,9 @@ begin
   begin
     { otherwise, is there a begin next? }
     if lcNextToken.Word = wBegin then
-      Result := Settings.Returns.BlockBeginStyle    
+      Result := FormatSettings.Returns.BlockBeginStyle
     else
-      Result := Settings.Returns.BlockStyle;
+      Result := FormatSettings.Returns.BlockStyle;
   end;
 end;
 

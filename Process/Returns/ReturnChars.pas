@@ -38,7 +38,7 @@ begin
   if  (lcSourceToken.TokenType <> ttReturn) then
     exit;
 
-  case Settings.Returns.ReturnChars of
+  case FormatSettings.Returns.ReturnChars of
     rcLeaveAsIs:
     begin
      // leave as is

@@ -30,7 +30,7 @@ var
 begin
   Assert(pt.TokenType = ttColon);
 
-  lcSpaces := Settings.Spaces;
+  lcSpaces := FormatSettings.Spaces;
 
   if pt.HasParentNode(nFormalParams) and InRoundBrackets(pt) then
   begin

@@ -61,10 +61,10 @@ begin
   if pt.HasParentNode(nAsm) then
     exit;
 
-  lcSetReturns := Settings.Returns;
+  lcSetReturns := FormatSettings.Returns;
   Assert(lcSetReturns <> nil);
 
-  if Settings.Returns.RemoveBadReturns then
+  if FormatSettings.Returns.RemoveBadReturns then
   begin
 
     if pt.Word in NoReturnWords then

@@ -34,13 +34,13 @@ end;
 
 function TAlignTypedef.IsIncludedInSettings: boolean;
 begin
-  Result := (not Settings.Obfuscate.Enabled) and Settings.Align.AlignTypedef;
+  Result := (not FormatSettings.Obfuscate.Enabled) and FormatSettings.Align.AlignTypedef;
 end;
 
 function TAlignTypedef.IsTokenInContext(const pt: TSourceToken): boolean;
 begin
   Result := pt.HasParentNode(nTypeDecl) and (not pt.HasParentNode(ObjectTypes)) and
-    ((not Settings.Align.InterfaceOnly) or (pt.HasParentNode(nInterfaceSection)));
+    ((not FormatSettings.Align.InterfaceOnly) or (pt.HasParentNode(nInterfaceSection)));
 end;
 
 function TAlignTypedef.TokenEndsAlignment(const pt: TSourceToken): boolean;

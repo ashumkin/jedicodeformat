@@ -102,7 +102,7 @@ begin
   Assert(pcRoot <> nil);
   fcRoot := pcRoot;
 
-  if Settings.Obfuscate.Enabled then
+  if FormatSettings.Obfuscate.Enabled then
   begin
     Obfuscate;
   end

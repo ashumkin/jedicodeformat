@@ -57,7 +57,7 @@ begin
   if PutUpWithCompilerBugs(pt) then
     exit;
 
-  case Settings.Obfuscate.Caps of
+  case FormatSettings.Obfuscate.Caps of
     ctUpper:
       pt.SourceCode := AnsiUpperCase(pt.SourceCode);
     ctLower:

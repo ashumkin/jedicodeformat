@@ -29,7 +29,7 @@ uses
 constructor TSpaceToTab.Create;
 begin
   inherited;
-  fsSpaces := StrRepeat(AnsiSpace, Settings.Spaces.SpacesForTab);
+  fsSpaces := StrRepeat(AnsiSpace, FormatSettings.Spaces.SpacesForTab);
   FormatFlags := FormatFlags + [eAddSpace, eRemoveSpace];
 end;
 

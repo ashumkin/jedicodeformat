@@ -202,7 +202,7 @@ end;
 
 function TBasicStats.IsIncludedInSettings: boolean;
 begin
-  Result := Settings.Log.LogStats;
+  Result := FormatSettings.Log.LogStats;
 end;
 
 end.

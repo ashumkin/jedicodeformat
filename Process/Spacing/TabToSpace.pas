@@ -30,7 +30,7 @@ uses
 constructor TTabToSpace.Create;
 begin
   inherited;
-  fsSpaces := StrRepeat(AnsiSpace, Settings.Spaces.SpacesPerTab);
+  fsSpaces := StrRepeat(AnsiSpace, FormatSettings.Spaces.SpacesPerTab);
   FormatFlags := FormatFlags + [eAddSpace, eRemoveSpace];
 end;
 

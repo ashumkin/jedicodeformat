@@ -99,10 +99,10 @@ begin
   if Excluded(lcSourceToken) then
     exit;
 
-  if Settings.SpecificWordCaps.HasWord(lcSourceToken.SourceCode) then
+  if FormatSettings.SpecificWordCaps.HasWord(lcSourceToken.SourceCode) then
   begin
     // get the fixed version
-    lsChange := Settings.SpecificWordCaps.FixWord(lcSourceToken.SourceCode);
+    lsChange := FormatSettings.SpecificWordCaps.FixWord(lcSourceToken.SourceCode);
 
     // case-sensitive test - see if anything to do.
     if AnsiCompareStr(lcSourceToken.SourceCode, lsChange) <> 0 then

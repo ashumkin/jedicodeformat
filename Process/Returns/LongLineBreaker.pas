@@ -64,7 +64,7 @@ begin
   end;
 
   { middle of the actual line (ie from first token pos to max length) }
-  liEffectiveWidth := Settings.Returns.MaxLineLength - piIndexOfFirstSolidToken;
+  liEffectiveWidth := FormatSettings.Returns.MaxLineLength - piIndexOfFirstSolidToken;
   liMidPoint       := (liEffectiveWidth div 2) + piIndexOfFirstSolidToken;
   liOneThirdPoint  := (liEffectiveWidth div 3) + piIndexOfFirstSolidToken;
 
@@ -79,7 +79,7 @@ begin
 
     Result := NOGO_PLACE + ((PLATEAU - NOGO_PLACE) * liEffectivePos * 3) div liEffectiveWidth;
   end
-  else if piPos < Settings.Returns.MaxLineLength then
+  else if piPos < FormatSettings.Returns.MaxLineLength then
   begin
     { relatively flat plateau, slight bump in the middle }
     liThreeQuarterPoint := (liEffectiveWidth * 3 div 4) + piIndexOfFirstSolidToken;
@@ -92,7 +92,7 @@ begin
   else
   begin
     { past the end}
-    liOverFlow := piPos - Settings.Returns.MaxLineLength;
+    liOverFlow := piPos - FormatSettings.Returns.MaxLineLength;
     Result     := PLATEAU - (liOverFlow * TO_FAR_SCORE_FACTOR);
     if Result < PAST_END then
     begin
@@ -522,7 +522,7 @@ begin
     exit;
 
   { if the line does not run on, exit now }
-  if liTotalWidth < Settings.Returns.MaxLineLength then
+  if liTotalWidth < FormatSettings.Returns.MaxLineLength then
     exit;
 
   { right, the line is too long.
@@ -613,14 +613,14 @@ begin
     exit;
 
   { best breakpointis not good enough? }
-  if Settings.Returns.RebreakLines = rbOnlyIfGood then
+  if FormatSettings.Returns.RebreakLines = rbOnlyIfGood then
   begin
     if fcScores.Items[liPlaceToBreak] < GOOD_BREAK_THRESHHOLD then
       exit;
   end
   else
   begin
-    Assert(Settings.Returns.RebreakLines = rbUsually);
+    Assert(FormatSettings.Returns.RebreakLines = rbUsually);
     if fcScores.Items[liPlaceToBreak] < ANY_BREAK_THRESHHOLD then
       exit;
   end;
