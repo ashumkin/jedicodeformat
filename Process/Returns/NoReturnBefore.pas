@@ -94,7 +94,7 @@ begin
   if InFilesUses(pt) then
   begin
     if (pt.TokenType in [ttComma, ttWord, ttLiteralString]) or
-      ((pt.TokenType = ttComment) and (pt.CommentStyle = eCurly)) then
+      ((pt.TokenType = ttComment) and (pt.CommentStyle in CURLY_COMMENTS)) then
     begin
       Result := True;
       exit;

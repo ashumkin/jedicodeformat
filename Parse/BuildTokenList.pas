@@ -179,18 +179,25 @@ begin
   Result               := True;
 end;
 
+
 function TBuildTokenList.TryCurlyComment(const pcToken: TSourceToken): boolean;
 begin
   Result := False;
   if Reader.Current <> '{' then
     exit;
 
+  { compiler directive are the comments with a $ just after the open-curly
+    this is always the case }
+  if Reader.Current = '$' then
+    pcToken.CommentStyle := eCompilerDirective
+  else
+    pcToken.CommentStyle := eCurly;
+
   { comment is ended by close-curly or by EOF (bad source) }
   while (Reader.Last <> '}') and not (Reader.BufferEndOfFile) do
     Reader.IncBuffer;
 
   pcToken.TokenType    := ttComment;
-  pcToken.CommentStyle := eCurly;
   pcToken.SourceCode   := Reader.ConsumeBuffer;
   Result               := True;
 end;

@@ -372,7 +372,12 @@ function TokenTypesToString(const peTokens: TTokenTypeSet): string;
 { chars used to make the comment }
 { these} (* or these *) // or these
 type
-  TCommentStyle = (eNotAComment, eBracketStar, eCurly, eDoubleSlash);
+  TCommentStyle = (eNotAComment, eDoubleSlash, eBracketStar,
+    eCurly, eCompilerDirective);
+  TCommentStyleSet = set of TCommentStyle;
+
+const
+  CURLY_COMMENTS: TCommentStyleSet = [eCurly, eCompilerDirective];
 
 
 implementation
