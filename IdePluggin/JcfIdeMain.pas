@@ -48,7 +48,7 @@ implementation
 uses
   { delphi } Menus, Dialogs, Controls,
   { jcl } JclStrings,
-  { local } fAllSettings, fAbout, fRegistrySettings,
+  { local } fAllSettings, fAbout, JcfRegistrySettings, fRegistrySettings,
   EditorReader, EditorWriter;
 
 
@@ -236,6 +236,9 @@ procedure TJcfIdeMain.DoFormatSettings(Sender: TObject);
 var
   lfAllSettings: TFormAllSettings;
 begin
+  if not GetRegSettings.HasRead then
+    GetRegSettings.ReadAll;
+
   lfAllSettings := TFormAllSettings.Create(nil);
   try
     lfAllSettings.Execute;
@@ -260,6 +263,9 @@ procedure TJcfIdeMain.DoRegistrySettings(Sender: TObject);
 var
   lcAbout: TfmRegistrySettings;
 begin
+  if not GetRegSettings.HasRead then
+    GetRegSettings.ReadAll;
+
   lcAbout := TfmRegistrySettings.Create(nil);
   try
     lcAbout.Execute;

@@ -15,7 +15,7 @@ K=0
 L=1
 M=0
 N=1
-O=1
+O=0
 P=1
 Q=0
 R=0
@@ -76,9 +76,9 @@ LocaleToUnicode=1
 ImagebaseMultiple=1
 SuspiciousTypecast=1
 PrivatePropAccessor=1
-UnsafeType=1
-UnsafeCode=1
-UnsafeCast=1
+UnsafeType=0
+UnsafeCode=0
+UnsafeCast=0
 [Linker]
 MapFile=0
 OutputObjs=0
@@ -138,10 +138,11 @@ Comments=
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
 [HistoryLists\hlUnitOutputDirectory]
-Count=3
-Item0=C:\Code\JcfCheckout\CodeFormat\Jcf2\Output
-Item1=C:\Code\Delphi\JcfCheckout\CodeFormat\Jcf2\Output
-Item2=C:\Code\Delphi\Jcf2\bin
+Count=4
+Item0=..\Output
+Item1=C:\Code\JcfCheckout\CodeFormat\Jcf2\Output
+Item2=C:\Code\Delphi\JcfCheckout\CodeFormat\Jcf2\Output
+Item3=C:\Code\Delphi\Jcf2\bin
 [HistoryLists\hlOutputDirectorry]
 Count=2
 Item0=C:\Code\JcfCheckout\CodeFormat\Jcf2\Output

@@ -11,7 +11,7 @@ package JcfIde7;
 {$LOCALSYMBOLS ON}
 {$LONGSTRINGS ON}
 {$OPENSTRINGS ON}
-{$OPTIMIZATION ON}
+{$OPTIMIZATION OFF}
 {$OVERFLOWCHECKS OFF}
 {$RANGECHECKS OFF}
 {$REFERENCEINFO ON}
@@ -35,7 +35,13 @@ requires
   DJCL70,
   rtl,
   vclactnband,
-  vcljpg;
+  vcljpg,
+  inet,
+  qrpt,
+  bdertl,
+  dbrtl,
+  vcldb,
+  VclSmp;
 
 contains
   JcfIdeRegister in 'JcfIdeRegister.pas',
@@ -109,6 +115,38 @@ contains
   Warning in '..\Process\Warnings\Warning.pas',
   JCFLog in '..\Utils\JcfLog.pas',
   JCFSettings in '..\Settings\JCFSettings.pas',
-  JcfRegistrySettings in '..\Settings\JcfRegistrySettings.pas';
+  JcfRegistrySettings in '..\Settings\JcfRegistrySettings.pas',
+  fRegistrySettings in '..\Ui\fRegistrySettings.pas' {fmRegistrySettings},
+  frBasicSettings in '..\UI\Settings\frBasicSettings.pas' {frBasic: TFrame},
+  frUses in '..\Ui\Settings\frUses.pas' {fUses: TFrame},
+  frAnyCapsSettings in '..\Ui\Settings\frAnyCapsSettings.pas' {frAnyCapsSettings: TFrame},
+  frClarify in '..\Ui\Settings\frClarify.pas' {fClarify: TFrame},
+  frClarifyAlign in '..\Ui\Settings\frClarifyAlign.pas' {fClarifyAlign: TFrame},
+  frClarifyBlocks in '..\Ui\Settings\frClarifyBlocks.pas' {fClarifyBlocks: TFrame},
+  frClarifyIndent in '..\Ui\Settings\frClarifyIndent.pas' {fClarifyIndent: TFrame},
+  frClarifyLongLineBreaker in '..\Ui\Settings\frClarifyLongLineBreaker.pas' {fClarifyLongLineBreaker: TFrame},
+  frClarifyReturns in '..\Ui\Settings\frClarifyReturns.pas' {fClarifyReturns: TFrame},
+  frClarifySpaces in '..\Ui\Settings\frClarifySpaces.pas' {fClarifySpaces: TFrame},
+  frFiles in '..\Ui\Settings\frFiles.pas' {fFiles: TFrame},
+  frmBaseSettingsFrame in '..\Ui\Settings\frmBaseSettingsFrame.pas' {frSettingsFrame: TFrame},
+  frObfuscateSettings in '..\Ui\Settings\frObfuscateSettings.pas' {fObfuscateSettings: TFrame},
+  frReplace in '..\Ui\Settings\frReplace.pas' {fReplace: TFrame},
+  frReservedCapsSettings in '..\Ui\Settings\frReservedCapsSettings.pas' {frReservedCapsSettings: TFrame},
+  JCFHelp in '..\Utils\JCFHelp.pas',
+  FileWriter in '..\ReadWrite\FileWriter.pas',
+  FileConverter in '..\ReadWrite\FileConverter.pas',
+  FileReader in '..\ReadWrite\FileReader.pas',
+  IntList in '..\Utils\IntList.pas',
+  FileUtils in '..\Utils\FileUtils.pas',
+  SetAlign in '..\Settings\SetAlign.pas',
+  SetAnyWordCaps in '..\Settings\SetAnyWordCaps.pas',
+  SetCaps in '..\Settings\SetCaps.pas',
+  SetClarify in '..\Settings\SetClarify.pas',
+  SetIndent in '..\Settings\SetIndent.pas',
+  SetObfuscate in '..\Settings\SetObfuscate.pas',
+  SetReplace in '..\Settings\SetReplace.pas',
+  SetReturns in '..\Settings\SetReturns.pas',
+  SetSpaces in '..\Settings\SetSpaces.pas',
+  SetUses in '..\Settings\SetUses.pas';
 
 end.

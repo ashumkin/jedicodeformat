@@ -477,6 +477,10 @@ var
   liPlaceToBreak: integer;
   lcBreakToken, lcNewToken: TSourceToken;
 begin
+  { turned off by settings? }
+  if FormatSettings.Returns.RebreakLines = rbOff then
+    exit;
+
   lcSourceToken := TSourceToken(pcNode);
 
   // don't break lines in dpr program uses clause
@@ -612,7 +616,7 @@ begin
   if (liPlaceToBreak >= (fcTokens.Count - 1)) then
     exit;
 
-  { best breakpointis not good enough? }
+  { best breakpoint is not good enough? }
   if FormatSettings.Returns.RebreakLines = rbOnlyIfGood then
   begin
     if fcScores.Items[liPlaceToBreak] < GOOD_BREAK_THRESHHOLD then
@@ -620,7 +624,8 @@ begin
   end
   else
   begin
-    Assert(FormatSettings.Returns.RebreakLines = rbUsually);
+    Assert(FormatSettings.Returns.RebreakLines = rbUsually,
+      'bad rebreak setting of ' + IntToStr(Ord(FormatSettings.Returns.RebreakLines)));
     if fcScores.Items[liPlaceToBreak] < ANY_BREAK_THRESHHOLD then
       exit;
   end;

@@ -24,6 +24,7 @@ type
   TJCFRegistrySettings = class(TObject)
   private
     fcReg: TRegIniFile;
+    fbHasRead: Boolean;
 
     { general settings }
     fShowParseTreeOption: TShowParseTreeOption;
@@ -74,6 +75,8 @@ type
 
     procedure ReadAll;
     procedure WriteAll;
+
+    property HasRead: boolean read fbHasRead;
 
     { general settings }
     property FormatConfigFileName: string read fsFormatConfigFileName write fsFormatConfigFileName;
@@ -311,6 +314,8 @@ begin
 
   ReadStrings(REG_FILES_SECTION, REG_EXCLUSIONS_FILES, fcExclusionsFiles);
   ReadStrings(REG_FILES_SECTION, REG_EXCLUSIONS_DIRS, fcExclusionsDirs);
+
+  fbHasRead := True;
 end;
 
 

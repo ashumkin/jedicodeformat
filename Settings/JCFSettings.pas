@@ -29,7 +29,7 @@ interface
 
 uses
   { delphi } Classes, Registry,
-  { local } SetFile, SetObfuscate, SetClarify,
+  { local } SetObfuscate, SetClarify,
   SetIndent, SetSpaces, SetReturns,
   SetCaps, SetAnyWordCaps,
   SetAlign, SetReplace, SetUses, 
@@ -45,7 +45,6 @@ type
     fcSpaces: TSetSpaces;
     fcIndent: TSetIndent;
 
-    fcFile: TSetFile;
     fcCaps: TSetCaps;
     fcSpecificWordCaps: TSetAnyWordCaps;
     fcAlign: TSetAlign;
@@ -69,8 +68,6 @@ type
     procedure Write;
 
     procedure ToStream(const pcStream: TSettingsOutput);
-
-    property FileSettings: TSetFile read FcFile;
 
     property Obfuscate: TSetObfuscate read fcObfuscate;
     property Clarify: TSetClarify read fcClarify;
@@ -102,7 +99,6 @@ constructor TFormatSettings.Create;
 begin
   inherited;
 
-  fcFile := TSetFile.Create;
   fcObfuscate := TSetObfuscate.Create;
   fcClarify := TSetClarify.Create;
   fcIndent := TSetIndent.Create;
@@ -124,7 +120,6 @@ begin
   if WriteOnExit then
     Write;
 
-  FreeAndNil(fcFile);
   FreeAndNil(fcObfuscate);
   FreeAndNil(fcClarify);
   FreeAndNil(fcIndent);
@@ -213,7 +208,6 @@ begin
   pcStream.Write('Version', PROGRAM_VERSION);
   pcStream.Write('WriteDateTime', Now);
 
-  WriteToStream(fcFile);
   WriteToStream(fcObfuscate);
   WriteToStream(fcClarify);
   WriteToStream(fcIndent);
@@ -261,7 +255,6 @@ begin
   end;
 
   try
-    ReadFromStream(fcFile);
     ReadFromStream(fcObfuscate);
     ReadFromStream(fcClarify);
     ReadFromStream(fcIndent);

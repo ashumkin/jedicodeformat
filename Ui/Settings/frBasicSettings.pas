@@ -141,8 +141,6 @@ begin
 end;
 
 procedure TfrBasic.DisplayOutputFile;
-var
-  bShowOutput: boolean;
 begin
   case GetCurrentBackupMode of
     cmInPlace:
