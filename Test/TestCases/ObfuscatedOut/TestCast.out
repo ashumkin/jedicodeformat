@@ -7,7 +7,7 @@ procedure messwithobjects;
 
 implementation
 
-uses Classes, SysUtils, Dialogs;
+uses Classes, SysUtils, Dialogs, ComCtrls, StdCtrls;
 
 function castnumeric: integer;
 var
@@ -33,8 +33,7 @@ begin
     li    := integer(lp);
     ShowMessage(IntToStr(li));
     lp    := pointer(li);
-    lcobj :=
-      TObject(pointer(li));
+    lcobj := TObject(pointer(li));
     lcstrings := TStringList(TObject(pointer(li)));
   finally
     lcstrings.Free;
@@ -82,6 +81,11 @@ begin
   finally
     lcstrings.Free;
   end;
+end;
+
+procedure updownclick(Sender: TObject; button: tudbtntype);
+begin
+  ((Sender as tupdown).associate as tedit).modified := True;
 end;
 
 end.

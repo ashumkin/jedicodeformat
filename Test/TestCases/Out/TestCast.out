@@ -17,7 +17,7 @@ procedure MessWithObjects;
 
 implementation
 
-uses Classes, SysUtils, Dialogs;
+uses Classes, SysUtils, Dialogs, ComCtrls, StdCtrls;
 
 function CastNumeric: integer;
 var
@@ -101,5 +101,11 @@ begin
     lcStrings.Free;
   end;
 end;
+
+procedure UpDownClick(Sender: TObject; Button: TUDBtnType);
+begin
+  ((Sender as TUpDown).Associate as TEdit).Modified := True;
+end;
+
 
 end.

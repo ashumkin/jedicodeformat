@@ -394,7 +394,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCast;
 begin
-  TestParseFile('TestCast', 600);
+  TestParseFile('TestCast', 654);
 end;
 
 procedure TTestFileParse.TestParse_TestSimpleCast;

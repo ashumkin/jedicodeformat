@@ -1,15 +1,17 @@
 unit testcast;interface function castnumeric:integer;procedure messwithobjects;implementation
-uses classes,sysutils,dialogs;function castnumeric:integer;var dvalue:double;crvalue
-:currency;begin dvalue:=random(100)*pi;crvalue:=currency(dvalue);result:=round(crvalue
-);end;procedure messwithobjects;var lcstrings:tstringlist;lcobj:tobject;lp:pointer
-;li:integer;begin lcstrings:=tstringlist.create;try lcobj:=lcstrings as tobject;lp
-:=pointer(lcobj);li:=integer(lp);showmessage(inttostr(li));lp:=pointer(li);lcobj:=
-tobject(pointer(li));lcstrings:=tstringlist(tobject(pointer(li)));finally lcstrings
-.free;end;end;type tfred=(efee,efi,efo,fum);tjim=(eming,emong,mmung,ecorwhatadonga
-);tnumber=integer;procedure usertypecast;var fred:tfred;jim:tjim;li:integer;lj:tnumber
-;begin li:=random(3);fred:=tfred(li);jim:=tjim(fred);lj:=tnumber(jim);end;procedure
-hardleft;var lcstrings:tstringlist;lcobj:tobject;begin lcstrings:=tstringlist.create
-;try lcobj:=lcstrings;if lcobj is tstrings then (lcobj as tstrings).classname;if 
-lcobj is tstrings then begin (lcobj as tstrings).classname;end;if lcobj is tstrings
-then ((lcobj as tstrings)).classname;if lcobj is tstrings then begin ((lcobj as tstrings
-)).classname;end;finally lcstrings.free;end;end;end. 
+uses classes,sysutils,dialogs,comctrls,stdctrls;function castnumeric:integer;var 
+dvalue:double;crvalue:currency;begin dvalue:=random(100)*pi;crvalue:=currency(dvalue
+);result:=round(crvalue);end;procedure messwithobjects;var lcstrings:tstringlist;
+lcobj:tobject;lp:pointer;li:integer;begin lcstrings:=tstringlist.create;try lcobj
+:=lcstrings as tobject;lp:=pointer(lcobj);li:=integer(lp);showmessage(inttostr(li
+));lp:=pointer(li);lcobj:=tobject(pointer(li));lcstrings:=tstringlist(tobject(pointer
+(li)));finally lcstrings.free;end;end;type tfred=(efee,efi,efo,fum);tjim=(eming,emong
+,mmung,ecorwhatadonga);tnumber=integer;procedure usertypecast;var fred:tfred;jim:
+tjim;li:integer;lj:tnumber;begin li:=random(3);fred:=tfred(li);jim:=tjim(fred);lj
+:=tnumber(jim);end;procedure hardleft;var lcstrings:tstringlist;lcobj:tobject;begin
+lcstrings:=tstringlist.create;try lcobj:=lcstrings;if lcobj is tstrings then (lcobj
+as tstrings).classname;if lcobj is tstrings then begin (lcobj as tstrings).classname
+;end;if lcobj is tstrings then ((lcobj as tstrings)).classname;if lcobj is tstrings
+then begin ((lcobj as tstrings)).classname;end;finally lcstrings.free;end;end;procedure
+updownclick(sender:tobject;button:tudbtntype);begin ((sender as tupdown).associate
+as tedit).modified:=true;end;end. 
