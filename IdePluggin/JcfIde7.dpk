@@ -175,6 +175,7 @@ contains
   SetTransform in '..\Settings\SetTransform.pas',
   frTransform in '..\Ui\Settings\frTransform.pas' {fTransform: TFrame},
   AlignField in '..\Process\Align\AlignField.pas',
-  frClarifyBlocks in '..\Ui\Settings\frClarifyBlocks.pas' {fClarifyBlocks: TFrame};
+  frClarifyBlocks in '..\Ui\Settings\frClarifyBlocks.pas' {fClarifyBlocks: TFrame},
+  SortUses in '..\Process\Transform\SortUses.pas';
 
 end.

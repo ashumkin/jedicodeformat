@@ -158,7 +158,8 @@ uses
   SetTransform in '..\..\Settings\SetTransform.pas',
   TestAddBeginEnd in 'TestAddBeginEnd.pas',
   AlignField in '..\..\Process\Align\AlignField.pas',
-  TestFormatPart in 'TestFormatPart.pas';
+  TestFormatPart in 'TestFormatPart.pas',
+  SortUses in '..\..\Process\Transform\SortUses.pas';
 
 {$R *.res}
 

@@ -157,7 +157,9 @@ uses
   AddBeginEnd in '..\Process\Transform\AddBeginEnd.pas',
   SetTransform in '..\Settings\SetTransform.pas',
   frTransform in '..\Ui\Settings\frTransform.pas' {fTransform: TFrame},
-  AlignField in '..\Process\Align\AlignField.pas';
+  AlignField in '..\Process\Align\AlignField.pas',
+  SortUses in '..\Process\Transform\SortUses.pas',
+  frClarifyBlocks in '..\Ui\Settings\frClarifyBlocks.pas' {fClarifyBlocks: TFrame};
 
 {$R *.res}
 

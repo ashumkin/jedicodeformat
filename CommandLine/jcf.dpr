@@ -135,7 +135,8 @@ uses
   AddBlockEndSemicolon in '..\Process\Transform\AddBlockEndSemicolon.pas',
   AddBeginEnd in '..\Process\Transform\AddBeginEnd.pas',
   SetTransform in '..\Settings\SetTransform.pas',
-  AlignField in '..\Process\Align\AlignField.pas';
+  AlignField in '..\Process\Align\AlignField.pas',
+  SortUses in '..\Process\Transform\SortUses.pas';
 
 const
   ABOUT_COMMANDLINE =
