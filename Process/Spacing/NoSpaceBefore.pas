@@ -61,6 +61,13 @@ begin
   if pt = nil then
     exit;
 
+  if pt.HasParentNode(nLiteralString) then
+  begin
+    Result := not StartsLiteralString(pt);
+    exit;
+  end;
+
+
   // '@@' in asm, e.g. "JE @@initTls" needs the space
   if pt.HasParentNode(nAsm) then
     exit;

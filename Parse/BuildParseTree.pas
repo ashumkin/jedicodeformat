@@ -151,6 +151,7 @@ type
     procedure RecogniseSetElement;
     procedure RecogniseQualId;
     procedure RecogniseConstantExpression;
+    procedure RecogniseLiteralString;
 
     procedure RecogniseSimpleExpression;
     procedure RecogniseSimpleStmnt;
@@ -620,7 +621,7 @@ begin
   if pbInFiles and (fcTokenList.FirstSolidTokenType = ttIn) then
   begin
     Recognise(ttIn);
-    Recognise(ttLiteralString);
+    Recognise(ttQuotedLiteralString);
   end;
 
   PopNode;
@@ -1815,9 +1816,9 @@ begin
   begin
     Recognise(ttNumber);
   end
-  else if (lc.TokenType = ttLiteralString) then
+  else if (lc.TokenType in LiteralStringStarters) then
   begin
-    Recognise(ttLiteralString);
+    RecogniseLiteralString;
   end
   else if (lc.TokenType in BuiltInConstants) then
   begin
@@ -3090,9 +3091,9 @@ begin
   PushNode(nExternalDirective);
 
   Recognise(ttExternal);
-  if fcTokenList.FirstSolidTokenType in (IdentiferTokens + [ttLiteralString]) then
+  if fcTokenList.FirstSolidTokenType in (IdentiferTokens + [ttQuotedLiteralString]) then
   begin
-    Recognise((IdentiferTokens + [ttLiteralString]));
+    Recognise((IdentiferTokens + [ttQuotedLiteralString]));
 
     if fcTokenList.FirstSolidTokenType = ttName then
     begin
@@ -3664,8 +3665,8 @@ begin
   PushNode(nInterfaceTypeGuid);
 
   Recognise(ttOpenSquareBracket);
-  if fcTokenList.FirstSolidTokenType = ttLiteralString then
-    Recognise(ttLiteralString)
+  if fcTokenList.FirstSolidTokenType = ttQuotedLiteralString then
+    Recognise(ttQuotedLiteralString)
   else
     RecogniseIdentifier(False);
 
@@ -4025,7 +4026,7 @@ end;
 procedure TBuildParseTree.RecogniseAsmParam;
 const
   ASM_EXPRESSION_START = [ttOpenBracket, ttOpenSquareBracket, ttNumber,
-    ttNot, ttLiteralString,
+    ttNot, ttQuotedLiteralString,
     ttTrue, ttFalse, ttPlus, ttMinus, ttType, ttOffset];
 var
   lc: TSourceToken;
@@ -4113,8 +4114,8 @@ begin
   case fcTokenList.FirstSolidTokenType of
     ttNumber:
       Recognise(ttNumber);
-    ttLiteralString:
-      Recognise(ttLiteralString);
+    ttQuotedLiteralString:
+      Recognise(ttQuotedLiteralString);
     ttTrue:
       Recognise(ttTrue);
     ttFalse:
@@ -4270,7 +4271,7 @@ begin
       ttName:
       begin
         Recognise(ttName);
-        Recognise(IdentiferTokens + [ttLiteralString]);
+        Recognise(IdentiferTokens + [ttQuotedLiteralString]);
       end;
       ttIndex:
       begin
@@ -4317,7 +4318,7 @@ end;
 
 procedure TBuildParseTree.RecogniseActualParam;
 const
-  EXPR_TYPES = [ttNumber, ttIdentifier, ttLiteralString,
+  EXPR_TYPES = [ttNumber, ttIdentifier, ttQuotedLiteralString,
     ttPlus, ttMinus, ttOpenBracket, ttOpenSquareBracket, ttNot, ttInherited];
 var
   lc: TSourceToken;
@@ -4366,6 +4367,39 @@ begin
       end;
     end;
   end;
+end;
+
+procedure TBuildParseTree.RecogniseLiteralString;
+begin
+  RecogniseNotSolidTokens;  
+
+  PushNode(nLiteralString);
+
+  while fcTokenList.FirstTokenType in LiteralStringStarters do
+  begin
+    case fcTokenList.FirstTokenType of
+      ttQuotedLiteralString:
+      begin
+        Recognise(ttQuotedLiteralString);
+      end;
+      ttHat:
+      begin
+        Recognise(ttHat);
+        // followed by any single char token
+        if fcTokenList.FirstTokenLength = 1 then
+          Recognise(fcTokenList.FirstTokenType)
+        else
+           raise TEParseError.Create('Unexpected token, expected single char after ^', fcTokenList.FirstSolidToken);
+      end;
+      ttHash:
+      begin
+        Recognise(ttHash);
+        Recognise(ttNumber);
+      end;
+    end;
+  end;
+
+  PopNode;
 end;
 
 end.

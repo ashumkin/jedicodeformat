@@ -95,7 +95,7 @@ begin
   // "foo in  Foo.pas, " has return only after the comma
   if InFilesUses(pt) then
   begin
-    if (pt.TokenType in [ttComma, ttWord, ttLiteralString]) or
+    if (pt.TokenType in [ttComma, ttWord, ttQuotedLiteralString]) or
       ((pt.TokenType = ttComment) and (pt.CommentStyle in CURLY_COMMENTS)) then
     begin
       Result := True;

@@ -67,7 +67,7 @@ end;
 
 const
   MiscUnspacedTokens: TTokenTypeSet = [
-    ttLiteralString, ttSemiColon, ttColon, ttComma,
+    ttQuotedLiteralString, ttSemiColon, ttColon, ttComma,
     ttDot, ttDoubleDot, ttAssign, ttReturn];
 
 

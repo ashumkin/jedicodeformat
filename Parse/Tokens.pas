@@ -64,7 +64,7 @@ type
 
 
     ttNumber,        // a numeric constant
-    ttLiteralString, // 'This is a string'
+    ttQuotedLiteralString, // 'This is a string'
     ttSemicolon,     // ;
     ttColon,         // :
     ttComma,
@@ -73,6 +73,7 @@ type
     ttOpenSquareBracket,
     ttCloseSquareBracket,
     ttDot,
+    ttHash,
     ttDoubleDot, // '..' as in '[1 .. 2]'
     ttAssign,    // :=
 
@@ -258,6 +259,8 @@ const
   IdentifierTypes: TWordTypeSet = [wtReservedWordDirective,
     wtBuiltInType, wtBuiltInConstant, wtIdentifier];
 
+  // a literal string must start with ', # or ^
+  LiteralStringStarters: TTokenTypeSet = [ttQuotedLiteralString, ttHat, ttHash];
 
   { all tokens spelled with a-z }
   TextualTokens: TTokenTypeSet   = [ttIdentifier .. ttXor];
@@ -371,7 +374,6 @@ const
 
   BuiltInConstants: TTokenTypeSet = [ttNil, ttTrue, ttFalse];
   BuiltInTypes: TTokenTypeSet     = [ttBoolean .. ttOleVariant];
-
 
 { interpret a string as a token }
 procedure TypeOfToken(const psWord: string; var peWordType: TWordType;
@@ -499,6 +501,7 @@ begin
   AddKeyword(']', wtNotAWord, ttCloseSquareBracket);
   AddKeyword('..', wtNotAWord, ttDoubleDot);
   AddKeyword('.', wtNotAWord, ttDot);
+  AddKeyword('#', wtNotAWord, ttHash);
   AddKeyword(':=', wtNotAWord, ttAssign);
 
   { reserved words }
@@ -864,9 +867,9 @@ begin
       Result  := 'Number';
       lbFound := True;
     end;
-    ttLiteralString:
+    ttQuotedLiteralString:
     begin
-      Result  := 'Literal string';
+      Result  := 'Quoted literal string';
       lbFound := True;
     end;
     ttComment:

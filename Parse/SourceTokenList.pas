@@ -82,8 +82,12 @@ type
     function First: TSourceToken;
     function FirstTokenType: TTokenType;
     function FirstWordType: TWordType;
+    function FirstTokenLength: integer;
+
     function FirstSolidToken: TSourceToken;
     function FirstSolidTokenType: TTokenType;
+    function FirstSolidTokenLength: integer;
+
     function FirstSolidWordType: TWordType;
     function FirstTokenWithExclusion(const AExclusions: TTokenTypeSet): TSourceToken;
 
@@ -147,6 +151,16 @@ begin
     Result := TSourceToken(List^[fiCurrentTokenIndex]).WordType;
 end;
 
+function TSourceTokenList.FirstTokenLength: integer;
+var
+  lc: TSourceToken;
+begin
+  Result := 0;
+  lc     := First;
+  if lc <> nil then
+    Result := Length(lc.SourceCode);
+end;
+
 function TSourceTokenList.FirstSolidTokenType: TTokenType;
 var
   lc: TSourceToken;
@@ -155,6 +169,16 @@ begin
   lc     := FirstSolidToken;
   if lc <> nil then
     Result := lc.TokenType;
+end;
+
+function TSourceTokenList.FirstSolidTokenLength: integer;
+var
+  lc: TSourceToken;
+begin
+  Result := 0;
+  lc     := FirstSolidToken;
+  if lc <> nil then
+    Result := Length(lc.SourceCode);
 end;
 
 function TSourceTokenList.FirstSolidWordType: TWordType;

@@ -141,7 +141,10 @@ type
     nHintDirectives,
     nPropertyDirective,
     nExports,
-    nExportedProc
+    nExportedProc,
+    nLiteralString,
+    nHashLiteralChar,
+    nHatLiteralChar
     );
 
   TParseTreeNodeTypeSet = set of TParseTreeNodeType;
@@ -404,6 +407,12 @@ begin
       Result := 'exports';
     nExportedProc:
       Result := 'exported proc';
+    nLiteralString:
+      Result := 'literal string';
+    nHashLiteralChar:
+      Result := 'hash literal char';
+    nHatLiteralChar:
+      Result := 'hat literal char';
     else
       Result := 'Bad node type ' + IntToStr(Ord(pe));
 

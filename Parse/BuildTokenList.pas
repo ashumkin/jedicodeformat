@@ -47,8 +47,8 @@ type
     function TryBracketStarComment(const pcToken: TSourceToken): boolean;
 
     function TryWhiteSpace(const pcToken: TSourceToken): boolean;
-    function TryLiteralString(const pcToken: TSourceToken): boolean;
-    function TryDoubleQuoteLiteralString(const pcToken: TSourceToken): boolean;
+    function TryLiteralString(const pcToken: TSourceToken;
+      const pcDelimiter: char): boolean;
 
     function TryNumber(const pcToken: TSourceToken): boolean;
     function TryHexNumber(const pcToken: TSourceToken): boolean;
@@ -56,7 +56,6 @@ type
     function TryDots(const pcToken: TSourceToken): boolean;
 
     function TryAssign(const pcToken: TSourceToken): boolean;
-
 
     function TrySingleCharToken(const pcToken: TSourceToken): boolean;
 
@@ -115,9 +114,9 @@ var
     { the rest }
     if TryWhiteSpace(lcNewToken) then
       exit;
-    if TryLiteralString(lcNewToken) then
+    if TryLiteralString(lcNewToken, AnsiSingleQuote) then
       exit;
-    if TryDoubleQuoteLiteralString(lcNewToken) then
+    if TryLiteralString(lcNewToken, AnsiDoubleQuote) then
       exit;
 
     if TryWord(lcNewToken) then
@@ -267,177 +266,54 @@ begin
   Result := True;
 end;
 
-{ have to combine this with literal chars, as these can be mixed,
-  eg 'Hello'#32'World' and #$12'Foo' are both valid strings }
-function TBuildTokenList.TryLiteralString(const pcToken: TSourceToken): boolean;
-
-  function TrySubString(const pcToken: TSourceToken): boolean;
-  var
-    lbFoundEnd: boolean;
-    liLen: integer;
-    lCh: char;
-  begin
-    Result := False;
-
-    if Reader.Current <> AnsiSingleQuote then
-      exit;
-
-    { find the end of the string
-      string is ended by another quote char or by return (bad source)
-      but two consecutive quote chars can occur without ending the string }
-
-    lbFoundEnd := False;
-
-    while not lbFoundEnd do
-    begin
-      if not lbFoundEnd then
-        Reader.IncBuffer;
-
-      { error - end on line end or EOF }
-      lCh := Reader.Last;
-      if CharIsReturn(lCh) then
-        lbFoundEnd := True;
-      if Reader.BufferEndOfFile then
-        lbFoundEnd := True;
-
-      if (Reader.Last = AnsiSingleQuote) then
-      begin
-        { followed by another? }
-        Reader.IncBuffer;
-        if (Reader.Last <> AnsiSingleQuote) then
-          lbFoundEnd := True;
-      end;
-    end; { while not found }
-
-    liLen := StrLastPos(AnsiSingleQuote, Reader.Buffer);
-    if liLen < 0 then
-    begin
-      liLen := Reader.BufferLength;
-      if CharIsReturn(Reader.Last) then
-        Dec(liLen);
-    end;
-
-    Assert(liLen > 0, 'Bad string' + StrDoubleQuote(Reader.Buffer));
-    Reader.BufferLength := liLen;
-
-    pcToken.SourceCode := pcToken.SourceCode + Reader.ConsumeBuffer;
-    Result := True;
-  end;
-
-  function TryHatLiteralChar(const pcToken: TSourceToken): boolean;
-  begin
-    Result := False;
-    if Reader.Current <> '^' then
-      exit;
-
-    pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
-    Reader.Consume;
-
-    { can be any single char A-Z and symbols }
-    pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
-    Reader.Consume;
-  end;
-
-
-  function TryLiteralChar(const pcToken: TSourceToken): boolean;
-  begin
-    Result := False;
-    if Reader.Current <> '#' then
-      exit;
-
-    pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
-    Reader.Consume;
-
-    { can be hex string, as in #$F }
-    if Reader.Current = '$' then
-    begin
-      { eat the $ }
-      pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
-      Reader.Consume;
-
-      { hexidecimal string - concat any subsequent digits }
-      while (Reader.Current in AnsiHexDigits) do
-      begin
-        pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
-        Reader.Consume;
-        Result := True;
-      end;
-    end
-    else
-    begin
-      { normal decimal string - concat any subsequent digits }
-      while CharIsDigit(Reader.Current) do
-      begin
-        pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
-        Reader.Consume;
-        Result := True;
-      end;
-    end;
-  end;
-
-var
-  lbHatCharConstant: Boolean;
-begin
-  Result := False;
-  lbHatCharConstant := False;
-
-  if Reader.Current = '^' then
-  begin
-    { compound char const is, for e.g. ^M'foo' or ^M^N or ^M#13 }
-    if Reader.BufferChar(2) in ['^', AnsiSingleQuote, '#'] then
-      lbHatCharConstant := True;
-  end;
-
-  if (Reader.Current in ['#', AnsiSingleQuote]) or lbHatCharConstant then
-  begin
-    { read any sequence of literal chars , eg #$F or #32#32 or even #27#$1E }
-    while Reader.Current in ['#', AnsiSingleQuote, '^'] do
-    begin
-      if Reader.Current = '#' then
-      begin
-        if TryLiteralChar(pcToken) then
-          Result := True;
-      end
-      else if Reader.Current = AnsiSingleQuote then
-      begin
-        if TrySubString(pcToken) then
-          Result := True;
-      end
-      else if Reader.Current = '^' then
-      begin
-        if TryHatLiteralChar(pcToken) then
-          Result := True;
-      end;
-    end;
-
-    if Result then
-      pcToken.TokenType := ttLiteralString;
-  end;
-end;
-
-{ these can happen inside asm
-  not going to give them the same degree of sophistication though }
-function TBuildTokenList.TryDoubleQuoteLiteralString(
-  const pcToken: TSourceToken): boolean;
+{ complexities like 'Hello'#32'World' and #$12'Foo' are assemlbed in the parser }
+function TBuildTokenList.TryLiteralString(const pcToken: TSourceToken;
+  const pcDelimiter: char): boolean;
 begin
   Result := False;
 
-  if Reader.Current = AnsiDoubleQuote then
+  if Reader.Current = pcDelimiter then
   begin
     Result := True;
+    { read the opening ' }
+    pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
+    Reader.Consume;
 
     repeat
-      pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
-      Reader.Consume;
+      if Reader.Current = #0 then
+        break;
 
-    until Reader.Current = AnsiDoubleQuote;
+      { two quotes in a row are still part of the string }
+      if (Reader.Current = pcDelimiter) then
+      begin
+        { two consecutive quote chars inside string, read them }
+        if (Reader.BufferChar(1) = pcDelimiter) then
+        begin
+          Reader.IncBuffer;
+          Reader.IncBuffer;
+          pcToken.SourceCode := pcToken.SourceCode + Reader.ConsumeBuffer;
+        end
+        else
+        begin
+          { single quote char ends string }
+          pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
+          Reader.Consume;
+          break;
+        end
+      end
+      else
+      begin
+        { normal char, read it }
+        pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
+        Reader.Consume;
+      end;
 
-    pcToken.SourceCode := pcToken.SourceCode + Reader.Current;
-    Reader.Consume;
+    until False;
 
-    pcToken.TokenType := ttLiteralString;
+    pcToken.TokenType := ttQuotedLiteralString;
   end;
 end;
+
 
 function TBuildTokenList.TryWord(const pcToken: TSourceToken): boolean;
 

@@ -71,14 +71,11 @@ begin
   Result := FileCtrl.SelectDirectory(Directory, Options, HelpCtx);
 end;
 
-
 {$ENDIF}
 
 {$IFDEF LINUX}
   This bit will not compile under linux yet
-  as the above win32 fns won't work there .
-
-
+  as the above win32 fns will not work there .
 {$ENDIF}
 
 end.

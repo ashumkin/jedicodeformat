@@ -45,7 +45,22 @@ implementation
 
 uses
   JclStrings,
-  SourceToken, Tokens, FormatFlags, TokenUtils;
+  SourceToken, Tokens, FormatFlags, TokenUtils, ParseTreeNodeType;
+
+function CanBreakHere(const pt: TSourceToken): boolean;
+var
+  lbInString: Boolean;
+  lcNext: TSourceToken;
+begin
+  lbInString := pt.HasParentNode(nLiteralString);
+  if lbInString then
+  begin
+    lcNext := pt.NextToken;
+    lbInString := (lcNext <> nil) and lcNext.HasParentNode(nLiteralString);
+  end;
+
+  Result := not lbInString;
+end;
 
 constructor TRebreakLines.Create;
 begin
@@ -66,12 +81,14 @@ begin
   lcToken := TSourceToken(pcNode);
 
   if lcToken.TokenType = ttReturn then
+  begin
     xPos := 0
+  end
   else
   begin
     liLen := Length(lcToken.SourceCode);
 
-    if (XPos + liLen) > LINE_LENGTH then
+    if ((XPos + liLen) > LINE_LENGTH) and CanBreakHere(lcToken) then
     begin
       { no space directly after the new return }
       lcNext := lcToken.NextToken;

@@ -73,6 +73,9 @@ begin
 
   Result := False;
 
+  if pt.HasParentNode(nLiteralString) then
+    exit;
+
   if pt.HasParentNode(nAsm) then
     exit;
 

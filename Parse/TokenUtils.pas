@@ -128,8 +128,7 @@ function IsIdentifier(const pt: TSourceToken): boolean;
 
 function IsHintDirective(const pt: TSourceToken): boolean;
 
-function HashLiteral(const pt: TSourceToken): boolean;
-
+function StartsLiteralString(const pt: TSourceToken): boolean;
 
 implementation
 
@@ -687,10 +686,21 @@ begin
     Result := pt.HasParentNode(nHintDirectives, 1);
 end;
 
-function HashLiteral(const pt: TSourceToken): boolean;
-begin
-  Result := (pt.TokenType = ttLiteralString) and (StrLeft(pt.SourceCode, 1) = '#');
-end;
 
+function StartsLiteralString(const pt: TSourceToken): boolean;
+
+  function InLiteralString(const pt: TSourceToken): boolean;
+  begin
+    Result := (pt <> nil) and pt.HasParentNode(nLiteralString, 2);
+  end;
+
+begin
+  Result := (pt.TokenType in LiteralStringStarters) and InLiteralString(pt);
+  if Result then
+  begin
+    // is this actually the first solid token in the literal string?
+    Result := not InLiteralString(pt.PriorToken);
+  end;
+end;
 
 end.

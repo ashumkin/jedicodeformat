@@ -20,7 +20,7 @@ begin
   ch := foo[li + 3];
   ch := (foo + foo)[1];
   ch := (foo + #32)[li + 3];
-  ch := ( #32 + #32)[2];
+  ch := (#32 + #32)[2];
 end;
 
 end.

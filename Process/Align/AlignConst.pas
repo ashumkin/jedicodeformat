@@ -91,7 +91,7 @@ end;
 
 function TAlignConst.TokenIsAligned(const pt: TSourceToken): boolean;
 begin
-  Result := (pt.TokenType = ttEquals);
+  Result := (pt.TokenType = ttEquals) and (not pt.HasParentNode(nLiteralString));
 end;
 
 end.

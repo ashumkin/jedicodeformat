@@ -70,6 +70,15 @@ function NeedsSpaceBefore(const pt: TSourceToken): boolean;
 begin
   Result := False;
 
+  if pt = nil then
+    exit;
+
+  if pt.HasParentNode(nLiteralString) then
+  begin
+    Result := False;
+    exit;
+  end;
+
   { not in ASM block }
   if pt.HasParentNode(nAsm) then
     exit;
@@ -125,9 +134,8 @@ begin
     exit;
   end;
 
-  { string that starts with # , ie char codes
-  }
-  if HashLiteral(pt) then
+  { any token that starts a literal string }
+  if StartsLiteralString(pt) then
   begin
     Result := True;
     exit;

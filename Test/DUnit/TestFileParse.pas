@@ -400,7 +400,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCharLiterals;
 begin
-  TestParseFile('TestCharLiterals', 581);
+  TestParseFile('TestCharLiterals', 998);
 end;
 
 procedure TTestFileParse.TestParse_TestClassLines;
@@ -430,7 +430,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestDeclarations;
 begin
-  TestParseFile('TestDeclarations', 1003);
+  TestParseFile('TestDeclarations', 1004);
 end;
 
 
@@ -511,12 +511,12 @@ end;
 
 procedure TTestFileParse.TestParse_TestLayoutBare2;
 begin
-  TestParseFile('TestLayoutBare2', 1008);
+  TestParseFile('TestLayoutBare2', 1013);
 end;
 
 procedure TTestFileParse.TestParse_TestLayoutBare3;
 begin
-  TestParseFile('TestLayoutBare3', 1177);
+  TestParseFile('TestLayoutBare3', 1178);
 end;
 
 procedure TTestFileParse.TestParse_TestLibExports;
@@ -556,7 +556,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestMVB;
 begin
-  TestParseFile('TestMVB', 833);
+  TestParseFile('TestMVB', 835);
 end;
 
 procedure TTestFileParse.TestParse_TestNested;
@@ -576,7 +576,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestOperators;
 begin
-  TestParseFile('TestOperators', 1232);
+  TestParseFile('TestOperators', 1233);
 end;
 
 procedure TTestFileParse.TestParse_TestParams;
@@ -728,7 +728,7 @@ end;
 
 procedure TTestFileParse.TestParse_LittleTest10;
 begin
-  TestParseFile('LittleTest10', 367);
+  TestParseFile('LittleTest10', 375);
 end;
 
 procedure TTestFileParse.TestParse_TestInheritedExpr;
@@ -983,7 +983,7 @@ end;
 
 procedure TTestFileParse.TestParse_LittleTest44;
 begin
-  TestParseFile('LittleTest44', 285);
+  TestParseFile('LittleTest44', 286);
 end;
 
 procedure TTestFileParse.TestParse_LittleTest45;
@@ -1008,7 +1008,7 @@ end;
 
 procedure TTestFileParse.TestParse_LittleTest48;
 begin
-  TestParseFile('LittleTest48', 203);
+  TestParseFile('LittleTest48', 204);
 end;
 
 procedure TTestFileParse.TestParse_LittleTest49;
@@ -1023,7 +1023,7 @@ end;
 
 procedure TTestFileParse.TestParse_LittleTest51;
 begin
-  TestParseFile('LittleTest51', 168);
+  TestParseFile('LittleTest51', 172);
 end;
 
 procedure TTestFileParse.TestParse_LittleTest52;

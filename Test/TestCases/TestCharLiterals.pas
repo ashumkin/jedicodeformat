@@ -11,6 +11,8 @@ interface
 
 implementation
 
+uses Dialogs;
+
 procedure Chars;
 const
 Fred = #80;
@@ -61,6 +63,10 @@ const
   HAT_HAT = ^^;
   HAT_UNDER = ^_;
 
+  HAT_EQ_NOSPACE=^=;
+  HAT_EQ_SPACEAFT=^= ;
+  HAT_EQ_LONG=^=^=#0^='foo'^=;
+
 var
   hat1: char = ^h;
   hat2: char = ^j;
@@ -97,6 +103,42 @@ begin
   Str1 := #13^M#12^@'foo'#10^M'bar';
 end;
 
+procedure HatEquals(const Value: pchar);
+const
+  { ambiguous.
+    same chars lexed differently in if-statement
+    Impossble to lex cleanly }
+    
+  HAT_EQ = ^=;
+  HAT_EQ_C = ^='C';
+  HAT_EQ_NIL = ^=#0;
+  HAT_EQ_C_NIL = ^='C'^=#0^='C'^=#0;
+var
+  st: string;
+begin
+  if value^='C' then
+    ShowMessage('See')
+  else if (Value^=#0) then
+    ShowMessage('nil')
+  else if (Value^=^=) then
+    ShowMessage('terrence, this is stupid stuff');
 
+  { space }
+  if value ^='C' then
+  { brackets }
+  else if ((Value^)=#0) then
+    ShowMessage('nil')
+  { new line }
+  else if (Value
+^=^=) then
+    ShowMessage('terrence, this is stupid stuff');
+
+
+  st := value^+value^;
+  if (Value^=^=^=) then
+    ShowMessage('meep');
+  if (Value^=^+^-^^^_) then
+    ShowMessage('meep');
+end;
 
 end.

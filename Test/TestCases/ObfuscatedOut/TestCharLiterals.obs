@@ -1,14 +1,21 @@
-unit testcharliterals;interface implementation procedure chars;const fred=#80;linebreak
-=#13#10;somechars=#78#79#80;hexchars=#$12#$2E#60;var ls:string;ls2:string;begin ls
-:=#90+linebreak+#90#91+somechars+#90;ls2:=#$F#$A;ls2:=ls+#$1F+hexchars;end;procedure
-stringchars;const boo='Boo';hello='Hello'#13;olla=#10'Olla!';var ls:string;begin 
-ls:='Fred';ls:=#13;ls:=#12'Fred'#32'Fred'#22;end;const str1=^m;hat_foo=^a;hat_bar
-=^b;hat_fish=^f;hat_wibble=^q;hat_spon=^z;hat_at=^@;hat_frown=^[;hat_hmm=^\;hat_smile
-=^];hat_hat=^^;hat_under=^_;var hat1:char=^h;hat2:char=^j;hat3:char=^m;procedure 
+unit testcharliterals;interface implementation uses dialogs;procedure chars;const
+fred=#80;linebreak=#13#10;somechars=#78#79#80;hexchars=#$12#$2E#60;var ls:string;
+ls2:string;begin ls:=#90+linebreak+#90#91+somechars+#90;ls2:=#$F#$A;ls2:=ls+#$1F+
+hexchars;end;procedure stringchars;const boo='Boo';hello='Hello'#13;olla=#10'Olla!'
+;var ls:string;begin ls:='Fred';ls:=#13;ls:=#12'Fred'#32'Fred'#22;end;const str1=
+^m;hat_foo=^a;hat_bar=^b;hat_fish=^f;hat_wibble=^q;hat_spon=^z;hat_at=^@;hat_frown
+=^[;hat_hmm=^\;hat_smile=^];hat_hat=^^;hat_under=^_;hat_eq_nospace=^=;hat_eq_spaceaft
+=^=;hat_eq_long=^=^=#0^='foo'^=;var hat1:char=^h;hat2:char=^j;hat3:char=^m;procedure
 hatbaby;var str:string;ch:char;begin str:=hat_foo+^m;ch:=^n;str:=hat_foo+^@+^]+^^
 +^-+^\+^[;end;procedure testhatcharliteralsinstrings;var str1:string;begin str1:=
-'prefix'^M+'substr2';str1:='prefix'^M'foo'+'substr2';str1:='prefix'^M'foo'#23+'substr2'#56
-;str1:='prefix'^M'foo'^M'bar'^N+'substr2'^O;str1:='prefix'#13^M#12^@'foo'#10^M'bar'
-;str1:=^m;str1:=^m+'substr2';str1:=^M'foo'+'substr2';str1:=^M^N^@'foo'+'substr2';
-str1:=^M'foo'#23+'substr2'#56;str1:=^M'foo'^M'bar'^N+'substr2'^O;str1:=#13^M#12^@'foo'#10^M'bar'
-;end;end. 
+'prefix'^m+'substr2';str1:='prefix'^m'foo'+'substr2';str1:='prefix'^m'foo'#23+'substr2'#56
+;str1:='prefix'^m'foo'^m'bar'^n+'substr2'^o;str1:='prefix'#13^m#12^@'foo'#10^m'bar'
+;str1:=^m;str1:=^m+'substr2';str1:=^m'foo'+'substr2';str1:=^m^n^@'foo'+'substr2';
+str1:=^m'foo'#23+'substr2'#56;str1:=^m'foo'^m'bar'^n+'substr2'^o;str1:=#13^m#12^@'foo'#10^m'bar'
+;end;procedure hatequals(const value:pchar);const hat_eq=^=;hat_eq_c=^='C';hat_eq_nil
+=^=#0;hat_eq_c_nil=^='C'^=#0^='C'^=#0;var st:string;begin if value^='C'then showmessage
+('See')else if(value^=#0)then showmessage('nil')else if(value^=^=)then showmessage
+('terrence, this is stupid stuff');if value^='C'then else if((value^)=#0)then showmessage
+('nil')else if(value^=^=)then showmessage('terrence, this is stupid stuff');st:=value
+^+value^;if(value^=^=^=)then showmessage('meep');if(value^=^+^-^^^_)then showmessage
+('meep');end;end. 

@@ -124,7 +124,7 @@ end;
 function TSourceToken.Describe: string;
 const
   StructuredTokens: TTokenTypeSet =
-    [ttComment, ttNumber, ttLiteralString, ttUnknown, ttPunctuation, ttIdentifier];
+    [ttComment, ttNumber, ttQuotedLiteralString, ttUnknown, ttPunctuation, ttIdentifier];
 begin
   if TokenType = ttIdentifier then
     Result := SourceCode
