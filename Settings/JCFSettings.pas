@@ -56,6 +56,7 @@ type
     fcReplace: TSetReplace;
 
     fbWriteOnExit: Boolean;
+    fbDirty: Boolean;
     fsDescription: string;
     fdtWriteDateTime: TDateTime;
     fsWriteVersion: String;
@@ -97,6 +98,7 @@ type
     property UsesClause: TSetUses read fcUses;
 
     property WriteOnExit: Boolean read fbWriteOnExit write fbWriteOnExit;
+    property Dirty: Boolean read fbDirty write fbDirty;
   end;
 
 function FormatSettings: TFormatSettings;
@@ -134,6 +136,7 @@ begin
   Read;
 
   fbWriteOnExit := True;
+  fbDirty := False;
 end;
 
 destructor TFormatSettings.Destroy;
@@ -143,7 +146,7 @@ begin
     WriteOnExit := False;
 
   try
-    if WriteOnExit and (not FileIsReadOnly(GetRegSettings.FormatConfigFileName)) then
+    if WriteOnExit and Dirty and (not FileIsReadOnly(GetRegSettings.FormatConfigFileName)) then
       Write;
   except
     on e: Exception do

@@ -194,6 +194,7 @@ end;
 
 procedure TFormAllSettings.bbOKClick(Sender: TObject);
 begin
+  FormatSettings.Dirty := True;
   RemoveAll(True);
   Close;
 end;
@@ -273,7 +274,6 @@ end;
 
 procedure TFormAllSettings.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-
   { save the last selected node }
   if tvFrames.Selected <> nil then
     GetRegSettings.LastSettingsPage := tvFrames.Selected.Text;
