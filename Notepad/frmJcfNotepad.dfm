@@ -264,10 +264,10 @@ object fmJCFNotepad: TfmJCFNotepad
         GroupIndex = 1
         OnClick = mnuShowRegSettingClick
       end
-      object mnuParseSettings: TMenuItem
-        Caption = 'Parse settings'
+      object mnuFormatSettings: TMenuItem
+        Caption = 'Format settings'
         GroupIndex = 1
-        OnClick = mnuParseSettingsClick
+        OnClick = mnuFormatSettingsClick
       end
     end
     object mnuHelp: TMenuItem
@@ -284,7 +284,7 @@ object fmJCFNotepad: TfmJCFNotepad
     Capacity = 9
     RecentMenu = mnuFile
     OnClick = mruFilesClick
-    Left = 536
+    Left = 540
     Top = 24
   end
 end

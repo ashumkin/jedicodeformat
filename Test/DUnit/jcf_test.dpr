@@ -109,7 +109,8 @@ uses
   JcfRegistrySettings in '..\..\Settings\JcfRegistrySettings.pas',
   JCFSettings in '..\..\Settings\JCFSettings.pas',
   TestCommandLine in 'TestCommandLine.pas',
-  TestConstants in 'TestConstants.pas';
+  TestConstants in 'TestConstants.pas',
+  TestFile in 'TestFile.pas';
 
 {$R *.res}
 

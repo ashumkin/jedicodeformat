@@ -57,7 +57,7 @@ type
     mnuHelp: TMenuItem;
     mnuHelpAbout: TMenuItem;
     mnuShowRegSetting: TMenuItem;
-    mnuParseSettings: TMenuItem;
+    mnuFormatSettings: TMenuItem;
     procedure FormResize(Sender: TObject);
     procedure pcPagesChange(Sender: TObject);
     procedure actGoExecute(Sender: TObject);
@@ -81,7 +81,7 @@ type
     procedure mnuFileSaveInClick(Sender: TObject);
     procedure mnuHelpAboutClick(Sender: TObject);
     procedure mnuShowRegSettingClick(Sender: TObject);
-    procedure mnuParseSettingsClick(Sender: TObject);
+    procedure mnuFormatSettingsClick(Sender: TObject);
   private
     fcConvert: TStringsConverter;
 
@@ -100,14 +100,11 @@ implementation
 uses
   ClipBrd,
   JclStrings,
-  Converter, ConvertTypes, fAbout, fNotepadSettings, fAllSettings;
+  Converter, ConvertTypes, fAbout, fRegistrySettings, fAllSettings;
 
 {$R *.dfm}
 
-const FILE_FILTERS =
-  'Delphi source (*.pas, *.dpr)|*.pas; *.dpr|' +
-  'Text files (*.txt)|*.txt|' +
-  'All files (*.*)|*.*';
+
 
 procedure TfmJCFNotepad.CheckInputState;
 begin
@@ -211,7 +208,7 @@ end;
 procedure TfmJCFNotepad.actOpenExecute(Sender: TObject);
 begin
   OpenDialog1.InitialDir := GetRegSettings.InputDir;
-  OpenDialog1.Filter := FILE_FILTERS;
+  OpenDialog1.Filter := SOURCE_FILE_FILTERS;
 
   if OpenDialog1.Execute then
   begin
@@ -234,7 +231,7 @@ procedure TfmJCFNotepad.actSaveExecute(Sender: TObject);
 begin
   SaveDialog1.InitialDir := GetRegSettings.OutputDir;
   SaveDialog1.Title := 'Save output file';
-  SaveDialog1.Filter := FILE_FILTERS;
+  SaveDialog1.Filter := SOURCE_FILE_FILTERS;
 
 
   if SaveDialog1.Execute then
@@ -265,7 +262,7 @@ procedure TfmJCFNotepad.FormDestroy(Sender: TObject);
 begin
   GetRegSettings.WriteAll;
   GetRegSettings.MRUFiles := nil;
-  
+
   FreeAndNil(fcConvert);
 end;
 
@@ -331,7 +328,7 @@ procedure TfmJCFNotepad.mnuFileSaveInClick(Sender: TObject);
 begin
   SaveDialog1.InitialDir := GetRegSettings.OutputDir;
   SaveDialog1.Title := 'Save input file';
-  SaveDialog1.Filter := FILE_FILTERS;
+  SaveDialog1.Filter := SOURCE_FILE_FILTERS;
 
   if SaveDialog1.Execute then
   begin
@@ -355,10 +352,9 @@ end;
 
 procedure TfmJCFNotepad.mnuShowRegSettingClick(Sender: TObject);
 var
-  lfSettings: TfmNotepadSettings;
+  lfSettings: TfmRegistrySettings;
 begin
-  lfSettings := TfmNotepadSettings.Create(self);
-  lfSettings.Settings := GetRegSettings;
+  lfSettings := TfmRegistrySettings.Create(self);
   try
     lfSettings.Execute;
   finally
@@ -366,7 +362,7 @@ begin
   end;
 end;
 
-procedure TfmJCFNotepad.mnuParseSettingsClick(Sender: TObject);
+procedure TfmJCFNotepad.mnuFormatSettingsClick(Sender: TObject);
 var
   lfAllSettings: TFormAllSettings;
 begin

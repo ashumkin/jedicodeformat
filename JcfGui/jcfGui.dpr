@@ -1,8 +1,8 @@
-program JcfNotepad;
+program jcfGui;
 
 uses
   Forms,
-  frmJcfNotepad in 'frmJcfNotepad.pas' {fmJCFNotepad},
+  fMain in 'fMain.pas' {frmMain},
   Converter in '..\ReadWrite\Converter.pas',
   CodeReader in '..\ReadWrite\CodeReader.pas',
   CodeWriter in '..\ReadWrite\CodeWriter.pas',
@@ -117,12 +117,15 @@ uses
   frReplace in '..\Ui\Settings\frReplace.pas' {fReplace: TFrame},
   frReservedCapsSettings in '..\Ui\Settings\frReservedCapsSettings.pas' {frReservedCapsSettings: TFrame},
   frClarifyLongLineBreaker in '..\Ui\Settings\frClarifyLongLineBreaker.pas' {fClarifyLongLineBreaker: TFrame},
+  FileConverter in '..\ReadWrite\FileConverter.pas',
+  FileWriter in '..\ReadWrite\FileWriter.pas',
+  FileReader in '..\ReadWrite\FileReader.pas',
   fRegistrySettings in '..\Ui\fRegistrySettings.pas' {fmRegistrySettings};
 
 {$R *.res}
 
 begin
   Application.Initialize;
-  Application.CreateForm(TfmJCFNotepad, fmJCFNotepad);
+  Application.CreateForm(TfrmMain, frmMain);
   Application.Run;
 end.

@@ -40,6 +40,17 @@ type
 const
   REG_ROOT_KEY = '\Software\Jedi\JediCodeFormat';
 
+const
+  SOURCE_FILE_FILTERS =
+    'Delphi source (*.pas, *.dpr)|*.pas; *.dpr|' +
+    'Text files (*.txt)|*.txt|' +
+    'All files (*.*)|*.*';
+
+  CONFIG_FILE_FILTERS =
+    'Config files (*.cfg)|*.cfg|' +
+    'Text files (*.txt)|*.txt|' +
+    'All files (*.*)|*.*';
+
 implementation
 
 end.
