@@ -187,12 +187,12 @@ begin
     fmDirectory:
     begin
       lblInput.Caption := 'Directory';
-      edtInput.Text    := PathAddSeparator(ExtractFileDir(edtInput.Text));
+      edtInput.Text    := IncludeTrailingPathDelimiter(ExtractFileDir(edtInput.Text));
     end;
     fmDirectoryRecursive:
     begin
       lblInput.Caption := 'Start directory';
-      edtInput.Text    := PathAddSeparator(ExtractFileDir(edtInput.Text));
+      edtInput.Text    := IncludeTrailingPathDelimiter(ExtractFileDir(edtInput.Text));
     end;
   end;
 
@@ -272,7 +272,7 @@ begin
   if psName = '' then
   begin
     // get a file name
-    lsDir := PathAddSeparator(ExtractFileDir(edtInput.Text)); // strip out the dir
+    lsDir := IncludeTrailingPathDelimiter(ExtractFileDir(edtInput.Text)); // strip out the dir
 
     dlgOpen.InitialDir := lsDir;
 
@@ -290,7 +290,7 @@ begin
     begin
       if SelectDirectory('select a directory', '', lsDir) then
       begin
-        edtInput.Text := PathAddSeparator(lsDir);
+        edtInput.Text := IncludeTrailingPathDelimiter(lsDir);
         AddCheckMRU(edtInput.Text);
 
         DisplayOutputFile;
@@ -303,7 +303,7 @@ begin
     // have a name. Is it a dir or a file?
     if DirectoryExists(psName) then
     begin
-      edtInput.Text := PathAddSeparator(psName);
+      edtInput.Text := IncludeTrailingPathDelimiter(psName);
 
       AddCheckMRU(edtInput.Text);
       DisplayOutputFile;

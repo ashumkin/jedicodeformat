@@ -69,7 +69,9 @@ function Log: TJCFLog;
 
 implementation
 
-uses SysUtils;
+uses
+  SysUtils,
+  JcfRegistrySettings;
 
 { module var for singleton }
 var
@@ -78,7 +80,9 @@ var
 function Log: TJCFLog;
 begin
   if mcLog = nil then
-    mcLog := TJCFLog.Create('c:\temp\jcflog.txt');
+  begin
+    mcLog := TJCFLog.Create(GetRegSettings.LogFileName);
+  end;
 
   Result := mcLog;
 end;
@@ -100,6 +104,7 @@ constructor TJCFLog.Create(const psFileName: string);
 begin
   inherited Create;
 
+  Assert(psFileName <> '');
   fOpen := False;
   fsLogFileName := psFileName;
 end;

@@ -123,6 +123,8 @@ type
 
   procedure TestClarify_TestPackage;
   procedure TestClarify_TestProcBlankLines;
+
+  procedure TestClarify_TestCases;
 end;
 
 
@@ -321,6 +323,11 @@ end;
 procedure TFullTestClarify.TestClarify_TestCaseBlock;
 begin
   TestClarifyFile('TestCaseBlock');
+end;
+
+procedure TFullTestClarify.TestClarify_TestCases;
+begin
+  TestClarifyFile('TestCases.dpr');
 end;
 
 procedure TFullTestClarify.TestClarify_TestCast;

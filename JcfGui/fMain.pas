@@ -208,7 +208,7 @@ procedure TfrmMain.FormCreate(Sender: TObject);
 var
   lsHelpFile: string;
 begin
-  lsHelpFile := PathAddSeparator(ExtractFilePath(Application.ExeName)) +
+  lsHelpFile := IncludeTrailingPathDelimiter(ExtractFilePath(Application.ExeName)) +
     'CodeFormat.hlp';
 
   if FileExists(lsHelpFile) then

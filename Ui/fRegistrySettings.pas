@@ -227,7 +227,7 @@ var
 begin
   if SelectDirectory('select a directory', '', lsDir) then
   begin
-    fsSpecifiedDirectory := PathAddSeparator(lsDir);
+    fsSpecifiedDirectory := IncludeTrailingPathDelimiter(lsDir);
     ShowDirs;
   end;
 end;
@@ -240,7 +240,7 @@ end;
 procedure TfmRegistrySettings.ShowDirs;
 begin
   rgLogDir.Items[0] := 'Temp: ' + GetWindowsTempFolder;
-  rgLogDir.Items[1] := 'Application: ' +  PathAddSeparator(ExtractFileDir(ParamStr(0)));
+  rgLogDir.Items[1] := 'Application: ' +  IncludeTrailingPathDelimiter(ExtractFileDir(ParamStr(0)));
   rgLogDir.Items[2] := 'Specified: ' + fsSpecifiedDirectory;
 end;
 

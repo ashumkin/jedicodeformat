@@ -247,7 +247,7 @@ begin
     exit;
   end;
 
-  lsDir := PathAddSeparator(psDir);
+  lsDir := IncludeTrailingPathDelimiter(psDir);
 
   lsMessage := 'Processing directory ' + lsDir;
   //if Settings.Log.LogLevel in [eLogFiles, eLogTokens] then

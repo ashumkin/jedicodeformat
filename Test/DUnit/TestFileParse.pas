@@ -235,7 +235,7 @@ end;
 
 procedure TTestFileParse.TestParse_fFormTest;
 begin
-  TestParseFile('fFormTest', 151);
+  TestParseFile('fFormTest', 150);
 end;
 
 procedure TTestFileParse.TestParse_LittleTest1;
@@ -608,7 +608,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 599);
+  TestParseFile('Testcases.dpr', 615);
 end;
 
 

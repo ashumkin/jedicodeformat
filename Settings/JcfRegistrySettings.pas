@@ -195,7 +195,7 @@ const
  }
 function GetDefaultSettingsFileName: string;
 begin
-  Result := PathAddSeparator(GetWinDir) + 'JCFSettings.cfg';
+  Result := IncludeTrailingPathDelimiter(GetWinDir) + 'JCFSettings.cfg';
 end;
 
 
@@ -395,12 +395,12 @@ begin
     eLogTempDir:
       Result := GetWindowsTempFolder;
     eLogAppDir:
-      Result := PathAddSeparator(ExtractFileDir(ParamStr(0)));
+      Result := ExtractFileDir(ParamStr(0));
     eLogSpecifiedDir:
       Result := fsSpecifiedDirectory;
   end;
 
-  Result := PathAddSeparator(Result);
+  Result := IncludeTrailingPathDelimiter(Result);
 end;
 
 function TJCFRegistrySettings.LogFileName: string;
