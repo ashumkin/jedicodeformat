@@ -1,6 +1,6 @@
 inherited fTransform: TfTransform
   Width = 360
-  Height = 278
+  Height = 324
   object cbBlockEndSemicolons: TCheckBox
     Left = 4
     Top = 88
@@ -25,7 +25,7 @@ inherited fTransform: TfTransform
     Left = 4
     Top = 110
     Width = 161
-    Height = 131
+    Height = 171
     Caption = 'Sort &uses clauses'
     TabOrder = 2
     object cbSortInterfaceUses: TCheckBox
@@ -46,7 +46,7 @@ inherited fTransform: TfTransform
     end
     object cbBreakUsesSortOnComment: TCheckBox
       Left = 8
-      Top = 80
+      Top = 100
       Width = 133
       Height = 17
       Caption = 'Break on &comment'
@@ -54,7 +54,7 @@ inherited fTransform: TfTransform
     end
     object cbBreakUsesSortOnReturn: TCheckBox
       Left = 8
-      Top = 64
+      Top = 84
       Width = 109
       Height = 17
       Caption = 'Break on &return'
@@ -62,11 +62,19 @@ inherited fTransform: TfTransform
     end
     object cbNoComments: TCheckBox
       Left = 8
-      Top = 104
+      Top = 124
       Width = 133
       Height = 17
       Caption = 'Only with no comments'
       TabOrder = 4
+    end
+    object cbSortProgramUses: TCheckBox
+      Left = 8
+      Top = 56
+      Width = 141
+      Height = 17
+      Caption = 'Sort &program uses'
+      TabOrder = 5
     end
   end
   object rgUsesSortOrder: TRadioGroup

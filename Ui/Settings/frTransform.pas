@@ -19,6 +19,7 @@ type
     cbBreakUsesSortOnReturn: TCheckBox;
     rgUsesSortOrder: TRadioGroup;
     cbNoComments: TCheckBox;
+    cbSortProgramUses: TCheckBox;
   private
   public
     constructor Create(AOwner: TComponent); override;
@@ -48,6 +49,7 @@ begin
 
     cbSortInterfaceUses.Checked := SortInterfaceUses;
     cbSortImplementationUses.Checked := SortImplementationUses;
+    cbSortProgramUses.Checked := SortProgramUses;
     cbBreakUsesSortOnReturn.Checked := BreakUsesSortOnReturn;
     cbBreakUsesSortOnComment.Checked := BreakUsesSortOnComment;
 
@@ -67,6 +69,8 @@ begin
 
     SortInterfaceUses := cbSortInterfaceUses.Checked;
     SortImplementationUses := cbSortImplementationUses.Checked;
+    SortProgramUses := cbSortProgramUses.Checked;
+
     BreakUsesSortOnReturn := cbBreakUsesSortOnReturn.Checked;
     BreakUsesSortOnComment := cbBreakUsesSortOnComment.Checked;
 

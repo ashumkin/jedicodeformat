@@ -44,6 +44,8 @@ type
     { when to sort }
     fbSortInterfaceUses: Boolean;
     fbSortImplementationUses: Boolean;
+    fbSortProgramUses: boolean;
+
     fbSortUsesNoComments: boolean;
 
     { how to sort}
@@ -61,6 +63,8 @@ type
 
     property SortInterfaceUses: Boolean read fbSortInterfaceUses write fbSortInterfaceUses;
     property SortImplementationUses: Boolean read fbSortImplementationUses write fbSortImplementationUses;
+    property SortProgramUses: Boolean read fbSortProgramUses write fbSortProgramUses;
+
     property SortUsesNoComments: Boolean read fbSortUsesNoComments write fbSortUsesNoComments;
 
     property BreakUsesSortOnReturn: Boolean read fbBreakUsesSortOnReturn write fbBreakUsesSortOnReturn;
@@ -76,6 +80,7 @@ const
   REG_ADD_BLOCK_END_SEMICOLON = 'AddBlockEndSemicolon';
   REG_SORT_USES_INTERFACE = 'SortUsesInterface';
   REG_SORT_USES_IMPLEMENTATION = 'SortUsesImplmentation';
+  REG_SORT_USES_PROGRAM = 'SortUsesProgram';
   REG_SORT_USES_BREAK_ON_RETURN = 'SortUsesBreakOnReturn';
   REG_SORT_USES_BREAK_ON_COMMENT = 'SortUsesBreakOnComment';
   REG_SORT_USES_SORT_ORDER = 'SortUsesSortOrder';
@@ -95,6 +100,8 @@ begin
 
   fbSortInterfaceUses := pcStream.Read(REG_SORT_USES_INTERFACE, True);
   fbSortImplementationUses := pcStream.Read(REG_SORT_USES_IMPLEMENTATION, True);
+  fbSortProgramUses := pcStream.Read(REG_SORT_USES_PROGRAM, False);
+
   fbBreakUsesSortOnReturn := pcStream.Read(REG_SORT_USES_BREAK_ON_RETURN, True);
   fbBreakUsesSortOnComment := pcStream.Read(REG_SORT_USES_BREAK_ON_COMMENT, True);
   feUsesSortOrder := TUsesSortOrder(pcStream.Read(REG_SORT_USES_SORT_ORDER, Ord(eAlpha)));
@@ -110,6 +117,8 @@ begin
 
   pcOut.Write(REG_SORT_USES_INTERFACE, fbSortInterfaceUses);
   pcOut.Write(REG_SORT_USES_IMPLEMENTATION, fbSortImplementationUses);
+  pcOut.Write(REG_SORT_USES_PROGRAM, fbSortProgramUses);
+
   pcOut.Write(REG_SORT_USES_BREAK_ON_RETURN, fbBreakUsesSortOnReturn);
   pcOut.Write(REG_SORT_USES_BREAK_ON_COMMENT, fbBreakUsesSortOnComment);
   pcOut.Write(REG_SORT_USES_SORT_ORDER, Ord(feUsesSortOrder));

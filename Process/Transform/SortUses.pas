@@ -107,16 +107,22 @@ begin
   { is it turned on in this section? }
   if lcNode.HasParentNode(nInterfaceSection) then
   begin
+    { interface section }
     if not FormatSettings.Transform.SortInterfaceUses then
       exit;
   end
   else if lcNode.HasParentNode(nImplementationSection) then
   begin
+    { implentation section }
     if not FormatSettings.Transform.SortImplementationUses then
       exit;
   end
   else
-    exit;
+  begin
+    { other - program, package or library section }
+    if not FormatSettings.Transform.SortProgramUses then
+      exit;
+  end;
 
   lcIdentList := lcNode.GetImmediateChild(nIdentList);
   if lcIdentList <> nil then
