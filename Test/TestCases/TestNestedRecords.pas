@@ -12,7 +12,7 @@ unit TestNestedRecords;
 
 interface
 
-{ only this one plays nice }
+{ intf only this one plays nice }
 Type
 TRSomeRecord = record
 fiFoo: integer;
@@ -174,7 +174,7 @@ implementation
 
 { do it again in the implementation section }
 
-{ only this one plays nice }
+{ imp only this one plays nice }
 Type
 TRImpSomeRecord = record
 fiFoo: integer;
