@@ -131,7 +131,7 @@ begin
     lsJcfExe := GetExeFilesDir + 'jcf.exe';
     Check(FileExists(lsJcfExe), 'could not find program ' + lsJcfExe);
 
-    lbRes := ShellExecAndWait(lsJcfExe, fsJcfParams);
+    lbRes := ShellExecAndWait('"' + lsJcfExe + '"', fsJcfParams);
     Check(lbRes, 'program execution failed');
 
     // should be back
@@ -155,7 +155,8 @@ end;
 procedure TTestCommandline.TestFormatClarify;
 begin
   fsOutputExt := 'out';
-  fsJcfParams := ' -config="' + GetTestSettingsFileName + '" -out -D ' + GetTestFilesDir;
+  fsJcfParams := ' -config="' + GetTestSettingsFileName +
+    '" -out -D "' + GetTestFilesDir + '"';
   fsRefDir := GetRefOutFilesDir;
   fsFileMask := '*.out';
 
@@ -165,7 +166,8 @@ end;
 procedure TTestCommandline.TestFormatObfuscate;
 begin
   fsOutputExt := 'obs';
-  fsJcfParams := ' -obfuscate -config="' + GetTestFilesDir + 'JCFObfuscateSettings.cfg" -out -D ' + GetTestFilesDir;
+  fsJcfParams := ' -obfuscate -config="' + GetTestFilesDir + 'JCFObfuscateSettings.cfg" ' +
+    '-out -D "' + GetTestFilesDir + '"';
   fsRefDir := GetObsOutFilesDir;
   fsFileMask := '*.obs';
 
