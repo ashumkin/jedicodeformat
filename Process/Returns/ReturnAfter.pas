@@ -46,17 +46,17 @@ uses
   SysUtils,
   JclStrings,
   JcfMiscFunctions,
-  TokenUtils, SourceToken, TokenType, WordMap, Nesting,
+  TokenUtils, SourceToken, Tokens, Nesting,
   ParseTreeNodeType, ParseTreeNode, JcfSettings, FormatFlags;
 
 const
-  WordsJustReturnAfter: TWordSet = [wBegin, wRepeat,
-    wTry, wExcept, wFinally, wLabel,
-    wInitialization, wFinalization, wThen, wDo];
+  WordsJustReturnAfter: TTokenTypeSet = [ttBegin, ttRepeat,
+    ttTry, ttExcept, ttFinally, ttLabel,
+    ttInitialization, ttFinalization, ttThen, ttDo];
   // can't add 'interface' as it has a second meaning :(
 
   { blank line is 2 returns }
-  WordsBlankLineAfter: TWordSet = [wImplementation];
+  WordsBlankLineAfter: TTokenTypeSet = [ttImplementation];
 
 { semicolons have returns after them except for a few places
    1) before and between procedure directives, e.g. procedure Fred; virtual; safecall;
@@ -79,7 +79,7 @@ begin
 
   { point 2. to avoid the return,
     the next token must still be in the same  property}
-  if ptNext.HasParentNode(nProperty) and (ptNext.Word <> wProperty) then
+  if ptNext.HasParentNode(nProperty) and (ptNext.TokenType <> ttProperty) then
   begin
     Result := False;
     exit;
@@ -120,7 +120,7 @@ function EndsObjectType(const pt: TSourceToken): Boolean;
 begin
   Result := False;
 
-  if pt.Word <> wEnd then
+  if pt.TokenType <> ttEnd then
     exit;
 
   if (BlockLevel(pt) = 0) and pt.HasParentNode([nClassType, nInterfaceType], 1) then
@@ -134,7 +134,7 @@ var
 begin
   Result := False;
 
-  if pt.Word <> wEnd then
+  if pt.TokenType <> ttEnd then
     exit;
 
   if not pt.HasParentNode(ProcedureNodes) then
@@ -179,14 +179,14 @@ begin
     exit;
   end;
 
-  if (pt.TokenType in ReservedWordTokens) and (pt.Word in WordsBlankLineAfter) then
+  if (pt.TokenType in WordsBlankLineAfter) then
   begin
     Result := True;
     exit;
   end;
 
   { 'interface', but not as a typedef, but as the section }
-  if (pt.Word = wInterface) and pt.HasParentNode(nInterfaceSection, 1) then
+  if (pt.TokenType = ttInterface) and pt.HasParentNode(nInterfaceSection, 1) then
   begin
     Result := True;
     exit;
@@ -211,14 +211,14 @@ begin
 
        procedure foo;
     }
-    if pt.HasParentNode([nVarSection, nConstSection]) and (ptNext.Word in ProcedureWords) then
+    if pt.HasParentNode([nVarSection, nConstSection]) and (ptNext.TokenType in ProcedureWords) then
     begin
       Result := True;
       exit;
     end;
 
     // at the end of type block with a proc next. but not in a class def
-    if pt.HasParentNode(nTypeSection) and (ptNext.Word in ProcedureWords) and
+    if pt.HasParentNode(nTypeSection) and (ptNext.TokenType in ProcedureWords) and
       (not pt.HasParentNode(ObjectBodies)) then
     begin
       Result := True;
@@ -230,10 +230,10 @@ begin
     { 'end' at end of type def or proc
       There can be hint directives between the type/proc and the 'end'
     }
-    while (lcPrev <> nil) and (lcPrev.Word <> wEnd) and lcPrev.HasParentNode(nHintDirectives, 2) do
+    while (lcPrev <> nil) and (lcPrev.TokenType <> ttEnd) and lcPrev.HasParentNode(nHintDirectives, 2) do
       lcPrev := lcPrev.PriorToken;
 
-    if (lcPrev.Word = wEnd) and (pt.TokenType <> ttDot) then
+    if (lcPrev.TokenType = ttEnd) and (pt.TokenType <> ttDot) then
     begin
       if EndsObjectType(lcPrev) or EndsProcedure(lcPrev) then
       begin
@@ -252,15 +252,15 @@ begin
   if (pt.TokenType = ttReturn) then
     exit;
 
-  if (pt.TokenType in ReservedWordTokens) and (pt.Word in WordsJustReturnAfter) then
+  if (pt.TokenType in WordsJustReturnAfter) then
   begin
     Result := True;
     exit;
   end;
 
   { return after 'type' unless it's the second type in "type foo = type integer;" }
-  if (pt.Word = wType) and (pt.HasParentNode(nTypeSection, 1)) and
-    (not pt.IsOnRightOf(nTypeDecl, wEquals)) then
+  if (pt.TokenType = ttType) and (pt.HasParentNode(nTypeSection, 1)) and
+    (not pt.IsOnRightOf(nTypeDecl, ttEquals)) then
   begin
     Result := True;
     exit;
@@ -274,7 +274,7 @@ begin
   end;
 
   { var and const when not in procedure parameters or array properties }
-  if (pt.Word in [wVar, wThreadVar, wConst, wResourceString]) and
+  if (pt.TokenType in [ttVar, ttThreadVar, ttConst, ttResourceString]) and
     pt.HasParentNode([nVarSection, nConstSection]) then
   begin
     Result := True;
@@ -282,21 +282,21 @@ begin
   end;
 
   { return after else unless there is an in }
-  if (pt.Word = wElse) and (ptNext.Word <> wIf) then
+  if (pt.TokenType = ttElse) and (ptNext.TokenType <> ttIf) then
   begin
     Result := True;
     exit;
   end;
 
   { case .. of  }
-  if (pt.Word = wOf) and (pt.IsOnRightOf(nCaseStatement, wCase)) then
+  if (pt.TokenType = ttOf) and (pt.IsOnRightOf(nCaseStatement, ttCase)) then
   begin
     Result := True;
     exit;
   end;
 
   { record varaint with of}
-  if (pt.Word = wOf) and pt.HasParentNode(nRecordVariantSection, 1) then
+  if (pt.TokenType = ttOf) and pt.HasParentNode(nRecordVariantSection, 1) then
   begin
     Result := True;
     exit;
@@ -312,8 +312,8 @@ begin
 
 
   { end without semicolon or dot, or hint directive }
-  if (pt.Word = wEnd) and (not (ptNext.TokenType in [ttSemiColon, ttDot]))  and
-    (not (ptNext.Word in HintDirectives)) then
+  if (pt.TokenType = ttEnd) and (not (ptNext.TokenType in [ttSemiColon, ttDot]))  and
+    (not (ptNext.TokenType in HintDirectives)) then
   begin
     Result := True;
     exit;
@@ -340,10 +340,10 @@ begin
       -  immediate parent is the classtype/interfacetype tree node
       - there is no classheritage node containing the brackets and base types thereunder
       - it's not the metaclass syntax 'foo = class of bar; ' }
-  if (pt.Word = wClass) and
+  if (pt.TokenType = ttClass) and
     pt.HasParentNode([nClassType, nInterfaceType], 1) and
     not (pt.Parent.HasChildNode(nClassHeritage, 1)) and
-    not (ptNext.Word = wOf) then
+    not (ptNext.TokenType = ttOf) then
   begin
     Result := True;
     exit;
@@ -366,13 +366,13 @@ begin
   end;
 
   // 'uses' in program, library or package
-  if (pt.Word = wUses) and pt.HasParentNode(TopOfProgramSections) then
+  if (pt.TokenType = ttUses) and pt.HasParentNode(TopOfProgramSections) then
   begin
     Result := True;
     exit;
   end;
 
-  if (pt.Word = wRecord) and pt.IsOnRightOf(nFieldDeclaration, ttColon) then
+  if (pt.TokenType = ttRecord) and pt.IsOnRightOf(nFieldDeclaration, ttColon) then
   begin
     Result := True;
     exit;
@@ -388,7 +388,7 @@ begin
   end;
 
   { return in record def after the record keyword }
-  if pt.HasParentNode(nRecordType) and (pt.Word = wRecord) then
+  if pt.HasParentNode(nRecordType) and (pt.TokenType = ttRecord) then
   begin
     Result := True;
     exit;

@@ -44,13 +44,13 @@ type
 
 implementation
 
-uses SourceToken, WordMap, TokenUtils, TokenType, ParseTreeNodeType,
+uses SourceToken, TokenUtils, Tokens, ParseTreeNodeType,
   JcfSettings, SetReturns, FormatFlags;
 
 function HasNoReturnBefore(const pt: TSourceToken): boolean;
 const
-  NoReturnTokens: TTokenTypeSet = [ttAssign, ttOperator, ttColon, ttSemiColon];
-  ProcNoReturnWords: TWordSet   = [wThen, wDo];
+  NoReturnTokens: TTokenTypeSet = [ttAssign, ttColon, ttSemiColon];
+  ProcNoReturnWords: TTokenTypeSet   = [ttThen, ttDo];
 begin
   Result := False;
 
@@ -60,14 +60,14 @@ begin
   if pt.HasParentNode(nAsm) then
     exit;
 
-  if (pt.TokenType in NoReturnTokens) then
+  if (pt.TokenType in NoReturnTokens + Operators) then
   begin
     Result := True;
     exit;
   end;
 
   { no return before then and do  in procedure body }
-  if (pt.Word in ProcNoReturnWords) and InStatements(pt) then
+  if (pt.TokenType in ProcNoReturnWords) and InStatements(pt) then
   begin
     Result := True;
     exit;
@@ -75,7 +75,7 @@ begin
 
   { no return in record def before the record keyword, likewise class & interface
     be carefull with the word 'class' as it also denotes (static) class fns. }
-  if pt.HasParentNode(nTypeDecl) and (pt.Word in StructuredTypeWords) and
+  if pt.HasParentNode(nTypeDecl) and (pt.TokenType in StructuredTypeWords) and
     (not pt.HasParentNode(nClassVisibility)) then
   begin
     Result := True;

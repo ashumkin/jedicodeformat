@@ -58,7 +58,7 @@ implementation
 
 {$R *.DFM}
 
-uses TokenType, jcfSettings, SetReturns, JcfHelp;
+uses Tokens, SettingsTypes, JcfSettings, SetReturns, JcfHelp;
 
 
 constructor TfClarifyReturns.Create(AOwner: TComponent);

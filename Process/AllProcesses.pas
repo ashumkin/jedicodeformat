@@ -71,7 +71,7 @@ uses
   Warning, WarnEmptyBlock, WarnRealType, WarnAssignToFunctionName,
   WarnCaseNoElse, WarnDestroy,
   { caps}
-  SpecifiCWordCaps, Capitalisation,
+  UnitNameCaps, SpecifiCWordCaps, Capitalisation,
   { returns }
   ReturnChars,
   RemoveReturnsAfterBegin, RemoveReturnsBeforeEnd,
@@ -192,6 +192,7 @@ end;
 
 procedure TAllProcesses.Capitalisation;
 begin
+  ApplyVisitorType(TUnitNameCaps);
   ApplyVisitorType(TSpecificWordCaps);
   ApplyVisitorType(TCapitalisation);
 end;
@@ -244,6 +245,7 @@ begin
 
   ApplyVisitorType(TVisitSetXY);
   ApplyVisitorType(TLongLineBreaker);
+
 end;
 
 

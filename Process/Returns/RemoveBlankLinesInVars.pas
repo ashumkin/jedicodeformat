@@ -43,7 +43,7 @@ type
 
 implementation
 
-uses FormatFlags, TokenType, WordMap, ParseTreeNodeType, TokenUtils;
+uses FormatFlags, Tokens, ParseTreeNodeType, TokenUtils;
 
 { TRemoveBlankLinesInVars }
 
@@ -74,7 +74,7 @@ begin
 
   { don't remove blank lines before the proc header,
     or before a contained fn or proc }
-  if lcNext.Word in ProcedureWords then
+  if lcNext.TokenType in ProcedureWords then
     exit;
 
   lcNext := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace, ttReturn]);

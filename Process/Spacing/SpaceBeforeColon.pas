@@ -42,7 +42,7 @@ implementation
 
 uses
   JclStrings,
-  JcfSettings, SetSpaces, SourceToken, TokenType, ParseTreeNodeType,
+  JcfSettings, SetSpaces, SourceToken, Tokens, ParseTreeNodeType,
   FormatFlags, Nesting, TokenUtils;
 
 function SpacesBefore(const pt: TSourceToken): integer;

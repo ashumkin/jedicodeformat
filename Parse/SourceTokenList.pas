@@ -31,7 +31,7 @@ interface
 
 uses
   { delphi } Contnrs,
-  { local } SourceToken, TokenType, WordMap;
+  { local } SourceToken, Tokens;
 
 type
   TSourceTokenList = class(TObject)
@@ -53,15 +53,14 @@ type
 
     function First: TSourceToken;
     function FirstTokenType: TTokenType;
-    function FirstTokenWord: TWord;
 
     function FirstSolidToken: TSourceToken;
     function FirstSolidTokenType: TTokenType;
-    function FirstSolidTokenWord: TWord;
+    function FirstSolidWordType: TWordType;
 
     function SolidToken(piIndex: integer): TSourceToken;
     function SolidTokenType(piIndex: integer): TTokenType;
-    function SolidTokenWord(piIndex: integer): TWord;
+    function SolidWordType(piIndex: integer): TWordType;
 
     function IndexOf(const pcToken: TSourceToken): integer;
     procedure Insert(const piPos: integer; const pcToken: TSourceToken);
@@ -115,19 +114,10 @@ end;
 function TSourceTokenList.FirstTokenType: TTokenType;
 begin
   if Count = 0 then
-    Result := ttEOF
+    Result := ttUnknown
   else
     Result := First.TokenType;
 end;
-
-function TSourceTokenList.FirstTokenWord: TWord;
-begin
-  if Count = 0 then
-    Result := wUnknown
-  else
-    Result := First.Word;
-end;
-
 
 function TSourceTokenList.FirstSolidTokenType: TTokenType;
 var
@@ -135,20 +125,20 @@ var
 begin
   lc := FirstSolidToken;
   if lc = nil then
-    Result := ttEOF
+    Result := ttUnknown
   else
     Result := lc.TokenType;
 end;
 
-function TSourceTokenList.FirstSolidTokenWord: TWord;
+function TSourceTokenList.FirstSolidWordType: TWordType;
 var
   lc: TSourceToken;
 begin
   lc := FirstSolidToken;
   if lc = nil then
-    Result := wUnknown
+    Result := wtNotAWord
   else
-    Result := lc.Word;
+    Result := lc.WordType;
 end;
 
 
@@ -198,22 +188,23 @@ begin
   lc := SolidToken(piIndex);
 
   if lc = nil then
-    Result := ttEOF
+    Result := ttUnknown
   else
     Result := lc.TokenType;
 end;
 
-function TSourceTokenList.SolidTokenWord(piIndex: integer): TWord;
+function TSourceTokenList.SolidWordType(piIndex: integer): TWordType;
 var
   lc: TSourceToken;
 begin
   lc := SolidToken(piIndex);
 
   if lc = nil then
-    Result := wUnknown
+    Result := wtNotAWord
   else
-    Result := lc.Word;
+    Result := lc.WordType;
 end;
+
 
 function TSourceTokenList.IndexOf(const pcToken: TSourceToken): integer;
 begin

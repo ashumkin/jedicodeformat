@@ -66,7 +66,7 @@ uses
   SysUtils,
   JclStrings,
   { JCF  }
-  SourceToken, TokenType, ParseTreeNode, ParseTreeNodeType, TokenUtils,
+  SourceToken, Tokens, ParseTreeNode, ParseTreeNodeType, TokenUtils,
   JcfRegistrySettings;
 
 function DisplayFloat(const ex: extended): string;

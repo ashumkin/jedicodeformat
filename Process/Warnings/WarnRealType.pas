@@ -40,7 +40,7 @@ type
 
 implementation
 
-uses SourceToken, ParseTreeNodeType, WordMap;
+uses SourceToken, ParseTreeNodeType, Tokens;
 
 procedure TWarnRealType.EnabledVisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult);
 const
@@ -60,11 +60,11 @@ begin
    If the code was orignally Delphi V1, then it may be better of as "Currency"
    }
 
-  if lcToken.word = wReal then
+  if lcToken.TokenType = ttReal then
   begin
     SendWarning(lcToken, 'Real type used.' + REAL_WARNING);
   end
-  else if lcToken.word = wReal48 then
+  else if lcToken.TokenType = ttReal48 then
   begin
     SendWarning(lcToken, 'Real48 type used.' + REAL_WARNING);
   end;

@@ -103,7 +103,7 @@ type
     property ConvertErrorMessage: string read fsConvertErrorMessage;
 
     property ShowParseTreeOption: TShowParseTreeOption read feShowParseTree write feShowParseTree;
-
+    property Root: TParseTreeNode read GetRoot;
   end;
 
 implementation

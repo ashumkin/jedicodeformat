@@ -39,7 +39,8 @@ implementation
 
 uses
   JclStrings,
-  FormatFlags, TokenType, WordMap, ParseTreeNodeType, TokenUtils, JcfSettings;
+  FormatFlags, Tokens, SettingsTypes,
+  ParseTreeNodeType, TokenUtils, JcfSettings;
 
 { TReturnChars }
 

@@ -43,7 +43,7 @@ type
 
 implementation
 
-uses  FormatFlags, SourceToken, TokenType;
+uses  FormatFlags, SourceToken, Tokens;
 
 
 constructor TRemoveSpaceAtLineEnd.Create;

@@ -45,7 +45,7 @@ type
 
 implementation
 
-uses FormatFlags, JcfSettings, ParseTreeNodeType, WordMap, TokenType, TokenUtils;
+uses FormatFlags, JcfSettings, ParseTreeNodeType, Tokens, TokenUtils;
 
 constructor TAlignTypedef.Create;
 begin
@@ -76,27 +76,29 @@ begin
   if Result then
   begin
     // exclude the starting word
-    Result := not (pt.Word in StructuredTypeWords + [wObject]);
+    Result := not (pt.TokenType in StructuredTypeWords + [ttObject]);
   end;
 end;
 
 function TAlignTypedef.TokenEndsStatement(const pt: TSourceToken): boolean;
 begin
+  if pt = nil then
+    Result := True
   { only look at solid tokens }
-  if (pt.TokenType in [ttReturn, ttWhiteSpace]) then
+  else if (pt.TokenType in [ttReturn, ttWhiteSpace]) then
   begin
     Result := False;
   end
   else
   begin
     Result := (not pt.HasParentNode(nTypeDecl)) or
-      (pt.TokenType in [ttSemiColon, ttEOF]) or InStructuredTypeBody(pt);
+      (pt.TokenType in [ttSemiColon]) or InStructuredTypeBody(pt);
   end;
 end;
 
 function TAlignTypedef.TokenIsAligned(const pt: TSourceToken): boolean;
 begin
-  Result := (pt.Word = wEquals);
+  Result := (pt.TokenType = ttEquals);
 end;
 
 end.

@@ -53,7 +53,7 @@ implementation
 
 {$R *.DFM}
 
-uses TokenType, JcfHelp, JcfSettings;
+uses SettingsTypes, JcfHelp, JcfSettings;
 
 constructor TfrReservedCapsSettings.Create(AOwner: TComponent);
 begin

@@ -69,7 +69,7 @@ implementation
 
 {$R *.DFM}
 
-uses TokenType, JcfHelp, JcfSettings;
+uses JcfHelp, JcfSettings;
 
 constructor TfClarifySpaces.Create(AOwner: TComponent);
 begin

@@ -30,7 +30,7 @@ interface
 
 uses
     { delphi } Classes,
-    { local } TokenType, SettingsStream;
+    { local } SettingsStream;
 
 type
 

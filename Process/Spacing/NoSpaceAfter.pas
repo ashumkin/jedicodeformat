@@ -45,7 +45,7 @@ implementation
 
 uses
   JcfMiscFunctions,
-  TokenType, WordMap, ParseTreeNodeType, JcfSettings, FormatFlags, TokenUtils;
+  Tokens, ParseTreeNodeType, JcfSettings, FormatFlags, TokenUtils;
 
 { TNoSpaceAfter }
 
@@ -72,8 +72,8 @@ begin
   { no space between method name and open bracket for param list
     no space between type & bracket for cast
     no space between fn name & params for procedure call }
-  if (pt.HasParentNode([nProcedureDecl, nFunctionDecl, nConstructorDecl, nDestructorDecl, nStatementList]) and
-    (pt.TokenType in [ttWord, ttBuiltInType])) then
+  if pt.HasParentNode([nProcedureDecl, nFunctionDecl, nConstructorDecl, nDestructorDecl, nStatementList]) and
+    (IsIdentifier(pt) or (pt.TokenType in BuiltInTypes)) then
   begin
     if (ptNext.TokenType in OpenBrackets) then
     begin
@@ -85,7 +85,7 @@ begin
   { the above takes care of procedure headers but not procedure type defs
    eg type TFred = procedure(i: integer) of object;
     note no space before the open bracket }
-   if pt.HasParentNode(nTypeDecl) and (pt.IsOnRightOf(nTypeDecl, wEquals)) and (pt.Word in ProcedureWords) then
+   if pt.HasParentNode(nTypeDecl) and (pt.IsOnRightOf(nTypeDecl, ttEquals)) and (pt.TokenType in ProcedureWords) then
   begin
     if (ptNext.TokenType in OpenBrackets) then
     begin
@@ -109,7 +109,7 @@ begin
     see SingleSpaceAfter
 
     also applies to type TFoo = interface(IDispatch) }
-  if (pt.HasParentNode(nRestrictedType)) and (pt.Word in ObjectTypeWords)
+  if (pt.HasParentNode(nRestrictedType)) and (pt.TokenType in ObjectTypeWords)
     and (not (FormatSettings.Spaces.SpaceBeforeClassHeritage)) then
   begin
     if (ptNext.TokenType in [ttOpenBracket, ttSemiColon]) then

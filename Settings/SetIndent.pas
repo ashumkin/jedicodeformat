@@ -23,7 +23,7 @@ unit SetIndent;
 
 interface
 
-uses JCFSetBase, TokenType, SettingsStream;
+uses JCFSetBase, SettingsStream;
 
 type
 

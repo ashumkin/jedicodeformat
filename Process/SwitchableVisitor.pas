@@ -58,7 +58,7 @@ type
 
 implementation
 
-uses SourceToken, TokenType, ParseError;
+uses SourceToken, Tokens, ParseError;
 
 constructor TSwitchableVisitor.Create;
 begin

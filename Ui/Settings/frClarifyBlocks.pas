@@ -39,6 +39,7 @@ type
     rgEndElse: TRadioGroup;
     Label1: TLabel;
     rgCaseLabel: TRadioGroup;
+    rgElseIf: TRadioGroup;
   private
 
   public
@@ -53,7 +54,7 @@ implementation
 
 {$R *.DFM}
 
-uses JcfSettings, TokenType, JcfHelp;
+uses JcfSettings, SettingsTypes, JcfHelp;
 
 constructor TfClarifyBlocks.Create(AOwner: TComponent);
 begin
@@ -76,6 +77,7 @@ begin
     rglabel.ItemIndex      := Ord(LabelStyle);
     rgEndElse.ItemIndex    := Ord(EndElseStyle);
     rgCaseLabel.ItemIndex := Ord(CaseLabelStyle);
+    rgElseIf.ItemIndex := Ord(ElseIfStyle);
   end;
 end;
 
@@ -89,7 +91,8 @@ begin
     LabelBeginStyle := TBlockNewLineStyle(rgLabelBegin.ItemIndex);
     LabelStyle      := TBlockNewLineStyle(rgLabel.ItemIndex);
     EndElseStyle    := TBlockNewLineStyle(rgEndElse.ItemIndex);
-    CaseLabelStyle :=  TBlockNewLineStyle(rgCaseLabel.ItemIndex);
+    CaseLabelStyle  :=  TBlockNewLineStyle(rgCaseLabel.ItemIndex);
+    ElseIfStyle     := TBlockNewLineStyle(rgElseIf.ItemIndex);
   end;
 end;
 

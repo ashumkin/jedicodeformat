@@ -65,7 +65,7 @@ implementation
 
 {$R *.DFM}
 
-uses JcfSettings, TokenType, JcfHelp;
+uses JcfSettings, JcfHelp;
 
 constructor TfClarifyAlign.Create(AOwner: TComponent);
 begin

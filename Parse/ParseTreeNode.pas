@@ -33,7 +33,7 @@ interface
 
 uses
   {delphi } Contnrs,
-  { local } WordMap, VisitParseTree, ParseTreeNodeType, TokenType, Nesting;
+  { local } Tokens, VisitParseTree, ParseTreeNodeType, Nesting;
 
 
 type
@@ -84,8 +84,6 @@ type
     function Root: TParseTreeNode;
 
     function HasChildNode(const peTokens: TTokenTypeSet): Boolean; overload; virtual;
-    function HasChildNode(const peWords: TWordSet): Boolean; overload; virtual;
-    function HasChildNode(const peWords: TWordSet; const piMaxDepth: integer): Boolean; overload; virtual;
     function HasChildNode(const peTokens: TTokenTypeSet; const piMaxDepth: integer): Boolean; overload; virtual;
     function HasChildNode(const peToken: TTokenType; const piMaxDepth: integer): Boolean; overload; virtual;
     function HasChildNode(const peNodes: TParseTreeNodeTypeSet; const piMaxDepth: integer): Boolean; overload; virtual;
@@ -105,10 +103,6 @@ type
     { this one needs some explanation. Need to answer questions like
      'Is this node in a type decl, on the right of an equal sign
      So we find if we have a predecessor of one of peWords in the subtree rooted at peNodeTypes }
-    function IsOnRightOf(const peRootNodeTypes: TParseTreeNodeTypeSet; const peWords: TWordSet): Boolean; overload;
-    function IsOnRightOf(const peRootNodeType: TParseTreeNodeType; const peWord: TWord): Boolean; overload;
-
-    { same with token types}
     function IsOnRightOf(const peRootNodeTypes: TParseTreeNodeTypeSet; const peTokens: TTokenTypeSet): Boolean; overload;
     function IsOnRightOf(const peRootNodeType: TParseTreeNodeType; const peToken: TTokenType): Boolean; overload;
 
@@ -286,19 +280,6 @@ begin
     Result := fcParent.Root;
 end;
 
-function TParseTreeNode.HasChildNode(const peWords: TWordSet): Boolean;
-var
-  liLoop: integer;
-begin
-  Result := False;
-
-  for liLoop := 0 to ChildNodeCount - 1 do
-  begin
-    Result := ChildNodes[liLoop].HasChildNode(peWords);
-    if Result then
-      break;
-  end;
-end;
 
 function TParseTreeNode.HasChildNode(const peTokens: TTokenTypeSet): Boolean;
 var
@@ -311,23 +292,6 @@ begin
     Result := ChildNodes[liLoop].HasChildNode(peTokens);
     if Result then
       break;
-  end;
-end;
-
-function TParseTreeNode.HasChildNode(const peWords: TWordSet; const piMaxDepth: integer): Boolean;
-var
-  liLoop: integer;
-begin
-  Result := False;
-
-  if (piMaxDepth > 0) then
-  begin
-    for liLoop := 0 to ChildNodeCount - 1 do
-    begin
-      Result := ChildNodes[liLoop].HasChildNode(peWords, piMaxDepth - 1);
-      if Result then
-        break;
-    end;
   end;
 end;
 
@@ -435,79 +399,6 @@ function TParseTreeNode.GetParentNode(const peNodeType: TParseTreeNodeType): TPa
 begin
   Result := GetParentNode([peNodeType]);
 end;
-
-function TParseTreeNode.IsOnRightOf(const peRootNodeTypes: TParseTreeNodeTypeSet; const peWords: TWordSet): Boolean;
-var
-  lbSearchDone: Boolean;
-
-  function GetFirstMatch(const pcRoot: TParseTreeNode; const peWords: TWordSet): TParseTreeNode;
-  var
-    liLoop: integer;
-    lcChild: TParseTreeNode;
-  begin
-    Result := nil;
-
-    if pcRoot = self then
-    begin
-      lbSearchDone := True;
-      exit;
-    end;
-
-    // leaf node - matching token using the 'HasChildNode' override to match self
-    if (pcRoot.ChildNodeCount = 0) and pcRoot.HasChildNode(peWords) then
-    begin
-      // success
-      lbSearchDone := True;
-      Result := pcRoot;
-      exit;
-    end;
-
-    // recurse into all children (or until self is encountered)
-    for liLoop := 0 to pcRoot.ChildNodeCount - 1 do
-    begin
-      lcChild := pcRoot.ChildNodes[liLoop];
-      if lcChild = self then
-      begin
-        // failed - reached self without matching the required words.
-        lbSearchDone := True;
-        break;
-      end;
-
-      Result := GetFirstMatch(lcChild, peWords);
-      if Result <> nil then
-        break;
-
-      if lbSearchDone then
-        break;
-   end;
-  end;
-
-var
-  lcRoot, lcFirstMatch: TParseTreeNode;
-begin
-  { does it have the required parent }
-  lcRoot := GetParentNode(peRootNodeTypes);
-  if lcRoot = nil then
-  begin
-    Result := False;
-    exit;
-  end;
-
-  { does the parent have the required child
-    search depth-first, ending when the self node is reached }
-
-  lbSearchDone := False;
-  lcFirstMatch := GetFirstMatch(lcRoot, peWords);
-
-  // not enough - must be before self
-  Result := (lcFirstMatch <> nil);
-end;
-
-function TParseTreeNode.IsOnRightOf(const peRootNodeType: TParseTreeNodeType; const peWord: TWord): Boolean;
-begin
-  Result := IsOnRightOf([peRootNodeType], [peWord]);
-end;
-
 
 { a copy of the above with different types }
 function TParseTreeNode.IsOnRightOf(const peRootNodeTypes: TParseTreeNodeTypeSet;

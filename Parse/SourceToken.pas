@@ -28,7 +28,7 @@ interface
 
 uses
     { delphi } Windows,
-    { local } TokenType, WordMap, ParseTreeNode, VisitParseTree;
+    { local } Tokens, ParseTreeNode, VisitParseTree;
 
 type
 
@@ -37,7 +37,7 @@ type
     { property implementation }
     fsSourceCode: string;
     feTokenType: TTokenType;
-    feWord: TWord;
+    feWordType: TWordType;
     feCommentStyle: TCommentStyle;
 
     fiXPosition, fiYPosition: integer;
@@ -55,9 +55,7 @@ type
 
     function IsSolid: boolean;
 
-    function HasChildNode(const peWords: TWordSet): Boolean; override;
     function HasChildNode(const peTokens: TTokenTypeSet): Boolean; override;
-    function HasChildNode(const peWords: TWordSet; const piMaxDepth: integer): Boolean; override;
     function HasChildNode(const peTokens: TTokenTypeSet; const piMaxDepth: integer): Boolean; override;
 
     function SolidChildCount: integer; override;
@@ -75,8 +73,9 @@ type
     function IsHashLiteral: boolean;
 
     property TokenType: TTokenType read feTokenType write feTokenType;
+    property WordType: TWordType read feWordType write feWordType;
+
     property SourceCode: string read fsSourceCode write fsSourceCode;
-    property Word: TWord read feWord write feWord;
     property CommentStyle: TCommentStyle read feCommentStyle write feCommentStyle;
 
     property XPosition: integer read fiXPosition write fiXPosition;
@@ -99,20 +98,23 @@ uses
 constructor TSourceToken.Create;
 begin
   inherited;
-
   feTokenType  := ttUnknown;
-  feWord       := wUnknown;
   fsSourceCode := '';
 end;
 
 function TSourceToken.Describe: string;
 const
   StructuredTokens: TTokenTypeSet =
-    [ttComment, ttOperator, ttNumber, ttLiteralString, ttUnKnown];
+    [ttComment, ttNumber, ttLiteralString, ttUnknown, ttPunctuation, ttIdentifier];
 begin
-  Result := TokenTypeToString(TokenType);
-  if (TokenType in (TextualTokens + StructuredTokens)) then
-    Result := Result + ' ' + SourceCode;
+  if TokenType = ttIdentifier then
+    Result := SourceCode
+  else
+  begin
+    Result := TokenTypeToString(TokenType);
+    if (TokenType in StructuredTokens) then
+      Result := Result + ' ' + SourceCode;
+  end;
 end;
 
 function TSourceToken.DescribePosition: string;
@@ -128,26 +130,15 @@ begin
   end;
 end;
 
-function TSourceToken.HasChildNode(const peWords: TWordSet): Boolean;
-begin
-  Result := (Word in peWords);
-end;
-
 function TSourceToken.HasChildNode(const peTokens: TTokenTypeSet): Boolean;
 begin
   Result := (TokenType in peTokens);
-end;
-
-function TSourceToken.HasChildNode(const peWords: TWordSet; const piMaxDepth: integer): Boolean;
-begin
-  Result := (Word in peWords);
 end;
 
 function TSourceToken.HasChildNode(const peTokens: TTokenTypeSet; const piMaxDepth: integer): Boolean;
 begin
   Result := (TokenType in peTokens);
 end;
-
 
 function TSourceToken.IsSolid: boolean;
 begin

@@ -37,7 +37,7 @@ unit CodeWriter;
 
 interface
 
-uses TokenType, SourceToken, ParseTreeNode;
+uses SourceToken, ParseTreeNode;
 
 type
   TCodeWriter = class(TObject)

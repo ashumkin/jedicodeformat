@@ -56,8 +56,8 @@ implementation
 
 uses
   { local}
-  WordMap, FormatFlags, JcfSettings, TokenUtils,
-  ParseTreeNodeType, TokenType;
+  Tokens, FormatFlags, JcfSettings, TokenUtils,
+  ParseTreeNodeType;
 
 { TAlignAssign }
 
@@ -91,15 +91,17 @@ end;
 
 function TAlignAssign.TokenEndsStatement(const pt: TSourceToken): boolean;
 begin
+  if pt = nil then
+    Result := True
   { only look at solid tokens }
-  if (pt.TokenType in [ttReturn, ttWhiteSpace]) then
+  else if (pt.TokenType in [ttReturn, ttWhiteSpace]) then
   begin
     Result := False;
   end
   else
   begin
-    Result := (pt.TokenType in [ttSemiColon, ttEOF, ttReservedWord]) or
-    (not InStatements(pt));
+    Result := (pt.TokenType = ttSemiColon) or (pt.WordType = wtReservedWord) or
+      (not InStatements(pt));
   end;
 end;
 

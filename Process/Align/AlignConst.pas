@@ -50,8 +50,8 @@ type
 implementation
 
 uses
-    { local} WordMap, FormatFlags, JcfSettings,
-    TokenType, ParseTreeNodeType, TokenUtils;
+    { local} FormatFlags, JcfSettings,
+    Tokens, ParseTreeNodeType, TokenUtils;
 
 
 constructor TAlignConst.Create;
@@ -68,8 +68,10 @@ end;
 { a token that ends an const block }
 function TAlignConst.TokenEndsStatement(const pt: TSourceToken): boolean;
 begin
+  if pt = nil then
+    Result := True
   { only look at solid tokens }
-  if (pt.TokenType in [ttReturn, ttWhiteSpace]) then
+  else if (pt.TokenType in [ttReturn, ttWhiteSpace]) then
   begin
     // ended by a blank line
     Result := IsBlankLineEnd(pt);
@@ -77,7 +79,7 @@ begin
   else
   begin
     Result := (not pt.HasParentNode(nConstSection)) or
-      (pt.TokenType in [ttSemiColon, ttEOF, ttReservedWord]);
+      (pt.TokenType in [ttSemiColon]) or (pt.WordType = wtReservedWord);
   end;
 end;
 
@@ -89,7 +91,7 @@ end;
 
 function TAlignConst.TokenIsAligned(const pt: TSourceToken): boolean;
 begin
-  Result := (pt.Word = wEquals);
+  Result := (pt.TokenType = ttEquals);
 end;
 
 end.

@@ -43,7 +43,7 @@ implementation
 
 uses
   JclStrings,
-  { local } SourceToken, TokenType, WordMap, ParseTreeNodeType, FormatFlags;
+  { local } SourceToken, Tokens, ParseTreeNodeType, FormatFlags;
 
 function TextOrNumberString(const str: string): boolean;
 var
@@ -81,7 +81,7 @@ begin
   end;
 
   { need to keep space before ASM @@ thingy}
-  if (pt2.Word = wAtSign) and pt2.HasParentNode(nAsmStatement) then
+  if (pt2.TokenType = ttAtSign) and pt2.HasParentNode(nAsmStatement) then
     exit;
 
   { never need a space next to a bracket }
@@ -105,7 +105,7 @@ begin
     exit;
   end;
 
-  if (pt1.TokenType in TextOrNumberTokens) and (pt2.Word = wAtSign) and (pt1.HasParentnode(nAsm)) then
+  if (pt1.TokenType in TextOrNumberTokens) and (pt2.TokenType = ttAtSign) and (pt1.HasParentnode(nAsm)) then
   begin
     Result := False;
     exit;

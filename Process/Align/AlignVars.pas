@@ -58,8 +58,8 @@ type
 implementation
 
 uses
-  { local} WordMap, FormatFlags, JcfSettings,
-  ParseTreeNodeType, TokenType,
+  { local} Tokens, FormatFlags, JcfSettings,
+  ParseTreeNodeType,
   TokenUtils, Nesting;
 
 { TAlignVars }
@@ -107,15 +107,17 @@ end;
 
 function TAlignVars.TokenEndsStatement(const pt: TSourceToken): boolean;
 begin
+  if pt = nil then
+    Result := True
   { only look at solid tokens }
-  if (pt.TokenType in [ttReturn, ttWhiteSpace]) then
+  else if (pt.TokenType in [ttReturn, ttWhiteSpace]) then
   begin
     // ended by a blank line
     Result := IsBlankLineEnd(pt);
   end
   else
   begin
-    Result := (pt.TokenType in [ttSemiColon, ttEOF]) or (not pt.HasParentNode(nVarSection));
+    Result := (pt.TokenType = ttSemiColon) or (not pt.HasParentNode(nVarSection));
   end;
 end;
 

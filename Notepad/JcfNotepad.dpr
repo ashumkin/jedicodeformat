@@ -31,7 +31,6 @@ uses
   StringsWriter in '..\ReadWrite\StringsWriter.pas',
   StringsConverter in '..\ReadWrite\StringsConverter.pas',
   ConvertTypes in '..\ReadWrite\ConvertTypes.pas',
-  WordMap in '..\Parse\WordMap.pas',
   BuildParseTree in '..\Parse\BuildParseTree.pas',
   BuildTokenList in '..\Parse\BuildTokenList.pas',
   ParseError in '..\Parse\ParseError.pas',
@@ -39,7 +38,6 @@ uses
   ParseTreeNodeType in '..\Parse\ParseTreeNodeType.pas',
   SourceToken in '..\Parse\SourceToken.pas',
   SourceTokenList in '..\Parse\SourceTokenList.pas',
-  TokenType in '..\Parse\TokenType.pas',
   VisitSetXY in '..\Process\VisitSetXY.pas',
   BaseVisitor in '..\Process\BaseVisitor.pas',
   VisitParseTree in '..\Process\VisitParseTree.pas',
@@ -51,7 +49,6 @@ uses
   JCFSetBase in '..\Settings\JCFSetBase.pas',
   JCFSettings in '..\Settings\JCFSettings.pas',
   SetAlign in '..\Settings\SetAlign.pas',
-  SetAnyWordCaps in '..\Settings\SetAnyWordCaps.pas',
   SetCaps in '..\Settings\SetCaps.pas',
   SetClarify in '..\Settings\SetClarify.pas',
   SetFile in '..\Settings\SetFile.pas',
@@ -136,7 +133,11 @@ uses
   frReservedCapsSettings in '..\Ui\Settings\frReservedCapsSettings.pas' {frReservedCapsSettings: TFrame},
   frClarifyLongLineBreaker in '..\Ui\Settings\frClarifyLongLineBreaker.pas' {fClarifyLongLineBreaker: TFrame},
   fRegistrySettings in '..\Ui\fRegistrySettings.pas' {fmRegistrySettings},
-  MozComment in '..\Process\Onceoffs\MozComment.pas';
+  MozComment in '..\Process\Onceoffs\MozComment.pas',
+  Tokens in '..\Parse\Tokens.pas',
+  SettingsTypes in '..\Settings\SettingsTypes.pas',
+  SetWordList in '..\Settings\SetWordList.pas',
+  UnitNameCaps in '..\Process\Capitalisation\UnitNameCaps.pas';
 
 {$R *.res}
 

@@ -27,7 +27,7 @@ unit SetAlign;
 
 interface
 
-uses JCFSetBase, TokenType, SettingsStream;
+uses JCFSetBase, SettingsStream;
 
 type
 

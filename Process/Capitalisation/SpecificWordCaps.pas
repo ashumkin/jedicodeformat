@@ -1,17 +1,14 @@
 unit SpecificWordCaps;
 
-{ AFS 30 December 2002
-    - fix capitalisation on specified words
-}
 {(*}
 (*------------------------------------------------------------------------------
- Delphi Code formatter source code 
+ Delphi Code formatter source code
 
 The Original Code is SpecificWordCaps, released May 2003.
-The Initial Developer of the Original Code is Anthony Steele. 
-Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
-All Rights Reserved. 
-Contributor(s): Anthony Steele. 
+The Initial Developer of the Original Code is Anthony Steele.
+Portions created by Anthony Steele are Copyright (C) 1999-2003 Anthony Steele.
+All Rights Reserved.
+Contributor(s): Anthony Steele.
 
 The contents of this file are subject to the Mozilla Public License Version 1.1
 (the "License"). you may not use this file except in compliance with the License.
@@ -19,11 +16,14 @@ You may obtain a copy of the License at http://www.mozilla.org/NPL/
 
 Software distributed under the License is distributed on an "AS IS" basis,
 WITHOUT WARRANTY OF ANY KIND, either express or implied.
-See the License for the specific language governing rights and limitations 
+See the License for the specific language governing rights and limitations
 under the License.
 ------------------------------------------------------------------------------*)
 {*)}
 
+{ AFS 30 December 2002
+    - fix capitalisation on specified words
+}
 interface
 
 uses SwitchableVisitor, VisitParseTree;
@@ -49,7 +49,7 @@ implementation
 uses
   SysUtils,
   JclStrings,
-  SourceToken, TokenType, ParseTreeNodeType, JcfSettings, FormatFlags;
+  SourceToken, Tokens, ParseTreeNodeType, JcfSettings, FormatFlags;
 
 
 function Excluded(const pt: TSourceToken): boolean;
@@ -77,7 +77,7 @@ begin
    user defined types are things that we often *want* to set a specific caps on
    so they are not excluded }
 
-  if (pt.TokenType = ttBuiltInType) and (pt.HasParentNode(nType)) then
+  if (pt.TokenType in BuiltInTypes) and (pt.HasParentNode(nType)) then
   begin
     Result := True;
     exit;
@@ -115,6 +115,9 @@ var
   lcSourceToken: TSourceToken;
   lsChange: string;
 begin
+  if not FormatSettings.SpecificWordCaps.Enabled then
+    exit;
+
   lcSourceToken := TSourceToken(pcNode);
 
   if Excluded(lcSourceToken) then
@@ -123,7 +126,7 @@ begin
   if FormatSettings.SpecificWordCaps.HasWord(lcSourceToken.SourceCode) then
   begin
     // get the fixed version
-    lsChange := FormatSettings.SpecificWordCaps.FixWord(lcSourceToken.SourceCode);
+    lsChange := FormatSettings.SpecificWordCaps.CapitaliseWord(lcSourceToken.SourceCode);
 
     // case-sensitive test - see if anything to do.
     if AnsiCompareStr(lcSourceToken.SourceCode, lsChange) <> 0 then

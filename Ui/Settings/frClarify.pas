@@ -48,7 +48,7 @@ implementation
 
 {$R *.DFM}
 
-uses JcfSettings, TokenType, JCFHelp, SetClarify;
+uses JcfSettings, JCFHelp, SetClarify;
 
 constructor TfClarify.Create(AOwner: TComponent);
 begin

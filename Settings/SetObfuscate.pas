@@ -28,7 +28,7 @@ unit SetObfuscate;
 interface
 
 uses
-  { local } JCFSetBase, TokenType, SettingsStream;
+  { local } JCFSetBase, SettingsTypes, SettingsStream;
 
 type
 

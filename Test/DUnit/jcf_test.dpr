@@ -25,14 +25,12 @@ uses
   Forms,
   GUITestRunner in '..\..\..\..\..\Delphi\DUnit\src\GUITestRunner.pas' {GUITestRunner},
   TestFramework in '..\..\..\..\..\Delphi\DUnit\src\TestFramework.pas',
-  WordMap in '..\..\Parse\WordMap.pas',
   BuildParseTree in '..\..\Parse\BuildParseTree.pas',
   BuildTokenList in '..\..\Parse\BuildTokenList.pas',
   ParseError in '..\..\Parse\ParseError.pas',
   ParseTreeNode in '..\..\Parse\ParseTreeNode.pas',
   SourceToken in '..\..\Parse\SourceToken.pas',
   SourceTokenList in '..\..\Parse\SourceTokenList.pas',
-  TokenType in '..\..\Parse\TokenType.pas',
   fShowParseTree in '..\..\Parse\UI\fShowParseTree.pas' {frmShowParseTree},
   Converter in '..\..\ReadWrite\Converter.pas',
   FileWriter in '..\..\ReadWrite\FileWriter.pas',
@@ -60,7 +58,6 @@ uses
   SetUses in '..\..\Settings\SetUses.pas',
   JCFSetBase in '..\..\Settings\JCFSetBase.pas',
   SetAlign in '..\..\Settings\SetAlign.pas',
-  SetAnyWordCaps in '..\..\Settings\SetAnyWordCaps.pas',
   SetCaps in '..\..\Settings\SetCaps.pas',
   SetClarify in '..\..\Settings\SetClarify.pas',
   SetFile in '..\..\Settings\SetFile.pas',
@@ -94,6 +91,7 @@ uses
   NoSpaceBefore in '..\..\Process\Spacing\NoSpaceBefore.pas',
   TestSpacing in 'TestSpacing.pas',
   TestAlignment in 'TestAlignment.pas',
+  TestIfElseBreaks in 'TestIfElseBreaks.pas',
   BaseTestProcess in 'BaseTestProcess.pas',
   NoReturnBefore in '..\..\Process\Returns\NoReturnBefore.pas',
   NoSpaceAfter in '..\..\Process\Spacing\NoSpaceAfter.pas',
@@ -130,7 +128,10 @@ uses
   TestCommandLine in 'TestCommandLine.pas',
   TestConstants in 'TestConstants.pas',
   TestFile in 'TestFile.pas',
-  RemoveSpaceAtLineEnd in '..\..\Process\Spacing\RemoveSpaceAtLineEnd.pas';
+  RemoveSpaceAtLineEnd in '..\..\Process\Spacing\RemoveSpaceAtLineEnd.pas',
+  Tokens in '..\..\Parse\Tokens.pas',
+  SetWordList in '..\..\Settings\SetWordList.pas',
+  UnitNameCaps in '..\..\Process\Capitalisation\UnitNameCaps.pas';
 
 {$R *.res}
 

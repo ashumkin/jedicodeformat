@@ -43,7 +43,8 @@ implementation
 uses
   { delphi } SysUtils,
   { jcl } JclStrings,
-  { local } SourceToken, TokenType, ParseTreeNodeType, JcfSettings, FormatFlags;
+  { local } Tokens, SourceToken, SettingsTypes,
+  ParseTreeNodeType, JcfSettings, FormatFlags, TokenUtils;
 
 
 { identify the cases where the compiler is case sensitive
@@ -56,9 +57,8 @@ begin
     or component registration may not work in some versions of Delphi
     This is a known issue in some versions of Delphi
     note intentional use of case-sensitive compare }
-  if (pt.TokenType = ttWord) and
-    AnsiSameStr(pt.SourceCode, 'Register') then
-      //!!! and (pt.HasParent(tnProcedureHeading) then
+  if (IsIdentifier(pt)) and AnsiSameStr(pt.SourceCode, 'Register') and
+    pt.HasParentNode([nProcedureType, nProcedureDecl, nProcedureHeading]) then
   begin
     Result := True;
     exit;
@@ -67,7 +67,7 @@ begin
   { had problems - IDE could not find the base class frame
     when the frame's ancestor's name was decapitised
     most likely some lazy developer @ borland forgot to match strings without case}
-  if (pt.TokenType = ttWord) and (pt.HasParentNode(nClassHeritage)) then
+  if (pt.WordType in IdentifierTypes) and (pt.HasParentNode(nClassHeritage)) then
   begin
     Result := True;
     exit;

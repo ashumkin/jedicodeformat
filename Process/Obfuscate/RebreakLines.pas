@@ -45,7 +45,7 @@ implementation
 
 uses
   JclStrings,
-  SourceToken, TokenType, FormatFlags;
+  SourceToken, Tokens, FormatFlags;
 
 constructor TRebreakLines.Create;
 begin

@@ -50,7 +50,7 @@ type
 
 implementation
 
-uses FormatFlags, JcfSettings, ParseTreeNodeType, TokenType, TokenUtils;
+uses FormatFlags, JcfSettings, ParseTreeNodeType, Tokens, TokenUtils;
 
 constructor TAlignComment.Create;
 begin
@@ -77,14 +77,16 @@ end;
 
 function TAlignComment.TokenEndsStatement(const pt: TSourceToken): boolean;
 begin
+  if pt = nil then
+    Result := True
   { only look at solid tokens and returns }
-  if (pt.TokenType in [ttWhiteSpace]) then
+  else if (pt.TokenType in [ttWhiteSpace]) then
   begin
     Result := False;
   end
   else
   begin
-    Result := (pt.TokenType in [ttReturn, ttEOF]);
+    Result := (pt.TokenType in [ttReturn]);
   end;
 end;
 

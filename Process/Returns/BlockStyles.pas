@@ -66,7 +66,6 @@ uses SwitchableVisitor, VisitParseTree, ParseTreeNodeType;
 type
   TBlockStyles = class(TSwitchableVisitor)
     private
-      fbRemoveNextReturn: boolean;
 
     protected
       procedure EnabledVisitSourceToken(const pcNode: TObject; var prVisitResult: TRVisitResult); override;
@@ -76,11 +75,11 @@ type
 
 implementation
 
-uses WordMap, SourceToken, TokenType, TokenUtils, JCFSettings,
-  FormatFlags;
+uses Tokens, SourceToken, TokenUtils, JCFSettings,
+  FormatFlags, SettingsTypes;
 
 const
-  BreakWords: TWordSet = [wThen, wDo, wElse, wEnd];
+  BreakWords: TTokenTypeSet = [ttThen, ttDo, ttElse, ttEnd];
 
 function GetStyle(const pt: TSourceToken): TBlockNewLineStyle;
 var
@@ -93,16 +92,16 @@ begin
     exit;
 
   { only do anything to an end if it is followed by an else }
-  if pt.Word = wEnd then
+  if pt.TokenType = ttEnd then
   begin
-    if lcNextToken.Word = wElse then
+    if lcNextToken.TokenType = ttElse then
       Result := FormatSettings.Returns.EndElseStyle;
   end
   else if pt.TokenType = ttColon then
   begin
     if IsCaseColon(pt) then
     begin
-      if lcNextToken.Word = wBegin then
+      if lcNextToken.TokenType = ttBegin then
         // always a return here
         Result := eAlways
       else
@@ -111,30 +110,31 @@ begin
     else if IsLabelColon(pt) then
     begin
       { otherwise, is there a begin next? }
-      if lcNextToken.Word = wBegin then
+      if lcNextToken.TokenType = ttBegin then
         Result := FormatSettings.Returns.LabelBeginStyle
       else
         Result := FormatSettings.Returns.LabelStyle;
     end;
   end
-  else if (pt.Word = wElse) and (not pt.HasParentNode(nElseCase, 1)) and (lcNextToken.Word = wIf) then
+  else if (pt.TokenType = ttElse) and (not pt.HasParentNode(nElseCase, 1)) and
+    (lcNextToken.TokenType = ttIf) then
   begin
     { though else normally starts a block,
-     there is never a return in "else if"
-     If this is an issue, make a config setting later
+     according to standards, there is never a return in "else if" (!!! check!)
+     But we have a config setting for Marcus F
 
       **NB** rare exception: this does not apply when the if is not related to the else
       ie
        case (foo) of
          1:
-          DoSomething;
+          DoSomething1;
          2:
-          SoSomethingElse;
+          SoSomething2;
          else
            // this is the else case, not part of an if.
            // All statements from the 'else' to the 'end' form a block
-           if (SomeCond) then // though the is is directly after the else, this is not an else-if
-             DoSomething;
+           if (SomeCond) then // though the 'if' is directly after the else, this is not an else-if
+             DoSomethingElse;
            if (SomeOtherCond) then
              DoSomeOtherThing;
        end;
@@ -142,12 +142,12 @@ begin
        end;
 
      }
-    Result := eNever;
+    Result := FormatSettings.Returns.ElseIfStyle;
   end
   else
   begin
     { otherwise, is there a begin next? }
-    if lcNextToken.Word = wBegin then
+    if lcNextToken.TokenType = ttBegin then
       Result := FormatSettings.Returns.BlockBeginStyle
     else
       Result := FormatSettings.Returns.BlockStyle;
@@ -158,7 +158,6 @@ end;
 constructor TBlockStyles.Create;
 begin
   inherited;
-  fbRemoveNextReturn := False;
   FormatFlags := FormatFlags + [eBlockStyle, eAddReturn, eRemoveReturn];
 end;
 
@@ -169,14 +168,7 @@ var
 begin
   lcSourceToken := TSourceToken(pcNode);
 
-  if fbRemoveNextReturn and (lcSourceToken.TokenType = ttReturn) then
-  begin
-    prVisitResult.Action := aDelete;
-    fbRemoveNextReturn := False; // done it now
-  end;
-
-
-  if (lcSourceToken.Word in BreakWords) or IsLabelColon(lcSourceToken) or IsCaseColon(lcSourceToken) then
+  if (lcSourceToken.TokenType in BreakWords) or IsLabelColon(lcSourceToken) or IsCaseColon(lcSourceToken) then
   begin
     leStyle := GetStyle(lcSourceToken);
 
@@ -195,8 +187,19 @@ begin
       begin
         lcNextReturn := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace, ttComment]);
         if (lcNextReturn <> nil) and (lcNextReturn.TokenType = ttReturn) then
-          // set it up to remove when we get there
-          fbRemoveNextReturn := True;
+        begin
+          // turn to space
+          lcNextReturn.TokenType := ttWhiteSpace;
+          // need some space here - don't leave nothing between tokens
+          if (lcNextReturn.PriorToken.TokenType = ttWhiteSpace) or
+            (lcNextReturn.NextToken.TokenType = ttWhiteSpace) then
+
+          // null space as it's next to space already
+          lcNextReturn.SourceCode := ''
+          else
+            // keep a space 
+            lcNextReturn.SourceCode := ' ';
+        end;
       end;
       else
         Assert(False);

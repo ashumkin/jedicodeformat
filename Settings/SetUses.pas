@@ -33,7 +33,7 @@ interface
 
 uses
   { delphi } Classes,
-  { local } JCFSetBase, TokenType, SettingsStream;
+  { local } JCFSetBase, SettingsStream;
 
 type
 

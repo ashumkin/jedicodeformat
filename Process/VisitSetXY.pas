@@ -44,7 +44,7 @@ implementation
 
 uses
   JclStrings,
-  JcfMiscFunctions, SourceToken, TokenType;
+  JcfMiscFunctions, SourceToken, Tokens;
 
 { TVisitSetXY }
 

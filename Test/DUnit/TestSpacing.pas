@@ -65,6 +65,10 @@ type
 
     procedure TestBlankLinesAfterBegin;
     procedure TestBlankLinesBeforeEnd;
+
+    procedure TestUsesCaps1;
+    procedure TestUsesCaps2;
+    procedure TestUsesCaps3;
   end;
 
 implementation
@@ -75,13 +79,14 @@ uses JclStrings,
   SpaceBeforeColon,
   SingleSpaceBefore, SingleSpaceAfter,
   ReturnBefore, ReturnAfter, RemoveBlankLinesAfterProcHeader,
-  RemoveReturnsAfterBegin, RemoveReturnsBeforeEnd;
+  RemoveReturnsAfterBegin, RemoveReturnsBeforeEnd, UnitNameCaps;
 
 procedure TTestSpacing.TestNoReturnAfter;
 const
   IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin if ' + AnsiLineBreak + '(foo) then ; end; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin if (foo) then ; end; ' + UNIT_FOOTER;
 begin
+  FormatSettings.Returns.RemoveBadReturns := True;
   TestProcessResult(TNoReturnAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
@@ -90,6 +95,7 @@ const
   IN_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin a ' + AnsiLineBreak + ':= 2; end; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin a := 2; end; ' + UNIT_FOOTER;
 begin
+  FormatSettings.Returns.RemoveBadReturns := True;
   TestProcessResult(TNoReturnBefore, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
@@ -264,6 +270,57 @@ begin
 end;
 
 
+
+procedure TTestSpacing.TestUsesCaps1;
+const
+  IN_UNIT_TEXT = 'unit foo; interface uses bar; implementation uses fish; end.';
+begin
+  FormatSettings.UnitNameCaps.Enabled := True;
+  TestProcessResult(TUnitNameCaps, IN_UNIT_TEXT, IN_UNIT_TEXT);
+end;
+
+procedure TTestSpacing.TestUsesCaps2;
+const
+  IN_UNIT_TEXT  = 'unit foo; interface uses bar; implementation uses fish, spon; end.';
+  OUT_UNIT_TEXT = 'unit Foo; interface uses Bar; implementation uses Fish, spon; end.';
+begin
+  // contains these and only these
+  FormatSettings.UnitNameCaps.Enabled := True;
+  FormatSettings.UnitNameCaps.Clear;
+  FormatSettings.UnitNameCaps.Add('Foo');
+  FormatSettings.UnitNameCaps.Add('Bar');
+  FormatSettings.UnitNameCaps.Add('Fish');
+
+  TestProcessResult(TUnitNameCaps, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+
+  // reset
+  FormatSettings.Read;
+end;
+
+procedure TTestSpacing.TestUsesCaps3;
+const
+  IN_UNIT_TEXT  = 'unit foo; interface implementation uses fish; ' +
+    'initialization monkey.soy; shatner.kirk := shatner.kirk + 3; end.';
+  OUT_UNIT_TEXT = 'unit Foo; interface implementation uses Fish; ' +
+    'initialization Monkey.soy; shatner.kirk := shatner.kirk + 3; end.';
+begin
+  // contains these and only these
+  FormatSettings.UnitNameCaps.Enabled := True;
+  FormatSettings.UnitNameCaps.Clear;
+  FormatSettings.UnitNameCaps.Add('Foo');
+  FormatSettings.UnitNameCaps.Add('Bar');
+  FormatSettings.UnitNameCaps.Add('Fish');
+  FormatSettings.UnitNameCaps.Add('Monkey');
+  // this won't be used as 'soy' is a fn not a unit name
+  FormatSettings.UnitNameCaps.Add('Soy');
+  // likewise kirk is a global var
+  FormatSettings.UnitNameCaps.Add('Kirk');
+
+  TestProcessResult(TUnitNameCaps, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+
+  // reset
+  FormatSettings.Read;
+end;
 
 initialization
  TestFramework.RegisterTest(TTestSpacing.Suite);

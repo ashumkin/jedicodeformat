@@ -52,7 +52,7 @@ implementation
 
 {$R *.DFM}
 
-uses JcfSettings, TokenType, JcfHelp, SetObfuscate;
+uses JcfSettings, SettingsTypes, JcfHelp, SetObfuscate;
 
 { TfObfuscateSettings }
 

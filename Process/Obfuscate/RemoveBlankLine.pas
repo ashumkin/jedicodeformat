@@ -38,7 +38,7 @@ type
 
 implementation
 
-uses ParseTreeNode, SourceToken, TokenType, ParseTreeNodeType, FormatFlags;
+uses ParseTreeNode, SourceToken, Tokens, ParseTreeNodeType, FormatFlags;
 
 
 constructor TRemoveBlankLine.Create;

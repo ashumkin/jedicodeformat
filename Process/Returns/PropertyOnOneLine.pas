@@ -41,7 +41,7 @@ type
 
 implementation
 
-uses FormatFlags, TokenType, WordMap, ParseTreeNodeType;
+uses FormatFlags, Tokens, ParseTreeNodeType;
 
 constructor TPropertyOnOneLine.Create;
 begin
@@ -76,7 +76,7 @@ begin
   lcNextSolid := lcNext.NextSolidToken;
   if lcNextSolid = nil then
     exit;
-  if lcNextSolid.Word = wProperty then
+  if lcNextSolid.TokenType = ttProperty then
     exit;
 
 

@@ -32,7 +32,6 @@ uses
   StringsWriter in '..\ReadWrite\StringsWriter.pas',
   FileConverter in '..\ReadWrite\FileConverter.pas',
   ConvertTypes in '..\ReadWrite\ConvertTypes.pas',
-  WordMap in '..\Parse\WordMap.pas',
   BuildParseTree in '..\Parse\BuildParseTree.pas',
   BuildTokenList in '..\Parse\BuildTokenList.pas',
   ParseError in '..\Parse\ParseError.pas',
@@ -40,7 +39,6 @@ uses
   ParseTreeNodeType in '..\Parse\ParseTreeNodeType.pas',
   SourceToken in '..\Parse\SourceToken.pas',
   SourceTokenList in '..\Parse\SourceTokenList.pas',
-  TokenType in '..\Parse\TokenType.pas',
   VisitSetXY in '..\Process\VisitSetXY.pas',
   BaseVisitor in '..\Process\BaseVisitor.pas',
   VisitParseTree in '..\Process\VisitParseTree.pas',
@@ -52,7 +50,6 @@ uses
   JCFSetBase in '..\Settings\JCFSetBase.pas',
   JCFSettings in '..\Settings\JCFSettings.pas',
   SetAlign in '..\Settings\SetAlign.pas',
-  SetAnyWordCaps in '..\Settings\SetAnyWordCaps.pas',
   SetCaps in '..\Settings\SetCaps.pas',
   SetClarify in '..\Settings\SetClarify.pas',
   SetFile in '..\Settings\SetFile.pas',
@@ -117,7 +114,9 @@ uses
   AlignTypedef in '..\Process\Align\AlignTypedef.pas',
   AlignComment in '..\Process\Align\AlignComment.pas',
   FileWriter in '..\ReadWrite\FileWriter.pas',
-  FileReader in '..\ReadWrite\FileReader.pas';
+  FileReader in '..\ReadWrite\FileReader.pas',
+  Tokens in '..\Parse\Tokens.pas',
+  SetWordList in '..\Settings\SetWordList.pas';
 
 const
   ABOUT_COMMANDLINE =

@@ -47,7 +47,7 @@ implementation
 uses
   JclStrings,
   SourceToken, Nesting, FormatFlags, JcfSettings, TokenUtils,
-  TokenType, ParseTreeNode, ParseTreeNodeType, WordMap;
+  Tokens, ParseTreeNode, ParseTreeNodeType;
 
 
 { is this token in an expression that starts on a previous line }
@@ -112,7 +112,7 @@ var
   liIndentCount: integer;
   lbHasIndentedRunOnLine: Boolean;
   lbHasIndentedDecl: boolean;
-  lcChild: TParseTreeNode;
+  lcParent, lcChild: TParseTreeNode;
 begin
   Result := 0;
   lbHasIndentedRunOnLine := False;
@@ -124,9 +124,9 @@ begin
   { object types }
   if pt.HasParentNode(ObjectTypes) then
   begin
-    if pt.Word in CLASS_VISIBILITY then
+    if pt.TokenType in ClassVisibility then
       liIndentCount := 1
-    else if pt.Word = wEnd then
+    else if pt.TokenType = ttEnd then
     begin
       // end is the end of the class unless it's the end of an anon record typed var
       if pt.HasParentNode(nRecordType) then
@@ -138,11 +138,11 @@ begin
       liIndentCount := 2;
 
     // run on lines in properties
-    if pt.HasParentNode(nProperty) and (pt.Word <> wProperty) then
+    if pt.HasParentNode(nProperty) and (pt.TokenType <> ttProperty) then
       inc(liIndentCount);
 
     // run on lines in procs
-    if pt.HasParentNode(ProcedureHeadings) and (not (pt.Word in (ProcedureWords + [wClass]))) then
+    if pt.HasParentNode(ProcedureHeadings) and (not (pt.TokenType in (ProcedureWords + [ttClass]))) then
       inc(liIndentCount);
 
     lbHasIndentedDecl := True;
@@ -157,12 +157,12 @@ begin
   }
   else if pt.HasParentNode(nDeclSection) and (not pt.HasParentNode(ProcedureNodes)) then
   begin
-    if pt.Word in Declarations + ProcedureWords then
+    if pt.TokenType in Declarations + ProcedureWords then
     begin
       {
         the words 'var' and 'cost' can be found in proc params
         the words 'procedure' and 'function' can be found in type defs, e.g. type Tfoo = procedure of object; }
-      if (pt.Word in ProcedureWords + ParamTypes) and
+      if (pt.TokenType in ProcedureWords + ParamTypes) and
         (pt.HasParentNode(nProcedureType) or pt.HasParentNode(nFormalParams)) then
         liIndentCount := 1
       else
@@ -186,16 +186,16 @@ begin
     if liIndentCount > 0 then
     begin
       // outdent keywords that start and end the block
-      if pt.Word in BlockOutdentWords then
+      if pt.TokenType in BlockOutdentWords then
       begin
         dec(liIndentCount);
 
         // not these in local record type decl
-        if (pt.Word in [wCase, wEnd]) and (pt.HasParentNode(nRecordType)) then
+        if (pt.TokenType in [ttCase, ttEnd]) and (pt.HasParentNode(nRecordType)) then
           inc(liIndentCount);
 
         // not these in  procedure params or procedure type
-        if (pt.Word in ParamTypes) and pt.HasParentNode(nProcedureType) then
+        if (pt.TokenType in ParamTypes) and pt.HasParentNode(nProcedureType) then
             inc(liIndentCount);
       end
     end;
@@ -208,7 +208,7 @@ begin
       liIndentCount := 1;
 
     // else as an outdent for an exception block
-    if (pt.Word = wElse) and pt.HasParentNode(nOnExceptionHandler, 1) then
+    if (pt.TokenType = ttElse) and pt.HasParentNode(nOnExceptionHandler, 1) then
       dec(liIndentCount);
 
     // while loop (and others?) expression is not yet in the block
@@ -222,9 +222,9 @@ begin
     begin
       liIndentCount := liIndentCount + pt.Nestings.GetLevel(nlCaseSelector);
       // don't indent the case label again
-      if pt.HasParentNode(nCaseLabels, 5) then
+      if pt.HasParentNode(nCaseLabel, 6) then
         dec(liIndentCount)
-      else if (pt.Word = wElse) and pt.HasParentNode(nElseCase, 1) then
+      else if (pt.TokenType = ttElse) and pt.HasParentNode(nElseCase, 1) then
         dec(liIndentCount);
     end;
 
@@ -245,17 +245,17 @@ begin
     end;
 
     // indent for uses clause
-    if pt.HasParentNode(UsesClauses) and (not (pt.Word in UsesWords)) then
+    if pt.HasParentNode(UsesClauses) and (not (pt.TokenType in UsesWords)) then
     begin
       inc(liIndentCount);
 
       { run on uses item }
-      if pt.HasParentNode(nUsesItem, 1) and (pt.IsOnRightOf(nUsesItem, wIn)) then
+      if pt.HasParentNode(nUsesItem, 1) and (pt.IsOnRightOf(nUsesItem, ttIn)) then
         inc(liIndentCount);
 
     end;
                                                        
-    if (pt.Word = wOn) and pt.HasParentNode(nOnExceptionHandler, 1) then
+    if (pt.TokenType = ttOn) and pt.HasParentNode(nOnExceptionHandler, 1) then
       dec(liIndentCount);
 
     { run on lines such as
@@ -263,7 +263,11 @@ begin
        index] := 3; }
     if (not lbHasIndentedRunOnLine) and pt.HasParentNode(nDesignator) then
     begin
-      lcChild := FirstSolidChild(pt.Parent);
+      lcParent := pt.Parent;
+      if lcParent.NodeType = nIdentifier then
+        lcParent := lcParent.Parent;
+
+      lcChild := lcParent.FirstSolidLeaf;
       if (pt <> lcChild) then
       begin
         inc(liIndentCount);
@@ -283,14 +287,14 @@ begin
     if pt.Nestings.GetLevel(nlRecordVariantSection) > 0 then
     begin
       liIndentCount := liIndentCount + pt.Nestings.GetLevel(nlRecordVariantSection);
-      if pt.Word = wCase then
+      if pt.TokenType = ttCase then
         dec(liIndentCount);
     end;
 
     if pt.HasParentNode(nRecordVariant) and (RoundBracketLevel(pt) > 0) then
       inc(liIndentCount);
 
-    if (pt.Word <> wEnd) then
+    if (pt.TokenType <> ttEnd) then
     begin
       lbHasIndentedDecl := True;
       inc(liIndentCount);
@@ -309,7 +313,7 @@ begin
 
   // indent for run-on const decl
   if (not lbHasIndentedRunOnLine) and
-    pt.HasParentNode(nConstDecl) and pt.IsOnRightOf(nConstDecl, wEquals) then
+    pt.HasParentNode(nConstDecl) and pt.IsOnRightOf(nConstDecl, ttEquals) then
   begin
     inc(liIndentCount);
     lbHasIndentedRunOnLine := True;
@@ -335,7 +339,7 @@ begin
     else if IsInProcedureParams(pt) then
       inc(liIndentCount)
     { run-on type decl }
-    else if pt.IsOnRightOf(nTypeDecl, wEquals) and (not lbHasIndentedDecl) and (pt.Word <> wEnd) then
+    else if pt.IsOnRightOf(nTypeDecl, ttEquals) and (not lbHasIndentedDecl) and (pt.TokenType <> ttEnd) then
       inc(liIndentCount);
   end;
 

@@ -60,7 +60,8 @@ const
 
 implementation
 
-uses SysUtils, Dialogs;
+uses SysUtils, Dialogs,
+  ConvertTypes;
 
 procedure TBaseTestProcess.Setup;
 begin
@@ -136,6 +137,24 @@ begin
   StrReplace(Result, AnsiLineBreak, '-q' + AnsiLineBreak, [rfReplaceAll]);
 end;
 
+function DiffText(ps1, ps2: string): string;
+begin
+  // strip same chars on start
+  while (length(ps1) > 0) and (length(ps2) > 0) and (ps1[1] = ps2[1]) do
+  begin
+    ps1 := StrRestOf(ps1, 2);
+    ps2 := StrRestOf(ps2, 2);
+  end;
+
+  while (length(ps1) > 0) and (length(ps2) > 0) and (ps1[length(ps1)] = ps2[length(ps2)]) do
+  begin
+    ps1 := StrChopRight(ps1, 1);
+    ps2 := StrChopRight(ps2, 1);
+  end;
+
+  Result := ps1 + '<->' + ps2;
+end;
+
 procedure TBaseTestProcess.TestProcessResult(processType: TTreeNodeVisitorType; const psIn, psOut: string);
 var
   lsOut: string;
@@ -144,6 +163,10 @@ begin
   fcInput.Text := psIn;
   fcConvert.RunAll := False;
   fcConvert.SingleProcess := processType;
+
+  // debug test
+  //fcConvert.ShowParseTreeOption := eShowAlways;
+
   try
     fcConvert.Convert;
   finally
@@ -156,9 +179,13 @@ begin
   { }
   // debug
   if (lsOut <> psOut) then
+  begin
     ShowMessage(MarkReturns(lsOut) +
       AnsiLineBreak + AnsiLineBreak + '-- should have been --' + AnsiLineBreak + AnsiLineBreak +
       MarkReturns(psOut));
+
+    ShowMessage (DiffText(lsOut, psOut));
+  end;
  { }
 
   CheckEquals(Length(psOut), Length(lsOut), 'Results length mismatch');

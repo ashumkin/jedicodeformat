@@ -37,7 +37,7 @@ type
 
 implementation
 
-uses FormatFlags, TokenType, WordMap, ParseTreeNodeType, TokenUtils;
+uses FormatFlags, Tokens, ParseTreeNodeType, TokenUtils;
 
 { TRemoveReturnsBeforeEnd }
 
@@ -65,7 +65,7 @@ begin
 
   lcNext := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace, ttReturn]);
 
-  if lcNext.Word <> wEnd then
+  if lcNext.TokenType <> ttEnd then
     exit;
 
   liReturnCount := 0;

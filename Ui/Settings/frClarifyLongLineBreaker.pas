@@ -50,7 +50,7 @@ implementation
 
 {$R *.DFM}
 
-uses TokenType, JcfSettings, SetReturns, JcfHelp;
+uses JcfSettings, SetReturns, JcfHelp;
 
 
 constructor TfClarifyLongLineBreaker.Create(AOwner: TComponent);

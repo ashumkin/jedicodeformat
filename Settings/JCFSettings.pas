@@ -31,7 +31,7 @@ uses
   { delphi } Classes, Registry,
   { local } SetObfuscate, SetClarify,
   SetIndent, SetSpaces, SetReturns,
-  SetCaps, SetAnyWordCaps,
+  SetCaps, SetWordList,
   SetAlign, SetReplace, SetUses, 
   SettingsStream, VersionConsts;
 
@@ -46,7 +46,8 @@ type
     fcIndent: TSetIndent;
 
     fcCaps: TSetCaps;
-    fcSpecificWordCaps: TSetAnyWordCaps;
+    fcSpecificWordCaps: TSetWordList;
+    fcUnitNameCaps: TSetWordList;
     fcAlign: TSetAlign;
     fcUses: TSetUses;
 
@@ -83,7 +84,10 @@ type
     property Returns: TSetReturns read fcReturns;
 
     property Caps: TSetCaps read fcCaps;
-    property SpecificWordCaps: TSetAnyWordCaps read fcSpecificWordCaps;
+    property SpecificWordCaps: TSetWordList read fcSpecificWordCaps;
+    property UnitNameCaps: TSetWordList read fcUnitNameCaps;
+
+
     property Align: TSetAlign read fcAlign;
     property Replace: TSetReplace read fcReplace;
     property UsesClause: TSetUses read fcUses;
@@ -111,8 +115,11 @@ begin
   fcIndent := TSetIndent.Create;
   fcSpaces := TSetSpaces.Create;
   fcReturns := TSetReturns.Create;
+
   fcCaps := TSetCaps.Create;
-  fcSpecificWordCaps := TSetAnyWordCaps.Create;
+  fcSpecificWordCaps := TSetWordList.Create('SpecificWordCaps');
+  fcUnitNameCaps := TSetWordList.Create('UnitNameCaps');
+
   fcAlign := TSetAlign.Create;
   fcReplace := TSetReplace.Create;
   fcUses := TSetUses.Create;
@@ -132,8 +139,11 @@ begin
   FreeAndNil(fcIndent);
   FreeAndNil(fcSpaces);
   FreeAndNil(fcReturns);
+
   FreeAndNil(fcCaps);
   FreeAndNil(fcSpecificWordCaps);
+  FreeAndNil(fcUnitNameCaps);
+
   FreeAndNil(fcReplace);
   FreeAndNil(fcAlign);
   FreeAndNil(fcUses);
@@ -227,6 +237,7 @@ begin
   WritetoStream(fcReturns);
   WriteToStream(fcCaps);
   WriteToStream(fcSpecificWordCaps);
+  WriteToStream(fcUnitNameCaps);
   WriteToStream(fcAlign);
   WriteToStream(fcReplace);
   WriteToStream(fcUses);
@@ -278,6 +289,7 @@ begin
     ReadFromStream(fcReturns);
     ReadFromStream(fcCaps);
     ReadFromStream(fcSpecificWordCaps);
+    ReadFromStream(fcUnitNameCaps);
     ReadFromStream(fcAlign);
     ReadFromStream(fcReplace);
     ReadFromStream(fcUses);

@@ -47,6 +47,9 @@ type
   procedure TestClarify_LittleTest4;
   procedure TestClarify_LittleTest5;
   procedure TestClarify_LittleTest6;
+  procedure TestClarify_LittleTest7;
+  procedure TestClarify_LittleTest8;
+  procedure TestClarify_LittleTest9;
 
   procedure TestClarify_TestAbsolute;
   procedure TestClarify_TestAlign;
@@ -67,6 +70,7 @@ type
   procedure TestClarify_TestDeclarations2;
   procedure TestClarify_TestDeclarations;
   procedure TestClarify_TestDefaultParams;
+  procedure TestClarify_TestDeref;
   procedure TestClarify_TestEmptyClass;
   procedure TestClarify_TestEsotericKeywords;
   procedure TestClarify_TestExclusion;
@@ -146,7 +150,7 @@ begin
   if not GetRegSettings.HasRead then
     GetRegSettings.ReadAll;
 
-  lsSettingsFileName := TEST_FILES_DIR + '\JCFTestSettings.cfg';
+  lsSettingsFileName := GetTestFilesDir + '\JCFTestSettings.cfg';
   Check(FileExists(lsSettingsFileName), 'Settings file ' + lsSettingsFileName + ' not found');
 
   FormatSettings.ReadFromFile(lsSettingsFileName);
@@ -173,8 +177,8 @@ begin
   end;
 
 
-  TestClarifyFile(TEST_FILES_DIR + lsInName,
-    REF_OUT_FILES_DIR + lsClearFileName)
+  TestClarifyFile(GetTestFilesDir + lsInName,
+    GetRefOutFilesDir + lsClearFileName)
 end;
 
 procedure TFullTestClarify.TestClarifyFile(const psInFileName,
@@ -261,6 +265,21 @@ end;
 procedure TFullTestClarify.TestClarify_LittleTest6;
 begin
   TestClarifyFile('LittleTest6');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest7;
+begin
+  TestClarifyFile('LittleTest7');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest8;
+begin
+  TestClarifyFile('LittleTest8');
+end;
+
+procedure TFullTestClarify.TestClarify_LittleTest9;
+begin
+  TestClarifyFile('LittleTest9');
 end;
 
 procedure TFullTestClarify.TestClarify_TestAbsolute;
@@ -352,6 +371,11 @@ end;
 procedure TFullTestClarify.TestClarify_TestDefaultParams;
 begin
   TestClarifyFile('TestDefaultParams');
+end;
+
+procedure TFullTestClarify.TestClarify_TestDeref;
+begin
+  TestClarifyFile('TestDeref');
 end;
 
 procedure TFullTestClarify.TestClarify_TestEmptyClass;

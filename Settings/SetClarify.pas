@@ -25,7 +25,7 @@ unit SetClarify;
 
 interface
 
-uses JCFSetBase, TokenType, SettingsStream;
+uses JCFSetBase, SettingsStream;
 
 type
   // once-offs can be run, not run, or can be the only thing run

@@ -58,7 +58,6 @@ contains
   CodeReader in '..\ReadWrite\CodeReader.pas',
   CodeWriter in '..\ReadWrite\CodeWriter.pas',
   fAbout in '..\Ui\fAbout.pas' {frmAboutBox},
-  TokenType in '..\Parse\TokenType.pas',
   VersionConsts in '..\VersionConsts.pas',
   VisitStripEmptySpace in '..\Process\VisitStripEmptySpace.pas',
   AllProcesses in '..\Process\AllProcesses.pas',
@@ -139,7 +138,6 @@ contains
   IntList in '..\Utils\IntList.pas',
   FileUtils in '..\Utils\FileUtils.pas',
   SetAlign in '..\Settings\SetAlign.pas',
-  SetAnyWordCaps in '..\Settings\SetAnyWordCaps.pas',
   SetCaps in '..\Settings\SetCaps.pas',
   SetClarify in '..\Settings\SetClarify.pas',
   SetIndent in '..\Settings\SetIndent.pas',
@@ -148,6 +146,7 @@ contains
   SetReturns in '..\Settings\SetReturns.pas',
   SetSpaces in '..\Settings\SetSpaces.pas',
   SetUses in '..\Settings\SetUses.pas',
-  MozComment in '..\Process\Onceoffs\MozComment.pas';
+  MozComment in '..\Process\Onceoffs\MozComment.pas',
+  SetWordList in '..\Settings\SetWordList.pas';
 
 end.

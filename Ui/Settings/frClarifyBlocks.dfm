@@ -1,6 +1,6 @@
 inherited fClarifyBlocks: TfClarifyBlocks
   Width = 356
-  Height = 277
+  Height = 357
   object Label1: TLabel
     Left = 4
     Top = 4
@@ -79,5 +79,17 @@ inherited fClarifyBlocks: TfClarifyBlocks
       'Leave as is'
       'Never')
     TabOrder = 5
+  end
+  object rgElseIf: TRadioGroup
+    Left = 4
+    Top = 260
+    Width = 130
+    Height = 73
+    Caption = 'between else and if'
+    Items.Strings = (
+      'Always'
+      'Leave as is'
+      'Never')
+    TabOrder = 6
   end
 end

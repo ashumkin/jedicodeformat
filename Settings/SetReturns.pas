@@ -25,7 +25,7 @@ under the License.
 
 interface
 
-uses JCFSetBase, TokenType, SettingsStream;
+uses JCFSetBase, SettingsTypes, SettingsStream;
 
 type
   { rebreak lines has three modes:
@@ -61,6 +61,7 @@ type
     feLabelStyle, feLabelBeginStyle: TBlockNewLineStyle;
     feCaseLabelStyle: TBlockNewLineStyle;
     feEndElseStyle: TBlockNewLineStyle;
+    feElseIfStyle: TBlockNewLineStyle;
 
     feReturnChars: TReturnChars;
 
@@ -102,6 +103,7 @@ type
     property CaseLabelStyle: TBlockNewLineStyle read feCaseLabelStyle write feCaseLabelStyle;
 
     property EndElseStyle: TBlockNewLineStyle read feEndElseStyle write feEndElseStyle;
+    property ElseIfStyle: TBlockNewLineStyle read feElseIfStyle write feElseIfStyle;
 
     property ReturnChars: TReturnChars read  feReturnChars write  feReturnChars;
   end;
@@ -135,10 +137,9 @@ const
   REG_LABEL_BEGIN_STYLE = 'LabelBegin';
   REG_CASE_LABEL_STYLE  = 'CaseLabel';
   REG_END_ELSE_STYLE    = 'EndElse';
+  REG_ELSE_IF_STYLE     = 'ElseIf';
 
   REG_RETURN_CHARS = 'ReturnChars';
-
-  { TSetReturns }
 
 constructor TSetReturns.Create;
 begin
@@ -173,6 +174,7 @@ begin
   feLabelBeginStyle := TBlockNewLineStyle(pcStream.Read(REG_LABEL_BEGIN_STYLE, Ord(eLeave)));
   feCaseLabelStyle  := TBlockNewLineStyle(pcStream.Read(REG_CASE_LABEL_STYLE, Ord(eLeave)));
   feEndElseStyle    := TBlockNewLineStyle(pcStream.Read(REG_END_ELSE_STYLE, Ord(eLeave)));
+  feElseIfStyle     := TBlockNewLineStyle(pcStream.Read(REG_ELSE_IF_STYLE, Ord(eNever)));
 
   feReturnChars := TReturnChars(pcStream.Read(REG_RETURN_CHARS, Ord(rcLeaveAsIs)));
 end;
@@ -205,6 +207,7 @@ begin
   pcOut.Write(REG_CASE_LABEL_STYLE, Ord(feCaseLabelStyle));
 
   pcOut.Write(REG_END_ELSE_STYLE, Ord(feEndElseStyle));
+  pcOut.Write(REG_ELSE_IF_STYLE, Ord(feElseIfStyle));
 
   pcOut.Write(REG_RETURN_CHARS, Ord(feReturnChars));
 end;

@@ -38,7 +38,7 @@ uses
   { delphi }
   Contnrs,
   { local } ParseTreeNode, ParseTreeNodeType,
-  SourceToken, SourceTokenList, TokenType, WordMap;
+  SourceToken, SourceTokenList, Tokens;
 
 
 
@@ -69,7 +69,7 @@ type
     procedure RecogniseInterfaceDecl;
     procedure RecogniseExportedHeading;
 
-    procedure RecogniseIdent;
+    procedure RecogniseIdentifier;
     procedure RecogniseImplementationSection;
     procedure RecogniseDeclSections;
     procedure RecogniseDeclSection;
@@ -90,7 +90,7 @@ type
     procedure RecogniseProcedureHeading(const pbAnon: Boolean);
     procedure RecogniseFunctionHeading(const pbAnon: Boolean);
     procedure RecogniseCompoundStmnt;
-    procedure RecogniseStatementList(const peEndWords: TWordSet);
+    procedure RecogniseStatementList(const peEndTokens: TTokenTypeSet);
     procedure RecogniseStatement;
 
     procedure RecogniseTypeId;
@@ -203,12 +203,8 @@ type
     procedure RecognisePropertyDirectives;
     procedure RecogniseExternalProcDirective;
 
-    procedure Recognise(const peTokenTypes: TTokenTypeSet; const peWords: TWordSet); overload;
     procedure Recognise(const peTokenTypes: TTokenTypeSet); overload;
-    procedure Recognise(const peWords: TWordSet); overload;
-
     procedure Recognise(const peTokenType: TTokenType); overload;
-    procedure Recognise(const peWord: TWord); overload;
 
     function PushNode(const peNodeType: TParseTreeNodeType): TParseTreeNode;
     function PopNode: TParseTreeNode;
@@ -311,28 +307,13 @@ end;
 {-------------------------------------------------------------------------------
   recogniser support }
 
-procedure TBuildParseTree.Recognise(const peTokenTypes: TTokenTypeSet;
-  const peWords: TWordSet);
+procedure TBuildParseTree.Recognise(const peTokenTypes: TTokenTypeSet);
 var
   lcCurrentToken: TSourceToken;
 
   function Matched: Boolean;
   begin
-    Result := (lcCurrentToken.TokenType in peTokenTypes) and
-      (lcCurrentToken.Word in peWords);
-
-    // match any directive word?
-    if (ttReservedWordDirective in peTokenTypes) and
-      ( lcCurrentToken.TokenType = ttReservedWordDirective) and
-      (wUnknown in peWords) then
-        Result := True;
-
-    // match any type name?
-    if (ttBuiltInType in peTokenTypes) and
-      (lcCurrentToken.TokenType = ttBuiltInType) and
-      (wUnknown in peWords) then
-        Result := True;
-
+    Result := (lcCurrentToken.TokenType in peTokenTypes);
   end;
 
   function DescribeTarget: string;
@@ -342,24 +323,18 @@ var
     if peTokenTypes <> [] then
       Result := Result + TokenTypesToString(peTokenTypes);
 
-    if peWords <> [] then
-      Result := Result + ' ' + WordsToString(peWords);
-
     Result := Result + '"';
   end;
 
 begin
 
   // must accept something
-  Assert((peTokenTypes <> []) or (peWords <> []));
+  Assert(peTokenTypes <> []);
 
   { read tokens up to and including the specified one.
     Add them to the parse tree at the current growing point  }
   repeat
     lcCurrentToken := TokenList.ExtractFirst;
-
-    if (not (ttEOF in peTokenTypes)) and (lcCurrentToken.TokenType = ttEOF) then
-      Raise TEParseError.Create('Unexpected end of file', lcCurrentToken);
 
     TopNode.AddChild(lcCurrentToken);
 
@@ -376,26 +351,7 @@ end;
 
 procedure TBuildParseTree.Recognise(const peTokenType: TTokenType);
 begin
-  Recognise([peTokenType], [wUnknown]);
-end;
-
-procedure TBuildParseTree.Recognise(const peWords: TWordSet);
-begin
-  Recognise(TextualTokens, peWords);
-end;
-
-procedure TBuildParseTree.Recognise(const peWord: TWord);
-begin
-  Recognise(TextualTokens, [peWord]);
-end;
-
-procedure TBuildParseTree.Recognise(const peTokenTypes: TTokenTypeSet);
-var
-  leWordTypes: TWordSet;
-begin
-  leWordTypes := [wUnknown];
-
-  Recognise(peTokenTypes, leWordTypes)
+  Recognise([peTokenType]);
 end;
 
 
@@ -433,12 +389,10 @@ var
   lc: TSourceToken;
 begin
   lc := TokenList.FirstSolidToken;
-  Result := (lc.TokenType = ttWord) and (lc.Word = wUnknown);
 
-  { We have to admit directives as identifiers.
+  { We have to admit directives and type names as identifiers.
     see TestBogusDirectives.pas for the reasons why }
-  if (not Result) then
-    Result := (lc.TokenType in [ttReservedWordDirective, ttBuiltInType]);
+  Result := (lc.WordType in IdentifierTypes);
 end;
 
 
@@ -453,7 +407,7 @@ end;
 procedure TBuildParseTree.RecogniseGoal;
 var
   lc: TSourceToken;
-  lw: TWord;
+  leTokenType: TTokenType;
 begin
   // Goal -> (Program | Package  | Library  | Unit)
 
@@ -463,19 +417,19 @@ begin
  lc := TokenList.FirstSolidToken;
  Assert(lc <> nil);
 
-  if lc.TokenType <> ttReservedWord then
+  if lc.WordType <> wtReservedWord then
    Raise TEParseError.Create('Expected reserved word - program, package, library, unit', lc);
 
- lw := lc.Word;
+ leTokenType := lc.TokenType;
 
-  case lw of
-    wProgram:
+  case leTokenType of
+    ttProgram:
       RecogniseProgram;
-    wPackage:
+    ttPackage:
       RecognisePackage;
-    wLibrary:
+    ttLibrary:
       RecogniseLibrary;
-    wUnit:
+    ttUnit:
       RecogniseUnit;
     else
       Raise TEParseError.Create('Expected program, package, library, unit', lc);
@@ -488,9 +442,12 @@ begin
   PushNode(nProgram);
 
   PushNode(nUnitHeader);
-  Recognise(wProgram);
+  Recognise(ttProgram);
 
-  RecogniseIdent;
+  PushNode(nUnitName);
+  RecogniseIdentifier;
+  PopNode;
+
   if TokenList.FirstSolidTokenType = ttOpenBracket then
   begin
     Recognise(ttOpenBracket);
@@ -515,10 +472,12 @@ begin
   PushNode(nUnit);
 
   PushNode(nUnitHeader);
-  Recognise(wUnit);
+  Recognise(ttUnit);
 
-  RecogniseIdent;
-  Recognise(ttSemiColon);
+  PushNode(nUnitName);
+  RecogniseIdentifier;
+  PopNode;
+  Recognise(ttSemicolon);
 
   PopNode;
 
@@ -536,19 +495,21 @@ begin
   PushNode(nPackage);
 
   PushNode(nUnitHeader);
-  Recognise(wPackage);
+  Recognise(ttPackage);
 
-  RecogniseIdent;
-  Recognise(ttSemiColon);
+  PushNode(nUnitName);
+  RecogniseIdentifier;
+  PopNode;
+  Recognise(ttSemicolon);
   PopNode;
 
-  if TokenList.FirstSolidTokenWord = wRequires then
+  if TokenList.FirstSolidTokenType = ttRequires then
     RecogniseRequiresClause;
 
-  if TokenList.FirstSolidTokenWord = wContains then
+  if TokenList.FirstSolidTokenType = ttContains then
     RecogniseContainsClause;
-    
-  Recognise(wEnd);
+
+  Recognise(ttEnd);
   Recognise(ttDot);
 
   PopNode;
@@ -560,10 +521,12 @@ begin
   PushNode(nLibrary);
 
   PushNode(nUnitHeader);
-  Recognise(wLibrary);
+  Recognise(ttLibrary);
 
-  RecogniseIdent;
-  Recognise(ttSemiColon);
+  PushNode(nUnitName);
+  RecogniseIdentifier;
+  PopNode;
+  Recognise(ttSemicolon);
   PopNode;
 
   RecogniseProgramBlock;
@@ -580,7 +543,7 @@ begin
 
  lc := TokenList.FirstSolidToken;
 
-  if lc.Word = wUses then
+  if lc.TokenType = ttUses then
     RecogniseUsesClause(True);
 
  RecogniseBlock;
@@ -591,7 +554,7 @@ begin
   // UsesClause -> USES IdentList ';'
   PushNode(nUses);
 
-  Recognise(wUses);
+  Recognise(ttUses);
 
   // IdentList -> Ident/','...
   PushNode(nIdentList);
@@ -606,7 +569,7 @@ begin
 
   PopNode;
 
-  Recognise(ttSemiColon);
+  Recognise(ttSemicolon);
 
   PopNode;
 end;
@@ -615,16 +578,15 @@ procedure TBuildParseTree.RecogniseUsesItem(const pbInFiles: Boolean);
 begin
   PushNode(nUsesItem);
 
-  RecogniseIdent;
+  RecogniseIdentifier;
 
-  if pbInFiles and (TokenList.FirstSolidTokenWord = wIn) then
+  if pbInFiles and (TokenList.FirstSolidTokenType  = ttIn) then
   begin
-    Recognise(wIn);
+    Recognise(ttIn);
     Recognise(ttLiteralString);
   end;
 
   PopNode;
-
 end;
 
 
@@ -634,9 +596,9 @@ begin
 
   PushNode(nInterfaceSection);
 
-  Recognise(wInterface);
+  Recognise(ttInterface);
 
-  if TokenList.FirstSolidTokenWord = wUses then
+  if TokenList.FirstSolidTokenType = ttUses then
     RecogniseUsesClause(False);
 
   RecogniseInterfaceDecls;
@@ -657,14 +619,14 @@ begin
       NB also threadvar
 
   }
-  while TokenList.FirstSolidTokenWord in [wConst, wResourceString, wType, wVar, wThreadVar] + ProcedureWords do
+  while TokenList.FirstSolidTokenType in [ttConst, ttResourceString, ttType, ttVar, ttThreadVar] + ProcedureWords do
     RecogniseInterfaceDecl;
 end;
 
 procedure TBuildParseTree.RecogniseInterfaceDecl;
 var
   lc: TSourceToken;
-  lw: TWord;
+  lt: TTokenType;
 begin
  {
   InterfaceDecl -> ConstSection
@@ -675,16 +637,16 @@ begin
   PushNode(nDeclSection);
 
   lc := TokenList.FirstSolidToken;
-  lw := TokenList.FirstSolidTokenWord;
+  lt := TokenList.FirstSolidTokenType;
 
-  case lw of
-    wConst, wResourceString:
+  case lt of
+    ttConst, ttResourceString:
       RecogniseConstSection;
-    wType:
+    ttType:
       RecogniseTypeSection;
-    wVar, wThreadvar:
+    ttVar, ttThreadvar:
       RecogniseVarSection;
-    wProcedure, wFunction:
+    ttProcedure, ttFunction:
       RecogniseExportedHeading;
     else
       Raise TEParseError.Create('Expected const, type, var, procedure or function', lc);
@@ -696,21 +658,21 @@ end;
 procedure TBuildParseTree.RecogniseExportedHeading;
 var
   lc: TSourceToken;
-  lw: TWord;
+  lt: TTokenType;
 begin
    { ExportedHeading
       -> ProcedureHeading ';' [Directive]
       -> FunctionHeading ';' [Directive] }
 
   lc := TokenList.FirstSolidToken;
-  lw := lc.Word;
+  lt := lc.TokenType;
 
-  case lw of
-    wProcedure:
+  case lt of
+    ttProcedure:
     begin
       RecogniseProcedureHeading(false);
     end;
-    wFunction:
+    ttFunction:
     begin
       RecogniseFunctionHeading(false);
     end;
@@ -718,7 +680,7 @@ begin
       Raise TEParseError.Create('Expected function or procedure', lc);
   end;
 
-  Recognise(ttSemiColon);
+  Recognise(ttSemicolon);
   RecogniseProcedureDirectives;
 end;
 
@@ -731,9 +693,9 @@ begin
   }
   PushNode(nImplementationSection);
 
-  Recognise(wImplementation);
+  Recognise(ttImplementation);
 
-  if TokenList.FirstSolidTokenWord = wUses then
+  if TokenList.FirstSolidTokenType = ttUses then
     RecogniseUsesClause(False);
 
   RecogniseDeclSections;
@@ -744,22 +706,22 @@ end;
 procedure TBuildParseTree.RecogniseBlock;
 var
   lc: TSourceToken;
-  lw: TWord;
+  lt: TTokenType;
 begin
   { Block -> [DeclSection] CompoundStmt }
 
   lc := TokenList.FirstSolidToken;
-  lw := lc.Word;
+  lt := lc.TokenType;
 
 
   PushNode(nBlock);
 
   // [DeclSection]
 
-  if lw in (Declarations + ProcedureWords) then
+  if lt in (Declarations + ProcedureWords) then
     RecogniseDeclSections;
 
-  if TokenList.FirstSolidTokenWord = wAsm then
+  if TokenList.FirstSolidTokenType = ttAsm then
     RecogniseAsmBlock
   else
     RecogniseCompoundStmnt;
@@ -781,15 +743,15 @@ begin
       class procedure TFoo.bar;
 
   }
-  while TokenList.FirstSolidTokenWord in
-    [wClass] + Declarations + ProcedureWords do
+  while TokenList.FirstSolidTokenType in
+    [ttClass] + Declarations + ProcedureWords do
       RecogniseDeclSection;
 end;
 
 procedure TBuildParseTree.RecogniseDeclSection;
 var
   lc: TSourceToken;
-  lw: TWord;
+  lt: TTokenType;
 begin
   PushNode(nDeclSection);
  {
@@ -802,20 +764,20 @@ begin
   }
 
   lc := TokenList.FirstSolidToken;
-  lw := TokenList.FirstSolidTokenWord;
+  lt := TokenList.FirstSolidTokenType;
 
-  case lw of
-    wLabel:
+  case lt of
+    ttLabel:
       RecogniseLabelDeclSection;
-    wConst, wResourceString:
+    ttConst, ttResourceString:
       RecogniseConstSection;
-    wType:
+    ttType:
       RecogniseTypeSection;
-    wVar, wThreadvar:
+    ttVar, ttThreadvar:
       RecogniseVarSection;
-    wProcedure, wFunction, wConstructor, wDestructor, wClass:
+    ttProcedure, ttFunction, ttConstructor, ttDestructor, ttClass:
       RecogniseProcedureDeclSection;
-    wExports:
+    ttExports:
       RecogniseExportsSection;
     else
       Raise TEParseError.Create('Expected label, const, type, var, procedure or function', lc);
@@ -838,9 +800,9 @@ begin
   }
 
   PushNode(nLabelDeclSection);
-  Recognise(wLabel);
+  Recognise(ttLabel);
   RecogniseIdentList;
-  Recognise(ttSemiColon);
+  Recognise(ttSemicolon);
 
   PopNode;
 end;
@@ -851,12 +813,12 @@ begin
     ConstSection -> CONST (ConstantDecl ';')...
   }
   PushNode(nConstSection);
-  Recognise([wConst, wResourceString]);
+  Recognise([ttConst, ttResourceString]);
 
-  while TokenList.FirstSolidTokenType in IdentifierTypes do
+  while TokenList.FirstSolidWordType in IdentifierTypes do
   begin
     RecogniseConstantDecl;
-    Recognise(ttSemiColon);
+    Recognise(ttSemicolon);
   end;
 
   PopNode;
@@ -880,13 +842,13 @@ begin
 
   PushNode(nConstDecl);
 
-  RecogniseIdent;
+  RecogniseIdentifier;
 
   lc := TokenList.FirstSolidToken;
 
-  if lc.Word = wEquals then
+  if lc.TokenType = ttEquals then
   begin
-    Recognise(wEquals);
+    Recognise(ttEquals);
     RecogniseConstExpr;
   end
   else
@@ -895,14 +857,13 @@ begin
     Recognise(ttColon);
     //RecogniseTypeId;
     RecogniseType;
-    Recognise(wEquals);
+    Recognise(ttEquals);
     RecogniseTypedConstant;
   end
   else
     Raise TEParseError.Create('Expected equals or colon', lc);
 
   PopNode;
-
 end;
 
 procedure TBuildParseTree.RecogniseTypeSection;
@@ -911,9 +872,9 @@ begin
   TypeSection -> TYPE (TypeDecl ';')...
   }
   PushNode(nTypeSection);
-  Recognise(wType);
+  Recognise(ttType);
 
-  while TokenList.FirstSolidTokenType in IdentifierTypes do
+  while TokenList.FirstSolidWordType in IdentifierTypes do
   begin
     RecogniseTypeDecl;
   end;
@@ -932,16 +893,16 @@ begin
 
   PushNode(nTypeDecl);
 
-  RecogniseIdent;
-  Recognise(wEquals);
+  RecogniseIdentifier;
+  Recognise(ttEquals);
 
   // type or restricted type
-  if (TokenList.FirstSolidTokenWord in [wObject, wClass, wInterface, wDispInterface]) then
+  if (TokenList.FirstSolidTokenType in [ttObject, ttClass, ttInterface, ttDispInterface]) then
     RecogniseRestrictedType
   else
     RecogniseType;
 
-  Recognise(ttSemiColon);
+  Recognise(ttSemicolon);
 
   PopNode;
 end;
@@ -990,7 +951,7 @@ begin
       Result := True;
       break;
     end
-    else if (tt = ttSemiColon) and (liBracketLevel = 0) then
+    else if (tt = ttSemicolon) and (liBracketLevel = 0) then
     begin
       Result := False;
       break;
@@ -1019,7 +980,7 @@ begin
      as an alias type could be used
     }
     if (TokenList.FirstSolidTokenType = ttOpenBracket) and
-      (TokenList.SolidTokenType(2) = ttWord) and
+      (TokenList.SolidWordType(2) in IdentifierTypes) and
       (TokenList.SolidTokenType(3) = ttColon) then
     begin
       RecogniseRecordConstant;
@@ -1062,7 +1023,7 @@ begin
   Recognise(ttOpenBracket);
 
   RecogniseRecordFieldConstant;
-  while (TokenList.FirstSolidTokenType = ttSemiColon) do
+  while (TokenList.FirstSolidTokenType = ttSemicolon) do
   begin
     Recognise(ttSemicolon);
     RecogniseRecordFieldConstant;
@@ -1078,7 +1039,7 @@ begin
 
   PushNode(nRecordFieldConstant);
 
-  RecogniseIdent;
+  RecogniseIdentifier;
   Recognise(ttColon);
   RecogniseTypedConstant;
 
@@ -1109,32 +1070,32 @@ begin
   lc := TokenList.FirstSolidToken;
   lc2 := TokenList.SolidToken(2);
 
-  if (lc.Word = wType) then
+  if (lc.TokenType = ttType) then
   begin
     { this can be a prefix. See help under "Declaring types".
       an e.g. is in TestDeclarations.pas }
-    Recognise(wType);
+    Recognise(ttType);
   end;
 
-  if (lc.Word = wConst) then
-    Recognise(wConst)
-  else if (lc.Word in REAL_TYPES + ORD_TYPES) then
+  if (lc.TokenType = ttConst) then
+    Recognise(ttConst)
+  else if (lc.TokenType in RealTypes + OrdTypes) then
     RecogniseSimpleType
   else if (lc.TokenType = ttOpenBracket) then
     RecogniseSimpleType // for enumerated types
-  else if (lc.Word in [wPacked, wArray, wSet, wFile, wRecord]) then
+  else if (lc.TokenType in [ttPacked, ttArray, ttSet, ttFile, ttRecord]) then
     RecogniseStrucType
-  else if (lc.Word = wHat) then
+  else if (lc.TokenType = ttHat) then
     RecognisePointerType
-  else if (lc.Word in StringWords) then
+  else if (lc.TokenType in StringWords) then
     RecogniseStringType
-  else if (lc.Word in [wProcedure, wFunction]) then
+  else if (lc.TokenType in [ttProcedure, ttFunction]) then
     RecogniseProcedureType
-  else if lc.Word in VARIANT_TYPES then
+  else if lc.TokenType in VariantTypes then
     RecogniseVariantType
-  else if (lc.Word = wClass) and (lc2.Word = wOf) then
+  else if (lc.TokenType = ttClass) and (lc2.TokenType = ttOf) then
     RecogniseClassRefType
-  else if (lc.TokenType in IdentifierTypes) and (lc.Word = wUnknown) then
+  else if (lc.WordType in IdentifierTypes) then
   begin
     { could be a subrange on an enum, e.g. "clBlue .. clBlack" }
     if TokenList.SolidTokenType(2) = ttDoubleDot then
@@ -1165,12 +1126,12 @@ begin
   PushNode(nRestrictedType);
 
   lc := TokenList.FirstSolidToken;
-  case lc.Word of
-    wObject:
+  case lc.TokenType of
+    ttObject:
       RecogniseObjectType;
-    wClass:
+    ttClass:
       RecogniseClassType;
-    wInterface, wDispInterface:
+    ttInterface, ttDispInterface:
       RecogniseInterfaceType;
     else
       Raise TEParseError.Create('Expected object, class or interface', lc);
@@ -1183,8 +1144,8 @@ procedure TBuildParseTree.RecogniseClassRefType;
 begin
   // ClassRefType -> CLASS OF TypeId
 
-  Recognise(wClass);
-  Recognise(wOf);
+  Recognise(ttClass);
+  Recognise(ttOf);
   RecogniseTypeId;
 end;
 
@@ -1196,7 +1157,7 @@ begin
 
     lc := TokenList.FirstSolidToken;
 
-    if lc.Word in REAL_TYPES then
+    if lc.TokenType in RealTypes then
       RecogniseRealType
     else
       RecogniseOrdinalType;
@@ -1213,7 +1174,7 @@ begin
    -> CURRENCY
    -> COMP
 }
-  Recognise(REAL_TYPES);
+  Recognise(RealTypes);
 end;
 
 procedure TBuildParseTree.RecogniseOrdinalType;
@@ -1226,7 +1187,7 @@ begin
 
   if lc.TokenType = ttOpenBracket then
     RecogniseEnumeratedType
-  else if lc.Word in ORD_TYPES then
+  else if lc.TokenType in OrdTypes then
     RecogniseOrdIdent
   else
     RecogniseSubRangeType;
@@ -1250,7 +1211,7 @@ begin
    -> LONGWORD
    -> PCHAR
   }
-  Recognise(ORD_TYPES);
+  Recognise(OrdTypes);
 end;
 
 procedure TBuildParseTree.RecogniseVariantType;
@@ -1261,7 +1222,7 @@ begin
       -> OLEVARIANT
   }
 
-  Recognise(VARIANT_TYPES);
+  Recognise(VariantTypes);
 
 end;
 
@@ -1305,9 +1266,9 @@ begin
      -> STRING '[' ConstExpr ']'
  }
 
- if TokenList.FirstSolidTokenWord = wString then
+ if TokenList.FirstSolidTokenType = ttString then
  begin
-  Recognise(wString);
+  Recognise(ttString);
   if TokenList.FirstSolidTokenType = ttOpenSquareBracket then
   begin
     // e.g. var f = String[30];
@@ -1318,7 +1279,7 @@ begin
   end;
  end
  else
-  Recognise([wAnsiString, wWideString]);
+  Recognise([ttAnsiString, ttWideString]);
 end;
 
 
@@ -1328,19 +1289,19 @@ var
 begin
   // StrucType -> [PACKED] (ArrayType | SetType | FileType | RecType)
 
-  if TokenList.FirstSolidTokenWord = wPacked then
-    Recognise(wPacked);
+  if TokenList.FirstSolidTokenType = ttPacked then
+    Recognise(ttPacked);
 
   lc := TokenList.FirstSolidToken;
 
-  case lc.Word of
-    wArray:
+  case lc.TokenType of
+    ttArray:
       RecogniseArrayType;
-    wSet:
+    ttSet:
       RecogniseSetType;
-    wFile:
+    ttFile:
       RecogniseFileType;
-    wRecord:
+    ttRecord:
       RecogniseRecordType;
     else
       Raise TEParseError.Create('Expected array, set, file or record type', lc);
@@ -1352,7 +1313,7 @@ begin
   // ArrayType -> ARRAY ['[' OrdinalType/','... ']'] OF Type
   PushNode(nArrayType);
 
-  Recognise(wArray);
+  Recognise(ttArray);
 
   if TokenList.FirstSolidTokenType = ttOpenSquarebracket then
   begin
@@ -1367,7 +1328,7 @@ begin
 
     Recognise(ttCloseSquareBracket);
   end;
-  Recognise(wOf);
+  Recognise(ttOf);
   RecogniseType;
 
   PopNode;
@@ -1379,36 +1340,35 @@ begin
 
   PushNode(nRecordType);
 
-  Recognise(wRecord);
-  if TokenList.FirstSolidTokenWord <> wEnd then
+  Recognise(ttRecord);
+  if TokenList.FirstSolidTokenType <> ttEnd then
     RecogniseFieldList;
-  Recognise(wEnd);
+  Recognise(ttEnd);
 
   RecogniseHintDirectives;
 
   PopNode;
-
 end;
 
 procedure TBuildParseTree.RecogniseFieldList;
 begin
   // FieldList ->  FieldDecl/';'... [VariantSection] [';']
 
-  while (not (TokenList.FirstSolidTokenWord in [wEnd, wCase]))
+  while (not (TokenList.FirstSolidTokenType in [ttEnd, ttCase]))
     and (not (TokenList.FirstSolidTokenType = ttCloseBracket))  do
   begin
     RecogniseFieldDecl;
-    if TokenList.FirstSolidTokenType = ttSemiColon then
-      Recognise(ttSemiColon)
+    if TokenList.FirstSolidTokenType = ttSemicolon then
+      Recognise(ttSemicolon)
     else
       Break;
   end;
 
-  if TokenList.FirstSolidTokenWord = wCase then
+  if TokenList.FirstSolidTokenType = ttCase then
     RecogniseVariantSection;
 
-  if TokenList.FirstSolidTokenType = ttSemiColon then
-    Recognise(ttSemiColon);
+  if TokenList.FirstSolidTokenType = ttSemicolon then
+    Recognise(ttSemicolon);
 end;
 
 procedure TBuildParseTree.RecogniseFieldDecl;
@@ -1428,30 +1388,29 @@ begin
   PushNode(nRecordVariantSection);
 
   // VariantSection -> CASE [Ident ':'] TypeId OF RecVariant/';'...
-  Recognise(wCase);
+  Recognise(ttCase);
 
-  // is there an 'of' 2 tokens hence? If not, must be 'ident:' first 
-  if not (TokenList.SolidTokenWord(2) = wOf) then
+  // is there an 'of' 2 tokens hence? If not, must be 'ident:' first
+  if not (TokenList.SolidTokenType(2) = ttOf) then
   begin
-    RecogniseIdent;
+    RecogniseIdentifier;
     Recognise(ttColon);
   end;
 
   RecogniseTypeId;
-  Recognise(wOf);
+  Recognise(ttOf);
 
   // I have tested and that there must be at least 1 case in a var section
   repeat
     RecogniseRecVariant;
 
     // semicolon is optional on the last one
-    if TokenList.FirstSolidTokenType = ttSemiColon then
-      Recognise(ttSemiColon)
+    if TokenList.FirstSolidTokenType = ttSemicolon then
+      Recognise(ttSemicolon)
     else
       break;
 
-  until (TokenList.FirstSolidTokenWord = wEnd) or
-    (TokenList.FirstSolidTokenType = ttCloseBracket);
+  until (TokenList.FirstSolidTokenType in [ttEnd, ttCloseBracket]);
 
   PopNode;
 end;
@@ -1498,8 +1457,8 @@ begin
 
   PushNode(nSetType);
 
-  Recognise(wSet);
-  Recognise(wOf);
+  Recognise(ttSet);
+  Recognise(ttOf);
 
   //RecogniseOrdinalType;
   RecogniseType;
@@ -1515,10 +1474,10 @@ begin
    also just plain 'file'
   }
 
-  Recognise(wfile);
-  if TokenList.FirstSolidTokenWord = wOf then
+  Recognise(ttFile);
+  if TokenList.FirstSolidTokenType = ttOf then
   begin
-    Recognise(wOf);
+    Recognise(ttOf);
     RecogniseTypeId;
   end;
 end;
@@ -1526,7 +1485,7 @@ end;
 procedure TBuildParseTree.RecognisePointerType;
 begin
   // PointerType -> '^' TypeId
-  Recognise(wHat);
+  Recognise(ttHat);
   RecogniseTypeId;
 end;
 
@@ -1535,17 +1494,17 @@ begin
   PushNode(nProcedureType);
 
   // ProcedureType -> (ProcedureHeading | FunctionHeading) [OF OBJECT]
-  if TokenList.FirstSolidTokenWord = wProcedure then
+  if TokenList.FirstSolidTokenType = ttProcedure then
     RecogniseProcedureHeading(True)
-  else if TokenList.FirstSolidTokenWord = wFunction then
+  else if TokenList.FirstSolidTokenType = ttFunction then
     RecogniseFunctionHeading(True)
   else
     Raise TEParseError.Create('Expected procedure or function type', TokenList.FirstSolidToken);
 
-  if TokenList.FirstSolidTokenWord = wOf then
+  if TokenList.FirstSolidTokenType = ttOf then
   begin
-    Recognise(wOf);
-    Recognise(wObject);
+    Recognise(ttOf);
+    Recognise(ttObject);
   end;
 
   PopNode;
@@ -1553,20 +1512,20 @@ end;
 
 procedure TBuildParseTree.RecogniseVarSection;
 const
-  END_VAR_SECTION: TWordSet =
-    [wVar, wThreadVar, wConst, wLabel, wResourceString, wType,
-      wBegin, wEnd, wImplementation, wInitialization,
-      wProcedure, wFunction, wConstructor, wDestructor];
+  END_VAR_SECTION: TTokenTypeSet =
+    [ttVar, ttThreadVar, ttConst, ttLabel, ttResourceString, ttType,
+      ttBegin, ttEnd, ttImplementation, ttInitialization,
+      ttProcedure, ttFunction, ttConstructor, ttDestructor];
 begin
   PushNode(nVarSection);
 
   // VarSection -> VAR (VarDecl ';')...
-  Recognise([wVar, wThreadvar]);
+  Recognise([ttVar, ttThreadvar]);
 
   repeat
     RecogniseVarDecl;
-    Recognise(ttSemiColon);
-  until (TokenList.FirstSolidTokenWord in END_VAR_SECTION);
+    Recognise(ttSemicolon);
+  until (TokenList.FirstSolidTokenType in END_VAR_SECTION);
 
   PopNode;
 end;
@@ -1586,29 +1545,29 @@ begin
 
   lc := TokenList.FirstSolidToken;
 
-  if lc.Word = wAbsolute then
+  if lc.TokenType = ttAbsolute then
   begin
     PushNode(nAbsoluteVar);
-    Recognise(wAbsolute);
+    Recognise(ttAbsolute);
 
-    if (TokenList.FirstSolidTokenType = ttWord) then
-      RecogniseIdent
+    if (TokenList.FirstSolidWordType in IdentifierTypes) then
+      RecogniseIdentifier
     else
       RecogniseConstExpr;
 
     PopNode;
   end
-  else if lc.Word = wEquals then
+  else if lc.TokenType = ttEquals then
   begin
     PushNode(nVariableInit);
 
-    Recognise(wEquals);
+    Recognise(ttEquals);
 
     { not just an expr - can be an array, record or the like
-      reuse the code from typed constant declaration as it works the same 
+      reuse the code from typed constant declaration as it works the same
     }
     RecogniseTypedConstant;
-    
+
     PopNode;
   end;
 
@@ -1629,7 +1588,7 @@ begin
 
   RecogniseSimpleExpression;
 
-  while TokenList.FirstSolidTokenWord in RelationalOperators do
+  while TokenList.FirstSolidTokenType in RelationalOperators do
   begin
     RecogniseRelop;
     RecogniseSimpleExpression;
@@ -1643,9 +1602,9 @@ begin
   end;
 
   //likewise need to cope with pchar(foo)^
-  if TokenList.FirstSolidTokenWord = wHat then
+  if TokenList.FirstSolidTokenType = ttHat then
   begin
-    Recognise(wHat);
+    Recognise(ttHat);
   end;
 
   PopNode;
@@ -1665,13 +1624,13 @@ begin
 {
   lc := TokenList.FirstSolidToken;
 
-  if lc.Word = wMinus then
+  if lc.TokenType = wMinus then
     Recognise(wMinus)
-  else if lc.Word = wPlus then
+  else if lc.TokenType = wPlus then
     Recognise(wPlus);
  }
   RecogniseTerm;
-  while TokenList.FirstSolidTokenWord in AddOperators do
+  while TokenList.FirstSolidTokenType in AddOperators do
   begin
     RecogniseAddOp;
     RecogniseTerm;
@@ -1687,7 +1646,7 @@ begin
 
   RecogniseFactor;
 
-  while TokenList.FirstSolidTokenWord in MulOperators do
+  while TokenList.FirstSolidTokenType in MulOperators do
   begin
     RecogniseMulOp;
     RecogniseFactor;
@@ -1739,10 +1698,10 @@ begin
   begin
     Recognise(ttLiteralString);
   end
-  else if (TokenList.FirstSolidTokenType = ttBuiltInConstant) then
+  else if (TokenList.FirstSolidTokenType in BuiltInConstants) then
   begin
     // nil, true, false
-    Recognise([ttBuiltInConstant], [wNil, wTrue, wFalse]);
+    Recognise(BuiltInConstants);
   end
   else if (TokenList.FirstSolidTokenType = ttOpenBracket) then
   begin
@@ -1750,12 +1709,12 @@ begin
     RecogniseExpr;
     Recognise(ttCloseBracket);
   end
-  else if (TokenList.FirstSolidTokenWord = wNot) then
+  else if (TokenList.FirstSolidTokenType = ttNot) then
   begin
-    Recognise(wNot);
+    Recognise(ttNot);
     RecogniseFactor;
   end
-  else if TokenList.FirstSolidTokenWord in PossiblyUnarySymbolOperators then
+  else if TokenList.FirstSolidTokenType in PossiblyUnarySymbolOperators then
   begin
     PushNode(nUnaryOp);
     Recognise(PossiblyUnarySymbolOperators);
@@ -1788,7 +1747,7 @@ begin
 
   lc := TokenList.FirstSolidToken;
 
-  if lc.Word in RelationalOperators then
+  if lc.TokenType in RelationalOperators then
     Recognise(RelationalOperators)
   else
     Raise TEParseError.Create('unexpected token in rel op', lc);
@@ -1800,7 +1759,7 @@ var
 begin
   lc := TokenList.FirstSolidToken;
 
-  if lc.Word in AddOperators then
+  if lc.TokenType in AddOperators then
     Recognise(AddOperators)
   else
     Raise TEParseError.Create('unexpected token in add op', lc);
@@ -1823,7 +1782,7 @@ begin
   }
   lc := TokenList.FirstSolidToken;
 
-  if lc.Word in MulOperators then
+  if lc.TokenType in MulOperators then
     Recognise(MulOperators)
   else
     Raise TEParseError.Create('unexpected token in mul op', lc);
@@ -1842,17 +1801,16 @@ begin
 
   RecogniseQualId;
 
-  while (TokenList.FirstSolidTokenType in [ttDot, ttOpenSquareBracket]) or
-    (TokenList.FirstSolidTokenWord = wHat) do
+  while (TokenList.FirstSolidTokenType in [ttDot, ttOpenSquareBracket, ttHat]) do
   begin
     if TokenList.FirstSolidTokenType = ttDot then
     begin
       Recognise(ttDot);
-      RecogniseIdent;
+      RecogniseIdentifier;
     end
-    else if TokenList.FirstSolidTokenWord = wHat then
+    else if TokenList.FirstSolidTokenType = ttHat then
     begin
-      Recognise(wHat);
+      Recognise(ttHat);
       // and after the deref operator ?
     end
     else if TokenList.FirstSolidTokenType = ttOpenSquareBracket then
@@ -1921,13 +1879,13 @@ begin
   PushNode(nStatement);
 
   // empty statement
-  if TokenList.FirstSolidTokenType = ttSemiColon then
+  if TokenList.FirstSolidTokenType = ttSemicolon then
   begin
     PopNode;
     Exit;
   end;
 
-  if TokenList.FirstSolidTokenWord = wEnd then
+  if TokenList.FirstSolidTokenType = ttEnd then
   begin
     PopNode;
     Exit;
@@ -1938,13 +1896,13 @@ begin
   if (lbColonSecond) then
   begin
     PushNode(nStatementLabel);
-    RecogniseIdent;
+    RecogniseIdentifier;
     Recognise(ttColon);
     PopNode;
   end;
 
   lc := TokenList.FirstSolidToken;
-  if lc.Word in STRUCT_STATEMENT_WORDS then
+  if lc.TokenType in StructStatementWords then
     RecogniseStructStmnt
   else
     RecogniseSimpleStmnt;
@@ -1952,18 +1910,18 @@ begin
   PopNode;
 end;
 
-procedure TBuildParseTree.RecogniseStatementList(const peEndWords: TWordSet);
+procedure TBuildParseTree.RecogniseStatementList(const peEndTokens: TTokenTypeSet);
 begin
   // StmtList -> Statement/';'...
   PushNode(nStatementList);
 
-  while not (TokenList.FirstSolidTokenWord in peEndWords) do
+  while not (TokenList.FirstSolidTokenType in peEndTokens) do
   begin
     RecogniseStatement;
 
     // last semicolon is optional
-    if TokenList.FirstSolidTokenType = ttSemiColon then
-      Recognise(ttSemiColon)
+    if TokenList.FirstSolidTokenType = ttSemicolon then
+      Recognise(ttSemicolon)
     else
       break;
   end;
@@ -1987,6 +1945,12 @@ begin
 
     so is "Pointer(lcFoo)" so that you can do
     " Pointer(lcFoo) := Pointer(lcFoo) + 1;
+
+    Niether does it take into account using property on returned object, e.g.
+    qry.fieldbyname('line').AsInteger := 1;
+
+    These can be chained indefinitely, as in
+   foo.GetBar(1).Stuff['fish'].MyFudgeFactor.Default(2).Name := 'Jiim';
 }
 
   lc := TokenList.FirstSolidToken;
@@ -2000,7 +1964,14 @@ begin
       RecogniseActualParams;
     end;
 
-    if TokenList.FirstSolidTokenType = ttAssign then
+    // dot next ?
+    if TokenList.FirstSolidTokenType = ttDot then
+    begin
+      Recognise(ttDot);
+      RecogniseSimpleStmnt;
+    end
+
+    else if TokenList.FirstSolidTokenType = ttAssign then
     begin
       PushNode(nAssignment);
 
@@ -2012,35 +1983,35 @@ begin
 
     // else nothing at all is also ok. i.e. procedure call with no params
   end
-  else if lc.Word = wInherited then
+  else if lc.TokenType = ttInherited then
   begin
-     Recognise(wInherited);
+     Recognise(ttInherited);
      // can be followed by a method name with or without params
      if IdentifierNext then
      begin
-      RecogniseIdent;
+      RecogniseIdentifier;
 
-      if TokenList.FirstSolidTokenType = ttOpenbracket then
+      if TokenList.FirstSolidTokenType = ttOpenBracket then
         RecogniseActualParams;
      end;
 
   end
-  else if lc.Word = wGoto then
+  else if lc.TokenType = ttGoto then
   begin
-     Recognise(wGoto);
-     RecogniseIdent;
+     Recognise(ttGoto);
+     RecogniseIdentifier;
   end
-  else if lc.Word = wRaise then
+  else if lc.TokenType = ttRaise then
   begin
     // another omission - raise expr  or just raise (in except block)
-    Recognise(wRaise);
-    if TokenList.FirstTokenType <> ttSemiColon then
+    Recognise(ttRaise);
+    if TokenList.FirstTokenType <> ttSemicolon then
       RecogniseExpr;
   end
-  else if lc.TokenType = ttSemiColon then
+  else if lc.TokenType = ttSemicolon then
   begin
     // empty statement
-    // this gets doen later in common code Recognise(ttSemiColon);
+    // this gets doen later in common code Recognise(ttSemicolon);
   end
   else
     Raise TEParseError.Create('expected simple statement', lc);
@@ -2076,24 +2047,24 @@ begin
 
   lc := TokenList.FirstSolidToken;
 
-  case lc.Word of
-    wBegin:
+  case lc.TokenType of
+    ttBegin:
       RecogniseCompoundStmnt;
-    wAsm:
+    ttAsm:
       RecogniseAsmBlock;
-    wIf:
+    ttIf:
       RecogniseIfStmnt;
-    wCase:
+    ttCase:
       RecogniseCaseStmnt;
-    wRepeat:
+    ttRepeat:
       RecogniseRepeatStmnt;
-    wWhile:
+    ttWhile:
       RecogniseWhileStmnt;
-    wFor:
+    ttFor:
       RecogniseForStmnt;
-    wWith:
+    ttWith:
       RecogniseWithStmnt;
-    wTry:
+    ttTry:
       RecogniseTryStatement;
     else
       Raise TEParseError.Create('expected structured statement', lc);
@@ -2105,9 +2076,9 @@ procedure TBuildParseTree.RecogniseCompoundStmnt;
 begin
   { CompoundStmt -> BEGIN StmtList END }
   PushNode(nCompoundStatement);
-  Recognise(wBegin);
-  RecogniseStatementList([wEnd]);
-  Recognise(wEnd);
+  Recognise(ttBegin);
+  RecogniseStatementList([ttEnd]);
+  Recognise(ttEnd);
   PopNode;
 end;
 
@@ -2117,21 +2088,21 @@ procedure TBuildParseTree.RecogniseIfStmnt;
 begin
   // IfStmt -> IF Expression THEN Statement [ELSE Statement]
 
-  Recognise(wIf);
+  Recognise(ttIf);
 
   PushNode(nIfCondition);
   RecogniseExpr;
   PopNode;
 
-  Recognise(wThen);
+  Recognise(ttThen);
 
   PushNode(nIfBlock);
   RecogniseStatement;
   PopNode;
 
-  if TokenList.FirstSolidTokenWord = wElse then
+  if TokenList.FirstSolidTokenType = ttElse then
   begin
-    Recognise(wElse);
+    Recognise(ttElse);
     PushNode(nElseBlock);
     RecogniseStatement;
     PopNode;
@@ -2144,29 +2115,29 @@ begin
   // CaseStmt -> CASE Expression OF CaseSelector/';'... [ELSE Statement] [';'] END
   PushNode(nCaseStatement);
 
-  Recognise(wCase);
+  Recognise(ttCase);
 
   PushNode(nBlockHeaderExpr);
   RecogniseExpr;
   PopNode;
 
-  Recognise(wOf);
+  Recognise(ttOf);
 
-  while not (TokenList.FirstSolidTokenWord in [wElse, wEnd]) do
+  while not (TokenList.FirstSolidTokenType in [ttElse, ttEnd]) do
     RecogniseCaseSelector;
 
-  if TokenList.FirstSolidTokenWord = wElse then
+  if TokenList.FirstSolidTokenType = ttElse then
   begin
     PushNode(nElseCase);
-    Recognise(wElse);
-    RecogniseStatementList([wEnd]);
+    Recognise(ttElse);
+    RecogniseStatementList([ttEnd]);
     PopNode;
   end;
 
-  if TokenList.FirstSolidTokenType = ttSemiColon then
-    Recognise(ttSemiColon);
+  if TokenList.FirstSolidTokenType = ttSemicolon then
+    Recognise(ttSemicolon);
 
-  Recognise(wEnd);
+  Recognise(ttEnd);
 
   PopNode;
 end;
@@ -2191,7 +2162,7 @@ begin
 
   RecogniseStatement;
 
-  if TokenList.FirstSolidTokenType = ttSemiColon then
+  if TokenList.FirstSolidTokenType = ttSemicolon then
     Recognise(ttSemicolon);
 
   PopNode;
@@ -2222,9 +2193,9 @@ begin
   }
   PushNode(nRepeatStatement);
 
-  Recognise(wRepeat);
-  RecogniseStatementList([wUntil]);
-  Recognise(wUntil);
+  Recognise(ttRepeat);
+  RecogniseStatementList([ttUntil]);
+  Recognise(ttUntil);
 
   PushNode(nLoopHeaderExpr);
   RecogniseExpr;
@@ -2238,13 +2209,13 @@ begin
   // WhileStmt -> WHILE Expression DO Statement
   PushNode(nWhileStatement);
 
-  Recognise(wWhile);
+  Recognise(ttWhile);
 
   PushNode(nLoopHeaderExpr);
   RecogniseExpr;
   PopNode;
 
-  Recognise(wDo);
+  Recognise(ttDo);
   RecogniseStatement;
 
   PopNode;
@@ -2255,7 +2226,7 @@ begin
   // ForStmt -> FOR QualId ':=' Expression (TO | DOWNTO) Expression DO Statement
   PushNode(nForStatement);
 
-  Recognise(wFor);
+  Recognise(ttFor);
   RecogniseQualId;
   Recognise(ttAssign);
 
@@ -2263,13 +2234,13 @@ begin
   RecogniseExpr;
   PopNode;
 
-  Recognise([wTo, wDownto]);
+  Recognise([ttTo, ttDownto]);
 
   PushNode(nLoopHeaderExpr);
   RecogniseExpr;
   PopNode;
-  
-  Recognise([wDo]);
+
+  Recognise([ttDo]);
   RecogniseStatement;
 
   PopNode;
@@ -2283,14 +2254,14 @@ begin
   }
   PushNode(nWithStatement);
 
-  Recognise([wWith]);
+  Recognise([ttWith]);
 
   //RecogniseIdentList;
   PushNode(nBlockHeaderExpr);
   RecogniseExprList;
   PopNode;
 
-  Recognise([wDo]);
+  Recognise([ttDo]);
   RecogniseStatement;
 
   PopNode;
@@ -2314,30 +2285,30 @@ begin
 
   PushNode(nTryBlock);
 
-  Recognise(wTry);
-  RecogniseStatementList([wEnd, wFinally, wExcept]);
+  Recognise(ttTry);
+  RecogniseStatementList([ttEnd, ttFinally, ttExcept]);
 
   PopNode;
 
   lc := TokenList.FirstSolidToken;
-  case lc.Word of
-    wFinally:
+  case lc.TokenType of
+    ttFinally:
     begin
       PushNode(nFinallyBlock);
 
-      Recognise(wFinally);
-      RecogniseStatementList([wEnd]);
-      Recognise(wEnd);
+      Recognise(ttFinally);
+      RecogniseStatementList([ttEnd]);
+      Recognise(ttEnd);
 
       PopNode;
     end;
-    wExcept:
+    ttExcept:
     begin
       PushNode(nExceptBlock);
 
-      Recognise(wExcept);
+      Recognise(ttExcept);
       RecogniseExceptionHandlerBlock;
-      Recognise(wEnd);
+      Recognise(ttEnd);
 
       PopNode;
     end
@@ -2383,15 +2354,15 @@ begin
   }
   PushNode(nExceptionHandlers);
 
-  if TokenList.FirstSolidTokenWord in [wOn, wElse]  then
+  if TokenList.FirstSolidTokenType in [ttOn, ttElse]  then
   begin
-    while TokenList.FirstSolidTokenWord in [wOn, wElse] do
+    while TokenList.FirstSolidTokenType in [ttOn, ttElse] do
       RecogniseExceptionHandler;
   end
   else
   begin
-    // can be 0 or more statements 
-    RecogniseStatementList([wEnd]);
+    // can be 0 or more statements
+    RecogniseStatementList([ttEnd]);
   end;
 
   PopNode;
@@ -2406,29 +2377,29 @@ begin
 }
   PushNode(nOnExceptionHandler);
 
-  if TokenList.FirstSolidTokenWord = wElse then
+  if TokenList.FirstSolidTokenType = ttElse then
   begin
-    Recognise(wElse);
+    Recognise(ttElse);
     RecogniseStatement;
   end
-  else if TokenList.FirstSolidTokenWord = wOn then
+  else if TokenList.FirstSolidTokenType = ttOn then
   begin
-    Recognise(wOn);
+    Recognise(ttOn);
     if TokenList.SolidTokenType(2) = ttColon then
     begin
-      RecogniseIdent;
+      RecogniseIdentifier;
       Recognise(ttColon);
     end;
-    RecogniseIdent;
-    Recognise(wDo);
+    RecogniseIdentifier;
+    Recognise(ttDo);
 
     RecogniseStatement;
   end
   else
     RecogniseStatement;
 
-  if TokenList.FirstSolidTokenType = ttSemiColon then
-    Recognise(ttSemiColon);
+  if TokenList.FirstSolidTokenType = ttSemicolon then
+    Recognise(ttSemicolon);
 
   PopNode;
 
@@ -2441,29 +2412,29 @@ var
 begin
   {
   ProcedureDeclSection
-    -> ProcedureDecl                
+    -> ProcedureDecl
     -> FunctionDecl
   }
 
   lc := TokenList.FirstSolidToken;
 
-  case lc.Word of
-    wProcedure:
+  case lc.TokenType of
+    ttProcedure:
       RecogniseProcedureDecl;
-    wFunction:
+    ttFunction:
       RecogniseFunctionDecl;
-    wConstructor:
+    ttConstructor:
       RecogniseConstructorDecl;
-    wDestructor:
+    ttDestructor:
       RecogniseDestructorDecl;
 
-    wClass:
+    ttClass:
     begin
       // class proc or function
-      case TokenList.SolidTokenWord(2) of
-        wProcedure:
+      case TokenList.SolidTokenType(2) of
+        ttProcedure:
           RecogniseProcedureDecl;
-        wFunction:
+        ttFunction:
           RecogniseFunctionDecl;
         else
            Raise TEParseError.Create('expected class procedure or class function', lc);
@@ -2487,18 +2458,18 @@ begin
   PushNode(nProcedureDecl);
 
   RecogniseProcedureHeading(False);
-  Recognise(ttSemiColon);
+  Recognise(ttSemicolon);
 
-  if TokenList.FirstSolidTokenWord in ProcedureDirectives then
+  if TokenList.FirstSolidTokenType in ProcedureDirectives then
     RecogniseProcedureDirectives;
 
   { if the proc declaration has the directive external or forward,
     it will not have a body }
   lcTop := TParseTreeNode(fcStack.Peek);
-  if not lcTop.HasChildNode([wExternal, wForward]) then
+  if not lcTop.HasChildNode([ttExternal, ttForward]) then
   begin
     RecogniseBlock;
-    Recognise(ttSemiColon);
+    Recognise(ttSemicolon);
   end;
 
   PopNode;
@@ -2513,18 +2484,18 @@ begin
   PushNode(nFunctionDecl);
 
   RecogniseFunctionHeading(False);
-  Recognise(ttSemiColon);
+  Recognise(ttSemicolon);
   //opt
-  if TokenList.FirstSolidTokenWord in ProcedureDirectives then
+  if TokenList.FirstSolidTokenType in ProcedureDirectives then
     RecogniseProcedureDirectives;
 
   { if the proc declaration has the directive external or forward,
     it will not have a body }
   lcTop := TParseTreeNode(fcStack.Peek);
-  if not lcTop.HasChildNode([wExternal, wForward]) then
+  if not lcTop.HasChildNode([ttExternal, ttForward]) then
   begin
     RecogniseBlock;
-    Recognise(ttSemiColon);
+    Recognise(ttSemicolon);
   end;
 
   PopNode;
@@ -2538,12 +2509,12 @@ begin
   PushNode(nConstructorDecl);
 
   RecogniseConstructorHeading(False);
-  Recognise(ttSemiColon);
+  Recognise(ttSemicolon);
 
-  if TokenList.FirstSolidTokenWord in ProcedureDirectives then
+  if TokenList.FirstSolidTokenType in ProcedureDirectives then
     RecogniseProcedureDirectives;
   RecogniseBlock;
-  Recognise(ttSemiColon);
+  Recognise(ttSemicolon);
 
   PopNode;
 end;
@@ -2555,12 +2526,12 @@ begin
   PushNode(nDestructorDecl);
 
   RecogniseDestructorHeading(false);
-  Recognise(ttSemiColon);
+  Recognise(ttSemicolon);
 
-  if TokenList.FirstSolidTokenWord in ProcedureDirectives then
+  if TokenList.FirstSolidTokenType in ProcedureDirectives then
     RecogniseProcedureDirectives;
   RecogniseBlock;
-  Recognise(ttSemiColon);
+  Recognise(ttSemicolon);
 
   PopNode;
 end;
@@ -2571,10 +2542,10 @@ begin
   PushNode(nFunctionHeading);
 
   // class procs
-  if TokenList.FirstSolidTokenWord = wClass then
-    Recognise(wClass);
+  if TokenList.FirstSolidTokenType = ttClass then
+    Recognise(ttClass);
 
-  Recognise(wFunction);
+  Recognise(ttFunction);
   if not pbAnon then
     RecogniseMethodName(False);
 
@@ -2587,17 +2558,18 @@ begin
   if TokenList.FirstSolidTokenType = ttColon then
   begin
     Recognise(ttColon);
+    PushNode(nFunctionReturnType);
     RecogniseType;
+    PopNode;
   end;
 
   RecogniseProcedureDirectives;
 
-  if TokenList.FirstSolidTokenWord = wEquals then
+  if TokenList.FirstSolidTokenType = ttEquals then
   begin
-    Recognise(wEquals);
-    RecogniseIdent;
+    Recognise(ttEquals);
+    RecogniseIdentifier;
   end;
-
 
   PopNode;
 end;
@@ -2618,10 +2590,10 @@ begin
 
   PushNode(nProcedureHeading);
 
-  if TokenList.FirstSolidTokenWord = wClass then
-    Recognise(wClass);
+  if TokenList.FirstSolidTokenType = ttClass then
+    Recognise(ttClass);
 
-  Recognise(wProcedure);
+  Recognise(ttProcedure);
   if not pbAnon then
     RecogniseMethodName(False);
 
@@ -2630,10 +2602,10 @@ begin
 
   RecogniseProcedureDirectives;
 
-  if TokenList.FirstSolidTokenWord = wEquals then
+  if TokenList.FirstSolidTokenType = ttEquals then
   begin
-    Recognise(wEquals);
-    RecogniseIdent;
+    Recognise(ttEquals);
+    RecogniseIdentifier;
   end;
 
   PopNode;
@@ -2648,9 +2620,9 @@ begin
   Recognise(ttOpenBracket);
 
   RecogniseFormalParam;
-  while TokenList.FirstSolidTokenType = ttSemiColon do
+  while TokenList.FirstSolidTokenType = ttSemicolon do
   begin
-    Recognise(ttSemiColon);
+    Recognise(ttSemicolon);
     RecogniseFormalParam;
   end;
 
@@ -2661,13 +2633,13 @@ end;
 
 procedure TBuildParseTree.RecogniseFormalParam;
 const
-  PARAM_PREFIXES: TWordSet = [wVar, wConst, wOut];
+  PARAM_PREFIXES: TTokenTypeSet = [ttVar, ttConst, ttOut];
 begin
   PushNode(nFormalParam);
 
   // FormalParm -> [VAR | CONST | OUT] Parameter
 
-  if TokenList.FirstSolidTokenWord in PARAM_PREFIXES then
+  if TokenList.FirstSolidTokenType in PARAM_PREFIXES then
     Recognise(PARAM_PREFIXES);
 
   RecogniseParameter;
@@ -2701,10 +2673,10 @@ begin
   begin
     Recognise(ttColon);
 
-    if TokenList.FirstSolidTokenWord = wArray then
+    if TokenList.FirstSolidTokenType = ttArray then
     begin
-      Recognise(wArray);
-      Recognise(wOf);
+      Recognise(ttArray);
+      Recognise(ttOf);
       lbArray := True;
     end;
 
@@ -2712,9 +2684,9 @@ begin
     if (lbArray) or (not (TokenList.FirstSolidTokenType in [ttSemicolon, ttCloseBracket])) then
       RecogniseType;
 
-   if TokenList.FirstSolidTokenWord = wEquals then
+   if TokenList.FirstSolidTokenType = ttEquals then
    begin
-    Recognise(wEquals);
+    Recognise(ttEquals);
     RecogniseConstExpr;
    end;
   end;
@@ -2736,22 +2708,22 @@ begin
   lc := TokenList.FirstSolidToken;
   lc2 := TokenList.SolidToken(2);
 
-  if (lc.TokenType = ttSemiColon) and (lc2.Word in ProcedureDirectives) then
+  if (lc.TokenType = ttSemicolon) and (lc2.TokenType in ProcedureDirectives) then
   begin
     PushNode(nProcedureDirectives);
 
-    while (lc.TokenType = ttSemiColon) and (lc2.Word in ProcedureDirectives) do
+    while (lc.TokenType = ttSemicolon) and (lc2.TokenType in ProcedureDirectives) do
     begin
-      Recognise(ttSemiColon);
+      Recognise(ttSemicolon);
 
-      case lc2.Word of
-        wExternal:
+      case lc2.TokenType of
+        ttExternal:
         begin
           RecogniseExternalProcDirective;
         end;
-        wDispId:
+        ttDispId:
         begin
-          Recognise(wDispId);
+          Recognise(ttDispId);
           Recognise(ttNumber);
         end
         else
@@ -2767,8 +2739,6 @@ begin
 end;
 
 procedure TBuildParseTree.RecogniseExternalProcDirective;
-const
-  LIB_NAMES: TTokenTypeSet = [ttLiteralString, ttWord];
 begin
   { right, i'll fake this one
 
@@ -2777,15 +2747,15 @@ begin
   }
   PushNode(nExternalDirective);
 
-  Recognise(wExternal);
-  if TokenList.FirstSolidTokenType in LIB_NAMES then
+  Recognise(ttExternal);
+  if TokenList.FirstSolidTokenType in (IdentiferTokens + [ttLiteralString]) then
   begin
-    Recognise(LIB_NAMES);
+    Recognise((IdentiferTokens + [ttLiteralString]));
 
-    if TokenList.FirstSolidTokenWord = wName then
+    if TokenList.FirstSolidTokenType = ttName then
     begin
-      Recognise(wName);
-      Recognise(LIB_NAMES);
+      Recognise(ttName);
+      Recognise((IdentiferTokens + [ttLiteralString]));
     end;
   end;
 
@@ -2801,15 +2771,15 @@ begin
 
   PushNode(nObjectType);
 
-  Recognise(wObject);
+  Recognise(ttObject);
 
-  if TokenList.FirstSolidTokenType = ttOpenbracket then
+  if TokenList.FirstSolidTokenType = ttOpenBracket then
     RecogniseObjHeritage;
 
   // swiped this from the delphi object defs
   RecogniseClassBody;
 
-  Recognise(wEnd);
+  Recognise(ttEnd);
 
   PopNode;
 end;
@@ -2829,7 +2799,7 @@ begin
   //ConstructorHeading -> CONSTRUCTOR Ident [FormalParameters]
   PushNode(nConstructorHeading);
 
-  Recognise(wConstructor);
+  Recognise(ttConstructor);
   RecogniseMethodName(not pbDeclaration);
   if TokenList.FirstSolidTokenType = ttOpenBracket then
     RecogniseFormalParameters;
@@ -2844,7 +2814,7 @@ begin
   //DestructorHeading -> DESTRUCTOR Ident [FormalParameters]
   PushNode(nDestructorHeading);
 
-  Recognise(wDestructor);
+  Recognise(ttDestructor);
   RecogniseMethodName(not pbDeclaration);
   if TokenList.FirstSolidTokenType = ttOpenBracket then
     RecogniseFormalParameters;
@@ -2869,29 +2839,29 @@ begin
 
  PushNode(nInitSection);
 
-  case lc.Word of
-    wInitialization:
+  case lc.TokenType of
+    ttInitialization:
     begin
-      Recognise(wInitialization);
-      RecogniseStatementList([wEnd, wFinalization]);
+      Recognise(ttInitialization);
+      RecogniseStatementList([ttEnd, ttFinalization]);
 
-      if TokenList.FirstSolidTokenWord = wFinalization then
+      if TokenList.FirstSolidTokenType = ttFinalization then
       begin
-        Recognise(wFinalization);
-        RecogniseStatementList([wEnd]);
+        Recognise(ttFinalization);
+        RecogniseStatementList([ttEnd]);
       end;
 
-      Recognise(wEnd);
+      Recognise(ttEnd);
     end;
-    wBegin:
+    ttBegin:
     begin
-      Recognise(wBegin);
-      RecogniseStatementList([wEnd]);
-      Recognise(wEnd);
+      Recognise(ttBegin);
+      RecogniseStatementList([ttEnd]);
+      Recognise(ttEnd);
     end;
-    wEnd:
+    ttEnd:
     begin
-      Recognise(wEnd);
+      Recognise(ttEnd);
     end
     else
        Raise TEParseError.Create('expected initialisation, begin or end', lc);
@@ -2928,18 +2898,18 @@ or a class ref type
 
   PushNode(nClassType);
 
-  Recognise(wClass);
+  Recognise(ttClass);
 
-  if TokenList.FirstSolidTokenType = ttSemiColon then
+  if TokenList.FirstSolidTokenType = ttSemicolon then
   begin
     PopNode;
     exit;
   end;
 
-  if TokenList.FirstSolidTokenWord = wOf then
+  if TokenList.FirstSolidTokenType = ttOf then
   begin
-    Recognise(wOf);
-    RecogniseIdent;
+    Recognise(ttOf);
+    RecogniseIdentifier;
     PopNode;
     exit;
   end;
@@ -2949,7 +2919,7 @@ or a class ref type
     RecogniseClassHeritage;
 
   // can end here
-  if TokenList.FirstSolidTokenType = ttSemiColon then
+  if TokenList.FirstSolidTokenType = ttSemicolon then
   begin
     PopNode;
     exit;
@@ -2957,7 +2927,7 @@ or a class ref type
 
 
   RecogniseClassBody;
-  Recognise(wEnd);
+  Recognise(ttEnd);
 
   RecogniseHintDirectives;
 
@@ -2980,7 +2950,7 @@ procedure TBuildParseTree.RecogniseClassVisibility;
 begin
   // ClassVisibility -> [PUBLIC | PROTECTED | PRIVATE | PUBLISHED]
 
-  Recognise(CLASS_VISIBILITY);
+  Recognise(ClassVisibility);
 end;
 
 procedure TBuildParseTree.RecogniseClassBody;
@@ -2990,7 +2960,7 @@ begin
 
   RecogniseClassDeclarations(False);
 
-  while(TokenList.FirstSolidTokenWord in CLASS_VISIBILITY) do
+  while(TokenList.FirstSolidTokenType in ClassVisibility) do
   begin
     PushNode(nClassVisibility);
     RecogniseClassVisibility;
@@ -3004,7 +2974,8 @@ end;
 procedure TBuildParseTree.RecogniseClassDeclarations(const pbInterface: Boolean);
 const
   // can declare thse things in a class
-  CLASS_DECL_WORDS = [wProcedure, wFunction, wConstructor, wDestructor, wProperty, wClass];
+  CLASS_DECL_WORDS = [ttProcedure, ttFunction,
+    ttConstructor, ttDestructor, ttProperty, ttClass];
 var
   lc: TSourceToken;
   lbStarted: Boolean;
@@ -3035,7 +3006,8 @@ begin
    }
   lbStarted := False;
 
-  while TokenList.FirstSolidTokenWord in (CLASS_DECL_WORDS + [wUnknown]) do
+  while (TokenList.FirstSolidTokenType in CLASS_DECL_WORDS) or
+    (TokenList.FirstSolidWordType in IdentifierTypes) do
   begin
     // only make this node if it will have children
     if not lbStarted then
@@ -3044,49 +3016,53 @@ begin
 
     lc := TokenList.FirstSolidToken;
 
-    case lc.Word of
-      wProcedure:
+    // these end the visibility section
+    if TokenList.FirstSolidTokenType in (ClassVisibility + [ttEnd]) then
+      break;
+
+    case lc.TokenType of
+      ttProcedure:
         RecogniseProcedureHeading(False);
-      wFunction:
+      ttFunction:
         RecogniseFunctionHeading(False);
-      wClass:
+      ttClass:
       begin
         // must be followed by 'procedure' or 'function'
-        case TokenList.SolidTokenWord(2) of
-          wProcedure:
+        case TokenList.SolidTokenType(2) of
+          ttProcedure:
             RecogniseProcedureHeading(False);
-          wFunction:
+          ttFunction:
             RecogniseFunctionHeading(False);
           else
             Raise TEParseError.Create('Expected class procedure or class function', lc);
         end;
 
       end;
-      wConstructor:
+      ttConstructor:
       begin
         // no constructor on interface
         if pbInterface then
           Raise TEParseError.Create('unexpected token', lc);
         RecogniseConstructorHeading(True);
       end;
-      wDestructor:
+      ttDestructor:
       begin
         // no constructor on interface
         if pbInterface then
           Raise TEParseError.Create('unexpected token', lc);
         RecogniseDestructorHeading(True);
       end;
-      wProperty:
+      ttProperty:
         RecogniseProperty;
       else
       begin
         // end of this list with next visibility section or class end?
-        if lc.Word in CLASS_DECL_WORDS + [wEnd] then
+        if lc.TokenType in CLASS_DECL_WORDS + [ttEnd] then
         begin
           break;
         end
         // vars start with an identifier
-        else if lc.TokenType = ttWord then
+        else if lc.TokenType in IdentiferTokens then
         begin
           // no vars on interface
           if pbInterface then
@@ -3100,14 +3076,11 @@ begin
     end;
 
     // semicolon after each def.
-    if TokenList.FirstSolidTokenType = ttSemiColon then
+    if TokenList.FirstSolidTokenType = ttSemicolon then
       Recognise(ttSemicolon)
     else
       Break; // except the last
 
-    // these end the visibility section
-    if TokenList.FirstSolidTokenWord in (CLASS_VISIBILITY + [wEnd]) then
-      break;
   end;
 
   if lbStarted then
@@ -3120,8 +3093,8 @@ begin
   //PropertyList -> PROPERTY  Ident [PropertyInterface]  PropertySpecifiers
   PushNode(nProperty);
 
-  Recognise(wProperty);
-  RecogniseIdent;
+  Recognise(ttProperty);
+  RecogniseIdentifier;
   RecognisePropertyInterface;
   RecognisePropertySpecifiers;
 
@@ -3140,7 +3113,7 @@ begin
 
   Recognise(ttColon);
 
-  // recongising any type is overkill but hey 
+  // recongising any type is overkill but hey
   RecogniseType;
 end;
 
@@ -3157,15 +3130,15 @@ begin
 
   Recognise(ttOpenSquareBracket);
   repeat
-    if (TokenList.FirstSolidTokenWord in [wConst, wVar]) then
-      Recognise([wConst, wVar]);
+    if (TokenList.FirstSolidTokenType in [ttConst, ttVar]) then
+      Recognise([ttConst, ttVar]);
 
     RecogniseIdentList;
     Recognise(ttColon);
     RecogniseTypeId;
 
-    if TokenList.FirstSolidTokenType = ttSemiColon then
-      Recognise(ttSemiColon)
+    if TokenList.FirstSolidTokenType = ttSemicolon then
+      Recognise(ttSemicolon)
     else
       break;
 
@@ -3180,8 +3153,8 @@ procedure TBuildParseTree.RecognisePropertySpecifiers;
 var
   lc: TSourceToken;
 const
-  PROPERTY_SPECIFIERS: TWordSet = [wIndex, wRead, wWrite, wStored,
-    wDefault, wNoDefault, wImplements, wDispId, wReadOnly];
+  PROPERTY_SPECIFIERS: TTokenTypeSet = [ttIndex, ttRead, ttWrite, ttStored,
+    ttDefault, ttNoDefault, ttImplements, ttDispId, ttReadOnly];
 begin
  {
   PropertySpecifiers ->
@@ -3199,56 +3172,56 @@ begin
   }
   lc := TokenList.FirstSolidToken;
 
-  while lc.Word in PROPERTY_SPECIFIERS do
+  while lc.TokenType in PROPERTY_SPECIFIERS do
   begin
     PushNode(nPropertySpecifier);
 
-    case lc.Word of
-      wIndex:
+    case lc.TokenType of
+      ttIndex:
       begin
-        Recognise(wIndex);
+        Recognise(ttIndex);
         RecogniseConstExpr;
       end;
-      wRead:
+      ttRead:
       begin
-        Recognise(wRead);
-        RecogniseIdent;
+        Recognise(ttRead);
+        RecogniseIdentifier;
       end;
-      wWrite:
+      ttWrite:
       begin
-        Recognise(wWrite);
-        RecogniseIdent;
+        Recognise(ttWrite);
+        RecogniseIdentifier;
       end;
-      wStored:
+      ttStored:
       begin
-        Recognise(wStored);
-        if TokenList.FirstSolidTokenType = ttWord then
-          RecogniseIdent
+        Recognise(ttStored);
+        if TokenList.FirstSolidWordType in IdentifierTypes then
+          RecogniseIdentifier
          else
           RecogniseConstExpr;
       end;
-      wDefault:
+      ttDefault:
       begin
-        Recognise(wDefault);
+        Recognise(ttDefault);
         RecogniseConstExpr;
       end;
-      wNoDefault:
+      ttNoDefault:
       begin
-        Recognise(wNoDefault);
+        Recognise(ttNoDefault);
       end;
-      wImplements:
+      ttImplements:
       begin
-        Recognise(wImplements);
+        Recognise(ttImplements);
         RecogniseTypeId;
       end;
-      wDispId:
+      ttDispId:
       begin
-        Recognise(wDispId);
+        Recognise(ttDispId);
         Recognise(ttNumber);
       end;
-      wReadOnly:
+      ttReadOnly:
       begin
-        Recognise(wReadOnly);
+        Recognise(ttReadOnly);
       end;
       else
         Raise TEParseError.Create('expected proeprty specifier', TokenList.FirstSolidToken);
@@ -3276,7 +3249,7 @@ begin
   PushNode(nInterfaceType);
   Recognise(InterfaceWords);
 
-  if TokenList.FirstSolidTokenType = ttSemiColon then
+  if TokenList.FirstSolidTokenType = ttSemicolon then
   begin
     PopNode;
     exit;
@@ -3288,14 +3261,14 @@ begin
   if TokenList.FirstSolidTokenType = ttOpenSquareBracket then
     RecogniseInterfaceGuid;
 
-  if TokenList.FirstSolidTokenWord <> wEnd then
+  if TokenList.FirstSolidTokenType <> ttEnd then
   begin
     PushNode(nInterfaceBody);
     RecogniseClassDeclarations(True);
     PopNode;
   end;
 
-  Recognise(wEnd);
+  Recognise(ttEnd);
 
   PopNode;
 end;
@@ -3329,9 +3302,9 @@ begin
 
   PushNode(nRequires);
 
-  Recognise(wRequires);
+  Recognise(ttRequires);
   RecogniseIdentList;
-  Recognise(ttSemiColon);
+  Recognise(ttSemicolon);
 
   PopNode;
 end;
@@ -3349,7 +3322,7 @@ begin
 
   PushNode(nContains);
 
-  Recognise(wContains);
+  Recognise(ttContains);
 
   PushNode(nIdentList);
 
@@ -3369,9 +3342,9 @@ end;
 { worker for RecogniseIdentList }
 procedure TBuildParseTree.RecogniseIdentValue;
 begin
-  if TokenList.FirstSolidTokenWord = wEquals then
+  if TokenList.FirstSolidTokenType = ttEquals then
   begin
-    Recognise(wEquals);
+    Recognise(ttEquals);
     RecogniseExpr;
   end;
 end;
@@ -3385,13 +3358,13 @@ begin
   }
   PushNode(nIdentList);
 
-  RecogniseIdent;
+  RecogniseIdentifier;
   RecogniseIdentValue;
 
   while TokenList.FirstSolidTokenType = ttComma do
   begin
     Recognise(ttComma);
-    RecogniseIdent;
+    RecogniseIdentifier;
     RecogniseIdentValue;
   end;
 
@@ -3423,20 +3396,20 @@ begin
     Recognise(ttOpenBracket);
     RecogniseDesignator;
 
-    if (TokenList.FirstSolidTokenWord = wAs) then
+    if (TokenList.FirstSolidTokenType = ttAs) then
     begin
-      Recognise(wAs);
-      RecogniseIdent;
+      Recognise(ttAs);
+      RecogniseIdentifier;
     end;
     Recognise(ttCloseBracket);
     PopNode;
   end
   else
     // a simple ident - e.g. "x"
-    RecogniseIdent;
+    RecogniseIdentifier;
 end;
 
-procedure TBuildParseTree.RecogniseIdent;
+procedure TBuildParseTree.RecogniseIdentifier;
 var
   lc: TSourceToken;
 begin
@@ -3445,7 +3418,9 @@ begin
   if not(IdentifierNext) then
     Raise TEParseError.Create('Expected identifer', lc);
 
-  Recognise(IdentifierTypes);
+  PushNode(nIdentifier);
+  Recognise(IdentiferTokens);
+  PopNode;
 end;
 
 { the name of a procedure/function/constructor can be
@@ -3455,30 +3430,30 @@ begin
   if not(IdentifierNext) then
     Raise TEParseError.Create('Expected identifer', TokenList.FirstSolidToken);
 
-  Recognise(IdentifierTypes);
+  Recognise(IdentiferTokens);
 
   if (TokenList.FirstSolidTokenType = ttDot) or pbClassNameCompulsory then
   begin
     Recognise(ttDot);
-    RecogniseIdent;
+    RecogniseIdentifier;
   end
 end;
 
 
 procedure TBuildParseTree.RecogniseTypeId;
 begin
-  RecogniseIdent;
+  RecogniseIdentifier;
 end;
 
 procedure TBuildParseTree.RecogniseAsmBlock;
 begin
   PushNode(nAsm);
 
-  Recognise(wAsm);
-  while TokenList.FirstSolidTokenWord <> wEnd do
+  Recognise(ttAsm);
+  while TokenList.FirstSolidTokenType <> ttEnd do
     RecogniseAsmStatement;
 
-  Recognise(wEnd);
+  Recognise(ttEnd);
 
   PopNode;
 end;
@@ -3508,11 +3483,11 @@ begin
 
   PushNode(nAsmStatement);
 
-  if TokenList.FirstSolidTokenWord = wAtSign then
+  if TokenList.FirstSolidTokenType = ttAtSign then
   begin
 
-    Recognise(wAtSign);
-    Recognise(wAtSign);
+    Recognise(ttAtSign);
+    Recognise(ttAtSign);
     RecogniseAsmIdent;
     Recognise(ttColon);
   end
@@ -3522,7 +3497,7 @@ begin
 
     RecogniseWhiteSpace;
 
-    while not (TokenList.FirstTokenType in [ttSemiColon, ttReturn, ttComment]) do
+    while not (TokenList.FirstTokenType in [ttSemicolon, ttReturn, ttComment]) do
     begin
       if TokenList.FirstSolidTokenType = ttComma then
         Recognise(ttComma);
@@ -3530,7 +3505,7 @@ begin
 
       RecogniseWhiteSpace;
 
-      if TokenList.FirstSolidTokenWord = wEnd then
+      if TokenList.FirstSolidTokenType = ttEnd then
         Break;
     end;
 
@@ -3557,12 +3532,12 @@ begin
   { can contain '@' signs }
   lc := TokenList.FirstSolidToken;
 
-  if not (lc.TokenType in [ttWord, ttOperator]) and (lc.Word in ASM_IDENT_TOKENS) then
+  if not (lc.TokenType in IdentiferTokens + [ttAt]) then
      Raise TEParseError.Create('Expected asm identifer', TokenList.FirstSolidToken);
 
-  while (lc.TokenType in [ttWord, ttOperator]) and (lc.Word in ASM_IDENT_TOKENS) do
+  while (lc.TokenType in IdentiferTokens + [ttAt]) do
   begin
-    Recognise(ASM_IDENT_TOKENS);
+    Recognise(IdentiferTokens + [ttAt]);
     { whitespace ends this so no TokenList.FirstSolidToken }
     lc := TokenList.First;
   end;
@@ -3579,7 +3554,7 @@ begin
     so I will not enumerate them all
    }
   PushNode(nASMOpcode);
-  RecogniseIdent;
+  RecogniseIdentifier;
   PopNode;
 end;
 
@@ -3599,11 +3574,11 @@ begin
 
   lc := TokenList.FirstSolidToken;
 
-  if lc.Word = wAtSign then
+  if lc.TokenType = ttAtSign then
   begin
-    Recognise(wAtSign);
-    if TokenList.FirstSolidToken.Word = wAtSign then
-      Recognise(wAtSign);
+    Recognise(ttAtSign);
+    if TokenList.FirstSolidToken.TokenType = ttAtSign then
+      Recognise(ttAtSign);
 
 
     RecogniseAsmIdent;
@@ -3618,7 +3593,7 @@ begin
   begin
     RecogniseAsmExpr;
   end
-  else if (lc.TokenType = ttWord) and (lc.Word in ASM_IDENT_TOKENS) then
+  else if (lc.TokenType in IdentiferTokens) then
   begin
     RecogniseAsmIdent;
   end
@@ -3636,12 +3611,12 @@ end;
 
 procedure TBuildParseTree.RecogniseHintDirectives;
 begin
-  if not (TokenList.FirstSolidTokenWord in HintDirectives) then
+  if not (TokenList.FirstSolidTokenType in HintDirectives) then
     exit;
 
   PushNode(nHintDirectives);
 
-  while (TokenList.FirstSolidTokenWord in HintDirectives) do
+  while (TokenList.FirstSolidTokenType in HintDirectives) do
   begin
     Recognise(HintDirectives);
   end;
@@ -3654,14 +3629,14 @@ procedure TBuildParseTree.RecognisePropertyDirectives;
 const
   { this can be specified at the end after a semicolon
   so it's not just in the specifiers }
-  PropertyDirectives = [wDefault];
+  PropertyDirectives = [ttDefault];
 begin
-  while (TokenList.FirstSolidTokenType = ttSemiColon) and
-    (TokenList.SolidTokenWord(2) in PropertyDirectives) do
+  while (TokenList.FirstSolidTokenType = ttSemicolon) and
+    (TokenList.SolidTokenType(2) in PropertyDirectives) do
   begin
     PushNode(nPropertyDirective);
 
-    Recognise(ttSemiColon);
+    Recognise(ttSemicolon);
     Recognise(PropertyDirectives);
 
     PopNode;
@@ -3674,50 +3649,50 @@ procedure TBuildParseTree.RecogniseExportsSection;
 begin
   PushNode(nExports);
 
-  Recognise(wExports);
+  Recognise(ttExports);
   RecogniseExportedProc;
 
   // more to come?
-  while TokenList.FirstTokenType <> ttSemiColon do
+  while TokenList.FirstTokenType <> ttSemicolon do
   begin
     Recognise(ttComma);
     RecogniseExportedProc;
   end;
 
-  Recognise(ttSemiColon);
+  Recognise(ttSemicolon);
 
   PopNode;
 end;
 
 procedure TBuildParseTree.RecogniseExportedProc;
 const
-  ExportedDirectives: TWordSet = [wName, wIndex, wResident];
+  ExportedDirectives: TTokenTypeSet = [ttName, ttIndex, ttResident];
 var
   lc: TSourceToken;
 begin
   PushNode(nExportedProc);
 
-  RecogniseIdent;
+  RecogniseIdentifier;
   if TokenList.FirstSolidTokenType = ttOpenBracket then
     RecogniseFormalParameters;
 
-  while TokenList.FirstSolidTokenWord in ExportedDirectives do
+  while TokenList.FirstSolidTokenType in ExportedDirectives do
   begin
     lc := TokenList.FirstSolidToken;
 
-    case lc.Word of
-      wName:
+    case lc.TokenType of
+      ttName:
       begin
-        Recognise(wName);
-        Recognise([ttLiteralString, ttWord]);
+        Recognise(ttName);
+        Recognise(IdentiferTokens + [ttLiteralString]);
       end;
-      wIndex:
+      ttIndex:
       begin
-        Recognise(wIndex);
+        Recognise(ttIndex);
         Recognise(ttNumber);
       end;
-      wResident:
-        Recognise(wResident);
+      ttResident:
+        Recognise(ttResident);
       else
          Raise TEParseError.Create('Expected export directive', lc);
     end;

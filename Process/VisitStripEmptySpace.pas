@@ -40,7 +40,7 @@ type
 
 implementation
 
-uses SourceToken, TokenType;
+uses SourceToken, Tokens;
 
 procedure TVisitStripEmptySpace.VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult);
 var

@@ -51,6 +51,9 @@ type
     procedure TestParse_LittleTest4;
     procedure TestParse_LittleTest5;
     procedure TestParse_LittleTest6;
+    procedure TestParse_LittleTest7;
+    procedure TestParse_LittleTest8;
+    procedure TestParse_LittleTest9;
 
     procedure TestParse_TestAbsolute;
     procedure TestParse_TestAlign;
@@ -70,6 +73,7 @@ type
     procedure TestParse_TestDeclarations;
     procedure TestParse_TestDeclarations2;
     procedure TestParse_TestDefaultParams;
+    procedure TestParse_TestDeref;
     procedure TestParse_TestEmptyClass;
     procedure TestParse_TestEsotericKeywords;
     procedure TestParse_TestExclusion;
@@ -156,7 +160,7 @@ begin
     lcConverter.GuiMessages := False;
 
     { see also TestFullClarify }
-    lsSettingsFileName := TEST_FILES_DIR + '\JCFTestSettings.cfg';
+    lsSettingsFileName := GetTestFilesDir + '\JCFTestSettings.cfg';
     Check(FileExists(lsSettingsFileName), 'Settings file ' + lsSettingsFileName + ' not found');
 
     FormatSettings.ReadFromFile(lsSettingsFileName);
@@ -199,8 +203,8 @@ end;
 
 procedure TTestFileParse.TestDirs;
 begin
-  Check(DirectoryExists(TEST_FILES_DIR), 'Test files dir ' + TEST_FILES_DIR + ' not found');
-  Check(DirectoryExists(REF_OUT_FILES_DIR), 'Test files ref out dir ' + TEST_FILES_DIR + ' not found');
+  Check(DirectoryExists(GetTestFilesDir), 'Test files dir ' + GetTestFilesDir + ' not found');
+  Check(DirectoryExists(GetRefOutFilesDir), 'Test files ref out dir ' + GetTestFilesDir + ' not found');
 end;
 
 
@@ -220,8 +224,8 @@ begin
     lsOutName := psName + '.out';
   end;
 
-  TestParseFile(TEST_FILES_DIR + lsInName,
-    REF_OUT_FILES_DIR + lsOutName, piTokenCount)
+  TestParseFile(GetTestFilesDir + lsInName,
+    GetRefOutFilesDir + lsOutName, piTokenCount)
 end;
 
 procedure TTestFileParse.TestParse_Empty1;
@@ -262,6 +266,16 @@ end;
 procedure TTestFileParse.TestParse_LittleTest6;
 begin
   TestParseFile('LittleTest6', 74);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest7;
+begin
+  TestParseFile('LittleTest7', 109);
+end;
+
+procedure TTestFileParse.TestParse_LittleTest8;
+begin
+  TestParseFile('LittleTest8', 41);
 end;
 
 procedure TTestFileParse.TestParse_TestAbsolute;
@@ -594,7 +608,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 583);
+  TestParseFile('Testcases.dpr', 599);
 end;
 
 
@@ -611,6 +625,17 @@ end;
 procedure TTestFileParse.TestParse_TestVarParam;
 begin
   TestParseFile('TestVarParam', 116);
+end;
+
+
+procedure TTestFileParse.TestParse_LittleTest9;
+begin
+  TestParseFile('LittleTest9', 69);
+end;
+
+procedure TTestFileParse.TestParse_TestDeref;
+begin
+  TestParseFile('TestDeref', 384);
 end;
 
 initialization

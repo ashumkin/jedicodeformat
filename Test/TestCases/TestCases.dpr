@@ -68,7 +68,11 @@ uses
   TestWith in 'TestWith.pas',
   LittleTest6 in 'LittleTest6.pas',
   TestArray in 'TestArray.pas',
-  TestVarParam in 'TestVarParam.pas';
+  TestVarParam in 'TestVarParam.pas',
+  LittleTest7 in 'LittleTest7.pas',
+  LittleTest8 in 'LittleTest8.pas',
+  TestDeref in 'TestDeref.pas',
+  LittleTest9 in 'LittleTest9.pas';
 
 {$R *.res}
 

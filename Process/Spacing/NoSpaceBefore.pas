@@ -43,8 +43,7 @@ type
 
 implementation
 
-uses SourceToken, TokenType, WordMap, ParseTreeNodeType, FormatFlags,
-  TokenUtils;
+uses SourceToken, Tokens, ParseTreeNodeType, FormatFlags, TokenUtils;
 
 const
   NoSpaceAnywhere: TTokenTypeSet = [ttDot, ttComma,
@@ -73,7 +72,7 @@ begin
   if pt.TokenType = ttSemiColon then
   begin
     lcPrev := pt.PriorTokenWithExclusions(NotSolidTokens);
-    if not ((lcPrev.TokenType = ttSemiColon) or (lcPrev.Word = wBegin)) then
+    if not (lcPrev.TokenType in [ttSemiColon, ttBegin]) then
     begin
       Result := True;
       exit;
@@ -81,7 +80,7 @@ begin
   end;
 
   { hat (dereference) in expression is unary postfix operator - so no space before it }
-  if (pt.HasParentNode(nExpression)) and (pt.Word = wHat) then
+  if (pt.HasParentNode(nExpression)) and (pt.TokenType = ttHat) then
   begin
     Result := True;
     exit;

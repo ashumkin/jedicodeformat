@@ -28,14 +28,67 @@ under the License.
 
 interface
 
-const
-  TEST_FILES_DIR =    'C:\Code\JcfCheckout\CodeFormat\Jcf2\Test\TestCases\';
-  REF_OUT_FILES_DIR = 'C:\Code\JcfCheckout\CodeFormat\jcf2\Test\TestCases\Out\';
-  OBS_OUT_FILES_DIR = 'C:\Code\JcfCheckout\CodeFormat\Jcf2\Test\TestCases\ObfuscatedOut\';
 
-  EXE_FILES_DIR = 'C:\Code\JcfCheckout\CodeFormat\Jcf2\Output\';
+{ get the directory for the test files, relative to the exe dir, not hardcoded }
+function GetExeFilesDir: string;
+function GetTestFilesDir: string;
+function GetObsOutFilesDir: string;
+function GetRefOutFilesDir: string;
 
 
 implementation
+
+uses SysUtils, JclStrings;
+
+var
+  msEXEFilesDir: string = '';
+  msBaseDir: string = '';
+
+procedure GenerateDirs;
+const
+  OUTPUT_DIR: string = '\output\';
+  OUTPUT_DIR_LEN: integer = 8;
+begin
+  // calculate this once, read the app path
+  msEXEFilesDir := ExtractFilePath(ParamStr(0));
+
+  msBaseDir := msEXEFilesDir;
+  { expect this to be, in my e.g. "C:\Code\JcfCheckout\CodeFormat\Jcf2\Output\"
+    The base dir strips off the /output
+  }
+  if AnsiSameText(StrRight(msBaseDir, OUTPUT_DIR_LEN), OUTPUT_DIR) then
+    msBaseDir := StrChopRight(msBaseDir, OUTPUT_DIR_LEN - 1);
+end;
+
+function GetBaseDir: string;
+begin
+  if msBaseDir = '' then
+    GenerateDirs;
+
+  Result := msBaseDir;
+end;
+
+function GetExeFilesDir: string;
+begin
+  if msEXEFilesDir = '' then
+    GenerateDirs;
+
+  Result := msEXEFilesDir;
+end;
+
+function GetTestFilesDir: string;
+begin
+  Result := GetBaseDir + 'Test\TestCases\';
+end;
+
+function GetObsOutFilesDir: string;
+begin
+  Result := GetTestFilesDir + 'ObfuscatedOut\';
+end;
+
+function GetRefOutFilesDir: string;
+begin
+  Result := GetTestFilesDir + 'Out\';
+end;
 
 end.

@@ -52,19 +52,19 @@ implementation
 uses
   JclStrings,
   JcfMiscFunctions,
-  SourceToken, TokenType, WordMap, ParseTreeNodeType, JcfSettings,
+  SourceToken, Tokens, ParseTreeNodeType, JcfSettings,
   FormatFlags, TokenUtils;
 
 const
   // space before all operators
-  SingleSpaceBeforeWords: TWordSet = [wEquals, wThen, wOf, wDo,
-    wTo, wDownTo,
+  SingleSpaceBeforeWords: TTokenTypeSet = [ttEquals, ttThen, ttOf, ttDo,
+    ttTo, ttDownTo,
     // some unary operators
-    wNot,
+    ttNot,
     // all operators that are always binary
-    wAnd, wAs, wDiv, wIn, wIs, wMod, wOr, wShl, wShr, wXor,
-    wTimes, wFloatDiv, wEquals, wGreaterThan, wLessThan,
-    wGreaterThanOrEqual, wLessThanOrEqual, wNotEqual];
+    ttAnd, ttAs, ttDiv, ttIn, ttIs, ttMod, ttOr, ttShl, ttShr, ttXor,
+    ttTimes, ttFloatDiv, ttEquals, ttGreaterThan, ttLessThan,
+    ttGreaterThanOrEqual, ttLessThanOrEqual, ttNotEqual];
 
 function NeedsSpaceBefore(const pt: TSourceToken): boolean;
 begin
@@ -82,9 +82,9 @@ begin
 
   { 'a := --3;' and 'lc := ptr^;'
   are the only exceptions to the rule of a space before an operator }
-  if (pt.TokenType = ttOperator) then
+  if (pt.TokenType in Operators) then
   begin
-    if (pt.Word = wHat) or 
+    if (pt.TokenType = ttHat) or 
       (IsUnaryOperator(pt) and IsUnaryOperator(pt.PriorSolidToken)) then
       Result := False
     else
@@ -93,27 +93,27 @@ begin
     exit;
   end;
 
-  if (pt.Word in AllDirectives) and (pt.HasParentNode(DirectiveNodes)) then
+  if (pt.TokenType in AllDirectives) and (pt.HasParentNode(DirectiveNodes)) then
   begin
     Result := True;
     exit;
   end;
 
-  if (pt.Word in SingleSpaceBeforeWords) then
+  if (pt.TokenType in SingleSpaceBeforeWords) then
   begin
     Result := True;
     exit;
   end;
 
   { 'in' in the uses clause }
-  if ((pt.Word = wIn) and (pt.HasParentNode(nUses))) then
+  if ((pt.TokenType = ttIn) and (pt.HasParentNode(nUses))) then
   begin
     Result := True;
     exit;
   end;
 
   { 'absolute' as a var directive }
-  if (pt.Word = wAbsolute) and pt.HasParentNode(nAbsoluteVar) then
+  if (pt.TokenType = ttAbsolute) and pt.HasParentNode(nAbsoluteVar) then
   begin
     Result := True;
     exit;
@@ -127,7 +127,7 @@ begin
     exit;
   end;
 
-  if (pt.Word = wDefault) and pt.HasParentNode(nPropertySpecifier) then
+  if (pt.TokenType = ttDefault) and pt.HasParentNode(nPropertySpecifier) then
   begin
     Result := True;
     exit;
@@ -137,7 +137,7 @@ begin
   if InFilesUses(pt) then
   begin
     if ((pt.TokenType = ttComment) and (pt.CommentStyle = eCurly)) and
-      pt.IsOnRightOf(nUses, wUses) then
+      pt.IsOnRightOf(nUses, ttUses) then
     begin
       Result := True;
       exit;

@@ -49,7 +49,7 @@ type
 implementation
 
 uses
-  ParseTreeNode, ParseTreeNodeType, WordMap;
+  ParseTreeNode, ParseTreeNodeType;
 
 
 

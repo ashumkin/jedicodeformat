@@ -48,6 +48,9 @@ type
     procedure TestObfuscate_LittleTest4;
     procedure TestObfuscate_LittleTest5;
     procedure TestObfuscate_LittleTest6;
+    procedure TestObfuscate_LittleTest7;
+    procedure TestObfuscate_LittleTest8;
+    procedure TestObfuscate_LittleTest9;
 
     procedure TestObfuscate_TestAbsolute;
     procedure TestObfuscate_TestAlign;
@@ -67,6 +70,7 @@ type
     procedure TestObfuscate_TestDeclarations;
     procedure TestObfuscate_TestDeclarations2;
     procedure TestObfuscate_TestDefaultParams;
+    procedure TestObfuscate_TestDeref;
     procedure TestObfuscate_TestEmptyClass;
     procedure TestObfuscate_TestEsotericKeywords;
     procedure TestObfuscate_TestExclusion;
@@ -243,16 +247,16 @@ begin
 
   GetRegSettings.OutputExtension := 'obs';
 
-  TestObfuscateFile(TEST_FILES_DIR + lsInName,
-    OBS_OUT_FILES_DIR + lsObsFileName, OBS_OUT_FILES_DIR + lsRemadeFileName)
+  TestObfuscateFile(GetTestFilesDir + lsInName,
+    GetObsOutFilesDir + lsObsFileName, GetObsOutFilesDir + lsRemadeFileName)
 
   {
     // test re-obfuscating 
 
   FormatSettings.FileSettings.OutputExtension := 'out';
 
-  TestObfuscateFile(TEST_FILES_DIR + lsObsFileName,
-    OBS_OUT_FILES_DIR + lsRemadeFileName)
+  TestObfuscateFile(GetTestFilesDir + lsObsFileName,
+    GetObsOutFilesDir + lsRemadeFileName)
   }
 end;
 
@@ -294,6 +298,16 @@ end;
 procedure TTestObfuscate.TestObfuscate_LittleTest6;
 begin
   TestObfuscateFile('LittleTest6');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest7;
+begin
+  TestObfuscateFile('LittleTest7');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest8;
+begin
+  TestObfuscateFile('LittleTest8');
 end;
 
 procedure TTestObfuscate.TestObfuscate_TestAbsolute;
@@ -636,6 +650,16 @@ end;
 procedure TTestObfuscate.TestObfuscate_TestProcBlankLines;
 begin
   TestObfuscateFile('TestProcBlankLines.pas');
+end;
+
+procedure TTestObfuscate.TestObfuscate_LittleTest9;
+begin
+  TestObfuscateFile('LittleTest9');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestDeref;
+begin
+  TestObfuscateFile('TestDeref');
 end;
 
 initialization

@@ -44,7 +44,7 @@ implementation
 
 uses
   JclStrings,
-  SourceToken, TokenType, ParseTreeNodeType, WordMap, FormatFlags;
+  SourceToken, Tokens, ParseTreeNodeType, FormatFlags;
 
 function CommentMustStay(const pc: TSourceToken): boolean;
 var

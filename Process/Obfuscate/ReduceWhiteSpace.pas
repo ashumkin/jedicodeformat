@@ -42,7 +42,7 @@ type
 
 implementation
 
-uses SourceToken, TokenType, FormatFlags;
+uses SourceToken, Tokens, FormatFlags;
 
 constructor TReduceWhiteSpace.Create;
 begin

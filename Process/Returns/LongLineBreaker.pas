@@ -57,7 +57,21 @@ uses
   SysUtils, Classes,
   JclStrings,
   SourceToken, Nesting, FormatFlags, JcfSettings, SetReturns,
-  TokenUtils, JcfMiscFunctions, TokenType, ParseTreeNode, ParseTreeNodeType, WordMap;
+  TokenUtils, JcfMiscFunctions, Tokens, ParseTreeNode, ParseTreeNodeType;
+
+
+function EndsFunctionReturnType(const pt: TSourceToken): Boolean;
+var
+  lcPrev: TSourceToken;
+begin
+  Result := False;
+
+  if pt.TokenType <> ttSemicolon then
+    exit;
+
+  lcPrev := pt.PriorToken;
+  Result := lcPrev.HasParentNode(nFunctionReturnType, 2);
+end;
 
 function PositionScore(const piIndex, piIndexOfFirstSolidToken, piPos: integer): integer;
 const
@@ -197,14 +211,17 @@ end;
 procedure ScoreToken(const pcToken: TSourceToken;
   var piScoreBefore, piScoreAfter: integer);
 const
-  AWEFULL_PLACE   = -40;
-  VERY_BAD_PLACE  = -20;
-  BAD_PLACE       = -10;
-  SEMI_BAD_PLACE  = -5;
-  SEMI_GOOD_PLACE = 5;
-  GOOD_PLACE      = 10;
-  EXCELLENT_PLACE = 30;
-  AWESOME_PLACE   = 40;
+  BAD4 = -40;
+  BAD3 = -30;
+  BAD2 = -20;
+  BAD1 = -10;
+
+  HALF_GOOD = 5;
+
+  GOOD1 = 10;
+  GOOD3 = 30;
+  GOOD4 = 40;
+  GOOD5 = 50;
 
 var
   lcPrev, lcNext: TSourceToken;
@@ -213,215 +230,228 @@ begin
   piScoreBefore := 0;
   piScoreAfter := 0;
 
-  case pcToken.TokenType of
+  if pcToken.TokenType in Operators then
+  begin
+    { good to break after an operator (except unary operators)
+    bad to break just before one }
+    if not IsUnaryOperator(pcToken) then
+    begin
+      piScoreAfter := GOOD1;
+      piScoreBefore := BAD2;
+    end
+    else
+    begin
+      { dont break between unary operator and operand }
+      piScoreAfter := BAD4;
+    end;
+  end
+  else
+  begin
+    // process everyone else
 
-    { bad to break just before or after a dot.
-      However if you must pick, break after it  }
-    ttDot:
-    begin
-      piScoreBefore := VERY_BAD_PLACE;
-      piScoreAfter := BAD_PLACE;
-    end;
-    { it is better to break after a colon than before }
-    ttColon:
-    begin
-      piScoreBefore := VERY_BAD_PLACE;
-      piScoreAfter := SEMI_GOOD_PLACE;
-    end;
-    ttOpenBracket:
-    begin
-      { if this is a fn def or call, break after. }
-      if IsActualParamOpenBracket(pcToken) or IsFormalParamOpenBracket(pcToken) then
+    case pcToken.TokenType of
+      { bad to break just before or after a dot.
+        However if you must pick, break after it  }
+      ttDot:
       begin
-        piScoreBefore := VERY_BAD_PLACE;
-        piScoreAfter := GOOD_PLACE;
-      end
-      { If it not a fn call but is in an expr then break before }
-      else if pcToken.HasParentNode(nExpression) then
-      begin
-        piScoreBefore := GOOD_PLACE;
-        piScoreAfter := BAD_PLACE;
-      end
-      else
-      begin
-        // class defs and stuph Break after
-        piScoreBefore := VERY_BAD_PLACE;
-        piScoreAfter := GOOD_PLACE;
+        piScoreBefore := BAD2;
+        piScoreAfter := BAD1;
       end;
-
-    end;
-    { or just before close brackets -
-      better to break after these }
-    ttCloseBracket, ttCloseSquareBracket:
-    begin
-      piScoreBefore := VERY_BAD_PLACE;
-      piScoreAfter := GOOD_PLACE;
-
-      if pcToken.HasParentNode(nExpression) then
+      { it is better to break after a colon than before }
+      ttColon:
       begin
-        lcNext := pcToken.NextSolidToken;
-        if lcNext <> nil then
-        begin
-          if lcNext.TokenType = ttOperator then
-          begin
-             { operator next? want to break after it instead of after the ')'
-              (for e.g after the + in 'a := (x - y) + z; }
-             piScoreAfter := BAD_PLACE;
-          end
-          else if (lcNext.TokenType in [ttCloseBracket, ttCloseSquareBracket]) then
-          begin
-            { more close brackets coming? break after them instead }
-             piScoreAfter := VERY_BAD_PLACE;
-          end
-          else
-          begin
-            { no operator next, no bracket next.
-              Is this the last of multiple brackets ? }
-            lcPrev := pcToken.PriorSolidToken;
-            if (lcPrev.TokenType in [ttCloseBracket, ttCloseSquareBracket]) then
-              piScoreAfter := EXCELLENT_PLACE;
-          end;
-        end;
+        piScoreBefore := BAD2;
+        piScoreAfter := HALF_GOOD;
       end;
-    end;
-    { break after the semicolon is awesome, before is terrible}
-    ttSemiColon:
-    begin
-      piScoreBefore := VERY_BAD_PLACE;
-      piScoreAfter := AWESOME_PLACE;
-    end;
-    { It is good to break after := not before }
-    ttAssign:
-    begin
-      piScoreBefore := VERY_BAD_PLACE;
-      piScoreAfter := EXCELLENT_PLACE;
-    end;
-    ttComma:
-    begin
-      { just not on to break before comma
-        breaking after comma is better, but not great
-       Have found aplace where in formal params, breaking after commas
-       is not as good value as in fn call actual params }
-      piScoreBefore := AWEFULL_PLACE;
-      if pcToken.HasParentNode(nFormalParams) then
-        piScoreAfter := SEMI_GOOD_PLACE
-      else
-        piScoreAfter := GOOD_PLACE;
+      ttOpenBracket:
+      begin
+        { if this is a fn def or call, break after. }
+        if IsActualParamOpenBracket(pcToken) or IsFormalParamOpenBracket(pcToken) then
+        begin
+          piScoreBefore := BAD2;
+          piScoreAfter := GOOD1;
+        end
+        { If it not a fn call but is in an expr then break before }
+        else if pcToken.HasParentNode(nExpression) then
+        begin
+          piScoreBefore := GOOD1;
+          piScoreAfter := BAD1;
+        end
+        else
+        begin
+          // class defs and stuph Break after
+          piScoreBefore := BAD2;
+          piScoreAfter := GOOD1;
+        end;
 
-    end;
-    ttOperator:
-    begin
-      { good to break after an operator (except unary operators)
-      bad to break just before one }
-      if not IsUnaryOperator(pcToken) then
-      begin
-        piScoreAfter := GOOD_PLACE;
-        piScoreBefore := VERY_BAD_PLACE;
-      end
-      else
-      begin
-        { dont break between unary operator and operand }
-        piScoreAfter := AWEFULL_PLACE;
       end;
-    end;
+      { or just before close brackets -
+        better to break after these }
+      ttCloseBracket, ttCloseSquareBracket:
+      begin
+        piScoreBefore := BAD2;
+        piScoreAfter := GOOD1;
 
-    { break before white Space, not after }
-    ttWhiteSpace:
-    begin
-      piScoreBefore := GOOD_PLACE;
-      piScoreAfter := BAD_PLACE;
-    end;
-
-    { words }
-    ttReservedWord:
-    begin
-      case pcToken.Word of
-        { good to break after if <exp> then, not before
-         likewise case <exp> of and while <exp> dp }
-        wThen, wOf, wDo:
+        if pcToken.HasParentNode(nExpression) then
         begin
-          piScoreBefore := VERY_BAD_PLACE;
-          piScoreAfter := AWESOME_PLACE;
-        end;
-        { in the unlikely event that one of these is embedded in a long line }
-        wBegin, wEnd:
-        begin
-          // good to break before, even better to break after
-          piScoreBefore := GOOD_PLACE;
-          piScoreAfter := AWESOME_PLACE;
-        end;
-        wConst:
-        begin
-          { bad to break just after const in params as it's part of the following var
-            e.g. procedure Fred(const value: integer); }
-          if InFormalParams(pcToken) then
+          lcNext := pcToken.NextSolidToken;
+          if lcNext <> nil then
           begin
-            piScoreBefore := GOOD_PLACE;
-            piScoreAfter := BAD_PLACE;
+            if lcNext.TokenType in Operators then
+            begin
+               { operator next? want to break after it instead of after the ')'
+                (for e.g after the + in 'a := (x - y) + z; }
+               piScoreAfter := BAD1;
+            end
+            else if (lcNext.TokenType in [ttCloseBracket, ttCloseSquareBracket]) then
+            begin
+              { more close brackets coming? break after them instead }
+               piScoreAfter := BAD2;
+            end
+            else
+            begin
+              { no operator next, no bracket next.
+                Is this the last of multiple brackets ? }
+              lcPrev := pcToken.PriorSolidToken;
+              if (lcPrev.TokenType in [ttCloseBracket, ttCloseSquareBracket]) then
+                piScoreAfter := GOOD3;
+            end;
           end;
         end;
       end;
-    end;
-    ttReservedWordDirective:
-    begin
-      case pcToken.Word of
-        { in a property def, good to break before 'read', Ok to break before 'Write'
-          bad to break just after then }
-        wRead:
+      { break after the semicolon is awesome, before is terrible}
+      ttSemiColon:
+      begin
+        if EndsFunctionReturnType(pcToken) then
         begin
-          if pcToken.HasParentNode(nProperty) then
-          begin
-            piScoreBefore := AWESOME_PLACE;
-            piScoreAfter := VERY_BAD_PLACE;
-          end;
-        end;
-        wWrite, wImplements:
+          // if this semicolon ends the function return type, even better
+          piScoreBefore := BAD3;
+          piScoreAfter := GOOD5;
+        end
+        else
         begin
-          if pcToken.HasParentNode(nProperty) then
-          begin
-            piScoreBefore := EXCELLENT_PLACE;
-            piScoreAfter := VERY_BAD_PLACE;
-          end;
-        end;
-        wExternal:
-        begin
-          // the function directive external is followed by text
-          if pcToken.HasParentNode(nExternalDirective) then
-          begin
-            piScoreBefore := SEMI_GOOD_PLACE;
-            piScoreAfter := BAD_PLACE;
-          end;
-        end;
-        wDefault:
-        begin
-          { default attr in a property is a bad thing to break before }
-          if pcToken.HasParentNode(nProperty) then
-          begin
-            piScoreBefore := BAD_PLACE;
-            piScoreAfter := GOOD_PLACE;
-          end;
-
+          piScoreBefore := BAD2;
+          piScoreAfter := GOOD4;
         end;
       end;
-    end; { case reserved word directives }
-  end; { case tokentype }
+      { It is good to break after := not before }
+      ttAssign:
+      begin
+        piScoreBefore := BAD2;
+        piScoreAfter := GOOD3;
+      end;
+      ttComma:
+      begin
+        { just not on to break before comma
+          breaking after comma is better, but not great
+         Have found aplace where in formal params, breaking after commas
+         is not as good value as in fn call actual params }
+        piScoreBefore := Bad4;
+        if pcToken.HasParentNode(nFormalParams) then
+          piScoreAfter := HALF_GOOD
+        else
+          piScoreAfter := GOOD1;
+
+      end;
+      { break before white Space, not after }
+      ttWhiteSpace:
+      begin
+        piScoreBefore := GOOD1;
+        piScoreAfter := BAD1;
+      end;
+
+      { words }
+      { good to break after if <exp> then, not before
+       likewise case <exp> of and while <exp> dp }
+      ttThen, ttOf, ttDo:
+      begin
+        piScoreBefore := BAD2;
+        piScoreAfter := GOOD4;
+      end;
+      { in the unlikely event that one of these is embedded in a long line }
+      ttBegin, ttEnd:
+      begin
+        // good to break before, even better to break after
+        piScoreBefore := GOOD1;
+        piScoreAfter := GOOD4;
+      end;
+      ttConst:
+      begin
+        piScoreBefore := BAD1;
+        piScoreAfter := GOOD1;
+      end;
+    end;
+  end;
+
+  { rules for properties }
+  if pcToken.HasParentNode(nProperty) then
+  begin
+      { in a property def, good to break before 'read', Ok to break before 'Write'
+        bad to break just after then }
+    case pcToken.TokenType of
+      ttRead:
+      begin
+        if pcToken.HasParentNode(nProperty) then
+        begin
+          piScoreBefore := GOOD4;
+          piScoreAfter := BAD2;
+        end;
+      end;
+      ttWrite, ttImplements:
+      begin
+        if pcToken.HasParentNode(nProperty) then
+        begin
+          piScoreBefore := GOOD3;
+          piScoreAfter := BAD2;
+        end;
+      end;
+      ttExternal:
+      begin
+        // the function directive external is followed by text
+        if pcToken.HasParentNode(nExternalDirective) then
+        begin
+          piScoreBefore := HALF_GOOD;
+          piScoreAfter := BAD1;
+        end;
+      end;
+      ttDefault:
+      begin
+        { default attr in a property is a bad thing to break before }
+        if pcToken.HasParentNode(nProperty) then
+        begin
+          piScoreBefore := BAD1;
+          piScoreAfter := GOOD1;
+        end;
+
+      end;
+    end;
+
+    if pcToken.HasParentNode(nPropertyParameterList) and (pcToken.TokenType = ttConst) then
+    begin
+      { breaking before const not after }
+      piScoreBefore := GOOD3;
+      piScoreAfter := BAD2;
+    end;
+  end;
 
   { slightly different rules for procedure params }
   if InFormalParams(pcToken) then
   begin
-    case pcToken.Word of
-      wArray, wOf:
+    case pcToken.TokenType of
+      ttArray, ttOf:
         begin
-          piScoreBefore := BAD_PLACE;
-          piScoreAfter := BAD_PLACE;
+          piScoreBefore := BAD1;
+          piScoreAfter := BAD1;
         end;
-        wConst, wVar, wOut:
+        ttConst, ttVar, ttOut:
         begin
-          piScoreBefore := EXCELLENT_PLACE;
-          piScoreAfter := VERY_BAD_PLACE;
+          { breaking in these would be breaking inside a parameter}
+          piScoreBefore := GOOD3;
+          piScoreAfter := BAD2;
         end;
     end;
-  end;
+  end
+
 end;
 
 
@@ -462,8 +492,6 @@ begin
       lt.XPosition := liPos;
 
     case lt.TokenType of
-      ttEOF:
-        break;
       ttReturn:
       begin
         liPos := 1;

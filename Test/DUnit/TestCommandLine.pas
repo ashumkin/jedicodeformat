@@ -68,7 +68,7 @@ uses
   TestFramework;
 
 const
-  EXPECTED_FILE_COUNT = 76;
+  EXPECTED_FILE_COUNT = 80;
 
 procedure TTestCommandline.SetUp;
 begin
@@ -84,13 +84,13 @@ end;
 procedure TTestCommandline.GetOutFiles;
 begin
   fsFileNames.Clear;
-  BuildFileList(TEST_FILES_DIR + fsFileMask, faAnyFile, fsFileNames);
+  BuildFileList(GetTestFilesDir + fsFileMask, faAnyFile, fsFileNames);
 end;
 
 procedure TTestCommandline.CompareFileToRef(const psFileName: string);
 begin
-  TestFileContentsSame(TEST_FILES_DIR + psFileName,  fsRefDir + psFileName);
-  DeleteFile(TEST_FILES_DIR + psFileName);
+  TestFileContentsSame(GetTestFilesDir + psFileName,  fsRefDir + psFileName);
+  DeleteFile(GetTestFilesDir + psFileName);
 end;
 
 procedure TTestCommandline.RunJcfCommandline;
@@ -117,7 +117,7 @@ begin
     if fsFileNames.Count > 0 then
     begin
       for liLoop := 0 to fsFileNames.Count - 1 do
-        DeleteFile(TEST_FILES_DIR + fsFileNames[liLoop]);
+        DeleteFile(GetTestFilesDir + fsFileNames[liLoop]);
 
       // should be none left
       GetOutFiles;
@@ -127,7 +127,7 @@ begin
 
 
     // build them again
-    lsJcfExe := EXE_FILES_DIR + 'jcf.exe';
+    lsJcfExe := GetExeFilesDir + 'jcf.exe';
     Check(FileExists(lsJcfExe), 'could not find program ' + lsJcfExe);
 
     lbRes := ShellExecAndWait(lsJcfExe, fsJcfParams);
@@ -154,8 +154,8 @@ end;
 procedure TTestCommandline.TestFormatClarify;
 begin
   fsOutputExt := 'out';
-  fsJcfParams := ' -config=' + TEST_FILES_DIR + 'JCFTestSettings.cfg -out -D ' + TEST_FILES_DIR;
-  fsRefDir := REF_OUT_FILES_DIR;
+  fsJcfParams := ' -config=' + GetTestFilesDir + 'JCFTestSettings.cfg -out -D ' + GetTestFilesDir;
+  fsRefDir := GetRefOutFilesDir;
   fsFileMask := '*.out';
 
   RunJcfCommandline;
@@ -164,8 +164,8 @@ end;
 procedure TTestCommandline.TestFormatObfuscate;
 begin
   fsOutputExt := 'obs';
-  fsJcfParams := ' -obfuscate -config=' + TEST_FILES_DIR + 'JCFObfuscateSettings.cfg -out -D ' + TEST_FILES_DIR;
-  fsRefDir := OBS_OUT_FILES_DIR;
+  fsJcfParams := ' -obfuscate -config=' + GetTestFilesDir + 'JCFObfuscateSettings.cfg -out -D ' + GetTestFilesDir;
+  fsRefDir := GetObsOutFilesDir;
   fsFileMask := '*.obs';
 
   RunJcfCommandline;

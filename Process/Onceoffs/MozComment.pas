@@ -52,8 +52,8 @@ implementation
 uses
   { delphi } SysUtils,
   JclStrings,
-  { local } TokenUtils, WordMap, JcfSettings, TokenType, ParseTreeNodeType,
-  SetClarify;
+  { local } Tokens, TokenUtils, JcfSettings,
+  SettingsTypes, ParseTreeNodeType, SetClarify;
 
 
 const
@@ -89,13 +89,13 @@ function FirstOpportunityForMozInsert(const pt: TSourceToken): Boolean;
 begin
   Result := False;
 
-  if (pt.Word = wUses) and pt.HasParentNode(nUses, 2) and
+  if (pt.TokenType = ttUses) and pt.HasParentNode(nUses, 2) and
     pt.HasParentNode(TopOfProgramSections, 2) then
   begin
     { just before first uses clause in program, etc }
     Result := True;
   end
-  else if (pt.Word = wInterface) and pt.HasParentNode(nUnit, 2) then
+  else if (pt.TokenType = ttInterface) and pt.HasParentNode(nUnit, 2) then
   begin
     // before interface in unit 
     Result := True;

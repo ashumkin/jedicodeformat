@@ -48,16 +48,16 @@ implementation
 uses
   JclStrings,
   JcfMiscFunctions, TokenUtils,
-  SourceToken, TokenType, ParseTreeNode,
-  WordMap, Nesting, ParseTreeNodeType, JcfSettings,
+  SourceToken, Tokens, ParseTreeNode,
+  Nesting, ParseTreeNodeType, JcfSettings,
   FormatFlags;
 
 const
-  WordsReturnBefore: TWordSet =
-    [wBegin, wEnd, wUntil, wElse, wTry, wFinally, wExcept];
+  WordsReturnBefore: TTokenTypeSet =
+    [ttBegin, ttEnd, ttUntil, ttElse, ttTry, ttFinally, ttExcept];
 
-  WordsBlankLineBefore: TWordSet =
-    [wImplementation, wInitialization, wFinalization, wUses];
+  WordsBlankLineBefore: TTokenTypeSet =
+    [ttImplementation, ttInitialization, ttFinalization, ttUses];
 
 
 function NeedsBlankLine(const pt, ptNext: TSourceToken): boolean;
@@ -65,7 +65,7 @@ var
   lcNext, lcPrev: TSourceToken;
   lcParent: TParseTreeNode;
 begin
-  Result := (pt.Word in WordsBlankLineBefore);
+  Result := (pt.TokenType in WordsBlankLineBefore);
   if Result then
     exit;
 
@@ -78,8 +78,8 @@ begin
    IMHO should also have blank line before contained procs
    }
 
-  if (pt.Word in ProcedureWords) and
-    (not pt.IsOnRightOf(nTypeDecl, wEquals)) and
+  if (pt.TokenType in ProcedureWords) and
+    (not pt.IsOnRightOf(nTypeDecl, ttEquals)) and
     (not IsClassFunction(pt)) and
     (ProcedureHasBody(pt)) then
   begin
@@ -97,15 +97,15 @@ begin
     { blank line before the words var, type or const at top level
       except for:
       type t2 = type integer; }
-  if (pt.Word in Declarations) and (pt.Nestings.Total = 0) and
-    (not pt.IsOnRightOf(nTypeDecl, wEquals)) then
+  if (pt.TokenType in Declarations) and (pt.Nestings.Total = 0) and
+    (not pt.IsOnRightOf(nTypeDecl, ttEquals)) then
   begin
     Result := True;
     exit;
   end;
 
   { start of class function body }
-  if (pt.Word = wClass) and (IsClassFunction(pt)) and
+  if (pt.TokenType = ttClass) and (IsClassFunction(pt)) and
     (not pt.HasParentNode(nDeclSection)) and
     (pt.HasParentNode(nImplementationSection)) then
   begin
@@ -114,7 +114,7 @@ begin
   end;
 
   { interface, but not as a typedef }
-  if (pt.Word = wInterface) and not (pt.HasParentNode(nTypeDecl)) then
+  if (pt.TokenType = ttInterface) and not (pt.HasParentNode(nTypeDecl)) then
   begin
     Result := True;
     exit;
@@ -128,39 +128,48 @@ begin
       type
         foo = integer;
 
-        TSOmeClass = class...
+        TSomeClass = class...
 
     These start with a type name
    and have a parent node nTypeDecl, which in turn owns a Restircted type -> Class type
   }
-  lcPrev := pt.PriorSolidToken;
-  if (lcPrev <> nil) and (lcPrev.Word <> wType) and (pt.TokenType = ttWord) then
+  if IsIdentifier(pt) and pt.HasParentNode(nTypeDecl, 2) then
   begin
-    lcParent := pt.Parent;
-
-    if (lcParent <> nil) and (lcParent.NodeType = nTypeDecl) and
-      lcParent.HasChildNode(ObjectTypes, 2) and
-      lcParent.HasChildNode(ObjectBodies, 3) then
+    lcPrev := pt.PriorSolidToken;
+    if (lcPrev <> nil) and (lcPrev.TokenType <> ttType) then
     begin
-      Result := True;
-      exit;
-    end;
+      // identifier
+      lcParent := pt.Parent;
+      if lcParent.NodeType  = nIdentifier then
+        lcParent := lcParent.Parent
+      else
+        lcParent := nil;
 
-    { likewise before a record type }
-    if (lcParent <> nil) and (lcParent.NodeType = nTypeDecl) and
-      lcParent.HasChildNode(nRecordType, 2) and
-      lcParent.HasChildNode(nFieldDeclaration, 3) then
-    begin
-      Result := True;
-      exit;
-    end;
+      if (lcParent <> nil) then
+      begin
+        if (lcParent.NodeType = nTypeDecl) and
+          lcParent.HasChildNode(ObjectTypes, 2) and
+          lcParent.HasChildNode(ObjectBodies, 3) then
+        begin
+          Result := True;
+          exit;
+        end;
 
+        { likewise before a record type }
+        if (lcParent.NodeType = nTypeDecl) and
+          lcParent.HasChildNode(nRecordType, 2) and
+          lcParent.HasChildNode(nFieldDeclaration, 3) then
+        begin
+          Result := True;
+          exit;
+        end;
+      end;
+    end;
   end;
-
 
   { end. where there is no initialization section code,
     ie 'end' is the first and only token in the init section   }
-  if (pt.Word = wEnd) and
+  if (pt.TokenType = ttEnd) and
     pt.HasParentNode(nInitSection, 1) and
     (pt.Parent.SolidChildCount = 1) then
   begin
@@ -184,7 +193,7 @@ begin
   if pt.HasParentNode(nAsm) then
     exit;
 
-  Result := (pt.Word in WordsReturnBefore);
+  Result := (pt.TokenType in WordsReturnBefore);
   if Result = True then
     exit;
 
@@ -194,15 +203,15 @@ begin
     is legal, only a return before the first one
 
    var, const, type but not in parameter list }
-  if (pt.Word in Declarations) and pt.HasParentNode(nTopLevelSections, 1)
-    and (not pt.IsOnRightOf(nTypeDecl, wEquals)) then
+  if (pt.TokenType in Declarations) and pt.HasParentNode(nTopLevelSections, 1)
+    and (not pt.IsOnRightOf(nTypeDecl, ttEquals)) then
   begin
     Result := True;
     exit;
   end;
 
   { procedure & function in class def get return but not blank line before }
-  if (pt.Word in ProcedureWords + [wProperty]) and
+  if (pt.TokenType in ProcedureWords + [ttProperty]) and
     (pt.HasParentNode([nClassType, nClassType])) and
     (not IsClassFunction(pt)) then
   begin
@@ -211,7 +220,7 @@ begin
   end;
 
   { nested procs get it as well }
-  if (pt.Word in ProcedureWords) and (not pt.HasParentNode(nProcedureDecl)) and
+  if (pt.TokenType in ProcedureWords) and (not pt.HasParentNode(nProcedureDecl)) and
     (not IsClassFunction(pt)) and
     (not pt.HasParentNode(nType)) then
   begin
@@ -220,7 +229,7 @@ begin
   end;
 
   { class function }
-  if (pt.Word = wClass) and pt.HasParentNode(nProcedureDecl) then
+  if (pt.TokenType = ttClass) and pt.HasParentNode(nProcedureDecl) then
   begin
     Result := True;
     exit;
@@ -234,7 +243,7 @@ begin
   end;
 
   { return before 'class' in class function }
-  if (pt.Word = wClass) and pt.HasParentNode(ProcedureHeadings) and
+  if (pt.TokenType = ttClass) and pt.HasParentNode(ProcedureHeadings) and
     (RoundBracketLevel(pt) < 1) then
   begin
     Result := True;
@@ -242,7 +251,7 @@ begin
   end;
 
   { "uses UnitName in 'File'" has a blank line before UnitName }
-  if (pt.TokenType = ttWord) and (pt.HasParentNode(nUses)) and (ptNext.Word = wIn) then
+  if IsIdentifier(pt) and (pt.HasParentNode(nUses)) and (ptNext.TokenType = ttIn) then
   begin
     Result := True;
     exit;

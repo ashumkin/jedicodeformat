@@ -70,7 +70,7 @@ implementation
 uses
   { delphi } SysUtils, Math,
   { jcl } JclStrings,
-  { jcf } TokenType, JcfSettings, TokenUtils;
+  { jcf } Tokens, JcfSettings, TokenUtils;
 
 { TAlignBase }
 
@@ -147,7 +147,7 @@ begin
   until (lcCurrent = nil) or TokenEndsStatement(lcCurrent);
 
   { end the first statement on EOF?! - abort! }
-  if (lcCurrent = nil) or (lcCurrent.TokenType = ttEOF) then
+  if (lcCurrent = nil) then
     exit;
 
   with FormatSettings do
@@ -170,7 +170,7 @@ begin
   while not lbDone do
   begin
     { EOF?! - abort! }
-    if (lcCurrent = nil) or (lcCurrent.TokenType = ttEOF) then
+    if (lcCurrent = nil) then
     begin
       lbDone := True;
     end

@@ -29,7 +29,7 @@ interface
 
 uses
     { delphi  } classes,
-    { local } JCFSetBase, TokenType, ConvertTypes, SettingsStream;
+    { local } JCFSetBase, ConvertTypes, SettingsStream;
 
 type
 

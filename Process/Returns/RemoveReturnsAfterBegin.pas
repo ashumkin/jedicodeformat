@@ -37,7 +37,7 @@ type
 
 implementation
 
-uses FormatFlags, TokenType, WordMap, ParseTreeNodeType, TokenUtils;
+uses FormatFlags, Tokens, ParseTreeNodeType, TokenUtils;
 { TRemoveReturnsAfterBegin }
 
 constructor TRemoveReturnsAfterBegin.Create;
@@ -57,7 +57,7 @@ var
 begin
   lcSourceToken := TSourceToken(pcNode);
 
-  if lcSourceToken.Word <> wBegin then
+  if lcSourceToken.TokenType <> ttBegin then
     exit;
 
   if not InStatements(lcSourceToken) then

@@ -113,12 +113,14 @@ function Root(const pt: TParseTreeNode): TParseTreeNode;
 
 function UnitName(const pt: TParseTreeNode): String;
 
+function IsIdentifier(const pt: TSourceToken): boolean;
+
 implementation
 
 uses
   SysUtils,
   JclStrings,
-  ParseTreeNodeType, TokenType, WordMap, Nesting;
+  ParseTreeNodeType, Tokens, Nesting;
 
 
 function NewReturn: TSourceToken;
@@ -189,7 +191,7 @@ begin
       lcSourceToken := TSourceToken(lcChildNode);
 
       { keep the name of the last identifier }
-      if lcSourceToken.TokenType in IdentifierTypes then
+      if lcSourceToken.TokenType in IdentiferTokens then
         lcNameToken := lcSourceToken
       else if lcSourceToken.TokenType = ttColon then
         break;
@@ -207,7 +209,7 @@ begin
     if (lcPriorToken1 <> nil) and (lcPriorToken1.TokenType = ttDot) then
     begin
       lcPriorToken2 := lcPriorToken1.PriorSolidToken;
-      if (lcPriorToken2 <> nil) and (lcPriorToken2.TokenType in IdentifierTypes) then
+      if (lcPriorToken2 <> nil) and (lcPriorToken2.TokenType in IdentiferTokens) then
       begin
         Result := lcPriorToken2.SourceCode + lcPriorToken1.SourceCode + lcNameToken.SourceCode;
       end;
@@ -287,17 +289,17 @@ end;
 
 function IsClassFunction(const pt: TSourceToken): boolean;
 begin
-  Result := pt.IsOnRightOf(ProcedureHeadings, [wClass]);
+  Result := pt.IsOnRightOf(ProcedureHeadings, [ttClass]);
 end;
 
 function RHSExprEquals(const pt: TSourceToken): Boolean;
 begin
-  Result := pt.IsOnRightOf(nExpression, wEquals);
+  Result := pt.IsOnRightOf(nExpression, ttEquals);
 end;
 
 function RHSTypeEquals(const pt: TSourceToken): Boolean;
 begin
-  Result := pt.IsOnRightOf(nType, wEquals);
+  Result := pt.IsOnRightOf(nType, ttEquals);
 end;
 
 function IsClassDirective(const pt: TSourceToken): boolean;
@@ -306,7 +308,7 @@ begin
     function Protected: Boolean
     are both legal so have to check that we're not in a property or function def. }
 
-  Result := (pt.Word in ClassDirectives) and
+  Result := (pt.TokenType in ClassDirectives) and
     pt.HasParentNode(nClassVisibility, 1) and
     (not (pt.HasParentNode(ProcedureNodes + [nProperty])));
 end;
@@ -407,8 +409,7 @@ end;
 
 function IsUnaryOperator(const pt: TSourceToken): boolean;
 begin
-  Result := (pt <> nil) and (pt.TokenType = ttOperator) and
-    (pt.Word in PossiblyUnarySymbolOperators);
+  Result := (pt <> nil) and (pt.TokenType in PossiblyUnarySymbolOperators);
   if not Result then
     exit;
 
@@ -611,6 +612,14 @@ begin
 
   if (lcName.TokenType = ttWord) then
     Result := lcName.SourceCode;
+end;
+
+function IsIdentifier(const pt: TSourceToken): boolean;
+begin
+  Result := (pt <> nil) and (pt.WordType in IdentifierTypes);
+
+  if Result then
+    Result := pt.HasParentNode(nIdentifier, 1);
 end;
 
 end.

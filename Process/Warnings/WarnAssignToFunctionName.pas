@@ -57,8 +57,7 @@ implementation
 
 uses
   { delphi } SysUtils,
-  ParseTreeNode, ParseTreeNodeType, SourceToken, TokenType,
-  TokenUtils;
+  ParseTreeNode, ParseTreeNodeType, SourceToken, Tokens, TokenUtils;
 
 
 
@@ -88,11 +87,11 @@ begin
   begin
     lcChildNode := lcDes.ChildNodes[liLoop];
 
-    if lcChildNode is TSourceToken then
+    if lcChildNode.NodeType = nIdentifier then
     begin
-      lcSourceToken := TSourceToken(lcChildNode);
+      lcSourceToken := lcChildNode.FirstSolidLeaf as TSourceToken;
 
-      if lcSourceToken.TokenType in IdentifierTypes then
+      if lcSourceToken.WordType in IdentifierTypes then
         Result := lcSourceToken;
     end
     else if lcChildNode.NodeType = nAssignment then

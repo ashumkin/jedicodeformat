@@ -60,7 +60,7 @@ implementation
 
 {$R *.DFM}
 
-uses TokenType, JcfHelp, JcfSettings, SetIndent;
+uses JcfHelp, JcfSettings, SetIndent;
 
 constructor TfClarifyIndent.Create(AOwner: TComponent);
 begin

@@ -54,7 +54,7 @@ type
 
 implementation
 
-uses WordMap, TokenType, ParseTreeNodeType, TokenUtils,
+uses Tokens, ParseTreeNodeType, TokenUtils,
   SetReturns, JcfSettings, FormatFlags;
 
 
@@ -68,8 +68,8 @@ end;
 
 function TNoReturnAfter.NeedsNoReturn(const pt: TSourceToken): boolean;
 const
-  NoReturnWords: TWordSet = [wProcedure, wFunction,
-    wConstructor, wDestructor, wProperty, wGoto];
+  NoReturnWords: TTokenTypeSet = [ttProcedure, ttFunction,
+    ttConstructor, ttDestructor, ttProperty, ttGoto];
 var
   lcSetReturns: TSetReturns;
   ptNext: TSourceToken;
@@ -88,7 +88,7 @@ begin
   if FormatSettings.Returns.RemoveBadReturns then
   begin
 
-    if pt.Word in NoReturnWords then
+    if pt.TokenType in NoReturnWords then
     begin
       Result := True;
       exit;
@@ -106,7 +106,7 @@ begin
     end;
 
     { var x absolute y;  just after absolute is a bad place to break }
-    if (pt.Word = wAbsolute) and pt.HasParentNode(nVarDecl) then
+    if (pt.TokenType = ttAbsolute) and pt.HasParentNode(nVarDecl) then
     begin
       Result := True;
       exit;
@@ -118,7 +118,7 @@ begin
       property FloonCount: integer default 12;
       as opposed to default (array) properties,
       eg property Items[piIndex: integer]; default; }
-    if (pt.Word = wDefault) and pt.HasParentNode(nPropertySpecifier) then
+    if (pt.TokenType = ttDefault) and pt.HasParentNode(nPropertySpecifier) then
     begin
       { use the persence of semicolon to distinguish
       Default property values from default (array) properties }
@@ -144,7 +144,7 @@ begin
     { in procedure params - no return after 'var' or 'const' }
     if pt.HasParentnode(nFormalParams) and (RoundBracketLevel(pt) > 0) then
     begin
-      if pt.Word in [wVar, wConst] then
+      if pt.TokenType in [ttVar, ttConst] then
       begin
         Result := True;
         exit;
@@ -154,7 +154,7 @@ begin
     { in procedure body - no return directly after 'if' }
     if InStatements(pt) then
     begin
-      if pt.Word = wIf then
+      if pt.TokenType = ttIf then
       begin
         Result := True;
         exit;
@@ -197,7 +197,7 @@ begin
   end;
 
   if lcSetReturns.RemoveVarReturns and (pt.TokenType <> ttSemiColon) and
-    (not (pt.Word in Declarations)) and pt.HasParentNode(nVarDecl) then
+    (not (pt.TokenType in Declarations)) and pt.HasParentNode(nVarDecl) then
   begin
     if NoDeclarationBefore and NoSemicolonBefore and ptNext.HasParentNode(nVarDecl) then
     begin
@@ -240,7 +240,7 @@ end;
 
 function TNoReturnAfter.NoDeclarationBefore: Boolean;
 begin
-  Result := (fcLastSolidToken = nil) or (not (fcLastSolidToken.Word in Declarations));
+  Result := (fcLastSolidToken = nil) or (not (fcLastSolidToken.TokenType in Declarations));
 end;
 
 function TNoReturnAfter.NoSemiColonBefore: Boolean;

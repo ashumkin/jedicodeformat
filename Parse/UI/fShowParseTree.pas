@@ -79,7 +79,7 @@ implementation
 
 {$R *.dfm}
 
-uses SourceToken, TokenType, WordMap;
+uses SourceToken, Tokens;
 
 procedure ShowParseTree(const pcRoot: TParseTreeNode);
 var
@@ -124,8 +124,6 @@ procedure TfrmShowParseTree.DisplayTree;
       lcNewItem.Caption := IntToStr(lvTokens.Items.Count);
 
       lsDesc := TokenTypeToString(lcToken.TokenType);
-      if lcToken.Word <> wUnknown then
-        lsDesc := lsDesc + ' ' + WordToString(lcToken.Word);
       lcNewItem.SubItems.Add(lsDesc);
       lcNewItem.SubItems.Add(lcToken.SourceCode);
 

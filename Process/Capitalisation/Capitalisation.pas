@@ -43,7 +43,7 @@ implementation
 uses
   SysUtils,
   JclStrings,
-  SourceToken, TokenType, ParseTreeNodeType, JcfSettings, FormatFlags;
+  SourceToken, SettingsTypes, Tokens, ParseTreeNodeType, JcfSettings, FormatFlags;
 
 { TCapitalisation }
 
@@ -78,21 +78,21 @@ var
 begin
   lcSourceToken := TSourceToken(pcNode);
 
-  case lcSourceToken.TokenType of
-    ttReservedWord:
+  case lcSourceToken.WordType of
+    wtReservedWord:
       FixCaps(lcSourceToken, FormatSettings.Caps.ReservedWords);
-    ttReservedWordDirective:
+    wtReservedWordDirective:
     begin
       { directives can occur in other contexts - they are valid proc & variable names
         so we need to know if this one was parsed as a directive }
       if lcSourceToken.HasParentNode(DirectiveNodes) then
         FixCaps(lcSourceToken, FormatSettings.Caps.Directives);
     end;
-    ttBuiltInConstant:
+    wtBuiltInConstant:
       FixCaps(lcSourceToken, FormatSettings.Caps.Constants);
-    ttOperator:
+    wtOperator:
       FixCaps(lcSourceToken, FormatSettings.Caps.Operators);
-    ttBuiltInType:
+    wtBuiltInType:
       FixCaps(lcSourceToken, FormatSettings.Caps.Types);
   end;
 end;

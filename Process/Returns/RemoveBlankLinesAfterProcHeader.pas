@@ -37,7 +37,7 @@ type
 
 implementation
 
-uses FormatFlags, TokenType, WordMap, ParseTreeNodeType;
+uses FormatFlags, Tokens, ParseTreeNodeType;
 
 function IsPlaceForBlankLineRemoval(const ptToken, ptNextSolidToken: TSourceToken): boolean;
 begin
@@ -49,7 +49,7 @@ begin
   { assume we're already under a procedure decl as tested below }
 
   { before the begin }
-  if ptToken.HasParentNode(nCompoundStatement) and (ptNextSolidToken.Word = wBegin) then
+  if ptToken.HasParentNode(nCompoundStatement) and (ptNextSolidToken.TokenType = ttBegin) then
   begin
     Result := True;
     exit;
@@ -57,7 +57,7 @@ begin
 
   { before the type, const, lable, val }
   if ptToken.HasParentNode(nDeclSection) and
-    (ptNextSolidToken.Word in [wType, wVar, wConst, wLabel]) then
+    (ptNextSolidToken.TokenType in [ttType, ttVar, ttConst, ttLabel]) then
   begin
     Result := True;
     exit;

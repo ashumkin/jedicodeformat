@@ -36,6 +36,7 @@ type
     nProgram,
     nUnit,
     nUnitHeader,
+    nUnitName,
     nPackage,
     nLibrary,
     nUses,
@@ -43,6 +44,7 @@ type
     nRequires,
     nContains,
     nIdentList,
+    nIdentifier,
     nInterfaceSection,
     nImplementationSection,
     nBlock,
@@ -110,6 +112,7 @@ type
     nDestructorHeading,
     nFormalParams,
     nFormalParam,
+    nFunctionReturnType,
     nProcedureDirectives,
     nExternalDirective,
     nObjectType,
@@ -185,6 +188,8 @@ begin
       Result := 'Unit';
     nUnitHeader:
       Result := 'Unit header';
+    nUnitName:
+      Result := 'Unit name';
     nPackage:
       Result := 'Package';
     nLibrary:
@@ -199,6 +204,8 @@ begin
       Result := 'Contains';
     nIdentList:
       Result := 'ident list';
+    nIdentifier:
+      Result := 'Identifier';
     nInterfaceSection:
       Result := 'Interface section';
     nImplementationSection:
@@ -333,6 +340,8 @@ begin
       Result := 'Formal params';
     nFormalParam:
       Result := 'formal param';
+    nFunctionReturnType:
+      Result := 'Function Return type';
     nProcedureDirectives:
       Result := 'Procedure directives';
     nExternalDirective:

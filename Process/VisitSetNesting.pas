@@ -57,7 +57,7 @@ implementation
 
 uses SysUtils,
   ParseTreeNode, ParseTreeNodeType,
-  TokenType, SourceToken, WordMap;
+  Tokens, SourceToken;
 
 constructor TVisitSetNestings.Create;
 begin
@@ -119,7 +119,7 @@ begin
       { if the else is immediately followed by if then it is not a block indent }
       lcNextLeaf := TSourceToken(lcNode.FirstLeaf);
       lcNextLeaf := lcNextLeaf.NextSolidToken;
-      if not (lcNextLeaf.Word = wIf) then
+      if not (lcNextLeaf.TokenType = ttIf) then
       begin
         leNestType := nlBlock;
         lbHasNesting := True;

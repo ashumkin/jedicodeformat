@@ -27,7 +27,7 @@ unit SetCaps;
 
 interface
 
-uses JCFSetBase, TokenType, SettingsStream;
+uses JCFSetBase, SettingsTypes, SettingsStream;
 
 type
 

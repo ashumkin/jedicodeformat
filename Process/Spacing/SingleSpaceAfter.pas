@@ -44,23 +44,25 @@ implementation
 uses
   JclStrings,
   JcfMiscFunctions,
-  SourceToken, TokenType, WordMap, ParseTreeNodeType, JcfSettings,
+  SourceToken, Tokens, ParseTreeNodeType, JcfSettings,
   FormatFlags, TokenUtils;
 
   const
   SingleSpaceAfterTokens: TTokenTypeSet = [ttColon, ttAssign, ttComma];
-  SingleSpaceAfterWords: TWordSet       = [wProcedure, wFunction,
-    wConstructor, wDestructor, wProperty,
-    wOf, wDo, wWhile, wUntil, wCase, wIf, wTo, wDownTo,
+
+  SingleSpaceAfterWords: TTokenTypeSet = [
+    ttProcedure, ttFunction,
+    ttConstructor, ttDestructor, ttProperty,
+    ttOf, ttDo, ttWhile, ttUntil, ttCase, ttIf, ttTo, ttDownTo,
 
     // some unary operators
-    wNot,
+    ttNot,
     // all operators that are always binary
-    wAnd, wAs, wDiv, wIn, wIs, wMod, wOr, wShl, wShr, wXor,
-    wTimes, wFloatDiv, wEquals, wGreaterThan, wLessThan,
-    wGreaterThanOrEqual, wLessThanOrEqual, wNotEqual];
+    ttAnd, ttAs, ttDiv, ttIn, ttIs, ttMod, ttOr, ttShl, ttShr, ttXor,
+    ttTimes, ttFloatDiv, ttEquals, ttGreaterThan, ttLessThan,
+    ttGreaterThanOrEqual, ttLessThanOrEqual, ttNotEqual];
 
-  PossiblyUnaryOperators: TWordSet = [wPlus, wMinus];
+  PossiblyUnaryOperators: TTokenTypeSet = [ttPlus, ttMinus];
 
 function NeedsSingleSpace(const pt, ptNext: TSourceToken): boolean;
 begin
@@ -125,13 +127,13 @@ begin
   end;
 
   { 'absolute' as a var directive }
-  if (pt.Word = wAbsolute) and pt.HasParentNode(nAbsoluteVar) then
+  if (pt.TokenType = ttAbsolute) and pt.HasParentNode(nAbsoluteVar) then
   begin
     Result := True;
     exit;
   end;
 
-  if (pt.Word in SingleSpaceAfterWords) then
+  if (pt.TokenType in SingleSpaceAfterWords) then
   begin
     { 'procedure' and 'function' in proc type def don't have space after, e.g.
       type
@@ -146,7 +148,7 @@ begin
   end;
 
   { + or - but only if it is a binary operator, ie a term to the left of it }
-  if (pt.Word in PossiblyUnaryOperators) and (pt.HasParentNode(nExpression)) and
+  if (pt.TokenType in PossiblyUnaryOperators) and (pt.HasParentNode(nExpression)) and
     (not IsUnaryOperator(pt)) then
   begin
     Result := True;
@@ -154,38 +156,38 @@ begin
   end;
 
   { only if it actually is a directive, see TestCases/TestBogusDirectives for details }
-  if (pt.Word in AllDirectives) and (pt.HasParentNode(DirectiveNodes)) and
+  if (pt.TokenType in AllDirectives) and (pt.HasParentNode(DirectiveNodes)) and
     (ptNext.TokenType <> ttSemiColon) then
   begin
     Result := True;
     exit;
   end;
 
-  if pt.Word = wEquals then
+  if pt.TokenType = ttEquals then
   begin
     Result := True;
     exit;
   end;
 
   { 'in' in the uses clause }
-  if (pt.Word = wIn) and (pt.HasParentNode(nUses)) then
+  if (pt.TokenType = ttIn) and (pt.HasParentNode(nUses)) then
   begin
     Result := True;
     exit;
   end;
 
   { const or var as parameter var types }
-  if (pt.Word in ParamTypes) and (pt.HasParentNode(nFormalParams)) then
+  if (pt.TokenType in ParamTypes) and (pt.HasParentNode(nFormalParams)) then
   begin
     // beware of 'procedure foo (bar: array of const);' and the like
-    if not ((pt.Word = wConst) and pt.HasParentNode(nType, 1)) then
+    if not ((pt.TokenType = ttConst) and pt.HasParentNode(nType, 1)) then
     begin
       Result := True;
       exit;
     end;
   end;
 
-  if (pt.Word in ParamTypes) and pt.HasParentNode(nPropertyParameterList) and
+  if (pt.TokenType in ParamTypes) and pt.HasParentNode(nPropertyParameterList) and
      pt.IsOnRightOf(nPropertyParameterList, ttOpenSquareBracket) then
   begin
     Result := True;
@@ -194,7 +196,7 @@ begin
 
   { single space before class heritage ?
     see NoSpaceAfter }
-  if (pt.HasParentNode(nRestrictedType)) and (pt.Word in ObjectTypeWords) and
+  if (pt.HasParentNode(nRestrictedType)) and (pt.TokenType in ObjectTypeWords) and
     (FormatSettings.Spaces.SpaceBeforeClassHeritage) then
   begin
     if (ptNext.TokenType in [ttOpenBracket, ttSemiColon]) then
@@ -205,7 +207,7 @@ begin
   end;
 
   // else if
-  if (pt.Word = wElse) and (ptNext.Word = wIf) and InStatements(pt) then
+  if (pt.TokenType = ttElse) and (ptNext.TokenType = ttIf) and InStatements(pt) then
   begin
     Result := True;
     exit;

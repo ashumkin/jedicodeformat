@@ -29,7 +29,7 @@ unit BuildTokenList;
 interface
 
 uses
-  CodeReader, TokenType, WordMap, SourceToken, SourceTokenList;
+  CodeReader, Tokens, SourceToken, SourceTokenList;
 
 type
 
@@ -40,7 +40,6 @@ type
     fcReader: TCodeReader;
 
       { implementation of GetNextToken }
-    function TryEOF(const pcToken: TSourceToken): boolean;
     function TryReturn(const pcToken: TSourceToken): boolean;
 
     function TryCurlyComment(const pcToken: TSourceToken): boolean;
@@ -57,11 +56,11 @@ type
     function TryAssign(const pcToken: TSourceToken): boolean;
 
 
-    function TryOperator(const pcToken: TSourceToken; const ch: char; const pw: TWord): boolean;
+    function TrySingleCharToken(const pcToken: TSourceToken): boolean;
+
     function TryPunctuation(const pcToken: TSourceToken): boolean;
     function TryWord(const pcToken: TSourceToken): boolean;
 
-    function TrySingleCharToken(const pcToken: TSourceToken; const ch: char; const tt: TTokenType): boolean;
     function GetNextToken: TSourceToken;
 
   protected
@@ -101,10 +100,7 @@ var
 
   procedure DoAllTheTries;
   begin
-    { first look for EOF }
-    if TryEOF(lcNewToken) then 
-      exit;
-    { then for return }
+    { first look for return }
     if TryReturn(lcNewToken) then 
       exit;
     { comments }
@@ -129,30 +125,14 @@ var
     if TryDots(lcNewToken) then
       exit;
 
-    if TrySingleCharToken(lcNewToken, ';', ttSemiColon) then 
-      exit;
-    if TrySingleCharToken(lcNewToken, ',', ttComma) then 
-      exit;
-    if TrySingleCharToken(lcNewToken, '(', ttOpenBracket) then 
-      exit;
-    if TrySingleCharToken(lcNewToken, ')', ttCloseBracket) then 
-      exit;
-    if TrySingleCharToken(lcNewToken, '[', ttOpenSquareBracket) then 
-      exit;
-    if TrySingleCharToken(lcNewToken, ']', ttCloseSquareBracket) then 
-      exit;
-
     { attempt assign before colon }
-    if TryAssign(lcNewToken) then 
-      exit;
-    if TrySingleCharToken(lcNewToken, ':', ttColon) then 
+    if TryAssign(lcNewToken) then
       exit;
 
-    if TryOperator(lcNewToken, '^', wHat) then 
+    if TryPunctuation(lcNewToken) then
       exit;
-    if TryOperator(lcNewToken, '@', wAtSign) then
-      exit;
-    if TryPunctuation(lcNewToken) then 
+
+    if TrySingleCharToken(lcNewToken) then
       exit;
 
     { default }
@@ -162,26 +142,21 @@ var
   end;
 
 begin
-  Reader.BufferLength := 1;
-  lcNewToken  := TSourceToken.Create;
-  DoAllTheTries;
-  Result := lcNewToken;
+  if Reader.EndOfFile then
+    Result := nil
+  else
+  begin
+    Reader.BufferLength := 1;
+    lcNewToken  := TSourceToken.Create;
+    DoAllTheTries;
+
+    lcNewToken.WordType := WordTypeOfToken(lcNewToken.TokenType);
+    Result := lcNewToken;
+  end;
 end;
 
 {-------------------------------------------------------------------------------
   worker fns for GetNextComment }
-
-function TBuildTokenList.TryEOF(const pcToken: TSourceToken): boolean;
-begin
-  Result := False;
-
-  if Reader.EndOfFile then
-  begin
-    { it is now EOF }
-    pcToken.TokenType := ttEOF;
-    Result            := True;
-  end;
-end;
 
 function TBuildTokenList.TryBracketStarComment(const pcToken: TSourceToken): boolean;
 begin
@@ -385,7 +360,7 @@ begin
   end;
 
   if Result then
-    pcToken.TokenType  := ttLiteralString;
+    pcToken.TokenType := ttLiteralString;
 end;
 
 function TBuildTokenList.TryWord(const pcToken: TSourceToken): boolean;
@@ -395,16 +370,12 @@ function TBuildTokenList.TryWord(const pcToken: TSourceToken): boolean;
     Result := CharIsAlpha(ch) or (ch = '_');
   end;
 
-var
-  leWordType: TWordType;
-  leWord:     TWord;
 begin
   Result := False;
 
   if not IsWordChar(Reader.Current) then
     exit;
 
-  pcToken.TokenType  := ttWord;
   pcToken.SourceCode := Reader.Current;
   Reader.Consume;
 
@@ -416,9 +387,9 @@ begin
   end;
 
   { try to recognise the word as built in }
-  TypeOfWord(pcToken.SourceCode, leWordType, leWord);
-  pcToken.TokenType := leWordType;
-  pcToken.Word      := leWord;
+  pcToken.TokenType := TypeOfToken(pcToken.SourceCode);
+  if pcToken.TokenType = ttUnknown then
+    pcToken.TokenType := ttIdentifier;
 
   Result := True;
 end;
@@ -591,19 +562,6 @@ begin
   Result := True;
 end;
 
-{ hat and @ always on thier own }
-function TBuildTokenList.TryOperator(const pcToken: TSourceToken; const ch: char; const pw: TWord): boolean;
-begin
-  Result := False;
-  if Reader.Current <> ch then
-    exit;
-
-  pcToken.TokenType  := ttOperator;
-  pcToken.Word       := pw;
-  pcToken.SourceCode := Reader.Current;
-  Reader.Consume;
-  Result := True;
-end;
 
 function IsPuncChar(const ch: char): boolean;
 begin
@@ -628,8 +586,10 @@ function TBuildTokenList.TryPunctuation(const pcToken: TSourceToken): boolean;
   function FollowsPunctuation(const chLast, ch: char): boolean;
   const
     { these have meanings on thier own and should not be recognised as part of the punc.
-     e.g '=(' is not a punctation symbol, but 2 of them ( for e.g. in const a=(3); }
-   NotFollowChars: set of char = [AnsiSingleQuote, '"', '(', '[', '{', '#', '$', '_'];
+     e.g '=(' is not a punctation symbol, but 2 of them ( for e.g. in const a=(3);
+     simlarly ');' is 2 puncs }
+   UnitaryPunctuation: set of char =
+    [AnsiSingleQuote, '"', '(', ')', '[', ']', '{', '#', '$', '_', ';', '@', '^'];
 
    { these can't have anything following them:
     for e.g, catch the case if a=-1 then ...
@@ -643,10 +603,15 @@ function TBuildTokenList.TryPunctuation(const pcToken: TSourceToken): boolean;
   begin
     Result := False;
 
-    if ch in NotFollowChars then
+    if (chLast in UnitaryPunctuation) or (ch in UnitaryPunctuation) then
       exit;
 
     if chLast in SingleChars then
+      exit;
+
+    { '<' or '<' can only be followed by '<', '>' or '='.
+     Beware of "if x<-1" }
+    if (chLast in ['<', '>']) and not (ch in ['<', '>', '=']) then
       exit;
 
     Result := IsPuncChar(ch);
@@ -654,7 +619,7 @@ function TBuildTokenList.TryPunctuation(const pcToken: TSourceToken): boolean;
 
 var
   leWordType: TWordType;
-  leWord:     TWord;
+  leTokenType: TTokenType;
   lcLast: char;
 begin
   Result := False;
@@ -676,28 +641,26 @@ begin
   end;
 
   { try to recognise the punctuation as an operator }
-  TypeOfWord(pcToken.SourceCode, leWordType, leWord);
-  if leWordType = ttOperator then
+  TypeOfToken(pcToken.SourceCode, leWordType, leTokenType);
+  if leTokenType <> ttUnknown then
   begin
-    pcToken.TokenType := leWordType;
-    pcToken.Word      := leWord;
+    pcToken.TokenType := leTokenType;
   end;
 
   Result := True;
 end;
 
-function TBuildTokenList.TrySingleCharToken(const pcToken: TSourceToken; const ch: char;
-  const tt: TTokenType): boolean;
+function TBuildTokenList.TrySingleCharToken(const pcToken: TSourceToken): boolean;
 begin
   Result := False;
 
-  if Reader.Current <> ch then
-    exit;
-
-  pcToken.TokenType  := tt;
-  pcToken.SourceCode := Reader.Current;
-  Reader.Consume;
-  Result := True;
+  pcToken.TokenType := TypeOfToken(Reader.Current);
+  if pcToken.TokenType <> ttUnknown then
+  begin
+    pcToken.SourceCode := Reader.Current;
+    Reader.Consume;
+    Result := True;
+  end;
 end;
 
 function TBuildTokenList.BuildTokenList: TSourceTokenList;
@@ -710,12 +673,6 @@ begin
   while not Reader.EndOfFile do
   begin
     lcNew := GetNextToken;
-    if lcNew.TokenType = ttEOF then
-    begin
-      lcNew.Free;
-      break;
-    end;
-
     lcList.Add(lcNew);
   end;
 
