@@ -152,7 +152,7 @@ Writing
 
 
 FALSE
-11
+13
 {\rtf1\ansi\ansicpg1252\deff0\deflang2057{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil Arial;}}
 {\colortbl ;\red0\green0\blue255;\red0\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\fs32 Registry Settings\cf2\b0\f1\fs20 
@@ -160,6 +160,8 @@ FALSE
 \par \b\f0 Convert settings file:\b0  The path to the format settings file.
 \par 
 \par \b MRU max items:\b0  The number of items stored in the Most-Recently Used list of the File menu for \b JcfGui \b0 and \b JcfNotepad\b0 . When this number is exceeded, the bottom item, ie the least recently used file, will be discarded.
+\par 
+\par \b Write changes to settings file\b0 : If this option is unchecked, the settings file will not be written as the program exits. Normally this option should be checked, but it is useful to uncheck it when the file is not actually writeable.
 \par 
 \par \b Show parse tree:\b0  JCF 2.0 generates a full parse tree of the input source file. Showing this tree can be useful for debugging. I recommend that you set this to "on error", which will show it only when the source cannot be parsed. The last token of the parse tree then will give you some idea of what the parser thought was going on at the point of error.
 \par \f1 
@@ -379,8 +381,8 @@ Writing
 
 
 FALSE
-28
-{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fnil\fcharset0 Arial;}{\f3\fmodern Courier New;}}
+31
+{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fnil\fcharset0 Arial;}{\f3\fmodern Courier New;}{\f4\fswiss\fprq2\fcharset0 Arial;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\f0\fs32\{linkID=\f1 %\f0 60\}\cf1  Spaces\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
@@ -407,6 +409,9 @@ FALSE
 \par 
 \par \b Turn spaces to tabs :\b0  The opposite of the above. Not recommended, unless you\lang2057\f1  \lang1031\f0 really like tabs for some reason.
 \par 
+\par \lang2057\f1 Turning spaces to tabs and vice versa both work on whitespace in the program code and in comments.
+\par 
+\par \b\f4 Max spaces in code\b0  removes consecutive spaces over this limit. It does not affect spaces at the start of the line for indentation, and it does not affect spaces inside or immediately before a comment. In most other cases, one space is all that you want.\lang1031\f0 
 \par }
 80
 Scribble80
@@ -516,7 +521,7 @@ FALSE
 \par \f3 aValue := SomeThing + SomethingElse - SomethingOrOther -
 \par    OtherStuff + OtherMoreStuff;
 \par \f0 
-\par Here the line break is used to emphasise the difference between the 'something' terms and the 'other' terms. If you do this, then turn off "Remove returns in expressions". If you don't, then turn it on, and let this process remove all the returns in your expression. Then the \lang2057\f1 long \lang1031\f0 line breaker will rebreak the long expressions at points that it considers good based on a purely syntactic analysis of the structure of the expression.
+\par Here the line break is used to emphasise the difference between the 'something' terms and the 'other' terms. If you do this, then turn off "Remove returns in expressions". If you don't, then turn it on, and let this process remove all the returns in your expression. Then the \lang2057\f1 long \lang1031\f0 line breaker will rebreak the long expressions at points that it considers good based on a purely syntactic analysis of the structure of the expression.\lang2057\f1  \b NB - using this option with the linebreaker turned off is a bad idea, it will produce lines that are too long.\lang1031\b0\f0 
 \par 
 \par \b 
 \par Remove \f1 returns in variable declaration\f0 :\b0  e.g. turns 
