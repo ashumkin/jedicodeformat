@@ -128,8 +128,11 @@ begin
     exit;
 
   lciEditor := lciEditManager.TopBuffer;
-  if lciEditor = nil then
+  if (lciEditor = nil) or (lciEditor.EditViewCount = 0) then
+  begin
+    LogIdeMessage('No current window');
     exit;
+  end;
 
   MakeEditorConverter;
 
@@ -169,11 +172,11 @@ end;
 
 procedure TJcfIdeMain.DoFormatOpen(Sender: TObject);
 var
-  hRes:      HResult;
+  hRes: HResult;
   lciEditManager: IOTAEditorServices;
   lciIterateBuffers: IOTAEditBufferIterator;
   lciEditor: IOTASourceEditor;
-  liLoop:    integer;
+  liLoop, liCount: integer;
 begin
   hRes := BorlandIDEServices.QueryInterface(IOTAEditorServices, lciEditManager);
   if hRes <> S_OK then
@@ -189,18 +192,23 @@ begin
     exit;
 
   ClearToolMessages;
+  liCount := 0;
 
   for liLoop := 0 to lciIterateBuffers.Count - 1 do
   begin
     lciEditor := lciIterateBuffers.EditBuffers[liLoop];
 
-    // check that it's a .pas or .dpr
-    if not FileIsAllowedType(lciEditor.FileName) then
-      exit;
-
-    if lciEditor <> nil then
+    // check that it's open, and a .pas or .dpr
+    if (lciEditor <> nil ) and (lciEditor.EditViewCount > 0) and
+      (FileIsAllowedType(lciEditor.FileName)) then
+    begin
       fcEditorConverter.ConvertUnit(lciEditor);
+      inc(liCount);
+    end;
   end;
+
+  if liCount = 0 then
+    LogIDEMessage('No open files that can be formatted');
 
   fcEditorConverter.AfterConvert;
 end;
