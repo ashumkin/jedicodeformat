@@ -209,6 +209,8 @@ type
 
     procedure TestObfuscate_TestCases;
     procedure TestObfuscate_TestProcBlankLines;
+
+    procedure TestObfuscate_TestDephiNetUses;
   end;
 
 implementation
@@ -1144,6 +1146,11 @@ end;
 procedure TTestObfuscate.TestObfuscate_TestCondReturns;
 begin
   TestObfuscateFile('TestCondReturns');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestDephiNetUses;
+begin
+  TestObfuscateFile('TestDephiNetUses');
 end;
 
 initialization

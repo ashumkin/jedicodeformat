@@ -208,6 +208,8 @@ type
     procedure TestClarify_TestPackage;
     procedure TestClarify_TestProcBlankLines;
 
+    procedure TestClarify_TestDephiNetUses;
+
     procedure TestClarify_TestCases;
   end;
 
@@ -1099,6 +1101,11 @@ end;
 procedure TFullTestClarify.TestClarify_TestCondReturns;
 begin
   TestClarifyFile('TestCondReturns');
+end;
+
+procedure TFullTestClarify.TestClarify_TestDephiNetUses;
+begin
+  TestClarifyFile('TestDephiNetUses');
 end;
 
 initialization

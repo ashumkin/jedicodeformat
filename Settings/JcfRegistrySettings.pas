@@ -78,6 +78,7 @@ type
     fsInput: string;
     fcExclusionsFiles: TStringList;
     fcExclusionsDirs: TStringList;
+    fbCheckMultiByteChars: Boolean;
 
     { this is ref not owned }
     fcMRUFiles: TStrings;
@@ -137,6 +138,7 @@ type
     property SourceMode: TSourceMode read feSourceMode write feSourceMode;
     property BackupExtension: string read GetBackupExtension write fsBackupExtension;
     property OutputExtension: string read GetOutputExtension write fsOutputExtension;
+    property CheckMultiByteChars: Boolean read fbCheckMultiByteChars write fbCheckMultiByteChars;
 
     function GetOutputFileName(const psIn: string): string; overload;
     function GetOutputFileName(const psIn: string; peMode: TBackupMode): string; overload;
@@ -190,6 +192,8 @@ const
 
   REG_EXCLUSIONS_FILES = 'ExclusionsFiles';
   REG_EXCLUSIONS_DIRS  = 'ExclusionsDirs';
+
+  REG_CHECK_MULTIBYTE_CHARS = 'CheckMultiByteChars';
 
 {
   file-based settings,  ie
@@ -337,13 +341,15 @@ begin
     REG_BACKUP_MODE, Ord(cmSeperateOutput)));
   feSourceMode := TSourceMode(fcReg.ReadInteger(REG_FILES_SECTION,
     REG_SOURCE_MODE, Ord(fmSingleFile)));
-  fsInput      := fcReg.ReadString(REG_FILES_SECTION, REG_INPUT, '');
+  fsInput := fcReg.ReadString(REG_FILES_SECTION, REG_INPUT, '');
 
   fsBackupExtension := fcReg.ReadString(REG_FILES_SECTION, REG_BACKUP_EXT, 'bak');
   fsOutputExtension := fcReg.ReadString(REG_FILES_SECTION, REG_OUTPUT_EXT, 'out');
 
   ReadStrings(REG_FILES_SECTION, REG_EXCLUSIONS_FILES, fcExclusionsFiles);
   ReadStrings(REG_FILES_SECTION, REG_EXCLUSIONS_DIRS, fcExclusionsDirs);
+
+  fbCheckMultiByteChars := fcReg.ReadBool(REG_FILES_SECTION, REG_CHECK_MULTIBYTE_CHARS, False);
 
   fbHasRead := True;
 end;
@@ -385,6 +391,8 @@ begin
 
   WriteStrings(REG_FILES_SECTION, REG_EXCLUSIONS_FILES, fcExclusionsFiles);
   WriteStrings(REG_FILES_SECTION, REG_EXCLUSIONS_DIRS, fcExclusionsDirs);
+
+  fcReg.WriteBool(REG_FILES_SECTION, REG_CHECK_MULTIBYTE_CHARS, fbCheckMultiByteChars);
 end;
 
 function TJCFRegistrySettings.CanClearMRU: boolean;

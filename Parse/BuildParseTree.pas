@@ -623,6 +623,12 @@ begin
 
   RecogniseIdentifier(False);
 
+  while fcTokenList.FirstSolidTokenType = ttDot do
+  begin
+    Recognise(ttDot);
+    RecogniseIdentifier(False);
+  end;
+
   if pbInFiles and (fcTokenList.FirstSolidTokenType = ttIn) then
   begin
     Recognise(ttIn);

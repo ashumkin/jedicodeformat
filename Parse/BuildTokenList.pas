@@ -29,6 +29,9 @@ unit BuildTokenList;
 interface
 
 uses
+  { delphi }
+  Windows,
+  { local }
   Tokens, SourceToken, SourceTokenList;
 
 type
@@ -94,7 +97,22 @@ uses
  { delphi }
  Forms, SysUtils,
  { jcl }
- JclStrings;
+ JclStrings,
+ { local }
+ JcfRegistrySettings;
+
+
+const
+  codepage_Chinese = 950;
+
+function CheckMultiByte(const pcChar: char): Boolean;
+begin
+  Result := False;
+
+  if GetRegSettings.CheckMultiByteChars then
+    Result := IsDBCSLeadByte(Byte(pcChar));
+    //Result := IsDBCSLeadByteEx(codepage_Chinese, Byte(pcChar));
+end;
 
 { TBuildTokenList }
 
@@ -185,6 +203,33 @@ end;
 function TBuildTokenList.TryBracketStarComment(const pcToken: TSourceToken): boolean;
 var
   liCommentLength: integer;
+
+  procedure MoveToCommentEnd;
+  begin
+    { comment is ended by *) or by EOF (bad source) }
+    while True do
+    begin
+      if EndOfFileAfter(liCommentLength) then
+        break;
+
+      if CheckMultiByte(ForwardChar(liCommentLength)) then
+      begin
+        liCommentLength := liCommentLength + 2;
+        continue;
+      end;
+
+      if ForwardChars(liCommentLength, 2) = '*)' then
+        break;
+
+      inc(liCommentLength);
+    end;
+
+    // include the comment end
+    if not EndOfFileAfter(liCommentLength) and (ForwardChars(liCommentLength, 2) = '*)') then
+      inc(liCommentLength, 2);
+  end;
+
+
 begin
   Result := False;
   if not (Current = '(') then
@@ -197,14 +242,7 @@ begin
   { if the comment starts with (*) that is not the end of the comment }
   liCommentLength := 2;
 
-  { until *) or End of file }
-  while (not EndOfFileAfter(liCommentLength)) and (ForwardChars(liCommentLength, 2) <> '*)') do
-    Inc(liCommentLength);
-
-  // include the comment end
-  if (not EndOfFileAfter(liCommentLength)) and (ForwardChars(liCommentLength, 2) = '*)') then
-    Inc(liCommentLength, 2);
-
+  MoveToCommentEnd;
 
   pcToken.TokenType := ttComment;
   pcToken.CommentStyle := eBracketStar;
@@ -214,10 +252,35 @@ begin
   Result := True;
 end;
 
-
 function TBuildTokenList.TryCurlyComment(const pcToken: TSourceToken): boolean;
 var
   liCommentLength: integer;
+
+  procedure MoveToCommentEnd;
+  begin
+    { comment is ended by close-curly or by EOF (bad source) }
+    while True do
+    begin
+      if EndOfFileAfter(liCommentLength) then
+        break;
+
+      if CheckMultiByte(ForwardChar(liCommentLength)) then
+      begin
+        liCommentLength := liCommentLength + 2;
+        continue;
+      end;
+
+      if ForwardChar(liCommentLength) = '}' then
+        break;
+
+      inc(liCommentLength);
+    end;
+
+    { include the closing brace }
+    if not EndOfFileAfter(liCommentLength) and (ForwardChars(liCommentLength, 1) = '}') then
+      inc(liCommentLength);
+  end;
+
 begin
   Result := False;
   if Current <> '{' then
@@ -233,14 +296,7 @@ begin
   else
     pcToken.CommentStyle := eCurlyBrace;
 
-  { comment is ended by close-curly or by EOF (bad source) }
-  while not EndOfFileAfter(liCommentLength) and (ForwardChars(liCommentLength, 1) <> '}') do
-    inc(liCommentLength);
-
-  { include the closing brace }
-  if not EndOfFileAfter(liCommentLength) and (ForwardChars(liCommentLength, 1) = '}') then
-    inc(liCommentLength);
-
+  MoveToCommentEnd;
 
   pcToken.SourceCode := CurrentChars(liCommentLength);
   Consume(liCommentLength);
@@ -251,6 +307,28 @@ end;
 function TBuildTokenList.TrySlashComment(const pcToken: TSourceToken): boolean;
 var
   liCommentLength: integer;
+
+  procedure MoveToCommentEnd;
+  begin
+    { comment is ended by return or by EOF (bad source) }
+    while True do
+    begin
+      if EndOfFileAfter(liCommentLength) then
+        break;
+
+      if CheckMultiByte(ForwardChar(liCommentLength)) then
+      begin
+        liCommentLength := liCommentLength + 2;
+        continue;
+      end;
+
+      if CharIsReturn(ForwardChar(liCommentLength)) then
+        break;
+
+      inc(liCommentLength);
+    end;
+  end;
+
 begin
   Result := False;
   if Current <> '/' then
@@ -262,8 +340,7 @@ begin
 
   liCommentLength := 2;
 
-  while (not EndOfFileAfter(liCommentLength)) and (not CharIsReturn(ForwardChar(liCommentLength))) do
-    Inc(liCommentLength);
+  MoveToCommentEnd;
 
   pcToken.TokenType := ttComment;
   pcToken.CommentStyle := eDoubleSlash;

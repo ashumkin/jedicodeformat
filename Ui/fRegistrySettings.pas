@@ -65,6 +65,7 @@ type
     mFiles: TJvMemo;
     mDirs: TJvMemo;
     rgWriteSettingsFile: TRadioGroup;
+    cbCheckMultibyteChars: TCheckBox;
     procedure btnOKClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnClearMRUClick(Sender: TObject);
@@ -117,6 +118,8 @@ begin
   eMRUMaxItems.Value := lcSet.MRUMaxItems;
   rgShowParseTree.ItemIndex := Ord(lcSet.ShowParseTreeOption);
 
+  cbCheckMultibyteChars.Checked := lcSet.CheckMultiByteChars;
+
   { mru }
   btnClearMRU.Enabled := GetRegSettings.CanClearMRU;
 
@@ -155,6 +158,8 @@ begin
 
   lcSet.MRUMaxItems := eMRUMaxItems.Value;
   lcSet.ShowParseTreeOption := TShowParseTreeOption(rgShowParseTree.ItemIndex);
+
+  lcSet.CheckMultiByteChars := cbCheckMultibyteChars.Checked;
 
   { log files }
   lcSet.LogLevel := TLogLevel(rgLogLevel.ItemIndex);

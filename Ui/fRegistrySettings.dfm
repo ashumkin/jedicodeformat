@@ -70,7 +70,6 @@ object fmRegistrySettings: TfmRegistrySettings
         EditText = '0'
         MaxLength = 2
         MaxValue = 12.000000000000000000
-        PasswordChar = #0
         TabOrder = 1
         Text = '0'
         Value = 0
@@ -107,6 +106,14 @@ object fmRegistrySettings: TfmRegistrySettings
           '&Fail quietly'
           '&Never')
         TabOrder = 4
+      end
+      object cbCheckMultibyteChars: TCheckBox
+        Left = 216
+        Top = 44
+        Width = 153
+        Height = 17
+        Caption = 'Check for &Multibyte chars'
+        TabOrder = 5
       end
     end
     object tsLogFile: TTabSheet

@@ -211,6 +211,8 @@ type
     procedure TestParse_TestPackage;
     procedure TestParse_TestProcBlankLines;
 
+    procedure TestParse_TestDephiNetUses;
+
   end;
 
 implementation
@@ -1111,6 +1113,11 @@ begin
   TestParseFile('TestCondReturns', 92);
 end;
 
+
+procedure TTestFileParse.TestParse_TestDephiNetUses;
+begin
+  TestParseFile('TestDephiNetUses', 143);
+end;
 
 initialization
   TestFramework.RegisterTest(TTestFileParse.Suite);

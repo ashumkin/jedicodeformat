@@ -35,6 +35,7 @@ type
   private
     fbSaveSortInterfaceUses: Boolean;
     fbSaveSortImplementationUses: Boolean;
+    fbSaveSortProgramUses: Boolean;
     fbSaveBreakUsesSortOnReturn: Boolean;
     fbSaveBreakUsesSortOnComment: Boolean;
     feSaveUsesSortOrder: TUsesSortOrder;
@@ -65,6 +66,8 @@ type
 
     procedure TestSortByCommentSection1;
     procedure TestSortByCommentSection2;
+
+    procedure TestProgram;
 
     procedure TestIfDef1;
     procedure TestIfDef2;
@@ -102,6 +105,8 @@ begin
   { save the sort uses state before we monkey with it }
   fbSaveSortInterfaceUses := FormatSettings.Transform.SortInterfaceUses;
   fbSaveSortImplementationUses := FormatSettings.Transform.SortImplementationUses;
+  fbSaveSortProgramUses := FormatSettings.Transform.SortProgramUses;
+
   fbSaveBreakUsesSortOnReturn := FormatSettings.Transform.BreakUsesSortOnReturn;
   fbSaveBreakUsesSortOnComment := FormatSettings.Transform.BreakUsesSortOnComment;
   feSaveUsesSortOrder := FormatSettings.Transform.UsesSortOrder;
@@ -113,6 +118,8 @@ begin
   { restore sort uses state }
   FormatSettings.Transform.SortInterfaceUses := fbSaveSortInterfaceUses;
   FormatSettings.Transform.SortImplementationUses := fbSaveSortImplementationUses;
+  FormatSettings.Transform.SortProgramUses := fbSaveSortProgramUses;
+
   FormatSettings.Transform.BreakUsesSortOnReturn := fbSaveBreakUsesSortOnReturn;
   FormatSettings.Transform.BreakUsesSortOnComment := fbSaveBreakUsesSortOnComment;
   FormatSettings.Transform.UsesSortOrder := feSaveUsesSortOrder;
@@ -399,6 +406,38 @@ const
 begin
   SetTestSortState;
 
+  TestProcessResult(TSortUses, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestSortUses.TestProgram;
+const
+  IN_UNIT_TEXT =
+  ' program Project1;' + AnsiLineBreak + AnsiLineBreak +
+  '{$APPTYPE CONSOLE}' + AnsiLineBreak + AnsiLineBreak +
+  'uses' + AnsiLineBreak +
+  '  SysUtils, Windows, Controls, Messages; ' +  AnsiLineBreak + AnsiLineBreak +
+  'begin' + AnsiLineBreak +
+  '  Writeln(''Hello World !'');' + AnsiLineBreak +
+  'end.';
+
+  OUT_UNIT_TEXT =
+  ' program Project1;' + AnsiLineBreak + AnsiLineBreak +
+  '{$APPTYPE CONSOLE}' + AnsiLineBreak + AnsiLineBreak +
+  'uses' + AnsiLineBreak +
+  '  Controls, Messages, SysUtils, Windows; ' +  AnsiLineBreak + AnsiLineBreak +
+  'begin' + AnsiLineBreak +
+  '  Writeln(''Hello World !'');' + AnsiLineBreak +
+  'end.';
+
+begin
+  SetTestSortState;
+  FormatSettings.Transform.SortProgramUses := False;
+
+  { no sorting for a program uses clause }
+  TestProcessResult(TSortUses, IN_UNIT_TEXT, IN_UNIT_TEXT);
+
+  { now it will be sorted }
+  FormatSettings.Transform.SortProgramUses := True;
   TestProcessResult(TSortUses, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
