@@ -67,7 +67,6 @@ const
     'implementation' + AnsiLineBreak;
   UNIT_FOOTER      = AnsiLineBreak + 'end.';
 
-
   SPACED_INTERFACE_HEADER = 'unit Test;' + AnsiLineBreak + AnsiLineBreak +
     'interface' + AnsiLineBreak + AnsiLineBreak;
 
