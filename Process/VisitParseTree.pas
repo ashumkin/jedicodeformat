@@ -41,17 +41,6 @@ type
     NewItem2: TObject;
   end;
 
-  IVisitParseTree = interface
-
-    { there are two kinds of node - interior (parse tree node)
-      and leaf (source token) }
-    procedure PreVisitParseTreeNode(const pcNode: TObject;
-      var prVisitResult: TRVisitResult);
-    procedure PostVisitParseTreeNode(const pcNode: TObject);
-    procedure VisitSourceToken(const pcToken: TObject; var prVisitResult: TRVisitResult);
-
-  end;
-
 procedure ClearVisitResult(var prVisitResult: TRVisitResult);
 
 implementation

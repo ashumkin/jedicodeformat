@@ -38,7 +38,6 @@ type
 
     procedure VisitSourceToken(const pcToken: TObject;
       var prVisitResult: TRVisitResult); override;
-
   end;
 
 implementation
@@ -49,6 +48,8 @@ uses
 
 constructor TVisitSetXY.Create;
 begin
+  inherited;
+  
   // text coords start at 1,1
   fiX := 1;
   fiY := 1;

@@ -32,7 +32,7 @@ interface
 
 uses
   {delphi }Contnrs,
-  { local }Tokens, VisitParseTree, ParseTreeNodeType, Nesting;
+  { local }Tokens, ParseTreeNodeType, Nesting;
 
 
 type
@@ -123,14 +123,7 @@ type
     function IsOnRightOf(const peRootNodeType, peNode: TParseTreeNodeType): boolean;
       overload;
 
-
     function Describe: string; virtual;
-
-    procedure AcceptVisitor(const pcVisitor: IVisitParseTree;
-      var prVisitResults: TRVisitResult); virtual;
-
-    { visit self and all child nodes }
-    procedure VisitTree(const pcVisitor: IVisitParseTree);
 
     property Parent: TParseTreeNode Read fcParent Write fcParent;
     property ChildNodes[const piIndex: integer]: TParseTreeNode Read GetChildNodes;
@@ -566,89 +559,6 @@ function TParseTreeNode.IsOnRightOf(const peRootNodeType, peNode:
   TParseTreeNodeType): boolean;
 begin
   Result := IsOnRightOf([peRootNodeType], [peNode])
-end;
-
-procedure TParseTreeNode.AcceptVisitor(const pcVisitor: IVisitParseTree;
-  var prVisitResults: TRVisitResult);
-begin
-  Assert(pcVisitor <> nil);
-  pcVisitor.PreVisitParseTreeNode(self, prVisitResults);
-end;
-
-procedure TParseTreeNode.VisitTree(const pcVisitor: IVisitParseTree);
-const
-  { if a node has more than this number of direct children, then something is very wrong
-   can have lots in some "header" units that just list a lot of consts
-  }
-  MAX_NODE_CHILDREN = 32768;
-var
-  liLoop, liNewIndex: integer;
-  lcNode: TParseTreeNode;
-  lrVisitResult: TRVisitResult;
-begin
-  ClearVisitResult(lrVisitResult);
-  AcceptVisitor(pcVisitor, lrVisitResult);
-  // process the results
-
-  case lrVisitResult.Action of
-    aNone: ;
-    aDelete:
-    begin
-       // remove self - do it via the parent
-      Parent.RemoveChild(self);
-       // can't go on here, no more self
-      exit;
-    end;
-    aInsertAfter:
-    begin
-      // must have a new item
-      Assert(lrVisitResult.NewItem <> nil);
-      Parent.InsertChild(Parent.IndexOfChild(self) + 1,
-        TParseTreeNode(lrVisitResult.NewItem));
-      if lrVisitResult.NewItem2 <> nil then
-        Parent.InsertChild(Parent.IndexOfChild(self) + 2,
-          TParseTreeNode(lrVisitResult.NewItem2));
-    end;
-    aInsertBefore:
-    begin
-      // must have a new item
-      Assert(lrVisitResult.NewItem <> nil);
-
-      Parent.InsertChild(Parent.IndexOfChild(self),
-        TParseTreeNode(lrVisitResult.NewItem));
-      if lrVisitResult.NewItem2 <> nil then
-        Parent.InsertChild(Parent.IndexOfChild(self),
-          TParseTreeNode(lrVisitResult.NewItem2));
-    end;
-    else
-      Assert(False, 'Unhandled action ' + IntToStr(Ord(lrVisitResult.action)));
-  end;
-
-
-  liLoop := 0;
-  while liLoop < ChildNodeCount do
-  begin
-    lcNode := ChildNodes[liLoop];
-    lcNode.VisitTree(pcVisitor);
-
-    { has this node been removed?
-      if so, don't increment counter, as the next item will now be in this slot }
-    liNewIndex := IndexOfChild(lcNode);
-
-    if liNewIndex >= 0 then
-     // proceed to next one
-      liLoop := liNewIndex + 1;
-    { else case is that liNewIndex is -1 as the current item has been deleted.
-      Stay at same index as the next item will now be in this slot }
-
-    if ChildNodeCount > MAX_NODE_CHILDREN then
-    begin
-      // some parse or insert process has gone bezerk
-      raise Exception.Create('Too many child nodes ' + IntToStr(ChildNodeCount));
-    end;
-  end;
-
-  pcVisitor.PostVisitParseTreeNode(self);
 end;
 
 function TParseTreeNode.FirstLeaf: TParseTreeNode;

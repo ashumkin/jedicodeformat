@@ -59,6 +59,13 @@ function SetFileNameExtension(const psFileName, psExt: string): string;
 procedure AdvanceTextPos(const AText: string; var ARow, ACol: integer);
 function LastLineLength(const AString: string): integer;
 
+{$IFDEF DELPHI_5}
+{ these functions are in Delphi 6 and up }
+function IncludeTrailingPathDelimiter(const psPath: string): string;
+function FileIsReadOnly(const psFile: string): boolean;
+{$ENDIF}
+
+
 implementation
 
 uses
@@ -344,5 +351,24 @@ begin
   else
     Result := Length(AString) - (Pos1 + Length(AnsiLineBreak));
 end;
+
+{$IFDEF DELPHI_5}
+
+{ these functions are in Delphi 6 and up }
+
+function IncludeTrailingPathDelimiter(const psPath: string): string;
+begin
+  Result := psPath;
+  if StrRight(psPath, 1) <> PathSeparator then
+    Result := Result + PathSeparator;
+end;
+
+{ dummy for D5}
+function FileIsReadOnly(const psFile: string): boolean;
+begin
+  Result := False;
+end;
+
+{$ENDIF}
 
 end.

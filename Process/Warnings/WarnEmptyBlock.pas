@@ -36,13 +36,24 @@ type
 
   TWarnEmptyBlock = class(TWarning)
   public
+    constructor Create; override;
+
     procedure PreVisitParseTreeNode(const pcNode: TObject;
       var prVisitResult: TRVisitResult); override;
   end;
 
 implementation
 
-uses ParseTreeNode, ParseTreeNodeType;
+uses ParseTreeNode, ParseTreeNodeType, BaseVisitor;
+
+constructor TWarnEmptyBlock.Create;
+begin
+  inherited;
+
+  HasPreVisit := True;
+  HasPostVisit := False;
+  HasSourceTokenVisit := False;
+end;
 
 procedure TWarnEmptyBlock.PreVisitParseTreeNode(const pcNode: TObject;
   var prVisitResult: TRVisitResult);

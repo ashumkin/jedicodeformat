@@ -646,10 +646,12 @@ begin
   begin
     lcNext := fcTokens.SourceTokens[liLoop];
 
+    { !!! debug temp
     if liTotalWidth - (lcNext.XPosition - 1) < 0 then
     begin
       Self := Self;
     end;
+    }
 
     // xpos is indexed from 1
     liScoreAfter := NearEndScore(liTotalWidth - (lcNext.XPosition - 2));

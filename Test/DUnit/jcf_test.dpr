@@ -158,8 +158,9 @@ uses
   TestTextAfterUnitEnd in 'TestTextAfterUnitEnd.pas',
   TestCaseReturns in 'TestCaseReturns.pas',
   TestIndentation in 'TestIndentation.pas',
-  MaxSpaces in '..\..\Process\Spacing\MaxSpaces.pas';
-  
+  MaxSpaces in '..\..\Process\Spacing\MaxSpaces.pas',
+  TreeWalker in '..\..\Process\TreeWalker.pas';
+
 {$R *.res}
 
 begin

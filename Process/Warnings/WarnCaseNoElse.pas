@@ -42,6 +42,8 @@ type
 
   TWarnCaseNoElse = class(TWarning)
   public
+    constructor Create; override;
+
     procedure PreVisitParseTreeNode(const pcNode: TObject;
       var prVisitResult: TRVisitResult); override;
   end;
@@ -50,9 +52,18 @@ type
 implementation
 
 uses
-  ParseTreeNode, ParseTreeNodeType;
+  ParseTreeNode, ParseTreeNodeType, BaseVisitor;
 
 
+
+constructor TWarnCaseNoElse.Create;
+begin
+  inherited;
+
+  HasPreVisit := True;
+  HasPostVisit := False;
+  HasSourceTokenVisit := True;
+end;
 
 procedure TWarnCaseNoElse.PreVisitParseTreeNode(const pcNode: TObject;
   var prVisitResult: TRVisitResult);

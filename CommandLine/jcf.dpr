@@ -137,7 +137,8 @@ uses
   UsesClauseInsert in '..\Process\Transform\UsesClauseInsert.pas',
   UsesClauseRemove in '..\Process\Transform\UsesClauseRemove.pas',
   MaxSpaces in '..\Process\Spacing\MaxSpaces.pas',
-  SetComments in '..\Settings\SetComments.pas';
+  SetComments in '..\Settings\SetComments.pas',
+  TreeWalker in '..\Process\TreeWalker.pas';
 
 const
   ABOUT_COMMANDLINE =

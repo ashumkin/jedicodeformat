@@ -28,7 +28,7 @@ interface
 
 uses
   { local }
-  Tokens, ParseTreeNode, VisitParseTree;
+  Tokens, ParseTreeNode;
 
 type
 
@@ -53,9 +53,6 @@ type
 
     function Describe: string; override;
     function DescribePosition: string;
-
-    procedure AcceptVisitor(const pcVisitor: IVisitParseTree;
-      var prVisitResults: TRVisitResult); override;
 
     function IsSolid: boolean;
 
@@ -170,14 +167,6 @@ end;
 function TSourceToken.IsSolid: boolean;
 begin
   Result := not (TokenType in NotSolidTokens);
-end;
-
-
-procedure TSourceToken.AcceptVisitor(const pcVisitor: IVisitParseTree;
-  var prVisitResults: TRVisitResult);
-begin
-  Assert(pcVisitor <> nil);
-  pcVisitor.VisitSourceToken(self, prVisitResults);
 end;
 
 

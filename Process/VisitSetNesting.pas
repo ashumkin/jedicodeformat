@@ -54,7 +54,6 @@ type
   end;
 
 
-
 implementation
 
 uses SysUtils,
@@ -68,6 +67,10 @@ begin
   fcRunningTotals := TNestingLevelList.Create;
   fcIndentNodes   := TObjectList.Create;
   fcIndentNodes.OwnsObjects := False;
+
+  HasPreVisit := True;
+  HasPostVisit := True;
+  HasSourceTokenVisit := True;
 end;
 
 destructor TVisitSetNestings.Destroy;

@@ -27,12 +27,14 @@ interface
 
 uses
   { delphi }
-  ParseTreeNode, BaseVisitor, ConvertTypes;
+  ParseTreeNode, BaseVisitor, ConvertTypes, TreeWalker;
 
 type
 
   TAllProcesses = class(TObject)
   private
+    fcTreeWalker: TTreeWalker;
+
     fcOnMessages: TStatusMessageProc;
     fcRoot: TParseTreeNode;
 
@@ -52,6 +54,7 @@ type
     procedure OnceOffs;
   public
     constructor Create;
+    destructor Destroy; override;
 
     procedure Execute(const pcRoot: TParseTreeNode);
 
@@ -62,7 +65,7 @@ implementation
 
 uses
   { delphi }
-  Forms,
+  Forms, SysUtils,
   { local }
   JcfSettings, SetClarify, VisitSetXY,
   { once-offs }
@@ -100,6 +103,14 @@ constructor TAllProcesses.Create;
 begin
   inherited;
   fcOnMessages := nil;
+  fcTreeWalker := TTreeWalker.Create;
+end;
+
+
+destructor TAllProcesses.Destroy;
+begin
+  FreeAndNil(fcTreeWalker);
+  inherited;
 end;
 
 procedure TAllProcesses.ApplyVisitorType(const pcVisitorType: TTreeNodeVisitorType);
@@ -116,7 +127,7 @@ begin
       if (lc is TWarning) then
         (lc as TWarning).OnWarning := OnMessage;
 
-      fcRoot.VisitTree(lc);
+      fcTreeWalker.Visit(fcRoot, lc);
 
       if lc.FinalSummary(lsMessage) then
         OnMessage('', lsMessage, -1, -1);
@@ -126,7 +137,7 @@ begin
   finally
     lc.Free;
   end;
-end;
+end;                                  
 
 procedure TAllProcesses.Execute(const pcRoot: TParseTreeNode);
 begin

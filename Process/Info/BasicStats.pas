@@ -51,6 +51,7 @@ type
 
   protected
   public
+    constructor Create; override;
 
     procedure PreVisitParseTreeNode(const pcNode: TObject;
       var prVisitResult: TRVisitResult); override;
@@ -93,6 +94,16 @@ begin
     Result := DisplayFloat(exNum * 100 / exDenom) + '%';
 end;
 
+
+
+constructor TBasicStats.Create;
+begin
+  inherited;
+
+  HasPreVisit := True;
+  HasPostVisit := False;
+  HasSourceTokenVisit := True;
+end;
 
 procedure TBasicStats.PreVisitParseTreeNode(const pcNode: TObject;
   var prVisitResult: TRVisitResult);

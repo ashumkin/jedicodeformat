@@ -51,7 +51,7 @@ type
 
 implementation
 
-uses VisitSetXY, VisitSetNesting;
+uses VisitSetXY, VisitSetNesting, TreeWalker;
 
 constructor TTestConverter.Create;
 begin
@@ -64,15 +64,18 @@ end;
 procedure TTestConverter.ApplyProcesses;
 var
   lcProcess: TBaseTreeNodeVisitor;
+  lcTreeWalker: TTreeWalker;
 begin
   if RunAll then
     inherited
   else
   begin
+    lcTreeWalker := TTreeWalker.Create;
+
     // apply a visit setXY first
     lcProcess := TVisitSetXY.Create;
     try
-      GetRoot.VisitTree(lcProcess);
+      lcTreeWalker.Visit(GetRoot, lcProcess);
     finally
       lcProcess.Free;
     end;
@@ -80,7 +83,7 @@ begin
     // and set up nesting levels
     lcProcess := TVisitSetNestings.Create;
     try
-      GetRoot.VisitTree(lcProcess);
+      lcTreeWalker.Visit(GetRoot, lcProcess);
     finally
       lcProcess.Free;
     end;
@@ -88,10 +91,12 @@ begin
     // then apply the process
     lcProcess := SingleProcess.Create;
     try
-      GetRoot.VisitTree(lcProcess);
+      lcTreeWalker.Visit(GetRoot, lcProcess);
     finally
       lcProcess.Free;
     end;
+
+    lcTreeWalker.Free;
   end;
 end;
 

@@ -49,6 +49,8 @@ type
   private
     procedure WarnAllAssigns(const psFnName: string; const pcRoot: TObject);
   public
+    constructor Create; override;
+
     procedure PreVisitParseTreeNode(const pcNode: TObject;
       var prVisitResult: TRVisitResult); override;
   end;
@@ -58,7 +60,8 @@ implementation
 
 uses
   { delphi }SysUtils,
-  ParseTreeNode, ParseTreeNodeType, SourceToken, Tokens, TokenUtils;
+  ParseTreeNode, ParseTreeNodeType, SourceToken, Tokens, TokenUtils,
+  BaseVisitor;
 
 
 
@@ -105,6 +108,15 @@ begin
       break;
 
   end;
+end;
+
+constructor TWarnAssignToFunctionName.Create;
+begin
+  inherited;
+
+  HasPreVisit := True;
+  HasPostVisit := False;
+  HasSourceTokenVisit := False;
 end;
 
 procedure TWarnAssignToFunctionName.PreVisitParseTreeNode(const pcNode: TObject;

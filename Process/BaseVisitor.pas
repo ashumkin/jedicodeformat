@@ -32,19 +32,32 @@ uses VisitParseTree;
 
 type
 
-  TBaseTreeNodeVisitor = class(TInterfacedObject, IVisitParseTree)
+  TBaseTreeNodeVisitor = class(TObject)
+  private
+    { which visits do I want to do?
+      This is for speed - don't do the virtual fn call if not needed }
+    fbHasPreVisit: Boolean;
+    fbHasPostVisit: Boolean;
+    fbHasSourceTokenVisit: Boolean;
 
   public
     constructor Create; virtual;
 
+    { these are called when visiting interior nodes before and after thier children }
     procedure PreVisitParseTreeNode(const pcNode: TObject;
       var prVisitResult: TRVisitResult); virtual;
     procedure PostVisitParseTreeNode(const pcNode: TObject); virtual;
+
+    { this is called when visiting a leaf node (ie a source token) }
     procedure VisitSourceToken(const pcToken: TObject;
       var prVisitResult: TRVisitResult); virtual;
 
     function FinalSummary(var psMessage: string): boolean; virtual;
     function IsIncludedInSettings: boolean; virtual;
+
+    property HasPreVisit: boolean read fbHasPreVisit write fbHasPreVisit;
+    property HasPostVisit: boolean read fbHasPostVisit write fbHasPostVisit;
+    property HasSourceTokenVisit: boolean read fbHasSourceTokenVisit write fbHasSourceTokenVisit;
   end;
 
 type
@@ -57,6 +70,11 @@ implementation
 constructor TBaseTreeNodeVisitor.Create;
 begin
   inherited;
+
+  { most visitors just touch the leaves }
+  fbHasPreVisit := False;
+  fbHasPostVisit := False;
+  fbHasSourceTokenVisit := True;
 end;
 
 function TBaseTreeNodeVisitor.FinalSummary(var psMessage: string): boolean;

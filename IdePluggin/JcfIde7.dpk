@@ -181,6 +181,7 @@ contains
   SetComments in '..\Settings\SetComments.pas',
   RemoveConsecutiveReturns in '..\Process\Returns\RemoveConsecutiveReturns.pas',
   frBlankLines in '..\Ui\Settings\frBlankLines.pas' {fBlankLines},
-  MaxSpaces in '..\Process\Spacing\MaxSpaces.pas';
+  MaxSpaces in '..\Process\Spacing\MaxSpaces.pas',
+  TreeWalker in '..\Process\TreeWalker.pas';
 
 end.
