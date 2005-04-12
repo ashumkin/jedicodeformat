@@ -25,7 +25,6 @@ uses
   Forms,
   GUITestRunner {GUITestRunner},
   TestFramework,
-  BuildParseTree in '..\..\Parse\BuildParseTree.pas',
   BuildTokenList in '..\..\Parse\BuildTokenList.pas',
   ParseError in '..\..\Parse\ParseError.pas',
   ParseTreeNode in '..\..\Parse\ParseTreeNode.pas',
@@ -161,6 +160,7 @@ uses
   TestFormatPart in 'TestFormatPart.pas',
   SortUses in '..\..\Process\Transform\SortUses.pas',
   TestSortUses in 'TestSortUses.pas',
+  BuildParseTree in '..\..\Parse\BuildParseTree.pas',
   SortUsesData in '..\..\Process\Transform\SortUsesData.pas';
 
 {$R *.res}

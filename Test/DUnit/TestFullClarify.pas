@@ -1,7 +1,4 @@
 unit TestFullClarify;
-
-{ test the full clarify - all processes }
-
 {(*}
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code 
@@ -24,6 +21,9 @@ under the License.
 {*)}
 
 interface
+
+{ test the full clarify - all processes }
+
 
 uses
   TestFile;
@@ -208,9 +208,14 @@ type
     procedure TestClarify_TestPackage;
     procedure TestClarify_TestProcBlankLines;
 
-    procedure TestClarify_TestDephiNetUses;
+    procedure TestClarify_TestDelphiNetUses;
     procedure TestClarify_TestConstBug;
     procedure TestClarify_TestForIn;
+    procedure TestClarify_TestDottedName;
+    procedure TestClarify_TestDelphiNetClass;
+    procedure TestClarify_TestDelphiNetConst;
+    procedure TestClarify_TestDelphiNetStatic;
+    procedure TestClarify_TestTestDotNetForm1;
 
     procedure TestClarify_TestCases;
   end;
@@ -234,15 +239,17 @@ uses
 
 procedure TFullTestClarify.TestClarifyFile(const psName: string);
 var
+  liLastDotPos: integer;
   lsInName, lsClearFileName: string;
 begin
   Assert(psName <> '');
 
   { does it have an file extension? }
-  if Pos('.', psName) > 0 then
+  liLastDotPos := StrLastPos('.', psName);
+  if liLastDotPos > 0 then
   begin
     lsInName := psName;
-    lsClearFileName := StrBefore('.', psName) + '.out';
+    lsClearFileName := StrLeft(psName, liLastDotPos) + 'out';
   end
   else
   begin
@@ -1105,9 +1112,9 @@ begin
   TestClarifyFile('TestCondReturns');
 end;
 
-procedure TFullTestClarify.TestClarify_TestDephiNetUses;
+procedure TFullTestClarify.TestClarify_TestDelphiNetUses;
 begin
-  TestClarifyFile('TestDephiNetUses');
+  TestClarifyFile('TestDelphiNetUses');
 end;
 
 procedure TFullTestClarify.TestClarify_TestConstBug;
@@ -1118,6 +1125,31 @@ end;
 procedure TFullTestClarify.TestClarify_TestForIn;
 begin
   TestClarifyFile('TestForIn');
+end;
+
+procedure TFullTestClarify.TestClarify_TestDottedName;
+begin
+  TestClarifyFile('test.dotted.name.pas');
+end;
+
+procedure TFullTestClarify.TestClarify_TestDelphiNetClass;
+begin
+  TestClarifyFile('TestDelphiNetClass');
+end;
+
+procedure TFullTestClarify.TestClarify_TestDelphiNetConst;
+begin
+  TestClarifyFile('TestDelphiNetConst');
+end;
+
+procedure TFullTestClarify.TestClarify_TestDelphiNetStatic;
+begin
+  TestClarifyFile('TestDelphiNetStatic');
+end;
+
+procedure TFullTestClarify.TestClarify_TestTestDotNetForm1;
+begin
+  TestClarifyFile('TestDotNetForm1');
 end;
 
 initialization

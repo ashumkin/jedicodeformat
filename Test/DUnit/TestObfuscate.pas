@@ -1,5 +1,6 @@
 unit TestObfuscate;
 
+
 {(*}
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code 
@@ -23,6 +24,8 @@ under the License.
 
 interface
 
+{ obfuscate and reclarify all test files }
+
 uses
   TestFrameWork;
 
@@ -39,7 +42,6 @@ type
     procedure Setup; override;
 
   published
-
     procedure TestObfuscate_Empty1;
     procedure TestObfuscate_fFormTest;
     procedure TestObfuscate_fBracketProp;
@@ -210,9 +212,15 @@ type
     procedure TestObfuscate_TestCases;
     procedure TestObfuscate_TestProcBlankLines;
 
-    procedure TestObfuscate_TestDephiNetUses;
+    procedure TestObfuscate_TestDelphiNetUses;
 
     procedure TestObfuscate_TestConstBug;
+    procedure TestObfuscate_TestDottedName;
+    procedure TestObfuscate_TestDelphiNetClass;
+    procedure TestObfuscate_TestDelphiNetConst;
+    procedure TestObfuscate_TestDelphiNetStatic;
+    procedure TestObfuscate_TestTestDotNetForm1;
+
     procedure TestObfuscate_TestForIn;
   end;
 
@@ -315,7 +323,8 @@ end;
 
 procedure TTestObfuscate.TestObfuscateFile(const psName: string);
 var
-  lsInName, lsObsFileName: string;
+  liLastDotPos: integer;
+  lsInName, lsPrefix, lsObsFileName: string;
   lsRemadeFileName: string;
 begin
   Assert(psName <> '');
@@ -323,9 +332,11 @@ begin
   { does it have an file extension? }
   if Pos('.', psName) > 0 then
   begin
+    liLastDotPos := StrLastPos('.', psName);
     lsInName      := psName;
-    lsObsFileName := StrBefore('.', psName) + '.obs';
-    lsRemadeFileName := StrBefore('.', psName) + '.out';
+    lsPrefix := StrLeft(psName, liLastDotPos);
+    lsObsFileName := lsPrefix + 'obs';
+    lsRemadeFileName := lsPrefix + 'out';
   end
   else
   begin
@@ -1151,9 +1162,9 @@ begin
   TestObfuscateFile('TestCondReturns');
 end;
 
-procedure TTestObfuscate.TestObfuscate_TestDephiNetUses;
+procedure TTestObfuscate.TestObfuscate_TestDelphiNetUses;
 begin
-  TestObfuscateFile('TestDephiNetUses');
+  TestObfuscateFile('TestDelphiNetUses');
 end;
 
 procedure TTestObfuscate.TestObfuscate_TestConstBug;
@@ -1164,6 +1175,31 @@ end;
 procedure TTestObfuscate.TestObfuscate_TestForIn;
 begin
   TestObfuscateFile('TestForIn');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestDottedName;
+begin
+  TestObfuscateFile('test.dotted.name.pas');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestDelphiNetClass;
+begin
+  TestObfuscateFile('TestDelphiNetClass');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestDelphiNetConst;
+begin
+  TestObfuscateFile('TestDelphiNetConst');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestDelphiNetStatic;
+begin
+  TestObfuscateFile('TestDelphiNetStatic');
+end;
+
+procedure TTestObfuscate.TestObfuscate_TestTestDotNetForm1;
+begin
+  TestObfuscateFile('TestDotNetForm1');
 end;
 
 initialization

@@ -48,6 +48,8 @@ type
     procedure TestNestedIf2;
     procedure TestNestedIf3;
     procedure TestNestedIf4;
+
+    procedure TestBug1174572;
   end;
 
 implementation
@@ -497,6 +499,30 @@ begin
 end;
 
 
+const
+  TEST_1174572_IN =
+    UNIT_HEADER +
+    '  if i > 3 then' + AnsiLineBreak +
+    '  begin' + AnsiLineBreak +
+    '    if i > 5 then' + AnsiLineBreak +
+    '      ShowMessage(''foo'')' + AnsiLineBreak +
+    '    else if Condition_C then' + AnsiLineBreak +
+    '      ShowMessage(''fish'')' + AnsiLineBreak +
+    '  end' + AnsiLineBreak +
+    '  else' + AnsiLineBreak +
+    '    ShowMessage(''spon'');' +
+    UNIT_FOOTER;
+
+
+procedure TTestAddBeginEnd.TestBug1174572;
+begin
+  { sourceforge bug [1174572 ]
+    Remove begin and end from around single statement bug
+   Removing the begin-end changes the meaning and should not be done }
+  FormatSettings.Transform.BeginEndStyle := eNever;
+
+  TestProcessResult(TAddBeginEnd, TEST_1174572_IN, TEST_1174572_IN);
+end;
 
 initialization
   TestFramework.RegisterTest('Processes', TTestAddBeginEnd.Suite);

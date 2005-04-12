@@ -90,8 +90,8 @@ MaxStackSize=1048576
 ImageBase=4194304
 ExeDescription=
 [Directories]
-OutputDir=..\..\Output
-UnitOutputDir=..\..\Output
+OutputDir=C:\Code\Jcf\Output
+UnitOutputDir=C:\Code\Jcf\Output
 PackageDLLOutputDir=
 PackageDCPOutputDir=
 SearchPath=
@@ -134,3 +134,12 @@ OriginalFilename=
 ProductName=
 ProductVersion=1.0.0.0
 Comments=
+[HistoryLists\hlUnitAliases]
+Count=1
+Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
+[HistoryLists\hlUnitOutputDirectory]
+Count=1
+Item0=C:\Code\Jcf\Output
+[HistoryLists\hlOutputDirectorry]
+Count=1
+Item0=C:\Code\Jcf\Output

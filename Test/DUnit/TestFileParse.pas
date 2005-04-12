@@ -1,5 +1,4 @@
 unit TestFileParse;
-
 {(*}
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code 
@@ -22,6 +21,8 @@ under the License.
 {*)}
 
 interface
+
+{ test that all test files can parse }
 
 uses
   TestFrameWork;
@@ -212,6 +213,11 @@ type
     procedure TestParse_TestForIn;
 
     procedure TestParse_TestConstBug;
+    procedure TestParse_TestDottedName;
+    procedure TestParse_TestDelphiNetClass;
+    procedure TestParse_TestDelphiNetConst;
+    procedure TestParse_TestDelphiNetStatic;
+    procedure TestParse_TestTestDotNetForm1;
 
     procedure TestParse_TestCases;
     procedure TestParse_TestPackage;
@@ -696,7 +702,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestCases;
 begin
-  TestParseFile('Testcases.dpr', 1241);
+  TestParseFile('Testcases.dpr', 1253);
 end;
 
 
@@ -1119,7 +1125,7 @@ end;
 
 procedure TTestFileParse.TestParse_TestDephiNetUses;
 begin
-  TestParseFile('TestDephiNetUses', 143);
+  TestParseFile('TestDelphiNetUses', 143);
 end;
 
 procedure TTestFileParse.TestParse_TestConstBug;
@@ -1130,6 +1136,31 @@ end;
 procedure TTestFileParse.TestParse_TestForIn;
 begin
   TestParseFile('TestForIn', 76);
+end;
+
+procedure TTestFileParse.TestParse_TestDottedName;
+begin
+  TestParseFile('test.dotted.name.pas', 23);
+end;
+
+procedure TTestFileParse.TestParse_TestDelphiNetClass;
+begin
+  TestParseFile('TestDelphiNetClass', 145);
+end;
+
+procedure TTestFileParse.TestParse_TestDelphiNetConst;
+begin
+  TestParseFile('TestDelphiNetConst', 122);
+end;
+
+procedure TTestFileParse.TestParse_TestDelphiNetStatic;
+begin
+  TestParseFile('TestDelphiNetStatic', 321);
+end;
+
+procedure TTestFileParse.TestParse_TestTestDotNetForm1;
+begin
+  TestParseFile('TestDotNetForm1', 356);
 end;
 
 initialization
