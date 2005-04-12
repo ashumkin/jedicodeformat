@@ -353,6 +353,7 @@ begin
   Result := (pt.TokenType in ClassDirectives) and
     pt.HasParentNode(nClassVisibility, 1) and
     ( not (pt.HasParentNode(ProcedureNodes + [nProperty])));
+
 end;
 
 function RoundBracketLevel(const pt: TSourceToken): integer;

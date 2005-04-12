@@ -146,6 +146,7 @@ type
     ttAbstract,
     ttFar,
     ttPrivate,
+    ttStrict,
     ttStdcall,
     ttAssembler,
     ttForward,
@@ -182,6 +183,11 @@ type
     { Delphi 6 directives }
     ttDeprecated,
     ttPlatform,
+
+    { delphi.net directives }
+    ttStatic,
+    ttSealed,
+
 
     { built-in constants }
     ttNil,
@@ -313,10 +319,10 @@ const
     ttVirtual, ttCdecl, ttMessage, ttName, ttRegister, ttDispId,
     ttNear, ttDynamic, ttExport, ttOverride, ttResident, ttLocal,
     ttOverload, ttReintroduce,
-    ttDeprecated, ttLibrary, ttPlatform];
+    ttDeprecated, ttLibrary, ttPlatform, ttStatic];
 
   ClassDirectives: TTokenTypeSet =
-    [ttPrivate, ttProtected, ttPublic, ttPublished, ttAutomated];
+    [ttPrivate, ttProtected, ttPublic, ttPublished, ttAutomated, ttStrict];
   HintDirectives: TTokenTypeSet  = [ttDeprecated, ttLibrary, ttPlatform];
 
   AllDirectives: TTokenTypeSet = [ttAbsolute, ttExternal, ttPascal, ttSafecall,
@@ -512,6 +518,7 @@ begin
   AddKeyword('class', wtReservedWord, ttClass);
   AddKeyword('const', wtReservedWord, ttConst);
   AddKeyword('constructor', wtReservedWord, ttConstructor);
+
   AddKeyword('destructor', wtReservedWord, ttDestructor);
   AddKeyword('dispinterface', wtReservedWord, ttDispinterface);
   AddKeyword('do', wtReservedWord, ttDo);
@@ -573,6 +580,7 @@ begin
   AddKeyword('abstract', wtReservedWordDirective, ttAbstract);
   AddKeyword('far', wtReservedWordDirective, ttFar);
   AddKeyword('private', wtReservedWordDirective, ttPrivate);
+  AddKeyword('strict', wtReservedWordDirective, ttStrict);
   AddKeyword('stdcall', wtReservedWordDirective, ttStdCall);
   AddKeyword('assembler', wtReservedWordDirective, ttAssembler);
   AddKeyword('forward', wtReservedWordDirective, ttForward);
@@ -610,6 +618,10 @@ begin
   { D6 directives }
   AddKeyword('deprecated', wtReservedWordDirective, ttDeprecated);
   AddKeyword('platform', wtReservedWordDirective, ttPlatform);
+
+  { delphi.net directives}
+  AddKeyword('sealed', wtReservedWord, ttSealed);
+  AddKeyword('static', wtReservedWord, ttStatic);
 
   { operators that are words not symbols }
   AddKeyword('and', wtOperator, ttAnd);

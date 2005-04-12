@@ -209,8 +209,11 @@ begin
   { object types }
   if pt.HasParentNode(ObjectTypes) then
   begin
-    if pt.TokenType in ClassVisibility then
+    if pt.TokenType in ClassVisibility + [ttStrict] then
       liIndentCount := 1
+    else if (pt.TokenType = ttConst) and (pt.HasParentNode(nConstSection, 1)) then
+      liIndentCount := 1
+
     else if pt.TokenType = ttEnd then
     begin
       // end is the end of the class unless it's the end of an anon record typed var

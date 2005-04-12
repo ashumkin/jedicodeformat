@@ -15,9 +15,6 @@ PROJECTS = jcfGui.exe JcfNotepad.exe JcfIde7.bpl jcf.exe jcf_test.exe \
 default: $(PROJECTS)
 #------------------------------------------------------------------------------
 
-jcf_test.exe: Test\DUnit\jcf_test.dpr
-  $(DCC)
-
 JcfNotepad.exe: Notepad\JcfNotepad.dpr
   $(DCC)
 
@@ -34,6 +31,9 @@ jcf.exe: CommandLine\jcf.dpr
   $(DCC)
 
 TestCases.exe: Test\TestCases\TestCases.dpr
+  $(DCC)
+
+jcf_test.exe: Test\DUnit\jcf_test.dpr
   $(DCC)
 
 

@@ -107,6 +107,11 @@ begin
   begin
     Result := 0; // !!!
   end
+  else if pt.HasParentNode(nAttribute) then
+  begin
+    // Delphi.Net attribute
+    Result := 0;
+  end
   else
   begin
     Result := 0;

@@ -391,7 +391,8 @@ begin
   { access specifiying directive (private, public et al) in a class def }
   if IsClassDirective(pt) then
   begin
-    Result := True;
+    // all except the strict in "strict private"
+    Result := (pt.TokenType <> ttStrict);
     exit;
   end;
 

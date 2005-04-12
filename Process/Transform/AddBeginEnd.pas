@@ -97,14 +97,14 @@ begin
   { is this an if block? }
   if (pcNode <> nil) and (pcNode.NodeType = nIfBlock) then
   begin
-    { does it have an else case? }
+    { does it have an else case after the if block? }
     if pcNode.Parent.HasChildNode(nElseBlock, 1) then
     begin
       lcChildStmnt := pcNode.GetImmediateChild(nStatement);
 
       { does the if block contain an if statement? }
-      if (lcChildStmnt <> nil) and lcChildStmnt.HasChildNode(nIfBlock, IMMEDIATE_IF_DEPTH) and
-        (not lcChildStmnt.HasChildNode(nElseBlock, IMMEDIATE_IF_DEPTH)) then
+      if (lcChildStmnt <> nil) and lcChildStmnt.HasChildNode(nIfBlock, IMMEDIATE_IF_DEPTH) then
+        { leave the begin-end in place - don't mix up your ifs }
         Result := False;
     end;
   end;
@@ -188,6 +188,7 @@ var
   lcStatementList: TParseTreeNode;
   lcStatement: TParseTreeNode;
   liIndex: integer;
+  lcComment, lcNext: TSourceToken;
 begin
   if pcNode.NodeType = nElseCase then
     lcTop := pcNode.GetImmediateChild(nStatementList)
@@ -222,6 +223,26 @@ begin
     // right, put this single statement in at the top
     lcStatementList.ExtractChild(lcStatement);
     lcTop.InsertChild(liIndex, lcStatement);
+  end;
+
+  // find any comments that would be orphaned
+  if lcTopStatement.HasChildNode(ttComment) then
+  begin
+    lcComment := lcTopStatement.FirstLeaf as TSourceToken;
+    repeat
+      lcNext := lcComment.NextToken;
+
+      if lcComment.TokenType = ttComment then
+      begin
+        // keep it
+        lcComment.Parent.ExtractChild(lcComment);
+        lcTop.AddChild(lcComment);
+        if lcComment.CommentStyle = eDoubleSlash then
+          InsertReturnAfter(lcComment);
+      end;
+
+      lcComment := lcNext;
+    until (lcComment = nil) or (not lcComment.HasParentNode(lcTopStatement));
   end;
 
   // and free the rest of the scaffolding

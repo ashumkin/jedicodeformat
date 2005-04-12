@@ -136,7 +136,8 @@ uses
   AddBeginEnd in '..\Process\Transform\AddBeginEnd.pas',
   SetTransform in '..\Settings\SetTransform.pas',
   AlignField in '..\Process\Align\AlignField.pas',
-  SortUses in '..\Process\Transform\SortUses.pas';
+  SortUses in '..\Process\Transform\SortUses.pas',
+  SortUsesData in '..\Process\Transform\SortUsesData.pas';
 
 const
   ABOUT_COMMANDLINE =

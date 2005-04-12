@@ -187,6 +187,8 @@ end;
 
 
 function NeedsReturn(const pt, ptNext: TSourceToken): boolean;
+var
+  lcPrev: TSourceToken;
 begin
   Result := False;
 
@@ -258,7 +260,14 @@ begin
   { access specifiying directive (private, public et al) in a class def }
   if pt.HasParentNode(nClassType) and IsClassDirective(pt) then
   begin
-    Result := True;
+    { no return before the "private" in "strict private" }
+    if (pt.TokenType in [ttPrivate, ttProtected]) then
+    begin
+      lcPrev := pt.PriorSolidToken;
+      Result := (lcPrev = nil) or (lcPrev.TokenType <> ttStrict);
+    end
+    else
+      Result := True;
     exit;
   end;
 

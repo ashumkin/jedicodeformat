@@ -339,7 +339,7 @@ begin
     liY := -1;
   end;
 
-  SendStatusMessage('', lsMessage, liX, liY);
+  SendStatusMessage('', lsMessage, liY, liX);
 end;
 
 procedure TConverter.SendStatusMessage(const psUnit, psMessage: string;

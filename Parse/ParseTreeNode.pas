@@ -91,6 +91,7 @@ type
     function IsLeaf: boolean; virtual;
     function Root: TParseTreeNode;
 
+    function HasChildNode(const peToken: TTokenType): boolean; overload;
     function HasChildNode(const peTokens: TTokenTypeSet): boolean; overload; virtual;
     function HasChildNode(const peTokens: TTokenTypeSet;
       const piMaxDepth: integer): boolean; overload; virtual;
@@ -305,6 +306,10 @@ begin
     Result := fcParent.Root;
 end;
 
+function TParseTreeNode.HasChildNode(const peToken: TTokenType): boolean;
+begin
+  Result :=  HasChildNode([peToken]);
+end;
 
 function TParseTreeNode.HasChildNode(const peTokens: TTokenTypeSet): boolean;
 var

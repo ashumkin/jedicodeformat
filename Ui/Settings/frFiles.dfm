@@ -45,7 +45,6 @@ inherited fFiles: TfFiles
     AutoSize = False
     MaxLines = 0
     HideCaret = False
-    ReadOnly = False
     TabOrder = 0
   end
 end

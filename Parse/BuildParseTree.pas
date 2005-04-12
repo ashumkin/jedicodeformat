@@ -68,6 +68,7 @@ type
     procedure RecogniseProgramBlock;
     procedure RecogniseUsesClause(const pbInFiles: boolean);
     procedure RecogniseUsesItem(const pbInFiles: boolean);
+    procedure RecogniseDottedName;
 
     procedure RecogniseInterfaceSection;
     procedure RecogniseInterfaceDecls;
@@ -81,6 +82,7 @@ type
     procedure RecogniseInitSection;
     procedure RecogniseBlock;
     procedure RecogniseIdentList(const pbCanHaveUnitQualifier: boolean);
+    procedure RecogniseDottedNameList;
     procedure RecogniseIdentValue;
     procedure RecogniseAsCast;
 
@@ -92,7 +94,9 @@ type
 
     procedure RecogniseTypeSection;
     procedure RecogniseVarSection;
+    procedure RecogniseClassVars;
     procedure RecogniseProcedureDeclSection;
+
 
     // set pbAnon = true if the proc has no name
     procedure RecogniseProcedureHeading(const pbAnon, pbCanInterfaceMap: boolean);
@@ -227,6 +231,8 @@ type
     procedure RecogniseHintDirectives;
     procedure RecognisePropertyDirectives;
     procedure RecogniseExternalProcDirective;
+
+    procedure RecogniseAttributes;
 
     procedure Recognise(const peTokenTypes: TTokenTypeSet; const pbKeepTrailingWhiteSpace: Boolean = False); overload;
     procedure Recognise(const peTokenType: TTokenType; const pbKeepTrailingWhiteSpace: Boolean = False); overload;
@@ -483,7 +489,7 @@ begin
   Recognise(ttUnit);
 
   PushNode(nUnitName);
-  RecogniseIdentifier(False);
+  RecogniseDottedName;
   PopNode;
 
   { unit can be "deprecated platform library" }
@@ -621,13 +627,7 @@ procedure TBuildParseTree.RecogniseUsesItem(const pbInFiles: boolean);
 begin
   PushNode(nUsesItem);
 
-  RecogniseIdentifier(False);
-
-  while fcTokenList.FirstSolidTokenType = ttDot do
-  begin
-    Recognise(ttDot);
-    RecogniseIdentifier(False);
-  end;
+  RecogniseDottedName;
 
   if pbInFiles and (fcTokenList.FirstSolidTokenType = ttIn) then
   begin
@@ -638,6 +638,18 @@ begin
   RecogniseNotSolidTokens;
 
   PopNode;
+end;
+
+
+procedure TBuildParseTree.RecogniseDottedName;
+begin
+  RecogniseIdentifier(False);
+
+  while fcTokenList.FirstSolidTokenType = ttDot do
+  begin
+    Recognise(ttDot);
+    RecogniseIdentifier(False);
+  end;
 end;
 
 procedure TBuildParseTree.RecogniseInterfaceSection;
@@ -670,7 +682,7 @@ begin
 
   }
   while fcTokenList.FirstSolidTokenType in [ttConst, ttResourceString,
-      ttType, ttVar, ttThreadVar] + ProcedureWords do
+      ttType, ttVar, ttThreadVar, ttOpenSquareBracket] + ProcedureWords do
     RecogniseInterfaceDecl;
 end;
 
@@ -699,6 +711,8 @@ begin
       RecogniseVarSection;
     ttProcedure, ttFunction:
       RecogniseExportedHeading;
+    ttOpenSquareBracket:
+      RecogniseAttributes;
     else
       raise TEParseError.Create('Expected const, type, var, procedure or function', lc);
   end;
@@ -1173,14 +1187,6 @@ begin
   lc  := fcTokenList.FirstSolidToken;
   lc2 := fcTokenList.SolidToken(2);
 
-  { type can be prefixed with a unit name, e.g.
-    Classes.TList; }
-  if lc2.TokenType = ttDot then
-  begin
-    RecogniseIdentifier(False);
-    Recognise(ttDot);
-  end;
-
   if (lc.TokenType = ttType) then
   begin
     { this can be a prefix. See help under "Declaring types".
@@ -1654,6 +1660,13 @@ begin
   until (fcTokenList.FirstSolidTokenType in END_VAR_SECTION);
 
   PopNode;
+end;
+
+procedure TBuildParseTree.RecogniseClassVars;
+begin
+  Recognise(ttClass);
+  Recognise(ttVar);
+  RecogniseVarDecl;
 end;
 
 procedure TBuildParseTree.RecogniseVarDecl;
@@ -2587,7 +2600,7 @@ begin
     PopNode;
   end;
 
-  Recognise([ttDo]);
+  Recognise(ttDo);
   RecogniseStatement;
 
   PopNode;
@@ -2601,14 +2614,14 @@ begin
   }
   PushNode(nWithStatement);
 
-  Recognise([ttWith]);
+  Recognise(ttWith);
 
   //RecogniseIdentList;
   PushNode(nBlockHeaderExpr);
   RecogniseExprList;
   PopNode;
 
-  Recognise([ttDo]);
+  Recognise(ttDo);
   RecogniseStatement;
 
   PopNode;
@@ -2790,6 +2803,8 @@ begin
           RecogniseProcedureDecl;
         ttFunction:
           RecogniseFunctionDecl;
+        ttConstructor:
+          RecogniseConstructorDecl;
         else
           raise TEParseError.Create('expected class procedure or class function', lc);
       end;
@@ -3212,6 +3227,9 @@ begin
   //ConstructorHeading -> CONSTRUCTOR Ident [FormalParameters]
   PushNode(nConstructorHeading);
 
+  if fcTokenList.FirstSolidTokenType = ttClass then
+    Recognise(ttClass);
+
   Recognise(ttConstructor);
   RecogniseMethodName( not pbDeclaration);
   if fcTokenList.FirstSolidTokenType = ttOpenBracket then
@@ -3329,6 +3347,10 @@ begin
   if fcTokenList.FirstSolidTokenType = ttOpenBracket then
     RecogniseClassHeritage;
 
+  // delphi.net sealed class 
+  if fcTokenList.FirstSolidTokenType = ttSealed then
+    Recognise(ttSealed);
+
   // can end here
   if fcTokenList.FirstSolidTokenType = ttSemicolon then
   begin
@@ -3350,7 +3372,7 @@ begin
 
   // ClassHeritage -> '(' IdentList ')'
   Recognise(ttOpenBracket);
-  RecogniseIdentList(True);
+  RecogniseDottedNameList;
   Recognise(ttCloseBracket);
 
   PopNode;
@@ -3360,7 +3382,14 @@ procedure TBuildParseTree.RecogniseClassVisibility;
 begin
   // ClassVisibility -> [PUBLIC | PROTECTED | PRIVATE | PUBLISHED]
 
-  Recognise(ClassVisibility);
+  if fcTokenList.FirstSolidTokenType = ttStrict then
+  begin
+    // Delphi.net allows "strict private" and "strict protected"
+    Recognise(ttStrict);
+    Recognise([ttPrivate, ttProtected]);
+  end
+  else
+    Recognise(ClassVisibility);
 end;
 
 procedure TBuildParseTree.RecogniseClassBody;
@@ -3370,7 +3399,7 @@ begin
 
   RecogniseClassDeclarations(False);
 
-  while (fcTokenList.FirstSolidTokenType in ClassVisibility) do
+  while (fcTokenList.FirstSolidTokenType in ClassVisibility + [ttStrict]) do
   begin
     PushNode(nClassVisibility);
     RecogniseClassVisibility;
@@ -3385,10 +3414,11 @@ procedure TBuildParseTree.RecogniseClassDeclarations(const pbInterface: boolean)
 const
   // can declare thse things in a class
   CLASS_DECL_WORDS = [ttProcedure, ttFunction,
-    ttConstructor, ttDestructor, ttProperty, ttClass];
+    ttConstructor, ttDestructor, ttProperty, ttClass, ttConst];
 var
   lc: TSourceToken;
   lbStarted: boolean;
+  lbConst: Boolean;
 begin
   { this is a superset of delphi.
     in dcc these must be ordered vars, then fns then properties
@@ -3425,9 +3455,10 @@ begin
     lbStarted := True;
 
     lc := fcTokenList.FirstSolidToken;
+    lbConst := False;
 
     // these end the visibility section
-    if fcTokenList.FirstSolidTokenType in (ClassVisibility + [ttEnd]) then
+    if fcTokenList.FirstSolidTokenType in (ClassVisibility + [ttEnd, ttStrict]) then
       break;
 
     case lc.TokenType of
@@ -3435,6 +3466,12 @@ begin
         RecogniseProcedureHeading(False, True);
       ttFunction:
         RecogniseFunctionHeading(False, True);
+      ttConst:
+      begin
+        { constant in a class are legal in Delphi.net }
+        RecogniseConstSection;
+        lbConst := True;
+      end;
       ttClass:
       begin
           // must be followed by 'procedure' or 'function'
@@ -3443,6 +3480,15 @@ begin
             RecogniseProcedureHeading(False, True);
           ttFunction:
             RecogniseFunctionHeading(False, True);
+          ttVar:
+            RecogniseClassVars;
+          ttProperty:
+          begin
+            Recognise(ttClass);
+            RecogniseProperty;
+          end;
+          ttConstructor:
+            RecogniseConstructorHeading(True);
           else
             raise TEParseError.Create('Expected class procedure or class function', lc);
         end;
@@ -3488,8 +3534,8 @@ begin
     // semicolon after each def.
     if fcTokenList.FirstSolidTokenType = ttSemicolon then
       Recognise(ttSemicolon)
-    else
-      Break; // except the last
+    else if not lbConst then
+      Break; // except the last, or a const (already parsed in const section)
 
   end;
 
@@ -3834,6 +3880,22 @@ begin
   PopNode;
 end;
 
+procedure TBuildParseTree.RecogniseDottedNameList;
+begin
+  PushNode(nIdentList);
+
+  RecogniseDottedName;
+
+  while fcTokenList.FirstSolidTokenType = ttComma do
+  begin
+    Recognise(ttComma);
+    RecogniseDottedName;
+  end;
+
+  PopNode;
+end;
+
+
 procedure TBuildParseTree.RecogniseConstantExpression;
 begin
   RecogniseExpr(True);
@@ -3920,7 +3982,9 @@ begin
   else if lc.TokenType = ttFile then
     Recognise(ttFile)
   else
-    RecogniseIdentifier(True);
+    { type can be prefixed with a unit name, e.g. Classes.TList;
+      or it could be .NET style, e.g. System.Windows.Forms.TextBox }
+    RecogniseDottedName;
 end;
 
 procedure TBuildParseTree.RecogniseAsmBlock;
@@ -4218,7 +4282,7 @@ begin
 
     if fcTokenList.FirstSolidTokenType = ttDot then
     begin
-      Recognise([ttDot]);
+      Recognise(ttDot);
 
       if fcTokenList.FirstSolidTokenType = ttAtSign then
         Recognise(ttAtSign);
@@ -4492,6 +4556,20 @@ procedure TBuildParseTree.RecogniseAsCast;
 begin
   Recognise(ttAs);
   RecogniseIdentifier(True);
+end;
+
+procedure TBuildParseTree.RecogniseAttributes;
+begin
+  PushNode(nAttribute);
+
+  { Delphi.Net syntax for metadata in square brackets }
+  Recognise(ttOpenSquareBracket);
+  while fcTokenList.FirstTokenType <> ttCloseSquareBracket do
+    Recognise(fcTokenList.FirstTokenType);
+
+  Recognise(ttCloseSquareBracket);
+
+  PopNode;
 end;
 
 end.

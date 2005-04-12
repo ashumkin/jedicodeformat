@@ -243,8 +243,15 @@ begin
       if (lcNext2 <> nil) and (lcNext2.TokenType = ttReturn) then
       begin
         Result := True;
+        exit;
       end;
     end;
+  end;
+
+  { "strict private"  - no return in the middle }
+  if (pt.TokenType = ttStrict) and (pt.HasParentNode(nClassVisibility, 1)) then
+  begin
+    Result := True;
   end;
 end;
 

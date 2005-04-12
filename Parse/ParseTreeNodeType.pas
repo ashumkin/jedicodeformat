@@ -144,7 +144,8 @@ type
     nExportedProc,
     nLiteralString,
     nHashLiteralChar,
-    nHatLiteralChar
+    nHatLiteralChar,
+    nAttribute
     );
 
   TParseTreeNodeTypeSet = set of TParseTreeNodeType;
@@ -413,6 +414,8 @@ begin
       Result := 'hash literal char';
     nHatLiteralChar:
       Result := 'hat literal char';
+    nAttribute:
+      Result := 'Attribute';
     else
       Result := 'Bad node type ' + IntToStr(Ord(pe));
 
