@@ -2,6 +2,8 @@ del *.out
 del *.obs
 del *.bak
 del *.~pas
+del *.dcu
+del *.dcuil
 
 del .\out\*.bak
 del .\ObfuscatedOut\*.bak

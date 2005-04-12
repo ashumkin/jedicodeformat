@@ -1,0 +1,10 @@
+unit testdelphinetstatic;interface type tmyclass=class(TObject)class var instancecount
+:integer;end;type tmyclass2=class(TObject)public class procedure showinstancecount
+;static;end;type tmyclass3=class(TObject)private class procedure setdata(adata:integer
+);static;class function getdata:integer;static;class var fdata:integer;public class
+property data:integer read getdata write setdata;end;type tmyclass4=class(TObject
+)public class constructor create;end;type tmyclass5=class sealed public procedure
+hellomyclass;end;implementation class procedure tmyclass2.showinstancecount;begin
+end;class procedure tmyclass3.setdata(adata:integer);begin fdata:=adata;end;class
+function tmyclass3.getdata:integer;begin result:=fdata;end;class constructor tmyclass4
+.create;begin end;procedure tmyclass5.hellomyclass;begin end;end. 

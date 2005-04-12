@@ -1,0 +1,11 @@
+unit testdotnetform1;interface uses system.drawing,system.collections,system.componentmodel
+,system.windows.forms,system.data;type twinform=class(System.Windows.Forms.Form){$REGION 'Designer Managed Code'}
+strict private components:system.componentmodel.container;procedure initializecomponent
+;{$ENDREGION}strict protected procedure dispose(disposing:boolean);override;private
+public constructor create;end;[assembly:runtimerequiredattribute(typeof(twinform)
+)]implementation {$AUTOBOX ON}{$REGION 'Windows Form Designer generated code'}procedure
+twinform.initializecomponent;begin self.components:=system.componentmodel.container
+.create;self.size:=system.drawing.size.create(300,300);self.text:='WinForm';end;{$ENDREGION}
+procedure twinform.dispose(disposing:boolean);begin if disposing then begin if components
+<>nil then components.dispose();end;inherited dispose(disposing);end;constructor 
+twinform.create;begin inherited create;initializecomponent;end;end. 

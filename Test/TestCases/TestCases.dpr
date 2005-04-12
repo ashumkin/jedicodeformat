@@ -150,7 +150,8 @@ uses
   fBracketProp in 'fBracketProp.pas' {Form1},
   TestEndElse in 'TestEndElse.pas',
   TestCondReturns in 'TestCondReturns.pas',
-  TestConstBug in 'TestConstBug.pas';
+  TestConstBug in 'TestConstBug.pas',
+  test.dotted.name in 'test.dotted.name.pas';
 
 {$R *.res}
 
