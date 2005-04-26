@@ -27,7 +27,6 @@ inherited fReplace: TfReplace
     MaxLines = 0
     HideCaret = False
     Align = alBottom
-    ReadOnly = False
     TabOrder = 1
   end
 end
