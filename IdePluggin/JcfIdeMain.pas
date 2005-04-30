@@ -169,9 +169,15 @@ procedure TJcfIdeMain.DoFormatProject(Sender: TObject);
 var
   lciProject: IOTAProject;
   lciModule:  IOTAModuleInfo;
+  {$IFDEF VER170}
+  lciAction: IOTAActionServices;
+  {$ENDIF}
   liLoop:     integer;
   lsMsg:      string;
 begin
+  {$IFDEF VER170}
+  lciAction := BorlandIDEServices as IOTAActionServices;
+  {$ENDIF}
   lciProject := GetCurrentProject;
   if lciProject = nil then
     exit;
@@ -185,15 +191,15 @@ begin
 
   ClearToolMessages;
 
-  fcEditorConverter.BeforeConvert;
-
   { loop through all modules in the project }
   for liLoop := 0 to lciProject.GetModuleCount - 1 do
   begin
     lciModule := lciProject.GetModule(liLoop);
     FormatFile(lciModule.FileName);
+    {$IFDEF VER170}
+    lciAction.ReloadFile(lciModule.FileName);
+    {$ENDIF}
   end;
-  fcEditorConverter.AfterConvert;
 end;
 
 procedure TJcfIdeMain.DoFormatOpen(Sender: TObject);
