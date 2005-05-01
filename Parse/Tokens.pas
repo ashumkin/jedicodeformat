@@ -185,6 +185,7 @@ type
     ttPlatform,
 
     { delphi.net directives }
+    ttOperator,
     ttStatic,
     ttSealed,
 
@@ -620,6 +621,7 @@ begin
   AddKeyword('platform', wtReservedWordDirective, ttPlatform);
 
   { delphi.net directives}
+  AddKeyword('operator', wtReservedWord, ttOperator);
   AddKeyword('sealed', wtReservedWord, ttSealed);
   AddKeyword('static', wtReservedWord, ttStatic);
 

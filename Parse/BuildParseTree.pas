@@ -96,6 +96,7 @@ type
     procedure RecogniseVarSection;
     procedure RecogniseClassVars;
     procedure RecogniseProcedureDeclSection;
+    procedure RecogniseClassOperator(const pbHasBody: boolean);
 
 
     // set pbAnon = true if the proc has no name
@@ -1669,6 +1670,34 @@ begin
   RecogniseVarDecl;
 end;
 
+procedure TBuildParseTree.RecogniseClassOperator(const pbHasBody: boolean);
+begin
+  PushNode(nFunctionHeading);
+  Recognise(ttClass);
+  Recognise(ttOperator);
+
+  RecogniseMethodName(False);
+
+  if fcTokenList.FirstSolidTokenType = ttOpenBracket then
+    RecogniseFormalParameters;
+
+  Recognise(ttColon);
+  PushNode(nFunctionReturnType);
+  RecogniseType;
+  PopNode;
+
+  RecogniseProcedureDirectives;
+
+  if pbHasBody then
+  begin
+    Recognise(ttSemiColon);
+    RecogniseBlock;
+    Recognise(ttSemiColon);
+  end;
+
+  PopNode;
+end;
+
 procedure TBuildParseTree.RecogniseVarDecl;
 var
   lc: TSourceToken;
@@ -2797,7 +2826,9 @@ begin
 
     ttClass:
     begin
-        // class proc or function
+      { class proc or class function
+        or in delphi.net
+        class constructor or operator }
       case fcTokenList.SolidTokenType(2) of
         ttProcedure:
           RecogniseProcedureDecl;
@@ -2805,6 +2836,8 @@ begin
           RecogniseFunctionDecl;
         ttConstructor:
           RecogniseConstructorDecl;
+        ttOperator:
+          RecogniseClassOperator(True);
         else
           raise TEParseError.Create('expected class procedure or class function', lc);
       end;
@@ -3474,7 +3507,10 @@ begin
       end;
       ttClass:
       begin
-          // must be followed by 'procedure' or 'function'
+        { 'class' must be followed by 'procedure' or 'function'
+         or in Delphi.Net: "var", "property", "constructor" or "operator"
+        }
+
         case fcTokenList.SolidTokenType(2) of
           ttProcedure:
             RecogniseProcedureHeading(False, True);
@@ -3489,6 +3525,8 @@ begin
           end;
           ttConstructor:
             RecogniseConstructorHeading(True);
+          ttOperator:
+            RecogniseClassOperator(False);
           else
             raise TEParseError.Create('Expected class procedure or class function', lc);
         end;
