@@ -1,0 +1,18 @@
+unit testdelphinetuses;
+
+interface
+
+uses Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, DB, DBTables, system.Text, system.componentmodel;
+
+const
+  effrandlinks = 28;
+  effrandoben = 15;
+  effrandunten = effrandoben + 102;
+  effrandrechts = effrandlinks + 293;
+  effmax = 4;
+  effmin = 1;
+  efffaktor: extended = (effrandunten - effrandoben) / (effmax - effmin);
+
+implementation
+
+end.

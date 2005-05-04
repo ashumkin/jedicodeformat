@@ -38,186 +38,191 @@ type
 
   published
     { one test for each file}
-    procedure TestClarify_EmptyTest1;
-    procedure TestClarify_fFormTest;
-    procedure TestClarify_fBracketProp;
+    procedure EmptyTest1;
+    procedure fFormTest;
+    procedure fBracketProp;
 
-    procedure TestClarify_LittleTest1;
-    procedure TestClarify_LittleTest2;
-    procedure TestClarify_LittleTest3;
-    procedure TestClarify_LittleTest4;
-    procedure TestClarify_LittleTest5;
-    procedure TestClarify_LittleTest6;
-    procedure TestClarify_LittleTest7;
-    procedure TestClarify_LittleTest8;
-    procedure TestClarify_LittleTest9;
-    procedure TestClarify_LittleTest10;
-    procedure TestClarify_LittleTest11;
-    procedure TestClarify_LittleTest12;
-    procedure TestClarify_LittleTest13;
-    procedure TestClarify_LittleTest14;
-    procedure TestClarify_LittleTest15;
-    procedure TestClarify_LittleTest16;
-    procedure TestClarify_LittleTest17;
-    procedure TestClarify_LittleTest18;
-    procedure TestClarify_LittleTest19;
-    procedure TestClarify_LittleTest20;
-    procedure TestClarify_LittleTest21;
-    procedure TestClarify_LittleTest22;
-    procedure TestClarify_LittleTest23;
-    procedure TestClarify_LittleTest24;
-    procedure TestClarify_LittleTest25;
-    procedure TestClarify_LittleTest26;
-    procedure TestClarify_LittleTest27;
-    procedure TestClarify_LittleTest28;
-    procedure TestClarify_LittleTest29;
-    procedure TestClarify_LittleTest30;
-    procedure TestClarify_LittleTest31;
-    procedure TestClarify_LittleTest32;
-    procedure TestClarify_LittleTest33;
-    procedure TestClarify_LittleTest34;
-    procedure TestClarify_LittleTest35;
-    procedure TestClarify_LittleTest36;
-    procedure TestClarify_LittleTest37;
-    procedure TestClarify_LittleTest38;
-    procedure TestClarify_LittleTest39;
-    procedure TestClarify_LittleTest40;
-    procedure TestClarify_LittleTest41;
-    procedure TestClarify_LittleTest42;
-    procedure TestClarify_LittleTest43;
-    procedure TestClarify_LittleTest44;
-    procedure TestClarify_LittleTest45;
-    procedure TestClarify_LittleTest46;
-    procedure TestClarify_LittleTest47;
-    procedure TestClarify_LittleTest48;
-    procedure TestClarify_LittleTest49;
-    procedure TestClarify_LittleTest50;
-    procedure TestClarify_LittleTest51;
-    procedure TestClarify_LittleTest52;
-    procedure TestClarify_LittleTest53;
-    procedure TestClarify_LittleTest54;
-    procedure TestClarify_LittleTest55;
-    procedure TestClarify_LittleTest56;
-    procedure TestClarify_LittleTest57;
-    procedure TestClarify_LittleTest58;
-    procedure TestClarify_LittleTest59;
-    procedure TestClarify_LittleTest60;
-    procedure TestClarify_LittleTest61;
-    procedure TestClarify_LittleTest62;
+    procedure LittleTest1;
+    procedure LittleTest2;
+    procedure LittleTest3;
+    procedure LittleTest4;
+    procedure LittleTest5;
+    procedure LittleTest6;
+    procedure LittleTest7;
+    procedure LittleTest8;
+    procedure LittleTest9;
+    procedure LittleTest10;
+    procedure LittleTest11;
+    procedure LittleTest12;
+    procedure LittleTest13;
+    procedure LittleTest14;
+    procedure LittleTest15;
+    procedure LittleTest16;
+    procedure LittleTest17;
+    procedure LittleTest18;
+    procedure LittleTest19;
+    procedure LittleTest20;
+    procedure LittleTest21;
+    procedure LittleTest22;
+    procedure LittleTest23;
+    procedure LittleTest24;
+    procedure LittleTest25;
+    procedure LittleTest26;
+    procedure LittleTest27;
+    procedure LittleTest28;
+    procedure LittleTest29;
+    procedure LittleTest30;
+    procedure LittleTest31;
+    procedure LittleTest32;
+    procedure LittleTest33;
+    procedure LittleTest34;
+    procedure LittleTest35;
+    procedure LittleTest36;
+    procedure LittleTest37;
+    procedure LittleTest38;
+    procedure LittleTest39;
+    procedure LittleTest40;
+    procedure LittleTest41;
+    procedure LittleTest42;
+    procedure LittleTest43;
+    procedure LittleTest44;
+    procedure LittleTest45;
+    procedure LittleTest46;
+    procedure LittleTest47;
+    procedure LittleTest48;
+    procedure LittleTest49;
+    procedure LittleTest50;
+    procedure LittleTest51;
+    procedure LittleTest52;
+    procedure LittleTest53;
+    procedure LittleTest54;
+    procedure LittleTest55;
+    procedure LittleTest56;
+    procedure LittleTest57;
+    procedure LittleTest58;
+    procedure LittleTest59;
+    procedure LittleTest60;
+    procedure LittleTest61;
+    procedure LittleTest62;
 
-    procedure TestClarify_TestAbsolute;
-    procedure TestClarify_TestAlign;
-    procedure TestClarify_TestArray;
-    procedure TestClarify_TestAsm;
-    procedure TestClarify_TestAsmStructs;
-    procedure TestClarify_TestAtExpr;
+    procedure TestAbsolute;
+    procedure TestAlign;
+    procedure TestArray;
+    procedure TestAsm;
+    procedure TestAsmStructs;
+    procedure TestAtExpr;
 
-    procedure TestClarify_TestBlankLineRemoval;
-    procedure TestClarify_TestBogusDirectives;
-    procedure TestClarify_TestBogusTypes;
-    procedure TestClarify_TestCaseBlock;
-    procedure TestClarify_TestCaseIfFormat;
-    procedure TestClarify_TestCast;
-    procedure TestClarify_TestCastSimple;
-    procedure TestClarify_TestCharLiterals;
-    procedure TestClarify_TestClassLines;
-    procedure TestClarify_TestCommentIndent;
-    procedure TestClarify_TestCommentIndent2;
-    procedure TestClarify_TestCondReturns;
-    procedure TestClarify_TestConstRecords;
-    procedure TestClarify_TestD6;
-    procedure TestClarify_TestDeclarations2;
-    procedure TestClarify_TestDeclarations;
-    procedure TestClarify_TestDefaultParams;
-    procedure TestClarify_TestDefines;
-    procedure TestClarify_TestDeref;
-    procedure TestClarify_TestEmptyCase;
-    procedure TestClarify_TestEmptyClass;
-    procedure TestClarify_TestEmptySquareBrackets;
-    procedure TestClarify_TestEndElse;
-    procedure TestClarify_TestEsotericKeywords;
-    procedure TestClarify_TestExclusion;
-    procedure TestClarify_TestExclusionFlags;
-    procedure TestClarify_TestExternal;
-    procedure TestClarify_TestForward;
-    procedure TestClarify_TestGoto;
-    procedure TestClarify_TestInheritedExpr;
-    procedure TestClarify_TestInitFinal;
-    procedure TestClarify_TestInline;
-    procedure TestClarify_TestInterfaceImplements;
-    procedure TestClarify_TestInterfaceMap;
-    procedure TestClarify_TestInterfaces;
-    procedure TestClarify_TestLayout;
-    procedure TestClarify_TestLayoutBare2;
-    procedure TestClarify_TestLayoutBare3;
-    procedure TestClarify_TestLayoutBare;
-    procedure TestClarify_TestLibExports;
+    procedure TestBlankLineRemoval;
+    procedure TestBogusDirectives;
+    procedure TestBogusTypes;
+    procedure TestCaseBlock;
+    procedure TestCaseIfFormat;
+    procedure TestCast;
+    procedure TestCastSimple;
+    procedure TestCharLiterals;
+    procedure TestClassLines;
+    procedure TestCommentIndent;
+    procedure TestCommentIndent2;
+    procedure TestCondReturns;
+    procedure TestConstRecords;
+    procedure TestD6;
+    procedure TestDeclarations2;
+    procedure TestDeclarations;
+    procedure TestDefaultParams;
+    procedure TestDefines;
+    procedure TestDeref;
+    procedure TestEmptyCase;
+    procedure TestEmptyClass;
+    procedure TestEmptySquareBrackets;
+    procedure TestEndElse;
+    procedure TestEsotericKeywords;
+    procedure TestExclusion;
+    procedure TestExclusionFlags;
+    procedure TestExternal;
+    procedure TestForward;
+    procedure TestGoto;
+    procedure TestInheritedExpr;
+    procedure TestInitFinal;
+    procedure TestInline;
+    procedure TestInterfaceImplements;
+    procedure TestInterfaceMap;
+    procedure TestInterfaces;
+    procedure TestLayout;
+    procedure TestLayoutBare2;
+    procedure TestLayoutBare3;
+    procedure TestLayoutBare;
+    procedure TestLibExports;
 
-    procedure TestClarify_TestLineBreaking;
-    procedure TestClarify_TestLocalTypes;
-    procedure TestClarify_TestLongStrings;
-    procedure TestClarify_TestMarcoV;
-    procedure TestClarify_TestMessages;
-    procedure TestClarify_TestMH;
-    procedure TestClarify_TestMixedModeCaps;
-    procedure TestClarify_TestMVB;
-    procedure TestClarify_TestNested;
-    procedure TestClarify_TestNestedRecords;
-    procedure TestClarify_TestOleParams;
-    procedure TestClarify_TestOperators;
-    procedure TestClarify_TestParams;
-    procedure TestClarify_TestParamSpaces;
-    procedure TestClarify_TestPointers;
-    procedure TestClarify_TestProgram;
-    procedure TestClarify_TestProperties;
-    procedure TestClarify_TestPropertyLines;
-    procedure TestClarify_TestPropertyInherited;
-    procedure TestClarify_TestRaise;
-    procedure TestClarify_TestRecords;
-    procedure TestClarify_TestReg;
-    procedure TestClarify_TestReint;
-    procedure TestClarify_TestReturnRemoval;
-    procedure TestClarify_TestReturns;
-    procedure TestClarify_TestRunOnConst;
-    procedure TestClarify_TestRunOnDef;
-    procedure TestClarify_TestRunOnLine;
+    procedure TestLineBreaking;
+    procedure TestLocalTypes;
+    procedure TestLongStrings;
+    procedure TestMarcoV;
+    procedure TestMessages;
+    procedure TestMH;
+    procedure TestMixedModeCaps;
+    procedure TestMVB;
+    procedure TestNested;
+    procedure TestNestedRecords;
+    procedure TestOleParams;
+    procedure TestOperators;
+    procedure TestParams;
+    procedure TestParamSpaces;
+    procedure TestPointers;
+    procedure TestProgram;
+    procedure TestProperties;
+    procedure TestPropertyLines;
+    procedure TestPropertyInherited;
+    procedure TestRaise;
+    procedure TestRecords;
+    procedure TestReg;
+    procedure TestReint;
+    procedure TestReturnRemoval;
+    procedure TestReturns;
+    procedure TestRunOnConst;
+    procedure TestRunOnDef;
+    procedure TestRunOnLine;
 
-    procedure TestClarify_TestSimpleIfDef;
-    procedure TestClarify_TestSimpleIfDef2;
-    procedure TestClarify_TestSimpleIfDef3;
-    procedure TestClarify_TestSimpleIfDef4;
-    procedure TestClarify_TestSimpleIfDef5;
-    procedure TestClarify_TestSimpleIfDef6;
+    procedure TestSimpleIfDef;
+    procedure TestSimpleIfDef2;
+    procedure TestSimpleIfDef3;
+    procedure TestSimpleIfDef4;
+    procedure TestSimpleIfDef5;
+    procedure TestSimpleIfDef6;
 
-    procedure TestClarify_TestTPObjects;
-    procedure TestClarify_TestTry;
-    procedure TestClarify_TestTypeDefs;
-    procedure TestClarify_TestUses;
-    procedure TestClarify_TestUsesChanges;
+    procedure TestTPObjects;
+    procedure TestTry;
+    procedure TestTypeDefs;
+    procedure TestUses;
+    procedure TestUsesChanges;
 
-    procedure TestClarify_TestUnitAllDirectives;
-    procedure TestClarify_TestUnitDeprecated;
-    procedure TestClarify_TestUnitLibrary;
-    procedure TestClarify_TestUnitPlatform;
+    procedure TestUnitAllDirectives;
+    procedure TestUnitDeprecated;
+    procedure TestUnitLibrary;
+    procedure TestUnitPlatform;
 
-    procedure TestClarify_TestVarParam;
-    procedure TestClarify_TestWarnings;
-    procedure TestClarify_TestWarnDestroy;
-    procedure TestClarify_TestWith;
+    procedure TestVarParam;
+    procedure TestWarnings;
+    procedure TestWarnDestroy;
+    procedure TestWith;
 
-    procedure TestClarify_TestPackage;
-    procedure TestClarify_TestProcBlankLines;
+    procedure TestPackage;
+    procedure TestProcBlankLines;
 
-    procedure TestClarify_TestDelphiNetUses;
-    procedure TestClarify_TestConstBug;
-    procedure TestClarify_TestForIn;
-    procedure TestClarify_TestDottedName;
-    procedure TestClarify_TestDelphiNetClass;
-    procedure TestClarify_TestDelphiNetConst;
-    procedure TestClarify_TestDelphiNetStatic;
-    procedure TestClarify_TestTestDotNetForm1;
+    procedure TestDelphiNetUses;
+    procedure TestConstBug;
+    procedure TestForIn;
+    procedure TestDottedName;
+    procedure TestDelphiNetClass;
+    procedure TestDelphiNetConst;
+    procedure TestDelphiNetStatic;
+    procedure TestTestDotNetForm1;
 
-    procedure TestClarify_TestCases;
+    procedure TestDelphiNetOperatorOverload;
+    procedure TestDelphiNetHelperClass;
+    procedure TestDelphiNetNestedType;
+    procedure TestDelphiNetNestedType2;
+
+    procedure TestCases;
   end;
 
 
@@ -306,850 +311,871 @@ end;
 
 
 
-procedure TFullTestClarify.TestClarify_EmptyTest1;
+procedure TFullTestClarify.EmptyTest1;
 begin
   TestClarifyFile('EmptyTest1');
 end;
 
-procedure TFullTestClarify.TestClarify_fFormTest;
+procedure TFullTestClarify.fFormTest;
 begin
   TestClarifyFile('fFormTest');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest1;
+procedure TFullTestClarify.LittleTest1;
 begin
   TestClarifyFile('LittleTest1');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest10;
+procedure TFullTestClarify.LittleTest10;
 begin
   TestClarifyFile('LittleTest10');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest11;
+procedure TFullTestClarify.LittleTest11;
 begin
   TestClarifyFile('LittleTest11');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest2;
+procedure TFullTestClarify.LittleTest2;
 begin
   TestClarifyFile('LittleTest2');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest3;
+procedure TFullTestClarify.LittleTest3;
 begin
   TestClarifyFile('LittleTest3');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest4;
+procedure TFullTestClarify.LittleTest4;
 begin
   TestClarifyFile('LittleTest4');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest5;
+procedure TFullTestClarify.LittleTest5;
 begin
   TestClarifyFile('LittleTest5');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest6;
+procedure TFullTestClarify.LittleTest6;
 begin
   TestClarifyFile('LittleTest6');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest7;
+procedure TFullTestClarify.LittleTest7;
 begin
   TestClarifyFile('LittleTest7');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest8;
+procedure TFullTestClarify.LittleTest8;
 begin
   TestClarifyFile('LittleTest8');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest9;
+procedure TFullTestClarify.LittleTest9;
 begin
   TestClarifyFile('LittleTest9');
 end;
 
-procedure TFullTestClarify.TestClarify_TestAbsolute;
+procedure TFullTestClarify.TestAbsolute;
 begin
   TestClarifyFile('TestAbsolute');
 end;
 
-procedure TFullTestClarify.TestClarify_TestAlign;
+procedure TFullTestClarify.TestAlign;
 begin
   TestClarifyFile('TestAlign');
 end;
 
-procedure TFullTestClarify.TestClarify_TestArray;
+procedure TFullTestClarify.TestArray;
 begin
   TestClarifyFile('TestArray');
 end;
 
-procedure TFullTestClarify.TestClarify_TestAsm;
+procedure TFullTestClarify.TestAsm;
 begin
   TestClarifyFile('TestAsm');
 end;
 
 
-procedure TFullTestClarify.TestClarify_TestBlankLineRemoval;
+procedure TFullTestClarify.TestBlankLineRemoval;
 begin
   TestClarifyFile('TestBlankLineRemoval');
 end;
 
-procedure TFullTestClarify.TestClarify_TestBogusDirectives;
+procedure TFullTestClarify.TestBogusDirectives;
 begin
   TestClarifyFile('TestBogusDirectives');
 end;
 
-procedure TFullTestClarify.TestClarify_TestBogusTypes;
+procedure TFullTestClarify.TestBogusTypes;
 begin
   TestClarifyFile('TestBogusTypes');
 end;
 
-procedure TFullTestClarify.TestClarify_TestCaseBlock;
+procedure TFullTestClarify.TestCaseBlock;
 begin
   TestClarifyFile('TestCaseBlock');
 end;
 
-procedure TFullTestClarify.TestClarify_TestCases;
+procedure TFullTestClarify.TestCases;
 begin
   TestClarifyFile('TestCases.dpr');
 end;
 
-procedure TFullTestClarify.TestClarify_TestCast;
+procedure TFullTestClarify.TestCast;
 begin
   TestClarifyFile('TestCast');
 end;
 
-procedure TFullTestClarify.TestClarify_TestCastSimple;
+procedure TFullTestClarify.TestCastSimple;
 begin
   TestClarifyFile('TestCastSimple');
 end;
 
-procedure TFullTestClarify.TestClarify_TestCharLiterals;
+procedure TFullTestClarify.TestCharLiterals;
 begin
   TestClarifyFile('TestCharLiterals');
 end;
 
-procedure TFullTestClarify.TestClarify_TestClassLines;
+procedure TFullTestClarify.TestClassLines;
 begin
   TestClarifyFile('TestClassLines');
 end;
 
-procedure TFullTestClarify.TestClarify_TestCommentIndent;
+procedure TFullTestClarify.TestCommentIndent;
 begin
   TestClarifyFile('TestCommentIndent');
 end;
 
-procedure TFullTestClarify.TestClarify_TestCommentIndent2;
+procedure TFullTestClarify.TestCommentIndent2;
 begin
   TestClarifyFile('TestCommentIndent2');
 end;
 
-procedure TFullTestClarify.TestClarify_TestConstRecords;
+procedure TFullTestClarify.TestConstRecords;
 begin
   TestClarifyFile('TestConstRecords');
 end;
 
-procedure TFullTestClarify.TestClarify_TestD6;
+procedure TFullTestClarify.TestD6;
 begin
   TestClarifyFile('TestD6');
 end;
 
-procedure TFullTestClarify.TestClarify_TestDeclarations;
+procedure TFullTestClarify.TestDeclarations;
 begin
   TestClarifyFile('TestDeclarations');
 end;
 
-procedure TFullTestClarify.TestClarify_TestDeclarations2;
+procedure TFullTestClarify.TestDeclarations2;
 begin
   TestClarifyFile('TestDeclarations2');
 end;
 
-procedure TFullTestClarify.TestClarify_TestDefaultParams;
+procedure TFullTestClarify.TestDefaultParams;
 begin
   TestClarifyFile('TestDefaultParams');
 end;
 
-procedure TFullTestClarify.TestClarify_TestDeref;
+procedure TFullTestClarify.TestDeref;
 begin
   TestClarifyFile('TestDeref');
 end;
 
-procedure TFullTestClarify.TestClarify_TestEmptyClass;
+procedure TFullTestClarify.TestEmptyClass;
 begin
   TestClarifyFile('TestEmptyClass');
 end;
 
-procedure TFullTestClarify.TestClarify_TestEsotericKeywords;
+procedure TFullTestClarify.TestEsotericKeywords;
 begin
   TestClarifyFile('TestEsotericKeywords');
 end;
 
-procedure TFullTestClarify.TestClarify_TestExclusion;
+procedure TFullTestClarify.TestExclusion;
 begin
   TestClarifyFile('TestExclusion');
 end;
 
-procedure TFullTestClarify.TestClarify_TestExclusionFlags;
+procedure TFullTestClarify.TestExclusionFlags;
 begin
   TestClarifyFile('TestExclusionFlags');
 end;
 
-procedure TFullTestClarify.TestClarify_TestExternal;
+procedure TFullTestClarify.TestExternal;
 begin
   TestClarifyFile('TestExternal');
 end;
 
-procedure TFullTestClarify.TestClarify_TestForward;
+procedure TFullTestClarify.TestForward;
 begin
   TestClarifyFile('TestForward');
 end;
 
-procedure TFullTestClarify.TestClarify_TestGoto;
+procedure TFullTestClarify.TestGoto;
 begin
   TestClarifyFile('TestGoto');
 end;
 
-procedure TFullTestClarify.TestClarify_TestInheritedExpr;
+procedure TFullTestClarify.TestInheritedExpr;
 begin
   TestClarifyFile('TestInheritedExpr');
 end;
 
-procedure TFullTestClarify.TestClarify_TestInitFinal;
+procedure TFullTestClarify.TestInitFinal;
 begin
   TestClarifyFile('TestInitFinal');
 end;
 
-procedure TFullTestClarify.TestClarify_TestInterfaceImplements;
+procedure TFullTestClarify.TestInterfaceImplements;
 begin
   TestClarifyFile('TestInterfaceImplements');
 end;
 
-procedure TFullTestClarify.TestClarify_TestInterfaceMap;
+procedure TFullTestClarify.TestInterfaceMap;
 begin
   TestClarifyFile('TestInterfaceMap');
 end;
 
-procedure TFullTestClarify.TestClarify_TestInterfaces;
+procedure TFullTestClarify.TestInterfaces;
 begin
   TestClarifyFile('TestInterfaces');
 end;
 
-procedure TFullTestClarify.TestClarify_TestLayout;
+procedure TFullTestClarify.TestLayout;
 begin
   TestClarifyFile('TestLayout');
 end;
 
-procedure TFullTestClarify.TestClarify_TestLayoutBare;
+procedure TFullTestClarify.TestLayoutBare;
 begin
   TestClarifyFile('TestLayoutBare');
 end;
 
-procedure TFullTestClarify.TestClarify_TestLayoutBare2;
+procedure TFullTestClarify.TestLayoutBare2;
 begin
   TestClarifyFile('TestLayoutBare2');
 end;
 
-procedure TFullTestClarify.TestClarify_TestLayoutBare3;
+procedure TFullTestClarify.TestLayoutBare3;
 begin
   TestClarifyFile('TestLayoutBare3');
 end;
 
-procedure TFullTestClarify.TestClarify_TestLibExports;
+procedure TFullTestClarify.TestLibExports;
 begin
   TestClarifyFile('TestLibExports');
 end;
 
-procedure TFullTestClarify.TestClarify_TestLineBreaking;
+procedure TFullTestClarify.TestLineBreaking;
 begin
   TestClarifyFile('TestLineBreaking');
 end;
 
-procedure TFullTestClarify.TestClarify_TestLocalTypes;
+procedure TFullTestClarify.TestLocalTypes;
 begin
   TestClarifyFile('TestLocalTypes');
 end;
 
-procedure TFullTestClarify.TestClarify_TestLongStrings;
+procedure TFullTestClarify.TestLongStrings;
 begin
   TestClarifyFile('TestLongStrings');
 end;
 
-procedure TFullTestClarify.TestClarify_TestMarcoV;
+procedure TFullTestClarify.TestMarcoV;
 begin
   TestClarifyFile('TestMarcoV');
 end;
 
-procedure TFullTestClarify.TestClarify_TestMessages;
+procedure TFullTestClarify.TestMessages;
 begin
   TestClarifyFile('TestMessages');
 end;
 
-procedure TFullTestClarify.TestClarify_TestMH;
+procedure TFullTestClarify.TestMH;
 begin
   TestClarifyFile('TestMH');
 end;
 
-procedure TFullTestClarify.TestClarify_TestMixedModeCaps;
+procedure TFullTestClarify.TestMixedModeCaps;
 begin
   TestClarifyFile('TestMixedModeCaps');
 end;
 
-procedure TFullTestClarify.TestClarify_TestMVB;
+procedure TFullTestClarify.TestMVB;
 begin
   TestClarifyFile('TestMVB');
 end;
 
-procedure TFullTestClarify.TestClarify_TestNested;
+procedure TFullTestClarify.TestNested;
 begin
   TestClarifyFile('TestNested');
 end;
 
-procedure TFullTestClarify.TestClarify_TestNestedRecords;
+procedure TFullTestClarify.TestNestedRecords;
 begin
   TestClarifyFile('TestNestedRecords');
 end;
 
-procedure TFullTestClarify.TestClarify_TestOperators;
+procedure TFullTestClarify.TestOperators;
 begin
   TestClarifyFile('TestOperators');
 end;
 
-procedure TFullTestClarify.TestClarify_TestOleParams;
+procedure TFullTestClarify.TestOleParams;
 begin
   TestClarifyFile('TestOleParams');
 end;
 
-procedure TFullTestClarify.TestClarify_TestPackage;
+procedure TFullTestClarify.TestPackage;
 begin
   TestClarifyFile('TestMe.dpk');
 end;
 
-procedure TFullTestClarify.TestClarify_TestParams;
+procedure TFullTestClarify.TestParams;
 begin
   TestClarifyFile('TestParams');
 end;
 
-procedure TFullTestClarify.TestClarify_TestParamSpaces;
+procedure TFullTestClarify.TestParamSpaces;
 begin
   TestClarifyFile('TestParamSpaces');
 end;
 
-procedure TFullTestClarify.TestClarify_TestPointers;
+procedure TFullTestClarify.TestPointers;
 begin
   TestClarifyFile('TestPointers');
 end;
 
-procedure TFullTestClarify.TestClarify_TestProcBlankLines;
+procedure TFullTestClarify.TestProcBlankLines;
 begin
   TestClarifyFile('TestProcBlankLines');
 end;
 
-procedure TFullTestClarify.TestClarify_TestProgram;
+procedure TFullTestClarify.TestProgram;
 begin
   TestClarifyFile('TestProgram');
 end;
 
-procedure TFullTestClarify.TestClarify_TestProperties;
+procedure TFullTestClarify.TestProperties;
 begin
   TestClarifyFile('TestProperties');
 end;
 
-procedure TFullTestClarify.TestClarify_TestPropertyInherited;
+procedure TFullTestClarify.TestPropertyInherited;
 begin
   TestClarifyFile('TestPropertyInherited');
 end;
 
-procedure TFullTestClarify.TestClarify_TestPropertyLines;
+procedure TFullTestClarify.TestPropertyLines;
 begin
   TestClarifyFile('TestPropertyLines');
 end;
 
-procedure TFullTestClarify.TestClarify_TestRecords;
+procedure TFullTestClarify.TestRecords;
 begin
   TestClarifyFile('TestRecords');
 end;
 
-procedure TFullTestClarify.TestClarify_TestReg;
+procedure TFullTestClarify.TestReg;
 begin
   TestClarifyFile('TestReg');
 end;
 
-procedure TFullTestClarify.TestClarify_TestReint;
+procedure TFullTestClarify.TestReint;
 begin
   TestClarifyFile('TestReint');
 end;
 
-procedure TFullTestClarify.TestClarify_TestReturnRemoval;
+procedure TFullTestClarify.TestReturnRemoval;
 begin
   TestClarifyFile('TestReturnRemoval');
 end;
 
-procedure TFullTestClarify.TestClarify_TestReturns;
+procedure TFullTestClarify.TestReturns;
 begin
   TestClarifyFile('TestReturns');
 end;
 
-procedure TFullTestClarify.TestClarify_TestRunOnConst;
+procedure TFullTestClarify.TestRunOnConst;
 begin
   TestClarifyFile('TestRunOnConst');
 end;
 
-procedure TFullTestClarify.TestClarify_TestRunOnDef;
+procedure TFullTestClarify.TestRunOnDef;
 begin
   TestClarifyFile('TestRunOnDef');
 end;
 
-procedure TFullTestClarify.TestClarify_TestRunOnLine;
+procedure TFullTestClarify.TestRunOnLine;
 begin
   TestClarifyFile('TestRunOnLine');
 end;
 
-procedure TFullTestClarify.TestClarify_TestTPObjects;
+procedure TFullTestClarify.TestTPObjects;
 begin
   TestClarifyFile('TestTPObjects');
 end;
 
-procedure TFullTestClarify.TestClarify_TestTry;
+procedure TFullTestClarify.TestTry;
 begin
   TestClarifyFile('TestTry');
 end;
 
-procedure TFullTestClarify.TestClarify_TestTypeDefs;
+procedure TFullTestClarify.TestTypeDefs;
 begin
   TestClarifyFile('TestTypeDefs');
 end;
 
-procedure TFullTestClarify.TestClarify_TestUses;
+procedure TFullTestClarify.TestUses;
 begin
   TestClarifyFile('TestUses');
 end;
 
-procedure TFullTestClarify.TestClarify_TestUsesChanges;
+procedure TFullTestClarify.TestUsesChanges;
 begin
   TestClarifyFile('TestUsesChanges');
 end;
 
-procedure TFullTestClarify.TestClarify_TestVarParam;
+procedure TFullTestClarify.TestVarParam;
 begin
   TestClarifyFile('TestVarParam');
 end;
 
-procedure TFullTestClarify.TestClarify_TestWarnings;
+procedure TFullTestClarify.TestWarnings;
 begin
   TestClarifyFile('TestWarnings');
 end;
 
-procedure TFullTestClarify.TestClarify_TestWith;
+procedure TFullTestClarify.TestWith;
 begin
   TestClarifyFile('TestWith');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest12;
+procedure TFullTestClarify.LittleTest12;
 begin
   TestClarifyFile('LittleTest12');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest13;
+procedure TFullTestClarify.LittleTest13;
 begin
   TestClarifyFile('LittleTest13');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest14;
+procedure TFullTestClarify.LittleTest14;
 begin
   TestClarifyFile('LittleTest14');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest15;
+procedure TFullTestClarify.LittleTest15;
 begin
   TestClarifyFile('LittleTest15');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest16;
+procedure TFullTestClarify.LittleTest16;
 begin
   TestClarifyFile('LittleTest16');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest17;
+procedure TFullTestClarify.LittleTest17;
 begin
   TestClarifyFile('LittleTest17');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest18;
+procedure TFullTestClarify.LittleTest18;
 begin
   TestClarifyFile('LittleTest18');
 end;
 
-procedure TFullTestClarify.TestClarify_TestAtExpr;
+procedure TFullTestClarify.TestAtExpr;
 begin
   TestClarifyFile('TestAtExpr');
 end;
 
-procedure TFullTestClarify.TestClarify_TestAsmStructs;
+procedure TFullTestClarify.TestAsmStructs;
 begin
   TestClarifyFile('TestAsmStructs');
 end;
 
-procedure TFullTestClarify.TestClarify_TestUnitAllDirectives;
+procedure TFullTestClarify.TestUnitAllDirectives;
 begin
   TestClarifyFile('TestUnitAllDirectives');
 end;
 
-procedure TFullTestClarify.TestClarify_TestUnitDeprecated;
+procedure TFullTestClarify.TestUnitDeprecated;
 begin
   TestClarifyFile('TestUnitDeprecated');
 end;
 
-procedure TFullTestClarify.TestClarify_TestUnitLibrary;
+procedure TFullTestClarify.TestUnitLibrary;
 begin
   TestClarifyFile('TestUnitLibrary');
 end;
 
-procedure TFullTestClarify.TestClarify_TestUnitPlatform;
+procedure TFullTestClarify.TestUnitPlatform;
 begin
   TestClarifyFile('TestUnitPlatform');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest19;
+procedure TFullTestClarify.LittleTest19;
 begin
   TestClarifyFile('LittleTest19');
 end;
 
-procedure TFullTestClarify.TestClarify_TestRaise;
+procedure TFullTestClarify.TestRaise;
 begin
   TestClarifyFile('TestRaise');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest20;
+procedure TFullTestClarify.LittleTest20;
 begin
   TestClarifyFile('LittleTest20');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest21;
+procedure TFullTestClarify.LittleTest21;
 begin
   TestClarifyFile('LittleTest21');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest22;
+procedure TFullTestClarify.LittleTest22;
 begin
   TestClarifyFile('LittleTest22');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest23;
+procedure TFullTestClarify.LittleTest23;
 begin
   TestClarifyFile('LittleTest23');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest24;
+procedure TFullTestClarify.LittleTest24;
 begin
   TestClarifyFile('LittleTest24');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest25;
+procedure TFullTestClarify.LittleTest25;
 begin
   TestClarifyFile('LittleTest25');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest26;
+procedure TFullTestClarify.LittleTest26;
 begin
   TestClarifyFile('LittleTest26');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest27;
+procedure TFullTestClarify.LittleTest27;
 begin
   TestClarifyFile('LittleTest27');
 end;
 
-procedure TFullTestClarify.TestClarify_TestEmptySquareBrackets;
+procedure TFullTestClarify.TestEmptySquareBrackets;
 begin
   TestClarifyFile('TestEmptySquareBrackets');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest28;
+procedure TFullTestClarify.LittleTest28;
 begin
   TestClarifyFile('LittleTest28');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest29;
+procedure TFullTestClarify.LittleTest29;
 begin
   TestClarifyFile('LittleTest29');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest30;
+procedure TFullTestClarify.LittleTest30;
 begin
   TestClarifyFile('LittleTest30');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest31;
+procedure TFullTestClarify.LittleTest31;
 begin
   TestClarifyFile('LittleTest31');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest32;
+procedure TFullTestClarify.LittleTest32;
 begin
   TestClarifyFile('LittleTest32');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest33;
+procedure TFullTestClarify.LittleTest33;
 begin
   TestClarifyFile('LittleTest33');
 end;
 
-procedure TFullTestClarify.TestClarify_TestEmptyCase;
+procedure TFullTestClarify.TestEmptyCase;
 begin
   TestClarifyFile('TestEmptyCase');
 end;
 
-procedure TFullTestClarify.TestClarify_TestCaseIfFormat;
+procedure TFullTestClarify.TestCaseIfFormat;
 begin
   TestClarifyFile('TestCaseIfFormat');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest34;
+procedure TFullTestClarify.LittleTest34;
 begin
   TestClarifyFile('LittleTest34');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest35;
+procedure TFullTestClarify.LittleTest35;
 begin
   TestClarifyFile('LittleTest35');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest36;
+procedure TFullTestClarify.LittleTest36;
 begin
   TestClarifyFile('LittleTest36');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest37;
+procedure TFullTestClarify.LittleTest37;
 begin
   TestClarifyFile('LittleTest37');
 end;
 
-procedure TFullTestClarify.TestClarify_TestSimpleIfDef;
+procedure TFullTestClarify.TestSimpleIfDef;
 begin
   TestClarifyFile('TestSimpleIfDef');
 end;
 
-procedure TFullTestClarify.TestClarify_TestSimpleIfDef2;
+procedure TFullTestClarify.TestSimpleIfDef2;
 begin
   TestClarifyFile('TestSimpleIfDef2');
 end;
 
-procedure TFullTestClarify.TestClarify_TestSimpleIfDef3;
+procedure TFullTestClarify.TestSimpleIfDef3;
 begin
   TestClarifyFile('TestSimpleIfDef3');
 end;
 
-procedure TFullTestClarify.TestClarify_TestSimpleIfDef4;
+procedure TFullTestClarify.TestSimpleIfDef4;
 begin
   TestClarifyFile('TestSimpleIfDef4');
 end;
 
-procedure TFullTestClarify.TestClarify_TestSimpleIfDef5;
+procedure TFullTestClarify.TestSimpleIfDef5;
 begin
   TestClarifyFile('TestSimpleIfDef5');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest38;
+procedure TFullTestClarify.LittleTest38;
 begin
   TestClarifyFile('LittleTest38');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest39;
+procedure TFullTestClarify.LittleTest39;
 begin
   TestClarifyFile('LittleTest39');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest40;
+procedure TFullTestClarify.LittleTest40;
 begin
   TestClarifyFile('LittleTest40');
 end;
 
-procedure TFullTestClarify.TestClarify_TestDefines;
+procedure TFullTestClarify.TestDefines;
 begin
   TestClarifyFile('TestDefines');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest41;
+procedure TFullTestClarify.LittleTest41;
 begin
   TestClarifyFile('LittleTest41');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest42;
+procedure TFullTestClarify.LittleTest42;
 begin
   TestClarifyFile('LittleTest42');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest43;
+procedure TFullTestClarify.LittleTest43;
 begin
   TestClarifyFile('LittleTest43');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest44;
+procedure TFullTestClarify.LittleTest44;
 begin
   TestClarifyFile('LittleTest44');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest45;
+procedure TFullTestClarify.LittleTest45;
 begin
   TestClarifyFile('LittleTest45');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest46;
+procedure TFullTestClarify.LittleTest46;
 begin
   TestClarifyFile('LittleTest46');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest47;
+procedure TFullTestClarify.LittleTest47;
 begin
   TestClarifyFile('LittleTest47');
 end;
 
-procedure TFullTestClarify.TestClarify_TestWarnDestroy;
+procedure TFullTestClarify.TestWarnDestroy;
 begin
   TestClarifyFile('TestWarnDestroy');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest48;
+procedure TFullTestClarify.LittleTest48;
 begin
   TestClarifyFile('LittleTest48');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest49;
+procedure TFullTestClarify.LittleTest49;
 begin
   TestClarifyFile('LittleTest49');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest50;
+procedure TFullTestClarify.LittleTest50;
 begin
   TestClarifyFile('LittleTest50');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest51;
+procedure TFullTestClarify.LittleTest51;
 begin
   TestClarifyFile('LittleTest51');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest52;
+procedure TFullTestClarify.LittleTest52;
 begin
   TestClarifyFile('LittleTest52');
 end;
 
-procedure TFullTestClarify.TestClarify_TestSimpleIfDef6;
+procedure TFullTestClarify.TestSimpleIfDef6;
 begin
   TestClarifyFile('TestSimpleIfDef6');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest53;
+procedure TFullTestClarify.LittleTest53;
 begin
   TestClarifyFile('LittleTest53');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest54;
+procedure TFullTestClarify.LittleTest54;
 begin
   TestClarifyFile('LittleTest54');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest55;
+procedure TFullTestClarify.LittleTest55;
 begin
   TestClarifyFile('LittleTest55');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest56;
+procedure TFullTestClarify.LittleTest56;
 begin
   TestClarifyFile('LittleTest56');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest57;
+procedure TFullTestClarify.LittleTest57;
 begin
   TestClarifyFile('LittleTest57');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest58;
+procedure TFullTestClarify.LittleTest58;
 begin
   TestClarifyFile('LittleTest58');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest59;
+procedure TFullTestClarify.LittleTest59;
 begin
   TestClarifyFile('LittleTest59');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest60;
+procedure TFullTestClarify.LittleTest60;
 begin
   TestClarifyFile('LittleTest60');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest61;
+procedure TFullTestClarify.LittleTest61;
 begin
   TestClarifyFile('LittleTest61');
 end;
 
-procedure TFullTestClarify.TestClarify_LittleTest62;
+procedure TFullTestClarify.LittleTest62;
 begin
   TestClarifyFile('LittleTest62');
 end;
 
-procedure TFullTestClarify.TestClarify_TestInline;
+procedure TFullTestClarify.TestInline;
 begin
   TestClarifyFile('TestInline');
 end;
 
-procedure TFullTestClarify.TestClarify_fBracketProp;
+procedure TFullTestClarify.fBracketProp;
 begin
   TestClarifyFile('fBracketProp');
 end;
 
-procedure TFullTestClarify.TestClarify_TestEndElse;
+procedure TFullTestClarify.TestEndElse;
 begin
   TestClarifyFile('TestEndElse');
 end;
 
-procedure TFullTestClarify.TestClarify_TestCondReturns;
+procedure TFullTestClarify.TestCondReturns;
 begin
   TestClarifyFile('TestCondReturns');
 end;
 
-procedure TFullTestClarify.TestClarify_TestDelphiNetUses;
+procedure TFullTestClarify.TestDelphiNetUses;
 begin
   TestClarifyFile('TestDelphiNetUses');
 end;
 
-procedure TFullTestClarify.TestClarify_TestConstBug;
+procedure TFullTestClarify.TestConstBug;
 begin
   TestClarifyFile('TestConstBug');
 end;
 
-procedure TFullTestClarify.TestClarify_TestForIn;
+procedure TFullTestClarify.TestForIn;
 begin
   TestClarifyFile('TestForIn');
 end;
 
-procedure TFullTestClarify.TestClarify_TestDottedName;
+procedure TFullTestClarify.TestDottedName;
 begin
   TestClarifyFile('test.dotted.name.pas');
 end;
 
-procedure TFullTestClarify.TestClarify_TestDelphiNetClass;
+procedure TFullTestClarify.TestDelphiNetClass;
 begin
   TestClarifyFile('TestDelphiNetClass');
 end;
 
-procedure TFullTestClarify.TestClarify_TestDelphiNetConst;
+procedure TFullTestClarify.TestDelphiNetConst;
 begin
   TestClarifyFile('TestDelphiNetConst');
 end;
 
-procedure TFullTestClarify.TestClarify_TestDelphiNetStatic;
+procedure TFullTestClarify.TestDelphiNetStatic;
 begin
   TestClarifyFile('TestDelphiNetStatic');
 end;
 
-procedure TFullTestClarify.TestClarify_TestTestDotNetForm1;
+procedure TFullTestClarify.TestTestDotNetForm1;
 begin
   TestClarifyFile('TestDotNetForm1');
+end;
+
+procedure TFullTestClarify.TestDelphiNetNestedType;
+begin
+  TestClarifyFile('TestDelphiNetNestedType');
+end;
+
+procedure TFullTestClarify.TestDelphiNetNestedType2;
+begin
+  TestClarifyFile('TestDelphiNetNestedType2');
+
+end;
+
+procedure TFullTestClarify.TestDelphiNetOperatorOverload;
+begin
+  TestClarifyFile('TestDelphiNetOperatorOverload');
+end;
+
+procedure TFullTestClarify.TestDelphiNetHelperClass;
+begin
+  TestClarifyFile('TestDelphiNetHelperClass');
 end;
 
 initialization

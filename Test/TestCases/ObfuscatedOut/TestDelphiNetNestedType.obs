@@ -1,0 +1,4 @@
+unit testdelphinetnestedtype;interface type touterclass=class private myfield:integer
+;public type tinnerclass=class public myinnerfield:integer;procedure innerproc;end
+;procedure outerproc;end;implementation procedure touterclass.tinnerclass.innerproc
+;begin end;procedure touterclass.outerproc;begin end;end. 

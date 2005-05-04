@@ -1,0 +1,47 @@
+unit testdotnetform1;
+
+interface
+
+uses system.drawing, system.collections, system.componentmodel, system.Windows.Forms, system.Data;
+
+type
+  twinform = class(System.Windows.Forms.Form){$REGION 'Designer Managed Code'}
+  strict private
+    Components: system.componentmodel.container;
+    procedure initializecomponent;{$ENDREGION}
+  strict protected
+    procedure dispose(disposing: boolean); override;
+  private
+  public
+    constructor Create;
+  end;
+
+  [assembly: runtimerequiredattribute(typeof(twinform))]
+
+implementation {$AUTOBOX ON}{$REGION 'Windows Form Designer generated code'}
+
+procedure twinform.initializecomponent;
+begin
+  self.Components := system.componentmodel.container.Create;
+  self.size := system.drawing.size.Create(300, 300);
+  self.Text := 'WinForm';
+end;{$ENDREGION}
+
+procedure twinform.dispose(disposing: boolean);
+begin
+  if disposing then
+  begin
+    if Components <> nil then
+      Components.dispose();
+  end;
+  inherited dispose(disposing);
+end;
+
+constructor twinform.Create;
+begin
+  inherited Create;
+  initializecomponent;
+end;
+
+end.
+ 

@@ -1,0 +1,41 @@
+unit TestDelphiNetOperatorOverload;
+
+{ JCF test cases
+  test operator overloads in Delphi.NET }
+
+interface
+
+type
+  TMyClass = class
+  private
+    FData: integer;
+  public
+    class operator Add(A, B: TMyClass): TMyClass;
+    class operator Implicit(A: integer): TMyClass;
+    class operator Implicit(A: TMyClass): integer;
+
+    property Data: integer Read FData Write FData;
+  end;
+
+implementation
+
+{ TMyClass }
+
+class operator TMyClass.Add(A, B: TMyClass): TMyClass;
+begin
+  Result      := TMyClass.Create;
+  Result.Data := A.Data + B.Data;
+end;
+
+class operator TMyClass.Implicit(A: TMyClass): integer;
+begin
+  Result := A.Data;
+end;
+
+class operator TMyClass.Implicit(A: integer): TMyClass;
+begin
+  Result      := TMyClass.Create;
+  Result.Data := A;
+end;
+
+end.

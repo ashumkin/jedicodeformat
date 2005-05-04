@@ -82,6 +82,8 @@ function SemicolonNext(const pt: TSourceToken): boolean;
 
   False if it is vars, consts, types etc
   or in asm }
+function IsClassHelperWords(const pt: TSourceToken): boolean;
+
 function InStatements(const pt: TSourceToken): boolean;
 function InProcedureDeclarations(const pt: TsourceToken): boolean;
 function InDeclarations(const pt: TsourceToken): boolean;
@@ -421,6 +423,27 @@ function InStatements(const pt: TSourceToken): boolean;
 begin
   Result := pt.HasParentNode(nStatementList) or pt.HasParentNode(nBlock);
   Result := Result and ( not pt.HasParentNode(nAsm));
+end;
+
+function IsCLassHelperWords(const pt: TSourceToken): boolean;
+var
+  lcNext: TSourceToken;
+begin
+  Result := (pt.TokenType in [ttClass, ttHelper, ttFor]);
+
+  if Result then
+  begin
+    { must be just under a class def }
+    Result := pt.HasParentNode(nClassType, 1);
+
+    { class not followed by "helper" is not a class helper word }
+    if Result and (pt.TokenType = ttClass) then
+    begin
+      lcNext := pt.NextSolidToken;
+      if (lcNext <> nil) and (lcNext.TokenType <> ttHelper) then
+        Result := False;
+    end;
+  end;
 end;
 
 function InProcedureDeclarations(const pt: TsourceToken): boolean;

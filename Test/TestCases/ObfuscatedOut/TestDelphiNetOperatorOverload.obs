@@ -1,0 +1,7 @@
+unit testdelphinetoperatoroverload;interface type tmyclass=class private fdata:integer
+;public class operator add(a,b:tmyclass):tmyclass;class operator implicit(a:integer
+):tmyclass;class operator implicit(a:tmyclass):integer;property data:integer read
+fdata write fdata;end;implementation class operator tmyclass.add(a,b:tmyclass):tmyclass
+;begin result:=tmyclass.create;result.data:=a.data+b.data;end;class operator tmyclass
+.implicit(a:tmyclass):integer;begin result:=a.data;end;class operator tmyclass.implicit
+(a:integer):tmyclass;begin result:=tmyclass.create;result.data:=a;end;end. 

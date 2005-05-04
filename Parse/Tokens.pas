@@ -184,7 +184,8 @@ type
     ttDeprecated,
     ttPlatform,
 
-    { delphi.net directives }
+    { delphi.net keywords and directives }
+    ttHelper,
     ttOperator,
     ttStatic,
     ttSealed,
@@ -335,7 +336,7 @@ const
     ttExport, ttOverride, ttOverload, ttResident, ttLocal,
     ttImplements, ttReintroduce, ttDeprecated, ttPlatform];
 
-  ProcedureWords: TTokenTypeSet = [ttProcedure, ttFunction, ttConstructor, ttDestructor];
+  ProcedureWords: TTokenTypeSet = [ttProcedure, ttFunction, ttConstructor, ttDestructor, ttOperator];
 
   StructuredTypeWords: TTokenTypeSet =
     [ttClass, ttObject, ttInterface, ttDispinterface, ttRecord];
@@ -621,6 +622,7 @@ begin
   AddKeyword('platform', wtReservedWordDirective, ttPlatform);
 
   { delphi.net directives}
+  AddKeyword('helper', wtReservedWord, ttHelper);
   AddKeyword('operator', wtReservedWord, ttOperator);
   AddKeyword('sealed', wtReservedWord, ttSealed);
   AddKeyword('static', wtReservedWord, ttStatic);

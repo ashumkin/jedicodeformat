@@ -83,6 +83,12 @@ begin
     exit;
   end;
 
+  if IsCLassHelperWords(pt) then
+  begin
+    Result := True;
+    exit;
+  end;
+
   { not in ASM block }
   if pt.HasParentNode(nAsm) then
     exit;

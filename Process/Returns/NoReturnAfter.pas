@@ -96,6 +96,13 @@ begin
       exit;
     end;
 
+    { class helper declaration }
+    if IsCLassHelperWords(pt) then
+    begin
+      Result := True;
+      exit;
+    end;
+
     { only place a return after a colon is legit is at a label
       in a proc body }
     if pt.TokenType = ttColon then

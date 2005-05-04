@@ -1,0 +1,31 @@
+unit testdelphinetconst;
+
+interface
+
+type
+  ttemperatureconverter = class(TObject)
+  public
+  const
+    absolutezero = -273;
+  end;
+
+type
+  tmyclass = class
+  const
+    x = 12;
+    y = tmyclass.x + 23;
+
+    procedure hello;
+  private
+  const
+    s = 'A string constant';
+  end;
+
+implementation
+
+procedure tmyclass.hello;
+begin
+end;
+
+end.
+ 

@@ -1,0 +1,37 @@
+unit testdelphinethelperclass;
+
+interface
+
+type
+  tmyclass = class
+  public
+    procedure hellomyclass;
+  end;
+
+  tmyclasshelper = class helper for tmyclass
+  public
+    procedure hellomyclasshelper; virtual;
+  end;
+
+  tmyclasshelper2 = class helper(TMyClassHelper) for tmyclass
+  public
+    procedure hellomyclasshelper; override;
+  end;
+
+implementation
+
+procedure tmyclass.hellomyclass;
+begin
+end;
+
+procedure tmyclasshelper.hellomyclasshelper;
+begin
+end;
+
+procedure tmyclasshelper2.hellomyclasshelper;
+begin
+  inherited;
+end;
+
+end.
+ 

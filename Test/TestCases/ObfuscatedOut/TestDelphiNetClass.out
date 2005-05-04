@@ -1,0 +1,26 @@
+unit testdelphinetclass;
+
+interface
+
+uses system.drawing, system.collections, system.
+  componentmodel, system.Windows.Forms, system.Data;
+
+type
+  tmyform = class(System.Windows.Forms.Form)
+    textbox: system.Windows.Forms.textbox;
+  end;
+
+  ttest = class(TObject)
+  strict private
+    foo: integer;
+  strict protected
+    bar: integer;
+  private
+    fish: integer;
+  protected
+    spon: integer;
+  end;
+
+implementation
+
+end.

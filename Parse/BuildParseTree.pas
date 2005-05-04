@@ -92,7 +92,7 @@ type
     procedure RecogniseConstantDecl;
     procedure CheckLabelPrefix;
 
-    procedure RecogniseTypeSection;
+    procedure RecogniseTypeSection(const pbNestedInCLass: Boolean);
     procedure RecogniseVarSection;
     procedure RecogniseClassVars;
     procedure RecogniseProcedureDeclSection;
@@ -707,7 +707,7 @@ begin
     ttConst, ttResourceString:
       RecogniseConstSection;
     ttType:
-      RecogniseTypeSection;
+      RecogniseTypeSection(false);
     ttVar, ttThreadvar:
       RecogniseVarSection;
     ttProcedure, ttFunction:
@@ -839,7 +839,7 @@ begin
     ttConst, ttResourceString:
       RecogniseConstSection;
     ttType:
-      RecogniseTypeSection;
+      RecogniseTypeSection(false);
     ttVar, ttThreadvar:
       RecogniseVarSection;
     ttProcedure, ttFunction, ttConstructor, ttDestructor, ttClass:
@@ -959,7 +959,7 @@ begin
   PopNode;
 end;
 
-procedure TBuildParseTree.RecogniseTypeSection;
+procedure TBuildParseTree.RecogniseTypeSection(const pbNestedInCLass: Boolean);
 begin
   {
   TypeSection -> TYPE (TypeDecl ';')...
@@ -970,6 +970,9 @@ begin
   while fcTokenList.FirstSolidWordType in IdentifierTypes do
   begin
     RecogniseTypeDecl;
+
+    if pbNestedInClass and (fcTokenList.FirstSolidTokenType in ClassVisibility) then
+      break;
   end;
 
   PopNode;
@@ -1672,6 +1675,7 @@ end;
 
 procedure TBuildParseTree.RecogniseClassOperator(const pbHasBody: boolean);
 begin
+  PushNode(nFunctionDecl);
   PushNode(nFunctionHeading);
   Recognise(ttClass);
   Recognise(ttOperator);
@@ -1687,6 +1691,8 @@ begin
   PopNode;
 
   RecogniseProcedureDirectives;
+
+  PopNode;
 
   if pbHasBody then
   begin
@@ -3357,39 +3363,58 @@ begin
 
   or a class ref type
     TFoo = class of TBar;
+
+  or in delphi.net
+
+  TMyClassHelper = class helper for TMyClass
+  TMyClassHelper2 = class helper(TMyClassHelper) for TMyClass
+
   }
 
   PushNode(nClassType);
 
   Recognise(ttClass);
 
-  if fcTokenList.FirstSolidTokenType = ttSemicolon then
+  if fcTokenList.FirstSolidTokenType = ttHelper then
   begin
-    PopNode;
-    exit;
-  end;
+    Recognise(ttHelper);
 
-  if fcTokenList.FirstSolidTokenType = ttOf then
-  begin
-    Recognise(ttOf);
+    if fcTokenList.FirstSolidTokenType = ttOpenBracket then
+      RecogniseClassHeritage;
+
+    Recognise(ttFor);
     RecogniseIdentifier(False);
-    PopNode;
-    exit;
-  end;
-
-  if fcTokenList.FirstSolidTokenType = ttOpenBracket then
-    RecogniseClassHeritage;
-
-  // delphi.net sealed class 
-  if fcTokenList.FirstSolidTokenType = ttSealed then
-    Recognise(ttSealed);
-
-  // can end here
-  if fcTokenList.FirstSolidTokenType = ttSemicolon then
+  end
+  else
   begin
-    PopNode;
-    exit;
+    if fcTokenList.FirstSolidTokenType = ttSemicolon then
+    begin
+      PopNode;
+      exit;
+    end;
+
+    if fcTokenList.FirstSolidTokenType = ttOf then
+    begin
+      Recognise(ttOf);
+      RecogniseIdentifier(False);
+      PopNode;
+      exit;
+    end;
+
+    if fcTokenList.FirstSolidTokenType = ttOpenBracket then
+      RecogniseClassHeritage;
+
   end;
+    // delphi.net sealed class
+    if fcTokenList.FirstSolidTokenType = ttSealed then
+      Recognise(ttSealed);
+
+    // can end here
+    if fcTokenList.FirstSolidTokenType = ttSemicolon then
+    begin
+      PopNode;
+      exit;
+    end;
 
   RecogniseClassBody;
   Recognise(ttEnd);
@@ -3447,11 +3472,11 @@ procedure TBuildParseTree.RecogniseClassDeclarations(const pbInterface: boolean)
 const
   // can declare thse things in a class
   CLASS_DECL_WORDS = [ttProcedure, ttFunction,
-    ttConstructor, ttDestructor, ttProperty, ttClass, ttConst];
+    ttConstructor, ttDestructor, ttProperty, ttClass, ttConst, ttType];
 var
   lc: TSourceToken;
   lbStarted: boolean;
-  lbConst: Boolean;
+  lbHasTrailingSemicolon: Boolean;
 begin
   { this is a superset of delphi.
     in dcc these must be ordered vars, then fns then properties
@@ -3476,6 +3501,8 @@ begin
      addition: must also do class fns and procs,
      eg
       " class function ClassName: ShortString; "
+
+     Delphi .net allows class types to be declared inside other class types
    }
   lbStarted := False;
 
@@ -3488,7 +3515,7 @@ begin
     lbStarted := True;
 
     lc := fcTokenList.FirstSolidToken;
-    lbConst := False;
+    lbHasTrailingSemicolon := True;
 
     // these end the visibility section
     if fcTokenList.FirstSolidTokenType in (ClassVisibility + [ttEnd, ttStrict]) then
@@ -3503,7 +3530,7 @@ begin
       begin
         { constant in a class are legal in Delphi.net }
         RecogniseConstSection;
-        lbConst := True;
+        lbHasTrailingSemicolon := False;
       end;
       ttClass:
       begin
@@ -3548,6 +3575,11 @@ begin
       end;
       ttProperty:
         RecogniseProperty;
+      ttType:
+      begin
+        RecogniseTypeSection(true);
+        lbHasTrailingSemicolon := False;
+      end;
       else
       begin
         // end of this list with next visibility section or class end?
@@ -3572,8 +3604,9 @@ begin
     // semicolon after each def.
     if fcTokenList.FirstSolidTokenType = ttSemicolon then
       Recognise(ttSemicolon)
-    else if not lbConst then
-      Break; // except the last, or a const (already parsed in const section)
+    else if lbHasTrailingSemicolon then
+      { expect a semicolon on all except the last, or a const or type (already parsed therein ) }
+      Break;
 
   end;
 
@@ -4005,7 +4038,14 @@ begin
   begin
     Recognise(ttDot);
     RecogniseIdentifier(False);
-  end
+
+    { delphi.net nested types have more than one dot }
+    while (fcTokenList.FirstSolidTokenType = ttDot) do
+    begin
+      Recognise(ttDot);
+      RecogniseIdentifier(False);
+    end;
+  end;
 end;
 
 procedure TBuildParseTree.RecogniseTypeId;

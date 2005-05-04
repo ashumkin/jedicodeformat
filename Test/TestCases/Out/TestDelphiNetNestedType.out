@@ -1,0 +1,36 @@
+unit TestDelphiNetNestedType;
+
+interface
+
+type
+  TOuterClass = class
+  private
+    myField: integer;
+  public
+    type
+    TInnerClass = class
+    public
+      myInnerField: integer;
+      procedure innerProc;
+    end;
+
+    procedure outerProc;
+  end;
+
+implementation
+
+{ TOuterClass.TInnerClass }
+
+procedure TOuterClass.TInnerClass.innerProc;
+begin
+
+end;
+
+{ TOuterClass }
+
+procedure TOuterClass.outerProc;
+begin
+
+end;
+
+end.

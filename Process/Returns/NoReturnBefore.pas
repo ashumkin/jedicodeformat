@@ -83,6 +83,13 @@ begin
     exit;
   end;
 
+  { class helper declaration }
+  if IsCLassHelperWords(pt) then
+  begin
+    Result := True;
+    exit;
+  end;
+
   { no return before then and do  in procedure body }
   if (pt.TokenType in ProcNoReturnWords) and InStatements(pt) then
   begin

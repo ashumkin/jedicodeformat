@@ -1,0 +1,36 @@
+unit testdelphinetoperatoroverload;
+
+interface
+
+type
+  tmyclass = class
+  private
+    fdata: integer;
+  public
+    class operator add(a, b: tmyclass): tmyclass;
+    class operator implicit(a: integer): tmyclass;
+    class operator implicit(a: tmyclass): integer;
+    property Data: integer Read fdata Write fdata;
+  end;
+
+implementation
+
+class operator tmyclass.add(a, b: tmyclass): tmyclass;
+begin
+  Result      := tmyclass.Create;
+  Result.Data := a.Data + b.Data;
+end;
+
+class operator tmyclass.implicit(a: tmyclass): integer;
+begin
+  Result := a.Data;
+end;
+
+class operator tmyclass.implicit(a: integer): tmyclass;
+begin
+  Result      := tmyclass.Create;
+  Result.Data := a;
+end;
+
+end.
+ 

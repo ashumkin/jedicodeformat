@@ -251,6 +251,8 @@ end;
 
 
 function NeedsReturn(const pt, ptNext: TSourceToken): boolean;
+const
+  CLASS_FOLLOW = [ttOf, ttHelper];
 var
   lcNext: TSourceToken;
 begin
@@ -396,12 +398,18 @@ begin
     exit;
   end;
 
-  // "TSomeClass = class(TAncestorClass)" has a return after the close brackets
+  { "TSomeClass = class(TAncestorClass)" has a return after the close brackets
+   unless it's a "class helper(foo) for bar"
+  }
   if (pt.TokenType = ttCloseBracket) and
     pt.HasParentNode([nClassHeritage, nInterfaceHeritage], 1) then
   begin
-    Result := True;
-    exit;
+    lcNext := pt.NextSolidToken;
+    if (lcNext <> nil) and (lcNext.TokenType <> ttFor) then
+    begin
+      Result := True;
+      exit;
+    end;
   end;
 
   { otherwise "TSomeClass = class" has a return after "class"
@@ -412,7 +420,7 @@ begin
       - it's not the metaclass syntax 'foo = class of bar; ' }
   if (pt.TokenType = ttClass) and
     pt.HasParentNode([nClassType, nInterfaceType], 1) and not
-    (pt.Parent.HasChildNode(nClassHeritage, 1)) and not (ptNext.TokenType = ttOf) then
+    (pt.Parent.HasChildNode(nClassHeritage, 1)) and not (ptNext.TokenType in CLASS_FOLLOW) then
   begin
     Result := True;
     exit;
