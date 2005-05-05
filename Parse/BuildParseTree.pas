@@ -1467,15 +1467,32 @@ begin
 end;
 
 procedure TBuildParseTree.RecogniseRecordType;
+var
+  lcType: TTokenType;
 begin
-  // RecType -> RECORD [FieldList] END
+  {
+    RecType -> RECORD [FieldList] END
+
+    Also in Delphi.net it can be a forward declaration e.g.
+      "TRecord1 = record;"
+  }
 
   PushNode(nRecordType);
 
   Recognise(ttRecord);
-  if fcTokenList.FirstSolidTokenType <> ttEnd then
-    RecogniseFieldList;
-  Recognise(ttEnd);
+
+  lcType := fcTokenList.FirstSolidTokenType;
+
+  if lcType = ttSemiColon then
+  begin
+
+  end
+  else
+  begin
+    if lcType <> ttEnd then
+      RecogniseFieldList;
+    Recognise(ttEnd);
+  end;
 
   RecogniseHintDirectives;
 

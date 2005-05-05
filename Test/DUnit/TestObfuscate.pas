@@ -224,6 +224,7 @@ type
     procedure TestDelphiNetHelperClass;
     procedure TestDelphiNetNestedType;
     procedure TestDelphiNetNestedType2;
+    procedure TestDelphiNetRecordForward;
 
     procedure TestForIn;
   end;
@@ -1224,6 +1225,11 @@ end;
 procedure TTestObfuscate.TestDelphiNetOperatorOverload;
 begin
   TestObfuscateFile('TestDelphiNetOperatorOverload');
+end;
+
+procedure TTestObfuscate.TestDelphiNetRecordForward;
+begin
+  TestObfuscateFile('TestDelphiNetRecordForward');
 end;
 
 initialization

@@ -1,0 +1,28 @@
+unit testdelphinetrecordforward;
+
+interface
+
+type
+  trecord1 = record;
+  trecord2 = record;
+  trecord3 = record;
+
+  trecord1 = record
+    foo:  integer;
+    bar:  string;
+    fish: double;
+    rec:  trecord2;
+  end;
+
+  trecord2 = record
+    foo:  integer;
+    bar:  string;
+    fish: double;
+    rec:  trecord3;
+  end;
+  trecord3 = record
+  end;
+
+implementation
+
+end.

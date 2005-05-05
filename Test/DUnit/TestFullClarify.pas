@@ -221,6 +221,7 @@ type
     procedure TestDelphiNetHelperClass;
     procedure TestDelphiNetNestedType;
     procedure TestDelphiNetNestedType2;
+    procedure TestDelphiNetRecordForward;
 
     procedure TestCases;
   end;
@@ -1176,6 +1177,11 @@ end;
 procedure TFullTestClarify.TestDelphiNetHelperClass;
 begin
   TestClarifyFile('TestDelphiNetHelperClass');
+end;
+
+procedure TFullTestClarify.TestDelphiNetRecordForward;
+begin
+  TestClarifyFile('TestDelphiNetRecordForward');
 end;
 
 initialization

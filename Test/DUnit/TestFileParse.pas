@@ -222,6 +222,7 @@ type
     procedure TestDelphiNetHelperClass;
     procedure TestDelphiNetNestedType;
     procedure TestDelphiNetNestedType2;
+    procedure TestDelphiNetRecordForward;
 
     procedure TestCases;
     procedure TestPackage;
@@ -1185,6 +1186,11 @@ end;
 procedure TTestFileParse.TestDelphiNetHelperClass;
 begin
   TestParseFile('TestDelphiNetHelperClass', 154);
+end;
+
+procedure TTestFileParse.TestDelphiNetRecordForward;
+begin
+  TestParseFile('TestDelphiNetRecordForward', 139);
 end;
 
 initialization
