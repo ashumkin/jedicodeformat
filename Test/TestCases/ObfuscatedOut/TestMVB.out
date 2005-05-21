@@ -31,8 +31,7 @@ type
       0: (lowpart: dword;
         highpart:
         longint);
-{$IFNDEF BCB3}
-      1: (quadpart: longlong);{$ENDIF}
+{$IFNDEF BCB3}1: (quadpart: longlong);{$ENDIF}
   end;
 
 const

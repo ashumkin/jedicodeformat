@@ -151,7 +151,8 @@ uses
   testendelse in 'TestEndElse.pas',
   testcondreturns in 'TestCondReturns.pas',
   testconstbug in 'TestConstBug.pas',
-  test.dotted.Name in 'test.dotted.name.pas';
+  test.dotted.Name in 'test.dotted.name.pas',
+  testcondcompbreaks in 'TestCondCompBreaks.pas';
 
 {$R *.res}
 begin

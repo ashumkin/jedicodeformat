@@ -11,8 +11,7 @@ begin
 {$IF Defined(LINUX)}
 
    i := 42;
-{$ELSEIF Defined(MSWINDOWS)}
-  i := 23;
+{$ELSEIF Defined(MSWINDOWS)}i := 23;
 {$ELSE}
    {$MESSAGE ERROR 'foo not implemented'}
 

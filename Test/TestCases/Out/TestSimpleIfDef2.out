@@ -14,7 +14,6 @@ uses
   SysUtils
 {$ELSE}
 FooLinux
-{$ENDIF}
-  ;
+{$ENDIF};
 
 end.

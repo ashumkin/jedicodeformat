@@ -48,7 +48,7 @@ uses
   SysUtils,
   { local }
   TokenUtils, SourceToken, Tokens,
-  ParseTreeNodeType, ParseTreeNode, JcfSettings, FormatFlags;
+  ParseTreeNodeType, ParseTreeNode, JcfSettings, FormatFlags, SettingsTypes;
 
 const
   WordsJustReturnAfter: TTokenTypeSet = [ttBegin, ttRepeat,
@@ -305,19 +305,6 @@ begin
     exit;
   end;
 
-  { return before compiler directives
-    NB ptNext is the next *solid* token
-    cond comp removed is not solid }
-  if (pt.CommentStyle = eCompilerDirective) then
-  begin
-    lcNext := pt.NextTokenWithExclusions([ttWhiteSpace]);
-    if (lcNext <> nil) and (lcNext.TokenType <> ttConditionalCompilationRemoved) then
-    begin
-      Result := True;
-      exit;
-    end;
-  end;
-
   { return after 'type' unless it's the second type in "type foo = type integer;" }
   if (pt.TokenType = ttType) and (pt.HasParentNode(nTypeSection, 1)) and
     ( not pt.IsOnRightOf(nTypeDecl, ttEquals)) then
@@ -477,6 +464,19 @@ begin
   begin
     Result := True;
     exit;
+  end;
+
+  { return after compiler directives
+    NB use lcNext as ptNext is the next *solid* token
+    cond comp removed is not solid }
+  if (pt.CommentStyle = eCompilerDirective) and (CompilerDirectiveLineBreak(pt, False) = eAlways) then
+  begin
+    lcNext := pt.NextTokenWithExclusions([ttWhiteSpace]);
+    if (lcNext <> nil) and (lcNext.TokenType <> ttConditionalCompilationRemoved) then
+    begin
+      Result := True;
+      exit;
+    end;
   end;
 
 end;

@@ -207,6 +207,8 @@ type
 
     procedure TestPackage;
     procedure TestProcBlankLines;
+    procedure TestCondCompBreaks;
+    procedure TestCondCompBreaks2;
 
     procedure TestDelphiNetUses;
     procedure TestConstBug;
@@ -1182,6 +1184,16 @@ end;
 procedure TFullTestClarify.TestDelphiNetRecordForward;
 begin
   TestClarifyFile('TestDelphiNetRecordForward');
+end;
+
+procedure TFullTestClarify.TestCondCompBreaks;
+begin
+  TestClarifyFile('TestCondCompBreaks');
+end;
+
+procedure TFullTestClarify.TestCondCompBreaks2;
+begin
+  TestClarifyFile('TestCondCompBreaks2');
 end;
 
 initialization

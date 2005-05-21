@@ -1,6 +1,8 @@
 unit TestDelphiNetOperatorOverload;
 
-{ JCF test cases
+{ This unit compiles but is not semantically meaningfull
+ it is test cases for the code formatting utility
+
   test operator overloads in Delphi.NET }
 
 interface

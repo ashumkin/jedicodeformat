@@ -1,5 +1,11 @@
 unit TestDelphiNetRecordForward;
 
+{ This unit compiles but is not semantically meaningfull
+ it is test cases for the code formatting utility
+
+ Delphi.NEt record forward declarations
+}
+
 interface
 
 type

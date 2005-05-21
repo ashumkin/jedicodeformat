@@ -8,26 +8,19 @@ const
   soy = 3;
 {$ELSEIF Defined(BAR)}
  warrawak1
-{$IFEND}
-{$UNDEF FOO}
-{$IF Defined(FOO)}
+{$IFEND}{$UNDEF FOO}{$IF Defined(FOO)}
   warrawak2
 
 {$ELSEIF Defined(BAR)}
  warrawak3
-{$IFEND}
-{$DEFINE BAR}
-{$IF Defined(FOO)}
+{$IFEND}{$DEFINE BAR}{$IF Defined(FOO)}
   warrawak4
 
 {$ELSEIF Defined(BAR)}
 
 const
   monkey = 3;
-{$IFEND}
-{$UNDEF BAR}
-{$DEFINE FISH}
-{$IF Defined(FOO)}
+{$IFEND}{$UNDEF BAR}{$DEFINE FISH}{$IF Defined(FOO)}
 
   warrawak5
 {$ELSEIF Defined(BAR)}
@@ -36,9 +29,7 @@ const
 
 const
   koln = 3;
-{$IFEND}
-{$DEFINE BAR}
-{$IF Defined(FOO)}
+{$IFEND}{$DEFINE BAR}{$IF Defined(FOO)}
   warrawak7
 {$ELSEIF Defined(BAR)}
 

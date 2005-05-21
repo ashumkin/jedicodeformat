@@ -159,7 +159,9 @@ uses
   AlignField in '..\Process\Align\AlignField.pas',
   frClarifyBlocks in '..\Ui\Settings\frClarifyBlocks.pas' {fClarifyBlocks: TFrame},
   SortUses in '..\Process\Transform\SortUses.pas',
-  SortUsesData in '..\Process\Transform\SortUsesData.pas';
+  SortUsesData in '..\Process\Transform\SortUsesData.pas',
+  frCompilerDirectReturns in '..\Ui\Settings\frCompilerDirectReturns.pas' {fCompilerDirectReturns: TFrame},
+  WarnUnusedParam in '..\Process\Warnings\WarnUnusedParam.pas';
 
 {$R *.res}
 

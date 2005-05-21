@@ -211,6 +211,8 @@ type
 
     procedure TestCases;
     procedure TestProcBlankLines;
+    procedure TestCondCompBreaks;
+    procedure TestCondCompBreaks2;
 
     procedure TestDelphiNetUses;
 
@@ -1230,6 +1232,16 @@ end;
 procedure TTestObfuscate.TestDelphiNetRecordForward;
 begin
   TestObfuscateFile('TestDelphiNetRecordForward');
+end;
+
+procedure TTestObfuscate.TestCondCompBreaks;
+begin
+  TestObfuscateFile('TestCondCompBreaks');
+end;
+
+procedure TTestObfuscate.TestCondCompBreaks2;
+begin
+  TestObfuscateFile('TestCondCompBreaks2');
 end;
 
 initialization

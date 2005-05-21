@@ -208,6 +208,8 @@ type
     procedure TestVarParam;
     procedure TestWith;
     procedure TestProcBlankLines;
+    procedure TestCondCompBreaks;
+    procedure TestCondCompBreaks2;
 
     procedure TestDephiNetUses;
     procedure TestForIn;
@@ -707,7 +709,7 @@ end;
 
 procedure TTestFileParse.TestCases;
 begin
-  TestParseFile('Testcases.dpr', 1253);
+  TestParseFile('Testcases.dpr', 1261);
 end;
 
 
@@ -1130,7 +1132,7 @@ end;
 
 procedure TTestFileParse.TestDephiNetUses;
 begin
-  TestParseFile('TestDelphiNetUses', 143);
+  TestParseFile('TestDelphiNetUses', 146);
 end;
 
 procedure TTestFileParse.TestConstBug;
@@ -1150,17 +1152,17 @@ end;
 
 procedure TTestFileParse.TestDelphiNetClass;
 begin
-  TestParseFile('TestDelphiNetClass', 145);
+  TestParseFile('TestDelphiNetClass', 148);
 end;
 
 procedure TTestFileParse.TestDelphiNetConst;
 begin
-  TestParseFile('TestDelphiNetConst', 122);
+  TestParseFile('TestDelphiNetConst', 125);
 end;
 
 procedure TTestFileParse.TestDelphiNetStatic;
 begin
-  TestParseFile('TestDelphiNetStatic', 321);
+  TestParseFile('TestDelphiNetStatic', 324);
 end;
 
 procedure TTestFileParse.TestTestDotNetForm1;
@@ -1170,12 +1172,12 @@ end;
 
 procedure TTestFileParse.TestDelphiNetNestedType;
 begin
-  TestParseFile('TestDelphiNetNestedType', 115);
+  TestParseFile('TestDelphiNetNestedType', 117);
 end;
 
 procedure TTestFileParse.TestDelphiNetNestedType2;
 begin
-  TestParseFile('TestDelphiNetNestedType2', 171);
+  TestParseFile('TestDelphiNetNestedType2', 174);
 end;
 
 procedure TTestFileParse.TestDelphiNetOperatorOverload;
@@ -1185,12 +1187,22 @@ end;
 
 procedure TTestFileParse.TestDelphiNetHelperClass;
 begin
-  TestParseFile('TestDelphiNetHelperClass', 154);
+  TestParseFile('TestDelphiNetHelperClass', 158);
 end;
 
 procedure TTestFileParse.TestDelphiNetRecordForward;
 begin
-  TestParseFile('TestDelphiNetRecordForward', 139);
+  TestParseFile('TestDelphiNetRecordForward', 142);
+end;
+
+procedure TTestFileParse.TestCondCompBreaks;
+begin
+  TestParseFile('TestCondCompBreaks', 89);
+end;
+
+procedure TTestFileParse.TestCondCompBreaks2;
+begin
+  TestParseFile('TestCondCompBreaks2', 88);
 end;
 
 initialization

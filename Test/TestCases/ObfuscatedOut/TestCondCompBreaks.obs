@@ -1,0 +1,7 @@
+unit testcondcompbreaks;interface implementation uses sysutils,{$IFDEF BAR_RAISED}
+ Classes, {$ENDIF}dialogs;{$IFDEF SYM2} const
+  SOCK_IT_TO_ME = 'Black socks'; {$ENDIF}
+procedure somestuff;begin showmessage('Some stuff...');end;procedure morestuff;begin
+{$IFDEF HAS_STUFF}
+  SomeStuff;
+  {$ENDIF}end;end.

@@ -80,7 +80,7 @@ uses
   RemoveEmptyComment, AddBeginEnd, AddBlockEndSemicolon, SortUses,
   { warnings }
   Warning, WarnEmptyBlock, WarnRealType, WarnAssignToFunctionName,
-  WarnCaseNoElse, WarnDestroy,
+  WarnCaseNoElse, WarnDestroy, WarnUnusedParam,
   { caps}
   UnitNameCaps, SpecificWordCaps, Capitalisation,
   { returns }
@@ -254,6 +254,7 @@ begin
   ApplyVisitorType(TWarnAssignToFunctionName);
   ApplyVisitorType(TWarnCaseNoElse);
   ApplyVisitorType(TWarnDestroy);
+  ApplyVisitorType(TWarnUnusedParam);
 end;
 
 procedure TAllProcesses.Capitalisation;

@@ -48,10 +48,11 @@ type
 implementation
 
 uses
+  SysUtils,
   TokenUtils,
   SourceToken, Tokens, ParseTreeNode,
   Nesting, ParseTreeNodeType, JcfSettings,
-  FormatFlags;
+  FormatFlags, SettingsTypes;
 
 const
   WordsReturnBefore: TTokenTypeSet =
@@ -204,18 +205,16 @@ begin
     exit;
   end;
 
-  (*
   { return before compiler directives }
-  if (pt.CommentStyle = eCompilerDirective) then
+  if (pt.CommentStyle = eCompilerDirective) and (CompilerDirectiveLineBreak(pt, True) = eAlways) then
   begin
-    lcPrev := pt.PriorToken;
+    lcPrev := pt.PriorTokenWithExclusions([ttWhiteSpace]); 
     if (lcPrev <> nil) and (lcPrev.TokenType <> ttConditionalCompilationRemoved) then
       begin
         Result := True;
         exit;
       end;
   end;
-  *)
 
   { there is not always a return before 'type'
     e.g.
@@ -348,7 +347,7 @@ begin
       end;
       else
       begin
-        Assert(False, 'Too many returns');
+        Assert(False, 'Too many returns ' + IntToStr(liReturnsNeeded));
       end;
     end;
   end;

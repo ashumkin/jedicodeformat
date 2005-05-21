@@ -1,5 +1,13 @@
 unit TestDelphiNetUses;
 
+{
+  AFS May 2005
+ This unit compiles but is not semantically meaningfull
+ it is test cases for the code formatting utility
+
+ Basic test of uses clause in Delphi.NET
+}
+
 interface
 
 uses

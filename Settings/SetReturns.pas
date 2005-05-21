@@ -66,6 +66,14 @@ type
     feElseIfStyle: TTriOptionStyle;
     feElseBeginStyle: TTriOptionStyle;
 
+    { returns on compiler directives }
+    feBeforeCompilerDirectUses: TTriOptionStyle;
+    feBeforeCompilerDirectStatements: TTriOptionStyle;
+    feBeforeCompilerDirectGeneral: TTriOptionStyle;
+    feAfterCompilerDirectUses: TTriOptionStyle;
+    feAfterCompilerDirectStatements: TTriOptionStyle;
+    feAfterCompilerDirectGeneral: TTriOptionStyle;
+
     feReturnChars: TReturnChars;
 
     fbRemoveConsecutiveBlankLines: boolean;
@@ -118,6 +126,13 @@ type
     property ElseIfStyle: TTriOptionStyle Read feElseIfStyle Write feElseIfStyle;
     property ElseBeginStyle: TTriOptionStyle Read feElseBeginStyle Write feElseBeginStyle;
 
+    property BeforeCompilerDirectUses: TTriOptionStyle read feBeforeCompilerDirectUses write feBeforeCompilerDirectUses;
+    property BeforeCompilerDirectStatements: TTriOptionStyle read feBeforeCompilerDirectStatements write feBeforeCompilerDirectStatements;
+    property BeforeCompilerDirectGeneral: TTriOptionStyle read feBeforeCompilerDirectGeneral write feBeforeCompilerDirectGeneral;
+    property AfterCompilerDirectUses: TTriOptionStyle read feAfterCompilerDirectUses write feAfterCompilerDirectUses;
+    property AfterCompilerDirectStatements: TTriOptionStyle read feAfterCompilerDirectStatements write feAfterCompilerDirectStatements;
+    property AfterCompilerDirectGeneral: TTriOptionStyle read feAfterCompilerDirectGeneral write feAfterCompilerDirectGeneral;
+
     property ReturnChars: TReturnChars Read feReturnChars Write feReturnChars;
 
     property RemoveConsecutiveBlankLines: boolean
@@ -162,6 +177,13 @@ const
   REG_END_ELSE_STYLE   = 'EndElse';
   REG_ELSE_IF_STYLE    = 'ElseIf';
   REG_ELSE_BEGIN_STYLE    = 'ElseBegin';
+
+  REG_BEFORE_COMPILER_DIRECT_USES_STYLE = 'BeforeCompilerDirectUses';
+  REG_BEFORE_COMPILER_DIRECT_STATEMENTS_STYLE = 'BeforeCompilerDirectStatements';
+  REG_BEFORE_COMPILER_DIRECT_GENERAL_STYLE = 'BeforeCompilerDirectGeneral';
+  REG_AFTER_COMPILER_DIRECT_USES_STYLE = 'AfterCompilerDirectUses';
+  REG_AFTER_COMPILER_DIRECT_STATEMENTS_STYLE = 'AfterCompilerDirectStatements';
+  REG_AFTER_COMPILER_DIRECT_GENERAL_STYLE = 'AfterCompilerDirectGeneral';
 
   REG_RETURN_CHARS = 'ReturnChars';
 
@@ -211,6 +233,14 @@ begin
   feElseIfStyle     := TTriOptionStyle(pcStream.Read(REG_ELSE_IF_STYLE, Ord(eNever)));
   feElseBeginStyle  := TTriOptionStyle(pcStream.Read(REG_ELSE_BEGIN_STYLE, Ord(eNever)));
 
+
+  feBeforeCompilerDirectUses := TTriOptionStyle(pcStream.Read(REG_BEFORE_COMPILER_DIRECT_USES_STYLE, Ord(eLeave)));
+  feBeforeCompilerDirectStatements := TTriOptionStyle(pcStream.Read(REG_BEFORE_COMPILER_DIRECT_STATEMENTS_STYLE, Ord(eAlways)));
+  feBeforeCompilerDirectGeneral := TTriOptionStyle(pcStream.Read(REG_BEFORE_COMPILER_DIRECT_GENERAL_STYLE, Ord(eLeave)));
+  feAfterCompilerDirectUses := TTriOptionStyle(pcStream.Read(REG_AFTER_COMPILER_DIRECT_USES_STYLE, Ord(eLeave)));
+  feAfterCompilerDirectStatements := TTriOptionStyle(pcStream.Read(REG_AFTER_COMPILER_DIRECT_STATEMENTS_STYLE, Ord(eAlways)));
+  feAfterCompilerDirectGeneral := TTriOptionStyle(pcStream.Read(REG_AFTER_COMPILER_DIRECT_GENERAL_STYLE, Ord(eLeave)));
+
   feReturnChars := TReturnChars(pcStream.Read(REG_RETURN_CHARS, Ord(rcLeaveAsIs)));
 
   fbRemoveConsecutiveBlankLines :=
@@ -252,6 +282,13 @@ begin
   pcOut.Write(REG_END_ELSE_STYLE, Ord(feEndElseStyle));
   pcOut.Write(REG_ELSE_IF_STYLE, Ord(feElseIfStyle));
   pcOut.Write(REG_ELSE_BEGIN_STYLE, Ord(feElseBeginStyle));
+
+  pcOut.Write(REG_BEFORE_COMPILER_DIRECT_USES_STYLE, Ord(feBeforeCompilerDirectUses));
+  pcOut.Write(REG_BEFORE_COMPILER_DIRECT_STATEMENTS_STYLE, Ord(feBeforeCompilerDirectStatements));
+  pcOut.Write(REG_BEFORE_COMPILER_DIRECT_GENERAL_STYLE, Ord(feBeforeCompilerDirectGeneral));
+  pcOut.Write(REG_AFTER_COMPILER_DIRECT_USES_STYLE, Ord(feAfterCompilerDirectUses));
+  pcOut.Write(REG_AFTER_COMPILER_DIRECT_STATEMENTS_STYLE, Ord(feAfterCompilerDirectStatements));
+  pcOut.Write(REG_AFTER_COMPILER_DIRECT_GENERAL_STYLE, Ord(feAfterCompilerDirectGeneral));
 
   pcOut.Write(REG_RETURN_CHARS, Ord(feReturnChars));
 

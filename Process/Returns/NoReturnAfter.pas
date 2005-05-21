@@ -57,7 +57,7 @@ type
 implementation
 
 uses Tokens, ParseTreeNodeType, TokenUtils,
-  SetReturns, JcfSettings, FormatFlags;
+  SetReturns, JcfSettings, FormatFlags, SettingsTypes;
 
 
 constructor TNoReturnAfter.Create;
@@ -169,6 +169,13 @@ begin
         exit;
       end;
     end;
+
+    if (pt.CommentStyle = eCompilerDirective) and (CompilerDirectiveLineBreak(pt, False) = eNever) then
+    begin
+      Result := True;
+      exit;
+    end;
+
   end;
 
   { remove returns based on options }

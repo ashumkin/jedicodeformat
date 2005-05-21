@@ -1,5 +1,13 @@
 unit TestDelphiNetNestedType2;
 
+{
+  AFS May 2005
+ This unit compiles but is not semantically meaningfull
+ it is test cases for the code formatting utility
+
+ More complex test of nested types in Delphi.NET
+}
+
 interface
 
 type

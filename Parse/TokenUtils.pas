@@ -30,7 +30,7 @@ under the License.
 
 interface
 
-uses ParseTreeNode, SourceToken;
+uses ParseTreeNode, SourceToken, SettingsTypes;
 
 { make a new return token }
 function NewReturn: TSourceToken;
@@ -134,12 +134,15 @@ function StartsLiteralString(const pt: TSourceToken): boolean;
 
 function NextToWhiteSpace(const pt: TSourceToken): boolean;
 
+
+function CompilerDirectiveLineBreak(const pt: TSourceToken; const pbBefore: Boolean): TTriOptionStyle;
+
 implementation
 
 uses
   SysUtils,
   JclStrings,
-  ParseTreeNodeType, Tokens, Nesting;
+  ParseTreeNodeType, Tokens, Nesting, JcfSettings, SetReturns;
 
 
 function NewReturn: TSourceToken;
@@ -749,6 +752,31 @@ begin
       lcNext := pt.NextToken;
       Result := (lcNext <> nil) and (lcNext.TokenType = ttWhiteSpace) and (lcNext.SourceCode <> '');
     end;
+  end;
+end;
+
+function CompilerDirectiveLineBreak(const pt: TSourceToken; const pbBefore: Boolean): TTriOptionStyle;
+begin
+  if InStatements(pt) then
+  begin
+    if pbBefore then
+      Result := FormatSettings.Returns.BeforeCompilerDirectStatements
+    else
+      Result := FormatSettings.Returns.AfterCompilerDirectStatements;
+  end
+  else if pt.HasParentNode(nUses)  then
+  begin
+    if pbBefore then
+      Result := FormatSettings.Returns.BeforeCompilerDirectUses
+    else
+      Result := FormatSettings.Returns.AfterCompilerDirectUses;
+  end
+  else
+  begin
+    if pbBefore then
+      Result := FormatSettings.Returns.BeforeCompilerDirectGeneral
+    else
+      Result := FormatSettings.Returns.AfterCompilerDirectGeneral;
   end;
 end;
 

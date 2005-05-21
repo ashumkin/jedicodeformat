@@ -46,7 +46,7 @@ type
 implementation
 
 uses SourceToken, TokenUtils, Tokens, ParseTreeNodeType,
-  JcfSettings, FormatFlags, ParseTreeNode;
+  JcfSettings, FormatFlags, ParseTreeNode, SettingsTypes;
 
 function HasNoReturnBefore(const pt: TSourceToken): boolean;
 const
@@ -84,7 +84,7 @@ begin
   end;
 
   { class helper declaration }
-  if IsCLassHelperWords(pt) then
+  if IsClassHelperWords(pt) then
   begin
     Result := True;
     exit;
@@ -125,6 +125,12 @@ begin
       exit;
     end;
   end;
+
+  if (pt.CommentStyle = eCompilerDirective) and (CompilerDirectiveLineBreak(pt, True) = eNever) then
+  begin
+    Result := True;
+    exit;
+  end;
 end;
 
 constructor TNoReturnBefore.Create;
@@ -152,9 +158,14 @@ begin
 
   if (lcSourceToken.TokenType = ttReturn) and fbSafeToRemoveReturn then
   begin
-    lcNext := lcSourceToken.NextSolidToken;
+    lcNext := lcSourceToken.NextTokenWithExclusions([ttReturn, ttWhiteSpace]);
 
-    if HasNoReturnBefore(lcNext) then
+    // skip past regular comments
+    while (lcNext <> nil) and (lcNext.TokenType = ttComment) and
+      (lcNext.CommentStyle <> eCompilerDirective) do
+        lcNext := lcNext.NextTokenWithExclusions([ttReturn, ttWhiteSpace]);
+
+    if (lcNext <> nil) and HasNoReturnBefore(lcNext) then
     begin
       { must still check for the case of
           try
@@ -166,11 +177,13 @@ begin
 
       -- the return before the comment should not be removed
 
-      This does not hold in a program files uses clause
+      This does not hold in a program files uses clause or before a compiler directive
       }
       lcNextComment := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace, ttReturn]);
       if (lcNextComment <> nil) and
-        ((lcNextComment.TokenType <> ttComment) or (InFilesUses(lcNextComment))) then
+        ((lcNextComment.TokenType <> ttComment) or
+         (lcNextComment.CommentStyle = eCompilerDirective) or
+         (InFilesUses(lcNextComment))) then
         BlankToken(lcSourceToken);
     end;
   end;

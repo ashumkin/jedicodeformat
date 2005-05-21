@@ -81,7 +81,8 @@ uses
   frClarifyAlign,
   frReplace,
   frReservedCapsSettings, frAnyCapsSettings, frUnitCaps,
-  frUses, frBasicSettings, frPreProcessor, frComments, frTransform;
+  frUses, frBasicSettings, frPreProcessor, frComments, frTransform,
+  frCompilerDirectReturns;
 
 
 type
@@ -91,7 +92,7 @@ type
   end;
 
 const
-  FrameMap: array[0..19] of TFrameMapRecord = (
+  FrameMap: array[0..20] of TFrameMapRecord = (
     (FrameName: 'Format file'; FrameClass: TfFiles),
     (FrameName: 'Obfuscate'; FrameClass: TfObfuscateSettings),
     (FrameName: 'Clarify'; FrameClass: TfClarify),
@@ -111,7 +112,8 @@ const
     (FrameName: 'Basic'; FrameClass: TfrBasic),
     (FrameName: 'PreProcessor'; FrameClass: TfPreProcessor),
     (FrameName: 'Comments'; FrameClass: TfComments),
-    (FrameName: 'Transform'; FrameClass: TfTransform)
+    (FrameName: 'Transform'; FrameClass: TfTransform),
+    (FrameName: 'Compiler directives'; FrameClass: TfCompilerDirectReturns)
     );
 
 { TFormAllSettings }

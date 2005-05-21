@@ -124,7 +124,7 @@ begin
   // convert should work
   //CheckEquals(False, fcConvert.ConvertError, fcConvert.ConvertErrorMessage);
   // with messages
-  CheckEquals(piMatchCount, fcMessages.Count, 'Wrong number of messages');
+  CheckEquals(piMatchCount, fcMessages.Count, 'Wrong number of messages ' + fcMessages.text);
 
   for liLoop := Low(psWarningMatches) to High(psWarningMatches) do
   begin
@@ -150,27 +150,36 @@ begin
   StrReplace(Result, AnsiLineBreak, '-q' + AnsiLineBreak, [rfReplaceAll]);
 end;
 
-function DiffText(ps1, ps2: string): string;
+function DiffText(const ps1, ps2: string): string;
 var
+  psDiff1, psDiff2: string;
   liStartDif: integer;
+  lsBeforeDif: string;
 begin
   liStartDif := 0;
+  psDiff1 := ps1;
+  psDiff2 := ps2;
+
   // strip same chars on start
-  while (length(ps1) > 0) and (length(ps2) > 0) and (ps1[1] = ps2[1]) do
+  while (length(psDiff1) > 0) and (length(psDiff2) > 0) and (psDiff1[1] = psDiff2[1]) do
   begin
-    ps1 := StrRestOf(ps1, 2);
-    ps2 := StrRestOf(ps2, 2);
+    psDiff1 := StrRestOf(psDiff1, 2);
+    psDiff2 := StrRestOf(psDiff2, 2);
     inc(liStartDif);
   end;
 
-  while (length(ps1) > 0) and (length(ps2) > 0) and
-    (ps1[length(ps1)] = ps2[length(ps2)]) do
+  while (length(psDiff1) > 0) and (length(psDiff2) > 0) and
+    (psDiff1[length(psDiff1)] = psDiff2[length(psDiff2)]) do
   begin
-    ps1 := StrChopRight(ps1, 1);
-    ps2 := StrChopRight(ps2, 1);
+    psDiff1 := StrChopRight(psDiff1, 1);
+    psDiff2 := StrChopRight(psDiff2, 1);
   end;
 
-  Result := ps1 + '<->' + ps2 + AnsiLineBreak + 'at char ' + IntToStr(liStartDif);
+  lsBeforeDif := StrLeft(ps1, liStartDif);
+  Result := psDiff1 + '<->' + psDiff2 +
+    AnsiLineBreak + 'at char ' + IntToStr(liStartDif) + AnsiLineBreak +
+    ' After: ' + AnsiLineBreak +
+    lsBeforeDif + '-q';
 end;
 
 procedure TBaseTestProcess.TestProcessResult(processType: TTreeNodeVisitorType;
@@ -207,7 +216,7 @@ begin
     lsOut := StrChopRight(lsOut, 2);
   end;
 
-  { }
+  (*  
   // debug
   if (lsOut <> psOut) then
   begin
@@ -217,8 +226,14 @@ begin
       MarkReturns(psOut));
 
     ShowMessage(DiffText(lsOut, psOut));
+
+    {
+    // debug temp - use external diff tool(WinMerge) to compare them
+    StringToFile('c:\t1.out', lsOut);
+    StringToFile('c:\t2.out', psOut);
+    {}
   end;
- { }
+  *)
 
   CheckEquals(Length(psOut), Length(lsOut), 'Results length mismatch');
   CheckEquals(psOut, lsOut, 'Bad result text');

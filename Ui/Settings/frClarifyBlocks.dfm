@@ -1,6 +1,6 @@
 inherited fClarifyBlocks: TfClarifyBlocks
-  Width = 350
-  Height = 302
+  Width = 1280
+  Height = 968
   object Label1: TLabel
     Left = 4
     Top = 4

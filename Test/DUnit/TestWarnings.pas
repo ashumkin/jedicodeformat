@@ -55,10 +55,24 @@ type
     procedure TestCaseNoElse1;
     procedure TestCaseNoElse2;
 
+    procedure TestWarnUnusedParam1;
+    procedure TestWarnUnusedParam2;
+    procedure TestWarnUnusedParam3;
+    procedure TestWarnUnusedParam4;
+    procedure TestWarnUnusedParam5;
+    procedure TestWarnUnusedParam6;
+    procedure TestWarnUnusedParamClass;
+    procedure TestWarnUnusedParamConstructor;
+    procedure TestWarnUnusedParamClassFn;
+    procedure TestWarnUnusedParamOpOverload;
+    procedure TestUnusedParamClassConstructor;
+    procedure TestUnusedInnerClass;
   end;
 
 
 implementation
+
+uses JclStrings;
 
 const
   EMPTY_BEGIN_END = 'Empty begin..end block';
@@ -178,6 +192,150 @@ begin
 end;
 
 
+
+procedure TTestWarnings.TestWarnUnusedParam1;
+const
+  // this one should have 1 param warning
+  UNIT_TEXT = UNIT_HEADER +
+    'procedure fred(foo: integer); var li: integer; begin li := 3; end; ' +
+    UNIT_FOOTER;
+begin
+  TestWarnings(UNIT_TEXT, 'is not used');
+end;
+
+procedure TTestWarnings.TestWarnUnusedParam2;
+const
+  // this one should have 1 param warning
+  UNIT_TEXT = UNIT_HEADER +
+    'procedure fred(const foo: integer); var li: integer; begin li := 3; end; ' +
+    UNIT_FOOTER;
+begin
+  TestWarnings(UNIT_TEXT, 'is not used');
+end;
+
+procedure TTestWarnings.TestWarnUnusedParam3;
+const
+  // this one should have 2 param warning
+  UNIT_TEXT = UNIT_HEADER +
+    'procedure fred(var foo, bar: integer); var li: integer; begin li := 3; end; ' +
+    UNIT_FOOTER;
+begin
+  TestWarnings(UNIT_TEXT, ['is not used', 'is not used']);
+end;
+
+procedure TTestWarnings.TestWarnUnusedParam4;
+const
+  // this one should have 1 param warning
+  UNIT_TEXT = UNIT_HEADER +
+    'function fred(const foo: integer): integer; begin Result := 3; end; ' +
+    UNIT_FOOTER;
+begin
+  TestWarnings(UNIT_TEXT, 'is not used');
+end;
+
+
+procedure TTestWarnings.TestWarnUnusedParam5;
+const
+  // this one should have 2 param warnings out of 4 params
+  UNIT_TEXT = UNIT_HEADER +
+    'function fred(var foo1, foo2, foo3, foo4: integer): integer; begin foo3 := foo1; end; ' +
+    UNIT_FOOTER;
+begin
+  TestWarnings(UNIT_TEXT, ['foo2', 'foo4']);
+end;
+
+
+procedure TTestWarnings.TestWarnUnusedParam6;
+const
+  // this one should have only paramC unused
+  UNIT_TEXT = UNIT_HEADER +
+    ' function fred(var paramA, paramB, paramC: integer): integer; ' +  AnsiLineBreak +
+    ' begin if b > 10 then Result := foo(paramA, paramB, paramB - 1) else Result := paramA + paramB; end; ' +
+    UNIT_FOOTER;
+begin
+  TestWarnings(UNIT_TEXT, 'paramC');
+end;
+
+
+procedure TTestWarnings.TestWarnUnusedParamClass;
+const
+  // this one should have 1 param warning
+  UNIT_TEXT = UNIT_HEADER +
+    ' type TMyClass = class ' + AnsiLineBreak +
+    ' public  function fred(const foo: integer): integer; end; ' + AnsiLineBreak +
+    ' function TMyClass.fred(const foo: integer): integer; begin Result := 3; end; ' +
+    UNIT_FOOTER;
+begin
+  TestWarnings(UNIT_TEXT, 'is not used');
+end;
+
+
+procedure TTestWarnings.TestWarnUnusedParamConstructor;
+const
+  // this one should have 1 param warning
+  UNIT_TEXT = UNIT_HEADER +
+    ' type TMyClass = class ' + AnsiLineBreak +
+    ' public constructor Create(const foo: integer); end; ' + AnsiLineBreak +
+    'constructor TMyClass.Create(const foo: integer); begin  inherited; end; ' +
+    UNIT_FOOTER;
+begin
+  TestWarnings(UNIT_TEXT, 'is not used');
+end;
+
+procedure TTestWarnings.TestWarnUnusedParamClassFn;
+const
+  // this one should have 1 param warning
+  UNIT_TEXT = UNIT_HEADER +
+    ' type TMyClass = class ' + AnsiLineBreak +
+    ' public class function fred(const foo: integer): integer; end; ' + AnsiLineBreak +
+    'class function TMyClass.fred(const foo: integer): integer; ' + AnsiLineBreak +
+    'begin Result := 3; end; ' +
+    UNIT_FOOTER;
+begin
+  TestWarnings(UNIT_TEXT, 'is not used');
+end;
+
+procedure TTestWarnings.TestWarnUnusedParamOpOverload;
+const
+  // this one should have 1 param warning
+  UNIT_TEXT = UNIT_HEADER +
+    ' type TMyClass = class ' + AnsiLineBreak +
+    ' class operator Add(A,B: TMyClass): TMyClass; end; ' + AnsiLineBreak +
+    ' class operator TMyClass.Add(paramA, paramB: TMyClass): TMyClass; ' +  AnsiLineBreak +
+    ' begin Result := paramA; end; ' +
+    UNIT_FOOTER;
+begin
+  TestWarnings(UNIT_TEXT, 'paramB');
+end;
+
+procedure TTestWarnings.TestUnusedParamClassConstructor;
+const
+  // this one should have 1 param warning
+  UNIT_TEXT = UNIT_HEADER +
+    ' type TMyClass = class ' + AnsiLineBreak +
+    ' class constructor Create(const ParamA: integer); end; ' + AnsiLineBreak +
+    ' class constructor TMyClass.Create(const ParamA: integer); ' + AnsiLineBreak +
+    ' begin inherited Create(); end; ' +
+    UNIT_FOOTER;
+begin
+  TestWarnings(UNIT_TEXT, 'paramA');
+end;
+
+procedure TTestWarnings.TestUnusedInnerClass;
+const
+  // this one should have 1 param warning
+  UNIT_TEXT = UNIT_HEADER +
+    ' type TOuterClass = class ' + AnsiLineBreak +
+    ' type TInnerClass = class  ' + AnsiLineBreak +
+    ' procedure innerProc(const paramA, paramB: integer); '  + AnsiLineBreak +
+    ' end; end; ' +  AnsiLineBreak +
+    ' procedure TOuterClass.TInnerClass.innerProc(var paramA, paramB: integer); ' + AnsiLineBreak +
+    ' begin paramB := paramB; end; ' +
+    UNIT_FOOTER;
+begin
+  TestWarnings(UNIT_TEXT, 'paramA');
+
+end;
 
 initialization
   TestFramework.RegisterTest('Processes', TTestWarnings.Suite);
