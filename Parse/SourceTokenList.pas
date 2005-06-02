@@ -70,8 +70,7 @@ type
     procedure Delete(const piIndex: integer);
 
     { not relative to current token index }
-    property SourceTokens[const piIndex: integer]: TSourceToken
-      Read GetItem Write SetItem;
+    property SourceTokens[const piIndex: integer]: TSourceToken Read GetItem Write SetItem;
 
     {This is to keep an index of the next non-nil item}
     property CurrentTokenIndex: integer Read fiCurrentTokenIndex;

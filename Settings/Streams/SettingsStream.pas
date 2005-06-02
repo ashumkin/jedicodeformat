@@ -38,7 +38,9 @@ type
 
   // abstract base class - interface
   TSettingsOutput = class(TObject)
+  private
   public
+    procedure WriteXMLHeader; virtual;
 
     procedure OpenSection(const psName: string); virtual;
     procedure CloseSection(const psName: string); virtual;
@@ -65,6 +67,8 @@ type
     constructor Create(const pcStream: TStream); overload;
 
     destructor Destroy; override;
+
+    procedure WriteXMLHeader; override;
 
     procedure OpenSection(const psName: string); override;
     procedure CloseSection(const psName: string); override;
@@ -151,6 +155,13 @@ uses
   { local}
   JcfMiscFunctions;
 
+const
+  XML_HEADER = '<?xml version="1.0" ?>' + AnsiLineBreak;
+
+procedure TSettingsOutput.WriteXMLHeader;
+begin
+  Assert(False, 'TSettingsOutput.WriteXMLHeader must be overridden in class ' + ClassName);
+end;
 
 
 procedure TSettingsOutput.OpenSection(const psName: string);
@@ -229,6 +240,11 @@ begin
   Assert(fcStream <> nil);
   lp := pchar(psText);
   fcStream.WriteBuffer(lp^, Length(psText));
+end;
+
+procedure TSettingsStreamOutput.WriteXMLHeader;
+begin
+  WriteText(XML_HEADER);
 end;
 
 procedure TSettingsStreamOutput.OpenSection(const psName: string);

@@ -228,12 +228,21 @@ begin
     exit;
   end;
 
-  // guid in interface
-  if (pt.TokenType = ttOpenSquareBracket) and
-    pt.HasParentNode(nInterfaceTypeGuid, 1) then
+  if (pt.TokenType = ttOpenSquareBracket) then
   begin
-    Result := True;
-    exit;
+    // start of guid in interface
+    if pt.HasParentNode(nInterfaceTypeGuid, 1) then
+    begin
+      Result := True;
+      exit;
+    end;
+
+    // start of attribute
+    if pt.HasParentNode(nAttribute, 1) then
+    begin
+      Result := True;
+      exit;
+    end;
   end;
 
   // "foo in  Foo.pas, " has return only after the comma

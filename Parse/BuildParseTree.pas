@@ -243,6 +243,7 @@ type
     function TopNode: TParseTreeNode;
     function IdentifierNext: boolean;
     function ArrayConstantNext: boolean;
+    function TypePastAttribute: boolean;
   Protected
 
   Public
@@ -960,6 +961,8 @@ begin
 end;
 
 procedure TBuildParseTree.RecogniseTypeSection(const pbNestedInCLass: Boolean);
+var
+  lc: TSourceToken;
 begin
   {
   TypeSection -> TYPE (TypeDecl ';')...
@@ -967,15 +970,67 @@ begin
   PushNode(nTypeSection);
   Recognise(ttType);
 
-  while fcTokenList.FirstSolidWordType in IdentifierTypes do
+  { In Delphi.Net, the type can be preceeded by an attribute in '[ ]' }
+  lc := fcTokenList.FirstSolidToken;
+  while (lc.WordType in IdentifierTypes) or TypePastAttribute do
   begin
     RecogniseTypeDecl;
 
     if pbNestedInClass and (fcTokenList.FirstSolidTokenType in ClassVisibility) then
       break;
+
+    lc := fcTokenList.FirstSolidToken;
   end;
 
   PopNode;
+end;
+
+// is there an attribute followed by a type name?
+function TBuildParseTree.TypePastAttribute: boolean;
+var
+  lc: TSourceToken;
+  i: integer;
+
+  procedure AdvanceToSolid;
+  begin
+    while (lc <> nil) and (not lc.IsSolid) do
+    begin
+      inc(i);
+      lc := fcTokenList.SourceTokens[i];
+    end;
+  end;
+
+begin
+  i := fcTokenList.CurrentTokenIndex;
+
+  lc := fcTokenList.SourceTokens[i];
+  AdvanceToSolid;
+
+  if (lc = nil) or (lc.TokenType <> ttOpenSquareBracket) then
+  begin
+    Result := False;
+    exit;
+  end;
+
+  while (lc <> nil) and (lc.TokenType <> ttCloseSquareBracket) do
+  begin
+    inc(i);
+    lc := fcTokenList.SourceTokens[i];
+  end;
+
+  inc(i);
+  lc := fcTokenList.SourceTokens[i];
+
+  if lc = nil then
+  begin
+    Result := False;
+    exit;
+  end;
+
+  AdvanceToSolid;
+
+  Result := (lc <> nil) and (lc.WordType in IdentifierTypes);
+
 end;
 
 procedure TBuildParseTree.RecogniseTypeDecl;
@@ -988,6 +1043,10 @@ begin
   }
 
   PushNode(nTypeDecl);
+
+  // Delph.Net Attribute?
+  if (fcTokenList.FirstSolidTokenType = ttOpenSquareBracket) then
+    RecogniseAttributes;
 
   RecogniseIdentifier(False);
   Recognise(ttEquals);
@@ -3523,7 +3582,7 @@ begin
    }
   lbStarted := False;
 
-  while (fcTokenList.FirstSolidTokenType in CLASS_DECL_WORDS) or
+  while (fcTokenList.FirstSolidTokenType in (CLASS_DECL_WORDS + [ttOpenSquareBracket])) or
     (fcTokenList.FirstSolidWordType in IdentifierTypes) do
   begin
     // only make this node if it will have children
@@ -3535,8 +3594,15 @@ begin
     lbHasTrailingSemicolon := True;
 
     // these end the visibility section
-    if fcTokenList.FirstSolidTokenType in (ClassVisibility + [ttEnd, ttStrict]) then
+    if lc.TokenType in (ClassVisibility + [ttEnd, ttStrict]) then
       break;
+
+    { delphi.net attribute applied to the procedure, property or vars }
+    if lc.TokenType = ttOpenSquareBracket then
+    begin
+      RecogniseAttributes();
+      lc := fcTokenList.FirstSolidToken;
+    end;
 
     case lc.TokenType of
       ttProcedure:

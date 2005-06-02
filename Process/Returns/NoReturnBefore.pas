@@ -106,12 +106,20 @@ begin
     exit;
   end;
 
-  // guid in interface
-  if (pt.TokenType = ttCloseSquareBracket) and
-    pt.HasParentNode(nInterfaceTypeGuid, 1) then
+  if (pt.TokenType = ttCloseSquareBracket) then
   begin
-    Result := True;
-    exit;
+    // end of guid in interface
+    if pt.HasParentNode(nInterfaceTypeGuid, 1) then
+    begin
+      Result := True;
+      exit;
+    end;
+
+    if pt.HasParentNode(nAttribute) then
+    begin
+      Result := True;
+      exit;
+    end;
   end;
 
 

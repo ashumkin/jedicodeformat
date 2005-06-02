@@ -227,6 +227,9 @@ type
     procedure TestDelphiNetNestedType;
     procedure TestDelphiNetNestedType2;
     procedure TestDelphiNetRecordForward;
+    procedure TestDelphiNetAttributes;
+    procedure TestDelphiNetWebService;
+
 
     procedure TestForIn;
   end;
@@ -1242,6 +1245,16 @@ end;
 procedure TTestObfuscate.TestCondCompBreaks2;
 begin
   TestObfuscateFile('TestCondCompBreaks2');
+end;
+
+procedure TTestObfuscate.TestDelphiNetAttributes;
+begin
+  TestObfuscateFile('TestDelphiNetAttributes');
+end;
+
+procedure TTestObfuscate.TestDelphiNetWebService;
+begin
+  TestObfuscateFile('TestDelphiNetWebService');
 end;
 
 initialization

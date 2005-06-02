@@ -1,0 +1,51 @@
+unit testdelphinetattributes;
+
+interface
+
+uses Classes;
+
+type
+
+  [serializable]
+  tcontainer = class(TObject)
+  public
+  end;
+
+  [serializable]
+  tcontainer2 = class(TObject)
+  public
+  end;
+
+  tcontainer3 = class(TObject)
+  public
+  end;
+
+  [serializable]
+  tcontainer4 = class(TObject)
+  public
+  end;
+
+  [serializable]
+  tjcfconfiguration = class(TObject)
+  public
+    commandlineparams: string;
+    style:    integer;
+    a, b, c:  string;
+    [nonserialized]
+    foo, bar: integer;
+  end;
+
+  tcontainer6 = class(TObject)
+  public
+    [nonserialized]
+    foo, bar:   integer;
+    foo2, bar2: integer;
+    [nonserialized]
+    foo3, bar3: integer;
+    foo4, bar4: integer;
+  end;
+
+implementation
+
+end.
+ 

@@ -286,6 +286,7 @@ procedure TFormatSettings.ToStream(const pcStream: TSettingsOutput);
 
 begin
   Assert(pcStream <> nil);
+  pcStream.WriteXMLHeader;
   pcStream.OpenSection(CODEFORMAT_SETTINGS_SECTION);
   pcStream.Write(REG_VERSION, PROGRAM_VERSION);
   pcStream.Write(REG_WRITE_DATETIME, Now);

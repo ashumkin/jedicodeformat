@@ -63,11 +63,74 @@ const
   WordsBlankLineBefore: TTokenTypeSet =
     [ttImplementation, ttInitialization, ttFinalization, ttUses];
 
+{
+the first token of structured type may have a blank line before it
+    before class/interface def with body when it's not the first type.
+
+    e.g.
+      type
+        foo = integer;
+
+        TSomeClass = class...
+
+    These start with a type name
+   and have a parent node nTypeDecl, which in turn owns a Restricted type -> Class type
+  }
+function IsStructuredTypeStart(const pt: TSourceToken): Boolean;
+var
+  lcPrev: TSourceToken;
+  lcParent: TParseTreeNode;
+begin
+  Result := False;
+  
+  if not IsIdentifier(pt) then
+    exit;
+
+  if not pt.HasParentNode(nTypeDecl, 2) then
+    exit;
+
+  lcPrev := pt.PriorSolidToken;
+
+  // not if there's an attibute before the identifier 
+  if (lcPrev.TokenType = ttCloseSquareBracket) and (lcPrev.HasParentNode(nAttribute)) then
+    exit;
+
+  if (lcPrev <> nil) and (lcPrev.TokenType <> ttType) then
+  begin
+    // identifier
+    lcParent := pt.Parent;
+    if lcParent.NodeType = nIdentifier then
+      lcParent := lcParent.Parent
+    else
+      lcParent := nil;
+
+    if (lcParent <> nil) then
+    begin
+      if (lcParent.NodeType = nTypeDecl) and
+        lcParent.HasChildNode(ObjectTypes, 2) and
+        lcParent.HasChildNode(ObjectBodies, 3) then
+      begin
+        Result := True;
+        exit;
+      end;
+
+      { likewise before a record type }
+      if (lcParent.NodeType = nTypeDecl) and
+        lcParent.HasChildNode(nRecordType, 2) and
+        lcParent.HasChildNode(nFieldDeclaration, 3) then
+      begin
+        Result := True;
+        exit;
+      end;
+    end;
+
+  end;
+
+end;
 
 function NeedsBlankLine(const pt, ptNext: TSourceToken): boolean;
 var
-  lcNext, lcPrev: TSourceToken;
-  lcParent: TParseTreeNode;
+  lcNext: TSourceToken;
 begin
   Result := (pt.TokenType in WordsBlankLineBefore);
   if Result then
@@ -125,50 +188,10 @@ begin
   end;
 
 
-  {
-    before class/interface def with body when it's not the first type.
-
-    e.g.
-      type
-        foo = integer;
-
-        TSomeClass = class...
-
-    These start with a type name
-   and have a parent node nTypeDecl, which in turn owns a Restircted type -> Class type
-  }
-  if IsIdentifier(pt) and pt.HasParentNode(nTypeDecl, 2) then
+  if IsStructuredTypeStart(pt) then
   begin
-    lcPrev := pt.PriorSolidToken;
-    if (lcPrev <> nil) and (lcPrev.TokenType <> ttType) then
-    begin
-      // identifier
-      lcParent := pt.Parent;
-      if lcParent.NodeType = nIdentifier then
-        lcParent := lcParent.Parent
-      else
-        lcParent := nil;
-
-      if (lcParent <> nil) then
-      begin
-        if (lcParent.NodeType = nTypeDecl) and
-          lcParent.HasChildNode(ObjectTypes, 2) and
-          lcParent.HasChildNode(ObjectBodies, 3) then
-        begin
-          Result := True;
-          exit;
-        end;
-
-        { likewise before a record type }
-        if (lcParent.NodeType = nTypeDecl) and
-          lcParent.HasChildNode(nRecordType, 2) and
-          lcParent.HasChildNode(nFieldDeclaration, 3) then
-        begin
-          Result := True;
-          exit;
-        end;
-      end;
-    end;
+    Result := True;
+    exit;
   end;
 
   { end. where there is no initialization section code,
@@ -184,6 +207,16 @@ begin
       exit;
     end;
   end;
+
+  // attribute before type decl
+  if (pt.TokenType = ttOpenSquareBracket) and
+    pt.HasParentNode(nTypeDecl, 2) and
+    (not pt.HasParentNode([nClassType, nRecordType])) then
+  begin
+    Result := True;
+    exit;
+  end;
+
 end;
 
 
@@ -285,12 +318,21 @@ begin
     exit;
   end;
 
-  // guid in interface
-  if (pt.TokenType = ttOpenSquareBracket) and
-    pt.HasParentNode(nInterfaceTypeGuid, 1) then
+  if (pt.TokenType = ttOpenSquareBracket)then
   begin
-    Result := True;
-    exit;
+    // start of guid in interface
+    if pt.HasParentNode(nInterfaceTypeGuid, 1) then
+    begin
+      Result := True;
+      exit;
+    end;
+
+    // start of attribute
+    if pt.HasParentNode(nAttribute) then
+    begin
+      Result := True;
+      exit;
+    end;
   end;
 
 end;

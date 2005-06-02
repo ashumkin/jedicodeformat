@@ -5,7 +5,8 @@ interface
 implementation {$UNDEF FOO}{$UNDEF BAR}
 
 procedure test1;
-begin{$IF (not Defined(FOO)) and (not defined(BAR))}
+begin
+{$IF (not Defined(FOO)) and (not defined(BAR))}
 end;
 
 {$IFEND}{$IF Defined(FOO) or defined(BAR)}
@@ -14,7 +15,8 @@ end;
 {$IFEND}{$DEFINE FOO}
 
 procedure test2;
-begin{$IF Defined(FOO) or defined(BAR)}
+begin
+{$IF Defined(FOO) or defined(BAR)}
 end;
 
 {$IFEND}{$IF defined(BAR)}
@@ -25,7 +27,8 @@ end;
 {$IFEND}{$UNDEF FOO}{$DEFINE BAR}
 
 procedure test3;
-begin{$IF Defined(FOO) or defined(BAR)}
+begin
+{$IF Defined(FOO) or defined(BAR)}
 end;
 
 {$IFEND}{$IF Defined(FOO)}
@@ -36,7 +39,8 @@ end;
 {$IFEND}{$DEFINE FOO}{$DEFINE BAR}{$UNDEF FISH}
 
 procedure test4;
-begin{$IF (Defined(FOO) and defined(BAR)) and not defined(FISH)}
+begin
+{$IF (Defined(FOO) and defined(BAR)) and not defined(FISH)}
 end;
 {$IFEND}
 {$IF Defined(FOO) and defined(BAR) and defined(FISH)}
@@ -47,11 +51,13 @@ end;
 {$IFEND}
 {$DEFINE FISH}
 procedure test5;
-begin{$IF Defined(FOO) and defined(BAR) and defined(FISH)}
+begin
+{$IF Defined(FOO) and defined(BAR) and defined(FISH)}
 end;{$IFEND}
 
 procedure test6;
-begin{$IF Defined(FOO) or defined(BAR) or defined(FISH)}
+begin
+{$IF Defined(FOO) or defined(BAR) or defined(FISH)}
 end;
 
 {$IFEND}{$IF (Defined(FOO) or defined(BAR)) and not defined(FISH)}

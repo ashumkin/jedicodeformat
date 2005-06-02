@@ -226,6 +226,9 @@ type
     procedure TestDelphiNetNestedType2;
     procedure TestDelphiNetRecordForward;
 
+    procedure TestDelphiNetWebService;
+    procedure TestDelphiNetAttributes;
+
     procedure TestCases;
     procedure TestPackage;
 
@@ -1203,6 +1206,16 @@ end;
 procedure TTestFileParse.TestCondCompBreaks2;
 begin
   TestParseFile('TestCondCompBreaks2', 88);
+end;
+
+procedure TTestFileParse.TestDelphiNetAttributes;
+begin
+  TestParseFile('TestDelphiNetAttributes', 247);
+end;
+
+procedure TTestFileParse.TestDelphiNetWebService;
+begin
+  TestParseFile('TestDelphiNetWebService', 353);
 end;
 
 initialization

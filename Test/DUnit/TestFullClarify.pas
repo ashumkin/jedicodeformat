@@ -224,6 +224,8 @@ type
     procedure TestDelphiNetNestedType;
     procedure TestDelphiNetNestedType2;
     procedure TestDelphiNetRecordForward;
+    procedure TestDelphiNetAttributes;
+    procedure TestDelphiNetWebService;
 
     procedure TestCases;
   end;
@@ -1194,6 +1196,16 @@ end;
 procedure TFullTestClarify.TestCondCompBreaks2;
 begin
   TestClarifyFile('TestCondCompBreaks2');
+end;
+
+procedure TFullTestClarify.TestDelphiNetAttributes;
+begin
+  TestClarifyFile('TestDelphiNetAttributes');
+end;
+
+procedure TFullTestClarify.TestDelphiNetWebService;
+begin
+  TestClarifyFile('TestDelphiNetWebService');
 end;
 
 initialization

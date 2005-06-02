@@ -14,8 +14,9 @@ begin
   MessageDlg('Foo!',
   mtInformation, [mbOK], 0);
   
-{$ENDIF}Result := True;
-    bar := False;
+{$ENDIF}
+    Result := True;
+    bar    := False;
   end;
 end;
 
