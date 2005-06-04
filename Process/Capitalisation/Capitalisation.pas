@@ -59,11 +59,11 @@ begin
 
   { if it's covered by specific word caps, then don't touch it
     This was happening with 'true' not coming out as 'True'
-    even thoug specific wprd caps specifically said it was doing that change
+    even though specific word caps specifically said it was doing that change
     Capitalisation was changing it back!
   }
-  if FormatSettings.SpecificWordCaps.HasWord(pct.SourceCode) then
-    exit; 
+  if (FormatSettings.SpecificWordCaps.Enabled) and FormatSettings.SpecificWordCaps.HasWord(pct.SourceCode) then
+    exit;
 
   case caps of
     ctUpper:
@@ -71,7 +71,7 @@ begin
     ctLower:
       pct.SourceCode := AnsiLowerCase(pct.SourceCode);
     ctMixed:
-      pct.SourceCode := StrSmartCase(pct.SourceCode, []);
+      pct.SourceCode := StrSmartCase(AnsiLowerCase(pct.SourceCode), []);
     ctLeaveAlone: ;
   end;
 end;
@@ -90,6 +90,28 @@ end;
 function TCapitalisation.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
   lcSourceToken: TSourceToken;
+
+  { directives can occur in other contexts - they are valid proc & variable names
+    so we need to know if this one was parsed as a directive }
+    function IsCapitalisedDirective: Boolean;
+    begin
+      if lcSourceToken.HasParentNode(DirectiveNodes) then
+      begin
+        Result := True;
+      end
+      // "Read" and "write" in properties
+      else if (lcSourceToken.TokenType in [ttRead, ttWrite]) and (lcSourceToken.HasParentNode(nPropertySpecifier, 1)) then
+      begin
+        Result := True;
+      end
+      else if (lcSourceToken.TokenType in ClassVisibility) and lcSourceToken.HasParentNode(nClassVisibility, 1) then
+      begin
+        Result := True;
+      end
+      else
+        Result := False;
+    end;
+
 begin
   Result := False;
   lcSourceToken := TSourceToken(pcNode);
@@ -99,10 +121,10 @@ begin
       FixCaps(lcSourceToken, FormatSettings.Caps.ReservedWords);
     wtReservedWordDirective:
     begin
-      { directives can occur in other contexts - they are valid proc & variable names
-        so we need to know if this one was parsed as a directive }
-      if lcSourceToken.HasParentNode(DirectiveNodes) then
+      if IsCapitalisedDirective then
+      begin
         FixCaps(lcSourceToken, FormatSettings.Caps.Directives);
+      end
     end;
     wtBuiltInConstant:
       FixCaps(lcSourceToken, FormatSettings.Caps.Constants);

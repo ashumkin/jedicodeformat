@@ -32,9 +32,9 @@ type
   end;
 
   TSomeObject = class(TObject)
-  Private
+  private
     FDummy: array[0..8] of TDummy;
-  Public
+  public
     property DRXummy: TDummy Read FDummy[0] Write FDummy[0];
     property E: longword Read FDummy[0].ERX Write FDummy[0].ERX;
 

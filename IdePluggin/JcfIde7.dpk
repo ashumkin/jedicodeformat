@@ -107,7 +107,7 @@ contains
   fRegistrySettings in '..\Ui\fRegistrySettings.pas' {fmRegistrySettings},
   frBasicSettings in '..\UI\Settings\frBasicSettings.pas' {frBasic: TFrame},
   frUses in '..\Ui\Settings\frUses.pas' {fUses: TFrame},
-  frAnyCapsSettings in '..\Ui\Settings\frAnyCapsSettings.pas' {frAnyCapsSettings: TFrame},
+  frIdentifierCapsSettings in '..\Ui\Settings\frIdentifierCapsSettings.pas' {fIdentifierCapsSettings: TFrame},
   frClarify in '..\Ui\Settings\frClarify.pas' {fClarify: TFrame},
   frClarifyAlign in '..\Ui\Settings\frClarifyAlign.pas' {fClarifyAlign: TFrame},
   frClarifyCaseBlocks in '..\Ui\Settings\frClarifyCaseBlocks.pas' {fClarifyCaseBlocks: TFrame},

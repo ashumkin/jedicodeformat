@@ -216,7 +216,7 @@ begin
     lsOut := StrChopRight(lsOut, 2);
   end;
 
-  (*  
+  //(*
   // debug
   if (lsOut <> psOut) then
   begin
@@ -233,7 +233,7 @@ begin
     StringToFile('c:\t2.out', psOut);
     {}
   end;
-  *)
+  //*)
 
   CheckEquals(Length(psOut), Length(lsOut), 'Results length mismatch');
   CheckEquals(psOut, lsOut, 'Bad result text');

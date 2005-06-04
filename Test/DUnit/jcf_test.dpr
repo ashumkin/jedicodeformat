@@ -162,7 +162,8 @@ uses
   TestSortUses in 'TestSortUses.pas',
   BuildParseTree in '..\..\Parse\BuildParseTree.pas',
   SortUsesData in '..\..\Process\Transform\SortUsesData.pas',
-  TestBreakConditionalCompilation in 'TestBreakConditionalCompilation.pas';
+  TestBreakConditionalCompilation in 'TestBreakConditionalCompilation.pas',
+  TestCapitalisation in 'TestCapitalisation.pas';
 
 {$R *.res}
 

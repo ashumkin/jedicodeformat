@@ -49,6 +49,8 @@ type
     fcCaps: TSetCaps;
     fcSpecificWordCaps: TSetWordList;
     fcUnitNameCaps: TSetWordList;
+    fcIdentifierCaps: TSetWordList;
+
     fcPreProcessor: TSetPreProcessor;
     fcAlign: TSetAlign;
     fcUses: TSetUses;
@@ -94,6 +96,8 @@ type
     property Caps: TSetCaps Read fcCaps;
     property SpecificWordCaps: TSetWordList Read fcSpecificWordCaps;
     property UnitNameCaps: TSetWordList Read fcUnitNameCaps;
+    property IdentifierCaps: TSetWordList Read fcIdentifierCaps;
+
     property PreProcessor: TSetPreProcessor Read fcPreProcessor;
 
 
@@ -133,6 +137,8 @@ begin
   fcCaps := TSetCaps.Create;
   fcSpecificWordCaps := TSetWordList.Create('SpecificWordCaps');
   fcUnitNameCaps := TSetWordList.Create('UnitNameCaps');
+  fcIdentifierCaps := TSetWordList.Create('Identifiers');
+
   fcPreProcessor := TSetPreProcessor.Create;
 
   fcAlign   := TSetAlign.Create;
@@ -161,6 +167,8 @@ begin
   FreeAndNil(fcCaps);
   FreeAndNil(fcSpecificWordCaps);
   FreeAndNil(fcUnitNameCaps);
+  FreeAndNil(fcIdentifierCaps);
+
   FreeAndNil(fcPreProcessor);
 
   FreeAndNil(fcReplace);
@@ -301,6 +309,8 @@ begin
   WriteToStream(fcCaps);
   WriteToStream(fcSpecificWordCaps);
   WriteToStream(fcUnitNameCaps);
+  WriteToStream(fcIdentifierCaps);
+
   WriteToStream(fcPreProcessor);
   WriteToStream(fcAlign);
   WriteToStream(fcReplace);
@@ -356,6 +366,8 @@ begin
     ReadFromStream(fcCaps);
     ReadFromStream(fcSpecificWordCaps);
     ReadFromStream(fcUnitNameCaps);
+    ReadFromStream(fcIdentifierCaps);
+    
     ReadFromStream(fcPreProcessor);
 
     ReadFromStream(fcAlign);

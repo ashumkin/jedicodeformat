@@ -80,7 +80,7 @@ uses
   frClarifyLongLineBreaker, frClarifyBlocks, frClarifyCaseBlocks,
   frClarifyAlign,
   frReplace,
-  frReservedCapsSettings, frAnyCapsSettings, frUnitCaps,
+  frReservedCapsSettings, frAnyCapsSettings, frIdentifierCapsSettings, frUnitCaps,
   frUses, frBasicSettings, frPreProcessor, frComments, frTransform,
   frCompilerDirectReturns, frWarnings;
 
@@ -92,7 +92,7 @@ type
   end;
 
 const
-  FrameMap: array[0..21] of TFrameMapRecord = (
+  FrameMap: array[0..22] of TFrameMapRecord = (
     (FrameName: 'Format file'; FrameClass: TfFiles),
     (FrameName: 'Obfuscate'; FrameClass: TfObfuscateSettings),
     (FrameName: 'Clarify'; FrameClass: TfClarify),
@@ -106,6 +106,7 @@ const
     (FrameName: 'Align'; FrameClass: TfClarifyAlign),
     (FrameName: 'Object Pascal'; FrameClass: TfrReservedCapsSettings),
     (FrameName: 'Any Word'; FrameClass: TfrAnyCapsSettings),
+    (FrameName: 'Identifiers'; FrameClass: TfIdentifierCapsSettings),
     (FrameName: 'Unit Name'; FrameClass: TfrUnitNameCaps),
     (FrameName: 'Find and replace'; FrameClass: TfReplace),
     (FrameName: 'Uses'; FrameClass: TfUses),
