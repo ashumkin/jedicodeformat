@@ -52,6 +52,7 @@ type
   public
     constructor Create; override;
 
+    function IsIncludedInSettings: boolean; override;
     procedure PreVisitParseTreeNode(const pcNode: TObject); override;
   end;
 
@@ -61,7 +62,7 @@ uses
   { delphi }
   SysUtils,
   { local }
-  ParseTreeNodeType, SourceToken, Tokens, TokenUtils;
+  ParseTreeNodeType, SourceToken, Tokens, TokenUtils, JCfSettings;
 
 constructor TWarnUnusedParam.Create;
 begin
@@ -136,6 +137,10 @@ procedure TWarnUnusedParam.CheckIndentifierUsage(const psIdentName: string; cons
 var
   lbFound: boolean;
 begin
+  // is this param name on the ignore list?
+  if FormatSettings.Clarify.IgnoreUnusedParams.IndexOf(psIdentName) >= 0  then
+    exit;
+
   lbFound := IsIdentifierUsedInParseTree(psIdentName, pcBlock);
 
   if not lbFound then
@@ -173,5 +178,10 @@ begin
   end;
 end;
 
+
+function TWarnUnusedParam.IsIncludedInSettings: boolean;
+begin
+  Result := FormatSettings.Clarify.WarnUnusedParams;
+end;
 
 end.

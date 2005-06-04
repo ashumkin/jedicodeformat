@@ -34,20 +34,28 @@ type
     procedure SendWarning(const pcNode: TObject; const psMessage: string);
 
   public
-    property OnWarning: TStatusMessageProc Read fOnWarning Write fOnWarning;
-
     constructor Create; override;
+
+    function IsIncludedInSettings: boolean; override;
+
+    property OnWarning: TStatusMessageProc Read fOnWarning Write fOnWarning;
   end;
 
 
 implementation
 
-uses ParseTreeNode, SourceToken, TokenUtils, FormatFlags;
+uses ParseTreeNode, SourceToken, TokenUtils, FormatFlags, JCFSettings;
 
 constructor TWarning.Create;
 begin
   inherited;
   FormatFlags := FormatFlags + [eWarning];
+end;
+
+function TWarning.IsIncludedInSettings: boolean;
+begin
+  // included if warnings are turned on 
+  Result := FormatSettings.Clarify.Warnings;
 end;
 
 procedure TWarning.SendWarning(const pcNode: TObject; const psMessage: string);

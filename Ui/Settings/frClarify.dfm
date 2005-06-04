@@ -1,14 +1,6 @@
 inherited fClarify: TfClarify
   Width = 426
   Height = 292
-  object cbWarnings: TCheckBox
-    Left = 8
-    Top = 6
-    Width = 93
-    Height = 17
-    Caption = 'Show warnings'
-    TabOrder = 0
-  end
   object rgRunOnceOffs: TRadioGroup
     Left = 8
     Top = 32
@@ -19,6 +11,6 @@ inherited fClarify: TfClarify
       'Do &not run'
       'Do &run'
       'Run &only these')
-    TabOrder = 1
+    TabOrder = 0
   end
 end

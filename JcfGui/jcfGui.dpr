@@ -144,7 +144,7 @@ uses
   ReturnsAfterFinalEnd in '..\Process\Returns\ReturnsAfterFinalEnd.pas',
   PreProcessorParseTree in '..\Parse\PreProcessor\PreProcessorParseTree.pas',
   RemoveEmptyComment in '..\Process\RemoveEmptyComment.pas',
-  frComments in '..\Ui\Settings\frComments.pas' {fComments},
+  frWarnings in '..\Ui\Settings\frWarnings.pas' {fWarnings},
   SetComments in '..\Settings\SetComments.pas',
   frBlankLines in '..\Ui\Settings\frBlankLines.pas' {fBlankLines},
   RemoveConsecutiveReturns in '..\Process\Returns\RemoveConsecutiveReturns.pas',

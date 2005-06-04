@@ -45,7 +45,7 @@ type
     fcIndent: TSetIndent;
     fcReturns: TSetReturns;
     fcComments: TSetComments;
-
+ 
     fcCaps: TSetCaps;
     fcSpecificWordCaps: TSetWordList;
     fcUnitNameCaps: TSetWordList;
@@ -102,7 +102,7 @@ type
     property UsesClause: TSetUses Read fcUses;
 
     property Transform: TSetTransform read fcTransform;
-
+ 
     property WriteOnExit: boolean Read fbWriteOnExit Write fbWriteOnExit;
     property Dirty: boolean Read fbDirty Write fbDirty;
   end;
@@ -138,8 +138,8 @@ begin
   fcAlign   := TSetAlign.Create;
   fcReplace := TSetReplace.Create;
   fcUses    := TSetUses.Create;
-  fcTransform := TsetTransform.Create;
-
+  fcTransform := TSetTransform.Create;
+ 
   Read;
 
   fbWriteOnExit := True;

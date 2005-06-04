@@ -32,7 +32,6 @@ uses
 
 type
   TfClarify = class(TfrSettingsFrame)
-    cbWarnings: TCheckBox;
     rgRunOnceOffs: TRadioGroup;
   private
 
@@ -65,7 +64,6 @@ begin
   with FormatSettings.Clarify do
   begin
     rgRunOnceOffs.ItemIndex := Ord(OnceOffs);
-    cbWarnings.Checked      := Warnings;
   end;
 end;
 
@@ -74,7 +72,6 @@ begin
   with FormatSettings.Clarify do
   begin
     OnceOffs := TOnceOffsOption(rgRunOnceOffs.ItemIndex);
-    Warnings := cbWarnings.Checked;
   end;
 end;
 

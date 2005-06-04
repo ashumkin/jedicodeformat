@@ -28,12 +28,23 @@ uses
 
 type
   TTestWarnings = class(TBaseTestProcess)
+  private
+
+  public
+    fStoreWarningsOn: Boolean;
+    fStoreWarnUnusedParamsOn: Boolean;
+
+
+    procedure Setup; override;
+    procedure TearDown; override;
   published
     // no warnings in basic units
     procedure TestNoWarningsBasic;
 
     // warnings on empty stuff
     procedure TestEmptyProcedure;
+    procedure TestEmptyProcedureOff;
+
     procedure TestEmptyBlock;
     procedure TestEmptyTryExcept;
     procedure TestEmptyTryFinally;
@@ -67,12 +78,18 @@ type
     procedure TestWarnUnusedParamOpOverload;
     procedure TestUnusedParamClassConstructor;
     procedure TestUnusedInnerClass;
+
+    procedure TestWarnUnusedParamOff;
   end;
 
 
 implementation
 
-uses JclStrings;
+uses
+  // jcf
+  JclStrings,
+  // local
+  JcfSettings;
 
 const
   EMPTY_BEGIN_END = 'Empty begin..end block';
@@ -82,6 +99,26 @@ const
   REAL_TYPE_USED = 'Real type used';
   REAL48_TYPE_USED = 'Real48 type used';
 
+
+procedure TTestWarnings.Setup;
+begin
+  inherited;
+
+  fStoreWarningsOn := FormatSettings.Clarify.Warnings;
+  fStoreWarnUnusedParamsOn := FormatSettings.Clarify.WarnUnusedParams;
+
+  FormatSettings.Clarify.Warnings := True;
+  FormatSettings.Clarify.WarnUnusedParams := True;
+end;
+
+procedure TTestWarnings.TearDown;
+begin
+  FormatSettings.Clarify.Warnings := fStoreWarningsOn;
+  FormatSettings.Clarify.WarnUnusedParams := fStoreWarnUnusedParamsOn;
+
+  inherited;
+
+end;
 
 procedure TTestWarnings.TestNoWarningsBasic;
 const
@@ -97,6 +134,16 @@ const
 begin
   TestWarnings(UNIT_TEXT, EMPTY_BEGIN_END);
 end;
+
+// no warning if the setting is turned off
+procedure TTestWarnings.TestEmptyProcedureOff;
+const
+  UNIT_TEXT = UNIT_HEADER + ' procedure fred; begin end; ' + UNIT_FOOTER;
+begin
+  FormatSettings.Clarify.Warnings := False;
+  TestNoWarnings(UNIT_TEXT);
+end;
+
 
 procedure TTestWarnings.TestEmptyBlock;
 const
@@ -334,7 +381,21 @@ const
     UNIT_FOOTER;
 begin
   TestWarnings(UNIT_TEXT, 'paramA');
+end;
 
+
+
+// test the switch to turn it off
+procedure TTestWarnings.TestWarnUnusedParamOff;
+const
+  // this one should have 1 param warning
+  UNIT_TEXT = UNIT_HEADER +
+    'procedure fred(foo: integer); var li: integer; begin li := 3; end; ' +
+    UNIT_FOOTER;
+begin
+  FormatSettings.Clarify.WarnUnusedParams := False;
+
+  TestNoWarnings(UNIT_TEXT);
 end;
 
 initialization

@@ -147,7 +147,7 @@ uses
   PreProcessorParseTree in '..\Parse\PreProcessor\PreProcessorParseTree.pas',
   RemoveEmptyComment in '..\Process\RemoveEmptyComment.pas',
   SetComments in '..\Settings\SetComments.pas',
-  frComments in '..\Ui\Settings\frComments.pas' {fComments: TFrame},
+  frWarnings in '..\Ui\Settings\frWarnings.pas' {fWarnings: TFrame},
   RemoveConsecutiveReturns in '..\Process\Returns\RemoveConsecutiveReturns.pas',
   frBlankLines in '..\Ui\Settings\frBlankLines.pas' {fBlankLines: TFrame},
   MaxSpaces in '..\Process\Spacing\MaxSpaces.pas',

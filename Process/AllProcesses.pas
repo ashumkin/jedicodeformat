@@ -197,7 +197,6 @@ begin
     if FormatSettings.Clarify.OnceOffs = eDoRun then
       OnceOffs;
 
-
     // Do this last - spaces may have been introduced above.
     ApplyVisitorType(TSpaceToTab);
 
@@ -254,6 +253,7 @@ begin
   ApplyVisitorType(TWarnAssignToFunctionName);
   ApplyVisitorType(TWarnCaseNoElse);
   ApplyVisitorType(TWarnDestroy);
+
   ApplyVisitorType(TWarnUnusedParam);
 end;
 
