@@ -163,7 +163,8 @@ uses
   BuildParseTree in '..\..\Parse\BuildParseTree.pas',
   SortUsesData in '..\..\Process\Transform\SortUsesData.pas',
   TestBreakConditionalCompilation in 'TestBreakConditionalCompilation.pas',
-  TestCapitalisation in 'TestCapitalisation.pas';
+  TestCapitalisation in 'TestCapitalisation.pas',
+  IdentifierCaps in '..\..\Process\Capitalisation\IdentifierCaps.pas';
 
 {$R *.res}
 

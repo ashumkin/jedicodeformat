@@ -35,7 +35,10 @@ requires
   JvSystemD7R,
   JvStdCtrlsD7R,
   JvCustomD7R,
-  rtl;
+  rtl,
+  vclx,
+  DJclVcl,
+  vcljpg;
 
 contains
   JcfIdeRegister in 'JcfIdeRegister.pas',
@@ -179,6 +182,7 @@ contains
   SortUses in '..\Process\Transform\SortUses.pas',
   SortUsesData in '..\Process\Transform\SortUsesData.pas',
   frCompilerDirectReturns in '..\Ui\Settings\frCompilerDirectReturns.pas' {fCompilerDirectReturns: TFrame},
-  WarnUnusedParam in '..\Process\Warnings\WarnUnusedParam.pas';
+  WarnUnusedParam in '..\Process\Warnings\WarnUnusedParam.pas',
+  IdentifierCaps in '..\Process\Capitalisation\IdentifierCaps.pas';
 
 end.

@@ -161,7 +161,8 @@ uses
   SortUses in '..\Process\Transform\SortUses.pas',
   frClarifyBlocks in '..\Ui\Settings\frClarifyBlocks.pas' {fClarifyBlocks: TFrame},
   SortUsesData in '..\Process\Transform\SortUsesData.pas',
-  frCompilerDirectReturns in '..\Ui\Settings\frCompilerDirectReturns.pas' {fCompilerDirectReturns: TFrame};
+  frCompilerDirectReturns in '..\Ui\Settings\frCompilerDirectReturns.pas' {fCompilerDirectReturns: TFrame},
+  IdentifierCaps in '..\Process\Capitalisation\IdentifierCaps.pas';
 
 {$R *.res}
 

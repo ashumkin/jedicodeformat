@@ -137,7 +137,8 @@ uses
   SetTransform in '..\Settings\SetTransform.pas',
   AlignField in '..\Process\Align\AlignField.pas',
   SortUses in '..\Process\Transform\SortUses.pas',
-  SortUsesData in '..\Process\Transform\SortUsesData.pas';
+  SortUsesData in '..\Process\Transform\SortUsesData.pas',
+  IdentifierCaps in '..\Process\Capitalisation\IdentifierCaps.pas';
 
 const
   ABOUT_COMMANDLINE =
