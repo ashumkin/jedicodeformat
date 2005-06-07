@@ -115,7 +115,7 @@ uses
   frFiles in '..\Ui\Settings\frFiles.pas' {fFiles: TFrame},
   frObfuscateSettings in '..\Ui\Settings\frObfuscateSettings.pas' {fObfuscateSettings: TFrame},
   frUses in '..\Ui\Settings\frUses.pas' {fUses: TFrame},
-  frIdentifierCapsSettings in '..\Ui\Settings\frIdentifierCapsSettings.pas' {fIdentifierCapsSettings: TFrame},
+  frNotIdentifierCapsSettings in '..\Ui\Settings\frNotIdentifierCapsSettings.pas' {fNotIdentifierCapsSettings: TFrame},
   frBasicSettings in '..\Ui\Settings\frBasicSettings.pas' {frBasic: TFrame},
   frClarify in '..\Ui\Settings\frClarify.pas' {fClarify: TFrame},
   frClarifyAlign in '..\Ui\Settings\frClarifyAlign.pas' {fClarifyAlign: TFrame},
@@ -162,7 +162,8 @@ uses
   SortUsesData in '..\Process\Transform\SortUsesData.pas',
   frCompilerDirectReturns in '..\Ui\Settings\frCompilerDirectReturns.pas' {fCompilerDirectReturns: TFrame},
   WarnUnusedParam in '..\Process\Warnings\WarnUnusedParam.pas',
-  IdentifierCaps in '..\Process\Capitalisation\IdentifierCaps.pas';
+  IdentifierCaps in '..\Process\Capitalisation\IdentifierCaps.pas',
+  frIdentifierCapsSettings in '..\Ui\Settings\frIdentifierCapsSettings.pas' {fIdentifierCapsSettings: TFrame};
 
 {$R *.res}
 

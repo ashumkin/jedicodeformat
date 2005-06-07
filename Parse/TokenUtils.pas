@@ -65,7 +65,6 @@ function RHSExprEquals(const pt: TSourceToken): boolean;
 
 function RHSTypeEquals(const pt: TSourceToken): boolean;
 
-function IsClassDirective(const pt: TSourceToken): boolean;
 
 function RoundBracketLevel(const pt: TSourceToken): integer;
 function SquareBracketLevel(const pt: TSourceToken): integer;
@@ -111,9 +110,6 @@ function IdentListNameCount(const pcNode: TParseTreeNode): integer;
 
 function ProcedureHasBody(const pt: TParseTreeNode): boolean;
 
-function IsDfmIncludeDirective(const pt: TSourceToken): boolean;
-function IsGenericResIncludeDirective(const pt: TSourceToken): boolean;
-
 function FirstSolidChild(const pt: TParseTreeNode): TParseTreeNode;
 
 function InFilesUses(const pt: TParseTreeNode): boolean;
@@ -128,7 +124,12 @@ function IsIdentifierToken(const pt: TSourceToken): boolean;
 { use on a built parse tree }
 function IsIdentifier(const pt: TSourceToken): boolean;
 
+function IsClassDirective(const pt: TSourceToken): boolean;
+function IsDfmIncludeDirective(const pt: TSourceToken): boolean;
+function IsGenericResIncludeDirective(const pt: TSourceToken): boolean;
 function IsHintDirective(const pt: TSourceToken): boolean;
+function IsPropertyDirective(const pt: TSourceToken): boolean;
+function IsDirectiveInContext(const pt: TSourceToken): Boolean;
 
 function StartsLiteralString(const pt: TSourceToken): boolean;
 
@@ -349,17 +350,6 @@ begin
   Result := pt.IsOnRightOf(nType, ttEquals);
 end;
 
-function IsClassDirective(const pt: TSourceToken): boolean;
-begin
-  { property Public: Boolean;
-    function Protected: Boolean
-    are both legal so have to check that we're not in a property or function def. }
-
-  Result := (pt.TokenType in ClassDirectives) and
-    pt.HasParentNode(nClassVisibility, 1) and
-    ( not (pt.HasParentNode(ProcedureNodes + [nProperty])));
-
-end;
 
 function RoundBracketLevel(const pt: TSourceToken): integer;
 begin
@@ -707,6 +697,18 @@ begin
     Result := pt.HasParentNode(nIdentifier, 1);
 end;
 
+function IsClassDirective(const pt: TSourceToken): boolean;
+begin
+  { property Public: Boolean;
+    function Protected: Boolean
+    are both legal so have to check that we're not in a property or function def. }
+
+  Result := (pt.TokenType in ClassDirectives) and
+    pt.HasParentNode(nClassVisibility, 1) and
+    ( not (pt.HasParentNode(ProcedureNodes + [nProperty])));
+
+end;
+
 
 function IsHintDirective(const pt: TSourceToken): boolean;
 begin
@@ -716,6 +718,21 @@ begin
     Result := pt.HasParentNode(nHintDirectives, 1);
 end;
 
+function IsPropertyDirective(const pt: TSourceToken): boolean;
+begin
+  Result := (pt <> nil) and (pt.TokenType in PropertyDirectives);
+
+  if Result then
+    Result := (pt.HasParentNode(nPropertySpecifier, 1));
+end;
+
+{ directives can occur in other contexts - they are valid proc & variable names
+  so we need to know if this one was parsed as a directive }
+function IsDirectiveInContext(const pt: TSourceToken): Boolean;
+begin
+  Result := pt.HasParentNode(DirectiveNodes) or
+    IsPropertyDirective(pt) or IsClassDirective(pt) or IsHintDirective(pt);
+end;
 
 function StartsLiteralString(const pt: TSourceToken): boolean;
 

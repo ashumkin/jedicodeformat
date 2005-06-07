@@ -48,7 +48,7 @@ implementation
 
 uses
   SysUtils,
-  SourceToken, Tokens, ParseTreeNodeType, JcfSettings, FormatFlags;
+  SourceToken, Tokens, ParseTreeNodeType, JcfSettings, FormatFlags, TokenUtils;
 
 
 function Excluded(const pt: TSourceToken): boolean;
@@ -56,7 +56,7 @@ begin
   Result := False;
 
   { directives in context are excluded }
-  if pt.HasParentNode(DirectiveNodes) then
+  if IsDirectiveInContext(pt) then
   begin
     Result := True;
     exit;
@@ -125,27 +125,44 @@ begin
   Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
-  if not lcSourceToken.HasParentNode(nIdentifier, 2) then
-    exit;
-
-  if FormatSettings.IdentifierCaps.HasWord(lcSourceToken.SourceCode) then
+  if lcSourceToken.HasParentNode(nIdentifier, 2) then
   begin
-    // get the fixed version
-    lsChange := FormatSettings.IdentifierCaps.CapitaliseWord(lcSourceToken.SourceCode);
-
-    // case-sensitive test - see if anything to do.
-    if AnsiCompareStr(lcSourceToken.SourceCode, lsChange) <> 0 then
+    if FormatSettings.IdentifierCaps.Enabled and FormatSettings.IdentifierCaps.HasWord(lcSourceToken.SourceCode) then
     begin
-      lsLastChange := lcSourceToken.SourceCode + ' to ' + lsChange;
-      lcSourceToken.SourceCode := lsChange;
-      Inc(fiCount);
+      // get the fixed version
+      lsChange := FormatSettings.IdentifierCaps.CapitaliseWord(lcSourceToken.SourceCode);
+
+      // case-sensitive test - see if anything to do.
+      if AnsiCompareStr(lcSourceToken.SourceCode, lsChange) <> 0 then
+      begin
+        lsLastChange := lcSourceToken.SourceCode + ' to ' + lsChange;
+        lcSourceToken.SourceCode := lsChange;
+        Inc(fiCount);
+      end;
+    end;
+  end
+  else
+  begin
+    if FormatSettings.NotIdentifierCaps.Enabled and FormatSettings.NotIdentifierCaps.HasWord(lcSourceToken.SourceCode) then
+    begin
+      // get the fixed version
+      lsChange := FormatSettings.NotIdentifierCaps.CapitaliseWord(lcSourceToken.SourceCode);
+
+      // case-sensitive test - see if anything to do.
+      if AnsiCompareStr(lcSourceToken.SourceCode, lsChange) <> 0 then
+      begin
+        lsLastChange := lcSourceToken.SourceCode + ' to ' + lsChange;
+        lcSourceToken.SourceCode := lsChange;
+        Inc(fiCount);
+      end;
     end;
   end;
 end;
 
 function TIdentifierCaps.IsIncludedInSettings: boolean;
 begin
-  Result := FormatSettings.IdentifierCaps.Enabled;
+  Result := FormatSettings.IdentifierCaps.Enabled or
+    FormatSettings.NotIdentifierCaps.Enabled;
 end;
 
 end.

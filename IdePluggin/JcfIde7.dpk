@@ -110,7 +110,7 @@ contains
   fRegistrySettings in '..\Ui\fRegistrySettings.pas' {fmRegistrySettings},
   frBasicSettings in '..\UI\Settings\frBasicSettings.pas' {frBasic: TFrame},
   frUses in '..\Ui\Settings\frUses.pas' {fUses: TFrame},
-  frIdentifierCapsSettings in '..\Ui\Settings\frIdentifierCapsSettings.pas' {fIdentifierCapsSettings: TFrame},
+  frNotIdentifierCapsSettings in '..\Ui\Settings\frNotIdentifierCapsSettings.pas' {fNotIdentifierCapsSettings: TFrame},
   frClarify in '..\Ui\Settings\frClarify.pas' {fClarify: TFrame},
   frClarifyAlign in '..\Ui\Settings\frClarifyAlign.pas' {fClarifyAlign: TFrame},
   frClarifyCaseBlocks in '..\Ui\Settings\frClarifyCaseBlocks.pas' {fClarifyCaseBlocks: TFrame},
@@ -183,6 +183,9 @@ contains
   SortUsesData in '..\Process\Transform\SortUsesData.pas',
   frCompilerDirectReturns in '..\Ui\Settings\frCompilerDirectReturns.pas' {fCompilerDirectReturns: TFrame},
   WarnUnusedParam in '..\Process\Warnings\WarnUnusedParam.pas',
-  IdentifierCaps in '..\Process\Capitalisation\IdentifierCaps.pas';
+  IdentifierCaps in '..\Process\Capitalisation\IdentifierCaps.pas',
+  frIdentifierCapsSettings in '..\Ui\Settings\frIdentifierCapsSettings.pas' {fIdentifierCapsSettings: TFrame},
+  frComments in '..\Ui\Settings\frComments.pas' {fComments: TFrame},
+  frAnyCapsSettings in '..\Ui\Settings\frAnyCapsSettings.pas' {frAnyCapsSettings: TFrame};
 
 end.

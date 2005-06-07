@@ -46,7 +46,7 @@ uses
   SysUtils,
   JclStrings,
   SourceToken, SettingsTypes, Tokens, ParseTreeNodeType,
-  JcfSettings, FormatFlags;
+  JcfSettings, FormatFlags, TokenUtils;
 
 { TCapitalisation }
 
@@ -90,28 +90,6 @@ end;
 function TCapitalisation.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
   lcSourceToken: TSourceToken;
-
-  { directives can occur in other contexts - they are valid proc & variable names
-    so we need to know if this one was parsed as a directive }
-    function IsCapitalisedDirective: Boolean;
-    begin
-      if lcSourceToken.HasParentNode(DirectiveNodes) then
-      begin
-        Result := True;
-      end
-      // "Read" and "write" in properties
-      else if (lcSourceToken.TokenType in [ttRead, ttWrite]) and (lcSourceToken.HasParentNode(nPropertySpecifier, 1)) then
-      begin
-        Result := True;
-      end
-      else if (lcSourceToken.TokenType in ClassVisibility) and lcSourceToken.HasParentNode(nClassVisibility, 1) then
-      begin
-        Result := True;
-      end
-      else
-        Result := False;
-    end;
-
 begin
   Result := False;
   lcSourceToken := TSourceToken(pcNode);
@@ -121,7 +99,7 @@ begin
       FixCaps(lcSourceToken, FormatSettings.Caps.ReservedWords);
     wtReservedWordDirective:
     begin
-      if IsCapitalisedDirective then
+      if IsDirectiveInContext(lcSourceToken) then
       begin
         FixCaps(lcSourceToken, FormatSettings.Caps.Directives);
       end

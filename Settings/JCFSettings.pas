@@ -48,8 +48,9 @@ type
  
     fcCaps: TSetCaps;
     fcSpecificWordCaps: TSetWordList;
-    fcUnitNameCaps: TSetWordList;
     fcIdentifierCaps: TSetWordList;
+    fcNotIdentifierCaps: TSetWordList;
+    fcUnitNameCaps: TSetWordList;
 
     fcPreProcessor: TSetPreProcessor;
     fcAlign: TSetAlign;
@@ -95,8 +96,9 @@ type
 
     property Caps: TSetCaps Read fcCaps;
     property SpecificWordCaps: TSetWordList Read fcSpecificWordCaps;
-    property UnitNameCaps: TSetWordList Read fcUnitNameCaps;
     property IdentifierCaps: TSetWordList Read fcIdentifierCaps;
+    property NotIdentifierCaps: TSetWordList Read fcNotIdentifierCaps;
+    property UnitNameCaps: TSetWordList Read fcUnitNameCaps;
 
     property PreProcessor: TSetPreProcessor Read fcPreProcessor;
 
@@ -136,8 +138,9 @@ begin
 
   fcCaps := TSetCaps.Create;
   fcSpecificWordCaps := TSetWordList.Create('SpecificWordCaps');
-  fcUnitNameCaps := TSetWordList.Create('UnitNameCaps');
   fcIdentifierCaps := TSetWordList.Create('Identifiers');
+  fcNotIdentifierCaps := TSetWordList.Create('NotIdent');
+  fcUnitNameCaps := TSetWordList.Create('UnitNameCaps');
 
   fcPreProcessor := TSetPreProcessor.Create;
 
@@ -166,8 +169,9 @@ begin
 
   FreeAndNil(fcCaps);
   FreeAndNil(fcSpecificWordCaps);
-  FreeAndNil(fcUnitNameCaps);
   FreeAndNil(fcIdentifierCaps);
+  FreeAndNil(fcNotIdentifierCaps);
+  FreeAndNil(fcUnitNameCaps);
 
   FreeAndNil(fcPreProcessor);
 
@@ -306,10 +310,12 @@ begin
   WriteToStream(fcSpaces);
   WriteToStream(fcReturns);
   WriteToStream(fcComments);
+
   WriteToStream(fcCaps);
   WriteToStream(fcSpecificWordCaps);
-  WriteToStream(fcUnitNameCaps);
   WriteToStream(fcIdentifierCaps);
+  WriteToStream(fcNotIdentifierCaps);
+  WriteToStream(fcUnitNameCaps);
 
   WriteToStream(fcPreProcessor);
   WriteToStream(fcAlign);
@@ -365,9 +371,10 @@ begin
     ReadFromStream(fcComments);
     ReadFromStream(fcCaps);
     ReadFromStream(fcSpecificWordCaps);
-    ReadFromStream(fcUnitNameCaps);
     ReadFromStream(fcIdentifierCaps);
-    
+    ReadFromStream(fcNotIdentifierCaps);
+    ReadFromStream(fcUnitNameCaps);
+
     ReadFromStream(fcPreProcessor);
 
     ReadFromStream(fcAlign);

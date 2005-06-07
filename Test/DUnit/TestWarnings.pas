@@ -393,9 +393,23 @@ const
     'procedure fred(foo: integer); var li: integer; begin li := 3; end; ' +
     UNIT_FOOTER;
 begin
+  // off
   FormatSettings.Clarify.WarnUnusedParams := False;
-
   TestNoWarnings(UNIT_TEXT);
+
+  // on
+  FormatSettings.Clarify.WarnUnusedParams := True;
+  TestWarnings(UNIT_TEXT, 'foo');
+
+  // excluded
+  FormatSettings.Clarify.IgnoreUnusedParams.Clear;
+  FormatSettings.Clarify.IgnoreUnusedParams.Add('foo');
+  TestNoWarnings(UNIT_TEXT);
+
+  // not excluded
+  FormatSettings.Clarify.IgnoreUnusedParams.Clear;
+  FormatSettings.Clarify.IgnoreUnusedParams.Add('oof');
+  TestWarnings(UNIT_TEXT, 'foo');
 end;
 
 initialization
