@@ -28,6 +28,7 @@ under the License.
 interface
 
 uses
+  Classes,
   TestFrameWork,
   BaseTestProcess,
   SettingsTypes;
@@ -44,6 +45,11 @@ type
 
     fbSaveAnyWordCapsEnabled: boolean;
 
+    fSaveIdentifierCaps: boolean;
+    fSaveNotIdentifierCaps: boolean;
+    fSaveIdentifierCapsWords: TStringList;
+    fSaveNotIdentifierCapsWords: TStringList;
+
   protected
     procedure Setup; override;
     procedure Teardown; override;
@@ -55,15 +61,17 @@ type
     procedure TestPropertyCapsMixed;
     procedure TestPropertyCapsLower;
 
-  end;
+    procedure TestIdentifierCaps;
+ end;
 
 implementation
 
 uses
+  SysUtils,
   { Jcl }
   JclStrings,
   { local }
-  Capitalisation, JcfSettings, SetCaps;
+  Capitalisation, JcfSettings, SetCaps, IdentifierCaps;
 
 
 procedure TTestCapitalisation.Setup;
@@ -83,7 +91,16 @@ begin
 
   fbSaveAnyWordCapsEnabled := FormatSettings.SpecificWordCaps.Enabled;
 
-  // defualt setup
+  fSaveIdentifierCaps := FormatSettings.IdentifierCaps.Enabled;
+  fSaveNotIdentifierCaps := FormatSettings.NotIdentifierCaps.Enabled;
+
+  fSaveIdentifierCapsWords := TStringList.Create;
+  fSaveIdentifierCapsWords.Assign(FormatSettings.IdentifierCaps.Words);
+  fSaveNotIdentifierCapsWords := TStringList.Create;
+  fSaveNotIdentifierCapsWords.Assign(FormatSettings.NotIdentifierCaps.Words);
+
+
+  // default setup
   FormatSettings.Caps.Enabled := True;
   FormatSettings.SpecificWordCaps.Enabled := False;
 end;
@@ -102,6 +119,14 @@ begin
   lcSetCaps.Directives := feSaveDirectives;
   lcSetCaps.Constants := feSaveConstants;
   lcSetCaps.Types := feSaveTypes;
+
+  FormatSettings.IdentifierCaps.Enabled := fSaveIdentifierCaps;
+  FormatSettings.NotIdentifierCaps.Enabled := fSaveNotIdentifierCaps;
+
+  FormatSettings.IdentifierCaps.Words.Assign(fSaveIdentifierCapsWords);
+  FreeAndNil(fSaveIdentifierCapsWords);
+  FormatSettings.NotIdentifierCaps.Words.Assign(fSaveNotIdentifierCapsWords);
+  FreeAndNil(fSaveNotIdentifierCapsWords);
 
   FormatSettings.SpecificWordCaps.Enabled := fbSaveAnyWordCapsEnabled;
 end;
@@ -175,6 +200,115 @@ begin
   TestProcessResult(TCapitalisation, UPPER_UNIT, MIXED_UNIT);
   TestProcessResult(TCapitalisation, MIXED_UNIT, MIXED_UNIT);
 end;
+
+const
+  TEST_IDENTIFIER_CAPS_IN =
+    'unit testCaps;' + AnsiLineBreak +
+    'interface' + AnsiLineBreak +
+    'type' + AnsiLineBreak +
+    '  TTester = class' + AnsiLineBreak +
+    '  private' + AnsiLineBreak +
+    '    fbRead: boolean;' + AnsiLineBreak +
+    '    fbWrite: boolean;' + AnsiLineBreak +
+    '    procedure SetRead(const Value: boolean);' + AnsiLineBreak +
+    '    public' + AnsiLineBreak +
+    '      property read: boolean read fbRead write SetRead;' + AnsiLineBreak +
+    '      property write: boolean read fbWrite write fbWrite;' + AnsiLineBreak +
+    '  end;' + AnsiLineBreak +
+    'implementation' + AnsiLineBreak +
+    'procedure TTester.SetRead(const Value: boolean);' + AnsiLineBreak +
+    'var' + AnsiLineBreak +
+    '  strict: integer;' + AnsiLineBreak +
+    '  public: boolean;' + AnsiLineBreak +
+    '  override: boolean;' + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
+    '  fbRead := Value;' + AnsiLineBreak +
+    'end;' + AnsiLineBreak +
+    'end.';
+
+  TEST_IDENTIFIER_CAPS_OUT_IDS =
+    'unit testCaps;' + AnsiLineBreak +
+    'interface' + AnsiLineBreak +
+    'type' + AnsiLineBreak +
+    '  TTester = class' + AnsiLineBreak +
+    '  private' + AnsiLineBreak +
+    '    fbRead: boolean;' + AnsiLineBreak +
+    '    fbWrite: boolean;' + AnsiLineBreak +
+    '    procedure SetRead(const Value: boolean);' + AnsiLineBreak +
+    '    public' + AnsiLineBreak +
+    '      property Read: boolean read fbRead write SetRead;' + AnsiLineBreak +
+    '      property Write: boolean read fbWrite write fbWrite;' + AnsiLineBreak +
+    '  end;' + AnsiLineBreak +
+    'implementation' + AnsiLineBreak +
+    'procedure TTester.SetRead(const Value: boolean);' + AnsiLineBreak +
+    'var' + AnsiLineBreak +
+    '  Strict: integer;' + AnsiLineBreak +
+    '  Public: boolean;' + AnsiLineBreak +
+    '  override: boolean;' + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
+    '  fbRead := Value;' + AnsiLineBreak +
+    'end;' + AnsiLineBreak +
+    'end.';
+
+    TEST_IDENTIFIER_CAPS_OUT_BOTH =
+    'unit testCaps;' + AnsiLineBreak +
+    'interface' + AnsiLineBreak +
+    'type' + AnsiLineBreak +
+    '  TTester = class' + AnsiLineBreak +
+    '  private' + AnsiLineBreak +
+    '    fbRead: boolean;' + AnsiLineBreak +
+    '    fbWrite: boolean;' + AnsiLineBreak +
+    '    procedure SetRead(const Value: boolean);' + AnsiLineBreak +
+    '    PUBLIC' + AnsiLineBreak +
+    '      property Read: boolean READ fbRead WRITE SetRead;' + AnsiLineBreak +
+    '      property Write: boolean READ fbWrite WRITE fbWrite;' + AnsiLineBreak +
+    '  end;' + AnsiLineBreak +
+    'implementation' + AnsiLineBreak +
+    'procedure TTester.SetRead(const Value: boolean);' + AnsiLineBreak +
+    'var' + AnsiLineBreak +
+    '  Strict: integer;' + AnsiLineBreak +
+    '  Public: boolean;' + AnsiLineBreak +
+    '  override: boolean;' + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
+    '  fbRead := Value;' + AnsiLineBreak +
+    'end;' + AnsiLineBreak +
+    'end.';
+
+
+
+procedure TTestCapitalisation.TestIdentifierCaps;
+begin
+  FormatSettings.IdentifierCaps.Enabled := False;
+  FormatSettings.IdentifierCaps.Words.Clear;
+  FormatSettings.NotIdentifierCaps.Enabled := False;
+  FormatSettings.NotIdentifierCaps.Words.Clear;
+
+  // no change
+  TestProcessResult(TIdentifierCaps, TEST_IDENTIFIER_CAPS_IN, TEST_IDENTIFIER_CAPS_IN);
+
+  FormatSettings.IdentifierCaps.Enabled := True;
+  FormatSettings.NotIdentifierCaps.Enabled := True;
+
+  // no change
+  TestProcessResult(TIdentifierCaps, TEST_IDENTIFIER_CAPS_IN, TEST_IDENTIFIER_CAPS_IN);
+
+  FormatSettings.IdentifierCaps.Add('Read');
+  FormatSettings.IdentifierCaps.Add('Write');
+  FormatSettings.IdentifierCaps.Add('Public');
+  FormatSettings.IdentifierCaps.Add('Strict');
+
+  // identifiers capitalised
+  TestProcessResult(TIdentifierCaps, TEST_IDENTIFIER_CAPS_IN, TEST_IDENTIFIER_CAPS_OUT_IDS);
+
+  FormatSettings.NotIdentifierCaps.Add('READ');
+  FormatSettings.NotIdentifierCaps.Add('WRITE');
+  FormatSettings.NotIdentifierCaps.Add('PUBLIC');
+
+  // both identifers and reserved words
+  TestProcessResult(TIdentifierCaps, TEST_IDENTIFIER_CAPS_IN, TEST_IDENTIFIER_CAPS_OUT_BOTH);
+end;
+
+
 
 initialization
   TestFramework.RegisterTest('Processes', TTestCapitalisation.Suite);

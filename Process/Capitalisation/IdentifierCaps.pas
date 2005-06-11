@@ -118,6 +118,9 @@ begin
 end;
 
 function TIdentifierCaps.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
+const
+  NEITHER_NOR = [ttReturn, ttComment, ttWhiteSpace,
+    ttConditionalCompilationRemoved, ttNumber, ttQuotedLiteralString];
 var
   lcSourceToken: TSourceToken;
   lsChange:      string;
@@ -125,8 +128,15 @@ begin
   Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
+  { these tokens are common and/or long,
+   but are not capitalisable text at all, don't waste time on them }
+  if lcSourceToken.TokenType in NEITHER_NOR then
+    exit;
+
   if lcSourceToken.HasParentNode(nIdentifier, 2) then
   begin
+    // it's an identifier
+
     if FormatSettings.IdentifierCaps.Enabled and FormatSettings.IdentifierCaps.HasWord(lcSourceToken.SourceCode) then
     begin
       // get the fixed version
@@ -143,6 +153,8 @@ begin
   end
   else
   begin
+    // it's not an identifier 
+
     if FormatSettings.NotIdentifierCaps.Enabled and FormatSettings.NotIdentifierCaps.HasWord(lcSourceToken.SourceCode) then
     begin
       // get the fixed version
