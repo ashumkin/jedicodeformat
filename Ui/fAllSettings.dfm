@@ -1,11 +1,11 @@
 object FormAllSettings: TFormAllSettings
-  Left = 192
+  Left = 171
   Top = 106
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
   BorderStyle = bsDialog
   Caption = 'JCF Format settings'
   ClientHeight = 403
-  ClientWidth = 552
+  ClientWidth = 572
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -24,7 +24,7 @@ object FormAllSettings: TFormAllSettings
   object tvFrames: TTreeView
     Left = 4
     Top = 4
-    Width = 165
+    Width = 181
     Height = 350
     HideSelection = False
     Indent = 19
@@ -65,7 +65,7 @@ object FormAllSettings: TFormAllSettings
       FF00000000000000000C50726550726F636573736F72}
   end
   object pnlSet: TPanel
-    Left = 172
+    Left = 192
     Top = 4
     Width = 373
     Height = 350
@@ -73,7 +73,7 @@ object FormAllSettings: TFormAllSettings
     TabOrder = 1
   end
   object bbOK: TBitBtn
-    Left = 158
+    Left = 169
     Top = 364
     Width = 75
     Height = 29
@@ -82,7 +82,7 @@ object FormAllSettings: TFormAllSettings
     Kind = bkOK
   end
   object bbCancel: TBitBtn
-    Left = 238
+    Left = 249
     Top = 364
     Width = 75
     Height = 29
@@ -91,7 +91,7 @@ object FormAllSettings: TFormAllSettings
     Kind = bkCancel
   end
   object BitBtn1: TBitBtn
-    Left = 318
+    Left = 329
     Top = 364
     Width = 75
     Height = 29

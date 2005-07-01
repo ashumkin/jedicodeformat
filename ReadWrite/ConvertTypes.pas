@@ -46,12 +46,14 @@ const
 const
   SOURCE_FILE_FILTERS =
     'Delphi source (*.pas, *.dpr, *.dpk)|*.pas; *.dpr; *.dpk|' +
+    'Pascal Source (*.pas, *.pp)|*.pas; *.pp|' +
     'Text files (*.txt)|*.txt|' +
     'All files (*.*)|*.*';
 
   CONFIG_FILE_FILTERS =
     'Config files (*.cfg)|*.cfg|' +
     'Text files (*.txt)|*.txt|' +
+    'XML files (*.xml)|*.xml|' +
     'All files (*.*)|*.*';
 
 function DescribeFileCount(const piCount: integer): string;

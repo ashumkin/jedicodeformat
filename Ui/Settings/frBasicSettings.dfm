@@ -75,9 +75,6 @@ inherited frBasic: TfrBasic
   end
   object dlgOpen: TOpenDialog
     DefaultExt = '*.pas'
-    Filter = 
-      'Delphi Source|*.pas|Delphi Project Source|*.dpr|text file|*.txt|' +
-      'All files|*.*'
     Options = [ofHideReadOnly, ofPathMustExist, ofFileMustExist, ofEnableSizing]
     Title = 'Select a Delphi source file'
     Left = 244

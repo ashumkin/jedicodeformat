@@ -33,6 +33,8 @@ uses
 type
   TfClarify = class(TfrSettingsFrame)
     rgRunOnceOffs: TRadioGroup;
+    mFileExtensions: TMemo;
+    Label1: TLabel;
   private
 
   public
@@ -64,6 +66,8 @@ begin
   with FormatSettings.Clarify do
   begin
     rgRunOnceOffs.ItemIndex := Ord(OnceOffs);
+
+    mFileExtensions.Lines.Assign(FileExtensions);
   end;
 end;
 
@@ -72,6 +76,9 @@ begin
   with FormatSettings.Clarify do
   begin
     OnceOffs := TOnceOffsOption(rgRunOnceOffs.ItemIndex);
+
+    FileExtensions.Assign(mFileExtensions.Lines);
+    FileExtensions.Sort;
   end;
 end;
 

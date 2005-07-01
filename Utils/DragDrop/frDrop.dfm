@@ -4,4 +4,5 @@ object FrameDrop: TFrameDrop
   Width = 320
   Height = 240
   TabOrder = 0
+  TabStop = True
 end

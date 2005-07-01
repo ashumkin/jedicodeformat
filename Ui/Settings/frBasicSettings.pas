@@ -267,9 +267,10 @@ begin
   begin
     // get a file name
     lsDir := IncludeTrailingPathDelimiter(ExtractFileDir(edtInput.Text));
- // strip out the dir
+    // strip out the dir
 
     dlgOpen.InitialDir := lsDir;
+    dlgOpen.Filter := SOURCE_FILE_FILTERS;
 
     if GetCurrentSourceMode = fmSingleFile then
     begin

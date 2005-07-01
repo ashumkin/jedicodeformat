@@ -39,7 +39,9 @@ type
     feOnceOffs: TOnceOffsOption;
     fbWarnings: boolean;
     fbWarnUnusedParams: boolean;
+
     fcIgnoreUnusedParams: TStringList;
+    fcFileExtensions: TStringList;
 
   protected
 
@@ -55,6 +57,7 @@ type
     property Warnings: boolean Read fbWarnings Write fbWarnings;
     property WarnUnusedParams: boolean Read fbWarnUnusedParams Write fbWarnUnusedParams;
     property IgnoreUnusedParams: TStringList read fcIgnoreUnusedParams;
+    property FileExtensions: TStringList read fcFileExtensions;
   end;
 
 implementation
@@ -67,6 +70,7 @@ const
   REG_WARNINGS  = 'Warnings';
   REG_WARN_UNUSED_PARAMS  = 'WarnUnusedParams';
   REG_IGNORE_UNUSED_PARAMS = 'IgnoreUnusedParams';
+  REG_FILE_EXTENSIONS = 'FileExtensions';
 
   { TSetClarify }
 
@@ -77,11 +81,17 @@ begin
 
   fcIgnoreUnusedParams := TStringList.Create;
   fcIgnoreUnusedParams.Duplicates := dupIgnore;
+
+  fcFileExtensions := TStringList.Create;
+  fcFileExtensions.Duplicates := dupIgnore;
+
 end;
 
 destructor TSetClarify.Destroy;
 begin
   FreeAndNil(fcIgnoreUnusedParams);
+  FreeAndNil(fcFileExtensions);
+  
   inherited;
 end;
 
@@ -101,6 +111,21 @@ begin
   // default value
   if (fcIgnoreUnusedParams.Count = 0) and fbWarnUnusedParams then
     fcIgnoreUnusedParams.Add('Sender');
+
+  pcStream.Read(REG_FILE_EXTENSIONS, fcFileExtensions);
+  fcFileExtensions.Sort;
+
+  { default value for file exts to pick up
+    when formatting directories
+    .pas and .dpr are delphi files, .pp is Free pascal
+  }
+  if (fcFileExtensions.Count = 0) then
+  begin
+    fcFileExtensions.Add('pas');
+    fcFileExtensions.Add('pp');
+    fcFileExtensions.Add('dpr');
+  end;
+
 end;
 
 procedure TSetClarify.WriteToStream(const pcOut: TSettingsOutput);
@@ -114,6 +139,9 @@ begin
 
   fcIgnoreUnusedParams.Sort;
   pcOut.Write(REG_IGNORE_UNUSED_PARAMS, fcIgnoreUnusedParams);
+
+  fcFileExtensions.Sort;
+  pcOut.Write(REG_FILE_EXTENSIONS, fcFileExtensions);
 end;
 
 end.

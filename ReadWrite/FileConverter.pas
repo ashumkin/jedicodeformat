@@ -105,8 +105,9 @@ implementation
 
 uses
   { delphi }Windows, SysUtils, Dialogs, Controls, Forms,
-  { jcl }JclFileUtils, JclStrings,
-  { local }FileUtils, JcfMiscFunctions, JCFLog, JcfRegistrySettings;
+  { jcl } JclFileUtils, JclStrings,
+  { local }FileUtils, JcfMiscFunctions, JCFLog,
+  JcfRegistrySettings, JcfSettings;
 
 constructor TFileConverter.Create;
 begin
@@ -359,6 +360,17 @@ begin
 end;
 
 procedure TFileConverter.GetFileNames(const psDir: string; psFiles: TStrings);
+
+  function ExtIsFormatted(psExt: string): boolean;
+  begin
+    psExt := Trim(psExt);
+
+    if StrLeft(psExt, 1) = '.' then
+      psExt := StrRestof(psExt, 2);
+
+    Result := (FormatSettings.Clarify.FileExtensions.IndexOf(psExt) >= 0);
+  end;
+
 var
   rSearch: TSearchRec;
   lsName, lsExt, lsSearch: string;
@@ -380,7 +392,7 @@ begin
       continue;
 
     lsExt := ExtractFileExt(lsName);
-    if (AnsiCompareText(lsExt, '.pas') = 0) or (AnsiCompareText(lsExt, '.dpr') = 0) then
+    if ExtIsFormatted(lsExt) then
       psFiles.Add(lsName);
 
     bDone := (FindNext(rSearch) <> 0);

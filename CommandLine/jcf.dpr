@@ -173,7 +173,7 @@ const
 
     ' Other options: ' + AnsiLineBreak +
     ' -config=filename  To specify a named configuration file' + AnsiLineBreak +
-    ' -y No prompts to overwrite files etc. Yes is assumed ' + AnsiLineBreak +
+    ' -y Overwrite files without confirmation.' + AnsiLineBreak +
     ' -? Display this help' + AnsiLineBreak;
 
 var
