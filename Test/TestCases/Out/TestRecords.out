@@ -83,7 +83,7 @@ type
   TFoo = record
     Bar: integer;
     case Spon: boolean of
-      True: (Baz: pChar);
+      True: (Baz: PChar);
       False: (Wibble: integer;
         Fish: integer);
     // not allowed! liFred: integer;
@@ -93,7 +93,7 @@ type
   TFoo2 = record
     Bar: integer;
     case Spon: boolean of
-      True: (Baz: pChar);
+      True: (Baz: PChar);
       False: (Fred: TFoo);
   end;
 
@@ -103,7 +103,7 @@ type
   TFoo3 = record
     Bar: integer;
     case Spon: boolean of
-      True: (Baz: pChar);
+      True: (Baz: PChar);
       False: (Fred: TFoo;
         case boolean of
           False: (liGoop: integer);
@@ -115,22 +115,22 @@ type
   TDeepNesting = record
     Bar: integer;
     case Spon1: boolean of
-      True: (Baz1: pChar);
+      True: (Baz1: PChar);
       False: (
         case Spon2: boolean of
-          True: (Baz2: pChar);
+          True: (Baz2: PChar);
           False: (
           case Spon3: boolean of
-            True: (Baz3: pChar);
+            True: (Baz3: PChar);
             False: (
             case Spon4: boolean of
-              True: (Baz4: pChar);
+              True: (Baz4: PChar);
               False: (
               case Spon5: boolean of
-                True: (Baz5: pChar);
+                True: (Baz5: PChar);
                 False: (
                 case Spon6: boolean of
-                  True: (Baz6: pChar);
+                  True: (Baz6: PChar);
                   False: (liEndpoint: integer);
                 );
               );
@@ -169,7 +169,7 @@ type
     Foo: integer;
     Bar: (Trout, Mackrel, Rain, Earth);
     case Spon: boolean of
-      True: (Baz: pChar);
+      True: (Baz: PChar);
       False: (Fred: TFoo;
         case boolean of
           False: (liGoop: integer);
@@ -187,7 +187,7 @@ var
     Foo: integer;
     Bar: (Trout, Mackrel, Rain, Earth);
     case Spon: boolean of
-      True: (Baz: pChar);
+      True: (Baz: PChar);
       False: (Fred: TFoo;
         case boolean of
           False: (liGoop: integer);
@@ -211,7 +211,7 @@ var
     Foo: integer;
     Bar: (Trout2, Mackrel2, Rain2, Mars);
     case Spon: boolean of
-      True: (Baz: pChar);
+      True: (Baz: PChar);
       False: (Fred: TFoo);
   end;
   d1, d2, d3, d4: double;
@@ -219,7 +219,7 @@ var
     Foo: integer;
     Bar: (Trout3, Mackrel3, Cloud, EarthPrime);
     case Spon: boolean of
-      True: (Baz: pChar);
+      True: (Baz: PChar);
       False: (Fred: TFoo;
         case boolean of
           False: (liGoop: integer);

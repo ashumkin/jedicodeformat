@@ -9,7 +9,7 @@ uses
 exports initeditors,
   doneeditors index 17 Name done,
   inserttext Name insert,
-  deleteselection Name Delete,
+  deleteselection Name delete,
   formatselection,
   printselection Name print resident,
   seterrorhandler index 23;

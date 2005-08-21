@@ -11,7 +11,7 @@ end;
 procedure callmangledata;
 var
   foo: string;
-  bar: pchar;
+  bar: PChar;
 begin
   foo := 'hello';
   mangledata(foo);

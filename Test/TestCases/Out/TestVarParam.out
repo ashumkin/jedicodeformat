@@ -20,7 +20,7 @@ end;
 procedure CallMangleData;
 var
   foo: string;
-  bar: pchar;
+  bar: PChar;
 begin
   foo := 'hello';
   MangleData(foo);

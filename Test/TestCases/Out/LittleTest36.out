@@ -9,14 +9,14 @@ interface
 { the final semicolon is omitted in some cases
   Why? Just confuse use. }
 
-procedure Foo; external 'foo.dll' name '__foo'
-procedure Bar; external 'bar.dll' name '__bar'
+procedure Foo; external 'foo.dll' Name '__foo'
+procedure Bar; external 'bar.dll' Name '__bar'
 
 
 implementation
 
-procedure Foo2; external 'foo.dll' name '__foo'
-procedure Bar2; external 'bar.dll' name '__bar'
+procedure Foo2; external 'foo.dll' Name '__foo'
+procedure Bar2; external 'bar.dll' Name '__bar'
 
 
 end.

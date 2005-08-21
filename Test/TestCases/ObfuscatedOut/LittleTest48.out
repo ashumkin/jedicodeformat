@@ -4,7 +4,7 @@ interface
 
 type
   tfoo = record
-    stuff:   pchar;
+    stuff:   PChar;
     counter: integer;
     Name:    string;
   end;

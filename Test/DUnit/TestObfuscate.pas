@@ -1257,6 +1257,7 @@ begin
   TestObfuscateFile('TestDelphiNetWebService');
 end;
 
+
 initialization
   TestFramework.RegisterTest(TTestObfuscate.Suite);
 end.

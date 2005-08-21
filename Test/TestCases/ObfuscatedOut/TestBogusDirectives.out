@@ -40,12 +40,12 @@ begin
   virtual := 10;
 end;
 
-function Register.dispid: integer;
+function register.dispid: integer;
 begin
   Result := 12;
 end;
 
-function Register.
+function register.
 getreadonly: boolean;
 var
   Name:     string;
@@ -55,29 +55,29 @@ begin
   Result := True;
 end;
 
-function Register.protected: boolean;
+function register.protected: boolean;
 begin
   Result := False;
 end;
 
-procedure Register.contains;
+procedure register.contains;
 begin
 end;
 
-procedure Register.requires;
+procedure register.requires;
 begin
 end;
 
-procedure Register.package;
+procedure register.package;
 begin
 end;
 
-function Register.at: integer;
+function register.at: integer;
 begin
   Result := 23;
 end;
 
-function Register.on: integer;
+function register.on: integer;
 begin
   Result := 23;
 end;

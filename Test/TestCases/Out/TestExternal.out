@@ -24,13 +24,13 @@ function FloatToText(Buffer: PChar; const Value; ValueType: integer;
   Format: integer; Precision, Digits: integer): integer; external;
 
 
-function AddAtomA: Atom; external kernel32 name 'AddAtomA';
-function AreFileApisANSI: bool; external kernel32 name 'AreFileApisANSI';
-function Beep: bool; external kernel32 name 'Beep';
+function AddAtomA: Atom; external kernel32 Name 'AddAtomA';
+function AreFileApisANSI: bool; external kernel32 Name 'AreFileApisANSI';
+function Beep: bool; external kernel32 Name 'Beep';
 
 { with line breaks }
 function Fooo: string;
-  external kernel32 name 'Fish';
+  external kernel32 Name 'Fish';
 
 
 function Wibble: boolean;

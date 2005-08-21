@@ -25,8 +25,8 @@ type
   tmyenumset = set of tmyenum;
 
   imyiterator = interface(IUnknown)
-    procedure First;
-    procedure Next;
+    procedure first;
+    procedure next;
   end;
 
   ientryjournallookupdisp = dispinterface
@@ -35,22 +35,22 @@ type
     property enddate: tdatetime dispid 2;
     property maxrows: integer dispid 2000;
     property iterator: imyiterator ReadOnly dispid 2001;
-    function Execute: imyiterator; dispid 2002;
+    function execute: imyiterator; dispid 2002;
     function getnewojectkey: IUnknown; dispid 2003;
   end;
 
   ientryjournaliterator = interface(imyiterator)
     ['{D34D4105-FBC4-11D2-94F3-00A0CC39B56F}']
-    function get_note: widestring; safecall;
-    function get_status: widestring; safecall;
+    function get_note: WideString; safecall;
+    function get_status: WideString; safecall;
     function get_createddate: tdatetime; safecall;
-    function get_loginname: widestring; safecall;
+    function get_loginname: WideString; safecall;
     function get_id: integer; safecall;
     procedure set_id(id: integer); safecall;
-    property note: widestring Read get_note;
-    property status: widestring Read get_status;
+    property note: WideString Read get_note;
+    property status: WideString Read get_status;
     property createddate: tdatetime Read get_createddate;
-    property loginname: widestring Read get_loginname;
+    property loginname: WideString Read get_loginname;
     property id: integer Read get_id Write set_id;
   end;
 

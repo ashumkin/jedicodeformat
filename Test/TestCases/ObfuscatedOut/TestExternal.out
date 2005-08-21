@@ -6,12 +6,12 @@ uses Windows;
 
 procedure fred; cdecl;
 procedure floattodecimal(var Result: integer; const Value; valuetype: integer; precision, decimals: integer); external;
-function floattotext(buffer: pchar;
+function floattotext(buffer: PChar;
   const Value; valuetype: integer; format: integer; precision, digits: integer): integer; external;
-function addatoma: atom; external kernel32 name 'AddAtomA';
-function arefileapisansi: bool; external kernel32 name 'AreFileApisANSI';
-function beep: bool; external kernel32 name 'Beep';
-function fooo: string; external kernel32 name 'Fish';
+function addatoma: atom; external kernel32 Name 'AddAtomA';
+function arefileapisansi: bool; external kernel32 Name 'AreFileApisANSI';
+function beep: bool; external kernel32 Name 'Beep';
+function fooo: string; external kernel32 Name 'Fish';
 function wibble: boolean; external;
 
 implementation

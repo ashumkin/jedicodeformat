@@ -4,15 +4,15 @@ interface
 
 { test out params and params called out }
 
-function Foo1(out: integer): integer; stdcall; overload; external 'FooDll' name 'Bargle';
+function Foo1(out: integer): integer; stdcall; overload; external 'FooDll' Name 'Bargle';
 function Foo2(out , Bar: integer): integer; stdcall; overload;
-  external 'FooDll' name 'Snargle';
+  external 'FooDll' Name 'Snargle';
 function Foo3(out out , bar: integer): integer;
-  stdcall; overload; external 'FooDll' name 'Fargle';
+  stdcall; overload; external 'FooDll' Name 'Fargle';
 function Foo4(out out: integer): integer;
-  stdcall; overload; external 'FooDll' name 'Gargle';
+  stdcall; overload; external 'FooDll' Name 'Gargle';
 function Foo5(out bar: integer): integer;
-  stdcall; overload; external 'FooDll' name 'Zargle';
+  stdcall; overload; external 'FooDll' Name 'Zargle';
 
 
 implementation

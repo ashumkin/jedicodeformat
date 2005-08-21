@@ -47,7 +47,7 @@ asm
   CALL[EAX].Pointer[24]
   MOV     ECX,[EBP+4]
   JMP     Foo
-  MOV       Result,False
+  MOV       Result,false
   MOV       Result, 'F'
 
 end;

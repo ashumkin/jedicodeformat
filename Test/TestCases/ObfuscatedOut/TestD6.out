@@ -33,21 +33,21 @@ type
   tthing5 = record
     bar: integer;
     case spon: boolean of
-      True: (baz5: pchar);
+      True: (baz5: PChar);
       False: (fred5: integer;);
   end platform;
 
   tmonkey = record
     bar: integer;
     case tfoo of
-      0, 1, 2, 3: (baz5: pchar);
+      0, 1, 2, 3: (baz5: PChar);
       4, 42, 300: (fred5: integer;);
   end platform;
 
   tthing6 = record
     bar: integer;
     case boolean of
-      True: (baz6: pchar);
+      True: (baz6: PChar);
       False: (fred6: integer;);
   end platform;
 
@@ -129,7 +129,7 @@ type
   tfoo2 = record
     bar: integer;
     case spon: boolean of
-      True: (baz: pchar);
+      True: (baz: PChar);
       False: (fred: integer);
   end platform;
 begin

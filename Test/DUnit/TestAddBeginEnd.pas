@@ -50,6 +50,7 @@ type
     procedure TestNestedIf4;
 
     procedure TestBug1174572;
+    procedure TestBug1262542;
   end;
 
 implementation
@@ -522,6 +523,29 @@ begin
   FormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, TEST_1174572_IN, TEST_1174572_IN);
+end;
+
+const
+  TEST_1262542_IN =
+    UNIT_HEADER +
+    '  if i > 3 then' + AnsiLineBreak +
+    '    if i > 5 then' + AnsiLineBreak +
+    '      ShowMessage(''foo'')' + AnsiLineBreak +
+    '    else' + AnsiLineBreak  +
+    '    begin' + AnsiLineBreak +
+    '      if Condition_C then' + AnsiLineBreak +
+    '         ShowMessage(''fish'')' + AnsiLineBreak +
+    '     end' + AnsiLineBreak +
+    '  else' + AnsiLineBreak +
+    '    ShowMessage(''spon'');' +
+    UNIT_FOOTER;
+
+procedure TTestAddBeginEnd.TestBug1262542;
+begin
+  FormatSettings.Transform.BeginEndStyle := eNever;
+
+  TestProcessResult(TAddBeginEnd, TEST_1262542_IN, TEST_1262542_IN);
+
 end;
 
 initialization

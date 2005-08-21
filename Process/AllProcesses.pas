@@ -259,10 +259,14 @@ end;
 
 procedure TAllProcesses.Capitalisation;
 begin
+  { reserved word caps must come before identifiers etc
+    or "true" cannot be converted to "True" by the identifier process
+  }
+  ApplyVisitorType(TCapitalisation);
+
   ApplyVisitorType(TUnitNameCaps);
   ApplyVisitorType(TSpecificWordCaps);
   ApplyVisitorType(TIdentifierCaps);
-  ApplyVisitorType(TCapitalisation);
 end;
 
 procedure TAllProcesses.Spacing;

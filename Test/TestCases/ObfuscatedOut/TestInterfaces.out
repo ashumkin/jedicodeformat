@@ -6,8 +6,8 @@ uses Classes;
 
 type
   imyiterator = interface(IUnknown)
-    procedure First; safecall;
-    procedure Next; safecall;
+    procedure first; safecall;
+    procedure next; safecall;
   end;
 
   ientryjournallookupdisp = dispinterface
@@ -16,29 +16,29 @@ type
     property enddate: tdatetime dispid 2;
     property maxrows: integer dispid 2000;
     property iterator: imyiterator ReadOnly dispid 2001;
-    function Execute: imyiterator; dispid 2002;
+    function execute: imyiterator; dispid 2002;
     function getnewojectkey: IUnknown; dispid 2003;
     property soy: integer writeonly;
   end;
 
   ientryjournaliterator = interface(imyiterator)
     ['{D34D4105-FBC4-11D2-94F3-00A0CC39B56F}']
-    function get_note: widestring; safecall;
-    function get_status: widestring; safecall;
+    function get_note: WideString; safecall;
+    function get_status: WideString; safecall;
     function get_createddate: tdatetime; safecall;
-    function get_loginname: widestring; safecall;
+    function get_loginname: WideString; safecall;
     function get_id: integer; safecall;
     procedure set_id(id: integer); safecall;
-    property note: widestring Read get_note;
-    property status: widestring Read get_status;
+    property note: WideString Read get_note;
+    property status: WideString Read get_status;
     property createddate: tdatetime Read get_createddate;
-    property loginname: widestring Read get_loginname;
+    property loginname: WideString Read get_loginname;
     property id: integer Read get_id Write set_id;
   end;
 
   imyotheriterator = interface(IUnknown)
-    procedure First; safecall;
-    procedure Next; safecall;
+    procedure first; safecall;
+    procedure next; safecall;
   end;
 
 const
@@ -48,15 +48,15 @@ const
 type
   ifoodisp = dispinterface
     ['{3050F1FF-98B5-11CF-BB82-00AA00CACE0B}']
-    procedure setattribute(const strattributename: widestring; attributevalue: olevariant;
+    procedure setattribute(const strattributename: WideString; attributevalue: olevariant;
       lflags: integer); dispid -2147417611;
-    function getattribute(const strattributename: widestring;
+    function getattribute(const strattributename: WideString;
       lflags: integer): olevariant; dispid
       foo_disp_id;
-    function removeattribute(const strattributename: widestring; lflags: integer): wordbool;
+    function removeattribute(const strattributename: WideString; lflags: integer): wordbool;
       dispid -2147417609;
-    property ClassName: widestring dispid bar_disp_id + foo_disp_id;
-    property id: widestring dispid(-1 * foo_disp_id);
+    property ClassName: WideString dispid bar_disp_id + foo_disp_id;
+    property id: WideString dispid(-1 * foo_disp_id);
     property onfilterchange: olevariant dispid -2147412069;
     property children: IDispatch ReadOnly dispid -2147417075;
     property all: IDispatch ReadOnly dispid -2147417074;

@@ -128,6 +128,10 @@ begin
   if Excluded(lcSourceToken) then
     exit;
 
+   { not in ASM statements}
+  if lcSourceToken.HasParentNode(nAsm) then
+    exit;
+
   if FormatSettings.SpecificWordCaps.HasWord(lcSourceToken.SourceCode) then
   begin
     // get the fixed version

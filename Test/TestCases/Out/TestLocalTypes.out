@@ -64,7 +64,7 @@ type
   TFoo2 = record
     Bar: integer;
     case Spon: boolean of
-      True: (Baz: pChar);
+      True: (Baz: PChar);
       False: (Fred: integer);
   end;
 

@@ -110,7 +110,7 @@ begin
   Str1 := #13^M#12^@'foo'#10^M'bar';
 end;
 
-procedure HatEquals(const Value: pchar);
+procedure HatEquals(const Value: PChar);
 const
   { ambiguous.
     same chars lexed differently in if-statement

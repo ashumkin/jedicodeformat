@@ -89,7 +89,7 @@ begin
   str1 := #13^m#12^@'foo'#10^m'bar';
 end;
 
-procedure hatequals(const Value: pchar);
+procedure hatequals(const Value: PChar);
 const
   hat_eq     = ^=;
   hat_eq_c   = ^='C';

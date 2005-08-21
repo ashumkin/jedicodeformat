@@ -75,7 +75,10 @@ begin
 end;
 
 {
-  it is not safe to remove the block from
+  it is not safe to remove the block from:
+
+
+  case 1:
     if <cond1> then
     begin
       if <cond2> then
@@ -83,22 +86,40 @@ end;
     end
     else
       <statement2>;
+
+  case 2:
+    if <cond1> then
+      if <cond2> then
+         < statement1>
+      else
+      begin
+        if <cond 3> then
+        begin
+         <statement2>
+        end
+      end
+    else
+      <statement3>;
 }
 function SafeToRemoveBeginEnd(const pcNode: TParseTreeNode): Boolean;
 const
   { if there is an if stament with no else case immediately hereunder,
   should find it by this depth }
   IMMEDIATE_IF_DEPTH = 4;
+  MAX_IF_CLIMB = 5;
 var
+  lcParent: TParseTreeNode;
   lcChildStmnt: TParseTreeNode;
+  iLoop: integer;
 begin
   Result := True;
 
-  { is this an if block? }
+  { Case 1: is this an if block? }
   if (pcNode <> nil) and (pcNode.NodeType = nIfBlock) then
   begin
     { does it have an else case after the if block? }
-    if pcNode.Parent.HasChildNode(nElseBlock, 1) then
+    lcParent := pcNode.Parent;
+    if lcParent.HasChildNode(nElseBlock, 1) then
     begin
       lcChildStmnt := pcNode.GetImmediateChild(nStatement);
 
@@ -108,6 +129,31 @@ begin
         Result := False;
     end;
   end;
+
+  { case 2 - an else block inside a containing if/else }
+  if (pcNode <> nil) and (pcNode.NodeType = nElseBlock) then
+  begin
+    { is the else inside an outer if block? }
+    lcParent := pcNode;
+
+    iLoop := 0;
+    while (iLoop < MAX_IF_CLIMB) and (lcParent <> nil) do
+    begin
+      lcParent := lcParent.Parent;
+      inc(iLoop);
+
+      if (lcParent <> nil) and (lcParent.NodeType = nIfBlock) then
+        break;
+    end;
+
+    if (lcParent <> nil) and (lcParent.NodeType = nIfBlock) then
+    begin
+      lcParent := lcParent.Parent;
+      if (lcParent <> nil) and lcParent.HasChildNode(nElseBlock, 1) then
+        Result := False;
+      end;
+  end;
+
 end;
 
 procedure AddBlockChild(const pcNode: TParseTreeNode);

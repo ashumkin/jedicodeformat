@@ -8,7 +8,7 @@ interface
 
 implementation
 
-procedure False;
+procedure false;
 begin
 end;
 
