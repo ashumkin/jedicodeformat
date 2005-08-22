@@ -13,34 +13,47 @@ type
   fiveints = array[0..4] of integer;
 
 const
-  c_foo = 1 + 1;
-  c_bar = (2 + 2);
-  c_baz = ((3) + (3));
+  c_foo  = 1 + 1;
+  c_bar  = (2 + 2);
+  c_baz  = ((3) + (3));
+  c_fish = (((42)));
 
 const
   an_array: array[0..5] of integer = (5, 4, 3, 2, 1, 0);
-  another_array: array[0..3] of
-    integer = ((5 + 1), ((4 + 1) + 2), ((3)), (((2))));
+  another_array: array[0..3] of integer = ((5 + 1), ((4 + 1) + 2), ((3)), (((2))));
   anfiveints: fiveints = (5, 6, 7, 8, 9);
 
 type
   ubermemes = (soy, hatbaby, allofyourbase, monkey, williamshatner);
 
 const
-  memes_array: array[0..6] of
-    ubermemes = (monkey, monkey, monkey, williamshatner, monkey, allofyourbase, soy);
+  memes_array: array[0..6] of ubermemes =
+    (monkey, monkey, monkey, williamshatner, monkey, allofyourbase, soy);
+
+type
+  tlameenum = (avalue);
+
+const
+  cevents: array[tlameenum, boolean] of integer = ((
+    42, 124));
+  cevents2: array[boolean, boolean] of integer = ((43, 44), (45, 46));
+  ceventssilly: array[tlameenum, tlameenum, tlameenum, boolean] of integer = ((((42, 124))));
+  ceventssilly2: array[tlameenum, boolean, tlameenum, boolean] of
+    integer = ((((42, 124)), ((34, 35))));
 
 const
   arec: tmap = (s1: 'Foo'; i1: 1; i2: 4);
 
 const
-  the_map: array[0..5] of tmap = ((s1: 'Foo'; i1: 1; i2: 4), (s1: 'bar'; i1: 2; i2: 5), (s1: 'baz'; i1: 3; i2: 6), (s1: 'wibble'; i1: 4; i2: 7), (s1: 'fish'; i1:
-    5; i2: 8), (s1: 'spon'; i1: 6; i2: 9));
+  the_map: array[0..5] of tmap = ((s1: 'Foo'; i1: 1; i2: 4), (s1: 'bar'; i1: 2;
+    i2: 5), (s1: 'baz'; i1: 3; i2: 6), (s1: 'wibble'; i1: 4; i2: 7), (s1: 'fish';
+    i1: 5; i2: 8), (s1: 'spon'; i1: 6; i2: 9));
   the_poorly_formatted_map: array[0..5] of
     tmap = ((s1: 'Foo'; i1: 1; i2: 4), (s1: 'bar'; i1: 2; i2: 5), (s1: 'baz'; i1: 3;
-    i2: 6), (s1: 'wibble'; i1: 4; i2: 7), (s1: 'fish'; i1: 5; i2: 8), (s1: 'spon'; i1: 6; i2: 9));
-  the_long_string_map: array[0..3] of tmap =
-    ((s1: 'Foo was here. Foo foo Foo foo Foo foo Foo foo Foo foo Foo foo Foo foo Foo foo';
+    i2: 6), (s1: 'wibble'; i1: 4; i2:
+    7), (s1: 'fish'; i1: 5; i2: 8), (s1: 'spon'; i1: 6; i2: 9));
+  the_long_string_map: array[0..3] of
+    tmap = ((s1: 'Foo was here. Foo foo Foo foo Foo foo Foo foo Foo foo Foo foo Foo foo Foo foo';
     i1: 1; i2: 4), (s1: 'bar moo moo moo moo moo moo moo moo moo moo moo moo moo moo moo moo moo moo';
     i1: 2; i2: 5), (s1: 'baz moo moo moo moo moo moo'; i1: 3; i2: 6), (s1: 'wibble moo moo moo moo';
     i1: 4; i2: 7));

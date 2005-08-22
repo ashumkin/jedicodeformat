@@ -56,30 +56,30 @@ begin
 
   case iFish of
     1:
-      bFoo := true;
+      bFoo := True;
     2:
     begin
-      bFoo := false;
+      bFoo := False;
     end;
     else
-      bFoo := false;
+      bFoo := False;
   end;
 
 
   case iFish of
     1:
-      bFoo := true;
+      bFoo := True;
     else
     begin
-      bFoo := false;
+      bFoo := False;
     end
   end;
 
   case iFish of
     1:
-      bFoo := true;
+      bFoo := True;
     else
-      bFoo := false;
+      bFoo := False;
       Str1 := 'troo';
   end;
 

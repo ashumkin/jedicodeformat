@@ -33,6 +33,9 @@ implementation
 label
   dynamic;
 
+var
+  platform: integer;
+
 procedure override;
 var
   virtual: integer;
@@ -45,8 +48,7 @@ begin
   Result := 12;
 end;
 
-function register.
-getreadonly: boolean;
+function register.getreadonly: boolean;
 var
   Name:     string;
   absolute: integer absolute Name;
@@ -61,6 +63,8 @@ begin
 end;
 
 procedure register.contains;
+var
+  platform: array[1..4] of char;
 begin
 end;
 

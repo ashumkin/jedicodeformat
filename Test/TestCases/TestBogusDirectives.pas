@@ -46,6 +46,9 @@ implementation
 
 label dynamic;
 
+var
+  platform: integer;
+
 
 procedure Override;
 var
@@ -76,6 +79,8 @@ begin
 end;
 
 procedure Register.Contains;
+var
+  platform: array [1..4] of char;
 begin
 end;
 

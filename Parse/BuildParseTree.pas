@@ -1072,6 +1072,8 @@ end;
 
   Array of records can be "((f: 1), (f: 2))"
   and if it is an array with one element then it is "((f: x))"
+
+  Is  more deeply nested comma valid in non-array expressions?
 }
 
 function TBuildParseTree.ArrayConstantNext: boolean;
@@ -1109,7 +1111,7 @@ begin
       Inc(liBracketLevel)
     else if tt = ttCloseBracket then
       Dec(liBracketLevel)
-    else if (tt = ttComma) and (liBracketLevel = 1) then
+    else if (tt = ttComma) then // and (liBracketLevel = 1) then
     begin
       Result := True;
       break;

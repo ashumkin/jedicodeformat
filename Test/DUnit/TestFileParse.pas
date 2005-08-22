@@ -401,7 +401,7 @@ end;
 
 procedure TTestFileParse.TestBogusDirectives;
 begin
-  TestParseFile('TestBogusDirectives', 427);
+  TestParseFile('TestBogusDirectives', 456);
 end;
 
 procedure TTestFileParse.TestBogusTypes;
@@ -446,7 +446,7 @@ end;
 
 procedure TTestFileParse.TestConstRecords;
 begin
-  TestParseFile('TestConstRecords', 760);
+  TestParseFile('TestConstRecords', 945);
 end;
 
 procedure TTestFileParse.TestD6;

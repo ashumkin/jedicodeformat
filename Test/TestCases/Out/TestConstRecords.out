@@ -26,6 +26,8 @@ const
   c_bar = (2 + 2);
   c_baz = ((3) + (3));
 
+  c_fish = (((42)));
+
 const
   // array
   an_array: array[0..5] of integer = (5, 4, 3, 2, 1, 0);
@@ -39,6 +41,20 @@ type
 const
   Memes_Array: array[0..6] of UberMemes =
     (monkey, monkey, monkey, WilliamShatner, monkey, AllOfYourBase, Soy);
+
+// multi-dim array
+type
+  TLameEnum = (aValue);
+
+const
+  cEvents: array[TLameEnum, boolean] of integer = ((42, 124));
+  cEvents2: array[boolean, boolean] of integer = ((43, 44), (45, 46));
+
+  cEventsSilly: array[TLameEnum, TLameEnum, TLameEnum, boolean] of
+    integer = ((((42, 124))));
+  cEventsSilly2: array[TLameEnum, boolean, TLameEnum, boolean] of
+    integer = ((((42, 124)), ((34, 35))));
+
 
 // one record
 const
