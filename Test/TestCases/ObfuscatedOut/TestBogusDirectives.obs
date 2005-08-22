@@ -8,7 +8,7 @@ contains;procedure requires;procedure package;function at:integer;function on:in
 :integer;begin virtual:=10;end;function register.dispid:integer;begin result:=12;
 end;function register.getreadonly:boolean;var name:string;absolute:integer absolute
 name;begin name:='Fred!';result:=true;end;function register.protected:boolean;begin
-result:=false;end;procedure register.contains;var platform:array[1..4]of char;begin
-end;procedure register.requires;begin end;procedure register.package;begin end;function
+result:=false;end;procedure Register.contains;var platform:array[1..4]of char;begin
+end;procedure Register.requires;begin end;procedure Register.package;begin end;function
 register.at:integer;begin result:=23;end;function register.on:integer;begin result
 :=23;end;end. 

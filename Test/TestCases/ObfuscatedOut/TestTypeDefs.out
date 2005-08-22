@@ -25,8 +25,8 @@ type
   tmyenumset = set of tmyenum;
 
   imyiterator = interface(IUnknown)
-    procedure first;
-    procedure next;
+    procedure First;
+    procedure Next;
   end;
 
   ientryjournallookupdisp = dispinterface
@@ -35,7 +35,7 @@ type
     property enddate: tdatetime dispid 2;
     property maxrows: integer dispid 2000;
     property iterator: imyiterator ReadOnly dispid 2001;
-    function execute: imyiterator; dispid 2002;
+    function Execute: imyiterator; dispid 2002;
     function getnewojectkey: IUnknown; dispid 2003;
   end;
 

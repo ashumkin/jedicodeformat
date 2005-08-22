@@ -5,7 +5,7 @@ interface
 type
   tfoo = class
   public
-    destructor destroy; override;
+    destructor Destroy; override;
     procedure testcreate;
   end;
 

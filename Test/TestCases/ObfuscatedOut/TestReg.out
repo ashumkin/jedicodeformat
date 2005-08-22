@@ -2,13 +2,13 @@ unit testreg;
 
 interface
 
-procedure register;
+procedure Register;
 procedure fred;
 procedure hoopyfroog;
 
 implementation
 
-procedure register;
+procedure Register;
 var
   Data: boolean;
 begin

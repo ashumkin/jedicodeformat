@@ -246,7 +246,7 @@ begin
     end
     else if (lcChildNode.NodeType = nIdentifier) then
     begin
-      lcNameToken := TSourceToken(lcChildNode.FirstLeaf);
+      lcNameToken := TSourceToken(lcChildNode.LastLeaf);
     end;
   end;
 
@@ -302,7 +302,7 @@ begin
     end;
   end;
 
-  lcHeading := lCFunction.GetImmediateChild(ProcedureHeadings);
+  lcHeading := lcFunction.GetImmediateChild(ProcedureHeadings);
 
   Result := ExtractNameFromFunctionHeading(lcHeading, pbFullName)
 end;

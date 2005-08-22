@@ -43,12 +43,12 @@ begin
   virtual := 10;
 end;
 
-function register.dispid: integer;
+function Register.dispid: integer;
 begin
   Result := 12;
 end;
 
-function register.getreadonly: boolean;
+function Register.getreadonly: boolean;
 var
   Name:     string;
   absolute: integer absolute Name;
@@ -57,31 +57,31 @@ begin
   Result := True;
 end;
 
-function register.protected: boolean;
+function Register.protected: boolean;
 begin
   Result := False;
 end;
 
-procedure register.contains;
+procedure Register.contains;
 var
   platform: array[1..4] of char;
 begin
 end;
 
-procedure register.requires;
+procedure Register.requires;
 begin
 end;
 
-procedure register.package;
+procedure Register.package;
 begin
 end;
 
-function register.at: integer;
+function Register.at: integer;
 begin
   Result := 23;
 end;
 
-function register.on: integer;
+function Register.on: integer;
 begin
   Result := 23;
 end;

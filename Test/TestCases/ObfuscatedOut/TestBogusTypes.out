@@ -7,7 +7,7 @@ type
   public
     procedure word;
     procedure dword;
-    function tcomponent(ps: string): string;
+    function TComponent(ps: string): string;
   end;
 
 procedure byte;

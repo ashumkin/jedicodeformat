@@ -4117,20 +4117,25 @@ begin
   if not (IdentifierNext) then
     raise TEParseError.Create('Expected identifer', fcTokenList.FirstSolidToken);
 
+  // a method name is an identifier
+  PushNode(nIdentifier);
+
   Recognise(IdentiferTokens);
 
   if (fcTokenList.FirstSolidTokenType = ttDot) or pbClassNameCompulsory then
   begin
     Recognise(ttDot);
-    RecogniseIdentifier(False);
+    Recognise(IdentiferTokens);
 
     { delphi.net nested types have more than one dot }
     while (fcTokenList.FirstSolidTokenType = ttDot) do
     begin
       Recognise(ttDot);
-      RecogniseIdentifier(False);
+      Recognise(IdentiferTokens);
     end;
   end;
+
+  PopNode;
 end;
 
 procedure TBuildParseTree.RecogniseTypeId;

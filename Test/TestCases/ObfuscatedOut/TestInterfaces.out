@@ -6,8 +6,8 @@ uses Classes;
 
 type
   imyiterator = interface(IUnknown)
-    procedure first; safecall;
-    procedure next; safecall;
+    procedure First; safecall;
+    procedure Next; safecall;
   end;
 
   ientryjournallookupdisp = dispinterface
@@ -16,7 +16,7 @@ type
     property enddate: tdatetime dispid 2;
     property maxrows: integer dispid 2000;
     property iterator: imyiterator ReadOnly dispid 2001;
-    function execute: imyiterator; dispid 2002;
+    function Execute: imyiterator; dispid 2002;
     function getnewojectkey: IUnknown; dispid 2003;
     property soy: integer writeonly;
   end;
@@ -37,8 +37,8 @@ type
   end;
 
   imyotheriterator = interface(IUnknown)
-    procedure first; safecall;
-    procedure next; safecall;
+    procedure First; safecall;
+    procedure Next; safecall;
   end;
 
 const
