@@ -230,7 +230,9 @@ begin
 
     if pt.TokenType in ClassVisibility + [ttStrict] then
       liIndentCount := 1
-    else if (pt.TokenType = ttConst) and (pt.HasParentNode(nConstSection, 1)) then
+    else if (pt.TokenType = ttConst) and pt.HasParentNode(nConstSection, 1) then
+      liIndentCount := 1
+    else if (pt.TokenType = ttVar) and pt.HasParentNode(nVarSection, 1) then
       liIndentCount := 1
 
     else if pt.TokenType = ttEnd then

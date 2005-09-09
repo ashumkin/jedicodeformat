@@ -57,7 +57,7 @@ begin
     or component registration may not work in some versions of Delphi
     This is a known issue in some versions of Delphi
     note intentional use of case-sensitive compare }
-  if (IsIdentifier(pt)) and AnsiSameStr(pt.SourceCode, 'Register') and
+  if (IsIdentifier(pt, idStrict)) and AnsiSameStr(pt.SourceCode, 'Register') and
     pt.HasParentNode([nProcedureType, nProcedureDecl, nProcedureHeading]) then
   begin
     Result := True;

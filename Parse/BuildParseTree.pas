@@ -43,7 +43,9 @@ uses
   ParseError,
   SourceToken,
   SourceTokenList,
-  Tokens;
+  Tokens,
+  TokenUtils;
+
 
 type
   TBuildParseTree = class(TObject)
@@ -75,7 +77,7 @@ type
     procedure RecogniseInterfaceDecl;
     procedure RecogniseExportedHeading;
 
-    procedure RecogniseIdentifier(const pbCanHaveUnitQualifier: boolean);
+    procedure RecogniseIdentifier(const pbCanHaveUnitQualifier: boolean; const peStrictness: TIdentifierStrictness);
     procedure RecogniseImplementationSection;
     procedure RecogniseDeclSections;
     procedure RecogniseDeclSection;
@@ -241,7 +243,7 @@ type
     function PushNode(const peNodeType: TParseTreeNodeType): TParseTreeNode;
     function PopNode: TParseTreeNode;
     function TopNode: TParseTreeNode;
-    function IdentifierNext: boolean;
+    function IdentifierNext(const peStrictness: TIdentifierStrictness): boolean;
     function ArrayConstantNext: boolean;
     function TypePastAttribute: boolean;
   Protected
@@ -264,9 +266,7 @@ uses
   SysUtils,
   Forms,
   { jcl }
-  JclStrings,
-  { local }
-  TokenUtils;
+  JclStrings;
 
 const
   UPDATE_INTERVAL = 512;
@@ -409,13 +409,13 @@ end;
 
 {a unit / type/var name }
 
-function TBuildParseTree.IdentifierNext: boolean;
+function TBuildParseTree.IdentifierNext(const peStrictness: TIdentifierStrictness): boolean;
 var
   lc: TSourceToken;
 begin
   lc     := fcTokenList.FirstSolidToken;
   { We have to admit directives and type names as identifiers. see TestBogusDirectives.pas for the reasons why }
-  Result := IsIdentifierToken(lc);
+  Result := IsIdentifierToken(lc, peStrictness);
 end;
 
 {-------------------------------------------------------------------------------
@@ -461,7 +461,7 @@ begin
   Recognise(ttProgram);
 
   PushNode(nUnitName);
-  RecogniseIdentifier(False);
+  RecogniseIdentifier(False, idStrict);
   PopNode;
 
   if fcTokenList.FirstSolidTokenType = ttOpenBracket then
@@ -530,7 +530,7 @@ begin
   Recognise(ttPackage);
 
   PushNode(nUnitName);
-  RecogniseIdentifier(False);
+  RecogniseIdentifier(False, idStrict);
   PopNode;
   Recognise(ttSemicolon);
   PopNode;
@@ -556,7 +556,7 @@ begin
   Recognise(ttLibrary);
 
   PushNode(nUnitName);
-  RecogniseIdentifier(False);
+  RecogniseIdentifier(False, idStrict);
   PopNode;
   Recognise(ttSemicolon);
   PopNode;
@@ -645,12 +645,12 @@ end;
 
 procedure TBuildParseTree.RecogniseDottedName;
 begin
-  RecogniseIdentifier(False);
+  RecogniseIdentifier(False, idStrict);
 
   while fcTokenList.FirstSolidTokenType = ttDot do
   begin
     Recognise(ttDot);
-    RecogniseIdentifier(False);
+    RecogniseIdentifier(False, idStrict);
   end;
 end;
 
@@ -896,7 +896,7 @@ begin
     Recognise(ttNumber)
   else
     // no unit qualifier
-    RecogniseIdentifier(False);
+    RecogniseIdentifier(False, idAllowDirectives);
 end;
 
 procedure TBuildParseTree.RecogniseConstSection;
@@ -934,7 +934,7 @@ begin
 
   PushNode(nConstDecl);
 
-  RecogniseIdentifier(False);
+  RecogniseIdentifier(False, idAllowDirectives);
 
   lc := fcTokenList.FirstSolidToken;
 
@@ -1048,7 +1048,7 @@ begin
   if (fcTokenList.FirstSolidTokenType = ttOpenSquareBracket) then
     RecogniseAttributes;
 
-  RecogniseIdentifier(False);
+  RecogniseIdentifier(False, idAllowDirectives);
   Recognise(ttEquals);
 
   // type or restricted type
@@ -1221,7 +1221,7 @@ begin
 
   PushNode(nRecordFieldConstant);
 
-  RecogniseIdentifier(False);
+  RecogniseIdentifier(False, idAllowDirectives);
   Recognise(ttColon);
   RecogniseTypedConstant;
 
@@ -1605,7 +1605,7 @@ begin
   // is there an 'of' 2 tokens hence? If not, must be 'ident:' first
   if not (fcTokenList.SolidTokenType(2) = ttOf) then
   begin
-    RecogniseIdentifier(False);
+    RecogniseIdentifier(False, idAllowDirectives);
     Recognise(ttColon);
   end;
 
@@ -1802,7 +1802,7 @@ begin
     Recognise(ttAbsolute);
 
     if (fcTokenList.FirstSolidWordType in IdentifierTypes) then
-      RecogniseIdentifier(False)
+      RecogniseIdentifier(False, idAllowDirectives)
     else
       RecogniseConstantExpression;
 
@@ -1953,14 +1953,6 @@ begin
       RecogniseActualParams;
     end;
   end
-  else if (IsIdentifierToken(lc)) then
-  begin
-    RecogniseDesignator;
-    if fcTokenList.FirstSolidTokenType = ttOpenBracket then
-    begin
-      RecogniseActualParams;
-    end;
-  end
   else if (lc.TokenType = ttNumber) then
   begin
     Recognise(ttNumber);
@@ -1996,6 +1988,16 @@ begin
   begin
     RecogniseSetConstructor;
   end
+  // try identifiers last, since liberal identifiers may match text tokens above
+  else if IsIdentifierToken(lc, idAny) then
+  begin
+    RecogniseDesignator;
+    if fcTokenList.FirstSolidTokenType = ttOpenBracket then
+    begin
+      RecogniseActualParams;
+    end;
+  end
+
   else
     raise TEParseError.Create('unexpected token in factor', lc);
 
@@ -2132,7 +2134,7 @@ begin
       ttDot:
       begin
         Recognise(ttDot);
-        RecogniseIdentifier(False);
+        RecogniseIdentifier(False, idAny);
       end;
       ttHat:
       begin
@@ -2336,7 +2338,7 @@ begin
       PopNode;
     end;
   end
-  else if (IdentifierNext) or (lc.TokenType = ttAtSign) then
+  else if (IdentifierNext(idAllowDirectives)) or (lc.TokenType = ttAtSign) then
   begin
     RecognisePossibleAssign;
     // else nothing at all is also ok. i.e. procedure call with no params
@@ -2353,7 +2355,7 @@ begin
       }
 
     Recognise(ttInherited);
-    if IdentifierNext then
+    if IdentifierNext(idAllowDirectives) then
       RecogniseSimpleStmnt;
   end
   else if lc.TokenType = ttGoto then
@@ -2862,11 +2864,11 @@ begin
     Recognise(ttOn);
     if fcTokenList.SolidTokenType(2) = ttColon then
     begin
-      RecogniseIdentifier(False);
+      RecogniseIdentifier(False, idAllowDirectives);
       Recognise(ttColon);
     end;
 
-    RecogniseIdentifier(True);
+    RecogniseIdentifier(True, idStrict);
     Recognise(ttDo);
 
     RecogniseNotSolidTokens;
@@ -3081,7 +3083,7 @@ begin
   if pbCanInterfaceMap and (fcTokenList.FirstSolidTokenType = ttEquals) then
   begin
     Recognise(ttEquals);
-    RecogniseIdentifier(False);
+    RecogniseIdentifier(False, idAllowDirectives);
   end;
 
   PopNode;
@@ -3123,7 +3125,7 @@ begin
   if pbCanInterfaceMap and (fcTokenList.FirstSolidTokenType = ttEquals) then
   begin
     Recognise(ttEquals);
-    RecogniseIdentifier(False);
+    RecogniseIdentifier(False, idAllowDirectives);
   end;
 
   PopNode;
@@ -3175,7 +3177,7 @@ begin
     Recognise(PARAM_PREFIXES)
   else if fcTokenList.FirstSolidTokenType = ttOut then
   begin
-    if IsIdentifierToken(fcTokenList.SolidToken(2)) then
+    if IsIdentifierToken(fcTokenList.SolidToken(2), idAllowDirectives) then
       Recognise(ttOut);
   end;
 
@@ -3461,7 +3463,7 @@ begin
       RecogniseClassHeritage;
 
     Recognise(ttFor);
-    RecogniseIdentifier(False);
+    RecogniseIdentifier(False, idStrict);
   end
   else
   begin
@@ -3474,7 +3476,7 @@ begin
     if fcTokenList.FirstSolidTokenType = ttOf then
     begin
       Recognise(ttOf);
-      RecogniseIdentifier(False);
+      RecogniseIdentifier(False, idStrict);
       PopNode;
       exit;
     end;
@@ -3550,7 +3552,7 @@ procedure TBuildParseTree.RecogniseClassDeclarations(const pbInterface: boolean)
 const
   // can declare thse things in a class
   CLASS_DECL_WORDS = [ttProcedure, ttFunction,
-    ttConstructor, ttDestructor, ttProperty, ttClass, ttConst, ttType];
+    ttConstructor, ttDestructor, ttProperty, ttClass, ttConst, ttType, ttVar];
 var
   lc: TSourceToken;
   lbStarted: boolean;
@@ -3581,6 +3583,7 @@ begin
       " class function ClassName: ShortString; "
 
      Delphi .net allows class types to be declared inside other class types
+     also "var" to introduce variables
    }
   lbStarted := False;
 
@@ -3665,6 +3668,11 @@ begin
         RecogniseTypeSection(true);
         lbHasTrailingSemicolon := False;
       end;
+      ttVar:
+      begin
+        RecogniseVarSection;
+        lbHasTrailingSemicolon := False;
+      end;
       else
       begin
         // end of this list with next visibility section or class end?
@@ -3710,7 +3718,7 @@ begin
 
   Recognise(ttProperty);
 
-  RecogniseIdentifier(False);
+  RecogniseIdentifier(False, idAllowDirectives);
 
   { this is omitted if it is a property redeclaration for visibility raising
     in that case it may still have directives and hints }
@@ -3871,7 +3879,7 @@ begin
     This is usually just a procedure, function or simple var
     but sometimes it is a record or array field, .. or both e.g. "FDummy[0].ERX" }
 
-  RecogniseIdentifier(False);
+  RecogniseIdentifier(False, idAllowDirectives);
 
   { array access }
   if fcTokenList.FirstSolidTokenType = ttOpenSquareBracket then
@@ -3941,7 +3949,7 @@ begin
   if fcTokenList.FirstSolidTokenType = ttQuotedLiteralString then
     Recognise(ttQuotedLiteralString)
   else
-    RecogniseIdentifier(False);
+    RecogniseIdentifier(False, idStrict);
 
   Recognise(ttCloseSquareBracket);
 
@@ -4023,13 +4031,13 @@ begin
   }
   PushNode(nIdentList);
 
-  RecogniseIdentifier(pbCanHaveUnitQualifier);
+  RecogniseIdentifier(pbCanHaveUnitQualifier, idAllowDirectives);
   RecogniseIdentValue;
 
   while fcTokenList.FirstSolidTokenType = ttComma do
   begin
     Recognise(ttComma);
-    RecogniseIdentifier(pbCanHaveUnitQualifier);
+    RecogniseIdentifier(pbCanHaveUnitQualifier, idAllowDirectives);
     RecogniseIdentValue;
   end;
 
@@ -4084,16 +4092,17 @@ begin
   end
   else
     // a simple ident - e.g. "x"
-    RecogniseIdentifier(True);
+    RecogniseIdentifier(True, idAny);
 end;
 
-procedure TBuildParseTree.RecogniseIdentifier(const pbCanHaveUnitQualifier: boolean);
+procedure TBuildParseTree.RecogniseIdentifier(const pbCanHaveUnitQualifier: boolean;
+  const peStrictness: TIdentifierStrictness);
 var
   lc: TSourceToken;
 begin
   lc := fcTokenList.FirstSolidToken;
 
-  if not (IdentifierNext) then
+  if not IdentifierNext(peStrictness) then
     raise TEParseError.Create('Expected identifer', lc);
 
   PushNode(nIdentifier);
@@ -4114,7 +4123,7 @@ end;
 
 procedure TBuildParseTree.RecogniseMethodName(const pbClassNameCompulsory: boolean);
 begin
-  if not (IdentifierNext) then
+  if not (IdentifierNext(idAllowDirectives)) then
     raise TEParseError.Create('Expected identifer', fcTokenList.FirstSolidToken);
 
   // a method name is an identifier
@@ -4278,8 +4287,8 @@ begin
     e.g. SHL
    }
   PushNode(nASMOpcode);
-  if IdentifierNext then
-    RecogniseIdentifier(False)
+  if IdentifierNext(idStrict) then
+    RecogniseIdentifier(False, idStrict)
   else if WordTypeOfToken(fcTokenList.FirstSolidTokenType) in TextualWordTypes then
     // match anything
     Recognise(fcTokenList.FirstSolidTokenType)
@@ -4361,7 +4370,7 @@ begin
   lcNext := fcTokenList.FirstTokenWithExclusion([ttWhiteSpace]);
   if (lcNext <> nil) and (lcNext.TokenType <> ttReturn) then
   begin
-    if IdentifierNext or (lc.TokenType in ASM_EXPRESSION_START) then
+    if IdentifierNext(idAllowDirectives) or (lc.TokenType in ASM_EXPRESSION_START) then
     begin
       RecogniseAsmExpr;
     end
@@ -4569,7 +4578,7 @@ var
 begin
   PushNode(nExportedProc);
 
-  RecogniseIdentifier(True);
+  RecogniseIdentifier(True, idAllowDirectives);
 
   if fcTokenList.FirstSolidTokenType = ttOpenBracket then
     RecogniseFormalParameters;
@@ -4640,7 +4649,7 @@ begin
     thanks to COM and named params
     See LittleTest43.pas }
   if ( not (lc.TokenType in EXPR_TYPES)) and StrIsAlphaNum(lc.SourceCode) and
-    ( not IsIdentifierToken(lc)) then
+    ( not IsIdentifierToken(lc, idAllowDirectives)) then
   begin
     { quick surgery. Perhaps even a hack -
       reclasify the token, as it isn't what it thinks it is
@@ -4723,7 +4732,7 @@ end;
 procedure TBuildParseTree.RecogniseAsCast;
 begin
   Recognise(ttAs);
-  RecogniseIdentifier(True);
+  RecogniseIdentifier(True, idStrict);
 end;
 
 procedure TBuildParseTree.RecogniseAttributes;

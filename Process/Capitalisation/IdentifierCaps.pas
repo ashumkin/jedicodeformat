@@ -31,7 +31,8 @@ uses SwitchableVisitor;
 type
   TIdentifierCaps = class(TSwitchableVisitor)
   private
-    fiCount: integer;
+    fiIdentifierCount: integer;
+    fiNonIdentifierCount: integer;
     lsLastChange: string;
 
   protected
@@ -48,6 +49,7 @@ implementation
 
 uses
   SysUtils,
+  JclStrings,
   SourceToken, Tokens, ParseTreeNodeType, JcfSettings, FormatFlags, TokenUtils;
 
 
@@ -97,24 +99,44 @@ end;
 constructor TIdentifierCaps.Create;
 begin
   inherited;
-  fiCount      := 0;
+  fiIdentifierCount  := 0;
+  fiNonIdentifierCount := 0;
+
   lsLastChange := '';
   FormatFlags  := FormatFlags + [eCapsSpecificWord];
 end;
 
 function TIdentifierCaps.FinalSummary(var psMessage: string): boolean;
 begin
-  Result := (fiCount > 0);
+  Result := False;
+  psMessage := '';
 
-  if Result then
+
+  if (fiIdentifierCount > 0) then
   begin
+    Result := True;
     psMessage := 'Identifier caps: ';
 
-    if fiCount = 1 then
+    if fiIdentifierCount = 1 then
       psMessage := psMessage + 'One change was made: ' + lsLastChange
     else
-      psMessage := psMessage + IntToStr(fiCount) + ' changes were made';
+      psMessage := psMessage + IntToStr(fiIdentifierCount) + ' changes were made';
   end;
+
+  if (fiNonIdentifierCount > 0) then
+  begin
+    Result := True;
+    if psMessage <> '' then
+      psMessage := psMessage + AnsiLinebreak;
+
+    psMessage := psMessage + 'Non-identifier caps: ';
+
+    if fiNonIdentifierCount = 1 then
+      psMessage := psMessage + 'One change was made: ' + lsLastChange
+    else
+      psMessage := psMessage + IntToStr(fiNonIdentifierCount) + ' changes were made';
+  end;
+
 end;
 
 function TIdentifierCaps.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
@@ -152,7 +174,7 @@ begin
       begin
         lsLastChange := lcSourceToken.SourceCode + ' to ' + lsChange;
         lcSourceToken.SourceCode := lsChange;
-        Inc(fiCount);
+        Inc(fiIdentifierCount);
       end;
     end;
   end
@@ -170,7 +192,7 @@ begin
       begin
         lsLastChange := lcSourceToken.SourceCode + ' to ' + lsChange;
         lcSourceToken.SourceCode := lsChange;
-        Inc(fiCount);
+        Inc(fiNonIdentifierCount);
       end;
     end;
   end;

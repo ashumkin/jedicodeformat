@@ -152,7 +152,8 @@ uses
   TestCondReturns in 'TestCondReturns.pas',
   TestConstBug in 'TestConstBug.pas',
   test.dotted.Name in 'test.dotted.name.pas',
-  TestCondCompBreaks in 'TestCondCompBreaks.pas';
+  TestCondCompBreaks in 'TestCondCompBreaks.pas',
+  TestDelphiNetKeywords in 'TestDelphiNetKeywords.pas';
 
 {$R *.res}
 

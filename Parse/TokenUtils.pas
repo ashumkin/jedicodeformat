@@ -119,10 +119,29 @@ function Root(const pt: TParseTreeNode): TParseTreeNode;
 
 function UnitName(const pt: TParseTreeNode): string;
 
+{ identifying identifiers is tricky
+since delphi is more lenient about
+what is allowed as an identifier for a variable or proc name  -
+ directive names can be reused
+ and in expressions involving OLE automation servers,
+ all sorts of reserved words like "begin" and "end" can be used.
+ Values are
+
+ idStrict: no reserved words at all allowed.
+  Used for unit names, type names, class names, etc
+ idAllowDirectives: some directives can be reused.
+  Used for procedure names, constant or variable names etc
+ idAny: any textual token is valid
+  used in expressions, which might involve a late-binding COM server with property names like "begin" and "end"
+ }
+
+type
+  TIdentifierStrictness = (idStrict, idAllowDirectives, idAny);
+
 { use to build a parse tree}
-function IsIdentifierToken(const pt: TSourceToken): boolean;
+function IsIdentifierToken(const pt: TSourceToken; const peStrictness: TIdentifierStrictness): boolean;
 { use on a built parse tree }
-function IsIdentifier(const pt: TSourceToken): boolean;
+function IsIdentifier(const pt: TSourceToken; const peStrictness: TIdentifierStrictness): boolean;
 
 function IsClassDirective(const pt: TSourceToken): boolean;
 function IsDfmIncludeDirective(const pt: TSourceToken): boolean;
@@ -681,17 +700,44 @@ begin
     Result := lcName.SourceCode;
 end;
 
-function IsIdentifierToken(const pt: TSourceToken): boolean;
+function IsIdentifierToken(const pt: TSourceToken; const peStrictness: TIdentifierStrictness): boolean;
 const
-  FUDGE_NAMES = [ttOut];
+  DIRECTIVE_IDENTIFIER_NAMES = [ttOut, ttOperator, ttHelper, ttSealed, ttStatic];
 begin
-  Result := (pt <> nil) and
-    ((pt.WordType in IdentifierTypes) or (pt.TokenType in FUDGE_NAMES));
+  if pt = nil then
+  begin
+    Result := False;
+    exit;
+  end;
+
+  if pt.WordType in IdentifierTypes then
+  begin
+    Result := True;
+    exit;
+  end;
+
+  case peStrictness of
+    idStrict:
+      // acceptr only identifier names
+      Result := False;
+    idAllowDirectives:
+      // also accept directives
+      Result := (pt.TokenType in DIRECTIVE_IDENTIFIER_NAMES);
+    idAny:
+      // accept any textual token
+      Result := StrIsAlpha(pt.SourceCode);
+    else
+    begin
+      Result := False;
+      Assert(false);
+    end;
+  end;
+
 end;
 
-function IsIdentifier(const pt: TSourceToken): boolean;
+function IsIdentifier(const pt: TSourceToken; const peStrictness: TIdentifierStrictness): boolean;
 begin
-  Result := IsIdentifierToken(pt);
+  Result := IsIdentifierToken(pt, peStrictness);
 
   if Result then
     Result := pt.HasParentNode(nIdentifier, 1);

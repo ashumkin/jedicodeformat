@@ -59,7 +59,7 @@ var
 begin
   Result := False;
 
-  if not IsIdentifier(pt) then
+  if not IsIdentifier(pt, idStrict) then
     exit;
 
   { unit names can be found in these places:

@@ -6,7 +6,7 @@ unit VersionConsts;
 
 The Original Code is VersionConsts, released May 2003.
 The Initial Developer of the Original Code is Anthony Steele. 
-Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
+Portions created by Anthony Steele are Copyright (C) 2003-2005 Anthony Steele.
 All Rights Reserved. 
 Contributor(s): Anthony Steele. 
 
@@ -24,8 +24,8 @@ under the License.
 interface
 
 const
-  PROGRAM_VERSION   = '2.11';
-  PROGRAM_DATE      = 'June 2005';
+  PROGRAM_VERSION   = '2.12';
+  PROGRAM_DATE      = 'September 2005';
   PROGRAM_HOME_PAGE = 'http://jedicodeformat.sourceforge.net/';
 
 implementation

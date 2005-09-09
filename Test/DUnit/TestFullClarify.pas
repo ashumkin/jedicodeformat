@@ -226,6 +226,8 @@ type
     procedure TestDelphiNetRecordForward;
     procedure TestDelphiNetAttributes;
     procedure TestDelphiNetWebService;
+    procedure TestDelphiNetKeywords;
+    procedure TestDelphiNetClassVar;
 
     procedure TestCases;
   end;
@@ -1206,6 +1208,16 @@ end;
 procedure TFullTestClarify.TestDelphiNetWebService;
 begin
   TestClarifyFile('TestDelphiNetWebService');
+end;
+
+procedure TFullTestClarify.TestDelphiNetKeywords;
+begin
+  TestClarifyFile('TestDelphiNetKeywords');
+end;
+
+procedure TFullTestClarify.TestDelphiNetClassVar;
+begin
+  TestClarifyFile('TestDelphiNetClassVar');
 end;
 
 initialization

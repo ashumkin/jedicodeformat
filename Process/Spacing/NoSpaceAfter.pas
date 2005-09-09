@@ -75,7 +75,7 @@ begin
     no space between fn name & params for procedure call }
   if pt.HasParentNode([nProcedureDecl, nFunctionDecl, nConstructorDecl,
     nDestructorDecl, nStatementList]) and
-    (IsIdentifier(pt) or (pt.TokenType in BuiltInTypes)) then
+    (IsIdentifier(pt, idAllowDirectives) or (pt.TokenType in BuiltInTypes)) then
   begin
     if (ptNext.TokenType in OpenBrackets) then
     begin

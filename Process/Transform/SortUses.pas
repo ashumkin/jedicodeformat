@@ -250,7 +250,7 @@ begin
         continue;
       end;
 
-      if IsIdentifier(lcToken) and (lcToken.HasParentNode(nUsesItem, 2)) then
+      if IsIdentifier(lcToken, idStrict) and (lcToken.HasParentNode(nUsesItem, 2)) then
       begin
         if not lbStartUsesItem then
         begin

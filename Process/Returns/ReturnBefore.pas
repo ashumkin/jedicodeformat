@@ -83,7 +83,7 @@ var
 begin
   Result := False;
   
-  if not IsIdentifier(pt) then
+  if not IsIdentifier(pt, idStrict) then
     exit;
 
   if not pt.HasParentNode(nTypeDecl, 2) then
@@ -148,7 +148,8 @@ begin
   if (pt.TokenType in ProcedureWords) and
     ( not pt.IsOnRightOf(nTypeDecl, ttEquals)) and
     ( not IsClassFunction(pt)) and
-    (ProcedureHasBody(pt)) then
+    (ProcedureHasBody(pt)) and
+    (not IsIdentifier(pt, idAny)) then
   begin
     Result := True;
     exit;
@@ -273,8 +274,9 @@ begin
 
   { nested procs and top level procs get it as well }
   if (pt.TokenType in ProcedureWords) and
-    ( not IsClassFunction(pt)) and
-    ( not pt.HasParentNode(nType)) then
+    (not IsClassFunction(pt)) and
+    (not pt.HasParentNode(nType)) and
+    (not IsIdentifier(pt, idAny)) then
   begin
     Result := True;
     exit;
@@ -312,7 +314,7 @@ begin
   end;
 
   { "uses UnitName in 'File'" has a blank line before UnitName }
-  if IsIdentifier(pt) and (pt.HasParentNode(nUses)) and (ptNext.TokenType = ttIn) then
+  if IsIdentifier(pt, idStrict) and (pt.HasParentNode(nUses)) and (ptNext.TokenType = ttIn) then
   begin
     Result := True;
     exit;

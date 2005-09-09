@@ -228,6 +228,8 @@ type
 
     procedure TestDelphiNetWebService;
     procedure TestDelphiNetAttributes;
+    procedure TestDelphiNetKeywords;
+    procedure TestDelphiNetClassVar;
 
     procedure TestCases;
     procedure TestPackage;
@@ -712,7 +714,7 @@ end;
 
 procedure TTestFileParse.TestCases;
 begin
-  TestParseFile('Testcases.dpr', 1261);
+  TestParseFile('Testcases.dpr', 1269);
 end;
 
 
@@ -1216,6 +1218,16 @@ end;
 procedure TTestFileParse.TestDelphiNetWebService;
 begin
   TestParseFile('TestDelphiNetWebService', 353);
+end;
+
+procedure TTestFileParse.TestDelphiNetKeywords;
+begin
+  TestParseFile('TestDelphiNetKeywords', 95);
+end;
+
+procedure TTestFileParse.TestDelphiNetClassVar;
+begin
+  TestParseFile('TestDelphiNetClassVar', 239);
 end;
 
 initialization

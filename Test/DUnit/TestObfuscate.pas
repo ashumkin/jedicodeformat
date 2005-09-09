@@ -229,6 +229,8 @@ type
     procedure TestDelphiNetRecordForward;
     procedure TestDelphiNetAttributes;
     procedure TestDelphiNetWebService;
+    procedure TestDelphiNetKeywords;
+    procedure TestDelphiNetClassVar;
 
 
     procedure TestForIn;
@@ -1257,6 +1259,15 @@ begin
   TestObfuscateFile('TestDelphiNetWebService');
 end;
 
+procedure TTestObfuscate.TestDelphiNetKeywords;
+begin
+  TestObfuscateFile('TestDelphiNetKeywords');
+end;
+
+procedure TTestObfuscate.TestDelphiNetClassVar;
+begin
+  TestObfuscateFile('TestDelphiNetClassVar');
+end;
 
 initialization
   TestFramework.RegisterTest(TTestObfuscate.Suite);

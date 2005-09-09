@@ -1,0 +1,47 @@
+unit testdelphinetclassvar;
+
+interface
+
+type
+  teomreport = class(TObject)
+  private
+  var
+    rtop20clrefer, rpstoftotalcr, rtop20sl, rpstoftotalsl, rtop20ca, rpstoftotalca: real;
+
+    procedure fetchtop20currentaccount;
+  public
+    procedure transfertop20currentaccount;
+  end;
+
+type
+  tfooreport = class(TObject)
+  private
+  var
+    foo, bar:  string;
+    fish, boo: integer;
+
+    function wibble: integer;
+  var
+    goo, gar, gib: integer;
+  var
+    soo, dar: integer;
+    thing: string;
+  end;
+
+implementation
+
+procedure teomreport.fetchtop20currentaccount;
+begin
+end;
+
+procedure teomreport.transfertop20currentaccount;
+begin
+end;
+
+function tfooreport.wibble: integer;
+begin
+  Result := 3;
+end;
+
+end.
+ 
