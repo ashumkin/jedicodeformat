@@ -160,7 +160,8 @@ begin
   if pcRoot is TSourceToken then
   begin
     lcToken := TSourceToken(pcRoot);
-    if (lcToken.TokenType = ttIdentifier) and AnsiSameText(lcToken.SourceCode, psIdentName) then
+
+    if IsIdentifierToken(lcToken, idAny) and AnsiSameText(lcToken.SourceCode, psIdentName) then
     begin
       // found it
       Result := True;
