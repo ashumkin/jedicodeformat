@@ -164,7 +164,8 @@ uses
   SortUsesData in '..\..\Process\Transform\SortUsesData.pas',
   TestBreakConditionalCompilation in 'TestBreakConditionalCompilation.pas',
   TestCapitalisation in 'TestCapitalisation.pas',
-  IdentifierCaps in '..\..\Process\Capitalisation\IdentifierCaps.pas';
+  IdentifierCaps in '..\..\Process\Capitalisation\IdentifierCaps.pas',
+  WarnUnusedParam in '..\..\Process\Warnings\WarnUnusedParam.pas';
 
 {$R *.res}
 

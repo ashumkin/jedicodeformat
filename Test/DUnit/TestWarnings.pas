@@ -72,6 +72,8 @@ type
     procedure TestWarnUnusedParam4;
     procedure TestWarnUnusedParam5;
     procedure TestWarnUnusedParam6;
+    procedure TestWarnUnusedParam7;
+
     procedure TestWarnUnusedParamClass;
     procedure TestWarnUnusedParamConstructor;
     procedure TestWarnUnusedParamClassFn;
@@ -303,6 +305,16 @@ begin
   TestWarnings(UNIT_TEXT, 'paramC');
 end;
 
+procedure TTestWarnings.TestWarnUnusedParam7;
+const
+  // this one should have only paramC unused
+  UNIT_TEXT = UNIT_HEADER +
+    ' function TMyList.GetItem(Index: integer): TMyItem; ' +  AnsiLineBreak +
+    ' begin Result := TMyItem(inherited Items[Index]); end; ' +
+    UNIT_FOOTER;
+begin
+  TestNoWarnings(UNIT_TEXT);
+end;
 
 procedure TTestWarnings.TestWarnUnusedParamClass;
 const

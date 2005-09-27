@@ -360,17 +360,6 @@ begin
 end;
 
 procedure TFileConverter.GetFileNames(const psDir: string; psFiles: TStrings);
-
-  function ExtIsFormatted(psExt: string): boolean;
-  begin
-    psExt := Trim(psExt);
-
-    if StrLeft(psExt, 1) = '.' then
-      psExt := StrRestof(psExt, 2);
-
-    Result := (FormatSettings.Clarify.FileExtensions.IndexOf(psExt) >= 0);
-  end;
-
 var
   rSearch: TSearchRec;
   lsName, lsExt, lsSearch: string;
@@ -392,7 +381,7 @@ begin
       continue;
 
     lsExt := ExtractFileExt(lsName);
-    if ExtIsFormatted(lsExt) then
+    if FormatSettings.Clarify.ExtensionIsFormatted(lsExt) then
       psFiles.Add(lsName);
 
     bDone := (FindNext(rSearch) <> 0);

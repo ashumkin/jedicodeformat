@@ -83,6 +83,10 @@ type
     { this is ref not owned }
     fcMRUFiles: TStrings;
 
+    fbEditorIntegration: Boolean;
+    fbFormatBeforeSave: Boolean;
+    fbFormatAfterLoad: Boolean;
+
     procedure ReadMRUFiles;
     procedure WriteMRUFiles;
 
@@ -152,6 +156,11 @@ type
 
     property ExclusionsFiles: TStringList read fcExclusionsFiles;
     property ExclusionsDirs: TStringList read fcExclusionsDirs;
+
+    { IDE integration settings }
+    property EditorIntegration: Boolean read fbEditorIntegration write fbEditorIntegration;
+    property FormatBeforeSave: Boolean read fbFormatBeforeSave write fbFormatBeforeSave;
+    property FormatAfterLoad: Boolean read fbFormatAfterLoad write fbFormatAfterLoad;
   end;
 
 function GetRegSettings: TJCFRegistrySettings;
@@ -173,6 +182,7 @@ const
   REG_LOG_SECTION   = 'Log';
   REG_UI_SECTION    = 'UI';
   REG_FILES_SECTION = 'Files';
+  REG_IDE_SECTION = 'IDE';
 
   REG_LOG_LEVEL = 'LogLevel';
   REG_LOG_PLACE = 'LogPlace';
@@ -194,6 +204,10 @@ const
   REG_EXCLUSIONS_DIRS  = 'ExclusionsDirs';
 
   REG_CHECK_MULTIBYTE_CHARS = 'CheckMultiByteChars';
+
+  REG_EDITOR_INTEGRATION = 'EditorIntegration';
+  REG_FORMAT_BEFORE_SAVE = 'FormatBeforeSave';
+  REG_FORMAT_AFTER_LOAD = 'FormatAfterLoad';
 
 {
   file-based settings,  ie
@@ -351,6 +365,11 @@ begin
 
   fbCheckMultiByteChars := fcReg.ReadBool(REG_FILES_SECTION, REG_CHECK_MULTIBYTE_CHARS, False);
 
+  { IDE }
+  fbEditorIntegration := fcReg.ReadBool(REG_IDE_SECTION, REG_EDITOR_INTEGRATION, False);
+  fbFormatBeforeSave := fcReg.ReadBool(REG_IDE_SECTION, REG_FORMAT_BEFORE_SAVE, False);
+  fbFormatAfterLoad := fcReg.ReadBool(REG_IDE_SECTION, REG_FORMAT_AFTER_LOAD, False);
+
   fbHasRead := True;
 end;
 
@@ -393,6 +412,11 @@ begin
   WriteStrings(REG_FILES_SECTION, REG_EXCLUSIONS_DIRS, fcExclusionsDirs);
 
   fcReg.WriteBool(REG_FILES_SECTION, REG_CHECK_MULTIBYTE_CHARS, fbCheckMultiByteChars);
+
+  { IDE }
+  fcReg.WriteBool(REG_IDE_SECTION, REG_EDITOR_INTEGRATION, fbEditorIntegration);
+  fcReg.WriteBool(REG_IDE_SECTION, REG_FORMAT_BEFORE_SAVE, fbFormatBeforeSave);
+  fcReg.WriteBool(REG_IDE_SECTION, REG_FORMAT_AFTER_LOAD, fbFormatAfterLoad);
 end;
 
 function TJCFRegistrySettings.CanClearMRU: boolean;
@@ -438,21 +462,6 @@ begin
   end
   else
     ShowMessage('No log file found at ' + lsFile);
-end;
-
-
-{--------------------------------------------
-  singleton accessor }
-
-var
-  mcRegistrySettings: TJCFRegistrySettings = nil;
-
-function GetRegSettings: TJCFRegistrySettings;
-begin
-  if mcRegistrySettings = nil then
-    mcRegistrySettings := TJCFRegistrySettings.Create;
-
-  Result := mcRegistrySettings;
 end;
 
 function TJCFRegistrySettings.DirIsExcluded(const psDir: string): boolean;
@@ -545,6 +554,23 @@ begin
     Result := 'out'
   else
     Result := fsOutputExtension;
+end;
+
+{--------------------------------------------
+  singleton accessor }
+
+var
+  mcRegistrySettings: TJCFRegistrySettings = nil;
+
+function GetRegSettings: TJCFRegistrySettings;
+begin
+  if mcRegistrySettings = nil then
+  begin
+    mcRegistrySettings := TJCFRegistrySettings.Create;
+    mcRegistrySettings.ReadAll;
+  end;
+
+  Result := mcRegistrySettings;
 end;
 
 initialization

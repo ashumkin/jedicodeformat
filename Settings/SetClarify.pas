@@ -41,13 +41,15 @@ type
     fbWarnUnusedParams: boolean;
 
     fcIgnoreUnusedParams: TStringList;
-    fcFileExtensions: TStringList;
+    fcFileExtensions:     TStringList;
 
   protected
 
   public
     constructor Create;
     destructor Destroy; override;
+
+    function ExtensionIsFormatted(psExt: string): boolean;
 
     procedure WriteToStream(const pcOut: TSettingsOutput); override;
     procedure ReadFromStream(const pcStream: TSettingsInput); override;
@@ -56,23 +58,24 @@ type
 
     property Warnings: boolean Read fbWarnings Write fbWarnings;
     property WarnUnusedParams: boolean Read fbWarnUnusedParams Write fbWarnUnusedParams;
-    property IgnoreUnusedParams: TStringList read fcIgnoreUnusedParams;
-    property FileExtensions: TStringList read fcFileExtensions;
+    property IgnoreUnusedParams: TStringList Read fcIgnoreUnusedParams;
+    property FileExtensions: TStringList Read fcFileExtensions;
   end;
 
 implementation
 
 uses
-  SysUtils;
+  SysUtils,
+  JclStrings;
 
 const
   REG_ONCE_OFFS = 'OnceOffs';
   REG_WARNINGS  = 'Warnings';
-  REG_WARN_UNUSED_PARAMS  = 'WarnUnusedParams';
+  REG_WARN_UNUSED_PARAMS = 'WarnUnusedParams';
   REG_IGNORE_UNUSED_PARAMS = 'IgnoreUnusedParams';
   REG_FILE_EXTENSIONS = 'FileExtensions';
 
-  { TSetClarify }
+{ TSetClarify }
 
 constructor TSetClarify.Create;
 begin
@@ -91,10 +94,20 @@ destructor TSetClarify.Destroy;
 begin
   FreeAndNil(fcIgnoreUnusedParams);
   FreeAndNil(fcFileExtensions);
-  
+
   inherited;
 end;
 
+
+function TSetClarify.ExtensionIsFormatted(psExt: string): boolean;
+begin
+  psExt := Trim(psExt);
+
+  if StrLeft(psExt, 1) = '.' then
+    psExt := StrRestof(psExt, 2);
+
+  Result := (FileExtensions.IndexOf(psExt) >= 0);
+end;
 
 procedure TSetClarify.ReadFromStream(const pcStream: TSettingsInput);
 begin
@@ -133,7 +146,7 @@ begin
   Assert(pcOut <> nil);
 
   pcOut.Write(REG_ONCE_OFFS, Ord(feOnceOffs));
-  
+
   pcOut.Write(REG_WARNINGS, fbWarnings);
   pcOut.Write(REG_WARN_UNUSED_PARAMS, fbWarnUnusedParams);
 
@@ -145,3 +158,4 @@ begin
 end;
 
 end.
+

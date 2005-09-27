@@ -3387,6 +3387,9 @@ begin
 
   lc := fcTokenList.FirstSolidToken;
 
+  if lc = nil then
+   exit;
+
   PushNode(nInitSection);
 
   case lc.TokenType of

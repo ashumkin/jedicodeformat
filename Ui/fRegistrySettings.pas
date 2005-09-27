@@ -66,6 +66,10 @@ type
     mDirs: TJvMemo;
     rgWriteSettingsFile: TRadioGroup;
     cbCheckMultibyteChars: TCheckBox;
+    tsIde: TTabSheet;
+    cbEditorIntegration: TCheckBox;
+    cbFormatBeforeSave: TCheckBox;
+    cbFormatAfterLoad: TCheckBox;
     procedure btnOKClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnClearMRUClick(Sender: TObject);
@@ -77,6 +81,8 @@ type
     procedure btnViewLogClick(Sender: TObject);
     procedure tsExclusionsResize(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
+    procedure cbFormatAfterLoadClick(Sender: TObject);
+    procedure cbFormatBeforeSaveClick(Sender: TObject);
   private
     fsSpecifiedDirectory: string;
 
@@ -137,8 +143,13 @@ begin
   mFiles.Lines.Assign(lcSet.ExclusionsFiles);
   mDirs.Lines.Assign(lcSet.ExclusionsDirs);
 
-
   ShowDirs;
+
+  { IDE }
+  cbEditorIntegration.Checked := lcSet.EditorIntegration;
+  cbFormatAfterLoad.Checked := lcSet.FormatAfterLoad;
+  cbFormatBeforeSave.Checked := lcSet.FormatBeforeSave;
+
 end;
 
 procedure TfmRegistrySettings.WriteSettings;
@@ -174,6 +185,11 @@ begin
   { exclusions }
   lcSet.ExclusionsFiles.Assign(mFiles.Lines);
   lcSet.ExclusionsDirs.Assign(mDirs.Lines);
+
+  { IDE }
+  lcSet.EditorIntegration := cbEditorIntegration.Checked;
+  lcSet.FormatAfterLoad := cbFormatAfterLoad.Checked;
+  lcSet.FormatBeforeSave := cbFormatBeforeSave.Checked;
 
    lcSet.WriteAll;
 end;
@@ -275,6 +291,18 @@ begin
   if Key = VK_F1 then
     Application.HelpContext(HELP_MAIN);
 
+end;
+
+procedure TfmRegistrySettings.cbFormatAfterLoadClick(Sender: TObject);
+begin
+  if cbFormatAfterLoad.Checked then
+    cbEditorIntegration.Checked := True;
+end;
+
+procedure TfmRegistrySettings.cbFormatBeforeSaveClick(Sender: TObject);
+begin
+  if cbFormatBeforeSave.Checked then
+    cbEditorIntegration.Checked := True;
 end;
 
 end.

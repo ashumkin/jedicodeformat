@@ -23,7 +23,7 @@ object fmRegistrySettings: TfmRegistrySettings
     Top = 0
     Width = 478
     Height = 264
-    ActivePage = tsGeneral
+    ActivePage = tsIde
     Align = alClient
     TabOrder = 0
     object tsGeneral: TTabSheet
@@ -251,6 +251,36 @@ object fmRegistrySettings: TfmRegistrySettings
         MaxLines = 0
         HideCaret = False
         TabOrder = 1
+      end
+    end
+    object tsIde: TTabSheet
+      Caption = 'IDE'
+      ImageIndex = 3
+      object cbEditorIntegration: TCheckBox
+        Left = 8
+        Top = 12
+        Width = 109
+        Height = 17
+        Caption = '&Editor Integration'
+        TabOrder = 0
+      end
+      object cbFormatBeforeSave: TCheckBox
+        Left = 8
+        Top = 60
+        Width = 121
+        Height = 17
+        Caption = 'Format before &Save'
+        TabOrder = 1
+        OnClick = cbFormatBeforeSaveClick
+      end
+      object cbFormatAfterLoad: TCheckBox
+        Left = 8
+        Top = 36
+        Width = 113
+        Height = 17
+        Caption = 'Format after &Load'
+        TabOrder = 2
+        OnClick = cbFormatAfterLoadClick
       end
     end
   end
