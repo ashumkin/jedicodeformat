@@ -186,7 +186,6 @@ contains
   IdentifierCaps in '..\Process\Capitalisation\IdentifierCaps.pas',
   frIdentifierCapsSettings in '..\Ui\Settings\frIdentifierCapsSettings.pas' {fIdentifierCapsSettings: TFrame},
   frComments in '..\Ui\Settings\frComments.pas' {fComments: TFrame},
-  frAnyCapsSettings in '..\Ui\Settings\frAnyCapsSettings.pas' {frAnyCapsSettings: TFrame},
-  JcfIdeSaveNotify in 'JcfIdeSaveNotify.pas';
+  frAnyCapsSettings in '..\Ui\Settings\frAnyCapsSettings.pas' {frAnyCapsSettings: TFrame};
 
 end.

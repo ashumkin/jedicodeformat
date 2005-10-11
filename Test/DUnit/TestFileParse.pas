@@ -231,6 +231,9 @@ type
     procedure TestDelphiNetKeywords;
     procedure TestDelphiNetClassVar;
 
+    procedure TestTryExceptRaise;
+    procedure TestTrailingCommaParam;
+
     procedure TestCases;
     procedure TestPackage;
 
@@ -1228,6 +1231,16 @@ end;
 procedure TTestFileParse.TestDelphiNetClassVar;
 begin
   TestParseFile('TestDelphiNetClassVar', 239);
+end;
+
+procedure TTestFileParse.TestTrailingCommaParam;
+begin
+  TestParseFile('TestTrailingCommaParam', 189);
+end;
+
+procedure TTestFileParse.TestTryExceptRaise;
+begin
+  TestParseFile('TestTryExceptRaise', 155);
 end;
 
 initialization

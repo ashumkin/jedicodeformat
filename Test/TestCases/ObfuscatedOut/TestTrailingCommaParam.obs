@@ -1,0 +1,6 @@
+unit testtrailingcommaparam;interface uses windows,messages,sysutils,variants,classes
+,graphics,controls,forms,dialogs,imglist,stdctrls;type tform1=class(TForm)button1
+:tbutton;imagelistmng:timagelist;procedure button1click(sender:tobject);private public
+end;var form1:tform1;implementation {$R *.dfm}procedure tform1.button1click(sender
+:tobject);var bitmap:tbitmap;begin bitmap:=tbitmap.create;try imagelistmng.getbitmap
+(1,bitmap,);finally bitmap.free;end;end;end. 

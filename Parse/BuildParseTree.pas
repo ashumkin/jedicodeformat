@@ -2783,6 +2783,11 @@ begin
 
       Recognise(ttExcept);
       RecogniseExceptionHandlerBlock;
+
+      // can be statements here - see SF bug 1314607
+      if fcTokenList.FirstSolidTokenType <> ttEnd then
+        RecogniseStatementList([ttEnd]);
+
       Recognise(ttEnd);
 
       PopNode;
@@ -4612,19 +4617,33 @@ begin
 end;
 
 procedure TBuildParseTree.RecogniseActualParams;
+const
+   SKIP_PARAM: TTokenTypeSet = [ttComma, ttCloseBracket];
 var
   lbMore: boolean;
+  liParamsRecognised: integer;
 begin
   PushNode(nActualParams);
 
   Recognise(ttOpenBracket);
+  liParamsRecognised := 0;
 
   if fcTokenList.FirstSolidTokenType <> ttCloseBracket then
   begin
     //RecogniseExprList;
 
     repeat
-      RecogniseActualParam;
+
+      { SF Bug 1311753
+       - end param can be empty, as in "GetBitmap(1, bitmap, );"
+        this is the case when
+        - not first param
+        - next solid token is comma or close brackets
+      }
+      if (liParamsRecognised = 0) or (not (fcTokenList.FirstSolidTokenType in SKIP_PARAM)) then
+        RecogniseActualParam;
+
+      inc(liParamsRecognised);
 
       lbMore := fcTokenList.FirstSolidTokenType = ttComma;
       if lbMore then

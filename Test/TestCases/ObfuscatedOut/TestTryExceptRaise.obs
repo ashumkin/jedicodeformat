@@ -1,0 +1,4 @@
+unit testtryexceptraise;interface implementation uses sysutils;procedure bar;begin
+end;procedure signalerror;begin end;procedure foo;begin try bar;except on eabort 
+do raise;else signalerror;raise;end;end;procedure fish;begin try bar;except on eabort
+do raise;else signalerror;bar;foo;bar;raise;end;end;end.

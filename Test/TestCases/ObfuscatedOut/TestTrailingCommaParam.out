@@ -1,0 +1,36 @@
+unit testtrailingcommaparam;
+
+interface
+
+uses Windows, Messages, SysUtils, variants, Classes, Graphics, Controls, Forms, Dialogs, ImgList, StdCtrls;
+
+type
+  tform1 = class(TForm)
+    button1:      TButton;
+    imagelistmng: timagelist;
+    procedure button1click(Sender: TObject);
+  private
+  public
+  end;
+
+var
+  form1: tform1;
+
+implementation
+
+{$R *.dfm}
+
+procedure tform1.button1click(Sender: TObject);
+var
+  bitmap: tbitmap;
+begin
+  bitmap := tbitmap.Create;
+  try
+    imagelistmng.getbitmap(1, bitmap, );
+  finally
+    bitmap.Free;
+  end;
+end;
+
+end.
+ 

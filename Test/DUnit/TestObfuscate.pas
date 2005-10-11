@@ -232,6 +232,8 @@ type
     procedure TestDelphiNetKeywords;
     procedure TestDelphiNetClassVar;
 
+    procedure TestTryExceptRaise;
+    procedure TestTrailingCommaParam;
 
     procedure TestForIn;
   end;
@@ -1267,6 +1269,16 @@ end;
 procedure TTestObfuscate.TestDelphiNetClassVar;
 begin
   TestObfuscateFile('TestDelphiNetClassVar');
+end;
+
+procedure TTestObfuscate.TestTrailingCommaParam;
+begin
+  TestObfuscateFile('TestTrailingCommaParam');
+end;
+
+procedure TTestObfuscate.TestTryExceptRaise;
+begin
+  TestObfuscateFile('TestTryExceptRaise');
 end;
 
 initialization
