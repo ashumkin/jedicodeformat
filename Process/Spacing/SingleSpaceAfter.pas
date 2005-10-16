@@ -47,7 +47,7 @@ uses
   JclStrings,
   { local }
   SourceToken, Tokens, ParseTreeNodeType, JcfSettings,
-  FormatFlags, TokenUtils;
+  FormatFlags, TokenUtils, SettingsTypes;
 
 const
   SingleSpaceAfterTokens: TTokenTypeSet = [ttColon, ttAssign, ttComma];
@@ -55,14 +55,7 @@ const
   SingleSpaceAfterWords: TTokenTypeSet = [
     ttProcedure, ttFunction,
     ttConstructor, ttDestructor, ttProperty,
-    ttOf, ttDo, ttWhile, ttUntil, ttCase, ttIf, ttTo, ttDownTo,
-
-    // some unary operators
-    ttNot,
-    // all operators that are always binary
-    ttAnd, ttAs, ttDiv, ttIn, ttIs, ttMod, ttOr, ttShl, ttShr, ttXor,
-    ttTimes, ttFloatDiv, ttEquals, ttGreaterThan, ttLessThan,
-    ttGreaterThanOrEqual, ttLessThanOrEqual, ttNotEqual];
+    ttOf, ttDo, ttWhile, ttUntil, ttCase, ttIf, ttTo, ttDownTo];
 
   PossiblyUnaryOperators: TTokenTypeSet = [ttPlus, ttMinus];
 
@@ -155,12 +148,23 @@ begin
     exit;
   end;
 
-  { + or - but only if it is a binary operator, ie a term to the left of it }
-  if (pt.TokenType in PossiblyUnaryOperators) and (pt.HasParentNode(nExpression)) and
-    ( not IsUnaryOperator(pt)) then
+  if FormatSettings.Spaces.SpaceForOperator = eAlways then
   begin
-    Result := True;
-    exit;
+
+    if (pt.TokenType in SingleSpaceOperators) then
+    begin
+      Result := True;
+      exit;
+    end;
+
+    { + or - but only if it is a binary operator, ie a term to the left of it }
+    if (pt.TokenType in PossiblyUnaryOperators) and (pt.HasParentNode(nExpression)) and
+      ( not IsUnaryOperator(pt)) then
+    begin
+      Result := True;
+      exit;
+    end;
+
   end;
 
   { only if it actually is a directive, see TestCases/TestBogusDirectives for details }

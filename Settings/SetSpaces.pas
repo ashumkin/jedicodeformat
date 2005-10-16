@@ -25,7 +25,7 @@ unit SetSpaces;
 
 interface
 
-uses JCFSetBase, SettingsStream;
+uses JCFSetBase, SettingsStream, SettingsTypes;
 
 type
 
@@ -50,6 +50,8 @@ type
 
     fiMaxSpacesInCode: integer;
     fbUseMaxSpacesInCode: boolean;
+
+    feSpaceForOperator: TTriOptionStyle;
 
   protected
   public
@@ -87,8 +89,10 @@ type
       Read fiSpacesBeforeColonLabel Write fiSpacesBeforeColonLabel;
 
     property MaxSpacesInCode: integer Read fiMaxSpacesInCode Write fiMaxSpacesInCode;
-    property UseMaxSpacesInCode: boolean Read fbUseMaxSpacesInCode
-      Write fbUseMaxSpacesInCode;
+    property UseMaxSpacesInCode: boolean Read fbUseMaxSpacesInCode Write fbUseMaxSpacesInCode;
+
+    property SpaceForOperator: TTriOptionStyle read feSpaceForOperator write feSpaceForOperator;
+
   end;
 
 implementation
@@ -114,6 +118,8 @@ const
 
   SET_MAX_SPACES_IN_CODE     = 'MaxSpacesInCode';
   SET_USE_MAX_SPACES_IN_CODE = 'UseMaxSpacesInCode';
+
+  SET_SPACE_FOR_OPERATOR = 'SpaceForOperator';
 
 constructor TSetSpaces.Create;
 begin
@@ -148,6 +154,8 @@ begin
 
   fiMaxSpacesInCode    := pcStream.Read(SET_MAX_SPACES_IN_CODE, 2);
   fbUseMaxSpacesInCode := pcStream.Read(SET_USE_MAX_SPACES_IN_CODE, False);
+
+  feSpaceForOperator := TTriOptionStyle(pcStream.Read(SET_SPACE_FOR_OPERATOR, Ord(eAlways)));
 end;
 
 procedure TSetSpaces.WriteToStream(const pcOut: TSettingsOutput);
@@ -175,6 +183,8 @@ begin
 
   pcOut.Write(SET_MAX_SPACES_IN_CODE, fiMaxSpacesInCode);
   pcOut.Write(SET_USE_MAX_SPACES_IN_CODE, fbUseMaxSpacesInCode);
+
+  pcOut.Write(SET_SPACE_FOR_OPERATOR, ord(feSpaceForOperator));
 end;
 
 

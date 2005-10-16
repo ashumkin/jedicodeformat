@@ -30,7 +30,7 @@ uses
   { JVCL }
   JvEdit, JvExStdCtrls, JvValidateEdit,
   { local}
-  frmBaseSettingsFrame;
+  frmBaseSettingsFrame, ExtCtrls;
 
 type
   TfClarifySpaces = class(TfrSettingsFrame)
@@ -58,6 +58,7 @@ type
     Label6: TLabel;
     cbMaxSpaces: TCheckBox;
     edtMaxSpacesInCode: TJvValidateEdit;
+    rgOperators: TRadioGroup;
     procedure cbTabsToSpacesClick(Sender: TObject);
     procedure cbSpacesToTabsClick(Sender: TObject);
     procedure cbMaxSpacesClick(Sender: TObject);
@@ -74,7 +75,7 @@ implementation
 
 {$R *.DFM}
 
-uses JcfHelp, JcfSettings, SetSpaces;
+uses JcfHelp, JcfSettings, SetSpaces, SettingsTypes;
 
 constructor TfClarifySpaces.Create(AOwner: TComponent);
 begin
@@ -109,6 +110,8 @@ begin
 
     cbMaxSpaces.Checked      := UseMaxSpacesInCode;
     edtMaxSpacesInCode.Value := MaxSpacesInCode;
+
+    rgOperators.ItemIndex := Ord(SpaceForOperator);
   end;
 
   cbTabsToSpacesClick(nil);
@@ -139,6 +142,8 @@ begin
 
     UseMaxSpacesInCode := cbMaxSpaces.Checked;
     MaxSpacesInCode    := edtMaxSpacesInCode.Value;
+
+    SpaceForOperator := TTriOptionStyle(rgOperators.ItemIndex);
   end;
 end;
 

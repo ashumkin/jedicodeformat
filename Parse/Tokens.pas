@@ -367,6 +367,14 @@ const
 
   MulOperators: TTokenTypeSet = [ttTimes, ttFloatDiv, ttDiv, ttMod, ttAnd, ttShl, ttShr];
 
+  SingleSpaceOperators = [
+    // some unary operators
+    ttNot,
+    // all operators that are always binary
+    ttAnd, ttAs, ttDiv, ttIn, ttIs, ttMod, ttOr, ttShl, ttShr, ttXor,
+    ttTimes, ttFloatDiv, ttEquals, ttGreaterThan, ttLessThan,
+    ttGreaterThanOrEqual, ttLessThanOrEqual, ttNotEqual];
+
   StringWords: TTokenTypeSet = [ttString, ttAnsiString, ttWideString];
 
   RealTypes: TTokenTypeSet =

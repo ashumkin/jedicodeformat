@@ -28,12 +28,14 @@ interface
 
 uses
   TestFrameWork,
-  BaseTestProcess;
+  BaseTestProcess,
+  SettingsTypes;
 
 type
   TTestSpacing = class(TBaseTestProcess)
   private
     fiSaveMaxSpaces: integer;
+    feSaveOperatorSetting: TTriOptionStyle;
 
   protected
     procedure Setup; override;
@@ -80,6 +82,8 @@ type
     procedure TestMaxSpaces3;
     procedure TestMaxSpaces2;
     procedure TestMaxSpaces1;
+
+    procedure TestOperatorSpacing;
   end;
 
 implementation
@@ -91,13 +95,14 @@ uses JclStrings,
   SingleSpaceBefore, SingleSpaceAfter,
   ReturnBefore, ReturnAfter, RemoveBlankLinesAfterProcHeader,
   RemoveReturnsAfterBegin, RemoveReturnsBeforeEnd, UnitNameCaps,
-  TabToSpace, SpaceToTab, MaxSpaces;
+  TabToSpace, SpaceToTab, MaxSpaces, SetSpaces;
 
 procedure TTestSpacing.Setup;
 begin
   inherited;
 
   fiSaveMaxSpaces := FormatSettings.Spaces.MaxSpacesInCode;
+  feSaveOperatorSetting := FormatSettings.Spaces.SpaceForOperator;
 end;
 
 procedure TTestSpacing.Teardown;
@@ -105,6 +110,7 @@ begin
   inherited;
 
   FormatSettings.Spaces.MaxSpacesInCode := fiSaveMaxSpaces;
+  FormatSettings.Spaces.SpaceForOperator := feSaveOperatorSetting;
 end;
 
 procedure TTestSpacing.TestNoReturnAfter;
@@ -420,6 +426,37 @@ const
 begin
   FormatSettings.Spaces.MaxSpacesInCode := 1;
   TestProcessResult(TMaxSpaces, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+{
+
+  Test the spacing. A pity that it tests the particular processes
+ where the implementation of this option is used,
+ rether than testing formatting as a black box under different settings
+}
+procedure TTestSpacing.TestOperatorSpacing;
+const
+  UNIT_TEXT_SPACED = UNIT_HEADER + ' procedure foo;   begin   a := 2 + 2;    end;  ' +
+    UNIT_FOOTER;
+  UNIT_TEXT_UNSPACED_BEFORE = UNIT_HEADER + ' procedure foo;   begin   a := 2+ 2;    end;  ' +
+    UNIT_FOOTER;
+  UNIT_TEXT_UNSPACED_AFTER = UNIT_HEADER + ' procedure foo;   begin   a := 2 +2;    end;  ' +
+    UNIT_FOOTER;
+begin
+  FormatSettings.Spaces.SpaceForOperator := eNever;
+
+  TestProcessResult(TNoSpaceBefore, UNIT_TEXT_SPACED, UNIT_TEXT_UNSPACED_BEFORE);
+  TestProcessResult(TNoSpaceAfter, UNIT_TEXT_SPACED, UNIT_TEXT_UNSPACED_AFTER);
+
+  FormatSettings.Spaces.SpaceForOperator := eLeave;
+
+  TestProcessResult(TNoSpaceBefore, UNIT_TEXT_UNSPACED_BEFORE, UNIT_TEXT_UNSPACED_BEFORE);
+  TestProcessResult(TNoSpaceAfter, UNIT_TEXT_UNSPACED_AFTER, UNIT_TEXT_UNSPACED_AFTER);
+
+  FormatSettings.Spaces.SpaceForOperator := eAlways;
+
+  TestProcessResult(TSingleSpaceBefore, UNIT_TEXT_UNSPACED_BEFORE, UNIT_TEXT_SPACED);
+  TestProcessResult(TSingleSpaceAfter, UNIT_TEXT_UNSPACED_AFTER, UNIT_TEXT_SPACED);
 end;
 
 initialization

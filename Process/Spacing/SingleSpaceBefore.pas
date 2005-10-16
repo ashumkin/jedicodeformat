@@ -53,18 +53,12 @@ implementation
 uses
   JclStrings,
   SourceToken, Tokens, ParseTreeNodeType, JcfSettings,
-  FormatFlags, TokenUtils;
+  FormatFlags, TokenUtils, SettingsTypes;
 
 const
   // space before all operators
   SingleSpaceBeforeWords: TTokenTypeSet = [ttEquals, ttThen, ttOf, ttDo,
-    ttTo, ttDownTo,
-    // some unary operators
-    ttNot,
-    // all operators that are always binary
-    ttAnd, ttAs, ttDiv, ttIn, ttIs, ttMod, ttOr, ttShl, ttShr, ttXor,
-    ttTimes, ttFloatDiv, ttEquals, ttGreaterThan, ttLessThan,
-    ttGreaterThanOrEqual, ttLessThanOrEqual, ttNotEqual];
+    ttTo, ttDownTo];
 
   NoSpaceAfterTokens: TTokenTypeSet = [ttOpenBracket, ttOpenSquareBracket];
 
@@ -105,18 +99,6 @@ begin
     exit;
   end;
 
-  { 'a := --3;' and 'lc := ptr^;'
-  are the only exceptions to the rule of a space before an operator }
-  if (pt.TokenType in Operators) then
-  begin
-    if (pt.TokenType = ttHat) or
-      (IsUnaryOperator(pt) and IsUnaryOperator(pt.PriorSolidToken)) then
-      Result := False
-    else
-      Result := True;
-
-    exit;
-  end;
 
   if (pt.TokenType in AllDirectives) and (pt.HasParentNode(DirectiveNodes)) then
   begin
@@ -128,6 +110,28 @@ begin
   begin
     Result := True;
     exit;
+  end;
+
+  if FormatSettings.Spaces.SpaceForOperator = eAlways then
+  begin
+    if (pt.TokenType in SingleSpaceOperators) then
+    begin
+      Result := True;
+    end;
+
+    { 'a := --3;' and 'lc := ptr^;'
+    are the only exceptions to the rule of a space before an operator }
+    if (pt.TokenType in Operators) then
+    begin
+      if (pt.TokenType = ttHat) or
+        (IsUnaryOperator(pt) and IsUnaryOperator(pt.PriorSolidToken)) then
+        Result := False
+      else
+        Result := True;
+
+      exit;
+    end;
+
   end;
 
   { 'in' in the uses clause }

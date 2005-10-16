@@ -46,7 +46,8 @@ implementation
 
 uses
   JcfMiscFunctions,
-  Tokens, ParseTreeNodeType, JcfSettings, FormatFlags, TokenUtils;
+  Tokens, ParseTreeNodeType, JcfSettings, FormatFlags,
+  TokenUtils, SettingsTypes;
 
 { TNoSpaceAfter }
 
@@ -69,6 +70,13 @@ begin
     Result := True;
     exit;
   end;
+
+  if (FormatSettings.Spaces.SpaceForOperator = eNever) and (pt.TokenType in Operators) then
+  begin
+    Result := True;
+    exit;
+  end;
+
 
   { no space between method name and open bracket for param list
     no space between type & bracket for cast

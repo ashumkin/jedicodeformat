@@ -46,7 +46,7 @@ type
 implementation
 
 uses JcfSettings, SourceToken, Tokens, ParseTreeNodeType,
-  FormatFlags, TokenUtils;
+  FormatFlags, TokenUtils, SettingsTypes;
 
 const
   NoSpaceAnywhere: TTokenTypeSet = [ttDot, ttComma,
@@ -113,6 +113,16 @@ begin
   begin
     Result := True;
     exit;
+  end;
+
+  if (FormatSettings.Spaces.SpaceForOperator = eNever) then
+  begin
+    if pt.TokenType in Operators then
+    begin
+      Result := True;
+      exit;
+    end;
+
   end;
 
   { '[' of array property definition }
