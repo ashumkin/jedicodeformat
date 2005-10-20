@@ -257,6 +257,7 @@ var
   lcNext: TSourceToken;
 begin
   Result := False;
+  lcNext := nil;
 
   { these can include returns }
   if pt.TokenType = ttConditionalCompilationRemoved then
@@ -368,12 +369,23 @@ begin
     exit;
   end;
 
+  lcNext := pt.NextSolidToken;
 
   { end without semicolon or dot, or hint directive }
   if (pt.TokenType = ttEnd) and ( not (ptNext.TokenType in [ttSemiColon, ttDot])) and
     ( not (ptNext.TokenType in HintDirectives)) then
   begin
-    Result := True;
+
+    { not end .. else if the style forbits it }
+    if (lcNext <> nil) and (lcNext.TokenType = ttElse) then
+    begin
+      Result := (FormatSettings.Returns.EndElseStyle = eAlways);
+    end
+    else
+    begin
+      Result := True;
+    end;
+
     exit;
   end;
 

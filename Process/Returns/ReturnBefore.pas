@@ -56,7 +56,7 @@ uses
 
 const
   WordsReturnBefore: TTokenTypeSet =
-    [ttBegin, ttEnd, ttUntil, ttElse, ttTry, ttFinally, ttExcept
+    [ttBegin, ttEnd, ttUntil, ttTry, ttFinally, ttExcept
     //, ttConditionalCompilationRemoved
     ];
 
@@ -237,6 +237,15 @@ begin
   begin
     Result := True;
     exit;
+  end;
+
+  if pt.TokenType = ttElse then
+  begin
+    lcPrev := pt.PriorSolidToken;
+    // return before else unless it's end..else and the style forbids it
+    if (FormatSettings.Returns.EndElseStyle = eAlways) or
+      ((lcPrev <> nil) and (lcPrev.TokenType <> ttEnd)) then
+      Result := True;
   end;
 
   { return before compiler directives }
