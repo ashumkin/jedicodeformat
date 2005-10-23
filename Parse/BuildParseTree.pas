@@ -82,7 +82,7 @@ type
     procedure RecogniseDeclSections;
     procedure RecogniseDeclSection;
     procedure RecogniseInitSection;
-    procedure RecogniseBlock;
+    procedure RecogniseBlock(const CanBeJustEnd: boolean = false);
     procedure RecogniseIdentList(const pbCanHaveUnitQualifier: boolean);
     procedure RecogniseDottedNameList;
     procedure RecogniseIdentValue;
@@ -586,13 +586,15 @@ var
   lc: TSourceToken;
 begin
   // ProgramBlock -> [UsesClause] Block
+  // also it seems that the block is optional, can just be the "end" for the file
 
   lc := fcTokenList.FirstSolidToken;
 
   if lc.TokenType = ttUses then
     RecogniseUsesClause(True);
 
-  RecogniseBlock;
+  RecogniseBlock(True);
+
 end;
 
 procedure TBuildParseTree.RecogniseUsesClause(const pbInFiles: boolean);
@@ -773,7 +775,7 @@ begin
   PopNode;
 end;
 
-procedure TBuildParseTree.RecogniseBlock;
+procedure TBuildParseTree.RecogniseBlock(const CanBeJustEnd: boolean = false);
 var
   lc: TSourceToken;
   lt: TTokenType;
@@ -790,8 +792,13 @@ begin
   if lt in (Declarations + ProcedureWords) then
     RecogniseDeclSections;
 
-  if fcTokenList.FirstSolidTokenType = ttAsm then
+  lc := fcTokenList.FirstSolidToken;
+  lt := lc.TokenType;
+
+  if lt = ttAsm then
     RecogniseAsmBlock
+  else if CanBeJustEnd and (lt = ttEnd) then
+    Recognise(ttEnd)
   else
     RecogniseCompoundStmnt;
 
@@ -4567,7 +4574,7 @@ begin
   RecogniseExportedProc;
 
   // more to come?
-  while fcTokenList.FirstTokenType <> ttSemicolon do
+  while fcTokenList.FirstSolidTokenType <> ttSemicolon do
   begin
     Recognise(ttComma);
     RecogniseExportedProc;

@@ -1,0 +1,11 @@
+{$R RefSync.TLB}library refsync;uses uorabaseproductenv in'..\..\CSComp\ProductEnv\uOraBaseProductEnv.pas'
+,sysutils,classes,comserv,preparent in'..\..\CSComp\ParentPackage\PreParent.pas'{PreParentForm}
+,prntwiz in'..\..\CSComp\ParentPackage\PrntWiz.pas'{PrntWizForm},refmain in'RefMain.pas'
+{RefMainForm},refobj in'RefObj.pas',debugfrm in'DebugFrm.pas'{DebugForm},paramfrm
+in'ParamFrm.pas'{ParamsForm},refx in'RefX.pas',fkeyword in'fKeyWord.pas'{KeyWordForm}
+,csdbtables in'..\..\CSComp\CsDatabase\CsDBTables.pas',csdatabase in'..\..\CSComp\CsDatabase\CsDatabase.pas'
+,csquery in'..\..\CSComp\CsDatabase\CsQuery.pas',csstoredproc in'..\..\CSComp\CsDatabase\CsStoredProc.pas'
+{ ,
+MemCheck},usrvproc in'..\..\3TIER\B3\CsSrvDB\uSrvProc.pas',usrvquery in'..\..\3TIER\B3\CsSrvDB\uSrvQuery.pas'
+;{$R *.RES}exports refdialog,refload,refsavesqltext,refloadsqltext,refgetattributes
+;end.

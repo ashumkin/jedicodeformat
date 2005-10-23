@@ -233,6 +233,7 @@ type
 
     procedure TestTryExceptRaise;
     procedure TestTrailingCommaParam;
+    procedure TestDprNoBegin;
 
     procedure TestCases;
     procedure TestPackage;
@@ -1241,6 +1242,11 @@ end;
 procedure TTestFileParse.TestTryExceptRaise;
 begin
   TestParseFile('TestTryExceptRaise', 155);
+end;
+
+procedure TTestFileParse.TestDprNoBegin;
+begin
+  TestParseFile('TestDprNoBegin.dpr', 168);
 end;
 
 initialization

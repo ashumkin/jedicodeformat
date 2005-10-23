@@ -257,7 +257,6 @@ var
   lcNext: TSourceToken;
 begin
   Result := False;
-  lcNext := nil;
 
   { these can include returns }
   if pt.TokenType = ttConditionalCompilationRemoved then

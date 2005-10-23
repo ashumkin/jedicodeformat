@@ -236,6 +236,8 @@ type
     procedure TestTrailingCommaParam;
 
     procedure TestForIn;
+    procedure TestDprNoBegin;
+
   end;
 
 implementation
@@ -1279,6 +1281,11 @@ end;
 procedure TTestObfuscate.TestTryExceptRaise;
 begin
   TestObfuscateFile('TestTryExceptRaise');
+end;
+
+procedure TTestObfuscate.TestDprNoBegin;
+begin
+   TestObfuscateFile('TestDprNoBegin.dpr');
 end;
 
 initialization
