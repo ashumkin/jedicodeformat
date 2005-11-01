@@ -314,7 +314,7 @@ var
     begin
       if FileExists(fsConfigFileName) then
       begin
-        FormatSettings.ReadFromFile(fsConfigFileName);
+        FormatSettings.ReadFromFile(fsConfigFileName, True);
       end
       else
       begin
@@ -322,6 +322,14 @@ var
         WriteLn;
         fbQuietFail := True;
       end
+    end;
+
+    { must have read from registry or file }
+    if (not FormatSettings.HasRead) and (not fbQuietFail) then
+    begin
+        WriteLn('No settings to read');
+        WriteLn;
+        fbQuietFail := True;
     end;
 
   { write to settings }

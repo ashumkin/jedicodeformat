@@ -234,6 +234,7 @@ type
     procedure TestTryExceptRaise;
     procedure TestTrailingCommaParam;
     procedure TestDprNoBegin;
+    procedure TestDLLIndex;
 
     procedure TestCases;
     procedure TestPackage;
@@ -282,7 +283,7 @@ begin
     Check(FileExists(lsSettingsFileName), 'Settings file ' +
       lsSettingsFileName + ' not found');
 
-    FormatSettings.ReadFromFile(lsSettingsFileName);
+    FormatSettings.ReadFromFile(lsSettingsFileName, True);
     FormatSettings.Obfuscate.Enabled := False;
 
     lcConverter.SourceMode := fmSingleFile;
@@ -1247,6 +1248,11 @@ end;
 procedure TTestFileParse.TestDprNoBegin;
 begin
   TestParseFile('TestDprNoBegin.dpr', 168);
+end;
+
+procedure TTestFileParse.TestDLLIndex;
+begin
+  TestParseFile('TestDLLIndex', 106);
 end;
 
 initialization

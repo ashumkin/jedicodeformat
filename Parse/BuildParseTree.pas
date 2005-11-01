@@ -3304,6 +3304,8 @@ begin
 
     ExternalProcDirective ->
       External ["'" libname "'" ["name" "'" procname "'"]]
+
+      also allow "index expr"
   }
   PushNode(nExternalDirective);
 
@@ -3317,6 +3319,12 @@ begin
       Recognise(ttName);
       RecogniseConstantExpression;
     end;
+  end;
+
+  if fcTokenList.FirstSolidTokenType = ttIndex then
+  begin
+    Recognise(ttIndex);
+    RecogniseConstantExpression;
   end;
 
   PopNode;

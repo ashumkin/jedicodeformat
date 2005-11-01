@@ -61,7 +61,9 @@ type
     fcTransform: TSetTransform;
 
     fbWriteOnExit: boolean;
+    fbHasRead: boolean;
     fbDirty: boolean;
+
     fsDescription: string;
     fdtWriteDateTime: TDateTime;
     fsWriteVersion: string;
@@ -75,7 +77,7 @@ type
     destructor Destroy; override;
 
     procedure Read;
-    procedure ReadFromFile(const psFileName: string);
+    procedure ReadFromFile(const psFileName: string; const pbMustExist: boolean);
     procedure ReadDefaults;
     procedure Write;
 
@@ -111,6 +113,7 @@ type
  
     property WriteOnExit: boolean Read fbWriteOnExit Write fbWriteOnExit;
     property Dirty: boolean Read fbDirty Write fbDirty;
+    property HasRead: boolean read fbHasRead write fbHasRead;
   end;
 
 function FormatSettings: TFormatSettings;
@@ -191,12 +194,15 @@ const
   REG_DESCRIPTION = 'Description';
 
 procedure TFormatSettings.Read;
+var
+  lcReg: TJCFRegistrySettings;
 begin
   // use the Settings File if it exists
-  ReadFromFile(GetRegSettings.FormatConfigFileName);
+  lcReg := GetRegSettings;
+  ReadFromFile(lcReg.FormatConfigFileName, lcReg.FormatConfigNameSpecified);
 end;
 
-procedure TFormatSettings.ReadFromFile(const psFileName: string);
+procedure TFormatSettings.ReadFromFile(const psFileName: string; const pbMustExist: boolean);
 var
   lsText: string;
   lcFile: TSettingsInputString;
@@ -216,9 +222,12 @@ begin
   end
   else
   begin
-    MessageDlg('The settings file "' + psFileName + '" does not exist.' + AnsiLineBreak +
-      'The formatter will work better if it is configured to use a valid settings file',
-      mtError, [mbOK], 0);
+    if pbMustExist then
+    begin
+      MessageDlg('The settings file "' + psFileName + '" does not exist.' + AnsiLineBreak +
+        'The formatter will work better if it is configured to use a valid settings file',
+        mtError, [mbOK], 0);
+      end;
   end;
 end;
 
@@ -381,6 +390,8 @@ begin
     ReadFromStream(fcReplace);
     ReadFromStream(fcUses);
     ReadFromStream(fcTransform);
+
+    fbHasRead := True;
   finally
     lcAllSettings.Free;
   end;

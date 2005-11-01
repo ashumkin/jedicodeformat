@@ -162,7 +162,7 @@ begin
   if lcSet.FormatConfigFileName <> eSettingsFile.Text then
   begin
     lcSet.FormatConfigFileName := eSettingsFile.Text;
-    FormatSettings.ReadFromFile(eSettingsFile.Text);
+    FormatSettings.ReadFromFile(eSettingsFile.Text, True);
   end;
 
   lcSet.FormatFileWriteOption := TFormatFileWriteOption(rgWriteSettingsFile.ItemIndex);

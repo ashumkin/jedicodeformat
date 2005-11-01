@@ -232,6 +232,7 @@ type
     procedure TestTryExceptRaise;
     procedure TestTrailingCommaParam;
     procedure TestDprNoBegin;
+    procedure TestDLLIndex;
 
     procedure TestCases;
   end;
@@ -1237,6 +1238,11 @@ end;
 procedure TFullTestClarify.TestDprNoBegin;
 begin
   TestClarifyFile('TestDprNoBegin.dpr');
+end;
+
+procedure TFullTestClarify.TestDLLIndex;
+begin
+  TestClarifyFile('TestDLLIndex');
 end;
 
 initialization

@@ -53,6 +53,8 @@ type
 
     { ui settings }
     fsFormatConfigFileName: string;
+    fbFormatConfigNameSpecified: boolean;
+
     fsLastSettingsPage: string;
     feFormatFileWriteOption: TFormatFileWriteOption;
 
@@ -109,6 +111,8 @@ type
 
     { general settings }
     property FormatConfigFileName: string read fsFormatConfigFileName write fsFormatConfigFileName;
+    property FormatConfigNameSpecified: boolean read fbFormatConfigNameSpecified;
+
     property FormatFileWriteOption: TFormatFileWriteOption read feFormatFileWriteOption write feFormatFileWriteOption;
 
     { ui settings }
@@ -323,8 +327,13 @@ procedure TJCFRegistrySettings.ReadAll;
 begin
   { general section }
   fsFormatConfigFileName := fcReg.ReadString(REG_GENERAL_SECTION, 'FormatConfigFileName', '');
-  if fsFormatConfigFileName = '' then
+  // was a config file specified
+  fbFormatConfigNameSpecified := (fsFormatConfigFileName <> '');
+
+  if not fbFormatConfigNameSpecified then
+  begin
     fsFormatConfigFileName := GetDefaultSettingsFileName;
+  end;
 
   feFormatFileWriteOption := TFormatFileWriteOption(fcReg.ReadInteger(REG_GENERAL_SECTION,
     'FormatFileWriteOption', Ord(eAlwaysWrite)));

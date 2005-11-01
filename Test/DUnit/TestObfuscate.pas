@@ -237,6 +237,7 @@ type
 
     procedure TestForIn;
     procedure TestDprNoBegin;
+    procedure TestDLLIndex;
 
   end;
 
@@ -1286,6 +1287,11 @@ end;
 procedure TTestObfuscate.TestDprNoBegin;
 begin
    TestObfuscateFile('TestDprNoBegin.dpr');
+end;
+
+procedure TTestObfuscate.TestDLLIndex;
+begin
+   TestObfuscateFile('TestDLLIndex');
 end;
 
 initialization
