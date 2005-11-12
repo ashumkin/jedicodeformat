@@ -61,5 +61,5 @@ in'LittleTest57.pas',littletest58 in'LittleTest58.pas',littletest59 in'LittleTes
 fbracketprop in'fBracketProp.pas'{Form1},testendelse in'TestEndElse.pas',testcondreturns
 in'TestCondReturns.pas',testconstbug in'TestConstBug.pas',test.dotted.name in'test.dotted.name.pas'
 ,testcondcompbreaks in'TestCondCompBreaks.pas',testdelphinetkeywords in'TestDelphiNetKeywords.pas'
-;{$R *.res}begin application.initialize;application.createform(tformtest,formtest
-);application.run;end. 
+,testincat in'TestIncAt.pas',testdllindex in'TestDLLIndex.pas';{$R *.res}begin application
+.initialize;application.createform(tformtest,formtest);application.run;end. 

@@ -235,6 +235,7 @@ type
     procedure TestTrailingCommaParam;
     procedure TestDprNoBegin;
     procedure TestDLLIndex;
+    procedure TestIncAt;
 
     procedure TestCases;
     procedure TestPackage;
@@ -719,7 +720,7 @@ end;
 
 procedure TTestFileParse.TestCases;
 begin
-  TestParseFile('Testcases.dpr', 1269);
+  TestParseFile('Testcases.dpr', 1285);
 end;
 
 
@@ -1252,7 +1253,12 @@ end;
 
 procedure TTestFileParse.TestDLLIndex;
 begin
-  TestParseFile('TestDLLIndex', 106);
+  TestParseFile('TestDLLIndex', 120);
+end;
+
+procedure TTestFileParse.TestIncAt;
+begin
+  TestParseFile('TestIncAt', 53);
 end;
 
 initialization

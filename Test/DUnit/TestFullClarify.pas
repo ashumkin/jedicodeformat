@@ -233,6 +233,7 @@ type
     procedure TestTrailingCommaParam;
     procedure TestDprNoBegin;
     procedure TestDLLIndex;
+    procedure TestIncAt;
 
     procedure TestCases;
   end;
@@ -1243,6 +1244,11 @@ end;
 procedure TFullTestClarify.TestDLLIndex;
 begin
   TestClarifyFile('TestDLLIndex');
+end;
+
+procedure TFullTestClarify.TestIncAt;
+begin
+  TestClarifyFile('TestIncAt');
 end;
 
 initialization

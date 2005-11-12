@@ -357,7 +357,7 @@ const
   - operators
   - can be unary
   - have no alphabet chars in them }
-  PossiblyUnarySymbolOperators: TTokenTypeSet = [ttAtSign, ttHat, ttAt, ttPlus, ttMinus];
+  PossiblyUnarySymbolOperators: TTokenTypeSet = [ttAtSign, ttHat, ttPlus, ttMinus];
 
   RelationalOperators: TTokenTypeSet = [
     ttIn, ttIs, ttAs, ttGreaterThan,

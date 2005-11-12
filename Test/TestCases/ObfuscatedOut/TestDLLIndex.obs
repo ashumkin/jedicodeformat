@@ -1,3 +1,4 @@
-unit testdllindex;interface function spaces(n:cardinal):string;function restartdialog
-(wnd:hwnd;reason:pchar;flags:integer):integer;stdcall;external'shell32.dll'index 
-59;implementation function spaces(n:cardinal):string;begin result:=n;end;end. 
+unit testdllindex;interface uses windows;function spaces(n:cardinal):string;function
+restartdialog(wnd:hwnd;reason:pchar;flags:integer):integer;stdcall;external'shell32.dll'
+index 59;implementation uses sysutils;function spaces(n:cardinal):string;begin result
+:=inttostr(n);end;end. 

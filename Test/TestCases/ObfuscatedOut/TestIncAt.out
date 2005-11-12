@@ -1,0 +1,16 @@
+unit testincat;
+
+interface
+
+implementation
+
+procedure foo;
+var
+  at: integer;
+begin
+  at := 2;
+  Inc(at, 2);
+end;
+
+end.
+ 

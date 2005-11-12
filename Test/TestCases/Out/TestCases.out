@@ -153,7 +153,9 @@ uses
   TestConstBug in 'TestConstBug.pas',
   test.dotted.Name in 'test.dotted.name.pas',
   TestCondCompBreaks in 'TestCondCompBreaks.pas',
-  TestDelphiNetKeywords in 'TestDelphiNetKeywords.pas';
+  TestDelphiNetKeywords in 'TestDelphiNetKeywords.pas',
+  TestIncAt in 'TestIncAt.pas',
+  TestDllIndex in 'TestDLLIndex.pas';
 
 {$R *.res}
 

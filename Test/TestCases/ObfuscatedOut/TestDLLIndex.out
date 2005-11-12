@@ -2,15 +2,20 @@ unit testdllindex;
 
 interface
 
+uses Windows;
+
 function spaces(n: cardinal): string;
-function restartdialog(wnd: hwnd; reason: PChar; flags: integer): integer; stdcall; external 'shell32.dll' index
-  59;
+function restartdialog(wnd: hwnd; reason: PChar; flags: integer): integer;
+  stdcall; external 'shell32.dll'
+  index 59;
 
 implementation
 
+uses SysUtils;
+
 function spaces(n: cardinal): string;
 begin
-  Result := n;
+  Result := IntToStr(n);
 end;
 
 end.
