@@ -50,6 +50,8 @@ type
     Label1: TLabel;
     eMaxUnaligned: TJvValidateEdit;
     cbAlignField: TCheckBox;
+    edtMaxVarianceInterface: TJvValidateEdit;
+    Label2: TLabel;
     procedure edtMinColumnExit(Sender: TObject);
     procedure edtMaxColumnExit(Sender: TObject);
   private
@@ -114,6 +116,7 @@ begin
     edtMinColumn.Value   := MinColumn;
     edtMaxColumn.Value   := MaxColumn;
     edtMaxVariance.Value := MaxVariance;
+    edtMaxVarianceInterface.Value := MaxVarianceInterface;
     eMaxUnaligned.Value  := MaxUnalignedStatements;
   end;
 end;
@@ -134,6 +137,7 @@ begin
     MinColumn   := edtMinColumn.Value;
     MaxColumn   := edtMaxColumn.Value;
     MaxVariance := edtMaxVariance.Value;
+    MaxVarianceInterface := edtMaxVarianceInterface.Value;
     MaxUnalignedStatements := eMaxUnaligned.Value;
   end;
 end;

@@ -41,7 +41,8 @@ type
     fbAlignComment: boolean;
     fbAlignField: boolean;
 
-    fiMinColumn, fiMaxColumn, fiMaxVariance: integer;
+    fiMinColumn, fiMaxColumn: integer;
+    fiMaxVariance, fiMaxVarianceInterface: integer;
     fiMaxUnalignedStatements: integer;
     fbInterfaceOnly: boolean;
 
@@ -63,6 +64,8 @@ type
     property MinColumn: integer Read fiMinColumn Write fiMinColumn;
     property MaxColumn: integer Read fiMaxColumn Write fiMaxColumn;
     property MaxVariance: integer Read fiMaxVariance Write fiMaxVariance;
+    property MaxVarianceInterface: integer Read fiMaxVarianceInterface Write fiMaxVarianceInterface;
+
     property MaxUnalignedStatements: integer
       Read fiMaxUnalignedStatements Write fiMaxUnalignedStatements;
 
@@ -83,6 +86,7 @@ const
   REG_MIN_COLUMN   = 'MinColumn';
   REG_MAX_COLUMN   = 'MaxColumn';
   REG_MAX_VARIANCE = 'MaxVariance';
+  REG_MAX_VARIANCE_INTERFACE = 'MaxVarianceInterface';
   REG_MAX_UNALIGNED_STATEMENTS = 'MaxUnalignedStatements';
 
   REG_INTERFACE_ONLY = 'InterfaceOnly';
@@ -111,6 +115,7 @@ begin
   fiMinColumn   := pcStream.Read(REG_MIN_COLUMN, 2);
   fiMaxColumn   := pcStream.Read(REG_MAX_COLUMN, 60);
   fiMaxVariance := pcStream.Read(REG_MAX_VARIANCE, 10);
+  fiMaxVarianceInterface := pcStream.Read(REG_MAX_VARIANCE_INTERFACE, 10);
   fiMaxUnalignedStatements := pcStream.Read(REG_MAX_UNALIGNED_STATEMENTS, 0);
 end;
 
@@ -130,6 +135,7 @@ begin
   pcOut.Write(REG_MIN_COLUMN, fiMinColumn);
   pcOut.Write(REG_MAX_COLUMN, fiMaxColumn);
   pcOut.Write(REG_MAX_VARIANCE, fiMaxVariance);
+  pcOut.Write(REG_MAX_VARIANCE_INTERFACE, fiMaxVarianceInterface);
   pcOut.Write(REG_MAX_UNALIGNED_STATEMENTS, fiMaxUnalignedStatements);
 end;
 

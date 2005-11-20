@@ -1,5 +1,5 @@
 inherited fClarifyAlign: TfClarifyAlign
-  Width = 181
+  Width = 330
   Height = 367
   object Label6: TLabel
     Left = 8
@@ -24,10 +24,17 @@ inherited fClarifyAlign: TfClarifyAlign
   end
   object Label1: TLabel
     Left = 8
-    Top = 264
-    Width = 48
+    Top = 296
+    Width = 69
     Height = 13
-    Caption = 'Unaligned'
+    Caption = 'Max unaligned'
+  end
+  object Label2: TLabel
+    Left = 8
+    Top = 264
+    Width = 110
+    Height = 13
+    Caption = 'Max Variance Interface'
   end
   object cbInterfaceOnly: TCheckBox
     Left = 8
@@ -38,7 +45,7 @@ inherited fClarifyAlign: TfClarifyAlign
     TabOrder = 0
   end
   object edtMaxVariance: TJvValidateEdit
-    Left = 80
+    Left = 128
     Top = 232
     Width = 57
     Height = 21
@@ -52,14 +59,13 @@ inherited fClarifyAlign: TfClarifyAlign
     MaxLength = 3
     MaxValue = 999.000000000000000000
     MinValue = 1.000000000000000000
-    PasswordChar = #0
     TabOrder = 4
     Text = '1'
     Value = 1
     OnExit = edtMaxColumnExit
   end
   object edtMaxColumn: TJvValidateEdit
-    Left = 80
+    Left = 128
     Top = 204
     Width = 57
     Height = 21
@@ -72,14 +78,13 @@ inherited fClarifyAlign: TfClarifyAlign
     HasMinValue = True
     MaxLength = 3
     MaxValue = 150.000000000000000000
-    PasswordChar = #0
     TabOrder = 3
     Text = '0'
     Value = 0
     OnExit = edtMaxColumnExit
   end
   object edtMinColumn: TJvValidateEdit
-    Left = 80
+    Left = 128
     Top = 176
     Width = 57
     Height = 21
@@ -92,7 +97,6 @@ inherited fClarifyAlign: TfClarifyAlign
     HasMinValue = True
     MaxLength = 3
     MaxValue = 150.000000000000000000
-    PasswordChar = #0
     TabOrder = 2
     Text = '0'
     Value = 0
@@ -155,8 +159,8 @@ inherited fClarifyAlign: TfClarifyAlign
     end
   end
   object eMaxUnaligned: TJvValidateEdit
-    Left = 80
-    Top = 260
+    Left = 128
+    Top = 292
     Width = 57
     Height = 21
     CheckChars = '01234567890'
@@ -168,9 +172,28 @@ inherited fClarifyAlign: TfClarifyAlign
     HasMinValue = True
     MaxLength = 3
     MaxValue = 999.000000000000000000
-    PasswordChar = #0
     TabOrder = 5
     Text = '0'
     Value = 0
+  end
+  object edtMaxVarianceInterface: TJvValidateEdit
+    Left = 128
+    Top = 260
+    Width = 57
+    Height = 21
+    CheckChars = '01234567890'
+    CriticalPoints.CheckPoints = cpNone
+    CriticalPoints.ColorAbove = clBlue
+    CriticalPoints.ColorBelow = clRed
+    EditText = '1'
+    HasMaxValue = True
+    HasMinValue = True
+    MaxLength = 3
+    MaxValue = 999.000000000000000000
+    MinValue = 1.000000000000000000
+    TabOrder = 6
+    Text = '1'
+    Value = 1
+    OnExit = edtMaxColumnExit
   end
 end

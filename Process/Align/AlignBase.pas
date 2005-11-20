@@ -69,7 +69,7 @@ implementation
 uses
   { delphi }SysUtils, Math,
   { jcl }
-  { jcf }JcfSettings, TokenUtils;
+  { jcf } JcfSettings, TokenUtils, SetAlign, ParseTreeNodeType;
 
 { TAlignBase }
 
@@ -154,7 +154,12 @@ begin
   begin
     liSettingsMin  := Align.MinColumn;
     liSettingsMax  := Align.MaxColumn;
-    liSettingsMaxVariance := Align.MaxVariance;
+
+    if pcToken.HasParentNode(nInterfaceSection) then
+      liSettingsMaxVariance := Align.MaxVarianceInterface
+    else
+      liSettingsMaxVariance := Align.MaxVariance;
+
     liMaxUnaligned := Align.MaxUnalignedStatements;
   end;
 
