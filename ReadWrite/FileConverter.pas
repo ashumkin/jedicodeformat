@@ -83,7 +83,7 @@ type
     function ConvertError: Boolean;
     function TokenCount: integer;
 
-    procedure ConvertFile(const psInputFileName, psOutputFileName: string);
+    procedure ConvertFile(const psOriginalFileName, psInputFileName, psOutputFileName: string);
 
 
     property BackupMode: TBackupMode Read peBackupMode Write peBackupMode;
@@ -235,7 +235,7 @@ begin
           'could not rename source file ' + psInputFileName + ' to ' + lsTemp);
 
       { process from the temp file to the input file }
-      ConvertFile(lsTemp, psInputFileName);
+      ConvertFile(psInputFileName, lsTemp, psInputFileName);
 
       if ConvertError then
       begin
@@ -265,7 +265,7 @@ begin
           'could not rename source file ' + psInputFileName + ' to ' + lsOut);
 
       { process from the temp file to the input file }
-      ConvertFile(lsOut, psInputFileName);
+      ConvertFile(psInputFileName, lsOut, psInputFileName);
 
       // did the convert fail?
       if ConvertError then
@@ -288,7 +288,7 @@ begin
         raise Exception.Create('TFileConverter.ProcessFile: ' +
           'Destination file ' + lsOut + ' exists already');
 
-      ConvertFile(psInputFileName, lsOut);
+      ConvertFile(psInputFileName, psInputFileName, lsOut);
 
       if not ConvertError then
         Inc(fiConvertCount);
@@ -455,12 +455,27 @@ begin
     GetRegSettings.ViewLog;
 end;
 
-procedure TFileConverter.ConvertFile(const psInputFileName, psOutputFileName: string);
+procedure TFileConverter.ConvertFile(const psOriginalFileName, psInputFileName, psOutputFileName: string);
+var
+  lbFileIsChanged: boolean;
 begin
   fcConverter.InputCode := FileToString(psInputFileName);
   fcConverter.Convert;
   if not ConvertError then
-    StringToFile(psOutputFileName, fcConverter.OutputCode);
+  begin
+    {
+     check if the file has changed.
+     If not, do not write.
+     This is kinder to source control systems (CVS, SVN etc.)
+     that check the file timestamp
+    }
+
+    lbFileIsChanged := (psOriginalFileName <> psOutputFileName) or
+     (fcConverter.InputCode <> fcConverter.OutputCode);
+
+    if lbFileIsChanged then
+      StringToFile(psOutputFileName, fcConverter.OutputCode);
+  end;
 end;
 
 
