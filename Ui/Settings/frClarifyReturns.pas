@@ -28,7 +28,7 @@ uses
   Classes, Controls, Forms,
   StdCtrls, ExtCtrls,
   { local}
-  JvEdit, frmBaseSettingsFrame;
+  JvEdit, frmBaseSettingsFrame, JvExStdCtrls, JvValidateEdit;
 
 type
   TfClarifyReturns = class(TfrSettingsFrame)

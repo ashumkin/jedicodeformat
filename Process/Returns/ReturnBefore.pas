@@ -34,6 +34,8 @@ type
   TReturnBefore = class(TSwitchableVisitor)
   private
     fiReturnsBefore, fiNextReturnsBefore: integer;
+
+    fiReturnsBeforeProcedure: integer;
   protected
     procedure InspectSourceToken(const pcToken: TObject); override;
 
@@ -348,12 +350,39 @@ begin
 
 end;
 
+function StartsProcedure(pcSourceToken: TSourceToken): boolean;
+var
+  lcPrev: TSourceToken;
+begin
+  Result := (pcSourceToken.TokenType in ProcedureWords + [ttClass]) and
+    pcSourceToken.HasParentNode(ProcedureNodes, 2);
+
+  if Result then
+  begin
+    lcPrev := pcSourceToken.PriorSolidToken;
+
+    // check that it's not "procedure" in "class procedure foo;"
+    if (lcPrev <> nil) and (lcPrev.TokenType = ttClass) then
+      result := False;
+  end;
+
+  // check that it's not a forward
+  if Result then
+  begin
+    Result := ProcedureHasBody(pcSourceToken);
+  end;
+end;
+
 constructor TReturnBefore.Create;
 begin
   inherited;
+
   fiReturnsBefore := 0;
   fiNextReturnsBefore := 0;
   FormatFlags := FormatFlags + [eAddReturn];
+
+  // the number of returns is one greater than the number of blank lines
+  fiReturnsBeforeProcedure := FormatSettings.Returns.LinesBeforeProcedure + 1;
 end;
 
 function TReturnBefore.EnabledVisitSourceToken(const pcToken: TObject): Boolean;
@@ -361,6 +390,7 @@ var
   lcSourceToken: TSourceToken;
   lcNext, lcPrev: TSourceToken;
   liReturnsNeeded: integer;
+  liLoop: integer;
 begin
   Result := False;
   lcSourceToken := TSourceToken(pcToken);
@@ -375,6 +405,12 @@ begin
   else if NeedsReturn(lcSourceToken, lcNext) then
     liReturnsNeeded := 1;
 
+  { returns before a procedure/function/method }
+  if  (fiReturnsBeforeProcedure > 0) and StartsProcedure(lcSourceToken) then
+  begin
+    liReturnsNeeded := fiReturnsBeforeProcedure;
+  end;
+
 
   { number to insert = needed - actual }
   liReturnsNeeded := liReturnsNeeded - fiReturnsBefore;
@@ -388,21 +424,11 @@ begin
     if lcPrev.TokenType = ttWhiteSpace then
       BlankToken(lcPrev);
 
-    case liReturnsNeeded of
-      1:
-      begin
-        InsertTokenBefore(lcSourceToken, NewReturn);
-      end;
-      2:
-      begin
-        InsertTokenBefore(lcSourceToken, NewReturn);
-        InsertTokenBefore(lcSourceToken, NewReturn);
-      end;
-      else
-      begin
-        Assert(False, 'Too many returns ' + IntToStr(liReturnsNeeded));
-      end;
+    for liLoop := 0 to liReturnsNeeded - 1 do
+    begin
+      InsertTokenBefore(lcSourceToken, NewReturn);
     end;
+
   end;
 
 end;

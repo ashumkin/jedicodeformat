@@ -79,6 +79,8 @@ type
     fbRemoveConsecutiveBlankLines: boolean;
     fiMaxConsecutiveBlankLines: integer;
 
+    fiLinesBeforeProcedure: integer;
+
   protected
   public
     constructor Create;
@@ -140,6 +142,8 @@ type
     property MaxConsecutiveBlankLines: integer
       Read fiMaxConsecutiveBlankLines Write fiMaxConsecutiveBlankLines;
 
+    property LinesBeforeProcedure: integer read fiLinesBeforeProcedure write fiLinesBeforeProcedure;
+
   end;
 
 implementation
@@ -189,6 +193,7 @@ const
 
   REG_REMOVE_CONSECUTIVE_BLANK_LINES = 'RemoveConsecutiveBlankLines';
   REG_MAX_CONSECUTIVE_BLANK_LINES    = 'MaxConsecutiveBlankLines';
+  REG_LINES_BEFORE_PROCEDURE = 'LinesBeforeProcedure';
 
 constructor TSetReturns.Create;
 begin
@@ -243,9 +248,9 @@ begin
 
   feReturnChars := TReturnChars(pcStream.Read(REG_RETURN_CHARS, Ord(rcLeaveAsIs)));
 
-  fbRemoveConsecutiveBlankLines :=
-    pcStream.Read(REG_REMOVE_CONSECUTIVE_BLANK_LINES, True);
+  fbRemoveConsecutiveBlankLines := pcStream.Read(REG_REMOVE_CONSECUTIVE_BLANK_LINES, True);
   fiMaxConsecutiveBlankLines    := pcStream.Read(REG_MAX_CONSECUTIVE_BLANK_LINES, 4);
+  fiLinesBeforeProcedure   := pcStream.Read(REG_LINES_BEFORE_PROCEDURE, 1);
 end;
 
 procedure TSetReturns.WriteToStream(const pcOut: TSettingsOutput);
@@ -294,6 +299,8 @@ begin
 
   pcOut.Write(REG_REMOVE_CONSECUTIVE_BLANK_LINES, fbRemoveConsecutiveBlankLines);
   pcOut.Write(REG_MAX_CONSECUTIVE_BLANK_LINES, fiMaxConsecutiveBlankLines);
+
+  pcOut.Write(REG_LINES_BEFORE_PROCEDURE, fiLinesBeforeProcedure);
 end;
 
 end.

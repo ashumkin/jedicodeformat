@@ -3,7 +3,7 @@ inherited fClarifyReturns: TfClarifyReturns
   Height = 284
   object rgReturnChars: TRadioGroup
     Left = 8
-    Top = 160
+    Top = 158
     Width = 301
     Height = 73
     Caption = 'Return chars'

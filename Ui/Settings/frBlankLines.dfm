@@ -1,5 +1,5 @@
 inherited fBlankLines: TfBlankLines
-  Height = 382
+  Height = 242
   object Label1: TLabel
     Left = 4
     Top = 121
@@ -13,6 +13,13 @@ inherited fBlankLines: TfBlankLines
     Width = 134
     Height = 13
     Caption = 'Max consecutive blank lines'
+  end
+  object Label3: TLabel
+    Left = 4
+    Top = 194
+    Width = 109
+    Height = 13
+    Caption = 'Lines before procedure'
   end
   object eNumReturnsAfterFinalEnd: TJvValidateEdit
     Left = 208
@@ -28,7 +35,6 @@ inherited fBlankLines: TfBlankLines
     HasMinValue = True
     MaxLength = 3
     MaxValue = 255.000000000000000000
-    PasswordChar = #0
     TabOrder = 1
     Text = '0'
     Value = 0
@@ -55,7 +61,6 @@ inherited fBlankLines: TfBlankLines
     HasMinValue = True
     MaxLength = 3
     MaxValue = 99.000000000000000000
-    PasswordChar = #0
     TabOrder = 3
     Text = '0'
     Value = 0
@@ -64,7 +69,7 @@ inherited fBlankLines: TfBlankLines
     Left = 4
     Top = 4
     Width = 221
-    Height = 105
+    Height = 101
     Caption = 'Remove blank lines'
     TabOrder = 0
     object cbRemoveBlockBlankLines: TCheckBox
@@ -91,5 +96,23 @@ inherited fBlankLines: TfBlankLines
       Caption = 'in procedure var section'
       TabOrder = 0
     end
+  end
+  object edtLinesBeforeProcedure: TJvValidateEdit
+    Left = 144
+    Top = 192
+    Width = 49
+    Height = 21
+    CheckChars = '01234567890'
+    CriticalPoints.CheckPoints = cpNone
+    CriticalPoints.ColorAbove = clBlue
+    CriticalPoints.ColorBelow = clRed
+    EditText = '0'
+    HasMaxValue = True
+    HasMinValue = True
+    MaxLength = 1
+    MaxValue = 9.000000000000000000
+    TabOrder = 4
+    Text = '0'
+    Value = 0
   end
 end
