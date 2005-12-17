@@ -66,6 +66,8 @@ type
     procedure SetOnStatusMessage(const Value: TStatusMessageProc);
     procedure FinalSummary;
 
+    function PreProcessChecks(const psInputFileName: string): boolean;
+
   protected
     function OriginalFileName: string;
 
@@ -83,7 +85,6 @@ type
     function ConvertError: Boolean;
     function TokenCount: integer;
 
-    procedure ConvertFile(const psOriginalFileName, psInputFileName, psOutputFileName: string);
 
 
     property BackupMode: TBackupMode Read peBackupMode Write peBackupMode;
@@ -122,11 +123,12 @@ begin
   inherited;
 end;
 
-procedure TFileConverter.ProcessFile(const psInputFileName: string);
+function TFileConverter.PreProcessChecks(const psInputFileName: string): boolean;
 var
-  lsMessage, lsOut, lsTemp: string;
-  wRes: word;
+  lsTemp: string;
 begin
+  Result := False;
+
   if psInputFileName = '' then
   begin
     SendStatusMessage('', 'Select a file', -1, -1);
@@ -158,24 +160,57 @@ begin
 
   { all kinds of chaos ensues if you work with readonly files,
     for e.g. you can rename them to .bak, but on the next run you will be unable to delete the old .bak files.
-    It is only safe when the source is read not written, ie "output to seperate file" backup mode
+    They are only safe when the source is read not written, ie "output to seperate file" backup mode
   }
-
   if (BackupMode <> cmSeperateOutput) and (FileIsReadOnly(psInputFileName)) then
   begin
     Log.WriteError('File: ' + psInputFileName + ' cannot be processed as it is read only');
     exit;
   end;
 
+  result := True;
+end;
+
+procedure TFileConverter.ProcessFile(const psInputFileName: string);
+var
+  lsMessage, lsOut: string;
+  wRes: word;
+  lbFileIsChanged: boolean;
+  lsOutType: string;
+begin
+  // do checks
+  if not PreProcessChecks(psInputFileName) then
+    exit;
+
+  // notify owner
   lsMessage := 'Formatting file ' + psInputFileName;
 
   if GetRegSettings.LogLevel in [eLogFiles, eLogTokens] then
     Log.Write(lsMessage);
   SendStatusMessage(psInputFileName, lsMessage, -1, -1);
+
+  // convert in memory
   fsOriginalFileName := psInputFileName;
+  fcConverter.InputCode := FileToString(psInputFileName);
+  fcConverter.Convert;
+
+  // was it converted ?
+  if ConvertError then
+    exit;
+
+  Inc(fiConvertCount);
+
+  {
+   check if the file has changed.
+   If not, do not write.
+   This is kinder to source control systems (CVS, SVN etc.)
+   that check the file timestamp
+  }
+  lbFileIsChanged := (fcConverter.InputCode <> fcConverter.OutputCode);
 
   lsOut := GetRegSettings.GetOutputFileName(psInputFileName, peBackupMode);
 
+  // check if an output/backup file must be removed 
   if BackupMode <> cmInplace then
   begin
     if lsOut = '' then
@@ -184,13 +219,20 @@ begin
       exit;
     end;
 
-    if FileExists(lsOut) then
+    if lbFileIsChanged and FileExists(lsOut) then
     begin
       if YesAll then
         wRes := mrYes
       else
-        wRes := MessageDlg('Output/backup file ' + lsOut + ' exists already. Remove it?',
+      begin
+        if BackupMode = cmInPlaceWithBackup then
+          lsOutType := 'Backup'
+        else
+          lsOutType := 'Output';
+          
+        wRes := MessageDlg(lsOutType + ' file ' + lsOut + ' exists already. Remove it?',
           mtConfirmation, [mbYes, mbNo, mbAll, mbAbort], 0);
+      end;
 
       if wRes = mrAll then
       begin
@@ -202,7 +244,7 @@ begin
       begin
         if not DeleteFile(lsOut) then
           raise Exception.Create('TFileConverter.ProcessFile: ' +
-            'Failed to delete file ' + lsOut);
+            'Failed to delete ' + lsOutType + ' file ' + lsOut);
       end
       else if wRes = mrNo then
       begin
@@ -216,84 +258,44 @@ begin
     end;
   end;
 
+  // now, depending on mode, write the output to new/old file 
   case BackupMode of
     cmInPlace:
     begin
       fsOutFileName := psInputFileName;
 
-      { rename the original file to an arbitrary temp file,
-        write processed code back to the original file,
-        delete the temp }
-      lsTemp := FileGetTempName('Con');
-      if FileExists(lsTemp) then
-        if not DeleteFile(lsTemp) then
-          raise Exception.Create('TFileConverter.ProcessFile: ' +
-            'Failed to delete temp file ' + lsTemp);
-
-      if not RenameFile(psInputFileName, lsTemp) then
-        raise Exception.Create('TFileConverter.ProcessFile: ' +
-          'could not rename source file ' + psInputFileName + ' to ' + lsTemp);
-
-      { process from the temp file to the input file }
-      ConvertFile(psInputFileName, lsTemp, psInputFileName);
-
-      if ConvertError then
+      if lbFileIsChanged then
       begin
-        // restore the backup
-        CopyFile(pchar(lsTemp), pchar(psInputFileName), False);
-      end
-      else
-      begin
-        Inc(fiConvertCount);
-
-        // remove the backup
-        if not DeleteFile(lsTemp) then
-          Log.WriteError('TFileConverter.ProcessFile: ' +
-            'Failed to delete temp file ' + lsTemp + ' for ' + psInputFileName);
+        // delete the old one, write the new one
+        DeleteFile(psInputFileName);
+        StringToFile(psInputFileName, fcConverter.OutputCode);
       end;
-
     end;
 
     cmInPlaceWithBackup:
     begin
       fsOutFileName := psInputFileName;
 
-      { rename the original file to the backup file name,
-        write processed code back to the original file }
-      if not RenameFile(psInputFileName, lsOut) then
-        raise Exception.Create('TFileConverter.ProcessFile: ' +
-          'could not rename source file ' + psInputFileName + ' to ' + lsOut);
-
-      { process from the temp file to the input file }
-      ConvertFile(psInputFileName, lsOut, psInputFileName);
-
-      // did the convert fail?
-      if ConvertError then
+      if lbFileIsChanged then
       begin
-        // oops! restore the backup
-        CopyFile(pchar(lsOut), pchar(psInputFileName), False);
-      end
-      else
-      begin
-        Inc(fiConvertCount);
+
+        { rename the original file to the backup file name,
+          write processed code back to the original file }
+        if not RenameFile(psInputFileName, lsOut) then
+          raise Exception.Create('TFileConverter.ProcessFile: ' +
+          ' could not rename source file ' + psInputFileName + ' to ' + lsOut);
+
+        StringToFile(psInputFileName, fcConverter.OutputCode);
       end;
     end;
 
     cmSeperateOutput:
     begin
-      { simple. Source is source, dest is dest }
       fsOutFileName := lsOut;
-
-      if FileExists(lsOut) then
-        raise Exception.Create('TFileConverter.ProcessFile: ' +
-          'Destination file ' + lsOut + ' exists already');
-
-      ConvertFile(psInputFileName, psInputFileName, lsOut);
-
-      if not ConvertError then
-        Inc(fiConvertCount);
+      { simple. Write to a new file
+        doesn't matter if it;s not changed }
+      StringToFile(lsOut, fcConverter.OutputCode);
     end;
-
     else
       Assert(False, 'Bad backup mode');
   end;
@@ -454,30 +456,6 @@ begin
   if GetRegSettings.ViewLogAfterRun then
     GetRegSettings.ViewLog;
 end;
-
-procedure TFileConverter.ConvertFile(const psOriginalFileName, psInputFileName, psOutputFileName: string);
-var
-  lbFileIsChanged: boolean;
-begin
-  fcConverter.InputCode := FileToString(psInputFileName);
-  fcConverter.Convert;
-  if not ConvertError then
-  begin
-    {
-     check if the file has changed.
-     If not, do not write.
-     This is kinder to source control systems (CVS, SVN etc.)
-     that check the file timestamp
-    }
-
-    lbFileIsChanged := (psOriginalFileName <> psOutputFileName) or
-     (fcConverter.InputCode <> fcConverter.OutputCode);
-
-    if lbFileIsChanged then
-      StringToFile(psOutputFileName, fcConverter.OutputCode);
-  end;
-end;
-
 
 function TFileConverter.OriginalFileName: string;
 begin

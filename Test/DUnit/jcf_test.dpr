@@ -165,7 +165,8 @@ uses
   TestBreakConditionalCompilation in 'TestBreakConditionalCompilation.pas',
   TestCapitalisation in 'TestCapitalisation.pas',
   IdentifierCaps in '..\..\Process\Capitalisation\IdentifierCaps.pas',
-  WarnUnusedParam in '..\..\Process\Warnings\WarnUnusedParam.pas';
+  WarnUnusedParam in '..\..\Process\Warnings\WarnUnusedParam.pas',
+  TestFileConverter in 'TestFileConverter.pas';
 
 {$R *.res}
 
