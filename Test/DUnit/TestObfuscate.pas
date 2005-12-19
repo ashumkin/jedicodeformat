@@ -231,6 +231,9 @@ type
     procedure TestDelphiNetWebService;
     procedure TestDelphiNetKeywords;
     procedure TestDelphiNetClassVar;
+    procedure TestDelphiNetSealedClass;
+    procedure TestDelphiNetFinalMethod;
+
 
     procedure TestTryExceptRaise;
     procedure TestTrailingCommaParam;
@@ -1298,6 +1301,16 @@ end;
 procedure TTestObfuscate.TestIncAt;
 begin
    TestObfuscateFile('TestIncAt');
+end;
+
+procedure TTestObfuscate.TestDelphiNetFinalMethod;
+begin
+   TestObfuscateFile('TestDelphiNetFinalMethod');
+end;
+
+procedure TTestObfuscate.TestDelphiNetSealedClass;
+begin
+   TestObfuscateFile('TestDelphiNetSealedClass');
 end;
 
 initialization

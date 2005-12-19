@@ -228,6 +228,8 @@ type
     procedure TestDelphiNetWebService;
     procedure TestDelphiNetKeywords;
     procedure TestDelphiNetClassVar;
+    procedure TestDelphiNetSealedClass;
+    procedure TestDelphiNetFinalMethod;
 
     procedure TestTryExceptRaise;
     procedure TestTrailingCommaParam;
@@ -1249,6 +1251,16 @@ end;
 procedure TFullTestClarify.TestIncAt;
 begin
   TestClarifyFile('TestIncAt');
+end;
+
+procedure TFullTestClarify.TestDelphiNetFinalMethod;
+begin
+  TestClarifyFile('TestDelphiNetFinalMethod');
+end;
+
+procedure TFullTestClarify.TestDelphiNetSealedClass;
+begin
+  TestClarifyFile('TestDelphiNetSealedClass');
 end;
 
 initialization

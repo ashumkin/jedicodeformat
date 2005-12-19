@@ -1,0 +1,31 @@
+unit testdelphinetfinalmethod;
+
+interface
+
+uses SysUtils;
+
+type
+  tmaclass = class(TObject)
+    champ1: integer;
+    procedure faitqqchose; virtual;
+  end;
+
+  tdescendantclass = class(TMaClass)
+    champ2: integer;
+    procedure faitqqchose; override; final;
+  end;
+
+implementation
+
+procedure tmaclass.faitqqchose;
+begin
+  writeln('Champ1 ', champ1);
+end;
+
+procedure tdescendantclass.faitqqchose;
+begin
+  writeln('Champ2 ', champ2);
+end;
+
+end.
+ 

@@ -231,6 +231,9 @@ type
     procedure TestDelphiNetKeywords;
     procedure TestDelphiNetClassVar;
 
+    procedure TestDelphiNetSealedClass;
+    procedure TestDelphiNetFinalMethod;
+
     procedure TestTryExceptRaise;
     procedure TestTrailingCommaParam;
     procedure TestDprNoBegin;
@@ -1259,6 +1262,16 @@ end;
 procedure TTestFileParse.TestIncAt;
 begin
   TestParseFile('TestIncAt', 53);
+end;
+
+procedure TTestFileParse.TestDelphiNetFinalMethod;
+begin
+  TestParseFile('TestDelphiNetFinalMethod', 140);
+end;
+
+procedure TTestFileParse.TestDelphiNetSealedClass;
+begin
+  TestParseFile('TestDelphiNetSealedClass', 200);
 end;
 
 initialization

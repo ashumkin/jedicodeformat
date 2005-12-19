@@ -3471,7 +3471,8 @@ begin
 
   TMyClassHelper = class helper for TMyClass
   TMyClassHelper2 = class helper(TMyClassHelper) for TMyClass
-
+  TSealedClass = class sealed (TMaClass)
+  TAbstractClass = class abstract (TObject)
   }
 
   PushNode(nClassType);
@@ -3490,6 +3491,14 @@ begin
   end
   else
   begin
+    // delphi.net sealed class
+    if fcTokenList.FirstSolidTokenType = ttSealed then
+      Recognise(ttSealed);
+
+    // abstract class
+    if fcTokenList.FirstSolidTokenType = ttAbstract then
+      Recognise(ttAbstract);
+
     if fcTokenList.FirstSolidTokenType = ttSemicolon then
     begin
       PopNode;
@@ -3508,9 +3517,6 @@ begin
       RecogniseClassHeritage;
 
   end;
-    // delphi.net sealed class
-    if fcTokenList.FirstSolidTokenType = ttSealed then
-      Recognise(ttSealed);
 
     // can end here
     if fcTokenList.FirstSolidTokenType = ttSemicolon then

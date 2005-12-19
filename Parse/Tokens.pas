@@ -189,6 +189,7 @@ type
     ttOperator,
     ttStatic,
     ttSealed,
+    ttFinal,
 
 
     { built-in constants }
@@ -321,7 +322,7 @@ const
     ttVirtual, ttCdecl, ttMessage, ttName, ttRegister, ttDispId,
     ttNear, ttDynamic, ttExport, ttOverride, ttResident, ttLocal,
     ttOverload, ttReintroduce,
-    ttDeprecated, ttLibrary, ttPlatform, ttStatic];
+    ttDeprecated, ttLibrary, ttPlatform, ttStatic, ttFinal];
 
   ClassDirectives: TTokenTypeSet =
     [ttPrivate, ttProtected, ttPublic, ttPublished, ttAutomated, ttStrict];
@@ -634,6 +635,7 @@ begin
   AddKeyword('operator', wtReservedWord, ttOperator);
   AddKeyword('sealed', wtReservedWord, ttSealed);
   AddKeyword('static', wtReservedWord, ttStatic);
+  AddKeyword('final', wtReservedWord, ttFinal);
 
   { operators that are words not symbols }
   AddKeyword('and', wtOperator, ttAnd);

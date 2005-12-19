@@ -1,0 +1,7 @@
+unit testdelphinetsealedclass;interface uses sysutils;type tmaclass=class(TObject
+)champ1:integer;procedure faitqqchose;virtual;end;tsealedclass=class sealed(TMaClass
+)champ2:integer;procedure faitqqchose;override;end;tabstractclass=class abstract(
+TObject)champ2:integer;procedure faitqqchose;virtual;abstract;end;implementation 
+procedure tmaclass.faitqqchose;begin writeln('Champ1 ',champ1);end;procedure tsealedclass
+.faitqqchose;begin writeln('Champ2 ',champ2);end;var moninstance:tsealedclass;begin
+moninstance:=tsealedclass.create;end. 
