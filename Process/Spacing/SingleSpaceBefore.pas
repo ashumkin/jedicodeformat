@@ -77,7 +77,7 @@ begin
     exit;
   end;
 
-  if IsCLassHelperWords(pt) then
+  if IsClassHelperWords(pt) then
   begin
     Result := True;
     exit;

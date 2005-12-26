@@ -242,6 +242,7 @@ type
     procedure TestDprNoBegin;
     procedure TestDLLIndex;
     procedure TestIncAt;
+    procedure TestAsmAnd;
 
   end;
 
@@ -1311,6 +1312,11 @@ end;
 procedure TTestObfuscate.TestDelphiNetSealedClass;
 begin
    TestObfuscateFile('TestDelphiNetSealedClass');
+end;
+
+procedure TTestObfuscate.TestAsmAnd;
+begin
+   TestObfuscateFile('TestAsmAnd');
 end;
 
 initialization

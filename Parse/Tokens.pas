@@ -76,6 +76,7 @@ type
     ttHash,
     ttDoubleDot, // '..' as in '[1 .. 2]'
     ttAssign,    // :=
+    ttAmpersand, // '&' is used in ASM
 
     ttIdentifier, // a user-defined name for a var, type, unit, etc
 
@@ -520,6 +521,7 @@ begin
   AddKeyword('.', wtNotAWord, ttDot);
   AddKeyword('#', wtNotAWord, ttHash);
   AddKeyword(':=', wtNotAWord, ttAssign);
+  AddKeyword('&', wtNotAWord, ttAmpersand);
 
   { reserved words }
   AddKeyword('array', wtReservedWord, ttArray);

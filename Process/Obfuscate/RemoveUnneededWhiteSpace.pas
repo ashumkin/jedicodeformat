@@ -72,6 +72,8 @@ const
 
 
 function NeedSpaceBetween(const pt1, pt2: TSourceToken): boolean;
+const
+  SPACED_ASM_TOKENS = [ttAtSign, ttAmpersand];
 var
   lcLast: TSourceToken;
 begin
@@ -94,9 +96,8 @@ begin
     end;
   end;
 
-
-  { need to keep space before ASM @@ thingy}
-  if (pt2.TokenType = ttAtSign) and pt2.HasParentNode(nAsmStatement) then
+  { need to keep space before ASM @@ and '&' thingy}
+  if (pt2.TokenType in SPACED_ASM_TOKENS) and pt2.HasParentNode(nAsmStatement) then
     exit;
 
   { never need a space next to a bracket }

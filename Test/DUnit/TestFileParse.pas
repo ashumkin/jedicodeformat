@@ -239,6 +239,7 @@ type
     procedure TestDprNoBegin;
     procedure TestDLLIndex;
     procedure TestIncAt;
+    procedure TestAsmAnd;
 
     procedure TestCases;
     procedure TestPackage;
@@ -1272,6 +1273,11 @@ end;
 procedure TTestFileParse.TestDelphiNetSealedClass;
 begin
   TestParseFile('TestDelphiNetSealedClass', 200);
+end;
+
+procedure TTestFileParse.TestAsmAnd;
+begin
+  TestParseFile('TestAsmAnd', 142);
 end;
 
 initialization

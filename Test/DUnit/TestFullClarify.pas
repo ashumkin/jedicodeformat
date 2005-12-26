@@ -236,6 +236,7 @@ type
     procedure TestDprNoBegin;
     procedure TestDLLIndex;
     procedure TestIncAt;
+    procedure TestAsmAnd;
 
     procedure TestCases;
   end;
@@ -1261,6 +1262,11 @@ end;
 procedure TFullTestClarify.TestDelphiNetSealedClass;
 begin
   TestClarifyFile('TestDelphiNetSealedClass');
+end;
+
+procedure TFullTestClarify.TestAsmAnd;
+begin
+  TestClarifyFile('TestAsmAnd');
 end;
 
 initialization

@@ -1,0 +1,9 @@
+unit testasmand;interface uses sysutils;type tmaclass=class(TObject)champ1:integer
+;procedure faitqqchose(x,y,dx,dy:integer);virtual;end;implementation procedure tmaclass
+.faitqqchose(x,y,dx,dy:integer);asm
+push dy;
+push &dx;
+push y;
+push x;
+call dword ptr faitqqchose;
+end;end. 

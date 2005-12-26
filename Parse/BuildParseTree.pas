@@ -4376,7 +4376,8 @@ begin
   AsmParam
     -> Ident
     -> Ident(AsmExpr) 
-    -> '@' ident
+    -> '@' Ident
+    -> '&' Ident
     -> '[' AsmExpr ']'
   }
 
@@ -4392,6 +4393,11 @@ begin
 
     if fcTokenList.FirstSolidTokenType = ttDot then
       Recognise(ttDot);
+  end;
+
+  if lc.TokenType = ttAmpersand then
+  begin
+    Recognise(ttAmpersand);
   end;
 
   { only parse trainling expressions if it is on the same line
