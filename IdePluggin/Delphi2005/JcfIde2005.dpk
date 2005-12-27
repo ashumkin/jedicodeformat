@@ -1,4 +1,4 @@
-package JcfIde9;
+package JcfIde2005;
 
 {$R *.res}
 {$ALIGN 8}
@@ -38,11 +38,14 @@ requires
   rtl,
   vcljpg,
   vclx,
-  DJclVcl;
+  DJclVcl,
+  xmlrtl,
+  vclactnband,
+  Jcl;
 
 contains
-  JcfIdeRegister in 'JcfIdeRegister.pas',
-  JcfIdeMain in 'JcfIdeMain.pas',
+  JcfIdeRegister in '..\JcfIdeRegister.pas',
+  JcfIdeMain in '..\JcfIdeMain.pas',
   JCFDropTarget in '..\Utils\DragDrop\JCFDropTarget.pas',
   frDrop in '..\Utils\DragDrop\frDrop.pas' {FrameDrop: TFrame},
   EditorConverter in '..\ReadWrite\EditorConverter.pas',

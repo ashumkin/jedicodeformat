@@ -10,7 +10,7 @@
 	</PersonalityInfo>
 	<Delphi.Personality>
 		<Source>
-			<Source Name="MainSource">JcfIde9.dpk</Source>
+			<Source Name="MainSource">JcfIde2005.dpk</Source>
 		</Source>
 		<FileVersion>
 			<FileVersion Name="Version">7.0</FileVersion>
@@ -168,7 +168,8 @@
 			<VersionInfoKeys Name="ProductName"></VersionInfoKeys>
 			<VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
 			<VersionInfoKeys Name="Comments"></VersionInfoKeys>
-		</VersionInfoKeys>  <Excluded_Packages>
+		</VersionInfoKeys>  
+    <Excluded_Packages>
       <Excluded_Packages Name="c:\program files\borland\bds\3.0\Bin\dcldb90.bpl">Borland Database Components</Excluded_Packages>
       <Excluded_Packages Name="C:\Program Files\Borland\BDS\3.0\Bin\dclbde90.bpl">Borland BDE DB Components</Excluded_Packages>
       <Excluded_Packages Name="C:\Program Files\Borland\BDS\3.0\Bin\dbx90.bpl">Borland SQL Explorer UI Package</Excluded_Packages>
