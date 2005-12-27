@@ -30,15 +30,14 @@ uses
   { delphi }
   Windows, SysUtils, Classes, ToolsAPI;
 
-procedure Register;
 
-procedure FormatEditorByFileName(const psFileName: string);
+procedure Register;
 
 implementation
 
 uses
   { delphi }
-  Menus, ActnList, Dialogs,
+  Menus, ActnList,
   { local }
   JcfIdeMain, Delay;
 
@@ -141,7 +140,7 @@ var
   fcMainMenu: TMenuItem;
 
   procedure AddMenuItem(const psName: string; const pcHandler: TNotifyEvent;
-  const piShortCutKey: TShortCut = 0);
+    const piShortCutKey: TShortCut = 0);
   var
     lcItem:   TMenuItem;
     lcAction: TAction;
@@ -160,10 +159,9 @@ var
     end
     else
     begin
-      lcAction      := TAction.Create(fcMainMenu);
+      lcAction := TAction.Create(fcMainMenu);
       lcAction.Category := StripHotKey(FORMAT_MENU_NAME);
-      lcAction.Name := 'jcf' + StringReplace(StripHotKey(psName), ' ',
-        '', [rfReplaceAll]) + 'Action';
+      lcAction.Name := 'jcf' + StringReplace(StripHotKey(psName), ' ', '', [rfReplaceAll]) + 'Action';
       lcAction.Caption := psName;
       lcAction.OnExecute := pcHandler;
       lcAction.ActionList := IDEactionList;
@@ -179,7 +177,7 @@ var
 
 var
   fcToolsMenu: TMenuItem;
-  liLoop:      integer;
+  liLoop: integer;
 begin
   { give up after trying several times }
   if miMenuTries >= MAX_TRIES then
@@ -199,13 +197,13 @@ begin
 
   // find first separator  jbk
   for liLoop := 0 to fcToolsMenu.Count - 1 do
-  begin
-    if fcToolsMenu.Items[liLoop].IsLine then
     begin
-      fcToolsMenu.Insert(liLoop, fcMainMenu);
-      Break;
+      if fcToolsMenu.Items[liLoop].IsLine then
+        begin
+          fcToolsMenu.Insert(liLoop, fcMainMenu);
+          Break;
+        end;
     end;
-  end;
 
   // is it in there ?
   fcMainMenu := fcToolsMenu.Find(FORMAT_MENU_NAME);
@@ -248,8 +246,8 @@ end;
 type
   TJcfKeyBindings = class(TNotifierObject, IOTAKeyboardBinding)
   private
-    procedure OnShortcut(const Context: IOTAKeyContext; KeyCode: TShortcut;
-      var BindingResult: TKeyBindingResult);
+    procedure OnShortcut(const Context: IOTAKeyContext;
+      KeyCode: TShortcut; var BindingResult: TKeyBindingResult);
 
   public
     { IOTAKeyboardBinding methods }
@@ -281,7 +279,7 @@ var
   liShortcut: TShortcut;
 begin
   liShortcut := ShortCut((Ord('F')), [ssCtrl, ssAlt]);
-  BindingServices.AddKeyBinding([liShortcut], OnShortcut, nil);
+  BindingServices.AddKeyBinding([liShortcut], OnShortcut, nil)
 end;
 
 procedure TJcfKeyBindings.OnShortcut(const Context: IOTAKeyContext;
@@ -299,21 +297,7 @@ begin
   lcDelayedRegister.Proc := AddMenuItems;
   lcDelayedRegister.DoItSoon;
 
-  (BorlandIDEServices as IOTAKeyboardServices).AddKeyboardBinding(
-    TJcfKeyBindings.Create);
-end;
-
-procedure FormatEditorByFileName(const psFileName: string);
-begin
-  try
-    if lcJCFIDE <> nil then
-      lcJCFIDE.DoFormatEditorByFileName(psFileName);
-  except
-    on E: Exception do
-    begin
-      ShowMessage('Failed to format ' + psFileName + ': ' + E.Message);
-    end;
-  end;
+  (BorlandIDEServices as IOTAKeyboardServices).AddKeyboardBinding(TJcfKeyBindings.Create);
 end;
 
 
@@ -327,4 +311,3 @@ finalization
   RemoveMenuItems;
   FreeAndNil(lcJCFIDE);
 end.
-

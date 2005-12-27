@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2005/12/27 22:12:00.029.bdsproj,C:\Code\Jcf\IdePluggin\Delphi2006\JcfIde10.bdsproj=C:\Code\Jcf\IdePluggin\Delphi2006\JcfIde2006.bdsproj</Transaction>
+    <Transaction>2005/12/27 22:22:42.154.pas,C:\Code\Jcf\IdePluggin\Delphi2006\JcfIdeMain.pas=C:\Code\Jcf\IdePluggin\JcfIdeMain.pas</Transaction>
+    <Transaction>2005/12/27 22:22:47.608.pas,C:\Code\Jcf\IdePluggin\Delphi2006\JcfIdeRegister.pas=C:\Code\Jcf\IdePluggin\JcfIdeRegister.pas</Transaction>
+  </Transactions>
+</BorlandProject>

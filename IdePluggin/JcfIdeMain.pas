@@ -48,8 +48,8 @@ type
     procedure FormatFile(const psFileName: string);
 
     procedure ClearToolMessages;
+    procedure ConvertEditor(const pciEditor: IOTASourceEditor);
 
-    procedure ConvertEditor(pciEditor: IOTASourceEditor);
 
   protected
   public
@@ -62,8 +62,6 @@ type
     procedure DoFormatCurrentIDEWindow(Sender: TObject);
     procedure DoFormatProject(Sender: TObject);
     procedure DoFormatOpen(Sender: TObject);
-    procedure DoFormatEditorByFileName(const psFileName: string);
-
     procedure DoRegistrySettings(Sender: TObject);
     procedure DoFormatSettings(Sender: TObject);
     procedure DoAbout(Sender: TObject);
@@ -124,39 +122,6 @@ begin
     Result := nil;
 end;
 
-function GetEditorByFileName(const psFileName: string): IOTASourceEditor;
-var
-  hRes:      HResult;
-  lciEditManager: IOTAEditorServices;
-  lciIterateBuffers: IOTAEditBufferIterator;
-  lciEditor: IOTASourceEditor;
-  liLoop:    integer;
-begin
-  Result := nil;
-
-  hRes := BorlandIDEServices.QueryInterface(IOTAEditorServices, lciEditManager);
-  if hRes <> S_OK then
-    exit;
-  if lciEditManager = nil then
-    exit;
-
-  lciIterateBuffers := nil;
-  lciEditManager.GetEditBufferIterator(lciIterateBuffers);
-  if lciIterateBuffers = nil then
-    exit;
-
-  for liLoop := 0 to lciIterateBuffers.Count - 1 do
-  begin
-    lciEditor := lciIterateBuffers.EditBuffers[liLoop];
-
-    if lciEditor.FileName = psFileName then
-    begin
-      Result := lciEditor;
-      break;
-    end;
-  end;
-end;
-
 
 constructor TJcfIdeMain.Create;
 begin
@@ -196,17 +161,7 @@ begin
   ConvertEditor(lciEditor);
 end;
 
-procedure TJcfIdeMain.DoFormatEditorByFileName(const psFileName: string);
-var
-  lciEditor: IOTASourceEditor;
-begin
-  lciEditor := GetEditorByFileName(psFileName);
-
-  if lciEditor <> nil then
-    ConvertEditor(lciEditor);
-end;
-
-procedure TJcfIdeMain.ConvertEditor(pciEditor: IOTASourceEditor);
+procedure TJcfIdeMain.ConvertEditor(const pciEditor: IOTASourceEditor);
 begin
   MakeEditorConverter;
 
@@ -388,6 +343,8 @@ begin
 
 end;
 
+
+
 procedure TJcfIdeMain.MakeEditorConverter;
 begin
   if fcEditorConverter = nil then
@@ -412,6 +369,5 @@ begin
 
   lciMessages.ClearToolMessages;
 end;
-
 
 end.

@@ -1,4 +1,4 @@
-package JcfIde10;
+package JcfIde2006;
 
 {$R *.res}
 {$ALIGN 8}
@@ -39,8 +39,8 @@ requires
   vclx;
 
 contains
-  JcfIdeRegister in 'JcfIdeRegister.pas',
-  JcfIdeMain in 'JcfIdeMain.pas',
+  JcfIdeRegister in '..\JcfIdeRegister.pas',
+  JcfIdeMain in '..\JcfIdeMain.pas',
   JCFDropTarget in '..\..\Utils\DragDrop\JCFDropTarget.pas',
   frDrop in '..\..\Utils\DragDrop\frDrop.pas' {FrameDrop: TFrame},
   EditorConverter in '..\..\ReadWrite\EditorConverter.pas',

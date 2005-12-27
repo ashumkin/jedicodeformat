@@ -10,7 +10,7 @@
 	</PersonalityInfo>
 	<Delphi.Personality>
 		<Source>
-			<Source Name="MainSource">JcfIde10.dpk</Source>
+			<Source Name="MainSource">JcfIde2006.dpk</Source>
 		</Source>
 		<FileVersion>
 			<FileVersion Name="Version">7.0</FileVersion>
