@@ -71,6 +71,7 @@ type
     procedure RecogniseUsesClause(const pbInFiles: boolean);
     procedure RecogniseUsesItem(const pbInFiles: boolean);
     procedure RecogniseDottedName;
+    procedure RecogniseDottedNameElement;
 
     procedure RecogniseInterfaceSection;
     procedure RecogniseInterfaceDecls;
@@ -645,6 +646,28 @@ begin
 end;
 
 
+{ elements ina dotted name are usually just identifiers
+  but occasionally are reserved words - e.g. "object" and "type"
+  as in "var MyType: System.Type; " or "var pElement: System.Object; "
+  }
+procedure TBuildParseTree.RecogniseDottedNameElement;
+var
+  lcNext: TSourceToken;
+begin
+  lcNext := fcTokenList.FirstSolidToken;
+
+  if lcNext = nil then
+    exit;
+
+  if lcNext.TokenType = ttObject then
+    Recognise(ttObject)
+  else if lcNext.TokenType = tttype then
+    Recognise(ttType)
+  else
+    RecogniseIdentifier(False, idStrict);
+end;
+
+
 procedure TBuildParseTree.RecogniseDottedName;
 begin
   RecogniseIdentifier(False, idStrict);
@@ -652,7 +675,7 @@ begin
   while fcTokenList.FirstSolidTokenType = ttDot do
   begin
     Recognise(ttDot);
-    RecogniseIdentifier(False, idStrict);
+    RecogniseDottedNameElement;
   end;
 end;
 

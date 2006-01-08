@@ -1,0 +1,24 @@
+unit testdelphinetdottedtype;
+
+interface
+
+type
+  tmyclass = class
+  public
+    pelement: system.object;
+  end;
+
+  tmyclass2 = class
+  public
+    function getobject(mytype: system.type): TObject;
+  end;
+
+implementation
+
+function tmyclass2.getobject(mytype: system.type): TObject;
+begin
+  Result := nil;
+end;
+
+end.
+ 

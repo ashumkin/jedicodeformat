@@ -1,0 +1,27 @@
+unit TestDelphiNetDottedType;
+
+interface
+
+type
+
+  TMyClass = class
+  public
+    pElement: System.object;
+  end;
+
+
+  TMyClass2 = class
+  public
+    function GetObject(MyType: System.type): TObject;
+  end;
+
+implementation
+
+{ TMyClass2 }
+
+function TMyClass2.GetObject(MyType: System.type): TObject;
+begin
+  Result := nil;
+end;
+
+end.

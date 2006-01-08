@@ -1,0 +1,4 @@
+unit testdelphinetdottedtype;interface type tmyclass=class public pelement:system
+.object;end;tmyclass2=class public function getobject(mytype:system.type):tobject
+;end;implementation function tmyclass2.getobject(mytype:system.type):tobject;begin
+result:=nil;end;end. 

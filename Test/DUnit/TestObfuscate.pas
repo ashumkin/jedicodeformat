@@ -233,7 +233,7 @@ type
     procedure TestDelphiNetClassVar;
     procedure TestDelphiNetSealedClass;
     procedure TestDelphiNetFinalMethod;
-
+    procedure TestDelphiNetDottedType;
 
     procedure TestTryExceptRaise;
     procedure TestTrailingCommaParam;
@@ -1215,6 +1215,11 @@ end;
 procedure TTestObfuscate.TestDelphiNetConst;
 begin
   TestObfuscateFile('TestDelphiNetConst');
+end;
+
+procedure TTestObfuscate.TestDelphiNetDottedType;
+begin
+  TestObfuscateFile('TestDelphiNetDottedType');
 end;
 
 procedure TTestObfuscate.TestDelphiNetStatic;

@@ -233,6 +233,7 @@ type
 
     procedure TestDelphiNetSealedClass;
     procedure TestDelphiNetFinalMethod;
+    procedure TestDelphiNetDottedType;
 
     procedure TestTryExceptRaise;
     procedure TestTrailingCommaParam;
@@ -1176,6 +1177,11 @@ end;
 procedure TTestFileParse.TestDelphiNetConst;
 begin
   TestParseFile('TestDelphiNetConst', 125);
+end;
+
+procedure TTestFileParse.TestDelphiNetDottedType;
+begin
+  TestParseFile('TestDelphiNetDottedType', 104);
 end;
 
 procedure TTestFileParse.TestDelphiNetStatic;

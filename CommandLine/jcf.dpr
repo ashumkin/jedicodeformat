@@ -25,6 +25,7 @@ under the License.
 {$WARN UNIT_PLATFORM OFF}
 uses
   SysUtils,
+  Windows,
   FileCtrl,
   JclStrings,
   Converter in '..\ReadWrite\Converter.pas',
