@@ -11,8 +11,8 @@ type
   private
     feSaveBeginEndStyle: TTriOptionStyle;
   protected
-    procedure Setup; override;
-    procedure Teardown; override;
+    procedure SetUp; override;
+    procedure TearDown; override;
   public
   published
     procedure TestAddToIfStatement;

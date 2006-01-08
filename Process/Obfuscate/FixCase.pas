@@ -41,9 +41,12 @@ type
 implementation
 
 uses
-  { delphi }SysUtils,
-  { jcl }JclStrings,
-  { local }Tokens, SourceToken, SettingsTypes,
+  { delphi }
+  SysUtils, Windows,
+  { jcl }
+  JclStrings,
+  { local }
+  Tokens, SourceToken, SettingsTypes,
   ParseTreeNodeType, JcfSettings, FormatFlags, TokenUtils;
 
 

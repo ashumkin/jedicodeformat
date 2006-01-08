@@ -42,7 +42,13 @@ procedure InitTestSettings;
 
 implementation
 
-uses SysUtils, JclStrings,
+uses
+  { delphi }
+  SysUtils,
+  Windows,
+  { jl }
+  JclStrings,
+  { local }
   JcfRegistrySettings, JcfSettings, ConvertTypes;
 
 var

@@ -41,8 +41,10 @@ type
 implementation
 
 uses
-  { delphi }SysUtils,
-  { local }SourceToken, ParseTreeNodeType, ParseTreeNode;
+  { delphi }
+  SysUtils, Windows,
+  { local }
+  SourceToken, ParseTreeNodeType, ParseTreeNode;
 
 function TWarnDestroy.EnabledVisitSourceToken(const pcToken: TObject): Boolean;
 var

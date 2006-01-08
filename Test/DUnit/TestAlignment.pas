@@ -34,7 +34,7 @@ type
   TTestAlignment = class(TBaseTestProcess)
   private
   public
-    procedure Setup; override;
+    procedure SetUp; override;
   published
     procedure TestAlignConst;
     procedure TestAlignConst2;

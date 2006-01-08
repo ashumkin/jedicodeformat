@@ -54,7 +54,7 @@ type
     procedure TestFormatPartResult(const psIn, psOut: string; const piStart, piEnd: integer);
 
   protected
-    procedure Setup; override;
+    procedure SetUp; override;
     procedure TearDown; override;
   published
 
@@ -204,7 +204,10 @@ begin
 
   fcConvert.Convert;
 
-  lsOut := fcConvert.OutputCode;
+  if fcConvert.ConvertError then
+    lsOut := 'Convert error'
+  else
+    lsOut := fcConvert.OutputCode;
 
   { an extra return is attached from using a stringlist
     if it wasn't there already

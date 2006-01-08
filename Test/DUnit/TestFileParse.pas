@@ -33,7 +33,7 @@ type
     procedure TestParseFile(psInFileName: string; const piTokenCount: integer); overload;
 
   protected
-    procedure Setup; override;
+    procedure SetUp; override;
 
 
   published
@@ -249,8 +249,11 @@ type
 implementation
 
 uses
-  { delphi }SysUtils,
+  { delphi }
+  SysUtils, Windows,
+  { JCL }
   JclFileUtils,
+  { local }
   FileConverter, ConvertTypes, JcfSettings, JcfRegistrySettings,
   TestConstants;
 
@@ -309,7 +312,7 @@ begin
     CheckEquals(piTokenCount, lcConverter.TokenCount, 'wrong number of tokens');
 
     // clean up
-    DeleteFile(lsOutFileName);
+    SysUtils.DeleteFile(lsOutFileName);
 
   finally
     lcConverter.Free;
@@ -1237,7 +1240,7 @@ end;
 
 procedure TTestFileParse.TestDelphiNetClassVar;
 begin
-  TestParseFile('TestDelphiNetClassVar', 239);
+  TestParseFile('TestDelphiNetClassVar', 314);
 end;
 
 procedure TTestFileParse.TestTrailingCommaParam;

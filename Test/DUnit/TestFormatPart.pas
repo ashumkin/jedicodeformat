@@ -11,8 +11,8 @@ type
   private
 
   protected
-    procedure Setup; override;
-    procedure Teardown; override;
+    procedure SetUp; override;
+    procedure TearDown; override;
   published
     procedure Test1;
     procedure Test2;

@@ -48,7 +48,7 @@ implementation
 
 uses
   { delphi }
-  SysUtils,
+  SysUtils, Windows,
   { local }
   SourceToken, Tokens, ParseTreeNodeType, JcfSettings, FormatFlags,
   TokenUtils;

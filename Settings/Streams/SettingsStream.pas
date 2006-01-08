@@ -149,7 +149,7 @@ implementation
 
 uses
   { delphi }
-  SysUtils,
+  SysUtils, Windows,
   { jcl }
   JclStrings, JclSysUtils,
   { local}

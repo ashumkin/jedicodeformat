@@ -54,7 +54,7 @@ type
     procedure CheckReplace(var ps: string; const psFind, psReplace: string);
 
   protected
-    procedure Setup; override;
+    procedure SetUp; override;
     procedure TearDown; override;
 
   published

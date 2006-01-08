@@ -87,7 +87,7 @@ implementation
 
 uses
   { delphi }
-  Math, SysUtils,
+  Math, SysUtils, Windows,
   {local }
   ParseTreeNodeType, Tokens, TokenUtils;
 

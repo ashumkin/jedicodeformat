@@ -95,7 +95,7 @@ type
     procedure CheckLabelPrefix;
 
     procedure RecogniseTypeSection(const pbNestedInCLass: Boolean);
-    procedure RecogniseVarSection;
+    procedure RecogniseVarSection(const pbClassVars: boolean);
     procedure RecogniseClassVars;
     procedure RecogniseProcedureDeclSection;
     procedure RecogniseClassOperator(const pbHasBody: boolean);
@@ -327,7 +327,7 @@ end;
   recogniser support }
 
 procedure TBuildParseTree.Recognise(const peTokenTypes: TTokenTypeSet;
-  const pbKeepTrailingWhiteSpace: Boolean = False);
+  const pbKeepTrailingWhiteSpace: Boolean);
 
   function DescribeTarget: string;
   begin
@@ -375,8 +375,8 @@ begin
     RecogniseNotSolidTokens;
 end;
 
-procedure TBuildParseTree.Recognise(const peTokenType: TTokenType;
-  const pbKeepTrailingWhiteSpace: Boolean = False);
+
+procedure TBuildParseTree.Recognise(const peTokenType: TTokenType; const pbKeepTrailingWhiteSpace: Boolean = False);
 begin
   Recognise([peTokenType], pbKeepTrailingWhiteSpace);
 end;
@@ -693,7 +693,7 @@ end;
 procedure TBuildParseTree.RecogniseInterfaceDecl;
 var
   lc: TSourceToken;
-  lt: TTokenType;
+  lt: Tokens.TTokenType;
 begin
   {
    InterfaceDecl -> ConstSection
@@ -712,7 +712,7 @@ begin
     ttType:
       RecogniseTypeSection(false);
     ttVar, ttThreadvar:
-      RecogniseVarSection;
+      RecogniseVarSection(false);
     ttProcedure, ttFunction:
       RecogniseExportedHeading;
     ttOpenSquareBracket:
@@ -849,7 +849,7 @@ begin
     ttType:
       RecogniseTypeSection(false);
     ttVar, ttThreadvar:
-      RecogniseVarSection;
+      RecogniseVarSection(false);
     ttProcedure, ttFunction, ttConstructor, ttDestructor, ttClass:
       RecogniseProcedureDeclSection;
     ttExports:
@@ -1731,13 +1731,20 @@ begin
   PopNode;
 end;
 
-procedure TBuildParseTree.RecogniseVarSection;
+procedure TBuildParseTree.RecogniseVarSection(const pbClassVars: boolean);
 const
   END_VAR_SECTION: TTokenTypeSet =
     [ttVar, ttThreadVar, ttConst, ttLabel, ttResourceString, ttType,
     ttBegin, ttEnd, ttImplementation, ttInitialization,
     ttProcedure, ttFunction, ttConstructor, ttDestructor, ttClass, ttAsm];
+var
+  leEndVarSection: TTokenTypeSet;
 begin
+  leEndVarSection := END_VAR_SECTION;
+  if pbClassVars then
+    leEndVarSection := leEndVarSection + ClassVisibility;
+
+
   PushNode(nVarSection);
 
   // VarSection -> VAR (VarDecl ';')...
@@ -1746,7 +1753,7 @@ begin
   repeat
     RecogniseVarDecl;
     Recognise(ttSemicolon);
-  until (fcTokenList.FirstSolidTokenType in END_VAR_SECTION);
+  until (fcTokenList.FirstSolidTokenType in leEndVarSection);
 
   PopNode;
 end;
@@ -3699,7 +3706,7 @@ begin
       end;
       ttVar:
       begin
-        RecogniseVarSection;
+        RecogniseVarSection(True);
         lbHasTrailingSemicolon := False;
       end;
       else

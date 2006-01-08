@@ -38,8 +38,8 @@ type
     feSaveOperatorSetting: TTriOptionStyle;
 
   protected
-    procedure Setup; override;
-    procedure Teardown; override;
+    procedure SetUp; override;
+    procedure TearDown; override;
 
   published
 

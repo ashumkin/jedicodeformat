@@ -62,7 +62,7 @@ implementation
 
 uses
   { delphi }
-  SysUtils,
+  Windows, SysUtils,
   { jcl }
   JclShell, JclFileUtils, JcfRegistrySettings,
   TestFramework;
@@ -93,7 +93,7 @@ end;
 procedure TTestCommandline.CompareFileToRef(const psFileName: string);
 begin
   TestFileContentsSame(GetTestFilesDir + psFileName, fsRefDir + psFileName);
-  DeleteFile(GetTestFilesDir + psFileName);
+  SysUtils.DeleteFile(GetTestFilesDir + psFileName);
 end;
 
 procedure TTestCommandline.RunJcfCommandline;
@@ -121,7 +121,7 @@ begin
     if fsFileNames.Count > 0 then
     begin
       for liLoop := 0 to fsFileNames.Count - 1 do
-        DeleteFile(GetTestFilesDir + fsFileNames[liLoop]);
+        SysUtils.DeleteFile(GetTestFilesDir + fsFileNames[liLoop]);
 
       // should be none left
       GetOutFiles;

@@ -121,9 +121,12 @@ function FormatSettings: TFormatSettings;
 implementation
 
 uses
-  { delphi }SysUtils, Dialogs,
-  { jcl }JclStrings,
-  { local }JCFSetBase,
+  { delphi }
+  SysUtils, Dialogs, Windows,
+  { jcl }
+  JclStrings,
+  { local }
+  JCFSetBase,
   JcfRegistrySettings;
 
 

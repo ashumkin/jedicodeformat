@@ -15,8 +15,8 @@ type
     leSaveElseBeginStyle: TTriOptionStyle;
 
   protected
-    procedure Setup; override;
-    procedure Teardown; override;
+    procedure SetUp; override;
+    procedure TearDown; override;
   published
     procedure TestIfElseRemoveReturn1;
     procedure TestIfElseRemoveReturn2;

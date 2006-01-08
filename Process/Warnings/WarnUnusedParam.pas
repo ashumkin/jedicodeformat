@@ -60,7 +60,7 @@ implementation
 
 uses
   { delphi }
-  SysUtils,
+  SysUtils, Windows,
   { local }
   ParseTreeNodeType, SourceToken, Tokens, TokenUtils, JCfSettings;
 

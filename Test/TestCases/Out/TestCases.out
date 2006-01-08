@@ -42,7 +42,7 @@ uses
   TestLocalTypes in 'TestLocalTypes.pas',
   TestLongStrings in 'TestLongStrings.pas',
   TestMarcoV in 'TestMarcoV.pas',
-  TestMh in 'TestMH.pas',
+  TestMH in 'TestMH.pas',
   TestMixedModeCaps in 'TestMixedModeCaps.pas',
   TestNested in 'TestNested.pas',
   TestNestedRecords in 'TestNestedRecords.pas',
@@ -59,7 +59,6 @@ uses
   TestReturns in 'TestReturns.pas',
   TestRunOnConst in 'TestRunOnConst.pas',
   TestRunOnDef in 'TestRunOnDef.pas',
-  TestTPObjects in 'TestTPObjects.pas',
   TestTry in 'TestTry.pas',
   TestTypeDefs in 'TestTypeDefs.pas',
   TestUses in 'TestUses.pas',
@@ -102,7 +101,7 @@ uses
   LittleTest25 in 'LittleTest25.pas',
   LittleTest26 in 'LittleTest26.pas',
   LittleTest27 in 'LittleTest27.pas',
-  TestASM in 'TestAsm.pas',
+  TestAsm in 'TestAsm.pas',
   testCaseIfFormat in 'testCaseIfFormat.pas',
   LittleTest28 in 'LittleTest28.pas',
   TestEmptyCase in 'TestEmptyCase.pas',
@@ -155,7 +154,8 @@ uses
   TestCondCompBreaks in 'TestCondCompBreaks.pas',
   TestDelphiNetKeywords in 'TestDelphiNetKeywords.pas',
   TestIncAt in 'TestIncAt.pas',
-  TestDllIndex in 'TestDLLIndex.pas';
+  TestDLLIndex in 'TestDLLIndex.pas',
+  TestASMAnd in 'TestASMAnd.pas';
 
 {$R *.res}
 

@@ -427,7 +427,6 @@ object frmAboutBox: TfrmAboutBox
       Cursor = crHandPoint
       Caption = 'hlHomePage'
       WordWrap = True
-      AutoOpenURL = True
       HotTrack = True
       HotTrackFont.Charset = DEFAULT_CHARSET
       HotTrackFont.Color = clBlue
@@ -445,7 +444,6 @@ object frmAboutBox: TfrmAboutBox
       Caption = 
         'This program is open source software. It is released under the M' +
         'ozilla '#13#10'Public licence (MPL).  http://mozilla.org/MPL'
-      AutoOpenURL = True
       HotTrack = True
       HotTrackFont.Charset = DEFAULT_CHARSET
       HotTrackFont.Color = clBlue
@@ -484,7 +482,7 @@ object frmAboutBox: TfrmAboutBox
         'make readable the layout of any Delphi '
         'Object-Pascal source code.'
         ''
-        'Copyright Anthony Steele 1999-2004')
+        'Copyright Anthony Steele 1999-2005')
       ParentColor = True
       ReadOnly = True
       TabOrder = 1

@@ -48,9 +48,14 @@ type
 implementation
 
 uses
+  { delphi }
   SysUtils,
+  Windows,
+  { JCL }
   JclStrings,
-  SourceToken, Tokens, ParseTreeNodeType, JcfSettings, FormatFlags, TokenUtils;
+  { local }
+  SourceToken, Tokens, ParseTreeNodeType,
+  JcfSettings, FormatFlags, TokenUtils;
 
 
 function Excluded(const pt: TSourceToken): boolean;

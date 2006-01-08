@@ -17,7 +17,7 @@ type
     procedure TestFalse(const ps: string);
     procedure TestExcept(const ps: string);
   protected
-    procedure Setup; override;
+    procedure SetUp; override;
     procedure TearDown; override;
   published
     procedure TestTrueExpressions;

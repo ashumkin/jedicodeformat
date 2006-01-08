@@ -37,7 +37,7 @@ uses
   BaseVisitor in '..\Process\BaseVisitor.pas',
   JcfMiscFunctions in '..\Utils\JcfMiscFunctions.pas',
   FileUtils in '..\Utils\FileUtils.pas',
-  JCFLog in '..\Utils\JcfLog.pas',
+  JcfLog in '..\Utils\JcfLog.pas',
   fShowParseTree in '..\Parse\UI\fShowParseTree.pas' {frmShowParseTree},
   SetUses in '..\Settings\SetUses.pas',
   JCFSetBase in '..\Settings\JCFSetBase.pas',
@@ -162,7 +162,11 @@ uses
   frClarifyBlocks in '..\Ui\Settings\frClarifyBlocks.pas' {fClarifyBlocks: TFrame},
   SortUsesData in '..\Process\Transform\SortUsesData.pas',
   frCompilerDirectReturns in '..\Ui\Settings\frCompilerDirectReturns.pas' {fCompilerDirectReturns: TFrame},
-  IdentifierCaps in '..\Process\Capitalisation\IdentifierCaps.pas';
+  IdentifierCaps in '..\Process\Capitalisation\IdentifierCaps.pas',
+  WarnUnusedParam in '..\Process\Warnings\WarnUnusedParam.pas',
+  frAnyCapsSettings in '..\Ui\Settings\frAnyCapsSettings.pas',
+  frIdentifierCapsSettings in '..\Ui\Settings\frIdentifierCapsSettings.pas' {fIdentifierCapsSettings: TFrame},
+  frComments in '..\Ui\Settings\frComments.pas' {fComments: TFrame};
 
 {$R *.res}
 

@@ -68,8 +68,10 @@ const
 implementation
 
 uses
-  { delphi }SysUtils,
-  { Jcl}JclStrings, JclSysUtils;
+  { delphi }
+  SysUtils, Windows,
+  { Jcl}
+  JclStrings, JclSysUtils;
 
 type
   TRFlagNameData = record

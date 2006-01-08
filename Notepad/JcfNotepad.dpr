@@ -37,7 +37,7 @@ uses
   BaseVisitor in '..\Process\BaseVisitor.pas',
   JcfMiscFunctions in '..\Utils\JcfMiscFunctions.pas',
   FileUtils in '..\Utils\FileUtils.pas',
-  JCFLog in '..\Utils\JcfLog.pas',
+  JcfLog in '..\Utils\JcfLog.pas',
   fShowParseTree in '..\Parse\UI\fShowParseTree.pas' {frmShowParseTree},
   SetUses in '..\Settings\SetUses.pas',
   JCFSetBase in '..\Settings\JCFSetBase.pas',
@@ -135,7 +135,7 @@ uses
   PreProcessorExpressionParser in '..\Parse\PreProcessor\PreProcessorExpressionParser.pas',
   PreProcessorExpressionTokenise in '..\Parse\PreProcessor\PreProcessorExpressionTokenise.pas',
   frPreProcessor in '..\Ui\Settings\frPreProcessor.pas' {fPreProcessor: TFrame},
-  SetPreprocessor in '..\Settings\SetPreProcessor.pas',
+  SetPreProcessor in '..\Settings\SetPreProcessor.pas',
   RemoveSpaceAtLineEnd in '..\Process\Spacing\RemoveSpaceAtLineEnd.pas',
   frUnitCaps in '..\Ui\Settings\frUnitCaps.pas' {frUnitNameCaps: TFrame},
   FindReplace in '..\Process\Transform\FindReplace.pas',
@@ -163,7 +163,9 @@ uses
   frCompilerDirectReturns in '..\Ui\Settings\frCompilerDirectReturns.pas' {fCompilerDirectReturns: TFrame},
   WarnUnusedParam in '..\Process\Warnings\WarnUnusedParam.pas',
   IdentifierCaps in '..\Process\Capitalisation\IdentifierCaps.pas',
-  frIdentifierCapsSettings in '..\Ui\Settings\frIdentifierCapsSettings.pas' {fIdentifierCapsSettings: TFrame};
+  frIdentifierCapsSettings in '..\Ui\Settings\frIdentifierCapsSettings.pas' {fIdentifierCapsSettings: TFrame},
+  frAnyCapsSettings in '..\Ui\Settings\frAnyCapsSettings.pas',
+  frComments in '..\Ui\Settings\frComments.pas' {fComments: TFrame};
 
 {$R *.res}
 

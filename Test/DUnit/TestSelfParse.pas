@@ -46,7 +46,7 @@ implementation
 
 uses
   { delphi }
-  SysUtils, Classes,
+  SysUtils, Windows, Classes,
   { jcl }
   JclFileUtils,
   { local }
@@ -132,7 +132,7 @@ begin
 
     // clean up
     if FileExists(lsOutFileName) then
-      DeleteFile(lsOutFileName);
+      SysUtils.DeleteFile(lsOutFileName);
   finally
     lcConverter.Free;
   end;

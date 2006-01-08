@@ -39,7 +39,7 @@ type
     procedure TestFileContentsSame(const psFileName1, psFileName2: string);
 
   protected
-    procedure Setup; override;
+    procedure SetUp; override;
 
   published
     procedure Empty1;
@@ -249,8 +249,11 @@ type
 implementation
 
 uses
-  { delphi }SysUtils,
+  { delphi }
+  Windows, SysUtils, 
+  { JCL }
   JclStrings,
+  { local }
   FileConverter, ConvertTypes, JcfSettings, JcfRegistrySettings,
   TestConstants;
 

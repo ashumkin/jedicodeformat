@@ -41,7 +41,7 @@ uses
   BaseVisitor in '..\Process\BaseVisitor.pas',
   JcfMiscFunctions in '..\Utils\JcfMiscFunctions.pas',
   FileUtils in '..\Utils\FileUtils.pas',
-  JCFLog in '..\Utils\JcfLog.pas',
+  JcfLog in '..\Utils\JcfLog.pas',
   fShowParseTree in '..\Parse\UI\fShowParseTree.pas' {frmShowParseTree},
   SetUses in '..\Settings\SetUses.pas',
   JCFSetBase in '..\Settings\JCFSetBase.pas',
@@ -117,7 +117,7 @@ uses
   PreProcessorExpressionTokenise in '..\Parse\PreProcessor\PreProcessorExpressionTokenise.pas',
   JCFHelp in '..\Utils\JCFHelp.pas',
   SettingsTypes in '..\Settings\SettingsTypes.pas',
-  SetPreprocessor in '..\Settings\SetPreProcessor.pas',
+  SetPreProcessor in '..\Settings\SetPreProcessor.pas',
   UnitNameCaps in '..\Process\Capitalisation\UnitNameCaps.pas',
   RemoveSpaceAtLineEnd in '..\Process\Spacing\RemoveSpaceAtLineEnd.pas',
   FindReplace in '..\Process\Transform\FindReplace.pas',
@@ -138,7 +138,8 @@ uses
   AlignField in '..\Process\Align\AlignField.pas',
   SortUses in '..\Process\Transform\SortUses.pas',
   SortUsesData in '..\Process\Transform\SortUsesData.pas',
-  IdentifierCaps in '..\Process\Capitalisation\IdentifierCaps.pas';
+  IdentifierCaps in '..\Process\Capitalisation\IdentifierCaps.pas',
+  WarnUnusedParam in '..\Process\Warnings\WarnUnusedParam.pas';
 
 const
   ABOUT_COMMANDLINE =

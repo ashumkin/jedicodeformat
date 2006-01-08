@@ -438,7 +438,9 @@ function PreProcSymbolTypeSetToString(
 
 implementation
 
-uses SysUtils,
+uses
+  SysUtils,
+  Windows,
   JclStrings;
 
 { the majority of these tokens have a fixed textual representation

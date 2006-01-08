@@ -47,7 +47,9 @@ type
 implementation
 
 uses
-  SysUtils,
+  { delphi }
+  SysUtils, Windows,
+  { local }
   SourceToken, Tokens, ParseTreeNodeType, JcfSettings, FormatFlags;
 
 

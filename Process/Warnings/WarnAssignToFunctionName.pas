@@ -58,7 +58,9 @@ type
 implementation
 
 uses
-  { delphi }SysUtils,
+  { delphi }
+  SysUtils, Windows,
+  { local }
   ParseTreeNode, ParseTreeNodeType, SourceToken, Tokens, TokenUtils,
   BaseVisitor;
 

@@ -35,7 +35,7 @@ type
     fStoreWarnUnusedParamsOn: Boolean;
 
 
-    procedure Setup; override;
+    procedure SetUp; override;
     procedure TearDown; override;
   published
     // no warnings in basic units

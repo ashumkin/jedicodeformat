@@ -28,6 +28,21 @@ type
     thing: string;
   end;
 
+  tfooclass = class
+  var
+    a1: integer;
+  private
+  var
+    b2: string;
+    b3: integer;
+  protected
+  var
+    c3, c4, c5: boolean;
+  public
+  var
+    d6: TObject;
+  end;
+
 implementation
 
 procedure teomreport.fetchtop20currentaccount;

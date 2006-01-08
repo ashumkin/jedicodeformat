@@ -34,7 +34,7 @@ type
   private
 
   protected
-    procedure Setup; override;
+    procedure SetUp; override;
     procedure TearDown; override;
   published
     procedure Test0;

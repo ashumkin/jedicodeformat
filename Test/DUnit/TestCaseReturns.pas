@@ -42,7 +42,7 @@ type
     feSaveCaseElseBeginStyle:  TTriOptionStyle;
 
   protected
-    procedure Setup; override;
+    procedure SetUp; override;
     procedure TearDown; override;
 
   published

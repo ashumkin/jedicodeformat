@@ -64,7 +64,8 @@ type
 implementation
 
 uses
-    { delphi }SysUtils;
+  { delphi }
+  SysUtils, Windows;
 
 const
   REG_ENABLED = 'Enabled';

@@ -59,7 +59,6 @@ uses
   testreturns in 'TestReturns.pas',
   testrunonconst in 'TestRunOnConst.pas',
   testrunondef in 'TestRunOnDef.pas',
-  testtpobjects in 'TestTPObjects.pas',
   testtry in 'TestTry.pas',
   testtypedefs in 'TestTypeDefs.pas',
   testuses in 'TestUses.pas',
@@ -155,7 +154,8 @@ uses
   testcondcompbreaks in 'TestCondCompBreaks.pas',
   testdelphinetkeywords in 'TestDelphiNetKeywords.pas',
   testincat in 'TestIncAt.pas',
-  testdllindex in 'TestDLLIndex.pas';
+  testdllindex in 'TestDLLIndex.pas',
+  testasmand in 'TestASMAnd.pas';
 
 {$R *.res}
 begin

@@ -33,7 +33,7 @@ type
   TTestUsesFindReplace = class(TBaseTestProcess)
   private
   public
-    procedure Setup; override;
+    procedure SetUp; override;
     procedure TearDown; override;
   published
     procedure TestAdd1;

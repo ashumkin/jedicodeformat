@@ -43,7 +43,9 @@ type
 implementation
 
 uses
-  SysUtils,
+  { delphi }
+  SysUtils, Windows,
+  { jcl }
   JclStrings;
 
 

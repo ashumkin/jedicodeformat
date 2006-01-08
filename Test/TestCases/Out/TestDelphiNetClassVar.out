@@ -40,6 +40,22 @@ type
   end;
 
 
+  TFooClass = class
+  var
+    a1: integer;
+  private
+  var
+    b2: string;
+    b3: integer;
+  protected
+  var
+    c3, c4, c5: boolean;
+  public
+  var
+    d6: TObject;
+
+  end;
+
 implementation
 
 procedure TEOMReport.FetchTop20CurrentAccount;

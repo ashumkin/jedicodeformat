@@ -34,7 +34,7 @@ type
   TTestRemoveBlankLines = class(TBaseTestProcess)
   private
   public
-    procedure Setup; override;
+    procedure SetUp; override;
   published
     procedure TestNone;
     procedure Test1;

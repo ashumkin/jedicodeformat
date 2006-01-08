@@ -246,7 +246,7 @@ implementation
 
 uses
   { delphi }
-  SysUtils,
+  SysUtils, Windows,
   { jcl }
   JclStrings,
   { DUnit}
@@ -316,7 +316,7 @@ begin
     TestFileContentsSame(lsOutFileName, psRefOutput);
 
     // clean up
-    DeleteFile(lsOutFileName);
+    SysUtils.DeleteFile(lsOutFileName);
 
   finally
     lcConverter.Free;

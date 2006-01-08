@@ -32,7 +32,7 @@ uses
 type
   TTestFile = class(TTestCase)
   protected
-    procedure Setup; override;
+    procedure SetUp; override;
 
     procedure TestFileContentsSame(const psFileName1, psFileName2: string);
   end;

@@ -160,9 +160,13 @@ function CompilerDirectiveLineBreak(const pt: TSourceToken; const pbBefore: Bool
 implementation
 
 uses
-  SysUtils,
+  { delphi }
+  SysUtils, Windows,
+  { jcl }
   JclStrings,
-  ParseTreeNodeType, Tokens, Nesting, JcfSettings, SetReturns;
+  { local }
+  ParseTreeNodeType, Tokens, Nesting,
+  JcfSettings, SetReturns;
 
 
 function NewReturn: TSourceToken;
