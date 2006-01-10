@@ -234,6 +234,7 @@ type
     procedure TestDelphiNetSealedClass;
     procedure TestDelphiNetFinalMethod;
     procedure TestDelphiNetDottedType;
+    procedure TestDelphiNetAmpersandMethod;
 
     procedure TestTryExceptRaise;
     procedure TestTrailingCommaParam;
@@ -1227,6 +1228,11 @@ end;
 procedure TTestFileParse.TestCondCompBreaks2;
 begin
   TestParseFile('TestCondCompBreaks2', 88);
+end;
+
+procedure TTestFileParse.TestDelphiNetAmpersandMethod;
+begin
+  TestParseFile('TestDelphiNetAmpersandMethod', 120);
 end;
 
 procedure TTestFileParse.TestDelphiNetAttributes;

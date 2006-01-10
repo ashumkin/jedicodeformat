@@ -2171,6 +2171,10 @@ begin
       ttDot:
       begin
         Recognise(ttDot);
+
+        if fcTokenList.FirstSolidTokenType = ttAmpersand then
+          Recognise(ttAmpersand);
+
         RecogniseIdentifier(False, idAny);
       end;
       ttHat:
@@ -4171,6 +4175,17 @@ begin
   if pbCanHaveUnitQualifier and (fcTokenList.FirstSolidTokenType = ttDot) then
   begin
     Recognise(ttDot);
+
+    { delphi.net can preface the identifier with an '&'
+      in order to do something obscure with it - make it a literal or something
+
+      e.g. "WebRequest.&Create" is not a constructor,
+      but a C# method called "Create", which is not a reserved word in C#
+    }
+
+    if fcTokenList.FirstSolidTokenType = ttAmpersand then
+      Recognise(ttAmpersand);
+
     Recognise(IdentiferTokens);
   end;
 

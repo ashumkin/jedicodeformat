@@ -1,0 +1,26 @@
+unit testdelphinetampersandmethod;
+
+interface
+
+type
+  tclass1 = class
+  private
+  public
+    constructor Create;
+  end;
+
+implementation
+
+uses system.net;
+
+constructor tclass1.Create;
+var
+  weby1, weby2: webrequest;
+begin
+  inherited Create;
+  weby1 := webrequest.&Create('http://www.google.com');
+  weby2 := system.net.webrequest.&Create('http://www.google.com');
+end;
+
+end.
+ 
