@@ -3847,8 +3847,10 @@ procedure TBuildParseTree.RecognisePropertySpecifiers;
 var
   lc: TSourceToken;
 const
-  PROPERTY_SPECIFIERS: TTokenTypeSet = [ttIndex, ttRead, ttWrite, ttStored,
-    ttDefault, ttNoDefault, ttImplements, ttDispId, ttReadOnly, ttWriteOnly];
+  PROPERTY_SPECIFIERS: TTokenTypeSet = [ttIndex, ttRead, ttWrite,
+    ttAdd, ttRemove,
+    ttStored, ttDefault, ttNoDefault,
+    ttImplements, ttDispId, ttReadOnly, ttWriteOnly];
 begin
   {
    PropertySpecifiers ->
@@ -3863,6 +3865,7 @@ begin
        - can be more than one of them (and usually are for read and write)
        - left out dispid
        - left out readonly
+       - Add and remove for Delphi.net
    }
   lc := fcTokenList.FirstSolidToken;
 
@@ -3876,14 +3879,9 @@ begin
         Recognise(ttIndex);
         RecogniseConstantExpression;
       end;
-      ttRead:
+      ttRead, ttWrite, ttAdd, ttRemove:
       begin
-        Recognise(ttRead);
-        RecognisePropertyAccess;
-      end;
-      ttWrite:
-      begin
-        Recognise(ttWrite);
+        Recognise(lc.TokenType);
         RecognisePropertyAccess;
       end;
       ttStored:

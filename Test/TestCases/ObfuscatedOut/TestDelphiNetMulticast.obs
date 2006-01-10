@@ -1,0 +1,3 @@
+unit testdelphinetmulticast;interface type tmulicastclass=class private fevent1:
+system.eventhandler;public property event1:system.eventhandler add fevent1 remove
+fevent1;end;implementation end. 

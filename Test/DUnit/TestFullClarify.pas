@@ -232,6 +232,7 @@ type
     procedure TestDelphiNetFinalMethod;
     procedure TestDelphiNetDottedType;
     procedure TestDelphiNetAmpersandMethod;
+    procedure TestDelphiNetMulticast;
 
     procedure TestTryExceptRaise;
     procedure TestTrailingCommaParam;
@@ -1234,6 +1235,11 @@ end;
 procedure TFullTestClarify.TestDelphiNetKeywords;
 begin
   TestClarifyFile('TestDelphiNetKeywords');
+end;
+
+procedure TFullTestClarify.TestDelphiNetMulticast;
+begin
+  TestClarifyFile('TestDelphiNetMulticast');
 end;
 
 procedure TFullTestClarify.TestDelphiNetClassVar;

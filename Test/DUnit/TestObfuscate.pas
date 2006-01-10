@@ -235,6 +235,7 @@ type
     procedure TestDelphiNetFinalMethod;
     procedure TestDelphiNetDottedType;
     procedure TestDelphiNetAmpersandMethod;
+    procedure TestDelphiNetMulticast;
 
     procedure TestTryExceptRaise;
     procedure TestTrailingCommaParam;
@@ -1286,6 +1287,11 @@ end;
 procedure TTestObfuscate.TestDelphiNetKeywords;
 begin
   TestObfuscateFile('TestDelphiNetKeywords');
+end;
+
+procedure TTestObfuscate.TestDelphiNetMulticast;
+begin
+  TestObfuscateFile('TestDelphiNetMulticast');
 end;
 
 procedure TTestObfuscate.TestDelphiNetClassVar;

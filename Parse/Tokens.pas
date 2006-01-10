@@ -191,6 +191,8 @@ type
     ttStatic,
     ttSealed,
     ttFinal,
+    ttAdd,
+    ttRemove,
 
 
     { built-in constants }
@@ -308,7 +310,9 @@ const
     { for COM interface properties }
     ttReadOnly, ttWriteOnly, ttDispId,
     // hints
-    ttDeprecated, ttLibrary, ttPlatform
+    ttDeprecated, ttLibrary, ttPlatform,
+    // Delphi.Net
+    ttAdd, ttRemove
     ];
 
   ExportDirectives: TTokenTypeSet = [ttIndex, ttName];
@@ -640,6 +644,9 @@ begin
   AddKeyword('sealed', wtReservedWord, ttSealed);
   AddKeyword('static', wtReservedWord, ttStatic);
   AddKeyword('final', wtReservedWord, ttFinal);
+  
+  AddKeyword('add', wtReservedWordDirective, ttAdd);
+  AddKeyword('remove', wtReservedWordDirective, ttRemove);
 
   { operators that are words not symbols }
   AddKeyword('and', wtOperator, ttAnd);
