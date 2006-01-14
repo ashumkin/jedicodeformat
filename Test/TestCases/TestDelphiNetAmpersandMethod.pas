@@ -5,10 +5,16 @@ interface
 type
   TClass1 = class
   private
-    { Private Declarations }
+    EmptyValue: System.&Object;
   public
     constructor Create;
   end;
+
+var
+  AType: &Type;
+  AnotherType: System.&Type;
+  AnObject: &Object;
+  AnotherObject: System.&Object;
 
 implementation
 
@@ -22,7 +28,7 @@ begin
   inherited Create;
 
   { this is *not* the constructor
-     the ampersand signals this 
+     the ampersand signals that it is a CLR method 
   }
   weby1 := WebRequest.&Create('http://www.google.com');
   weby2 := System.Net.WebRequest.&Create('http://www.google.com');

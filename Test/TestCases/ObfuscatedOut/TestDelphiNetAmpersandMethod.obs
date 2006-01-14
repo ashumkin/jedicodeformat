@@ -1,4 +1,6 @@
-unit testdelphinetampersandmethod;interface type tclass1=class private public constructor
-create;end;implementation uses system.net;constructor tclass1.create;var weby1,weby2
-:webrequest;begin inherited create;weby1:=webrequest.&create('http://www.google.com'
-);weby2:=system.net.webrequest.&create('http://www.google.com');end;end. 
+unit testdelphinetampersandmethod;interface type tclass1=class private emptyvalue
+:system.&object;public constructor create;end;var atype:&type;anothertype:system.
+&type;anobject:&object;anotherobject:system.&object;implementation uses system.net
+;constructor tclass1.create;var weby1,weby2:webrequest;begin inherited create;weby1
+:=webrequest.&create('http://www.google.com');weby2:=system.net.webrequest.&create
+('http://www.google.com');end;end. 

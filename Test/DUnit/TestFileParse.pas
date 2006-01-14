@@ -1233,7 +1233,7 @@ end;
 
 procedure TTestFileParse.TestDelphiNetAmpersandMethod;
 begin
-  TestParseFile('TestDelphiNetAmpersandMethod', 120);
+  TestParseFile('TestDelphiNetAmpersandMethod', 166);
 end;
 
 procedure TTestFileParse.TestDelphiNetAttributes;
@@ -1253,7 +1253,7 @@ end;
 
 procedure TTestFileParse.TestDelphiNetMulticast;
 begin
-  TestParseFile('TestDelphiNetMulticast', 95);
+  TestParseFile('TestDelphiNetMulticast', 65);
 end;
 
 procedure TTestFileParse.TestDelphiNetClassVar;

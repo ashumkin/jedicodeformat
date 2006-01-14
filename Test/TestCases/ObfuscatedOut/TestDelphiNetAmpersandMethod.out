@@ -5,9 +5,16 @@ interface
 type
   tclass1 = class
   private
+    emptyvalue: system.&object;
   public
     constructor Create;
   end;
+
+var
+  atype:    &type;
+  anothertype: system.&type;
+  anobject: &object;
+  anotherobject: system.&object;
 
 implementation
 

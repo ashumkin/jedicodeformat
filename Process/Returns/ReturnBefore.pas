@@ -166,9 +166,13 @@ begin
 
     { blank line before the words var, type or const at top level
       except for:
-      type t2 = type integer; }
+      type t2 = type integer;
+      or
+
+      var foo: System.&Type; }
   if (pt.TokenType in Declarations) and (pt.Nestings.Total = 0) and
-    ( not pt.IsOnRightOf(nTypeDecl, ttEquals)) then
+    (not pt.IsOnRightOf(nTypeDecl, ttEquals)) and
+    (not pt.HasParentNode(nType)) then
   begin
     Result := True;
     exit;

@@ -79,6 +79,8 @@ type
     procedure RecogniseExportedHeading;
 
     procedure RecogniseIdentifier(const pbCanHaveUnitQualifier: boolean; const peStrictness: TIdentifierStrictness);
+    procedure RecognisePossiblyAmpdIdentifier;
+
     procedure RecogniseImplementationSection;
     procedure RecogniseDeclSections;
     procedure RecogniseDeclSection;
@@ -659,12 +661,17 @@ begin
   if lcNext = nil then
     exit;
 
-  if lcNext.TokenType = ttObject then
-    Recognise(ttObject)
-  else if lcNext.TokenType = tttype then
-    Recognise(ttType)
-  else
-    RecogniseIdentifier(False, idStrict);
+  case lcNext.TokenType of
+    ttObject:
+      Recognise(ttObject);
+    ttType:
+      Recognise(ttType);
+    ttAmpersand:
+      RecognisePossiblyAmpdIdentifier;
+    else
+      RecogniseIdentifier(False, idStrict);
+
+  end;
 end;
 
 
@@ -1313,7 +1320,7 @@ begin
     else
       if (lc.TokenType = ttClass) and (lc2.TokenType = ttOf) then
         RecogniseClassRefType
-      else if (lc.WordType in IdentifierTypes) then
+      else if (lc.WordType in IdentifierTypes) or (lc.TokenType = ttAmpersand) then
       begin
         { could be a subrange on an enum,
           e.g. "clBlue .. clBlack". NB: this can also be Low(Integer) .. High(Integer) }
@@ -2159,6 +2166,24 @@ begin
   PopNode;
 end;
 
+{ Delphi.Net uses '&' to signal that the next token
+  is not a reserved word,
+  but is a CLR method of the same name
+}
+procedure TBuildParseTree.RecognisePossiblyAmpdIdentifier;
+begin
+  if fcTokenList.FirstSolidTokenType = ttAmpersand then
+  begin
+    Recognise(ttAmpersand);
+    RecogniseIdentifier(False, idAny);
+  end
+  else
+  begin
+    RecogniseIdentifier(False, idAllowDirectives);
+  end;
+
+end;
+
 procedure TBuildParseTree.RecogniseDesignatorTail;
 const
   DESIGNATOR_TAIL_TOKENS = [ttDot, ttOpenBracket, ttOpenSquareBracket, ttHat,
@@ -2172,10 +2197,7 @@ begin
       begin
         Recognise(ttDot);
 
-        if fcTokenList.FirstSolidTokenType = ttAmpersand then
-          Recognise(ttAmpersand);
-
-        RecogniseIdentifier(False, idAny);
+        RecognisePossiblyAmpdIdentifier;
       end;
       ttHat:
       begin
@@ -4181,10 +4203,7 @@ begin
       but a C# method called "Create", which is not a reserved word in C#
     }
 
-    if fcTokenList.FirstSolidTokenType = ttAmpersand then
-      Recognise(ttAmpersand);
-
-    Recognise(IdentiferTokens);
+    RecognisePossiblyAmpdIdentifier;
   end;
 
   PopNode;
@@ -4227,13 +4246,23 @@ begin
 
   { a type is an identifier. Or a file or other Reserved word }
   if lc.TokenType in BuiltInTypes then
-    Recognise(BuiltInTypes)
+  begin
+    Recognise(BuiltInTypes);
+  end
   else if lc.TokenType = ttFile then
-    Recognise(ttFile)
+  begin
+    Recognise(ttFile);
+  end
+  else if lc.TokenType = ttAmpersand then
+  begin
+    RecognisePossiblyAmpdIdentifier;
+  end
   else
+  begin
     { type can be prefixed with a unit name, e.g. Classes.TList;
       or it could be .NET style, e.g. System.Windows.Forms.TextBox }
     RecogniseDottedName;
+  end;
 end;
 
 procedure TBuildParseTree.RecogniseAsmBlock;
