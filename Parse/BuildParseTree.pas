@@ -2322,7 +2322,7 @@ var
 begin
   lc2 := fcTokenList.SolidToken(2);
   lbColonSecond := (lc2.TokenType = ttColon);
-  if (lbColonSecond) then
+  if lbColonSecond then
   begin
     PushNode(nStatementLabel);
     RecogniseLabel;
@@ -4307,6 +4307,9 @@ begin
   end
   else
   begin
+    // apparently you can have a regular colon label in here
+    CheckLabelPrefix;
+
     RecogniseAsmOpcode;
 
     RecogniseWhiteSpace;
@@ -4518,6 +4521,8 @@ begin
 end;
 
 procedure TBuildParseTree.RecogniseAsmFactor;
+var
+  lcNext: TSourceToken;
 begin
   if fcTokenList.FirstSolidTokenType = ttNot then
     Recognise(ttNot);
@@ -4536,7 +4541,17 @@ begin
 
   case fcTokenList.FirstSolidTokenType of
     ttNumber:
+    begin
       Recognise(ttNumber);
+
+      // numbers in ASM blocks can be suffixed with 'h' for hex
+      lcNext := fcTokenList.FirstSolidToken;
+      if (lcNext.TokenType = ttIdentifier) and (lcNext.SourceCode = 'h') then
+      begin
+        Recognise(ttIdentifier);
+      end;
+
+    end;
     ttQuotedLiteralString:
       Recognise(ttQuotedLiteralString);
     ttTrue:
