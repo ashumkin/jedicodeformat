@@ -210,6 +210,7 @@ type
     procedure TestProcBlankLines;
     procedure TestCondCompBreaks;
     procedure TestCondCompBreaks2;
+    procedure TestAsmLabel;
 
     procedure TestDephiNetUses;
     procedure TestForIn;
@@ -730,7 +731,7 @@ end;
 
 procedure TTestFileParse.TestCases;
 begin
-  TestParseFile('Testcases.dpr', 1285);
+  TestParseFile('Testcases.dpr', 1293);
 end;
 
 
@@ -1299,6 +1300,11 @@ end;
 procedure TTestFileParse.TestAsmAnd;
 begin
   TestParseFile('TestAsmAnd', 142);
+end;
+
+procedure TTestFileParse.TestAsmLabel;
+begin
+  TestParseFile('TestAsmLabel', 52);
 end;
 
 initialization

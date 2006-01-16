@@ -84,6 +84,7 @@ type
     procedure TestMaxSpaces1;
 
     procedure TestOperatorSpacing;
+    procedure TestOperatorSpacing2;
   end;
 
 implementation
@@ -457,6 +458,28 @@ begin
 
   TestProcessResult(TSingleSpaceBefore, UNIT_TEXT_UNSPACED_BEFORE, UNIT_TEXT_SPACED);
   TestProcessResult(TSingleSpaceAfter, UNIT_TEXT_UNSPACED_AFTER, UNIT_TEXT_SPACED);
+end;
+
+{ these cannot be unspaced since the textual tokens then run together
+  "a := a mod b;" is not the same as "a := amodb;
+}
+procedure TTestSpacing.TestOperatorSpacing2;
+const
+  UNIT_TEXT_SPACED = UNIT_HEADER + ' procedure foo;   begin   a := 47 mod 3;    end;  ' +
+    UNIT_FOOTER;
+begin
+  FormatSettings.Spaces.SpaceForOperator := eNever;
+
+  TestProcessResult(TNoSpaceBefore, UNIT_TEXT_SPACED, UNIT_TEXT_SPACED);
+  TestProcessResult(TNoSpaceAfter, UNIT_TEXT_SPACED, UNIT_TEXT_SPACED);
+
+  FormatSettings.Spaces.SpaceForOperator := eLeave;
+
+  TestProcessResult(TNoSpaceBefore, UNIT_TEXT_SPACED, UNIT_TEXT_SPACED);
+
+  FormatSettings.Spaces.SpaceForOperator := eAlways;
+
+  TestProcessResult(TSingleSpaceBefore, UNIT_TEXT_SPACED, UNIT_TEXT_SPACED);
 end;
 
 initialization

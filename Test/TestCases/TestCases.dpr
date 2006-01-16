@@ -155,7 +155,8 @@ uses
   TestDelphiNetKeywords in 'TestDelphiNetKeywords.pas',
   TestIncAt in 'TestIncAt.pas',
   TestDLLIndex in 'TestDLLIndex.pas',
-  TestASMAnd in 'TestASMAnd.pas';
+  TestASMAnd in 'TestASMAnd.pas',
+  TestAsmLabel in 'TestAsmLabel.pas';
 
 {$R *.res}
 

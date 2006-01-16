@@ -213,6 +213,7 @@ type
     procedure TestProcBlankLines;
     procedure TestCondCompBreaks;
     procedure TestCondCompBreaks2;
+    procedure TestAsmLabel;
 
     procedure TestDelphiNetUses;
 
@@ -1337,6 +1338,11 @@ end;
 procedure TTestObfuscate.TestAsmAnd;
 begin
    TestObfuscateFile('TestAsmAnd');
+end;
+
+procedure TTestObfuscate.TestAsmLabel;
+begin
+  TestObfuscateFile('TestAsmLabel');
 end;
 
 initialization

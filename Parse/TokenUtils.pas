@@ -143,6 +143,8 @@ function IsIdentifierToken(const pt: TSourceToken; const peStrictness: TIdentifi
 { use on a built parse tree }
 function IsIdentifier(const pt: TSourceToken; const peStrictness: TIdentifierStrictness): boolean;
 
+function IsSymbolOperator(const pt: TSourceToken): boolean;
+
 function IsClassDirective(const pt: TSourceToken): boolean;
 function IsDfmIncludeDirective(const pt: TSourceToken): boolean;
 function IsGenericResIncludeDirective(const pt: TSourceToken): boolean;
@@ -745,6 +747,11 @@ begin
 
   if Result then
     Result := pt.HasParentNode(nIdentifier, 1);
+end;
+
+function IsSymbolOperator(const pt: TSourceToken): boolean;
+begin
+  Result := (pt.TokenType in Operators) and (not StrIsAlpha(pt.SourceCode));
 end;
 
 function IsClassDirective(const pt: TSourceToken): boolean;

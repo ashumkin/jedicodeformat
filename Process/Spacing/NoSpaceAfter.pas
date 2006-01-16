@@ -71,10 +71,13 @@ begin
     exit;
   end;
 
-  if (FormatSettings.Spaces.SpaceForOperator = eNever) and (pt.TokenType in Operators) then
+  if (FormatSettings.Spaces.SpaceForOperator = eNever) then
   begin
-    Result := True;
-    exit;
+    if IsSymbolOperator(pt) then
+    begin
+      Result := True;
+      exit;
+    end;
   end;
 
 

@@ -240,6 +240,7 @@ type
     procedure TestDLLIndex;
     procedure TestIncAt;
     procedure TestAsmAnd;
+    procedure TestAsmLabel;
 
     procedure TestCases;
   end;
@@ -1285,6 +1286,11 @@ end;
 procedure TFullTestClarify.TestAsmAnd;
 begin
   TestClarifyFile('TestAsmAnd');
+end;
+
+procedure TFullTestClarify.TestAsmLabel;
+begin
+  TestClarifyFile('TestAsmLabel');
 end;
 
 initialization

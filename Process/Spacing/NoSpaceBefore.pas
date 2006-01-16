@@ -117,7 +117,7 @@ begin
 
   if (FormatSettings.Spaces.SpaceForOperator = eNever) then
   begin
-    if pt.TokenType in Operators then
+    if IsSymbolOperator(pt) then
     begin
       Result := True;
       exit;
