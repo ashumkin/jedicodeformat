@@ -1539,6 +1539,8 @@ begin
 end;
 
 procedure TBuildParseTree.RecogniseArrayType;
+var
+  lcType: TTokenType;
 begin
   // ArrayType -> ARRAY ['[' OrdinalType/','... ']'] OF Type
   PushNode(nArrayType);
@@ -1549,15 +1551,33 @@ begin
   begin
     Recognise(ttOpenSquareBracket);
 
-    RecogniseOrdinalType;
+    { Maybe just empty bracket with comma inside
+      Possible syntaxes for dotNET dynamic array :
+       -> array[]
+       -> array[,]
+       -> array[x,e]
+    }
     while fcTokenList.FirstSolidTokenType = ttComma do
-    begin
       Recognise(ttComma);
+
+    lcType := fcTokenList.FirstSolidTokenType;
+    if lcType = ttCloseSquareBracket then
+    begin
+      // Delphi.net can have dynamic arrays
+    end
+    else
+    begin
       RecogniseOrdinalType;
+      while fcTokenList.FirstSolidTokenType = ttComma do
+      begin
+        Recognise(ttComma);
+        RecogniseOrdinalType;
+      end;
     end;
 
     Recognise(ttCloseSquareBracket);
   end;
+
   Recognise(ttOf);
   RecogniseType;
 
@@ -2014,9 +2034,23 @@ begin
   begin
     Recognise(ttOpenBracket);
 
+    while fcTokenList.FirstSolidTokenType = ttComma do
+      Recognise(ttComma);
+
     { can be empty brackets }
     if fcTokenList.FirstSolidTokenType <> ttCloseBracket then
+    begin
       RecogniseExpr(True);
+
+      {  Delphi dotNET : or bracket with initilizer separated by comma
+       Example : the New method parameters to initialize a dynamic array}
+      while fcTokenList.FirstSolidTokenType = ttComma do
+      begin
+        Recognise(ttComma);
+        RecogniseExpr(True);
+      end;
+    end;
+
     Recognise(ttCloseBracket);
   end
   else if (lc.TokenType = ttNot) then
@@ -4787,16 +4821,28 @@ begin
   if ( not (lc.TokenType in EXPR_TYPES)) and StrIsAlphaNum(lc.SourceCode) and
     ( not IsIdentifierToken(lc, idAllowDirectives)) then
   begin
-    { quick surgery. Perhaps even a hack -
-      reclasify the token, as it isn't what it thinks it is
-      e.g. if this word is 'then', then
-      we don't want a linbreak after it like in if statements }
-    lc.TokenType := ttIdentifier;
-    Recognise(ttIdentifier);
+    { TridenT - test if token is the Reserved word ARRAY
+      Sample Delphi2005 syntax :
+      TbObj:= New(array[] of TObject, (S1, I, D1, D2, Etat, S2));
+    }
+    if lc.TokenType = ttArray then
+    begin
+      RecogniseArrayType;
+    end
+    else
+    begin
+      { quick surgery. Perhaps even a hack -
+        reclasify the token, as it isn't what it thinks it is
+        e.g. if this word is 'then', then
+        we don't want a linbreak after it like in if statements }
+      lc.TokenType := ttIdentifier;
+      Recognise(ttIdentifier);
 
-    { this must be a named value, e.g. "end = 3". See LittleTest43.pas for e.g.s }
-    Recognise(ttAssign);
-    RecogniseExpr(True);
+      { this must be a named value, e.g. "end = 3". See LittleTest43.pas for e.g.s }
+      Recognise(ttAssign);
+      RecogniseExpr(True);
+    end;
+
   end
   else if lc.TokenType = ttComma then
   begin

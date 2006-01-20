@@ -1,0 +1,16 @@
+unit testdelphinetdynamicarray;interface implementation uses sysutils;type tobjectdynarray
+=array of tobject;procedure tabobjet(args:array of tobject);var i:integer;begin writeln
+('Dans la procédure TabObjet');for i:=low(args)to high(args)do writeln('L''élément '
+,i,' est du type ',args[i].gettype.fullname,' sa valeur est ''',args[i],'''');readln
+;end;procedure tabconst(a:array of const);var i:integer;begin writeln('Dans la procédure TabConst'
+);for i:=low(a)to high(a)do writeln('L''élément ',i,' est du type ',a[i].gettype.
+fullname,' sa valeur est ''',a[i],'''');readln;end;procedure test02;var x,y:array
+[,]of integer;i,j:integer;begin i:=2;j:=3;x:=new(array[i,j]of integer);x[0,0]:=1;
+x[0,1]:=2;x[0,2]:=3;x[1,0]:=4;x[1,1]:=5;x[1,2]:=6;y:=new(array[,]of integer,((1,2
+,3),(4,5,6)));for i:=0 to 1 do for j:=0 to 2 do if x[i,j]<>y[i,j]then writeln(i,j
+);writeln('done');readln;end;var s1:string='Une chaîne';i:integer=90;d1:double=5.6
+;d2:double=3.14159;etat:boolean=true;s2:string='s';tbobj:array of tobject;begin tabconst
+(['Une chaîne',90,5.6,3.14159,true,'s']);tabconst([s1,i,5.6,d2,etat,'s']);tbobj:=
+new(tobjectdynarray,6);{$AutoBox on}tbobj:=new(array[]of tobject,(s1,i,d1,d2,etat
+,s2));{$AutoBox off}tabobjet(tbobj);{$AutoBox on}tbobj:=new(array[]of tobject,(s1
+,i,5.6,d2,etat,'s'));{$AutoBox off}tabobjet(tbobj);end. 

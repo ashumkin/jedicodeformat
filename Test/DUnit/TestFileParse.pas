@@ -237,6 +237,7 @@ type
     procedure TestDelphiNetDottedType;
     procedure TestDelphiNetAmpersandMethod;
     procedure TestDelphiNetMulticast;
+    procedure TestDelphiNetDynamicArray;
 
     procedure TestTryExceptRaise;
     procedure TestTrailingCommaParam;
@@ -1185,6 +1186,11 @@ end;
 procedure TTestFileParse.TestDelphiNetDottedType;
 begin
   TestParseFile('TestDelphiNetDottedType', 104);
+end;
+
+procedure TTestFileParse.TestDelphiNetDynamicArray;
+begin
+  TestParseFile('TestDelphiNetDynamicArray', 797);
 end;
 
 procedure TTestFileParse.TestDelphiNetStatic;

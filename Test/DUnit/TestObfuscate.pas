@@ -237,6 +237,7 @@ type
     procedure TestDelphiNetDottedType;
     procedure TestDelphiNetAmpersandMethod;
     procedure TestDelphiNetMulticast;
+    procedure TestDelphiNetDynamicArray;
 
     procedure TestTryExceptRaise;
     procedure TestTrailingCommaParam;
@@ -1223,6 +1224,11 @@ end;
 procedure TTestObfuscate.TestDelphiNetDottedType;
 begin
   TestObfuscateFile('TestDelphiNetDottedType');
+end;
+
+procedure TTestObfuscate.TestDelphiNetDynamicArray;
+begin
+  TestObfuscateFile('TestDelphiNetDynamicArray');
 end;
 
 procedure TTestObfuscate.TestDelphiNetStatic;
