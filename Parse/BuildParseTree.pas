@@ -2213,7 +2213,7 @@ begin
   end
   else
   begin
-    RecogniseIdentifier(False, idAllowDirectives);
+    RecogniseIdentifier(False, idAny);
   end;
 
 end;

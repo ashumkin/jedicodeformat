@@ -5,7 +5,8 @@ interface
 type
   tmyclass = class
   public
-    pelement: system.object;
+    msexceltype: system.type;
+    objvalue:    system.object;
   end;
 
   tmyclass2 = class
@@ -17,6 +18,8 @@ implementation
 
 function tmyclass2.getobject(mytype: system.type): TObject;
 begin
+  objvalue := system.object(convert.todouble(console.readline));
+  msexceltype := system.type.gettypefromprogid('Excel.Application', True);
   Result := nil;
 end;
 

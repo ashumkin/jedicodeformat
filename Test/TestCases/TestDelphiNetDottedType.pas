@@ -6,7 +6,8 @@ type
 
 TMyClass = class
 public
-  pElement: System.Object;
+    MSExcelType: System.Type;
+    ObjValue : System.Object;
 end;
 
 
@@ -21,6 +22,9 @@ implementation
 
 function TMyClass2.GetObject(MyType: System.Type): TObject;
 begin
+  ObjValue := System.Object(Convert.ToDouble(Console.ReadLine));
+  MSExcelType := System.Type.GetTypeFromProgID('Excel.Application', True);  
+
   Result := nil;
 end;
 
