@@ -1,0 +1,38 @@
+unit testdelphinetrecordprocs;
+
+interface
+
+type
+  tsomerecord = record
+    i, j, k, l: integer;
+
+    function sum: integer;
+
+    procedure Clear;
+
+    constructor Create(ivalue: integer);
+  end;
+
+implementation
+
+procedure tsomerecord.Clear;
+begin
+  i := 0;
+  j := 0;
+  k := 0;
+  l := 0;
+end;
+
+constructor tsomerecord.Create(ivalue: integer);
+begin
+  Clear;
+  i := ivalue;
+end;
+
+function tsomerecord.sum: integer;
+begin
+  Result := i + j + k + l;
+end;
+
+end.
+ 

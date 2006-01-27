@@ -1618,23 +1618,47 @@ begin
 end;
 
 procedure TBuildParseTree.RecogniseFieldList;
+var
+  lcNextToken: TSourceToken;
 begin
   // FieldList ->  FieldDecl/';'... [VariantSection] [';']
+  lcNextToken := fcTokenList.FirstSolidToken;
 
-  while ( not (fcTokenList.FirstSolidTokenType in [ttEnd, ttCase])) and
-    ( not (fcTokenList.FirstSolidTokenType = ttCloseBracket)) do
+  while not (lcNextToken.TokenType in [ttEnd, ttCase, ttCloseBracket]) do
   begin
-    RecogniseFieldDecl;
-    if fcTokenList.FirstSolidTokenType = ttSemicolon then
-      Recognise(ttSemicolon)
+    if lcNextToken.TokenType = ttProcedure then
+    begin
+      RecogniseProcedureHeading(False, False);
+    end
+    else if lcNextToken.TokenType = ttFunction then
+    begin
+      RecogniseFunctionHeading(False, False);
+    end
+    else if lcNextToken.TokenType = ttConstructor then
+    begin
+      RecogniseConstructorHeading(True);
+    end
+    else
+      RecogniseFieldDecl;
+
+    lcNextToken := fcTokenList.FirstSolidToken;
+
+    if lcNextToken.TokenType = ttSemicolon then
+    begin
+      Recognise(ttSemicolon);
+      lcNextToken := fcTokenList.FirstSolidToken;
+    end
     else
       Break;
   end;
 
-  if fcTokenList.FirstSolidTokenType = ttCase then
+  if lcNextToken.TokenType = ttCase then
+  begin
     RecogniseVariantSection;
+    lcNextToken := fcTokenList.FirstSolidToken;
+  end;
 
-  if fcTokenList.FirstSolidTokenType = ttSemicolon then
+  if lcNextToken.TokenType = ttSemicolon then
     Recognise(ttSemicolon);
 end;
 

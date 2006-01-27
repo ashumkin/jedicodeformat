@@ -234,6 +234,7 @@ type
     procedure TestDelphiNetAmpersandMethod;
     procedure TestDelphiNetMulticast;
     procedure TestDelphiNetDynamicArray;
+    procedure TestDelphiNetRecordProcs;
 
     procedure TestTryExceptRaise;
     procedure TestTrailingCommaParam;
@@ -1212,6 +1213,11 @@ end;
 procedure TFullTestClarify.TestDelphiNetRecordForward;
 begin
   TestClarifyFile('TestDelphiNetRecordForward');
+end;
+
+procedure TFullTestClarify.TestDelphiNetRecordProcs;
+begin
+  TestClarifyFile('TestDelphiNetRecordProcs');
 end;
 
 procedure TFullTestClarify.TestCondCompBreaks;

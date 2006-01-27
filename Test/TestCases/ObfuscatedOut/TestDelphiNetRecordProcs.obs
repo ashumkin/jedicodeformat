@@ -1,0 +1,5 @@
+unit testdelphinetrecordprocs;interface type tsomerecord=record i,j,k,l:integer;
+function sum:integer;procedure clear;constructor create(ivalue:integer);end;implementation
+procedure tsomerecord.clear;begin i:=0;j:=0;k:=0;l:=0;end;constructor tsomerecord
+.create(ivalue:integer);begin clear;i:=ivalue;end;function tsomerecord.sum:integer
+;begin result:=i+j+k+l;end;end. 

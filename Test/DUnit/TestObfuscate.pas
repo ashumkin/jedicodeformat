@@ -238,6 +238,7 @@ type
     procedure TestDelphiNetAmpersandMethod;
     procedure TestDelphiNetMulticast;
     procedure TestDelphiNetDynamicArray;
+    procedure TestDelphiNetRecordProcs;
 
     procedure TestTryExceptRaise;
     procedure TestTrailingCommaParam;
@@ -1264,6 +1265,11 @@ end;
 procedure TTestObfuscate.TestDelphiNetRecordForward;
 begin
   TestObfuscateFile('TestDelphiNetRecordForward');
+end;
+
+procedure TTestObfuscate.TestDelphiNetRecordProcs;
+begin
+  TestObfuscateFile('TestDelphiNetRecordProcs');
 end;
 
 procedure TTestObfuscate.TestCondCompBreaks;

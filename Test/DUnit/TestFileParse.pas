@@ -238,6 +238,7 @@ type
     procedure TestDelphiNetAmpersandMethod;
     procedure TestDelphiNetMulticast;
     procedure TestDelphiNetDynamicArray;
+    procedure TestDelphiNetRecordProcs;
 
     procedure TestTryExceptRaise;
     procedure TestTrailingCommaParam;
@@ -1226,6 +1227,11 @@ end;
 procedure TTestFileParse.TestDelphiNetRecordForward;
 begin
   TestParseFile('TestDelphiNetRecordForward', 142);
+end;
+
+procedure TTestFileParse.TestDelphiNetRecordProcs;
+begin
+  TestParseFile('TestDelphiNetRecordProcs', 187);
 end;
 
 procedure TTestFileParse.TestCondCompBreaks;

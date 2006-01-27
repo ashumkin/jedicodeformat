@@ -408,6 +408,10 @@ begin
     if pt.HasParentNode(nRecordVariant) and (RoundBracketLevel(pt) > 0) then
       Inc(liIndentCount);
 
+    // delphi.net fns and procedures in records
+    if pt.TokenType in ProcedureWords then
+      Inc(liIndentCount);
+
     if (pt.TokenType <> ttEnd) then
     begin
       lbHasIndentedDecl := True;
