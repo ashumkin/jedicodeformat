@@ -196,14 +196,13 @@ var
 begin
   Result := '';
 
-  // find the first identifier
+  // find the identifiers
   for liLoop := 0 to Count - 1 do
   begin
     lcTest := Items[liLoop];
-    if lcTest.TokenType = ttIdentifier then
+    if lcTest.TokenType in [ttIdentifier, ttDot] then
     begin
-      Result := lcTest.SourceCode;
-      break;
+      Result := Result + lcTest.SourceCode;
     end;
   end;
 end;

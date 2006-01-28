@@ -52,6 +52,11 @@ type
     procedure Test2;
     procedure Test2_outofOrder;
 
+    procedure Test2_outofOrder_DotNet;
+    procedure Test2_outofOrder_DotNet2;
+    procedure Test4_outofOrder_DotNet;
+    procedure Test6_outofOrder_DotNet;
+
     procedure Test3;
     procedure Test3_outofOrder;
     procedure Test10_outofOrder;
@@ -167,6 +172,63 @@ const
     TEST_UNIT_END;
   OUT_UNIT_TEXT = TEST_UNIT_START +
     ' uses aUnit, bUnit;' + AnsiLineBreak +
+    TEST_UNIT_END;
+begin
+  SetTestSortState;
+
+  TestProcessResult(TSortUses, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestSortUses.Test2_outofOrder_DotNet;
+const
+  IN_UNIT_TEXT = TEST_UNIT_START +
+    ' uses Foo.bUnit, Foo.aUnit;' + AnsiLineBreak +
+    TEST_UNIT_END;
+  OUT_UNIT_TEXT = TEST_UNIT_START +
+    ' uses Foo.aUnit, Foo.bUnit;' + AnsiLineBreak +
+    TEST_UNIT_END;
+begin
+  SetTestSortState;
+
+  TestProcessResult(TSortUses, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestSortUses.Test2_outofOrder_DotNet2;
+const
+  IN_UNIT_TEXT = TEST_UNIT_START +
+    ' uses Foo.bUnit, Bar.bUnit;' + AnsiLineBreak +
+    TEST_UNIT_END;
+  OUT_UNIT_TEXT = TEST_UNIT_START +
+    ' uses Bar.bUnit, Foo.bUnit;' + AnsiLineBreak +
+    TEST_UNIT_END;
+begin
+  SetTestSortState;
+
+  TestProcessResult(TSortUses, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestSortUses.Test4_outofOrder_DotNet;
+const
+  IN_UNIT_TEXT = TEST_UNIT_START +
+    ' uses Foo.bUnit, Bar.aUnit, Bar.bUnit, Foo.aUnit;' + AnsiLineBreak +
+    TEST_UNIT_END;
+  OUT_UNIT_TEXT = TEST_UNIT_START +
+    ' uses Bar.aUnit, Bar.bUnit, Foo.aUnit, Foo.bUnit;' + AnsiLineBreak +
+    TEST_UNIT_END;
+begin
+  SetTestSortState;
+
+  TestProcessResult(TSortUses, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+
+procedure TTestSortUses.Test6_outofOrder_DotNet;
+const
+  IN_UNIT_TEXT = TEST_UNIT_START +
+    ' uses Zed.Bee, Foo.bUnit, Bar.aUnit, Bar.bUnit, Foo.aUnit, System.Type;' + AnsiLineBreak +
+    TEST_UNIT_END;
+  OUT_UNIT_TEXT = TEST_UNIT_START +
+    ' uses Bar.aUnit, Bar.bUnit, Foo.aUnit, Foo.bUnit, System.Type, Zed.Bee;' + AnsiLineBreak +
     TEST_UNIT_END;
 begin
   SetTestSortState;

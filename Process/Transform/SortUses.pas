@@ -250,7 +250,7 @@ begin
         continue;
       end;
 
-      if IsIdentifier(lcToken, idStrict) and (lcToken.HasParentNode(nUsesItem, 2)) then
+      if IsIdentifier(lcToken, idAny) and (lcToken.HasParentNode(nUsesItem, 2)) then
       begin
         if not lbStartUsesItem then
         begin
@@ -260,7 +260,10 @@ begin
       end
       else
       begin
-        // a uses item contains exactly one identifier.
+        { a uses item contains exactly one identifier.
+         but in Delphi.Net it can be dotted, e.g.
+         "System.Runtime.Remoting"
+        }
         lbStartUsesItem := False;
       end;
 
@@ -271,6 +274,18 @@ begin
         lbStartFirstSection := False;
 
       lcToken := lcToken.NextToken;
+
+      if lcToken.TokenType = ttDot then
+      begin
+        // delphi.net dotted unit name
+        while (lcToken.TokenType = ttDot) or IsIdentifier(lcToken, idAny) do
+        begin
+          lcCurrentSection.AddToken(lcToken);
+          lcToken := lcToken.NextToken;
+        end;
+
+
+      end;
     end;
 
     { remove the unsorted tokens }
