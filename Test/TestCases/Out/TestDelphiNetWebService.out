@@ -1,4 +1,4 @@
-unit DelphiNetWebService;
+unit TestDelphiNetWebService;
 
 interface
 

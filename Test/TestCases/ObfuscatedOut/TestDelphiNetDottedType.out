@@ -10,11 +10,27 @@ type
   end;
 
   tmyclass2 = class
+  private
+    objvalue:    system.object;
+    msexceltype: system.type;
   public
     function getobject(mytype: system.type): TObject;
+    procedure catchdottedexception;
   end;
 
 implementation
+
+uses system.runtime.remoting;
+
+procedure tmyclass2.catchdottedexception;
+begin
+  try
+  except
+    on exp: system.runtime.remoting.remotingexception do
+    begin
+    end;
+  end;
+end;
 
 function tmyclass2.getobject(mytype: system.type): TObject;
 begin

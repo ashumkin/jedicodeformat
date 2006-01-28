@@ -1186,7 +1186,7 @@ end;
 
 procedure TTestFileParse.TestDelphiNetDottedType;
 begin
-  TestParseFile('TestDelphiNetDottedType', 154);
+  TestParseFile('TestDelphiNetDottedType', 245);
 end;
 
 procedure TTestFileParse.TestDelphiNetDynamicArray;

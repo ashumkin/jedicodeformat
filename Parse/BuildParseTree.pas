@@ -2994,7 +2994,7 @@ begin
       Recognise(ttColon);
     end;
 
-    RecogniseIdentifier(True, idStrict);
+    RecogniseDottedName;
     Recognise(ttDo);
 
     RecogniseNotSolidTokens;

@@ -1,4 +1,4 @@
-unit delphinetwebservice;interface uses system.collections,system.componentmodel
+unit testdelphinetwebservice;interface uses system.collections,system.componentmodel
 ,system.data,system.diagnostics,system.web,system.web.services;type twebservice1=
 class(System.Web.Services.WebService){$REGION 'Designer Managed Code'}strict private
 components:icontainer;procedure initializecomponent;{$ENDREGION}strict protected 

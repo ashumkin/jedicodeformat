@@ -368,7 +368,7 @@ type
   TStatusMsgReceiver = class(TObject)
   public
     procedure OnReceiveStatusMessage(const psFile, psMessage: string;
-      const piX, piY: integer);
+      const piY, piX: integer);
   end;
 
 var
@@ -378,7 +378,7 @@ var
 { TStatusMsgReceiver }
 
   procedure TStatusMsgReceiver.OnReceiveStatusMessage(const psFile, psMessage: string;
-  const piX, piY: integer);
+  const piY, piX: integer);
   var
     lsMessage: string;
   begin
@@ -390,7 +390,7 @@ var
     if (piY >= 0) then
       lsMessage := lsMessage + ' at line ' + IntToStr(piY);
     if (piX >= 0) then
-      lsMessage := lsMessage + ' pos ' + IntToStr(piX);
+      lsMessage := lsMessage + ' col ' + IntToStr(piX);
 
     WriteLn(lsMessage);
   end;
