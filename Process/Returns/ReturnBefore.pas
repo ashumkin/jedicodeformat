@@ -148,8 +148,8 @@ begin
    }
 
   if (pt.TokenType in ProcedureWords) and
-    ( not pt.IsOnRightOf(nTypeDecl, ttEquals)) and
-    ( not IsClassFunction(pt)) and
+    (not pt.IsOnRightOf(nTypeDecl, ttEquals)) and
+    (not IsClassFunction(pt)) and
     (ProcedureHasBody(pt)) and
     (not IsIdentifier(pt, idAny)) then
   begin
@@ -180,7 +180,7 @@ begin
 
   { start of class function body }
   if (pt.TokenType = ttClass) and
-    ( not pt.HasParentNode([nVarDecl, nConstDecl, nClassDeclarations])) and
+    ( not pt.HasParentNode([nVarDecl, nConstDecl, nClassDeclarations, nRecordType])) and
     (pt.HasParentNode(nFunctionHeading, 1)) then
   begin
     Result := True;

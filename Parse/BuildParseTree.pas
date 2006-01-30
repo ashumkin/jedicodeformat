@@ -1626,20 +1626,19 @@ begin
 
   while not (lcNextToken.TokenType in [ttEnd, ttCase, ttCloseBracket]) do
   begin
-    if lcNextToken.TokenType = ttProcedure then
-    begin
-      RecogniseProcedureHeading(False, False);
-    end
-    else if lcNextToken.TokenType = ttFunction then
-    begin
-      RecogniseFunctionHeading(False, False);
-    end
-    else if lcNextToken.TokenType = ttConstructor then
-    begin
-      RecogniseConstructorHeading(True);
-    end
-    else
-      RecogniseFieldDecl;
+    case lcNextToken.TokenType of
+      ttProcedure:
+        RecogniseProcedureHeading(False, False);
+      ttFunction:
+        RecogniseFunctionHeading(False, False);
+      ttConstructor:
+        RecogniseConstructorHeading(True);
+      ttClass:
+        RecogniseClassOperator(False);
+      else
+        RecogniseFieldDecl;
+    end;
+
 
     lcNextToken := fcTokenList.FirstSolidToken;
 

@@ -208,6 +208,12 @@ begin
   Result := Result + CountClassNesting(pt.Parent);
 end;
 
+function IsRunOnProcDecl(const pt: TSourceToken): boolean;
+begin
+  Result := pt.HasParentNode(ProcedureHeadings) and
+    (not (pt.TokenType in (ProcedureWords + [ttClass, ttComment])));
+end;
+
 function CalculateIndent(const pt: TSourceToken): integer;
 var
   liIndentCount: integer;
@@ -251,8 +257,7 @@ begin
       Inc(liIndentCount);
 
     // run on lines in procs
-    if pt.HasParentNode(ProcedureHeadings) and
-      ( not (pt.TokenType in (ProcedureWords + [ttClass, ttComment]))) then
+    if IsRunOnProcDecl(pt) then
       Inc(liIndentCount);
 
     lbHasIndentedDecl := True;
@@ -262,9 +267,9 @@ begin
 
   { indent vars, consts etc, e.g.
     implementation
-    const
+    co nst
       foo = 3;
-    var
+    v ar
       bar: integer;
   }
   else if pt.HasParentNode(nDeclSection) and (not pt.HasParentNode(ProcedureNodes)) then
@@ -409,7 +414,7 @@ begin
       Inc(liIndentCount);
 
     // delphi.net fns and procedures in records
-    if pt.TokenType in ProcedureWords then
+    if pt.TokenType in (ProcedureWords + [ttClass]) then
       Inc(liIndentCount);
 
     if (pt.TokenType <> ttEnd) then
@@ -417,6 +422,15 @@ begin
       lbHasIndentedDecl := True;
       Inc(liIndentCount);
     end;
+
+    // run on lines in procs
+    if pt.HasParentNode(ProcedureHeadings) and
+      ( not (pt.TokenType in (ProcedureWords + [ttClass, ttComment]))) then
+      Inc(liIndentCount);
+
+    if IsRunOnProcDecl(pt) then
+      Inc(liIndentCount);
+    
   end;
 
 

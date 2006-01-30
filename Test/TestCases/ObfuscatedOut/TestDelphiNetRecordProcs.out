@@ -5,12 +5,20 @@ interface
 type
   tsomerecord = record
     i, j, k, l: integer;
-
     function sum: integer;
-
     procedure Clear;
-
     constructor Create(ivalue: integer);
+  end;
+
+  toprecord = record
+    i: integer;
+    s: string;
+    class operator add(a, b: toprecord): toprecord;
+    class operator
+      equal(a, b: toprecord): boolean;
+    class operator implicit(a: toprecord): integer;
+    class operator
+      implicit(a: integer): toprecord;
   end;
 
 implementation
@@ -32,6 +40,29 @@ end;
 function tsomerecord.sum: integer;
 begin
   Result := i + j + k + l;
+end;
+
+class operator
+toprecord.add(a, b: toprecord): toprecord;
+begin
+  Result.i := a.i + b.i;
+  Result.s := a.s + b.s;
+end;
+
+class operator toprecord.equal(a, b: toprecord): boolean;
+begin
+  Result := (a.i = b.i) and (a.s = b.s);
+end;
+
+class operator toprecord.implicit(a: integer): toprecord;
+begin
+  Result.i := a;
+  Result.s := '';
+end;
+
+class operator toprecord.implicit(a: toprecord): integer;
+begin
+  Result := a.i;
 end;
 
 end.

@@ -223,7 +223,7 @@ begin
 
     // at the end of type block with a proc next. but not in a class def
     if pt.HasParentNode(nTypeSection) and (ptNext.TokenType in ProcedureWords) and
-      ( not pt.HasParentNode(ObjectBodies)) then
+      ( not pt.HasParentNode(ObjectBodies + [nRecordType])) then
     begin
       Result := True;
       exit;
