@@ -169,6 +169,18 @@ begin
 
 end;
 
+function EndsWithComma(const pcUsesIdentList: TParseTreeNode): boolean;
+var
+  lcToken: TSourceToken;
+begin
+  lcToken := pcUsesIdentList.LastLeaf as TSourceToken;
+
+  if (lcToken <> nil) and (not lcToken.IsSolid) then
+    lcToken := lcToken.PriorSolidToken;
+
+  Result := (lcToken <> nil) and (lcToken.TokenType = ttComma);
+end;
+
 procedure TSortUses.SortUsesInSections(const pcUsesIdentList: TParseTreeNode);
 var
   lcToken: TSourceToken;
@@ -203,7 +215,7 @@ var
   lbStartFirstSection: boolean;
   lbStartUsesItem: boolean;
   liSectionLoop: integer;
-
+  lbEndsWithComma: boolean;
 begin
   leBreakTokens := [];
 
@@ -220,6 +232,7 @@ begin
   lcSections.OwnsObjects := True;
   lbStartFirstSection := True;
   lbStartUsesItem := True;
+  lbEndsWithComma := False;
   
   try
     { at least one section, but can be more }
@@ -284,7 +297,6 @@ begin
           lcToken := lcToken.NextToken;
         end;
 
-
       end;
     end;
 
@@ -294,7 +306,7 @@ begin
     { sort each section, and reattach it  }
     for liSectionLoop := 0 to lcSections.Count - 1 do
     begin
-      lcCurrentSection := TUsesSection(lcSections.Items[liSectionLoop]);
+       lcCurrentSection := TUsesSection(lcSections.Items[liSectionLoop]);
 
       if lcCurrentSection.Sorted then
       begin
@@ -314,10 +326,12 @@ begin
         end;
       end;
 
-      {  repopulate the original parent with sorted items }
-      lcCurrentSection.AttachTo(pcUsesIdentList);
-    end;
+      {  repopulate the original parent with sorted items
+        if the last one ends with a comma, this one must not start with a comma }
+      lcCurrentSection.AttachTo(pcUsesIdentList, not lbEndsWithComma);
 
+      lbEndsWithComma := EndsWithComma(pcUsesIdentList);
+    end;
   finally
     lcSections.Free;
   end;

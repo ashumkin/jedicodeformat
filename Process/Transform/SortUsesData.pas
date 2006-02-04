@@ -44,10 +44,11 @@ type
 
     function Count: integer;
     function SortKey: string;
+    function Text: string;
     function IndentifierIndex: integer;
 
     procedure Add(const pcItem: TSourceToken);
-    procedure AttachTo(const pcNode: TParseTreeNode);
+    procedure AttachTo(const pcNode: TParseTreeNode; const pbAllowCommaFirst: boolean);
 
     property Items[const piIndex: integer]: TSourceToken read GetItem;
   end;
@@ -66,11 +67,13 @@ type
     destructor Destroy; override;
 
     function Count: integer;
+    function Text: string;
+
     procedure Sort(Compare: TListSortCompare);
 
     procedure AddUsesItem;
     procedure AddToken(const pcItem: TSourceToken);
-    procedure AttachTo(const pcNode: TParseTreeNode);
+    procedure AttachTo(const pcNode: TParseTreeNode; pbAllowCommaFirst: boolean);
 
     property Sorted: boolean read fbSorted write fbSorted;
 
@@ -207,6 +210,21 @@ begin
   end;
 end;
 
+function TUsesItem.Text: string;
+var
+  liLoop: integer;
+  lcTest: TSourceToken;
+begin
+  Result := '';
+
+  for liLoop := 0 to Count - 1 do
+  begin
+    lcTest := Items[liLoop];
+    Result := Result + lcTest.SourceCode;
+  end;
+end;
+
+
 function TUsesItem.IndentifierIndex: integer;
 var
   liLoop: integer;
@@ -226,7 +244,24 @@ begin
   end;
 end;
 
-procedure TUsesItem.AttachTo(const pcNode: TParseTreeNode);
+procedure TUsesItem.AttachTo(const pcNode: TParseTreeNode; const pbAllowCommaFirst: boolean);
+var
+  lbHasSolid: boolean;
+
+  procedure AddToken(const pcToken: TSourceToken);
+  begin
+    // skip the comma if it's the first token and asked to do so
+    if (not lbHasSolid) and (not pbAllowCommaFirst) and
+    (pcToken.TokenType = ttComma) then
+      exit;
+
+
+    if (not lbHasSolid) and pcToken.IsSolid then
+      lbHasSolid := True;
+
+    pcNode.AddChild(pcToken);
+  end;
+
 var
   liIndentifierIndex: integer;
   lcUsesItem: TParseTreeNode;
@@ -235,19 +270,22 @@ var
   liloop: integer;
   lbHasComma: Boolean;
   lcComma: TSourceToken;
+
+
 begin
   if Count < 1 then
     exit;
 
   Assert(pcNode <> nil);
   liIndentifierIndex := IndentifierIndex;
+  lbHasSolid := False;
 
   if liIndentifierIndex < 0 then
   begin
     for liLoop := 0 to Count - 1 do
     begin
       lcToken := Items[liLoop];
-      pcNode.AddChild(lcToken);
+      AddToken(lcToken);
     end;
   end
   else
@@ -255,11 +293,12 @@ begin
     for liLoop := 0 to liIndentifierIndex - 1 do
     begin
       lcToken := Items[liLoop];
-      pcNode.AddChild(lcToken);
+      AddToken(lcToken);
     end;
 
 
     // attach the data back onto the parent node, a uses clause
+    lbHasSolid := True;
     lcUsesItem := TParseTreeNode.Create;
     lcUsesItem.NodeType := nUsesItem;
 
@@ -280,7 +319,7 @@ begin
       lcToken := Items[liLoop];
       if lcToken.TokenType = ttComma then
         lbHasComma := True;
-      pcNode.AddChild(lcToken);
+      AddToken(lcToken);
     end;
 
     { needs to end with a comma }
@@ -290,9 +329,9 @@ begin
       lcComma.SourceCode := ',';
       lcComma.TokenType := ttComma;
 
-      pcNode.AddChild(lcComma);
+      AddToken(lcComma);
 
-      pcNode.AddChild(NewSpace(1));
+      AddToken(NewSpace(1));
     end;
   end;
 end;
@@ -349,7 +388,22 @@ begin
     fcItems.Sort(Compare);
 end;
 
-procedure TUsesSection.AttachTo(const pcNode: TParseTreeNode);
+function TUsesSection.Text: string;
+var
+  liItemLoop: integer;
+  lcItem: TusesItem;
+begin
+  Result := '';
+
+  for liItemLoop := 0 to Count - 1 do
+  begin
+    lcItem := Items[liItemLoop];
+    Result := Result + lcItem.Text;
+  end;
+
+end;
+
+procedure TUsesSection.AttachTo(const pcNode: TParseTreeNode; pbAllowCommaFirst: boolean);
 var
   liItemLoop: integer;
   lcItem: TusesItem;
@@ -358,7 +412,8 @@ begin
   for liItemLoop := 0 to Count - 1 do
   begin
     lcItem := Items[liItemLoop];
-    lcItem.AttachTo(pcNode);
+    lcItem.AttachTo(pcNode, pbAllowCommaFirst);
+    pbAllowCommaFirst := True; // set true fater first one
 
     // space it?
     if Sorted and (liItemLoop < (Count - 1)) and (lcItem.Count > 0) then
