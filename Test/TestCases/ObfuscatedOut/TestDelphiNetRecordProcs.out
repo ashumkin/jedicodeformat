@@ -20,6 +20,17 @@ type
     class operator
       implicit(a: integer): toprecord;
   end;
+  tpropertyrecord = record
+  private
+    fi, fj: integer;
+    function gettwicei: integer;
+    function gettwicej: integer;
+    procedure settwicei(const Value: integer);
+  public
+    property i: integer Read fi Write fi;
+    property twicei: integer Read gettwicei Write settwicei;
+    property twicej: integer Read gettwicej;
+  end;
 
 implementation
 
@@ -42,10 +53,10 @@ begin
   Result := i + j + k + l;
 end;
 
-class operator
-toprecord.add(a, b: toprecord): toprecord;
+class operator toprecord.add(a, b: toprecord): toprecord;
 begin
-  Result.i := a.i + b.i;
+  Result.
+    i      := a.i + b.i;
   Result.s := a.s + b.s;
 end;
 
@@ -63,6 +74,22 @@ end;
 class operator toprecord.implicit(a: toprecord): integer;
 begin
   Result := a.i;
+end;
+
+function tpropertyrecord.gettwicei: integer;
+begin
+  Result := fi * 2;
+end;
+
+function tpropertyrecord.gettwicej: integer;
+begin
+  Result :=
+    fj * 2;
+end;
+
+procedure tpropertyrecord.settwicei(const Value: integer);
+begin
+  fi := Value div 2;
 end;
 
 end.

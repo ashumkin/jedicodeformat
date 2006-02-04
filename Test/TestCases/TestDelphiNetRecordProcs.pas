@@ -24,6 +24,22 @@ type
     class operator Implicit(A: integer): TOpRecord;
   end;
 
+  TPropertyRecord = record
+  private
+    fi, fj: integer;
+
+    function GetTwiceI: integer;
+    function GetTwiceJ: integer;
+    procedure SetTWiceI(const Value: integer);
+
+  public
+    property I: integer read fi write fi;
+
+    property TwiceI: integer read GetTwiceI write SetTWiceI;
+    property TwiceJ: integer read GetTwiceJ;
+
+  end;
+
 implementation
 
 
@@ -70,6 +86,23 @@ end;
 class operator TOpRecord.Implicit(A: TOpRecord): Integer;
 begin
   Result := A.i;
+end;
+
+{ TPropertyRecord }
+
+function TPropertyRecord.GetTwiceI: integer;
+begin
+  Result := fi * 2;
+end;
+
+function TPropertyRecord.GetTwiceJ: integer;
+begin
+  Result := fj * 2;
+end;
+
+procedure TPropertyRecord.SetTWiceI(const Value: integer);
+begin
+  fi := Value div 2;
 end;
 
 end.

@@ -420,7 +420,8 @@ begin
     if (pt.TokenType <> ttEnd) then
     begin
       lbHasIndentedDecl := True;
-      Inc(liIndentCount);
+      if not (pt.TokenType in ClassVisibility) then
+        Inc(liIndentCount);
     end;
 
     // run on lines in procs

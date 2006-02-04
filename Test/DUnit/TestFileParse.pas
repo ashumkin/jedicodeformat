@@ -1231,7 +1231,7 @@ end;
 
 procedure TTestFileParse.TestDelphiNetRecordProcs;
 begin
-  TestParseFile('TestDelphiNetRecordProcs', 495);
+  TestParseFile('TestDelphiNetRecordProcs', 698);
 end;
 
 procedure TTestFileParse.TestCondCompBreaks;

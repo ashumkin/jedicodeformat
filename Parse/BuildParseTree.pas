@@ -131,6 +131,7 @@ type
     procedure RecogniseProcedureType;
     procedure RecogniseRealType;
     procedure RecogniseRecordType;
+    procedure RecogniseRecordBody;
     procedure RecogniseRecVariant;
     procedure RecogniseRestrictedType;
     procedure RecogniseSetType;
@@ -1602,19 +1603,42 @@ begin
   lcType := fcTokenList.FirstSolidTokenType;
 
   if lcType = ttSemiColon then
-  begin
+  begin                     
 
   end
   else
   begin
-    if lcType <> ttEnd then
-      RecogniseFieldList;
+    RecogniseRecordBody;
     Recognise(ttEnd);
   end;
 
   RecogniseHintDirectives;
 
   PopNode;
+end;
+
+procedure TBuildParseTree.RecogniseRecordBody;
+var
+  lcNextToken: TSourceToken;
+begin
+  lcNextToken := fcTokenList.FirstSolidToken;
+
+  if lcNextToken.TokenType = ttEnd then
+    exit;
+
+  RecogniseFieldList;
+
+  { delphi.net records can have public and private parts }
+  while lcNextToken.TokenType in ClassVisibility do
+  begin
+    PushNode(nClassVisibility);
+    RecogniseClassVisibility;
+    RecogniseFieldList;
+    PopNode;
+
+    lcNextToken := fcTokenList.FirstSolidToken;
+  end;
+
 end;
 
 procedure TBuildParseTree.RecogniseFieldList;
@@ -1624,7 +1648,7 @@ begin
   // FieldList ->  FieldDecl/';'... [VariantSection] [';']
   lcNextToken := fcTokenList.FirstSolidToken;
 
-  while not (lcNextToken.TokenType in [ttEnd, ttCase, ttCloseBracket]) do
+  while not (lcNextToken.TokenType in [ttEnd, ttCase, ttCloseBracket] + ClassVisibility) do
   begin
     case lcNextToken.TokenType of
       ttProcedure:
@@ -1635,6 +1659,8 @@ begin
         RecogniseConstructorHeading(True);
       ttClass:
         RecogniseClassOperator(False);
+      ttProperty:
+        RecogniseProperty;
       else
         RecogniseFieldDecl;
     end;
