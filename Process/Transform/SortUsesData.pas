@@ -253,8 +253,7 @@ var
     // skip the comma if it's the first token and asked to do so
     if (not lbHasSolid) and (not pbAllowCommaFirst) and
     (pcToken.TokenType = ttComma) then
-      exit;
-
+      exit; 
 
     if (not lbHasSolid) and pcToken.IsSolid then
       lbHasSolid := True;

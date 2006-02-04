@@ -65,6 +65,8 @@ type
     procedure TestSectionsReturn2;
     procedure TestSectionsReturn3;
 
+    procedure TestSectionsReturnComma;
+
     procedure TestComment1;
     procedure TestComment2;
     procedure TestComment3;
@@ -321,6 +323,27 @@ const
 begin
   SetTestSortState;
   FormatSettings.Transform.BreakUsesSortOnReturn := True;
+  TestProcessResult(TSortUses, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+{ Test for bug 1423817 - exta comma added at end of line
+  before comma at the start of the next line }
+procedure TTestSortUses.TestSectionsReturnComma;
+const
+  IN_UNIT_TEXT = TEST_UNIT_START +
+    ' Uses SysUtils {Exception}' + AnsiLineBreak +
+    ', WinTypes' +
+    ';' + AnsiLineBreak +
+    TEST_UNIT_END;
+  OUT_UNIT_TEXT = TEST_UNIT_START +
+    ' Uses SysUtils {Exception}, ' +  AnsiLineBreak +
+    ' WinTypes' +
+    ';' + AnsiLineBreak +
+    TEST_UNIT_END;
+begin
+  SetTestSortState;
+  FormatSettings.Transform.BreakUsesSortOnReturn := True;
+
   TestProcessResult(TSortUses, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
