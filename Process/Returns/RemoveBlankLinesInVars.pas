@@ -80,7 +80,8 @@ begin
 
   lcNext := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace, ttReturn]);
   liReturnCount := 0;
-  liMaxReturns := 2;
+  liMaxReturns := FormatSettings.Returns.MaxBlankLinesInSection + 1;
+
   lcTest := lcSourceToken;
 
   { remove all returns up to that point (except one) }
@@ -91,10 +92,8 @@ begin
       // allow two returns -> 1 blank line
       Inc(liReturnCount);
       if (liReturnCount > liMaxReturns) then
-      begin
-        lcTest.TokenType  := ttWhiteSpace;
-        lcTest.SourceCode := '';
-      end;
+       BlankToken(lcTest);
+
     end;
     lcTest := lcTest.NextToken;
   end;

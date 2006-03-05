@@ -78,6 +78,7 @@ type
 
     fbRemoveConsecutiveBlankLines: boolean;
     fiMaxConsecutiveBlankLines: integer;
+    fiMaxBlankLinesInSection: integer;
 
     fiLinesBeforeProcedure: integer;
 
@@ -141,6 +142,8 @@ type
       Read fbRemoveConsecutiveBlankLines Write fbRemoveConsecutiveBlankLines;
     property MaxConsecutiveBlankLines: integer
       Read fiMaxConsecutiveBlankLines Write fiMaxConsecutiveBlankLines;
+    property MaxBlankLinesInSection: integer
+      Read fiMaxBlankLinesInSection Write fiMaxBlankLinesInSection;
 
     property LinesBeforeProcedure: integer read fiLinesBeforeProcedure write fiLinesBeforeProcedure;
 
@@ -193,6 +196,7 @@ const
 
   REG_REMOVE_CONSECUTIVE_BLANK_LINES = 'RemoveConsecutiveBlankLines';
   REG_MAX_CONSECUTIVE_BLANK_LINES    = 'MaxConsecutiveBlankLines';
+  REG_MAX_BLANK_LINES_IN_SECTION = 'MaxBlankLinesInSection';
   REG_LINES_BEFORE_PROCEDURE = 'LinesBeforeProcedure';
 
 constructor TSetReturns.Create;
@@ -250,6 +254,7 @@ begin
 
   fbRemoveConsecutiveBlankLines := pcStream.Read(REG_REMOVE_CONSECUTIVE_BLANK_LINES, True);
   fiMaxConsecutiveBlankLines    := pcStream.Read(REG_MAX_CONSECUTIVE_BLANK_LINES, 4);
+  fiMaxBlankLinesInSection := pcStream.Read(REG_MAX_BLANK_LINES_IN_SECTION, 1);
   fiLinesBeforeProcedure   := pcStream.Read(REG_LINES_BEFORE_PROCEDURE, 1);
 end;
 
@@ -299,6 +304,7 @@ begin
 
   pcOut.Write(REG_REMOVE_CONSECUTIVE_BLANK_LINES, fbRemoveConsecutiveBlankLines);
   pcOut.Write(REG_MAX_CONSECUTIVE_BLANK_LINES, fiMaxConsecutiveBlankLines);
+  pcOut.Write(REG_MAX_BLANK_LINES_IN_SECTION, fiMaxBlankLinesInSection);
 
   pcOut.Write(REG_LINES_BEFORE_PROCEDURE, fiLinesBeforeProcedure);
 end;

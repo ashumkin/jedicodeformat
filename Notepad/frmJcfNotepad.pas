@@ -31,7 +31,7 @@ uses
   { Jedi }
   JvMRUManager, JvMemo, JvComponent, JvExStdCtrls, JvFormPlacement,
   { local }
-  JcfRegistrySettings,  Converter;
+  JcfRegistrySettings,  Converter, JvComponentBase;
 
 { have to do file pos display *after* various processing }
 const

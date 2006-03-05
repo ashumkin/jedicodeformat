@@ -1,9 +1,9 @@
 object fmJCFNotepad: TfmJCFNotepad
   Left = 165
   Top = 173
-  Width = 696
-  Height = 480
   Caption = 'Jedi Code format notepad'
+  ClientHeight = 426
+  ClientWidth = 688
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -82,6 +82,10 @@ object fmJCFNotepad: TfmJCFNotepad
     OnChange = pcPagesChange
     object tsInput: TTabSheet
       Caption = 'Input'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object mInput: TJvMemo
         Left = 0
         Top = 0
@@ -309,6 +313,7 @@ object fmJCFNotepad: TfmJCFNotepad
     Top = 24
   end
   object JvFormStorage1: TJvFormStorage
+    AppStoragePath = '%FORM_NAME%'
     StoredValues = <>
     Left = 600
     Top = 8

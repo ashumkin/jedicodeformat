@@ -45,6 +45,8 @@ type
     cbRemoveVarBlankLines: TCheckBox;
     edtLinesBeforeProcedure: TJvValidateEdit;
     Label3: TLabel;
+    Label4: TLabel;
+    edtMaxBlankLinesInSection: TJvValidateEdit;
   private
   public
     constructor Create(AOwner: TComponent); override;
@@ -81,6 +83,7 @@ begin
 
     cbRemoveConsecutiveBlankLines.Checked := RemoveConsecutiveBlankLines;
     edtMaxConsecutiveBlankLines.Value     := MaxConsecutiveBlankLines;
+    edtMaxBlankLinesInSection.Value := MaxBlankLinesInSection;
 
     edtLinesBeforeProcedure.Value := LinesBeforeProcedure;
   end;
@@ -99,6 +102,8 @@ begin
     RemoveConsecutiveBlankLines := cbRemoveConsecutiveBlankLines.Checked;
     // this value is always at least 2
     MaxConsecutiveBlankLines    := Max(edtMaxConsecutiveBlankLines.Value, 2);
+    MaxBlankLinesInSection := edtMaxBlankLinesInSection.Value;
+
 
     LinesBeforeProcedure := edtLinesBeforeProcedure.Value;
   end;
