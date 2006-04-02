@@ -228,6 +228,7 @@ type
     procedure TestDelphiNetRecordForward;
 
     procedure TestDelphiNetWebService;
+    procedure TestDelphiNetWebService2;
     procedure TestDelphiNetAttributes;
     procedure TestDelphiNetKeywords;
     procedure TestDelphiNetClassVar;
@@ -1256,8 +1257,14 @@ end;
 
 procedure TTestFileParse.TestDelphiNetWebService;
 begin
-  TestParseFile('TestDelphiNetWebService', 353);
+  TestParseFile('TestDelphiNetWebService', 356);
 end;
+
+procedure TTestFileParse.TestDelphiNetWebService2;
+begin
+  TestParseFile('TestDelphiNetWebService2', 432);
+end;
+
 
 procedure TTestFileParse.TestDelphiNetKeywords;
 begin

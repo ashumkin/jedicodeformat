@@ -226,6 +226,7 @@ type
     procedure TestDelphiNetRecordForward;
     procedure TestDelphiNetAttributes;
     procedure TestDelphiNetWebService;
+    procedure TestDelphiNetWebService2;
     procedure TestDelphiNetKeywords;
     procedure TestDelphiNetClassVar;
     procedure TestDelphiNetSealedClass;
@@ -1243,6 +1244,11 @@ end;
 procedure TFullTestClarify.TestDelphiNetWebService;
 begin
   TestClarifyFile('TestDelphiNetWebService');
+end;
+
+procedure TFullTestClarify.TestDelphiNetWebService2;
+begin
+  TestClarifyFile('TestDelphiNetWebService2');
 end;
 
 procedure TFullTestClarify.TestDelphiNetKeywords;

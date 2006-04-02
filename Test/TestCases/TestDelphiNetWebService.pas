@@ -1,5 +1,9 @@
 unit TestDelphiNetWebService;
 
+{ AFS March 2006
+ This unit compiles but is not semantically meaningfull
+ it is test cases for the code formatting utility }
+
 interface
 
 uses

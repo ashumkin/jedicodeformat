@@ -1,0 +1,58 @@
+unit testdelphinetwebservice2;
+
+interface
+
+uses system.collections, system.componentmodel, system.Data, system.diagnostics, system.web, system.xml.serialization, system.web.services;
+
+type
+
+  [webservice(namespace = 'http://example.com/JCFTest/')]
+    twebservice1 = class(System.Web.Services.WebService){$REGION 'Designer Managed Code'}
+  strict private
+    Components: icontainer;
+    procedure initializecomponent;{$ENDREGION}
+  strict protected
+    procedure dispose(disposing: boolean); override;
+  private
+  public
+    constructor Create;
+    [webmethod]
+    [result: xmlattribute]
+    function helloworld: string;
+    [webmethod]
+    [result: xmlelement]
+    function introduce(
+      [xmlattribute]
+      myself: string): string;
+  end;
+
+implementation {$REGION 'Designer Managed Code'}
+
+procedure twebservice1.initializecomponent;
+begin
+end;
+
+function twebservice1.introduce(myself: string): string;
+begin
+  Result := 'Hello ' + myself;
+end;{$ENDREGION}
+
+constructor twebservice1.Create;
+begin
+  inherited;
+  initializecomponent;
+end;
+
+procedure twebservice1.dispose(disposing: boolean);
+begin
+  if disposing and (Components <> nil) then
+    Components.dispose;
+  inherited dispose(disposing);
+end;
+
+function twebservice1.helloworld: string;
+begin
+  Result := 'Hello World';
+end;
+
+end.

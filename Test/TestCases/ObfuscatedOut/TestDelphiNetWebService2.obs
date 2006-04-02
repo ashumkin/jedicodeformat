@@ -1,0 +1,14 @@
+unit testdelphinetwebservice2;interface uses system.collections,system.componentmodel
+,system.data,system.diagnostics,system.web,system.xml.serialization,system.web.services
+;type [webservice(namespace='http://example.com/JCFTest/')]twebservice1=class(System
+.Web.Services.WebService){$REGION 'Designer Managed Code'}strict private components
+:icontainer;procedure initializecomponent;{$ENDREGION}strict protected procedure 
+dispose(disposing:boolean);override;private public constructor create;[webmethod]
+[result:xmlattribute]function helloworld:string;[webmethod][result:xmlelement]function
+introduce([xmlattribute]myself:string):string;end;implementation {$REGION 'Designer Managed Code'}
+procedure twebservice1.initializecomponent;begin end;function twebservice1.introduce
+(myself:string):string;begin result:='Hello '+myself;end;{$ENDREGION}constructor 
+twebservice1.create;begin inherited;initializecomponent;end;procedure twebservice1
+.dispose(disposing:boolean);begin if disposing and(components<>nil)then components
+.dispose;inherited dispose(disposing);end;function twebservice1.helloworld:string
+;begin result:='Hello World';end;end.

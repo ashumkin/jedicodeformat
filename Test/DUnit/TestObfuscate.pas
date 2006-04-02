@@ -230,6 +230,7 @@ type
     procedure TestDelphiNetRecordForward;
     procedure TestDelphiNetAttributes;
     procedure TestDelphiNetWebService;
+    procedure TestDelphiNetWebService2;
     procedure TestDelphiNetKeywords;
     procedure TestDelphiNetClassVar;
     procedure TestDelphiNetSealedClass;
@@ -1295,6 +1296,11 @@ end;
 procedure TTestObfuscate.TestDelphiNetWebService;
 begin
   TestObfuscateFile('TestDelphiNetWebService');
+end;
+
+procedure TTestObfuscate.TestDelphiNetWebService2;
+begin
+  TestObfuscateFile('TestDelphiNetWebService2');
 end;
 
 procedure TTestObfuscate.TestDelphiNetKeywords;
