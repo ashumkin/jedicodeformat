@@ -3315,6 +3315,9 @@ const
 begin
   PushNode(nFormalParam);
 
+  if (fcTokenList.FirstSolidTokenType = ttOpenSquareBracket) then
+    RecogniseAttributes;
+
   { FormalParm -> [VAR | CONST | OUT] Parameter
 
     'out' is different as it is also a param name so this is legal
@@ -4968,16 +4971,20 @@ end;
 
 procedure TBuildParseTree.RecogniseAttributes;
 begin
-  PushNode(nAttribute);
+  repeat
+    PushNode(nAttribute);
 
-  { Delphi.Net syntax for metadata in square brackets }
-  Recognise(ttOpenSquareBracket);
-  while fcTokenList.FirstTokenType <> ttCloseSquareBracket do
-    Recognise(fcTokenList.FirstTokenType);
+    { Delphi.Net syntax for metadata in square brackets }
+    Recognise(ttOpenSquareBracket);
+    while fcTokenList.FirstTokenType <> ttCloseSquareBracket do
+      Recognise(fcTokenList.FirstTokenType);
 
-  Recognise(ttCloseSquareBracket);
+    Recognise(ttCloseSquareBracket);
 
-  PopNode;
+    PopNode;
+
+    RecogniseNotSolidTokens;
+  until fcTokenList.FirstTokenType <> ttOpenSquareBracket;
 end;
 
 end.
