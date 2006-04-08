@@ -214,6 +214,59 @@ begin
     (not (pt.TokenType in (ProcedureWords + [ttClass, ttComment])));
 end;
 
+
+{ true if this is the top of an if statement
+  would be easier if there was a nIfStatement node type }
+function IsIfBlockTop(const pn: TParseTreeNode): boolean;
+var
+  lcToken: TSourceToken;
+begin
+  Result := False;
+
+  if pn.IsLeaf then
+  begin
+    lcToken := TSourceToken(pn);
+    Result := (lcToken.TokenType in [ttIf, ttElse]);
+  end;
+
+  if not Result then
+    Result := (pn.NodeType in [nIfBlock, nIfCondition]);
+
+  if not Result then
+    Result := (pn.NodeType = nStatement) and (pn.HasChildNode(ttIf, 1));
+end;
+
+function ElseDepth(const pt: TSourceToken): integer;
+var
+  lcParent: TParseTreeNode;
+begin
+  Result := 0;
+
+  if InStatements(pt) then
+  begin
+    lcParent := pt;
+    while (lcParent <> nil) do
+    begin
+      // increment for an if statement under an else
+      if IsIfblockTop(lcParent) and lcParent.HasParentNode(nElseBlock, 2) then
+      begin
+        inc(Result);
+        // skip the next two level, part of the same if-else block.
+        if lcParent.NodeType <> nStatement then
+          lcParent := lcParent.Parent;
+        if lcParent <> nil then
+          lcParent := lcParent.Parent;
+      end;
+
+      if lcParent <> nil then
+        lcParent := lcParent.Parent;
+    end;
+
+
+  end;
+
+end;
+
 function CalculateIndent(const pt: TSourceToken): integer;
 var
   liIndentCount: integer;
@@ -394,7 +447,11 @@ begin
       end;
     end;
 
-  end; // proceudres
+    if FormatSettings.Indent.IndentElse then
+      liIndentCount := liIndentCount + ElseDepth(pt);
+    
+
+  end; // procedures
 
   { record declaration stuph }
   if pt.HasParentNode(nRecordType) then
