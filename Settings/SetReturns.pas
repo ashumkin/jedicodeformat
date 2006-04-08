@@ -146,7 +146,6 @@ type
       Read fiMaxBlankLinesInSection Write fiMaxBlankLinesInSection;
 
     property LinesBeforeProcedure: integer read fiLinesBeforeProcedure write fiLinesBeforeProcedure;
-
   end;
 
 implementation
@@ -256,6 +255,7 @@ begin
   fiMaxConsecutiveBlankLines    := pcStream.Read(REG_MAX_CONSECUTIVE_BLANK_LINES, 4);
   fiMaxBlankLinesInSection := pcStream.Read(REG_MAX_BLANK_LINES_IN_SECTION, 1);
   fiLinesBeforeProcedure   := pcStream.Read(REG_LINES_BEFORE_PROCEDURE, 1);
+
 end;
 
 procedure TSetReturns.WriteToStream(const pcOut: TSettingsOutput);
