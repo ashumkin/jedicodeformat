@@ -7,7 +7,7 @@ unit TestIndentation;
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code
 
-The Original Code is TestSpacing, released January 2004.
+The Original Code is TestIndentation, released January 2004.
 The Initial Developer of the Original Code is Anthony Steele.
 Portions created by Anthony Steele are Copyright (C) 1999-2004 Anthony Steele.
 All Rights Reserved.
@@ -37,6 +37,7 @@ type
     fiSaveIndentSpaces, fiSaveIndentBeginEndSpaces: integer;
     fbSaveHasFirstLevelIndent: boolean;
     fiSaveFirstLevelIndent: integer;
+    fbSaveIndentElse: boolean;
 
   protected
     procedure SetUp; override;
@@ -61,7 +62,7 @@ implementation
 
 uses JclStrings,
   JcfSettings,
-  Indenter;
+  Indenter, SetIndent;
 
 procedure TTestIndentation.Setup;
 begin
@@ -74,6 +75,7 @@ begin
 
   fbSaveHasFirstLevelIndent := FormatSettings.Indent.HasFirstLevelIndent;
   fiSaveFirstLevelIndent    := FormatSettings.Indent.FirstLevelIndent;
+  fbSaveIndentElse := FormatSettings.Indent.IndentElse;
 end;
 
 procedure TTestIndentation.Teardown;
@@ -87,6 +89,8 @@ begin
 
   FormatSettings.Indent.HasFirstLevelIndent := fbSaveHasFirstLevelIndent;
   FormatSettings.Indent.FirstLevelIndent    := fiSaveFirstLevelIndent;
+
+  FormatSettings.Indent.IndentElse := fbSaveIndentElse;
 end;
 
 const
