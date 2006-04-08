@@ -1,32 +1,32 @@
 inherited fBlankLines: TfBlankLines
-  Width = 291
-  Height = 315
-  ExplicitWidth = 291
-  ExplicitHeight = 315
+  Width = 308
+  Height = 280
+  ExplicitWidth = 308
+  ExplicitHeight = 280
   object Label1: TLabel
     Left = 3
-    Top = 161
+    Top = 144
     Width = 210
     Height = 13
     Caption = 'Number of returns after the unit'#39's final end.'
   end
   object Label2: TLabel
     Left = 3
-    Top = 208
-    Width = 132
+    Top = 192
+    Width = 177
     Height = 13
-    Caption = 'Max consecutive blank lines'
+    Caption = 'Max consecutive blank lines anwhere'
   end
   object Label3: TLabel
     Left = 3
-    Top = 234
+    Top = 218
     Width = 111
     Height = 13
     Caption = 'Lines before procedure'
   end
   object eNumReturnsAfterFinalEnd: TJvValidateEdit
-    Left = 215
-    Top = 156
+    Left = 225
+    Top = 142
     Width = 49
     Height = 21
     EditText = '0'
@@ -38,15 +38,15 @@ inherited fBlankLines: TfBlankLines
   end
   object cbRemoveConsecutiveBlankLines: TCheckBox
     Left = 3
-    Top = 184
+    Top = 168
     Width = 201
     Height = 17
     Caption = 'Remove consecutive blank lines'
     TabOrder = 2
   end
   object edtMaxConsecutiveBlankLines: TJvValidateEdit
-    Left = 143
-    Top = 205
+    Left = 225
+    Top = 190
     Width = 49
     Height = 21
     EditText = '0'
@@ -59,16 +59,16 @@ inherited fBlankLines: TfBlankLines
   object gbRemoveBlankLines: TGroupBox
     Left = 3
     Top = 3
-    Width = 221
+    Width = 286
     Height = 126
     Caption = 'Remove blank lines'
     TabOrder = 0
     object Label4: TLabel
       Left = 8
       Top = 94
-      Width = 132
+      Width = 208
       Height = 13
-      Caption = 'Max consecutive blank lines'
+      Caption = 'Max consecutive blank lines before removal'
     end
     object cbRemoveBlockBlankLines: TCheckBox
       Left = 8
@@ -79,8 +79,8 @@ inherited fBlankLines: TfBlankLines
       TabOrder = 2
     end
     object cbRemoveBlankLinesAfterProcHeader: TCheckBox
-      Left = 8
-      Top = 45
+      Left = 3
+      Top = 44
       Width = 193
       Height = 17
       Caption = 'after procedure header'
@@ -95,7 +95,7 @@ inherited fBlankLines: TfBlankLines
       TabOrder = 0
     end
     object edtMaxBlankLinesInSection: TJvValidateEdit
-      Left = 146
+      Left = 222
       Top = 91
       Width = 49
       Height = 21
@@ -108,8 +108,8 @@ inherited fBlankLines: TfBlankLines
     end
   end
   object edtLinesBeforeProcedure: TJvValidateEdit
-    Left = 143
-    Top = 232
+    Left = 225
+    Top = 216
     Width = 49
     Height = 21
     EditText = '0'

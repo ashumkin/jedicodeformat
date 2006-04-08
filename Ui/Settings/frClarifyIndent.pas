@@ -36,17 +36,19 @@ type
   TfClarifyIndent = class(TfrSettingsFrame)
     Label2: TLabel;
     edtIndentSpaces: TJvValidateEdit;
+    cbIndentGlobals: TCheckBox;
+    cbIndentProcedures: TCheckBox;
+    cbIndentClasses: TCheckBox;
+    gbOptions: TGroupBox;
     cbIndentBeginEnd: TCheckBox;
     eIndentBeginEndSpaces: TJvValidateEdit;
     cbHasFirstLevelIndent: TCheckBox;
     eFirstLevelIndent: TJvValidateEdit;
-    cbIndentGlobals: TCheckBox;
-    cbIndentProcedures: TCheckBox;
-    cbIndentClasses: TCheckBox;
     cbKeepWithInProc: TCheckBox;
     cbKeepWithInGlobals: TCheckBox;
     cbKeepWithInClassDef: TCheckBox;
     cbKeepWithElsewhere: TCheckBox;
+    cbIndentElse: TCheckBox;
     procedure cbIndentBeginEndClick(Sender: TObject);
     procedure cbHasFirstLevelIndentClick(Sender: TObject);
   private
@@ -92,6 +94,7 @@ begin
     cbKeepWithInGlobals.Checked  := KeepCommentsWithCodeInGlobals;
     cbKeepWithInClassDef.Checked := KeepCommentsWithCodeInClassDef;
     cbKeepWithElsewhere.Checked  := KeepCommentsWithCodeElsewhere;
+    cbIndentElse.Checked := IndentElse;
   end;
 
   cbIndentBeginEndClick(nil);
@@ -118,6 +121,7 @@ begin
     KeepCommentsWithCodeInGlobals  := cbKeepWithInGlobals.Checked;
     KeepCommentsWithCodeInClassDef := cbKeepWithInClassDef.Checked;
     KeepCommentsWithCodeElsewhere  := cbKeepWithElsewhere.Checked;
+    IndentElse := cbIndentElse.Checked;
 
   end;
 end;
