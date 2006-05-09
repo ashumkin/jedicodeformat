@@ -24,8 +24,9 @@ under the License.
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, 
-  Dialogs, frmBaseSettingsFrame, StdCtrls, ExtCtrls;
+  Windows, Classes, Graphics, Controls, Forms,
+  StdCtrls, ExtCtrls,
+  frmBaseSettingsFrame;
 
 type
   TfCompilerDirectReturns = class(TfrSettingsFrame)

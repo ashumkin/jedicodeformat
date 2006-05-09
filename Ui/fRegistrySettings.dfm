@@ -23,7 +23,7 @@ object fmRegistrySettings: TfmRegistrySettings
     Top = 0
     Width = 478
     Height = 264
-    ActivePage = tsIde
+    ActivePage = tsGeneral
     Align = alClient
     TabOrder = 0
     object tsGeneral: TTabSheet
@@ -63,16 +63,10 @@ object fmRegistrySettings: TfmRegistrySettings
         Top = 202
         Width = 40
         Height = 21
-        CheckChars = '01234567890'
-        CriticalPoints.CheckPoints = cpNone
-        CriticalPoints.ColorAbove = clBlue
-        CriticalPoints.ColorBelow = clRed
         EditText = '0'
         MaxLength = 2
         MaxValue = 12.000000000000000000
         TabOrder = 1
-        Text = '0'
-        Value = 0
       end
       object btnClearMRU: TButton
         Left = 152

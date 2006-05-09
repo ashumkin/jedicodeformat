@@ -156,7 +156,8 @@ uses
   TestIncAt in 'TestIncAt.pas',
   TestDLLIndex in 'TestDLLIndex.pas',
   TestASMAnd in 'TestASMAnd.pas',
-  TestAsmLabel in 'TestAsmLabel.pas';
+  TestAsmLabel in 'TestAsmLabel.pas',
+  TestVarArgs in 'TestVarArgs.pas';
 
 {$R *.res}
 

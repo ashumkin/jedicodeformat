@@ -156,7 +156,8 @@ uses
   testincat in 'TestIncAt.pas',
   testdllindex in 'TestDLLIndex.pas',
   testasmand in 'TestASMAnd.pas',
-  testasmlabel in 'TestAsmLabel.pas';
+  testasmlabel in 'TestAsmLabel.pas',
+  testvarargs in 'TestVarArgs.pas';
 
 {$R *.res}
 begin

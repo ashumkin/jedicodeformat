@@ -48,7 +48,7 @@ implementation
 
 {$R *.dfm}
 
-uses JcfHelp, JcfSettings, SetComments;
+uses JcfHelp, JcfSettings;
 
 constructor TfWarnings.Create(AOwner: TComponent);
 begin

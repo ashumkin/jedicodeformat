@@ -1,12 +1,10 @@
 inherited fClarifyIndent: TfClarifyIndent
   Width = 321
   Height = 306
-  ExplicitWidth = 321
-  ExplicitHeight = 306
   object Label2: TLabel
     Left = 4
     Top = 80
-    Width = 117
+    Width = 119
     Height = 13
     Caption = 'Block indentation spaces'
   end

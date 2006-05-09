@@ -1,0 +1,11 @@
+unit testvarargs;
+
+interface
+
+procedure print(x: PChar); cdecl; varargs; external 'any.dll'
+  Name 'print';
+
+implementation
+
+end.
+ 

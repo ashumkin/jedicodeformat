@@ -36,7 +36,7 @@ interface
 
 uses
   { delphi }
-  Contnrs,
+  Windows, Contnrs,
   { local }
   ParseTreeNode,
   ParseTreeNodeType,
@@ -267,8 +267,7 @@ implementation
 
 uses
   { delphi }
-  SysUtils,
-  Forms,
+  SysUtils, Forms,
   { jcl }
   JclStrings;
 

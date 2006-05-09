@@ -50,7 +50,6 @@ type
 implementation
 
 uses
-  SysUtils,
   TokenUtils,
   SourceToken, Tokens, ParseTreeNode,
   Nesting, ParseTreeNodeType, JcfSettings,

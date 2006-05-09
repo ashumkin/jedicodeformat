@@ -62,5 +62,5 @@ in'TestCommentIndent2.pas',fbracketprop in'fBracketProp.pas'{Form1},testendelse 
 ,test.dotted.name in'test.dotted.name.pas',testcondcompbreaks in'TestCondCompBreaks.pas'
 ,testdelphinetkeywords in'TestDelphiNetKeywords.pas',testincat in'TestIncAt.pas',
 testdllindex in'TestDLLIndex.pas',testasmand in'TestASMAnd.pas',testasmlabel in'TestAsmLabel.pas'
-;{$R *.res}begin application.initialize;application.createform(tformtest,formtest
-);application.run;end. 
+,testvarargs in'TestVarArgs.pas';{$R *.res}begin application.initialize;application
+.createform(tformtest,formtest);application.run;end. 

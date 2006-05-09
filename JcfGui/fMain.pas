@@ -36,7 +36,8 @@ uses
   { local }
   FileConverter, JCFSettings,
   frBasicSettings, JvMRUManager, JvFormPlacement,
-  JvMemo, frDrop, frmBaseSettingsFrame, JvComponent, JvExStdCtrls;
+  JvMemo, frDrop, frmBaseSettingsFrame, JvComponent, JvExStdCtrls,
+  JvComponentBase;
 
 type
   TfrmMain = class(TForm)

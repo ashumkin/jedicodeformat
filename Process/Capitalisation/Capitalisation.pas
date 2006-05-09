@@ -45,7 +45,7 @@ implementation
 uses
   SysUtils,
   JclStrings,
-  SourceToken, SettingsTypes, Tokens, ParseTreeNodeType,
+  SourceToken, SettingsTypes, Tokens, 
   JcfSettings, FormatFlags, TokenUtils;
 
 { TCapitalisation }

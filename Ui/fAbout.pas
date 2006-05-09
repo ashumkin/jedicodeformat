@@ -25,7 +25,7 @@ interface
 
 uses
   { delphi }
-  Windows, Classes, Graphics, Forms, Controls, StdCtrls,
+  Windows, Classes, Forms, Graphics, Controls, StdCtrls,
   Buttons, ExtCtrls,
    { JVCL }
   JvLabel, JvExControls, JvComponent;

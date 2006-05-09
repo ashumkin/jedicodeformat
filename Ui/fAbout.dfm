@@ -21,7 +21,7 @@ object frmAboutBox: TfrmAboutBox
   TextHeight = 13
   object bbOK: TBitBtn
     Left = 136
-    Top = 274
+    Top = 272
     Width = 80
     Height = 30
     TabOrder = 1

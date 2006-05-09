@@ -247,6 +247,7 @@ type
     procedure TestDLLIndex;
     procedure TestIncAt;
     procedure TestAsmAnd;
+    procedure TestVarArgs;
 
     procedure TestCases;
     procedure TestPackage;
@@ -734,7 +735,7 @@ end;
 
 procedure TTestFileParse.TestCases;
 begin
-  TestParseFile('Testcases.dpr', 1293);
+  TestParseFile('Testcases.dpr', 1301);
 end;
 
 
@@ -746,6 +747,11 @@ end;
 procedure TTestFileParse.TestProcBlankLines;
 begin
   TestParseFile('TestProcBlankLines', 64);
+end;
+
+procedure TTestFileParse.TestVarArgs;
+begin
+  TestParseFile('TestVarArgs', 43);
 end;
 
 procedure TTestFileParse.TestVarParam;

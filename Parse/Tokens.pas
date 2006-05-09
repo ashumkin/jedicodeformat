@@ -193,7 +193,7 @@ type
     ttFinal,
     ttAdd,
     ttRemove,
-
+    ttVarArgs,
 
     { built-in constants }
     ttNil,
@@ -327,20 +327,22 @@ const
     ttVirtual, ttCdecl, ttMessage, ttName, ttRegister, ttDispId,
     ttNear, ttDynamic, ttExport, ttOverride, ttResident, ttLocal,
     ttOverload, ttReintroduce,
-    ttDeprecated, ttLibrary, ttPlatform, ttStatic, ttFinal];
+    ttDeprecated, ttLibrary, ttPlatform, ttStatic, ttFinal, ttVarArgs];
 
   ClassDirectives: TTokenTypeSet =
     [ttPrivate, ttProtected, ttPublic, ttPublished, ttAutomated, ttStrict];
   HintDirectives: TTokenTypeSet  = [ttDeprecated, ttLibrary, ttPlatform];
 
-  AllDirectives: TTokenTypeSet = [ttAbsolute, ttExternal, ttPascal, ttSafecall,
+  AllDirectives: TTokenTypeSet =
+  [ttAbsolute, ttExternal, ttPascal, ttSafecall,
     ttAbstract, ttFar, ttPrivate, ttStdcall, ttAssembler, ttForward,
     ttProtected, ttStored, ttAutomated, ttIndex, ttPublic,
     ttVirtual, ttCdecl, ttMessage, ttPublished, ttWrite,
     ttDefault, ttName, ttRead, ttWriteOnly, ttDispId,
     ttNear, ttReadOnly, ttDynamic, ttNoDefault, ttRegister,
     ttExport, ttOverride, ttOverload, ttResident, ttLocal,
-    ttImplements, ttReintroduce, ttDeprecated, ttPlatform];
+    ttImplements, ttReintroduce,
+    ttLibrary, ttPlatform, ttStatic, ttFinal, ttVarArgs];    
 
   ProcedureWords: TTokenTypeSet = [ttProcedure, ttFunction, ttConstructor, ttDestructor, ttOperator];
 
@@ -647,6 +649,7 @@ begin
   
   AddKeyword('add', wtReservedWordDirective, ttAdd);
   AddKeyword('remove', wtReservedWordDirective, ttRemove);
+  AddKeyword('varargs', wtReservedWordDirective, ttVarArgs);
 
   { operators that are words not symbols }
   AddKeyword('and', wtOperator, ttAnd);

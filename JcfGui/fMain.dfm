@@ -1,12 +1,12 @@
 object frmMain: TfrmMain
   Left = 205
   Top = 224
-  Width = 488
-  Height = 354
   HorzScrollBar.Visible = False
   VertScrollBar.Visible = False
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
   Caption = 'Jedi Code Format'
+  ClientHeight = 300
+  ClientWidth = 480
   Color = clBtnFace
   Constraints.MinHeight = 300
   Constraints.MinWidth = 400
@@ -41,7 +41,6 @@ object frmMain: TfrmMain
     ButtonWidth = 24
     EdgeBorders = [ebTop, ebBottom]
     EdgeOuter = esNone
-    Flat = True
     Images = ilStandardImages
     ParentShowHint = False
     ShowHint = True
@@ -116,6 +115,18 @@ object frmMain: TfrmMain
     Width = 463
     Height = 138
     TabOrder = 1
+    TabStop = True
+    ExplicitTop = 26
+    ExplicitWidth = 463
+    ExplicitHeight = 138
+    inherited lblOutput: TLabel
+      Width = 48
+      ExplicitWidth = 48
+    end
+    inherited lblInput: TLabel
+      Width = 40
+      ExplicitWidth = 40
+    end
   end
   object mOutput: TJvMemo
     Left = 4
@@ -4489,7 +4500,7 @@ object frmMain: TfrmMain
     Top = 20
   end
   object JvFormStorage1: TJvFormStorage
-    AppStoragePath = '%FORM_NAME%'
+    AppStoragePath = 'frmMain\'
     StoredValues = <>
     Left = 460
     Top = 12

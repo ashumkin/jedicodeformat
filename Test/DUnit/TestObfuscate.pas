@@ -249,6 +249,7 @@ type
     procedure TestDLLIndex;
     procedure TestIncAt;
     procedure TestAsmAnd;
+    procedure TestVarArgs;
 
   end;
 
@@ -766,6 +767,11 @@ end;
 procedure TTestObfuscate.TestUsesChanges;
 begin
   TestObfuscateFile('TestUsesChanges');
+end;
+
+procedure TTestObfuscate.TestVarArgs;
+begin
+  TestObfuscateFile('TestVarArgs');
 end;
 
 procedure TTestObfuscate.TestVarParam;

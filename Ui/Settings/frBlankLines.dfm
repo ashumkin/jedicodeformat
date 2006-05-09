@@ -1,26 +1,24 @@
 inherited fBlankLines: TfBlankLines
   Width = 308
   Height = 280
-  ExplicitWidth = 308
-  ExplicitHeight = 280
   object Label1: TLabel
     Left = 3
     Top = 144
-    Width = 210
+    Width = 199
     Height = 13
     Caption = 'Number of returns after the unit'#39's final end.'
   end
   object Label2: TLabel
     Left = 3
     Top = 192
-    Width = 177
+    Width = 178
     Height = 13
     Caption = 'Max consecutive blank lines anwhere'
   end
   object Label3: TLabel
     Left = 3
     Top = 218
-    Width = 111
+    Width = 109
     Height = 13
     Caption = 'Lines before procedure'
   end
@@ -66,7 +64,7 @@ inherited fBlankLines: TfBlankLines
     object Label4: TLabel
       Left = 8
       Top = 94
-      Width = 208
+      Width = 207
       Height = 13
       Caption = 'Max consecutive blank lines before removal'
     end

@@ -62,7 +62,7 @@ uses
   { delphi }
   SysUtils, Windows,
   { local }
-  ParseTreeNodeType, SourceToken, Tokens, TokenUtils, JCfSettings;
+  ParseTreeNodeType, SourceToken, TokenUtils, JCfSettings;
 
 constructor TWarnUnusedParam.Create;
 begin
