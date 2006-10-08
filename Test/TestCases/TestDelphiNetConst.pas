@@ -27,6 +27,21 @@ type
       s = 'A string constant';
   end;
 
+  TTestConstFirst = class(TObject)
+    const SOME_CONST = 1;
+    private
+      testInt: Int32;
+   end;
+
+  TTestConstFirst2 = class(TObject)
+    const 
+      SOME_CONST = 1;
+      OTHER_CONST = 2;
+    private
+      testInt: Int32;
+  end;
+
+
 implementation
 
 { TMyClass }

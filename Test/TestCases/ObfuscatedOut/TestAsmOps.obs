@@ -1,0 +1,10 @@
+unit testasmops;interface uses windows;implementation function asmsqrt(f:single)
+:single;assembler;
+asm
+fld f;
+fsqrt;
+fstp result;
+end;procedure foo;asm 
+movsd;movsd;movsd 
+movsd 
+end;end. 

@@ -93,7 +93,7 @@ type
 
     procedure RecogniseLabelDeclSection;
     procedure RecogniseLabel;
-    procedure RecogniseConstSection;
+    procedure RecogniseConstSection(const pbNestedInClass: Boolean);
     procedure RecogniseConstantDecl;
     procedure CheckLabelPrefix;
 
@@ -669,7 +669,8 @@ begin
     ttAmpersand:
       RecognisePossiblyAmpdIdentifier;
     else
-      RecogniseIdentifier(False, idStrict);
+      // "Label" is valid here as an identifier even though it is a reserved word
+      RecogniseIdentifier(False, idAny);
 
   end;
 end;
@@ -738,7 +739,7 @@ begin
 
   case lt of
     ttConst, ttResourceString:
-      RecogniseConstSection;
+      RecogniseConstSection(false);
     ttType:
       RecogniseTypeSection(false);
     ttVar, ttThreadvar:
@@ -875,7 +876,7 @@ begin
     ttLabel:
       RecogniseLabelDeclSection;
     ttConst, ttResourceString:
-      RecogniseConstSection;
+      RecogniseConstSection(false);
     ttType:
       RecogniseTypeSection(false);
     ttVar, ttThreadvar:
@@ -936,7 +937,7 @@ begin
     RecogniseIdentifier(False, idAllowDirectives);
 end;
 
-procedure TBuildParseTree.RecogniseConstSection;
+procedure TBuildParseTree.RecogniseConstSection(const pbNestedInClass: Boolean);
 begin
   {
     ConstSection -> CONST (ConstantDecl ';')...
@@ -944,10 +945,16 @@ begin
   PushNode(nConstSection);
   Recognise([ttConst, ttResourceString]);
 
-  while fcTokenList.FirstSolidWordType in IdentifierTypes do
+  while (fcTokenList.FirstSolidWordType in IdentifierTypes) do
   begin
     RecogniseConstantDecl;
     Recognise(ttSemicolon);
+
+    // #Trident# If const is nested inside a class, a visibility designator
+    // ("private" for exemple) can be written after.
+    // So, inside a class, no wtReservedWordDirective allowed
+    if pbNestedInClass and (fcTokenList.FirstSolidTokenType in ClassVisibility) then
+    break;
   end;
 
   PopNode;
@@ -3787,7 +3794,7 @@ begin
       ttConst:
       begin
         { constant in a class are legal in Delphi.net }
-        RecogniseConstSection;
+        RecogniseConstSection(true);
         lbHasTrailingSemicolon := False;
       end;
       ttClass:
@@ -4399,26 +4406,35 @@ begin
 
     RecogniseWhiteSpace;
 
-    while not (fcTokenList.FirstTokenType in [ttSemicolon, ttReturn,
-        ttComment, ttEnd]) do
+    if fcTokenList.FirstSolidTokenType = ttSemiColon then
     begin
-      if fcTokenList.FirstSolidTokenType = ttComma then
-        Recognise(ttComma);
-      RecogniseAsmParam;
-
-      RecogniseWhiteSpace;
-
-      if fcTokenList.FirstSolidTokenType = ttEnd then
-        Break;
-
-      if fcTokenList.FirstSolidTokenType = ttSemiColon then
+      Recognise(ttSemiColon);
+    end
+    else
+    begin
+      while not (fcTokenList.FirstTokenType in [ttSemicolon, ttReturn,
+          ttComment, ttEnd]) do
       begin
-        Recognise(ttSemiColon);
-        break;
-      end;
-    end;
+        if fcTokenList.FirstSolidTokenType = ttComma then
+          Recognise(ttComma);
+        RecogniseAsmParam;
 
+        RecogniseWhiteSpace;
+
+        if fcTokenList.FirstSolidTokenType = ttEnd then
+          Break;
+
+        if fcTokenList.FirstSolidTokenType = ttSemiColon then
+        begin
+          Recognise(ttSemiColon);
+          break;
+        end;
+      end;
+
+    end;
   end;
+
+
 
   PopNode;
 end;

@@ -85,8 +85,9 @@ end;
 procedure TTreeWalker.VisitTree(const pcNode: TParseTreeNode);
 const
   { if a node has more than this number of direct children, then something is very wrong
-   can have lots in some "header" units that just list a lot of consts }
-  MAX_NODE_CHILDREN = 32768;
+   can have lots in some "header" units that just list a lot of consts
+   AFS 8 Oct 2006 upped it for Sourceforge bug 1558885 }
+  MAX_NODE_CHILDREN = 4194304;
 var
   liLoop: Integer;
   lcChildNode: TParseTreeNode;

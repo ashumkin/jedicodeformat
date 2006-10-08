@@ -1,4 +1,6 @@
 unit testdelphinetconst;interface type ttemperatureconverter=class(TObject)public
 const absolutezero=-273;end;type tmyclass=class const x=12;y=tmyclass.x+23;procedure
-hello;private const s='A string constant';end;implementation procedure tmyclass.hello
+hello;private const s='A string constant';end;ttestconstfirst=class(TObject)const
+some_const=1;private testint:int32;end;ttestconstfirst2=class(TObject)const some_const
+=1;other_const=2;private testint:int32;end;implementation procedure tmyclass.hello
 ;begin end;end. 

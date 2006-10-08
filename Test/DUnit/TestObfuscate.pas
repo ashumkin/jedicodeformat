@@ -214,6 +214,7 @@ type
     procedure TestCondCompBreaks;
     procedure TestCondCompBreaks2;
     procedure TestAsmLabel;
+    procedure TestAsmOps;
 
     procedure TestDelphiNetUses;
 
@@ -250,6 +251,8 @@ type
     procedure TestIncAt;
     procedure TestAsmAnd;
     procedure TestVarArgs;
+    procedure TestLabelKeyword;
+
 
   end;
 
@@ -592,6 +595,11 @@ end;
 procedure TTestObfuscate.TestInterfaces;
 begin
   TestObfuscateFile('TestInterfaces');
+end;
+
+procedure TTestObfuscate.TestLabelKeyword;
+begin
+  TestObfuscateFile('TestLabelKeyword');
 end;
 
 procedure TTestObfuscate.TestLayout;
@@ -1367,6 +1375,11 @@ end;
 procedure TTestObfuscate.TestAsmLabel;
 begin
   TestObfuscateFile('TestAsmLabel');
+end;
+
+procedure TTestObfuscate.TestAsmOps;
+begin
+  TestObfuscateFile('TestAsmOps');
 end;
 
 initialization

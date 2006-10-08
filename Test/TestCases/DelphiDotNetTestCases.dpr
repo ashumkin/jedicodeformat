@@ -30,7 +30,8 @@ uses
   TestDelphiNetSealedClass in 'TestDelphiNetSealedClass.pas',
   TestDelphiNetStatic in 'TestDelphiNetStatic.pas',
   TestDelphiNetUses in 'TestDelphiNetUses.pas',
-  TestDotNetForm1 in 'TestDotNetForm1.pas' {TestDotNetForm1.TWinForm: System.Windows.Forms.Form};
+  TestDotNetForm1 in 'TestDotNetForm1.pas' {TestDotNetForm1.TWinForm: System.Windows.Forms.Form},
+  TestLabelKeyword in 'TestLabelKeyword.pas';
 
 {$R *.res}
 

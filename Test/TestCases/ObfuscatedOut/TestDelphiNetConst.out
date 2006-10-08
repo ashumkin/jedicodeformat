@@ -21,6 +21,21 @@ type
     s = 'A string constant';
   end;
 
+  ttestconstfirst = class(TObject)
+  const
+    some_const = 1;
+  private
+    testint: int32;
+  end;
+
+  ttestconstfirst2 = class(TObject)
+  const
+    some_const  = 1;
+    other_const = 2;
+  private
+    testint: int32;
+  end;
+
 implementation
 
 procedure tmyclass.hello;

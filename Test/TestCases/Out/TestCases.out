@@ -157,7 +157,8 @@ uses
   TestDLLIndex in 'TestDLLIndex.pas',
   TestASMAnd in 'TestASMAnd.pas',
   TestAsmLabel in 'TestAsmLabel.pas',
-  TestVarArgs in 'TestVarArgs.pas';
+  TestVarArgs in 'TestVarArgs.pas',
+  TestAsmOps in 'TestAsmOps.pas';
 
 {$R *.res}
 

@@ -112,6 +112,7 @@ type
     procedure TestAsm;
     procedure TestAsmStructs;
     procedure TestAtExpr;
+    procedure TestAsmOps;
 
     procedure TestBlankLineRemoval;
     procedure TestBogusDirectives;
@@ -246,6 +247,7 @@ type
     procedure TestAsmAnd;
     procedure TestAsmLabel;
     procedure TestVarArgs;
+    procedure TestLabelKeyword;
 
     procedure TestCases;
   end;
@@ -469,7 +471,7 @@ end;
 
 procedure TFullTestClarify.TestCases;
 begin
-  TestClarifyFile('TestCases.dpr', 1301);
+  TestClarifyFile('TestCases.dpr', 1309);
 end;
 
 procedure TFullTestClarify.TestCast;
@@ -590,6 +592,11 @@ end;
 procedure TFullTestClarify.TestInterfaces;
 begin
   TestClarifyFile('TestInterfaces', 648);
+end;
+
+procedure TFullTestClarify.TestLabelKeyword;
+begin
+  TestClarifyFile('TestLabelKeyword', 60);
 end;
 
 procedure TFullTestClarify.TestLayout;
@@ -845,6 +852,11 @@ end;
 procedure TFullTestClarify.TestAtExpr;
 begin
   TestClarifyFile('TestAtExpr', 79);
+end;
+
+procedure TFullTestClarify.TestAsmOps;
+begin
+  TestClarifyFile('TestAsmOps', 93);
 end;
 
 procedure TFullTestClarify.TestAsmStructs;
@@ -1199,7 +1211,7 @@ end;
 
 procedure TFullTestClarify.TestDelphiNetConst;
 begin
-  TestClarifyFile('TestDelphiNetConst', 125);
+  TestClarifyFile('TestDelphiNetConst', 206);
 end;
 
 procedure TFullTestClarify.TestDelphiNetDottedType;

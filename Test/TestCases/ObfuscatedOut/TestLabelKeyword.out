@@ -1,0 +1,16 @@
+unit testlabelkeyword;
+
+interface
+
+uses system.Windows.Forms;
+
+type
+  ttest = class(TObject)
+  strict private
+    lblinfo: system.Windows.Forms.label;
+  end;
+
+implementation
+
+end.
+ 
