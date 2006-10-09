@@ -1,0 +1,19 @@
+unit testdelphinetunsafe;
+
+interface {$UNSAFECODE ON}
+
+uses SysUtils;
+
+type
+  tunsafeclass = class
+    function f_gettext: integer; unsafe;
+  end;
+
+implementation
+
+function tunsafeclass.f_gettext: integer;
+begin
+end;
+
+end.
+ 

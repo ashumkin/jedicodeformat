@@ -31,7 +31,8 @@ uses
   TestDelphiNetStatic in 'TestDelphiNetStatic.pas',
   TestDelphiNetUses in 'TestDelphiNetUses.pas',
   TestDotNetForm1 in 'TestDotNetForm1.pas' {TestDotNetForm1.TWinForm: System.Windows.Forms.Form},
-  TestLabelKeyword in 'TestLabelKeyword.pas';
+  TestLabelKeyword in 'TestLabelKeyword.pas',
+  TestDelphiNetUnsafe in 'TestDelphiNetUnsafe.pas';
 
 {$R *.res}
 

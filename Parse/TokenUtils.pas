@@ -708,7 +708,7 @@ end;
 
 function IsIdentifierToken(const pt: TSourceToken; const peStrictness: TIdentifierStrictness): boolean;
 const
-  DIRECTIVE_IDENTIFIER_NAMES = [ttOut, ttOperator, ttHelper, ttSealed, ttStatic];
+  DIRECTIVE_IDENTIFIER_NAMES = [ttOut, ttOperator, ttHelper, ttSealed, ttStatic, ttUnsafe, ttAbstract];
 begin
   if pt = nil then
   begin
@@ -724,7 +724,7 @@ begin
 
   case peStrictness of
     idStrict:
-      // acceptr only identifier names
+      // accept only identifier names
       Result := False;
     idAllowDirectives:
       // also accept directives

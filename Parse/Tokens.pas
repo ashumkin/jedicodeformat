@@ -193,6 +193,7 @@ type
     ttFinal,
     ttAdd,
     ttRemove,
+    ttUnsafe,
     ttVarArgs,
 
     { built-in constants }
@@ -327,7 +328,7 @@ const
     ttVirtual, ttCdecl, ttMessage, ttName, ttRegister, ttDispId,
     ttNear, ttDynamic, ttExport, ttOverride, ttResident, ttLocal,
     ttOverload, ttReintroduce,
-    ttDeprecated, ttLibrary, ttPlatform, ttStatic, ttFinal, ttVarArgs];
+    ttDeprecated, ttLibrary, ttPlatform, ttStatic, ttFinal, ttVarArgs, ttUnsafe];
 
   ClassDirectives: TTokenTypeSet =
     [ttPrivate, ttProtected, ttPublic, ttPublished, ttAutomated, ttStrict];
@@ -649,6 +650,7 @@ begin
   
   AddKeyword('add', wtReservedWordDirective, ttAdd);
   AddKeyword('remove', wtReservedWordDirective, ttRemove);
+  AddKeyword('unsafe', wtReservedWordDirective, ttUnsafe);
   AddKeyword('varargs', wtReservedWordDirective, ttVarArgs);
 
   { operators that are words not symbols }

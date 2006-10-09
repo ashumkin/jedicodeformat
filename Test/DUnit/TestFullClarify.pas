@@ -238,6 +238,7 @@ type
     procedure TestDelphiNetMulticast;
     procedure TestDelphiNetDynamicArray;
     procedure TestDelphiNetRecordProcs;
+    procedure TestDelphiNetUnsafe;
 
     procedure TestTryExceptRaise;
     procedure TestTrailingCommaParam;
@@ -1182,6 +1183,11 @@ end;
 procedure TFullTestClarify.TestCondReturns;
 begin
   TestClarifyFile('TestCondReturns', 92);
+end;
+
+procedure TFullTestClarify.TestDelphiNetUnsafe;
+begin
+  TestClarifyFile('TestDelphiNetUnsafe', 74);
 end;
 
 procedure TFullTestClarify.TestDelphiNetUses;

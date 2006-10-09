@@ -241,6 +241,7 @@ type
     procedure TestDelphiNetMulticast;
     procedure TestDelphiNetDynamicArray;
     procedure TestDelphiNetRecordProcs;
+    procedure TestDelphiNetUnsafe;
 
     procedure TestTryExceptRaise;
     procedure TestTrailingCommaParam;
@@ -252,6 +253,7 @@ type
     procedure TestAsmAnd;
     procedure TestVarArgs;
     procedure TestLabelKeyword;
+
 
 
   end;
@@ -1205,6 +1207,11 @@ end;
 procedure TTestObfuscate.TestCondReturns;
 begin
   TestObfuscateFile('TestCondReturns');
+end;
+
+procedure TTestObfuscate.TestDelphiNetUnsafe;
+begin
+  TestObfuscateFile('TestDelphiNetUnsafe');
 end;
 
 procedure TTestObfuscate.TestDelphiNetUses;
