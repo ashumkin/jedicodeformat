@@ -178,8 +178,12 @@ type
     ttLocal,
     ttImplements,
     ttReintroduce,
-    ttOffset, // used in asm
-    ttPtr,    // likewise
+
+    // used in asm
+    ttOffset,
+    ttPtr,
+    ttVmtOffset,
+    ttDmtOffset,
 
     { Delphi 6 directives }
     ttDeprecated,
@@ -399,6 +403,8 @@ const
 
   BuiltInConstants: TTokenTypeSet = [ttNil, ttTrue, ttFalse];
   BuiltInTypes: TTokenTypeSet     = [ttBoolean .. ttOleVariant];
+
+  AsmOffsets: TTokenTypeSet = [ttVmtOffset, ttDmtOffset];
 
 { interpret a string as a token }
 procedure TypeOfToken(const psWord: string; var peWordType: TWordType;
@@ -634,8 +640,12 @@ begin
 
   AddKeyword('implements', wtReservedWordDirective, ttImplements);
   AddKeyword('reintroduce', wtReservedWordDirective, ttReintroduce);
+
+  // asm
   AddKeyword('offset', wtReservedWordDirective, ttOffset);
   AddKeyword('ptr', wtReservedWordDirective, ttPtr);
+  AddKeyword('vmtoffset', wtReservedWordDirective, ttVmtOffset);
+  AddKeyword('dmtoffset', wtReservedWordDirective, ttDmtOffset);
 
   { D6 directives }
   AddKeyword('deprecated', wtReservedWordDirective, ttDeprecated);

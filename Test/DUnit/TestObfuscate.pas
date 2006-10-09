@@ -215,6 +215,7 @@ type
     procedure TestCondCompBreaks2;
     procedure TestAsmLabel;
     procedure TestAsmOps;
+    procedure TestComplexAsm2;
 
     procedure TestDelphiNetUses;
 
@@ -516,6 +517,11 @@ end;
 procedure TTestObfuscate.TestCommentIndent2;
 begin
   TestObfuscateFile('TestCommentIndent2');
+end;
+
+procedure TTestObfuscate.TestComplexAsm2;
+begin
+  TestObfuscateFile('TestComplexAsm2');
 end;
 
 procedure TTestObfuscate.TestConstRecords;

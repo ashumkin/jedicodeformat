@@ -4542,7 +4542,8 @@ procedure TBuildParseTree.RecogniseAsmParam;
 const
   ASM_EXPRESSION_START = [ttOpenBracket, ttOpenSquareBracket, ttNumber,
     ttNot, ttQuotedLiteralString,
-    ttTrue, ttFalse, ttPlus, ttMinus, ttType, ttOffset];
+    ttTrue, ttFalse, ttPlus, ttMinus, ttType, ttOffset,
+    ttVmtOffset, ttDmtOffset];
 var
   lc, lcNext: TSourceToken;
   lbHasLabel: boolean;
@@ -4639,6 +4640,10 @@ begin
 
   if fcTokenList.FirstSolidTokenType = ttOffset then
     Recognise(ttOffset);
+
+  if fcTokenList.FirstSolidTokenType in AsmOffsets then
+    Recognise(AsmOffsets);
+
 
   case fcTokenList.FirstSolidTokenType of
     ttNumber:

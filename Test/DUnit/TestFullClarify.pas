@@ -113,6 +113,7 @@ type
     procedure TestAsmStructs;
     procedure TestAtExpr;
     procedure TestAsmOps;
+    procedure TestComplexAsm2;
 
     procedure TestBlankLineRemoval;
     procedure TestBogusDirectives;
@@ -503,6 +504,11 @@ end;
 procedure TFullTestClarify.TestCommentIndent2;
 begin
   TestClarifyFile('TestCommentIndent2', 361);
+end;
+
+procedure TFullTestClarify.TestComplexAsm2;
+begin
+  TestClarifyFile('TestComplexAsm2', 190);
 end;
 
 procedure TFullTestClarify.TestConstRecords;

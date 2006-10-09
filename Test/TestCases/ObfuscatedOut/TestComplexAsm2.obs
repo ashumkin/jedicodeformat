@@ -1,0 +1,11 @@
+unit testcomplexasm2;interface uses sysutils;type tmyclass=class(TObject)procedure
+doasm;virtual;end;implementation uses db;procedure tmyclass.doasm;asm
+mov edx,[eax]
+mov ecx,dword ptr tfield.getdata
+cmp dword ptr[edx+vmtoffset tfield.isblob],ecx
+je @@alreadydone 
+mov ecx,dword ptr[edx+vmtoffset tfield.isblob]
+mov ecx,dword ptr tfield.isblob
+mov dword ptr[edx],ecx
+@@alreadydone:
+end;end. 
