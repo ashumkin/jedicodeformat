@@ -158,7 +158,8 @@ uses
   TestASMAnd in 'TestASMAnd.pas',
   TestAsmLabel in 'TestAsmLabel.pas',
   TestVarArgs in 'TestVarArgs.pas',
-  TestAsmOps in 'TestAsmOps.pas';
+  TestAsmOps in 'TestAsmOps.pas',
+  TestComplexAsm2 in 'TestComplexAsm2.pas';
 
 {$R *.res}
 

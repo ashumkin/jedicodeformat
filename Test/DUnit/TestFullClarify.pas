@@ -473,7 +473,7 @@ end;
 
 procedure TFullTestClarify.TestCases;
 begin
-  TestClarifyFile('TestCases.dpr', 1309);
+  TestClarifyFile('TestCases.dpr', 1317);
 end;
 
 procedure TFullTestClarify.TestCast;

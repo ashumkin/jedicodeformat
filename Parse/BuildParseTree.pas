@@ -249,7 +249,9 @@ type
     function TopNode: TParseTreeNode;
     function IdentifierNext(const peStrictness: TIdentifierStrictness): boolean;
     function ArrayConstantNext: boolean;
+    function SubrangeTypeNext: boolean;
     function TypePastAttribute: boolean;
+
   Protected
 
   Public
@@ -1330,9 +1332,11 @@ begin
       else if (lc.WordType in IdentifierTypes) or (lc.TokenType = ttAmpersand) then
       begin
         { could be a subrange on an enum,
-          e.g. "clBlue .. clBlack". NB: this can also be Low(Integer) .. High(Integer) }
-        if (AnsiSameText(lc.SourceCode, 'Low')) or
-          (fcTokenList.SolidTokenType(2) = ttDoubleDot) then
+          e.g. "clBlue .. clBlack".
+          NB: this can also be Low(Integer) .. High(Integer)
+          or <expr> .. <expr>
+          }
+        if SubrangeTypeNext then
           RecogniseSubRangeType
         else
           // some previously declared type that this simple prog does not know of
@@ -1343,6 +1347,16 @@ begin
   end;
 
   PopNode;
+end;
+
+function TBuildParseTree.SubrangeTypeNext: boolean;
+var
+  lc: TSourceToken;
+begin
+  lc  := fcTokenList.FirstSolidToken;
+  result :=
+    AnsiSameText(lc.SourceCode, 'Low') or
+    (fcTokenList.SolidTokenType(2) = ttDoubleDot);
 end;
 
 procedure TBuildParseTree.RecogniseRestrictedType;
