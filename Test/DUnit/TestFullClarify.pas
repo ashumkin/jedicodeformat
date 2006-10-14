@@ -251,7 +251,10 @@ type
     procedure TestVarArgs;
     procedure TestLabelKeyword;
 
+    procedure TestSubrangeType;
+
     procedure TestCases;
+
   end;
 
 
@@ -473,7 +476,7 @@ end;
 
 procedure TFullTestClarify.TestCases;
 begin
-  TestClarifyFile('TestCases.dpr', 1317);
+  TestClarifyFile('TestCases.dpr', 1325);
 end;
 
 procedure TFullTestClarify.TestCast;
@@ -1121,6 +1124,11 @@ begin
   TestClarifyFile('TestSimpleIfDef6', 46);
 end;
 
+procedure TFullTestClarify.TestSubrangeType;
+begin
+  TestClarifyFile('TestSubrangeType', 74);
+end;
+
 procedure TFullTestClarify.LittleTest53;
 begin
   TestClarifyFile('LittleTest53', 60);
@@ -1158,7 +1166,7 @@ end;
 
 procedure TFullTestClarify.LittleTest60;
 begin
-  TestClarifyFile('LittleTest60', 73);
+  TestClarifyFile('LittleTest60', 76);
 end;
 
 procedure TFullTestClarify.LittleTest61;

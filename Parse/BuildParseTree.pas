@@ -1357,6 +1357,42 @@ begin
   result :=
     AnsiSameText(lc.SourceCode, 'Low') or
     (fcTokenList.SolidTokenType(2) = ttDoubleDot);
+
+{
+
+ - not needed
+var
+  liIndex: integer;
+  leType: TTokenType;
+begin
+  liIndex := fcTokenList.CurrentTokenIndex;
+
+  // which comes first, a ".." or a ";"
+
+  Result := False;
+
+
+  while True do
+  begin
+    if liIndex >= fcTokenList.Count then
+      break;
+
+    leType := fcTokenList.SourceTokens[liIndex].TokenType;
+
+    if leType = ttSemicolon then
+      break;
+
+    if leType = ttDoubleDot then
+    begin
+      Result := True;
+      break;
+    end;
+
+
+    inc(liIndex);
+  end;
+  }
+
 end;
 
 procedure TBuildParseTree.RecogniseRestrictedType;

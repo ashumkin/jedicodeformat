@@ -1,0 +1,17 @@
+unit TestSubrangeType;
+
+interface                
+
+const
+  NumberOfRegisters = 10;
+  NumberOfPowerFailureChannels = 1;
+
+type
+  TMyChannels = 1..NumberOfRegisters + NumberOfPowerFailureChannels;
+  TMyRegistersPowerFail1 = 1..NumberOfRegisters + NumberOfRegisters + NumberOfPowerFailureChannels;
+
+  //TMyRegistersPowerFail = NumberOfRegisters + 1 .. NumberOfRegisters + NumberOfPowerFailureChannels;
+
+implementation
+
+end.

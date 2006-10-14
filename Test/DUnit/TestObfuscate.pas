@@ -254,8 +254,7 @@ type
     procedure TestAsmAnd;
     procedure TestVarArgs;
     procedure TestLabelKeyword;
-
-
+    procedure TestSubrangeType;
 
   end;
 
@@ -1143,6 +1142,11 @@ end;
 procedure TTestObfuscate.TestSimpleIfdef6;
 begin
   TestObfuscateFile('TestSimpleIfdef6');
+end;
+
+procedure TTestObfuscate.TestSubrangeType;
+begin
+  TestObfuscateFile('TestSubrangeType');
 end;
 
 procedure TTestObfuscate.LittleTest53;

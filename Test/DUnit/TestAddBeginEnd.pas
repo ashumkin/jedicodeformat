@@ -51,6 +51,8 @@ type
 
     procedure TestBug1174572;
     procedure TestBug1262542;
+
+    procedure TestBugNew;
   end;
 
 implementation
@@ -545,7 +547,32 @@ begin
   FormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, TEST_1262542_IN, TEST_1262542_IN);
+end;
 
+const
+  TEST_NEW_IN =
+    UNIT_HEADER +
+    '  if B then' +
+    '  begin' +
+    '    for i := 0 to 10 do' +
+    '      if C then' +
+    '        if D then' +
+    '          dddd' +
+    '        else' +
+    '        if E then' +
+    '          eeee' +
+    '  end' +
+    '  else' +
+    '    for i := 0 to 10 do' +
+    '      if F then' +
+    '        ffff;' +
+      UNIT_FOOTER;
+
+procedure TTestAddBeginEnd.TestBugNew;
+begin
+  FormatSettings.Transform.BeginEndStyle := eNever;
+
+  TestProcessResult(TAddBeginEnd, TEST_NEW_IN, TEST_NEW_IN);
 end;
 
 initialization

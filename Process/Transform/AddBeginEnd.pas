@@ -74,6 +74,24 @@ begin
     pcNode.AddChild(NewSpace(1));
 end;
 
+
+{
+  True if the node is an if block that has an else statment
+}
+function IfStatementHasElse(const pcNode: TParseTreeNode): boolean;
+var
+  lcParent: TParseTreeNode;
+begin
+  Result := False;
+
+   if (pcNode <> nil) and (pcNode.NodeType = nIfBlock) then
+   begin
+       lcParent := pcNode.Parent;
+        if lcParent.HasChildNode(nElseBlock, 1) then
+         Result := True;
+   end;
+end;
+
 {
   it is not safe to remove the block from:
 
@@ -118,13 +136,12 @@ begin
   if (pcNode <> nil) and (pcNode.NodeType = nIfBlock) then
   begin
     { does it have an else case after the if block? }
-    lcParent := pcNode.Parent;
-    if lcParent.HasChildNode(nElseBlock, 1) then
+    if IfStatementHasElse(pcNode) then
     begin
       lcChildStmnt := pcNode.GetImmediateChild(nStatement);
 
       { does the if block contain an if statement? }
-      if (lcChildStmnt <> nil) and lcChildStmnt.HasChildNode(nIfBlock, IMMEDIATE_IF_DEPTH) then
+      if (lcChildStmnt <> nil) and lcChildStmnt.HasChildNode(nIfBlock) then
         { leave the begin-end in place - don't mix up your ifs }
         Result := False;
     end;
