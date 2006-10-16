@@ -263,7 +263,7 @@ begin
   if lcReg.FormatConfigFileName = '' then
     exit;
 
-  if FileIsReadOnly(lcReg.FormatConfigFileName) then
+  if FileExists(lcReg.FormatConfigFileName) and FileIsReadOnly(lcReg.FormatConfigFileName) then
   begin
     { fail quietly? }
     if lcReg.FormatFileWriteOption = eAlwaysWrite then
