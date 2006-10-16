@@ -220,7 +220,7 @@ const
  }
 function GetDefaultSettingsFileName: string;
 begin
-  Result := IncludeTrailingPathDelimiter(GetApplicationFolder) + 'JCF2Settings.cfg';
+  Result := IncludeTrailingPathDelimiter(GetApplicationFolder) + 'JCFSettings.cfg';
 end;
 
 
