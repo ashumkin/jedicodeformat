@@ -1,4 +1,5 @@
 del *.out
+del *.out2
 del *.obs
 del *.bak
 del *.~pas

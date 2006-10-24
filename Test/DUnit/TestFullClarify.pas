@@ -31,9 +31,11 @@ uses
 type
   TFullTestClarify = class(TTestFile)
   private
-    procedure TestClarifyFile(const psInFileName, psRefOutput: string;
-      const piTokenCount: integer); overload;
-    procedure TestClarifyFile(const psName: string; const piTokenCount: integer); overload;
+    procedure TestSingleClarifyFile(const psInFileName, psRefOutput: string;
+      const piTokenCount: integer);
+    procedure TestDoubleClarifyFile(const psInFileName, psRefOutput: string);
+
+    procedure TestClarifyFile(const psName: string; const piTokenCount: integer);
 
   protected
 
@@ -279,6 +281,7 @@ procedure TFullTestClarify.TestClarifyFile(const psName: string;
 var
   liLastDotPos: integer;
   lsInName, lsClearFileName: string;
+  lsFullIn, lsFullOut: string;
 begin
   Assert(psName <> '');
 
@@ -296,21 +299,22 @@ begin
   end;
 
 
-  TestClarifyFile(GetTestFilesDir + lsInName,
-    GetRefOutFilesDir + lsClearFileName, piTokenCount)
+  lsFullIn := GetTestFilesDir + lsInName;
+  lsFullOut := GetRefOutFilesDir + lsClearFileName;
+
+  TestSingleClarifyFile(lsFullIn, lsFullOut, piTokenCount);
+
+  //TestDoubleClarifyFile(lsFullIn, lsFullOut);
 end;
 
-procedure TFullTestClarify.TestClarifyFile(const psInFileName, psRefOutput: string;
+procedure TFullTestClarify.TestSingleClarifyFile(const psInFileName, psRefOutput: string;
   const piTokenCount: integer);
 var
   lcConverter:   TFileConverter;
   lsOutFileName: string;
-  //lsOutFileName2: string;
 begin
   Check(FileExists(psInFileName), 'input file ' + psInFileName + ' not found');
   FormatSettings.Obfuscate.Enabled := False;
-
-  // Check(FileExists(psRefOutput), 'reference output file ' + psRefOutput + ' not found');
 
   lcConverter := TFileConverter.Create;
   try
@@ -335,10 +339,61 @@ begin
     CheckEquals(piTokenCount, lcConverter.TokenCount, 'wrong number of tokens');
 
     TestFileContentsSame(lsOutFileName, psRefOutput);
+  finally
+    lcConverter.Free;
+    FormatSettings.Obfuscate.Enabled := False;
+  end;
+end;
 
-    {
-    // do it again - should the the same after a second round
+procedure TFullTestClarify.TestDoubleClarifyFile(const psInFileName, psRefOutput: string);
+var
+  lcConverter:   TFileConverter;
+  lsOutFileName: string;
+  lsOutFileName2: string;
+  bSaveAlign: Array[0..5] of boolean;
+begin
+  Check(FileExists(psInFileName), 'input file ' + psInFileName + ' not found');
+  FormatSettings.Obfuscate.Enabled := False;
+
+  bSaveAlign[0] := FormatSettings.Align.AlignAssign;
+  bSaveAlign[1] := FormatSettings.Align.AlignConst;
+  bSaveAlign[2] := FormatSettings.Align.AlignTypeDef;
+  bSaveAlign[3] := FormatSettings.Align.AlignVar;
+  bSaveAlign[4] := FormatSettings.Align.AlignComment;
+  bSaveAlign[5] := FormatSettings.Align.AlignField;
+
+  FormatSettings.Align.AlignAssign := False;
+  FormatSettings.Align.AlignConst := False;
+  FormatSettings.Align.AlignTypeDef := False;
+  FormatSettings.Align.AlignVar := False;
+  FormatSettings.Align.AlignComment := False;
+  FormatSettings.Align.AlignField := False;
+
+  lcConverter := TFileConverter.Create;
+
+  try
+    lcConverter.YesAll      := True;
+    lcConverter.GuiMessages := False;
+
+    { see also TestFileParse }
+    lcConverter.SourceMode := fmSingleFile;
+    lcConverter.BackupMode := cmSeperateOutput;
+
+    GetRegSettings.OutputExtension := 'out';
+    lcConverter.Input := psInFileName;
+    lcConverter.Convert;
+
+    Check( not lcConverter.ConvertError, 'Convert failed for ' +
+      ExtractFileName(psInFileName));
+
+    lsOutFileName := lcConverter.OutFileName;
+    Check(lsOutFileName <> '', 'No output file');
+    Check(FileExists(lsOutFileName), 'output file ' + lsOutFileName + ' not found');
+
+        // do it again - should the the same after a second round
     GetRegSettings.OutputExtension := 'out2';
+
+
 
     lcConverter.Input := lsOutFileName;
     lcConverter.Convert;
@@ -352,19 +407,23 @@ begin
 
     // formatting twice should be the same as formatting once
     TestFileContentsSame(lsOutFileName, lsOutFileName2);
-    }
 
     // clean up
     SysUtils.DeleteFile(lsOutFileName);
-    //SysUtils.DeleteFile(lsOutFileName2);
-
+    SysUtils.DeleteFile(lsOutFileName2);
   finally
+    FormatSettings.Align.AlignAssign := bSaveAlign[0];
+    FormatSettings.Align.AlignConst := bSaveAlign[1];
+    FormatSettings.Align.AlignTypeDef := bSaveAlign[2];
+    FormatSettings.Align.AlignVar := bSaveAlign[3];
+    FormatSettings.Align.AlignComment := bSaveAlign[4];
+    FormatSettings.Align.AlignField := bSaveAlign[5];
+
+
     lcConverter.Free;
     FormatSettings.Obfuscate.Enabled := False;
   end;
-
 end;
-
 
 
 procedure TFullTestClarify.EmptyTest1;
@@ -941,7 +1000,7 @@ end;
 
 procedure TFullTestClarify.LittleTest27;
 begin
-  TestClarifyFile('LittleTest27', 89);
+  TestClarifyFile('LittleTest27', 137);
 end;
 
 procedure TFullTestClarify.TestEmptySquareBrackets;

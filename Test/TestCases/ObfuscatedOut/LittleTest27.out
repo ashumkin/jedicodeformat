@@ -2,12 +2,23 @@ unit littletest27;
 
 interface
 
+uses SysUtils;
+
 const
   captain   = 'Kirk' deprecated;
-  wizard    = 'Gandalf' platform;
+  wizard    =
+    'Gandalf' platform;
   librarian = 'Monkey' library;
   joke: string = 'A frayed knot' deprecated;
   overachiver: integer = 3 deprecated platform library;
+
+type
+  tsetofchars = tsyscharset deprecated;
+
+  tmyclass = class
+  protected
+    avariable: integer deprecated;
+  end;
 
 implementation
 

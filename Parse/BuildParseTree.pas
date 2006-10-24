@@ -1104,6 +1104,11 @@ begin
   else
     RecogniseType;
 
+  // the type can be deprecated
+  if fcTokenList.FirstSolidTokenType = ttDeprecated then
+    Recognise(ttDeprecated);
+
+
   Recognise(ttSemicolon);
 
   PopNode;
