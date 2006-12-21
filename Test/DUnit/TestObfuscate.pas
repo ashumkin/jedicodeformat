@@ -255,6 +255,7 @@ type
     procedure TestVarArgs;
     procedure TestLabelKeyword;
     procedure TestSubrangeType;
+    procedure TestAmpersand;
 
   end;
 
@@ -457,6 +458,11 @@ begin
   TestObfuscateFile('TestAlign');
 end;
 
+
+procedure TTestObfuscate.TestAmpersand;
+begin
+  TestObfuscateFile('TestAmpersand');
+end;
 
 procedure TTestObfuscate.TestArray;
 begin

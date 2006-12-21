@@ -160,7 +160,8 @@ uses
   TestVarArgs in 'TestVarArgs.pas',
   TestAsmOps in 'TestAsmOps.pas',
   TestComplexAsm2 in 'TestComplexAsm2.pas',
-  TestSubrangeType in 'TestSubrangeType.pas';
+  TestSubrangeType in 'TestSubrangeType.pas',
+  TestAmpersand in 'TestAmpersand.pas';
 
 {$R *.res}
 

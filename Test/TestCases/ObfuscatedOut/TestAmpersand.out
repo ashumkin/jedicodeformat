@@ -1,0 +1,20 @@
+unit testampersand;
+
+interface
+
+implementation
+
+function tester(foo: integer): integer;
+begin
+  Result := foo + 3;
+end;
+
+procedure hiddenproc;
+var
+  Width: integer;
+begin
+  Width := &testampersand.tester(500);
+end;
+
+end.
+ 

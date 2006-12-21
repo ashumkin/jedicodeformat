@@ -7,6 +7,7 @@ type
   private
     emptyvalue: system.&object;
   public
+    function testfile: boolean;
     constructor Create;
   end;
 
@@ -18,7 +19,7 @@ var
 
 implementation
 
-uses system.net;
+uses system.net, system.io;
 
 constructor tclass1.Create;
 var
@@ -27,6 +28,11 @@ begin
   inherited Create;
   weby1 := webrequest.&Create('http://www.google.com');
   weby2 := system.net.webrequest.&Create('http://www.google.com');
+end;
+
+function tclass1.testfile: boolean;
+begin
+  Result := system.io.&file.exists('XY');
 end;
 
 end.

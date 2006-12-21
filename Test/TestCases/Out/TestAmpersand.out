@@ -1,0 +1,28 @@
+unit TestAmpersand;
+
+{ AFS 21 dec 2006
+ This unit compiles but is not semantically meaningfull
+ it is test cases for the code formatting utility
+
+ Code from Trident to test SF bug 1606651
+  Apersand before indentifier to escape a reserved word
+ }
+
+interface
+
+implementation
+
+/// MyProc comment
+function Tester(foo: integer): integer;
+begin
+  Result := foo + 3;
+end;
+
+procedure HiddenProc;
+var
+  Width: integer;
+begin
+  Width := &TestAmpersand.Tester(500);
+end;
+
+end.

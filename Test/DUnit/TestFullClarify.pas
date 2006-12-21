@@ -254,6 +254,7 @@ type
     procedure TestLabelKeyword;
 
     procedure TestSubrangeType;
+    procedure TestAmpersand;
 
     procedure TestCases;
 
@@ -502,6 +503,11 @@ begin
   TestClarifyFile('TestAlign', 662);
 end;
 
+procedure TFullTestClarify.TestAmpersand;
+begin
+  TestClarifyFile('TestAmpersand', 87);
+end;
+
 procedure TFullTestClarify.TestArray;
 begin
   TestClarifyFile('TestArray', 220);
@@ -535,7 +541,7 @@ end;
 
 procedure TFullTestClarify.TestCases;
 begin
-  TestClarifyFile('TestCases.dpr', 1325);
+  TestClarifyFile('TestCases.dpr', 1333);
 end;
 
 procedure TFullTestClarify.TestCast;
@@ -1356,7 +1362,7 @@ end;
 
 procedure TFullTestClarify.TestDelphiNetAmpersandMethod;
 begin
-  TestClarifyFile('TestDelphiNetAmpersandMethod', 166);
+  TestClarifyFile('TestDelphiNetAmpersandMethod', 216);
 end;
 
 procedure TFullTestClarify.TestDelphiNetAttributes;
