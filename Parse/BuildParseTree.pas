@@ -2177,8 +2177,12 @@ begin
     RecogniseSetConstructor;
   end
   // try identifiers last, since liberal identifiers may match text tokens above
-  else if IsIdentifierToken(lc, idAny) then
+  // can prefix with an '&' to force it to be an identifier not a keyword
+  else if (lc.TokenType = ttAmpersand) or IsIdentifierToken(lc, idAny) then
   begin
+    if lc.TokenType = ttAmpersand then
+      Recognise(ttAmpersand);
+
     RecogniseDesignator;
     if fcTokenList.FirstSolidTokenType = ttOpenBracket then
     begin
