@@ -526,7 +526,7 @@ end;
 
 procedure TFullTestClarify.TestBogusDirectives;
 begin
-  TestClarifyFile('TestBogusDirectives', 456);
+  TestClarifyFile('TestBogusDirectives', 541);
 end;
 
 procedure TFullTestClarify.TestBogusTypes;
@@ -1382,7 +1382,7 @@ end;
 
 procedure TFullTestClarify.TestDelphiNetKeywords;
 begin
-  TestClarifyFile('TestDelphiNetKeywords', 95);
+  TestClarifyFile('TestDelphiNetKeywords', 97);
 end;
 
 procedure TFullTestClarify.TestDelphiNetMulticast;

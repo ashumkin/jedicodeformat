@@ -166,7 +166,8 @@ uses
   IdentifierCaps in '..\..\Process\Capitalisation\IdentifierCaps.pas',
   WarnUnusedParam in '..\..\Process\Warnings\WarnUnusedParam.pas',
   TestFileConverter in 'TestFileConverter.pas',
-  TestIndentElse in 'TestIndentElse.pas';
+  TestIndentElse in 'TestIndentElse.pas',
+  TestMiscFunctions in 'TestMiscFunctions.pas';
 
 {$R *.res}
 

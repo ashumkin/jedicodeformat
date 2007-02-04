@@ -2,6 +2,8 @@ unit testbogusdirectives;
 
 interface
 
+uses Classes;
+
 var
   safecall, dispid: integer;
   cdecl, protected: boolean;
@@ -26,6 +28,7 @@ type
     procedure package;
     function at: integer;
     function on: integer;
+    procedure final(buffer: TStrings);
   end;
 
 implementation
@@ -84,6 +87,21 @@ end;
 function Register.on: integer;
 begin
   Result := 23;
+end;
+
+procedure Register.final(buffer: TStrings);
+begin
+end;
+
+procedure finalabuse(buffer: TStrings);
+begin
+  with
+    Register.Create do
+    try
+      final(buffer);
+    finally
+      Free;
+    end;
 end;
 
 end.

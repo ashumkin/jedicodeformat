@@ -652,11 +652,11 @@ begin
   AddKeyword('platform', wtReservedWordDirective, ttPlatform);
 
   { delphi.net directives}
-  AddKeyword('helper', wtReservedWord, ttHelper);
-  AddKeyword('operator', wtReservedWord, ttOperator);
-  AddKeyword('sealed', wtReservedWord, ttSealed);
-  AddKeyword('static', wtReservedWord, ttStatic);
-  AddKeyword('final', wtReservedWord, ttFinal);
+  AddKeyword('helper', wtReservedWordDirective, ttHelper);
+  AddKeyword('operator', wtReservedWordDirective, ttOperator);
+  AddKeyword('sealed', wtReservedWordDirective, ttSealed);
+  AddKeyword('static', wtReservedWordDirective, ttStatic);
+  AddKeyword('final', wtReservedWordDirective, ttFinal);
   
   AddKeyword('add', wtReservedWordDirective, ttAdd);
   AddKeyword('remove', wtReservedWordDirective, ttRemove);

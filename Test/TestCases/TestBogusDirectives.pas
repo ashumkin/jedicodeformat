@@ -12,6 +12,8 @@ unit TestBogusDirectives;
 
 interface
 
+uses Classes;
+
 { this also serves as a test of var layout }
 var Safecall,
 DispId: integer;
@@ -40,6 +42,7 @@ type
       procedure Package;
       function At: integer;
       function On: integer;
+      procedure Final(buffer: TStrings);
   end;
 
 implementation
@@ -101,5 +104,20 @@ function Register.On: integer;
 begin
   Result := 23;
 end;
+
+procedure Register.Final(buffer: TStrings);
+begin
+end;
+
+procedure FinalAbuse(buffer: TStrings);
+begin
+  with Register.Create do
+  try
+    Final(buffer);
+  finally
+    Free;
+  end;
+end;
+
 
 end.

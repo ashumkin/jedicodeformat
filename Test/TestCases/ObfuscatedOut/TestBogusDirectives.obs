@@ -1,14 +1,16 @@
-unit testbogusdirectives;interface var safecall,dispid:integer;cdecl,protected:boolean
-;const readonly=10;type register=class(TObject)private fidynamic,fipublic:integer
-;function getreadonly:boolean;protected public property dynamic:integer read fidynamic
-write fidynamic;property public:integer read fipublic;property readonly:boolean read
-getreadonly;function dispid:integer;safecall;function protected:boolean;procedure
-contains;procedure requires;procedure package;function at:integer;function on:integer
-;end;implementation label dynamic;var platform:integer;procedure override;var virtual
-:integer;begin virtual:=10;end;function register.dispid:integer;begin result:=12;
-end;function register.getreadonly:boolean;var name:string;absolute:integer absolute
-name;begin name:='Fred!';result:=true;end;function register.protected:boolean;begin
-result:=false;end;procedure Register.contains;var platform:array[1..4]of char;begin
-end;procedure Register.requires;begin end;procedure Register.package;begin end;function
-register.at:integer;begin result:=23;end;function register.on:integer;begin result
-:=23;end;end. 
+unit testbogusdirectives;interface uses classes;var safecall,dispid:integer;cdecl
+,protected:boolean;const readonly=10;type register=class(TObject)private fidynamic
+,fipublic:integer;function getreadonly:boolean;protected public property dynamic:
+integer read fidynamic write fidynamic;property public:integer read fipublic;property
+readonly:boolean read getreadonly;function dispid:integer;safecall;function protected
+:boolean;procedure contains;procedure requires;procedure package;function at:integer
+;function on:integer;procedure final(buffer:tstrings);end;implementation label dynamic
+;var platform:integer;procedure override;var virtual:integer;begin virtual:=10;end
+;function register.dispid:integer;begin result:=12;end;function register.getreadonly
+:boolean;var name:string;absolute:integer absolute name;begin name:='Fred!';result
+:=true;end;function register.protected:boolean;begin result:=false;end;procedure 
+Register.contains;var platform:array[1..4]of char;begin end;procedure Register.requires
+;begin end;procedure Register.package;begin end;function register.at:integer;begin
+result:=23;end;function register.on:integer;begin result:=23;end;procedure Register
+.final(buffer:tstrings);begin end;procedure finalabuse(buffer:tstrings);begin with
+Register.create do try final(buffer);finally free;end;end;end. 

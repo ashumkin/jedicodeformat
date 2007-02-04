@@ -28,6 +28,8 @@ under the License.
 interface
 
 uses
+  Classes,
+  JclStrings,
   { delphi design time }
   ToolsAPI,
   { local }
@@ -81,9 +83,9 @@ implementation
 
 uses
   { delphi }
-  SysUtils,
+  SysUtils, Math,
   { local }
-  JcfLog, JcfRegistrySettings;
+  JcfLog, JcfRegistrySettings, JcfMiscFunctions;
 
 constructor TEditorConverter.Create;
 begin
@@ -193,10 +195,23 @@ begin
   end;
 end;
 
+
+
+{ write the text back to the ide
+  this is not as simple as you may think
+  identical lines of text are skipped over not written
+  ( not in all cases, but the simple cases are covered)
+  so as to preserve the editor's notion of what has changed and what has not
+}
 procedure TEditorConverter.WriteToIDE(const pcUnit: IOTASourceEditor; const psText: string);
 var
   lciEditorWriter: IOTAEditWriter;
-//  liEndPos: integer;
+  lsOriginalSource: string;
+  liSourcePos, liDestPos: integer;
+  lcSourceLines, lcDestLines: TStrings;
+  lcSameStart, lcSameEnd: TSTrings;
+  lsSourceLine, lsDestLine: string;
+  liIndex, liMaxIndex: integer;
 begin
   if pcUnit = nil then
     exit;
@@ -204,24 +219,77 @@ begin
   lciEditorWriter := pcUnit.CreateUndoableWriter;
   Assert(lciEditorWriter <> nil);
 
-  if lciEditorWriter = nil then
-    exit;
+  liSourcePos := 0;
 
-  { these next 2 steps should rather be done in one operation
-    so as to be unitary in the undo history
-    but I don't know how to do that, or if it is possible }
+  lsOriginalSource := fcConverter.InputCode;
+  lcSourceLines := SplitIntoLines(lsOriginalSource);
+  lcDestLines := SplitIntoLines(psText);
+  lcSameStart := TStringList.Create;
+  lcSameEnd := TStringList.Create;
 
-  { delete what's there }
-  lciEditorWriter.DeleteTo(High(integer));
-  { put the changed text in instead }
-  lciEditorWriter.Insert(pchar(psText));
+  SplitIntoChangeSections(lcSourceLines, lcDestLines, lcSameStart, lcSameEnd);
+  try
 
-  { delete after the 'end.' }
-  //liEndPos := PosOfLastSolidText(fsDestText);
-  //lciEditorWriter.CurrentPos
+    // clear off identical text at the start
+    for liIndex := 0 to lcSameStart.Count - 1 do
+    begin
+      liSourcePos := liSourcePos + Length(lcSameStart[liIndex]);
+    end;
 
-  // ditch the interfaces
-  lciEditorWriter := nil;
+    lciEditorWriter.CopyTo(liSourcePos);
+    liDestPos := liSourcePos;
+
+   { loop through all lines in in and out
+    if they're the same, copy the line
+    else overwrite }
+    liIndex := 0;
+    liMaxIndex := Max(lcSourceLines.Count, lcDestLines.Count);
+
+    while (liIndex < liMaxIndex) do
+    begin
+      if liIndex < lcSourceLines.Count then
+        lsSourceLine := lcSourceLines[liIndex]
+      else
+        lsSourceLine := '';
+
+      if liIndex < lcDestLines.Count then
+        lsDestLine := lcDestLines[liIndex]
+      else
+        lsDestLine := '';
+
+      liSourcePos := liSourcePos + Length(lsSourceLine);
+      liDestPos := liDestPos + Length(lsDestLine);
+
+      if AnsiSameStr(lsSourceLine, lsDestLine) then
+      begin
+        // the line is the same, copy it
+        lciEditorWriter.CopyTo(liSourcePos);
+      end
+      else
+      begin
+        // the line is different, replace it
+        lciEditorWriter.DeleteTo(liSourcePos);
+        if lsDestLine <> '' then
+          lciEditorWriter.Insert(pchar(lsDestLine));
+      end;
+
+       inc(liIndex);
+     end;
+
+    // clear off identical text at the end
+    for liIndex := 0 to lcSameEnd.Count - 1 do
+    begin
+      liSourcePos := liSourcePos + Length(lcSameEnd[liIndex]);
+    end;
+    lciEditorWriter.CopyTo(liSourcePos);
+
+   finally
+    lcSourceLines.Free;
+    lcDestLines.Free;
+    lcSameStart.Free;
+    lcSameEnd.Free;
+   end;
+
 end;
 
 procedure TEditorConverter.AfterConvert;

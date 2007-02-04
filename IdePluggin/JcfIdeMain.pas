@@ -34,7 +34,7 @@ uses
   { delphi design time }
   ToolsAPI,
   { local}
-  EditorConverter, FileCOnverter;
+  EditorConverter, FileConverter;
 
 type
   TJcfIdeMain = class(TObject)

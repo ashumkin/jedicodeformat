@@ -11,10 +11,10 @@ var
   sealed, static: char;
 begin
   operator := 12;
-  sealed :=
+  sealed   :=
     'A';
-  static := 'b';
-  helper := sealed + static;
+  static   := 'b';
+  helper   := sealed + static;
   Inc(operator);
 end;
 
