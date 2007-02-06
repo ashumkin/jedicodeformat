@@ -1,24 +1,26 @@
 inherited fBlankLines: TfBlankLines
   Width = 308
   Height = 280
+  ExplicitWidth = 308
+  ExplicitHeight = 280
   object Label1: TLabel
     Left = 3
     Top = 144
-    Width = 199
+    Width = 210
     Height = 13
     Caption = 'Number of returns after the unit'#39's final end.'
   end
   object Label2: TLabel
     Left = 3
     Top = 192
-    Width = 178
+    Width = 177
     Height = 13
     Caption = 'Max consecutive blank lines anwhere'
   end
   object Label3: TLabel
     Left = 3
     Top = 218
-    Width = 109
+    Width = 111
     Height = 13
     Caption = 'Lines before procedure'
   end
@@ -64,7 +66,7 @@ inherited fBlankLines: TfBlankLines
     object Label4: TLabel
       Left = 8
       Top = 94
-      Width = 207
+      Width = 208
       Height = 13
       Caption = 'Max consecutive blank lines before removal'
     end
@@ -77,7 +79,7 @@ inherited fBlankLines: TfBlankLines
       TabOrder = 2
     end
     object cbRemoveBlankLinesAfterProcHeader: TCheckBox
-      Left = 3
+      Left = 8
       Top = 44
       Width = 193
       Height = 17
