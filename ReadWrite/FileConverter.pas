@@ -172,11 +172,14 @@ begin
 end;
 
 procedure TFileConverter.ProcessFile(const psInputFileName: string);
+const
+  UFT8_Header : string = #$EF + #$BB + #$BF;
 var
   lsMessage, lsOut: string;
   wRes: word;
   lbFileIsChanged: boolean;
   lsOutType: string;
+  UTF8TempString : string;
 begin
   // do checks
   if not PreProcessChecks(psInputFileName) then
@@ -192,6 +195,16 @@ begin
   // convert in memory
   fsOriginalFileName := psInputFileName;
   fcConverter.InputCode := FileToString(psInputFileName);
+  // Search UTF8 header signature
+  if(StrLeft(fcConverter.InputCode, 3) = UFT8_Header) then
+  begin
+   // GRemove UTF8 identifier
+   UTF8TempString := StrEnsureNoPrefix(UFT8_Header, fcConverter.InputCode);
+   // and converter to Ansi string
+   fcConverter.InputCode := Utf8ToAnsi(UTF8TempString);
+  end;
+
+
   fcConverter.Convert;
 
   // was it converted ?
