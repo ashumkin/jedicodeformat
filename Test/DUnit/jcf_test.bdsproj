@@ -119,8 +119,8 @@
 			<Linker Name="ExeDescription"></Linker>
 		</Linker>
 		<Directories>
-			<Directories Name="OutputDir">C:\Code\Jcf\Output</Directories>
-			<Directories Name="UnitOutputDir">C:\Code\Jcf\Output</Directories>
+			<Directories Name="OutputDir">..\..\Output</Directories>
+			<Directories Name="UnitOutputDir">..\..\Output</Directories>
 			<Directories Name="PackageDLLOutputDir"></Directories>
 			<Directories Name="PackageDCPOutputDir"></Directories>
 			<Directories Name="SearchPath"></Directories>
