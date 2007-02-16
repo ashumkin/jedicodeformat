@@ -89,7 +89,7 @@ begin
 
       // recurse - parse them
       for liLoop := 0 to lcSubdirs.Count - 1 do
-        TestParseDir(psDir + lcSubdirs.Strings[liLoop] + PathSeparator, piDepth - 1);
+        TestParseDir(psDir + lcSubdirs.Strings[liLoop] + DirDelimiter, piDepth - 1);
     finally
       lcSubdirs.Free;
     end;

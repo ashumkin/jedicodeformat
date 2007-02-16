@@ -154,12 +154,12 @@ begin
   if not (DirectoryExists(psPath)) and FileExists(psPath) then
   begin
     // must be a file - remove the last bit
-    liPos := StrLastPos(PathSeparator, psPath);
+    liPos := StrLastPos(DirDelimiter, psPath);
     if liPos > 0 then
       psPath := StrLeft(psPath, liPos - 1);
   end;
 
-  liPos := StrLastPos(PathSeparator, psPath);
+  liPos := StrLastPos(DirDelimiter, psPath);
   if liPos > 0 then
     Result := StrRestOf(psPath, liPos + 1);
 end;
@@ -425,8 +425,8 @@ end;
 function IncludeTrailingPathDelimiter(const psPath: string): string;
 begin
   Result := psPath;
-  if StrRight(psPath, 1) <> PathSeparator then
-    Result := Result + PathSeparator;
+  if StrRight(psPath, 1) <> DirDelimiter then
+    Result := Result + DirDelimiter;
 end;
 
 { dummy for D5}
