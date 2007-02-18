@@ -257,6 +257,8 @@ type
     procedure TestSubrangeType;
     procedure TestAmpersand;
 
+    procedure TestDelphiNetLibrary;
+
   end;
 
 implementation
@@ -396,6 +398,11 @@ begin
   TestObfuscateFile(GetTestFilesDir + lsObsFileName,
     GetObsOutFilesDir + lsRemadeFileName)
   }
+end;
+
+procedure TTestObfuscate.TestDelphiNetLibrary;
+begin
+   TestObfuscateFile('TestDelphiNetLibrary');
 end;
 
 procedure TTestObfuscate.Empty1;

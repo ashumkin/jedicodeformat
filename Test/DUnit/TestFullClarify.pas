@@ -255,6 +255,7 @@ type
 
     procedure TestSubrangeType;
     procedure TestAmpersand;
+    procedure TestDelphiNetLibrary;
 
     procedure TestCases;
 
@@ -1383,6 +1384,11 @@ end;
 procedure TFullTestClarify.TestDelphiNetKeywords;
 begin
   TestClarifyFile('TestDelphiNetKeywords', 97);
+end;
+
+procedure TFullTestClarify.TestDelphiNetLibrary;
+begin
+  TestClarifyFile('TestDelphiNetLibrary', 445);
 end;
 
 procedure TFullTestClarify.TestDelphiNetMulticast;

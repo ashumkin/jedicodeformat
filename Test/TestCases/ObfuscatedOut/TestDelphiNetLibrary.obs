@@ -1,0 +1,22 @@
+library testdelphinetlibrary;{%DelphiDotNetAssemblyCompiler 'c:\programme\gemeinsame dateien\borland shared\bds\shared assemblies\2.0\Borland.Delphi.dll'}
+{%DelphiDotNetAssemblyCompiler '\microsoft.net\framework\v1.1.4322\System.EnterpriseServices.dll'}
+uses system.reflection,system.enterpriseservices,system.runtime.interopservices;[
+assembly:applicationname('Delphi8ESFixInterfaceDemo')][assembly:applicationactivation
+(activationoption.server)][assembly:applicationaccesscontrol(value=true,authentication
+=authenticationoption.connect,impersonationlevel=impersonationleveloption.identify
+,accesscheckslevel=accesschecksleveloption.applicationcomponent)][assembly:descriptionattribute
+('Delphi 8 Interface .NET Enterprise Services-Object')][assembly:securityrole('Benutzer'
+,seteveryoneaccess=true)][assembly:guid('854A605E-3F7E-4625-A79B-DA6E074269BA')][
+assembly:assemblytitle('Delphi8ESFix')][assembly:assemblydescription('Delphi 8 FixInterface .NET Enterprise Service'
+)][assembly:assemblyversion('1.1.0.0')][assembly:assemblydelaysign(false)][assembly
+:assemblykeyfile('ES.snk')][assembly:assemblykeyname('')]type iosdelphi8esobj=interface
+function dowork(sinput:string):string;end;[transactionattribute(transactionoption
+.notsupported),constructionenabled(default='Delphi 8 FixInterface'),justintimeactivation
+(true),eventtrackingenabled(true),descriptionattribute('Delphi 8 FixInterface .NET Enterprise Services-Objekt'
+),guid('356C3A64-88B3-4AA6-B644-D89D103B2F41'),objectpooling(minpoolsize=2,maxpoolsize
+=5),classinterface(classinterfacetype.none)]tosdelphi8esobj=class(ServicedComponent
+,IOSDelphi8ESObj)private fconstructstring:string;protected procedure construct(constructstring
+:string);override;public function dowork(sinput:string):string;end;procedure tosdelphi8esobj
+.construct(constructstring:string);begin inherited;fconstructstring:=constructstring
+;end;function tosdelphi8esobj.dowork(sinput:string):string;begin result:=sinput+': '
++fconstructstring;contextutil.setcomplete;end;begin end.

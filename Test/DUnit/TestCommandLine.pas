@@ -68,7 +68,7 @@ uses
   TestFramework;
 
 const
-  EXPECTED_FILE_COUNT = 202;
+  EXPECTED_FILE_COUNT = 204;
 
 procedure TTestCommandline.SetUp;
 begin
@@ -139,7 +139,7 @@ begin
 
     // should be back
     GetOutFiles;
-    CheckEquals(EXPECTED_FILE_COUNT, fsFileNames.Count);
+    CheckEquals(EXPECTED_FILE_COUNT, fsFileNames.Count, 'File count differs');
 
     // for each, compare to the reference versions
     GetOutFiles;

@@ -598,6 +598,9 @@ begin
   if lc.TokenType = ttUses then
     RecogniseUsesClause(True);
 
+  if fcTokenList.FirstSolidTokenType = ttOpenSquareBracket then
+    RecogniseAttributes;
+    
   RecogniseBlock(True);
 
 end;
