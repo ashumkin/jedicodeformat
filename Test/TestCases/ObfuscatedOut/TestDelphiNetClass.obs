@@ -1,5 +1,10 @@
-unit testdelphinetclass;interface uses system.drawing,system.collections,system.
-componentmodel,system.windows.forms,system.data;type tmyform=class(System.Windows
-.Forms.Form)textbox:system.windows.forms.textbox;end;ttest=class(TObject)strict private
-foo:integer;strict protected bar:integer;private fish:integer;protected spon:integer
-;end;implementation end.
+unit testdelphinetclass;interface uses borland.vcl.sysutils,system.drawing,system
+.collections,system.componentmodel,system.windows.forms,system.data;type tmyform=
+class(System.Windows.Forms.Form)textbox:system.windows.forms.textbox;end;ttestclass
+=class(TObject)strict private foo:integer;strict protected bar:integer;private fish
+:integer;protected spon:integer;end;ttestrecord=record strict private fnamevalue:
+integer;function getname:string;public nameprefix:string;constructor create(const
+psnamevalue:integer);property name:string read getname;end;implementation constructor
+ttestrecord.create(const psnamevalue:integer);begin fnamevalue:=psnamevalue;nameprefix
+:='Test';end;function ttestrecord.getname:string;begin inc(fnamevalue);result:=format
+('%s %d',[nameprefix,fnamevalue]);end;end.

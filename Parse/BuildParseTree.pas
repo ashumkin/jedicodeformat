@@ -1693,7 +1693,7 @@ begin
   RecogniseFieldList;
 
   { delphi.net records can have public and private parts }
-  while lcNextToken.TokenType in ClassVisibility do
+  while lcNextToken.TokenType in [ttStrict] + ClassVisibility do
   begin
     PushNode(nClassVisibility);
     RecogniseClassVisibility;
@@ -1712,7 +1712,7 @@ begin
   // FieldList ->  FieldDecl/';'... [VariantSection] [';']
   lcNextToken := fcTokenList.FirstSolidToken;
 
-  while not (lcNextToken.TokenType in [ttEnd, ttCase, ttCloseBracket] + ClassVisibility) do
+  while not (lcNextToken.TokenType in [ttEnd, ttCase, ttCloseBracket, ttStrict] + ClassVisibility) do
   begin
     case lcNextToken.TokenType of
       ttProcedure:

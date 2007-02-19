@@ -1292,7 +1292,7 @@ end;
 
 procedure TFullTestClarify.TestDelphiNetClass;
 begin
-  TestClarifyFile('TestDelphiNetClass', 148);
+  TestClarifyFile('TestDelphiNetClass', 312);
 end;
 
 procedure TFullTestClarify.TestDelphiNetConst;

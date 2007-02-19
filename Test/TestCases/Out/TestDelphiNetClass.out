@@ -11,6 +11,7 @@ unit TestDelphiNetClass;
 interface
 
 uses
+  Borland.Vcl.SysUtils,
   System.Drawing, System.Collections, System.ComponentModel,
   System.Windows.Forms, System.Data;
 
@@ -20,7 +21,7 @@ type
     TextBox: System.Windows.Forms.TextBox;
   end;
 
-  TTest = class(TObject)
+  TTestClass = class(TObject)
   strict private
     foo: integer;
   strict protected
@@ -31,8 +32,32 @@ type
     spon: integer;
   end;
 
+  TTestRecord = record
+    strict private
+    fNameValue: integer;
+    function GetName: string;
+  public
+    NamePrefix: string;
+    constructor Create(const psNameValue: integer);
+    property Name: string Read GetName;
+  end;
+
 
 implementation
+
+{ TTestRecord }
+
+constructor TTestRecord.Create(const psNameValue: integer);
+begin
+  fNameValue := psNameValue;
+  NamePrefix := 'Test';
+end;
+
+function TTestRecord.GetName: string;
+begin
+  Inc(fNameValue);
+  Result := Format('%s %d', [NamePrefix, fNameValue]);
+end;
 
 end.
  
