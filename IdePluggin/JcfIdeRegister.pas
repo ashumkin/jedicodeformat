@@ -42,7 +42,7 @@ uses
   JcfIdeMain, Delay;
 
 const
-  MENU_TOOLS = '&Tools';
+  NAME_MENU_TOOLS = 'ToolsMenu';
   FORMAT_MENU_NAME = 'Jedi Code &Format';
   FORMAT_CURRENT_NAME = '&Current editor window';
   FORMAT_PROJECT_NAME = '&All files in project';
@@ -57,6 +57,8 @@ var
   hRes: HResult;
   lciMenuServices: INTAServices40;
   lcMainMenu: TMenu;
+  lcTestMenu: TMenuItem;
+  liLoop: integer;
 begin
   Result := nil;
 
@@ -70,8 +72,19 @@ begin
   { get the main menu }
   lcMainMenu := lciMenuServices.MainMenu;
 
-  { get the tools menu }
-  Result := lcMainMenu.Items.Find(MENU_TOOLS);
+  { get the tools menu
+    find it by looking for the control name
+    since this stays the same even if the display text
+    has been localised/translated }
+  for liLoop := 0 to lcMainMenu.Items.Count - 1 do
+  begin
+    lcTestMenu := lcMainMenu.Items[liLoop];
+    if CompareText(lcTestMenu.Name, NAME_MENU_TOOLS) = 0 then
+    begin
+      result := lcTestMenu;
+      break;
+    end;
+  end;
 end;
 
 { the object that does all the work
