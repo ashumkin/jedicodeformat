@@ -1,6 +1,8 @@
 inherited fClarifySpaces: TfClarifySpaces
   Width = 456
   Height = 394
+  ExplicitWidth = 456
+  ExplicitHeight = 394
   object cbFixSpacing: TCheckBox
     Left = 8
     Top = 6
@@ -27,28 +29,28 @@ inherited fClarifySpaces: TfClarifySpaces
     object Label2: TLabel
       Left = 6
       Top = 24
-      Width = 126
+      Width = 127
       Height = 13
       Caption = '&Var and const declarations'
     end
     object Label4: TLabel
       Left = 6
       Top = 108
-      Width = 70
+      Width = 71
       Height = 13
       Caption = '&Class variables'
     end
     object Label7: TLabel
       Left = 6
       Top = 80
-      Width = 99
+      Width = 104
       Height = 13
       Caption = '&Function return types'
     end
     object Label8: TLabel
       Left = 6
       Top = 52
-      Width = 104
+      Width = 107
       Height = 13
       Caption = '&Procedure parameters'
     end
@@ -62,7 +64,7 @@ inherited fClarifySpaces: TfClarifySpaces
     object Label6: TLabel
       Left = 6
       Top = 164
-      Width = 26
+      Width = 25
       Height = 13
       Caption = '&Label'
     end
@@ -71,90 +73,66 @@ inherited fClarifySpaces: TfClarifySpaces
       Top = 24
       Width = 50
       Height = 21
-      CheckChars = '01234567890'
-      CriticalPoints.CheckPoints = cpNone
-      CriticalPoints.ColorAbove = clBlue
-      CriticalPoints.ColorBelow = clRed
+      CriticalPoints.MaxValueIncluded = False
+      CriticalPoints.MinValueIncluded = False
       EditText = '0'
       MaxLength = 2
       TabOrder = 0
-      Text = '0'
-      Value = 0
     end
     object eSpaceBeforeColonParam: TJvValidateEdit
       Left = 142
       Top = 52
       Width = 50
       Height = 21
-      CheckChars = '01234567890'
-      CriticalPoints.CheckPoints = cpNone
-      CriticalPoints.ColorAbove = clBlue
-      CriticalPoints.ColorBelow = clRed
+      CriticalPoints.MaxValueIncluded = False
+      CriticalPoints.MinValueIncluded = False
       EditText = '0'
       MaxLength = 2
       TabOrder = 1
-      Text = '0'
-      Value = 0
     end
     object eSpaceBeforeColonFn: TJvValidateEdit
       Left = 142
       Top = 76
       Width = 50
       Height = 21
-      CheckChars = '01234567890'
-      CriticalPoints.CheckPoints = cpNone
-      CriticalPoints.ColorAbove = clBlue
-      CriticalPoints.ColorBelow = clRed
+      CriticalPoints.MaxValueIncluded = False
+      CriticalPoints.MinValueIncluded = False
       EditText = '0'
       MaxLength = 2
       TabOrder = 2
-      Text = '0'
-      Value = 0
     end
     object eSpacesBeforeColonClassVar: TJvValidateEdit
       Left = 142
       Top = 104
       Width = 50
       Height = 21
-      CheckChars = '01234567890'
-      CriticalPoints.CheckPoints = cpNone
-      CriticalPoints.ColorAbove = clBlue
-      CriticalPoints.ColorBelow = clRed
+      CriticalPoints.MaxValueIncluded = False
+      CriticalPoints.MinValueIncluded = False
       EditText = '0'
       MaxLength = 2
       TabOrder = 3
-      Text = '0'
-      Value = 0
     end
     object eSpacesBeforeCaseLabel: TJvValidateEdit
       Left = 142
       Top = 132
       Width = 50
       Height = 21
-      CheckChars = '01234567890'
-      CriticalPoints.CheckPoints = cpNone
-      CriticalPoints.ColorAbove = clBlue
-      CriticalPoints.ColorBelow = clRed
+      CriticalPoints.MaxValueIncluded = False
+      CriticalPoints.MinValueIncluded = False
       EditText = '0'
       MaxLength = 2
       TabOrder = 4
-      Text = '0'
-      Value = 0
     end
     object eSpacesBeforeLabel: TJvValidateEdit
       Left = 142
       Top = 160
       Width = 50
       Height = 21
-      CheckChars = '01234567890'
-      CriticalPoints.CheckPoints = cpNone
-      CriticalPoints.ColorAbove = clBlue
-      CriticalPoints.ColorBelow = clRed
+      CriticalPoints.MaxValueIncluded = False
+      CriticalPoints.MinValueIncluded = False
       EditText = '0'
       MaxLength = 2
       TabOrder = 5
-      Text = '0'
-      Value = 0
     end
   end
   object gbTabs: TGroupBox
@@ -174,7 +152,7 @@ inherited fClarifySpaces: TfClarifySpaces
     object Label3: TLabel
       Left = 136
       Top = 44
-      Width = 69
+      Width = 70
       Height = 13
       Caption = 'Spaces for tab'
     end
@@ -201,36 +179,28 @@ inherited fClarifySpaces: TfClarifySpaces
       Top = 18
       Width = 49
       Height = 21
-      CheckChars = '01234567890'
-      CriticalPoints.CheckPoints = cpNone
-      CriticalPoints.ColorAbove = clBlue
-      CriticalPoints.ColorBelow = clRed
+      CriticalPoints.MaxValueIncluded = False
+      CriticalPoints.MinValueIncluded = False
       EditText = '0'
       HasMaxValue = True
       HasMinValue = True
       MaxLength = 2
       MaxValue = 12.000000000000000000
       TabOrder = 1
-      Text = '0'
-      Value = 0
     end
     object edtSpacesForTab: TJvValidateEdit
       Left = 212
       Top = 42
       Width = 49
       Height = 21
-      CheckChars = '01234567890'
-      CriticalPoints.CheckPoints = cpNone
-      CriticalPoints.ColorAbove = clBlue
-      CriticalPoints.ColorBelow = clRed
+      CriticalPoints.MaxValueIncluded = False
+      CriticalPoints.MinValueIncluded = False
       EditText = '0'
       HasMaxValue = True
       HasMinValue = True
       MaxLength = 2
       MaxValue = 12.000000000000000000
       TabOrder = 3
-      Text = '0'
-      Value = 0
     end
   end
   object cbMaxSpaces: TCheckBox
@@ -247,22 +217,18 @@ inherited fClarifySpaces: TfClarifySpaces
     Top = 310
     Width = 49
     Height = 21
-    CheckChars = '01234567890'
-    CriticalPoints.CheckPoints = cpNone
-    CriticalPoints.ColorAbove = clBlue
-    CriticalPoints.ColorBelow = clRed
+    CriticalPoints.MaxValueIncluded = False
+    CriticalPoints.MinValueIncluded = False
     EditText = '0'
     HasMaxValue = True
     HasMinValue = True
     MaxLength = 2
     MaxValue = 99.000000000000000000
     TabOrder = 5
-    Text = '0'
-    Value = 0
   end
   object rgOperators: TRadioGroup
-    Left = 228
-    Top = 56
+    Left = 221
+    Top = 42
     Width = 141
     Height = 77
     Caption = 'Spaces around &operators'
@@ -271,5 +237,29 @@ inherited fClarifySpaces: TfClarifySpaces
       'Leave as is'
       'Never')
     TabOrder = 6
+  end
+  object GroupBoxInsertSpace: TGroupBox
+    Left = 221
+    Top = 125
+    Width = 141
+    Height = 70
+    Caption = 'Insert space'
+    TabOrder = 7
+    object cbInsertSpaceBeforeRoundBracket: TCheckBox
+      Left = 4
+      Top = 20
+      Width = 129
+      Height = 17
+      Caption = 'Before round bracket'
+      TabOrder = 0
+    end
+    object cbInsertSpaceBeforeSquareBracket: TCheckBox
+      Left = 4
+      Top = 40
+      Width = 129
+      Height = 17
+      Caption = 'Before square bracket'
+      TabOrder = 1
+    end
   end
 end

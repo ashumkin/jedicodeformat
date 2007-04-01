@@ -71,6 +71,19 @@ begin
   if pt = nil then
     exit;
 
+  if (pt.TokenType = ttOpenSquareBracket) and
+    FormatSettings.Spaces.SpaceBeforeOpenSquareBrackets then
+  begin
+      Result := true;
+      exit;
+  end
+  else if (pt.TokenType = ttOpenBracket) and
+    FormatSettings.Spaces.SpaceBeforeOpenBrackets then
+  begin
+    Result := true;
+    exit;
+  end;
+
   if pt.HasParentNode(nLiteralString) then
   begin
     Result := False;
@@ -215,9 +228,13 @@ begin
   if lcNext = nil then
     exit;
 
-  // suspend this rule after open bracket
+  // suspend this rule after open brackets
+  // e.g. if there's a space before a '-' minus sign
+  // this applies to "x - 1" but not "(-1 + x)"
   if lcSourceToken.TokenType in NoSpaceAfterTokens then
+  begin
     exit;
+  end;
 
   if NeedsSpaceBefore(lcNext) then
   begin

@@ -59,6 +59,9 @@ type
     cbMaxSpaces: TCheckBox;
     edtMaxSpacesInCode: TJvValidateEdit;
     rgOperators: TRadioGroup;
+    GroupBoxInsertSpace: TGroupBox;
+    cbInsertSpaceBeforeRoundBracket: TCheckBox;
+    cbInsertSpaceBeforeSquareBracket: TCheckBox;
     procedure cbTabsToSpacesClick(Sender: TObject);
     procedure cbSpacesToTabsClick(Sender: TObject);
     procedure cbMaxSpacesClick(Sender: TObject);
@@ -82,7 +85,6 @@ begin
   inherited;
   fiHelpContext := HELP_CLARIFY_SPACES;
 end;
-
 
 {-------------------------------------------------------------------------------
   worker procs }
@@ -112,6 +114,9 @@ begin
     edtMaxSpacesInCode.Value := MaxSpacesInCode;
 
     rgOperators.ItemIndex := Ord(SpaceForOperator);
+
+    cbInsertSpaceBeforeRoundBracket.Checked := SpaceBeforeOpenBrackets;
+    cbInsertSpaceBeforeSquareBracket.Checked := SpaceBeforeOpenSquareBrackets;
   end;
 
   cbTabsToSpacesClick(nil);
@@ -144,6 +149,9 @@ begin
     MaxSpacesInCode    := edtMaxSpacesInCode.Value;
 
     SpaceForOperator := TTriOptionStyle(rgOperators.ItemIndex);
+
+    SpaceBeforeOpenBrackets := cbInsertSpaceBeforeRoundBracket.Checked;
+    SpaceBeforeOpenSquareBrackets := cbInsertSpaceBeforeSquareBracket.Checked;
   end;
 end;
 

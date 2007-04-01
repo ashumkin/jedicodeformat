@@ -51,6 +51,9 @@ type
     fiMaxSpacesInCode: integer;
     fbUseMaxSpacesInCode: boolean;
 
+    fbSpaceBeforeOpenBrackets: boolean;
+    fbSpaceBeforeOpenSquareBrackets: boolean;
+
     feSpaceForOperator: TTriOptionStyle;
 
   protected
@@ -93,6 +96,9 @@ type
 
     property SpaceForOperator: TTriOptionStyle read feSpaceForOperator write feSpaceForOperator;
 
+    property SpaceBeforeOpenBrackets: boolean read fbSpaceBeforeOpenBrackets write fbSpaceBeforeOpenBrackets;
+    property SpaceBeforeOpenSquareBrackets: boolean read fbSpaceBeforeOpenSquareBrackets write fbSpaceBeforeOpenSquareBrackets;
+
   end;
 
 implementation
@@ -120,6 +126,9 @@ const
   SET_USE_MAX_SPACES_IN_CODE = 'UseMaxSpacesInCode';
 
   SET_SPACE_FOR_OPERATOR = 'SpaceForOperator';
+
+  SET_SPACE_BEFORE_OPEN_SQUARE_BRACKETS = 'SpaceBeforeOpenSquareBrackets';
+  SET_SPACE_BEFORE_OPEN_BRACKETS = 'SpaceBeforeOpenBrackets';
 
 constructor TSetSpaces.Create;
 begin
@@ -156,6 +165,9 @@ begin
   fbUseMaxSpacesInCode := pcStream.Read(SET_USE_MAX_SPACES_IN_CODE, False);
 
   feSpaceForOperator := TTriOptionStyle(pcStream.Read(SET_SPACE_FOR_OPERATOR, Ord(eAlways)));
+
+  fbSpaceBeforeOpenSquareBrackets := pcStream.Read(SET_SPACE_BEFORE_OPEN_SQUARE_BRACKETS, False);
+  fbSpaceBeforeOpenBrackets := pcStream.Read(SET_SPACE_BEFORE_OPEN_BRACKETS, False);
 end;
 
 procedure TSetSpaces.WriteToStream(const pcOut: TSettingsOutput);
@@ -185,6 +197,9 @@ begin
   pcOut.Write(SET_USE_MAX_SPACES_IN_CODE, fbUseMaxSpacesInCode);
 
   pcOut.Write(SET_SPACE_FOR_OPERATOR, ord(feSpaceForOperator));
+
+  pcOut.Write(SET_SPACE_BEFORE_OPEN_SQUARE_BRACKETS, fbSpaceBeforeOpenSquareBrackets);
+  pcOut.Write(SET_SPACE_BEFORE_OPEN_BRACKETS, fbSpaceBeforeOpenBrackets);
 end;
 
 
