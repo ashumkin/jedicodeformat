@@ -490,7 +490,7 @@ end;
 
 procedure TFullTestClarify.LittleTest11;
 begin
-  TestClarifyFile('LittleTest11', 97);
+  TestClarifyFile('LittleTest11', 123);
 end;
 
 

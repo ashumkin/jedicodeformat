@@ -139,15 +139,17 @@ begin
 
   { function/proc body needs a blank line
    but not in RHSEquals of type defs,
-   but not in class & interface def,
-   but not if precedeed by the class specified for class functions
-   but not if it doesn't have a proc body
+   or in an anonymous procedure type
+   and not in class & interface def,
+   and not if precedeed by the class specified for class functions
+   and not if it doesn't have a proc body
 
    IMHO should also have blank line before contained procs
    }
 
   if (pt.TokenType in ProcedureWords) and
     (not pt.IsOnRightOf(nTypeDecl, ttEquals)) and
+    (not pt.HasParentNode(nProcedureType, 2)) and 
     (not IsClassFunction(pt)) and
     (ProcedureHasBody(pt)) and
     (not IsIdentifier(pt, idAny)) then

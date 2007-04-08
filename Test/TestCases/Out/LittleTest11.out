@@ -21,4 +21,10 @@ const
 
 implementation
 
+procedure fooProc;
+var
+  ProcVar2: procedure(Arg1: integer);
+begin
+end;
+
 end.

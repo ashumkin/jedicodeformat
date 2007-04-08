@@ -13,5 +13,11 @@ const
 
 implementation
 
+procedure fooproc;
+var
+  procvar2: procedure(arg1: integer);
+begin
+end;
+
 end.
  
