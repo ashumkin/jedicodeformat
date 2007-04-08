@@ -71,17 +71,26 @@ begin
   if pt = nil then
     exit;
 
-  if (pt.TokenType = ttOpenSquareBracket) and
-    FormatSettings.Spaces.SpaceBeforeOpenSquareBrackets then
+  if (pt.TokenType = ttOpenBracket) then
   begin
-      Result := true;
-      exit;
-  end
-  else if (pt.TokenType = ttOpenBracket) and
-    FormatSettings.Spaces.SpaceBeforeOpenBrackets then
-  begin
-    Result := true;
-    exit;
+    if FormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionDeclaration then
+    begin
+      if pt.HasParentNode(nFormalParams, 1) then
+      begin
+        Result := true;
+        exit;
+      end;
+    end;
+
+    if FormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionCall then
+    begin
+      if pt.HasParentNode(nActualParams, 1) then
+      begin
+        Result := true;
+        exit;
+      end;
+    end;
+
   end;
 
   if pt.HasParentNode(nLiteralString) then

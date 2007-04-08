@@ -241,24 +241,24 @@ inherited fClarifySpaces: TfClarifySpaces
   object GroupBoxInsertSpace: TGroupBox
     Left = 221
     Top = 125
-    Width = 141
+    Width = 148
     Height = 70
-    Caption = 'Insert space'
+    Caption = '&Insert space before bracket'
     TabOrder = 7
-    object cbInsertSpaceBeforeRoundBracket: TCheckBox
+    object cbInsertSpaceBeforeBracketinFunctionDeclaration: TCheckBox
       Left = 4
       Top = 20
       Width = 129
       Height = 17
-      Caption = 'Before round bracket'
+      Caption = 'In function &declaration'
       TabOrder = 0
     end
-    object cbInsertSpaceBeforeSquareBracket: TCheckBox
+    object cbInsertSpaceBeforeBracketinFunctionCall: TCheckBox
       Left = 4
       Top = 40
       Width = 129
       Height = 17
-      Caption = 'Before square bracket'
+      Caption = 'In function &call'
       TabOrder = 1
     end
   end

@@ -51,8 +51,8 @@ type
     fiMaxSpacesInCode: integer;
     fbUseMaxSpacesInCode: boolean;
 
-    fbSpaceBeforeOpenBrackets: boolean;
-    fbSpaceBeforeOpenSquareBrackets: boolean;
+    fbSpaceBeforeOpenBracketsInFunctionDeclaration: boolean;
+    fbSpaceBeforeOpenBracketsInFunctionCall: boolean;
 
     feSpaceForOperator: TTriOptionStyle;
 
@@ -63,41 +63,42 @@ type
     procedure WriteToStream(const pcOut: TSettingsOutput); override;
     procedure ReadFromStream(const pcStream: TSettingsInput); override;
 
-    property TabsToSpaces: boolean Read fbTabsToSpaces Write fbTabsToSpaces;
-    property SpacesToTabs: boolean Read fbSpacesToTabs Write fbSpacesToTabs;
+    property TabsToSpaces: boolean read fbTabsToSpaces write fbTabsToSpaces;
+    property SpacesToTabs: boolean read fbSpacesToTabs write fbSpacesToTabs;
 
-    property SpacesPerTab: integer Read fiSpacesPerTab Write fiSpacesPerTab;
-    property SpacesForTab: integer Read fiSpacesForTab Write fiSpacesForTab;
+    property SpacesPerTab: integer read fiSpacesPerTab write fiSpacesPerTab;
+    property SpacesForTab: integer read fiSpacesForTab write fiSpacesForTab;
 
-    property FixSpacing: boolean Read fbFixSpacing Write fbFixSpacing;
+    property FixSpacing: boolean read fbFixSpacing write fbFixSpacing;
 
     property SpaceBeforeClassHeritage: boolean
-      Read fbSpaceBeforeClassHeritage Write fbSpaceBeforeClassHeritage;
+      read fbSpaceBeforeClassHeritage write fbSpaceBeforeClassHeritage;
 
-    property SpacesBeforeColonVar: integer Read fiSpacesBeforeColonVar
-      Write fiSpacesBeforeColonVar;
+    property SpacesBeforeColonVar: integer read fiSpacesBeforeColonVar
+      write fiSpacesBeforeColonVar;
     property SpacesBeforeColonConst: integer
-      Read fiSpacesBeforeColonConst Write fiSpacesBeforeColonConst;
+      read fiSpacesBeforeColonConst write fiSpacesBeforeColonConst;
     property SpacesBeforeColonParam: integer
-      Read fiSpacesBeforeColonParam Write fiSpacesBeforeColonParam;
-    property SpacesBeforeColonFn: integer Read fiSpacesBeforeColonFn
-      Write fiSpacesBeforeColonFn;
+      read fiSpacesBeforeColonParam write fiSpacesBeforeColonParam;
+    property SpacesBeforeColonFn: integer read fiSpacesBeforeColonFn
+      write fiSpacesBeforeColonFn;
     property SpacesBeforeColonClassVar: integer
-      Read fiSpacesBeforeColonClassVar Write fiSpacesBeforeColonClassVar;
+      read fiSpacesBeforeColonClassVar write fiSpacesBeforeColonClassVar;
     property SpacesBeforeColonRecordField: integer
-      Read fiSpacesBeforeColonRecordField Write fiSpacesBeforeColonRecordField;
+      read fiSpacesBeforeColonRecordField write fiSpacesBeforeColonRecordField;
     property SpacesBeforeColonCaseLabel: integer
-      Read fiSpacesBeforeColonCaseLabel Write fiSpacesBeforeColonCaseLabel;
+      read fiSpacesBeforeColonCaseLabel write fiSpacesBeforeColonCaseLabel;
     property SpacesBeforeColonLabel: integer
-      Read fiSpacesBeforeColonLabel Write fiSpacesBeforeColonLabel;
+      read fiSpacesBeforeColonLabel write fiSpacesBeforeColonLabel;
 
-    property MaxSpacesInCode: integer Read fiMaxSpacesInCode Write fiMaxSpacesInCode;
-    property UseMaxSpacesInCode: boolean Read fbUseMaxSpacesInCode Write fbUseMaxSpacesInCode;
+    property MaxSpacesInCode: integer read fiMaxSpacesInCode write fiMaxSpacesInCode;
+    property UseMaxSpacesInCode: boolean read fbUseMaxSpacesInCode write fbUseMaxSpacesInCode;
 
     property SpaceForOperator: TTriOptionStyle read feSpaceForOperator write feSpaceForOperator;
 
-    property SpaceBeforeOpenBrackets: boolean read fbSpaceBeforeOpenBrackets write fbSpaceBeforeOpenBrackets;
-    property SpaceBeforeOpenSquareBrackets: boolean read fbSpaceBeforeOpenSquareBrackets write fbSpaceBeforeOpenSquareBrackets;
+    property SpaceBeforeOpenBracketsInFunctionDeclaration: boolean
+      read fbSpaceBeforeOpenBracketsInFunctionDeclaration write fbSpaceBeforeOpenBracketsInFunctionDeclaration;
+    property SpaceBeforeOpenBracketsInFunctionCall: boolean read fbSpaceBeforeOpenBracketsInFunctionCall write fbSpaceBeforeOpenBracketsInFunctionCall;
 
   end;
 
@@ -127,8 +128,8 @@ const
 
   SET_SPACE_FOR_OPERATOR = 'SpaceForOperator';
 
-  SET_SPACE_BEFORE_OPEN_SQUARE_BRACKETS = 'SpaceBeforeOpenSquareBrackets';
-  SET_SPACE_BEFORE_OPEN_BRACKETS = 'SpaceBeforeOpenBrackets';
+  SET_SPACE_BEFORE_OPEN_BRACKETS_IN_FUNCTION_DECLARATION = 'SpaceBeforeOpenBracketsInFunctionDeclaration';
+  SET_SPACE_BEFORE_OPEN_BRACKETS_IN_FUNCTION_CALL = 'SpaceBeforeOpenBracketsInFunctionCall';
 
 constructor TSetSpaces.Create;
 begin
@@ -166,8 +167,8 @@ begin
 
   feSpaceForOperator := TTriOptionStyle(pcStream.Read(SET_SPACE_FOR_OPERATOR, Ord(eAlways)));
 
-  fbSpaceBeforeOpenSquareBrackets := pcStream.Read(SET_SPACE_BEFORE_OPEN_SQUARE_BRACKETS, False);
-  fbSpaceBeforeOpenBrackets := pcStream.Read(SET_SPACE_BEFORE_OPEN_BRACKETS, False);
+  fbSpaceBeforeOpenBracketsInFunctionDeclaration := pcStream.Read(SET_SPACE_BEFORE_OPEN_BRACKETS_IN_FUNCTION_DECLARATION, False);
+  fbSpaceBeforeOpenBracketsInFunctionCall := pcStream.Read(SET_SPACE_BEFORE_OPEN_BRACKETS_IN_FUNCTION_CALL, False);
 end;
 
 procedure TSetSpaces.WriteToStream(const pcOut: TSettingsOutput);
@@ -198,8 +199,8 @@ begin
 
   pcOut.Write(SET_SPACE_FOR_OPERATOR, ord(feSpaceForOperator));
 
-  pcOut.Write(SET_SPACE_BEFORE_OPEN_SQUARE_BRACKETS, fbSpaceBeforeOpenSquareBrackets);
-  pcOut.Write(SET_SPACE_BEFORE_OPEN_BRACKETS, fbSpaceBeforeOpenBrackets);
+  pcOut.Write(SET_SPACE_BEFORE_OPEN_BRACKETS_IN_FUNCTION_DECLARATION, fbSpaceBeforeOpenBracketsInFunctionDeclaration);
+  pcOut.Write(SET_SPACE_BEFORE_OPEN_BRACKETS_IN_FUNCTION_CALL, fbSpaceBeforeOpenBracketsInFunctionCall);
 end;
 
 

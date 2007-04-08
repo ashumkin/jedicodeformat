@@ -167,7 +167,8 @@ uses
   WarnUnusedParam in '..\..\Process\Warnings\WarnUnusedParam.pas',
   TestFileConverter in 'TestFileConverter.pas',
   TestIndentElse in 'TestIndentElse.pas',
-  TestMiscFunctions in 'TestMiscFunctions.pas';
+  TestMiscFunctions in 'TestMiscFunctions.pas',
+  TestSpaceBeforeBrackets in 'TestSpaceBeforeBrackets.pas';
 
 {$R *.res}
 
