@@ -242,7 +242,7 @@ inherited fClarifySpaces: TfClarifySpaces
     Left = 221
     Top = 125
     Width = 148
-    Height = 70
+    Height = 94
     Caption = '&Insert space before bracket'
     TabOrder = 7
     object cbInsertSpaceBeforeBracketinFunctionDeclaration: TCheckBox
@@ -260,6 +260,14 @@ inherited fClarifySpaces: TfClarifySpaces
       Height = 17
       Caption = 'In function &call'
       TabOrder = 1
+    end
+    object cbBeforeOpenSquareBracketInExpression: TCheckBox
+      Left = 3
+      Top = 63
+      Width = 129
+      Height = 17
+      Caption = 'Before [ in expression'
+      TabOrder = 2
     end
   end
 end

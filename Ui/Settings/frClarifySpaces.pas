@@ -62,6 +62,7 @@ type
     GroupBoxInsertSpace: TGroupBox;
     cbInsertSpaceBeforeBracketinFunctionDeclaration: TCheckBox;
     cbInsertSpaceBeforeBracketinFunctionCall: TCheckBox;
+    cbBeforeOpenSquareBracketInExpression: TCheckBox;
     procedure cbTabsToSpacesClick(Sender: TObject);
     procedure cbSpacesToTabsClick(Sender: TObject);
     procedure cbMaxSpacesClick(Sender: TObject);
@@ -117,6 +118,7 @@ begin
 
     cbInsertSpaceBeforeBracketinFunctionDeclaration.Checked := SpaceBeforeOpenBracketsInFunctionDeclaration;
     cbInsertSpaceBeforeBracketinFunctionCall.Checked := SpaceBeforeOpenBracketsInFunctionCall;
+    cbBeforeOpenSquareBracketInExpression.Checked := SpaceBeforeOpenSquareBracketsInExpression;
   end;
 
   cbTabsToSpacesClick(nil);
@@ -152,6 +154,8 @@ begin
 
     SpaceBeforeOpenBracketsInFunctionDeclaration := cbInsertSpaceBeforeBracketinFunctionDeclaration.Checked;
     SpaceBeforeOpenBracketsInFunctionCall := cbInsertSpaceBeforeBracketinFunctionCall.Checked;
+    SpaceBeforeOpenSquareBracketsInExpression := cbBeforeOpenSquareBracketInExpression.Checked;
+
   end;
 end;
 

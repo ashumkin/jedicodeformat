@@ -91,7 +91,19 @@ begin
       end;
     end;
 
+  end
+  else if (pt.TokenType = ttOpenSquareBracket) then
+  begin
+    if FormatSettings.Spaces.SpaceBeforeOpenSquareBracketsInExpression then
+    begin
+      if pt.HasParentNode(nExpression) then
+      begin
+        Result := true;
+        exit;
+      end;
+    end;
   end;
+
 
   if pt.HasParentNode(nLiteralString) then
   begin
