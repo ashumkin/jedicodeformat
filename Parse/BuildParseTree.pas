@@ -1693,7 +1693,7 @@ begin
   RecogniseFieldList;
 
   { delphi.net records can have public and private parts }
-  while lcNextToken.TokenType in [ttStrict] + ClassVisibility do
+  while lcNextToken.TokenType in ClassVisibility + [ttStrict, ttClass] do
   begin
     PushNode(nClassVisibility);
     RecogniseClassVisibility;
@@ -1708,6 +1708,7 @@ end;
 procedure TBuildParseTree.RecogniseFieldList;
 var
   lcNextToken: TSourceToken;
+  lcNextClassItem: TSourceToken;
 begin
   // FieldList ->  FieldDecl/';'... [VariantSection] [';']
   lcNextToken := fcTokenList.FirstSolidToken;
@@ -1722,7 +1723,13 @@ begin
       ttConstructor:
         RecogniseConstructorHeading(True);
       ttClass:
-        RecogniseClassOperator(False);
+      begin
+        lcNextClassItem :=fcTokenList.SolidToken(2);
+        if lcNextClassItem.TokenType = ttOperator then
+          RecogniseClassOperator(False)
+        else
+          RecogniseClassVars;
+      end;
       ttProperty:
         RecogniseProperty;
       else
@@ -3776,7 +3783,7 @@ begin
 
   RecogniseClassDeclarations(False);
 
-  while (fcTokenList.FirstSolidTokenType in ClassVisibility + [ttStrict]) do
+  while (fcTokenList.FirstSolidTokenType in ClassVisibility + [ttStrict, ttClass]) do
   begin
     PushNode(nClassVisibility);
     RecogniseClassVisibility;

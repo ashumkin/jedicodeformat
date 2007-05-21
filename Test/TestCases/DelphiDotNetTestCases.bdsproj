@@ -170,15 +170,7 @@
 			<VersionInfoKeys Name="ProductName"></VersionInfoKeys>
 			<VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
 			<VersionInfoKeys Name="Comments"></VersionInfoKeys>
-		</VersionInfoKeys>  
-    
-    
-    
-    
-    
-    
-    
-    <FileList>
+		</VersionInfoKeys>  <FileList>
       <File FileName="$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="System" AssemblyName="system" Version="1.0.5000.0" LinkUnits="False"/>
       <File FileName="$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.Data.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="System.Data" AssemblyName="system.data" Version="1.0.5000.0" LinkUnits="False"/>
       <File FileName="$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.Drawing.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="System.Drawing" AssemblyName="system.drawing" Version="1.0.5000.0" LinkUnits="False"/>
@@ -210,6 +202,7 @@
       <File FileName="TestDotNetForm1.pas" ContainerId="" ModuleName="TestDotNetForm1"/>
       <File FileName="TestLabelKeyword.pas" ContainerId="" ModuleName="TestLabelKeyword"/>
       <File FileName="TestDelphiNetUnsafe.pas" ContainerId="" ModuleName="TestDelphiNetUnsafe"/>
+      <File FileName="TestDelphiNetRecordClassVars.pas" ContainerId="" ModuleName="TestDelphiNetRecordClassVars"/>
     </FileList>
   </DelphiDotNet.Personality>
 	<StarTeamAssociation></StarTeamAssociation>

@@ -1,0 +1,39 @@
+unit testdelphinetrecordclassvars;
+
+interface
+
+uses SysUtils, Math;
+
+type
+  tafish = record
+    class var astring: string;
+  private
+    class var scratch: double;
+  public
+    class operator add(avalue: tafish): tafish;
+    class var foofactor: double;
+  end;
+
+  afishclass = class
+    class var
+    astring: string;
+  private
+    class var scratch: double;
+  public
+    class operator add(avalue: tafish): tafish;
+    class var foofactor: double;
+  end;
+
+implementation
+
+class operator tafish.add(avalue: tafish): tafish;
+begin
+  Result := avalue;
+end;
+
+class operator afishclass.add(avalue: tafish): tafish;
+begin
+  Result := avalue;
+end;
+
+end.

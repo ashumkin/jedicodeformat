@@ -51,8 +51,10 @@ type
     fiMaxSpacesInCode: integer;
     fbUseMaxSpacesInCode: boolean;
 
+    // add spaces
     fbSpaceBeforeOpenBracketsInFunctionDeclaration: boolean;
     fbSpaceBeforeOpenBracketsInFunctionCall: boolean;
+    fbSpaceBeforeOpenSquareBracketsInExpression: boolean;
 
     feSpaceForOperator: TTriOptionStyle;
 
@@ -99,6 +101,8 @@ type
     property SpaceBeforeOpenBracketsInFunctionDeclaration: boolean
       read fbSpaceBeforeOpenBracketsInFunctionDeclaration write fbSpaceBeforeOpenBracketsInFunctionDeclaration;
     property SpaceBeforeOpenBracketsInFunctionCall: boolean read fbSpaceBeforeOpenBracketsInFunctionCall write fbSpaceBeforeOpenBracketsInFunctionCall;
+    property SpaceBeforeOpenSquareBracketsInExpression: boolean
+      read fbSpaceBeforeOpenSquareBracketsInExpression write fbSpaceBeforeOpenSquareBracketsInExpression;
 
   end;
 
@@ -130,6 +134,7 @@ const
 
   SET_SPACE_BEFORE_OPEN_BRACKETS_IN_FUNCTION_DECLARATION = 'SpaceBeforeOpenBracketsInFunctionDeclaration';
   SET_SPACE_BEFORE_OPEN_BRACKETS_IN_FUNCTION_CALL = 'SpaceBeforeOpenBracketsInFunctionCall';
+  SET_SPACE_BEFORE_OPEN_SQUARE_BRACKETS_IN_EXPRESSION = 'SpaceBeforeOpenSquareBracketsInExpression';
 
 constructor TSetSpaces.Create;
 begin
@@ -169,6 +174,7 @@ begin
 
   fbSpaceBeforeOpenBracketsInFunctionDeclaration := pcStream.Read(SET_SPACE_BEFORE_OPEN_BRACKETS_IN_FUNCTION_DECLARATION, False);
   fbSpaceBeforeOpenBracketsInFunctionCall := pcStream.Read(SET_SPACE_BEFORE_OPEN_BRACKETS_IN_FUNCTION_CALL, False);
+  fbSpaceBeforeOpenSquareBracketsInExpression := pcStream.Read(SET_SPACE_BEFORE_OPEN_SQUARE_BRACKETS_IN_EXPRESSION, False);
 end;
 
 procedure TSetSpaces.WriteToStream(const pcOut: TSettingsOutput);
@@ -201,6 +207,7 @@ begin
 
   pcOut.Write(SET_SPACE_BEFORE_OPEN_BRACKETS_IN_FUNCTION_DECLARATION, fbSpaceBeforeOpenBracketsInFunctionDeclaration);
   pcOut.Write(SET_SPACE_BEFORE_OPEN_BRACKETS_IN_FUNCTION_CALL, fbSpaceBeforeOpenBracketsInFunctionCall);
+  pcOut.Write(SET_SPACE_BEFORE_OPEN_SQUARE_BRACKETS_IN_EXPRESSION, fbSpaceBeforeOpenSquareBracketsInExpression);
 end;
 
 

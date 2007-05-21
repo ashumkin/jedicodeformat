@@ -242,6 +242,7 @@ type
     procedure TestDelphiNetDynamicArray;
     procedure TestDelphiNetRecordProcs;
     procedure TestDelphiNetUnsafe;
+    procedure TestDelphiNetRecordClassVars;
 
     procedure TestTryExceptRaise;
     procedure TestTrailingCommaParam;
@@ -1339,6 +1340,11 @@ end;
 procedure TFullTestClarify.TestDelphiNetHelperClass;
 begin
   TestClarifyFile('TestDelphiNetHelperClass', 158);
+end;
+
+procedure TFullTestClarify.TestDelphiNetRecordClassVars;
+begin
+  TestClarifyFile('TestDelphiNetRecordClassVars', 240);
 end;
 
 procedure TFullTestClarify.TestDelphiNetRecordForward;

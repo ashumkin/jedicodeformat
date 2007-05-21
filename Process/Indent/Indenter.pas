@@ -261,10 +261,7 @@ begin
       if lcParent <> nil then
         lcParent := lcParent.Parent;
     end;
-
-
   end;
-
 end;
 
 function CalculateIndent(const pt: TSourceToken): integer;
@@ -274,6 +271,7 @@ var
   lbHasIndentedDecl: boolean;
   lcParent, lcChild: TParseTreeNode;
   liClassNestingCount: integer;
+  ptNext: TSourceToken;
 begin
   Result := 0;
   lbHasIndentedRunOnLine := False;
@@ -330,7 +328,7 @@ begin
     if pt.TokenType in Declarations + ProcedureWords then
     begin
       {
-        the words 'var' and 'cost' can be found in proc params
+        the words 'var' and 'const' can be found in proc params
         the words 'procedure' and 'function' can be found in type defs, e.g. type Tfoo = procedure of object; }
       if (pt.TokenType in ProcedureWords + ParamTypes) and
         (pt.HasParentNode(nProcedureType) or pt.HasParentNode(nFormalParams)) then
@@ -471,8 +469,19 @@ begin
       Inc(liIndentCount);
 
     // delphi.net fns and procedures in records
-    if pt.TokenType in (ProcedureWords + [ttClass]) then
+    if pt.TokenType in (ProcedureWords) then
+    begin
       Inc(liIndentCount);
+    end
+    // class procs, but not class vars - those are already done
+    else if (pt.TokenType = ttClass) then
+    begin
+      ptNext := pt.NextSolidToken;
+      if (ptNext <> nil) and (ptNext.TokenType <> ttVar) then
+      begin
+        Inc(liIndentCount);
+      end;
+    end;
 
     if (pt.TokenType <> ttEnd) then
     begin

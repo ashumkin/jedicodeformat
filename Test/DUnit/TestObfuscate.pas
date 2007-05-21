@@ -243,6 +243,7 @@ type
     procedure TestDelphiNetDynamicArray;
     procedure TestDelphiNetRecordProcs;
     procedure TestDelphiNetUnsafe;
+    procedure TestDelphiNetRecordClassVars;
 
     procedure TestTryExceptRaise;
     procedure TestTrailingCommaParam;
@@ -1305,6 +1306,11 @@ end;
 procedure TTestObfuscate.TestDelphiNetOperatorOverload;
 begin
   TestObfuscateFile('TestDelphiNetOperatorOverload');
+end;
+
+procedure TTestObfuscate.TestDelphiNetRecordClassVars;
+begin
+  TestObfuscateFile('TestDelphiNetRecordClassVars');
 end;
 
 procedure TTestObfuscate.TestDelphiNetRecordForward;

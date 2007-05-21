@@ -18,9 +18,9 @@ in'TestDelphiNetRecordProcs.pas',testdelphinetsealedclass in'TestDelphiNetSealed
 ,testdelphinetstatic in'TestDelphiNetStatic.pas',testdelphinetuses in'TestDelphiNetUses.pas'
 ,testdotnetform1 in'TestDotNetForm1.pas'{TestDotNetForm1.TWinForm: System.Windows.Forms.Form}
 ,testlabelkeyword in'TestLabelKeyword.pas',testdelphinetunsafe in'TestDelphiNetUnsafe.pas'
-;{$R *.res}{$REGION 'Program/Assembly Information'}[assembly:assemblydescription(
-'')][assembly:assemblyconfiguration('')][assembly:assemblycompany('')][assembly:assemblyproduct
-('')][assembly:assemblycopyright('')][assembly:assemblytrademark('')][assembly:assemblyculture
-('')][assembly:assemblyversion('1.0.*')][assembly:assemblydelaysign(false)][assembly
-:assemblykeyfile('')][assembly:assemblykeyname('')][assembly:comvisible(false)]{$ENDREGION}
-[stathread]begin application.run(twinform.create);end. 
+,testdelphinetrecordclassvars in'TestDelphiNetRecordClassVars.pas';{$R *.res}{$REGION 'Program/Assembly Information'}
+[assembly:assemblydescription('')][assembly:assemblyconfiguration('')][assembly:assemblycompany
+('')][assembly:assemblyproduct('')][assembly:assemblycopyright('')][assembly:assemblytrademark
+('')][assembly:assemblyculture('')][assembly:assemblyversion('1.0.*')][assembly:assemblydelaysign
+(false)][assembly:assemblykeyfile('')][assembly:assemblykeyname('')][assembly:comvisible
+(false)]{$ENDREGION}[stathread]begin application.run(twinform.create);end. 
