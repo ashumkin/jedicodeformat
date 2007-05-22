@@ -271,7 +271,6 @@ var
   lbHasIndentedDecl: boolean;
   lcParent, lcChild: TParseTreeNode;
   liClassNestingCount: integer;
-  ptNext: TSourceToken;
 begin
   Result := 0;
   lbHasIndentedRunOnLine := False;
@@ -476,8 +475,7 @@ begin
     // class procs, but not class vars - those are already done
     else if (pt.TokenType = ttClass) then
     begin
-      ptNext := pt.NextSolidToken;
-      if (ptNext <> nil) and (ptNext.TokenType <> ttVar) then
+      if not pt.HasParentNode(nClassVars, 1) then
       begin
         Inc(liIndentCount);
       end;

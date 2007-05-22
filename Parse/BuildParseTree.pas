@@ -1930,9 +1930,13 @@ end;
 
 procedure TBuildParseTree.RecogniseClassVars;
 begin
+  PushNode(nClassVars);
+
   Recognise(ttClass);
   Recognise(ttVar);
   RecogniseVarDecl;
+
+  PopNode;
 end;
 
 procedure TBuildParseTree.RecogniseClassOperator(const pbHasBody: boolean);

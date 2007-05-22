@@ -145,7 +145,8 @@ type
     nLiteralString,
     nHashLiteralChar,
     nHatLiteralChar,
-    nAttribute
+    nAttribute,
+    nClassVars
     );
 
   TParseTreeNodeTypeSet = set of TParseTreeNodeType;
