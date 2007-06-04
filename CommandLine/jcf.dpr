@@ -1,4 +1,4 @@
-program jcf;
+program JCF;
 
 {$APPTYPE CONSOLE}
 {(*}
@@ -7,7 +7,7 @@ program jcf;
 
 The Original Code is jcf, released May 2003.
 The Initial Developer of the Original Code is Anthony Steele. 
-Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
+Portions created by Anthony Steele are Copyright (C) 1999-2007 Anthony Steele.
 All Rights Reserved. 
 Contributor(s): Anthony Steele. 
 
@@ -140,11 +140,12 @@ uses
   SortUses in '..\Process\Transform\SortUses.pas',
   SortUsesData in '..\Process\Transform\SortUsesData.pas',
   IdentifierCaps in '..\Process\Capitalisation\IdentifierCaps.pas',
-  WarnUnusedParam in '..\Process\Warnings\WarnUnusedParam.pas';
+  WarnUnusedParam in '..\Process\Warnings\WarnUnusedParam.pas',
+  JcfFontSetFunctions in '..\Utils\JcfFontSetFunctions.pas';
 
 const
   ABOUT_COMMANDLINE =
-    'Jedi Code Format V' + PROGRAM_VERSION + AnsiLineBreak +
+    'JEDI Code Format V' + PROGRAM_VERSION + AnsiLineBreak +
     ' ' + PROGRAM_DATE + AnsiLineBreak +
     ' A Delphi Object-Pascal Source code formatter' + AnsiLineBreak +
     ' A GUI version of this program is also available' + AnsiLineBreak +
