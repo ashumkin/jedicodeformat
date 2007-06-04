@@ -76,9 +76,9 @@ implementation
 
 uses
   { delphi }
-  SysUtils, Forms, Graphics, TypInfo, StdCtrls, ComCtrls,
+  SysUtils, Forms,
   { jcl }
-  JclStrings, JclFileUtils, JclSysUtils, JclSysInfo;
+  JclStrings, JclFileUtils, JclSysUtils;
 
 function GetApplicationFolder: string;
 begin
