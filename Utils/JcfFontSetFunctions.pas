@@ -6,7 +6,7 @@ unit JcfFontSetFunctions;
 
 The Original Code is JcfFontSetFunctions, released May 2007.
 The Initial Developer of the Original Code is Jean-Fabien Connault.
-Portions created by Anthony Steele are Copyright (C) 1999-2007 Anthony Steele.
+Portions created by Jean-Fabien Connault are Copyright (C) 2007 Jean-Fabien Connault.
 All Rights Reserved.
 Contributor(s):
 SetObjectFontToSystemFont by Jean-Fabien Connault
@@ -28,7 +28,8 @@ interface
 type
      TFontType  = (ftAuto, ftCaption, ftContent);
 
-procedure SetObjectFontToSystemFont(AObject: TObject; FontType: TFontType = ftAuto);
+procedure SetObjectFontToSystemFont(
+  const AObject: TObject; const FontType: TFontType = ftAuto);
 
 implementation
 
@@ -38,7 +39,7 @@ uses
   { jcl }
   JclSysUtils, JclSysInfo;
 
-procedure SetCaptionFont(AObjectFont: TFont);
+procedure SetCaptionFont(const AObjectFont: TFont);
 begin
   if IsWinVista then
   //if IsWinVista or IsWinServer2008 then
@@ -60,7 +61,7 @@ begin
   end;
 end;
 
-procedure SetContentFont(AObjectFont: TFont);
+procedure SetContentFont(const AObjectFont: TFont);
 begin
   //if IsWinVista or IsWinServer2008 then
   if IsWinVista then
@@ -83,7 +84,7 @@ begin
 end;
 
 
-procedure SetObjectFontToSystemFont(AObject: TObject; FontType: TFontType);
+procedure SetObjectFontToSystemFont(const AObject: TObject; const FontType: TFontType);
 var
   AObjectFont: TFont;
   AFontType:   TFontType;
