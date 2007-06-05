@@ -1263,7 +1263,7 @@ end;
 
 procedure TFullTestClarify.TestCondReturns;
 begin
-  TestClarifyFile('TestCondReturns', 92);
+  TestClarifyFile('TestCondReturns', 98);
 end;
 
 procedure TFullTestClarify.TestDelphiNetUnsafe;

@@ -22,7 +22,7 @@ package TestMe;
 {$WRITEABLECONST ON}
 {$MINENUMSIZE 1}
 {$IMAGEBASE $400000}
-{$DESCRIPTION 'Jedi Code Format IDE Plugin for Delphi 7'}
+{$DESCRIPTION 'JEDI Code Format IDE Plugin for Delphi 7'}
 {$DESIGNONLY}
 {$IMPLICITBUILD ON}
 {$DEFINE IDEPLUGGIN}

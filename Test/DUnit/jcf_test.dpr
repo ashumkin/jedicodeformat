@@ -168,7 +168,8 @@ uses
   TestFileConverter in 'TestFileConverter.pas',
   TestIndentElse in 'TestIndentElse.pas',
   TestMiscFunctions in 'TestMiscFunctions.pas',
-  TestSpaceBeforeBrackets in 'TestSpaceBeforeBrackets.pas';
+  TestSpaceBeforeBrackets in 'TestSpaceBeforeBrackets.pas',
+  JcfFontSetFunctions in '..\..\Utils\JcfFontSetFunctions.pas';
 
 {$R *.res}
 

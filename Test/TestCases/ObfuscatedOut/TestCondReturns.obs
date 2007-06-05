@@ -1,5 +1,5 @@
-unit testcondreturns;interface implementation function dotestcondreturns:boolean
-;var foo,bar:boolean;begin if foo then begin {$IFDEF DEBUG}
+unit testcondreturns;interface uses dialogs;implementation function dotestcondreturns
+:boolean;var foo,bar:boolean;begin if foo then begin {$IFDEF DEBUG}
   MessageDlg('Foo!',
   mtInformation, [mbOK], 0);
   

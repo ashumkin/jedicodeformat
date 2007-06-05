@@ -2,23 +2,23 @@ object FormTest: TFormTest
   Left = 192
   Top = 107
   BorderStyle = bsDialog
-  Caption = 'JCF test code project'
-  ClientHeight = 219
-  ClientWidth = 440
+  Caption = 'JCF Test Code Project'
+  ClientHeight = 270
+  ClientWidth = 542
   Color = clBtnFace
-  Font.Charset = DEFAULT_CHARSET
+  Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
-  Font.Name = 'MS Sans Serif'
+  Font.Height = -15
+  Font.Name = 'Segoe UI'
   Font.Style = []
   OldCreateOrder = False
-  PixelsPerInch = 96
-  TextHeight = 13
+  PixelsPerInch = 120
+  TextHeight = 20
   object bbClose: TBitBtn
-    Left = 174
-    Top = 176
-    Width = 100
-    Height = 40
+    Left = 214
+    Top = 217
+    Width = 123
+    Height = 49
     Caption = '&Close'
     TabOrder = 0
     OnClick = bbCloseClick
@@ -42,22 +42,22 @@ object FormTest: TFormTest
     NumGlyphs = 2
   end
   object mNotice: TMemo
-    Left = 4
-    Top = 4
-    Width = 429
-    Height = 169
-    Font.Charset = DEFAULT_CHARSET
+    Left = 5
+    Top = 5
+    Width = 528
+    Height = 208
+    Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -16
-    Font.Name = 'MS Sans Serif'
+    Font.Height = -20
+    Font.Name = 'Calibri'
     Font.Style = [fsBold]
     Lines.Strings = (
-      'This is the test code for the Jedi Code formatter.'
+      'This is the test code for JEDI Code Format (JCF).'
       'There should be no need to ever run this project.'
       'It exists solely to verify that the test code is '
       'compilable.'
-      'Go to View|Project manager'
-      'and open JediCodeFormat.dpr')
+      ''
+      'Go to View|Project Manager')
     ParentColor = True
     ParentFont = False
     ReadOnly = True

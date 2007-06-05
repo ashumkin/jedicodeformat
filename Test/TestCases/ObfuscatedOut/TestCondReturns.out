@@ -2,6 +2,8 @@ unit testcondreturns;
 
 interface
 
+uses Dialogs;
+
 implementation
 
 function dotestcondreturns: boolean;
