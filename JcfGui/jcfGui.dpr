@@ -1,12 +1,12 @@
-program jcfGui;
+program JCFGui;
 
 {(*}
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code 
 
-The Original Code is jcfGui, released May 2003.
+The Original Code is JCFGui, released May 2003.
 The Initial Developer of the Original Code is Anthony Steele. 
-Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
+Portions created by Anthony Steele are Copyright (C) 1999-2007 Anthony Steele.
 All Rights Reserved. 
 Contributor(s): Anthony Steele. 
 
@@ -166,13 +166,14 @@ uses
   WarnUnusedParam in '..\Process\Warnings\WarnUnusedParam.pas',
   frAnyCapsSettings in '..\Ui\Settings\frAnyCapsSettings.pas',
   frIdentifierCapsSettings in '..\Ui\Settings\frIdentifierCapsSettings.pas' {fIdentifierCapsSettings: TFrame},
-  frComments in '..\Ui\Settings\frComments.pas' {fComments: TFrame};
+  frComments in '..\Ui\Settings\frComments.pas' {fComments: TFrame},
+  JcfFontSetFunctions in '..\Utils\JcfFontSetFunctions.pas';
 
 {$R *.res}
 
 begin
   Application.Initialize;
-  Application.Title := 'Jedi Delphi Code Format';
+  Application.Title := 'JEDI Code Format';
   Application.CreateForm(TfrmMain, frmMain);
   Application.Run;
 end.

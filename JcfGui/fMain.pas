@@ -42,14 +42,14 @@ uses
 type
   TfrmMain = class(TForm)
     mnuMain: TMainMenu;
-    mnuFiles: TMenuItem;
-    mnuGo: TMenuItem;
+    mnuFile: TMenuItem;
+    mnuGo:   TMenuItem;
     mnuClose: TMenuItem;
     mnuHelp: TMenuItem;
     mnuAbout: TMenuItem;
-    tlbTop: TToolBar;
+    tlbTop:  TToolBar;
     tbtnOpenFiles: TToolButton;
-    btnGo: TToolButton;
+    btnGo:   TToolButton;
     btnAbout: TToolButton;
     tbtnToolButton6: TToolButton;
     btnSettings: TToolButton;
@@ -59,9 +59,9 @@ type
     ActionList: TActionList;
     aOpenFiles: TAction;
     aOptions: TAction;
-    aGo: TAction;
-    aAbout: TAction;
-    aExit: TAction;
+    aGo:     TAction;
+    aAbout:  TAction;
+    aExit:   TAction;
     tbtnToolButton4: TToolButton;
     btnClose: TToolButton;
     OpenFile1: TMenuItem;
@@ -70,18 +70,19 @@ type
     dlgSaveConfig: TSaveDialog;
     actHelpContents: THelpContents;
     mnuContents: TMenuItem;
-    tbHelp: TToolButton;
+    tbHelp:  TToolButton;
     mnuSettings: TMenuItem;
     mnuRegistrySettings: TMenuItem;
     mruFiles: TJvMRUManager;
     dlgOpen: TOpenDialog;
     frBasic: TfrBasic;
-    N1: TMenuItem;
+    N1:      TMenuItem;
     mnuSaveSettingsAs: TMenuItem;
     aSaveSettingsAs: TAction;
     JvFormStorage1: TJvFormStorage;
     mOutput: TJvMemo;
-    lblLog: TLabel;
+    lblLog:  TLabel;
+    N2:      TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure mnuGoClick(Sender: TObject);
@@ -100,6 +101,7 @@ type
       UserData: integer);
     procedure FormKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure FormResize(Sender: TObject);
+    procedure frBasicsbOpenClick(Sender: TObject);
   private
     fcConverter: TFileConverter;
 
@@ -123,8 +125,7 @@ implementation
 uses
   { jcl }JclFileUtils,
   { local }fAbout, ConvertTypes, fAllSettings, fRegistrySettings,
-  SettingsStream, JCFHelp, JcfRegistrySettings;
-
+  SettingsStream, JCFHelp, JcfRegistrySettings, JcfFontSetFunctions;
 
 function OkDialog(const psMsg: string): boolean;
 begin
@@ -151,8 +152,7 @@ begin
 
   lsSource := lcRegSet.Input;
 
-  if (lcRegSet.SourceMode = fmSingleFile) and
-    (ExtractFileName(lsSource) = '') then
+  if (lcRegSet.SourceMode = fmSingleFile) and (ExtractFileName(lsSource) = '') then
   begin
     ErrorDialog('No file specified in direcory');
     Exit;
@@ -216,6 +216,8 @@ procedure TfrmMain.FormCreate(Sender: TObject);
 var
   lsHelpFile: string;
 begin
+  SetObjectFontToSystemFont(Self);
+
   lsHelpFile := IncludeTrailingPathDelimiter(ExtractFilePath(Application.ExeName)) +
     'CodeFormat.hlp';
 
@@ -407,14 +409,19 @@ end;
 
 procedure TfrmMain.FormResize(Sender: TObject);
 begin
-  frBasic.Left  := 0;
+  {frBasic.Left  := 0;
   frBasic.Top   := tlbTop.Top + tlbTop.Height;
   frBasic.Width := ClientWidth;
 
   mOutput.Left   := 2;
   mOutput.Width  := ClientWidth - 4;
   mOutput.Top    := lblLog.Top + lblLog.Height + 4;
-  mOutput.Height := ClientHeight - (mOutput.Top + 4);
+  mOutput.Height := ClientHeight - (mOutput.Top + 4);}
+end;
+
+procedure TfrmMain.frBasicsbOpenClick(Sender: TObject);
+begin
+  frBasic.sbOpenClick(Sender);
 end;
 
 end.
