@@ -1,34 +1,40 @@
 inherited fBlankLines: TfBlankLines
-  Width = 308
+  Width = 380
   Height = 280
-  ExplicitWidth = 308
+  Font.Charset = ANSI_CHARSET
+  Font.Height = -15
+  Font.Name = 'Segoe UI'
+  ParentFont = False
+  ExplicitWidth = 380
   ExplicitHeight = 280
   object Label1: TLabel
-    Left = 3
+    Left = 8
     Top = 144
-    Width = 210
-    Height = 13
+    Width = 284
+    Height = 20
     Caption = 'Number of returns after the unit'#39's final end.'
   end
   object Label2: TLabel
-    Left = 3
-    Top = 192
-    Width = 177
-    Height = 13
+    Left = 8
+    Top = 200
+    Width = 243
+    Height = 20
     Caption = 'Max consecutive blank lines anwhere'
   end
   object Label3: TLabel
-    Left = 3
-    Top = 218
-    Width = 111
-    Height = 13
+    Left = 8
+    Top = 226
+    Width = 153
+    Height = 20
     Caption = 'Lines before procedure'
   end
   object eNumReturnsAfterFinalEnd: TJvValidateEdit
-    Left = 225
-    Top = 142
+    Left = 314
+    Top = 140
     Width = 49
-    Height = 21
+    Height = 28
+    CriticalPoints.MaxValueIncluded = False
+    CriticalPoints.MinValueIncluded = False
     EditText = '0'
     HasMaxValue = True
     HasMinValue = True
@@ -37,18 +43,20 @@ inherited fBlankLines: TfBlankLines
     TabOrder = 1
   end
   object cbRemoveConsecutiveBlankLines: TCheckBox
-    Left = 3
-    Top = 168
-    Width = 201
+    Left = 8
+    Top = 176
+    Width = 262
     Height = 17
     Caption = 'Remove consecutive blank lines'
     TabOrder = 2
   end
   object edtMaxConsecutiveBlankLines: TJvValidateEdit
-    Left = 225
-    Top = 190
+    Left = 314
+    Top = 192
     Width = 49
-    Height = 21
+    Height = 28
+    CriticalPoints.MaxValueIncluded = False
+    CriticalPoints.MinValueIncluded = False
     EditText = '0'
     HasMaxValue = True
     HasMinValue = True
@@ -57,23 +65,23 @@ inherited fBlankLines: TfBlankLines
     TabOrder = 3
   end
   object gbRemoveBlankLines: TGroupBox
-    Left = 3
+    Left = 8
     Top = 3
-    Width = 286
+    Width = 366
     Height = 126
     Caption = 'Remove blank lines'
     TabOrder = 0
     object Label4: TLabel
       Left = 8
       Top = 94
-      Width = 208
-      Height = 13
+      Width = 289
+      Height = 20
       Caption = 'Max consecutive blank lines before removal'
     end
     object cbRemoveBlockBlankLines: TCheckBox
       Left = 8
-      Top = 68
-      Width = 197
+      Top = 67
+      Width = 289
       Height = 17
       Caption = 'at start and end of begin..end block'
       TabOrder = 2
@@ -81,7 +89,7 @@ inherited fBlankLines: TfBlankLines
     object cbRemoveBlankLinesAfterProcHeader: TCheckBox
       Left = 8
       Top = 44
-      Width = 193
+      Width = 289
       Height = 17
       Caption = 'after procedure header'
       TabOrder = 1
@@ -89,16 +97,18 @@ inherited fBlankLines: TfBlankLines
     object cbRemoveVarBlankLines: TCheckBox
       Left = 8
       Top = 21
-      Width = 181
+      Width = 289
       Height = 17
       Caption = 'in procedure var section'
       TabOrder = 0
     end
     object edtMaxBlankLinesInSection: TJvValidateEdit
-      Left = 222
+      Left = 306
       Top = 91
       Width = 49
-      Height = 21
+      Height = 28
+      CriticalPoints.MaxValueIncluded = False
+      CriticalPoints.MinValueIncluded = False
       EditText = '0'
       HasMaxValue = True
       HasMinValue = True
@@ -108,10 +118,12 @@ inherited fBlankLines: TfBlankLines
     end
   end
   object edtLinesBeforeProcedure: TJvValidateEdit
-    Left = 225
-    Top = 216
+    Left = 314
+    Top = 226
     Width = 49
-    Height = 21
+    Height = 28
+    CriticalPoints.MaxValueIncluded = False
+    CriticalPoints.MinValueIncluded = False
     EditText = '0'
     HasMaxValue = True
     HasMinValue = True

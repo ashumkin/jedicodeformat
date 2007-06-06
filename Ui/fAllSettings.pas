@@ -72,7 +72,7 @@ implementation
 {$R *.DFM}
 
 uses
-  JcfRegistrySettings, JcfHelp,
+  JcfRegistrySettings, JcfHelp, JcfFontSetFunctions,
   { contained frames }
   frFiles, frObfuscateSettings,
   frClarify, frClarifySpaces, frClarifyIndent,
@@ -94,16 +94,16 @@ type
 
 const
   FrameMap: array[0..23] of TFrameMapRecord = (
-    (FrameName: 'Format file'; FrameClass: TfFiles),
+    (FrameName: 'Format File'; FrameClass: TfFiles),
     (FrameName: 'Obfuscate'; FrameClass: TfObfuscateSettings),
     (FrameName: 'Clarify'; FrameClass: TfClarify),
     (FrameName: 'Spaces'; FrameClass: TfClarifySpaces),
     (FrameName: 'Indentation'; FrameClass: TfClarifyIndent),
-    (FrameName: 'Long lines'; FrameClass: TfClarifyLongLineBreaker),
+    (FrameName: 'Long Lines'; FrameClass: TfClarifyLongLineBreaker),
     (FrameName: 'Returns'; FrameClass: TfClarifyReturns),
-    (FrameName: 'Blank lines'; FrameClass: TfBlankLines),
+    (FrameName: 'Blank Lines'; FrameClass: TfBlankLines),
     (FrameName: 'Blocks'; FrameClass: TfClarifyBlocks),
-    (FrameName: 'Case blocks'; FrameClass: TfClarifyCaseBlocks),
+    (FrameName: 'Case Blocks'; FrameClass: TfClarifyCaseBlocks),
     (FrameName: 'Align'; FrameClass: TfClarifyAlign),
     (FrameName: 'Object Pascal'; FrameClass: TfrReservedCapsSettings),
     (FrameName: 'Any Word'; FrameClass: TfrAnyCapsSettings),
@@ -116,7 +116,7 @@ const
     (FrameName: 'PreProcessor'; FrameClass: TfPreProcessor),
     (FrameName: 'Comments'; FrameClass: TfComments),
     (FrameName: 'Transform'; FrameClass: TfTransform),
-    (FrameName: 'Compiler directives'; FrameClass: TfCompilerDirectReturns),
+    (FrameName: 'Compiler Directives'; FrameClass: TfCompilerDirectReturns),
     (FrameName: 'Warnings'; FrameClass: TfWarnings)
     );
 
@@ -144,6 +144,7 @@ begin
 
   lf := lcType.Create(self);
   lf.Parent := pnlSet;
+  SetObjectFontToSystemFont(lf);
 
   { read }
   lf.Read;
@@ -193,6 +194,7 @@ end;
 
 procedure TFormAllSettings.FormCreate(Sender: TObject);
 begin
+  SetObjectFontToSystemFont(Self);
   frLastFrame := nil;
 end;
 

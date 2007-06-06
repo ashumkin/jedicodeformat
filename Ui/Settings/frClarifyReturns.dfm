@@ -1,11 +1,17 @@
 inherited fClarifyReturns: TfClarifyReturns
-  Width = 362
+  Width = 453
   Height = 284
+  Font.Charset = ANSI_CHARSET
+  Font.Height = -15
+  Font.Name = 'Segoe UI'
+  ParentFont = False
+  ExplicitWidth = 453
+  ExplicitHeight = 284
   object rgReturnChars: TRadioGroup
     Left = 8
-    Top = 158
-    Width = 301
-    Height = 73
+    Top = 174
+    Width = 438
+    Height = 99
     Caption = 'Return chars'
     Items.Strings = (
       'Leave as is'
@@ -16,71 +22,71 @@ inherited fClarifyReturns: TfClarifyReturns
   object gbRemoveReturns: TGroupBox
     Left = 8
     Top = 8
-    Width = 157
-    Height = 145
+    Width = 202
+    Height = 160
     Hint = 'bgRemove'
     Caption = 'Remove returns'
     TabOrder = 0
     object cbRemoveProcDefReturns: TCheckBox
       Left = 8
-      Top = 67
-      Width = 140
+      Top = 77
+      Width = 186
       Height = 17
       Caption = 'In procedure definitions'
       TabOrder = 2
     end
     object cbRemoveVarReturns: TCheckBox
       Left = 8
-      Top = 92
-      Width = 140
+      Top = 102
+      Width = 186
       Height = 17
       Caption = 'In variable declarations'
       TabOrder = 3
     end
     object cbRemoveExprReturns: TCheckBox
       Left = 8
-      Top = 117
-      Width = 140
+      Top = 127
+      Width = 186
       Height = 17
       Caption = 'In expressions'
       TabOrder = 4
     end
     object cbRemovePropertyReturns: TCheckBox
       Left = 8
-      Top = 42
-      Width = 140
+      Top = 52
+      Width = 186
       Height = 17
       Caption = 'In properties'
       TabOrder = 1
     end
     object cbRemoveReturns: TCheckBox
       Left = 8
-      Top = 18
-      Width = 140
+      Top = 28
+      Width = 186
       Height = 17
       Caption = 'In misc. bad places'
       TabOrder = 0
     end
   end
   object gbInsert: TGroupBox
-    Left = 176
-    Top = 8
-    Width = 173
-    Height = 145
+    Left = 216
+    Top = 7
+    Width = 230
+    Height = 161
     Caption = 'Insert returns'
     TabOrder = 1
     object cbUsesClauseOnePerLine: TCheckBox
       Left = 8
-      Top = 42
-      Width = 160
+      Top = 53
+      Width = 217
       Height = 17
       Caption = 'One uses clause item per line'
       TabOrder = 1
     end
     object cbInsertReturns: TCheckBox
       Left = 8
-      Top = 18
-      Width = 130
+      Top = 29
+      Width = 177
       Height = 17
       Caption = 'In misc. good places'
       TabOrder = 0

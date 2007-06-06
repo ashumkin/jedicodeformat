@@ -1,25 +1,26 @@
 object ExceptionDialog: TExceptionDialog
   Left = 294
   Top = 195
-  Width = 340
-  Height = 182
   BorderIcons = [biSystemMenu]
-  Caption = 'Exception'
+  Caption = 'JCF Exception'
+  ClientHeight = 135
+  ClientWidth = 315
   Color = clBtnFace
-  Font.Charset = DEFAULT_CHARSET
+  Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
-  Font.Name = 'MS Sans Serif'
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   OnResize = FormResize
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 15
   object btnOk: TButton
-    Left = 126
-    Top = 108
-    Width = 80
-    Height = 28
+    Left = 116
+    Top = 100
+    Width = 75
+    Height = 25
     Caption = '&OK'
     Default = True
     TabOrder = 0
@@ -28,8 +29,8 @@ object ExceptionDialog: TExceptionDialog
   object mExceptionMessage: TMemo
     Left = 0
     Top = 0
-    Width = 332
-    Height = 101
+    Width = 307
+    Height = 93
     ParentColor = True
     ReadOnly = True
     TabOrder = 1

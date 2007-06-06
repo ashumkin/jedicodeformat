@@ -1,18 +1,26 @@
 inherited fClarifyIndent: TfClarifyIndent
-  Width = 321
+  Width = 430
   Height = 306
+  Font.Charset = ANSI_CHARSET
+  Font.Height = -15
+  Font.Name = 'Segoe UI'
+  ParentFont = False
+  ExplicitWidth = 430
+  ExplicitHeight = 306
   object Label2: TLabel
-    Left = 4
+    Left = 8
     Top = 80
-    Width = 119
-    Height = 13
+    Width = 164
+    Height = 20
     Caption = 'Block indentation spaces'
   end
   object edtIndentSpaces: TJvValidateEdit
-    Left = 155
-    Top = 78
+    Left = 180
+    Top = 77
     Width = 50
-    Height = 21
+    Height = 28
+    CriticalPoints.MaxValueIncluded = False
+    CriticalPoints.MinValueIncluded = False
     EditText = '0'
     HasMaxValue = True
     HasMinValue = True
@@ -21,50 +29,52 @@ inherited fClarifyIndent: TfClarifyIndent
     TabOrder = 3
   end
   object cbIndentGlobals: TCheckBox
-    Left = 4
+    Left = 8
     Top = 6
-    Width = 110
+    Width = 201
     Height = 17
     Caption = 'Indent globals'
     TabOrder = 0
   end
   object cbIndentProcedures: TCheckBox
-    Left = 4
+    Left = 8
     Top = 30
-    Width = 110
+    Width = 201
     Height = 17
     Caption = 'Indent procedures'
     TabOrder = 1
   end
   object cbIndentClasses: TCheckBox
-    Left = 4
+    Left = 8
     Top = 54
-    Width = 110
+    Width = 201
     Height = 17
     Caption = 'Indent classes'
     TabOrder = 2
   end
   object gbOptions: TGroupBox
-    Left = 4
+    Left = 8
     Top = 105
-    Width = 309
+    Width = 417
     Height = 192
     Caption = 'Options'
     TabOrder = 4
     object cbIndentBeginEnd: TCheckBox
       Left = 12
-      Top = 20
-      Width = 237
+      Top = 28
+      Width = 317
       Height = 17
       Caption = 'Extra indent for begin/end inside procedures'
       TabOrder = 0
       OnClick = cbIndentBeginEndClick
     end
     object eIndentBeginEndSpaces: TJvValidateEdit
-      Left = 246
+      Left = 360
       Top = 18
       Width = 50
-      Height = 21
+      Height = 28
+      CriticalPoints.MaxValueIncluded = False
+      CriticalPoints.MinValueIncluded = False
       EditText = '0'
       HasMaxValue = True
       HasMinValue = True
@@ -75,58 +85,60 @@ inherited fClarifyIndent: TfClarifyIndent
     end
     object cbHasFirstLevelIndent: TCheckBox
       Left = 12
-      Top = 48
-      Width = 189
+      Top = 51
+      Width = 285
       Height = 17
       Caption = 'Different indent for first level'
       TabOrder = 2
       OnClick = cbHasFirstLevelIndentClick
     end
     object eFirstLevelIndent: TJvValidateEdit
-      Left = 246
-      Top = 45
+      Left = 360
+      Top = 46
       Width = 50
-      Height = 21
+      Height = 28
+      CriticalPoints.MaxValueIncluded = False
+      CriticalPoints.MinValueIncluded = False
       EditText = '0'
       MaxLength = 3
       TabOrder = 3
     end
     object cbKeepWithInProc: TCheckBox
       Left = 12
-      Top = 76
-      Width = 265
+      Top = 74
+      Width = 382
       Height = 17
       Caption = 'Keep single-line comments with code in procedures'
       TabOrder = 4
     end
     object cbKeepWithInGlobals: TCheckBox
       Left = 12
-      Top = 96
-      Width = 265
+      Top = 97
+      Width = 373
       Height = 17
       Caption = 'Keep single-line comments with code in globals'
       TabOrder = 5
     end
     object cbKeepWithInClassDef: TCheckBox
       Left = 12
-      Top = 116
-      Width = 285
+      Top = 120
+      Width = 402
       Height = 17
       Caption = 'Keep single-line comments with code in class definitions'
       TabOrder = 6
     end
     object cbKeepWithElsewhere: TCheckBox
-      Left = 11
-      Top = 139
-      Width = 253
+      Left = 12
+      Top = 143
+      Width = 398
       Height = 17
       Caption = 'Keep single-line comments with code elsewhere'
       TabOrder = 7
     end
     object cbIndentElse: TCheckBox
-      Left = 11
-      Top = 162
-      Width = 238
+      Left = 12
+      Top = 166
+      Width = 366
       Height = 17
       Caption = 'Extra Indent for Else blocks'
       TabOrder = 8

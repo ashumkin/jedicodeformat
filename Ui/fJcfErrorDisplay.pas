@@ -15,6 +15,7 @@ type
     mExceptionMessage: TMemo;
     procedure btnOkClick(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -29,7 +30,7 @@ procedure ShowErrorMessageDialog(const psMessage: string; const psCaption: strin
 
 implementation
 
-uses JclStrings, ParseError;
+uses JclStrings, ParseError, JcfFontSetFunctions;
 
 {$R *.dfm}
 
@@ -114,6 +115,11 @@ begin
   end;
 
   ShowModal;
+end;
+
+procedure TExceptionDialog.FormCreate(Sender: TObject);
+begin
+  SetObjectFontToSystemFont(Self);
 end;
 
 procedure TExceptionDialog.FormResize(Sender: TObject);

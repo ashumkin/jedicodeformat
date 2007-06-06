@@ -30,7 +30,7 @@ uses
   Windows, SysUtils, Classes, Controls, Forms,
   Dialogs, StdCtrls, Buttons, ExtCtrls, ComCtrls,
   { JVCL }
-  JvMemo, JvEdit, JvExStdCtrls, JvValidateEdit;
+  JvMemo, JvEdit, JvExStdCtrls, JvValidateEdit, JvBaseDlg, JvBrowseFolder;
 
 type
   TfmRegistrySettings = class(TForm)
@@ -70,6 +70,7 @@ type
     cbEditorIntegration: TCheckBox;
     cbFormatBeforeSave: TCheckBox;
     cbFormatAfterLoad: TCheckBox;
+    JvBrowseForFolderDialog1: TJvBrowseForFolderDialog;
     procedure btnOKClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure btnClearMRUClick(Sender: TObject);
@@ -83,6 +84,7 @@ type
     procedure FormKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure cbFormatAfterLoadClick(Sender: TObject);
     procedure cbFormatBeforeSaveClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
     fsSpecifiedDirectory: string;
 
@@ -105,8 +107,8 @@ uses
   FileCtrl,
   { jcl }
   JclSysInfo,
-  { jcf }
-  ConvertTypes, JcfRegistrySettings, JcfSettings, JCFHelp;
+  { local }
+  ConvertTypes, JcfRegistrySettings, JcfSettings, JCFHelp, JcfFontSetFunctions;
 
 {$R *.dfm}
 
@@ -231,7 +233,8 @@ end;
 procedure TfmRegistrySettings.sbFileClick(Sender: TObject);
 begin
   dlgOpen.Filter := CONFIG_FILE_FILTERS;
-
+  dlgOpen.InitialDir := ExtractFilePath(eSettingsFile.Text);
+  dlgOpen.FileName := ExtractFileName(eSettingsFile.Text);
   if dlgOpen.Execute then
     eSettingsFile.Text := dlgOpen.FileName;
 end;
@@ -251,12 +254,11 @@ begin
 end;
 
 procedure TfmRegistrySettings.sbSpecifedDirClick(Sender: TObject);
-var
-  lsDir: string;
 begin
-  if SelectDirectory('select a directory', '', lsDir) then
+ JvBrowseForFolderDialog1.Directory := fsSpecifiedDirectory;
+ if (JvBrowseForFolderDialog1.Execute) then
   begin
-    fsSpecifiedDirectory := IncludeTrailingPathDelimiter(lsDir);
+    fsSpecifiedDirectory := IncludeTrailingPathDelimiter(JvBrowseForFolderDialog1.Directory);
     ShowDirs;
   end;
 end;
@@ -283,6 +285,11 @@ begin
 
   mDirs.Left  := SPACING;
   mDirs.Width := tsExclusions.ClientWidth - (SPACING * 2);
+end;
+
+procedure TfmRegistrySettings.FormCreate(Sender: TObject);
+begin
+SetObjectFontToSystemFont(Self);
 end;
 
 procedure TfmRegistrySettings.FormKeyUp(Sender: TObject; var Key: word;

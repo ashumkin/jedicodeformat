@@ -1,37 +1,38 @@
 inherited fClarifyLongLineBreaker: TfClarifyLongLineBreaker
   Width = 437
   Height = 523
+  Font.Charset = ANSI_CHARSET
+  Font.Height = -15
+  Font.Name = 'Segoe UI'
+  ParentFont = False
+  ExplicitWidth = 437
+  ExplicitHeight = 523
   object Label3: TLabel
     Left = 8
     Top = 8
-    Width = 71
-    Height = 13
+    Width = 102
+    Height = 20
     Caption = 'Max line length'
   end
   object edtMaxLineLength: TJvValidateEdit
-    Left = 88
-    Top = 6
+    Left = 116
+    Top = 3
     Width = 49
-    Height = 21
-    CheckChars = '01234567890'
-    CriticalPoints.CheckPoints = cpNone
-    CriticalPoints.ColorAbove = clBlue
-    CriticalPoints.ColorBelow = clRed
+    Height = 28
+    CriticalPoints.MaxValueIncluded = False
+    CriticalPoints.MinValueIncluded = False
     EditText = '0'
     HasMaxValue = True
     HasMinValue = True
     MaxLength = 3
     MaxValue = 255.000000000000000000
-    PasswordChar = #0
     TabOrder = 0
-    Text = '0'
-    Value = 0
   end
   object rgRebreakLongLines: TRadioGroup
     Left = 8
     Top = 44
-    Width = 309
-    Height = 85
+    Width = 393
+    Height = 89
     Caption = '&Break lines that are longer than max line length'
     ItemIndex = 1
     Items.Strings = (

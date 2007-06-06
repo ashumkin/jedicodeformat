@@ -1,34 +1,40 @@
 inherited frBasic: TfrBasic
-  Width = 456
-  Height = 146
+  Width = 542
+  Height = 171
+  Font.Charset = ANSI_CHARSET
+  Font.Height = -15
+  Font.Name = 'Segoe UI'
+  ParentFont = False
   OnResize = FrameResize
+  ExplicitWidth = 542
+  ExplicitHeight = 171
   object lblOutput: TLabel
     Left = 4
-    Top = 112
-    Width = 48
-    Height = 13
+    Top = 133
+    Width = 71
+    Height = 20
     Caption = 'Output file'
   end
   object lblInput: TLabel
     Left = 4
-    Top = 88
-    Width = 40
-    Height = 13
+    Top = 99
+    Width = 59
+    Height = 20
     Caption = 'Input file'
   end
   object sbOpen: TSpeedButton
-    Left = 430
-    Top = 84
-    Width = 23
-    Height = 22
+    Left = 501
+    Top = 99
+    Width = 28
+    Height = 28
     Caption = '...'
     OnClick = sbOpenClick
   end
   object rgFileRecurse: TRadioGroup
     Left = 4
     Top = 4
-    Width = 225
-    Height = 73
+    Width = 317
+    Height = 89
     Caption = 'Files'
     ItemIndex = 0
     Items.Strings = (
@@ -39,10 +45,10 @@ inherited frBasic: TfrBasic
     OnClick = rgFileRecurseClick
   end
   object rgBackup: TRadioGroup
-    Left = 231
+    Left = 327
     Top = 4
-    Width = 154
-    Height = 73
+    Width = 202
+    Height = 89
     Caption = 'Backup'
     ItemIndex = 0
     Items.Strings = (
@@ -53,10 +59,10 @@ inherited frBasic: TfrBasic
     OnClick = rgBackupClick
   end
   object edtInput: TEdit
-    Left = 72
-    Top = 84
-    Width = 357
-    Height = 21
+    Left = 81
+    Top = 99
+    Width = 419
+    Height = 28
     MaxLength = 255
     TabOrder = 2
     OnDragDrop = edtInputDragDrop
@@ -64,20 +70,24 @@ inherited frBasic: TfrBasic
     OnKeyUp = edtInputKeyUp
   end
   object edtOutput: TEdit
-    Left = 72
-    Top = 112
-    Width = 381
-    Height = 21
+    Left = 81
+    Top = 133
+    Width = 448
+    Height = 28
     Color = clBtnFace
     MaxLength = 255
     ReadOnly = True
     TabOrder = 3
   end
   object dlgOpen: TOpenDialog
-    DefaultExt = '*.pas'
+    DefaultExt = 'pas'
     Options = [ofHideReadOnly, ofPathMustExist, ofFileMustExist, ofEnableSizing]
     Title = 'Select a Delphi source file'
-    Left = 244
-    Top = 20
+    Left = 364
+    Top = 108
+  end
+  object JvBrowseForFolderDialog1: TJvBrowseForFolderDialog
+    Left = 328
+    Top = 112
   end
 end

@@ -1,18 +1,24 @@
 inherited frAnyCapsSettings: TfrAnyCapsSettings
   Width = 366
   Height = 230
+  Font.Charset = ANSI_CHARSET
+  Font.Height = -15
+  Font.Name = 'Segoe UI'
+  ParentFont = False
   OnResize = FrameResize
+  ExplicitWidth = 366
+  ExplicitHeight = 230
   object Label1: TLabel
-    Left = 76
-    Top = 6
-    Width = 158
-    Height = 13
+    Left = 108
+    Top = 3
+    Width = 222
+    Height = 20
     Caption = 'Set capitalisation on these words '
   end
   object cbEnableAnyWords: TCheckBox
-    Left = 6
-    Top = 6
-    Width = 61
+    Left = 8
+    Top = 5
+    Width = 83
     Height = 17
     Caption = 'Enable'
     Checked = True

@@ -6,7 +6,7 @@ unit frBasicSettings;
 
 The Original Code is frBasicSettings.pas, released April 2000.
 The Initial Developer of the Original Code is Anthony Steele. 
-Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
+Portions created by Anthony Steele are Copyright (C) 1999-2007 Anthony Steele.
 All Rights Reserved. 
 Contributor(s): Anthony Steele. 
 
@@ -16,7 +16,7 @@ You may obtain a copy of the License at http://www.mozilla.org/NPL/
                 
 Software distributed under the License is distributed on an "AS IS" basis,
 WITHOUT WARRANTY OF ANY KIND, either express or implied.
-See the License for the specific language governing rights and limitations 
+See the License for the specific language governing rights and limitations
 under the License.
 ------------------------------------------------------------------------------*)
 {*)}
@@ -30,7 +30,7 @@ uses
   Buttons, StdCtrls, ExtCtrls,
   { local }
   JvMRUManager,
-  ConvertTypes, frmBaseSettingsFrame;
+  ConvertTypes, frmBaseSettingsFrame, JvBaseDlg, JvBrowseFolder;
 
 type
   TfrBasic = class(TfrSettingsFrame)
@@ -40,8 +40,9 @@ type
     edtOutput: TEdit;
     lblOutput: TLabel;
     lblInput: TLabel;
-    sbOpen: TSpeedButton;
+    sbOpen:  TSpeedButton;
     dlgOpen: TOpenDialog;
+    JvBrowseForFolderDialog1: TJvBrowseForFolderDialog;
     procedure rgFileRecurseClick(Sender: TObject);
     procedure rgBackupClick(Sender: TObject);
     procedure rgModeClick(Sender: TObject);
@@ -80,9 +81,9 @@ type
 implementation
 
 uses
- { delphi }
- { jcl }jclFileUtils,
- { local }FileUtils, JcfHelp, JcfSettings, JcfRegistrySettings;
+  { delphi }
+  { jcl }jclFileUtils,
+  { local }FileUtils, JcfHelp, JcfSettings, JcfRegistrySettings;
 
 {$R *.DFM}
 
@@ -270,7 +271,8 @@ begin
     // strip out the dir
 
     dlgOpen.InitialDir := lsDir;
-    dlgOpen.Filter := SOURCE_FILE_FILTERS;
+    dlgOpen.FileName   := extractFileName(edtInput.Text);
+    dlgOpen.Filter     := SOURCE_FILE_FILTERS;
 
     if GetCurrentSourceMode = fmSingleFile then
     begin
@@ -284,14 +286,14 @@ begin
     end
     else
     begin
-      if SelectDirectory('select a directory', '', lsDir) then
+      JvBrowseForFolderDialog1.Directory := edtInput.Text;
+      if (JvBrowseForFolderDialog1.Execute) then
       begin
         edtInput.Text := IncludeTrailingPathDelimiter(lsDir);
         AddCheckMRU(edtInput.Text);
-
         DisplayOutputFile;
       end;
-    end
+    end;
   end
   else
   begin
@@ -368,12 +370,11 @@ const
   SPACING     = 8;
   SMALL_SPACE = 2;
 begin
-  inherited;
-
+  {inherited;
   // these fill width
   sbOpen.Left     := ClientWidth - (sbOpen.Width + SPACING);
   edtInput.Width  := (sbOpen.Left - SMALL_SPACE) - edtInput.Left;
-  edtOutput.Width := (ClientWidth - SPACING) - edtOutput.Left;
+  edtOutput.Width := (ClientWidth - SPACING) - edtOutput.Left;}
 end;
 
 end.

@@ -1,10 +1,16 @@
 inherited frReservedCapsSettings: TfrReservedCapsSettings
   Width = 334
-  Height = 297
+  Height = 375
+  Font.Charset = ANSI_CHARSET
+  Font.Height = -15
+  Font.Name = 'Segoe UI'
+  ParentFont = False
+  ExplicitWidth = 334
+  ExplicitHeight = 375
   object cbEnable: TCheckBox
-    Left = 6
+    Left = 8
     Top = 6
-    Width = 145
+    Width = 248
     Height = 17
     Caption = 'Enable fix capitalisation'
     Checked = True
@@ -13,10 +19,10 @@ inherited frReservedCapsSettings: TfrReservedCapsSettings
     OnClick = cbEnableClick
   end
   object rgReservedWords: TRadioGroup
-    Left = 6
+    Left = 8
     Top = 28
-    Width = 120
-    Height = 81
+    Width = 150
+    Height = 108
     Caption = 'Reserved words'
     ItemIndex = 1
     Items.Strings = (
@@ -27,10 +33,10 @@ inherited frReservedCapsSettings: TfrReservedCapsSettings
     TabOrder = 1
   end
   object rgOperators: TRadioGroup
-    Left = 134
-    Top = 28
-    Width = 120
-    Height = 81
+    Left = 164
+    Top = 29
+    Width = 150
+    Height = 108
     Caption = 'Operators'
     ItemIndex = 1
     Items.Strings = (
@@ -41,10 +47,10 @@ inherited frReservedCapsSettings: TfrReservedCapsSettings
     TabOrder = 2
   end
   object rgTypes: TRadioGroup
-    Left = 6
-    Top = 196
-    Width = 120
-    Height = 81
+    Left = 8
+    Top = 257
+    Width = 150
+    Height = 108
     Caption = 'Types'
     ItemIndex = 1
     Items.Strings = (
@@ -55,10 +61,10 @@ inherited frReservedCapsSettings: TfrReservedCapsSettings
     TabOrder = 5
   end
   object rgConstants: TRadioGroup
-    Left = 134
-    Top = 112
-    Width = 120
-    Height = 81
+    Left = 164
+    Top = 143
+    Width = 150
+    Height = 108
     Caption = 'Constants'
     ItemIndex = 1
     Items.Strings = (
@@ -69,10 +75,10 @@ inherited frReservedCapsSettings: TfrReservedCapsSettings
     TabOrder = 4
   end
   object rgDirectives: TRadioGroup
-    Left = 6
-    Top = 112
-    Width = 120
-    Height = 81
+    Left = 8
+    Top = 143
+    Width = 150
+    Height = 108
     Caption = 'Directives'
     ItemIndex = 1
     Items.Strings = (

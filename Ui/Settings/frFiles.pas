@@ -25,8 +25,7 @@ interface
 
 uses
   { delphi }
-  SysUtils, Classes, Controls, Forms,
-  StdCtrls,
+  SysUtils, Classes, Controls, Forms, StdCtrls, Graphics,
   { local }
   frmBaseSettingsFrame, JvMemo, JvExStdCtrls;
 
@@ -63,7 +62,8 @@ var
 begin
   { from the registry, about the file }
   lcSet := GetRegSettings;
-  lblFormatFileName.Caption := 'Format file is ' + lcSet.FormatConfigFileName;
+  //lblFormatFileName.Caption := 'Format file is ' + lcSet.FormatConfigFileName;
+  lblFormatFileName.Caption := PathCompactPath(lblFormatFileName.Canvas.Handle, 'Format file is ' + lcSet.FormatConfigFileName, 450, cpCenter);
 
   if not FileExists(lcSet.FormatConfigFileName) then
   begin

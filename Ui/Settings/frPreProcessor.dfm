@@ -1,24 +1,31 @@
 inherited fPreProcessor: TfPreProcessor
+  Width = 409
   Height = 282
+  Font.Charset = ANSI_CHARSET
+  Font.Height = -15
+  Font.Name = 'Segoe UI'
+  ParentFont = False
   OnResize = FrameResize
+  ExplicitWidth = 409
+  ExplicitHeight = 282
   object lblSymbols: TLabel
-    Left = 4
+    Left = 8
     Top = 30
-    Width = 202
-    Height = 13
-    Caption = 'Symbols defined for conditional compilation'
+    Width = 300
+    Height = 20
+    Caption = 'Symbols defined for conditional compilation:'
   end
   object lblCompilerOptions: TLabel
     Left = 8
     Top = 138
-    Width = 240
-    Height = 13
-    Caption = 'Compiler options defined for conditional compilation'
+    Width = 359
+    Height = 20
+    Caption = 'Compiler options defined for conditional compilation:'
   end
   object mSymbols: TJvMemo
-    Left = 0
+    Left = 8
     Top = 50
-    Width = 320
+    Width = 364
     Height = 79
     AutoSize = False
     MaxLines = 0
@@ -27,9 +34,9 @@ inherited fPreProcessor: TfPreProcessor
     TabOrder = 1
   end
   object cbEnable: TCheckBox
-    Left = 6
+    Left = 8
     Top = 6
-    Width = 167
+    Width = 267
     Height = 17
     Caption = 'Enable preprocessor parsing'
     Checked = True
@@ -37,9 +44,9 @@ inherited fPreProcessor: TfPreProcessor
     TabOrder = 0
   end
   object mOptions: TJvMemo
-    Left = 0
+    Left = 8
     Top = 158
-    Width = 320
+    Width = 364
     Height = 79
     AutoSize = False
     MaxLines = 0

@@ -1,17 +1,23 @@
 inherited frUnitNameCaps: TfrUnitNameCaps
+  Width = 362
+  Font.Charset = ANSI_CHARSET
+  Font.Height = -15
+  Font.Name = 'Segoe UI'
+  ParentFont = False
   OnResize = FrameResize
+  ExplicitWidth = 362
   object Label1: TLabel
-    Left = 76
-    Top = 6
-    Width = 178
-    Height = 13
+    Left = 108
+    Top = 3
+    Width = 250
+    Height = 20
     Caption = 'Set capitalisation on these unit names'
   end
   object mWords: TJvMemo
     Left = 0
-    Top = 50
-    Width = 320
-    Height = 190
+    Top = 29
+    Width = 362
+    Height = 211
     AutoSize = False
     MaxLines = 0
     HideCaret = False
@@ -20,9 +26,9 @@ inherited frUnitNameCaps: TfrUnitNameCaps
     TabOrder = 1
   end
   object cbEnableAnyWords: TCheckBox
-    Left = 6
-    Top = 6
-    Width = 61
+    Left = 8
+    Top = 5
+    Width = 67
     Height = 17
     Caption = 'Enable'
     Checked = True

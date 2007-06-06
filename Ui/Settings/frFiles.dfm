@@ -1,45 +1,51 @@
 inherited fFiles: TfFiles
   Width = 338
   Height = 281
+  Font.Charset = ANSI_CHARSET
+  Font.Height = -15
+  Font.Name = 'Segoe UI'
+  ParentFont = False
   OnResize = FrameResize
+  ExplicitWidth = 338
+  ExplicitHeight = 281
   object lblStatus: TLabel
     Left = 8
     Top = 42
-    Width = 40
-    Height = 13
+    Width = 57
+    Height = 20
     Caption = 'lblStatus'
   end
   object lblDate: TLabel
     Left = 8
     Top = 64
-    Width = 33
-    Height = 13
+    Width = 49
+    Height = 20
     Caption = 'lblDate'
   end
   object lblVersion: TLabel
     Left = 8
     Top = 88
-    Width = 45
-    Height = 13
+    Width = 66
+    Height = 20
     Caption = 'lblVersion'
   end
   object lblDescription: TLabel
     Left = 8
     Top = 108
-    Width = 53
-    Height = 13
+    Width = 76
+    Height = 20
     Caption = 'Description'
   end
   object lblFormatFileName: TLabel
     Left = 8
     Top = 8
-    Width = 86
-    Height = 13
+    Width = 301
+    Height = 20
     Caption = 'lblFormatFileName'
   end
   object mDescription: TJvMemo
     Left = 8
-    Top = 124
+    Top = 134
     Width = 301
     Height = 89
     AutoSize = False

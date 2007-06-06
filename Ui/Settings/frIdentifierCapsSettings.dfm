@@ -1,18 +1,24 @@
 inherited fIdentifierCapsSettings: TfIdentifierCapsSettings
   Width = 366
   Height = 230
+  Font.Charset = ANSI_CHARSET
+  Font.Height = -15
+  Font.Name = 'Segoe UI'
+  ParentFont = False
   OnResize = FrameResize
+  ExplicitWidth = 366
+  ExplicitHeight = 230
   object Label1: TLabel
-    Left = 76
-    Top = 6
-    Width = 171
-    Height = 13
+    Left = 108
+    Top = 3
+    Width = 244
+    Height = 20
     Caption = 'Set capitalisation on these identifiers'
   end
   object cbEnableAnyWords: TCheckBox
-    Left = 6
+    Left = 8
     Top = 5
-    Width = 61
+    Width = 75
     Height = 17
     Caption = 'Enable'
     Checked = True

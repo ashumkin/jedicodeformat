@@ -2,14 +2,14 @@ object frmAboutBox: TfrmAboutBox
   Left = 326
   Top = 235
   BorderStyle = bsDialog
-  Caption = 'About Jedi Code Format'
-  ClientHeight = 305
-  ClientWidth = 352
+  Caption = 'About JEDI Code Format'
+  ClientHeight = 334
+  ClientWidth = 362
   Color = clBtnFace
-  Font.Charset = DEFAULT_CHARSET
+  Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
-  Font.Name = 'MS Sans Serif'
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = True
@@ -18,29 +18,29 @@ object frmAboutBox: TfrmAboutBox
   OnKeyUp = FormKeyUp
   OnResize = FormResize
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 15
   object bbOK: TBitBtn
-    Left = 136
-    Top = 272
-    Width = 80
-    Height = 30
+    Left = 143
+    Top = 299
+    Width = 75
+    Height = 28
     TabOrder = 1
     Kind = bkOK
   end
   object pnlClient: TPanel
     Left = 0
     Top = 0
-    Width = 352
-    Height = 269
+    Width = 362
+    Height = 295
     Align = alTop
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 0
     object imgOpenSource: TImage
-      Left = 4
-      Top = 4
-      Width = 109
-      Height = 113
+      Left = 8
+      Top = 16
+      Width = 100
+      Height = 104
       Cursor = crHandPoint
       Center = True
       Picture.Data = {
@@ -421,58 +421,58 @@ object frmAboutBox: TfrmAboutBox
     end
     object hlHomePage: TJvLabel
       Left = 8
-      Top = 220
-      Width = 63
-      Height = 13
+      Top = 230
+      Width = 71
+      Height = 15
       Cursor = crHandPoint
       Caption = 'hlHomePage'
+      Transparent = True
       WordWrap = True
       HotTrack = True
-      HotTrackFont.Charset = DEFAULT_CHARSET
+      HotTrackFont.Charset = ANSI_CHARSET
       HotTrackFont.Color = clBlue
-      HotTrackFont.Height = -11
-      HotTrackFont.Name = 'MS Sans Serif'
+      HotTrackFont.Height = -12
+      HotTrackFont.Name = 'Segoe UI'
       HotTrackFont.Style = [fsUnderline]
       URL = 'http://delphi-jedi.org'
     end
     object lblMPL: TJvLabel
       Left = 8
-      Top = 189
-      Width = 329
-      Height = 26
+      Top = 194
+      Width = 368
+      Height = 30
       Cursor = crHandPoint
       Caption = 
         'This program is open source software. It is released under the M' +
-        'ozilla '#13#10'Public licence (MPL).  http://mozilla.org/MPL'
+        'ozilla '#13#10'Public licence (MPL).  http://www.mozilla.org/MPL'
+      Transparent = True
       HotTrack = True
-      HotTrackFont.Charset = DEFAULT_CHARSET
+      HotTrackFont.Charset = ANSI_CHARSET
       HotTrackFont.Color = clBlue
-      HotTrackFont.Height = -11
-      HotTrackFont.Name = 'MS Sans Serif'
+      HotTrackFont.Height = -12
+      HotTrackFont.Name = 'Segoe UI'
       HotTrackFont.Style = [fsUnderline]
-      URL = 'http://mozilla.org/MPL'
+      URL = 'http://www.mozilla.org/MPL'
     end
     object mWarning: TMemo
-      Left = 2
-      Top = 132
-      Width = 348
-      Height = 45
+      Left = 8
+      Top = 137
+      Width = 347
+      Height = 53
       BorderStyle = bsNone
       Color = clBtnFace
       Lines.Strings = (
-        
-          'This program is still under development.  In spite of thorough t' +
-          'esting and '
-        'removal of reported bugs, no guarantees are given.'
-        'Please make backups, or better yet use a source control system. ')
+        'This program is still under development.  In spite of thorough '
+        'testing and removal of reported bugs, no guarantees are given.'
+        'Please make backups, or better yet use a source control system.')
       ReadOnly = True
       TabOrder = 0
     end
     object mWhat: TMemo
-      Left = 116
+      Left = 113
       Top = 8
-      Width = 221
-      Height = 113
+      Width = 247
+      Height = 125
       BorderStyle = bsNone
       Lines.Strings = (
         'Version %VERSION%'
