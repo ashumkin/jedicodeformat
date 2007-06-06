@@ -64,6 +64,7 @@ type
     procedure lvTokensDblClick(Sender: TObject);
     procedure tvParseTreeDblClick(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
+    procedure FormCreate(Sender: TObject);
   private
     fcRootNode: TParseTreeNode;
     procedure ShowTreeNodeDetails(const pcNode: TParseTreeNode);
@@ -80,7 +81,7 @@ implementation
 
 {$R *.dfm}
 
-uses SourceToken, Tokens, JCFHelp;
+uses SourceToken, Tokens, JCFHelp, JcfFontSetFunctions;
 
 procedure ShowParseTree(const pcRoot: TParseTreeNode);
 var
@@ -295,6 +296,11 @@ begin
     end;
   end;
 
+end;
+
+procedure TfrmShowParseTree.FormCreate(Sender: TObject);
+begin
+  SetObjectFontToSystemFont(Self);
 end;
 
 procedure TfrmShowParseTree.FormKeyUp(Sender: TObject; var Key: word;
