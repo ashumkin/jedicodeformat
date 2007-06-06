@@ -1,12 +1,12 @@
-program JcfNotepad;
+program JCFNotepad;
 
 {(*}
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code 
 
-The Original Code is JcfNotepad, released May 2003.
+The Original Code is JCFNotepad, released May 2003.
 The Initial Developer of the Original Code is Anthony Steele. 
-Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
+Portions created by Anthony Steele are Copyright (C) 1999-2007 Anthony Steele.
 All Rights Reserved. 
 Contributor(s): Anthony Steele. 
 
@@ -165,14 +165,15 @@ uses
   IdentifierCaps in '..\Process\Capitalisation\IdentifierCaps.pas',
   frIdentifierCapsSettings in '..\Ui\Settings\frIdentifierCapsSettings.pas' {fIdentifierCapsSettings: TFrame},
   frAnyCapsSettings in '..\Ui\Settings\frAnyCapsSettings.pas',
-  frComments in '..\Ui\Settings\frComments.pas' {fComments: TFrame};
+  frComments in '..\Ui\Settings\frComments.pas' {fComments: TFrame},
+  JcfFontSetFunctions in '..\Utils\JcfFontSetFunctions.pas';
 
 {$R *.res}
 
 begin
   Application.Initialize;
-  Application.Title    := 'Jedi Delphi Code Format Notepad';
-  Application.HelpFile := 'C:\Code\CodeFormat\Jcf2\Output\CodeFormat.hlp';
+  Application.Title := 'JCF Notepad';
+  Application.HelpFile := '';
   Application.CreateForm(TfmJCFNotepad, fmJCFNotepad);
   Application.Run;
 end.

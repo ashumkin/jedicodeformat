@@ -1,14 +1,14 @@
 object fmJCFNotepad: TfmJCFNotepad
   Left = 165
   Top = 173
-  Caption = 'Jedi Code format notepad'
-  ClientHeight = 426
-  ClientWidth = 688
+  Caption = 'JCF Notepad'
+  ClientHeight = 412
+  ClientWidth = 635
   Color = clBtnFace
-  Font.Charset = DEFAULT_CHARSET
+  Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
-  Font.Name = 'MS Sans Serif'
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
   Font.Style = []
   KeyPreview = True
   Menu = MainMenu1
@@ -19,11 +19,11 @@ object fmJCFNotepad: TfmJCFNotepad
   OnResize = FormResize
   OnShow = FormShow
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 15
   object sb1: TStatusBar
     Left = 0
-    Top = 407
-    Width = 688
+    Top = 393
+    Width = 635
     Height = 19
     Panels = <
       item
@@ -32,65 +32,63 @@ object fmJCFNotepad: TfmJCFNotepad
       item
         Width = 50
       end>
+    ParentFont = True
+    UseSystemFont = False
   end
   object pnlTop: TPanel
     Left = 0
     Top = 0
-    Width = 688
-    Height = 28
+    Width = 635
+    Height = 26
     Align = alTop
     TabOrder = 1
     object sbLoad: TSpeedButton
       Left = 2
       Top = 2
-      Width = 49
-      Height = 24
+      Width = 45
+      Height = 22
       Action = actOpen
       ParentShowHint = False
       ShowHint = True
     end
     object sbSave: TSpeedButton
-      Left = 54
+      Left = 50
       Top = 2
-      Width = 54
-      Height = 24
+      Width = 50
+      Height = 22
       Action = actSave
     end
     object sbGo: TSpeedButton
-      Left = 110
+      Left = 101
       Top = 2
-      Width = 57
-      Height = 24
+      Width = 54
+      Height = 22
       Action = actGo
     end
     object sbClear: TSpeedButton
-      Left = 170
+      Left = 157
       Top = 2
-      Width = 57
-      Height = 24
+      Width = 52
+      Height = 22
       Action = actClear
     end
   end
   object pcPages: TPageControl
     Left = 0
-    Top = 28
-    Width = 688
-    Height = 379
-    ActivePage = tsOutput
+    Top = 26
+    Width = 635
+    Height = 367
+    ActivePage = tsInput
     Align = alClient
     TabOrder = 2
     OnChange = pcPagesChange
     object tsInput: TTabSheet
       Caption = 'Input'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object mInput: TJvMemo
         Left = 0
         Top = 0
-        Width = 680
-        Height = 351
+        Width = 627
+        Height = 337
         AutoSize = False
         MaxLines = 0
         HideCaret = False
@@ -113,18 +111,22 @@ object fmJCFNotepad: TfmJCFNotepad
     object tsOutput: TTabSheet
       Caption = 'Output'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lblMessages: TLabel
-        Left = 16
-        Top = 168
-        Width = 48
-        Height = 13
+        Left = 11
+        Top = 155
+        Width = 51
+        Height = 15
         Caption = 'Messages'
       end
       object mOutput: TJvMemo
-        Left = 12
-        Top = 16
-        Width = 185
-        Height = 89
+        Left = 11
+        Top = 15
+        Width = 171
+        Height = 82
         AutoSize = False
         ClipboardCommands = [caCopy]
         MaxLines = 0
@@ -144,10 +146,10 @@ object fmJCFNotepad: TfmJCFNotepad
         OnKeyUp = mOutputKeyUp
       end
       object mMessages: TJvMemo
-        Left = 32
-        Top = 221
-        Width = 185
-        Height = 89
+        Left = 11
+        Top = 175
+        Width = 171
+        Height = 82
         AutoSize = False
         ClipboardCommands = [caCopy]
         MaxLines = 0
@@ -225,7 +227,7 @@ object fmJCFNotepad: TfmJCFNotepad
       end
       object mnuFileSaveOut: TMenuItem
         Action = actSave
-        Caption = '&Save output...'
+        Caption = '&Save Output...'
       end
       object mnuFileSaveIn: TMenuItem
         Caption = 'Save &Input'
@@ -252,7 +254,7 @@ object fmJCFNotepad: TfmJCFNotepad
         Action = actPaste
       end
       object mnuEditSelectAll: TMenuItem
-        Caption = 'Select &all'
+        Caption = 'Select &All'
         ShortCut = 16449
         OnClick = mnuEditSelectAllClick
       end
@@ -281,12 +283,12 @@ object fmJCFNotepad: TfmJCFNotepad
     object mnuSettings: TMenuItem
       Caption = '&Settings'
       object mnuShowRegSetting: TMenuItem
-        Caption = '&Registry Settings'
+        Caption = '&Registry Settings...'
         GroupIndex = 1
         OnClick = mnuShowRegSettingClick
       end
       object mnuFormatSettings: TMenuItem
-        Caption = '&Format settings'
+        Caption = '&Format Settings...'
         GroupIndex = 1
         OnClick = mnuFormatSettingsClick
       end
@@ -295,6 +297,7 @@ object fmJCFNotepad: TfmJCFNotepad
       Caption = '&Help'
       object Contents1: TMenuItem
         Caption = '&Contents'
+        Enabled = False
         OnClick = Contents1Click
       end
       object mnuHelpAbout: TMenuItem
@@ -313,9 +316,9 @@ object fmJCFNotepad: TfmJCFNotepad
     Top = 24
   end
   object JvFormStorage1: TJvFormStorage
-    AppStoragePath = '%FORM_NAME%'
+    AppStoragePath = 'fmJCFNotepad\'
     StoredValues = <>
-    Left = 600
+    Left = 576
     Top = 8
   end
 end

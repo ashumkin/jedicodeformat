@@ -1,10 +1,10 @@
-unit frmJcfNotepad;
+unit frmJCFNotepad;
 
 {(*}
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code
 
-The Original Code is frmJcfNotepad, released May 2003.
+The Original Code is frmJCFNotepad, released May 2003.
 The Initial Developer of the Original Code is Anthony Steele. 
 Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
 All Rights Reserved. 
@@ -29,9 +29,9 @@ uses
   Dialogs, StdCtrls, ComCtrls, ExtCtrls, ActnList,
   Buttons, Menus,
   { Jedi }
-  JvMRUManager, JvMemo, JvComponent, JvExStdCtrls, JvFormPlacement,
+  JvMRUManager, JvMemo, JvComponent, JvExStdCtrls, JvFormPlacement, JvComponentBase,
   { local }
-  JcfRegistrySettings,  Converter, JvComponentBase;
+  JcfRegistrySettings,  Converter;
 
 { have to do file pos display *after* various processing }
 const
@@ -149,7 +149,7 @@ uses
   { jcl }
   JclStrings,
   { local }
-  JCFHelp, ConvertTypes, fAbout, fRegistrySettings, fAllSettings;
+  JCFHelp, ConvertTypes, fAbout, fRegistrySettings, fAllSettings, JcfFontSetFunctions;
 
 {$R *.dfm}
 
@@ -316,6 +316,8 @@ end;
 
 procedure TfmJCFNotepad.FormCreate(Sender: TObject);
 begin
+  SetObjectFontToSystemFont(Self);
+
   fcConvert := TConverter.Create;
 
   GetRegSettings.MRUFiles := mruFiles.Strings;
