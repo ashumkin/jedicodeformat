@@ -1,11 +1,11 @@
-unit JcfDLLExtern;
+unit JCFDllExtern;
 
 interface
 
 uses ConvertTypes;
 
 const
-  JCF_DLL_NAME = 'JcfEngine.dll';
+  JCF_DLL_NAME = 'JCFEngine.dll';
 
 { format actions }
 function JcfFormat(const psInput: string): string; stdcall; external JCF_DLL_NAME;
