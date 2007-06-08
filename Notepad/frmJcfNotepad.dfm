@@ -2,12 +2,12 @@ object fmJCFNotepad: TfmJCFNotepad
   Left = 165
   Top = 173
   Caption = 'JCF Notepad'
-  ClientHeight = 412
-  ClientWidth = 635
+  ClientHeight = 549
+  ClientWidth = 847
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
-  Font.Height = -12
+  Font.Height = -15
   Font.Name = 'Segoe UI'
   Font.Style = []
   KeyPreview = True
@@ -18,13 +18,13 @@ object fmJCFNotepad: TfmJCFNotepad
   OnKeyUp = FormKeyUp
   OnResize = FormResize
   OnShow = FormShow
-  PixelsPerInch = 96
-  TextHeight = 15
+  PixelsPerInch = 120
+  TextHeight = 20
   object sb1: TStatusBar
     Left = 0
-    Top = 393
-    Width = 635
-    Height = 19
+    Top = 524
+    Width = 847
+    Height = 25
     Panels = <
       item
         Width = 80
@@ -38,46 +38,46 @@ object fmJCFNotepad: TfmJCFNotepad
   object pnlTop: TPanel
     Left = 0
     Top = 0
-    Width = 635
-    Height = 26
+    Width = 847
+    Height = 35
     Align = alTop
     TabOrder = 1
     object sbLoad: TSpeedButton
-      Left = 2
-      Top = 2
-      Width = 45
-      Height = 22
+      Left = 3
+      Top = 3
+      Width = 60
+      Height = 29
       Action = actOpen
       ParentShowHint = False
       ShowHint = True
     end
     object sbSave: TSpeedButton
-      Left = 50
-      Top = 2
-      Width = 50
-      Height = 22
+      Left = 67
+      Top = 3
+      Width = 66
+      Height = 29
       Action = actSave
     end
     object sbGo: TSpeedButton
-      Left = 101
-      Top = 2
-      Width = 54
-      Height = 22
+      Left = 135
+      Top = 3
+      Width = 72
+      Height = 29
       Action = actGo
     end
     object sbClear: TSpeedButton
-      Left = 157
-      Top = 2
-      Width = 52
-      Height = 22
+      Left = 209
+      Top = 3
+      Width = 70
+      Height = 29
       Action = actClear
     end
   end
   object pcPages: TPageControl
     Left = 0
-    Top = 26
-    Width = 635
-    Height = 367
+    Top = 35
+    Width = 847
+    Height = 489
     ActivePage = tsInput
     Align = alClient
     TabOrder = 2
@@ -87,15 +87,15 @@ object fmJCFNotepad: TfmJCFNotepad
       object mInput: TJvMemo
         Left = 0
         Top = 0
-        Width = 627
-        Height = 337
+        Width = 839
+        Height = 454
         AutoSize = False
         MaxLines = 0
         HideCaret = False
         Align = alClient
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
-        Font.Height = -13
+        Font.Height = -18
         Font.Name = 'Courier New'
         Font.Style = []
         ParentFont = False
@@ -111,29 +111,25 @@ object fmJCFNotepad: TfmJCFNotepad
     object tsOutput: TTabSheet
       Caption = 'Output'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object lblMessages: TLabel
-        Left = 11
-        Top = 155
-        Width = 51
-        Height = 15
+        Left = 15
+        Top = 207
+        Width = 64
+        Height = 20
         Caption = 'Messages'
       end
       object mOutput: TJvMemo
-        Left = 11
-        Top = 15
-        Width = 171
-        Height = 82
+        Left = 15
+        Top = 20
+        Width = 228
+        Height = 109
         AutoSize = False
         ClipboardCommands = [caCopy]
         MaxLines = 0
         HideCaret = False
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
-        Font.Height = -13
+        Font.Height = -18
         Font.Name = 'Courier New'
         Font.Style = []
         ParentColor = True
@@ -146,17 +142,17 @@ object fmJCFNotepad: TfmJCFNotepad
         OnKeyUp = mOutputKeyUp
       end
       object mMessages: TJvMemo
-        Left = 11
-        Top = 175
-        Width = 171
-        Height = 82
+        Left = 15
+        Top = 233
+        Width = 228
+        Height = 110
         AutoSize = False
         ClipboardCommands = [caCopy]
         MaxLines = 0
         HideCaret = False
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
-        Font.Height = -13
+        Font.Height = -18
         Font.Name = 'Courier New'
         Font.Style = []
         ParentColor = True

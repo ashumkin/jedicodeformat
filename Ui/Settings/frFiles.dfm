@@ -39,7 +39,7 @@ inherited fFiles: TfFiles
   object lblFormatFileName: TLabel
     Left = 8
     Top = 8
-    Width = 301
+    Width = 127
     Height = 20
     Caption = 'lblFormatFileName'
   end
