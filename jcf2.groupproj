@@ -1,0 +1,74 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{e6cafad6-ba89-4e83-96e0-83a60f632504}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Projects Include="CommandLine\JCF.dproj" />
+    <Projects Include="JCFGui\JCFGui.dproj" />
+    <Projects Include="Notepad\JcfNotepad.dproj" />
+    <Projects Include="Test\DUnit\jcf_test.dproj" />
+    <Projects Include="Test\TestCases\TestCases.dproj" />
+  </ItemGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Default.Personality</Borland.Personality>
+    <Borland.ProjectType />
+    <BorlandProject>
+  <BorlandProject xmlns=""> <Default.Personality> </Default.Personality> </BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Target Name="JCFGui">
+    <MSBuild Projects="JCFGui\JCFGui.dproj" Targets="" />
+  </Target>
+  <Target Name="JCFGui:Clean">
+    <MSBuild Projects="JCFGui\JCFGui.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="JCFGui:Make">
+    <MSBuild Projects="JCFGui\JCFGui.dproj" Targets="Make" />
+  </Target>
+  <Target Name="JcfNotepad">
+    <MSBuild Projects="Notepad\JcfNotepad.dproj" Targets="" />
+  </Target>
+  <Target Name="JcfNotepad:Clean">
+    <MSBuild Projects="Notepad\JcfNotepad.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="JcfNotepad:Make">
+    <MSBuild Projects="Notepad\JcfNotepad.dproj" Targets="Make" />
+  </Target>
+  <Target Name="JCF">
+    <MSBuild Projects="CommandLine\JCF.dproj" Targets="" />
+  </Target>
+  <Target Name="JCF:Clean">
+    <MSBuild Projects="CommandLine\JCF.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="JCF:Make">
+    <MSBuild Projects="CommandLine\JCF.dproj" Targets="Make" />
+  </Target>
+  <Target Name="jcf_test">
+    <MSBuild Projects="Test\DUnit\jcf_test.dproj" Targets="" />
+  </Target>
+  <Target Name="jcf_test:Clean">
+    <MSBuild Projects="Test\DUnit\jcf_test.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="jcf_test:Make">
+    <MSBuild Projects="Test\DUnit\jcf_test.dproj" Targets="Make" />
+  </Target>
+  <Target Name="TestCases">
+    <MSBuild Projects="Test\TestCases\TestCases.dproj" Targets="" />
+  </Target>
+  <Target Name="TestCases:Clean">
+    <MSBuild Projects="Test\TestCases\TestCases.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="TestCases:Make">
+    <MSBuild Projects="Test\TestCases\TestCases.dproj" Targets="Make" />
+  </Target>
+  <Target Name="Build">
+    <CallTarget Targets="JCFGui;JcfNotepad;JCF;jcf_test;TestCases" />
+  </Target>
+  <Target Name="Clean">
+    <CallTarget Targets="JCFGui:Clean;JcfNotepad:Clean;JCF:Clean;jcf_test:Clean;TestCases:Clean" />
+  </Target>
+  <Target Name="Make">
+    <CallTarget Targets="JCFGui:Make;JcfNotepad:Make;JCF:Make;jcf_test:Make;TestCases:Make" />
+  </Target>
+  <Import Condition="Exists('$(MSBuildBinPath)\Borland.Group.Targets')" Project="$(MSBuildBinPath)\Borland.Group.Targets" />
+</Project>
