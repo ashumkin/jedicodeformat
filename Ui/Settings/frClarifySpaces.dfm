@@ -1,12 +1,12 @@
 inherited fClarifySpaces: TfClarifySpaces
   Width = 472
-  Height = 394
+  Height = 374
   Font.Charset = ANSI_CHARSET
   Font.Height = -15
   Font.Name = 'Segoe UI'
   ParentFont = False
   ExplicitWidth = 472
-  ExplicitHeight = 394
+  ExplicitHeight = 374
   object cbFixSpacing: TCheckBox
     Left = 8
     Top = 6
@@ -143,7 +143,7 @@ inherited fClarifySpaces: TfClarifySpaces
     Left = 8
     Top = 248
     Width = 457
-    Height = 72
+    Height = 70
     Caption = '&Tab characters'
     TabOrder = 3
     object Label1: TLabel
@@ -209,7 +209,7 @@ inherited fClarifySpaces: TfClarifySpaces
   end
   object cbMaxSpaces: TCheckBox
     Left = 8
-    Top = 331
+    Top = 328
     Width = 179
     Height = 17
     Caption = '&Max spaces in code'
@@ -218,7 +218,7 @@ inherited fClarifySpaces: TfClarifySpaces
   end
   object edtMaxSpacesInCode: TJvValidateEdit
     Left = 189
-    Top = 326
+    Top = 323
     Width = 49
     Height = 28
     CriticalPoints.MaxValueIncluded = False
