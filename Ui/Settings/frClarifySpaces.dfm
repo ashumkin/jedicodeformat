@@ -1,12 +1,12 @@
 inherited fClarifySpaces: TfClarifySpaces
   Width = 472
-  Height = 374
+  Height = 359
   Font.Charset = ANSI_CHARSET
   Font.Height = -15
   Font.Name = 'Segoe UI'
   ParentFont = False
   ExplicitWidth = 472
-  ExplicitHeight = 374
+  ExplicitHeight = 359
   object cbFixSpacing: TCheckBox
     Left = 8
     Top = 6
@@ -25,7 +25,7 @@ inherited fClarifySpaces: TfClarifySpaces
   end
   object gbColon: TGroupBox
     Left = 8
-    Top = 58
+    Top = 50
     Width = 246
     Height = 189
     Caption = 'Spaces &before colon in'
@@ -141,7 +141,7 @@ inherited fClarifySpaces: TfClarifySpaces
   end
   object gbTabs: TGroupBox
     Left = 8
-    Top = 248
+    Top = 244
     Width = 457
     Height = 70
     Caption = '&Tab characters'
@@ -209,7 +209,7 @@ inherited fClarifySpaces: TfClarifySpaces
   end
   object cbMaxSpaces: TCheckBox
     Left = 8
-    Top = 328
+    Top = 324
     Width = 179
     Height = 17
     Caption = '&Max spaces in code'
@@ -218,7 +218,7 @@ inherited fClarifySpaces: TfClarifySpaces
   end
   object edtMaxSpacesInCode: TJvValidateEdit
     Left = 189
-    Top = 323
+    Top = 320
     Width = 49
     Height = 28
     CriticalPoints.MaxValueIncluded = False
@@ -232,7 +232,7 @@ inherited fClarifySpaces: TfClarifySpaces
   end
   object rgOperators: TRadioGroup
     Left = 260
-    Top = 52
+    Top = 50
     Width = 202
     Height = 92
     Caption = 'Spaces around &operators'
@@ -244,7 +244,7 @@ inherited fClarifySpaces: TfClarifySpaces
   end
   object GroupBoxInsertSpace: TGroupBox
     Left = 260
-    Top = 150
+    Top = 146
     Width = 202
     Height = 92
     Caption = '&Insert space before bracket'

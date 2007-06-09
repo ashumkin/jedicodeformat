@@ -4,7 +4,7 @@ object FormAllSettings: TFormAllSettings
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
   BorderStyle = bsDialog
   Caption = 'JCF Format Settings'
-  ClientHeight = 522
+  ClientHeight = 528
   ClientWidth = 872
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
@@ -21,14 +21,14 @@ object FormAllSettings: TFormAllSettings
   OnShow = FormShow
   DesignSize = (
     872
-    522)
+    528)
   PixelsPerInch = 120
   TextHeight = 20
   object tvFrames: TTreeView
     Left = 3
     Top = 3
     Width = 240
-    Height = 460
+    Height = 468
     HideSelection = False
     Indent = 19
     ReadOnly = True
@@ -79,36 +79,36 @@ object FormAllSettings: TFormAllSettings
     Left = 240
     Top = 3
     Width = 629
-    Height = 460
+    Height = 468
     Anchors = [akLeft, akTop, akRight]
     BevelOuter = bvNone
     TabOrder = 1
   end
   object bbOK: TBitBtn
     Left = 292
-    Top = 474
+    Top = 480
     Width = 92
     Height = 36
     Anchors = [akLeft, akBottom]
     TabOrder = 2
     OnClick = bbOKClick
     Kind = bkOK
-    ExplicitTop = 448
+    ExplicitTop = 474
   end
   object bbCancel: TBitBtn
     Left = 389
-    Top = 474
+    Top = 480
     Width = 94
     Height = 36
     Anchors = [akLeft, akBottom]
     TabOrder = 3
     OnClick = bbCancelClick
     Kind = bkCancel
-    ExplicitTop = 448
+    ExplicitTop = 474
   end
   object BitBtn1: TBitBtn
     Left = 488
-    Top = 474
+    Top = 480
     Width = 92
     Height = 36
     Anchors = [akLeft, akBottom]
@@ -116,6 +116,6 @@ object FormAllSettings: TFormAllSettings
     TabOrder = 4
     OnClick = bbHelpClick
     Kind = bkHelp
-    ExplicitTop = 448
+    ExplicitTop = 474
   end
 end

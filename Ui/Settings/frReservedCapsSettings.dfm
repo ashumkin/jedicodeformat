@@ -1,12 +1,12 @@
 inherited frReservedCapsSettings: TfrReservedCapsSettings
   Width = 325
-  Height = 365
+  Height = 359
   Font.Charset = ANSI_CHARSET
   Font.Height = -15
   Font.Name = 'Segoe UI'
   ParentFont = False
   ExplicitWidth = 325
-  ExplicitHeight = 365
+  ExplicitHeight = 359
   object cbEnable: TCheckBox
     Left = 8
     Top = 6
@@ -20,7 +20,7 @@ inherited frReservedCapsSettings: TfrReservedCapsSettings
   end
   object rgReservedWords: TRadioGroup
     Left = 8
-    Top = 28
+    Top = 26
     Width = 150
     Height = 106
     Caption = 'Reserved words'
@@ -34,7 +34,7 @@ inherited frReservedCapsSettings: TfrReservedCapsSettings
   end
   object rgOperators: TRadioGroup
     Left = 164
-    Top = 29
+    Top = 26
     Width = 150
     Height = 106
     Caption = 'Operators'
@@ -48,7 +48,7 @@ inherited frReservedCapsSettings: TfrReservedCapsSettings
   end
   object rgTypes: TRadioGroup
     Left = 8
-    Top = 252
+    Top = 248
     Width = 150
     Height = 106
     Caption = 'Types'
@@ -62,7 +62,7 @@ inherited frReservedCapsSettings: TfrReservedCapsSettings
   end
   object rgConstants: TRadioGroup
     Left = 164
-    Top = 140
+    Top = 138
     Width = 150
     Height = 106
     Caption = 'Constants'
@@ -76,7 +76,7 @@ inherited frReservedCapsSettings: TfrReservedCapsSettings
   end
   object rgDirectives: TRadioGroup
     Left = 8
-    Top = 140
+    Top = 138
     Width = 150
     Height = 106
     Caption = 'Directives'
