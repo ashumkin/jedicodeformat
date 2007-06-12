@@ -2,19 +2,19 @@ HelpScribble project file.
 14
 ...
 0
-1
+2
 JEDI Delphi Code Format
 
 
 
 TRUE
 
-D:\Daten\Sonstige\CodeFormat_Help\Images
+C:\Code\Jcf\Help\Images
 1
 BrowseButtons()
 0
 FALSE
-
+C:\Code\Jcf\Output\
 FALSE
 TRUE
 16777215
