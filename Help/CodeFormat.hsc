@@ -1,5 +1,5 @@
 HelpScribble project file.
-13
+14
 ...
 0
 1
@@ -22,6 +22,7 @@ TRUE
 16711680
 8388736
 255
+FALSE
 FALSE
 FALSE
 FALSE
@@ -126,7 +127,7 @@ FALSE
 \par 
 \par If anyone compiles the IDE pluggin for other versions of Delphi I will gladly upload the binaries to Sourceforge.
 \par 
-\par \b JcfNotepad.exe\b0  is a new gui - for experimenting with source and layout. Input source is loaded/typed/pasted into the input text area, and the formatter output is generated to the output text area, and can then be saved. Or not.\f1 
+\par \b JcfNotepad.exe\b0  is a gui for working with source and layout. Input source is loaded/typed/pasted into the input text area, and the formatter output is generated to the output text area, and can then be saved. Or not.\f1 
 \par }
 15
 Scribble15
@@ -178,7 +179,7 @@ FALSE
 \par 
 \par \b MRU max items:\b0  The number of items stored in the Most-Recently Used list of the File menu for \b JcfGui \b0 and \b JcfNotepad\b0 . When this number is exceeded, the bottom item, i.e. the least recently used file, will be discarded.
 \par 
-\par \b Write changes to settings file\b0 : If this option is unchecked, the settings file will not be written as the program exits. Normally this option should be set to "always", but it is useful to change when the file is not actually writeable (e.g. is on a read-only network drive).
+\par \b Write changes to settings file\b0 : If this option is set to "Never", the settings file will not be written as the program exits. Normally this option should be set to "always", but it is useful to change it to "never" when the file is not actually writeable (e.g. is on a read-only network drive). "Fail quietly" will attempt to write the settings file, but not complain if it cannot be done.
 \par 
 \par \b Show parse tree:\b0  JCF 2.0 generates a full parse tree of the input source file. Showing this tree can be useful for debugging. I recommend that you set this to "on error", which will show it only when the source cannot be parsed. The last token of the parse tree then will give you some idea of what the parser thought was going on at the point of error.
 \par \f1 
@@ -387,8 +388,8 @@ Writing
 
 
 FALSE
-31
-{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fnil\fcharset0 Arial;}{\f3\fmodern Courier New;}{\f4\fswiss\fprq2\fcharset0 Arial;}}
+35
+{\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fnil\fcharset0 Arial;}{\f3\fmodern Courier New;}{\f4\fswiss\fprq2\fcharset0 Arial;}{\f5\fnil\fcharset0 Courier New;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\f0\fs32\{linkID=\f1 %\f0 60\}\cf1  Spaces\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
@@ -417,7 +418,11 @@ FALSE
 \par 
 \par \lang2057\f1 Turning spaces to tabs and vice versa both work on whitespace in the program code and in comments.
 \par 
-\par \b\f4 Max spaces in code\b0  removes consecutive spaces over this limit. It does not affect spaces at the start of the line for indentation, and it does not affect spaces inside or immediately before a comment. In most other cases, one space is all that you want.\lang1031\f0 
+\par \b\f4 Max spaces in code\b0  removes consecutive spaces over this limit. It does not affect spaces at the start of the line for indentation, and it does not affect spaces inside or immediately before a comment. In most other cases, one space is all that you want.
+\par 
+\par \b Spaces around operators\b0  can turn \f5 a :=  1 + 1;\f4  to\f5  a :=  1+1; \f4 and vice versa. The default style is to have these spaces.
+\par 
+\par \b Insert space before bracket\b0  can turn \f5 a := foo(1);\f4  to \f5 a :=  foo (1)\f4 ; The default style is to not have these spaces.\lang1031\f0 
 \par }
 80
 Scribble80
@@ -570,7 +575,7 @@ Writing
 
 
 FALSE
-61
+63
 {\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil Arial;}{\f1\fnil\fcharset0 Arial;}{\f2\fswiss Arial;}{\f3\fmodern Courier New;}{\f4\fswiss\fcharset0 Arial;}{\f5\fnil\fcharset0 Courier New;}}
 {\colortbl ;\red0\green0\blue255;\red0\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\f0\fs32 Clarify - Blank Lines
@@ -629,7 +634,9 @@ FALSE
 \par 
 \par \b Consecutive blank lines\b0 
 \par 
-\par This will remove blank lines when the limit limber of blank lines in a row is encountered anywhere in the source code. I recommend a value of 3 or 4 for this setting - less than that and you can't use several repeated blank lines for spacing. There is a minimum of 2 on this value.\cf2\lang1033\f0 
+\par This will remove blank lines when the limit limber of blank lines in a row is encountered anywhere in the source code. I recommend a value of 3 or 4 for this setting - less than that and you can't use several repeated blank lines for spacing. There is a minimum of 2 on this value.
+\par 
+\par \b Lines before procedure:\b0  The number of blank lines to have before a freestanding procedures and functions, those attached to classes, also class methods, constructors, destructors and operator overloads.\cf2\lang1033\f0 
 \par 
 \par }
 100
@@ -750,15 +757,15 @@ FALSE
 \par \pard{\pntext\f4\'B7\tab}{\*\pn\pnlvlblt\pnf4\pnindent0{\pntxtb\'B7}}\fi-200\li200 Assign: aligns the := of assignment statements in procedures.
 \par {\pntext\f4\'B7\tab}Const: aligns the = sign of const declarations.
 \par {\pntext\f4\'B7\tab}Var: aligns the type names of variable declarations.
-\par {\pntext\f4\'B7\tab}\lang2057\f1 Class and record fields: aligns the type names of class and record fields\lang1031\f0 
+\par \lang2057\f1{\pntext\f4\'B7\tab}Class and record fields: aligns the type names of class and record fields\lang1031\f0 
 \par {\pntext\f4\'B7\tab}Typedef Aligns the = sign of type declarations.
 \par {\pntext\f4\'B7\tab}Comments: Aligns the start of end line comments.
-\par {\pntext\f4\'B7\tab}\pard 
+\par \pard 
 \par The column of alignment will never be less than the min column or more then the max column. Use these parameters to stop long statements all ending up aligned in a column far to the right. The Max variance controls how much variation in length is tolerated before an item that sticks out is ignored.
 \par 
 \par \b Interface only:\b0  Turns off all of selected alignments outside of the interface section.
 \par 
-\par \b Unaligned\b0 : This is the number of unaligned statements allowed without ending the block of alignment. This setting was introduced in version 0.62. The default value of zero should produce the same behavior as previous versions. This setting controls how the end of a series of aligned statements is detected. When the value is zero, any unaligned statement (e.g. a blank line) ends the block of alignment, and you get output like this:
+\par \lang2057\b\f1 Max u\lang1031\f0 naligned\b0 : This is the number of unaligned statements allowed without ending the block of alignment. This setting was introduced in version 0.62. The default value of zero should produce the same behavior as previous versions. This setting controls how the end of a series of aligned statements is detected. When the value is zero, any unaligned statement (e.g. a blank line) ends the block of alignment, and you get output like this:
 \par 
 \par  
 \par \f3   a   := 2        // a comment
@@ -1234,7 +1241,7 @@ Writing
 
 
 FALSE
-18
+20
 {\rtf1\ansi\ansicpg1252\deff0\deflang3079{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil Arial;}{\f2\fswiss Arial;}{\f3\fmodern Courier New;}{\f4\fmodern\fcharset0 Courier New;}{\f5\fswiss\fcharset0 Arial;}{\f6\fnil Courier New;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;}
 \viewkind4\uc1\pard\cf1\lang1031\b\fs32 Info...\cf0\lang3079\b0\f1\fs20 
@@ -1243,7 +1250,7 @@ FALSE
 \par \lang1031\f2 This documantation was made out of the web page provided by Anthony Steele on his webpage on
 \par \cf1\strike\f3 http://jedicodeformat.sourceforge.net/\cf2\strike0\{link=*! ExecFile("\cf1\strike http://jedicodeformat.sourceforge.net/\cf2\strike0 ")\}\lang2057\f4  \cf0\f5 and subsequently expanded upon. 
 \par 
-\par \lang1031\f2 Feel free to send additions/corrections, better explanations or whatever concerning this helpfile to \cf1\strike\f3 codeformat@spoonworx.com\cf2\strike0\{link=*! ExecFile("mailto:codeformat@spoonworx.com")\}\cf0\f2 . \lang3079\f5 You can also get the source for this helpfile from the Sourceforge CVS. The helpfile is created using HelpScribble, and you can use the free demo-version (available from the Helpscribble-homepage from \cf1\strike\f6 http://www.helpscribble.com\cf2\strike0\{link=*! ExecFile("http://www.helpscribble.com")\}\cf0\f5 ) to make changes to this helpfile. If you will send us your modified helpfile (the source), we will try to include your changes into the next possible release.
+\par \lang1031\f2 Feel free to send additions/corrections, better explanations or whatever concerning this helpfile to \cf1\strike\f3 codeformat@spoonworx.com\cf2\strike0\{link=*! ExecFile("mailto:codeformat@spoonworx.com")\}\cf0\f2 . \lang3079\f5 You can also get the source for this helpfile from the Sourceforge SVN. The helpfile is created using HelpScribble, and you can use the free demo-version (available from the Helpscribble-homepage from \cf1\strike\f6 http://www.helpscribble.com\cf2\strike0\{link=*! ExecFile("http://www.helpscribble.com")\}\cf0\f5 ) to make changes to this helpfile. If you will send us your modified helpfile (the source), we will try to include your changes into the next possible release.
 \par \lang1031\f2 
 \par \f5 C\f2 omments regarding the program should be sent to Anthony Steele (\cf1\strike\f3 anthonysteele@users.sourceforge.net\cf2\strike0\{link=*! ExecFile("anthonysteele@users.sourceforge.net")\}\cf0\f2 ).
 \par \lang3079\f1 
@@ -1251,7 +1258,9 @@ FALSE
 \par \cf1\strike\f6 http://community.borland.com/article/0,1410,10280,00.html\cf2\strike0\{link=*! ExecFile("http://community.borland.com/article/0,1410,10280,00.html")\}\cf0\f0 
 \par 
 \par Ralf Steinhaeusser,
-\par SpoonworX Inc.\lang3079\f1 
+\par SpoonworX Inc.
+\par 
+\par \lang3079\f1 
 \par }
 1
 main="",(120,44,658,726),0,(255,255,255),(255,255,196),0
