@@ -30,17 +30,17 @@ interface
 uses
   { delphi }
   Windows, SysUtils, Classes, Controls, Forms,
-  StdCtrls, Buttons, ExtCtrls, ComCtrls, ShellAPI,
+  StdCtrls, Buttons, ExtCtrls, ComCtrls, ShellAPI, Dialogs,
   { local }
   JCFSettings, frmBaseSettingsFrame;
 
 type
   TFormAllSettings = class(TForm)
     tvFrames: TTreeView;
-    pnlSet: TPanel;
-    bbOK: TBitBtn;
+    pnlSet:   TPanel;
+    bbOK:     TBitBtn;
     bbCancel: TBitBtn;
-    BitBtn1: TBitBtn;
+    BitBtn1:  TBitBtn;
     procedure tvFramesChange(Sender: TObject; Node: TTreeNode);
     procedure FormCreate(Sender: TObject);
     procedure bbOKClick(Sender: TObject);
@@ -85,10 +85,9 @@ uses
   frUses, frBasicSettings, frPreProcessor, frComments, frTransform,
   frCompilerDirectReturns, frWarnings;
 
-
 type
   TFrameMapRecord = record
-    FrameName: string;
+    FrameName:  string;
     FrameClass: TsettingsFrameClass;
   end;
 
@@ -133,7 +132,7 @@ end;
 procedure TFormAllSettings.GetFrameForNode(const pcNode: TTreeNode);
 var
   lcType: TSettingsFrameClass;
-  lf:     TfrSettingsFrame;
+  lf: TfrSettingsFrame;
 begin
   if pcNode.Data <> nil then
     exit;
@@ -150,9 +149,9 @@ begin
   lf.Read;
 
   { show }
-  lf.Left   := 0;
-  lf.Top    := 0;
-  lf.Width  := pnlSet.ClientWidth;
+  lf.Left := 0;
+  lf.Top  := 0;
+  lf.Width := pnlSet.ClientWidth;
   lf.Height := pnlSet.ClientHeight;
 
   pcNode.Data := lf;
@@ -222,7 +221,7 @@ procedure TFormAllSettings.RemoveAll(const pbSave: boolean);
 var
   liLoop: integer;
   lcItem: TTreeNode;
-  lf:     TfrSettingsFrame;
+  lf: TfrSettingsFrame;
 begin
   { retrieve frames from the tree nodes and save them }
   for liLoop := 0 to tvFrames.Items.Count - 1 do
@@ -280,9 +279,10 @@ begin
   if lcFrame = nil then
   begin
     try
-    Application.HelpContext(HELP_MAIN);
+      Application.HelpContext(HELP_MAIN);
     except
-        ShellExecute(Handle, 'open', PChar(Application.HelpFile), nil, nil, SW_SHOWNORMAL);
+      ShellExecute(Handle, 'open', PChar(Application.HelpFile), nil,
+        nil, SW_SHOWNORMAL);
     end;
   end
   else

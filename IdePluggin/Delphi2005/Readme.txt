@@ -5,7 +5,7 @@ File modified is JcfIdeMain.pas. Replace it and open the project JcfIde9.dpk, co
 
 Change the required package from JvXXXD7R to JvXXXD9R.
 Change the package name to JcfIde9.bpl.
-Change the package description to 'Jedi Code Format IDE Plugin for Delphi 2005'.
+Change the package description to 'JEDI Code Format IDE Plugin for Delphi 2005'.
 
 In file JcfIdeMain.pas I change one procedure's implementation, because Delphi 2005 does not reload the files formatted automatically like Delphi 7. Also there are some lines I think are useless, I comment them out.
 
@@ -22,7 +22,7 @@ begin
   if lciProject = nil then
     exit;
 
-  lsMsg := 'Jedi Code Format of ' + lciProject.FileName + AnsiLineBreak +
+  lsMsg := 'JEDI Code Format of ' + lciProject.FileName + AnsiLineBreak +
     'Are you sure that you want to format all ' + IntToStr(lciProject.GetModuleCount) +
     ' files in the project.';
 

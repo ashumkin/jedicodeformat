@@ -25,7 +25,6 @@ unit frmBaseSettingsFrame;
   AFS 29 Dec 1999
   Subclass of TFrame with common interface for settings }
 
-
 interface
 
 uses
@@ -67,7 +66,6 @@ implementation
 uses JCFHelp;
 
 {$R *.DFM}
-
 
 constructor TfrSettingsFrame.Create(aOwner: TComponent);
 begin

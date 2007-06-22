@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<PersonalityInfo>
 		<Option>
@@ -112,7 +112,7 @@
 			<Linker Name="MinStackSize">16384</Linker>
 			<Linker Name="MaxStackSize">1048576</Linker>
 			<Linker Name="ImageBase">4194304</Linker>
-			<Linker Name="ExeDescription">Jedi Code Format IDE Plugin for Delphi 2005</Linker>
+			<Linker Name="ExeDescription">JEDI Code Format IDE Plugin for Delphi 2005</Linker>
 		</Linker>
 		<Directories>
 			<Directories Name="OutputDir"></Directories>
@@ -159,10 +159,10 @@
 		</VersionInfo>
 		<VersionInfoKeys>
 			<VersionInfoKeys Name="CompanyName">Anthony Steele</VersionInfoKeys>
-			<VersionInfoKeys Name="FileDescription">Jedi Code Format D9 IDE plugin</VersionInfoKeys>
-			<VersionInfoKeys Name="FileVersion">0.6.3.0</VersionInfoKeys>
-			<VersionInfoKeys Name="InternalName">Jedi Code Format</VersionInfoKeys>
-			<VersionInfoKeys Name="LegalCopyright">Anthony Steele 1999-2001 MPL</VersionInfoKeys>
+			<VersionInfoKeys Name="FileDescription">JEDI Code Format D9 IDE plugin</VersionInfoKeys>
+			<VersionInfoKeys Name="FileVersion">2.30.0.0</VersionInfoKeys>
+			<VersionInfoKeys Name="InternalName">JEDI Code Format</VersionInfoKeys>
+			<VersionInfoKeys Name="LegalCopyright">Anthony Steele 1999-2007 MPL</VersionInfoKeys>
 			<VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys>
 			<VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys>
 			<VersionInfoKeys Name="ProductName"></VersionInfoKeys>
@@ -180,7 +180,7 @@
       <Excluded_Packages Name="C:\Program Files\Borland\BDS\3.0\Bin\dclmid90.bpl">Borland MyBase DataAccess Components</Excluded_Packages>
       <Excluded_Packages Name="G:\Borland Studio Projects\Bpl\JvDBD9D.bpl">JVCL Database Components</Excluded_Packages>
       <Excluded_Packages Name="c:\program files\borland\bds\3.0\Bin\applet90.bpl">Borland Control Panel Applet Package</Excluded_Packages>
-      <Excluded_Packages Name="F:\Borland\Delphi\Related\JEDI\JEDI Code Format\Jcf2_08_source\Output\JcfIde9.bpl">Jedi Code Format IDE Plugin for Delphi 2005</Excluded_Packages>
+      <Excluded_Packages Name="F:\Borland\Delphi\Related\JEDI\JEDI Code Format\Jcf2_08_source\Output\JcfIde9.bpl">JEDI Code Format IDE Plugin for Delphi 2005</Excluded_Packages>
       <Excluded_Packages Name="G:\Borland Studio Projects\Bpl\JvCmpD9D.bpl">JVCL Non-Visual Components</Excluded_Packages>
       <Excluded_Packages Name="G:\Borland Studio Projects\Bpl\DelphiX90.bpl">DelphiX - DirectX components for Delphi</Excluded_Packages>
       <Excluded_Packages Name="F:\Borland\Delphi\Related\TeeChart\TeeChart Pro v7.02 Full Source Code\Sources\Compiled\Delphi9\Bin\DclTeePro79.bpl">TeeChart Pro 7 Components</Excluded_Packages>

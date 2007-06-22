@@ -295,7 +295,6 @@ begin
       break;
     end;
   end;
-
 end;
 
 procedure TfrmShowParseTree.FormCreate(Sender: TObject);

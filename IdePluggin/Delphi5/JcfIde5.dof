@@ -37,7 +37,7 @@ RemoteSymbols=0
 MinStackSize=16384
 MaxStackSize=1048576
 ImageBase=4194304
-ExeDescription=Jedi Code Format IDE Plugin for Delphi 6
+ExeDescription=JEDI Code Format IDE Plugin for Delphi 6
 [Directories]
 OutputDir=
 UnitOutputDir=..\Output
@@ -67,10 +67,10 @@ Locale=7177
 CodePage=1252
 [Version Info Keys]
 CompanyName=Anthony Steele
-FileDescription=Jedi Code Format D6 IDE plugin
-FileVersion=0.6.3.0
-InternalName=Jedi Code Format
-LegalCopyright=Anthony Steele 1999-2001 MPL
+FileDescription=JEDI Code Format D6 IDE plugin
+FileVersion=2.30.0.0
+InternalName=JEDI Code Format
+LegalCopyright=Anthony Steele 1999-2007 MPL
 LegalTrademarks=
 OriginalFilename=
 ProductName=

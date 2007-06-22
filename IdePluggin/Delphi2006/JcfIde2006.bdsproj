@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<PersonalityInfo>
 		<Option>
@@ -116,7 +116,7 @@
 			<Linker Name="MinStackSize">16384</Linker>
 			<Linker Name="MaxStackSize">1048576</Linker>
 			<Linker Name="ImageBase">4194304</Linker>
-			<Linker Name="ExeDescription">Jedi Code Format IDE Plugin for BDS 2006</Linker>
+			<Linker Name="ExeDescription">JEDI Code Format IDE Plugin for BDS 2006</Linker>
 		</Linker>
 		<Directories>
 			<Directories Name="OutputDir"></Directories>
@@ -161,9 +161,9 @@
 		</VersionInfo>
 		<VersionInfoKeys>
 			<VersionInfoKeys Name="CompanyName">Anthony Steele</VersionInfoKeys>
-			<VersionInfoKeys Name="FileDescription">Jedi Code Format D10 IDE plugin</VersionInfoKeys>
-			<VersionInfoKeys Name="FileVersion">2.18.0.0</VersionInfoKeys>
-			<VersionInfoKeys Name="InternalName">Jedi Code Format</VersionInfoKeys>
+			<VersionInfoKeys Name="FileDescription">JEDI Code Format D10 IDE plugin</VersionInfoKeys>
+			<VersionInfoKeys Name="FileVersion">2.30.0.0</VersionInfoKeys>
+			<VersionInfoKeys Name="InternalName">JEDI Code Format</VersionInfoKeys>
 			<VersionInfoKeys Name="LegalCopyright">Anthony Steele 1999-2005 MPL</VersionInfoKeys>
 			<VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys>
 			<VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys>

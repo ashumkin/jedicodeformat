@@ -1,7 +1,7 @@
 unit JcfIdeRegister;
 
 { AFS 7 Jan 2K
-  Jedi Code Format IDE plugin registration }
+  JEDI Code Format IDE plugin registration }
 
 {(*}
 (*------------------------------------------------------------------------------
@@ -269,8 +269,6 @@ type
     function GetName: string;
     procedure BindKeyboard(const BindingServices: IOTAKeyBindingServices);
   end;
-
-
 
 function TJcfKeyBindings.GetBindingType: TBindingType;
 begin

@@ -1,7 +1,7 @@
 unit JcfIdeMain;
 
 { AFS 7 Jan 2K
-  Jedi Code Format IDE plugin main class
+  JEDI Code Format IDE plugin main class
 
   global object that implements the callbacks from the menu items }
 
@@ -12,7 +12,7 @@ unit JcfIdeMain;
 
 The Original Code is JcfIdeMain, released May 2003.
 The Initial Developer of the Original Code is Anthony Steele. 
-Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
+Portions created by Anthony Steele are Copyright (C) 1999-2007 Anthony Steele.
 All Rights Reserved. 
 Contributor(s): Anthony Steele. 
 
@@ -189,7 +189,7 @@ begin
   if lciProject = nil then
     exit;
 
-  lsMsg := 'Jedi Code Format of ' + lciProject.FileName + AnsiLineBreak +
+  lsMsg := 'JEDI Code Format of ' + lciProject.FileName + AnsiLineBreak +
     'Are you sure that you want to format all ' + IntToStr(lciProject.GetModuleCount) +
     ' files in the project.';
 
@@ -342,8 +342,6 @@ begin
     lciMessages.AddTitleMessage('JCF: ' + psFile + ' ' + psMessage);
 
 end;
-
-
 
 procedure TJcfIdeMain.MakeEditorConverter;
 begin
