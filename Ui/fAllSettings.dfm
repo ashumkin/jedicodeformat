@@ -93,7 +93,6 @@ object FormAllSettings: TFormAllSettings
     TabOrder = 2
     OnClick = bbOKClick
     Kind = bkOK
-    ExplicitTop = 474
   end
   object bbCancel: TBitBtn
     Left = 389
@@ -104,7 +103,6 @@ object FormAllSettings: TFormAllSettings
     TabOrder = 3
     OnClick = bbCancelClick
     Kind = bkCancel
-    ExplicitTop = 474
   end
   object BitBtn1: TBitBtn
     Left = 488
@@ -112,10 +110,8 @@ object FormAllSettings: TFormAllSettings
     Width = 92
     Height = 36
     Anchors = [akLeft, akBottom]
-    Enabled = False
     TabOrder = 4
     OnClick = bbHelpClick
     Kind = bkHelp
-    ExplicitTop = 474
   end
 end

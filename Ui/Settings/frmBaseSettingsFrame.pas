@@ -4,7 +4,7 @@
 
 The Original Code is frmBaseSettingsFrame.pas, released April 2000.
 The Initial Developer of the Original Code is Anthony Steele. 
-Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
+Portions created by Anthony Steele are Copyright (C) 1999-2007 Anthony Steele.
 All Rights Reserved. 
 Contributor(s): Anthony Steele.
 
@@ -31,7 +31,7 @@ interface
 uses
   {delphi }
   Classes, Controls,
-  Forms,
+  Forms, Windows, ShellAPI,
   { local }
   frDrop;
 
@@ -72,7 +72,7 @@ uses JCFHelp;
 constructor TfrSettingsFrame.Create(aOwner: TComponent);
 begin
   inherited;
-  fcOnChange    := nil;
+  fcOnChange := nil;
   fiHelpContext := 0;
 end;
 
@@ -90,7 +90,11 @@ begin
   if liHelpContext <= 0 then
     liHelpContext := HELP_MAIN;
 
-  Application.HelpContext(liHelpContext);
+  try
+    Application.HelpContext(liHelpContext);
+  except
+    ShellExecute(Handle, 'open', PChar(Application.HelpFile), nil, nil, SW_SHOWNORMAL);
+  end;
 end;
 
 end.

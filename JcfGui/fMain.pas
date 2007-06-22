@@ -4,7 +4,7 @@
 
 The Original Code is fMain.pas, released April 2000.
 The Initial Developer of the Original Code is Anthony Steele.
-Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
+Portions created by Anthony Steele are Copyright (C) 1999-2007 Anthony Steele.
 All Rights Reserved. 
 Contributor(s): Michael Beck.
                         
@@ -32,7 +32,7 @@ uses
   { delphi }
   Windows, SysUtils, Classes, Controls, Forms, Dialogs,
   StdCtrls, ComCtrls, Menus,
-  ActnList, StdActns, ToolWin, ImgList,
+  ActnList, StdActns, ToolWin, ImgList, ShellAPI,
   { local }
   FileConverter, JCFSettings,
   frBasicSettings, JvMRUManager, JvFormPlacement,
@@ -188,7 +188,7 @@ begin
       exit;
   end;
 
-  fcConverter.Input      := lsSource;
+  fcConverter.Input := lsSource;
   fcConverter.BackupMode := frBasic.GetCurrentBackupMode;
   fcConverter.SourceMode := frBasic.GetCurrentSourceMode;
 
@@ -349,10 +349,10 @@ begin
 
   dlgSaveConfig := TSaveDialog.Create(self);
   try
-    dlgSaveConfig.FileName   := 'Saved.cfg';
+    dlgSaveConfig.FileName := 'Saved.cfg';
     dlgSaveConfig.InitialDir := ExtractFilePath(Application.ExeName);
     dlgSaveConfig.DefaultExt := '.cfg';
-    dlgSaveCOnfig.Filter     := CONFIG_FILTER;
+    dlgSaveCOnfig.Filter := CONFIG_FILTER;
 
     if dlgSaveConfig.Execute then
     begin
@@ -372,14 +372,15 @@ begin
   finally
     lcFile.Free;
   end;
-
 end;
-
-
 
 procedure TfrmMain.actHelpContentsExecute(Sender: TObject);
 begin
-  Application.HelpContext(HELP_MAIN);
+  try
+    Application.HelpContext(HELP_MAIN);
+  except
+    ShellExecute(Handle, 'open', PChar(Application.HelpFile), nil, nil, SW_SHOWNORMAL);
+  end;
 end;
 
 procedure TfrmMain.mnuRegistrySettingsClick(Sender: TObject);
@@ -404,7 +405,12 @@ end;
 procedure TfrmMain.FormKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
 begin
   if Key = VK_F1 then
-    Application.HelpContext(HELP_MAIN);
+    try
+      Application.HelpContext(HELP_MAIN);
+    except
+      ShellExecute(Handle, 'open', PChar(Application.HelpFile),
+        nil, nil, SW_SHOWNORMAL);
+    end;
 end;
 
 procedure TfrmMain.FormResize(Sender: TObject);

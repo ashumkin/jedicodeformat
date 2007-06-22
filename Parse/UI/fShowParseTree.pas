@@ -14,7 +14,7 @@ unit fShowParseTree;
 
 The Original Code is fShowParseTree, released May 2003.
 The Initial Developer of the Original Code is Anthony Steele. 
-Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
+Portions created by Anthony Steele are Copyright (C) 1999-2007 Anthony Steele.
 All Rights Reserved. 
 Contributor(s): Anthony Steele. 
 
@@ -34,27 +34,27 @@ interface
 uses
   { delphi }
   Windows, SysUtils, Classes, Controls, Forms,
-  ComCtrls, ExtCtrls, StdCtrls,
+  ComCtrls, ExtCtrls, StdCtrls, ShellAPI,
   { local }
   ParseTreeNode;
 
 type
   TfrmShowParseTree = class(TForm)
-    StatusBar1: TStatusBar;
-    pnlTop: TPanel;
-    lblTreeCount: TLabel;
-    lblTreeDepth: TLabel;
-    pnlBottom: TPanel;
-    lblCurrent: TLabel;
-    lblDepth: TLabel;
+    StatusBar1:       TStatusBar;
+    pnlTop:           TPanel;
+    lblTreeCount:     TLabel;
+    lblTreeDepth:     TLabel;
+    pnlBottom:        TPanel;
+    lblCurrent:       TLabel;
+    lblDepth:         TLabel;
     lblTotalNodeCount: TLabel;
     lblImmediateChildCount: TLabel;
     cbShowWhiteSpace: TCheckBox;
-    pcPages: TPageControl;
-    tsTokens: TTabSheet;
-    tsTree: TTabSheet;
-    tvParseTree: TTreeView;
-    lvTokens: TListView;
+    pcPages:          TPageControl;
+    tsTokens:         TTabSheet;
+    tsTree:           TTabSheet;
+    tvParseTree:      TTreeView;
+    lvTokens:         TListView;
     procedure tvParseTreeChange(Sender: TObject; Node: TTreeNode);
     procedure cbShowWhiteSpaceClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -108,12 +108,12 @@ procedure TfrmShowParseTree.DisplayTree;
   procedure ShowTokensInList(const pcData: TParseTreeNode);
   var
     lcNewItem: TListItem;
-    lcToken:   TSourceToken;
-    liLoop:    integer;
-    lsDesc:    string;
+    lcToken: TSourceToken;
+    liLoop:  integer;
+    lsDesc:  string;
   begin
     { exclude this one as white space }
-    if ( not cbShowWhiteSpace.Checked) and ( not pcData.HasChildren) and
+    if (not cbShowWhiteSpace.Checked) and (not pcData.HasChildren) and
       (pcData is TSourceToken) and (TSourceToken(pcData).TokenType in
       NotSolidTokens) then
       exit;
@@ -141,15 +141,15 @@ procedure TfrmShowParseTree.DisplayTree;
   procedure MakeNodeChildren(const pcGUIParent: TTreeNode; const pcData: TParseTreeNode);
   var
     lcNewItem: TTreeNode;
-    liLoop:    integer;
+    liLoop: integer;
   begin
     { exclude this one as white space }
-    if ( not cbShowWhiteSpace.Checked) and ( not pcData.HasChildren) and
+    if (not cbShowWhiteSpace.Checked) and (not pcData.HasChildren) and
       (pcData is TSourceToken) and (TSourceToken(pcData).TokenType in
       NotSolidTokens) then
       exit;
 
-    lcNewItem      := tvParseTree.Items.AddChild(pcGUIParent, pcData.Describe);
+    lcNewItem := tvParseTree.Items.AddChild(pcGUIParent, pcData.Describe);
     lcNewItem.Data := pcData;
 
     // attach the children
@@ -199,14 +199,14 @@ begin
   if pcNode = nil then
   begin
     lblCurrent.Caption := 'Current: none';
-    lblDepth.Caption   := 'Depth: -';
+    lblDepth.Caption := 'Depth: -';
     lblImmediateChildCount.Caption := 'Immediate child count: -';
     lblTotalNodeCount.Caption := 'Total node count: -';
   end
   else
   begin
     lblCurrent.Caption := 'Current: ' + pcNode.Describe;
-    lblDepth.Caption   := 'Level: ' + IntToStr(pcNode.Level);
+    lblDepth.Caption := 'Level: ' + IntToStr(pcNode.Level);
     lblImmediateChildCount.Caption :=
       'Immediate child count: ' + IntToStr(pcNode.ChildNodeCount);
     lblTotalNodeCount.Caption :=
@@ -261,7 +261,7 @@ begin
     lcItem := tvParseTree.Items[liLoop];
     if lcItem.Data = lpNode then
     begin
-      lcItem.Selected    := True;
+      lcItem.Selected := True;
       pcPages.ActivePage := tsTree;
       break;
     end;
@@ -307,7 +307,11 @@ procedure TfrmShowParseTree.FormKeyUp(Sender: TObject; var Key: word;
   Shift: TShiftState);
 begin
   if Key = VK_F1 then
-    Application.HelpContext(HELP_MAIN);
+    try
+      Application.HelpContext(HELP_MAIN);
+    except
+      ShellExecute(Handle, 'open', PChar(Application.HelpFile), nil, nil, SW_SHOWNORMAL);
+    end;
 end;
 
 end.

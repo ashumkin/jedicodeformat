@@ -3,12 +3,12 @@ object frmShowParseTree: TfrmShowParseTree
   Top = 116
   BorderIcons = [biSystemMenu, biMaximize]
   Caption = 'JCF Parse Tree'
-  ClientHeight = 416
-  ClientWidth = 436
+  ClientHeight = 555
+  ClientWidth = 581
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
-  Font.Height = -12
+  Font.Height = -15
   Font.Name = 'Segoe UI'
   Font.Style = []
   KeyPreview = True
@@ -17,47 +17,46 @@ object frmShowParseTree: TfrmShowParseTree
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
   OnShow = FormShow
-  PixelsPerInch = 96
-  TextHeight = 15
+  PixelsPerInch = 120
+  TextHeight = 20
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 391
-    Width = 436
+    Top = 530
+    Width = 581
     Height = 25
     Panels = <>
-    ExplicitTop = 259
-    ExplicitWidth = 383
+    ExplicitTop = 521
+    ExplicitWidth = 436
   end
   object pnlTop: TPanel
     Left = 0
     Top = 0
-    Width = 436
-    Height = 64
+    Width = 581
+    Height = 85
     Align = alTop
     BevelOuter = bvNone
-    Constraints.MinHeight = 50
-    Constraints.MinWidth = 50
+    Constraints.MinHeight = 67
+    Constraints.MinWidth = 67
     TabOrder = 1
-    ExplicitWidth = 383
     object lblTreeCount: TLabel
-      Left = 8
-      Top = 23
-      Width = 87
-      Height = 15
+      Left = 11
+      Top = 31
+      Width = 110
+      Height = 20
       Caption = 'Tree has ? nodes'
     end
     object lblTreeDepth: TLabel
-      Left = 8
-      Top = 41
-      Width = 130
-      Height = 15
+      Left = 11
+      Top = 55
+      Width = 166
+      Height = 20
       Caption = 'Tree has max depth of ??'
     end
     object cbShowWhiteSpace: TCheckBox
-      Left = 8
-      Top = 4
-      Width = 108
-      Height = 16
+      Left = 11
+      Top = 5
+      Width = 144
+      Height = 22
       Caption = 'Show whitespace'
       TabOrder = 0
       OnClick = cbShowWhiteSpaceClick
@@ -65,75 +64,75 @@ object frmShowParseTree: TfrmShowParseTree
   end
   object pnlBottom: TPanel
     Left = 0
-    Top = 353
-    Width = 436
-    Height = 38
+    Top = 480
+    Width = 581
+    Height = 50
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitTop = 221
-    ExplicitWidth = 383
+    ExplicitTop = 471
     object lblCurrent: TLabel
-      Left = 8
-      Top = 5
-      Width = 43
-      Height = 15
+      Left = 11
+      Top = 7
+      Width = 51
+      Height = 20
       Caption = 'Current:'
     end
     object lblDepth: TLabel
-      Left = 8
-      Top = 23
-      Width = 35
-      Height = 15
+      Left = 11
+      Top = 31
+      Width = 44
+      Height = 20
       Caption = 'Depth:'
     end
     object lblTotalNodeCount: TLabel
-      Left = 203
-      Top = 23
-      Width = 94
-      Height = 15
+      Left = 271
+      Top = 31
+      Width = 116
+      Height = 20
       Caption = 'Total node count:'
     end
     object lblImmediateChildCount: TLabel
-      Left = 203
-      Top = 5
-      Width = 123
-      Height = 15
+      Left = 271
+      Top = 7
+      Width = 152
+      Height = 20
       Caption = 'Immediate child count:'
     end
   end
   object pcPages: TPageControl
     Left = 0
-    Top = 64
-    Width = 436
-    Height = 289
+    Top = 85
+    Width = 581
+    Height = 395
     ActivePage = tsTokens
     Align = alClient
     TabOrder = 3
-    ExplicitWidth = 383
-    ExplicitHeight = 157
+    ExplicitHeight = 386
     object tsTokens: TTabSheet
       Caption = 'Tokens'
+      ExplicitLeft = 0
+      ExplicitTop = 0
       ExplicitWidth = 375
       ExplicitHeight = 127
       object lvTokens: TListView
         Left = 0
         Top = 0
-        Width = 428
-        Height = 259
+        Width = 571
+        Height = 345
         Align = alClient
         Columns = <
           item
             Caption = 'Index'
-            Width = 47
+            Width = 63
           end
           item
             Caption = 'Type'
-            Width = 139
+            Width = 185
           end
           item
             Caption = 'Text'
-            Width = 203
+            Width = 271
           end>
         ReadOnly = True
         RowSelect = True
@@ -141,18 +140,20 @@ object frmShowParseTree: TfrmShowParseTree
         ViewStyle = vsReport
         OnDblClick = lvTokensDblClick
         OnSelectItem = lvTokensSelectItem
-        ExplicitWidth = 375
-        ExplicitHeight = 127
       end
     end
     object tsTree: TTabSheet
       Caption = 'Tree'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object tvParseTree: TTreeView
         Left = 0
         Top = 0
-        Width = 428
-        Height = 259
+        Width = 573
+        Height = 360
         Align = alClient
         HideSelection = False
         Indent = 22
@@ -161,6 +162,8 @@ object frmShowParseTree: TfrmShowParseTree
         TabOrder = 0
         OnChange = tvParseTreeChange
         OnDblClick = tvParseTreeDblClick
+        ExplicitWidth = 571
+        ExplicitHeight = 339
       end
     end
   end

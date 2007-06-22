@@ -5,14 +5,14 @@ object frmMain: TfrmMain
   VertScrollBar.Visible = False
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
   Caption = 'JEDI Code Format'
-  ClientHeight = 399
-  ClientWidth = 486
+  ClientHeight = 532
+  ClientWidth = 648
   Color = clBtnFace
-  Constraints.MinHeight = 277
-  Constraints.MinWidth = 369
+  Constraints.MinHeight = 369
+  Constraints.MinWidth = 492
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
-  Font.Height = -12
+  Font.Height = -15
   Font.Name = 'Segoe UI'
   Font.Style = []
   KeyPreview = True
@@ -22,19 +22,19 @@ object frmMain: TfrmMain
   OnDestroy = FormDestroy
   OnKeyUp = FormKeyUp
   OnResize = FormResize
-  PixelsPerInch = 96
-  TextHeight = 15
+  PixelsPerInch = 120
+  TextHeight = 20
   object lblLog: TLabel
-    Left = 6
-    Top = 155
-    Width = 20
-    Height = 15
+    Left = 8
+    Top = 207
+    Width = 25
+    Height = 20
     Caption = 'Log'
   end
   object tlbTop: TToolBar
     Left = 0
     Top = 0
-    Width = 486
+    Width = 648
     Height = 26
     AutoSize = True
     ButtonHeight = 24
@@ -45,7 +45,6 @@ object frmMain: TfrmMain
     ParentShowHint = False
     ShowHint = True
     TabOrder = 0
-    ExplicitWidth = 648
     object tbtnOpenFiles: TToolButton
       Left = 0
       Top = 0
@@ -112,9 +111,9 @@ object frmMain: TfrmMain
   end
   object mOutput: TJvMemo
     Left = 0
-    Top = 176
-    Width = 486
-    Height = 223
+    Top = 226
+    Width = 648
+    Height = 306
     AutoSize = False
     ClipboardCommands = [caCopy]
     MaxLines = 0
@@ -123,82 +122,80 @@ object frmMain: TfrmMain
     ParentColor = True
     ReadOnly = True
     TabOrder = 2
-    ExplicitTop = 170
-    ExplicitHeight = 229
   end
   inline frBasic: TfrBasic
     Left = 0
     Top = 26
-    Width = 486
-    Height = 150
+    Width = 648
+    Height = 200
     Align = alTop
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
+    Font.Height = -15
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
     TabOrder = 1
     TabStop = True
-    ExplicitTop = 20
-    ExplicitWidth = 486
-    ExplicitHeight = 150
+    ExplicitTop = 26
+    ExplicitWidth = 648
+    ExplicitHeight = 200
     inherited sbOpen: TSpeedButton [0]
-      Left = 453
-      Top = 77
-      Width = 22
-      Height = 21
+      Left = 604
+      Top = 103
+      Width = 29
       OnClick = frBasicsbOpenClick
-      ExplicitLeft = 453
-      ExplicitTop = 77
-      ExplicitWidth = 22
-      ExplicitHeight = 21
+      ExplicitLeft = 604
+      ExplicitTop = 103
+      ExplicitWidth = 29
     end
     inherited lblOutput: TLabel [1]
-      Top = 104
-      Width = 57
-      Height = 13
-      ExplicitTop = 104
-      ExplicitWidth = 57
-      ExplicitHeight = 13
+      Left = 5
+      Top = 139
+      ExplicitLeft = 5
+      ExplicitTop = 139
     end
     inherited lblInput: TLabel [2]
-      Top = 81
-      Width = 47
-      Height = 13
-      ExplicitTop = 81
-      ExplicitWidth = 47
-      ExplicitHeight = 13
+      Left = 5
+      Top = 108
+      ExplicitLeft = 5
+      ExplicitTop = 108
     end
     inherited edtOutput: TEdit [3]
-      Left = 67
-      Top = 104
-      Width = 408
-      ExplicitLeft = 67
-      ExplicitTop = 104
-      ExplicitWidth = 408
+      Left = 89
+      Top = 139
+      Width = 544
+      ExplicitLeft = 89
+      ExplicitTop = 139
+      ExplicitWidth = 544
     end
     inherited edtInput: TEdit [4]
-      Left = 67
-      Top = 77
-      Width = 382
-      ExplicitLeft = 67
-      ExplicitTop = 77
-      ExplicitWidth = 382
+      Left = 89
+      Top = 103
+      Width = 510
+      ExplicitLeft = 89
+      ExplicitTop = 103
+      ExplicitWidth = 510
     end
     inherited rgBackup: TRadioGroup [5]
-      Left = 246
-      Width = 229
-      Height = 67
-      ExplicitLeft = 246
-      ExplicitWidth = 229
-      ExplicitHeight = 67
+      Left = 328
+      Top = 5
+      Width = 305
+      Height = 90
+      ExplicitLeft = 328
+      ExplicitTop = 5
+      ExplicitWidth = 305
+      ExplicitHeight = 90
     end
     inherited rgFileRecurse: TRadioGroup [6]
-      Width = 238
-      Height = 67
-      ExplicitWidth = 238
-      ExplicitHeight = 67
+      Left = 5
+      Top = 5
+      Width = 318
+      Height = 90
+      ExplicitLeft = 5
+      ExplicitTop = 5
+      ExplicitWidth = 318
+      ExplicitHeight = 90
     end
     inherited dlgOpen: TOpenDialog
       Left = 548

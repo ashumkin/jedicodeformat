@@ -173,7 +173,7 @@ uses
 begin
   Application.Initialize;
   Application.Title := 'JCF Notepad';
-  Application.HelpFile := '';
+  Application.HelpFile := 'CodeFormat.hlp';
   Application.CreateForm(TfmJCFNotepad, fmJCFNotepad);
   Application.Run;
 end.

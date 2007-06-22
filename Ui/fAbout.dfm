@@ -3,12 +3,12 @@ object frmAboutBox: TfrmAboutBox
   Top = 235
   BorderStyle = bsDialog
   Caption = 'About JEDI Code Format'
-  ClientHeight = 334
-  ClientWidth = 362
+  ClientHeight = 445
+  ClientWidth = 483
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
-  Font.Height = -12
+  Font.Height = -15
   Font.Name = 'Segoe UI'
   Font.Style = []
   KeyPreview = True
@@ -17,30 +17,30 @@ object frmAboutBox: TfrmAboutBox
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
   OnResize = FormResize
-  PixelsPerInch = 96
-  TextHeight = 15
+  PixelsPerInch = 120
+  TextHeight = 20
   object bbOK: TBitBtn
-    Left = 143
-    Top = 299
-    Width = 75
-    Height = 28
+    Left = 191
+    Top = 399
+    Width = 100
+    Height = 37
     TabOrder = 1
     Kind = bkOK
   end
   object pnlClient: TPanel
     Left = 0
     Top = 0
-    Width = 362
-    Height = 295
+    Width = 483
+    Height = 393
     Align = alTop
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 0
     object imgOpenSource: TImage
-      Left = 8
-      Top = 16
-      Width = 100
-      Height = 104
+      Left = 11
+      Top = 21
+      Width = 133
+      Height = 139
       Cursor = crHandPoint
       Center = True
       Picture.Data = {
@@ -420,10 +420,10 @@ object frmAboutBox: TfrmAboutBox
       OnClick = imgOpenSourceClick
     end
     object hlHomePage: TJvLabel
-      Left = 8
-      Top = 230
-      Width = 71
-      Height = 15
+      Left = 11
+      Top = 307
+      Width = 88
+      Height = 20
       Cursor = crHandPoint
       Caption = 'hlHomePage'
       Transparent = True
@@ -431,16 +431,16 @@ object frmAboutBox: TfrmAboutBox
       HotTrack = True
       HotTrackFont.Charset = ANSI_CHARSET
       HotTrackFont.Color = clBlue
-      HotTrackFont.Height = -12
+      HotTrackFont.Height = -15
       HotTrackFont.Name = 'Segoe UI'
       HotTrackFont.Style = [fsUnderline]
       URL = 'http://delphi-jedi.org'
     end
     object lblMPL: TJvLabel
-      Left = 8
-      Top = 194
-      Width = 368
-      Height = 30
+      Left = 11
+      Top = 259
+      Width = 464
+      Height = 40
       Cursor = crHandPoint
       Caption = 
         'This program is open source software. It is released under the M' +
@@ -449,16 +449,16 @@ object frmAboutBox: TfrmAboutBox
       HotTrack = True
       HotTrackFont.Charset = ANSI_CHARSET
       HotTrackFont.Color = clBlue
-      HotTrackFont.Height = -12
+      HotTrackFont.Height = -15
       HotTrackFont.Name = 'Segoe UI'
       HotTrackFont.Style = [fsUnderline]
       URL = 'http://www.mozilla.org/MPL'
     end
     object mWarning: TMemo
-      Left = 8
-      Top = 137
-      Width = 347
-      Height = 53
+      Left = 11
+      Top = 183
+      Width = 462
+      Height = 70
       BorderStyle = bsNone
       Color = clBtnFace
       Lines.Strings = (
@@ -469,10 +469,10 @@ object frmAboutBox: TfrmAboutBox
       TabOrder = 0
     end
     object mWhat: TMemo
-      Left = 113
-      Top = 8
-      Width = 247
-      Height = 125
+      Left = 151
+      Top = 11
+      Width = 329
+      Height = 166
       BorderStyle = bsNone
       Lines.Strings = (
         'Version %VERSION%'

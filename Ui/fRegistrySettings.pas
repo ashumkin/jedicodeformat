@@ -8,7 +8,7 @@ unit fRegistrySettings;
 
 The Original Code is fRegistrySettings, released May 2003.
 The Initial Developer of the Original Code is Anthony Steele. 
-Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
+Portions created by Anthony Steele are Copyright (C) 1999-2007 Anthony Steele.
 All Rights Reserved. 
 Contributor(s): Anthony Steele. 
 
@@ -28,45 +28,45 @@ interface
 uses
   { delphi }
   Windows, SysUtils, Classes, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, ExtCtrls, ComCtrls,
+  Dialogs, StdCtrls, Buttons, ExtCtrls, ComCtrls, ShellAPI,
   { JVCL }
   JvMemo, JvEdit, JvExStdCtrls, JvValidateEdit, JvBaseDlg, JvBrowseFolder;
 
 type
   TfmRegistrySettings = class(TForm)
-    dlgOpen: TOpenDialog;
-    pgPages: TPageControl;
-    tsGeneral: TTabSheet;
-    tsLogFile: TTabSheet;
-    eSettingsFile: TEdit;
-    sbFile: TSpeedButton;
-    Label1: TLabel;
-    eMRUMaxItems: TJvValidateEdit;
-    btnClearMRU: TButton;
-    Label2: TLabel;
+    dlgOpen:         TOpenDialog;
+    pgPages:         TPageControl;
+    tsGeneral:       TTabSheet;
+    tsLogFile:       TTabSheet;
+    eSettingsFile:   TEdit;
+    sbFile:          TSpeedButton;
+    Label1:          TLabel;
+    eMRUMaxItems:    TJvValidateEdit;
+    btnClearMRU:     TButton;
+    Label2:          TLabel;
     rgShowParseTree: TRadioGroup;
-    pnlBottom: TPanel;
-    btnOK: TBitBtn;
-    btnCancel: TBitBtn;
-    sbSpecifedDir: TSpeedButton;
-    Label3: TLabel;
+    pnlBottom:       TPanel;
+    btnOK:           TBitBtn;
+    btnCancel:       TBitBtn;
+    sbSpecifedDir:   TSpeedButton;
+    Label3:          TLabel;
     lblBackupFileExt: TLabel;
     lblOutputFileExt: TLabel;
-    rgLogLevel: TRadioGroup;
-    rgLogDir: TRadioGroup;
-    btnViewLog: TButton;
-    cbViewLog: TCheckBox;
-    edtBackupExt: TEdit;
-    edtOutputExt: TEdit;
-    cbLogTime: TCheckBox;
-    tsExclusions: TTabSheet;
+    rgLogLevel:      TRadioGroup;
+    rgLogDir:        TRadioGroup;
+    btnViewLog:      TButton;
+    cbViewLog:       TCheckBox;
+    edtBackupExt:    TEdit;
+    edtOutputExt:    TEdit;
+    cbLogTime:       TCheckBox;
+    tsExclusions:    TTabSheet;
     lblFilesCaption: TLabel;
-    lblDirsCaption: TLabel;
-    mFiles: TJvMemo;
-    mDirs: TJvMemo;
+    lblDirsCaption:  TLabel;
+    mFiles:          TJvMemo;
+    mDirs:           TJvMemo;
     rgWriteSettingsFile: TRadioGroup;
     cbCheckMultibyteChars: TCheckBox;
-    tsIde: TTabSheet;
+    tsIde:           TTabSheet;
     cbEditorIntegration: TCheckBox;
     cbFormatBeforeSave: TCheckBox;
     cbFormatAfterLoad: TCheckBox;
@@ -133,10 +133,10 @@ begin
 
   { log }
   rgLogLevel.ItemIndex := Ord(lcSet.LogLevel);
-  rgLogDir.ItemIndex   := Ord(lcSet.LogPlace);
+  rgLogDir.ItemIndex := Ord(lcSet.LogPlace);
   fsSpecifiedDirectory := lcSet.SpecifiedDirectory;
-  cbViewLog.Checked    := lcSet.ViewLogAfterRun;
-  cbLogTime.Checked    := lcSet.LogTime;
+  cbViewLog.Checked  := lcSet.ViewLogAfterRun;
+  cbLogTime.Checked  := lcSet.LogTime;
 
   edtBackupExt.Text := lcSet.BackupExtension;
   edtOutputExt.Text := lcSet.OutputExtension;
@@ -149,7 +149,7 @@ begin
 
   { IDE }
   cbEditorIntegration.Checked := lcSet.EditorIntegration;
-  cbFormatAfterLoad.Checked := lcSet.FormatAfterLoad;
+  cbFormatAfterLoad.Checked  := lcSet.FormatAfterLoad;
   cbFormatBeforeSave.Checked := lcSet.FormatBeforeSave;
 
 end;
@@ -190,10 +190,10 @@ begin
 
   { IDE }
   lcSet.EditorIntegration := cbEditorIntegration.Checked;
-  lcSet.FormatAfterLoad := cbFormatAfterLoad.Checked;
+  lcSet.FormatAfterLoad  := cbFormatAfterLoad.Checked;
   lcSet.FormatBeforeSave := cbFormatBeforeSave.Checked;
 
-   lcSet.WriteAll;
+  lcSet.WriteAll;
 end;
 
 procedure TfmRegistrySettings.Execute;
@@ -241,7 +241,7 @@ end;
 
 procedure TfmRegistrySettings.FormResize(Sender: TObject);
 const
-  SPACING     = 8;
+  SPACING = 8;
   SMALL_SPACE = 4;
 begin
   sbFile.Left := tsGeneral.ClientWidth - (sbFile.Width + SPACING);
@@ -255,10 +255,11 @@ end;
 
 procedure TfmRegistrySettings.sbSpecifedDirClick(Sender: TObject);
 begin
- JvBrowseForFolderDialog1.Directory := fsSpecifiedDirectory;
- if (JvBrowseForFolderDialog1.Execute) then
+  JvBrowseForFolderDialog1.Directory := fsSpecifiedDirectory;
+  if (JvBrowseForFolderDialog1.Execute) then
   begin
-    fsSpecifiedDirectory := IncludeTrailingPathDelimiter(JvBrowseForFolderDialog1.Directory);
+    fsSpecifiedDirectory := IncludeTrailingPathDelimiter(
+      JvBrowseForFolderDialog1.Directory);
     ShowDirs;
   end;
 end;
@@ -289,15 +290,18 @@ end;
 
 procedure TfmRegistrySettings.FormCreate(Sender: TObject);
 begin
-SetObjectFontToSystemFont(Self);
+  SetObjectFontToSystemFont(Self);
 end;
 
 procedure TfmRegistrySettings.FormKeyUp(Sender: TObject; var Key: word;
   Shift: TShiftState);
 begin
   if Key = VK_F1 then
-    Application.HelpContext(HELP_MAIN);
-
+    try
+      Application.HelpContext(HELP_MAIN);
+    except
+      ShellExecute(Handle, 'open', PChar(Application.HelpFile), nil, nil, SW_SHOWNORMAL);
+    end;
 end;
 
 procedure TfmRegistrySettings.cbFormatAfterLoadClick(Sender: TObject);

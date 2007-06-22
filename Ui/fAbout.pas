@@ -4,7 +4,7 @@
 
 The Original Code is fAbout.pas, released April 2000.
 The Initial Developer of the Original Code is Anthony Steele.
-Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
+Portions created by Anthony Steele are Copyright (C) 1999-2007 Anthony Steele.
 All Rights Reserved.
 Contributor(s): Anthony Steele.
 
@@ -26,19 +26,19 @@ interface
 uses
   { delphi }
   Windows, Classes, Forms, Graphics, Controls, StdCtrls,
-  Buttons, ExtCtrls,
-   { JVCL }
+  Buttons, ExtCtrls, ShellAPI,
+  { JVCL }
   JvLabel, JvExControls, JvComponent;
 
 type
   TfrmAboutBox = class(TForm)
-    bbOK: TBitBtn;
-    pnlClient: TPanel;
+    bbOK:          TBitBtn;
+    pnlClient:     TPanel;
     imgOpenSource: TImage;
-    mWarning: TMemo;
-    mWhat: TMemo;
-    lblMPL: TJvLabel;
-    hlHomePage: TJvLabel;
+    mWarning:      TMemo;
+    mWhat:         TMemo;
+    lblMPL:        TJvLabel;
+    hlHomePage:    TJvLabel;
 
     procedure FormCreate(Sender: TObject);
     procedure imgOpenSourceClick(Sender: TObject);
@@ -61,7 +61,7 @@ uses
 
 procedure ShowURL(const ps: string);
 var
-  lws: widestring;
+  lws: WideString;
 begin
   lws := ps;
   HLinkNavigateString(nil, pWideChar(lws));
@@ -70,12 +70,12 @@ end;
 
 procedure TfrmAboutBox.imgOpenSourceClick(Sender: TObject);
 begin
-  ShowURL('http://www.delphi-jedi.org')
+  ShowURL('http://www.delphi-jedi.org');
 end;
 
 procedure TfrmAboutBox.lblMPLClick(Sender: TObject);
 begin
-  ShowURL(lblMPL.Caption)
+  ShowURL(lblMPL.Caption);
 end;
 
 procedure TfrmAboutBox.FormCreate(Sender: TObject);
@@ -93,7 +93,7 @@ begin
   mWhat.Text := ls;
 
   hlHomePage.Caption := 'Find more information on the web at : ' + PROGRAM_HOME_PAGE;
-  hlHomePage.Url     := PROGRAM_HOME_PAGE;
+  hlHomePage.Url := PROGRAM_HOME_PAGE;
 end;
 
 
@@ -114,8 +114,11 @@ end;
 procedure TfrmAboutBox.FormKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
 begin
   if Key = VK_F1 then
-    Application.HelpContext(HELP_MAIN);
-
+    try
+      Application.HelpContext(HELP_MAIN);
+    except
+      ShellExecute(Handle, 'open', PChar(Application.HelpFile), nil, nil, SW_SHOWNORMAL);
+    end;
 end;
 
 end.

@@ -6,7 +6,7 @@ unit frmJCFNotepad;
 
 The Original Code is frmJCFNotepad, released May 2003.
 The Initial Developer of the Original Code is Anthony Steele. 
-Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
+Portions created by Anthony Steele are Copyright (C) 1999-2007 Anthony Steele.
 All Rights Reserved. 
 Contributor(s): Anthony Steele. 
 
@@ -27,11 +27,11 @@ uses
   { delphi }
   Windows, Messages, SysUtils, Classes, Controls, Forms,
   Dialogs, StdCtrls, ComCtrls, ExtCtrls, ActnList,
-  Buttons, Menus,
+  Buttons, Menus, ShellAPI,
   { Jedi }
   JvMRUManager, JvMemo, JvComponent, JvExStdCtrls, JvFormPlacement, JvComponentBase,
   { local }
-  JcfRegistrySettings,  Converter;
+  JcfRegistrySettings, Converter;
 
 { have to do file pos display *after* various processing }
 const
@@ -39,53 +39,53 @@ const
 
 type
   TfmJCFNotepad = class(TForm)
-    sb1: TStatusBar;
-    pnlTop: TPanel;
-    pcPages: TPageControl;
-    tsInput: TTabSheet;
-    tsOutput: TTabSheet;
-    mInput: TJvMemo;
-    mOutput: TJvMemo;
-    mMessages: TJvMemo;
-    lblMessages: TLabel;
-    sbLoad: TSpeedButton;
-    sbSave: TSpeedButton;
-    sbGo: TSpeedButton;
-    ActionList1: TActionList;
-    actOpen: TAction;
-    actSave: TAction;
-    actGo: TAction;
-    OpenDialog1: TOpenDialog;
-    SaveDialog1: TSaveDialog;
-    actClear: TAction;
-    sbClear: TSpeedButton;
-    MainMenu1: TMainMenu;
-    mnuFile: TMenuItem;
-    mnuFileOpen: TMenuItem;
+    sb1:          TStatusBar;
+    pnlTop:       TPanel;
+    pcPages:      TPageControl;
+    tsInput:      TTabSheet;
+    tsOutput:     TTabSheet;
+    mInput:       TJvMemo;
+    mOutput:      TJvMemo;
+    mMessages:    TJvMemo;
+    lblMessages:  TLabel;
+    sbLoad:       TSpeedButton;
+    sbSave:       TSpeedButton;
+    sbGo:         TSpeedButton;
+    ActionList1:  TActionList;
+    actOpen:      TAction;
+    actSave:      TAction;
+    actGo:        TAction;
+    OpenDialog1:  TOpenDialog;
+    SaveDialog1:  TSaveDialog;
+    actClear:     TAction;
+    sbClear:      TSpeedButton;
+    MainMenu1:    TMainMenu;
+    mnuFile:      TMenuItem;
+    mnuFileOpen:  TMenuItem;
     mnuFileSaveOut: TMenuItem;
-    mnuExit: TMenuItem;
-    mnuSettings: TMenuItem;
-    actCopy: TAction;
-    actPaste: TAction;
-    N1: TMenuItem;
-    mruFiles: TJvMRUManager;
-    mnuEdit: TMenuItem;
+    mnuExit:      TMenuItem;
+    mnuSettings:  TMenuItem;
+    actCopy:      TAction;
+    actPaste:     TAction;
+    N1:           TMenuItem;
+    mruFiles:     TJvMRUManager;
+    mnuEdit:      TMenuItem;
     mnuEditPaste: TMenuItem;
-    mnuEditCopy: TMenuItem;
-    mnuEditGo: TMenuItem;
+    mnuEditCopy:  TMenuItem;
+    mnuEditGo:    TMenuItem;
     mnuEditClear: TMenuItem;
-    mnuEditCut: TMenuItem;
+    mnuEditCut:   TMenuItem;
     mnuEditCopyOutput: TMenuItem;
     mnuEditSelectAll: TMenuItem;
     mnuEditCopyMessages: TMenuItem;
-    mnuFormat: TMenuItem;
+    mnuFormat:    TMenuItem;
     mnuFileSaveIn: TMenuItem;
-    mnuHelp: TMenuItem;
+    mnuHelp:      TMenuItem;
     mnuHelpAbout: TMenuItem;
     mnuShowRegSetting: TMenuItem;
     mnuFormatSettings: TMenuItem;
-    ActCut: TAction;
-    Contents1: TMenuItem;
+    ActCut:       TAction;
+    Contents1:    TMenuItem;
     JvFormStorage1: TJvFormStorage;
     procedure FormResize(Sender: TObject);
     procedure pcPagesChange(Sender: TObject);
@@ -120,11 +120,12 @@ type
     procedure mOutputEnter(Sender: TObject);
     procedure mInputClick(Sender: TObject);
     procedure mOutputClick(Sender: TObject);
-    procedure mInputKeyPress(Sender: TObject; var Key: Char);
+    procedure mInputKeyPress(Sender: TObject; var Key: char);
   private
     fcConvert: TConverter;
 
-    procedure OnConvertStatusMessage(const psUnit, psMessage: string; const piY, piX: integer);
+    procedure OnConvertStatusMessage(const psUnit, psMessage: string;
+      const piY, piX: integer);
 
     procedure CheckInputState;
     procedure CheckCutPasteState;
@@ -157,7 +158,7 @@ uses
 
 procedure TfmJCFNotepad.CheckInputState;
 begin
-  actGo.Enabled    := (mInput.Text <> '');
+  actGo.Enabled := (mInput.Text <> '');
   actClear.Enabled := (mInput.Text <> '');
 end;
 
@@ -166,9 +167,9 @@ var
   lbHasOutput: boolean;
 begin
   actPaste.Enabled := (pcPages.ActivePage = tsInput) and Clipboard.HasFormat(CF_TEXT);
-  actCut.Enabled   := (pcPages.ActivePage = tsInput) and (mInput.SelLength > 0);
+  actCut.Enabled := (pcPages.ActivePage = tsInput) and (mInput.SelLength > 0);
 
-  lbHasOutput     := (pcPages.ActivePage = tsOutput) and (mOutput.Text <> '');
+  lbHasOutput := (pcPages.ActivePage = tsOutput) and (mOutput.Text <> '');
   actSave.Enabled := lbHasOutput;
 
   if pcPages.ActivePage = tsOutput then
@@ -216,8 +217,8 @@ procedure TfmJCFNotepad.FormResize(Sender: TObject);
 const
   OUTPUT_PAD = 4;
 begin
-  mOutput.Left  := OUTPUT_PAD;
-  mOutput.Top   := OUTPUT_PAD;
+  mOutput.Left := OUTPUT_PAD;
+  mOutput.Top  := OUTPUT_PAD;
   mOutput.Width := tsOutput.ClientWidth - (2 * OUTPUT_PAD);
 
   // two thirds height
@@ -226,11 +227,11 @@ begin
   lblMessages.Left := 4;
   lblMessages.Top  := mOutput.Top + mOutput.Height + OUTPUT_PAD;
 
-  mMessages.Top    := lblMessages.Top + lblMessages.Height + OUTPUT_PAD;
+  mMessages.Top  := lblMessages.Top + lblMessages.Height + OUTPUT_PAD;
   mMessages.Height := tsOutput.ClientHeight - (lblMessages.Top +
     lblMessages.Height + (OUTPUT_PAD * 2));
-  mMessages.Left   := OUTPUT_PAD;
-  mMessages.Width  := tsOutput.ClientWidth - (2 * OUTPUT_PAD);
+  mMessages.Left := OUTPUT_PAD;
+  mMessages.Width := tsOutput.ClientWidth - (2 * OUTPUT_PAD);
 end;
 
 procedure TfmJCFNotepad.pcPagesChange(Sender: TObject);
@@ -273,7 +274,7 @@ end;
 procedure TfmJCFNotepad.actOpenExecute(Sender: TObject);
 begin
   OpenDialog1.InitialDir := GetRegSettings.InputDir;
-  OpenDialog1.Filter     := SOURCE_FILE_FILTERS;
+  OpenDialog1.Filter := SOURCE_FILE_FILTERS;
 
   if OpenDialog1.Execute then
   begin
@@ -284,8 +285,8 @@ end;
 
 procedure TfmJCFNotepad.actClearExecute(Sender: TObject);
 begin
-  mInput.Text    := '';
-  mOutput.Text   := '';
+  mInput.Text  := '';
+  mOutput.Text := '';
   mMessages.Text := '';
   pcPages.ActivePage := tsInput;
 
@@ -296,8 +297,8 @@ end;
 procedure TfmJCFNotepad.actSaveExecute(Sender: TObject);
 begin
   SaveDialog1.InitialDir := GetRegSettings.OutputDir;
-  SaveDialog1.Title      := 'Save output file';
-  SaveDialog1.Filter     := SOURCE_FILE_FILTERS;
+  SaveDialog1.Title  := 'Save output file';
+  SaveDialog1.Filter := SOURCE_FILE_FILTERS;
 
 
   if SaveDialog1.Execute then
@@ -315,8 +316,16 @@ begin
 end;
 
 procedure TfmJCFNotepad.FormCreate(Sender: TObject);
+var
+  lsHelpFile: string;
 begin
   SetObjectFontToSystemFont(Self);
+
+  lsHelpFile := IncludeTrailingPathDelimiter(ExtractFilePath(Application.ExeName)) +
+    'CodeFormat.hlp';
+
+  if FileExists(lsHelpFile) then
+    Application.HelpFile := lsHelpFile;
 
   fcConvert := TConverter.Create;
 
@@ -396,8 +405,8 @@ end;
 procedure TfmJCFNotepad.mnuFileSaveInClick(Sender: TObject);
 begin
   SaveDialog1.InitialDir := GetRegSettings.OutputDir;
-  SaveDialog1.Title      := 'Save input file';
-  SaveDialog1.Filter     := SOURCE_FILE_FILTERS;
+  SaveDialog1.Title  := 'Save input file';
+  SaveDialog1.Filter := SOURCE_FILE_FILTERS;
 
   if SaveDialog1.Execute then
   begin
@@ -452,14 +461,21 @@ end;
 
 procedure TfmJCFNotepad.Contents1Click(Sender: TObject);
 begin
-  Application.HelpContext(HELP_MAIN);
+  try
+    Application.HelpContext(HELP_MAIN);
+  except
+    ShellExecute(Handle, 'open', PChar(Application.HelpFile), nil, nil, SW_SHOWNORMAL);
+  end;
 end;
 
 procedure TfmJCFNotepad.FormKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
 begin
   if Key = VK_F1 then
-    Application.HelpContext(HELP_MAIN);
-
+    try
+      Application.HelpContext(HELP_MAIN);
+    except
+      ShellExecute(Handle, 'open', PChar(Application.HelpFile), nil, nil, SW_SHOWNORMAL);
+    end;
 end;
 
 procedure TfmJCFNotepad.ShowFilePos;
@@ -467,7 +483,7 @@ const
   POS_NUM_LEN = 4;
 var
   liX, liY: integer;
-  lsPos:    string;
+  lsPos: string;
   lsX, lsY: string;
 begin
   if pcPages.ActivePage = tsInput then
@@ -546,13 +562,13 @@ begin
   SendShowFilePos;
 end;
 
-procedure TfmJCFNotepad.mInputKeyPress(Sender: TObject; var Key: Char);
+procedure TfmJCFNotepad.mInputKeyPress(Sender: TObject; var Key: char);
 begin
   SendShowFilePos;
 end;
 
-procedure TfmJCFNotepad.OnConvertStatusMessage(const psUnit,
-  psMessage: string; const piY, piX: integer);
+procedure TfmJCFNotepad.OnConvertStatusMessage(const psUnit, psMessage: string;
+  const piY, piX: integer);
 var
   lsWholeMessage: string;
 begin

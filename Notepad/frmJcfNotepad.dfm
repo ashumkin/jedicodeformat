@@ -2,7 +2,7 @@ object fmJCFNotepad: TfmJCFNotepad
   Left = 165
   Top = 173
   Caption = 'JCF Notepad'
-  ClientHeight = 549
+  ClientHeight = 599
   ClientWidth = 847
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
@@ -22,7 +22,7 @@ object fmJCFNotepad: TfmJCFNotepad
   TextHeight = 20
   object sb1: TStatusBar
     Left = 0
-    Top = 524
+    Top = 574
     Width = 847
     Height = 25
     Panels = <
@@ -34,6 +34,7 @@ object fmJCFNotepad: TfmJCFNotepad
       end>
     ParentFont = True
     UseSystemFont = False
+    ExplicitTop = 549
   end
   object pnlTop: TPanel
     Left = 0
@@ -77,18 +78,20 @@ object fmJCFNotepad: TfmJCFNotepad
     Left = 0
     Top = 35
     Width = 847
-    Height = 489
+    Height = 539
     ActivePage = tsInput
     Align = alClient
     TabOrder = 2
     OnChange = pcPagesChange
+    ExplicitHeight = 514
     object tsInput: TTabSheet
       Caption = 'Input'
+      ExplicitHeight = 479
       object mInput: TJvMemo
         Left = 0
         Top = 0
         Width = 839
-        Height = 454
+        Height = 504
         AutoSize = False
         MaxLines = 0
         HideCaret = False
@@ -106,11 +109,13 @@ object fmJCFNotepad: TfmJCFNotepad
         OnKeyDown = mInputKeyDown
         OnKeyUp = mInputKeyDown
         OnMouseUp = mInputMouseUp
+        ExplicitHeight = 479
       end
     end
     object tsOutput: TTabSheet
       Caption = 'Output'
       ImageIndex = 1
+      ExplicitHeight = 479
       object lblMessages: TLabel
         Left = 15
         Top = 207
@@ -293,7 +298,6 @@ object fmJCFNotepad: TfmJCFNotepad
       Caption = '&Help'
       object Contents1: TMenuItem
         Caption = '&Contents'
-        Enabled = False
         OnClick = Contents1Click
       end
       object mnuHelpAbout: TMenuItem
