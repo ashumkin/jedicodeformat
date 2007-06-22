@@ -213,16 +213,10 @@ end;
   event handlers}
 
 procedure TfrmMain.FormCreate(Sender: TObject);
-var
-  lsHelpFile: string;
 begin
   SetObjectFontToSystemFont(Self);
 
-  lsHelpFile := IncludeTrailingPathDelimiter(ExtractFilePath(Application.ExeName)) +
-    'CodeFormat.hlp';
-
-  if FileExists(lsHelpFile) then
-    Application.HelpFile := lsHelpFile;
+  Application.HelpFile := GetHelpFilePath;
 
   Randomize;
 

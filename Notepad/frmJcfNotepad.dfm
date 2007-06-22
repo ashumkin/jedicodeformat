@@ -34,7 +34,6 @@ object fmJCFNotepad: TfmJCFNotepad
       end>
     ParentFont = True
     UseSystemFont = False
-    ExplicitTop = 574
   end
   object pnlTop: TPanel
     Left = 0
@@ -83,10 +82,8 @@ object fmJCFNotepad: TfmJCFNotepad
     Align = alClient
     TabOrder = 2
     OnChange = pcPagesChange
-    ExplicitHeight = 539
     object tsInput: TTabSheet
       Caption = 'Input'
-      ExplicitHeight = 504
       object mInput: TJvMemo
         Left = 0
         Top = 0
@@ -109,12 +106,14 @@ object fmJCFNotepad: TfmJCFNotepad
         OnKeyDown = mInputKeyDown
         OnKeyUp = mInputKeyDown
         OnMouseUp = mInputMouseUp
-        ExplicitHeight = 504
       end
     end
     object tsOutput: TTabSheet
       Caption = 'Output'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
       ExplicitHeight = 504
       object lblMessages: TLabel
         Left = 15

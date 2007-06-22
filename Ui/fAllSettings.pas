@@ -72,7 +72,7 @@ implementation
 {$R *.DFM}
 
 uses
-  JcfRegistrySettings, JcfHelp, JcfFontSetFunctions,
+  JcfRegistrySettings, JcfFontSetFunctions, JCFHelp,
   { contained frames }
   frFiles, frObfuscateSettings,
   frClarify, frClarifySpaces, frClarifyIndent,
@@ -194,6 +194,7 @@ end;
 procedure TFormAllSettings.FormCreate(Sender: TObject);
 begin
   SetObjectFontToSystemFont(Self);
+  Application.HelpFile := GetHelpFilePath;
   frLastFrame := nil;
 end;
 
@@ -269,7 +270,6 @@ begin
 
   Result := tvFrames.Selected.Data;
 end;
-
 
 procedure TFormAllSettings.bbHelpClick(Sender: TObject);
 var

@@ -6,7 +6,7 @@ unit JCFHelp;
 
 The Original Code is JCFHelp, released May 2003.
 The Initial Developer of the Original Code is Anthony Steele. 
-Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
+Portions created by Anthony Steele are Copyright (C) 1999-2007 Anthony Steele.
 All Rights Reserved. 
 Contributor(s): Anthony Steele. 
 
@@ -16,7 +16,7 @@ You may obtain a copy of the License at http://www.mozilla.org/NPL/
 
 Software distributed under the License is distributed on an "AS IS" basis,
 WITHOUT WARRANTY OF ANY KIND, either express or implied.
-See the License for the specific language governing rights and limitations 
+See the License for the specific language governing rights and limitations
 under the License.
 ------------------------------------------------------------------------------*)
 {*)}
@@ -25,10 +25,11 @@ interface
 
 { code interface to JCF help file }
 
+function GetHelpFilePath: string;
 
 const
 
-{ help context ids }
+  { help context ids }
   HELP_MAIN     = 10;
   HELP_PROGRAMS = 12;
   HELP_SETTINGS_STORED = 15;
@@ -39,27 +40,77 @@ const
   HELP_FORMAT_FILE    = 40;
 
   HELP_OBFUSCATE_SETTINGS = 50;
-  HELP_CLARIFY = 60;
-  HELP_CLARIFY_SPACES = 70;
+  HELP_CLARIFY          = 60;
+  HELP_CLARIFY_SPACES   = 70;
   HELP_CLARIFY_INDENTATION = 80;
   HELP_CLARIFY_LONG_LINES = 85;
-  HELP_CLARIFY_RETURNS = 90;
+  HELP_CLARIFY_RETURNS  = 90;
   HELP_CLARIFY_BLANK_LINES = 95;
-  HELP_CLARIFY_BLOCKS = 100;
-  HELP_CLARIFY_ALIGN = 110;
+  HELP_CLARIFY_BLOCKS   = 100;
+  HELP_CLARIFY_ALIGN    = 110;
   HELP_CLARIFY_COMMENTS = 80;
 
-  HELP_CLARIFY_CAPITALISATION   = 120;
-  HELP_CLARIFY_FIND_AND_REPLACE = 130;
+  HELP_CLARIFY_CAPITALISATION        = 120;
+  HELP_CLARIFY_FIND_AND_REPLACE      = 130;
   HELP_CLARIFY_FIND_AND_REPLACE_USES = 140;
-  HELP_COMMAND_LINE_PARAMS      = 200;
+  HELP_COMMAND_LINE_PARAMS           = 200;
 
   HELP_CLARIFY_TRANSFORM = 211;
-  HELP_CLARIFY_WARNINGS = 212;
+  HELP_CLARIFY_WARNINGS  = 212;
 
   HELP_ISSUES = 220;
   HELP_INFO   = 1000;
 
+  HELP_FILE_NAME = 'CodeFormat.hlp';
+
 implementation
+
+uses
+  SysUtils, FileUtils, Forms, Windows;
+
+function GetHelpFilePath: string;
+var
+  HelpFilePath: string;
+begin
+  HelpFilePath := IncludeTrailingPathDelimiter(ExtractFilePath(Application.ExeName)) +
+    HELP_FILE_NAME;
+  if not FileExists(HelpFilePath) then
+  begin
+    HelpFilePath := IncludeTrailingPathDelimiter(
+      ExtractFilePath(GetModuleName(GetModuleHandle('JCFIde2007.bpl')))) +
+      HELP_FILE_NAME;
+    if not FileExists(HelpFilePath) then
+    begin
+      HelpFilePath := IncludeTrailingPathDelimiter(
+        ExtractFilePath(GetModuleName(GetModuleHandle('JCFIde2006.bpl')))) +
+        HELP_FILE_NAME;
+      if not FileExists(HelpFilePath) then
+      begin
+        HelpFilePath := IncludeTrailingPathDelimiter(
+          ExtractFilePath(GetModuleName(GetModuleHandle('JCFIde2005.bpl')))) +
+          HELP_FILE_NAME;
+        if not FileExists(HelpFilePath) then
+        begin
+          HelpFilePath := IncludeTrailingPathDelimiter(
+            ExtractFilePath(GetModuleName(GetModuleHandle('JCFIde7.bpl')))) +
+            HELP_FILE_NAME;
+          if not FileExists(HelpFilePath) then
+          begin
+            HelpFilePath := IncludeTrailingPathDelimiter(
+              ExtractFilePath(GetModuleName(GetModuleHandle('JCFIde6.bpl')))) +
+              HELP_FILE_NAME;
+            if not FileExists(HelpFilePath) then
+            begin
+              HelpFilePath := IncludeTrailingPathDelimiter(
+                ExtractFilePath(GetModuleName(GetModuleHandle('JCFIde5.bpl')))) +
+                HELP_FILE_NAME;
+            end;
+          end;
+        end;
+      end;
+    end;
+  end;
+  Result := HelpFilePath;
+end;
 
 end.

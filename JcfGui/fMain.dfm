@@ -569,7 +569,6 @@ object frmMain: TfrmMain
     object actHelpContents: THelpContents
       Category = 'Help'
       Caption = '&Contents'
-      Enabled = False
       Hint = 'Help Contents'
       ImageIndex = 5
       OnExecute = actHelpContentsExecute
