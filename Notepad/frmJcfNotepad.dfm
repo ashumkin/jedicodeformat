@@ -2,7 +2,7 @@ object fmJCFNotepad: TfmJCFNotepad
   Left = 165
   Top = 173
   Caption = 'JCF Notepad'
-  ClientHeight = 599
+  ClientHeight = 624
   ClientWidth = 847
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
@@ -22,7 +22,7 @@ object fmJCFNotepad: TfmJCFNotepad
   TextHeight = 20
   object sb1: TStatusBar
     Left = 0
-    Top = 574
+    Top = 599
     Width = 847
     Height = 25
     Panels = <
@@ -34,7 +34,7 @@ object fmJCFNotepad: TfmJCFNotepad
       end>
     ParentFont = True
     UseSystemFont = False
-    ExplicitTop = 549
+    ExplicitTop = 574
   end
   object pnlTop: TPanel
     Left = 0
@@ -78,20 +78,20 @@ object fmJCFNotepad: TfmJCFNotepad
     Left = 0
     Top = 35
     Width = 847
-    Height = 539
+    Height = 564
     ActivePage = tsInput
     Align = alClient
     TabOrder = 2
     OnChange = pcPagesChange
-    ExplicitHeight = 514
+    ExplicitHeight = 539
     object tsInput: TTabSheet
       Caption = 'Input'
-      ExplicitHeight = 479
+      ExplicitHeight = 504
       object mInput: TJvMemo
         Left = 0
         Top = 0
         Width = 839
-        Height = 504
+        Height = 529
         AutoSize = False
         MaxLines = 0
         HideCaret = False
@@ -109,13 +109,13 @@ object fmJCFNotepad: TfmJCFNotepad
         OnKeyDown = mInputKeyDown
         OnKeyUp = mInputKeyDown
         OnMouseUp = mInputMouseUp
-        ExplicitHeight = 479
+        ExplicitHeight = 504
       end
     end
     object tsOutput: TTabSheet
       Caption = 'Output'
       ImageIndex = 1
-      ExplicitHeight = 479
+      ExplicitHeight = 504
       object lblMessages: TLabel
         Left = 15
         Top = 207

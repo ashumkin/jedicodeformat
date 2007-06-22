@@ -30,7 +30,7 @@ interface
 uses
   {delphi }
   Classes, Controls,
-  Forms, Windows, ShellAPI,
+  Forms, Windows, ShellAPI, SysUtils,
   { local }
   frDrop;
 
@@ -91,7 +91,8 @@ begin
   try
     Application.HelpContext(liHelpContext);
   except
-    ShellExecute(Handle, 'open', PChar(Application.HelpFile), nil, nil, SW_SHOWNORMAL);
+    if FileExists(Application.HelpFile) then
+      ShellExecute(Handle, 'open', PChar(Application.HelpFile), nil, nil, SW_SHOWNORMAL);
   end;
 end;
 

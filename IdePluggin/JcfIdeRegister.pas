@@ -43,7 +43,7 @@ uses
 
 const
   NAME_MENU_TOOLS = 'ToolsMenu';
-  FORMAT_MENU_NAME = 'Jedi Code &Format';
+  FORMAT_MENU_NAME = 'JEDI Code &Format';
   FORMAT_CURRENT_NAME = '&Current editor window';
   FORMAT_PROJECT_NAME = '&All files in project';
   FORMAT_OPEN_NAME = 'All &open windows';

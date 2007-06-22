@@ -281,8 +281,9 @@ begin
     try
       Application.HelpContext(HELP_MAIN);
     except
-      ShellExecute(Handle, 'open', PChar(Application.HelpFile), nil,
-        nil, SW_SHOWNORMAL);
+      if FileExists(Application.HelpFile) then
+        ShellExecute(Handle, 'open', PChar(Application.HelpFile), nil,
+          nil, SW_SHOWNORMAL);
     end;
   end
   else

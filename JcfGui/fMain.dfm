@@ -5,7 +5,7 @@ object frmMain: TfrmMain
   VertScrollBar.Visible = False
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
   Caption = 'JEDI Code Format'
-  ClientHeight = 532
+  ClientHeight = 557
   ClientWidth = 648
   Color = clBtnFace
   Constraints.MinHeight = 369
@@ -113,7 +113,7 @@ object frmMain: TfrmMain
     Left = 0
     Top = 226
     Width = 648
-    Height = 306
+    Height = 331
     AutoSize = False
     ClipboardCommands = [caCopy]
     MaxLines = 0

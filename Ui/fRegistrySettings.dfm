@@ -24,15 +24,11 @@ object fmRegistrySettings: TfmRegistrySettings
     Top = 0
     Width = 771
     Height = 325
-    ActivePage = tsLogFile
+    ActivePage = tsGeneral
     Align = alClient
     TabOrder = 0
     object tsGeneral: TTabSheet
       Caption = '&General'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object sbFile: TSpeedButton
         Left = 731
         Top = 11
@@ -120,10 +116,6 @@ object fmRegistrySettings: TfmRegistrySettings
     object tsLogFile: TTabSheet
       Caption = '&Log file'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object sbSpecifedDir: TSpeedButton
         Left = 180
         Top = 195
@@ -223,10 +215,6 @@ object fmRegistrySettings: TfmRegistrySettings
       Caption = '&Exclusions'
       ImageIndex = 2
       OnResize = tsExclusionsResize
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object lblFilesCaption: TLabel
         Left = 11
         Top = 5
@@ -265,10 +253,6 @@ object fmRegistrySettings: TfmRegistrySettings
     object tsIde: TTabSheet
       Caption = 'IDE'
       ImageIndex = 3
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object cbEditorIntegration: TCheckBox
         Left = 11
         Top = 15
@@ -288,7 +272,7 @@ object fmRegistrySettings: TfmRegistrySettings
       end
       object cbFormatAfterLoad: TCheckBox
         Left = 11
-        Top = 36
+        Top = 37
         Width = 214
         Height = 21
         Caption = 'Format after &Load'

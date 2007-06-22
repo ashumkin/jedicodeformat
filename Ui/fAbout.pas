@@ -26,7 +26,7 @@ interface
 uses
   { delphi }
   Windows, Classes, Forms, Graphics, Controls, StdCtrls,
-  Buttons, ExtCtrls, ShellAPI,
+  Buttons, ExtCtrls, ShellAPI, SysUtils,
   { JVCL }
   JvLabel, JvExControls, JvComponent;
 
@@ -117,7 +117,8 @@ begin
     try
       Application.HelpContext(HELP_MAIN);
     except
-      ShellExecute(Handle, 'open', PChar(Application.HelpFile), nil, nil, SW_SHOWNORMAL);
+      if FileExists(Application.HelpFile) then
+        ShellExecute(Handle, 'open', PChar(Application.HelpFile), nil, nil, SW_SHOWNORMAL);
     end;
 end;
 
