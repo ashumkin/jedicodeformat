@@ -56,7 +56,7 @@ FALSE
 \viewkind4\uc1\pard\cf1\b\f0\fs32 JEDI Code Format \lang1036\f1 (JCF) \lang2057 2.30\cf0\lang1031\b0\f0\fs20 
 \par \cf2\{keepn\}
 \par \cf0 
-\par This is the main \lang2057\f1 help\lang1031\f0  for the \lang2057\f1 JEDI Code Formatter\lang1031\f0 .\lang2057\f1  \lang1031\f0 The formatter can standardise all aspects of Delphi Object Pascal source code formatting, including indentation, spacing and capitalisation\lang2057\f1 .\lang1031\f0  \lang2057\f1 The formatter is intended to be able to format all compilable Delphi Source code. Source that does not compile cannot always be formatted correctly.\lang1031\f0 
+\par This is the main \lang2057\f1 help\lang1031\f0  for \lang2057\f1 JEDI Code Format (JCF)\lang1031\f0 .\lang2057\f1  \lang1036 JCF\lang1031\f0  can standardise all aspects of Delphi Object Pascal source code formatting, including indentation, spacing and capitalisation\lang2057\f1 .\lang1031\f0  \lang2057\f1 JCF is intended to be able to format all compilable Delphi Source code. Source that does not compile cannot always be formatted correctly.\lang1031\f0 
 \par 
 \par \lang2057\f1 The documentation does not cover every \lang1031\f0 control\lang2057\f1  on the configuration\lang1031\f0 . In many cases the control's captions should be self-explanatory.
 \par 
@@ -64,8 +64,8 @@ FALSE
 \par \cf3\lang2057\strike\f1 
 \par Programs\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 12\lang1031\f0\}
 \par \cf0 
-\par \cf3\lang2057\strike\f1 Settings storage\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 15\lang1031\f0\}\cf0 
-\par \cf3\lang2057\strike\f1 Registry\lang1031\f0  settings\cf2\strike0\{linkID=\lang2057\f1 20\lang1031\f0\}
+\par \cf3\lang2057\strike\f1 Settings Storage\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 15\lang1031\f0\}\cf0 
+\par \cf3\lang2057\strike\f1 Registry\lang1031\f0  \lang1036\f1 S\lang1031\f0 ettings\cf2\strike0\{linkID=\lang2057\f1 20\lang1031\f0\}
 \par \lang2057\f1\tab\cf3\strike Logging\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 24\lang1031\f0\}
 \par \lang2057\f1\tab\cf3\strike Exclusions\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 26\lang1031\f0\}
 \par \cf0 
@@ -77,26 +77,26 @@ FALSE
 \par \lang2057\f1\tab\cf3\strike Blank Lines\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 95\lang1031\f0\}
 \par \lang2057\f1\tab\cf3\strike Align\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 11\lang1031\f0 0\}
 \par \lang2057\f1\tab Line Breaking\tab\lang1031\f0 
-\par \lang2057\f1\tab\tab\cf3\strike Long lines\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 85\lang1031\f0\}
+\par \lang2057\f1\tab\tab\cf3\strike Long Lines\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 85\lang1031\f0\}
 \par \lang2057\f1\tab\tab\cf3\strike Returns\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 9\lang1031\f0 0\}
 \par \lang2057\f1\tab\tab\cf3\strike Blocks\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 10\lang1031\f0 0\}
 \par \lang2057\f1\tab\tab Compiler Directives\lang1031\f0 
 \par \lang2057\f1\tab\cf3\strike Comments\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 115\lang1031\f0\}
 \par \lang2057\f1\tab\cf3\strike Capitalisation\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 12\lang1031\f0 0\}
-\par \lang2057\f1\tab\cf3\strike Find and replace\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 13\lang1031\f0 0\}
-\par \lang2057\f1\tab\cf3\strike Find and replace on uses\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 14\lang1031\f0 0\}
+\par \lang2057\f1\tab\cf3\strike Find and Replace\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 13\lang1031\f0 0\}
+\par \lang2057\f1\tab\cf3\strike Find and Replace on Uses\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 14\lang1031\f0 0\}
 \par \lang2057\f1\tab\cf3\strike Transform\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 210\lang1031\f0\}
 \par \cf3\lang2057\strike\f1 Preprocessor\cf2\lang1031\strike0\f0\{linkID=\lang2057\f1 15\lang1031\f0 0\}
 \par \cf0 
-\par \cf3\lang3079\strike\f1 Command line parameters\cf2\strike0\{linkID=200\}
+\par \cf3\lang3079\strike\f1 Command Line Parameters\cf2\strike0\{linkID=200\}
 \par \cf3\strike Special Comments\cf2\lang1031\strike0\f0\{linkID=210\}
 \par \cf0 
-\par Th\f1 e newest version of the JEDI Code Format can always be found at \f0 
+\par Th\f1 e newest version of JEDI Code Format can always be found at \f0 
 \par \cf1\strike\f2 http://jedicodeformat.sourceforge.net/\cf2\strike0\{link=*! ExecFile("http://jedicodeformat.sourceforge.net/")\}\cf0\f0 
 \par \f1 
 \par Helpfile by \cf3\strike Ralf Steinhaeusser\cf2\strike0\{linkID=1000\}
 \par 
-\par \cf0\f3 Last change : 23.6.2007\f1 
+\par \cf0\f3 Last change : 24.06.2007\f1 
 \par }
 12
 Scribble12
@@ -110,28 +110,36 @@ Writing
 
 
 FALSE
-18
+26
 {\rtf1\ansi\ansicpg1252\deff0\deflang2057{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil Arial;}}
 {\colortbl ;\red0\green0\blue255;\red0\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\fs32 Programs\cf2\b0\f1\fs20 
 \par 
 \par \f0 All of these program contain the same code formatting engine with different interfaces.\f1 
 \par 
-\par \b\f0 jcf.exe\b0  - A command-line program suitable for batch files and old-school unix programmers. The  functionality is much like JcfGui.exe, i.e. it can work on a file, a directory or a directy tree, and can format files in place, or to an output file.
+\par \b\f0 JCF.exe\b0  - A command-line program suitable for batch files and old-school unix programmers. The  functionality is much like JCFGui.exe, i.e. it can work on a file, a directory or a directy tree, and can format files in place, or to an output file.
 \par 
-\par \b jcfGui.exe\b0  - A GUI interface to formatting files and directories. Best used when you want to interactively format a file, directory or directory tree.
+\par \b JCFGui.exe\b0  - A GUI interface to formatting files and directories. Best used when you want to interactively format a file, directory or directory tree.
 \par 
-\par \b JcfIde7.bpl\b0  - The JCF Delphi IDE plug-in compiled for Delphi 7. Requires JCL and JCVL. This is the easiest way to use the formatter. Just press a button and watch your code change. the other advantage is that if you don't like the results, by clicking "undo" twice immediately you can undo the format.
+\par \b JCFIde5.bpl\b0  - The JCF Delphi IDE plug-in compiled for Delphi 5. Requires JCL and JCVL. This is the easiest way to use JCF. Just press a button and watch your code change. the other advantage is that if you don't like the results, by clicking "undo" twice immediately you can undo the format.
 \par 
-\par \b JcfIde9.bpl\b0  - The JCF Delphi IDE plug-in compiled for Delphi 2005. Otherwise as above.
+\par \b JCFIde6.bpl\b0  - The JCF Delphi IDE plug-in compiled for Delphi 6. Otherwise as above.
 \par 
-\par If anyone compiles the IDE pluggin for other versions of Delphi I will gladly upload the binaries to Sourceforge.
+\par \b JCFIde7.bpl\b0  - The JCF Delphi IDE plug-in compiled for Delphi 7. Otherwise as above.
 \par 
-\par \b JcfNotepad.exe\b0  is a gui for working with source and layout. Input source is loaded/typed/pasted into the input text area, and the formatter output is generated to the output text area, and can then be saved. Or not.\f1 
+\par \b JCFIde2005.bpl\b0  - The JCF Delphi IDE plug-in compiled for Delphi 2005. Otherwise as above.
+\par 
+\par \b JCFIde2006.bpl\b0  - The JCF Delphi IDE plug-in compiled for Delphi 2006. Otherwise as above.
+\par 
+\par \b JCFIde2007.bpl\b0  - The JCF Delphi IDE plug-in compiled for Delphi 2007. Otherwise as above.
+\par 
+\par If anyone compiles the IDE plug-in for other versions of Delphi I will gladly upload the binaries to SourceForge.
+\par 
+\par \b JCFNotepad.exe\b0  is a GUI for working with source and layout. Input source is loaded/typed/pasted into the input text area, and JCF output is generated to the output text area, and can then be saved. Or not.\f1 
 \par }
 15
 Scribble15
-Settings stored in registry and file
+Settings Stored in Registry and File
 
 
 
@@ -144,11 +152,11 @@ FALSE
 14
 {\rtf1\ansi\ansicpg1252\deff0\deflang2057{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil Arial;}{\f2\fswiss\fcharset0 Arial;}{\f3\fnil\fcharset0 Courier New;}{\f4\fswiss Arial;}{\f5\fnil\fcharset2 Symbol;}}
 {\colortbl ;\red0\green0\blue255;\red0\green0\blue0;}
-\viewkind4\uc1\pard\cf1\b\fs32 Settings stored in registry and file\cf2\b0\f1\fs20 
+\viewkind4\uc1\pard\cf1\b\fs32 Settings Stored in Registry and File\cf2\b0\f1\fs20 
 \par 
 \par \cf0\f2 Some settings are stored in the \b registry \b0 under\f3  \lang1031 HKEY_CURRENT_USER\\Software\\Jedi\\JediCodeFormat\f2 . These are per-user settings, mostly UI settings like recently used files, logging options, showing parse tree on error. The path to the configuration file is stored here.
 \par \f4 
-\par \f2 The \b configuration file\b0  has a default name of \f3 JcfSettings2.cfg\f2 . This file stores all the settings of how to format delphi source. The advantages of keeping this data in a file, not in the windows registry, are:
+\par \f2 The \b configuration file\b0  has a default name of \f3 JCFSettings.cfg\f2 . This file stores all the settings of how to format delphi source. The advantages of keeping this data in a file, not in the windows registry, are:
 \par \pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\fi240\li140\tx180 You can keep several different format profiles by keeping multiple files.
 \par {\pntext\f5\'B7\tab}Files can be exchanged by email and so on, and can be edited in notepad.
 \par {\pntext\f5\'B7\tab}You and your colleages can all use the same settings file, by keeping it on a network drive.
@@ -171,7 +179,7 @@ FALSE
 16
 {\rtf1\ansi\ansicpg1252\deff0\deflang2057{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil Arial;}{\f2\fswiss\fcharset0 Arial;}}
 {\colortbl ;\red0\green0\blue255;\red0\green0\blue0;}
-\viewkind4\uc1\pard\cf1\b\fs32 Registry Settings\cf2\b0\f1\fs20 
+\viewkind4\uc1\pard\cf1\b\fs32 General Registry Settings\cf2\b0\f1\fs20 
 \par 
 \par \cf0\lang3079\f2 These settings can be reached by clicking on the menu \b\i "Settings"\b0\i0  / \b\i "Registry settings"\b0\i0 , then change to the "General" tab.
 \par \cf2\lang2057\f1 
@@ -207,16 +215,16 @@ FALSE
 \par 
 \par \lang3079\f1 These settings can be reached by clicking on the menu \b\i "Settings"\b0\i0  / \b\i "Registry settings"\b0\i0 , then change to the "Log file" tab.\lang1031\f0 
 \par 
-\par The log is a text file that is written every time that the code formatter is run, detailing what it did in the run. It can useful to you as a user when\lang2057\f1  y\lang1031\f0 ou have just run a batch and want to see how many and which files were formatted\lang2057\f1 . \lang1031\f0 The run's warnings are listed in the log file.
+\par The log is a text file that is written every time that \lang1036\f1 JCF\lang1031\f0  is run, detailing what it did in the run. It can useful to you as a user when\lang2057\f1  y\lang1031\f0 ou have just run a batch and want to see how many and which files were formatted\lang2057\f1 . \lang1031\f0 The run's warnings are listed in the log file.
 \par 
 \par The log is also useful for debugging, as you can write to it from in the program. 
 \par 
 \par \b Log file detail level:\b0 
 \par \pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent200{\pntxtb\'B7}}\fi-200\li200\b Error\lang2057\f1 s only\lang1031\b0\f0 : write an entry into the log only when an error occurs or a warning is generated. Summary entries at the end of the run are also written.\lang2057\f1  \lang1031\f0 
-\par {\pntext\f2\'B7\tab}\b File\b0 : As error, also write a line for each file that is processed.
-\par {\pntext\f2\'B7\tab}\b Token\b0 : As File, also write an entry for each token in each file that is processed. This can be extremely verbose, and is useful only for debugging.
-\par {\pntext\f2\'B7\tab}\pard 
-\par \b Log file directory.\b0  The directory where the log file (called CodeFormat.log)\f1  \f0 is generated. The system temp, application or a user specified directory can\f1  \f0 be used.
+\par \b{\pntext\f2\'B7\tab}File\b0 : As error, also write a line for each file that is processed.
+\par \b{\pntext\f2\'B7\tab}Token\b0 : As File, also write an entry for each token in each file that is processed. This can be extremely verbose, and is useful only for debugging.
+\par \pard 
+\par \b Log file directory.\b0  The directory where the log file (called \lang1036\f1 Jedi\lang1031\f0 CodeFormat.log)\f1  \f0 is generated. The system temp, application or a user specified directory can\f1  \f0 be used.
 \par 
 \par \b Backup file extension:\b0  The extension for backup files (default .bak).
 \par \b Output file extension:\b0  The extension for backup files (default .out)
@@ -253,7 +261,7 @@ FALSE
 \par }
 30
 Scribble30
-Basic settings
+Basic Settings
 Basic settings
 
 
@@ -266,7 +274,7 @@ FALSE
 16
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fnil\fcharset0 Courier New;}{\f3\fnil\fcharset0 Arial;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green128\blue0;}
-\viewkind4\uc1\pard\cf1\b\f0\fs32 Basic settings\cf0\b0\fs20 
+\viewkind4\uc1\pard\cf1\b\f0\fs32 Basic Settings\cf0\b0\fs20 
 \par \cf2\{keepn\}
 \par 
 \par \{bmc \lang3079\f1 03\lang1031\f0 0\lang3079\f1 _Basic\lang1031\f0 .\lang3079\f1 gif\lang1031\f0\}\cf0 
@@ -282,7 +290,7 @@ FALSE
 \par }
 40
 Scribble40
-Format file
+Format File
 
 
 
@@ -295,9 +303,9 @@ FALSE
 7
 {\rtf1\ansi\ansicpg1252\deff0\deflang2057{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil Arial;}}
 {\colortbl ;\red0\green0\blue255;\red0\green0\blue0;}
-\viewkind4\uc1\pard\cf1\b\fs32 Format file
+\viewkind4\uc1\pard\cf1\b\fs32 Format File
 \par 
-\par \cf2\b0\fs20 This page of the JCF Format settings describes the format file location, if it is read-only, when it was written and by which version of the formatter. In the Description field you can enter any text about the file.
+\par \cf2\b0\fs20 This page of the JCF Format Settings describes the format file location, if it is read-only, when it was written and by which version of JCF. In the Description field you can enter any text about the file.
 \par \f1 
 \par }
 50
@@ -320,11 +328,11 @@ FALSE
 \par 
 \par \cf2\{bmc \lang3079\f1 0\lang1031\f0 50\lang3079\f1 _Obfuscate\lang1031\f0 .\lang3079\f1 gif\lang1031\f0\}\cf0 
 \par 
-\par Th\lang2057\f1 is page \cf3\f2 of the JCF Format settings \cf0\lang1031\f0 control\lang2057\f1 s\lang1031\f0  the obfuscate process. 
+\par Th\lang2057\f1 is page \cf3\f2 of the JCF Format Settings \cf0\lang1031\f0 control\lang2057\f1 s\lang1031\f0  the obfuscate process. 
 \par 
 \par "Obfuscate" means to make unclear. It is not useful for production code, except to see how bad code layout can be but still compile.\lang2057\f1  \lang1031\f0 You will want clarify not obfuscate.\lang2057\f1  \lang1031\f0 I did the obfuscation partly out of curiosity, partly as it is simple, and mostly to generate worst-case test units. 
 \par \lang2057\b\f1 
-\par Obfuscate\lang1031\f0  mode\b0  does everything wrong short of\lang2057\f1  \lang1031\f0 making semantic changes to your program. In spite of being unreadable, it will still\lang2057\f1  \lang1031\f0 compile as before.\lang2057\f1  This duplicates the obfuscate/clarify control on the \b JCFGui\b0  main page, but is needed for the \b JcfNotepad\b0  program and IDE pluggin.\lang1031\f0 
+\par Obfuscate\lang1031\f0  mode\b0  does everything wrong short of\lang2057\f1  \lang1031\f0 making semantic changes to your program. In spite of being unreadable, it will still\lang2057\f1  \lang1031\f0 compile as before.\lang2057\f1  This duplicates the obfuscate/clarify control on the \b JCFGui\b0  main page, but is needed for the \b JCFNotepad\b0  program and IDE plug-in.\lang1031\f0 
 \par 
 \par \b Obfuscate word caps:\b0  Delphi is not case sensitive, so case can be removed\lang2057\f1  \lang1031\f0 without affecting the compilation of your program.
 \par \b Remove white space:\b0  All unnecessary white space (i.e. almost all of it) will be\lang2057\f1  \lang1031\f0 removed.
@@ -353,7 +361,7 @@ FALSE
 \par \cf2\{keepn\}\cf0 
 \par 
 \par \b 
-\par \b0 Th\lang2057\f1 is page \cf3\f2 of the JCF Format settings \cf0\f1 has some misc. settings.\lang1031\f0 
+\par \b0 Th\lang2057\f1 is page \cf3\f2 of the JCF Format Settings \cf0\f1 has some misc. settings.\lang1031\f0 
 \par 
 \par \b Run \lang2057\f1 once-offs\lang1031\f0 :\b0  A flag for user code to hook into. If you write a custom processor,\f1  \f0 use\lang2057\f1  \lang1031\f0 this flag to turn it on and off.
 \par 
@@ -391,12 +399,12 @@ FALSE
 35
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fnil\fcharset0 Arial;}{\f3\fmodern Courier New;}{\f4\fswiss\fprq2\fcharset0 Arial;}{\f5\fnil\fcharset0 Courier New;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green0\blue0;}
-\viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\f0\fs32\{linkID=\f1 %\f0 60\}\cf1  Spaces\cf0\b0\fs20 
+\viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  Settings\cf2\strike0\f0\fs32\{linkID=\f1 %\f0 60\}\cf1  Spaces\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
 \par \cf2\{bmc 70.\lang3079\f1 gif\lang1031\f0\}\cf0 
 \par 
-\par Th\lang2057\f1 is page \cf3\f2 of the JCF Format settings controls formatting options to do with adding or removing spaces.
+\par Th\lang2057\f1 is page \cf3\f2 of the JCF Format Settings controls formatting options to do with adding or removing spaces.
 \par \cf0\lang1031\f0 
 \par \b Fix spacing:\b0  This turns on a set of rules that set a single space, or no\lang2057\f1  \lang1031\f0 space before or after certain tokens. For e.g., There is supposed to be no space\lang2057\f1  \lang1031\f0 between a procedure call and he bracket that starts its parameter list.
 \par 
@@ -439,12 +447,12 @@ FALSE
 41
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fnil\fcharset0 Arial;}{\f3\fmodern Courier New;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green0\blue0;}
-\viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Indentation\cf0\b0\fs20 
+\viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  Settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Indentation\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
 \par \cf2\{bmc \lang3079\f1 0\lang1031\f0 80\lang3079\f1 _Indentation\lang1031\f0 .\lang3079\f1 gif\lang1031\f0\}\cf0 
 \par 
-\par Th\lang2057\f1 is page \cf3\f2 of the JCF Format settings controls indentation, ie the number of spaces to the left of the line of code due to the block structure of the program.\cf0\lang1031\f0 
+\par Th\lang2057\f1 is page \cf3\f2 of the JCF Format Settings controls indentation, ie the number of spaces to the left of the line of code due to the block structure of the program.\cf0\lang1031\f0 
 \par 
 \par \i Indent:\i0  Do block indentation on \b global \b0 types and vars, \b class \b0 declarations and \b procedure \b0 bodies. The number of spaces per indentation level can be set, but 2 is standard. You can decide if you want this on in globals (i.e. variables, constants and types), in class declarations and in procedure bodies.
 \par 
@@ -480,7 +488,7 @@ FALSE
 \par }
 85
 Scribble85
-Clarify: Long Lines
+Clarify - Long Lines
 
 
 
@@ -493,9 +501,9 @@ FALSE
 12
 {\rtf1\ansi\ansicpg1252\deff0\deflang2057{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil Arial;}{\f2\fswiss Arial;}{\f3\fswiss\fcharset0 Arial;}}
 {\colortbl ;\red0\green0\blue255;\red0\green0\blue0;}
-\viewkind4\uc1\pard\cf1\b\fs32 Clarify: Long Lines\cf2\b0\f1\fs20 
+\viewkind4\uc1\pard\cf1\b\fs32 Clarify - Long Lines\cf2\b0\f1\fs20 
 \par 
-\par \cf0\lang1031\f2 Th\lang2057\f3 is page \cf2\f0 of the JCF Format settings controls the insertion of returns into long lines. When this is done, it should be done at the best place, ie near the end of the line and at an \cf0\lang1031\f2 aesthetically \lang2057\f3 pleasing place.\cf2\f0  \cf0\f3 Each place on the line is given a score\lang1031\f2  \lang2057\f3 based on how good it would be to break the line there.\cf2\f0 
+\par \cf0\lang1031\f2 Th\lang2057\f3 is page \cf2\f0 of the JCF Format Settings controls the insertion of returns into long lines. When this is done, it should be done at the best place, ie near the end of the line and at an \cf0\lang1031\f2 aesthetically \lang2057\f3 pleasing place.\cf2\f0  \cf0\f3 Each place on the line is given a score\lang1031\f2  \lang2057\f3 based on how good it would be to break the line there.\cf2\f0 
 \par \f1 
 \par \cf0\b\f3 B\lang1031\f2 reak l\lang2057\f3 ines that are longer than the max line length\lang1031\f2 :\b0  A line longer than the \lang2057\b\f3 max line length \lang1031\b0\f2 threshold (the standards recommend 80 chars) will be broken if possible.\lang2057\f3 
 \par \lang1031\f2 
@@ -518,12 +526,12 @@ FALSE
 47
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fnil\fcharset0 Arial;}{\f3\fnil\fcharset0 Courier New;}{\f4\fmodern Courier New;}{\f5\fmodern\fcharset0 Courier New;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green0\blue0;}
-\viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Returns\cf0\b0\fs20 
+\viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  Settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Returns\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
 \par \cf2\{bmc \lang3079\f1 0\lang1031\f0 90\lang3079\f1 _Returns\lang1031\f0 .\lang3079\f1 gif\lang1031\f0\}
 \par 
-\par \cf0 Th\lang2057\f1 is page \cf3\f2 of the JCF Format settings controls formatting by inserting or removing returns.\cf0\lang1031\f0 
+\par \cf0 Th\lang2057\f1 is page \cf3\f2 of the JCF Format Settings controls formatting by inserting or removing returns.\cf0\lang1031\f0 
 \par \lang2057\f1 
 \par \lang1031\b\f0 Insert returns, remove returns:\b0  These turn on a rules that set a single new line, double\lang3079\f1  \lang1031\f0 new line or no new line before or after certain tokens. For e.g., There is\lang3079\f1  \lang1031\f0 supposed to be a double new line after the \b\f3 interface \b0\f0 and \b\f3 implementation \b0\f0 keywords, so this is one of the misc. good places to have returns.\lang2057\f1  There should never be a return just before a semicolon, so this is one of the bad places to have returns.\lang1031\f0 
 \par 
@@ -654,12 +662,12 @@ FALSE
 39
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fnil\fcharset0 Arial;}{\f3\fnil\fcharset0 Courier New;}{\f4\fmodern Courier New;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green0\blue0;}
-\viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  \lang2057\f1 Case Blocks and \lang1031\f0 Blocks\cf0\b0\fs20 
+\viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  Settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  \lang2057\f1 Case Blocks and \lang1031\f0 Blocks\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
 \par \cf2\{bmc 100\lang3079\f1 _Blocks\lang1031\f0 .\lang3079\f1 gif\lang1031\f0\}\cf0 
 \par 
-\par \lang2057\f1 Case Blocks and Blocks. \lang1031\f0 Th\lang2057\f1 ese pages \cf3\f2 of the JCF Format settings controls line breaking around blocks of code.
+\par \lang2057\f1 Case Blocks and Blocks. \lang1031\f0 Th\lang2057\f1 ese pages \cf3\f2 of the JCF Format Settings controls line breaking around blocks of code.
 \par \cf0\lang1031\f0 
 \par A block is a group of statements,  \lang2057\f1 possibly\lang1031\f0  grouped inside a \f3 begin..end\lang2057\f1 .\lang1031\f0  I have also used this term to refer to circumstances where there is no begin .. end block, but a statement is owned by a compound statement, e.g an \f3 if \f0 or \f3 while \f0 statement. These options give you control over when to use a new line in blocks and owned statements.
 \par 
@@ -727,12 +735,12 @@ FALSE
 62
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fnil\fcharset0 Arial;}{\f3\fnil\fcharset0 Courier New;}{\f4\fnil\fcharset2 Symbol;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green0\blue0;}
-\viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Align\cf0\b0\fs20 
+\viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  Settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Align\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
 \par \cf2\{bmc 110.\lang3079\f1 gif\lang1031\f0\}\cf0 
 \par 
-\par Th\lang2057\f1 is page \cf3\f2 of the JCF Format settings controls \cf0\lang1031\f0 processes make you code look pretty by lining up code elements on successive lines. For e.g. this turns
+\par Th\lang2057\f1 is page \cf3\f2 of the JCF Format Settings controls \cf0\lang1031\f0 processes make you code look pretty by lining up code elements on successive lines. For e.g. this turns
 \par 
 \par \b\f3 var\b0 
 \par  a: integer;
@@ -805,7 +813,7 @@ FALSE
 \viewkind4\uc1\pard\cf1\lang2057\b\fs32 Clarify Comments\cf2\lang1033\b0\f1\fs20 
 \par 
 \par 
-\par \lang2057\f0 There are currently only two comment settings, to remove empty comments, can be turned on or off for empty comments delimited by \f2 //\f0  and by\f2  \{ \}\f0 . these will remove all comments of the specifed type that contain nothing but white space characters.
+\par \lang2057\f0 There are currently only two comment settings, to remove empty comments, can be turned on or off for empty comments delimited by \f2 //\f0  and by\f2  \{ \}\f0 . These will remove all comments of the specifed type that contain nothing but white space characters.
 \par \lang1033\f1 
 \par }
 120
@@ -823,10 +831,10 @@ FALSE
 19
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fnil\fcharset0 Arial;}{\f3\fnil\fcharset0 Courier;}{\f4\fmodern Courier New;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green0\blue0;}
-\viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Capitalisation\cf0\b0\fs20 
+\viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  Settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Capitalisation\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
-\par Th\lang2057\f1 is page \cf3\f2 of the JCF Format settings controls \cf0\lang1031\f0 controls capitalisation of Delphi syntax and of identifiers. Delphi syntax can be divided into \lang2057\f1 r\lang1031\f0 eserved words, operators, types, directives and constants. See the unit \i Wordmap.pas\i0  for the program's catalog of these words.
+\par Th\lang2057\f1 is page \cf3\f2 of the JCF Format Settings controls \cf0\lang1031\f0 controls capitalisation of Delphi syntax and of identifiers. Delphi syntax can be divided into \lang2057\f1 r\lang1031\f0 eserved words, operators, types, directives and constants. See the unit \i Wordmap.pas\i0  for the program's catalog of these words.
 \par 
 \par \b Capitalise Identifier\b0  \lang2057\f1 will give any specified word the given capitalisation in any \lang1031\f0 case where that textual token is used as an identifier - i.e. as the name of a variable, parameter, type, procedure, method, unit, etc. It is a list of words in their preferred capitalisation. Any identifier found in the source that matches an item in the list will be given this capitalisation. 
 \par 
@@ -842,7 +850,7 @@ FALSE
 \par }
 130
 Scribble130
-Clarify - Find and replace
+Clarify - Find and Replace
 Clarify - Find and replace
 
 
@@ -855,7 +863,7 @@ FALSE
 24
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fmodern Courier New;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;}
-\viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Find and replace\cf0\b0\fs20 
+\viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  Settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Find and \lang1036\f1 R\lang1031\f0 eplace\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
 \par \cf2\{bmc 130.\lang3079\f1 gif\lang1031\f0\}
@@ -922,7 +930,7 @@ FALSE
 {\colortbl ;\red0\green0\blue255;\red0\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\fs32 Preprocessor\cf2\b0\f1\fs20 
 \par 
-\par \cf0\lang1031\f2 Th\lang2057\f3 is page \cf2\f0 of the JCF Format settings controls preprocessor handling. Uncheck \b enabled \b0 for behaviour identical to previous versions.
+\par \cf0\lang1031\f2 Th\lang2057\f3 is page \cf2\f0 of the JCF Format Settings controls preprocessor handling. Uncheck \b enabled \b0 for behaviour identical to previous versions.
 \par 
 \par The preprocessor in Delphi is a set of symbols that start with \f4\{$\f0  and are used to turn on or turn off compilation or certain parts of the source. The preprocessor happens before the Delphi compiler, and is not part of the Object-Pascal syntax. This can be proved simply, as the following code compiles:
 \par 
@@ -980,7 +988,7 @@ FALSE
 \par }
 200
 Scribble200
-Command line parameters
+Command Line Parameters
 
 
 
@@ -993,7 +1001,7 @@ FALSE
 55
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil Arial;}{\f2\fnil\fcharset0 Courier New;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;}
-\viewkind4\uc1\pard\cf1\lang3079\b\fs32 Command line parameters\cf0\lang1031\b0\f1\fs20 
+\viewkind4\uc1\pard\cf1\lang3079\b\fs32 Command Line Parameters\cf0\lang1031\b0\f1\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
 \par \lang2057\f0 The commandline program \b JCF.exe\lang1031\b0\f1  is not a DOS program, but a 32-bit, windows console application. Almost all the code is common with the GUI program. 
@@ -1002,8 +1010,8 @@ FALSE
 \par 
 \par  Here is the help from the commandline program, ie the output of "jcf -?"
 \par 
-\par \b JEDI Code formatter\b0 
-\par  A Delphi Object-Pascal Source code formatter
+\par \b JEDI Code \lang1036\f0 Fo\lang1031\f1 rmat\lang1036\f0  (JCF)\lang1031\b0\f1 
+\par A Delphi Object-Pascal Source code formatter
 \par Syntax: \f2 jcf [options] path/filename
 \par \f1 Parameters to the command-line program: 
 \par 
@@ -1250,7 +1258,7 @@ FALSE
 \par \lang1031\f2 This documantation was made out of the web page provided by Anthony Steele on his webpage on
 \par \cf1\strike\f3 http://jedicodeformat.sourceforge.net/\cf2\strike0\{link=*! ExecFile("\cf1\strike http://jedicodeformat.sourceforge.net/\cf2\strike0 ")\}\lang2057\f4  \cf0\f5 and subsequently expanded upon. 
 \par 
-\par \lang1031\f2 Feel free to send additions/corrections, better explanations or whatever concerning this helpfile to \cf1\strike\f3 codeformat@spoonworx.com\cf2\strike0\{link=*! ExecFile("mailto:codeformat@spoonworx.com")\}\cf0\f2 . \lang3079\f5 You can also get the source for this helpfile from the Sourceforge SVN. The helpfile is created using HelpScribble, and you can use the free demo-version (available from the Helpscribble-homepage from \cf1\strike\f6 http://www.helpscribble.com\cf2\strike0\{link=*! ExecFile("http://www.helpscribble.com")\}\cf0\f5 ) to make changes to this helpfile. If you will send us your modified helpfile (the source), we will try to include your changes into the next possible release.
+\par \lang1031\f2 Feel free to send additions/corrections, better explanations or whatever concerning this helpfile to \cf1\strike\f3 codeformat@spoonworx.com\cf2\strike0\{link=*! ExecFile("mailto:codeformat@spoonworx.com")\}\cf0\f2 . \lang3079\f5 You can also get the source for this helpfile from the Sourceforge SVN. The helpfile is created using HelpScribble, and you can use the free demo-version (available from the HelpScribble home page from \cf1\strike\f6 http://www.helpscribble.com\cf2\strike0\{link=*! ExecFile("http://www.helpscribble.com")\}\cf0\f5 ) to make changes to this helpfile. If you will send us your modified helpfile (the source), we will try to include your changes into the next possible release.
 \par \lang1031\f2 
 \par \f5 C\f2 omments regarding the program should be sent to Anthony Steele (\cf1\strike\f3 anthonysteele@users.sourceforge.net\cf2\strike0\{link=*! ExecFile("anthonysteele@users.sourceforge.net")\}\cf0\f2 ).
 \par \lang3079\f1 

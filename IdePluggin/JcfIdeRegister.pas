@@ -234,6 +234,8 @@ begin
     AddMenuItem('-', nil);
     AddMenuItem(FORMAT_REG_SETTINGS_MENU_NAME, lcJCFIDE.DoRegistrySettings);
     AddMenuItem(FORMAT_SETTINGS_MENU_NAME, lcJCFIDE.DoFormatSettings);
+
+    AddMenuItem('-', nil);
     AddMenuItem(FORMAT_ABOUT_MENU_NAME, lcJCFIDE.DoAbout);
 
     // debug ShowMessage('menu add succeeded on try #' + IntToStr(miTries));
