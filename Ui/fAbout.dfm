@@ -426,6 +426,12 @@ object frmAboutBox: TfrmAboutBox
       Height = 20
       Cursor = crHandPoint
       Caption = 'hlHomePage'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
       Transparent = True
       WordWrap = True
       HotTrack = True

@@ -44,9 +44,9 @@ uses
 const
   NAME_MENU_TOOLS = 'ToolsMenu';
   FORMAT_MENU_NAME = 'JEDI Code &Format';
-  FORMAT_CURRENT_NAME = '&Current editor window';
-  FORMAT_PROJECT_NAME = '&All files in project';
-  FORMAT_OPEN_NAME = 'All &open windows';
+  FORMAT_CURRENT_NAME = '&Current Editor Window';
+  FORMAT_PROJECT_NAME = '&All Files in Project';
+  FORMAT_OPEN_NAME = 'All &Open Windows';
   FORMAT_REG_SETTINGS_MENU_NAME = '&Registry Settings';
   FORMAT_SETTINGS_MENU_NAME = '&Format Settings';
   FORMAT_ABOUT_MENU_NAME = '&About';

@@ -207,7 +207,7 @@ procedure TEditorConverter.WriteToIDE(const pcUnit: IOTASourceEditor; const psTe
 var
   lciEditorWriter: IOTAEditWriter;
   lsOriginalSource: string;
-  liSourcePos, liDestPos: integer;
+  liSourcePos{, liDestPos}: integer;
   lcSourceLines, lcDestLines: TStrings;
   lcSameStart, lcSameEnd: TSTrings;
   lsSourceLine, lsDestLine: string;
@@ -237,7 +237,7 @@ begin
     end;
 
     lciEditorWriter.CopyTo(liSourcePos);
-    liDestPos := liSourcePos;
+    //liDestPos := liSourcePos;
 
    { loop through all lines in in and out
     if they're the same, copy the line
@@ -258,7 +258,7 @@ begin
         lsDestLine := '';
 
       liSourcePos := liSourcePos + Length(lsSourceLine);
-      liDestPos := liDestPos + Length(lsDestLine);
+      //liDestPos := liDestPos + Length(lsDestLine);
 
       if AnsiSameStr(lsSourceLine, lsDestLine) then
       begin
