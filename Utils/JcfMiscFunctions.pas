@@ -30,7 +30,7 @@ under the License.
 
   This project uses very little in the way of internal function libs
   as most is covered by JCL
-  I was using ComponentFunctions from my Jedi VCL kit
+  I was using ComponentFunctions from my JEDI VCL kit
   however that is causing linkage problems with the IDE plugin - it is a package
   and 2 packages can't package the same stuff,
   also it creates version dependencies - it bombed with the different version

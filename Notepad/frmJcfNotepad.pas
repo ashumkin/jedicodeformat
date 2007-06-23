@@ -28,7 +28,7 @@ uses
   Windows, Messages, SysUtils, Classes, Controls, Forms,
   Dialogs, StdCtrls, ComCtrls, ExtCtrls, ActnList,
   Buttons, Menus, ShellAPI,
-  { Jedi }
+  { JEDI }
   JvMRUManager, JvMemo, JvComponent, JvExStdCtrls, JvFormPlacement, JvComponentBase,
   { local }
   JcfRegistrySettings, Converter;

@@ -2,19 +2,19 @@ HelpScribble project file.
 14
 ...
 0
-2
-JEDI Delphi Code Format
+1
+JEDI Code Format
 
 
 
 TRUE
 
-C:\Code\Jcf\Help\Images
+C:\Users\Jean-Fabien Connault\Documents\RAD Studio\Packages\JCF\Help\Images
 1
 BrowseButtons()
 0
 FALSE
-C:\Code\Jcf\Output\
+C:\Users\Jean-Fabien Connault\Documents\RAD Studio\Packages\JCF\Help\
 FALSE
 TRUE
 16777215
@@ -53,7 +53,7 @@ FALSE
 47
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fmodern Courier New;}{\f3\fnil\fcharset0 Arial;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green128\blue0;}
-\viewkind4\uc1\pard\cf1\b\f0\fs32 JEDI Code Format V\lang2057\f1 2.0\cf0\lang1031\b0\f0\fs20 
+\viewkind4\uc1\pard\cf1\b\f0\fs32 JEDI Code Format \lang1036\f1 (JCF) \lang2057 2.30\cf0\lang1031\b0\f0\fs20 
 \par \cf2\{keepn\}
 \par \cf0 
 \par This is the main \lang2057\f1 help\lang1031\f0  for the \lang2057\f1 JEDI Code Formatter\lang1031\f0 .\lang2057\f1  \lang1031\f0 The formatter can standardise all aspects of Delphi Object Pascal source code formatting, including indentation, spacing and capitalisation\lang2057\f1 .\lang1031\f0  \lang2057\f1 The formatter is intended to be able to format all compilable Delphi Source code. Source that does not compile cannot always be formatted correctly.\lang1031\f0 
@@ -96,7 +96,7 @@ FALSE
 \par \f1 
 \par Helpfile by \cf3\strike Ralf Steinhaeusser\cf2\strike0\{linkID=1000\}
 \par 
-\par \cf0\f3 Last change : 11.6.2005\f1 
+\par \cf0\f3 Last change : 23.6.2007\f1 
 \par }
 12
 Scribble12
@@ -1002,7 +1002,7 @@ FALSE
 \par 
 \par  Here is the help from the commandline program, ie the output of "jcf -?"
 \par 
-\par \b Jedi Code formatter\b0 
+\par \b JEDI Code formatter\b0 
 \par  A Delphi Object-Pascal Source code formatter
 \par Syntax: \f2 jcf [options] path/filename
 \par \f1 Parameters to the command-line program: 
