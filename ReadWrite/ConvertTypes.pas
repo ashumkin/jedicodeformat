@@ -21,6 +21,8 @@ under the License.
 
 unit ConvertTypes;
 
+{$I jedi.inc}
+
 interface
 
 { settings on how to convert
@@ -41,7 +43,15 @@ type
   TShowParseTreeOption = (eShowAlways, eShowOnError, eShowNever);
 
 const
-  REG_ROOT_KEY = '\Software\Jedi\JediCodeFormat';
+  OLD_REG_ROOT_KEY = '\Software\Jedi\JediCodeFormat';
+ {$IFDEF DELPHI4} REG_ROOT_KEY = '\Software\Borland\Delphi\4.0\Jedi\JCF'; {$ENDIF}
+ {$IFDEF DELPHI5} REG_ROOT_KEY = '\Software\Borland\Delphi\5.0\Jedi\JCF'; {$ENDIF}
+ {$IFDEF DELPHI6} REG_ROOT_KEY = '\Software\Borland\Delphi\6.0\Jedi\JCF'; {$ENDIF}
+ {$IFDEF DELPHI7} REG_ROOT_KEY = '\Software\Borland\Delphi\7.0\Jedi\JCF'; {$ENDIF}
+ {$IFDEF DELPHI8} REG_ROOT_KEY = '\Software\Borland\Delphi\8.0\Jedi\JCF'; {$ENDIF}
+ {$IFDEF DELPHI9} REG_ROOT_KEY = '\Software\Borland\BDS\3.0\Jedi\JCF'; {$ENDIF}
+ {$IFDEF DELPHI10} REG_ROOT_KEY = '\Software\Borland\BDS\4.0\Jedi\JCF'; {$ENDIF}
+ {$IFDEF DELPHI11} REG_ROOT_KEY = '\Software\Borland\BDS\5.0\Jedi\JCF'; {$ENDIF}
 
 const
   SOURCE_FILE_FILTERS =

@@ -28,7 +28,7 @@ interface
 { reader class for use in IDE pluggin - reads from editor interface }
 
 uses
-  { delphi - design time }ToolsApi,
+  { delphi design time }ToolsAPI,
   { local }CodeReader;
 
 type

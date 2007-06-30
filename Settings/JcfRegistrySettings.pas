@@ -16,7 +16,7 @@ unit JCFRegistrySettings;
 
 The Original Code is JcfRegistrySettings, released May 2003.
 The Initial Developer of the Original Code is Anthony Steele. 
-Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
+Portions created by Anthony Steele are Copyright (C) 1999-2007 Anthony Steele.
 All Rights Reserved. 
 Contributor(s): Anthony Steele. 
 
@@ -34,7 +34,7 @@ under the License.
 interface
 
 uses
-  { delphi }Registry, Classes,
+  { delphi }Windows, Registry, Classes,
   { local }ConvertTypes;
 
 type
@@ -45,21 +45,21 @@ type
 
   TJCFRegistrySettings = class(TObject)
   private
-    fcReg: TRegIniFile;
+    fcReg:     TRegIniFile;
     fbHasRead: boolean;
 
     { general settings }
     fShowParseTreeOption: TShowParseTreeOption;
 
     { ui settings }
-    fsFormatConfigFileName: string;
+    fsFormatConfigFileName:      string;
     fbFormatConfigNameSpecified: boolean;
 
-    fsLastSettingsPage: string;
+    fsLastSettingsPage:      string;
     feFormatFileWriteOption: TFormatFileWriteOption;
 
     {notepad settings }
-    fsInputDir: string;
+    fsInputDir:  string;
     fsOutputDir: string;
 
     { MRU files settings }
@@ -70,24 +70,24 @@ type
     feLogPlace: TLogPlace;
     fsSpecifiedDirectory: string;
     fbViewLogAfterRun: boolean;
-    fbLogTime: boolean;
+    fbLogTime:  boolean;
     fbLogStats: boolean;
 
     { file settings }
-    feBackupMode: TBackupMode;
-    feSourceMode: TSourceMode;
+    feBackupMode:      TBackupMode;
+    feSourceMode:      TSourceMode;
     fsBackupExtension, fsOutputExtension: string;
-    fsInput: string;
+    fsInput:           string;
     fcExclusionsFiles: TStringList;
-    fcExclusionsDirs: TStringList;
-    fbCheckMultiByteChars: Boolean;
+    fcExclusionsDirs:  TStringList;
+    fbCheckMultiByteChars: boolean;
 
     { this is ref not owned }
     fcMRUFiles: TStrings;
 
-    fbEditorIntegration: Boolean;
-    fbFormatBeforeSave: Boolean;
-    fbFormatAfterLoad: Boolean;
+    fbEditorIntegration: boolean;
+    fbFormatBeforeSave:  boolean;
+    fbFormatAfterLoad:   boolean;
 
     procedure ReadMRUFiles;
     procedure WriteMRUFiles;
@@ -107,64 +107,71 @@ type
     procedure ReadAll;
     procedure WriteAll;
 
-    property HasRead: boolean read fbHasRead;
+    property HasRead: boolean Read fbHasRead;
 
     { general settings }
-    property FormatConfigFileName: string read fsFormatConfigFileName write fsFormatConfigFileName;
-    property FormatConfigNameSpecified: boolean read fbFormatConfigNameSpecified;
+    property FormatConfigFileName: string Read fsFormatConfigFileName
+      Write fsFormatConfigFileName;
+    property FormatConfigNameSpecified: boolean Read fbFormatConfigNameSpecified;
 
-    property FormatFileWriteOption: TFormatFileWriteOption read feFormatFileWriteOption write feFormatFileWriteOption;
+    property FormatFileWriteOption: TFormatFileWriteOption
+      Read feFormatFileWriteOption Write feFormatFileWriteOption;
 
     { ui settings }
-    property ShowParseTreeOption: TShowParseTreeOption read fShowParseTreeOption write fShowParseTreeOption;
-    property LastSettingsPage: string read fsLastSettingsPage write fsLastSettingsPage;
+    property ShowParseTreeOption: TShowParseTreeOption
+      Read fShowParseTreeOption Write fShowParseTreeOption;
+    property LastSettingsPage: string Read fsLastSettingsPage Write fsLastSettingsPage;
 
     { notepad settings }
-    property InputDir: string read fsInputDir write fsInputDir;
-    property OutputDir: string read fsOutputDir write fsOutputDir;
+    property InputDir: string Read fsInputDir Write fsInputDir;
+    property OutputDir: string Read fsOutputDir Write fsOutputDir;
 
     { MRU files settings }
-    property MRUMaxItems: integer read fiMRUMaxItems write fiMRUMaxItems;
-    property MRUFiles: TStrings read fcMRUFiles write fcMRUFiles;
+    property MRUMaxItems: integer Read fiMRUMaxItems Write fiMRUMaxItems;
+    property MRUFiles: TStrings Read fcMRUFiles Write fcMRUFiles;
 
     { log settings }
     function LogDirectory: string;
     function LogFileName: string;
 
-    property LogLevel: TLogLevel read feLogLevel write feLogLevel;
-    property LogPlace: TLogPlace read feLogPlace write feLogPlace;
-    property SpecifiedDirectory: string read fsSpecifiedDirectory write fsSpecifiedDirectory;
+    property LogLevel: TLogLevel Read feLogLevel Write feLogLevel;
+    property LogPlace: TLogPlace Read feLogPlace Write feLogPlace;
+    property SpecifiedDirectory: string Read fsSpecifiedDirectory
+      Write fsSpecifiedDirectory;
 
-    property ViewLogAfterRun: boolean read fbViewLogAfterRun write fbViewLogAfterRun;
-    property LogTime: boolean read fbLogTime write fbLogTime;
-    property LogStats: boolean read fbLogStats write fbLogStats;
+    property ViewLogAfterRun: boolean Read fbViewLogAfterRun Write fbViewLogAfterRun;
+    property LogTime: boolean Read fbLogTime Write fbLogTime;
+    property LogStats: boolean Read fbLogStats Write fbLogStats;
 
     procedure ViewLog;
 
     { files settings }
-    property BackupMode: TBackupMode read feBackupMode write feBackupMode;
-    property SourceMode: TSourceMode read feSourceMode write feSourceMode;
-    property BackupExtension: string read GetBackupExtension write fsBackupExtension;
-    property OutputExtension: string read GetOutputExtension write fsOutputExtension;
-    property CheckMultiByteChars: Boolean read fbCheckMultiByteChars write fbCheckMultiByteChars;
+    property BackupMode: TBackupMode Read feBackupMode Write feBackupMode;
+    property SourceMode: TSourceMode Read feSourceMode Write feSourceMode;
+    property BackupExtension: string Read GetBackupExtension Write fsBackupExtension;
+    property OutputExtension: string Read GetOutputExtension Write fsOutputExtension;
+    property CheckMultiByteChars: boolean Read fbCheckMultiByteChars
+      Write fbCheckMultiByteChars;
 
     function GetOutputFileName(const psIn: string): string; overload;
-    function GetOutputFileName(const psIn: string; peMode: TBackupMode): string; overload;
+    function GetOutputFileName(const psIn: string; peMode: TBackupMode): string;
+      overload;
 
     function Output: string;
 
     function FileIsExcluded(const psFile: string): boolean;
     function DirIsExcluded(const psDir: string): boolean;
 
-    property Input: string read fsInput write fsInput;
+    property Input: string Read fsInput Write fsInput;
 
-    property ExclusionsFiles: TStringList read fcExclusionsFiles;
-    property ExclusionsDirs: TStringList read fcExclusionsDirs;
+    property ExclusionsFiles: TStringList Read fcExclusionsFiles;
+    property ExclusionsDirs: TStringList Read fcExclusionsDirs;
 
     { IDE integration settings }
-    property EditorIntegration: Boolean read fbEditorIntegration write fbEditorIntegration;
-    property FormatBeforeSave: Boolean read fbFormatBeforeSave write fbFormatBeforeSave;
-    property FormatAfterLoad: Boolean read fbFormatAfterLoad write fbFormatAfterLoad;
+    property EditorIntegration: boolean Read fbEditorIntegration
+      Write fbEditorIntegration;
+    property FormatBeforeSave: boolean Read fbFormatBeforeSave Write fbFormatBeforeSave;
+    property FormatAfterLoad: boolean Read fbFormatAfterLoad Write fbFormatAfterLoad;
   end;
 
 function GetRegSettings: TJCFRegistrySettings;
@@ -183,8 +190,8 @@ const
   REG_GENERAL_SECTION = 'General';
   REG_NOTEPAD_SECTION = 'NotepadSettings';
   REG_MRU_FILES_SECTION = 'MRUFiles';
-  REG_LOG_SECTION   = 'Log';
-  REG_UI_SECTION    = 'UI';
+  REG_LOG_SECTION = 'Log';
+  REG_UI_SECTION  = 'UI';
   REG_FILES_SECTION = 'Files';
   REG_IDE_SECTION = 'IDE';
 
@@ -211,7 +218,7 @@ const
 
   REG_EDITOR_INTEGRATION = 'EditorIntegration';
   REG_FORMAT_BEFORE_SAVE = 'FormatBeforeSave';
-  REG_FORMAT_AFTER_LOAD = 'FormatAfterLoad';
+  REG_FORMAT_AFTER_LOAD  = 'FormatAfterLoad';
 
 {
   file-based settings,  ie
@@ -223,10 +230,46 @@ begin
   Result := IncludeTrailingPathDelimiter(GetApplicationFolder) + 'JCFSettings.cfg';
 end;
 
-
 constructor TJCFRegistrySettings.Create;
+var
+  Registry: TRegistry;
 begin
   inherited;
+
+  // Move old registry content to new registry location if applicable
+  Registry := TRegistry.Create;
+  try
+    Registry.Access  := KEY_ALL_ACCESS;
+    Registry.RootKey := HKEY_CURRENT_USER;
+    if not (Registry.OpenKey(REG_ROOT_KEY, False)) then
+    begin
+      if (Registry.OpenKey(OLD_REG_ROOT_KEY, False)) then
+      begin
+        Registry.MoveKey(OLD_REG_ROOT_KEY, REG_ROOT_KEY, True);
+        Registry.CloseKey;
+        if (Registry.OpenKey('\Software\Jedi', False)) then
+        begin
+          if not Registry.HasSubKeys then
+          begin
+            Registry.CloseKey;
+            if (Registry.OpenKey('\Software', False)) then
+            begin
+              Registry.DeleteKey('Jedi');
+              Registry.CloseKey;
+            end;
+          end
+          else
+            Registry.CloseKey;
+        end;
+      end;
+    end
+    else
+      Registry.CloseKey;
+  finally
+    Registry.Free;
+  end;
+
+  // New registry location
   fcReg := TRegIniFile.Create(REG_ROOT_KEY);
 
   fcExclusionsFiles := TStringList.Create;
@@ -255,7 +298,7 @@ begin
 
   while True do
   begin
-    lsKey   := psKey + IntToStr(liCount);
+    lsKey := psKey + IntToStr(liCount);
     lsValue := fcReg.ReadString(psSection, lsKey, '');
     if lsValue = '' then
       break // done
@@ -326,7 +369,8 @@ end;
 procedure TJCFRegistrySettings.ReadAll;
 begin
   { general section }
-  fsFormatConfigFileName := fcReg.ReadString(REG_GENERAL_SECTION, 'FormatConfigFileName', '');
+  fsFormatConfigFileName := fcReg.ReadString(REG_GENERAL_SECTION,
+    'FormatConfigFileName', '');
   // was a config file specified
   fbFormatConfigNameSpecified := (fsFormatConfigFileName <> '');
 
@@ -335,8 +379,8 @@ begin
     fsFormatConfigFileName := GetDefaultSettingsFileName;
   end;
 
-  feFormatFileWriteOption := TFormatFileWriteOption(fcReg.ReadInteger(REG_GENERAL_SECTION,
-    'FormatFileWriteOption', Ord(eAlwaysWrite)));
+  feFormatFileWriteOption := TFormatFileWriteOption(
+    fcReg.ReadInteger(REG_GENERAL_SECTION, 'FormatFileWriteOption', Ord(eAlwaysWrite)));
 
   {notepad settings }
   InputDir  := fcReg.ReadString(REG_NOTEPAD_SECTION, 'InputDir', '');
@@ -347,9 +391,12 @@ begin
   ReadMRUFiles;
 
   { log section }
-  feLogLevel := TLogLevel(fcReg.ReadInteger(REG_LOG_SECTION, REG_LOG_LEVEL, Ord(eLogFiles)));
-  feLogPlace := TLogPlace(fcReg.ReadInteger(REG_LOG_SECTION, REG_LOG_PLACE, Ord(eLogTempDir)));
-  fsSpecifiedDirectory := fcReg.ReadString(REG_LOG_SECTION, REG_SPECIFIED_DIRECTORY, 'c:\');
+  feLogLevel := TLogLevel(fcReg.ReadInteger(REG_LOG_SECTION, REG_LOG_LEVEL,
+    Ord(eLogFiles)));
+  feLogPlace := TLogPlace(fcReg.ReadInteger(REG_LOG_SECTION, REG_LOG_PLACE,
+    Ord(eLogTempDir)));
+  fsSpecifiedDirectory := fcReg.ReadString(REG_LOG_SECTION,
+    REG_SPECIFIED_DIRECTORY, 'c:\');
   fbViewLogAfterRun := fcReg.ReadBool(REG_LOG_SECTION, REG_VIEW_LOG_AFTER_RUN, False);
   fbLogTime  := fcReg.ReadBool(REG_LOG_SECTION, REG_LOG_TIME, False);
   fbLogStats := fcReg.ReadBool(REG_LOG_SECTION, REG_LOG_STATS, False);
@@ -372,7 +419,8 @@ begin
   ReadStrings(REG_FILES_SECTION, REG_EXCLUSIONS_FILES, fcExclusionsFiles);
   ReadStrings(REG_FILES_SECTION, REG_EXCLUSIONS_DIRS, fcExclusionsDirs);
 
-  fbCheckMultiByteChars := fcReg.ReadBool(REG_FILES_SECTION, REG_CHECK_MULTIBYTE_CHARS, False);
+  fbCheckMultiByteChars := fcReg.ReadBool(REG_FILES_SECTION,
+    REG_CHECK_MULTIBYTE_CHARS, False);
 
   { IDE }
   fbEditorIntegration := fcReg.ReadBool(REG_IDE_SECTION, REG_EDITOR_INTEGRATION, False);
@@ -387,7 +435,8 @@ procedure TJCFRegistrySettings.WriteAll;
 begin
   { general section }
   fcReg.WriteString(REG_GENERAL_SECTION, 'FormatConfigFileName', fsFormatConfigFileName);
-  fcReg.WriteInteger(REG_GENERAL_SECTION, 'FormatFileWriteOption', Ord(feFormatFileWriteOption));
+  fcReg.WriteInteger(REG_GENERAL_SECTION, 'FormatFileWriteOption',
+    Ord(feFormatFileWriteOption));
 
   { notepad section }
   fcReg.WriteString(REG_NOTEPAD_SECTION, 'InputDir', InputDir);
@@ -475,7 +524,7 @@ end;
 
 function TJCFRegistrySettings.DirIsExcluded(const psDir: string): boolean;
 var
-  liPos:     integer;
+  liPos: integer;
   lsBareDir: string;
 begin
   { exact match  }
@@ -487,7 +536,7 @@ begin
     if liPos > 0 then
     begin
       lsBareDir := StrRestOf(psDir, liPos + 1);
-      Result    := (fcExclusionsDirs.IndexOf(lsBareDir) >= 0);
+      Result := (fcExclusionsDirs.IndexOf(lsBareDir) >= 0);
     end;
   end;
 end;
@@ -503,7 +552,7 @@ begin
   begin
     // no exact match? then extract the bare file name - no path or ext
     lsBareFile := PathExtractFileNameNoExt(psFile);
-    Result     := (fcExclusionsFiles.IndexOf(lsBareFile) >= 0);
+    Result := (fcExclusionsFiles.IndexOf(lsBareFile) >= 0);
   end;
 end;
 

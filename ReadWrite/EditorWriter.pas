@@ -26,7 +26,7 @@ interface
 { writer class for use in IDE pluggin - writes to the editor interface }
 
 uses
-  { delphi design time }ToolsApi,
+  { delphi design time }ToolsAPI,
   { local }CodeWriter;
 
 type
