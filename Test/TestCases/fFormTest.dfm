@@ -12,6 +12,7 @@ object FormTest: TFormTest
   Font.Name = 'Segoe UI'
   Font.Style = []
   OldCreateOrder = False
+  Scaled = False
   PixelsPerInch = 120
   TextHeight = 20
   object bbClose: TBitBtn

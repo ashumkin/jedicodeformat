@@ -11,6 +11,7 @@ object Form1: TForm1
   Font.Name = 'Segoe UI'
   Font.Style = []
   OldCreateOrder = False
+  Scaled = False
   PixelsPerInch = 120
   TextHeight = 20
   object Button1: TButton

@@ -13,6 +13,7 @@ object fmJCFNotepad: TfmJCFNotepad
   KeyPreview = True
   Menu = MainMenu1
   OldCreateOrder = False
+  Scaled = False
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnKeyUp = FormKeyUp

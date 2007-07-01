@@ -18,6 +18,7 @@ object frmMain: TfrmMain
   KeyPreview = True
   Menu = mnuMain
   OldCreateOrder = False
+  Scaled = False
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnKeyUp = FormKeyUp

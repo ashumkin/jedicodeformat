@@ -14,6 +14,7 @@ object frmShowParseTree: TfrmShowParseTree
   KeyPreview = True
   OldCreateOrder = False
   Position = poOwnerFormCenter
+  Scaled = False
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
   OnShow = FormShow
@@ -25,8 +26,6 @@ object frmShowParseTree: TfrmShowParseTree
     Width = 581
     Height = 25
     Panels = <>
-    ExplicitTop = 521
-    ExplicitWidth = 436
   end
   object pnlTop: TPanel
     Left = 0
@@ -70,31 +69,30 @@ object frmShowParseTree: TfrmShowParseTree
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitTop = 471
     object lblCurrent: TLabel
       Left = 11
-      Top = 7
+      Top = 2
       Width = 51
       Height = 20
       Caption = 'Current:'
     end
     object lblDepth: TLabel
       Left = 11
-      Top = 31
+      Top = 26
       Width = 44
       Height = 20
       Caption = 'Depth:'
     end
     object lblTotalNodeCount: TLabel
       Left = 271
-      Top = 31
+      Top = 26
       Width = 116
       Height = 20
       Caption = 'Total node count:'
     end
     object lblImmediateChildCount: TLabel
       Left = 271
-      Top = 7
+      Top = 2
       Width = 152
       Height = 20
       Caption = 'Immediate child count:'
@@ -108,18 +106,13 @@ object frmShowParseTree: TfrmShowParseTree
     ActivePage = tsTokens
     Align = alClient
     TabOrder = 3
-    ExplicitHeight = 386
     object tsTokens: TTabSheet
       Caption = 'Tokens'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 375
-      ExplicitHeight = 127
       object lvTokens: TListView
         Left = 0
         Top = 0
-        Width = 571
-        Height = 345
+        Width = 573
+        Height = 360
         Align = alClient
         Columns = <
           item
@@ -145,10 +138,6 @@ object frmShowParseTree: TfrmShowParseTree
     object tsTree: TTabSheet
       Caption = 'Tree'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object tvParseTree: TTreeView
         Left = 0
         Top = 0
@@ -162,8 +151,6 @@ object frmShowParseTree: TfrmShowParseTree
         TabOrder = 0
         OnChange = tvParseTreeChange
         OnDblClick = tvParseTreeDblClick
-        ExplicitWidth = 571
-        ExplicitHeight = 339
       end
     end
   end

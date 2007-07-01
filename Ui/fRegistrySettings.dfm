@@ -14,6 +14,7 @@ object fmRegistrySettings: TfmRegistrySettings
   KeyPreview = True
   OldCreateOrder = False
   Position = poScreenCenter
+  Scaled = False
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
   OnResize = FormResize
@@ -116,6 +117,10 @@ object fmRegistrySettings: TfmRegistrySettings
     object tsLogFile: TTabSheet
       Caption = '&Log file'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object sbSpecifedDir: TSpeedButton
         Left = 180
         Top = 195
@@ -215,6 +220,10 @@ object fmRegistrySettings: TfmRegistrySettings
       Caption = '&Exclusions'
       ImageIndex = 2
       OnResize = tsExclusionsResize
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lblFilesCaption: TLabel
         Left = 11
         Top = 5
@@ -253,6 +262,10 @@ object fmRegistrySettings: TfmRegistrySettings
     object tsIde: TTabSheet
       Caption = 'IDE'
       ImageIndex = 3
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object cbEditorIntegration: TCheckBox
         Left = 11
         Top = 15

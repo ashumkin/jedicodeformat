@@ -14,6 +14,7 @@ object frmAboutBox: TfrmAboutBox
   KeyPreview = True
   OldCreateOrder = True
   Position = poScreenCenter
+  Scaled = False
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
   OnResize = FormResize

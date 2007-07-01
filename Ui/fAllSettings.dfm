@@ -15,6 +15,7 @@ object FormAllSettings: TFormAllSettings
   KeyPreview = True
   OldCreateOrder = False
   Position = poScreenCenter
+  Scaled = False
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
