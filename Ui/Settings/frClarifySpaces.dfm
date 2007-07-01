@@ -143,7 +143,7 @@ inherited fClarifySpaces: TfClarifySpaces
     Left = 8
     Top = 244
     Width = 457
-    Height = 70
+    Height = 78
     Caption = '&Tab characters'
     TabOrder = 3
     object Label1: TLabel
@@ -208,8 +208,8 @@ inherited fClarifySpaces: TfClarifySpaces
     end
   end
   object cbMaxSpaces: TCheckBox
-    Left = 8
-    Top = 324
+    Left = 14
+    Top = 332
     Width = 179
     Height = 17
     Caption = '&Max spaces in code'
@@ -217,9 +217,9 @@ inherited fClarifySpaces: TfClarifySpaces
     OnClick = cbMaxSpacesClick
   end
   object edtMaxSpacesInCode: TJvValidateEdit
-    Left = 189
-    Top = 320
-    Width = 49
+    Left = 195
+    Top = 328
+    Width = 50
     Height = 28
     CriticalPoints.MaxValueIncluded = False
     CriticalPoints.MinValueIncluded = False

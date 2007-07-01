@@ -31,10 +31,10 @@ inherited fFiles: TfFiles
   end
   object lblDescription: TLabel
     Left = 8
-    Top = 108
-    Width = 76
+    Top = 114
+    Width = 79
     Height = 20
-    Caption = 'Description'
+    Caption = 'Description:'
   end
   object lblFormatFileName: TLabel
     Left = 8

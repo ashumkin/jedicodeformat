@@ -16,7 +16,7 @@ inherited fClarifyBlocks: TfClarifyBlocks
   end
   object rgBlockBegin: TRadioGroup
     Left = 8
-    Top = 40
+    Top = 30
     Width = 149
     Height = 89
     Caption = 'Block with begin'
@@ -28,7 +28,7 @@ inherited fClarifyBlocks: TfClarifyBlocks
   end
   object rgBlock: TRadioGroup
     Left = 163
-    Top = 40
+    Top = 30
     Width = 162
     Height = 89
     Caption = 'Block without begin'
@@ -40,7 +40,7 @@ inherited fClarifyBlocks: TfClarifyBlocks
   end
   object rgEndElse: TRadioGroup
     Left = 163
-    Top = 137
+    Top = 127
     Width = 162
     Height = 89
     Caption = 'Between end and else'
@@ -52,7 +52,7 @@ inherited fClarifyBlocks: TfClarifyBlocks
   end
   object rgElseIf: TRadioGroup
     Left = 8
-    Top = 137
+    Top = 127
     Width = 149
     Height = 89
     Caption = 'Between else and if'
@@ -64,7 +64,7 @@ inherited fClarifyBlocks: TfClarifyBlocks
   end
   object rgElseBegin: TRadioGroup
     Left = 8
-    Top = 232
+    Top = 222
     Width = 149
     Height = 89
     Caption = 'Else begin'
