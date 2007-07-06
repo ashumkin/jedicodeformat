@@ -84,7 +84,7 @@ object fmRegistrySettings: TfmRegistrySettings
       object rgShowParseTree: TRadioGroup
         Left = 11
         Top = 139
-        Width = 228
+        Width = 268
         Height = 92
         Caption = 'Show parse &tree during parse'
         Items.Strings = (
@@ -96,7 +96,7 @@ object fmRegistrySettings: TfmRegistrySettings
       object rgWriteSettingsFile: TRadioGroup
         Left = 11
         Top = 39
-        Width = 228
+        Width = 268
         Height = 94
         Caption = '&Write settings file'
         Items.Strings = (
@@ -106,9 +106,9 @@ object fmRegistrySettings: TfmRegistrySettings
         TabOrder = 4
       end
       object cbCheckMultibyteChars: TCheckBox
-        Left = 267
-        Top = 55
-        Width = 238
+        Left = 296
+        Top = 49
+        Width = 200
         Height = 20
         Caption = 'Check for &Multibyte chars'
         TabOrder = 5
@@ -117,10 +117,6 @@ object fmRegistrySettings: TfmRegistrySettings
     object tsLogFile: TTabSheet
       Caption = '&Log file'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object sbSpecifedDir: TSpeedButton
         Left = 180
         Top = 195
@@ -220,23 +216,19 @@ object fmRegistrySettings: TfmRegistrySettings
       Caption = '&Exclusions'
       ImageIndex = 2
       OnResize = tsExclusionsResize
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object lblFilesCaption: TLabel
         Left = 11
         Top = 5
-        Width = 321
+        Width = 324
         Height = 20
-        Caption = 'Individual files to exclude from batch processing'
+        Caption = 'Individual files to exclude from batch processing:'
       end
       object lblDirsCaption: TLabel
         Left = 11
-        Top = 145
-        Width = 297
+        Top = 148
+        Width = 300
         Height = 20
-        Caption = 'Directories to exclude from batch processing'
+        Caption = 'Directories to exclude from batch processing:'
       end
       object mFiles: TJvMemo
         Left = 11
@@ -249,9 +241,9 @@ object fmRegistrySettings: TfmRegistrySettings
         TabOrder = 0
       end
       object mDirs: TJvMemo
-        Left = 3
+        Left = 11
         Top = 168
-        Width = 750
+        Width = 742
         Height = 119
         AutoSize = False
         MaxLines = 0
@@ -262,10 +254,6 @@ object fmRegistrySettings: TfmRegistrySettings
     object tsIde: TTabSheet
       Caption = 'IDE'
       ImageIndex = 3
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object cbEditorIntegration: TCheckBox
         Left = 11
         Top = 15

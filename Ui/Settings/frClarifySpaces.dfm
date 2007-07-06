@@ -31,42 +31,42 @@ inherited fClarifySpaces: TfClarifySpaces
     Caption = 'Spaces &before colon in'
     TabOrder = 2
     object Label2: TLabel
-      Left = 6
+      Left = 8
       Top = 24
       Width = 175
       Height = 20
       Caption = '&Var and const declarations'
     end
     object Label4: TLabel
-      Left = 6
+      Left = 8
       Top = 108
       Width = 96
       Height = 20
       Caption = '&Class variables'
     end
     object Label7: TLabel
-      Left = 6
+      Left = 8
       Top = 80
       Width = 138
       Height = 20
       Caption = '&Function return types'
     end
     object Label8: TLabel
-      Left = 6
+      Left = 8
       Top = 52
       Width = 146
       Height = 20
       Caption = '&Procedure parameters'
     end
     object Label5: TLabel
-      Left = 6
+      Left = 8
       Top = 136
       Width = 68
       Height = 20
       Caption = 'Case l&abel'
     end
     object Label6: TLabel
-      Left = 6
+      Left = 8
       Top = 164
       Width = 36
       Height = 20
@@ -148,21 +148,21 @@ inherited fClarifySpaces: TfClarifySpaces
     TabOrder = 3
     object Label1: TLabel
       Left = 240
-      Top = 20
+      Top = 22
       Width = 98
       Height = 20
       Caption = 'Spaces per tab'
     end
     object Label3: TLabel
       Left = 240
-      Top = 42
+      Top = 44
       Width = 95
       Height = 20
       Caption = 'Spaces for tab'
     end
     object cbTabsToSpaces: TCheckBox
       Left = 6
-      Top = 22
+      Top = 24
       Width = 175
       Height = 17
       Caption = 'Turn tabs to spaces'
@@ -171,7 +171,7 @@ inherited fClarifySpaces: TfClarifySpaces
     end
     object cbSpacesToTabs: TCheckBox
       Left = 6
-      Top = 44
+      Top = 46
       Width = 175
       Height = 17
       Caption = 'Turn spaces to tabs'
@@ -180,7 +180,7 @@ inherited fClarifySpaces: TfClarifySpaces
     end
     object edtSpacesPerTab: TJvValidateEdit
       Left = 356
-      Top = 18
+      Top = 20
       Width = 49
       Height = 28
       CriticalPoints.MaxValueIncluded = False
@@ -194,7 +194,7 @@ inherited fClarifySpaces: TfClarifySpaces
     end
     object edtSpacesForTab: TJvValidateEdit
       Left = 356
-      Top = 42
+      Top = 44
       Width = 49
       Height = 28
       CriticalPoints.MaxValueIncluded = False
@@ -250,7 +250,7 @@ inherited fClarifySpaces: TfClarifySpaces
     Caption = '&Insert space before bracket'
     TabOrder = 7
     object cbInsertSpaceBeforeBracketinFunctionDeclaration: TCheckBox
-      Left = 3
+      Left = 8
       Top = 26
       Width = 181
       Height = 17
@@ -258,7 +258,7 @@ inherited fClarifySpaces: TfClarifySpaces
       TabOrder = 0
     end
     object cbInsertSpaceBeforeBracketinFunctionCall: TCheckBox
-      Left = 3
+      Left = 8
       Top = 47
       Width = 181
       Height = 17
@@ -266,7 +266,7 @@ inherited fClarifySpaces: TfClarifySpaces
       TabOrder = 1
     end
     object cbBeforeOpenSquareBracketInExpression: TCheckBox
-      Left = 3
+      Left = 8
       Top = 68
       Width = 182
       Height = 17

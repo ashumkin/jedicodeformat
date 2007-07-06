@@ -11,9 +11,9 @@ inherited fReplace: TfReplace
   object lblWordList: TLabel
     Left = 8
     Top = 28
-    Width = 60
+    Width = 63
     Height = 20
-    Caption = 'Word list'
+    Caption = 'Word list:'
   end
   object cbEnable: TCheckBox
     Left = 8

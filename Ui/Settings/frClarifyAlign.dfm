@@ -104,7 +104,7 @@ inherited fClarifyAlign: TfClarifyAlign
     Caption = 'What to Align'
     TabOrder = 1
     object cbAlignAsign: TCheckBox
-      Left = 6
+      Left = 8
       Top = 23
       Width = 80
       Height = 17
@@ -112,7 +112,7 @@ inherited fClarifyAlign: TfClarifyAlign
       TabOrder = 0
     end
     object cbAlignConst: TCheckBox
-      Left = 6
+      Left = 8
       Top = 46
       Width = 71
       Height = 17
@@ -120,7 +120,7 @@ inherited fClarifyAlign: TfClarifyAlign
       TabOrder = 1
     end
     object cbAlignVar: TCheckBox
-      Left = 6
+      Left = 8
       Top = 69
       Width = 151
       Height = 17
@@ -128,7 +128,7 @@ inherited fClarifyAlign: TfClarifyAlign
       TabOrder = 2
     end
     object cbAlignTypedef: TCheckBox
-      Left = 6
+      Left = 8
       Top = 115
       Width = 203
       Height = 17
@@ -136,7 +136,7 @@ inherited fClarifyAlign: TfClarifyAlign
       TabOrder = 3
     end
     object cbAlignComment: TCheckBox
-      Left = 6
+      Left = 8
       Top = 138
       Width = 203
       Height = 17
@@ -144,7 +144,7 @@ inherited fClarifyAlign: TfClarifyAlign
       TabOrder = 4
     end
     object cbAlignField: TCheckBox
-      Left = 6
+      Left = 8
       Top = 92
       Width = 203
       Height = 17
