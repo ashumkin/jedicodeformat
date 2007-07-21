@@ -161,7 +161,9 @@ uses
   TestAsmOps in 'TestAsmOps.pas',
   TestComplexAsm2 in 'TestComplexAsm2.pas',
   TestSubrangeType in 'TestSubrangeType.pas',
-  TestAmpersand in 'TestAmpersand.pas';
+  TestAmpersand in 'TestAmpersand.pas',
+  TestAutomated in 'TestAutomated.pas',
+  TestClassMethods in 'TestClassMethods.pas';
 
 {$R *.res}
 

@@ -28,8 +28,7 @@ type
     class var
     FData: integer;
   public
-    class
-    property Data: integer Read GetData Write SetData;
+    class property Data: integer Read GetData Write SetData;
   end;
 
 type

@@ -303,7 +303,7 @@ begin
       liIndentCount := 2;
 
     // run on lines in properties
-    if pt.HasParentNode(nProperty) and (not (pt.TokenType  in [ttProperty, ttComment])) then
+    if pt.HasParentNode(nProperty) and (not (pt.TokenType  in [ttProperty, ttComment, ttClass])) then
       Inc(liIndentCount);
 
     // run on lines in procs

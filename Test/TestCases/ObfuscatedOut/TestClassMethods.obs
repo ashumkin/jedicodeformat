@@ -1,0 +1,6 @@
+unit testclassmethods;interface type tfooform=class private class var fish:integer
+;class function getwibble:integer;static;public class function foo:boolean;class 
+procedure bar;class property wibble:integer read getwibble;end;implementation class
+procedure tfooform.bar;begin inc(fish);end;class function tfooform.foo:boolean;begin
+result:=true;end;class function tfooform.getwibble:integer;begin result:=fish;end
+;end. 

@@ -257,6 +257,8 @@ type
     procedure TestLabelKeyword;
     procedure TestSubrangeType;
     procedure TestAmpersand;
+    procedure TestAutomated;
+    procedure TestClassMethods;
 
     procedure TestDelphiNetLibrary;
 
@@ -520,6 +522,11 @@ end;
 procedure TTestObfuscate.TestClassLines;
 begin
   TestObfuscateFile('TestClassLines');
+end;
+
+procedure TTestObfuscate.TestClassMethods;
+begin
+  TestObfuscateFile('TestClassMethods');
 end;
 
 procedure TTestObfuscate.TestCommentIndent;
@@ -901,6 +908,11 @@ end;
 procedure TTestObfuscate.TestAtExpr;
 begin
   TestObfuscateFile('TestAtExpr');
+end;
+
+procedure TTestObfuscate.TestAutomated;
+begin
+  TestObfuscateFile('TestAutomated');
 end;
 
 procedure TTestObfuscate.TestAsmStructs;

@@ -59,7 +59,7 @@ function GetBlockType(const pcNode: TParseTreeNode): string;
 function ExtractNameFromFunctionHeading(const pcNode: TParseTreeNode;
   const pbFullName: boolean): string;
 
-function IsClassFunction(const pt: TSourceToken): boolean;
+function IsClassFunctionOrProperty(const pt: TSourceToken): boolean;
 
 function RHSExprEquals(const pt: TSourceToken): boolean;
 
@@ -360,10 +360,11 @@ begin
   end;
 end;
 
-function IsClassFunction(const pt: TSourceToken): boolean;
+function IsClassFunctionOrProperty(const pt: TSourceToken): boolean;
 begin
-  Result := pt.IsOnRightOf(ProcedureHeadings, [ttClass]);
+  Result := pt.IsOnRightOf(ProcedureHeadings + [nProperty], [ttClass]);
 end;
+
 
 function RHSExprEquals(const pt: TSourceToken): boolean;
 begin

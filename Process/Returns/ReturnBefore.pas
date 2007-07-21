@@ -150,7 +150,7 @@ begin
   if (pt.TokenType in ProcedureWords) and
     (not pt.IsOnRightOf(nTypeDecl, ttEquals)) and
     (not pt.HasParentNode(nProcedureType, 2)) and 
-    (not IsClassFunction(pt)) and
+    (not IsClassFunctionOrProperty(pt)) and
     (ProcedureHasBody(pt)) and
     (not IsIdentifier(pt, idAny)) then
   begin
@@ -282,7 +282,7 @@ begin
   { procedure & function in class def get return but not blank line before }
   if (pt.TokenType in ProcedureWords + [ttProperty]) and
     (pt.HasParentNode([nClassType, nClassType])) and
-    ( not IsClassFunction(pt)) then
+    (not IsClassFunctionOrProperty(pt)) then
   begin
     Result := True;
     exit;
@@ -290,7 +290,7 @@ begin
 
   { nested procs and top level procs get it as well }
   if (pt.TokenType in ProcedureWords) and
-    (not IsClassFunction(pt)) and
+    (not IsClassFunctionOrProperty(pt)) and
     (not pt.HasParentNode(nType)) and
     (not IsIdentifier(pt, idAny)) then
   begin
@@ -299,7 +299,7 @@ begin
   end;
 
   { start of class function decl in class }
-  if (pt.TokenType = ttClass) and pt.HasParentNode([nProcedureDecl, nFunctionDecl]) and
+  if (pt.TokenType = ttClass) and pt.HasParentNode([nProcedureDecl, nFunctionDecl, nProperty]) and
     pt.HasParentNode(nClassDeclarations) and
     ( not pt.HasParentNode([nVarDecl, nConstDecl])) then
   begin

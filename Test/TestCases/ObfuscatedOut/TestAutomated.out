@@ -1,0 +1,36 @@
+unit testautomated;
+
+interface
+
+type
+  tpublicandautomated = class
+  public
+    function publicmethod: boolean;
+  automated
+    function auomatedmethod: wordbool; dispid 1;
+  end;
+
+  tautomatedonly = class
+  automated
+    function auomatedmethod: wordbool; dispid 1;
+  end;
+
+implementation
+
+function tpublicandautomated.auomatedmethod: wordbool;
+begin
+  Result := True;
+end;
+
+function tpublicandautomated.publicmethod: boolean;
+begin
+  Result := True;
+end;
+
+function tautomatedonly.auomatedmethod: wordbool;
+begin
+  Result := True;
+end;
+
+end.
+ 

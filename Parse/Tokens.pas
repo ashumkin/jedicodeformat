@@ -328,7 +328,7 @@ const
     [ttPrivate, ttProtected, ttPublic, ttPublished, ttAutomated];
 
   ProcedureDirectives: TTokenTypeSet = [ttExternal, ttPascal, ttSafecall, ttAbstract,
-    ttAutomated, ttFar, ttStdcall, ttAssembler, ttInline, ttForward,
+    ttFar, ttStdcall, ttAssembler, ttInline, ttForward,
     ttVirtual, ttCdecl, ttMessage, ttName, ttRegister, ttDispId,
     ttNear, ttDynamic, ttExport, ttOverride, ttResident, ttLocal,
     ttOverload, ttReintroduce,

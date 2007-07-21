@@ -3885,7 +3885,6 @@ begin
             RecogniseClassVars;
           ttProperty:
           begin
-            Recognise(ttClass);
             RecogniseProperty;
           end;
           ttConstructor:
@@ -3965,6 +3964,10 @@ begin
     -> Property Ident;
   }
   PushNode(nProperty);
+
+  // class property
+  if  fcTokenList.FirstSolidTokenType = ttClass then
+    Recognise(ttClass);
 
   Recognise(ttProperty);
 

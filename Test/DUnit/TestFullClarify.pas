@@ -256,6 +256,9 @@ type
 
     procedure TestSubrangeType;
     procedure TestAmpersand;
+    procedure TestAutomated;
+    procedure TestClassMethods;
+
     procedure TestDelphiNetLibrary;
 
     procedure TestCases;
@@ -543,7 +546,7 @@ end;
 
 procedure TFullTestClarify.TestCases;
 begin
-  TestClarifyFile('TestCases.dpr', 1333);
+  TestClarifyFile('TestCases.dpr', 1349);
 end;
 
 procedure TFullTestClarify.TestCast;
@@ -564,6 +567,11 @@ end;
 procedure TFullTestClarify.TestClassLines;
 begin
   TestClarifyFile('TestClassLines', 71);
+end;
+
+procedure TFullTestClarify.TestClassMethods;
+begin
+  TestClarifyFile('TestClassMethods', 176);
 end;
 
 procedure TFullTestClarify.TestCommentIndent;
@@ -929,6 +937,11 @@ end;
 procedure TFullTestClarify.TestAtExpr;
 begin
   TestClarifyFile('TestAtExpr', 79);
+end;
+
+procedure TFullTestClarify.TestAutomated;
+begin
+  TestClarifyFile('TestAutomated', 167);
 end;
 
 procedure TFullTestClarify.TestAsmOps;
