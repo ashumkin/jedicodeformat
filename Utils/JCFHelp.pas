@@ -61,7 +61,7 @@ const
   HELP_ISSUES = 220;
   HELP_INFO   = 1000;
 
-  HELP_FILE_NAME = 'CodeFormat.hlp';
+  HELP_FILE_NAME = 'CodeFormat.chm';
 
 implementation
 

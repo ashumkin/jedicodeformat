@@ -174,7 +174,7 @@ uses
 begin
   Application.Initialize;
   Application.Title := 'JEDI Code Format';
-  Application.HelpFile := 'CodeFormat.hlp';
+  Application.HelpFile := 'CodeFormat.chm';
   Application.CreateForm(TfrmMain, frmMain);
   Application.Run;
 end.
