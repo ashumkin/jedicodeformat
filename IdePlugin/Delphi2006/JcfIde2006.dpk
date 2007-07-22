@@ -36,7 +36,8 @@ requires
   JvCustomD10R,
   rtl,
   vcljpg,
-  vclx;
+  vclx,
+  Jcl;
 
 contains
   JcfIdeRegister in '..\JcfIdeRegister.pas',
@@ -184,6 +185,7 @@ contains
   IdentifierCaps in '..\..\Process\Capitalisation\IdentifierCaps.pas',
   frIdentifierCapsSettings in '..\..\Ui\Settings\frIdentifierCapsSettings.pas',
   frWarnings in '..\..\Ui\Settings\frWarnings.pas',
-  frNotIdentifierCapsSettings in '..\..\Ui\Settings\frNotIdentifierCapsSettings.pas';
+  frNotIdentifierCapsSettings in '..\..\Ui\Settings\frNotIdentifierCapsSettings.pas',
+  JcfFontSetFunctions in '..\..\Utils\JcfFontSetFunctions.pas';
 
 end.
