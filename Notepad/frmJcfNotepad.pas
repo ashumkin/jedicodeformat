@@ -321,8 +321,8 @@ var
 begin
   SetObjectFontToSystemFont(Self);
 
-  //lsHelpFile := IncludeTrailingPathDelimiter(ExtractFilePath(Application.ExeName)) + 'CodeFormat.hlp';
-  lsHelpFile := IncludeTrailingPathDelimiter(ExtractFilePath(GetModuleName(GetModuleHandle('JCFIde2007.bpl')))) + 'CodeFormat.hlp';
+  //lsHelpFile := IncludeTrailingPathDelimiter(ExtractFilePath(Application.ExeName)) + 'CodeFormat.chm';
+  lsHelpFile := IncludeTrailingPathDelimiter(ExtractFilePath(GetModuleName(GetModuleHandle('JCFIde2007.bpl')))) + 'CodeFormat.chm';
 
   if FileExists(lsHelpFile) then
     Application.HelpFile := lsHelpFile;
