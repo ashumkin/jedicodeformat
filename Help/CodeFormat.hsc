@@ -2,7 +2,7 @@ HelpScribble project file.
 14
 ...
 0
-1
+2
 JEDI Code Format
 
 
@@ -96,7 +96,7 @@ FALSE
 \par \f1 
 \par Helpfile by \cf3\strike Ralf Steinhaeusser\cf2\strike0\{linkID=1000\}
 \par 
-\par \cf0\f3 Last change : 24.06.2007\f1 
+\par \cf0\f3 Last change : 22.07.2007\f1 
 \par }
 12
 Scribble12
