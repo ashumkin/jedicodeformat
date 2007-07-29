@@ -259,6 +259,7 @@ type
     procedure TestAmpersand;
     procedure TestAutomated;
     procedure TestClassMethods;
+    procedure TestExports;
 
     procedure TestDelphiNetLibrary;
 
@@ -588,6 +589,11 @@ end;
 procedure TTestObfuscate.TestExclusionFlags;
 begin
   TestObfuscateFile('TestExclusionFlags');
+end;
+
+procedure TTestObfuscate.TestExports;
+begin
+  TestObfuscateFile('TestExports');
 end;
 
 procedure TTestObfuscate.TestExternal;
