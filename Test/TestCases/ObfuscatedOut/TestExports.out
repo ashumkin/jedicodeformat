@@ -1,0 +1,16 @@
+unit testexports;
+
+interface
+
+procedure test;
+
+exports test;
+
+implementation
+
+procedure test;
+begin
+end;
+
+end.
+ 

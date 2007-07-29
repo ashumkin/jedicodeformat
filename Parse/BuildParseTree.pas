@@ -722,7 +722,7 @@ begin
 
   }
   while fcTokenList.FirstSolidTokenType in [ttConst, ttResourceString,
-      ttType, ttVar, ttThreadVar, ttOpenSquareBracket] + ProcedureWords do
+      ttType, ttVar, ttThreadVar, ttOpenSquareBracket, ttExports] + ProcedureWords do
     RecogniseInterfaceDecl;
 end;
 
@@ -732,7 +732,8 @@ var
   lt: Tokens.TTokenType;
 begin
   {
-   InterfaceDecl -> ConstSection
+   InterfaceDecl
+        -> ConstSection
        -> TypeSection
        -> VarSection
        -> ExportedHeading
@@ -753,6 +754,8 @@ begin
       RecogniseExportedHeading;
     ttOpenSquareBracket:
       RecogniseAttributes;
+    ttExports:
+      RecogniseExportsSection;
     else
       raise TEParseError.Create('Expected const, type, var, procedure or function', lc);
   end;

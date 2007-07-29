@@ -258,6 +258,7 @@ type
     procedure TestAmpersand;
     procedure TestAutomated;
     procedure TestClassMethods;
+    procedure TestExports;
 
     procedure TestDelphiNetLibrary;
 
@@ -639,6 +640,11 @@ begin
   TestClarifyFile('TestExclusionFlags', 723);
 end;
 
+procedure TFullTestClarify.TestExports;
+begin
+  TestClarifyFile('TestExports', 43);
+end;
+
 procedure TFullTestClarify.TestExternal;
 begin
   TestClarifyFile('TestExternal', 259);
@@ -966,7 +972,7 @@ end;
 
 procedure TFullTestClarify.TestUnitLibrary;
 begin
-  TestClarifyFile('TestUnitLibrary', 17);
+  TestClarifyFile('TestUnitLibrary', 20);
 end;
 
 procedure TFullTestClarify.TestUnitPlatform;
