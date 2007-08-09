@@ -1,12 +1,12 @@
 inherited fClarifySpaces: TfClarifySpaces
   Width = 472
-  Height = 359
+  Height = 388
   Font.Charset = ANSI_CHARSET
   Font.Height = -15
   Font.Name = 'Segoe UI'
   ParentFont = False
   ExplicitWidth = 472
-  ExplicitHeight = 359
+  ExplicitHeight = 388
   object cbFixSpacing: TCheckBox
     Left = 8
     Top = 6
@@ -140,8 +140,8 @@ inherited fClarifySpaces: TfClarifySpaces
     end
   end
   object gbTabs: TGroupBox
-    Left = 8
-    Top = 244
+    Left = 3
+    Top = 268
     Width = 457
     Height = 78
     Caption = '&Tab characters'
@@ -208,8 +208,8 @@ inherited fClarifySpaces: TfClarifySpaces
     end
   end
   object cbMaxSpaces: TCheckBox
-    Left = 14
-    Top = 332
+    Left = 12
+    Top = 356
     Width = 179
     Height = 17
     Caption = '&Max spaces in code'
@@ -217,8 +217,8 @@ inherited fClarifySpaces: TfClarifySpaces
     OnClick = cbMaxSpacesClick
   end
   object edtMaxSpacesInCode: TJvValidateEdit
-    Left = 195
-    Top = 328
+    Left = 193
+    Top = 352
     Width = 50
     Height = 28
     CriticalPoints.MaxValueIncluded = False
@@ -232,7 +232,7 @@ inherited fClarifySpaces: TfClarifySpaces
   end
   object rgOperators: TRadioGroup
     Left = 260
-    Top = 50
+    Top = 6
     Width = 202
     Height = 92
     Caption = 'Spaces around &operators'
@@ -242,11 +242,11 @@ inherited fClarifySpaces: TfClarifySpaces
       'Never')
     TabOrder = 6
   end
-  object GroupBoxInsertSpace: TGroupBox
+  object GroupBoxInsertSpaceBeforeBracket: TGroupBox
     Left = 260
-    Top = 146
+    Top = 98
     Width = 202
-    Height = 92
+    Height = 95
     Caption = '&Insert space before bracket'
     TabOrder = 7
     object cbInsertSpaceBeforeBracketinFunctionDeclaration: TCheckBox
@@ -259,7 +259,7 @@ inherited fClarifySpaces: TfClarifySpaces
     end
     object cbInsertSpaceBeforeBracketinFunctionCall: TCheckBox
       Left = 8
-      Top = 47
+      Top = 48
       Width = 181
       Height = 17
       Caption = 'In function &call'
@@ -272,6 +272,30 @@ inherited fClarifySpaces: TfClarifySpaces
       Height = 17
       Caption = 'Before [ in expression'
       TabOrder = 2
+    end
+  end
+  object GroupBoxSpacesInsideBrackets: TGroupBox
+    Left = 260
+    Top = 194
+    Width = 202
+    Height = 70
+    Caption = 'Insert space inside brackets'
+    TabOrder = 8
+    object CheckBoxInsertSpaceBeforeEnd: TCheckBox
+      Left = 3
+      Top = 47
+      Width = 181
+      Height = 17
+      Caption = 'Before end'
+      TabOrder = 0
+    end
+    object cbInsertSpaceAfterOpen: TCheckBox
+      Left = 3
+      Top = 24
+      Width = 181
+      Height = 17
+      Caption = 'After open'
+      TabOrder = 1
     end
   end
 end

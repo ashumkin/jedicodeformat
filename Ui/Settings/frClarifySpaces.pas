@@ -59,10 +59,13 @@ type
     cbMaxSpaces: TCheckBox;
     edtMaxSpacesInCode: TJvValidateEdit;
     rgOperators: TRadioGroup;
-    GroupBoxInsertSpace: TGroupBox;
+    GroupBoxInsertSpaceBeforeBracket: TGroupBox;
     cbInsertSpaceBeforeBracketinFunctionDeclaration: TCheckBox;
     cbInsertSpaceBeforeBracketinFunctionCall: TCheckBox;
     cbBeforeOpenSquareBracketInExpression: TCheckBox;
+    GroupBoxSpacesInsideBrackets: TGroupBox;
+    CheckBoxInsertSpaceBeforeEnd: TCheckBox;
+    cbInsertSpaceAfterOpen: TCheckBox;
     procedure cbTabsToSpacesClick(Sender: TObject);
     procedure cbSpacesToTabsClick(Sender: TObject);
     procedure cbMaxSpacesClick(Sender: TObject);
@@ -119,6 +122,9 @@ begin
     cbInsertSpaceBeforeBracketinFunctionDeclaration.Checked := SpaceBeforeOpenBracketsInFunctionDeclaration;
     cbInsertSpaceBeforeBracketinFunctionCall.Checked := SpaceBeforeOpenBracketsInFunctionCall;
     cbBeforeOpenSquareBracketInExpression.Checked := SpaceBeforeOpenSquareBracketsInExpression;
+
+    cbInsertSpaceAfterOpen.Checked := SpaceAfterOpenBrackets;
+    CheckBoxInsertSpaceBeforeEnd.Checked := SpaceBeforeCloseBrackets;
   end;
 
   cbTabsToSpacesClick(nil);
@@ -155,6 +161,9 @@ begin
     SpaceBeforeOpenBracketsInFunctionDeclaration := cbInsertSpaceBeforeBracketinFunctionDeclaration.Checked;
     SpaceBeforeOpenBracketsInFunctionCall := cbInsertSpaceBeforeBracketinFunctionCall.Checked;
     SpaceBeforeOpenSquareBracketsInExpression := cbBeforeOpenSquareBracketInExpression.Checked;
+
+    SpaceAfterOpenBrackets := cbInsertSpaceAfterOpen.Checked;
+    SpaceBeforeCloseBrackets := CheckBoxInsertSpaceBeforeEnd.Checked;
 
   end;
 end;

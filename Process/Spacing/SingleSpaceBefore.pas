@@ -71,6 +71,15 @@ begin
   if pt = nil then
     exit;
 
+    if pt.TokenType = ttCloseBracket then
+    begin
+      if FormatSettings.Spaces.SpaceBeforeCloseBrackets then
+      begin
+        Result := true;
+        exit;
+      end;
+    end;
+
   if (pt.TokenType = ttOpenBracket) then
   begin
     if FormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionDeclaration then

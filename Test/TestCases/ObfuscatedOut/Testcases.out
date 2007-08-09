@@ -163,7 +163,8 @@ uses
   testsubrangetype in 'TestSubrangeType.pas',
   testampersand in 'TestAmpersand.pas',
   testautomated in 'TestAutomated.pas',
-  testclassmethods in 'TestClassMethods.pas';
+  testclassmethods in 'TestClassMethods.pas',
+  testexports in 'TestExports.pas';
 
 {$R *.res}
 begin

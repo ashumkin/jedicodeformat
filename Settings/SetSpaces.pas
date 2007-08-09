@@ -56,6 +56,9 @@ type
     fbSpaceBeforeOpenBracketsInFunctionCall: boolean;
     fbSpaceBeforeOpenSquareBracketsInExpression: boolean;
 
+    fbSpaceAfterOpenBrackets: boolean;
+    fbSpaceBeforeCloseBrackets: boolean;
+
     feSpaceForOperator: TTriOptionStyle;
 
   protected
@@ -104,6 +107,10 @@ type
     property SpaceBeforeOpenSquareBracketsInExpression: boolean
       read fbSpaceBeforeOpenSquareBracketsInExpression write fbSpaceBeforeOpenSquareBracketsInExpression;
 
+
+    property SpaceAfterOpenBrackets: boolean read fbSpaceAfterOpenBrackets write fbSpaceAfterOpenBrackets;
+    property SpaceBeforeCloseBrackets: boolean read fbSpaceBeforeCloseBrackets write fbSpaceBeforeCloseBrackets;
+
   end;
 
 implementation
@@ -135,6 +142,10 @@ const
   SET_SPACE_BEFORE_OPEN_BRACKETS_IN_FUNCTION_DECLARATION = 'SpaceBeforeOpenBracketsInFunctionDeclaration';
   SET_SPACE_BEFORE_OPEN_BRACKETS_IN_FUNCTION_CALL = 'SpaceBeforeOpenBracketsInFunctionCall';
   SET_SPACE_BEFORE_OPEN_SQUARE_BRACKETS_IN_EXPRESSION = 'SpaceBeforeOpenSquareBracketsInExpression';
+
+  SET_SPACE_AFTER_OPEN_BRACKETS = 'SpaceAfterOpenBrackets';
+  SET_SPACE_BEFORE_CLOSE_BRACKETS = 'SpaceBeforeCloseBrackets';
+
 
 constructor TSetSpaces.Create;
 begin
@@ -175,6 +186,9 @@ begin
   fbSpaceBeforeOpenBracketsInFunctionDeclaration := pcStream.Read(SET_SPACE_BEFORE_OPEN_BRACKETS_IN_FUNCTION_DECLARATION, False);
   fbSpaceBeforeOpenBracketsInFunctionCall := pcStream.Read(SET_SPACE_BEFORE_OPEN_BRACKETS_IN_FUNCTION_CALL, False);
   fbSpaceBeforeOpenSquareBracketsInExpression := pcStream.Read(SET_SPACE_BEFORE_OPEN_SQUARE_BRACKETS_IN_EXPRESSION, False);
+
+  fbSpaceAfterOpenBrackets := pcStream.Read(SET_SPACE_AFTER_OPEN_BRACKETS, False);
+  fbSpaceBeforeCloseBrackets := pcStream.Read(SET_SPACE_BEFORE_CLOSE_BRACKETS, False);
 end;
 
 procedure TSetSpaces.WriteToStream(const pcOut: TSettingsOutput);
@@ -208,6 +222,9 @@ begin
   pcOut.Write(SET_SPACE_BEFORE_OPEN_BRACKETS_IN_FUNCTION_DECLARATION, fbSpaceBeforeOpenBracketsInFunctionDeclaration);
   pcOut.Write(SET_SPACE_BEFORE_OPEN_BRACKETS_IN_FUNCTION_CALL, fbSpaceBeforeOpenBracketsInFunctionCall);
   pcOut.Write(SET_SPACE_BEFORE_OPEN_SQUARE_BRACKETS_IN_EXPRESSION, fbSpaceBeforeOpenSquareBracketsInExpression);
+
+  pcOut.Write(SET_SPACE_AFTER_OPEN_BRACKETS, fbSpaceAfterOpenBrackets);
+  pcOut.Write(SET_SPACE_BEFORE_CLOSE_BRACKETS, fbSpaceBeforeCloseBrackets);
 end;
 
 

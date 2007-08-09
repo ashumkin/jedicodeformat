@@ -24,7 +24,7 @@ under the License.
 interface
 
 { AFS 9 Dec 1999
-  Single space after : }
+  Single space after }
 
 uses SwitchableVisitor;
 
@@ -124,6 +124,15 @@ begin
   begin
     Result := True;
     exit;
+  end;
+
+  if pt.TokenType = ttOpenBracket then
+  begin
+    if FormatSettings.Spaces.SpaceAfterOpenBrackets then 
+    begin
+      Result := true;
+      exit;
+    end;
   end;
 
   { 'absolute' as a var directive }
