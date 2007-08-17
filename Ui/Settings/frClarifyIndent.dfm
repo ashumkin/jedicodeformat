@@ -140,7 +140,7 @@ inherited fClarifyIndent: TfClarifyIndent
       Top = 166
       Width = 366
       Height = 17
-      Caption = 'Extra Indent for If..Else blocks'
+      Caption = 'Extra Indent for If...Else blocks'
       TabOrder = 8
     end
     object cbIndentCaseElse: TCheckBox
@@ -148,7 +148,7 @@ inherited fClarifyIndent: TfClarifyIndent
       Top = 189
       Width = 366
       Height = 17
-      Caption = 'Extra Indent for Case..Else blocks'
+      Caption = 'Extra Indent for Case...Else blocks'
       TabOrder = 9
     end
   end
