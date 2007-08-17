@@ -1,12 +1,12 @@
 inherited fClarifyIndent: TfClarifyIndent
   Width = 430
-  Height = 306
+  Height = 337
   Font.Charset = ANSI_CHARSET
   Font.Height = -15
   Font.Name = 'Segoe UI'
   ParentFont = False
   ExplicitWidth = 430
-  ExplicitHeight = 306
+  ExplicitHeight = 337
   object Label2: TLabel
     Left = 8
     Top = 80
@@ -56,7 +56,7 @@ inherited fClarifyIndent: TfClarifyIndent
     Left = 8
     Top = 105
     Width = 417
-    Height = 192
+    Height = 216
     Caption = 'Options'
     TabOrder = 4
     object cbIndentBeginEnd: TCheckBox
@@ -135,13 +135,21 @@ inherited fClarifyIndent: TfClarifyIndent
       Caption = 'Keep single-line comments with code elsewhere'
       TabOrder = 7
     end
-    object cbIndentElse: TCheckBox
+    object cbIndentIfElse: TCheckBox
       Left = 12
       Top = 166
       Width = 366
       Height = 17
-      Caption = 'Extra Indent for Else blocks'
+      Caption = 'Extra Indent for If..Else blocks'
       TabOrder = 8
+    end
+    object cbIndentCaseElse: TCheckBox
+      Left = 12
+      Top = 189
+      Width = 366
+      Height = 17
+      Caption = 'Extra Indent for Case..Else blocks'
+      TabOrder = 9
     end
   end
 end

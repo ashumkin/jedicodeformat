@@ -24,10 +24,7 @@ under the License.
 interface
 
 { AFS 27 October 2002
-  this is the start of a new development
-   - to give the code formatter a full parse tree
-   in the recursive descent mould
-   and thereby pave the way for a version 2.0
+  A node on the parse tree
 }
 uses
   {delphi }
@@ -114,6 +111,8 @@ type
 
     function GetParentNode(const peNodeTypes: TParseTreeNodeTypeSet): TParseTreeNode; overload;
     function GetParentNode(const peNodeType: TParseTreeNodeType): TParseTreeNode; overload;
+
+    function CountParentNodes(const peNodeType: TParseTreeNodeType): integer;
 
     { this one needs some explanation. Need to answer questions like
      'Is this node in a type decl, on the right of an equal sign
@@ -439,10 +438,29 @@ begin
 end;
 
 
-function TParseTreeNode.GetParentNode(const peNodeType: TParseTreeNodeType):
-TParseTreeNode;
+function TParseTreeNode.GetParentNode(const peNodeType: TParseTreeNodeType): TParseTreeNode;
 begin
   Result := GetParentNode([peNodeType]);
+end;
+
+function TParseTreeNode.CountParentNodes(const peNodeType: TParseTreeNodeType): integer;
+var
+  lcParent: TParseTreeNode;
+begin
+  Result := 0;
+  lcParent := GetParentNode(peNodeType);
+  while (lcParent <> nil) do
+  begin
+      inc(Result);
+      if lcParent.Parent <> nil then
+      begin
+        lcParent := lcParent.Parent.GetParentNode(peNodeType);
+      end
+      else
+      begin
+        lcParent := nil;
+      end;
+  end;
 end;
 
 { a copy of the above with different types }

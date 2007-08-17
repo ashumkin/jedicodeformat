@@ -48,7 +48,8 @@ type
     cbKeepWithInGlobals: TCheckBox;
     cbKeepWithInClassDef: TCheckBox;
     cbKeepWithElsewhere: TCheckBox;
-    cbIndentElse: TCheckBox;
+    cbIndentIfElse: TCheckBox;
+    cbIndentCaseElse: TCheckBox;
     procedure cbIndentBeginEndClick(Sender: TObject);
     procedure cbHasFirstLevelIndentClick(Sender: TObject);
   private
@@ -94,7 +95,8 @@ begin
     cbKeepWithInGlobals.Checked  := KeepCommentsWithCodeInGlobals;
     cbKeepWithInClassDef.Checked := KeepCommentsWithCodeInClassDef;
     cbKeepWithElsewhere.Checked  := KeepCommentsWithCodeElsewhere;
-    cbIndentElse.Checked := IndentElse;
+    cbIndentIfElse.Checked := IndentElse;
+    cbIndentCaseElse.Checked := IndentCaseElse;
   end;
 
   cbIndentBeginEndClick(nil);
@@ -121,7 +123,8 @@ begin
     KeepCommentsWithCodeInGlobals  := cbKeepWithInGlobals.Checked;
     KeepCommentsWithCodeInClassDef := cbKeepWithInClassDef.Checked;
     KeepCommentsWithCodeElsewhere  := cbKeepWithElsewhere.Checked;
-    IndentElse := cbIndentElse.Checked;
+    IndentElse := cbIndentIfElse.Checked;
+    IndentCaseElse := cbIndentCaseElse.Checked;
 
   end;
 end;

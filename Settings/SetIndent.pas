@@ -45,6 +45,7 @@ type
     fbKeepCommentsWithCodeInClassDef: boolean;
     fbKeepCommentsWithCodeElsewhere: boolean;
     fbIndentElse: Boolean;
+    fbIndentCaseElse: Boolean;
 
   protected
   public
@@ -79,6 +80,8 @@ type
       Read fbKeepCommentsWithCodeElsewhere Write fbKeepCommentsWithCodeElsewhere;
 
     property IndentElse: boolean read fbIndentElse write fbIndentElse;
+    property IndentCaseElse: boolean read fbIndentCaseElse write fbIndentCaseElse;
+
   end;
 
 implementation
@@ -102,6 +105,7 @@ const
   REG_KEEP_COMMENTS_WITH_CODE_ELSEWHERE = 'KeepCommentsWithCodeElsewhere';
 
   REG_INDENT_ELSE = 'IndentElse';
+  REG_INDENT_CASE_ELSE = 'IndentCaseElse';
 
 constructor TSetIndent.Create;
 begin
@@ -135,6 +139,8 @@ begin
     pcStream.Read(REG_KEEP_COMMENTS_WITH_CODE_ELSEWHERE, True);
 
   fbIndentElse := pcStream.Read(REG_INDENT_ELSE, False);
+  fbIndentCaseElse := pcStream.Read(REG_INDENT_CASE_ELSE, True);
+
 end;
 
 procedure TSetIndent.WriteToStream(const pcOut: TSettingsOutput);
@@ -159,6 +165,7 @@ begin
   pcOut.Write(REG_INDENT_BEGIN_END, fbIndentBeginEnd);
   pcOut.Write(REG_INDENT_BEGIN_END_SPACES, fiIndentBeginEndSpaces);
   pcOut.Write(REG_INDENT_ELSE, fbIndentElse);
+  pcOut.Write(REG_INDENT_CASE_ELSE, fbIndentCaseElse);
 end;
 
 function TSetIndent.SpacesForIndentLevel(const piLevel: integer): integer;

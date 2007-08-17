@@ -5,7 +5,7 @@ unit TestCaseReturns;
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code
 
-The Original Code is TestSpacing, released May 2003.
+The Original Code is TestCaseReturns, released May 2003.
 The Initial Developer of the Original Code is Anthony Steele.
 Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
 All Rights Reserved.
@@ -40,6 +40,8 @@ type
     feSaveCaseBeginStyle: TTriOptionStyle;
     feSaveCaseElseStyle: TTriOptionStyle;
     feSaveCaseElseBeginStyle:  TTriOptionStyle;
+    fbSaveCaseElseIndent: boolean;
+
 
   protected
     procedure SetUp; override;
@@ -75,13 +77,16 @@ type
     procedure TestCaseBegin4;
     procedure TestCaseBegin5;
     procedure TestCaseBegin6;
+
+    procedure TestCaseStatementElseIndent;
+    procedure TestCaseStatementElseOutdent;
   end;
 
 implementation
 
 uses JclStrings,
   JcfSettings,
-  BlockStyles, SetReturns;
+  BlockStyles, Indenter, SetReturns;
 
 { TTestCaseReturns }
 const
@@ -165,6 +170,28 @@ const
     ' end; ' +
     UNIT_FOOTER;
 
+  UNIT_TEXT_INDENTED = UNIT_HEADER + AnsiLineBreak +
+    'procedure foo;' + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
+    '  case x of' + AnsiLineBreak +
+    '    1: Bar;' + AnsiLineBreak +
+    '    2: Fish;' + AnsiLineBreak +
+    '    else Spock;' + AnsiLineBreak +
+    '  end;' + AnsiLineBreak +
+    'end;' + AnsiLineBreak +
+    UNIT_FOOTER;
+
+  UNIT_TEXT_INDENTED_ELSE = UNIT_HEADER + AnsiLineBreak +
+    'procedure foo;' + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
+    '  case x of' + AnsiLineBreak +
+    '    1: Bar;' + AnsiLineBreak +
+    '    2: Fish;' + AnsiLineBreak +
+    '  else Spock;' + AnsiLineBreak +
+    '  end;' + AnsiLineBreak +
+    'end;' + AnsiLineBreak +
+    UNIT_FOOTER;
+
 procedure TTestCaseReturns.Setup;
 begin
   inherited;
@@ -174,6 +201,8 @@ begin
 
   feSaveCaseElseStyle := FormatSettings.Returns.CaseElseStyle;
   feSaveCaseElseBeginStyle := FormatSettings.Returns.CaseElseBeginStyle;
+
+  fbSaveCaseElseIndent := FormatSettings.Indent.IndentCaseElse;
 end;
 
 procedure TTestCaseReturns.TearDown;
@@ -185,6 +214,8 @@ begin
 
   FormatSettings.Returns.CaseElseStyle  := feSaveCaseElseStyle;
   FormatSettings.Returns.CaseElseBeginStyle := feSaveCaseElseBeginStyle;
+
+  FormatSettings.Indent.IndentCaseElse := fbSaveCaseElseIndent;
 end;
 
 
@@ -342,7 +373,6 @@ begin
   TestProcessResult(TBlockStyles, UNIT_TEXT_ELSE_BEGIN_NEWLINE, UNIT_TEXT_ELSE_BEGIN_NEWLINE);
 end;
 
-
 procedure TTestCaseReturns.TestCaseBegin1;
 begin
   FormatSettings.Returns.CaseBeginStyle := eLeave;
@@ -389,6 +419,23 @@ begin
   FormatSettings.Returns.CaseLabelStyle := eLeave;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_CASE_BEGIN_NEW_LINE, UNIT_TEXT_CASE_BEGIN);
+end;
+
+
+procedure TTestCaseReturns.TestCaseStatementElseIndent;
+begin
+  FormatSettings.Indent.IndentCaseElse := True;
+
+  TestProcessResult(TIndenter, UNIT_TEXT_INDENTED, UNIT_TEXT_INDENTED);
+  TestProcessResult(TIndenter, UNIT_TEXT_INDENTED_ELSE, UNIT_TEXT_INDENTED);
+end;
+
+procedure TTestCaseReturns.TestCaseStatementElseOutdent;
+begin
+  FormatSettings.Indent.IndentCaseElse := False;
+
+  TestProcessResult(TIndenter, UNIT_TEXT_INDENTED, UNIT_TEXT_INDENTED_ELSE);
+  TestProcessResult(TIndenter, UNIT_TEXT_INDENTED_ELSE, UNIT_TEXT_INDENTED_ELSE);
 end;
 
 initialization

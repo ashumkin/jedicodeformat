@@ -393,6 +393,11 @@ begin
         Dec(liIndentCount)
       else if (pt.TokenType = ttElse) and pt.HasParentNode(nElseCase, 1) then
         Dec(liIndentCount);
+
+      if not FormatSettings.Indent.IndentCaseElse then
+      begin
+        liIndentCount :=  liIndentCount - pt.CountParentNodes(nElseCase);
+      end;
     end;
 
 
