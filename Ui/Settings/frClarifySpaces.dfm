@@ -282,7 +282,7 @@ inherited fClarifySpaces: TfClarifySpaces
     Caption = 'Insert space inside brackets'
     TabOrder = 8
     object CheckBoxInsertSpaceBeforeEnd: TCheckBox
-      Left = 3
+      Left = 8
       Top = 47
       Width = 181
       Height = 17
@@ -290,7 +290,7 @@ inherited fClarifySpaces: TfClarifySpaces
       TabOrder = 0
     end
     object cbInsertSpaceAfterOpen: TCheckBox
-      Left = 3
+      Left = 8
       Top = 24
       Width = 181
       Height = 17

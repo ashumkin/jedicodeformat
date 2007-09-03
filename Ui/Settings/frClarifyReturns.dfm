@@ -15,8 +15,8 @@ inherited fClarifyReturns: TfClarifyReturns
     Caption = 'Return chars'
     Items.Strings = (
       'Leave as is'
-      'Convert to Carriage return (UNIX)'
-      'Convert to Carriage-return + Linefeed (DOS/Windows)')
+      'Convert to Carriage Return (UNIX)'
+      'Convert to Carriage Return + Linefeed (DOS/Windows)')
     TabOrder = 2
   end
   object gbRemoveReturns: TGroupBox

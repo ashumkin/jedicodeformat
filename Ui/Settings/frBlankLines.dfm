@@ -83,7 +83,7 @@ inherited fBlankLines: TfBlankLines
       Top = 67
       Width = 289
       Height = 17
-      Caption = 'at start and end of begin..end block'
+      Caption = 'At start and end of begin..end block'
       TabOrder = 2
     end
     object cbRemoveBlankLinesAfterProcHeader: TCheckBox
@@ -91,7 +91,7 @@ inherited fBlankLines: TfBlankLines
       Top = 44
       Width = 289
       Height = 17
-      Caption = 'after procedure header'
+      Caption = 'After procedure header'
       TabOrder = 1
     end
     object cbRemoveVarBlankLines: TCheckBox
@@ -99,7 +99,7 @@ inherited fBlankLines: TfBlankLines
       Top = 21
       Width = 289
       Height = 17
-      Caption = 'in procedure var section'
+      Caption = 'In procedure var section'
       TabOrder = 0
     end
     object edtMaxBlankLinesInSection: TJvValidateEdit

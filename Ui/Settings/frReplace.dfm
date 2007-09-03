@@ -10,7 +10,7 @@ inherited fReplace: TfReplace
   ExplicitHeight = 358
   object lblWordList: TLabel
     Left = 8
-    Top = 28
+    Top = 35
     Width = 63
     Height = 20
     Caption = 'Word list:'
