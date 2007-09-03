@@ -30,8 +30,11 @@ type
 
   TSetAsm = class(TSetBase)
   private
+    fbEnabled: boolean;
     feCapitalisation: TCapitalisationType;
+    fiBreaksAfterLabel: integer;
     fcIndents: TIntList;
+
     function GetIndent(const index: integer): integer;
     procedure SetIndent(const index: integer; const Value: integer);
   protected
@@ -42,14 +45,22 @@ type
     procedure WriteToStream(const pcOut: TSettingsOutput); override;
     procedure ReadFromStream(const pcStream: TSettingsInput); override;
 
+    property Enabled: boolean Read fbEnabled Write fbEnabled;
     property Capitalisation: TCapitalisationType Read feCapitalisation Write feCapitalisation;
+    property BreaksAfterLabel: integer read fiBreaksAfterLabel write fiBreaksAfterLabel;
     property Indents[const index: integer]: integer read GetIndent write SetIndent;
-  end;
+ end;
 
 implementation
 
 uses
   SysUtils;
+
+const
+  REG_ENABLED = 'Enabled';
+  REG_CAPS = 'Caps';
+  REG_BREAKS_AFTER_LABEL = 'BreaksAfterLabel';
+  REG_INDENT_LEVEL = 'Indent_';
 
 const
   LAST_INDENT_ITEM = 5;
@@ -90,17 +101,41 @@ begin
     fcIndents.Items[Index] := value;
 end;
 
-
-procedure TSetAsm.WriteToStream(const pcOut: TSettingsOutput);
+procedure TSetAsm.ReadFromStream(const pcStream: TSettingsInput);
+var
+  liLoop: integer;
+  liValue: integer;
 begin
-  inherited;
+  Assert(pcStream <> nil);
+
+  fbEnabled := pcStream.Read(REG_ENABLED, True);
+  feCapitalisation := TCapitalisationType(pcStream.Read(REG_CAPS, Ord(ctLeaveAlone)));
+  fiBreaksAfterLabel := pcStream.Read(REG_BREAKS_AFTER_LABEL, 2);
+
+  fcIndents.Clear;
+  for liLoop := 0 to LAST_INDENT_ITEM do
+  begin
+    liValue := pcStream.Read(REG_INDENT_LEVEL + IntToStr(liLoop), 0);
+    fcIndents.Add(liValue);
+  end;
 
 end;
 
-procedure TSetAsm.ReadFromStream(const pcStream: TSettingsInput);
+procedure TSetAsm.WriteToStream(const pcOut: TSettingsOutput);
+var
+  liLoop: integer;
 begin
-  inherited;
+  Assert(pcOut <> nil);
 
+  pcOut.Write(REG_ENABLED, fbEnabled);
+  pcOut.Write(REG_CAPS, Ord(feCapitalisation));
+  pcOut.Write(REG_BREAKS_AFTER_LABEL, fiBreaksAfterLabel);
+
+  for liLoop := 0 to LAST_INDENT_ITEM  do
+  begin
+    pcOut.Write(REG_INDENT_LEVEL + IntToStr(liLoop),  fcIndents.Items[liLoop]);
+  end;
+    
 end;
 
 end.
