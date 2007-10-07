@@ -124,6 +124,7 @@ end;
 procedure TSetAsm.WriteToStream(const pcOut: TSettingsOutput);
 var
   liLoop: integer;
+  liMax: integer;
 begin
   Assert(pcOut <> nil);
 
@@ -131,7 +132,11 @@ begin
   pcOut.Write(REG_CAPS, Ord(feCapitalisation));
   pcOut.Write(REG_BREAKS_AFTER_LABEL, fiBreaksAfterLabel);
 
-  for liLoop := 0 to LAST_INDENT_ITEM  do
+  liMax := LAST_INDENT_ITEM;
+  if liMax > (fcIndents.Count - 1) then
+    liMax := fcIndents.Count - 1;
+  
+  for liLoop := 0 to liMax do
   begin
     pcOut.Write(REG_INDENT_LEVEL + IntToStr(liLoop),  fcIndents.Items[liLoop]);
   end;

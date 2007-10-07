@@ -521,7 +521,7 @@ end;
 
 procedure TFullTestClarify.TestAsm;
 begin
-  TestClarifyFile('TestAsm', 828);
+  TestClarifyFile('TestAsm', 930);
 end;
 
 

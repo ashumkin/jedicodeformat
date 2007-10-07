@@ -166,7 +166,9 @@ uses
   frIdentifierCapsSettings in '..\Ui\Settings\frIdentifierCapsSettings.pas' {fIdentifierCapsSettings: TFrame},
   frAnyCapsSettings in '..\Ui\Settings\frAnyCapsSettings.pas',
   frComments in '..\Ui\Settings\frComments.pas' {fComments: TFrame},
-  JcfFontSetFunctions in '..\Utils\JcfFontSetFunctions.pas';
+  JcfFontSetFunctions in '..\Utils\JcfFontSetFunctions.pas',
+  SetAsm in '..\Settings\SetAsm.pas',
+  frAsm in '..\Ui\Settings\frAsm.pas' {fAsm: TFrame};
 
 {$R *.res}
 

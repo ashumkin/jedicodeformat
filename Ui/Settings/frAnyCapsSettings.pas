@@ -28,7 +28,7 @@ uses
   Classes, Controls, Forms,
   StdCtrls,
   { local }
-  JvMemo, frmBaseSettingsFrame, JvExStdCtrls;
+  JvMemo, JvExStdCtrls, frmBaseSettingsFrame;
 
 type
   TfrAnyCapsSettings = class(TfrSettingsFrame)

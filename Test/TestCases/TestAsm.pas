@@ -159,4 +159,24 @@ begin
   end;
 end;
 
+procedure ProcASMblocks;
+var
+  li1, li2: integer;
+  lb: Boolean;
+begin
+  li1 :=  Random (10);
+  li2 := Random (10);
+
+  asm
+    MOV     EAX,li1
+  end;
+
+  if li1 = 3 then
+  begin
+    asm
+      MOV     EAX,li1
+    end;
+  end;
+end;
+
 end.

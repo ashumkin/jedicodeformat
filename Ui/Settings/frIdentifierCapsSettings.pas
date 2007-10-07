@@ -27,8 +27,9 @@ uses
   { delphi }
   Classes, Controls, Forms,
   StdCtrls,
+  JvMemo, JvExStdCtrls,
   { local }
-  JvMemo, frmBaseSettingsFrame, JvExStdCtrls;
+  frmBaseSettingsFrame;
 
 type
   TfIdentifierCapsSettings = class(TfrSettingsFrame)

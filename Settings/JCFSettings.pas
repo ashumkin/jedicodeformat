@@ -32,7 +32,7 @@ uses
   SetIndent, SetSpaces, SetReturns,
   SetComments, SetCaps, SetWordList,
   SetAlign, SetReplace, SetUses, SetPreProcessor,
-  SettingsStream, SetTransform,
+  SettingsStream, SetTransform,  SetAsm,
   VersionConsts;
 
 type
@@ -51,6 +51,8 @@ type
     fcIdentifierCaps: TSetWordList;
     fcNotIdentifierCaps: TSetWordList;
     fcUnitNameCaps: TSetWordList;
+
+    fcSetAsm: TSetAsm;
 
     fcPreProcessor: TSetPreProcessor;
     fcAlign: TSetAlign;
@@ -101,6 +103,7 @@ type
     property IdentifierCaps: TSetWordList Read fcIdentifierCaps;
     property NotIdentifierCaps: TSetWordList Read fcNotIdentifierCaps;
     property UnitNameCaps: TSetWordList Read fcUnitNameCaps;
+    property SetAsm: TSetAsm Read fcSetAsm;
 
     property PreProcessor: TSetPreProcessor Read fcPreProcessor;
 
@@ -148,6 +151,8 @@ begin
   fcNotIdentifierCaps := TSetWordList.Create('NotIdent');
   fcUnitNameCaps := TSetWordList.Create('UnitNameCaps');
 
+  fcSetAsm := TSetAsm.Create();
+
   fcPreProcessor := TSetPreProcessor.Create;
 
   fcAlign   := TSetAlign.Create;
@@ -178,6 +183,7 @@ begin
   FreeAndNil(fcIdentifierCaps);
   FreeAndNil(fcNotIdentifierCaps);
   FreeAndNil(fcUnitNameCaps);
+  FreeAndNil(fcSetAsm);
 
   FreeAndNil(fcPreProcessor);
 
@@ -328,6 +334,7 @@ begin
   WriteToStream(fcIdentifierCaps);
   WriteToStream(fcNotIdentifierCaps);
   WriteToStream(fcUnitNameCaps);
+  WriteToStream(fcSetAsm);
 
   WriteToStream(fcPreProcessor);
   WriteToStream(fcAlign);
@@ -386,6 +393,7 @@ begin
     ReadFromStream(fcIdentifierCaps);
     ReadFromStream(fcNotIdentifierCaps);
     ReadFromStream(fcUnitNameCaps);
+    ReadFromStream(fcSetAsm);
 
     ReadFromStream(fcPreProcessor);
 

@@ -141,7 +141,8 @@ uses
   SortUsesData in '..\Process\Transform\SortUsesData.pas',
   IdentifierCaps in '..\Process\Capitalisation\IdentifierCaps.pas',
   WarnUnusedParam in '..\Process\Warnings\WarnUnusedParam.pas',
-  JcfFontSetFunctions in '..\Utils\JcfFontSetFunctions.pas';
+  JcfFontSetFunctions in '..\Utils\JcfFontSetFunctions.pas',
+  SetAsm in '..\Settings\SetAsm.pas';
 
 const
   ABOUT_COMMANDLINE =

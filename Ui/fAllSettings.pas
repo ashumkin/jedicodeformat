@@ -83,7 +83,7 @@ uses
   frReservedCapsSettings, frAnyCapsSettings,
   frIdentifierCapsSettings, frNotIdentifierCapsSettings, frUnitCaps,
   frUses, frBasicSettings, frPreProcessor, frComments, frTransform,
-  frCompilerDirectReturns, frWarnings;
+  frCompilerDirectReturns, frWarnings, frAsm;
 
 type
   TFrameMapRecord = record
@@ -92,7 +92,7 @@ type
   end;
 
 const
-  FrameMap: array[0..23] of TFrameMapRecord = (
+  FrameMap: array[0..24] of TFrameMapRecord = (
     (FrameName: 'Format File'; FrameClass: TfFiles),
     (FrameName: 'Obfuscate'; FrameClass: TfObfuscateSettings),
     (FrameName: 'Clarify'; FrameClass: TfClarify),
@@ -116,7 +116,8 @@ const
     (FrameName: 'Comments'; FrameClass: TfComments),
     (FrameName: 'Transform'; FrameClass: TfTransform),
     (FrameName: 'Compiler Directives'; FrameClass: TfCompilerDirectReturns),
-    (FrameName: 'Warnings'; FrameClass: TfWarnings)
+    (FrameName: 'Warnings'; FrameClass: TfWarnings),
+    (FrameName: 'Asm'; FrameClass: TfAsm)
     );
 
 { TFormAllSettings }
