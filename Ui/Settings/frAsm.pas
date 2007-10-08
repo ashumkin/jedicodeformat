@@ -41,8 +41,6 @@ uses JcfHelp, JcfSettings, Capitalisation, SettingsTypes;
 {$R *.dfm}
 
 procedure TfAsm.Read;
-var
-  liIndex: integer;
 begin
   cbEnabled.Checked := FormatSettings.SetAsm.Enabled;
 

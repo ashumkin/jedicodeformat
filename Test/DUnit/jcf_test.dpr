@@ -169,7 +169,8 @@ uses
   TestIndentElse in 'TestIndentElse.pas',
   TestMiscFunctions in 'TestMiscFunctions.pas',
   JcfFontSetFunctions in '..\..\Utils\JcfFontSetFunctions.pas',
-  TestSpacingInsideBrackets in 'TestSpacingInsideBrackets.pas';
+  TestSpacingInsideBrackets in 'TestSpacingInsideBrackets.pas',
+  SetAsm in '..\..\Settings\SetAsm.pas';
 
 {$R *.res}
 
