@@ -27,6 +27,11 @@ type
     procedure TestCaps_LowerToLower;
     procedure TestCaps_MixedToLower;
     procedure TestCaps_UpperToLower;
+
+    procedure TestCaps_LowerLeaveAlone;
+    procedure TestCaps_MixedLeaveAlone;
+    procedure TestCaps_UpperLeaveAlone;
+
   end;
 
 implementation
@@ -112,6 +117,12 @@ begin
 end;
 
 
+procedure TTestAsmOptions.TestCaps_UpperLeaveAlone;
+begin
+  FormatSettings.SetAsm.Capitalisation := ctLeaveAlone;
+  TestFormatResult(ASM_STATEMENTS_UPPER, ASM_STATEMENTS_UPPER);
+end;
+
 procedure TTestAsmOptions.TestCaps_UpperToLower;
 begin
   FormatSettings.SetAsm.Capitalisation := ctLower;
@@ -130,6 +141,12 @@ begin
   TestFormatResult(ASM_STATEMENTS_UPPER, ASM_STATEMENTS_UPPER);
 end;
 
+procedure TTestAsmOptions.TestCaps_MixedLeaveAlone;
+begin
+  FormatSettings.SetAsm.Capitalisation := ctLeaveAlone;
+  TestFormatResult(ASM_STATEMENTS_MIXED, ASM_STATEMENTS_MIXED);
+end;
+
 procedure TTestAsmOptions.TestCaps_MixedToLower;
 begin
   FormatSettings.SetAsm.Capitalisation := ctLower;
@@ -146,6 +163,12 @@ procedure TTestAsmOptions.TestCaps_MixedToUpper;
 begin
   FormatSettings.SetAsm.Capitalisation := ctUpper;
   TestFormatResult(ASM_STATEMENTS_MIXED, ASM_STATEMENTS_UPPER);
+end;
+
+procedure TTestAsmOptions.TestCaps_LowerLeaveAlone;
+begin
+  FormatSettings.SetAsm.Capitalisation := ctLeaveAlone;
+  TestFormatResult(ASM_STATEMENTS_LOWER, ASM_STATEMENTS_LOWER);
 end;
 
 procedure TTestAsmOptions.TestCaps_LowerToLower;
