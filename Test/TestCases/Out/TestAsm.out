@@ -153,8 +153,8 @@ procedure TestAsmDot;
 begin
   asm
     JA      @@4
-    PUSH[ESI].integer[4]
-    PUSH[ESI].integer[0]
+    PUSH[ESI].Integer[4]
+    PUSH[ESI].Integer[0]
     @@4:
   end;
 end;

@@ -26,7 +26,7 @@ begin
     FMUL    qword ptr [EBX] + offset foo
 
     INC     EDX
-    and     [EAX],CH
+    AND     [EAX],CH
   end;
 
 end;

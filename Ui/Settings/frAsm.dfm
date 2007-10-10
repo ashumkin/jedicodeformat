@@ -85,7 +85,7 @@ inherited fAsm: TfAsm
       Left = 63
       Top = 189
       Width = 49
-      Height = 28
+      Height = 21
       CriticalPoints.MaxValueIncluded = False
       CriticalPoints.MinValueIncluded = False
       EditText = '0'
@@ -99,7 +99,7 @@ inherited fAsm: TfAsm
       Left = 63
       Top = 155
       Width = 49
-      Height = 28
+      Height = 21
       CriticalPoints.MaxValueIncluded = False
       CriticalPoints.MinValueIncluded = False
       EditText = '0'
@@ -113,7 +113,7 @@ inherited fAsm: TfAsm
       Left = 63
       Top = 123
       Width = 49
-      Height = 28
+      Height = 21
       CriticalPoints.MaxValueIncluded = False
       CriticalPoints.MinValueIncluded = False
       EditText = '0'
@@ -127,7 +127,7 @@ inherited fAsm: TfAsm
       Left = 63
       Top = 89
       Width = 49
-      Height = 28
+      Height = 21
       CriticalPoints.MaxValueIncluded = False
       CriticalPoints.MinValueIncluded = False
       EditText = '0'
@@ -141,7 +141,7 @@ inherited fAsm: TfAsm
       Left = 63
       Top = 55
       Width = 49
-      Height = 28
+      Height = 21
       CriticalPoints.MaxValueIncluded = False
       CriticalPoints.MinValueIncluded = False
       EditText = '0'
@@ -155,7 +155,7 @@ inherited fAsm: TfAsm
       Left = 63
       Top = 21
       Width = 49
-      Height = 28
+      Height = 21
       CriticalPoints.MaxValueIncluded = False
       CriticalPoints.MinValueIncluded = False
       EditText = '0'
@@ -170,7 +170,7 @@ inherited fAsm: TfAsm
     Left = 93
     Top = 148
     Width = 49
-    Height = 28
+    Height = 21
     CriticalPoints.MaxValueIncluded = False
     CriticalPoints.MinValueIncluded = False
     EditText = '0'

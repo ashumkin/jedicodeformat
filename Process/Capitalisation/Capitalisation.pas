@@ -45,7 +45,7 @@ implementation
 uses
   SysUtils,
   JclStrings,
-  SourceToken, SettingsTypes, Tokens, 
+  SourceToken, SettingsTypes, Tokens, ParseTreeNodeType,
   JcfSettings, FormatFlags, TokenUtils;
 
 { TCapitalisation }
@@ -94,23 +94,39 @@ begin
   Result := False;
   lcSourceToken := TSourceToken(pcNode);
 
-  case lcSourceToken.WordType of
-    wtReservedWord:
-      FixCaps(lcSourceToken, FormatSettings.Caps.ReservedWords);
-    wtReservedWordDirective:
-    begin
-      if IsDirectiveInContext(lcSourceToken) then
+
+  if lcSourceToken.HasParentNode(nAsm) and not (lcSourceToken.TokenType in [ttAsm, ttEnd]) then
+  begin
+      // underneath an "asm" node - use asm caps
+      if FormatSettings.SetAsm.Enabled then
       begin
-        FixCaps(lcSourceToken, FormatSettings.Caps.Directives);
-      end
+        FixCaps(lcSourceToken, FormatSettings.SetAsm.Capitalisation);
+      end;
+  end
+  else
+  begin
+
+    case lcSourceToken.WordType of
+      wtReservedWord:
+        FixCaps(lcSourceToken, FormatSettings.Caps.ReservedWords);
+
+      wtReservedWordDirective:
+      begin
+        if IsDirectiveInContext(lcSourceToken) then
+        begin
+          FixCaps(lcSourceToken, FormatSettings.Caps.Directives);
+        end
+      end;
+
+      wtBuiltInConstant:
+        FixCaps(lcSourceToken, FormatSettings.Caps.Constants);
+      wtOperator:
+        FixCaps(lcSourceToken, FormatSettings.Caps.Operators);
+      wtBuiltInType:
+        FixCaps(lcSourceToken, FormatSettings.Caps.Types);
     end;
-    wtBuiltInConstant:
-      FixCaps(lcSourceToken, FormatSettings.Caps.Constants);
-    wtOperator:
-      FixCaps(lcSourceToken, FormatSettings.Caps.Operators);
-    wtBuiltInType:
-      FixCaps(lcSourceToken, FormatSettings.Caps.Types);
   end;
+
 end;
 
 end.

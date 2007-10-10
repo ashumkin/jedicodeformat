@@ -170,7 +170,8 @@ uses
   TestMiscFunctions in 'TestMiscFunctions.pas',
   JcfFontSetFunctions in '..\..\Utils\JcfFontSetFunctions.pas',
   TestSpacingInsideBrackets in 'TestSpacingInsideBrackets.pas',
-  SetAsm in '..\..\Settings\SetAsm.pas';
+  SetAsm in '..\..\Settings\SetAsm.pas',
+  TestAsmOptions in 'TestAsmOptions.pas';
 
 {$R *.res}
 
