@@ -51,9 +51,12 @@ asm
   test eax,eax
   call procasm3
   je @@inittls
-  @@2a:mov eax,[ebx]
-  @@2a2:mov eax,[ebx]
-  @@2a2a:mov eax,[ebx]
+  @@2a:
+  mov eax,[ebx]
+  @@2a2:
+  mov eax,[ebx]
+  @@2a2a:
+  mov eax,[ebx]
   fmul st(1),st
 end;
 
@@ -109,7 +112,8 @@ procedure testasmexpr;
 begin
   asm
     @@tv:
-    @@nx:jmp dword ptr @@tv[ecx*4+32]
+    @@nx:
+    jmp dword ptr @@tv[ecx*4+32]
   end;
 end;
 

@@ -21,21 +21,27 @@ asm
   movzx ecx,[ebx].tcalldesc.argcount
   mov dispparams.cargs,ecx
   add ebx,offset tcalldesc.argtypes
-  @@1:movzx eax,[ebx].byte
+  @@1:
+  movzx eax,[ebx].byte
   jne @@1
   cmp al,varvariant
   push[esi].integer[4]
-  @@2:push[esi].integer[12]
-  @@3:and al,attypemask
+  @@2:
+  push[esi].integer[12]
+  @@3:
+  and al,attypemask
   or eax,varbyref
-  @@10:mov dispparams.rgvarg,esp
+  @@10:
+  mov dispparams.rgvarg,esp
   movzx eax,[ebx].tcalldesc.namedargcount
   mov dispparams.cnamedargs,eax
   mov esi,namedargdispids
-  @@12:movzx ecx,[ebx].tcalldesc.calltype
+  @@12:
+  movzx ecx,[ebx].tcalldesc.calltype
   cmp ecx,dispatch_propertyput
   cmp[ebx].tcalldesc.argtypes.byte[0],vardispatch
-  @@20:mov dispparams.rgdispidnamedargs,esp
+  @@20:
+  mov dispparams.rgdispidnamedargs,esp
   call[eax].pointer[24]
   mov ecx,[ebp+4]
   jmp foo

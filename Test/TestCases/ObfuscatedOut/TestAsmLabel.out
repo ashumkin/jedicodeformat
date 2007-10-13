@@ -8,8 +8,7 @@ procedure test;
 label
   lbl;
 asm
-  lbl:
-  mov eax,[eax+20h]
+  lbl:mov eax,[eax+20h]
 end;
 
 end.

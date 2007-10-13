@@ -282,20 +282,6 @@ begin
     end;
   end;
 
-  if pt.HasParentNode(nAsm) then
-  begin
-    if pt.TokenType = ttAsm then
-    begin
-      Result := True;
-      exit;
-    end
-    else if pt.HasParentNode(nAsmLabel) then
-    begin
-      Result := False;
-      exit;
-    end;
-  end;
-
   if (pt.TokenType = ttReturn) then
     exit;
 
@@ -502,6 +488,44 @@ begin
 
 end;
 
+function IsAsmLabelEnd(const pcSourceToken: TSourceToken): boolean;
+var
+  lcPrev1, lcPrev2, lcPrev3: TSourceToken;
+begin
+  Result := false;
+
+  if pcSourceToken = nil then
+  begin
+    exit;
+  end;
+
+  if (pcSourceToken.TokenType = ttColon) then
+  begin
+    Result := pt.HasParentNode(nAsmLabel, 1);
+  end;
+end;
+
+function ReturnsNeededInAsm(const pcSourceToken: TSourceToken): integer;
+begin
+  Result := 0;
+
+  // is this a label
+  if FormatSettings.SetAsm.BreaksAfterLabelEnabled then
+  begin
+    if IsAsmLabelEnd(pcSourceToken) then
+      Result := FormatSettings.SetAsm.BreaksAfterLabel;
+  end;
+
+  if pt.TokenType = ttAsm then
+  begin
+    Result := 1;
+  end
+  else if pt.TokenType = ttSemiColon then
+  begin
+    Result := 1;
+  end;
+end;
+
 constructor TReturnAfter.Create;
 begin
   inherited;
@@ -513,6 +537,7 @@ var
   lcNext, lcCommentTest, lcNextSpace: TSourceToken;
   liReturnsNeeded: integer;
   lcSourceToken:   TSourceToken;
+  liLoop: integer;
 begin
   Result := False;
   lcSourceToken := TSourceToken(pcNode);
@@ -522,13 +547,26 @@ begin
   if lcNext = nil then
     exit;
 
-
-  if NeedsBlankLine(lcSourceToken, lcNext) then
-    liReturnsNeeded := 2
-  else if NeedsReturn(lcSourceToken, lcNext) then
-    liReturnsNeeded := 1
+  if lcSourceToken.HasParentNode(nAsm) then
+  begin
+    liReturnsNeeded := ReturnsNeededInAsm(lcSourceToken);
+  end
   else
-    liReturnsNeeded := 0;
+  begin
+    // not asm
+    if NeedsBlankLine(lcSourceToken, lcNext) then
+    begin
+      liReturnsNeeded := 2;
+    end
+    else if NeedsReturn(lcSourceToken, lcNext) then
+    begin
+      liReturnsNeeded := 1
+    end
+    else
+    begin
+      liReturnsNeeded := 0;
+    end;
+  end;
 
   if liReturnsNeeded < 1 then
     exit;
@@ -577,20 +615,9 @@ begin
   if lcNextSpace.TokenType = ttWhiteSpace then
     BlankToken(lcNextSpace);
 
-  case liReturnsNeeded of
-    1:
-    begin
-      InsertTokenAfter(lcSourceToken, NewReturn);
-    end;
-    2:
-    begin
-      InsertTokenAfter(lcSourceToken, NewReturn);
-      InsertTokenAfter(lcSourceToken, NewReturn);
-    end;
-    else
-    begin
-      Assert(False, 'Too many returns' + IntToStr(liReturnsNeeded));
-    end;
+  for liLoop := 0 to liReturnsNeeded - 1 do
+  begin
+    InsertTokenAfter(lcSourceToken, NewReturn);
   end;
 
 end;
