@@ -171,7 +171,8 @@ uses
   JcfFontSetFunctions in '..\..\Utils\JcfFontSetFunctions.pas',
   TestSpacingInsideBrackets in 'TestSpacingInsideBrackets.pas',
   SetAsm in '..\..\Settings\SetAsm.pas',
-  TestAsmOptions in 'TestAsmOptions.pas';
+  TestAsmOptionsCaps in 'TestAsmOptionsCaps.pas',
+  TestAsmOptionsBreaks in 'TestAsmOptionsBreaks.pas';
 
 {$R *.res}
 

@@ -1,4 +1,4 @@
-unit TestAsmOptions;
+unit TestAsmOptionsCaps;
 
 interface
 
@@ -7,7 +7,7 @@ uses
   BaseTestProcess, SettingsTypes, SetTransform;
 
 type
-  TTestAsmOptions = class(TBaseTestProcess)
+  TTestAsmOptionsCaps = class(TBaseTestProcess)
   private
     fbBreaksAfterLabelEnabled: boolean;
     fbIndentsEnabled: boolean;
@@ -32,7 +32,6 @@ type
     procedure TestCaps_LowerLeaveAlone;
     procedure TestCaps_MixedLeaveAlone;
     procedure TestCaps_UpperLeaveAlone;
-
   end;
 
 implementation
@@ -91,7 +90,7 @@ const
     UNIT_FOOTER;
 
 
-procedure TTestAsmOptions.SetUp;
+procedure TTestAsmOptionsCaps.SetUp;
 begin
   inherited;
 
@@ -106,7 +105,7 @@ begin
 
 end;
 
-procedure TTestAsmOptions.TearDown;
+procedure TTestAsmOptionsCaps.TearDown;
 begin
   inherited;
 
@@ -120,78 +119,78 @@ begin
 end;
 
 
-procedure TTestAsmOptions.TestCaps_UpperLeaveAlone;
+procedure TTestAsmOptionsCaps.TestCaps_UpperLeaveAlone;
 begin
   FormatSettings.SetAsm.Capitalisation := ctLeaveAlone;
   TestFormatResult(ASM_STATEMENTS_UPPER, ASM_STATEMENTS_UPPER);
 end;
 
-procedure TTestAsmOptions.TestCaps_UpperToLower;
+procedure TTestAsmOptionsCaps.TestCaps_UpperToLower;
 begin
   FormatSettings.SetAsm.Capitalisation := ctLower;
   TestFormatResult(ASM_STATEMENTS_UPPER, ASM_STATEMENTS_LOWER);
 end;
 
-procedure TTestAsmOptions.TestCaps_UpperToMixed;
+procedure TTestAsmOptionsCaps.TestCaps_UpperToMixed;
 begin
   FormatSettings.SetAsm.Capitalisation := ctMixed;
   TestFormatResult(ASM_STATEMENTS_UPPER, ASM_STATEMENTS_INITALCAPS);
 end;
 
-procedure TTestAsmOptions.TestCaps_UpperToUpper;
+procedure TTestAsmOptionsCaps.TestCaps_UpperToUpper;
 begin
   FormatSettings.SetAsm.Capitalisation := ctUpper;
   TestFormatResult(ASM_STATEMENTS_UPPER, ASM_STATEMENTS_UPPER);
 end;
 
-procedure TTestAsmOptions.TestCaps_MixedLeaveAlone;
+procedure TTestAsmOptionsCaps.TestCaps_MixedLeaveAlone;
 begin
   FormatSettings.SetAsm.Capitalisation := ctLeaveAlone;
   TestFormatResult(ASM_STATEMENTS_MIXED, ASM_STATEMENTS_MIXED);
 end;
 
-procedure TTestAsmOptions.TestCaps_MixedToLower;
+procedure TTestAsmOptionsCaps.TestCaps_MixedToLower;
 begin
   FormatSettings.SetAsm.Capitalisation := ctLower;
   TestFormatResult(ASM_STATEMENTS_MIXED, ASM_STATEMENTS_LOWER);
 end;
 
-procedure TTestAsmOptions.TestCaps_MixedToMixed;
+procedure TTestAsmOptionsCaps.TestCaps_MixedToMixed;
 begin
   FormatSettings.SetAsm.Capitalisation := ctMixed;
   TestFormatResult(ASM_STATEMENTS_MIXED, ASM_STATEMENTS_INITALCAPS);
 end;
 
-procedure TTestAsmOptions.TestCaps_MixedToUpper;
+procedure TTestAsmOptionsCaps.TestCaps_MixedToUpper;
 begin
   FormatSettings.SetAsm.Capitalisation := ctUpper;
   TestFormatResult(ASM_STATEMENTS_MIXED, ASM_STATEMENTS_UPPER);
 end;
 
-procedure TTestAsmOptions.TestCaps_LowerLeaveAlone;
+procedure TTestAsmOptionsCaps.TestCaps_LowerLeaveAlone;
 begin
   FormatSettings.SetAsm.Capitalisation := ctLeaveAlone;
   TestFormatResult(ASM_STATEMENTS_LOWER, ASM_STATEMENTS_LOWER);
 end;
 
-procedure TTestAsmOptions.TestCaps_LowerToLower;
+procedure TTestAsmOptionsCaps.TestCaps_LowerToLower;
 begin
   FormatSettings.SetAsm.Capitalisation := ctLower;
   TestFormatResult(ASM_STATEMENTS_LOWER, ASM_STATEMENTS_LOWER);
 end;
 
-procedure TTestAsmOptions.TestCaps_LowerToMixed;
+procedure TTestAsmOptionsCaps.TestCaps_LowerToMixed;
 begin
   FormatSettings.SetAsm.Capitalisation := ctMixed;
   TestFormatResult(ASM_STATEMENTS_LOWER, ASM_STATEMENTS_INITALCAPS);
 end;
 
-procedure TTestAsmOptions.TestCaps_LowerToUpper;
+procedure TTestAsmOptionsCaps.TestCaps_LowerToUpper;
 begin
   FormatSettings.SetAsm.Capitalisation := ctUpper;
   TestFormatResult(ASM_STATEMENTS_LOWER, ASM_STATEMENTS_UPPER);
 end;
 
 initialization
-  TestFramework.RegisterTest('Processes', TTestAsmOptions.Suite);
+  TestFramework.RegisterTest('Processes', TTestAsmOptionsCaps.Suite);
 end.
