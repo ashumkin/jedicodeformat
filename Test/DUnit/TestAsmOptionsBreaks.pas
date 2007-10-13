@@ -13,12 +13,16 @@ type
     fbIndentsEnabled: boolean;
     feCapitalisation: TCapitalisationType;
     fiBreaksAfterLabel: integer;
+
   public
     procedure SetUp; override;
     procedure TearDown; override;
   published
 
-    procedure TestLabelBreaksNone;
+    procedure TestLabelBreaksNone_None;
+    procedure TestLabelBreaksNone_One;
+    procedure TestLabelBreaksNone_Three;
+    procedure TestLabelBreaksNone_Two;
 
   end;
 
@@ -40,42 +44,49 @@ const
   UNIT_FOOTER = AnsiLineBreak + 'end;' + AnsiLineBreak + AnsiLineBreak +
     'end.';
 
-  ASM_STATEMENTS_UPPER =
+  ASM_LABEL_NONE =
     UNIT_HEADER +
     '  asm' + AnsiLineBreak +
+    '    @@testLabel: MOV   ECX, [EDX]' + AnsiLineBreak +
+    '    XCHG  ECX, [EAX]' + AnsiLineBreak +
+    '    CALL    PROCASM2' + AnsiLineBreak +
+    '  end;' + AnsiLineBreak +
+    UNIT_FOOTER;
+
+  ASM_LABEL_ONE =
+    UNIT_HEADER +
+    '  asm' + AnsiLineBreak +
+    '    @@testLabel:' + AnsiLineBreak +
     '    MOV   ECX, [EDX]' + AnsiLineBreak +
     '    XCHG  ECX, [EAX]' + AnsiLineBreak +
     '    CALL    PROCASM2' + AnsiLineBreak +
     '  end;' + AnsiLineBreak +
     UNIT_FOOTER;
 
-    ASM_STATEMENTS_LOWER =
+    ASM_LABEL_TWO =
     UNIT_HEADER +
     '  asm' + AnsiLineBreak +
-    '    mov   ecx, [edx]' + AnsiLineBreak +
-    '    xchg  ecx, [eax]' + AnsiLineBreak +
-    '    call    procasm2' + AnsiLineBreak +
+    '    @@testLabel:' + AnsiLineBreak +
+    AnsiLineBreak +
+    '    MOV   ECX, [EDX]' + AnsiLineBreak +
+    '    XCHG  ECX, [EAX]' + AnsiLineBreak +
+    '    CALL    PROCASM2' + AnsiLineBreak +
+    '  end;' + AnsiLineBreak +
+    UNIT_FOOTER;
+
+    ASM_LABEL_THREE =
+    UNIT_HEADER +
+    '  asm' + AnsiLineBreak +
+    '    @@testLabel:' + AnsiLineBreak +
+    AnsiLineBreak +
+    AnsiLineBreak +
+    '    MOV   ECX, [EDX]' + AnsiLineBreak +
+    '    XCHG  ECX, [EAX]' + AnsiLineBreak +
+    '    CALL    PROCASM2' + AnsiLineBreak +
     '  end;' + AnsiLineBreak +
     UNIT_FOOTER;
 
 
-    ASM_STATEMENTS_MIXED =
-    UNIT_HEADER +
-    '  asm' + AnsiLineBreak +
-    '    MOV   ecx, [EDX]' + AnsiLineBreak +
-    '    xchg  ECX, [eax]' + AnsiLineBreak +
-    '    CALL    Procasm2' + AnsiLineBreak +
-    '  end;' + AnsiLineBreak +
-    UNIT_FOOTER;
-
-    ASM_STATEMENTS_INITALCAPS =
-    UNIT_HEADER +
-    '  asm' + AnsiLineBreak +
-    '    Mov   Ecx, [Edx]' + AnsiLineBreak +
-    '    Xchg  Ecx, [Eax]' + AnsiLineBreak +
-    '    Call    Procasm2' + AnsiLineBreak +
-    '  end;' + AnsiLineBreak +
-    UNIT_FOOTER;
 
 
 procedure TTestAsmOptionsBreaks.SetUp;
@@ -107,11 +118,34 @@ begin
 end;
 
 
-procedure TTestAsmOptionsBreaks.TestLabelBreaksNone;
+procedure TTestAsmOptionsBreaks.TestLabelBreaksNone_None;
 begin
   FormatSettings.SetAsm.BreaksAfterLabelEnabled := True;
   FormatSettings.SetAsm.BreaksAfterLabel := 0;
+  TestFormatResult(ASM_LABEL_NONE, ASM_LABEL_NONE);
 end;
+
+procedure TTestAsmOptionsBreaks.TestLabelBreaksNone_One;
+begin
+  FormatSettings.SetAsm.BreaksAfterLabelEnabled := True;
+  FormatSettings.SetAsm.BreaksAfterLabel := 1;
+  TestFormatResult(ASM_LABEL_NONE, ASM_LABEL_ONE);
+end;
+
+procedure TTestAsmOptionsBreaks.TestLabelBreaksNone_Two;
+begin
+  FormatSettings.SetAsm.BreaksAfterLabelEnabled := True;
+  FormatSettings.SetAsm.BreaksAfterLabel := 2;
+  TestFormatResult(ASM_LABEL_NONE, ASM_LABEL_TWO);
+end;
+
+procedure TTestAsmOptionsBreaks.TestLabelBreaksNone_Three;
+begin
+  FormatSettings.SetAsm.BreaksAfterLabelEnabled := True;
+  FormatSettings.SetAsm.BreaksAfterLabel := 3;
+  TestFormatResult(ASM_LABEL_NONE, ASM_LABEL_THREE);
+end;
+
 
 initialization
   TestFramework.RegisterTest('Processes', TTestAsmOptionsBreaks.Suite);

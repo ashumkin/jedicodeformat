@@ -489,8 +489,6 @@ begin
 end;
 
 function IsAsmLabelEnd(const pcSourceToken: TSourceToken): boolean;
-var
-  lcPrev1, lcPrev2, lcPrev3: TSourceToken;
 begin
   Result := false;
 
