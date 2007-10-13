@@ -9,7 +9,8 @@ uses
 type
   TTestAsmOptions = class(TBaseTestProcess)
   private
-    fbEnabled: boolean;
+    fbBreaksAfterLabelEnabled: boolean;
+    fbIndentsEnabled: boolean;
     feCapitalisation: TCapitalisationType;
     fiBreaksAfterLabel: integer;
   public
@@ -97,7 +98,8 @@ begin
   // store old settings
   with FormatSettings do
   begin
-    fbEnabled := SetAsm.Enabled;
+    fbBreaksAfterLabelEnabled := SetAsm.BreaksAfterLabelEnabled;
+    fbIndentsEnabled := SetAsm.IndentsEnabled;
     feCapitalisation := SetAsm.Capitalisation;
     fiBreaksAfterLabel := SetAsm.BreaksAfterLabel;
   end;
@@ -110,7 +112,8 @@ begin
 
   with FormatSettings do
   begin
-    SetAsm.Enabled := fbEnabled;
+    SetAsm.BreaksAfterLabelEnabled := fbBreaksAfterLabelEnabled;
+    SetAsm.IndentsEnabled := fbIndentsEnabled;
     SetAsm.Capitalisation := feCapitalisation;
     SetAsm.BreaksAfterLabel := fiBreaksAfterLabel;
   end;
