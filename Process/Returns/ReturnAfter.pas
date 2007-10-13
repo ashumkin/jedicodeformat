@@ -501,7 +501,7 @@ begin
 
   if (pcSourceToken.TokenType = ttColon) then
   begin
-    Result := pt.HasParentNode(nAsmLabel, 1);
+    Result := pcSourceToken.HasParentNode(nAsmLabel, 1);
   end;
 end;
 
@@ -516,11 +516,7 @@ begin
       Result := FormatSettings.SetAsm.BreaksAfterLabel;
   end;
 
-  if pt.TokenType = ttAsm then
-  begin
-    Result := 1;
-  end
-  else if pt.TokenType = ttSemiColon then
+  if pcSourceToken.TokenType in [ttAsm, ttSemiColon] then
   begin
     Result := 1;
   end;
