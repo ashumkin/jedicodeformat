@@ -10,7 +10,6 @@ uses
 
 type
   TfAsm = class(TfrSettingsFrame)
-    cbEnabled: TCheckBox;
     rgCaps: TRadioGroup;
     gbIndents: TGroupBox;
     edtIndent6: TJvValidateEdit;
@@ -25,8 +24,11 @@ type
     Label4: TLabel;
     Label5: TLabel;
     Label6: TLabel;
-    Label7: TLabel;
+    cbIndentsEnabled: TCheckBox;
+    gbBreaksAfterLabel: TGroupBox;
+    cbBreaksAfterLabelEnabled: TCheckBox;
     edtBreaksAfterLabel: TJvValidateEdit;
+    Label7: TLabel;
   private
   public
     procedure Read; override;
@@ -36,13 +38,14 @@ type
 
 implementation
 
-uses JcfHelp, JcfSettings, Capitalisation, SettingsTypes;
+uses JcfHelp, JcfSettings, Capitalisation, SettingsTypes, SetAsm;
 
 {$R *.dfm}
 
 procedure TfAsm.Read;
 begin
-  cbEnabled.Checked := FormatSettings.SetAsm.Enabled;
+  cbBreaksAfterLabelEnabled.Checked := FormatSettings.SetAsm.BreaksAfterLabelEnabled;
+  cbIndentsEnabled.Checked := FormatSettings.SetAsm.IndentsEnabled;
 
   with FormatSettings.SetAsm do
   begin
@@ -63,7 +66,8 @@ end;
 
 procedure TfAsm.Write;
 begin
-  FormatSettings.SetAsm.Enabled := cbEnabled.Checked;
+  FormatSettings.SetAsm.BreaksAfterLabelEnabled := cbBreaksAfterLabelEnabled.Checked;
+  FormatSettings.SetAsm.IndentsEnabled := cbIndentsEnabled.Checked;
 
   with FormatSettings.SetAsm do
   begin

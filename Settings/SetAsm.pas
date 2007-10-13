@@ -30,10 +30,11 @@ type
 
   TSetAsm = class(TSetBase)
   private
-    fbEnabled: boolean;
     feCapitalisation: TCapitalisationType;
     fiBreaksAfterLabel: integer;
     fcIndents: TIntList;
+    fbBreaksAfterLabelEnabled: boolean;
+    fbIndentsEnabled: boolean;
 
     function GetIndent(const index: integer): integer;
     procedure SetIndent(const index: integer; const Value: integer);
@@ -45,10 +46,11 @@ type
     procedure WriteToStream(const pcOut: TSettingsOutput); override;
     procedure ReadFromStream(const pcStream: TSettingsInput); override;
 
-    property Enabled: boolean Read fbEnabled Write fbEnabled;
     property Capitalisation: TCapitalisationType Read feCapitalisation Write feCapitalisation;
     property BreaksAfterLabel: integer read fiBreaksAfterLabel write fiBreaksAfterLabel;
     property Indents[const index: integer]: integer read GetIndent write SetIndent;
+    property BreaksAfterLabelEnabled: boolean Read fbBreaksAfterLabelEnabled Write fbBreaksAfterLabelEnabled;
+    property IndentsEnabled: boolean Read fbIndentsEnabled Write fbIndentsEnabled;
  end;
 
 implementation
@@ -57,10 +59,11 @@ uses
   SysUtils;
 
 const
-  REG_ENABLED = 'Enabled';
   REG_CAPS = 'Caps';
   REG_BREAKS_AFTER_LABEL = 'BreaksAfterLabel';
   REG_INDENT_LEVEL = 'Indent_';
+  REG_BREAKS_AFTER_LABEL_ENABLED = 'BreaksAfterLabelEnabled';
+  REG_INDENTS_ENABLED = 'IndentsEnabled';
 
 const
   LAST_INDENT_ITEM = 5;
@@ -108,9 +111,12 @@ var
 begin
   Assert(pcStream <> nil);
 
-  fbEnabled := pcStream.Read(REG_ENABLED, True);
+
   feCapitalisation := TCapitalisationType(pcStream.Read(REG_CAPS, Ord(ctLeaveAlone)));
   fiBreaksAfterLabel := pcStream.Read(REG_BREAKS_AFTER_LABEL, 2);
+
+  fbBreaksAfterLabelEnabled := pcStream.Read(REG_BREAKS_AFTER_LABEL_ENABLED, True);
+  fbIndentsEnabled := pcStream.Read(REG_INDENTS_ENABLED, True);
 
   fcIndents.Clear;
   for liLoop := 0 to LAST_INDENT_ITEM do
@@ -128,9 +134,11 @@ var
 begin
   Assert(pcOut <> nil);
 
-  pcOut.Write(REG_ENABLED, fbEnabled);
   pcOut.Write(REG_CAPS, Ord(feCapitalisation));
   pcOut.Write(REG_BREAKS_AFTER_LABEL, fiBreaksAfterLabel);
+
+  pcOut.Write(REG_BREAKS_AFTER_LABEL_ENABLED, fbBreaksAfterLabelEnabled);
+  pcOut.Write(REG_INDENTS_ENABLED, fbIndentsEnabled);
 
   liMax := LAST_INDENT_ITEM;
   if liMax > (fcIndents.Count - 1) then

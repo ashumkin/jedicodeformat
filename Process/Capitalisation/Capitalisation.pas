@@ -97,11 +97,8 @@ begin
 
   if lcSourceToken.HasParentNode(nAsm) and not (lcSourceToken.TokenType in [ttAsm, ttEnd]) then
   begin
-      // underneath an "asm" node - use asm caps
-      if FormatSettings.SetAsm.Enabled then
-      begin
-        FixCaps(lcSourceToken, FormatSettings.SetAsm.Capitalisation);
-      end;
+    // underneath an "asm" node - use asm caps
+    FixCaps(lcSourceToken, FormatSettings.SetAsm.Capitalisation);
   end
   else
   begin
