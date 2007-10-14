@@ -89,7 +89,8 @@ uses
   PropertyOnOneLine,
   RemoveBlankLinesAfterProcHeader, RemoveBlankLinesInVars,
   NoReturnBefore, NoReturnAfter, ReturnBefore, ReturnAfter,
-  BlockStyles, ReturnsAfterFinalEnd, RemoveConsecutiveReturns,
+  BlockStyles, ReturnsAfterFinalEnd,
+  RemoveConsecutiveReturns, RemoveReturnsAfter,
   { spacing}
   TabToSpace, SpaceToTab, MaxSpaces,
   NoSpaceAfter, NoSpaceBefore, SingleSpaceBefore, SingleSpaceAfter,
@@ -302,6 +303,7 @@ begin
   ApplyVisitorType(TNoReturnAfter, [TVisitStripEmptySpace]);
   ApplyVisitorType(TNoReturnBefore, [TVisitStripEmptySpace]);
   ApplyVisitorType(TRemoveConsecutiveReturns);
+  ApplyVisitorType(TRemoveReturnsAfter);
 
   ApplyVisitorType(TVisitSetXY);
   ApplyVisitorType(TReturnBefore, [TVisitSetXY]);

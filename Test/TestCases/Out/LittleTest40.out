@@ -14,7 +14,6 @@ procedure Foo;
 begin
   asm
     @foo_@bar_:
-
     MOV     ECX,(type TInitContext)/4
 
     LEA     EDI,[EBP- (type foo) - (type foo)]

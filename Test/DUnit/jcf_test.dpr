@@ -172,7 +172,8 @@ uses
   TestSpacingInsideBrackets in 'TestSpacingInsideBrackets.pas',
   SetAsm in '..\..\Settings\SetAsm.pas',
   TestAsmOptionsCaps in 'TestAsmOptionsCaps.pas',
-  TestAsmOptionsBreaks in 'TestAsmOptionsBreaks.pas';
+  TestAsmOptionsBreaks in 'TestAsmOptionsBreaks.pas',
+  RemoveReturnsAfter in '..\..\Process\Returns\RemoveReturnsAfter.pas';
 
 {$R *.res}
 

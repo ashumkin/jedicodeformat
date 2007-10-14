@@ -169,7 +169,8 @@ uses
   frComments in '..\Ui\Settings\frComments.pas' {fComments: TFrame},
   JcfFontSetFunctions in '..\Utils\JcfFontSetFunctions.pas',
   SetAsm in '..\Settings\SetAsm.pas',
-  frAsm in '..\Ui\Settings\frAsm.pas' {fAsm: TFrame};
+  frAsm in '..\Ui\Settings\frAsm.pas' {fAsm: TFrame},
+  RemoveReturnsAfter in '..\Process\Returns\RemoveReturnsAfter.pas';
 
 {$R *.res}
 

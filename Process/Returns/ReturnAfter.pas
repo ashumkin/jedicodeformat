@@ -569,14 +569,12 @@ begin
   if lcNext = nil then
     exit;
 
-  if (lcNext.TokenType = ttReturn) then
+  while (lcNext <> nil) and (lcNext.TokenType = ttReturn) do
   begin
     Dec(liReturnsNeeded);
 
-    // is there a second return?
+    // is there another return?
     lcNext := lcNext.NextTokenWithExclusions([ttWhiteSpace]);
-    if (lcNext.TokenType = ttReturn) then
-      Dec(liReturnsNeeded);
   end;
 
   if liReturnsNeeded < 1 then

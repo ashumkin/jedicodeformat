@@ -82,8 +82,7 @@ begin
       Inc(liReturnCount);
       if (liReturnCount > liMaxReturns) then
       begin
-        lcTest.TokenType  := ttWhiteSpace;
-        lcTest.SourceCode := '';
+        BlankToken(lcTest);
       end;
     end;
     lcTest := lcTest.NextToken;
