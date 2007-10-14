@@ -142,7 +142,8 @@ uses
   IdentifierCaps in '..\Process\Capitalisation\IdentifierCaps.pas',
   WarnUnusedParam in '..\Process\Warnings\WarnUnusedParam.pas',
   JcfFontSetFunctions in '..\Utils\JcfFontSetFunctions.pas',
-  SetAsm in '..\Settings\SetAsm.pas';
+  SetAsm in '..\Settings\SetAsm.pas',
+  RemoveReturnsAfter in '..\Process\Returns\RemoveReturnsAfter.pas';
 
 const
   ABOUT_COMMANDLINE =
