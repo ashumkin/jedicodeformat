@@ -1,13 +1,17 @@
 inherited fAsm: TfAsm
-  Width = 327
+  Width = 375
   Height = 262
-  ExplicitWidth = 327
+  Font.Charset = ANSI_CHARSET
+  Font.Height = -15
+  Font.Name = 'Segoe UI'
+  ParentFont = False
+  ExplicitWidth = 375
   ExplicitHeight = 262
   object rgCaps: TRadioGroup
     Left = 165
     Top = 3
-    Width = 153
-    Height = 106
+    Width = 196
+    Height = 109
     Caption = '&Capitalization'
     ItemIndex = 1
     Items.Strings = (
@@ -25,52 +29,52 @@ inherited fAsm: TfAsm
     Caption = '&Indents'
     TabOrder = 0
     object Label1: TLabel
-      Left = 16
-      Top = 43
-      Width = 41
-      Height = 13
+      Left = 8
+      Top = 50
+      Width = 54
+      Height = 20
       Caption = 'Indent 1'
     end
     object Label2: TLabel
-      Left = 16
-      Top = 77
-      Width = 41
-      Height = 13
+      Left = 8
+      Top = 84
+      Width = 54
+      Height = 20
       Caption = 'Indent 2'
     end
     object Label3: TLabel
-      Left = 16
-      Top = 111
-      Width = 41
-      Height = 13
+      Left = 8
+      Top = 118
+      Width = 54
+      Height = 20
       Caption = 'Indent 3'
     end
     object Label4: TLabel
-      Left = 16
-      Top = 145
-      Width = 41
-      Height = 13
+      Left = 8
+      Top = 152
+      Width = 54
+      Height = 20
       Caption = 'Indent 4'
     end
     object Label5: TLabel
-      Left = 16
-      Top = 179
-      Width = 41
-      Height = 13
+      Left = 8
+      Top = 186
+      Width = 54
+      Height = 20
       Caption = 'Indent 5'
     end
     object Label6: TLabel
-      Left = 16
-      Top = 214
-      Width = 41
-      Height = 13
+      Left = 8
+      Top = 221
+      Width = 54
+      Height = 20
       Caption = 'Indent 6'
     end
     object edtIndent6: TJvValidateEdit
-      Left = 63
-      Top = 208
+      Left = 55
+      Top = 215
       Width = 49
-      Height = 21
+      Height = 28
       CriticalPoints.MaxValueIncluded = False
       CriticalPoints.MinValueIncluded = False
       EditText = '0'
@@ -81,10 +85,10 @@ inherited fAsm: TfAsm
       TabOrder = 6
     end
     object edtIndent5: TJvValidateEdit
-      Left = 63
-      Top = 174
+      Left = 55
+      Top = 181
       Width = 49
-      Height = 21
+      Height = 28
       CriticalPoints.MaxValueIncluded = False
       CriticalPoints.MinValueIncluded = False
       EditText = '0'
@@ -95,10 +99,10 @@ inherited fAsm: TfAsm
       TabOrder = 5
     end
     object edtIndent4: TJvValidateEdit
-      Left = 63
-      Top = 142
+      Left = 55
+      Top = 149
       Width = 49
-      Height = 21
+      Height = 28
       CriticalPoints.MaxValueIncluded = False
       CriticalPoints.MinValueIncluded = False
       EditText = '0'
@@ -109,10 +113,10 @@ inherited fAsm: TfAsm
       TabOrder = 4
     end
     object edtIndent3: TJvValidateEdit
-      Left = 63
-      Top = 108
+      Left = 55
+      Top = 115
       Width = 49
-      Height = 21
+      Height = 28
       CriticalPoints.MaxValueIncluded = False
       CriticalPoints.MinValueIncluded = False
       EditText = '0'
@@ -123,10 +127,10 @@ inherited fAsm: TfAsm
       TabOrder = 3
     end
     object edtIndent2: TJvValidateEdit
-      Left = 63
-      Top = 74
+      Left = 55
+      Top = 81
       Width = 49
-      Height = 21
+      Height = 28
       CriticalPoints.MaxValueIncluded = False
       CriticalPoints.MinValueIncluded = False
       EditText = '0'
@@ -137,10 +141,10 @@ inherited fAsm: TfAsm
       TabOrder = 2
     end
     object edtIndent1: TJvValidateEdit
-      Left = 63
-      Top = 40
+      Left = 55
+      Top = 47
       Width = 49
-      Height = 21
+      Height = 28
       CriticalPoints.MaxValueIncluded = False
       CriticalPoints.MinValueIncluded = False
       EditText = '0'
@@ -151,8 +155,8 @@ inherited fAsm: TfAsm
       TabOrder = 1
     end
     object cbIndentsEnabled: TCheckBox
-      Left = 16
-      Top = 17
+      Left = 8
+      Top = 25
       Width = 97
       Height = 17
       Caption = '&Enabled'
@@ -161,32 +165,32 @@ inherited fAsm: TfAsm
   end
   object gbBreaksAfterLabel: TGroupBox
     Left = 165
-    Top = 115
-    Width = 153
-    Height = 80
+    Top = 118
+    Width = 196
+    Height = 135
     Caption = '&Breaks after label'
     TabOrder = 2
     object Label7: TLabel
-      Left = 14
-      Top = 41
-      Width = 85
-      Height = 13
+      Left = 8
+      Top = 48
+      Width = 119
+      Height = 20
       Caption = '&Number of breaks'
       FocusControl = edtBreaksAfterLabel
     end
     object cbBreaksAfterLabelEnabled: TCheckBox
-      Left = 6
-      Top = 18
+      Left = 8
+      Top = 25
       Width = 97
       Height = 17
       Caption = 'En&abled'
       TabOrder = 0
     end
     object edtBreaksAfterLabel: TJvValidateEdit
-      Left = 100
-      Top = 38
-      Width = 40
-      Height = 21
+      Left = 131
+      Top = 45
+      Width = 49
+      Height = 28
       CriticalPoints.MaxValueIncluded = False
       CriticalPoints.MinValueIncluded = False
       EditText = '0'

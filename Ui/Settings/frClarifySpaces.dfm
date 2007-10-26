@@ -25,9 +25,9 @@ inherited fClarifySpaces: TfClarifySpaces
   end
   object gbColon: TGroupBox
     Left = 8
-    Top = 50
+    Top = 52
     Width = 246
-    Height = 189
+    Height = 212
     Caption = 'Spaces &before colon in'
     TabOrder = 2
     object Label2: TLabel

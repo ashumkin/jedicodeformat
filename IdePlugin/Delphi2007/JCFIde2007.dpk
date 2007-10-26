@@ -37,7 +37,10 @@ requires
   rtl,
   vcljpg,
   vclx,
-  Jcl;
+  Jcl,
+  vcldb,
+  dbrtl,
+  JclVcl;
 
 contains
   JCFIdeRegister in '..\JCFIdeRegister.pas',
@@ -48,7 +51,6 @@ contains
   Delay in '..\..\Utils\Delay.pas',
   JCFSetBase in '..\..\Settings\JCFSetBase.pas',
   Converter in '..\..\ReadWrite\Converter.pas',
-  fAllSettings in '..\..\Ui\fAllSettings.pas' {FormAllSettings},
   fAbout in '..\..\Ui\fAbout.pas' {frmAboutBox},
   VersionConsts in '..\..\VersionConsts.pas',
   VisitStripEmptySpace in '..\..\Process\VisitStripEmptySpace.pas',
@@ -186,6 +188,10 @@ contains
   frIdentifierCapsSettings in '..\..\Ui\Settings\frIdentifierCapsSettings.pas',
   frWarnings in '..\..\Ui\Settings\frWarnings.pas',
   frNotIdentifierCapsSettings in '..\..\Ui\Settings\frNotIdentifierCapsSettings.pas',
-  JcfFontSetFunctions in '..\..\Utils\JcfFontSetFunctions.pas';
+  JcfFontSetFunctions in '..\..\Utils\JcfFontSetFunctions.pas',
+  SetAsm in '..\..\Settings\SetAsm.pas',
+  RemoveReturnsAfter in '..\..\Process\Returns\RemoveReturnsAfter.pas',
+  frAsm in '..\..\Ui\Settings\frAsm.pas',
+  fAllSettings in '..\..\Ui\fAllSettings.pas';
 
 end.

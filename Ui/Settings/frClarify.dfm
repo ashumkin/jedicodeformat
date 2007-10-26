@@ -18,7 +18,7 @@ inherited fClarify: TfClarify
     Left = 136
     Top = 34
     Width = 141
-    Height = 85
+    Height = 87
     Caption = 'Run once-offs'
     Items.Strings = (
       'Do &not run'
@@ -30,7 +30,7 @@ inherited fClarify: TfClarify
     Left = 8
     Top = 34
     Width = 109
-    Height = 109
+    Height = 127
     TabOrder = 1
   end
 end
