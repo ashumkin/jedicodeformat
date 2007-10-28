@@ -1,6 +1,5 @@
 unit TestSelfParse;
 
-
 {(*}
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code 
