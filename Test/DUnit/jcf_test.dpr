@@ -174,7 +174,9 @@ uses
   TestAsmOptionsCaps in 'TestAsmOptionsCaps.pas',
   TestAsmOptionsBreaks in 'TestAsmOptionsBreaks.pas',
   RemoveReturnsAfter in '..\..\Process\Returns\RemoveReturnsAfter.pas',
-  TestAsmOptionsIndents in 'TestAsmOptionsIndents.pas';
+  TestAsmOptionsIndents in 'TestAsmOptionsIndents.pas',
+  IndentAsmParam in '..\..\Process\Indent\IndentAsmParam.pas',
+  TestAsmOptionsIndentsBare in 'TestAsmOptionsIndentsBare.pas';
 
 {$R *.res}
 

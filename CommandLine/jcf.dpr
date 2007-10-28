@@ -143,7 +143,8 @@ uses
   WarnUnusedParam in '..\Process\Warnings\WarnUnusedParam.pas',
   JcfFontSetFunctions in '..\Utils\JcfFontSetFunctions.pas',
   SetAsm in '..\Settings\SetAsm.pas',
-  RemoveReturnsAfter in '..\Process\Returns\RemoveReturnsAfter.pas';
+  RemoveReturnsAfter in '..\Process\Returns\RemoveReturnsAfter.pas',
+  IndentAsmParam in '..\Process\Indent\IndentAsmParam.pas';
 
 const
   ABOUT_COMMANDLINE =

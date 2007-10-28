@@ -169,7 +169,8 @@ uses
   JcfFontSetFunctions in '..\Utils\JcfFontSetFunctions.pas',
   SetAsm in '..\Settings\SetAsm.pas',
   frAsm in '..\Ui\Settings\frAsm.pas' {fAsm: TFrame},
-  RemoveReturnsAfter in '..\Process\Returns\RemoveReturnsAfter.pas';
+  RemoveReturnsAfter in '..\Process\Returns\RemoveReturnsAfter.pas',
+  IndentAsmParam in '..\Process\Indent\IndentAsmParam.pas';
 
 {$R *.res}
 
