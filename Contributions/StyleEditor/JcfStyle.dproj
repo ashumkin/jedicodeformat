@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{37943ccf-73c3-431a-849c-14c10646851a}</ProjectGuid>
+    <MainSource>JCFStyle.dpr</MainSource>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+    <DCC_DependencyCheckOutputName>..\Output\JCFStyle.exe</DCC_DependencyCheckOutputName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_DebugInformation>False</DCC_DebugInformation>
+    <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+    <DCC_Optimize>False</DCC_Optimize>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    <DCC_ExeOutput>..\Output</DCC_ExeOutput>
+    <DCC_DcuOutput>..\Output</DCC_DcuOutput>
+    <DCC_ObjOutput>..\Output</DCC_ObjOutput>
+    <DCC_HppOutput>..\Output</DCC_HppOutput>
+    <DCC_Define>RELEASE</DCC_Define>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_Optimize>False</DCC_Optimize>
+    <DCC_ExeOutput>..\Output</DCC_ExeOutput>
+    <DCC_DcuOutput>..\Output</DCC_DcuOutput>
+    <DCC_ObjOutput>..\Output</DCC_ObjOutput>
+    <DCC_HppOutput>..\Output</DCC_HppOutput>
+    <DCC_Define>DEBUG</DCC_Define>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Delphi.Personality</Borland.Personality>
+    <Borland.ProjectType>VCLApplication</Borland.ProjectType>
+    <BorlandProject>
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><Language><Language Name="RootDir">C:\Code\Delphi\JcfCheckout\CodeFormat\Jcf2\</Language></Language><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">2</VersionInfo><VersionInfo Name="MinorVer">30</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">2</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1033</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName"></VersionInfoKeys><VersionInfoKeys Name="FileDescription">JCF Notepad</VersionInfoKeys><VersionInfoKeys Name="FileVersion">2.30.0.2</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">2.30</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Source><Source Name="MainSource">JCFStyle.dpr</Source></Source></Delphi.Personality></BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
+  <ItemGroup>
+    <DelphiCompile Include="JCFStyle.dpr">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+    <DCCReference Include="..\ReadWrite\ConvertTypes.pas" />
+    <DCCReference Include="..\Settings\JcfRegistrySettings.pas" />
+    <DCCReference Include="..\Settings\JCFSetBase.pas" />
+    <DCCReference Include="..\Settings\JCFSettings.pas" />
+    <DCCReference Include="..\Settings\SetAlign.pas" />
+    <DCCReference Include="..\Settings\SetCaps.pas" />
+    <DCCReference Include="..\Settings\SetClarify.pas" />
+    <DCCReference Include="..\Settings\SetComments.pas" />
+    <DCCReference Include="..\Settings\SetIndent.pas" />
+    <DCCReference Include="..\Settings\SetObfuscate.pas" />
+    <DCCReference Include="..\Settings\SetPreProcessor.pas" />
+    <DCCReference Include="..\Settings\SetReplace.pas" />
+    <DCCReference Include="..\Settings\SetReturns.pas" />
+    <DCCReference Include="..\Settings\SetSpaces.pas" />
+    <DCCReference Include="..\Settings\SettingsTypes.pas" />
+    <DCCReference Include="..\Settings\SetTransform.pas" />
+    <DCCReference Include="..\Settings\SetUses.pas" />
+    <DCCReference Include="..\Settings\SetWordList.pas" />
+    <DCCReference Include="..\Settings\Streams\SettingsStream.pas" />
+    <DCCReference Include="..\Ui\fAllSettings.pas">
+      <Form>FormAllSettings</Form>
+    </DCCReference>
+    <DCCReference Include="..\Ui\Settings\frAnyCapsSettings.pas" />
+    <DCCReference Include="..\Ui\Settings\frBasicSettings.pas">
+      <Form>frBasic</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Ui\Settings\frBlankLines.pas">
+      <Form>fBlankLines</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Ui\Settings\frClarify.pas">
+      <Form>fClarify</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Ui\Settings\frClarifyAlign.pas">
+      <Form>fClarifyAlign</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Ui\Settings\frClarifyBlocks.pas">
+      <Form>fClarifyBlocks</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Ui\Settings\frClarifyCaseBlocks.pas">
+      <Form>fClarifyCaseBlocks</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Ui\Settings\frClarifyIndent.pas">
+      <Form>fClarifyIndent</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Ui\Settings\frClarifyLongLineBreaker.pas">
+      <Form>fClarifyLongLineBreaker</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Ui\Settings\frClarifyReturns.pas">
+      <Form>fClarifyReturns</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Ui\Settings\frClarifySpaces.pas">
+      <Form>fClarifySpaces</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Ui\Settings\frComments.pas">
+      <Form>fComments</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Ui\Settings\frCompilerDirectReturns.pas">
+      <Form>fCompilerDirectReturns</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Ui\Settings\frFiles.pas">
+      <Form>fFiles</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Ui\Settings\frIdentifierCapsSettings.pas">
+      <Form>fIdentifierCapsSettings</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Ui\Settings\frmBaseSettingsFrame.pas">
+      <Form>frSettingsFrame</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Ui\Settings\frNotIdentifierCapsSettings.pas">
+      <Form>fNotIdentifierCapsSettings</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Ui\Settings\frObfuscateSettings.pas">
+      <Form>fObfuscateSettings</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Ui\Settings\frPreProcessor.pas">
+      <Form>fPreProcessor</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Ui\Settings\frReplace.pas">
+      <Form>fReplace</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Ui\Settings\frReservedCapsSettings.pas" />
+    <DCCReference Include="..\Ui\Settings\frTransform.pas">
+      <Form>fTransform</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Ui\Settings\frUnitCaps.pas">
+      <Form>frUnitNameCaps</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Ui\Settings\frUses.pas">
+      <Form>fUses</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Ui\Settings\frWarnings.pas">
+      <Form>fWarnings</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Utils\DragDrop\frDrop.pas">
+      <Form>FrameDrop</Form>
+      <DesignClass>TFrame</DesignClass>
+    </DCCReference>
+    <DCCReference Include="..\Utils\DragDrop\JCFDropTarget.pas" />
+    <DCCReference Include="..\Utils\FileUtils.pas" />
+    <DCCReference Include="..\Utils\JcfFontSetFunctions.pas" />
+    <DCCReference Include="..\Utils\JCFHelp.pas" />
+    <DCCReference Include="..\Utils\JcfMiscFunctions.pas" />
+    <DCCReference Include="..\VersionConsts.pas" />
+  </ItemGroup>
+</Project>
