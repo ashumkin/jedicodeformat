@@ -24,21 +24,21 @@ uses DB;
 /// DoAsm comment
 procedure TMyClass.DoAsm;
 asm
-  mov edx, [eax] // récupération de la VMT
+         mov edx, [eax] // récupération de la VMT
 
-  // test du cas où le remplacement a déjà été fait
-  mov ecx, dword ptr TField.GetData
-  cmp dword ptr [edx + VMTOFFSET TField.IsBlob], ecx
-  je @@AlreadyDone
+         // test du cas où le remplacement a déjà été fait
+         mov ecx, dword ptr TField.GetData
+         cmp dword ptr [edx + VMTOFFSET TField.IsBlob], ecx
+         je @@AlreadyDone
 
-  // sauvegarde du pointeur vers Draw dans OriginalDraw
-  mov ecx, dword ptr [edx + VMTOFFSET TField.IsBlob]
-  //mov dword ptr [edx + DMTOFFSET TField.GetData], ecx
-  // remplacement par DerivedDraw
-  mov ecx, dword ptr TField.IsBlob
-  mov dword ptr [edx], ecx
+         // sauvegarde du pointeur vers Draw dans OriginalDraw
+         mov ecx, dword ptr [edx + VMTOFFSET TField.IsBlob]
+         //mov dword ptr [edx + DMTOFFSET TField.GetData], ecx
+         // remplacement par DerivedDraw
+         mov ecx, dword ptr TField.IsBlob
+         mov dword ptr [edx], ecx
 
-  @@AlreadyDone:
+         @@AlreadyDone:
 end;
 
 end.

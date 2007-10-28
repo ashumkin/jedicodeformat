@@ -7,7 +7,7 @@ implementation
 procedure foo;
 begin
   asm
-    cld end;
+           cld end;
 end;
 
 end.

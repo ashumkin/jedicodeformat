@@ -29,6 +29,7 @@ interface
 
   This is the single most important (and possibly most complex)
   of all the processes
+  it sets the indent for the start of the line
 }
 
 uses SwitchableVisitor;
@@ -49,7 +50,7 @@ uses
   { jcf }
   JclStrings,
   SourceToken, Nesting, FormatFlags, JcfSettings, TokenUtils,
-  Tokens, ParseTreeNode, ParseTreeNodeType, SetIndent;
+  Tokens, ParseTreeNode, ParseTreeNodeType, SetIndent, SetAsm;
 
 { true if the specified token type occurs before pt on the line }
 function HasPreceedingTokenTypeOnLine(const pt: TSourceToken; const ptt: TTokenTypeSet): Boolean;
@@ -111,7 +112,10 @@ begin
   begin
     { don't indent } // when there's a comment before the token on a line
     if HasPreceedingTokenTypeOnLine(pt, [ttComment]) then
+    begin
       Result := False;
+    end;
+
   end
   else if IsSingleLineComment(pt) and (pt.CommentStyle <> eCompilerDirective) then
   begin
@@ -561,6 +565,12 @@ begin
     ' for ' + pt.Describe);
 
   Result := FormatSettings.Indent.SpacesForIndentLevel(liIndentCount);
+
+  // asm extra indent
+  if IsInsideAsm(pt) and FormatSettings.SetAsm.StatementIndentEnabled then
+  begin
+    Result := Result + FormatSettings.SetAsm.StatementIndent;
+  end;
 
   // IndentBeginEnd option to indent begin/end words a bit extra
   if FormatSettings.Indent.IndentBeginEnd then

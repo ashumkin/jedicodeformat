@@ -95,7 +95,7 @@ begin
   lcSourceToken := TSourceToken(pcNode);
 
 
-  if lcSourceToken.HasParentNode(nAsm) and not (lcSourceToken.TokenType in [ttAsm, ttEnd]) then
+  if IsInsideAsm(lcSourceToken) then
   begin
     // underneath an "asm" node - use asm caps
     FixCaps(lcSourceToken, FormatSettings.SetAsm.Capitalisation);

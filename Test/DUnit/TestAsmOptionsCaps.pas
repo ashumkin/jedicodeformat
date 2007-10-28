@@ -32,10 +32,15 @@ uses
 type
   TTestAsmOptionsCaps = class(TBaseTestProcess)
   private
-    fbBreaksAfterLabelEnabled: boolean;
-    fbIndentsEnabled: boolean;
     feCapitalisation: TCapitalisationType;
+
+    fbBreaksAfterLabelEnabled: boolean;
     fiBreaksAfterLabel: integer;
+
+    fbStatementIndentEnabled: boolean;
+    fiStatementIndent: integer;
+    fbParamsIndentEnabled: boolean;
+    fiParamsIndent: integer;
 
   protected
     procedure SetUp; override;
@@ -122,12 +127,19 @@ begin
   // store old settings
   with FormatSettings do
   begin
-    fbBreaksAfterLabelEnabled := SetAsm.BreaksAfterLabelEnabled;
-    fbIndentsEnabled := SetAsm.IndentsEnabled;
     feCapitalisation := SetAsm.Capitalisation;
-    fiBreaksAfterLabel := SetAsm.BreaksAfterLabel;
-  end;
 
+    fbBreaksAfterLabelEnabled := SetAsm.BreaksAfterLabelEnabled;
+    fiBreaksAfterLabel := SetAsm.BreaksAfterLabel;
+
+    fbStatementIndentEnabled := SetAsm.StatementIndentEnabled;
+    fiStatementIndent := SetAsm.StatementIndent;
+
+    fbParamsIndentEnabled := SetAsm.ParamsIndentEnabled;
+    fiParamsIndent := SetAsm.ParamsIndent;
+
+    SetAsm.StatementIndentEnabled := False;
+  end;
 end;
 
 procedure TTestAsmOptionsCaps.TearDown;
@@ -136,10 +148,16 @@ begin
 
   with FormatSettings do
   begin
-    SetAsm.BreaksAfterLabelEnabled := fbBreaksAfterLabelEnabled;
-    SetAsm.IndentsEnabled := fbIndentsEnabled;
     SetAsm.Capitalisation := feCapitalisation;
+
+    SetAsm.BreaksAfterLabelEnabled := fbBreaksAfterLabelEnabled;
     SetAsm.BreaksAfterLabel := fiBreaksAfterLabel;
+
+    SetAsm.StatementIndentEnabled := fbStatementIndentEnabled;
+    SetAsm.StatementIndent := fiStatementIndent;
+
+    SetAsm.ParamsIndentEnabled := fbParamsIndentEnabled;
+    SetAsm.ParamsIndent := fiParamsIndent;
   end;
 end;
 

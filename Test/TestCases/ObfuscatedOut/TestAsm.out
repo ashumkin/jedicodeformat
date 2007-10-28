@@ -18,46 +18,46 @@ begin
   li1 := random(10);
   li2 := random(10);
   asm
-    mov eax,li1
-    push dword ptr[edx]
-    mov edx,[ebp+8]
-    add esp,4
-    call dword ptr procasm2
-    mov lb,al
+           mov eax,li1
+           push dword ptr[edx]
+           mov edx,[ebp+8]
+           add esp,4
+           call dword ptr procasm2
+           mov lb,al
   end;
   li1 := li1 + li2;
 end;
 
 procedure procasm2;
 asm
-  test cl,cl
-  jne @@isdll
-  mov eax,[edx+eax*4]
-  mov cl,moduleislib
-  mov eax,tlsindex
-  ret
-  @@inittls:
-  call procasm3
-  mov eax,tlsindex
-  je @@rtm32
-  call procasm1
-  push eax
-  test eax,eax
-  ret
-  @@rtm32:
-  ret
-  @@isdll:
-  push eax
-  test eax,eax
-  call procasm3
-  je @@inittls
-  @@2a:
-  mov eax,[ebx]
-  @@2a2:
-  mov eax,[ebx]
-  @@2a2a:
-  mov eax,[ebx]
-  fmul st(1),st
+         test cl,cl
+         jne @@isdll
+         mov eax,[edx+eax*4]
+         mov cl,moduleislib
+         mov eax,tlsindex
+         ret
+         @@inittls:
+         call procasm3
+         mov eax,tlsindex
+         je @@rtm32
+         call procasm1
+         push eax
+         test eax,eax
+         ret
+         @@rtm32:
+         ret
+         @@isdll:
+         push eax
+         test eax,eax
+         call procasm3
+         je @@inittls
+         @@2a:
+         mov eax,[ebx]
+         @@2a2:
+         mov eax,[ebx]
+         @@2a2a:
+         mov eax,[ebx]
+         fmul st(1),st
 end;
 
 procedure procasm3;
@@ -67,11 +67,11 @@ begin
   li1 := random(10);
   li2 := random(10);
   asm
-    mov ecx,[edx]
-    xchg ecx,[eax]
-    call procasm2
-    xchg ecx,[eax]
-    mov[edx],ecx
+           mov ecx,[edx]
+           xchg ecx,[eax]
+           call procasm2
+           xchg ecx,[eax]
+           mov[edx],ecx
   end;
   li1 := li1 + li2;
   li2 := random(10);
@@ -79,10 +79,10 @@ begin
   begin
     ShowMessage('More Asm');
     asm
-      mov[edx],ecx
-      mov ecx,[edx]
-      push eax
-      xchg ecx,[eax]
+             mov[edx],ecx
+             mov ecx,[edx]
+             push eax
+             xchg ecx,[eax]
     end;
     li2 := li1 + li2;
   end;
@@ -97,33 +97,33 @@ const
 procedure testcomplexasm;
 begin
   asm
-    movzx eax,tfish(pond[edx])
+           movzx eax,tfish(pond[edx])
   end;
 end;
 
 procedure testendcolon;
 begin
   asm
-    @end:
+           @end:
   end;
 end;
 
 procedure testasmexpr;
 begin
   asm
-    @@tv:
-    @@nx:
-    jmp dword ptr @@tv[ecx*4+32]
+           @@tv:
+           @@nx:
+           jmp dword ptr @@tv[ecx*4+32]
   end;
 end;
 
 procedure testasmdot;
 begin
   asm
-    ja @@4
-    push[esi].integer[4]
-    push[esi].integer[0]
-    @@4:
+           ja @@4
+           push[esi].integer[4]
+           push[esi].integer[0]
+           @@4:
   end;
 end;
 
@@ -135,12 +135,12 @@ begin
   li1 := random(10);
   li2 := random(10);
   asm
-    mov eax,li1
+           mov eax,li1
   end;
   if li1 = 3 then
   begin
     asm
-      mov eax,li1
+             mov eax,li1
     end;
   end;
 end;

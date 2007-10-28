@@ -25,11 +25,11 @@ implementation
 /// FaitqqChose comment
 procedure TmaClass.FaitqqChose(x, y, dx, dy: integer);
 asm
-  PUSH dy;
-  PUSH &dx;
-  PUSH y;
-  PUSH x;
-  CALL DWORD PTR FaitqqChose;
+         PUSH dy;
+         PUSH &dx;
+         PUSH y;
+         PUSH x;
+         CALL DWORD PTR FaitqqChose;
 end;
 
 end.

@@ -33,12 +33,12 @@ begin
 
   asm
 
-    MOV     EAX,li1
-    PUSH    DWORD PTR [EDX]
-    MOV     EDX,[EBP+8]
-    ADD     ESP,4
-    CALL    DWORD PTR ProcASM2
-    MOV     lb,AL
+           MOV     EAX,li1
+           PUSH    DWORD PTR [EDX]
+           MOV     EDX,[EBP+8]
+           ADD     ESP,4
+           CALL    DWORD PTR ProcASM2
+           MOV     lb,AL
   end;
 
   li1 := li1 + li2;
@@ -48,39 +48,39 @@ end;
 { proc that is all ASM }
 procedure ProcASM2;
 asm
-  TEST    CL,CL
-  JNE     @@isDll
-  MOV     EAX,[EDX+EAX*4]
-  MOV     CL,ModuleIsLib
-  MOV     EAX,TlsIndex
-  RET
+         TEST    CL,CL
+         JNE     @@isDll
+         MOV     EAX,[EDX+EAX*4]
+         MOV     CL,ModuleIsLib
+         MOV     EAX,TlsIndex
+         RET
 
-  @@initTls:
-  CALL    ProcASM3
-  MOV     EAX,TlsIndex
-  JE      @@RTM32
-  CALL    ProcASM1
-  PUSH    EAX
-  TEST    EAX,EAX
-  RET
+         @@initTls:
+         CALL    ProcASM3
+         MOV     EAX,TlsIndex
+         JE      @@RTM32
+         CALL    ProcASM1
+         PUSH    EAX
+         TEST    EAX,EAX
+         RET
 
-  @@RTM32:
-  RET
+         @@RTM32:
+         RET
 
-  @@isDll:
-  PUSH    EAX
-  TEST    EAX,EAX
-  CALL    ProcASM3
-  JE      @@initTls
+         @@isDll:
+         PUSH    EAX
+         TEST    EAX,EAX
+         CALL    ProcASM3
+         JE      @@initTls
 
-  @@2a:
-  MOV     EAX, [EBX]
-  @@2a2:
-  MOV     EAX, [EBX]
-  @@2a2a:
-  MOV     EAX, [EBX]
+         @@2a:
+         MOV     EAX, [EBX]
+         @@2a2:
+         MOV     EAX, [EBX]
+         @@2a2a:
+         MOV     EAX, [EBX]
 
-  fmul    ST(1),ST          { Result := Result * X }
+         fmul    ST(1),ST          { Result := Result * X }
 
 end;
 
@@ -94,11 +94,11 @@ begin
   li2 := Random(10);
 
   asm
-    MOV   ECX, [EDX]
-    XCHG  ECX, [EAX]
-    CALL    ProcASM2
-    XCHG  ECX, [EAX]
-    MOV[EDX], ECX
+           MOV   ECX, [EDX]
+           XCHG  ECX, [EAX]
+           CALL    ProcASM2
+           XCHG  ECX, [EAX]
+           MOV[EDX], ECX
   end;
 
   li1 := li1 + li2;
@@ -109,10 +109,10 @@ begin
     ShowMessage('More Asm');
 
     asm
-      MOV[EDX], ECX
-      MOV   ECX, [EDX]
-      PUSH    EAX
-      XCHG  ECX, [EAX]
+             MOV[EDX], ECX
+             MOV   ECX, [EDX]
+             PUSH    EAX
+             XCHG  ECX, [EAX]
     end;
 
     li2 := li1 + li2;
@@ -133,33 +133,33 @@ procedure TestComplexAsm;
 begin
   // sourceforge snag 926926
   asm
-    MOVZX   EAX, TFish(Pond[EDX])
+           MOVZX   EAX, TFish(Pond[EDX])
   end;
 end;
 
 procedure TestEndColon;
 begin
   asm
-    @end:
+           @end:
   end;
 end;
 
 procedure TestAsmExpr;
 begin
   asm
-    @@tV:
-    @@nx:
-    JMP     DWORD PTR @@tV[ECX*4+32]
+           @@tV:
+           @@nx:
+           JMP     DWORD PTR @@tV[ECX*4+32]
   end;
 end;
 
 procedure TestAsmDot;
 begin
   asm
-    JA      @@4
-    PUSH[ESI].Integer[4]
-    PUSH[ESI].Integer[0]
-    @@4:
+           JA      @@4
+           PUSH[ESI].Integer[4]
+           PUSH[ESI].Integer[0]
+           @@4:
   end;
 end;
 
@@ -172,13 +172,13 @@ begin
   li2 := Random(10);
 
   asm
-    MOV     EAX,li1
+           MOV     EAX,li1
   end;
 
   if li1 = 3 then
   begin
     asm
-      MOV     EAX,li1
+             MOV     EAX,li1
     end;
   end;
 end;

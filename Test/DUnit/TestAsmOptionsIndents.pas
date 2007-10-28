@@ -33,21 +33,25 @@ type
 
   TTestAsmOptionsIndents = class(TBaseTestProcess)
   private
-    fbBreaksAfterLabelEnabled: boolean;
-    fbIndentsEnabled: boolean;
     feCapitalisation: TCapitalisationType;
+
+    fbBreaksAfterLabelEnabled: boolean;
     fiBreaksAfterLabel: integer;
-    fcStoreIndents: TIntList;
+
+    fbStatementIndentEnabled: boolean;
+    fiStatementIndent: integer;
+    fbParamsIndentEnabled: boolean;
+    fiParamsIndent: integer;
 
   protected
     procedure SetUp; override;
     procedure TearDown; override;
 
   public
-    destructor Destroy; override;
 
   published
-    procedure TestIndent;
+    procedure TestStatementIndentOn;
+    procedure TestStatementIndentOff;
   end;
 
 implementation
@@ -71,79 +75,76 @@ const
   ASM_STATEMENTS_NOT_INDENTED =
     UNIT_HEADER +
     '  asm' + AnsiLineBreak +
-    'MOV ECX, [EDX]' + AnsiLineBreak +
-    'XCHG ECX, [EAX]' + AnsiLineBreak +
-    'CALL PROCASM2' + AnsiLineBreak +
+    '    MOV ECX, [EDX]' + AnsiLineBreak +
+    '    XCHG ECX, [EAX]' + AnsiLineBreak +
+    '    CALL PROCASM2' + AnsiLineBreak +
     '  end;' + AnsiLineBreak +
     UNIT_FOOTER;
 
     ASM_STATEMENTS_INDENTED =
     UNIT_HEADER +
     '  asm' + AnsiLineBreak +
-    '  MOV   ECX, [EDX]' + AnsiLineBreak +
-    '  XCHG  ECX, [EAX]' + AnsiLineBreak +
-    '  CALL  PROCASM2' + AnsiLineBreak +
+    '           MOV ECX, [EDX]' + AnsiLineBreak +
+    '           XCHG ECX, [EAX]' + AnsiLineBreak +
+    '           CALL PROCASM2' + AnsiLineBreak +
     '  end;' + AnsiLineBreak +
     UNIT_FOOTER;
 
 
-destructor TTestAsmOptionsIndents.Destroy;
-begin
-  FreeAndNil(fcStoreIndents);
-  inherited;
-end;
-
 procedure TTestAsmOptionsIndents.SetUp;
-var
-  liIndentLoop: integer;
 begin
   inherited;
-
 
   // store old settings
   with FormatSettings do
   begin
-    fbBreaksAfterLabelEnabled := SetAsm.BreaksAfterLabelEnabled;
-    fbIndentsEnabled := SetAsm.IndentsEnabled;
     feCapitalisation := SetAsm.Capitalisation;
+
+    fbBreaksAfterLabelEnabled := SetAsm.BreaksAfterLabelEnabled;
     fiBreaksAfterLabel := SetAsm.BreaksAfterLabel;
 
-    if fcStoreIndents = nil then
-      fcStoreIndents := TIntList.Create;
+    fbStatementIndentEnabled := SetAsm.StatementIndentEnabled;
+    fiStatementIndent := SetAsm.StatementIndent;
 
-    fcStoreIndents.Clear;
-    for liIndentLoop := 0 to 5 do
-    begin
-      fcStoreIndents.Add(SetAsm.Indents[liIndentLoop]);
-    end;
+    fbParamsIndentEnabled := SetAsm.ParamsIndentEnabled;
+    fiParamsIndent := SetAsm.ParamsIndent;
   end;
 end;
 
 procedure TTestAsmOptionsIndents.TearDown;
-var
-  liIndentLoop: integer;
 begin
   inherited;
 
   with FormatSettings do
   begin
-    SetAsm.BreaksAfterLabelEnabled := fbBreaksAfterLabelEnabled;
-    SetAsm.IndentsEnabled := fbIndentsEnabled;
     SetAsm.Capitalisation := feCapitalisation;
+
+    SetAsm.BreaksAfterLabelEnabled := fbBreaksAfterLabelEnabled;
     SetAsm.BreaksAfterLabel := fiBreaksAfterLabel;
 
-    for liIndentLoop := 0 to 5 do
-    begin
-      SetAsm.Indents[liIndentLoop] := fcStoreIndents.Items[liIndentLoop];
-    end;
+    SetAsm.StatementIndentEnabled := fbStatementIndentEnabled;
+    SetAsm.StatementIndent := fiStatementIndent;
+
+    SetAsm.ParamsIndentEnabled := fbParamsIndentEnabled;
+    SetAsm.ParamsIndent := fiParamsIndent;
   end;
 
 end;
 
-procedure TTestAsmOptionsIndents.TestIndent;
+procedure TTestAsmOptionsIndents.TestStatementIndentOn;
 begin
- // code not working yet  TestFormatResult(ASM_STATEMENTS_NOT_INDENTED, ASM_STATEMENTS_INDENTED);
+  FormatSettings.SetAsm.StatementIndentEnabled := True;
+  TestFormatResult(ASM_STATEMENTS_NOT_INDENTED, ASM_STATEMENTS_INDENTED);
 end;
+
+
+procedure TTestAsmOptionsIndents.TestStatementIndentOff;
+begin
+  FormatSettings.SetAsm.StatementIndentEnabled := False;
+  FormatSettings.SetAsm.StatementIndent := 7;
+  TestFormatResult(ASM_STATEMENTS_NOT_INDENTED, ASM_STATEMENTS_NOT_INDENTED);
+end;
+
 
 initialization
   TestFramework.RegisterTest('Processes', TTestAsmOptionsIndents.Suite);

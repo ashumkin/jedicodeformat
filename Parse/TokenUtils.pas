@@ -159,6 +159,9 @@ function NextToWhiteSpace(const pt: TSourceToken): boolean;
 
 function CompilerDirectiveLineBreak(const pt: TSourceToken; const pbBefore: Boolean): TTriOptionStyle;
 
+function IsInsideAsm(const pt: TSourceToken): boolean;
+
+
 implementation
 
 uses
@@ -853,6 +856,11 @@ begin
     else
       Result := FormatSettings.Returns.AfterCompilerDirectGeneral;
   end;
+end;
+
+function IsInsideAsm(const pt: TSourceToken): boolean;
+begin
+   Result := pt.HasParentNode(nAsm) and not (pt.TokenType in [ttAsm, ttEnd]);
 end;
 
 end.

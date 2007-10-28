@@ -32,25 +32,28 @@ type
   private
     feCapitalisation: TCapitalisationType;
     fiBreaksAfterLabel: integer;
-    fcIndents: TIntList;
     fbBreaksAfterLabelEnabled: boolean;
-    fbIndentsEnabled: boolean;
+    fbStatementIndentEnabled: boolean;
+    fiStatementIndent: integer;
+    fbParamsIndentEnabled: boolean;
+    fiParamsIndent: integer;
 
-    function GetIndent(const index: integer): integer;
-    procedure SetIndent(const index: integer; const Value: integer);
   protected
   public
     constructor Create;
-    destructor Destroy; override;
 
     procedure WriteToStream(const pcOut: TSettingsOutput); override;
     procedure ReadFromStream(const pcStream: TSettingsInput); override;
 
     property Capitalisation: TCapitalisationType Read feCapitalisation Write feCapitalisation;
     property BreaksAfterLabel: integer read fiBreaksAfterLabel write fiBreaksAfterLabel;
-    property Indents[const index: integer]: integer read GetIndent write SetIndent;
+
     property BreaksAfterLabelEnabled: boolean Read fbBreaksAfterLabelEnabled Write fbBreaksAfterLabelEnabled;
-    property IndentsEnabled: boolean Read fbIndentsEnabled Write fbIndentsEnabled;
+    property StatementIndentEnabled: boolean Read fbStatementIndentEnabled Write fbStatementIndentEnabled;
+    property ParamsIndentEnabled: boolean Read fbParamsIndentEnabled Write fbParamsIndentEnabled;
+
+    property StatementIndent: integer read fiStatementIndent write fiStatementIndent;
+    property ParamsIndent: integer read fiParamsIndent write fiParamsIndent;
  end;
 
 implementation
@@ -63,74 +66,42 @@ const
   REG_BREAKS_AFTER_LABEL = 'BreaksAfterLabel';
   REG_INDENT_LEVEL = 'Indent_';
   REG_BREAKS_AFTER_LABEL_ENABLED = 'BreaksAfterLabelEnabled';
-  REG_INDENTS_ENABLED = 'IndentsEnabled';
 
-const
-  LAST_INDENT_ITEM = 5;
+  REG_STATEMENT_INDENT_ENABLED = 'StatementIndentEnabled';
+  REG_PARAMS_INDENT_ENABLED = 'ParamsIndentEnabled';
 
-{ constuctor and destructor }
+  REG_STATEMENT_INDENT = 'StatementIndent';
+  REG_PARAMS_INDENT = 'ParamsIndent';
+
+  // these are usually 9 and 17
+  // but it's already indented 2 for being a statement in a proc
+  ASM_STATEMENT_DEFAULT_INDENT = 7;
+  ASM_PARAMS_DEFAULT_INDENT = 15;
+
 
 constructor TSetAsm.Create;
 begin
   inherited;
   SetSection('Asm');
-
-   fcIndents := TIntList.Create;
 end;
 
-destructor TSetAsm.Destroy;
-begin
-  FreeAndNil(fcIndents);
-end;
-
-{ properties }
-
-function TSetAsm.GetIndent(const index: integer): integer;
-begin
-  // six values
-  if (index < 0) or (index > LAST_INDENT_ITEM) then
-  begin
-    Result := 0;
-  end
-  else
-  begin
-    Result := fcIndents.Items[index];
-  end;
-end;
-
-procedure TSetAsm.SetIndent(const index: integer; const Value: integer);
-begin
-  if (index >= 0) and (index <= LAST_INDENT_ITEM) then
-    fcIndents.Items[Index] := value;
-end;
 
 procedure TSetAsm.ReadFromStream(const pcStream: TSettingsInput);
-var
-  liLoop: integer;
-  liValue: integer;
 begin
   Assert(pcStream <> nil);
-
 
   feCapitalisation := TCapitalisationType(pcStream.Read(REG_CAPS, Ord(ctLeaveAlone)));
   fiBreaksAfterLabel := pcStream.Read(REG_BREAKS_AFTER_LABEL, 2);
 
   fbBreaksAfterLabelEnabled := pcStream.Read(REG_BREAKS_AFTER_LABEL_ENABLED, True);
-  fbIndentsEnabled := pcStream.Read(REG_INDENTS_ENABLED, True);
+  fbStatementIndentEnabled := pcStream.Read(REG_STATEMENT_INDENT_ENABLED, True);
+  fiStatementIndent := pcStream.Read(REG_STATEMENT_INDENT, ASM_STATEMENT_DEFAULT_INDENT);
 
-  fcIndents.Clear;
-  for liLoop := 0 to LAST_INDENT_ITEM do
-  begin
-    liValue := pcStream.Read(REG_INDENT_LEVEL + IntToStr(liLoop), 0);
-    fcIndents.Add(liValue);
-  end;
-
+  fbParamsIndentEnabled := pcStream.Read(REG_PARAMS_INDENT_ENABLED, True);
+  fiParamsIndent := pcStream.Read(REG_PARAMS_INDENT, ASM_PARAMS_DEFAULT_INDENT);
 end;
 
 procedure TSetAsm.WriteToStream(const pcOut: TSettingsOutput);
-var
-  liLoop: integer;
-  liMax: integer;
 begin
   Assert(pcOut <> nil);
 
@@ -138,17 +109,12 @@ begin
   pcOut.Write(REG_BREAKS_AFTER_LABEL, fiBreaksAfterLabel);
 
   pcOut.Write(REG_BREAKS_AFTER_LABEL_ENABLED, fbBreaksAfterLabelEnabled);
-  pcOut.Write(REG_INDENTS_ENABLED, fbIndentsEnabled);
 
-  liMax := LAST_INDENT_ITEM;
-  if liMax > (fcIndents.Count - 1) then
-    liMax := fcIndents.Count - 1;
-  
-  for liLoop := 0 to liMax do
-  begin
-    pcOut.Write(REG_INDENT_LEVEL + IntToStr(liLoop),  fcIndents.Items[liLoop]);
-  end;
-    
+  pcOut.Write(REG_STATEMENT_INDENT_ENABLED, fbStatementIndentEnabled);
+  pcOut.Write(REG_STATEMENT_INDENT, fiStatementIndent);
+
+  pcOut.Write(REG_PARAMS_INDENT_ENABLED, fbParamsIndentEnabled);
+  pcOut.Write(REG_PARAMS_INDENT, fiParamsIndent);
 end;
 
 end.

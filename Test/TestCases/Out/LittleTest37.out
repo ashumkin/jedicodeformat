@@ -17,7 +17,7 @@ procedure Foo;
 begin
 
   asm
-    MOV     EAX, MONKEY OR SOY
+           MOV     EAX, MONKEY OR SOY
   end;
 
 end;

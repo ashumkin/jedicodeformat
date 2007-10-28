@@ -32,10 +32,15 @@ uses
 type
   TTestAsmOptionsBreaks = class(TBaseTestProcess)
   private
-    fbBreaksAfterLabelEnabled: boolean;
-    fbIndentsEnabled: boolean;
     feCapitalisation: TCapitalisationType;
+
+    fbBreaksAfterLabelEnabled: boolean;
     fiBreaksAfterLabel: integer;
+
+    fbStatementIndentEnabled: boolean;
+    fiStatementIndent: integer;
+    fbParamsIndentEnabled: boolean;
+    fiParamsIndent: integer;
 
   protected
     procedure SetUp; override;
@@ -133,10 +138,19 @@ begin
   // store old settings
   with FormatSettings do
   begin
-    fbBreaksAfterLabelEnabled := SetAsm.BreaksAfterLabelEnabled;
-    fbIndentsEnabled := SetAsm.IndentsEnabled;
     feCapitalisation := SetAsm.Capitalisation;
+
+    fbBreaksAfterLabelEnabled := SetAsm.BreaksAfterLabelEnabled;
     fiBreaksAfterLabel := SetAsm.BreaksAfterLabel;
+
+    fbStatementIndentEnabled := SetAsm.StatementIndentEnabled;
+    fiStatementIndent := SetAsm.StatementIndent;
+
+    fbParamsIndentEnabled := SetAsm.ParamsIndentEnabled;
+    fiParamsIndent := SetAsm.ParamsIndent;
+
+    SetAsm.StatementIndentEnabled := False;
+    SetAsm.BreaksAfterLabelEnabled := True;
   end;
 
 end;
@@ -147,122 +161,112 @@ begin
 
   with FormatSettings do
   begin
-    SetAsm.BreaksAfterLabelEnabled := fbBreaksAfterLabelEnabled;
-    SetAsm.IndentsEnabled := fbIndentsEnabled;
     SetAsm.Capitalisation := feCapitalisation;
+
+    SetAsm.BreaksAfterLabelEnabled := fbBreaksAfterLabelEnabled;
     SetAsm.BreaksAfterLabel := fiBreaksAfterLabel;
+
+    SetAsm.StatementIndentEnabled := fbStatementIndentEnabled;
+    SetAsm.StatementIndent := fiStatementIndent;
+
+    SetAsm.ParamsIndentEnabled := fbParamsIndentEnabled;
+    SetAsm.ParamsIndent := fiParamsIndent;
   end;
 end;
 
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksNone_None;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabelEnabled := True;
   FormatSettings.SetAsm.BreaksAfterLabel := 0;
   TestFormatResult(ASM_LABEL_NONE, ASM_LABEL_NONE);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksNone_One;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabelEnabled := True;
   FormatSettings.SetAsm.BreaksAfterLabel := 1;
   TestFormatResult(ASM_LABEL_NONE, ASM_LABEL_ONE);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksNone_Two;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabelEnabled := True;
   FormatSettings.SetAsm.BreaksAfterLabel := 2;
   TestFormatResult(ASM_LABEL_NONE, ASM_LABEL_TWO);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksNone_Three;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabelEnabled := True;
   FormatSettings.SetAsm.BreaksAfterLabel := 3;
   TestFormatResult(ASM_LABEL_NONE, ASM_LABEL_THREE);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksOne_None;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabelEnabled := True;
   FormatSettings.SetAsm.BreaksAfterLabel := 0;
   TestFormatResult(ASM_LABEL_ONE, ASM_LABEL_NONE);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksOne_One;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabelEnabled := True;
   FormatSettings.SetAsm.BreaksAfterLabel := 1;
   TestFormatResult(ASM_LABEL_ONE, ASM_LABEL_ONE);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksOne_Two;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabelEnabled := True;
   FormatSettings.SetAsm.BreaksAfterLabel := 2;
   TestFormatResult(ASM_LABEL_ONE, ASM_LABEL_TWO);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksOne_Three;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabelEnabled := True;
   FormatSettings.SetAsm.BreaksAfterLabel := 3;
   TestFormatResult(ASM_LABEL_ONE, ASM_LABEL_THREE);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksTwo_None;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabelEnabled := True;
   FormatSettings.SetAsm.BreaksAfterLabel := 0;
   TestFormatResult(ASM_LABEL_TWO, ASM_LABEL_NONE);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksTwo_One;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabelEnabled := True;
   FormatSettings.SetAsm.BreaksAfterLabel := 1;
   TestFormatResult(ASM_LABEL_TWO, ASM_LABEL_ONE);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksTwo_Two;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabelEnabled := True;
   FormatSettings.SetAsm.BreaksAfterLabel := 2;
   TestFormatResult(ASM_LABEL_TWO, ASM_LABEL_TWO);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksTwo_Three;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabelEnabled := True;
   FormatSettings.SetAsm.BreaksAfterLabel := 3;
   TestFormatResult(ASM_LABEL_TWO, ASM_LABEL_THREE);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksThree_None;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabelEnabled := True;
   FormatSettings.SetAsm.BreaksAfterLabel := 0;
   TestFormatResult(ASM_LABEL_THREE, ASM_LABEL_NONE);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksThree_One;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabelEnabled := True;
   FormatSettings.SetAsm.BreaksAfterLabel := 1;
   TestFormatResult(ASM_LABEL_THREE, ASM_LABEL_ONE);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksThree_Two;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabelEnabled := True;
   FormatSettings.SetAsm.BreaksAfterLabel := 2;
   TestFormatResult(ASM_LABEL_THREE, ASM_LABEL_TWO);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksThree_Three;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabelEnabled := True;
   FormatSettings.SetAsm.BreaksAfterLabel := 3;
   TestFormatResult(ASM_LABEL_THREE, ASM_LABEL_THREE);
 end;

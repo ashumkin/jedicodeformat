@@ -11,9 +11,9 @@ end;
 
 procedure foo;
 asm
-  mov eax,1;
-  call bar;
-  jmp eax;
+         mov eax,1;
+         call bar;
+         jmp eax;
 end;
 
 end.

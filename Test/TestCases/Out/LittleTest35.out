@@ -11,7 +11,7 @@ implementation
 procedure Foo;
 begin
   asm
-    CLD end;
+           CLD end;
 
 end;
 

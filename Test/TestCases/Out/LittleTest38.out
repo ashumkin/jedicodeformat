@@ -11,7 +11,7 @@ implementation
 procedure Foo;
 begin
   asm
-    MOV[ESI].TTextRec.BufSize, TYPE TTextRec.Buffer
+           MOV[ESI].TTextRec.BufSize, TYPE TTextRec.Buffer
   end;
 end;
 
