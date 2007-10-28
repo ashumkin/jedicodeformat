@@ -37,7 +37,7 @@ type
     feCapitalisation: TCapitalisationType;
     fiBreaksAfterLabel: integer;
 
-  public
+  protected
     procedure SetUp; override;
     procedure TearDown; override;
   published

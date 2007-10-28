@@ -36,9 +36,11 @@ type
     fbIndentsEnabled: boolean;
     feCapitalisation: TCapitalisationType;
     fiBreaksAfterLabel: integer;
-  public
+
+  protected
     procedure SetUp; override;
     procedure TearDown; override;
+
   published
     procedure TestCaps_LowerToUpper;
     procedure TestCaps_MixedToUpper;

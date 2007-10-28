@@ -27,20 +27,123 @@ interface
 
 uses
   TestFrameWork,
-  BaseTestProcess, SettingsTypes, SetTransform;
+  BaseTestProcess, SettingsTypes, SetTransform, IntList;
 
 type
 
   TTestAsmOptionsIndents = class(TBaseTestProcess)
   private
+    fbBreaksAfterLabelEnabled: boolean;
+    fbIndentsEnabled: boolean;
+    feCapitalisation: TCapitalisationType;
+    fiBreaksAfterLabel: integer;
+    fcStoreIndents: TIntList;
+
+  protected
+    procedure SetUp; override;
+    procedure TearDown; override;
+
+  public
+    destructor Destroy; override;
+
   published
+    procedure TestIndent;
   end;
 
 implementation
 
 uses
+  SysUtils,
   JclStrings,
   JCFSettings, SetAsm;
+
+const
+  UNIT_HEADER = 'unit CaseTest;' + AnsiLineBreak + AnsiLineBreak +
+    'interface' + AnsiLineBreak + AnsiLineBreak +
+    'implementation' + AnsiLineBreak + AnsiLineBreak +
+    'uses Dialogs;' + AnsiLineBreak + AnsiLineBreak +
+    'procedure foo(i: integer);' + AnsiLineBreak +
+    'begin' + AnsiLineBreak;
+
+  UNIT_FOOTER = AnsiLineBreak + 'end;' + AnsiLineBreak + AnsiLineBreak +
+    'end.';
+
+  ASM_STATEMENTS_NOT_INDENTED =
+    UNIT_HEADER +
+    '  asm' + AnsiLineBreak +
+    'MOV ECX, [EDX]' + AnsiLineBreak +
+    'XCHG ECX, [EAX]' + AnsiLineBreak +
+    'CALL PROCASM2' + AnsiLineBreak +
+    '  end;' + AnsiLineBreak +
+    UNIT_FOOTER;
+
+    ASM_STATEMENTS_INDENTED =
+    UNIT_HEADER +
+    '  asm' + AnsiLineBreak +
+    '  MOV   ECX, [EDX]' + AnsiLineBreak +
+    '  XCHG  ECX, [EAX]' + AnsiLineBreak +
+    '  CALL  PROCASM2' + AnsiLineBreak +
+    '  end;' + AnsiLineBreak +
+    UNIT_FOOTER;
+
+
+destructor TTestAsmOptionsIndents.Destroy;
+begin
+  FreeAndNil(fcStoreIndents);
+  inherited;
+end;
+
+procedure TTestAsmOptionsIndents.SetUp;
+var
+  liIndentLoop: integer;
+begin
+  inherited;
+
+
+  // store old settings
+  with FormatSettings do
+  begin
+    fbBreaksAfterLabelEnabled := SetAsm.BreaksAfterLabelEnabled;
+    fbIndentsEnabled := SetAsm.IndentsEnabled;
+    feCapitalisation := SetAsm.Capitalisation;
+    fiBreaksAfterLabel := SetAsm.BreaksAfterLabel;
+
+    if fcStoreIndents = nil then
+      fcStoreIndents := TIntList.Create;
+
+    fcStoreIndents.Clear;
+    for liIndentLoop := 0 to 5 do
+    begin
+      fcStoreIndents.Add(SetAsm.Indents[liIndentLoop]);
+    end;
+  end;
+end;
+
+procedure TTestAsmOptionsIndents.TearDown;
+var
+  liIndentLoop: integer;
+begin
+  inherited;
+
+  with FormatSettings do
+  begin
+    SetAsm.BreaksAfterLabelEnabled := fbBreaksAfterLabelEnabled;
+    SetAsm.IndentsEnabled := fbIndentsEnabled;
+    SetAsm.Capitalisation := feCapitalisation;
+    SetAsm.BreaksAfterLabel := fiBreaksAfterLabel;
+
+    for liIndentLoop := 0 to 5 do
+    begin
+      SetAsm.Indents[liIndentLoop] := fcStoreIndents.Items[liIndentLoop];
+    end;
+  end;
+
+end;
+
+procedure TTestAsmOptionsIndents.TestIndent;
+begin
+ // code not working yet  TestFormatResult(ASM_STATEMENTS_NOT_INDENTED, ASM_STATEMENTS_INDENTED);
+end;
 
 initialization
   TestFramework.RegisterTest('Processes', TTestAsmOptionsIndents.Suite);
