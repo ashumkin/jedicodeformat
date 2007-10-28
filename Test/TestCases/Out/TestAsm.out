@@ -94,11 +94,11 @@ begin
   li2 := Random(10);
 
   asm
-           MOV   ECX, [EDX]
-           XCHG  ECX, [EAX]
+           MOV     ECX, [EDX]
+           XCHG    ECX, [EAX]
            CALL    ProcASM2
-           XCHG  ECX, [EAX]
-           MOV[EDX], ECX
+           XCHG    ECX, [EAX]
+           MOV     [EDX], ECX
   end;
 
   li1 := li1 + li2;
@@ -109,10 +109,10 @@ begin
     ShowMessage('More Asm');
 
     asm
-             MOV[EDX], ECX
-             MOV   ECX, [EDX]
+             MOV     [EDX], ECX
+             MOV     ECX, [EDX]
              PUSH    EAX
-             XCHG  ECX, [EAX]
+             XCHG    ECX, [EAX]
     end;
 
     li2 := li1 + li2;
@@ -157,8 +157,8 @@ procedure TestAsmDot;
 begin
   asm
            JA      @@4
-           PUSH[ESI].Integer[4]
-           PUSH[ESI].Integer[0]
+           PUSH    [ESI].Integer[4]
+           PUSH    [ESI].Integer[0]
            @@4:
   end;
 end;

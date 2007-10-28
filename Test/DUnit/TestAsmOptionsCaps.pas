@@ -139,6 +139,7 @@ begin
     fiParamsIndent := SetAsm.ParamsIndent;
 
     SetAsm.StatementIndentEnabled := False;
+    SetAsm.ParamsIndentEnabled := False;
   end;
 end;
 

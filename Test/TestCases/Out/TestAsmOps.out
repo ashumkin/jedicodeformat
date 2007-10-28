@@ -15,9 +15,9 @@ implementation
 
 function ASMSQRT(F: single): single; assembler;
 asm
-         FLD F;
+         FLD     F;
          FSQRT;
-         FSTP Result;
+         FSTP    Result;
 end;
 
 procedure foo;

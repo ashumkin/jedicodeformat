@@ -1,10 +1,10 @@
-unit TestAsmOptionsIndents;
+unit TestAsmOptionsIndentsBare;
 
 {(*}
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code
 
-The Original Code is TestAsmOptionsIndents, released October 2007.
+The Original Code is TestAsmOptionsIndentsBare, released October 2007.
 The Initial Developer of the Original Code is Anthony Steele.
 Portions created by Anthony Steele are Copyright (C) 2007 Anthony Steele.
 All Rights Reserved. 
@@ -23,7 +23,11 @@ under the License.
 
 interface
 
-{ test asm options for indents }
+{ test asm options for indents
+  "Bare" in the sense that the asm block is not inside a proc,
+   it is the top-level block of the proc
+  This is JCF's prefered style
+}
 
 uses
   TestFrameWork,
@@ -31,7 +35,7 @@ uses
 
 type
 
-  TTestAsmOptionsIndents = class(TBaseTestProcess)
+  TTestAsmOptionsIndentsBare = class(TBaseTestProcess)
   private
     feCapitalisation: TCapitalisationType;
 
@@ -67,41 +71,40 @@ const
     'interface' + AnsiLineBreak + AnsiLineBreak +
     'implementation' + AnsiLineBreak + AnsiLineBreak +
     'uses Dialogs;' + AnsiLineBreak + AnsiLineBreak +
-    'procedure foo(i: integer);' + AnsiLineBreak +
-    'begin' + AnsiLineBreak;
+    'procedure foo(i: integer);' + AnsiLineBreak;
 
-  UNIT_FOOTER = AnsiLineBreak + 'end;' + AnsiLineBreak + AnsiLineBreak +
+  UNIT_FOOTER = AnsiLineBreak + AnsiLineBreak +
     'end.';
 
   ASM_STATEMENTS_NOT_INDENTED =
     UNIT_HEADER +
-    '  asm' + AnsiLineBreak +
-    '    MOV ECX, [EDX]' + AnsiLineBreak +
-    '    XCHG ECX, [EAX]' + AnsiLineBreak +
-    '    CALL PROCASM2' + AnsiLineBreak +
-    '  end;' + AnsiLineBreak +
+    'asm' + AnsiLineBreak +
+    '  MOV ECX, [EDX]' + AnsiLineBreak +
+    '  XCHG ECX, [EAX]' + AnsiLineBreak +
+    '  CALL PROCASM2' + AnsiLineBreak +
+    'end;' + AnsiLineBreak +
     UNIT_FOOTER;
 
     ASM_STATEMENTS_INDENTED =
     UNIT_HEADER +
-    '  asm' + AnsiLineBreak +
-    '           MOV ECX, [EDX]' + AnsiLineBreak +
-    '           XCHG ECX, [EAX]' + AnsiLineBreak +
-    '           CALL PROCASM2' + AnsiLineBreak +
-    '  end;' + AnsiLineBreak +
+    'asm' + AnsiLineBreak +
+    '         MOV ECX, [EDX]' + AnsiLineBreak +
+    '         XCHG ECX, [EAX]' + AnsiLineBreak +
+    '         CALL PROCASM2' + AnsiLineBreak +
+    'end;' + AnsiLineBreak +
     UNIT_FOOTER;
 
     ASM_STATEMENTS_PARAMS_INDENTED =
     UNIT_HEADER +
-    '  asm' + AnsiLineBreak +
-    '           MOV     ECX, [EDX]' + AnsiLineBreak +
-    '           XCHG    ECX, [EAX]' + AnsiLineBreak +
-    '           CALL    PROCASM2' + AnsiLineBreak +
-    '  end;' + AnsiLineBreak +
+    'asm' + AnsiLineBreak +
+    '         MOV     ECX, [EDX]' + AnsiLineBreak +
+    '         XCHG    ECX, [EAX]' + AnsiLineBreak +
+    '         CALL    PROCASM2' + AnsiLineBreak +
+    'end;' + AnsiLineBreak +
     UNIT_FOOTER;
 
 
-procedure TTestAsmOptionsIndents.SetUp;
+procedure TTestAsmOptionsIndentsBare.SetUp;
 begin
   inherited;
 
@@ -121,7 +124,7 @@ begin
   end;
 end;
 
-procedure TTestAsmOptionsIndents.TearDown;
+procedure TTestAsmOptionsIndentsBare.TearDown;
 begin
   inherited;
 
@@ -141,7 +144,7 @@ begin
 
 end;
 
-procedure TTestAsmOptionsIndents.TestStatementIndentOn;
+procedure TTestAsmOptionsIndentsBare.TestStatementIndentOn;
 begin
   FormatSettings.SetAsm.StatementIndentEnabled := True;
   FormatSettings.SetAsm.ParamsIndentEnabled := False;
@@ -149,14 +152,14 @@ begin
 end;
 
 
-procedure TTestAsmOptionsIndents.TestParamsIndentOn;
+procedure TTestAsmOptionsIndentsBare.TestParamsIndentOn;
 begin
   FormatSettings.SetAsm.StatementIndentEnabled := True;
   FormatSettings.SetAsm.ParamsIndentEnabled := True;
   TestFormatResult(ASM_STATEMENTS_NOT_INDENTED, ASM_STATEMENTS_PARAMS_INDENTED);
 end;
 
-procedure TTestAsmOptionsIndents.TestStatementIndentOff;
+procedure TTestAsmOptionsIndentsBare.TestStatementIndentOff;
 begin
   FormatSettings.SetAsm.StatementIndentEnabled := False;
   FormatSettings.SetAsm.ParamsIndentEnabled := False;
@@ -166,6 +169,6 @@ end;
 
 
 initialization
-  TestFramework.RegisterTest('Processes', TTestAsmOptionsIndents.Suite);
+  TestFramework.RegisterTest('Processes', TTestAsmOptionsIndentsBare.Suite);
 
 end.

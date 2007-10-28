@@ -8,13 +8,13 @@ procedure foo;
 begin
   asm
            @foo_@bar_:
-           mov ecx,(type tinitcontext)/4
-           lea edi,[ebp-(type foo)-(type foo)]
-           mov fs:[eax],ecx
-           lea esi,[eax]+offset foo
-           fmul qword ptr[ebx]+offset foo
-           inc edx
-           and[eax],ch
+           mov     ecx,(type tinitcontext)/4
+           lea     edi,[ebp-(type foo)-(type foo)]
+           mov     fs:[eax],ecx
+           lea     esi,[eax]+offset foo
+           fmul    qword ptr[ebx]+offset foo
+           inc     edx
+           and     [eax],ch
   end;
 end;
 

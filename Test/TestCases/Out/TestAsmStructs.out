@@ -22,7 +22,7 @@ procedure Foo(CallDesc: PCallDesc; NamedArgDispIDs, Result: Pointer);
 var
   DispParams: TDispParams;
 asm
-         AND  EAX, not 3
+         AND     EAX, not 3
 
          @ResultTable:
          MOV     EBX,CallDesc
@@ -33,9 +33,9 @@ asm
          MOVZX   EAX,[EBX].Byte
          JNE     @@1
          CMP     AL,varVariant
-         PUSH[ESI].Integer[4]
+         PUSH    [ESI].Integer[4]
          @@2:
-         PUSH[ESI].Integer[12]
+         PUSH    [ESI].Integer[12]
          @@3:
          AND     AL,atTypeMask
          OR      EAX,varByRef
@@ -47,10 +47,10 @@ asm
          @@12:
          MOVZX   ECX,[EBX].TCallDesc.CallType
          CMP     ECX,DISPATCH_PROPERTYPUT
-         CMP[EBX].TCallDesc.ArgTypes.Byte[0],varDispatch
+         CMP     [EBX].TCallDesc.ArgTypes.Byte[0],varDispatch
          @@20:
          MOV     DispParams.rgdispidNamedArgs,ESP
-         CALL[EAX].Pointer[24]
+         CALL    [EAX].Pointer[24]
          MOV     ECX,[EBP+4]
          JMP     Foo
          MOV       Result,False

@@ -8,9 +8,9 @@ implementation
 
 function asmsqrt(f: single): single; assembler;
 asm
-         fld f;
+         fld     f;
          fsqrt;
-         fstp result;
+         fstp    result;
 end;
 
 procedure foo;

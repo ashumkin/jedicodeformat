@@ -150,6 +150,7 @@ begin
     fiParamsIndent := SetAsm.ParamsIndent;
 
     SetAsm.StatementIndentEnabled := False;
+    SetAsm.ParamsIndentEnabled := False;
     SetAsm.BreaksAfterLabelEnabled := True;
   end;
 

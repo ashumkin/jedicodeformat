@@ -100,7 +100,8 @@ uses
   { stats }
   BasicStats,
   { align }
-  AlignConst, AlignVars, AlignAssign, AlignTypedef, AlignComment, AlignField;
+  AlignConst, AlignVars, AlignAssign, AlignTypedef, AlignComment, AlignField,
+  IndentAsmParam;
 
 constructor TAllProcesses.Create;
 begin
@@ -342,6 +343,8 @@ begin
   ApplyVisitorType(TAlignTypedef, [TVisitSetXY]);
   ApplyVisitorType(TAlignField, [TVisitSetXY]);
   ApplyVisitorType(TAlignComment, [TVisitSetXY]);
+
+  ApplyVisitorType(TIndentAsmParam, [TVisitSetXY]);
 end;
 
 procedure TAllProcesses.OnceOffs;

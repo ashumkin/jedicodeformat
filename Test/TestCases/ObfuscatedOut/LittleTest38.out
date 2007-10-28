@@ -7,7 +7,7 @@ implementation
 procedure foo;
 begin
   asm
-           mov[esi].ttextrec.bufsize,type ttextrec.buffer
+           mov     [esi].ttextrec.bufsize,type ttextrec.buffer
   end;
 end;
 

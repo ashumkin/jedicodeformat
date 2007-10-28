@@ -25,7 +25,7 @@ under the License.
 interface
 
 { AFS 10 Jan 2002
-  right, this is fairly generic code so it has it's own class
+  This is fairly generic code so it has it's own class
   to store on each token nesting level info for a variety of indicators
   such as
   - begin end block nesting level

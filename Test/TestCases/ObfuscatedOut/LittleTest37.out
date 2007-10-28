@@ -11,7 +11,7 @@ const
 procedure foo;
 begin
   asm
-           mov eax,monkey or soy
+           mov     eax,monkey or soy
   end;
 end;
 
