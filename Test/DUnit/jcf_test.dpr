@@ -173,7 +173,8 @@ uses
   SetAsm in '..\..\Settings\SetAsm.pas',
   TestAsmOptionsCaps in 'TestAsmOptionsCaps.pas',
   TestAsmOptionsBreaks in 'TestAsmOptionsBreaks.pas',
-  RemoveReturnsAfter in '..\..\Process\Returns\RemoveReturnsAfter.pas';
+  RemoveReturnsAfter in '..\..\Process\Returns\RemoveReturnsAfter.pas',
+  TestAsmOptionsIndents in 'TestAsmOptionsIndents.pas';
 
 {$R *.res}
 
