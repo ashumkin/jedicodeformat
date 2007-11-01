@@ -110,7 +110,7 @@ object fmRegistrySettings: TfmRegistrySettings
         Top = 49
         Width = 200
         Height = 20
-        Caption = 'Check for &Multibyte chars'
+        Caption = 'Check for &multibyte chars'
         TabOrder = 5
       end
     end

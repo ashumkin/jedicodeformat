@@ -53,7 +53,7 @@ FALSE
 47
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fmodern Courier New;}{\f3\fnil\fcharset0 Arial;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green128\blue0;}
-\viewkind4\uc1\pard\cf1\b\f0\fs32 JEDI Code Format \lang1036\f1 (JCF) \lang2057 2.30\cf0\lang1031\b0\f0\fs20 
+\viewkind4\uc1\pard\cf1\b\f0\fs32 JEDI Code Format \lang1036\f1 (JCF) \lang2057 2.32\cf0\lang1031\b0\f0\fs20 
 \par \cf2\{keepn\}
 \par \cf0 
 \par This is the main \lang2057\f1 help\lang1031\f0  for \lang2057\f1 JEDI Code Format (JCF)\lang1031\f0 .\lang2057\f1  \lang1036 JCF\lang1031\f0  can standardise all aspects of Delphi Object Pascal source code formatting, including indentation, spacing and capitalisation\lang2057\f1 .\lang1031\f0  \lang2057\f1 JCF is intended to be able to format all compilable Delphi Source code. Source that does not compile cannot always be formatted correctly.\lang1031\f0 
@@ -96,7 +96,7 @@ FALSE
 \par \f1 
 \par Helpfile by \cf3\strike Ralf Steinhaeusser\cf2\strike0\{linkID=1000\}
 \par 
-\par \cf0\f3 Last change : 22.07.2007\f1 
+\par \cf0\f3 Last change : 01.11.2007\f1 
 \par }
 12
 Scribble12
@@ -154,7 +154,7 @@ FALSE
 {\colortbl ;\red0\green0\blue255;\red0\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\fs32 Settings Stored in Registry and File\cf2\b0\f1\fs20 
 \par 
-\par \cf0\f2 Some settings are stored in the \b registry \b0 under\f3  \lang1031 HKEY_CURRENT_USER\\Software\\Jedi\\JediCodeFormat\f2 . These are per-user settings, mostly UI settings like recently used files, logging options, showing parse tree on error. The path to the configuration file is stored here.
+\par \cf0\f2 Some settings are stored in the \b registry \b0 under\f3  \lang1031 HKEY_CURRENT_USER\\Software\\Borland\\BDS\\5.0\\Jedi\\JCF\f2 . These are per-user settings, mostly UI settings like recently used files, logging options, showing parse tree on error. The path to the configuration file is stored here.
 \par \f4 
 \par \f2 The \b configuration file\b0  has a default name of \f3 JCFSettings.cfg\f2 . This file stores all the settings of how to format delphi source. The advantages of keeping this data in a file, not in the windows registry, are:
 \par \pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\fi240\li140\tx180 You can keep several different format profiles by keeping multiple files.
@@ -181,15 +181,15 @@ FALSE
 {\colortbl ;\red0\green0\blue255;\red0\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\fs32 General Registry Settings\cf2\b0\f1\fs20 
 \par 
-\par \cf0\lang3079\f2 These settings can be reached by clicking on the menu \b\i "Settings"\b0\i0  / \b\i "Registry settings"\b0\i0 , then change to the "General" tab.
+\par \cf0\lang3079\f2 These settings can be reached by clicking on the menu \b\i "JEDI Code Format"\b0\i0  / \b\i "Registry Settings"\b0\i0 , then change to the "General" tab.
 \par \cf2\lang2057\f1 
 \par \b\f0 Convert settings file:\b0  The path to the format settings file.
 \par 
 \par \b MRU max items:\b0  The number of items stored in the Most-Recently Used list of the File menu for \b JcfGui \b0 and \b JcfNotepad\b0 . When this number is exceeded, the bottom item, i.e. the least recently used file, will be discarded.
 \par 
-\par \b Write changes to settings file\b0 : If this option is set to "Never", the settings file will not be written as the program exits. Normally this option should be set to "always", but it is useful to change it to "never" when the file is not actually writeable (e.g. is on a read-only network drive). "Fail quietly" will attempt to write the settings file, but not complain if it cannot be done.
+\par \b Write settings file\b0 : If this option is set to "Never", the settings file will not be written as the program exits. Normally this option should be set to "Always", but it is useful to change it to "Never" when the file is not actually writeable (e.g. is on a read-only network drive). "Fail quietly" will attempt to write the settings file, but not complain if it cannot be done.
 \par 
-\par \b Show parse tree:\b0  JCF 2.0 generates a full parse tree of the input source file. Showing this tree can be useful for debugging. I recommend that you set this to "on error", which will show it only when the source cannot be parsed. The last token of the parse tree then will give you some idea of what the parser thought was going on at the point of error.
+\par \b Show parse tree during parse:\b0  JCF 2.XX generates a full parse tree of the input source file. Showing this tree can be useful for debugging. I recommend that you set this to "On parse error", which will show it only when the source cannot be parsed. The last token of the parse tree then will give you some idea of what the parser thought was going on at the point of error.
 \par \f1 
 \par \b\f0 Check for multibyte chars\b0  This option should be enabled if your comments contain multibyte characters (e.g. Chinese text). Otherwise a byte in one of these characters can be wrongly read as the end of a comment.\f1 
 \par }
@@ -205,7 +205,7 @@ Writing
 
 
 FALSE
-24
+29
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fnil\fcharset2 Symbol;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\f0\fs32 Logging Registry Settings\cf0\b0\fs20 
@@ -213,7 +213,7 @@ FALSE
 \par 
 \par \cf2\{bmc 30.\lang3079\f1 gif\lang1031\f0\}\cf0 
 \par 
-\par \lang3079\f1 These settings can be reached by clicking on the menu \b\i "Settings"\b0\i0  / \b\i "Registry settings"\b0\i0 , then change to the "Log file" tab.\lang1031\f0 
+\par \lang3079\f1 These settings can be reached by clicking on the menu \b\i "JEDI Code Format"\b0\i0  / \b\i "Registry Settings"\b0\i0 , then change to the "Log file" tab.\lang1031\f0 
 \par 
 \par The log is a text file that is written every time that \lang1036\f1 JCF\lang1031\f0  is run, detailing what it did in the run. It can useful to you as a user when\lang2057\f1  y\lang1031\f0 ou have just run a batch and want to see how many and which files were formatted\lang2057\f1 . \lang1031\f0 The run's warnings are listed in the log file.
 \par 
@@ -227,7 +227,12 @@ FALSE
 \par \b Log file directory.\b0  The directory where the log file (called \lang1036\f1 Jedi\lang1031\f0 CodeFormat.log)\f1  \f0 is generated. The system temp, application or a user specified directory can\f1  \f0 be used.
 \par 
 \par \b Backup file extension:\b0  The extension for backup files (default .bak).
-\par \b Output file extension:\b0  The extension for backup files (default .out)
+\par \b 
+\par Output file extension:\b0  The extension for backup files (default .out)\lang1036\f1 .
+\par 
+\par \b View log after each run\lang1031\f0 :\b0  \lang1036\f1 TODO\lang1031\f0 .
+\par \lang1036\b\f1 
+\par Log time taken to process\lang1031\f0 :\b0  \lang1036\f1 TODO.\lang1031\f0 
 \par \b 
 \par }
 26
@@ -248,7 +253,7 @@ FALSE
 \viewkind4\uc1\pard\cf1\b\f0\fs32 Exclusions Registry Settings\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
-\par \lang3079\f1 These settings can be reached by clicking on the menu \b\i "Settings"\b0\i0  / \b\i "Registry settings"\b0\i0 , then change to the "Exclusions" tab.
+\par \lang3079\f1 These settings can be reached by clicking on the menu \b\i "JEDI Code Format"\b0\i0  / \b\i "Registry Settings"\b0\i0 , then change to the "Exclusions" tab.
 \par \lang1031\f0 
 \par Files and directories with names listed here will be excluded when a directory\lang3079\f1  \lang1031\f0 or directory tree is processed.
 \par 
@@ -285,7 +290,7 @@ FALSE
 \par 
 \par For production use, I recommend that you use "backup to seperate file". The input file is formatted, but a copy of the prior file is kept, with the same directory and name, but a different extension, typically \f2 .bak\f3 . If you really trust your source control system to keep your backup, you might decide to use "no backup".\lang1031\f0 
 \par 
-\par See the \cf3\lang2057\strike\f1 logging registry\lang1031\f0  settings\cf2\strike0\{linkID=24\}\cf0  to change these \lang2057\f1 file \lang1031\f0 extensions.
+\par See the \cf3\lang2057\strike\f1 Logging Registry\lang1031\f0  \lang1036\f1 S\lang1031\f0 ettings\cf2\strike0\{linkID=24\}\cf0  to change these \lang2057\f1 file \lang1031\f0 extensions.
 \par 
 \par }
 40
@@ -320,7 +325,7 @@ Writing
 
 
 FALSE
-21
+25
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fnil\fcharset0 Arial;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\f0\fs32 Obfuscate Settings\cf0\b0\fs20 
@@ -335,10 +340,14 @@ FALSE
 \par Obfuscate\lang1031\f0  mode\b0  does everything wrong short of\lang2057\f1  \lang1031\f0 making semantic changes to your program. In spite of being unreadable, it will still\lang2057\f1  \lang1031\f0 compile as before.\lang2057\f1  This duplicates the obfuscate/clarify control on the \b JCFGui\b0  main page, but is needed for the \b JCFNotepad\b0  program and IDE plug-in.\lang1031\f0 
 \par 
 \par \b Obfuscate word caps:\b0  Delphi is not case sensitive, so case can be removed\lang2057\f1  \lang1031\f0 without affecting the compilation of your program.
-\par \b Remove white space:\b0  All unnecessary white space (i.e. almost all of it) will be\lang2057\f1  \lang1031\f0 removed.
-\par \b Remove comments:\b0  removes all comments, be they \i\{\}\i0  \i (* *)\i0  or \i //\i0  comments.\lang2057\f1  \lang1031\f0 Exceptions are mode for comments that contain compiler directives, code\lang2057\f1  \lang1031\f0 formatter directives or Delphi \i .dfm\lang2057\i0\f1  \lang1031\f0 form magic.
-\par \b Remove indent:\b0  to see this work, turn off "Remove white space" and\lang2057\f1  \lang1031\f0 "rebreak lines". All statements will come out as flush left.
-\par \b Rebreak lines:\b0  \lang2057\f1 D\lang1031\f0 estroy your formatting by putting us much text as\lang2057\f1  \lang1031\f0 possible on each line. All existing returns will be removed and new ones\lang2057\f1  \lang1031\f0 inserted to produce lines of roughly equal length. The Maximum line length on the clarify
+\par \b 
+\par Remove white space:\b0  All unnecessary white space (i.e. almost all of it) will be\lang2057\f1  \lang1031\f0 removed.
+\par \b 
+\par Remove comments:\b0  removes all comments, be they \i\{\}\i0  \i (* *)\i0  or \i //\i0  comments.\lang2057\f1  \lang1031\f0 Exceptions are mode for comments that contain compiler directives, code\lang2057\f1  \lang1031\f0 formatter directives or Delphi \i .dfm\lang2057\i0\f1  \lang1031\f0 form magic.
+\par \b 
+\par Remove indent:\b0  to see this work, turn off "Remove white space" and\lang2057\f1  \lang1031\f0 "rebreak lines". All statements will come out as flush left.
+\par \b 
+\par Rebreak lines:\b0  \lang2057\f1 D\lang1031\f0 estroy your formatting by putting us much text as\lang2057\f1  \lang1031\f0 possible on each line. All existing returns will be removed and new ones\lang2057\f1  \lang1031\f0 inserted to produce lines of roughly equal length. The Maximum line length on the clarify
 \par settings is used.
 \par 
 \par }
@@ -354,7 +363,7 @@ Writing
 
 
 FALSE
-29
+30
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fnil\fcharset0 Arial;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green0\blue0;\red0\green128\blue0;}
 \viewkind4\uc1\pard\cf1\b\f0\fs32 Clarify Settings\cf0\b0\fs20 
@@ -380,8 +389,9 @@ FALSE
 \par Warnings\cf0\lang1031\f0 
 \par \cf4\strike Capitalisation\cf2\strike0\{linkID=120\}\cf0 
 \par \cf4\strike Find and replace\cf2\strike0\{linkID=130\}\cf0 
-\par \cf4\lang2057\strike\f1   \lang1031\f0 Find and replace on uses\cf2\strike0\{linkID=140\}\cf0 
+\par \cf4\strike Find and replace on uses\cf2\strike0\{linkID=140\}\cf0 
 \par \lang2057\f1 Transform
+\par Asm
 \par \lang1031\f0 
 \par }
 70
@@ -900,7 +910,7 @@ FALSE
 15
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fmodern Courier New;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;}
-\viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Find and replace on uses\cf0\b0\fs20 
+\viewkind4\uc1\pard\cf1\b\strike\f0\fs20 Clarify\f1  Settings\cf2\strike0\{linkID=%60\}\cf1\f0\fs32  Find and replace on uses\cf0\b0\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
 \par \cf2\{bmc 140.\lang3079\f1 gif\lang1031\f0\}\cf0\lang2057\b\f1 
@@ -1056,7 +1066,7 @@ FALSE
 \par }
 210
 Scribble210
-Special comments
+Special Comments
 
 
 
@@ -1069,7 +1079,7 @@ FALSE
 36
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil Arial;}{\f2\fnil\fcharset0 Courier New;}{\f3\fnil Courier New;}{\f4\fnil\fcharset2 Symbol;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;}
-\viewkind4\uc1\pard\cf1\lang3079\b\fs32 Special comments\cf0\lang1031\b0\f1\fs20 
+\viewkind4\uc1\pard\cf1\lang3079\b\fs32 Special Comments\cf0\lang1031\b0\f1\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
 \par The code formatter recognizes certain comments to disable and enable formatting options around blocks of code.
@@ -1100,7 +1110,7 @@ FALSE
 \par {\pntext\f4\'B7\tab}The effects of some of the flags overlap - this is done to allow degrees of granularity e.g. turn off all alignment, or just alignment of variable declarations for a block of code.
 \par {\pntext\f4\'B7\tab}In these special comments, character case and some spaces are ignored.
 \par {\pntext\f4\'B7\tab}A comment that starts with \f2 //jcf:\f1  but cannot be recognised as one of the options given will cause a warning in the log but will have no effect of the file's format.
-\par {\pntext\f4\'B7\tab}\pard 
+\par \pard 
 \par For exampes see the test case unit \f2 TestExclusionFlags.pas\f1 , for impl\lang2057\f0 e\lang1031\f1 mentation see the unit \f2 FormatFlags.pas\f1 
 \par }
 211
@@ -1165,13 +1175,16 @@ Writing
 
 
 FALSE
-7
-{\rtf1\ansi\ansicpg1252\deff0\deflang2057{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil Arial;}{\f2\fnil\fcharset0 Courier New;}}
-{\colortbl ;\red0\green0\blue255;\red0\green0\blue0;}
+10
+{\rtf1\ansi\ansicpg1252\deff0\deflang2057{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil Arial;}{\f2\fnil Courier New;}{\f3\fnil\fcharset0 Courier New;}}
+{\colortbl ;\red0\green0\blue255;\red0\green0\blue0;\red128\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\fs32 Issues\cf2\b0\f1\fs20 
 \par 
-\par \f0 All new issues should be reported via the SourceForge bug tracking system for this project.\f1 
-\par \b\f2 
+\par \f0 All new issues should be reported via the SourceForge bug tracking system for this project.
+\par 
+\par \cf1\lang1031\strike\f2 http://sourceforge.net/tracker/?atid=430780&group_id=41564&func=browse\cf3\strike0\{link=*! ExecFile("http://sourceforge.net/tracker/?atid=430780&group_id=41564&func=browse")\}\cf2\lang2057\f0 
+\par 
+\par \b\f3 
 \par }
 230
 Scribble230
@@ -1190,7 +1203,7 @@ FALSE
 {\colortbl ;\red0\green0\blue255;\red0\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\f0\fs32 Comments\cf2\b0\fs20 
 \par 
-\par \f1 Options to remove empty comments
+\par \f1 Options to remove empty comments.
 \par \f0 
 \par }
 240
@@ -1249,26 +1262,24 @@ Writing
 
 
 FALSE
-20
-{\rtf1\ansi\ansicpg1252\deff0\deflang3079{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil Arial;}{\f2\fswiss Arial;}{\f3\fmodern Courier New;}{\f4\fmodern\fcharset0 Courier New;}{\f5\fswiss\fcharset0 Arial;}{\f6\fnil Courier New;}}
+18
+{\rtf1\ansi\ansicpg1252\deff0\deflang3079{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil Arial;}{\f2\fswiss Arial;}{\f3\fswiss\fcharset0 Arial;}{\f4\fmodern Courier New;}{\f5\fmodern\fcharset0 Courier New;}{\f6\fnil Courier New;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;}
 \viewkind4\uc1\pard\cf1\lang1031\b\fs32 Info...\cf0\lang3079\b0\f1\fs20 
 \par \cf2\{keepn\}\cf0 
 \par 
-\par \lang1031\f2 This documantation was made out of the web page provided by Anthony Steele on his webpage on
-\par \cf1\strike\f3 http://jedicodeformat.sourceforge.net/\cf2\strike0\{link=*! ExecFile("\cf1\strike http://jedicodeformat.sourceforge.net/\cf2\strike0 ")\}\lang2057\f4  \cf0\f5 and subsequently expanded upon. 
+\par \lang1031\f2 This docum\lang1036\f3 e\lang1031\f2 ntation was made out of the web page provided by Anthony Steele on his webpage on
+\par \cf1\strike\f4 http://jedicodeformat.sourceforge.net/\cf2\strike0\{link=*! ExecFile("\cf1\strike http://jedicodeformat.sourceforge.net/\cf2\strike0 ")\}\lang2057\f5  \cf0\f3 and subsequently expanded upon. 
 \par 
-\par \lang1031\f2 Feel free to send additions/corrections, better explanations or whatever concerning this helpfile to \cf1\strike\f3 codeformat@spoonworx.com\cf2\strike0\{link=*! ExecFile("mailto:codeformat@spoonworx.com")\}\cf0\f2 . \lang3079\f5 You can also get the source for this helpfile from the Sourceforge SVN. The helpfile is created using HelpScribble, and you can use the free demo-version (available from the HelpScribble home page from \cf1\strike\f6 http://www.helpscribble.com\cf2\strike0\{link=*! ExecFile("http://www.helpscribble.com")\}\cf0\f5 ) to make changes to this helpfile. If you will send us your modified helpfile (the source), we will try to include your changes into the next possible release.
+\par \lang1031\f2 Feel free to send additions/corrections, better explanations or whatever concerning this helpfile to \cf1\strike\f4 codeformat@spoonworx.com\cf2\strike0\{link=*! ExecFile("mailto:codeformat@spoonworx.com")\}\cf0\f2 . \lang3079\f3 You can also get the source for this helpfile from the SourceForge SVN. The helpfile is created using HelpScribble, and you can use the free demo-version (available from the HelpScribble home page from \cf1\strike\f6 http://www.helpscribble.com\cf2\strike0\{link=*! ExecFile("http://www.helpscribble.com")\}\cf0\f3 ) to make changes to this helpfile. If you will send us your modified helpfile (the source), we will try to include your changes into the next possible release.
 \par \lang1031\f2 
-\par \f5 C\f2 omments regarding the program should be sent to Anthony Steele (\cf1\strike\f3 anthonysteele@users.sourceforge.net\cf2\strike0\{link=*! ExecFile("anthonysteele@users.sourceforge.net")\}\cf0\f2 ).
+\par \f3 C\f2 omments regarding the program should be sent to Anthony Steele (\cf1\strike\f4 anthonysteele@users.sourceforge.net\cf2\strike0\{link=*! ExecFile("anthonysteele@users.sourceforge.net")\}\cf0\f2 ).
 \par \lang3079\f1 
-\par \lang1031\f0 Borland styleguides can be found at
-\par \cf1\strike\f6 http://community.borland.com/article/0,1410,10280,00.html\cf2\strike0\{link=*! ExecFile("http://community.borland.com/article/0,1410,10280,00.html")\}\cf0\f0 
+\par \lang1031\f0 Object Pascal style guide can be found at
+\par \cf1\strike\f6 http://dn.codegear.com/article/10280\cf2\strike0\{link=*! ExecFile("http://dn.codegear.com/article/10280")\}\cf0\f0 
 \par 
 \par Ralf Steinhaeusser,
-\par SpoonworX Inc.
-\par 
-\par \lang3079\f1 
+\par SpoonworX Inc.\lang3079\f1 
 \par }
 1
 main="",(120,44,658,726),0,(255,255,255),(255,255,196),0
