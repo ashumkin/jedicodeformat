@@ -40,20 +40,6 @@
       
       
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
       <Excluded_Packages Name="$(BDS)\bin\dclofficexp100.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
       <Excluded_Packages Name="$(BDS)\bin\dcloffice2k100.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
     </Excluded_Packages></Delphi.Personality></BorlandProject></BorlandProject>
@@ -63,19 +49,19 @@
     <DelphiCompile Include="JCFIde2007.dpk">
       <MainSource>MainSource</MainSource>
     </DelphiCompile>
-    <DCCReference Include="..\..\Notepad\dbrtl.dcp" />
-    <DCCReference Include="..\..\Notepad\DesignIDE.dcp" />
-    <DCCReference Include="..\..\Notepad\Jcl.dcp" />
-    <DCCReference Include="..\..\Notepad\JclVcl.dcp" />
-    <DCCReference Include="..\..\Notepad\JvCoreD11R.dcp" />
-    <DCCReference Include="..\..\Notepad\JvCustomD11R.dcp" />
-    <DCCReference Include="..\..\Notepad\JvStdCtrlsD11R.dcp" />
-    <DCCReference Include="..\..\Notepad\JvSystemD11R.dcp" />
-    <DCCReference Include="..\..\Notepad\rtl.dcp" />
-    <DCCReference Include="..\..\Notepad\vcl.dcp" />
-    <DCCReference Include="..\..\Notepad\vcldb.dcp" />
-    <DCCReference Include="..\..\Notepad\vcljpg.dcp" />
-    <DCCReference Include="..\..\Notepad\vclx.dcp" />
+    <DCCReference Include="..\..\CommandLine\dbrtl.dcp" />
+    <DCCReference Include="..\..\CommandLine\DesignIDE.dcp" />
+    <DCCReference Include="..\..\CommandLine\Jcl.dcp" />
+    <DCCReference Include="..\..\CommandLine\JclVcl.dcp" />
+    <DCCReference Include="..\..\CommandLine\JvCoreD11R.dcp" />
+    <DCCReference Include="..\..\CommandLine\JvCustomD11R.dcp" />
+    <DCCReference Include="..\..\CommandLine\JvStdCtrlsD11R.dcp" />
+    <DCCReference Include="..\..\CommandLine\JvSystemD11R.dcp" />
+    <DCCReference Include="..\..\CommandLine\rtl.dcp" />
+    <DCCReference Include="..\..\CommandLine\vcl.dcp" />
+    <DCCReference Include="..\..\CommandLine\vcldb.dcp" />
+    <DCCReference Include="..\..\CommandLine\vcljpg.dcp" />
+    <DCCReference Include="..\..\CommandLine\vclx.dcp" />
     <DCCReference Include="..\..\Parse\BuildParseTree.pas" />
     <DCCReference Include="..\..\Parse\BuildTokenList.pas" />
     <DCCReference Include="..\..\Parse\ParseError.pas" />
@@ -106,6 +92,7 @@
     <DCCReference Include="..\..\Process\Capitalisation\SpecificWordCaps.pas" />
     <DCCReference Include="..\..\Process\Capitalisation\UnitNameCaps.pas" />
     <DCCReference Include="..\..\Process\FormatFlags.pas" />
+    <DCCReference Include="..\..\Process\Indent\IndentAsmParam.pas" />
     <DCCReference Include="..\..\Process\Indent\Indenter.pas" />
     <DCCReference Include="..\..\Process\Info\BasicStats.pas" />
     <DCCReference Include="..\..\Process\Nesting.pas" />
