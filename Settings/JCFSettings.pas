@@ -362,7 +362,15 @@ var
       lcSection.Free;
     end
     else
-      ShowMessage('Skipping section ' + pcSet.Section + ' as it was not found');
+    begin
+      lcSection :=  TSettingsInputDummy.Create;
+      try
+        pcSet.ReadFromStream(lcSection);
+      finally
+        lcSection.Free;
+      end;
+      //ShowMessage('Skipping section ' + pcSet.Section + ' as it was not found');
+    end;
   end;
 
 begin
