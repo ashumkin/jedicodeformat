@@ -68,7 +68,7 @@ begin
   {
     A return, followed by another return (with nothing of substance between them)
     is a blank line, so kill one of them
-    this applies even in ASM blocks  }
+    this applies even in Asm blocks  }
   if (lcNext <> nil) and (lcNext.TokenType = ttReturn) then
     BlankToken(lcSourceToken);
 

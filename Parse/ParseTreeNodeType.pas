@@ -395,7 +395,7 @@ begin
       Result := 'asm statement';
     nAsmIdent:
       Result := 'asm ident';
-    nASMOpcode:
+    nAsmOpcode:
       Result := 'asm opcode';
     nAsmParam:
       Result := 'asm param';

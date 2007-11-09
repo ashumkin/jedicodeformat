@@ -76,7 +76,7 @@ type
     ttHash,
     ttDoubleDot, // '..' as in '[1 .. 2]'
     ttAssign,    // :=
-    ttAmpersand, // '&' is used in ASM
+    ttAmpersand, // '&' is used in Asm
 
     ttIdentifier, // a user-defined name for a var, type, unit, etc
 

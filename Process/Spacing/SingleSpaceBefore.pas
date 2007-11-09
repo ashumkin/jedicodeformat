@@ -126,7 +126,7 @@ begin
     exit;
   end;
 
-  { not in ASM block }
+  { not in Asm block }
   if pt.HasParentNode(nAsm) then
     exit;
 

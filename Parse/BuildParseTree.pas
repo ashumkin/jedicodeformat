@@ -4570,7 +4570,7 @@ begin
     some overlap with Delphi reserved words
     e.g. SHL
    }
-  PushNode(nASMOpcode);
+  PushNode(nAsmOpcode);
   if IdentifierNext(idStrict) then
     RecogniseIdentifier(False, idStrict)
   else if WordTypeOfToken(fcTokenList.FirstSolidTokenType) in TextualWordTypes then
@@ -4657,7 +4657,7 @@ begin
   end;
 
   { only parse trainling expressions if it is on the same line
-    ASM is not completely white-space-independant }
+    Asm is not completely white-space-independant }
   lcNext := fcTokenList.FirstTokenWithExclusion([ttWhiteSpace]);
   if (lcNext <> nil) and (lcNext.TokenType <> ttReturn) then
   begin
@@ -4729,7 +4729,7 @@ begin
     begin
       Recognise(ttNumber);
 
-      // numbers in ASM blocks can be suffixed with 'h' for hex
+      // numbers in Asm blocks can be suffixed with 'h' for hex
       lcNext := fcTokenList.FirstSolidToken;
       if (lcNext.TokenType = ttIdentifier) and (lcNext.SourceCode = 'h') then
       begin
