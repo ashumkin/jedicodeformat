@@ -130,7 +130,7 @@ begin
   if Excluded(lcSourceToken) then
     exit;
 
-   { not in ASM statements}
+   { not in Asm statements}
   if lcSourceToken.HasParentNode(nAsm) then
     exit;
 

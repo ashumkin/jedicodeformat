@@ -135,7 +135,7 @@ type
     nAsm,
     nAsmStatement,
     nAsmIdent,
-    nASMOpcode,
+    nAsmOpcode,
     nAsmParam,
     nAsmLabel,
     nHintDirectives,

@@ -96,7 +96,7 @@ begin
     end;
   end;
 
-  { need to keep space before ASM @@ and '&' thingy}
+  { need to keep space before Asm @@ and '&' thingy}
   if (pt2.TokenType in SPACED_ASM_TOKENS) and pt2.HasParentNode(nAsmStatement) then
     exit;
 

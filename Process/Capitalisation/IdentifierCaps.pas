@@ -161,7 +161,7 @@ begin
   if lcSourceToken.TokenType in NEITHER_NOR then
     exit;
 
-  { not in ASM statements}
+  { not in Asm statements}
   if lcSourceToken.HasParentNode(nAsm) then
     exit;
 
