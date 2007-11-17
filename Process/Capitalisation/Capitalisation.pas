@@ -97,8 +97,11 @@ begin
 
   if IsInsideAsm(lcSourceToken) then
   begin
-    // underneath an "asm" node - use asm caps
-    FixCaps(lcSourceToken, FormatSettings.SetAsm.Capitalisation);
+    // underneath an "asm" node - use asm caps on opcode and params
+    if HasAsmCaps(lcSourceToken) then
+    begin
+      FixCaps(lcSourceToken, FormatSettings.SetAsm.Capitalisation);
+    end;
   end
   else
   begin

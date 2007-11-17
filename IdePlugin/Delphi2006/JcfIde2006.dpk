@@ -193,6 +193,7 @@ contains
   SetAsm in '..\..\Settings\SetAsm.pas',
   RemoveReturnsAfter in '..\..\Process\Returns\RemoveReturnsAfter.pas',
   IndentAsmParam in '..\..\Process\Indent\IndentAsmParam.pas',
-  frAsm in '..\..\Ui\Settings\frAsm.pas';
+  frAsm in '..\..\Ui\Settings\frAsm.pas',
+  AsmKeywords in '..\..\Parse\AsmKeywords.pas';
 
 end.

@@ -23,10 +23,10 @@ end;
 procedure foo;
 asm
          //blabla1
-         movsd;
-         movsd;
-         movsd // blabla2
-         movsd //blabla3
+         MOVSD;
+         MOVSD;
+         MOVSD // blabla2
+         MOVSD //blabla3
 end;
 
 end.

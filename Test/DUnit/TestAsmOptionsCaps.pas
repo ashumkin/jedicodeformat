@@ -62,6 +62,8 @@ type
     procedure TestCaps_LowerLeaveAlone;
     procedure TestCaps_MixedLeaveAlone;
     procedure TestCaps_UpperLeaveAlone;
+
+    procedure TestCaps_VarToCaps;
   end;
 
 implementation
@@ -87,7 +89,7 @@ const
     '  asm' + AnsiLineBreak +
     '    MOV   ECX, [EDX]' + AnsiLineBreak +
     '    XCHG  ECX, [EAX]' + AnsiLineBreak +
-    '    CALL    PROCASM2' + AnsiLineBreak +
+    '    CALL    Procasm2' + AnsiLineBreak +
     '  end;' + AnsiLineBreak +
     UNIT_FOOTER;
 
@@ -96,7 +98,7 @@ const
     '  asm' + AnsiLineBreak +
     '    mov   ecx, [edx]' + AnsiLineBreak +
     '    xchg  ecx, [eax]' + AnsiLineBreak +
-    '    call    procasm2' + AnsiLineBreak +
+    '    call    Procasm2' + AnsiLineBreak +
     '  end;' + AnsiLineBreak +
     UNIT_FOOTER;
 
@@ -116,6 +118,27 @@ const
     '    Mov   Ecx, [Edx]' + AnsiLineBreak +
     '    Xchg  Ecx, [Eax]' + AnsiLineBreak +
     '    Call    Procasm2' + AnsiLineBreak +
+    '  end;' + AnsiLineBreak +
+    UNIT_FOOTER;
+
+
+    ASM_STATEMENTS_VarCaps_Lower =
+    UNIT_HEADER +
+    '  asm' + AnsiLineBreak +
+    '    Mov   Ecx, [Edx]' + AnsiLineBreak +
+    '    Xchg  Ecx, [Eax]' + AnsiLineBreak +
+    '    Call    Procasm2' + AnsiLineBreak +
+    '    jmp   [_NetGroupDel]' + AnsiLineBreak +
+    '  end;' + AnsiLineBreak +
+    UNIT_FOOTER;
+
+    ASM_STATEMENTS_VarCaps_Upper =
+    UNIT_HEADER +
+    '  asm' + AnsiLineBreak +
+    '    MOV   ECX, [EDX]' + AnsiLineBreak +
+    '    XCHG  ECX, [EAX]' + AnsiLineBreak +
+    '    CALL    Procasm2' + AnsiLineBreak +
+    '    JMP   [_NetGroupDel]' + AnsiLineBreak +
     '  end;' + AnsiLineBreak +
     UNIT_FOOTER;
 
@@ -187,6 +210,7 @@ begin
   TestFormatResult(ASM_STATEMENTS_UPPER, ASM_STATEMENTS_UPPER);
 end;
 
+
 procedure TTestAsmOptionsCaps.TestCaps_MixedLeaveAlone;
 begin
   FormatSettings.SetAsm.Capitalisation := ctLeaveAlone;
@@ -233,6 +257,13 @@ procedure TTestAsmOptionsCaps.TestCaps_LowerToUpper;
 begin
   FormatSettings.SetAsm.Capitalisation := ctUpper;
   TestFormatResult(ASM_STATEMENTS_LOWER, ASM_STATEMENTS_UPPER);
+end;
+
+procedure TTestAsmOptionsCaps.TestCaps_VarToCaps;
+begin
+  FormatSettings.SetAsm.Capitalisation := ctUpper;
+  TestFormatResult(ASM_STATEMENTS_VarCaps_Lower, ASM_STATEMENTS_VarCaps_Upper);
+
 end;
 
 initialization

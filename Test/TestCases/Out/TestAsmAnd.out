@@ -26,7 +26,7 @@ implementation
 procedure TmaClass.FaitqqChose(x, y, dx, dy: integer);
 asm
          PUSH    dy;
-         PUSH    &dx;
+         PUSH    &DX;
          PUSH    y;
          PUSH    x;
          CALL    DWORD PTR FaitqqChose;

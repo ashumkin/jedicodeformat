@@ -221,6 +221,6 @@ begin
 end;
 
 initialization
- TestFramework.RegisterTest('', TTestAdvanceTextPos.Suite);
+ TestFramework.RegisterTest('Procs', TTestAdvanceTextPos.Suite);
 
 end.

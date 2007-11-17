@@ -262,6 +262,8 @@ type
 
     procedure TestDelphiNetLibrary;
 
+    procedure TestAsmCaps;
+
     procedure TestCases;
 
   end;
@@ -547,7 +549,7 @@ end;
 
 procedure TFullTestClarify.TestCases;
 begin
-  TestClarifyFile('TestCases.dpr', 1357);
+  TestClarifyFile('TestCases.dpr', 1365);
 end;
 
 procedure TFullTestClarify.TestCast;
@@ -1464,6 +1466,11 @@ end;
 procedure TFullTestClarify.TestAsmAnd;
 begin
   TestClarifyFile('TestAsmAnd', 142);
+end;
+
+procedure TFullTestClarify.TestAsmCaps;
+begin
+  TestClarifyFile('TestAsmCaps', 113);
 end;
 
 procedure TFullTestClarify.TestAsmLabel;

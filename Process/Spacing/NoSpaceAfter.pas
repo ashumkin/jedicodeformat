@@ -88,7 +88,7 @@ begin
     nDestructorDecl, nStatementList]) and
     (IsIdentifier(pt, idAllowDirectives) or (pt.TokenType in BuiltInTypes)) then
   begin
-    if (ptNext.TokenType in OpenBrackets) then
+    if (ptNext.TokenType in OpenBrackets) and (not IsInsideAsm(ptNext)) then
     begin
       Result := True;
       exit;

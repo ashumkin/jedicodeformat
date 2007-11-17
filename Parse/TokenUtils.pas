@@ -160,6 +160,7 @@ function NextToWhiteSpace(const pt: TSourceToken): boolean;
 function CompilerDirectiveLineBreak(const pt: TSourceToken; const pbBefore: Boolean): TTriOptionStyle;
 
 function IsInsideAsm(const pt: TSourceToken): boolean;
+function HasAsmCaps(const pt: TSourceToken): boolean;
 
 
 implementation
@@ -171,7 +172,8 @@ uses
   JclStrings,
   { local }
   ParseTreeNodeType, Tokens, Nesting,
-  JcfSettings, SetReturns;
+  JcfSettings, SetReturns,
+  AsmKeywords;
 
 
 function NewReturn: TSourceToken;
@@ -861,6 +863,18 @@ end;
 function IsInsideAsm(const pt: TSourceToken): boolean;
 begin
    Result := pt.HasParentNode(nAsm) and not (pt.TokenType in [ttAsm, ttEnd]);
+end;
+
+function HasAsmCaps(const pt: TSourceToken): boolean;
+begin
+  if pt.TokenType = ttComment then
+  begin
+    Result := False;
+  end
+  else
+  begin
+    Result := pt.HasParentNode(nAsmOpcode, 2) or IsAsmParamKeyword(pt.SourceCode);
+  end;
 end;
 
 end.

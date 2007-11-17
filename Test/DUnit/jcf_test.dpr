@@ -176,7 +176,9 @@ uses
   RemoveReturnsAfter in '..\..\Process\Returns\RemoveReturnsAfter.pas',
   TestAsmOptionsIndents in 'TestAsmOptionsIndents.pas',
   IndentAsmParam in '..\..\Process\Indent\IndentAsmParam.pas',
-  TestAsmOptionsIndentsBare in 'TestAsmOptionsIndentsBare.pas';
+  TestAsmOptionsIndentsBare in 'TestAsmOptionsIndentsBare.pas',
+  AsmKeywords in '..\..\Parse\AsmKeywords.pas',
+  TestAsmParamKeywords in 'TestAsmParamKeywords.pas';
 
 {$R *.res}
 

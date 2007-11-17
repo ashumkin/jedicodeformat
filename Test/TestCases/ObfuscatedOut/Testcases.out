@@ -164,7 +164,8 @@ uses
   testampersand in 'TestAmpersand.pas',
   testautomated in 'TestAutomated.pas',
   testclassmethods in 'TestClassMethods.pas',
-  testexports in 'TestExports.pas';
+  testexports in 'TestExports.pas',
+  testasmcaps in 'TestAsmCaps.pas';
 
 {$R *.res}
 begin

@@ -1,6 +1,6 @@
 unit TestParamSpaces;
 
-{ AFS 11 March 2K test local types
+{ AFS 11 March 2K 
 
   This code compiles, but is not semantically meaningfull.
   It is test cases for the code-formating utility

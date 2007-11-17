@@ -80,7 +80,7 @@ asm
          @@2a2a:
          MOV     EAX, [EBX]
 
-         fmul    ST(1),ST          { Result := Result * X }
+         FMUL    ST(1),ST          { Result := Result * X }
 
 end;
 

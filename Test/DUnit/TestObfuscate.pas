@@ -261,6 +261,8 @@ type
     procedure TestClassMethods;
     procedure TestExports;
 
+    procedure TestAsmCaps;
+
     procedure TestDelphiNetLibrary;
 
   end;
@@ -1424,6 +1426,11 @@ end;
 procedure TTestObfuscate.TestAsmAnd;
 begin
    TestObfuscateFile('TestAsmAnd');
+end;
+
+procedure TTestObfuscate.TestAsmCaps;
+begin
+   TestObfuscateFile('TestAsmCaps');
 end;
 
 procedure TTestObfuscate.TestAsmLabel;

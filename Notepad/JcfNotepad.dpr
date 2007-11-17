@@ -170,7 +170,8 @@ uses
   SetAsm in '..\Settings\SetAsm.pas',
   frAsm in '..\Ui\Settings\frAsm.pas' {fAsm: TFrame},
   RemoveReturnsAfter in '..\Process\Returns\RemoveReturnsAfter.pas',
-  IndentAsmParam in '..\Process\Indent\IndentAsmParam.pas';
+  IndentAsmParam in '..\Process\Indent\IndentAsmParam.pas',
+  AsmKeywords in '..\Parse\AsmKeywords.pas';
 
 {$R *.res}
 

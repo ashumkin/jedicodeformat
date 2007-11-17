@@ -15,13 +15,13 @@ uses DB;
 
 procedure tmyclass.doasm;
 asm
-         mov     edx,[eax]
-         mov     ecx,dword ptr tfield.getdata
-         cmp     dword ptr[edx+vmtoffset tfield.isblob],ecx
-         je      @@alreadydone
-         mov     ecx,dword ptr[edx+vmtoffset tfield.isblob]
-         mov     ecx,dword ptr tfield.isblob
-         mov     dword ptr[edx],ecx
+         MOV     EDX,[EAX]
+         MOV     ECX,dword ptr tfield.getdata
+         CMP     dword ptr[EDX+vmtoffset tfield.isblob],ECX
+         JE      @@alreadydone
+         MOV     ECX,dword ptr[EDX+vmtoffset tfield.isblob]
+         MOV     ECX,dword ptr tfield.isblob
+         MOV     dword ptr[EDX],ECX
          @@alreadydone:
 end;
 

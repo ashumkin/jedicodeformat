@@ -144,7 +144,8 @@ uses
   JcfFontSetFunctions in '..\Utils\JcfFontSetFunctions.pas',
   SetAsm in '..\Settings\SetAsm.pas',
   RemoveReturnsAfter in '..\Process\Returns\RemoveReturnsAfter.pas',
-  IndentAsmParam in '..\Process\Indent\IndentAsmParam.pas';
+  IndentAsmParam in '..\Process\Indent\IndentAsmParam.pas',
+  AsmKeywords in '..\Parse\AsmKeywords.pas';
 
 const
   ABOUT_COMMANDLINE =

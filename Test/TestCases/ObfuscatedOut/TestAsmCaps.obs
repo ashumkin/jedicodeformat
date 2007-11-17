@@ -1,0 +1,7 @@
+unit testasmcaps;interface implementation var _netgroupdel:pointer;procedure getprocedureaddress
+(var p:pointer;const modulename,procname:string);begin end;procedure netgroupdel;
+begin getprocedureaddress(_netgroupdel,'Foo','bar');asm
+mov esp,ebp
+pop ebp
+jmp[_netgroupdel]
+end;end;end.

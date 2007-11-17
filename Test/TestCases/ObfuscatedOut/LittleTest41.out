@@ -7,7 +7,7 @@ implementation
 procedure foo;
 begin
   asm
-           cmp     al,"'"
+           CMP     AL,"'"
   end;
 end;
 

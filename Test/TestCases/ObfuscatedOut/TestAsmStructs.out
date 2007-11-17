@@ -15,38 +15,38 @@ procedure foo(calldesc: pcalldesc; namedargdispids, Result: pointer);
 var
   dispparams: tdispparams;
 asm
-         and     eax,not 3
+         AND     EAX,not 3
          @resulttable:
-         mov     ebx,calldesc
-         movzx   ecx,[ebx].tcalldesc.argcount
-         mov     dispparams.cargs,ecx
-         add     ebx,offset tcalldesc.argtypes
+         MOV     EBX,calldesc
+         MOVZX   ECX,[EBX].tcalldesc.argcount
+         MOV     dispparams.cargs,ECX
+         ADD     EBX,offset tcalldesc.argtypes
          @@1:
-         movzx   eax,[ebx].byte
-         jne     @@1
-         cmp     al,varvariant
-         push    [esi].integer[4]
+         MOVZX   EAX,[EBX].byte
+         JNE     @@1
+         CMP     AL,varvariant
+         PUSH    [ESI].integer[4]
          @@2:
-         push    [esi].integer[12]
+         PUSH    [ESI].integer[12]
          @@3:
-         and     al,attypemask
-         or      eax,varbyref
+         AND     AL,attypemask
+         OR      EAX,varbyref
          @@10:
-         mov     dispparams.rgvarg,esp
-         movzx   eax,[ebx].tcalldesc.namedargcount
-         mov     dispparams.cnamedargs,eax
-         mov     esi,namedargdispids
+         MOV     dispparams.rgvarg,ESP
+         MOVZX   EAX,[EBX].tcalldesc.namedargcount
+         MOV     dispparams.cnamedargs,EAX
+         MOV     ESI,namedargdispids
          @@12:
-         movzx   ecx,[ebx].tcalldesc.calltype
-         cmp     ecx,dispatch_propertyput
-         cmp     [ebx].tcalldesc.argtypes.byte[0],vardispatch
+         MOVZX   ECX,[EBX].tcalldesc.calltype
+         CMP     ECX,dispatch_propertyput
+         CMP     [EBX].tcalldesc.argtypes.byte[0],vardispatch
          @@20:
-         mov     dispparams.rgdispidnamedargs,esp
-         call    [eax].pointer[24]
-         mov     ecx,[ebp+4]
-         jmp     foo
-         mov     result,false
-         mov     result,'F'
+         MOV     dispparams.rgdispidnamedargs,ESP
+         CALL    [EAX].pointer[24]
+         MOV     ECX,[EBP+4]
+         JMP     foo
+         MOV     result,false
+         MOV     result,'F'
 end;
 
 end.

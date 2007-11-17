@@ -14,11 +14,11 @@ implementation
 
 procedure tmaclass.faitqqchose(x, y, dx, dy: integer);
 asm
-         push    dy;
-         push    &dx;
-         push    y;
-         push    x;
-         call    dword ptr faitqqchose;
+         PUSH    dy;
+         PUSH    &DX;
+         PUSH    y;
+         PUSH    x;
+         CALL    dword ptr faitqqchose;
 end;
 
 end.
