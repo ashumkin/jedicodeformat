@@ -263,6 +263,7 @@ type
     procedure TestDelphiNetLibrary;
 
     procedure TestAsmCaps;
+    procedure TestGenerics;
 
     procedure TestCases;
 
@@ -655,6 +656,11 @@ end;
 procedure TFullTestClarify.TestForward;
 begin
   TestClarifyFile('TestForward', 332);
+end;
+
+procedure TFullTestClarify.TestGenerics;
+begin
+  TestClarifyFile('TestGenerics', 262);
 end;
 
 procedure TFullTestClarify.TestGoto;

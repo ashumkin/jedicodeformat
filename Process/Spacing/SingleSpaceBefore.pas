@@ -71,6 +71,9 @@ begin
   if pt = nil then
     exit;
 
+  if pt.HasParentNode(nGeneric, 1) then
+    exit;
+
   if pt.TokenType = ttCloseBracket then
   begin
     if FormatSettings.Spaces.SpaceBeforeCloseBrackets then

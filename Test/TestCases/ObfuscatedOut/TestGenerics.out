@@ -1,0 +1,45 @@
+unit testgenerics;
+
+interface
+
+uses SysUtils;
+
+type
+  tgenerictype<anytype> = class
+    fdata: anytype;
+    function getdata: anytype;
+    procedure setdata(Value: anytype);
+    property Data: anytype Read getdata Write setdata;
+  end;
+
+implementation
+
+function tgenerictype<anytype>.getdata: anytype;
+begin
+  Result := fdata;
+end;
+
+procedure tgenerictype<anytype>.setdata(Value: anytype);
+begin
+  fdata := Value;
+end;
+
+type
+  tgenerictypeint = tgenerictype<integer>;
+
+var
+  i: tgenerictypeint;
+
+initialization
+  try
+    with tgenerictype<integer>.Create do
+      Data := 100;
+    i := tgenerictypeint.Create;
+    i.Data := 100;
+    writeln(i.Data);
+    readln;
+  except
+    on e: Exception do
+      writeln(e.ClassName, ': ', e.message);
+  end;
+end.

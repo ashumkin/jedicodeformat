@@ -146,7 +146,8 @@ type
     nHashLiteralChar,
     nHatLiteralChar,
     nAttribute,
-    nClassVars
+    nClassVars,
+    nGeneric
     );
 
   TParseTreeNodeTypeSet = set of TParseTreeNodeType;
@@ -417,6 +418,8 @@ begin
       Result := 'hat literal char';
     nAttribute:
       Result := 'Attribute';
+    nGeneric:
+      Result := 'Generic';
     else
       Result := 'Bad node type ' + IntToStr(Ord(pe));
 

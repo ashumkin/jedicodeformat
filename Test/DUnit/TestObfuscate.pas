@@ -262,6 +262,7 @@ type
     procedure TestExports;
 
     procedure TestAsmCaps;
+    procedure TestGenerics;
 
     procedure TestDelphiNetLibrary;
 
@@ -606,6 +607,11 @@ end;
 procedure TTestObfuscate.TestForward;
 begin
   TestObfuscateFile('TestForward');
+end;
+
+procedure TTestObfuscate.TestGenerics;
+begin
+  TestObfuscateFile('TestGenerics');
 end;
 
 procedure TTestObfuscate.TestGoto;

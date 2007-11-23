@@ -74,6 +74,9 @@ begin
   if pt.HasParentNode(nAsm) then
     exit;
 
+  if pt.HasParentNode(nGeneric, 1) then
+    exit;
+
   // if the next token is a comment, leave it where it is, do not adjust spacing
   if ptNext.TokenType = ttComment then
     exit;

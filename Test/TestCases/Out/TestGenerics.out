@@ -1,0 +1,58 @@
+unit TestGenerics;
+
+
+{ AFS November 2007 
+
+  This code compiles, but is not semantically meaningfull.
+  It is test cases for the code-formating utility
+
+  Test new generics syntax - code from TridenT
+}
+
+
+interface
+
+uses
+  SysUtils;
+
+type
+  TGenericType<AnyType> = class
+    FData: AnyType;
+    function GetData: AnyType;
+    procedure SetData(Value: AnyType);
+    property Data: AnyType Read GetData Write SetData;
+  end;
+
+implementation
+
+function TGenericType<AnyType>.GetData: AnyType;
+begin
+  Result := FData;
+end;
+
+procedure TGenericType<AnyType>.SetData(Value: AnyType);
+begin
+  FData := Value;
+end;
+
+type
+  TGenericTypeInt = TGenericType<integer>;
+
+var
+  I: TGenericTypeInt;
+
+initialization
+  try
+    with TGenericType<integer>.Create do
+      Data := 100;
+
+    I      := TGenericTypeInt.Create;
+    I.Data := 100;
+    WriteLn(I.Data);
+
+    ReadLn;
+  except
+    on E: Exception do
+      Writeln(E.ClassName, ': ', E.Message);
+  end;
+end.

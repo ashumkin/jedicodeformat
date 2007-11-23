@@ -240,6 +240,7 @@ type
     procedure RecogniseExternalProcDirective;
 
     procedure RecogniseAttributes;
+    procedure RecogniseGeneric;
 
     procedure Recognise(const peTokenTypes: TTokenTypeSet; const pbKeepTrailingWhiteSpace: Boolean = False); overload;
     procedure Recognise(const peTokenType: TTokenType; const pbKeepTrailingWhiteSpace: Boolean = False); overload;
@@ -1101,6 +1102,11 @@ begin
     RecogniseAttributes;
 
   RecogniseIdentifier(False, idAllowDirectives);
+  if fcTokenList.FirstSolidTokenType = ttLessThan then
+  begin
+    RecogniseGeneric;
+  end;
+
   Recognise(ttEquals);
 
   // type or restricted type
@@ -1110,12 +1116,32 @@ begin
   else
     RecogniseType;
 
+  if fcTokenList.FirstSolidTokenType = ttLessThan then
+  begin
+    RecogniseGeneric;
+  end;
+
   // the type can be deprecated
   if fcTokenList.FirstSolidTokenType = ttDeprecated then
     Recognise(ttDeprecated);
 
 
   Recognise(ttSemicolon);
+
+  PopNode;
+end;
+
+procedure TBuildParseTree.RecogniseGeneric;
+begin
+  PushNode(nGeneric);
+
+  // angle brackets
+  Recognise(ttLessThan);
+
+  // a type name
+   RecogniseIdentifier(False, idAllowDirectives);
+
+  Recognise(ttGreaterThan);
 
   PopNode;
 end;
@@ -2204,7 +2230,17 @@ begin
     if fcTokenList.FirstSolidTokenType = ttOpenBracket then
     begin
       RecogniseActualParams;
+    end
+    else if fcTokenList.FirstSolidTokenType = ttLessThan then
+    begin
+      // check for a generic type
+      if fcTokenList.SolidToken(3).TokenType = ttGreaterThan then
+      begin
+        RecogniseGeneric();
+      end;
+      
     end;
+         
   end
 
   else
@@ -4381,8 +4417,8 @@ begin
 end;
 
 { the name of a procedure/function/constructor can be
-  a plain name or classname.methodname }
-
+  a plain name or classname.methodname
+  or class<generic>.typename }
 procedure TBuildParseTree.RecogniseMethodName(const pbClassNameCompulsory: boolean);
 begin
   if not (IdentifierNext(idAllowDirectives)) then
@@ -4392,6 +4428,11 @@ begin
   PushNode(nIdentifier);
 
   Recognise(IdentiferTokens);
+
+  if fcTokenList.FirstSolidTokenType = ttLessThan then
+  begin
+    RecogniseGeneric;
+  end;
 
   if (fcTokenList.FirstSolidTokenType = ttDot) or pbClassNameCompulsory then
   begin

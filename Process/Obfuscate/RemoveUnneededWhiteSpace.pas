@@ -70,6 +70,8 @@ const
     ttQuotedLiteralString, ttSemiColon, ttColon, ttComma,
     ttDot, ttDoubleDot, ttAssign, ttReturn];
 
+  DoNotConcat = [ttGreaterThan, ttLessThan, ttEquals];
+
 
 function NeedSpaceBetween(const pt1, pt2: TSourceToken): boolean;
 const
@@ -84,6 +86,12 @@ begin
     Result := False;
     exit;
   end;
+
+  if (pt1.TokenType in DoNotConcat)  and (pt2.TokenType in DoNotConcat) then
+  begin
+    exit;
+  end;
+  
 
   { can loose everything after the final end }
   if (pt1.TokenType = ttDot) then

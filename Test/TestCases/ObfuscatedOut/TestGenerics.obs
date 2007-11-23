@@ -1,0 +1,8 @@
+unit testgenerics;interface uses sysutils;type tgenerictype<anytype> =class fdata
+:anytype;function getdata:anytype;procedure setdata(value:anytype);property data:
+anytype read getdata write setdata;end;implementation function tgenerictype<anytype
+>.getdata:anytype;begin result:=fdata;end;procedure tgenerictype<anytype>.setdata
+(value:anytype);begin fdata:=value;end;type tgenerictypeint=tgenerictype<integer>
+;var i:tgenerictypeint;initialization try with tgenerictype<integer>.create do data
+:=100;i:=tgenerictypeint.create;i.data:=100;writeln(i.data);readln;except on e:exception
+do writeln(e.classname,': ',e.message);end;end.
