@@ -58,7 +58,6 @@ type
     fcTokenList: TSourceTokenList;
 
     fiTokenCount: integer;
-    function GenericAhead: boolean;
 
     procedure RecogniseGoal;
     procedure RecogniseUnit;
@@ -241,7 +240,11 @@ type
     procedure RecogniseExternalProcDirective;
 
     procedure RecogniseAttributes;
-    procedure RecogniseGeneric;
+
+    function GenericAhead: boolean;
+    procedure RecogniseGenericType;
+    procedure RecogniseGenericTypeItem;
+
 
     procedure Recognise(const peTokenTypes: TTokenTypeSet; const pbKeepTrailingWhiteSpace: Boolean = False); overload;
     procedure Recognise(const peTokenType: TTokenType; const pbKeepTrailingWhiteSpace: Boolean = False); overload;
@@ -304,6 +307,7 @@ begin
     
   FreeAndNil(fcRoot);
 end;
+
 
 procedure TBuildParseTree.BuildParseTree;
 begin
@@ -1105,7 +1109,7 @@ begin
   RecogniseIdentifier(False, idAllowDirectives);
   if fcTokenList.FirstSolidTokenType = ttLessThan then
   begin
-    RecogniseGeneric;
+    RecogniseGenericType;
   end;
 
   Recognise(ttEquals);
@@ -1119,7 +1123,7 @@ begin
 
   if fcTokenList.FirstSolidTokenType = ttLessThan then
   begin
-    RecogniseGeneric;
+    RecogniseGenericType;
   end;
 
   // the type can be deprecated
@@ -1132,27 +1136,95 @@ begin
   PopNode;
 end;
 
-procedure TBuildParseTree.RecogniseGeneric;
+function TBuildParseTree.GenericAhead: boolean;
+var
+  liTokenIndex: integer;
+  lcToken: TSourceToken;
+begin
+  Result := false;
+  // generics follow the pattern "< typeid >" or  "< typeid, typeid >"
+
+  if fcTokenList.FirstSolidTokenType <> ttLessThan then
+  begin
+    exit;
+  end;
+
+  liTokenIndex := 2;
+  while True do
+  begin
+    lcToken := fcTokenList.SolidToken(liTokenIndex);
+    if lcToken = nil then
+    begin
+      exit;
+    end;
+
+    // alternating id and comma
+    if liTokenIndex mod 2 = 0 then
+    begin
+      // should be id
+      if (lcToken.WordType <> wtBuiltInType) and (not IsIdentifierToken(lcToken, idAny)) then
+      begin
+        break;
+      end;
+
+    end
+    else
+    begin
+      // should be comma or end with ">"
+      if lcToken.TokenType = ttGreaterThan then
+      begin
+        Result := true;
+        break;
+      end
+      else if lcToken.TokenType = ttLessThan then
+      begin
+        // looks like a nested generic
+        Result := true;
+        break;
+      end
+      else if lcToken.TokenType <> ttComma then
+      begin
+        break;
+      end;
+    end;
+
+    inc(liTokenIndex);
+  end; // while
+
+end;
+
+
+procedure TBuildParseTree.RecogniseGenericType;
 begin
   PushNode(nGeneric);
 
   // angle brackets
   Recognise(ttLessThan);
-
-  // a type name
-   RecogniseIdentifier(False, idAllowDirectives);
+  RecogniseGenericTypeItem;
 
    // more types after commas
    while fcTokenList.FirstSolidTokenType = ttComma do
    begin
       Recognise(ttComma);
-      RecogniseIdentifier(False, idAllowDirectives);
+      RecogniseGenericTypeItem;
    end;
-   
+
 
   Recognise(ttGreaterThan);
 
   PopNode;
+end;
+
+
+procedure TBuildParseTree.RecogniseGenericTypeItem;
+begin
+  // a type name
+  RecogniseIdentifier(False, idAllowDirectives);
+  // nested generic?
+  if fcTokenList.FirstSolidTokenType = ttLessThan then
+  begin
+    RecogniseGenericType;
+  end;
 end;
 
 { helper proc for RecogniseTypedConstant
@@ -2245,7 +2317,7 @@ begin
       // check for a generic type
       if GenericAhead then
       begin
-        RecogniseGeneric();
+        RecogniseGenericType();
       end;
       
     end;
@@ -2258,58 +2330,6 @@ begin
   { can't use lc for FirstSolidToken any more, have moved on }
   if fcTokenList.FirstSolidTokenType in [ttHat, ttDot, ttOpenSquareBracket] then
     RecogniseDesignatorTail;
-end;
-
-function TBuildParseTree.GenericAhead: boolean;
-var
-  liTokenIndex: integer;
-  lcToken: TSourceToken;
-begin
-  Result := false;
-  // generics follow the pattern "< typeid >" or  "< typeid, typeid >"
-
-  if fcTokenList.FirstSolidTokenType <> ttLessThan then
-  begin
-    exit;
-  end;
-
-  liTokenIndex := 2;
-  while True do
-  begin
-    lcToken := fcTokenList.SolidToken(liTokenIndex);
-    if lcToken = nil then
-    begin
-      exit;
-    end;
-
-    // alternating id and comma
-    if liTokenIndex mod 2 = 0 then
-    begin
-      // should be id
-      if (lcToken.WordType <> wtBuiltInType) and (not IsIdentifierToken(lcToken, idAny)) then
-      begin
-        break;
-      end;
-
-    end
-    else
-    begin
-      // should be comma or end with ">"
-      if lcToken.TokenType = ttGreaterThan then
-      begin
-        Result := true;
-        break;
-      end;
-
-      if lcToken.TokenType <> ttComma then
-      begin
-        break;
-      end;
-    end;
-
-    inc(liTokenIndex);
-  end; // while
-
 end;
 
 procedure TBuildParseTree.RecogniseUnarySymbolFactor;
@@ -4492,7 +4512,7 @@ begin
 
   if fcTokenList.FirstSolidTokenType = ttLessThan then
   begin
-    RecogniseGeneric;
+    RecogniseGenericType;
   end;
 
   if (fcTokenList.FirstSolidTokenType = ttDot) or pbClassNameCompulsory then
