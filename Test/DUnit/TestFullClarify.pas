@@ -264,6 +264,7 @@ type
 
     procedure TestAsmCaps;
     procedure TestGenerics;
+    procedure TestGenerics2;
 
     procedure TestCases;
 
@@ -662,6 +663,12 @@ procedure TFullTestClarify.TestGenerics;
 begin
   TestClarifyFile('TestGenerics', 262);
 end;
+
+procedure TFullTestClarify.TestGenerics2;
+begin
+  TestClarifyFile('TestGenerics2', 277);
+end;
+
 
 procedure TFullTestClarify.TestGoto;
 begin
