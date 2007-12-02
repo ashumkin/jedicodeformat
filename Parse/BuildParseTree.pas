@@ -1213,8 +1213,8 @@ begin
     // restriction on the generic type
     Recognise(ttColon);
 
-    // one of a small set - class, record
-    Recognise([ttClass, ttRecord]);
+    // one of a small set of constraints - class, record, constructor
+    Recognise([ttClass, ttRecord, ttConstructor]);
   end;
 
    // more types after commas

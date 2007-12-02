@@ -266,6 +266,7 @@ type
     procedure TestGenerics;
     procedure TestGenerics2;
     procedure TestGenericTypeNullable;
+    procedure TestGenericConstraintConstructor;
 
     procedure TestCases;
 
@@ -658,6 +659,11 @@ end;
 procedure TFullTestClarify.TestForward;
 begin
   TestFile('TestForward', 332);
+end;
+
+procedure TFullTestClarify.TestGenericConstraintConstructor;
+begin
+  TestFile('TestGenericConstraintConstructor.dpr', 634);
 end;
 
 procedure TFullTestClarify.TestGenerics;

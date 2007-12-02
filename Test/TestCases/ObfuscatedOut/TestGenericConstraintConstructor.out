@@ -1,0 +1,96 @@
+program testgenericconstraintconstructor;{$APPTYPE CONSOLE}
+
+uses
+  SysUtils;
+
+type
+  tgenericsansconstructeur<t> = class
+  strict private
+    fdata: t;
+    constructor Create;
+  public
+    function getdata: t;
+    procedure setdata(Value: t);
+    property Data: t Read getdata Write setdata;
+  end;
+
+  tgenericavecconstructeur<t> = class
+  private
+    fdata: t;
+  public
+    constructor Create;
+    function getdata: t;
+    procedure setdata(Value: t);
+    property Data: t Read getdata Write setdata;
+  end;
+
+  tgenericcontraint<classeinstanciable:
+constructor> = class
+  private
+    maclasse: classeinstanciable;
+  public
+    constructor Create;
+  end;
+  montypegeneric = tgenericavecconstructeur<integer>;
+
+  constructor tgenericsansconstructeur<t>.Create;
+  begin
+    inherited Create;
+  end;
+
+  function tgenericsansconstructeur<t>.getdata: t;
+  begin
+    Result := fdata;
+  end;
+
+  procedure tgenericsansconstructeur<t>.setdata(Value: t);
+  begin
+    fdata := Value;
+  end;
+
+  constructor tgenericavecconstructeur<t>.Create;
+  begin
+    inherited Create;
+  end;
+
+  function tgenericavecconstructeur<t>.getdata: t;
+  begin
+    Result :=
+      fdata;
+  end;
+
+  procedure tgenericavecconstructeur<t>.setdata(Value: t);
+  begin
+    fdata := Value;
+  end;
+
+var
+  x:  tgenericsansconstructeur<string>;
+  y:  montypegeneric;
+  z:  tgenericcontraint<tgenericsansconstructeur<integer>>;
+  z2: tgenericcontraint<tgenericavecconstructeur<integer>>;
+  z3: tgenericcontraint<tgenericavecconstructeur<TObject>>;
+  z4: tgenericcontraint<montypegeneric>;
+
+  constructor tgenericcontraint<classeinstanciable>.Create;
+  begin
+    inherited
+    Create;
+    maclasse := classeinstanciable.Create;
+  end;
+
+begin
+  try
+    z2 := tgenericcontraint<tgenericavecconstructeur<integer>>.Create;
+    writeln(z2.maclasse.tostring);
+    z3 := tgenericcontraint<tgenericavecconstructeur<TObject>>.Create;
+    writeln(z3.maclasse.tostring);
+    z4 := tgenericcontraint<montypegeneric>.Create;
+    writeln(z4.maclasse.tostring);
+  except
+    on e: Exception do
+      writeln(e.ClassName, ': ', e.message);
+  end;
+  readln;
+end.
+ 

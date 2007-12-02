@@ -265,6 +265,7 @@ type
     procedure TestGenerics;
     procedure TestGenerics2;
     procedure TestGenericTypeNullable;
+    procedure TestGenericConstraintConstructor;
 
     procedure TestDelphiNetLibrary;
 
@@ -609,6 +610,11 @@ end;
 procedure TTestObfuscate.TestForward;
 begin
   TestFile('TestForward');
+end;
+
+procedure TTestObfuscate.TestGenericConstraintConstructor;
+begin
+  TestFile('TestGenericConstraintConstructor.dpr');
 end;
 
 procedure TTestObfuscate.TestGenerics;

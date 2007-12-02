@@ -699,13 +699,19 @@ function TBuildTokenList.TryPunctuation(const pcToken: TSourceToken): boolean;
       exit;
 
     { '<' or '<' can only be followed by '<', '>' or '='.
-     Beware of "if x<-1" }
+     Beware of "if x<-1"
+     }
     if (chLast in ['<', '>']) and not (ch in ['<', '>', '=']) then
       exit;
 
-    // ':' can be followed by '='
+    // ':' can be followed by '=' only
     if (chLast = ':') and (ch <> '=') then
       exit;
+
+    //  '>>' is not an operator, it is two "end-of-generic" signs in sucession
+    if (chLast = '>') and (ch = '>') then
+      exit;
+
 
     Result := IsPuncChar(ch);
   end;

@@ -1,0 +1,21 @@
+program testgenericconstraintconstructor;{$APPTYPE CONSOLE}uses sysutils;type tgenericsansconstructeur
+<t> =class strict private fdata:t;constructor create;public function getdata:t;procedure
+setdata(value:t);property data:t read getdata write setdata;end;tgenericavecconstructeur
+<t> =class private fdata:t;public constructor create;function getdata:t;procedure
+setdata(value:t);property data:t read getdata write setdata;end;tgenericcontraint
+<classeinstanciable:constructor>=class private maclasse:classeinstanciable;public
+constructor create;end;montypegeneric=tgenericavecconstructeur<integer>;constructor
+tgenericsansconstructeur<t>.create;begin inherited create;end;function tgenericsansconstructeur
+<t>.getdata:t;begin result:=fdata;end;procedure tgenericsansconstructeur<t>.setdata
+(value:t);begin fdata:=value;end;constructor tgenericavecconstructeur<t>.create;begin
+inherited create;end;function tgenericavecconstructeur<t>.getdata:t;begin result:=
+fdata;end;procedure tgenericavecconstructeur<t>.setdata(value:t);begin fdata:=value
+;end;var x:tgenericsansconstructeur<string>;y:montypegeneric;z:tgenericcontraint<
+tgenericsansconstructeur<integer>>;z2:tgenericcontraint<tgenericavecconstructeur<
+integer>>;z3:tgenericcontraint<tgenericavecconstructeur<tobject>>;z4:tgenericcontraint
+<montypegeneric>;constructor tgenericcontraint<classeinstanciable>.create;begin inherited
+create;maclasse:=classeinstanciable.create;end;begin try z2:=tgenericcontraint<tgenericavecconstructeur
+<integer>>.create;writeln(z2.maclasse.tostring);z3:=tgenericcontraint<tgenericavecconstructeur
+<tobject>>.create;writeln(z3.maclasse.tostring);z4:=tgenericcontraint<montypegeneric
+>.create;writeln(z4.maclasse.tostring);except on e:exception do writeln(e.classname
+,': ',e.message);end;readln;end. 
