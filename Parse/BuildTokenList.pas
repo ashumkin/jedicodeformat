@@ -708,7 +708,10 @@ function TBuildTokenList.TryPunctuation(const pcToken: TSourceToken): boolean;
     if (chLast = ':') and (ch <> '=') then
       exit;
 
-    //  '>>' is not an operator, it is two "end-of-generic" signs in sucession
+    // "<<" is the start of two nested generics,
+    // likewise '>>' is not an operator, it is two "end-of-generic" signs in sucession
+    if (chLast = '<') and (ch = '<') then
+      exit;
     if (chLast = '>') and (ch = '>') then
       exit;
 
