@@ -32,9 +32,9 @@ uses
 type
   TTestObfuscate = class(TTestCase)
   private
-    procedure TestObfuscateFile(const psInFileName, psRefObsOutput,
+    procedure TestFile(const psInFileName, psRefObsOutput,
       psRefClearOutput: string); overload;
-    procedure TestObfuscateFile(const psName: string); overload;
+    procedure TestFile(const psName: string); overload;
 
     procedure TestFileContentsSame(const psFileName1, psFileName2: string);
 
@@ -264,6 +264,7 @@ type
     procedure TestAsmCaps;
     procedure TestGenerics;
     procedure TestGenerics2;
+    procedure TestGenericTypeNullable;
 
     procedure TestDelphiNetLibrary;
 
@@ -287,7 +288,7 @@ begin
   InitTestSettings;
 end;
 
-procedure TTestObfuscate.TestObfuscateFile(
+procedure TTestObfuscate.TestFile(
   const psInFileName, psRefObsOutput, psRefClearOutput: string);
 var
   lcConverter:   TFileConverter;
@@ -369,7 +370,7 @@ begin
     Fail('Files differ ' + psFileName1 + ' and ' + psFileName2);
 end;
 
-procedure TTestObfuscate.TestObfuscateFile(const psName: string);
+procedure TTestObfuscate.TestFile(const psName: string);
 var
   liLastDotPos: integer;
   lsInName, lsPrefix, lsObsFileName: string;
@@ -395,7 +396,7 @@ begin
 
   GetRegSettings.OutputExtension := 'obs';
 
-  TestObfuscateFile(GetTestFilesDir + lsInName,
+  TestFile(GetTestFilesDir + lsInName,
     GetObsOutFilesDir + lsObsFileName, GetObsOutFilesDir + lsRemadeFileName)
 
   {
@@ -410,1049 +411,1054 @@ end;
 
 procedure TTestObfuscate.TestDelphiNetLibrary;
 begin
-   TestObfuscateFile('TestDelphiNetLibrary');
+   TestFile('TestDelphiNetLibrary');
 end;
 
 procedure TTestObfuscate.Empty1;
 begin
-  TestObfuscateFile('EmptyTest1');
+  TestFile('EmptyTest1');
 end;
 
 procedure TTestObfuscate.fFormTest;
 begin
-  TestObfuscateFile('fFormTest');
+  TestFile('fFormTest');
 end;
 
 procedure TTestObfuscate.LittleTest1;
 begin
-  TestObfuscateFile('LittleTest1');
+  TestFile('LittleTest1');
 end;
 
 procedure TTestObfuscate.LittleTest2;
 begin
-  TestObfuscateFile('LittleTest2');
+  TestFile('LittleTest2');
 end;
 
 procedure TTestObfuscate.LittleTest3;
 begin
-  TestObfuscateFile('LittleTest3');
+  TestFile('LittleTest3');
 end;
 
 procedure TTestObfuscate.LittleTest4;
 begin
-  TestObfuscateFile('LittleTest4');
+  TestFile('LittleTest4');
 end;
 
 procedure TTestObfuscate.LittleTest5;
 begin
-  TestObfuscateFile('LittleTest5');
+  TestFile('LittleTest5');
 end;
 
 procedure TTestObfuscate.LittleTest6;
 begin
-  TestObfuscateFile('LittleTest6');
+  TestFile('LittleTest6');
 end;
 
 procedure TTestObfuscate.LittleTest7;
 begin
-  TestObfuscateFile('LittleTest7');
+  TestFile('LittleTest7');
 end;
 
 procedure TTestObfuscate.LittleTest8;
 begin
-  TestObfuscateFile('LittleTest8');
+  TestFile('LittleTest8');
 end;
 
 procedure TTestObfuscate.TestAbsolute;
 begin
-  TestObfuscateFile('TestAbsolute');
+  TestFile('TestAbsolute');
 end;
 
 procedure TTestObfuscate.TestAlign;
 begin
-  TestObfuscateFile('TestAlign');
+  TestFile('TestAlign');
 end;
 
 
 procedure TTestObfuscate.TestAmpersand;
 begin
-  TestObfuscateFile('TestAmpersand');
+  TestFile('TestAmpersand');
 end;
 
 procedure TTestObfuscate.TestArray;
 begin
-  TestObfuscateFile('TestArray');
+  TestFile('TestArray');
 end;
 
 procedure TTestObfuscate.TestAsm;
 begin
-  TestObfuscateFile('TestAsm');
+  TestFile('TestAsm');
 end;
 
 procedure TTestObfuscate.TestBlankLineRemoval;
 begin
-  TestObfuscateFile('TestBlankLineRemoval');
+  TestFile('TestBlankLineRemoval');
 end;
 
 procedure TTestObfuscate.TestBogusDirectives;
 begin
-  TestObfuscateFile('TestBogusDirectives');
+  TestFile('TestBogusDirectives');
 end;
 
 procedure TTestObfuscate.TestBogusTypes;
 begin
-  TestObfuscateFile('TestBogusTypes');
+  TestFile('TestBogusTypes');
 end;
 
 procedure TTestObfuscate.TestCaseBlock;
 begin
-  TestObfuscateFile('TestCaseBlock');
+  TestFile('TestCaseBlock');
 end;
 
 procedure TTestObfuscate.TestCast;
 begin
-  TestObfuscateFile('TestCast');
+  TestFile('TestCast');
 end;
 
 procedure TTestObfuscate.TestCastSimple;
 begin
-  TestObfuscateFile('TestCastSimple');
+  TestFile('TestCastSimple');
 end;
 
 procedure TTestObfuscate.TestCharLiterals;
 begin
-  TestObfuscateFile('TestCharLiterals');
+  TestFile('TestCharLiterals');
 end;
 
 procedure TTestObfuscate.TestClassLines;
 begin
-  TestObfuscateFile('TestClassLines');
+  TestFile('TestClassLines');
 end;
 
 procedure TTestObfuscate.TestClassMethods;
 begin
-  TestObfuscateFile('TestClassMethods');
+  TestFile('TestClassMethods');
 end;
 
 procedure TTestObfuscate.TestCommentIndent;
 begin
-  TestObfuscateFile('TestCommentIndent');
+  TestFile('TestCommentIndent');
 end;
 
 procedure TTestObfuscate.TestCommentIndent2;
 begin
-  TestObfuscateFile('TestCommentIndent2');
+  TestFile('TestCommentIndent2');
 end;
 
 procedure TTestObfuscate.TestComplexAsm2;
 begin
-  TestObfuscateFile('TestComplexAsm2');
+  TestFile('TestComplexAsm2');
 end;
 
 procedure TTestObfuscate.TestConstRecords;
 begin
-  TestObfuscateFile('TestConstRecords');
+  TestFile('TestConstRecords');
 end;
 
 procedure TTestObfuscate.TestD6;
 begin
-  TestObfuscateFile('TestD6');
+  TestFile('TestD6');
 end;
 
 procedure TTestObfuscate.TestDeclarations;
 begin
-  TestObfuscateFile('TestDeclarations');
+  TestFile('TestDeclarations');
 end;
 
 
 procedure TTestObfuscate.TestDeclarations2;
 begin
-  TestObfuscateFile('TestDeclarations2');
+  TestFile('TestDeclarations2');
 end;
 
 procedure TTestObfuscate.TestDefaultParams;
 begin
-  TestObfuscateFile('TestDefaultParams');
+  TestFile('TestDefaultParams');
 end;
 
 procedure TTestObfuscate.TestEmptyClass;
 begin
-  TestObfuscateFile('TestEmptyClass');
+  TestFile('TestEmptyClass');
 end;
 
 procedure TTestObfuscate.TestEsotericKeywords;
 begin
-  TestObfuscateFile('TestEsotericKeywords');
+  TestFile('TestEsotericKeywords');
 end;
 
 procedure TTestObfuscate.TestExclusion;
 begin
-  TestObfuscateFile('TestExclusion');
+  TestFile('TestExclusion');
 end;
 
 procedure TTestObfuscate.TestExclusionFlags;
 begin
-  TestObfuscateFile('TestExclusionFlags');
+  TestFile('TestExclusionFlags');
 end;
 
 procedure TTestObfuscate.TestExports;
 begin
-  TestObfuscateFile('TestExports');
+  TestFile('TestExports');
 end;
 
 procedure TTestObfuscate.TestExternal;
 begin
-  TestObfuscateFile('TestExternal');
+  TestFile('TestExternal');
 end;
 
 procedure TTestObfuscate.TestForward;
 begin
-  TestObfuscateFile('TestForward');
+  TestFile('TestForward');
 end;
 
 procedure TTestObfuscate.TestGenerics;
 begin
-  TestObfuscateFile('TestGenerics');
+  TestFile('TestGenerics');
 end;
 
 procedure TTestObfuscate.TestGenerics2;
 begin
-  TestObfuscateFile('TestGenerics2');
+  TestFile('TestGenerics2');
+end;
+
+procedure TTestObfuscate.TestGenericTypeNullable;
+begin
+  TestFile('TestGenericTypeNullable.dpr');
 end;
 
 procedure TTestObfuscate.TestGoto;
 begin
-  TestObfuscateFile('TestGoto');
+  TestFile('TestGoto');
 end;
 
 procedure TTestObfuscate.TestInitFinal;
 begin
-  TestObfuscateFile('TestInitFinal');
+  TestFile('TestInitFinal');
 end;
 
 procedure TTestObfuscate.TestInterfaceImplements;
 begin
-  TestObfuscateFile('TestInterfaceImplements');
+  TestFile('TestInterfaceImplements');
 end;
 
 procedure TTestObfuscate.TestInterfaceMap;
 begin
-  TestObfuscateFile('TestInterfaceMap');
+  TestFile('TestInterfaceMap');
 end;
 
 procedure TTestObfuscate.TestInterfaces;
 begin
-  TestObfuscateFile('TestInterfaces');
+  TestFile('TestInterfaces');
 end;
 
 procedure TTestObfuscate.TestLabelKeyword;
 begin
-  TestObfuscateFile('TestLabelKeyword');
+  TestFile('TestLabelKeyword');
 end;
 
 procedure TTestObfuscate.TestLayout;
 begin
-  TestObfuscateFile('TestLayout');
+  TestFile('TestLayout');
 end;
 
 procedure TTestObfuscate.TestLayoutBare;
 begin
-  TestObfuscateFile('TestLayoutBare');
+  TestFile('TestLayoutBare');
 end;
 
 procedure TTestObfuscate.TestLayoutBare2;
 begin
-  TestObfuscateFile('TestLayoutBare2');
+  TestFile('TestLayoutBare2');
 end;
 
 procedure TTestObfuscate.TestLayoutBare3;
 begin
-  TestObfuscateFile('TestLayoutBare3');
+  TestFile('TestLayoutBare3');
 end;
 
 procedure TTestObfuscate.TestLibExports;
 begin
-  TestObfuscateFile('TestLibExports');
+  TestFile('TestLibExports');
 end;
 
 procedure TTestObfuscate.TestLineBreaking;
 begin
-  TestObfuscateFile('TestLineBreaking');
+  TestFile('TestLineBreaking');
 end;
 
 procedure TTestObfuscate.TestLocalTypes;
 begin
-  TestObfuscateFile('TestLocalTypes');
+  TestFile('TestLocalTypes');
 end;
 
 procedure TTestObfuscate.TestLongStrings;
 begin
-  TestObfuscateFile('TestLongStrings');
+  TestFile('TestLongStrings');
 end;
 
 procedure TTestObfuscate.TestMarcoV;
 begin
-  TestObfuscateFile('TestMarcoV');
+  TestFile('TestMarcoV');
 end;
 
 procedure TTestObfuscate.TestTestMH;
 begin
-  TestObfuscateFile('TestMH');
+  TestFile('TestMH');
 end;
 
 procedure TTestObfuscate.TestMixedModeCaps;
 begin
-  TestObfuscateFile('TestMixedModeCaps');
+  TestFile('TestMixedModeCaps');
 end;
 
 procedure TTestObfuscate.TestMVB;
 begin
-  TestObfuscateFile('TestMVB');
+  TestFile('TestMVB');
 end;
 
 procedure TTestObfuscate.TestNested;
 begin
-  TestObfuscateFile('TestNested');
+  TestFile('TestNested');
 end;
 
 procedure TTestObfuscate.TestNestedRecords;
 begin
-  TestObfuscateFile('TestNestedRecords');
+  TestFile('TestNestedRecords');
 end;
 
 procedure TTestObfuscate.TestOleParams;
 begin
-  TestObfuscateFile('TestOleParams');
+  TestFile('TestOleParams');
 end;
 
 procedure TTestObfuscate.TestOperators;
 begin
-  TestObfuscateFile('TestOperators');
+  TestFile('TestOperators');
 end;
 
 procedure TTestObfuscate.TestParams;
 begin
-  TestObfuscateFile('TestParams');
+  TestFile('TestParams');
 end;
 
 procedure TTestObfuscate.TestParamSpaces;
 begin
-  TestObfuscateFile('TestParamSpaces');
+  TestFile('TestParamSpaces');
 end;
 
 procedure TTestObfuscate.TestPointers;
 begin
-  TestObfuscateFile('TestPointers');
+  TestFile('TestPointers');
 end;
 
 procedure TTestObfuscate.TestProgram;
 begin
-  TestObfuscateFile('TestProgram');
+  TestFile('TestProgram');
 end;
 
 procedure TTestObfuscate.TestProperties;
 begin
-  TestObfuscateFile('TestProperties');
+  TestFile('TestProperties');
 end;
 
 procedure TTestObfuscate.TestPropertyLines;
 begin
-  TestObfuscateFile('TestPropertyLines');
+  TestFile('TestPropertyLines');
 end;
 
 procedure TTestObfuscate.TestRecords;
 begin
-  TestObfuscateFile('TestRecords');
+  TestFile('TestRecords');
 end;
 
 procedure TTestObfuscate.TestReg;
 begin
-  TestObfuscateFile('TestReg');
+  TestFile('TestReg');
 end;
 
 procedure TTestObfuscate.TestReint;
 begin
-  TestObfuscateFile('TestReint');
+  TestFile('TestReint');
 end;
 
 procedure TTestObfuscate.TestReturnRemoval;
 begin
-  TestObfuscateFile('TestReturnRemoval');
+  TestFile('TestReturnRemoval');
 end;
 
 procedure TTestObfuscate.TestReturns;
 begin
-  TestObfuscateFile('TestReturns');
+  TestFile('TestReturns');
 end;
 
 procedure TTestObfuscate.TestRunOnConst;
 begin
-  TestObfuscateFile('TestRunOnConst');
+  TestFile('TestRunOnConst');
 end;
 
 procedure TTestObfuscate.TestRunOnDef;
 begin
-  TestObfuscateFile('TestRunOnDef');
+  TestFile('TestRunOnDef');
 end;
 
 procedure TTestObfuscate.TestRunOnLine;
 begin
-  TestObfuscateFile('TestRunOnLine');
+  TestFile('TestRunOnLine');
 end;
 
 procedure TTestObfuscate.TestTPObjects;
 begin
-  TestObfuscateFile('TestTPObjects');
+  TestFile('TestTPObjects');
 end;
 
 procedure TTestObfuscate.TestTry;
 begin
-  TestObfuscateFile('TestTry');
+  TestFile('TestTry');
 end;
 
 procedure TTestObfuscate.TestTypeDefs;
 begin
-  TestObfuscateFile('TestTypeDefs');
+  TestFile('TestTypeDefs');
 end;
 
 procedure TTestObfuscate.TestUses;
 begin
-  TestObfuscateFile('TestUses');
+  TestFile('TestUses');
 end;
 
 procedure TTestObfuscate.TestUsesChanges;
 begin
-  TestObfuscateFile('TestUsesChanges');
+  TestFile('TestUsesChanges');
 end;
 
 procedure TTestObfuscate.TestVarArgs;
 begin
-  TestObfuscateFile('TestVarArgs');
+  TestFile('TestVarArgs');
 end;
 
 procedure TTestObfuscate.TestVarParam;
 begin
-  TestObfuscateFile('TestVarParam');
+  TestFile('TestVarParam');
 end;
 
 procedure TTestObfuscate.TestWarnings;
 begin
-  TestObfuscateFile('TestWarnings');
+  TestFile('TestWarnings');
 end;
 
 procedure TTestObfuscate.TestWith;
 begin
-  TestObfuscateFile('TestWith');
+  TestFile('TestWith');
 end;
 
 procedure TTestObfuscate.TestCases;
 begin
-  TestObfuscateFile('Testcases.dpr');
+  TestFile('Testcases.dpr');
 end;
 
 procedure TTestObfuscate.TestProcBlankLines;
 begin
-  TestObfuscateFile('TestProcBlankLines.pas');
+  TestFile('TestProcBlankLines.pas');
 end;
 
 procedure TTestObfuscate.LittleTest9;
 begin
-  TestObfuscateFile('LittleTest9');
+  TestFile('LittleTest9');
 end;
 
 procedure TTestObfuscate.TestDeref;
 begin
-  TestObfuscateFile('TestDeref');
+  TestFile('TestDeref');
 end;
 
 procedure TTestObfuscate.TestPropertyInherited;
 begin
-  TestObfuscateFile('TestPropertyInherited');
+  TestFile('TestPropertyInherited');
 end;
 
 procedure TTestObfuscate.TestMessages;
 begin
-  TestObfuscateFile('TestMessages');
+  TestFile('TestMessages');
 end;
 
 procedure TTestObfuscate.LittleTest10;
 begin
-  TestObfuscateFile('LittleTest10');
+  TestFile('LittleTest10');
 end;
 
 procedure TTestObfuscate.TestInheritedExpr;
 begin
-  TestObfuscateFile('TestInheritedExpr');
+  TestFile('TestInheritedExpr');
 end;
 
 procedure TTestObfuscate.LittleTest11;
 begin
-  TestObfuscateFile('LittleTest11');
+  TestFile('LittleTest11');
 end;
 
 procedure TTestObfuscate.LittleTest12;
 begin
-  TestObfuscateFile('LittleTest12');
+  TestFile('LittleTest12');
 end;
 
 procedure TTestObfuscate.LittleTest13;
 begin
-  TestObfuscateFile('LittleTest13');
+  TestFile('LittleTest13');
 end;
 
 procedure TTestObfuscate.LittleTest14;
 begin
-  TestObfuscateFile('LittleTest14');
+  TestFile('LittleTest14');
 end;
 
 procedure TTestObfuscate.LittleTest15;
 begin
-  TestObfuscateFile('LittleTest15');
+  TestFile('LittleTest15');
 end;
 
 procedure TTestObfuscate.LittleTest16;
 begin
-  TestObfuscateFile('LittleTest16');
+  TestFile('LittleTest16');
 end;
 
 procedure TTestObfuscate.LittleTest17;
 begin
-  TestObfuscateFile('LittleTest17');
+  TestFile('LittleTest17');
 end;
 
 procedure TTestObfuscate.LittleTest18;
 begin
-  TestObfuscateFile('LittleTest18');
+  TestFile('LittleTest18');
 end;
 
 procedure TTestObfuscate.TestAtExpr;
 begin
-  TestObfuscateFile('TestAtExpr');
+  TestFile('TestAtExpr');
 end;
 
 procedure TTestObfuscate.TestAutomated;
 begin
-  TestObfuscateFile('TestAutomated');
+  TestFile('TestAutomated');
 end;
 
 procedure TTestObfuscate.TestAsmStructs;
 begin
-  TestObfuscateFile('TestAsmStructs');
+  TestFile('TestAsmStructs');
 end;
 
 procedure TTestObfuscate.TestUnitAllDirectives;
 begin
-  TestObfuscateFile('TestUnitAllDirectives');
+  TestFile('TestUnitAllDirectives');
 end;
 
 procedure TTestObfuscate.TestUnitDeprecated;
 begin
-  TestObfuscateFile('TestUnitDeprecated');
+  TestFile('TestUnitDeprecated');
 end;
 
 procedure TTestObfuscate.TestUnitLibrary;
 begin
-  TestObfuscateFile('TestUnitLibrary');
+  TestFile('TestUnitLibrary');
 end;
 
 procedure TTestObfuscate.TestUnitPlatform;
 begin
-  TestObfuscateFile('TestUnitPlatform');
+  TestFile('TestUnitPlatform');
 end;
 
 procedure TTestObfuscate.LittleTest19;
 begin
-  TestObfuscateFile('LittleTest19');
+  TestFile('LittleTest19');
 end;
 
 procedure TTestObfuscate.TestRaise;
 begin
-  TestObfuscateFile('TestRaise');
+  TestFile('TestRaise');
 end;
 
 procedure TTestObfuscate.LittleTest20;
 begin
-  TestObfuscateFile('LittleTest20');
+  TestFile('LittleTest20');
 end;
 
 procedure TTestObfuscate.LittleTest21;
 begin
-  TestObfuscateFile('LittleTest21');
+  TestFile('LittleTest21');
 end;
 
 procedure TTestObfuscate.LittleTest22;
 begin
-  TestObfuscateFile('LittleTest22');
+  TestFile('LittleTest22');
 end;
 
 procedure TTestObfuscate.LittleTest23;
 begin
-  TestObfuscateFile('LittleTest23');
+  TestFile('LittleTest23');
 end;
 
 procedure TTestObfuscate.LittleTest24;
 begin
-  TestObfuscateFile('LittleTest24');
+  TestFile('LittleTest24');
 end;
 
 procedure TTestObfuscate.LittleTest25;
 begin
-  TestObfuscateFile('LittleTest25');
+  TestFile('LittleTest25');
 end;
 
 procedure TTestObfuscate.LittleTest26;
 begin
-  TestObfuscateFile('LittleTest26');
+  TestFile('LittleTest26');
 end;
 
 procedure TTestObfuscate.LittleTest27;
 begin
-  TestObfuscateFile('LittleTest27');
+  TestFile('LittleTest27');
 end;
 
 procedure TTestObfuscate.TestEmptySquareBrackets;
 begin
-  TestObfuscateFile('TestEmptySquareBrackets');
+  TestFile('TestEmptySquareBrackets');
 end;
 
 procedure TTestObfuscate.LittleTest28;
 begin
-  TestObfuscateFile('LittleTest28');
+  TestFile('LittleTest28');
 end;
 
 procedure TTestObfuscate.LittleTest29;
 begin
-  TestObfuscateFile('LittleTest29');
+  TestFile('LittleTest29');
 end;
 
 procedure TTestObfuscate.LittleTest30;
 begin
-  TestObfuscateFile('LittleTest30');
+  TestFile('LittleTest30');
 end;
 
 procedure TTestObfuscate.LittleTest31;
 begin
-  TestObfuscateFile('LittleTest31');
+  TestFile('LittleTest31');
 end;
 
 procedure TTestObfuscate.LittleTest32;
 begin
-  TestObfuscateFile('LittleTest32');
+  TestFile('LittleTest32');
 end;
 
 procedure TTestObfuscate.LittleTest33;
 begin
-  TestObfuscateFile('LittleTest33');
+  TestFile('LittleTest33');
 end;
 
 procedure TTestObfuscate.TestCaseIfFormat;
 begin
-  TestObfuscateFile('TestCaseIfFormat');
+  TestFile('TestCaseIfFormat');
 end;
 
 procedure TTestObfuscate.TestEmptyCase;
 begin
-  TestObfuscateFile('TestEmptyCase');
+  TestFile('TestEmptyCase');
 end;
 
 procedure TTestObfuscate.LittleTest34;
 begin
-  TestObfuscateFile('LittleTest34');
+  TestFile('LittleTest34');
 end;
 
 procedure TTestObfuscate.LittleTest35;
 begin
-  TestObfuscateFile('LittleTest35');
+  TestFile('LittleTest35');
 end;
 
 procedure TTestObfuscate.LittleTest36;
 begin
-  TestObfuscateFile('LittleTest36');
+  TestFile('LittleTest36');
 end;
 
 procedure TTestObfuscate.LittleTest37;
 begin
-  TestObfuscateFile('LittleTest37');
+  TestFile('LittleTest37');
 end;
 
 procedure TTestObfuscate.LittleTest38;
 begin
-  TestObfuscateFile('LittleTest38');
+  TestFile('LittleTest38');
 end;
 
 procedure TTestObfuscate.LittleTest39;
 begin
-  TestObfuscateFile('LittleTest39');
+  TestFile('LittleTest39');
 end;
 
 procedure TTestObfuscate.LittleTest40;
 begin
-  TestObfuscateFile('LittleTest40');
+  TestFile('LittleTest40');
 end;
 
 procedure TTestObfuscate.TestSimpleIfdef;
 begin
-  TestObfuscateFile('TestSimpleIfdef');
+  TestFile('TestSimpleIfdef');
 end;
 
 procedure TTestObfuscate.TestSimpleIfdef2;
 begin
-  TestObfuscateFile('TestSimpleIfdef2');
+  TestFile('TestSimpleIfdef2');
 end;
 
 procedure TTestObfuscate.TestSimpleIfdef3;
 begin
-  TestObfuscateFile('TestSimpleIfdef3');
+  TestFile('TestSimpleIfdef3');
 end;
 
 procedure TTestObfuscate.TestSimpleIfdef4;
 begin
-  TestObfuscateFile('TestSimpleIfdef4');
+  TestFile('TestSimpleIfdef4');
 end;
 
 procedure TTestObfuscate.TestSimpleIfdef5;
 begin
-  TestObfuscateFile('TestSimpleIfdef5');
+  TestFile('TestSimpleIfdef5');
 end;
 
 procedure TTestObfuscate.TestDefines;
 begin
-  TestObfuscateFile('TestDefines');
+  TestFile('TestDefines');
 end;
 
 procedure TTestObfuscate.LittleTest41;
 begin
-  TestObfuscateFile('LittleTest41');
+  TestFile('LittleTest41');
 end;
 
 procedure TTestObfuscate.LittleTest42;
 begin
-  TestObfuscateFile('LittleTest42');
+  TestFile('LittleTest42');
 end;
 
 procedure TTestObfuscate.LittleTest43;
 begin
-  TestObfuscateFile('LittleTest43');
+  TestFile('LittleTest43');
 end;
 
 procedure TTestObfuscate.LittleTest44;
 begin
-  TestObfuscateFile('LittleTest44');
+  TestFile('LittleTest44');
 end;
 
 procedure TTestObfuscate.LittleTest45;
 begin
-  TestObfuscateFile('LittleTest45');
+  TestFile('LittleTest45');
 end;
 
 procedure TTestObfuscate.LittleTest46;
 begin
-  TestObfuscateFile('LittleTest46');
+  TestFile('LittleTest46');
 end;
 
 procedure TTestObfuscate.LittleTest47;
 begin
-  TestObfuscateFile('LittleTest47');
+  TestFile('LittleTest47');
 end;
 
 procedure TTestObfuscate.TestWarnDestroy;
 begin
-  TestObfuscateFile('TestWarnDestroy');
+  TestFile('TestWarnDestroy');
 end;
 
 procedure TTestObfuscate.LittleTest48;
 begin
-  TestObfuscateFile('LittleTest48');
+  TestFile('LittleTest48');
 end;
 
 procedure TTestObfuscate.LittleTest49;
 begin
-  TestObfuscateFile('LittleTest49');
+  TestFile('LittleTest49');
 end;
 
 procedure TTestObfuscate.LittleTest50;
 begin
-  TestObfuscateFile('LittleTest50');
+  TestFile('LittleTest50');
 end;
 
 procedure TTestObfuscate.LittleTest51;
 begin
-  TestObfuscateFile('LittleTest51');
+  TestFile('LittleTest51');
 end;
 
 procedure TTestObfuscate.LittleTest52;
 begin
-  TestObfuscateFile('LittleTest52');
+  TestFile('LittleTest52');
 end;
 
 procedure TTestObfuscate.TestSimpleIfdef6;
 begin
-  TestObfuscateFile('TestSimpleIfdef6');
+  TestFile('TestSimpleIfdef6');
 end;
 
 procedure TTestObfuscate.TestSubrangeType;
 begin
-  TestObfuscateFile('TestSubrangeType');
+  TestFile('TestSubrangeType');
 end;
 
 procedure TTestObfuscate.LittleTest53;
 begin
-  TestObfuscateFile('LittleTest53');
+  TestFile('LittleTest53');
 end;
 
 procedure TTestObfuscate.LittleTest54;
 begin
-  TestObfuscateFile('LittleTest54');
+  TestFile('LittleTest54');
 end;
 
 procedure TTestObfuscate.LittleTest55;
 begin
-  TestObfuscateFile('LittleTest55');
+  TestFile('LittleTest55');
 end;
 
 procedure TTestObfuscate.LittleTest56;
 begin
-  TestObfuscateFile('LittleTest56');
+  TestFile('LittleTest56');
 end;
 
 procedure TTestObfuscate.LittleTest57;
 begin
-  TestObfuscateFile('LittleTest57');
+  TestFile('LittleTest57');
 end;
 
 procedure TTestObfuscate.LittleTest58;
 begin
-  TestObfuscateFile('LittleTest58');
+  TestFile('LittleTest58');
 end;
 
 procedure TTestObfuscate.LittleTest59;
 begin
-  TestObfuscateFile('LittleTest59');
+  TestFile('LittleTest59');
 end;
 
 procedure TTestObfuscate.LittleTest60;
 begin
-  TestObfuscateFile('LittleTest60');
+  TestFile('LittleTest60');
 end;
 
 procedure TTestObfuscate.LittleTest61;
 begin
-  TestObfuscateFile('LittleTest61');
+  TestFile('LittleTest61');
 end;
 
 procedure TTestObfuscate.LittleTest62;
 begin
-  TestObfuscateFile('LittleTest62');
+  TestFile('LittleTest62');
 end;
 
 procedure TTestObfuscate.TestInline;
 begin
-  TestObfuscateFile('TestInline');
+  TestFile('TestInline');
 end;
 
 procedure TTestObfuscate.fBracketProp;
 begin
-  TestObfuscateFile('fBracketProp');
+  TestFile('fBracketProp');
 end;
 
 procedure TTestObfuscate.TestEndElse;
 begin
-  TestObfuscateFile('TestEndElse');
+  TestFile('TestEndElse');
 end;
 
 procedure TTestObfuscate.TestCondReturns;
 begin
-  TestObfuscateFile('TestCondReturns');
+  TestFile('TestCondReturns');
 end;
 
 procedure TTestObfuscate.TestDelphiNetUnsafe;
 begin
-  TestObfuscateFile('TestDelphiNetUnsafe');
+  TestFile('TestDelphiNetUnsafe');
 end;
 
 procedure TTestObfuscate.TestDelphiNetUses;
 begin
-  TestObfuscateFile('TestDelphiNetUses');
+  TestFile('TestDelphiNetUses');
 end;
 
 procedure TTestObfuscate.TestConstBug;
 begin
-  TestObfuscateFile('TestConstBug');
+  TestFile('TestConstBug');
 end;
 
 procedure TTestObfuscate.TestForIn;
 begin
-  TestObfuscateFile('TestForIn');
+  TestFile('TestForIn');
 end;
 
 procedure TTestObfuscate.TestDottedName;
 begin
-  TestObfuscateFile('test.dotted.name.pas');
+  TestFile('test.dotted.name.pas');
 end;
 
 procedure TTestObfuscate.TestDelphiNetClass;
 begin
-  TestObfuscateFile('TestDelphiNetClass');
+  TestFile('TestDelphiNetClass');
 end;
 
 procedure TTestObfuscate.TestDelphiNetConst;
 begin
-  TestObfuscateFile('TestDelphiNetConst');
+  TestFile('TestDelphiNetConst');
 end;
 
 procedure TTestObfuscate.TestDelphiNetDottedType;
 begin
-  TestObfuscateFile('TestDelphiNetDottedType');
+  TestFile('TestDelphiNetDottedType');
 end;
 
 procedure TTestObfuscate.TestDelphiNetDynamicArray;
 begin
-  TestObfuscateFile('TestDelphiNetDynamicArray');
+  TestFile('TestDelphiNetDynamicArray');
 end;
 
 procedure TTestObfuscate.TestDelphiNetStatic;
 begin
-  TestObfuscateFile('TestDelphiNetStatic');
+  TestFile('TestDelphiNetStatic');
 end;
 
 procedure TTestObfuscate.TestTestDotNetForm1;
 begin
-  TestObfuscateFile('TestDotNetForm1');
+  TestFile('TestDotNetForm1');
 end;
 
 procedure TTestObfuscate.TestDelphiNetHelperClass;
 begin
-  TestObfuscateFile('TestDelphiNetHelperClass');
+  TestFile('TestDelphiNetHelperClass');
 end;
 
 procedure TTestObfuscate.TestDelphiNetNestedType;
 begin
-  TestObfuscateFile('TestDelphiNetNestedType');
+  TestFile('TestDelphiNetNestedType');
 end;
 
 procedure TTestObfuscate.TestDelphiNetNestedType2;
 begin
-  TestObfuscateFile('TestDelphiNetNestedType2');
+  TestFile('TestDelphiNetNestedType2');
 end;
 
 procedure TTestObfuscate.TestDelphiNetOperatorOverload;
 begin
-  TestObfuscateFile('TestDelphiNetOperatorOverload');
+  TestFile('TestDelphiNetOperatorOverload');
 end;
 
 procedure TTestObfuscate.TestDelphiNetRecordClassVars;
 begin
-  TestObfuscateFile('TestDelphiNetRecordClassVars');
+  TestFile('TestDelphiNetRecordClassVars');
 end;
 
 procedure TTestObfuscate.TestDelphiNetRecordForward;
 begin
-  TestObfuscateFile('TestDelphiNetRecordForward');
+  TestFile('TestDelphiNetRecordForward');
 end;
 
 procedure TTestObfuscate.TestDelphiNetRecordProcs;
 begin
-  TestObfuscateFile('TestDelphiNetRecordProcs');
+  TestFile('TestDelphiNetRecordProcs');
 end;
 
 procedure TTestObfuscate.TestCondCompBreaks;
 begin
-  TestObfuscateFile('TestCondCompBreaks');
+  TestFile('TestCondCompBreaks');
 end;
 
 procedure TTestObfuscate.TestCondCompBreaks2;
 begin
-  TestObfuscateFile('TestCondCompBreaks2');
+  TestFile('TestCondCompBreaks2');
 end;
 
 procedure TTestObfuscate.TestDelphiNetAmpersandMethod;
 begin
-  TestObfuscateFile('TestDelphiNetAmpersandMethod');
+  TestFile('TestDelphiNetAmpersandMethod');
 end;
 
 procedure TTestObfuscate.TestDelphiNetAttributes;
 begin
-  TestObfuscateFile('TestDelphiNetAttributes');
+  TestFile('TestDelphiNetAttributes');
 end;
 
 procedure TTestObfuscate.TestDelphiNetWebService;
 begin
-  TestObfuscateFile('TestDelphiNetWebService');
+  TestFile('TestDelphiNetWebService');
 end;
 
 procedure TTestObfuscate.TestDelphiNetWebService2;
 begin
-  TestObfuscateFile('TestDelphiNetWebService2');
+  TestFile('TestDelphiNetWebService2');
 end;
 
 procedure TTestObfuscate.TestDelphiNetKeywords;
 begin
-  TestObfuscateFile('TestDelphiNetKeywords');
+  TestFile('TestDelphiNetKeywords');
 end;
 
 procedure TTestObfuscate.TestDelphiNetMulticast;
 begin
-  TestObfuscateFile('TestDelphiNetMulticast');
+  TestFile('TestDelphiNetMulticast');
 end;
 
 procedure TTestObfuscate.TestDelphiNetClassVar;
 begin
-  TestObfuscateFile('TestDelphiNetClassVar');
+  TestFile('TestDelphiNetClassVar');
 end;
 
 procedure TTestObfuscate.TestTrailingCommaParam;
 begin
-  TestObfuscateFile('TestTrailingCommaParam');
+  TestFile('TestTrailingCommaParam');
 end;
 
 procedure TTestObfuscate.TestTryExceptRaise;
 begin
-  TestObfuscateFile('TestTryExceptRaise');
+  TestFile('TestTryExceptRaise');
 end;
 
 procedure TTestObfuscate.TestDprNoBegin;
 begin
-   TestObfuscateFile('TestDprNoBegin.dpr');
+   TestFile('TestDprNoBegin.dpr');
 end;
 
 procedure TTestObfuscate.TestDLLIndex;
 begin
-   TestObfuscateFile('TestDLLIndex');
+   TestFile('TestDLLIndex');
 end;
 
 procedure TTestObfuscate.TestIncAt;
 begin
-   TestObfuscateFile('TestIncAt');
+   TestFile('TestIncAt');
 end;
 
 procedure TTestObfuscate.TestDelphiNetFinalMethod;
 begin
-   TestObfuscateFile('TestDelphiNetFinalMethod');
+   TestFile('TestDelphiNetFinalMethod');
 end;
 
 procedure TTestObfuscate.TestDelphiNetSealedClass;
 begin
-   TestObfuscateFile('TestDelphiNetSealedClass');
+   TestFile('TestDelphiNetSealedClass');
 end;
 
 procedure TTestObfuscate.TestAsmAnd;
 begin
-   TestObfuscateFile('TestAsmAnd');
+   TestFile('TestAsmAnd');
 end;
 
 procedure TTestObfuscate.TestAsmCaps;
 begin
-   TestObfuscateFile('TestAsmCaps');
+   TestFile('TestAsmCaps');
 end;
 
 procedure TTestObfuscate.TestAsmLabel;
 begin
-  TestObfuscateFile('TestAsmLabel');
+  TestFile('TestAsmLabel');
 end;
 
 procedure TTestObfuscate.TestAsmOps;
 begin
-  TestObfuscateFile('TestAsmOps');
+  TestFile('TestAsmOps');
 end;
 
 initialization

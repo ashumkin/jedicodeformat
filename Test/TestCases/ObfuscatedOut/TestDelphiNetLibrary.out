@@ -1,6 +1,6 @@
 library testdelphinetlibrary;
-  {%DelphiDotNetAssemblyCompiler 'c:\programme\gemeinsame dateien\borland shared\bds\shared assemblies\2.0\Borland.Delphi.dll'}
-  {%DelphiDotNetAssemblyCompiler '\microsoft.net\framework\v1.1.4322\System.EnterpriseServices.dll'}
+{%DelphiDotNetAssemblyCompiler 'c:\programme\gemeinsame dateien\borland shared\bds\shared assemblies\2.0\Borland.Delphi.dll'}
+{%DelphiDotNetAssemblyCompiler '\microsoft.net\framework\v1.1.4322\System.EnterpriseServices.dll'}
 uses
   system.reflection,
   system.enterpriseservices,

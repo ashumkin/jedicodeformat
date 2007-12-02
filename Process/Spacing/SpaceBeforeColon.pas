@@ -81,9 +81,18 @@ begin
   begin
     // type decl uses =, but there are colons in the fields of record defs and object types
     if pt.HasParentNode(ObjectTypes) then
-      Result := lcSpaces.SpacesBeforeColonClassVar
+    begin
+      Result := lcSpaces.SpacesBeforeColonClassVar;
+    end
     else if pt.HasParentNode(nRecordType) then
-      Result := lcSpaces.SpacesBeforeColonRecordField
+    begin
+      Result := lcSpaces.SpacesBeforeColonRecordField;
+    end
+    else
+    if pt.HasParentNode(nGeneric) then
+    begin
+      Result := lcSpaces.SpacesBeforeColonInGeneric;
+    end
     else
     begin
       Result := 0;

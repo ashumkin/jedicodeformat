@@ -37,10 +37,10 @@ type
     cbFixSpacing: TCheckBox;
     cbSpaceClassHeritage: TCheckBox;
     gbColon: TGroupBox;
-    Label2: TLabel;
-    Label4: TLabel;
-    Label7: TLabel;
-    Label8: TLabel;
+    lblSpaceBeforeColonVar: TLabel;
+    lblSpacesBeforeColonClassVar: TLabel;
+    lblSpaceBeforeColonFn: TLabel;
+    lblSpaceBeforeColonParam: TLabel;
     eSpaceBeforeColonVar: TJvValidateEdit;
     eSpaceBeforeColonParam: TJvValidateEdit;
     eSpaceBeforeColonFn: TJvValidateEdit;
@@ -54,8 +54,8 @@ type
     edtSpacesForTab: TJvValidateEdit;
     eSpacesBeforeCaseLabel: TJvValidateEdit;
     eSpacesBeforeLabel: TJvValidateEdit;
-    Label5: TLabel;
-    Label6: TLabel;
+    lblSpacesBeforeCaseLabel: TLabel;
+    lbSpacesBeforeLabel: TLabel;
     cbMaxSpaces: TCheckBox;
     edtMaxSpacesInCode: TJvValidateEdit;
     rgOperators: TRadioGroup;
@@ -66,6 +66,8 @@ type
     GroupBoxSpacesInsideBrackets: TGroupBox;
     CheckBoxInsertSpaceBeforeEnd: TCheckBox;
     cbInsertSpaceAfterOpen: TCheckBox;
+    eSpacesBeforeColonGeneric: TJvValidateEdit;
+    lblSpacesBeforeColonGeneric: TLabel;
     procedure cbTabsToSpacesClick(Sender: TObject);
     procedure cbSpacesToTabsClick(Sender: TObject);
     procedure cbMaxSpacesClick(Sender: TObject);
@@ -113,6 +115,7 @@ begin
 
     eSpacesBeforeCaseLabel.Value := SpacesBeforeColonCaseLabel;
     eSpacesBeforeLabel.Value     := SpacesBeforeColonLabel;
+    eSpacesBeforeColonGeneric.Value := SpacesBeforeColonInGeneric;
 
     cbMaxSpaces.Checked      := UseMaxSpacesInCode;
     edtMaxSpacesInCode.Value := MaxSpacesInCode;
@@ -152,6 +155,7 @@ begin
     SpacesBeforeColonClassVar := eSpacesBeforeColonClassVar.Value;
     SpacesBeforeColonCaseLabel := eSpacesBeforeCaseLabel.Value;
     SpacesBeforeColonLabel := eSpacesBeforeLabel.Value;
+    SpacesBeforeColonInGeneric := eSpacesBeforeColonGeneric.Value;
 
     UseMaxSpacesInCode := cbMaxSpaces.Checked;
     MaxSpacesInCode    := edtMaxSpacesInCode.Value;

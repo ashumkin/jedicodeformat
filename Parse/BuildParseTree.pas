@@ -58,6 +58,7 @@ type
     fcTokenList: TSourceTokenList;
 
     fiTokenCount: integer;
+    procedure SplitGreaterThanOrEqual;
 
     procedure RecogniseGoal;
     procedure RecogniseUnit;
@@ -613,6 +614,10 @@ end;
 
 procedure TBuildParseTree.RecogniseUsesClause(const pbInFiles: boolean);
 begin
+  // recognise comments etc before the uses clause
+  RecogniseNotSolidTokens;
+
+
   // UsesClause -> USES IdentList ';'
   PushNode(nUses);
 
@@ -1109,6 +1114,7 @@ begin
   RecogniseIdentifier(False, idAllowDirectives);
   if fcTokenList.FirstSolidTokenType = ttLessThan then
   begin
+    // generic type decl
     RecogniseGenericType;
   end;
 
@@ -1202,6 +1208,15 @@ begin
   Recognise(ttLessThan);
   RecogniseGenericTypeItem;
 
+  if fcTokenList.FirstSolidTokenType = ttColon then
+  begin
+    // restriction on the generic type
+    Recognise(ttColon);
+
+    // one of a small set - class, record
+    Recognise([ttClass, ttRecord]);
+  end;
+
    // more types after commas
    while fcTokenList.FirstSolidTokenType = ttComma do
    begin
@@ -1209,10 +1224,43 @@ begin
       RecogniseGenericTypeItem;
    end;
 
+   if  fcTokenList.FirstSolidTokenType = ttGreaterThanOrEqual  then
+   begin
+     // the tokenizer got it wrong - e.g "TTestNullable<T:Record>=Class"
+     // this is the same as TTestNullable<T:Record> =Class
+     RecogniseWhiteSpace;
+
+     SplitGreaterThanOrEqual;
+   end;
 
   Recognise(ttGreaterThan);
 
   PopNode;
+end;
+
+procedure TBuildParseTree.SplitGreaterThanOrEqual;
+var
+  liIndex: integer;
+  lcNewToken: TSourceToken;
+begin
+  if fcTokenList.FirstTokenType = ttGreaterThanOrEqual then
+  begin
+    liIndex := fcTokenList.CurrentTokenIndex;
+
+    fcTokenList.Delete(liIndex);
+
+    lcNewToken := TSourceToken.Create();
+    lcNewToken.SourceCode := '>';
+    lcNewToken.TokenType := ttGreaterThan;
+
+    fcTokenList.Insert(liIndex, lcNewToken);
+
+    lcNewToken := TSourceToken.Create();
+    lcNewToken.SourceCode := '=';
+    lcNewToken.TokenType := ttEquals;
+
+    fcTokenList.Insert(liIndex + 1 , lcNewToken);
+  end;
 end;
 
 
@@ -2317,6 +2365,7 @@ begin
       // check for a generic type
       if GenericAhead then
       begin
+        // a type constructor - specifying types for the generic
         RecogniseGenericType();
       end;
       
@@ -4512,6 +4561,7 @@ begin
 
   if fcTokenList.FirstSolidTokenType = ttLessThan then
   begin
+    // a use not a decl
     RecogniseGenericType;
   end;
 
@@ -4556,6 +4606,13 @@ begin
       or it could be .NET style, e.g. System.Windows.Forms.TextBox }
     RecogniseDottedName;
   end;
+
+  if fcTokenList.FirstSolidTokenType = ttLessThan then
+  begin
+    // a use not a decl
+    RecogniseGenericType;
+  end;
+  
 end;
 
 procedure TBuildParseTree.RecogniseAsmBlock;

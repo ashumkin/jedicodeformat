@@ -47,6 +47,7 @@ type
     fiSpacesBeforeColonRecordField: integer;
     fiSpacesBeforeColonCaseLabel: integer;
     fiSpacesBeforeColonLabel: integer;
+    fiSpacesBeforeColonInGeneric: integer;
 
     fiMaxSpacesInCode: integer;
     fbUseMaxSpacesInCode: boolean;
@@ -95,6 +96,8 @@ type
       read fiSpacesBeforeColonCaseLabel write fiSpacesBeforeColonCaseLabel;
     property SpacesBeforeColonLabel: integer
       read fiSpacesBeforeColonLabel write fiSpacesBeforeColonLabel;
+    property SpacesBeforeColonInGeneric: integer
+      read fiSpacesBeforeColonInGeneric write fiSpacesBeforeColonInGeneric;
 
     property MaxSpacesInCode: integer read fiMaxSpacesInCode write fiMaxSpacesInCode;
     property UseMaxSpacesInCode: boolean read fbUseMaxSpacesInCode write fbUseMaxSpacesInCode;
@@ -133,6 +136,7 @@ const
   SET_SPACES_BEFORE_COLON_RECORD_FIELD = 'SpacesBeforeColonRecordField';
   SET_SPACES_BEFORE_COLON_CASE_LABEL = 'SpacesBeforeColonCaseLabel';
   SET_SPACES_BEFORE_COLON_LABEL = 'SpacesBeforeColonLabel';
+  SET_SPACES_BEFORE_COLON_IN_GENERIC = 'SpacesBeforeColonInGeneric';
 
   SET_MAX_SPACES_IN_CODE     = 'MaxSpacesInCode';
   SET_USE_MAX_SPACES_IN_CODE = 'UseMaxSpacesInCode';
@@ -172,11 +176,11 @@ begin
   fiSpacesBeforeColonParam := pcStream.Read(SET_SPACES_BEFORE_COLON_PARAM, 0);
   fiSpacesBeforeColonFn    := pcStream.Read(SET_SPACES_BEFORE_COLON_FN, 0);
   fiSpacesBeforeColonClassVar := pcStream.Read(SET_SPACES_BEFORE_COLON_CLASS_VAR, 0);
-  fiSpacesBeforeColonRecordField :=
-    pcStream.Read(SET_SPACES_BEFORE_COLON_RECORD_FIELD, 0);
+  fiSpacesBeforeColonRecordField := pcStream.Read(SET_SPACES_BEFORE_COLON_RECORD_FIELD, 0);
 
   fiSpacesBeforeColonCaseLabel := pcStream.Read(SET_SPACES_BEFORE_COLON_CASE_LABEL, 0);
   fiSpacesBeforeColonLabel     := pcStream.Read(SET_SPACES_BEFORE_COLON_LABEL, 0);
+  fiSpacesBeforeColonInGeneric := pcStream.Read(SET_SPACES_BEFORE_COLON_IN_GENERIC, 0);
 
   fiMaxSpacesInCode    := pcStream.Read(SET_MAX_SPACES_IN_CODE, 2);
   fbUseMaxSpacesInCode := pcStream.Read(SET_USE_MAX_SPACES_IN_CODE, False);
@@ -213,6 +217,7 @@ begin
 
   pcOut.Write(SET_SPACES_BEFORE_COLON_CASE_LABEL, fiSpacesBeforeColonCaseLabel);
   pcOut.Write(SET_SPACES_BEFORE_COLON_LABEL, fiSpacesBeforeColonLabel);
+  pcOut.Write(SET_SPACES_BEFORE_COLON_IN_GENERIC, fiSpacesBeforeColonInGeneric);
 
   pcOut.Write(SET_MAX_SPACES_IN_CODE, fiMaxSpacesInCode);
   pcOut.Write(SET_USE_MAX_SPACES_IN_CODE, fbUseMaxSpacesInCode);

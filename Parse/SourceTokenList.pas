@@ -306,16 +306,16 @@ end;
 
 procedure TSourceTokenList.Insert(const piIndex: integer; const pcItem: TSourceToken);
 begin
-  if fiCurrentTokenIndex <> 0 then
-    raise Exception.Create('Insert Not allowed in Stack mode');
+  if (fiCurrentTokenIndex <> 0) and (piIndex < fiCurrentTokenIndex) then
+    raise Exception.Create('TSourceTokenList: Insert back not allowed in Stack mode');
 
   inherited Insert(piIndex, pcItem);
 end;
 
 procedure TSourceTokenList.Delete(const piIndex: integer);
 begin
-  if fiCurrentTokenIndex <> 0 then
-    raise Exception.Create('Delete Not allowed in Stack mode');
+  if (fiCurrentTokenIndex <> 0) and (piIndex < fiCurrentTokenIndex) then
+    raise Exception.Create('TSourceTokenList: Delete back not allowed in Stack mode');
 
   inherited Delete(piIndex);
 end;

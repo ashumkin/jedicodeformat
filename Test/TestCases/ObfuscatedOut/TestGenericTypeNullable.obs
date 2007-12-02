@@ -1,0 +1,43 @@
+program testgenerictypenullable;{$APPTYPE CONSOLE}uses sysutils;type ttestnullable
+<t:record>=class procedure inverser(arg:system.nullable<t>;valeur:system.nullable
+<t>);end;monrecord<t>=record data:t;end;monrecordint=record data:integer;constructor
+create(value:integer);class operator implicit(a:integer):monrecordint;end;couleurs
+=(noir,rouge,vert);constructor monrecordint.create(value:integer);begin data:=value
+;end;class operator monrecordint.implicit(a:integer):monrecordint;begin result.data
+:=a;end;procedure ttestnullable<t>.inverser(arg:system.nullable<t>;valeur:system.
+nullable<t>);begin try writeln('Valeur du type nullable =',tobject(arg.value));arg
+:=default(nullable<t>);except on e:invalidoperationexception do begin writeln('La variable est à null'
+);arg:=valeur;write('Nouvelle valeur :');if valeur.hasvalue then writeln(tobject(
+arg.value))else writeln('NULL');end;end;end;procedure test(arg:system.nullable<integer
+>);begin if arg.hasvalue then writeln('La variable n''est pas à null')else writeln
+('La variable est à null')end;procedure test2(arg:system.nullable<integer>);begin
+try writeln('Valeur du type nullable =',arg.value);except on e:invalidoperationexception
+do writeln('La variable est à null')end;end;procedure assignation;var i:integer;intnull
+:system.nullable<integer>;begin intnull:=52;i:=integer(intnull);writeln('I=',i);writeln
+('intNull=',intnull,'intNull.TString=',intnull.tostring);i:=convert.toint32(intnull
+);writeln(i);writeln('Gestion d''une valeur null');intnull:=default(nullable<integer
+>);i:=intnull.getvalueordefault;writeln('intNull=',intnull,'intNull.TString=',intnull
+.tostring);i:=convert.toint32(intnull);writeln(i);try i:=intnull.value;except on 
+e:invalidoperationexception do writeln('L''assignation ne peut s''effectuer la variable intNull est à null'
+);end;i:=intnull.getvalueordefault;end;procedure addition;var i:integer;j:system.
+nullable<integer>;intnull:system.nullable<integer>;begin intnull:=1;intnull:=integer
+(intnull)+1;intnull:=intnull.value+1;with intnull do intnull:=value+1;i:=integer(
+intnull)+5;i:=intnull.value+5;i:=7;j:=12;intnull:=j;intnull:=8;intnull:=intnull.value
++j.value;end;procedure addition2;var j:double;intnull:system.nullable<integer>;dblnull
+:system.nullable<double>;begin intnull:=1;dblnull:=1.0;intnull:=intnull.value+1;intnull
+:=integer(intnull)+1;j:=intnull.value+1.5;writeln('J+integer=',j);dblnull:=integer
+(intnull)+1.5;writeln('Double+integer=',dblnull);intnull:=round(dblnull.value);end
+;var nullinteger:system.nullable<integer>;typenull:ttestnullable<integer>;typenull2
+:ttestnullable<monrecordint>;recnullable:system.nullable<monrecordint>;rec:monrecordint
+;enumnullable:system.nullable<couleurs>;unecouleur:couleurs;begin try assignation
+;addition2;addition;writeln('Test 1');test(nullinteger);nullinteger:=256;test(nullinteger
+);nullinteger:=default(nullable<integer>);test2(nullinteger);writeln;writeln('Test 2'
+);typenull:=ttestnullable<integer>.create;with typenull do begin inverser(nullinteger
+,256);inverser(nullinteger,default(nullable<integer>));end;writeln;writeln('Test 3'
+);typenull2:=ttestnullable<monrecordint>.create;recnullable:=monrecordint.create(
+852);writeln(recnullable.value.data);rec:=recnullable.value;rec.data:=10;recnullable
+:=rec;recnullable:=monrecordint(99);writeln(recnullable.value.data);typenull2.inverser
+(recnullable,rec);nullinteger:=default(nullable<integer>);test(nullinteger);writeln
+('Test 3');enumnullable:=rouge;case enumnullable.value of noir:writeln('Couleur Noir'
+);rouge:writeln('Couleur Rouge');vert:writeln('Couleur Vert');end;except on e:exception
+do writeln(e.classname,': ',e.message);end;readln;end. 

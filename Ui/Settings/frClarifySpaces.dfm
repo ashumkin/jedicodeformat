@@ -25,52 +25,66 @@ inherited fClarifySpaces: TfClarifySpaces
   end
   object gbColon: TGroupBox
     Left = 8
-    Top = 52
+    Top = 50
     Width = 246
-    Height = 212
+    Height = 216
     Caption = 'Spaces &before colon in'
     TabOrder = 2
-    object Label2: TLabel
+    object lblSpaceBeforeColonVar: TLabel
       Left = 8
       Top = 24
       Width = 175
       Height = 20
       Caption = '&Var and const declarations'
+      FocusControl = eSpaceBeforeColonVar
     end
-    object Label4: TLabel
+    object lblSpacesBeforeColonClassVar: TLabel
       Left = 8
       Top = 108
       Width = 96
       Height = 20
       Caption = '&Class variables'
+      FocusControl = eSpacesBeforeColonClassVar
     end
-    object Label7: TLabel
+    object lblSpaceBeforeColonFn: TLabel
       Left = 8
       Top = 80
       Width = 138
       Height = 20
       Caption = '&Function return types'
+      FocusControl = eSpaceBeforeColonFn
     end
-    object Label8: TLabel
+    object lblSpaceBeforeColonParam: TLabel
       Left = 8
       Top = 52
       Width = 146
       Height = 20
       Caption = '&Procedure parameters'
+      FocusControl = eSpaceBeforeColonParam
     end
-    object Label5: TLabel
+    object lblSpacesBeforeCaseLabel: TLabel
       Left = 8
       Top = 136
       Width = 68
       Height = 20
       Caption = 'Case l&abel'
+      FocusControl = eSpacesBeforeCaseLabel
     end
-    object Label6: TLabel
+    object lbSpacesBeforeLabel: TLabel
       Left = 8
       Top = 164
       Width = 36
       Height = 20
       Caption = '&Label'
+      FocusControl = eSpacesBeforeLabel
+    end
+    object lblSpacesBeforeColonGeneric: TLabel
+      Left = 8
+      Top = 189
+      Width = 65
+      Height = 20
+      Caption = 'In &generic'
+      FocusControl = eSpacesBeforeColonGeneric
     end
     object eSpaceBeforeColonVar: TJvValidateEdit
       Left = 187
@@ -137,6 +151,17 @@ inherited fClarifySpaces: TfClarifySpaces
       EditText = '0'
       MaxLength = 2
       TabOrder = 5
+    end
+    object eSpacesBeforeColonGeneric: TJvValidateEdit
+      Left = 187
+      Top = 184
+      Width = 50
+      Height = 28
+      CriticalPoints.MaxValueIncluded = False
+      CriticalPoints.MinValueIncluded = False
+      EditText = '0'
+      MaxLength = 2
+      TabOrder = 6
     end
   end
   object gbTabs: TGroupBox

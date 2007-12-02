@@ -292,7 +292,6 @@ end;
 
 procedure TAllProcesses.LineBreaking;
 begin
-
   ApplyVisitorType(TReturnChars);
 
   ApplyVisitorType(TPropertyOnOneLine, [TVisitStripEmptySpace]);
@@ -303,13 +302,13 @@ begin
 
   ApplyVisitorType(TNoReturnAfter, [TVisitStripEmptySpace]);
   ApplyVisitorType(TNoReturnBefore, [TVisitStripEmptySpace]);
+
   ApplyVisitorType(TRemoveConsecutiveReturns);
   ApplyVisitorType(TRemoveReturnsAfter);
 
   ApplyVisitorType(TVisitSetXY);
   ApplyVisitorType(TReturnBefore, [TVisitSetXY]);
   ApplyVisitorType(TReturnAfter, [TVisitSetXY]);
-
 
   ApplyVisitorType(TBlockStyles, [TVisitSetXY]);
 
@@ -325,7 +324,6 @@ begin
   ApplyVisitorType(TLongLineBreaker, [TVisitSetXY]);
   ApplyVisitorType(TReturnsAfterFinalEnd, [TVisitSetXY]);
   ApplyVisitorType(TLongLineBreaker);
-
 end;
 
 
