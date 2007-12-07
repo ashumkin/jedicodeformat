@@ -1,0 +1,29 @@
+program testgenericarray;{$APPTYPE CONSOLE}
+
+uses
+  SysUtils;
+
+type
+  genarray1dim<t> = array
+    of t;
+  genarray2dim<t> = array of genarray1dim<t>;
+  arrint1dim = genarray1dim<integer>;
+  arrint2dim = genarray2dim<integer>;
+  t2dim = array of array of integer;
+var
+  tabint:      arrint1dim;
+  tab2int:     arrint2dim;
+  tabtype2dim: t2dim;
+begin
+  try
+    tabint      := new(genarray1dim<integer>, 2);
+    tabint      := new(arrint1dim, 2);
+    tab2int     := new(t2dim, 2, 2);
+    tab2int     := new(arrint2dim, 2, 2);
+    tabtype2dim := new(t2dim, 2, 2);
+    tabtype2dim := new(arrint2dim, 2, 2);
+  except
+    on e: Exception do
+      writeln(e.ClassName, ': ', e.message);
+  end;
+end.

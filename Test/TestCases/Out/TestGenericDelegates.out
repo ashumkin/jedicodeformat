@@ -1,0 +1,86 @@
+program TestGenericDelegates;
+
+{$APPTYPE CONSOLE}
+
+uses
+  SysUtils;
+
+type
+  TMammifere = class
+    procedure GetNom; virtual;
+  end;
+
+  TChien = class(TMammifere)
+    procedure GetNom; override;
+  end;
+
+  // Definie les délégués.
+  THandlerMethod<T:TMammifere> = function: T of object;
+
+  TMonDelegue  = THandlerMethod<TMammifere>;
+  TMonDelegue2 = THandlerMethod<TChien>;
+
+  TClasse1 = class
+    function FirstHandler: TMammifere;
+    function SecondHandler: TChien;
+  end;
+
+  { TClasse1 }
+  function TClasse1.FirstHandler: TMammifere;
+  begin
+    Result := TMammifere.Create;
+  end;
+
+  function TClasse1.SecondHandler: TChien;
+  begin
+    Result := TChien.Create;
+  end;
+
+  { TMammifere }
+  procedure TMammifere.GetNom;
+  begin
+    Writeln('TMammifere');
+  end;
+
+  { TChien }
+  procedure TChien.GetNom;
+  begin
+    inherited;
+    Writeln('TChien');
+  end;
+
+var
+  Classe: TClasse1;
+
+  handler1: TMonDelegue;
+  handler2: TMonDelegue2;
+  Hdl:      System.Delegate;
+  resultat: TMammifere;
+
+begin
+  Classe := nil;
+  try
+    Classe   := TClasse1.Create;
+    handler1 := @Classe.FirstHandler;
+    // A la différence du C# la covariance n'est pas permise.
+    //avec handler2 : TMonDelegue;
+    //handler2:=@Classe.SecondHandler;
+
+    Resultat := handler1;
+    Resultat.GetNom;
+
+    handler1 := @Classe.SecondHandler as TMethod;
+    Resultat := handler1;
+    Resultat.GetNom;
+
+    Hdl      := @Classe.FirstHandler;
+    Resultat := (hdl as TMonDelegue);
+    Resultat.GetNom;
+
+    Hdl := @Classe.SecondHandler;
+  except
+    on E: Exception do
+      Writeln(E.ClassName, ': ', E.Message);
+  end;
+  readln;
+end.

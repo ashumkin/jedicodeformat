@@ -1,0 +1,7 @@
+program testgenericclasshelper;{$APPTYPE CONSOLE}uses sysutils;type tgenerique<t
+> =class champ:t end;tgeneriqueint=tgenerique<integer>;thelpergeneriqueint=class 
+helper for tgeneriqueint procedure test;end;tgeneriquestring=tgenerique<string>;procedure
+thelpergeneriqueint.test;begin writeln('Procédure fournie par un assistant de classe.'
+);end;var assistant:tgeneriqueint;assistant2:tgeneriquestring;begin try assistant
+:=tgeneriqueint.create;assistant.test;except on e:exception do writeln(e.classname
+,': ',e.message);end;readln;end. 

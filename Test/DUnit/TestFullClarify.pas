@@ -263,10 +263,15 @@ type
     procedure TestDelphiNetLibrary;
 
     procedure TestAsmCaps;
+
     procedure TestGenerics;
     procedure TestGenerics2;
     procedure TestGenericTypeNullable;
     procedure TestGenericConstraintConstructor;
+    procedure TestGenericArray;
+    procedure TestGenericClassHelper;
+    procedure TestGenericConstructorStatic;
+    procedure TestGenericDelegates;
 
     procedure TestCases;
 
@@ -681,6 +686,30 @@ procedure TFullTestClarify.TestGenericTypeNullable;
 begin
   TestFile('TestGenericTypeNullable.dpr', 1426);
 end;
+
+procedure TFullTestClarify.TestGenericArray;
+begin
+  TestFile('TestGenericArray.dpr', 241);
+end;
+
+procedure TFullTestClarify.TestGenericClassHelper;
+begin
+  TestFile('TestGenericClassHelper.dpr', 184);
+end;
+
+
+procedure TFullTestClarify.TestGenericConstructorStatic;
+begin
+  TestFile('TestGenericConstructorStatic.dpr', 553);
+end;
+
+
+procedure TFullTestClarify.TestGenericDelegates;
+begin
+  TestFile('TestGenericDelegates.dpr', 420);
+end;
+
+
 
 procedure TFullTestClarify.TestGoto;
 begin

@@ -1200,6 +1200,9 @@ begin
 end;
 
 
+const
+  ConstraintTokens = [ttClass, ttRecord, ttConstructor];
+
 procedure TBuildParseTree.RecogniseGenericType;
 begin
   PushNode(nGeneric);
@@ -1214,7 +1217,15 @@ begin
     Recognise(ttColon);
 
     // one of a small set of constraints - class, record, constructor
-    Recognise([ttClass, ttRecord, ttConstructor]);
+    if fcTokenList.FirstSolidTokenType in ConstraintTokens then
+    begin
+      Recognise(ConstraintTokens);
+    end
+    else
+    begin
+      // can be a class name
+      RecogniseIdentifier(true, idAny);
+    end;
   end;
 
    // more types after commas

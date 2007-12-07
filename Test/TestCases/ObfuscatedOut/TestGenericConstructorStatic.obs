@@ -1,0 +1,18 @@
+program testgenericconstructeurstatic;{$APPTYPE CONSOLE}uses sysutils;type econtrainteargumentexception
+=class(ArgumentException);maclasse<t>=class unchamp:t;s:string;constructor create
+;class constructor createclass;end;constructor maclasse<t>.create;begin inherited
+;s:='Initialisation';writeln(#9+#9+#9+'Appel du constructeur d''instance',self.classname
+,'.Create');end;class constructor maclasse<t>.createclass;var unentier:integer;vargeneric
+:t;begin writeln;writeln(#9+#9+'Appel du constructeur de classe MaClasse.CreateClass<'
+,typeof(t),'>');vargeneric:=default(t);unentier:=10;if(assigned(tobject(vargeneric
+))=true)and(tobject(unentier)is t)then raise econtrainteargumentexception.create(
+'L''utilisation du type Integer n''est pas autorisé pour la Classe MaClasse<T>');
+end;var objet:maclasse<integer>;objet2:maclasse<string>;objet21:maclasse<tobject>
+;objet3,objet4:maclasse<double>;objet5:maclasse<byte>;begin try writeln('Début d''exécution du code.'
+);writeln(#13#10+'Référence de la classe dans le code : Objet:=Nil');objet2:=nil;
+objet2:=maclasse<string>.create;objet21:=nil;objet21:=maclasse<tobject>.create;objet3
+:=nil;objet3:=maclasse<double>.create;objet4:=nil;objet4:=maclasse<double>.create
+;objet5:=nil;objet5:=maclasse<byte>.create;objet:=nil;objet:=maclasse<integer>.create
+;except on e:typeinitializationexception do if e.innerexception is econtrainteargumentexception
+then writeln(e.innerexception.classname,': ',e.innerexception.message)else raise;
+on e:exception do writeln(e.classname,': ',e.message);end;readln;end.

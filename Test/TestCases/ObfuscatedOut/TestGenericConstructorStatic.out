@@ -1,0 +1,69 @@
+program testgenericconstructeurstatic;{$APPTYPE CONSOLE}
+
+uses
+  SysUtils;
+
+type
+  econtrainteargumentexception = class(ArgumentException);
+
+  maclasse<t> = class
+    unchamp: t;
+    s: string;
+    constructor Create;
+    class constructor createclass;
+  end;
+
+  constructor maclasse<t>.Create;
+  begin
+    inherited;
+    s := 'Initialisation';
+    writeln(#9 + #9 + #9 + 'Appel du constructeur d''instance', self.ClassName, '.Create');
+  end;
+
+  class constructor maclasse<t>.createclass;
+  var
+    unentier:   integer;
+    vargeneric: t;
+  begin
+    writeln;
+    writeln(#9 + #9 + 'Appel du constructeur de classe MaClasse.CreateClass<', typeof(t), '>');
+    vargeneric := default(t);
+    unentier   := 10;
+    if (assigned(TObject(vargeneric)) = True) and (TObject(unentier) is t) then
+      raise econtrainteargumentexception.Create(
+        'L''utilisation du type Integer n''est pas autorisé pour la Classe MaClasse<T>');
+  end;
+
+var
+  objet:   maclasse<integer>;
+  objet2:  maclasse<string>;
+  objet21: maclasse<TObject>;
+  objet3, objet4: maclasse<double>;
+  objet5:  maclasse<byte>;
+begin
+  try
+    writeln('Début d''exécution du code.');
+    writeln(#13#10 + 'Référence de la classe dans le code : Objet:=Nil');
+    objet2  := nil;
+    objet2  := maclasse<string>.Create;
+    objet21 := nil;
+    objet21 := maclasse<TObject>.Create;
+    objet3  := nil;
+    objet3  := maclasse<double>.Create;
+    objet4  := nil;
+    objet4  := maclasse<double>.Create;
+    objet5  := nil;
+    objet5  := maclasse<byte>.Create;
+    objet   := nil;
+    objet   := maclasse<integer>.Create;
+  except
+    on e: typeinitializationexception do
+      if e.innerexception is econtrainteargumentexception then
+        writeln(e.innerexception.ClassName, ': ', e.innerexception.message)
+      else
+        raise;
+    on e: Exception do
+      writeln(e.ClassName, ': ', e.message);
+  end;
+  readln;
+end.

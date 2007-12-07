@@ -262,10 +262,15 @@ type
     procedure TestExports;
 
     procedure TestAsmCaps;
+
     procedure TestGenerics;
     procedure TestGenerics2;
     procedure TestGenericTypeNullable;
     procedure TestGenericConstraintConstructor;
+    procedure TestGenericArray;
+    procedure TestGenericClassHelper;
+    procedure TestGenericConstructorStatic;
+    procedure TestGenericDelegates;
 
     procedure TestDelphiNetLibrary;
 
@@ -612,9 +617,29 @@ begin
   TestFile('TestForward');
 end;
 
+procedure TTestObfuscate.TestGenericArray;
+begin
+  TestFile('TestGenericArray.dpr');
+end;
+
+procedure TTestObfuscate.TestGenericClassHelper;
+begin
+  TestFile('TestGenericClassHelper.dpr');
+end;
+
 procedure TTestObfuscate.TestGenericConstraintConstructor;
 begin
   TestFile('TestGenericConstraintConstructor.dpr');
+end;
+
+procedure TTestObfuscate.TestGenericConstructorStatic;
+begin
+  TestFile('TestGenericConstructorStatic.dpr');
+end;
+
+procedure TTestObfuscate.TestGenericDelegates;
+begin
+  TestFile('TestGenericDelegates.dpr');
 end;
 
 procedure TTestObfuscate.TestGenerics;

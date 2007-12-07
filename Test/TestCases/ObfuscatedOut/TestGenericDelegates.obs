@@ -1,0 +1,14 @@
+program testgenericdelegates;{$APPTYPE CONSOLE}uses sysutils;type tmammifere=class
+procedure getnom;virtual;end;tchien=class(TMammifere)procedure getnom;override;end
+;thandlermethod<t:tmammifere>=function:t of object;tmondelegue=thandlermethod<tmammifere
+>;tmondelegue2=thandlermethod<tchien>;tclasse1=class function firsthandler:tmammifere
+;function secondhandler:tchien;end;function tclasse1.firsthandler:tmammifere;begin
+result:=tmammifere.create;end;function tclasse1.secondhandler:tchien;begin result
+:=tchien.create;end;procedure tmammifere.getnom;begin writeln('TMammifere');end;procedure
+tchien.getnom;begin inherited;writeln('TChien');end;var classe:tclasse1;handler1:
+tmondelegue;handler2:tmondelegue2;hdl:system.delegate;resultat:tmammifere;begin classe
+:=nil;try classe:=tclasse1.create;handler1:=@classe.firsthandler;resultat:=handler1
+;resultat.getnom;handler1:=@classe.secondhandler as tmethod;resultat:=handler1;resultat
+.getnom;hdl:=@classe.firsthandler;resultat:=(hdl as tmondelegue);resultat.getnom;
+hdl:=@classe.secondhandler;except on e:exception do writeln(e.classname,': ',e.message
+);end;readln;end.
