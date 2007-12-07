@@ -272,6 +272,7 @@ type
     procedure TestGenericClassHelper;
     procedure TestGenericConstructorStatic;
     procedure TestGenericDelegates;
+    procedure TestGenericConstraints;
 
     procedure TestCases;
 
@@ -668,7 +669,12 @@ end;
 
 procedure TFullTestClarify.TestGenericConstraintConstructor;
 begin
-  TestFile('TestGenericConstraintConstructor.dpr', 634);
+  TestFile('TestGenericConstraintConstructor.dpr', 637);
+end;
+
+procedure TFullTestClarify.TestGenericConstraints;
+begin
+  TestFile('TestGenericConstraints.dpr', 673);
 end;
 
 procedure TFullTestClarify.TestGenerics;
@@ -689,24 +695,24 @@ end;
 
 procedure TFullTestClarify.TestGenericArray;
 begin
-  TestFile('TestGenericArray.dpr', 241);
+  TestFile('TestGenericArray.dpr', 244);
 end;
 
 procedure TFullTestClarify.TestGenericClassHelper;
 begin
-  TestFile('TestGenericClassHelper.dpr', 184);
+  TestFile('TestGenericClassHelper.dpr', 187);
 end;
 
 
 procedure TFullTestClarify.TestGenericConstructorStatic;
 begin
-  TestFile('TestGenericConstructorStatic.dpr', 553);
+  TestFile('TestGenericConstructorStatic.dpr', 557);
 end;
 
 
 procedure TFullTestClarify.TestGenericDelegates;
 begin
-  TestFile('TestGenericDelegates.dpr', 420);
+  TestFile('TestGenericDelegates.dpr', 423);
 end;
 
 

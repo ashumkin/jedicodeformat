@@ -1,0 +1,22 @@
+program testgenericconstraints;{$APPTYPE CONSOLE}uses sysutils,classes;type couleurs
+=(rouge,noir,vert);imoninterface=interface procedure faitqqchose;end;tclassemoninterface
+=class(TObject,IMonInterface)procedure faitqqchose;end;tenregistrement=record end
+;tgenericenregistrement<t>=record data:t;end;tgenericclass<r:record>=class champ:
+r;end;tgenericrecord<c:class>=record maclasse:c;end;tgenericclass2<c:class>=class
+valeur:c;end;tgenericrecord2<c:tlist>=record maclasse:c;end;tgenericrecord3<c:class
+,constructor>=record maclasse:c;end;tgenericclass3<u:tgenericclass<tenregistrement
+>>=class enregistrementun:u;end;tgenericclass4<u:tgenericclass<tenregistrement>>=
+class enregistrementun:u;enregistrementdeux:tgenericrecord<tobject>;enregistrementtrois
+:tgenericrecord<tgenericclass<tenregistrement>>;end;tclasscontraintetypenu<t,u>=class
+type tclassimbriquee<s:u>=class valeur:s;end;end;procedure tclassemoninterface.faitqqchose
+;begin writeln('Dans la procédure d''interface FaitqqChose');end;var rec:tgenericrecord
+<tobject>;objintf:tgenericclass2<imoninterface>;obj2:tgenericclass2<tobject>;obj3
+:tgenericclass2<string>;obj4:tgenericclass2<array of integer>;obj5:tgenericclass<
+tenregistrement>;obj6:tgenericclass<integer>;obj7:tgenericclass<couleurs>;parent:
+tclasscontraintetypenu<string,integer>;naked:tobject;begin try rec.maclasse:=tobject
+.create;objintf:=tgenericclass2<imoninterface>.create;objintf.valeur:=tclassemoninterface
+.create;imoninterface(objintf.valeur).faitqqchose;obj2:=tgenericclass2<tobject>.create
+;obj2.valeur:=nil;obj2.valeur:=tobject.create;obj3:=tgenericclass2<string>.create
+;obj3.valeur:='Toto';parent:=tclasscontraintetypenu<string,integer>.create;naked:=
+tclasscontraintetypenu<string,integer>.tclassimbriquee<string>.create;except on e
+:exception do writeln(e.classname,': ',e.message);end;readln;end. 

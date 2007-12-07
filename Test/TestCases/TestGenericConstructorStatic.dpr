@@ -1,5 +1,14 @@
 program TestGenericConstructeurStatic;
+
 {$APPTYPE CONSOLE}
+
+{ AFS December 2007 
+
+  This code compiles, but is not semantically meaningfull.
+  It is test cases for the code-formating utility
+
+  Test new generics syntax - code from TridenT
+}
 
 (* Adaptation du code C# suivant : http://www.dotnetguru.org/articles/dossiers/generics/CS2_Generics_FR2.htm#_Toc87323770
 class C<T>{

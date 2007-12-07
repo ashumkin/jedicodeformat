@@ -271,6 +271,7 @@ type
     procedure TestGenericClassHelper;
     procedure TestGenericConstructorStatic;
     procedure TestGenericDelegates;
+    procedure TestGenericConstraints;
 
     procedure TestDelphiNetLibrary;
 
@@ -630,6 +631,11 @@ end;
 procedure TTestObfuscate.TestGenericConstraintConstructor;
 begin
   TestFile('TestGenericConstraintConstructor.dpr');
+end;
+
+procedure TTestObfuscate.TestGenericConstraints;
+begin
+  TestFile('TestGenericConstraints.dpr');
 end;
 
 procedure TTestObfuscate.TestGenericConstructorStatic;

@@ -244,7 +244,6 @@ type
 
     function GenericAhead: boolean;
     procedure RecogniseGenericType;
-    procedure RecogniseGenericTypeItem;
 
 
     procedure Recognise(const peTokenTypes: TTokenTypeSet; const pbKeepTrailingWhiteSpace: Boolean = False); overload;
@@ -257,6 +256,8 @@ type
     function ArrayConstantNext: boolean;
     function SubrangeTypeNext: boolean;
     function TypePastAttribute: boolean;
+    procedure RecogniseGenericConstraints;
+    procedure RecogniseGenericConstraint;
 
   Protected
 
@@ -308,7 +309,6 @@ begin
     
   FreeAndNil(fcRoot);
 end;
-
 
 procedure TBuildParseTree.BuildParseTree;
 begin
@@ -1209,30 +1209,18 @@ begin
 
   // angle brackets
   Recognise(ttLessThan);
-  RecogniseGenericTypeItem;
+  RecogniseType;
 
   if fcTokenList.FirstSolidTokenType = ttColon then
   begin
-    // restriction on the generic type
-    Recognise(ttColon);
-
-    // one of a small set of constraints - class, record, constructor
-    if fcTokenList.FirstSolidTokenType in ConstraintTokens then
-    begin
-      Recognise(ConstraintTokens);
-    end
-    else
-    begin
-      // can be a class name
-      RecogniseIdentifier(true, idAny);
-    end;
+    RecogniseGenericConstraints;
   end;
 
    // more types after commas
    while fcTokenList.FirstSolidTokenType = ttComma do
    begin
       Recognise(ttComma);
-      RecogniseGenericTypeItem;
+      RecogniseType;
    end;
 
    if  fcTokenList.FirstSolidTokenType = ttGreaterThanOrEqual  then
@@ -1248,6 +1236,42 @@ begin
 
   PopNode;
 end;
+
+procedure TBuildParseTree.RecogniseGenericConstraints;
+begin
+  // restriction on the generic type. Colon followed by the constraint
+  Recognise(ttColon);
+
+  RecogniseGenericConstraint;
+
+  // optionally more constraints seperated by commas
+  while fcTokenList.FirstSolidTokenType = ttComma do
+  begin
+    Recognise(ttComma);
+    RecogniseGenericConstraint;
+  end;
+
+end;
+
+procedure TBuildParseTree.RecogniseGenericConstraint;
+begin
+  // one of a small set of constraints - class, record, constructor
+  if fcTokenList.FirstSolidTokenType in ConstraintTokens then
+  begin
+    Recognise(ConstraintTokens);
+  end
+  else
+  begin
+    // can be a class name
+    RecogniseIdentifier(true, idAny);
+    // and the class can be generic
+    if fcTokenList.FirstSolidTokenType = ttLessThan then
+    begin
+      RecogniseGenericType;
+    end;
+  end;
+end;
+
 
 procedure TBuildParseTree.SplitGreaterThanOrEqual;
 var
@@ -1274,17 +1298,6 @@ begin
   end;
 end;
 
-
-procedure TBuildParseTree.RecogniseGenericTypeItem;
-begin
-  // a type name
-  RecogniseIdentifier(False, idAllowDirectives);
-  // nested generic?
-  if fcTokenList.FirstSolidTokenType = ttLessThan then
-  begin
-    RecogniseGenericType;
-  end;
-end;
 
 { helper proc for RecogniseTypedConstant
   need to distinguish
@@ -2540,6 +2553,12 @@ begin
         Recognise(ttDot);
 
         RecognisePossiblyAmpdIdentifier;
+
+        if GenericAhead then
+        begin
+          RecogniseGenericType;
+        end;
+
       end;
       ttHat:
       begin
