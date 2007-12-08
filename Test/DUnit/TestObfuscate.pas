@@ -265,13 +265,23 @@ type
 
     procedure TestGenerics;
     procedure TestGenerics2;
-    procedure TestGenericTypeNullable;
-    procedure TestGenericConstraintConstructor;
+
     procedure TestGenericArray;
     procedure TestGenericClassHelper;
+    procedure TestGenericClassOperators;
+    procedure TestGenericConstraintConstructor;
+    procedure TestGenericConstraints;
     procedure TestGenericConstructorStatic;
     procedure TestGenericDelegates;
-    procedure TestGenericConstraints;
+    procedure TestGenericFunctions;
+    procedure TestGenericHeritage;
+    procedure TestGenericInheritance;
+    procedure TestGenericInterface;
+    procedure TestGenericMethod;
+    procedure TestGenericMethods1;
+    procedure TestGenericOperatorAs;
+    procedure TestGenericOperatorIs;
+    procedure TestGenericTypeNullable;
 
     procedure TestDelphiNetLibrary;
 
@@ -628,6 +638,11 @@ begin
   TestFile('TestGenericClassHelper.dpr');
 end;
 
+procedure TTestObfuscate.TestGenericClassOperators;
+begin
+  TestFile('TestGenericClassOperators.dpr');
+end;
+
 procedure TTestObfuscate.TestGenericConstraintConstructor;
 begin
   TestFile('TestGenericConstraintConstructor.dpr');
@@ -646,6 +661,46 @@ end;
 procedure TTestObfuscate.TestGenericDelegates;
 begin
   TestFile('TestGenericDelegates.dpr');
+end;
+
+procedure TTestObfuscate.TestGenericFunctions;
+begin
+  TestFile('TestGenericFunctions.dpr');
+end;
+
+procedure TTestObfuscate.TestGenericHeritage;
+begin
+  TestFile('TestGenericHeritage.dpr');
+end;
+
+procedure TTestObfuscate.TestGenericInheritance;
+begin
+  TestFile('TestGenericInheritance.dpr');
+end;
+
+procedure TTestObfuscate.TestGenericInterface;
+begin
+  TestFile('TestGenericInterface.dpr');
+end;
+
+procedure TTestObfuscate.TestGenericMethod;
+begin
+  TestFile('TestGenericMethod.dpr');
+end;
+
+procedure TTestObfuscate.TestGenericMethods1;
+begin
+  TestFile('TestGenericMethods1.dpr');
+end;
+
+procedure TTestObfuscate.TestGenericOperatorAs;
+begin
+ TestFile('TestGenericOperatorAs.dpr');
+end;
+
+procedure TTestObfuscate.TestGenericOperatorIs;
+begin
+ TestFile('TestGenericOperatorIs.dpr');
 end;
 
 procedure TTestObfuscate.TestGenerics;

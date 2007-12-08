@@ -739,7 +739,7 @@ end;
 
 procedure TFullTestClarify.TestGenericHeritage;
 begin
-  TestFile('TestGenericHeritage.dpr', 423);
+  TestFile('TestGenericHeritage.dpr', 352);
 end;
 
 procedure TFullTestClarify.TestGenericInheritance;
