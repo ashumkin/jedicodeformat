@@ -1,0 +1,19 @@
+program testgenericmethod;{$APPTYPE CONSOLE}uses sysutils;type tgenerictype<anytype
+> =class fdata:anytype;function getdata:anytype;procedure unemethodegenerique<anytype
+>(variable:anytype);function unefonctiongenerique<anytype>:anytype;procedure unemethode
+<t>(x,y:t);procedure setdata(value:anytype);property data:anytype read getdata write
+setdata;end;function tgenerictype<anytype>.getdata:anytype;begin result:=fdata;end
+;procedure tgenerictype<anytype>.setdata(value:anytype);begin fdata:=value;end;procedure
+tgenerictype<anytype>.unemethodegenerique<anytype>(variable:anytype);begin variable
+:=default(anytype);writeln(tobject(variable).classname);writeln('Default pour AnyType='
+,tobject(variable).classname,'=',tobject(variable));writeln(tobject(variable).classname
+);end;function tgenerictype<anytype>.unefonctiongenerique<anytype>:anytype;var variable
+:anytype;begin variable:=default(anytype);writeln(tobject(variable).classname);writeln
+('Default pour AnyType=',tobject(variable).classname,'=',tobject(variable));result
+:=variable;end;procedure tgenerictype<anytype>.unemethode<t>(x,y:t);begin writeln
+(x.tostring,' , ',y.tostring);end;type tgenerictypeint=tgenerictype<integer>;tgenerictypestring
+=tgenerictype<string>;var i:tgenerictypeint;s:tgenerictypestring;begin try i:=tgenerictypeint
+.create;i.data:=100;i.unemethodegenerique(i.data);s:=tgenerictypestring.create;s.
+data:='Chaîne de cractères';s.unemethodegenerique(s.data);s.unemethodegenerique<integer
+>(i.data);readln;except on e:exception do writeln(e.classname,': ',e.message);end
+;end.

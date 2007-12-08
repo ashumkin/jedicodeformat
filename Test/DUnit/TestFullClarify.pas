@@ -266,13 +266,23 @@ type
 
     procedure TestGenerics;
     procedure TestGenerics2;
-    procedure TestGenericTypeNullable;
-    procedure TestGenericConstraintConstructor;
+
     procedure TestGenericArray;
     procedure TestGenericClassHelper;
+    procedure TestGenericClassOperators;
+    procedure TestGenericConstraintConstructor;
+    procedure TestGenericConstraints;
     procedure TestGenericConstructorStatic;
     procedure TestGenericDelegates;
-    procedure TestGenericConstraints;
+    procedure TestGenericFunctions;
+    procedure TestGenericHeritage;
+    procedure TestGenericInheritance;
+    procedure TestGenericInterface;
+    procedure TestGenericMethod;
+    procedure TestGenericMethods1;
+    procedure TestGenericOperatorAs;
+    procedure TestGenericOperatorIs;
+    procedure TestGenericTypeNullable;
 
     procedure TestCases;
 
@@ -704,9 +714,14 @@ begin
 end;
 
 
+procedure TFullTestClarify.TestGenericClassOperators;
+begin
+  TestFile('TestGenericClassOperators.dpr', 212);
+end;
+
 procedure TFullTestClarify.TestGenericConstructorStatic;
 begin
-  TestFile('TestGenericConstructorStatic.dpr', 557);
+  TestFile('TestGenericConstructorStatic.dpr', 553);
 end;
 
 
@@ -716,6 +731,46 @@ begin
 end;
 
 
+
+procedure TFullTestClarify.TestGenericFunctions;
+begin
+  TestFile('TestGenericFunctions.dpr', 790);
+end;
+
+procedure TFullTestClarify.TestGenericHeritage;
+begin
+  TestFile('TestGenericHeritage.dpr', 423);
+end;
+
+procedure TFullTestClarify.TestGenericInheritance;
+begin
+  TestFile('TestGenericInheritance.dpr', 291);
+end;
+
+procedure TFullTestClarify.TestGenericInterface;
+begin
+  TestFile('TestGenericInterface.dpr', 430);
+end;
+
+procedure TFullTestClarify.TestGenericMethod;
+begin
+  TestFile('TestGenericMethod.dpr', 567);
+end;
+
+procedure TFullTestClarify.TestGenericMethods1;
+begin
+  TestFile('TestGenericMethods1.dpr', 517);
+end;
+
+procedure TFullTestClarify.TestGenericOperatorAs;
+begin
+  TestFile('TestGenericOperatorAs.dpr', 447);
+end;
+
+procedure TFullTestClarify.TestGenericOperatorIs;
+begin
+  TestFile('TestGenericOperatorIs.dpr', 967);
+end;
 
 procedure TFullTestClarify.TestGoto;
 begin

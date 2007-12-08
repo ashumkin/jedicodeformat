@@ -1,0 +1,14 @@
+program testgenericoperatoras;{$APPTYPE CONSOLE}uses sysutils;type maclasse=class
+function contraint<x:class>(avalue:tobject):x;function noncontraint<x>(avalue:tobject
+):x;procedure test;end;function maclasse.contraint<x>(avalue:tobject):x;begin result
+:=avalue as x;end;function maclasse.noncontraint<x>(avalue:tobject):x;begin result
+:=avalue as x;end;procedure maclasse.test;var resultat:tobject;str:string;int:integer
+;begin resultat:=tobject.create;writeln('Classe de Resultat = ',resultat.classname
+);resultat:=contraint<tobject>(str);resultat:=noncontraint<tobject>(str);writeln(
+'Resultat = Nil');try int:=noncontraint<integer>(str);except on e:nullreferenceexception
+do;end;str:='Test';resultat:=tobject.create;writeln('Classe de Resultat = ',resultat
+.classname);resultat:=contraint<tobject>(str);writeln('Classe de Resultat = ',resultat
+.classname);resultat:=noncontraint<tobject>(str);try int:=noncontraint<integer>(str
+);except on e:invalidcastexception do;end;end;var classe:maclasse;begin classe:=maclasse
+.create;try classe.test;except on e:exception do writeln(e.classname,': ',e.message
+);end;readln;end.

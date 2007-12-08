@@ -1,0 +1,7 @@
+program testgenericinheritahnce;{$APPTYPE CONSOLE}uses sysutils;type ttest=class
+fdata:integer;end;ttest<i>=class fdata:i;end;ttest<i,s>=class fdata:i;fitem:s;end
+;tgeneric<a,b>=class fdata:a;fitem:b;end;tgeneric<a>=class(TGeneric<A,String>)fdata
+:a;end;tgenerictest<r,u>=class(TGeneric<R>)fdata:r;end;var gen1:ttest;gen2:ttest<
+integer>;gen3:ttest<integer,string>;begin try gen1:=ttest.create;gen2:=ttest<integer
+>.create;gen3:=ttest<integer,string>.create;except on e:exception do writeln(e.classname
+,': ',e.message);end;end. 

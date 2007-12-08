@@ -1,0 +1,110 @@
+program testgenericfunctions;{$APPTYPE CONSOLE}
+
+uses
+  SysUtils;
+
+type
+  tproceduregenerique<a> = procedure(param1: a);
+  tprocobjetgenerique<b> = procedure(x, y: b) of object;
+  tfonctiongenerique<t>  = function: t;
+
+  tmaclasse = class
+    procedure unemethode<t>(x, y: t);
+    procedure testmethode;
+    procedure testprocedure<untype>(prc: tproceduregenerique<untype>);
+    procedure testfonction<t>(fnct: tfonctiongenerique<t>);
+  end;
+
+  procedure proceduregeneriqueint(m: integer);
+  begin
+    writeln(m);
+  end;
+
+  procedure proceduregeneriquestring(m: string);
+  begin
+    writeln(m);
+  end;
+
+  function unefonctiongeneriqueint: integer;
+  var
+    s: string;
+  begin
+    Result := 10;
+  end;
+
+  procedure testtypeprocedure(arg: tmaclasse);
+  var
+    p:  tprocobjetgenerique<string>;
+    p2: tprocobjetgenerique<integer>;
+  begin
+    p := arg.unemethode<string>;
+    p('Hello', 'World');
+    p2 := arg.unemethode<integer>;
+    p2(10, 20);
+  end;
+
+  procedure tmaclasse.unemethode<t>(x, y: t);
+  begin
+    writeln(x.tostring, ' , ', y.tostring);
+  end;
+
+  procedure tmaclasse.testmethode;
+  var
+    p: tprocobjetgenerique<boolean>;
+  begin
+    unemethode<string>('Hello', 'World');
+    unemethode('Hello', 'World');
+    unemethode<integer>(10, 20);
+    unemethode(10, 20);
+    p := unemethode<boolean>;
+    p(False, True);
+  end;
+
+  procedure tmaclasse.testprocedure<untype>(prc: tproceduregenerique<untype>);
+  var
+    p:     tproceduregenerique<untype>;
+    Value: untype;
+  begin
+    prc('Hello');
+    p     := prc;
+    Value := default(untype);
+    if assigned(TObject(Value)) then
+      writeln('Assigné.')
+    else
+      writeln('Non assigné.');
+    p(default(untype));
+  end;
+
+  procedure tmaclasse.testfonction<t>(fnct: tfonctiongenerique<t>);
+  var
+    i: t;
+  begin
+    i := fnct;
+    writeln('Retour de fonction = ', TObject(i));
+  end;
+
+var
+  maclasse: tmaclasse;
+begin
+  try
+    maclasse := tmaclasse.Create;
+    with maclasse do
+    begin
+      testtypeprocedure(maclasse);
+      testmethode;
+      testprocedure<integer>(proceduregeneriqueint);
+      try
+        testprocedure<string>(proceduregeneriquestring);
+      except
+        on e: Exception do
+          writeln(e.ClassName, ': ', e.message);
+      end;
+      testfonction<integer>(unefonctiongeneriqueint);
+    end;
+  except
+    on e: Exception do
+      writeln(e.ClassName, ': ', e.message);
+  end;
+  readln;
+end.
+ 

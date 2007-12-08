@@ -1,0 +1,65 @@
+program testgenericoperatoras;{$APPTYPE CONSOLE}
+
+uses
+  SysUtils;
+
+type
+  maclasse = class
+    function contraint<x:
+    class>(avalue: TObject): x;
+    function noncontraint<x>(avalue: TObject): x;
+    procedure test;
+  end;
+
+  function maclasse.contraint<x>(avalue: TObject): x;
+  begin
+    Result := avalue as x;
+  end;
+
+  function maclasse.noncontraint<x>(avalue: TObject): x;
+  begin
+    Result := avalue as x;
+  end;
+
+  procedure maclasse.test;
+  var
+    resultat: TObject;
+    str:      string;
+    int:      integer;
+  begin
+    resultat := TObject.Create;
+    writeln('Classe de Resultat = ', resultat.ClassName);
+    resultat := contraint<TObject>(str);
+    resultat := noncontraint<TObject>(str);
+    writeln(
+      'Resultat = Nil');
+    try
+      int := noncontraint<integer>(str);
+    except
+      on e: nullreferenceexception do ;
+    end;
+    str      := 'Test';
+    resultat := TObject.Create;
+    writeln('Classe de Resultat = ', resultat.ClassName);
+    resultat := contraint<TObject>(str);
+    writeln('Classe de Resultat = ', resultat.ClassName);
+    resultat := noncontraint<TObject>(str);
+    try
+      int := noncontraint<integer>(str);
+    except
+      on e: invalidcastexception do ;
+    end;
+  end;
+
+var
+  classe: maclasse;
+begin
+  classe := maclasse.Create;
+  try
+    classe.test;
+  except
+    on e: Exception do
+      writeln(e.ClassName, ': ', e.message);
+  end;
+  readln;
+end.

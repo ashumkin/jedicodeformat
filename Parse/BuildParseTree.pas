@@ -88,7 +88,6 @@ type
     procedure RecogniseInitSection;
     procedure RecogniseBlock(const CanBeJustEnd: boolean = false);
     procedure RecogniseIdentList(const pbCanHaveUnitQualifier: boolean);
-    procedure RecogniseDottedNameList;
     procedure RecogniseIdentValue;
     procedure RecogniseAsCast;
 
@@ -258,6 +257,7 @@ type
     function TypePastAttribute: boolean;
     procedure RecogniseGenericConstraints;
     procedure RecogniseGenericConstraint;
+    procedure RecogniseHeritageList;
 
   Protected
 
@@ -308,6 +308,32 @@ begin
     fcStack.Pop;
     
   FreeAndNil(fcRoot);
+end;
+
+procedure TBuildParseTree.RecogniseHeritageList;
+var
+  lbMore: boolean;
+begin
+  { heritage of a class or interface
+  }
+
+  lbMore := true;
+
+  while lbMore do
+  begin
+
+    RecogniseDottedName;
+    if fcTokenList.FirstSolidTokenType = ttLessThan then
+    begin
+      RecogniseGenericType;
+    end;
+
+    lbMore := fcTokenList.FirstSolidTokenType = ttComma;
+
+    if lbMore then
+      Recognise(ttComma);
+  end;
+
 end;
 
 procedure TBuildParseTree.BuildParseTree;
@@ -2516,6 +2542,11 @@ begin
 
   RecogniseQualId;
 
+   if (fcTokenList.FirstSolidTokenType = ttLessThan) and GenericAhead then
+   begin
+     RecogniseGenericType;
+   end;
+
   RecogniseDesignatorTail;
 
   PopNode;
@@ -3959,7 +3990,7 @@ begin
 
   // ClassHeritage -> '(' IdentList ')'
   Recognise(ttOpenBracket);
-  RecogniseDottedNameList;
+  RecogniseHeritageList;
   Recognise(ttCloseBracket);
 
   PopNode;
@@ -4412,7 +4443,7 @@ begin
   PushNode(nInterfaceHeritage);
 
   Recognise(ttOpenBracket);
-  RecogniseIdentList(True);
+  RecogniseHeritageList;
   Recognise(ttCloseBracket);
 
   PopNode;
@@ -4494,22 +4525,6 @@ begin
   PopNode;
 end;
 
-procedure TBuildParseTree.RecogniseDottedNameList;
-begin
-  PushNode(nIdentList);
-
-  RecogniseDottedName;
-
-  while fcTokenList.FirstSolidTokenType = ttComma do
-  begin
-    Recognise(ttComma);
-    RecogniseDottedName;
-  end;
-
-  PopNode;
-end;
-
-
 procedure TBuildParseTree.RecogniseConstantExpression;
 begin
   RecogniseExpr(True);
@@ -4580,6 +4595,8 @@ end;
   a plain name or classname.methodname
   or class<generic>.typename }
 procedure TBuildParseTree.RecogniseMethodName(const pbClassNameCompulsory: boolean);
+var
+  lbMore: boolean;
 begin
   if not (IdentifierNext(idAllowDirectives)) then
     raise TEParseError.Create('Expected identifer', fcTokenList.FirstSolidToken);
@@ -4591,20 +4608,27 @@ begin
 
   if fcTokenList.FirstSolidTokenType = ttLessThan then
   begin
-    // a use not a decl
+    // a generic decl on the method or class
     RecogniseGenericType;
   end;
 
   if (fcTokenList.FirstSolidTokenType = ttDot) or pbClassNameCompulsory then
   begin
-    Recognise(ttDot);
-    Recognise(IdentiferTokens);
+    lbMore := true;
 
-    { delphi.net nested types have more than one dot }
-    while (fcTokenList.FirstSolidTokenType = ttDot) do
+    while lbMore do
     begin
       Recognise(ttDot);
       Recognise(IdentiferTokens);
+
+      if fcTokenList.FirstSolidTokenType = ttLessThan then
+      begin
+        // a generic decl on the method in a class
+        RecogniseGenericType;
+      end;
+
+      { delphi.net nested types have more than one dot }
+      lbMore := (fcTokenList.FirstSolidTokenType = ttDot);
     end;
   end;
 

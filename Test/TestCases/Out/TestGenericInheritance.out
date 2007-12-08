@@ -1,0 +1,70 @@
+program TestGenericInheritahnce;
+
+{$APPTYPE CONSOLE}
+
+{ AFS December 2007 
+
+  This code compiles, but is not semantically meaningfull.
+  It is test cases for the code-formating utility
+
+  Test new generics syntax - code from TridenT
+}
+
+uses
+  SysUtils;
+
+type
+
+  TTest = class
+    FData: integer;
+  end;
+  //Surcharge générique
+  TTest<I> = class
+    FData: I;
+  end;
+
+  {La surcharge basée sur une contrainte est impossible.
+  TTest<I:constructor>=Class //E2037 La déclaration de 'TTest<I>' diffère de la déclaration précédente
+   FData: I;
+  End;
+  }
+
+  TTest<I,S> = class
+    FData: I;
+    Fitem: S;
+  end;
+
+  //Surcharge générique à partir d'une autre surcharge générique de la même classe
+  TGeneric<A,B> = class
+    FData: A;
+    Fitem: B;
+  end;
+
+  TGeneric<A> = class(TGeneric<A,string>)
+    FData: A;
+  end;
+
+  //Surcharge générique à partir d'une autre surcharge générique d'une autre classe
+  TGenericTest<R,U> = class(TGeneric<R>)
+    FData: R;
+  end;
+
+  {La surcharge basée sur une type valeur au lieu d'un type référence est impossible.
+   TGenericTest<R,U>=Record //E2004 Identificateur redéclaré : 'TGenericTest'
+
+  End;
+  }
+var
+  Gen1: TTest;
+  Gen2: TTest<integer>;
+  Gen3: TTest<integer,string>;
+begin
+  try
+    Gen1 := TTest.Create;
+    Gen2 := TTest<integer>.Create;
+    Gen3 := TTest<integer,string>.Create;
+  except
+    on E: Exception do
+      Writeln(E.ClassName, ': ', E.Message);
+  end;
+end.

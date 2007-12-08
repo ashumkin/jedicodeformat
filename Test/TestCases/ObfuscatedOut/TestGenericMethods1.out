@@ -1,0 +1,64 @@
+program testgenericmethods1;{$APPTYPE CONSOLE}
+
+uses
+  SysUtils;
+
+type
+  tgenerictype<anytype> = class
+    fdata: anytype;
+    function getdata: anytype;
+    procedure unemethodegenerique<anytype>(variable: anytype);
+    function unefonctiongenerique<anytype>: anytype;
+    procedure setdata(Value: anytype);
+    property Data: anytype Read getdata Write setdata;
+  end;
+
+  function tgenerictype<anytype>.getdata: anytype;
+  begin
+    Result := fdata;
+  end;
+
+  procedure tgenerictype<anytype>.setdata(Value: anytype);
+  begin
+    fdata := Value;
+  end;
+
+  procedure tgenerictype<anytype>.unemethodegenerique<anytype>(variable: anytype);
+  begin
+    variable := default(anytype);
+    writeln(TObject(variable).ClassName);
+    writeln('Default pour AnyType=', TObject(variable).ClassName, '=', TObject(variable));
+    writeln(TObject(variable).ClassName);
+  end;
+
+  function tgenerictype<anytype>.unefonctiongenerique<anytype>: anytype;
+  var
+    variable: anytype;
+  begin
+    variable := default(anytype);
+    writeln(TObject(variable).ClassName);
+    writeln('Default pour AnyType=', TObject(variable).ClassName, '=', TObject(variable));
+    Result := variable;
+  end;
+
+type
+  tgenerictypeint     = tgenerictype<integer>;
+  tgenerictypeboolean = tgenerictype<boolean>;
+var
+  i: tgenerictypeint;
+  b: tgenerictypeboolean;
+begin
+  try
+    i      := tgenerictypeint.Create;
+    i.Data := 100;
+    i.unemethodegenerique(i.Data);
+    b      := tgenerictypeboolean.Create;
+    b.Data := True;
+    b.unemethodegenerique(b.Data);
+    b.unemethodegenerique<integer>(i.Data);
+    readln;
+  except
+    on e: Exception do
+      writeln(e.ClassName, ': ', e.message);
+  end;
+end.

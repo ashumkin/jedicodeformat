@@ -1,0 +1,124 @@
+program testgenericoperatoris;{$APPTYPE CONSOLE}
+
+uses
+  SysUtils,
+  Classes;
+
+type
+  maclasse<t> = class
+    unchamp: t;
+    procedure test<x>;
+    procedure test2<x>;
+    procedure test3<x:
+    constructor>;
+  end;
+  nullinteger = system.nullable<integer>;
+
+  procedure maclasse<t>.test<x>;
+  var
+    variable: x;
+  begin
+    writeln;
+    Write(#9 + 'Le test sur X<', typeof(x), '> is T<', typeof(t), '> est ');
+    if TObject(variable) is t then
+      writeln('Vrai')
+    else
+      writeln('Faux');
+    if assigned(TObject(variable)) then
+      writeln(#9 + 'assigned(Variable) =Vrai')
+    else
+      writeln(#9 + 'assigned(Variable)=Faux');
+  end;
+
+  procedure maclasse<t>.test2<x>;
+  var
+    variable: x;
+  begin
+    if assigned(TObject(variable)) then
+      variable := default(x);
+    writeln;
+    Write(#9 + 'Le test sur X<', typeof(x), '> is T<', typeof(t), '> est ');
+    if TObject(variable) is t then
+      writeln('Vrai')
+    else
+      writeln('Faux');
+  end;
+
+  procedure maclasse<t>.test3<x>;
+  var
+    variable: x;
+  begin
+    writeln;
+    Write(#9 + 'Le test sur X<', typeof(x), '> is T<', typeof(t), '> est ');
+    variable := x.Create;
+    if TObject(variable) is t then
+      writeln('Vrai')
+    else
+      writeln('Faux');
+    if assigned(TObject(variable)) then
+      writeln(#9 + 'assigned(Variable) =Vrai')
+    else
+      writeln(#9 + 'assigned(Variable)=Faux');
+  end;
+
+  procedure test(resultat: boolean);
+  begin
+    if resultat then
+      writeln('Vrai')
+    else
+      writeln('Faux');
+  end;
+
+var
+  classe1: maclasse<TObject>;
+  classe2: maclasse<system.nullable<integer>>;
+  classe3: maclasse<integer>;
+  varnull: nullinteger;
+  objet:   TObject;
+  int:     integer;
+begin
+  try
+    writeln('Test pour la variable varNull = null');
+    varnull := default(system.nullable<integer>);
+    test(varnull is nullinteger);
+    varnull := 10;
+    test(varnull is nullinteger);
+    writeln(
+      'Test pour la variable Objet à nil');
+    test(objet is TObject);
+    objet := TObject.Create;
+    writeln('Test pour la variable Objet instanciée');
+    test(objet is TObject);
+    varnull := 10;
+    writeln('Test pour la variable varNull = 10');
+    test(varnull is system.nullable<integer>);
+    int := 25;
+    writeln('Test pour la variable int');
+    test(int is integer);
+    classe1 := maclasse<TObject>.Create;
+    writeln('Test pour la variable Classe1 MaClasse<TObject>');
+    classe1.test<integer>;
+    classe1.test<TObject>;
+    classe1.test3<TObject>;
+    classe1.test3<TList>;
+    classe1.test3<integer>;
+    writeln;
+    writeln('Test pour la variable Classe2 MaClasse<System.Nullable<Integer>>');
+    classe2 := maclasse<nullinteger>.Create;
+    classe2.test<double>;
+    classe2.test<string>;
+    classe2.test<integer>;
+    classe2.test<nullinteger>;
+    writeln('Test pour la variable Classe3 MaClasse<Integer>');
+    classe3 := maclasse<integer>.Create;
+    classe3.test<double>;
+    classe3.test<integer>;
+    classe3.test<string>;
+    classe3.test<nullinteger>;
+  except
+    on e: Exception do
+      writeln(e.ClassName, ': ', e.message);
+  end;
+  readln;
+end.
+ 

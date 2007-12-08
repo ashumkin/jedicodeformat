@@ -1,0 +1,145 @@
+program TestGenericFunctions;
+
+{$APPTYPE CONSOLE}
+
+
+{ AFS December 2007 
+
+  This code compiles, but is not semantically meaningfull.
+  It is test cases for the code-formating utility
+
+  Test new generics syntax - code from TridenT
+}
+
+uses
+  SysUtils;
+
+type
+  TProcedureGenerique<A> = procedure(Param1: A);
+  TProcObjetGenerique<B> = procedure(X, Y: B) of object;
+  TFonctionGenerique<T>  = function: T;
+
+  TMaClasse = class
+    procedure UneMethode<T>(X, Y: T);
+    // Même signature que le type TProcObjetGenerique<B>
+    procedure TestMethode;
+    procedure TestProcedure<UnType>(Prc: TProcedureGenerique<UnType>);
+    procedure TestFonction<T>(fnct: TFonctionGenerique<T>);
+  end;
+
+  //Procedure ProcedureGenerique<A>(M:A); //E2530 Les paramètres de type ne sont pas autorisés sur la fonction ou la procédure globale
+  procedure ProcedureGeneriqueInt(M: integer);
+  begin
+    Writeln(M);
+  end;
+
+  procedure ProcedureGeneriqueString(M: string);
+  begin
+    Writeln(M);
+  end;
+
+  function UneFonctionGeneriqueInt: integer;
+  var
+    S: string;
+  begin
+    Result := 10;
+  end;
+
+{On ne peux pas utiliser de type construit ouvert dans un type procedure
+procedure TestTypeProcedure<A>(Arg:TMaClasse); -> E2530 Les paramètres de type ne sont pas autorisés sur la fonction ou la procédure globale
+}
+  procedure TestTypeProcedure(Arg: TMaClasse);
+  var
+    P:  TProcObjetGenerique<string>;
+    P2: TProcObjetGenerique<integer>;
+    //Pn : TProcObjetGenerique<...
+  begin
+    P := Arg.UneMethode<string>;
+    P('Hello', 'World');
+
+    //P:=Arg.UneMethode<Integer>;   //E2010 Types incompatibles : 'string' et 'Integer'
+    P2 := Arg.UneMethode<integer>;
+    P2(10, 20);
+
+  end;
+
+  {TMaClasse}
+  procedure TMaClasse.UneMethode<T>(X, Y: T);
+  begin
+    Writeln(X.ToString, ' , ', Y.ToString);
+  end;
+
+  procedure TMaClasse.TestMethode;
+  var
+    P: TProcObjetGenerique<boolean>;
+  begin
+    //On détermine le type dans le corps de la méthode. La signature est donc connue.
+    UneMethode<string>('Hello', 'World');
+    UneMethode('Hello', 'World');
+
+    UneMethode<integer>(10, 20);
+    UneMethode(10, 20);
+
+    P := UneMethode<boolean>;
+    P(False, True);
+  end;
+
+  procedure TMaClasse.TestProcedure<UnType>(Prc: TProcedureGenerique<UnType>);
+  var
+    P:     TProcedureGenerique<UnType>;
+    Value: UnType;
+  begin
+    //Le type est déterminé dans la signature, il est donc inconnu.
+    Prc('Hello');
+    P     := Prc;
+    //Value:='Chaine'; //E2010 Types incompatibles : 'UnType' et 'string'
+    Value := Default(UnType);
+
+    if assigned(TObject(Value)) //Le cast est obligatoire
+    then
+      writeln('Assigné.')
+    else
+      writeln('Non assigné.');
+    P(Default(UnType));
+
+    //Todo
+    //Prc(True); //Compile mais provoque une exception. Le compilo devrais controler le type de l'agument ?
+    //P(True);
+  end;
+
+  procedure TMaClasse.TestFonction<T>(fnct: TFonctionGenerique<T>);
+  var
+    I: T;
+  begin
+    I := Fnct;
+    Writeln('Retour de fonction = ', TObject(I));
+  end;
+
+var
+  MaClasse: TMaClasse;
+begin
+  try
+    MaClasse := TMaClasse.Create;
+    with MaClasse do
+    begin
+      TestTypeProcedure(MaClasse);
+      TestMethode;
+      TestProcedure<integer>(ProcedureGeneriqueInt);
+
+      //TestProcedure<Integer>(ProcedureGeneriqueString); //E2010 Types incompatibles : 'Integer' et 'string'
+      //TestProcedure<String>(ProcedureGeneriqueInt); //E2010 Types incompatibles : 'string' et 'Integer'
+      try
+        TestProcedure<string>(ProcedureGeneriqueString);
+      except
+        on E: Exception do
+          Writeln(E.ClassName, ': ', E.Message);
+      end;
+      TestFonction<integer>(UneFonctionGeneriqueInt);
+    end;
+
+  except
+    on E: Exception do
+      Writeln(E.ClassName, ': ', E.Message);
+  end;
+  Readln;
+end.

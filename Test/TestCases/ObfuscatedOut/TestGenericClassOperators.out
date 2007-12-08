@@ -1,0 +1,24 @@
+program testgenericclassoperators;{$APPTYPE CONSOLE}
+
+uses
+  SysUtils;
+
+type
+  toperateur<t> = class
+    champ1: t;
+    procedure test(const Value: toperateur<t>);
+    class operator negative(const Value: toperateur<t>): toperateur<t>;
+  end;
+  tmonrecord1 = record
+    procedure test(const Value: tmonrecord1);
+      class operator negative(const Value: tmonrecord1): tmonrecord1;
+  end;
+
+  tmonrecord<t> = record
+    champ1: t;
+    procedure test(const Value: tmonrecord<t>);
+      class operator
+        negative(const Value: tmonrecord<t>): tmonrecord<t>;
+  end;
+end.
+ 

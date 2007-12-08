@@ -1,0 +1,82 @@
+program TestGenericInterface;
+
+{$APPTYPE CONSOLE}
+
+
+{ AFS December 2007 
+
+  This code compiles, but is not semantically meaningfull.
+  It is test cases for the code-formating utility
+
+  Test new generics syntax - code from TridenT
+}
+
+uses
+  SysUtils;
+
+type
+  IMonInterface<T> = interface
+    procedure set_Valeur(const AValeur: T);
+    function get_Valeur: T;
+    property Valeur: T Read get_Valeur Write set_Valeur;
+  end;
+
+  IMonInterfaceDerivee<T> = interface(IMonInterface<T>)
+    procedure Multiplier(AMulplicateur: T);
+  end;
+
+  TClasseTest<T> = class(TObject, IMonInterfaceDerivee<T>)
+  private
+    FCompteur: T;
+  public
+    procedure set_Valeur(const AValeur: T);
+    function get_Valeur: T;
+    procedure Multiplier(AMulplicateur: T);
+    procedure FaitQuelQueChose;
+  end;
+
+  {TClasseTest<T>}
+  procedure TClasseTest<T>.set_Valeur(const AValeur: T);
+  begin
+    FCompteur := AValeur;
+  end;
+
+  function TClasseTest<T>.get_Valeur: T;
+  begin
+    Result := FCompteur;
+  end;
+
+
+  procedure TClasseTest<T>.Multiplier(AMulplicateur: T);
+  begin
+    // On ne connait rien du type T on ne peut donc utiliser l'opérateur Multiplier
+    //FCompteur:=FCompteur * AMulplicateur;  //E2015 Opérateur non applicable à ce type d'opérande
+  end;
+
+  procedure TClasseTest<T>.FaitQuelQueChose;
+  begin
+    Writeln(TypeOf(T));
+  end;
+
+var
+  Obj:  TClasseTest<integer>;
+  Obj2: TClasseTest<double>;
+
+begin
+  try
+    Obj := TClasseTest<integer>.Create;
+    Obj.Set_Valeur(10);
+    Writeln(Obj.FCompteur);
+    Obj.FaitQuelQueChose;
+    Writeln;
+    Obj2 := TClasseTest<double>.Create;
+    Obj2.Set_Valeur(10);
+    Writeln(Obj2.FCompteur);
+    Obj2.FaitQuelQueChose;
+
+  except
+    on E: Exception do
+      Writeln(E.ClassName, ': ', E.Message);
+  end;
+  readln;
+end.

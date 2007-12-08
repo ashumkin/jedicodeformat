@@ -1,0 +1,14 @@
+program testgenericinterface;{$APPTYPE CONSOLE}uses sysutils;type imoninterface<
+t>=interface procedure set_valeur(const avaleur:t);function get_valeur:t;property
+valeur:t read get_valeur write set_valeur;end;imoninterfacederivee<t>=interface(imoninterface
+<t>)procedure multiplier(amulplicateur:t);end;tclassetest<t> =class(TObject,IMonInterfaceDerivee
+<T>)private fcompteur:t;public procedure set_valeur(const avaleur:t);function get_valeur
+:t;procedure multiplier(amulplicateur:t);procedure faitquelquechose;end;procedure
+tclassetest<t>.set_valeur(const avaleur:t);begin fcompteur:=avaleur;end;function 
+tclassetest<t>.get_valeur:t;begin result:=fcompteur;end;procedure tclassetest<t>.
+multiplier(amulplicateur:t);begin end;procedure tclassetest<t>.faitquelquechose;begin
+writeln(typeof(t));end;var obj:tclassetest<integer>;obj2:tclassetest<double>;begin
+try obj:=tclassetest<integer>.create;obj.set_valeur(10);writeln(obj.fcompteur);obj
+.faitquelquechose;writeln;obj2:=tclassetest<double>.create;obj2.set_valeur(10);writeln
+(obj2.fcompteur);obj2.faitquelquechose;except on e:exception do writeln(e.classname
+,': ',e.message);end;readln;end. 

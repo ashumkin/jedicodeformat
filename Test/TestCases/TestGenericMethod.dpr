@@ -1,0 +1,90 @@
+program TestGenericMethod;
+
+{$APPTYPE CONSOLE}
+
+{ AFS December 2007 
+
+  This code compiles, but is not semantically meaningfull.
+  It is test cases for the code-formating utility
+
+  Test new generics syntax - code from TridenT
+}
+
+uses
+  SysUtils;
+type
+   // méthode générique sur une classe générique
+  TGenericType<AnyType> = class
+    FData: AnyType;
+    function GetData: AnyType;
+
+    procedure UneMethodeGenerique<AnyType>(Variable: AnyType);
+    function UneFonctionGenerique<AnyType>: AnyType;
+    procedure UneMethode<T>(X, Y: T);
+
+    procedure SetData(Value: AnyType);
+    property Data: AnyType read GetData write SetData;
+  end;
+
+function TGenericType<AnyType>.GetData: AnyType;
+begin
+  Result := FData;
+end;
+
+procedure TGenericType<AnyType>.SetData(Value: AnyType);
+begin
+  FData := Value;
+end;
+
+procedure TGenericType<AnyType>.UneMethodeGenerique<AnyType>(Variable: AnyType);
+begin
+  Variable:=Default(AnyType);
+  Writeln(TObject(Variable).ClassName);
+  //Writeln('Default=',Variable); //E2054 cast obligatoire pour Writeln
+  Writeln('Default pour AnyType=',TObject(Variable).ClassName,'=', TObject(Variable));
+  Writeln(TObject(Variable).ClassName);
+end;
+
+function TGenericType<AnyType>.UneFonctionGenerique<AnyType>: AnyType;
+var Variable : AnyType;
+begin
+  //Result := AnyType;   //'(' attendu mais ';' trouvé (E2029)
+  Variable:=Default(AnyType);
+  Writeln(TObject(Variable).ClassName);
+  //Writeln('Default=',Variable); //E2054 cast obligatoire pour Writeln
+  Writeln('Default pour AnyType=',TObject(Variable).ClassName,'=',TObject(Variable));
+  Result := Variable;
+end;
+
+procedure TGenericType<AnyType>.UneMethode<T>(X, Y: T);
+begin
+  Writeln(X.ToString,' , ',Y.ToString);
+end;
+
+
+type
+  TGenericTypeInt = TGenericType<Integer>;
+  TGenericTypeString = TGenericType<string>;
+
+var
+  I: TGenericTypeInt;
+  S: TGenericTypeString;
+begin
+ try
+  I := TGenericTypeInt.Create;
+  I.Data := 100;
+  I.UneMethodeGenerique(I.Data);
+
+  S := TGenericTypeString.Create;
+  S.Data := 'Chaîne de cractères';
+  S.UneMethodeGenerique(S.Data);
+  S.UneMethodeGenerique<Integer>(I.Data);
+
+  ReadLn;
+
+  except
+    on E:Exception do
+      Writeln(E.Classname, ': ', E.Message);
+  end;
+end.
+

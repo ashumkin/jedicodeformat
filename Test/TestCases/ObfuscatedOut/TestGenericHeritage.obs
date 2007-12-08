@@ -1,0 +1,9 @@
+program testgenericheritage;{$APPTYPE CONSOLE}uses sysutils;type tclassdebase=class
+fdata:integer;end;tgenerique<i>=class fdata:i;end;tclassdebasederivedegenerique=class
+(TGenerique<Integer>)fdata:integer;end;tgeneriquederiveedeclass<i>=class(TClassDeBase
+)fdata:i;end;tgeneriquederiveedegenerique<i,s>=class(TGeneriqueDeriveeDeClass<I>)
+fdata:i;fitem:s;end;tgeneriquecontraint<i:constructor>=class fdata:i;end;tgeneriquederiveedegeneriquecontraint
+<i:constructor,s>=class(TGeneriqueContraint<I>)fdata:i;fitem:s;end;tparent<t> =class
+x:t;end;tenfant<s> =class(TParent<S>)y:s;end;var f:tparent<integer>;begin try f:=
+tparent<integer>.create;f.x:=10;except on e:exception do writeln(e.classname,': '
+,e.message);end;end. 
