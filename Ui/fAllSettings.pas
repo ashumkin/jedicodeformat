@@ -59,6 +59,7 @@ type
 
     procedure RemoveAll(const pbSave: boolean);
 
+    procedure BuildTree;
   protected
     function GetFrameType(const psName: string): TSettingsFrameClass; virtual;
 
@@ -124,6 +125,8 @@ const
 
 procedure TFormAllSettings.Execute;
 begin
+  BuildTree;
+
   ShowModal;
 
   if (ModalResult = mrOk) and FormatSettings.Dirty then
@@ -211,6 +214,50 @@ begin
 
   Close;
   ModalResult := mrOk;
+end;
+
+procedure TFormAllSettings.BuildTree;
+var
+  lcClarifyNode: TTreeNode;
+  lcLineBreakingNode: TTreeNode;
+  lcCaptialisationNode: TTreeNode;
+  lcFindReplaceNode: TTreeNode;
+begin
+  tvFrames.Items.Clear;
+
+  tvFrames.Items.AddChild(nil, 'Format File');
+  tvFrames.Items.AddChild(nil, 'Obfuscate');
+  lcClarifyNode := tvFrames.Items.AddChild(nil, 'Clarify');
+
+  tvFrames.Items.AddChild(lcClarifyNode, 'Spaces');
+  tvFrames.Items.AddChild(lcClarifyNode, 'Indentation');
+  tvFrames.Items.AddChild(lcClarifyNode, 'Blank Lines');
+  tvFrames.Items.AddChild(lcClarifyNode, 'Align');
+  lcLineBreakingNode := tvFrames.Items.AddChild(lcClarifyNode, 'Line Breaking');
+
+  tvFrames.Items.AddChild(lcLineBreakingNode, 'Long Lines');
+  tvFrames.Items.AddChild(lcLineBreakingNode, 'Returns');
+  tvFrames.Items.AddChild(lcLineBreakingNode, 'Case Blocks');
+  tvFrames.Items.AddChild(lcLineBreakingNode, 'Blocks');
+  tvFrames.Items.AddChild(lcLineBreakingNode, 'Compiler Directives');
+
+  tvFrames.Items.AddChild(lcClarifyNode, 'Comments');
+  tvFrames.Items.AddChild(lcClarifyNode, 'Warnings');
+  lcCaptialisationNode := tvFrames.Items.AddChild(lcClarifyNode, 'Capitalisation');
+
+  tvFrames.Items.AddChild(lcCaptialisationNode, 'Object Pascal');
+  tvFrames.Items.AddChild(lcCaptialisationNode, 'Any Word');
+  tvFrames.Items.AddChild(lcCaptialisationNode, 'Identifiers');
+  tvFrames.Items.AddChild(lcCaptialisationNode, 'Not Identifiers');
+  tvFrames.Items.AddChild(lcCaptialisationNode, 'Unit Name');
+
+  lcFindReplaceNode := tvFrames.Items.AddChild(lcClarifyNode, 'Find and Replace');
+  tvFrames.Items.AddChild(lcFindReplaceNode, 'Uses');
+
+  tvFrames.Items.AddChild(lcClarifyNode, 'Transform');
+  tvFrames.Items.AddChild(lcClarifyNode, 'Asm');
+
+  tvFrames.Items.AddChild(nil, 'PreProcessor');
 end;
 
 procedure TFormAllSettings.bbCancelClick(Sender: TObject);
