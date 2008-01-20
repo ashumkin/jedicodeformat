@@ -1532,8 +1532,21 @@ begin
       RecogniseSimpleType; {RealTypes + OrdTypes}
     ttOpenBracket:
       RecogniseSimpleType; {enumerated types}
-    ttPacked, ttArray, ttSet, ttFile, ttRecord:
-      RecogniseStrucType;
+    ttPacked:
+    begin
+      // packed can be applied to class types and to structured types (e.g. records)
+      if lc2.TokenType = ttClass then
+      begin
+        RecogniseClassType;
+      end
+      else
+      begin
+        RecogniseStrucType;
+      end;
+    end;
+
+    ttArray, ttSet, ttFile, ttRecord:
+          RecogniseStrucType;
     ttHat:
       RecognisePointerType;
     ttString, ttAnsiString, ttWideString:
@@ -3927,6 +3940,10 @@ begin
   }
 
   PushNode(nClassType);
+
+  // the class can be prefixed with "packed"
+  if fcTokenList.FirstSolidTokenType = ttPacked then
+    Recognise(ttPacked);
 
   Recognise(ttClass);
 

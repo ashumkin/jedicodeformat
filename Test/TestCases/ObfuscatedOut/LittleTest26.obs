@@ -1,3 +1,4 @@
 unit littletest26;interface type tfoorecord=packed record soy:integer;monkey:integer
-;shatner:integer;mcflurry:integer;end;const myfoorecord:tfoorecord=(soy:0;monkey:
-0;shatner:0;);implementation end. 
+;shatner:integer;mcflurry:integer;end;type apackedarray=packed array[0..4]of integer
+;type apackedclass=packed class soy:integer;monkey:integer;end;const myfoorecord:
+tfoorecord=(soy:0;monkey:0;shatner:0;);implementation end. 

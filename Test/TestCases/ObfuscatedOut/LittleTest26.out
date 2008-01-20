@@ -10,9 +10,17 @@ type
     mcflurry: integer;
   end;
 
+type
+  apackedarray = packed array[0..4] of integer;
+
+type
+  apackedclass = packed class
+    soy:    integer;
+    monkey: integer;
+  end;
+
 const
-  myfoorecord: tfoorecord = (soy: 0; monkey:
-    0; shatner: 0; );
+  myfoorecord: tfoorecord = (soy: 0; monkey: 0; shatner: 0; );
 
 implementation
 
