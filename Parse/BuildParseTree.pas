@@ -1539,6 +1539,10 @@ begin
       begin
         RecogniseClassType;
       end
+      else if lc2.TokenType = ttObject then
+      begin
+        RecogniseObjectType;
+      end
       else
       begin
         RecogniseStrucType;
@@ -3802,6 +3806,10 @@ begin
   }
 
   PushNode(nObjectType);
+
+  // optional "packed" on the oject
+  if fcTokenList.FirstSolidTokenType = ttPacked then
+   Recognise(ttPacked);
 
   Recognise(ttObject);
 

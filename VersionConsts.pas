@@ -24,8 +24,8 @@ under the License.
 interface
 
 const
-  PROGRAM_VERSION   = '2.34';
-  PROGRAM_DATE      = 'December 2007';
+  PROGRAM_VERSION   = '2.35';
+  PROGRAM_DATE      = 'January 2007';
   PROGRAM_HOME_PAGE = 'http://jedicodeformat.sourceforge.net/';
   PROGRAM_SOURCEFORGE_HOME_PAGE = 'http://sourceforge.net/projects/jedicodeformat/';
   PROGRAM_SVN_TRUNK = 'http://jedicodeformat.svn.sourceforge.net/svnroot/jedicodeformat/trunk/CodeFormat/Jcf2/';

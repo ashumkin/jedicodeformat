@@ -1,0 +1,2 @@
+unit testpackedobject;interface type tpackedobject=packed object end;implementation
+end. 

@@ -111,10 +111,12 @@
     <DCCReference Include="TestArray.pas" />
     <DCCReference Include="TestAsm.pas" />
     <DCCReference Include="TestASMAnd.pas" />
+    <DCCReference Include="TestAsmCaps.pas" />
     <DCCReference Include="TestAsmLabel.pas" />
     <DCCReference Include="TestAsmOps.pas" />
     <DCCReference Include="TestAsmStructs.pas" />
     <DCCReference Include="TestAtExpr.pas" />
+    <DCCReference Include="TestAutomated.pas" />
     <DCCReference Include="TestBlankLineRemoval.pas" />
     <DCCReference Include="TestBogusDirectives.pas" />
     <DCCReference Include="TestBogusTypes.pas" />
@@ -124,6 +126,7 @@
     <DCCReference Include="TestCastSimple.pas" />
     <DCCReference Include="TestCharLiterals.pas" />
     <DCCReference Include="TestClassLines.pas" />
+    <DCCReference Include="TestClassMethods.pas" />
     <DCCReference Include="TestCommentIndent.pas" />
     <DCCReference Include="TestCommentIndent2.pas" />
     <DCCReference Include="TestComplexAsm2.pas" />
@@ -146,6 +149,7 @@
     <DCCReference Include="TestEsotericKeywords.pas" />
     <DCCReference Include="TestExclusion.pas" />
     <DCCReference Include="TestExclusionFlags.pas" />
+    <DCCReference Include="TestExports.pas" />
     <DCCReference Include="TestForward.pas" />
     <DCCReference Include="TestGoto.pas" />
     <DCCReference Include="TestIncAt.pas" />
@@ -168,6 +172,7 @@
     <DCCReference Include="TestNestedRecords.pas" />
     <DCCReference Include="TestOleParams.pas" />
     <DCCReference Include="TestOperators.pas" />
+    <DCCReference Include="TestPackedObject.pas" />
     <DCCReference Include="TestParams.pas" />
     <DCCReference Include="TestParamSpaces.pas" />
     <DCCReference Include="TestPointers.pas" />

@@ -282,6 +282,7 @@ type
     procedure TestGenericOperatorAs;
     procedure TestGenericOperatorIs;
     procedure TestGenericTypeNullable;
+    procedure TestPackedObject;
 
     procedure TestDelphiNetLibrary;
 
@@ -826,6 +827,11 @@ end;
 procedure TTestObfuscate.TestOperators;
 begin
   TestFile('TestOperators');
+end;
+
+procedure TTestObfuscate.TestPackedObject;
+begin
+  TestFile('TestPackedObject');
 end;
 
 procedure TTestObfuscate.TestParams;

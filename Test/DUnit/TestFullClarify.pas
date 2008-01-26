@@ -283,6 +283,7 @@ type
     procedure TestGenericOperatorAs;
     procedure TestGenericOperatorIs;
     procedure TestGenericTypeNullable;
+    procedure TestPackedObject;
 
     procedure TestCases;
 
@@ -897,6 +898,11 @@ begin
   TestFile('TestMe.dpk', 684);
 end;
 
+procedure TFullTestClarify.TestPackedObject;
+begin
+  TestFile('TestPackedObject', 37);
+end;
+
 procedure TFullTestClarify.TestParams;
 begin
   TestFile('TestParams', 218);
@@ -1139,7 +1145,7 @@ end;
 
 procedure TFullTestClarify.LittleTest26;
 begin
-  TestFile('LittleTest26', 97);
+  TestFile('LittleTest26', 153);
 end;
 
 procedure TFullTestClarify.LittleTest27;
@@ -1234,7 +1240,7 @@ end;
 
 procedure TFullTestClarify.TestSimpleIfDef5;
 begin
-  TestFile('TestSimpleIfDef5', 39);
+  TestFile('TestSimpleIfDef5', 42);
 end;
 
 procedure TFullTestClarify.LittleTest38;
