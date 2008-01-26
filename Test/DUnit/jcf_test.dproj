@@ -40,6 +40,7 @@
     <DelphiCompile Include="jcf_test.dpr">
       <MainSource>MainSource</MainSource>
     </DelphiCompile>
+    <DCCReference Include="..\..\Parse\AsmKeywords.pas" />
     <DCCReference Include="..\..\Parse\BuildParseTree.pas" />
     <DCCReference Include="..\..\Parse\BuildTokenList.pas" />
     <DCCReference Include="..\..\Parse\ParseError.pas" />
@@ -70,6 +71,7 @@
     <DCCReference Include="..\..\Process\Capitalisation\SpecificWordCaps.pas" />
     <DCCReference Include="..\..\Process\Capitalisation\UnitNameCaps.pas" />
     <DCCReference Include="..\..\Process\FormatFlags.pas" />
+    <DCCReference Include="..\..\Process\Indent\IndentAsmParam.pas" />
     <DCCReference Include="..\..\Process\Indent\Indenter.pas" />
     <DCCReference Include="..\..\Process\Info\BasicStats.pas" />
     <DCCReference Include="..\..\Process\Nesting.pas" />
@@ -90,6 +92,7 @@
     <DCCReference Include="..\..\Process\Returns\RemoveBlankLinesAfterProcHeader.pas" />
     <DCCReference Include="..\..\Process\Returns\RemoveBlankLinesInVars.pas" />
     <DCCReference Include="..\..\Process\Returns\RemoveConsecutiveReturns.pas" />
+    <DCCReference Include="..\..\Process\Returns\RemoveReturnsAfter.pas" />
     <DCCReference Include="..\..\Process\Returns\RemoveReturnsAfterBegin.pas" />
     <DCCReference Include="..\..\Process\Returns\RemoveReturnsBeforeEnd.pas" />
     <DCCReference Include="..\..\Process\Returns\ReturnAfter.pas" />
@@ -133,6 +136,7 @@
     <DCCReference Include="..\..\Settings\JCFSetBase.pas" />
     <DCCReference Include="..\..\Settings\JCFSettings.pas" />
     <DCCReference Include="..\..\Settings\SetAlign.pas" />
+    <DCCReference Include="..\..\Settings\SetAsm.pas" />
     <DCCReference Include="..\..\Settings\SetCaps.pas" />
     <DCCReference Include="..\..\Settings\SetClarify.pas" />
     <DCCReference Include="..\..\Settings\SetComments.pas" />
@@ -163,6 +167,11 @@
     <DCCReference Include="TestAddBeginEnd.pas" />
     <DCCReference Include="TestAdvanceTextPos.pas" />
     <DCCReference Include="TestAlignment.pas" />
+    <DCCReference Include="TestAsmOptionsBreaks.pas" />
+    <DCCReference Include="TestAsmOptionsCaps.pas" />
+    <DCCReference Include="TestAsmOptionsIndents.pas" />
+    <DCCReference Include="TestAsmOptionsIndentsBare.pas" />
+    <DCCReference Include="TestAsmParamKeywords.pas" />
     <DCCReference Include="TestBreakConditionalCompilation.pas" />
     <DCCReference Include="TestCapitalisation.pas" />
     <DCCReference Include="TestCaseReturns.pas" />
@@ -185,6 +194,7 @@
     <DCCReference Include="TestSortUses.pas" />
     <DCCReference Include="TestSpaceBeforeBrackets.pas" />
     <DCCReference Include="TestSpacing.pas" />
+    <DCCReference Include="TestSpacingInsideBrackets.pas" />
     <DCCReference Include="TestTextAfterUnitEnd.pas" />
     <DCCReference Include="TestUsesFindReplace.pas" />
     <DCCReference Include="TestUsesReturns.pas" />
