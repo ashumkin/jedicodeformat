@@ -75,7 +75,7 @@ type
   protected
 
   public
-    constructor Create;
+    constructor Create(const pbReadRegFile: boolean);
     destructor Destroy; override;
 
     procedure Read;
@@ -121,6 +121,9 @@ type
 
 function FormatSettings: TFormatSettings;
 
+// create from a settings file
+function FormatSettingsFromFile(const psFileName: string): TFormatSettings;
+
 implementation
 
 uses
@@ -133,9 +136,9 @@ uses
   JcfRegistrySettings;
 
 
-constructor TFormatSettings.Create;
+constructor TFormatSettings.Create(const pbReadRegFile: boolean);
 begin
-  inherited;
+  inherited Create();
 
   fcObfuscate := TSetObfuscate.Create;
   fcClarify   := TSetClarify.Create;
@@ -159,8 +162,11 @@ begin
   fcReplace := TSetReplace.Create;
   fcUses    := TSetUses.Create;
   fcTransform := TSetTransform.Create;
- 
-  Read;
+
+  if pbReadRegFile then
+  begin
+    Read;
+  end;
 
   fbWriteOnExit := True;
   fbDirty := False;
@@ -424,8 +430,17 @@ var
 function FormatSettings: TFormatSettings;
 begin
   if mcFormatSettings = nil then
-    mcFormatSettings := TFormatSettings.Create;
+    mcFormatSettings := TFormatSettings.Create(true);
 
+  Result := mcFormatSettings;
+end;
+
+function FormatSettingsFromFile(const psFileName: string): TFormatSettings;
+begin
+  if mcFormatSettings = nil then
+    mcFormatSettings := TFormatSettings.Create(false);
+
+  mcFormatSettings.ReadFromFile(psFileName, true);
   Result := mcFormatSettings;
 end;
 

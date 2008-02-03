@@ -30,49 +30,14 @@
     <Borland.Personality>Delphi.Personality</Borland.Personality>
     <Borland.ProjectType>VCLApplication</Borland.ProjectType>
     <BorlandProject>
-<BorlandProject xmlns=""> <Delphi.Personality>   <Parameters>
-      <Parameters Name="RunParams">-config=C:\Code\CodeFormat\Jcf2\Test\TestCases\JCFTestSettings.cfg -out -F C:\Code\CodeFormat\Jcf2\Test\TestCases\EmptyTest1.pas</Parameters>
-      <Parameters Name="UseLauncher">False</Parameters>
-      <Parameters Name="LoadAllSymbols">True</Parameters>
-      <Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
-    </Parameters>
-    <VersionInfo>
-      <VersionInfo Name="IncludeVerInfo">False</VersionInfo>
-      <VersionInfo Name="AutoIncBuild">False</VersionInfo>
-      <VersionInfo Name="MajorVer">1</VersionInfo>
-      <VersionInfo Name="MinorVer">0</VersionInfo>
-      <VersionInfo Name="Release">0</VersionInfo>
-      <VersionInfo Name="Build">0</VersionInfo>
-      <VersionInfo Name="Debug">False</VersionInfo>
-      <VersionInfo Name="PreRelease">False</VersionInfo>
-      <VersionInfo Name="Special">False</VersionInfo>
-      <VersionInfo Name="Private">False</VersionInfo>
-      <VersionInfo Name="DLL">False</VersionInfo>
-      <VersionInfo Name="Locale">2057</VersionInfo>
-      <VersionInfo Name="CodePage">1252</VersionInfo>
-    </VersionInfo>
-    <VersionInfoKeys>
-      <VersionInfoKeys Name="CompanyName"></VersionInfoKeys>
-      <VersionInfoKeys Name="FileDescription"></VersionInfoKeys>
-      <VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys>
-      <VersionInfoKeys Name="InternalName"></VersionInfoKeys>
-      <VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys>
-      <VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys>
-      <VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys>
-      <VersionInfoKeys Name="ProductName"></VersionInfoKeys>
-      <VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
-      <VersionInfoKeys Name="Comments"></VersionInfoKeys>
-    </VersionInfoKeys>
-    <Source>
-      <Source Name="MainSource">JCF.dpr</Source>
-    </Source>
-  </Delphi.Personality> </BorlandProject></BorlandProject>
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="RunParams">-F C:\Code\Jcf\Test\TestCases\LittleTest1.pas -out -config=C:\Code\Jcf\Test\TestCases\JCFTestSettings.cfg</Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><VersionInfo><VersionInfo Name="IncludeVerInfo">False</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">1</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">0</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">2057</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName"></VersionInfoKeys><VersionInfoKeys Name="FileDescription"></VersionInfoKeys><VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Source><Source Name="MainSource">JCF.dpr</Source></Source></Delphi.Personality></BorlandProject></BorlandProject>
   </ProjectExtensions>
-  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
   <ItemGroup>
     <DelphiCompile Include="JCF.dpr">
       <MainSource>MainSource</MainSource>
     </DelphiCompile>
+    <DCCReference Include="..\Parse\AsmKeywords.pas" />
     <DCCReference Include="..\Parse\BuildParseTree.pas" />
     <DCCReference Include="..\Parse\BuildTokenList.pas" />
     <DCCReference Include="..\Parse\ParseError.pas" />
@@ -103,6 +68,7 @@
     <DCCReference Include="..\Process\Capitalisation\SpecificWordCaps.pas" />
     <DCCReference Include="..\Process\Capitalisation\UnitNameCaps.pas" />
     <DCCReference Include="..\Process\FormatFlags.pas" />
+    <DCCReference Include="..\Process\Indent\IndentAsmParam.pas" />
     <DCCReference Include="..\Process\Indent\Indenter.pas" />
     <DCCReference Include="..\Process\Info\BasicStats.pas" />
     <DCCReference Include="..\Process\Nesting.pas" />
@@ -123,6 +89,7 @@
     <DCCReference Include="..\Process\Returns\RemoveBlankLinesAfterProcHeader.pas" />
     <DCCReference Include="..\Process\Returns\RemoveBlankLinesInVars.pas" />
     <DCCReference Include="..\Process\Returns\RemoveConsecutiveReturns.pas" />
+    <DCCReference Include="..\Process\Returns\RemoveReturnsAfter.pas" />
     <DCCReference Include="..\Process\Returns\RemoveReturnsAfterBegin.pas" />
     <DCCReference Include="..\Process\Returns\RemoveReturnsBeforeEnd.pas" />
     <DCCReference Include="..\Process\Returns\ReturnAfter.pas" />
@@ -165,6 +132,7 @@
     <DCCReference Include="..\Settings\JCFSetBase.pas" />
     <DCCReference Include="..\Settings\JCFSettings.pas" />
     <DCCReference Include="..\Settings\SetAlign.pas" />
+    <DCCReference Include="..\Settings\SetAsm.pas" />
     <DCCReference Include="..\Settings\SetCaps.pas" />
     <DCCReference Include="..\Settings\SetClarify.pas" />
     <DCCReference Include="..\Settings\SetComments.pas" />
@@ -192,5 +160,4 @@
     <DCCReference Include="..\Utils\JcfMiscFunctions.pas" />
     <DCCReference Include="..\VersionConsts.pas" />
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
 </Project>

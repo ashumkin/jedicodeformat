@@ -321,7 +321,7 @@ var
     begin
       if FileExists(fsConfigFileName) then
       begin
-        FormatSettings.ReadFromFile(fsConfigFileName, True);
+        FormatSettingsFromFile(fsConfigFileName);
       end
       else
       begin
@@ -405,13 +405,14 @@ begin
   { read registry }
   GetRegSettings.ReadAll;
 
-  { format setttings will be altered by the command line.
-    Do not persist these changes }
-  FormatSettings.WriteOnExit := False;
-
   lcStatus := TStatusMsgReceiver.Create;
 
   ParseCommandLine;
+
+  { format setttings will be altered by the command line.
+    Do not persist these changes
+    do this after parsing the command line }
+  FormatSettings.WriteOnExit := False;
 
   if fbQuietFail then
   begin
