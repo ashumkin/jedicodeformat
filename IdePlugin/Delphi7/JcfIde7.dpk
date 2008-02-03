@@ -183,6 +183,12 @@ contains
   IdentifierCaps in '..\..\Process\Capitalisation\IdentifierCaps.pas',
   frIdentifierCapsSettings in '..\..\Ui\Settings\frIdentifierCapsSettings.pas' {fIdentifierCapsSettings: TFrame},
   frComments in '..\..\Ui\Settings\frComments.pas' {fComments: TFrame},
-  frAnyCapsSettings in '..\..\Ui\Settings\frAnyCapsSettings.pas' {frAnyCapsSettings: TFrame};
+  frAnyCapsSettings in '..\..\Ui\Settings\frAnyCapsSettings.pas' {frAnyCapsSettings: TFrame},
+  IndentAsmParam in '..\..\Process\Indent\IndentAsmParam.pas',
+  RemoveReturnsAfter in '..\..\Process\Returns\RemoveReturnsAfter.pas',
+  frAsm in '..\..\Ui\Settings\frAsm.pas' ,
+  JcfFontSetFunctions in '..\..\Utils\JcfFontSetFunctions.pas',
+  SetAsm in '..\..\Settings\SetAsm.pas',
+  AsmKeywords in '..\..\Parse\AsmKeywords.pas';
 
 end.
