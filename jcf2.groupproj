@@ -3,27 +3,21 @@
     <ProjectGuid>{e6cafad6-ba89-4e83-96e0-83a60f632504}</ProjectGuid>
   </PropertyGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Projects Include="CommandLine\JCF.dproj" />
-    <Projects Include="JCFGui\JCFGui.dproj" />
-    <Projects Include="Notepad\JcfNotepad.dproj" />
-    <Projects Include="Test\DUnit\jcf_test.dproj" />
-    <Projects Include="Test\TestCases\TestCases.dproj" />
-  </ItemGroup>
+  <ItemGroup />
   <ProjectExtensions>
     <Borland.Personality>Default.Personality</Borland.Personality>
     <Borland.ProjectType />
     <BorlandProject>
-  <BorlandProject xmlns=""> <Default.Personality> </Default.Personality> </BorlandProject></BorlandProject>
+<BorlandProject xmlns=""><Default.Personality></Default.Personality></BorlandProject></BorlandProject>
   </ProjectExtensions>
-  <Target Name="JCFGui">
-    <MSBuild Projects="JCFGui\JCFGui.dproj" Targets="" />
+  <Target Name="jcfGui">
+    <MSBuild Projects="JCFGui\jcfGui.dproj" Targets="" />
   </Target>
-  <Target Name="JCFGui:Clean">
-    <MSBuild Projects="JCFGui\JCFGui.dproj" Targets="Clean" />
+  <Target Name="jcfGui:Clean">
+    <MSBuild Projects="JCFGui\jcfGui.dproj" Targets="Clean" />
   </Target>
-  <Target Name="JCFGui:Make">
-    <MSBuild Projects="JCFGui\JCFGui.dproj" Targets="Make" />
+  <Target Name="jcfGui:Make">
+    <MSBuild Projects="JCFGui\jcfGui.dproj" Targets="Make" />
   </Target>
   <Target Name="JcfNotepad">
     <MSBuild Projects="Notepad\JcfNotepad.dproj" Targets="" />
@@ -34,14 +28,14 @@
   <Target Name="JcfNotepad:Make">
     <MSBuild Projects="Notepad\JcfNotepad.dproj" Targets="Make" />
   </Target>
-  <Target Name="JCF">
-    <MSBuild Projects="CommandLine\JCF.dproj" Targets="" />
+  <Target Name="jcf">
+    <MSBuild Projects="CommandLine\jcf.dproj" Targets="" />
   </Target>
-  <Target Name="JCF:Clean">
-    <MSBuild Projects="CommandLine\JCF.dproj" Targets="Clean" />
+  <Target Name="jcf:Clean">
+    <MSBuild Projects="CommandLine\jcf.dproj" Targets="Clean" />
   </Target>
-  <Target Name="JCF:Make">
-    <MSBuild Projects="CommandLine\JCF.dproj" Targets="Make" />
+  <Target Name="jcf:Make">
+    <MSBuild Projects="CommandLine\jcf.dproj" Targets="Make" />
   </Target>
   <Target Name="jcf_test">
     <MSBuild Projects="Test\DUnit\jcf_test.dproj" Targets="" />
@@ -61,14 +55,22 @@
   <Target Name="TestCases:Make">
     <MSBuild Projects="Test\TestCases\TestCases.dproj" Targets="Make" />
   </Target>
+  <Target Name="JCFIde2007">
+    <MSBuild Projects="IdePlugin\Delphi2007\JCFIde2007.dproj" Targets="" />
+  </Target>
+  <Target Name="JCFIde2007:Clean">
+    <MSBuild Projects="IdePlugin\Delphi2007\JCFIde2007.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="JCFIde2007:Make">
+    <MSBuild Projects="IdePlugin\Delphi2007\JCFIde2007.dproj" Targets="Make" />
+  </Target>
   <Target Name="Build">
-    <CallTarget Targets="JCFGui;JcfNotepad;JCF;jcf_test;TestCases" />
+    <CallTarget Targets="jcfGui;JcfNotepad;jcf;jcf_test;TestCases;JCFIde2007" />
   </Target>
   <Target Name="Clean">
-    <CallTarget Targets="JCFGui:Clean;JcfNotepad:Clean;JCF:Clean;jcf_test:Clean;TestCases:Clean" />
+    <CallTarget Targets="jcfGui:Clean;JcfNotepad:Clean;jcf:Clean;jcf_test:Clean;TestCases:Clean;JCFIde2007:Clean" />
   </Target>
   <Target Name="Make">
-    <CallTarget Targets="JCFGui:Make;JcfNotepad:Make;JCF:Make;jcf_test:Make;TestCases:Make" />
+    <CallTarget Targets="jcfGui:Make;JcfNotepad:Make;jcf:Make;jcf_test:Make;TestCases:Make;JCFIde2007:Make" />
   </Target>
-  <Import Condition="Exists('$(MSBuildBinPath)\Borland.Group.Targets')" Project="$(MSBuildBinPath)\Borland.Group.Targets" />
 </Project>
