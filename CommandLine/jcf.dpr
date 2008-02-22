@@ -7,7 +7,7 @@ program JCF;
 
 The Original Code is jcf, released May 2003.
 The Initial Developer of the Original Code is Anthony Steele. 
-Portions created by Anthony Steele are Copyright (C) 1999-2007 Anthony Steele.
+Portions created by Anthony Steele are Copyright (C) 1999-2008 Anthony Steele.
 All Rights Reserved. 
 Contributor(s): Anthony Steele. 
 

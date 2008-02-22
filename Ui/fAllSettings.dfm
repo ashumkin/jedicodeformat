@@ -23,7 +23,7 @@ object FormAllSettings: TFormAllSettings
   DesignSize = (
     872
     528)
-  PixelsPerInch = 96
+  PixelsPerInch = 120
   TextHeight = 20
   object tvFrames: TTreeView
     Left = 3

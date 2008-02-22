@@ -6,7 +6,7 @@ unit SetReturns;
 
 The Original Code is SetReturns.pas, released April 2000.
 The Initial Developer of the Original Code is Anthony Steele.
-Portions created by Anthony Steele are Copyright (C) 1999-2000 Anthony Steele.
+Portions created by Anthony Steele are Copyright (C) 1999-2008 Anthony Steele.
 All Rights Reserved.
 Contributor(s): Anthony Steele.
 

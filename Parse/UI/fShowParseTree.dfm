@@ -108,6 +108,10 @@ object frmShowParseTree: TfrmShowParseTree
     TabOrder = 3
     object tsTokens: TTabSheet
       Caption = 'Tokens'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lvTokens: TListView
         Left = 0
         Top = 0
@@ -138,6 +142,10 @@ object frmShowParseTree: TfrmShowParseTree
     object tsTree: TTabSheet
       Caption = 'Tree'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object tvParseTree: TTreeView
         Left = 0
         Top = 0

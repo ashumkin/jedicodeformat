@@ -162,7 +162,7 @@
 			<VersionInfoKeys Name="FileDescription">JEDI Code Format D9 IDE plugin</VersionInfoKeys>
 			<VersionInfoKeys Name="FileVersion">2.30.0.0</VersionInfoKeys>
 			<VersionInfoKeys Name="InternalName">JEDI Code Format</VersionInfoKeys>
-			<VersionInfoKeys Name="LegalCopyright">Anthony Steele 1999-2007 MPL</VersionInfoKeys>
+			<VersionInfoKeys Name="LegalCopyright">Anthony Steele 1999-2008 MPL</VersionInfoKeys>
 			<VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys>
 			<VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys>
 			<VersionInfoKeys Name="ProductName"></VersionInfoKeys>

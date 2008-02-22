@@ -126,9 +126,9 @@ CodePage=1252
 [Version Info Keys]
 CompanyName=Anthony Steele
 FileDescription=JEDI Code Format D6 IDE plugin
-FileVersion=2.30.0.0
+FileVersion=2.35.0.0
 InternalName=JEDI Code Format
-LegalCopyright=Anthony Steele 1999-2007 MPL
+LegalCopyright=Anthony Steele 1999-2008 MPL
 LegalTrademarks=
 OriginalFilename=
 ProductName=

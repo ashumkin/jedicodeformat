@@ -164,7 +164,7 @@
 			<VersionInfoKeys Name="FileDescription">JEDI Code Format D11 IDE plugin</VersionInfoKeys>
 			<VersionInfoKeys Name="FileVersion">2.18.0.0</VersionInfoKeys>
 			<VersionInfoKeys Name="InternalName">JEDI Code Format</VersionInfoKeys>
-			<VersionInfoKeys Name="LegalCopyright">Anthony Steele 1999-2007 MPL</VersionInfoKeys>
+			<VersionInfoKeys Name="LegalCopyright">Anthony Steele 1999-2008 MPL</VersionInfoKeys>
 			<VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys>
 			<VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys>
 			<VersionInfoKeys Name="ProductName"></VersionInfoKeys>

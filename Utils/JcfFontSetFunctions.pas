@@ -6,7 +6,7 @@ unit JcfFontSetFunctions;
 
 The Original Code is JcfFontSetFunctions, released May 2007.
 The Initial Developer of the Original Code is Jean-Fabien Connault.
-Portions created by Jean-Fabien Connault are Copyright (C) 2007 Jean-Fabien Connault.
+Portions created by Jean-Fabien Connault are Copyright (C) 1999-2008 Jean-Fabien Connault.
 All Rights Reserved.
 Contributor(s):
 SetObjectFontToSystemFont by Jean-Fabien Connault

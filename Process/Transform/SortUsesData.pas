@@ -5,7 +5,7 @@ unit SortUsesData;
 
 The Original Code is SortUsesData.pas, released September 2004.
 The Initial Developer of the Original Code is Anthony Steele.
-Portions created by Anthony Steele are Copyright (C) 2004 Anthony Steele.
+Portions created by Anthony Steele are Copyright (C) 1999-2008 Anthony Steele.
 All Rights Reserved. 
 Contributor(s): Anthony Steele.
 
