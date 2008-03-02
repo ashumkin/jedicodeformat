@@ -27,11 +27,10 @@ type
   FileContentType = (e8Bit, eUtf16LittleEndian, eUtf16BigEndian);
 
 procedure ReadTextFile(const psFileName: string;
-  out contents: WideString; out contentType: FileContentType);
+  out psContents: WideString; out peContentType: FileContentType);
 
 procedure WriteTextFile(const psFileName: string;
   const psContents: WideString; const peContentType: FileContentType);
-
 
 implementation
 
@@ -122,6 +121,8 @@ var
   fs: TFileStream;
   Len: Integer;
   lsContents: string;
+  liLoop: integer;
+  wChar: word;
 begin
   fs := TFileStream.Create(psFileName, fmCreate);
   try
@@ -138,10 +139,25 @@ begin
     end
     else if peContentType = eUtf16LittleEndian then
     begin
+      Len := Length(psContents);
+      if Len > 0 then
+      begin
+        fs.WriteBuffer(psContents[1], Len * 2);
+      end;
 
+    end
+    else if peContentType = eUtf16BigEndian then
+    begin
+      Len := Length(psContents);
+      if Len > 0 then
+      begin
+        for liLoop := 1 to Len do
+        begin
+          wChar := Swap(word(psContents[liLoop]));
+          fs.WriteBuffer(wChar, 2);
+        end;
+      end;
     end;
-         
-
 
   finally
     fs.Free;
