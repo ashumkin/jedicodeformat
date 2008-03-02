@@ -29,29 +29,60 @@ uses
 type
   TTestUnicodeFiles = class(TTestCase)
   private
-  public
+    procedure CheckStart(const ws: WideString);
+
+    // these are not passing yet
+    procedure TestReadBeUcs4File;
+    procedure TestReadLeUcs4File;
+
   published
     procedure TestReadAnsiFile;
     procedure TestReadUtf8File;
     procedure TestReadBeUcs2File;
     procedure TestReadLeUcs2File;
-
   end;
 
 implementation
 
-uses JcfUnicode;
+uses
+  SysUtils,
+  JcfUnicode;
 
+const
+  ANSI_FILE = '..\Test\TestCases\TestUnicode_ansi.pas';
+  UTF8_FILE = '..\Test\TestCases\TestUnicode_utf8.pas';
+  BE_UCS2_FILE = '..\Test\TestCases\TestUnicode_be_ucs2.pas';
+  LE_UCS2_FILE = '..\Test\TestCases\TestUnicode_le_ucs2.pas';
+  BE_UCS4_FILE = '..\Test\TestCases\TestUnicode_be_ucs4.pas';
+  LE_UCS4_FILE = '..\Test\TestCases\TestUnicode_le_ucs4.pas';
+
+
+{
+  Check that the file starts with "unit"
+  Important to see that leading chars that identify the charset
+  have not wandered in
+}
+procedure TTestUnicodeFiles.CheckStart(const ws: WideString);
+var
+  lsWStart: WideString;
+  lsStart: string;
+begin
+  lsWStart := Copy(ws, 0, 4);
+  lsStart := lsWStart;
+
+  Assert(lsStart = 'unit', 'start was ' + lsStart);
+end;
 
 procedure TTestUnicodeFiles.TestReadAnsiFile;
 var
   ls: WideString;
   le: TFileContentType;
 begin
-  ReadTextFile('..\Test\TestCases\TestUnicode_ansi.pas', ls, le);
+  ReadTextFile(ANSI_FILE, ls, le);
 
   Assert(Length(ls) > 0);
   Assert(le = e8Bit);
+  CheckStart(ls);
 end;
 
 procedure TTestUnicodeFiles.TestReadUtf8File;
@@ -59,10 +90,11 @@ var
   ls: WideString;
   le: TFileContentType;
 begin
-  ReadTextFile('..\Test\TestCases\TestUnicode_utf8.pas', ls, le);
+  ReadTextFile(UTF8_FILE, ls, le);
 
   Assert(Length(ls) > 0);
-  Assert(le = e8Bit);
+  Assert(le = eUtf8);
+  CheckStart(ls);
 end;
 
 procedure TTestUnicodeFiles.TestReadBeUcs2File;
@@ -70,10 +102,23 @@ var
   ls: WideString;
   le: TFileContentType;
 begin
-  ReadTextFile('..\Test\TestCases\TestUnicode_be_ucs2.pas', ls, le);
+  ReadTextFile(BE_UCS2_FILE, ls, le);
 
   Assert(Length(ls) > 0);
   Assert(le = eUtf16BigEndian);
+  CheckStart(ls);
+end;
+
+procedure TTestUnicodeFiles.TestReadBeUcs4File;
+var
+  ls: WideString;
+  le: TFileContentType;
+begin
+  ReadTextFile(BE_UCS4_FILE, ls, le);
+
+  Assert(Length(ls) > 0);
+  Assert(le = eUtf16BigEndian);
+  CheckStart(ls);
 end;
 
 procedure TTestUnicodeFiles.TestReadLeUcs2File;
@@ -81,12 +126,25 @@ var
   ls: WideString;
   le: TFileContentType;
 begin
-  ReadTextFile('..\Test\TestCases\TestUnicode_le_ucs2.pas', ls, le);
+  ReadTextFile(LE_UCS2_FILE, ls, le);
 
   Assert(Length(ls) > 0);
   Assert(le = eUtf16LittleEndian);
+  CheckStart(ls);
 end;
 
+
+procedure TTestUnicodeFiles.TestReadLeUcs4File;
+var
+  ls: WideString;
+  le: TFileContentType;
+begin
+  ReadTextFile(LE_UCS4_FILE, ls, le);
+
+  Assert(Length(ls) > 0);
+  Assert(le = eUtf16LittleEndian);
+  CheckStart(ls);
+end;
 
 initialization
   TestFramework.RegisterTest('Procs', TTestUnicodeFiles.Suite);
