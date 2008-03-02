@@ -24,13 +24,14 @@ under the License.
 interface
 
 type
-  FileContentType = (e8Bit, eUtf16LittleEndian, eUtf16BigEndian);
+  TFileContentType = (eUnknown, e8Bit, eUtf8,
+    eUtf16LittleEndian, eUtf16BigEndian);
 
-procedure ReadTextFile(const psFileName: string;
-  out psContents: WideString; out peContentType: FileContentType);
+procedure ReadTextFile(const psFileName: string; out psContents: WideString;
+  out peContentType: TFileContentType);
 
-procedure WriteTextFile(const psFileName: string;
-  const psContents: WideString; const peContentType: FileContentType);
+procedure WriteTextFile(const psFileName: string; const psContents: WideString;
+  const peContentType: TFileContentType);
 
 implementation
 
@@ -46,63 +47,92 @@ uses
   at: Jan 23 2006, 12:17
   found at http://delphi.newswhat.com/geoxml/forumhistorythread?groupname=borland.public.delphi.rtl.general&messageid=43d485bf$1@newsgroups.borland.com
 }
-procedure ReadTextFile(const psFileName: string;
-  out psContents: WideString; out peContentType: FileContentType);
+procedure ReadTextFile(const psFileName: string; out psContents: WideString;
+  out peContentType: TFileContentType);
 var
-  fs:     TFileStream;
-  w:      word;
-  ws:     WideString;
+  fs: TFileStream;
+  wordRead: word;
+  byteRead: byte;
+  wideContents: WideString;
   contents8bit: string;
   liBytesRemaining: integer;
   liLoop: integer;
+  lbResetPosition: boolean;
 const
+  // marker bytes at the start of the file
+  Utf8Marker12 = $BBEF;
+  Utf8Marker3  = $BF;
   Utf16LittleEndianMarker = $FEFF;
-  Utf16BigEndianMarker    = $FFFE;
+  Utf16BigEndianMarker = $FFFE;
 
 begin
+  psContents    := '';
+  peContentType := eUnknown;
+
   {open file}
   fs := TFileStream.Create(psFileName, fmOpenRead);
   try
 
     { the stream can contain unicode characters -
        we must check before parse }
-    fs.Read(w, SizeOf(w));
-    if ((w = Utf16LittleEndianMarker) or (w = Utf16BigEndianMarker)) then
+    fs.Read(wordRead, SizeOf(wordRead));
+    if ((wordRead = Utf16LittleEndianMarker) or (wordRead = Utf16BigEndianMarker)) then
     begin
       if (fs.Size > fs.Position) then
       begin
         // read it
         liBytesRemaining := fs.Size - fs.Position;
-        SetLength(ws, liBytesRemaining div 2);
-        fs.Read(ws[1], liBytesRemaining);
+        SetLength(wideContents, liBytesRemaining div 2);
+        fs.Read(wideContents[1], liBytesRemaining);
 
-        if (w = Utf16BigEndianMarker) then
+        if (wordRead = Utf16BigEndianMarker) then
         begin
           peContentType := eUtf16BigEndian;
 
           // swap the bytes
-          for liLoop := 1 to Length(ws) do
-            ws[liLoop] := widechar(Swap(word(ws[liLoop])));
+          for liLoop := 1 to Length(wideContents) do
+            wideContents[liLoop] := widechar(Swap(word(wideContents[liLoop])));
         end
         else
         begin
           peContentType := eUtf16LittleEndian;
         end;
+
+        psContents := wideContents;
       end;
     end
     else
     begin
-      // it's just an 8-bit text file
-      peContentType := e8Bit;
+      lbResetPosition := True;
 
-      // restore position
-      fs.Seek(-SizeOf(w), soFromCurrent);
+      // the file is 8-bit, but check for UTF-8 marker bytes
+      // which unlike the other 2-byte codes
+      // is 3 bytes long
+      if wordRead = Utf8Marker12 then
+      begin
+        fs.Read(byteRead, SizeOf(byteRead));
+        if byteRead = Utf8Marker3 then
+        begin
+          peContentType   := eUtf8;
+          lbResetPosition := False;
+        end;
+      end;
 
+      if peContentType = eUnknown then
+      begin
+        // it's just an 8-bit text file
+        peContentType := e8Bit;
+      end;
+
+      if lbResetPosition then
+        fs.Seek(0, soFromBeginning);
+
+      liBytesRemaining := fs.Size - fs.Position;
       // read the bytes into a string
-      SetLength(contents8bit, fs.Size);
+      SetLength(contents8bit, liBytesRemaining);
       if fs.Size > 0 then
       begin
-        fs.ReadBuffer(contents8bit[1], fs.Size);
+        fs.ReadBuffer(contents8bit[1], liBytesRemaining);
       end;
 
       // convert to wide char 
@@ -115,14 +145,14 @@ begin
   end;
 end;
 
-procedure WriteTextFile(const psFileName: string;
-  const psContents: WideString; const peContentType: FileContentType);
+procedure WriteTextFile(const psFileName: string; const psContents: WideString;
+  const peContentType: TFileContentType);
 var
-  fs: TFileStream;
-  Len: Integer;
+  fs:     TFileStream;
+  Len:    integer;
   lsContents: string;
   liLoop: integer;
-  wChar: word;
+  wChar:  word;
 begin
   fs := TFileStream.Create(psFileName, fmCreate);
   try
