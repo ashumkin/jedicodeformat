@@ -23,24 +23,32 @@ under the License.
 
 interface
 
+type
+  FileContentType = (e8Bit, eUtf16LittleEndian, eUtf16BigEndian);
+
+procedure ReadTextFile(const psFileName: string;
+  out contents: WideString; out contentType: FileContentType);
+
+procedure WriteTextFile(const psFileName: string;
+  const psContents: WideString; const peContentType: FileContentType);
+
+
 implementation
 
 uses
   Classes, SysUtils;
 
-type
-  FileContentType = (e8Bit, eUtf16LittleEndian, eUtf16BigEndian);
 
 { read in a text file,
   the file can contain 8-bit or 16-bit chars
   code adapted from a sample by Mike Shkolnik
-  in nntp: borland.public.delphi.rtl.general
+  in nntp://borland.public.delphi.rtl.general
   Re: Read UNICODE/ANSI/ASCII Text File to WideString
   at: Jan 23 2006, 12:17
   found at http://delphi.newswhat.com/geoxml/forumhistorythread?groupname=borland.public.delphi.rtl.general&messageid=43d485bf$1@newsgroups.borland.com
 }
-procedure ReadTextFile(const psFileName: string; out contents: WideString;
-  out contentType: FileContentType);
+procedure ReadTextFile(const psFileName: string;
+  out psContents: WideString; out peContentType: FileContentType);
 var
   fs:     TFileStream;
   w:      word;
@@ -58,8 +66,7 @@ begin
   try
 
     { the stream can contain unicode characters -
-       we must check before parse
-    }
+       we must check before parse }
     fs.Read(w, SizeOf(w));
     if ((w = Utf16LittleEndianMarker) or (w = Utf16BigEndianMarker)) then
     begin
@@ -72,7 +79,7 @@ begin
 
         if (w = Utf16BigEndianMarker) then
         begin
-          contentType := eUtf16BigEndian;
+          peContentType := eUtf16BigEndian;
 
           // swap the bytes
           for liLoop := 1 to Length(ws) do
@@ -80,14 +87,14 @@ begin
         end
         else
         begin
-          contentType := eUtf16LittleEndian;
+          peContentType := eUtf16LittleEndian;
         end;
       end;
     end
     else
     begin
       // it's just an 8-bit text file
-      contentType := e8Bit;
+      peContentType := e8Bit;
 
       // restore position
       fs.Seek(-SizeOf(w), soFromCurrent);
@@ -100,7 +107,7 @@ begin
       end;
 
       // convert to wide char 
-      contents := contents8bit;
+      psContents := contents8bit;
     end;
 
   finally
@@ -108,5 +115,38 @@ begin
     fs.Free;
   end;
 end;
+
+procedure WriteTextFile(const psFileName: string;
+  const psContents: WideString; const peContentType: FileContentType);
+var
+  fs: TFileStream;
+  Len: Integer;
+  lsContents: string;
+begin
+  fs := TFileStream.Create(psFileName, fmCreate);
+  try
+
+    if peContentType = e8Bit then
+    begin
+      lsContents := psContents;
+      Len := Length(lsContents);
+      if Len > 0 then
+      begin
+        fs.WriteBuffer(lsContents[1], Len);
+      end;
+
+    end
+    else if peContentType = eUtf16LittleEndian then
+    begin
+
+    end;
+         
+
+
+  finally
+    fs.Free;
+  end;
+end;
+
 
 end.
