@@ -60,10 +60,21 @@ var
   lbResetPosition: boolean;
 const
   // marker bytes at the start of the file
+
+  /// 3 bytes for UTF-8
   Utf8Marker12 = $BBEF;
   Utf8Marker3  = $BF;
+
+  // 4 bytes for UTF-16. Big or little-endian
   Utf16LittleEndianMarker = $FEFF;
   Utf16BigEndianMarker = $FFFE;
+
+  // 4 bytes for utf-32. Big or little-endian
+  Utf32LittleEndianMarker1 = $FEFF;
+  Utf32LittleEndianMarker2 = $0000;
+
+  Utf32BigEndianMarker1 = $0000;
+  Utf32BigEndianMarker2 = $FFFE;
 
 begin
   psContents    := '';
