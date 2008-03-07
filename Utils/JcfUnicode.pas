@@ -80,7 +80,15 @@ begin
 
   byte3 := byte(word2);
 
-  if  (word1 = Utf8Marker12) and (byte3 = Utf8Marker3) then
+  if (word1 = Utf32LittleEndianMarker1) and (word2 = Utf32LittleEndianMarker2) then
+  begin
+    Result := eUtf32LittleEndian;
+  end
+  else if (word1 = Utf32BigEndianMarker1) and (word2 = Utf32BigEndianMarker2) then
+  begin
+    Result := eUtf32BigEndian;
+  end
+  else if (word1 = Utf8Marker12) and (byte3 = Utf8Marker3) then
   begin
     Result := eUtf8;
   end
@@ -91,14 +99,6 @@ begin
   else if (word1 = Utf16BigEndianMarker) then
   begin
       Result := eUtf16BigEndian;
-  end
-  else if (word1 = Utf32LittleEndianMarker1) and (word2 = Utf32LittleEndianMarker2) then
-  begin
-    Result := eUtf32LittleEndian;
-  end
-  else if (word1 = Utf32BigEndianMarker1) and (word2 = Utf32BigEndianMarker2) then
-  begin
-    Result := eUtf32BigEndian;
   end
   else
   begin
@@ -183,16 +183,52 @@ begin
   Result := lsWideContents;
 end;
 
-function Read32BitFile(const pcFileStream: TFileStream; pbBigEndian: boolean): WideString;
+function SwapWords(const value: UCS4Char): UCS4Char;
+var
+  hi: word;
+  lo: word;
 begin
-  Result := '';
+  // split into 16-bit words
+  hi := value shr 16;
+  lo := value;
+
+  hi := Swap(hi);
+  lo := Swap(lo);
+
+  // recombine
+  Result := (lo shl 16) + hi;
+end;
+
+function Read32BitFile(const pcFileStream: TFileStream; pbBigEndian: boolean): WideString;
+var
+  liBytesRemaining: integer;
+  charsRemaining: integer;
+  ucs4Chars: UCS4String;
+  liLoop: integer;
+begin
+  liBytesRemaining := pcFileStream.Size - pcFileStream.Position;
+  charsRemaining := liBytesRemaining div 4;
+
+  SetLength(ucs4Chars, charsRemaining);
+  pcFileStream.Read(ucs4Chars[0], liBytesRemaining);
+
+  if pbBigEndian then
+  begin
+    // swap the bytes
+    for liLoop := 0 to charsRemaining - 1 do
+    begin
+      ucs4Chars[liLoop] := SwapWords(ucs4Chars[liLoop]);
+    end;
+  end;
+
+  Result := UCS4StringToWideString(ucs4Chars);
 end;
 
 
 
 { read in a text file,
   the file can contain 8-bit or 16-bit chars
-  code adapted from a sample by Mike Shkolnik
+  code is much adapted from a sample by Mike Shkolnik
   in nntp://borland.public.delphi.rtl.general
   Re: Read UNICODE/ANSI/ASCII Text File to WideString
   at: Jan 23 2006, 12:17
@@ -233,80 +269,6 @@ begin
   end;
 end;
 
-
-{
-
-    fs.Read(wordRead, SizeOf(wordRead));
-    if ((wordRead = Utf16LittleEndianMarker) or (wordRead = Utf16BigEndianMarker)) then
-    begin
-      if (fs.Size > fs.Position) then
-      begin
-        // read it
-        liBytesRemaining := fs.Size - fs.Position;
-        SetLength(wideContents, liBytesRemaining div 2);
-        fs.Read(wideContents[1], liBytesRemaining);
-
-        if (wordRead = Utf16BigEndianMarker) then
-        begin
-          peContentType := eUtf16BigEndian;
-
-          // swap the bytes
-          for liLoop := 1 to Length(wideContents) do
-            wideContents[liLoop] := widechar(Swap(word(wideContents[liLoop])));
-        end
-        else
-        begin
-          peContentType := eUtf16LittleEndian;
-        end;
-
-        psContents := wideContents;
-      end;
-    end
-    else
-    begin
-      lbResetPosition := True;
-
-      // the file is 8-bit, but check for UTF-8 marker bytes
-      // which unlike the other 2-byte codes
-      // is 3 bytes long
-      if wordRead = Utf8Marker12 then
-      begin
-        fs.Read(byteRead, SizeOf(byteRead));
-        if byteRead = Utf8Marker3 then
-        begin
-          peContentType   := eUtf8;
-          lbResetPosition := False;
-        end;
-      end;
-
-      if peContentType = eUnknown then
-      begin
-        // it's just an 8-bit text file
-        peContentType := e8Bit;
-      end;
-
-      if lbResetPosition then
-        fs.Seek(0, soFromBeginning);
-
-      liBytesRemaining := fs.Size - fs.Position;
-      // read the bytes into a string
-      SetLength(contents8bit, liBytesRemaining);
-      if fs.Size > 0 then
-      begin
-        fs.ReadBuffer(contents8bit[1], liBytesRemaining);
-      end;
-
-      // convert to wide char
-      psContents := contents8bit;
-    end;
-
-  finally
-    // close the file
-    fs.Free;
-  end;
-end;
-
-}
 
 procedure WriteTextFile(const psFileName: string; const psContents: WideString;
   const peContentType: TFileContentType);
