@@ -31,20 +31,26 @@ type
   private
     procedure CheckStart(const ws: WideString);
 
-    // these are not passing yet
-    procedure TestReadBeUcs4File;
-    procedure TestReadLeUcs4File;
 
   published
     procedure TestTypeAnsiFile;
     procedure TestTypeUtf8File;
+
     procedure TestTypeBeUcs2File;
     procedure TestTypeLeUcs2File;
 
+    procedure TestTypeBeUcs4File;
+    procedure TestTypeLeUcs4File;
+
     procedure TestReadAnsiFile;
     procedure TestReadUtf8File;
+
     procedure TestReadBeUcs2File;
     procedure TestReadLeUcs2File;
+
+    procedure TestReadBeUcs4File;
+    procedure TestReadLeUcs4File;
+
   end;
 
 implementation
@@ -75,7 +81,7 @@ begin
   lsWStart := Copy(ws, 0, 4);
   lsStart := lsWStart;
 
-  CheckEquals('unit', lsStart, 'start was ' + lsStart);
+  CheckEquals('unit', lsStart, 'Start text incorrect');
 end;
 
 // test types
@@ -86,7 +92,7 @@ var
 begin
   le := TypeOfTextFile(ANSI_FILE);
 
-  Assert(le = e8Bit);
+  Check(le = e8Bit);
 end;
 
 procedure TTestUnicodeFiles.TestTypeBeUcs2File;
@@ -95,7 +101,16 @@ var
 begin
   le := TypeOfTextFile(BE_UCS2_FILE);
 
-  Assert(le = eUtf16BigEndian);
+  Check(le = eUtf16BigEndian);
+end;
+
+procedure TTestUnicodeFiles.TestTypeBeUcs4File;
+var
+  le: TFileContentType;
+begin
+  le := TypeOfTextFile(BE_UCS4_FILE);
+
+  Check(le = eUtf32BigEndian);
 end;
 
 procedure TTestUnicodeFiles.TestTypeLeUcs2File;
@@ -104,7 +119,16 @@ var
 begin
   le := TypeOfTextFile(LE_UCS2_FILE);
 
-  Assert(le = eUtf16LittleEndian);
+  Check(le = eUtf16LittleEndian);
+end;
+
+procedure TTestUnicodeFiles.TestTypeLeUcs4File;
+var
+  le: TFileContentType;
+begin
+  le := TypeOfTextFile(LE_UCS4_FILE);
+
+  Check(le = eUtf32LittleEndian);
 end;
 
 procedure TTestUnicodeFiles.TestTypeUtf8File;
@@ -113,7 +137,7 @@ var
 begin
   le := TypeOfTextFile(UTF8_FILE);
 
-  Assert(le = eUtf8);
+  Check(le = eUtf8);
 end;
 
 
@@ -127,8 +151,8 @@ var
 begin
   ReadTextFile(ANSI_FILE, ls, le);
 
-  Assert(Length(ls) > 0);
-  Assert(le = e8Bit);
+  Check(Length(ls) > 0);
+  Check(le = e8Bit);
   CheckStart(ls);
 end;
 
@@ -139,8 +163,8 @@ var
 begin
   ReadTextFile(UTF8_FILE, ls, le);
 
-  Assert(Length(ls) > 0);
-  Assert(le = eUtf8);
+  Check(Length(ls) > 0);
+  Check(le = eUtf8);
   CheckStart(ls);
 end;
 
@@ -151,7 +175,7 @@ var
 begin
   ReadTextFile(BE_UCS2_FILE, ls, le);
 
-  Assert(Length(ls) > 0);
+  Check(Length(ls) > 0);
   Assert(le = eUtf16BigEndian);
   CheckStart(ls);
 end;
@@ -163,8 +187,8 @@ var
 begin
   ReadTextFile(BE_UCS4_FILE, ls, le);
 
-  Assert(Length(ls) > 0);
-  Assert(le = eUtf16BigEndian);
+  Check(Length(ls) > 0);
+  Check(le = eUtf32BigEndian);
   CheckStart(ls);
 end;
 
@@ -175,8 +199,8 @@ var
 begin
   ReadTextFile(LE_UCS2_FILE, ls, le);
 
-  Assert(Length(ls) > 0);
-  Assert(le = eUtf16LittleEndian);
+  Check(Length(ls) > 0);
+  Check(le = eUtf16LittleEndian);
   CheckStart(ls);
 end;
 
@@ -188,8 +212,8 @@ var
 begin
   ReadTextFile(LE_UCS4_FILE, ls, le);
 
-  Assert(Length(ls) > 0);
-  Assert(le = eUtf16LittleEndian);
+  Check(Length(ls) > 0);
+  Check(le = eUtf32LittleEndian);
   CheckStart(ls);
 end;
 
