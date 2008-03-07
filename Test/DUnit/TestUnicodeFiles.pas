@@ -36,6 +36,11 @@ type
     procedure TestReadLeUcs4File;
 
   published
+    procedure TestTypeAnsiFile;
+    procedure TestTypeUtf8File;
+    procedure TestTypeBeUcs2File;
+    procedure TestTypeLeUcs2File;
+
     procedure TestReadAnsiFile;
     procedure TestReadUtf8File;
     procedure TestReadBeUcs2File;
@@ -70,8 +75,50 @@ begin
   lsWStart := Copy(ws, 0, 4);
   lsStart := lsWStart;
 
-  Assert(lsStart = 'unit', 'start was ' + lsStart);
+  CheckEquals('unit', lsStart, 'start was ' + lsStart);
 end;
+
+// test types
+
+procedure TTestUnicodeFiles.TestTypeAnsiFile;
+var
+  le: TFileContentType;
+begin
+  le := TypeOfTextFile(ANSI_FILE);
+
+  Assert(le = e8Bit);
+end;
+
+procedure TTestUnicodeFiles.TestTypeBeUcs2File;
+var
+  le: TFileContentType;
+begin
+  le := TypeOfTextFile(BE_UCS2_FILE);
+
+  Assert(le = eUtf16BigEndian);
+end;
+
+procedure TTestUnicodeFiles.TestTypeLeUcs2File;
+var
+  le: TFileContentType;
+begin
+  le := TypeOfTextFile(LE_UCS2_FILE);
+
+  Assert(le = eUtf16LittleEndian);
+end;
+
+procedure TTestUnicodeFiles.TestTypeUtf8File;
+var
+  le: TFileContentType;
+begin
+  le := TypeOfTextFile(UTF8_FILE);
+
+  Assert(le = eUtf8);
+end;
+
+
+
+/// test reading
 
 procedure TTestUnicodeFiles.TestReadAnsiFile;
 var

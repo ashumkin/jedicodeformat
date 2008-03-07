@@ -178,7 +178,9 @@ uses
   IndentAsmParam in '..\..\Process\Indent\IndentAsmParam.pas',
   TestAsmOptionsIndentsBare in 'TestAsmOptionsIndentsBare.pas',
   AsmKeywords in '..\..\Parse\AsmKeywords.pas',
-  TestAsmParamKeywords in 'TestAsmParamKeywords.pas';
+  TestAsmParamKeywords in 'TestAsmParamKeywords.pas',
+  JcfUnicode in '..\..\Utils\JcfUnicode.pas',
+  TestUnicodeFiles in 'TestUnicodeFiles.pas';
 
 {$R *.res}
 
