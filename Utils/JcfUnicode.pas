@@ -42,10 +42,13 @@ uses
   Classes, SysUtils;
 
 const
-  // marker bytes at the start of the file
+  // byte order markers (BOM)
+  // these are found at the start of the file
 
   /// 3 bytes for UTF-8
   Utf8Marker12 = $BBEF;
+  Utf8Marker1 = $EF;
+  Utf8Marker2 = $BB;
   Utf8Marker3  = $BF;
 
   // 4 bytes for UTF-16. Big or little-endian
@@ -281,11 +284,11 @@ begin
 
     if pbUtf8Header then
     begin
-      utf8Header[0] := $00;
-      utf8Header[1] := $00;
-      utf8Header[2] := $00;
+      // write the BOM
+      utf8Header[0] := Utf8Marker1;
+      utf8Header[1] := Utf8Marker2;
+      utf8Header[2] := Utf8Marker3;
       pcFileStream.WriteBuffer(utf8Header[0], 3);
-
     end;
 
     if Len > 0 then
@@ -309,6 +312,10 @@ begin
   begin
     if pbBigEndian then
     begin
+      // write the BOM
+      wChar := Utf16BigEndianMarker;
+      pcFileStream.WriteBuffer(wChar, 2);
+
       for liLoop := 1 to Len do
       begin
         wChar := Swap(word(psContents[liLoop]));
@@ -317,6 +324,10 @@ begin
     end
     else
     begin
+      // write the BOM
+      wChar := Utf16LittleEndianMarker;
+      pcFileStream.WriteBuffer(wChar, 2);
+
       pcFileStream.WriteBuffer(psContents[1], Len * 2);
     end;
   end;
@@ -330,6 +341,7 @@ var
   liLoop: integer;
   lsUcs4String: UCS4String;
   lcUcs4Char: UCS4Char;
+  wChar: word;
 begin
   Len := Length(psContents);
 
@@ -339,7 +351,13 @@ begin
 
     if pbBigEndian then
     begin
-      for liLoop := 1 to Len do
+      // write the BOM
+      wChar := Utf32BigEndianMarker1;
+      pcFileStream.WriteBuffer(wChar, 2);
+      wChar := Utf32BigEndianMarker2;
+      pcFileStream.WriteBuffer(wChar, 2);
+
+      for liLoop := 0 to Len do
       begin
         lcUcs4Char := SwapWords(lsUcs4String[liLoop]);
         pcFileStream.WriteBuffer(lcUcs4Char, 4);
@@ -347,11 +365,16 @@ begin
     end
     else
     begin
-      pcFileStream.WriteBuffer(lsUcs4String[1], Len * 4);
+      // write the BOM
+      wChar := Utf32LittleEndianMarker1;
+      pcFileStream.WriteBuffer(wChar, 2);
+      wChar := Utf32LittleEndianMarker2;
+      pcFileStream.WriteBuffer(wChar, 2);
+
+      // an array not a real string, indexed from zero
+      pcFileStream.WriteBuffer(lsUcs4String[0], (Len + 1) * 4);
     end;
   end;
-
-
 end;
 
 
