@@ -30,6 +30,8 @@ type
   TTestUnicodeFiles = class(TTestCase)
   private
     procedure CheckStart(const ws: WideString);
+    procedure CheckFileSame(const fileName1: string; const fileName2: string);
+    procedure CheckReadWriteFile(const psFileName: string);
 
 
   published
@@ -51,12 +53,16 @@ type
     procedure TestReadBeUcs4File;
     procedure TestReadLeUcs4File;
 
+    procedure TestReadWriteAnsiFile;
+    procedure TestReadWriteUtf8File;
+
   end;
 
 implementation
 
 uses
   SysUtils,
+  Windows,
   JcfUnicode;
 
 const
@@ -67,6 +73,7 @@ const
   BE_UCS4_FILE = '..\Test\TestCases\TestUnicode_be_ucs4.pas';
   LE_UCS4_FILE = '..\Test\TestCases\TestUnicode_le_ucs4.pas';
 
+  TEMP_FILE = '..\Test\TestCases\TempUnicodeFile.tmp';
 
 {
   Check that the file starts with "unit"
@@ -82,6 +89,45 @@ begin
   lsStart := lsWStart;
 
   CheckEquals('unit', lsStart, 'Start text incorrect');
+end;
+
+procedure TTestUnicodeFiles.CheckFileSame(const fileName1, fileName2: string);
+var
+  ls1: WideString;
+  le1: TFileContentType;
+  ls2: WideString;
+  le2: TFileContentType;
+  liLoop: integer;
+begin
+  ReadTextFile(fileName1, ls1, le1);
+  ReadTextFile(fileName2, ls2, le2);
+
+  Check(le1 = le2, 'file types differ: ' + IntToStr(Ord(le1)) + ' vs ' + IntToStr(Ord(le2)));
+  CheckEquals(Length(ls1), Length(ls2), 'file lengths differ');
+
+  for liLoop := 1 to Length(ls1) do
+  begin
+    CheckEquals(ls1[liLoop], ls2[liLoop], ' Diffrence at ' + IntToStr(liLoop));
+  end;
+    
+end;
+
+
+procedure TTestUnicodeFiles.CheckReadWriteFile(const psFileName: string);
+var
+  ls: WideString;
+  le: TFileContentType;
+begin
+  ReadTextFile(psFileName, ls, le);
+
+  Check(Length(ls) > 0);
+
+  WriteTextFile(TEMP_FILE, ls, le);
+  try
+    CheckFileSame(psFileName, TEMP_FILE);
+  finally
+    DeleteFile(TEMP_FILE);
+  end;
 end;
 
 // test types
@@ -168,6 +214,7 @@ begin
   CheckStart(ls);
 end;
 
+
 procedure TTestUnicodeFiles.TestReadBeUcs2File;
 var
   ls: WideString;
@@ -216,6 +263,19 @@ begin
   Check(le = eUtf32LittleEndian);
   CheckStart(ls);
 end;
+
+// test writing
+
+procedure TTestUnicodeFiles.TestReadWriteAnsiFile;
+begin
+  CheckReadWriteFile(ANSI_FILE);
+end;
+
+procedure TTestUnicodeFiles.TestReadWriteUtf8File;
+begin
+  CheckReadWriteFile(UTF8_FILE);
+end;
+
 
 initialization
   TestFramework.RegisterTest('Procs', TTestUnicodeFiles.Suite);
