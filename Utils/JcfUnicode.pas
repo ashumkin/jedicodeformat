@@ -269,50 +269,101 @@ begin
   end;
 end;
 
+procedure Write8BitFile(const pcFileStream: TFileStream; const psContents: WideString);
+var
+  Len:    integer;
+  lsContents: string;
+begin
+    lsContents := psContents;
+    Len := Length(lsContents);
+    if Len > 0 then
+    begin
+      pcFileStream.WriteBuffer(lsContents[1], Len);
+    end;
+end;
+
+procedure Write16BitFile(const pcFileStream: TFileStream;
+  const psContents: WideString; const pbBigEndian: boolean);
+var
+  Len:    integer;
+  liLoop: integer;
+  wChar:  word;
+begin
+
+  Len := Length(psContents);
+
+  if Len > 0 then
+  begin
+    if pbBigEndian then
+    begin
+      for liLoop := 1 to Len do
+      begin
+        wChar := Swap(word(psContents[liLoop]));
+        pcFileStream.WriteBuffer(wChar, 2);
+      end;
+    end
+    else
+    begin
+      pcFileStream.WriteBuffer(psContents[1], Len * 2);
+    end;
+  end;
+
+end;
+
+procedure Write32BitFile(const pcFileStream: TFileStream;
+  const psContents: WideString; const pbBigEndian: boolean);
+var
+  Len:    integer;
+  liLoop: integer;
+  lsUcs4String: UCS4String;
+  lcUcs4Char: UCS4Char;
+begin
+  Len := Length(psContents);
+
+  if Len > 0 then
+  begin
+    lsUcs4String := WideStringToUCS4String(psContents);
+
+    if pbBigEndian then
+    begin
+      for liLoop := 1 to Len do
+      begin
+        lcUcs4Char := lsUcs4String[liLoop];
+        pcFileStream.WriteBuffer(lcUcs4Char, 4);
+      end;
+    end
+    else
+    begin
+      pcFileStream.WriteBuffer(lsUcs4String[1], Len * 4);
+    end;
+  end;
+
+
+end;
+
 
 procedure WriteTextFile(const psFileName: string; const psContents: WideString;
   const peContentType: TFileContentType);
 var
   fs:     TFileStream;
-  Len:    integer;
-  lsContents: string;
-  liLoop: integer;
-  wChar:  word;
-begin
+ begin
   fs := TFileStream.Create(psFileName, fmCreate);
   try
 
-    if peContentType = e8Bit then
-    begin
-      lsContents := psContents;
-      Len := Length(lsContents);
-      if Len > 0 then
-      begin
-        fs.WriteBuffer(lsContents[1], Len);
-      end;
-
-    end
-    else if peContentType = eUtf16LittleEndian then
-    begin
-      Len := Length(psContents);
-      if Len > 0 then
-      begin
-        fs.WriteBuffer(psContents[1], Len * 2);
-      end;
-
-    end
-    else if peContentType = eUtf16BigEndian then
-    begin
-      Len := Length(psContents);
-      if Len > 0 then
-      begin
-        for liLoop := 1 to Len do
-        begin
-          wChar := Swap(word(psContents[liLoop]));
-          fs.WriteBuffer(wChar, 2);
-        end;
-      end;
-    end;
+   case peContentType of
+     e8Bit, eUtf8:
+     begin
+       Write8BitFile(fs, psContents);
+     end;
+     eUtf16LittleEndian, eUtf16BigEndian:
+     begin
+       Write16BitFile(fs, psContents, peContentType = eUtf16BigEndian);
+     end;
+     eUtf32LittleEndian, eUtf32BigEndian:
+     begin
+       Write32BitFile(fs, psContents, peContentType = eUtf32BigEndian);
+     end;
+   end;
 
   finally
     fs.Free;
