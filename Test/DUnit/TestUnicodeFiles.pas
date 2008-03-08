@@ -56,6 +56,11 @@ type
     procedure TestReadWriteAnsiFile;
     procedure TestReadWriteUtf8File;
 
+    procedure TestReadWriteBeUcs2File;
+    procedure TestReadWriteLeUcs2File;
+
+    procedure TestReadWriteBeUcs4File;
+    procedure TestReadWriteLeUcs4File;
   end;
 
 implementation
@@ -276,6 +281,25 @@ begin
   CheckReadWriteFile(UTF8_FILE);
 end;
 
+procedure TTestUnicodeFiles.TestReadWriteBeUcs2File;
+begin
+  CheckReadWriteFile(BE_UCS2_FILE);
+end;
+
+procedure TTestUnicodeFiles.TestReadWriteLeUcs2File;
+begin
+  CheckReadWriteFile(LE_UCS2_FILE);
+end;
+
+procedure TTestUnicodeFiles.TestReadWriteLeUcs4File;
+begin
+  CheckReadWriteFile(LE_UCS4_FILE);
+end;
+
+procedure TTestUnicodeFiles.TestReadWriteBeUcs4File;
+begin
+  CheckReadWriteFile(BE_UCS4_FILE);
+end;
 
 initialization
   TestFramework.RegisterTest('Procs', TTestUnicodeFiles.Suite);
