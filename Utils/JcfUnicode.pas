@@ -41,8 +41,6 @@ implementation
 uses
   Classes, SysUtils;
 
-
-function ReadFileHeader(const pcFileStream: TFileStream): TFileContentType;
 const
   // marker bytes at the start of the file
 
@@ -60,6 +58,8 @@ const
 
   Utf32BigEndianMarker1 = $0000;
   Utf32BigEndianMarker2 = $FFFE;
+
+function ReadFileHeader(const pcFileStream: TFileStream): TFileContentType;
 var
   word1: word;
   word2: word;
@@ -269,18 +269,31 @@ begin
   end;
 end;
 
-procedure Write8BitFile(const pcFileStream: TFileStream; const psContents: WideString);
+procedure Write8BitFile(const pcFileStream: TFileStream;
+  const psContents: WideString; const pbUtf8Header: boolean);
 var
   Len:    integer;
   lsContents: string;
+  utf8Header: array [0..2] of byte;
 begin
     lsContents := psContents;
     Len := Length(lsContents);
+
+    if pbUtf8Header then
+    begin
+      utf8Header[0] := $00;
+      utf8Header[1] := $00;
+      utf8Header[2] := $00;
+      pcFileStream.WriteBuffer(utf8Header[0], 3);
+
+    end;
+
     if Len > 0 then
     begin
       pcFileStream.WriteBuffer(lsContents[1], Len);
     end;
 end;
+
 
 procedure Write16BitFile(const pcFileStream: TFileStream;
   const psContents: WideString; const pbBigEndian: boolean);
@@ -328,7 +341,7 @@ begin
     begin
       for liLoop := 1 to Len do
       begin
-        lcUcs4Char := lsUcs4String[liLoop];
+        lcUcs4Char := SwapWords(lsUcs4String[liLoop]);
         pcFileStream.WriteBuffer(lcUcs4Char, 4);
       end;
     end
@@ -353,16 +366,22 @@ var
    case peContentType of
      e8Bit, eUtf8:
      begin
-       Write8BitFile(fs, psContents);
+       Write8BitFile(fs, psContents, peContentType = eUtf8);
      end;
+
      eUtf16LittleEndian, eUtf16BigEndian:
      begin
        Write16BitFile(fs, psContents, peContentType = eUtf16BigEndian);
      end;
+
      eUtf32LittleEndian, eUtf32BigEndian:
      begin
        Write32BitFile(fs, psContents, peContentType = eUtf32BigEndian);
      end;
+
+     else
+       raise Exception.Create('Unknown file content type: ' + IntToStr(Ord(peContentType)));
+
    end;
 
   finally
