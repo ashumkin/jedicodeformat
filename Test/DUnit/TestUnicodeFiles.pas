@@ -35,6 +35,8 @@ type
 
 
   published
+    procedure TestAnsiFileSameAsFileToString;
+
     procedure TestTypeAnsiFile;
     procedure TestTypeUtf8File;
 
@@ -68,6 +70,7 @@ implementation
 uses
   SysUtils,
   Windows,
+  JclStrings,
   JcfUnicode;
 
 const
@@ -194,6 +197,26 @@ end;
 
 
 /// test reading
+
+procedure TTestUnicodeFiles.TestAnsiFileSameAsFileToString;
+var
+  lsReadTextFile: WideString;
+  lsNarrow: string;
+  le: TFileContentType;
+
+  lsFileToString: string;
+  lwsFileToString: WideString;
+begin
+  ReadTextFile(ANSI_FILE, lsReadTextFile, le);
+
+  lsFileToString := FileToString(ANSI_FILE);
+  lwsFileToString := lsFileToString;
+
+  Check(lwsFileToString = lsReadTextFile);
+
+  lsNarrow := lsReadTextFile;
+  Check(lsFileToString = lsNarrow);
+end;
 
 procedure TTestUnicodeFiles.TestReadAnsiFile;
 var
