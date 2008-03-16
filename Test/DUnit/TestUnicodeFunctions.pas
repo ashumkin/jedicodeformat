@@ -54,12 +54,26 @@ type
     procedure TestWideCharIsWhiteSpaceNoReturnSuccess;
     procedure TestWideCharIsWhiteSpaceNoReturnFail;
 
+    procedure TestStringRepeat;
   end;
 
 implementation
 
 uses
   JcfUnicode;
+
+procedure TTestUnicodeFunctions.TestStringRepeat;
+begin
+  CheckTrue('' = WideStringRepeat('A', 0));
+  CheckTrue('A' = WideStringRepeat('A', 1));
+  CheckTrue('AA' = WideStringRepeat('A', 2));
+  CheckTrue('AAA' = WideStringRepeat('A', 3));
+
+  CheckTrue('' = WideStringRepeat('Foo', 0));
+  CheckTrue('Foo' = WideStringRepeat('Foo', 1));
+  CheckTrue('FooFoo' = WideStringRepeat('Foo', 2));
+
+end;
 
 procedure TTestUnicodeFunctions.TestWideCharIsAlphaFail;
 begin

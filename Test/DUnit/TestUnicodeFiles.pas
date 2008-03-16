@@ -71,7 +71,7 @@ uses
   SysUtils,
   Windows,
   JclStrings,
-  JcfUnicode;
+  JcfUnicodeFiles;
 
 const
   ANSI_FILE = '..\Test\TestCases\TestUnicode_ansi.pas';
