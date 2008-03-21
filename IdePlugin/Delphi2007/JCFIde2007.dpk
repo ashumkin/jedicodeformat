@@ -194,6 +194,7 @@ contains
   frAsm in '..\..\Ui\Settings\frAsm.pas',
   fAllSettings in '..\..\Ui\fAllSettings.pas',
   IndentAsmParam in '..\..\Process\Indent\IndentAsmParam.pas',
-  AsmKeywords in '..\..\Parse\AsmKeywords.pas';
+  AsmKeywords in '..\..\Parse\AsmKeywords.pas',
+  JcfUnicode in '..\..\Utils\JcfUnicode.pas';
 
 end.

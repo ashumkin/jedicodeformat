@@ -163,6 +163,7 @@
     <DCCReference Include="..\..\Utils\JcfLog.pas" />
     <DCCReference Include="..\..\Utils\JcfMiscFunctions.pas" />
     <DCCReference Include="..\..\Utils\JcfUnicode.pas" />
+    <DCCReference Include="..\..\Utils\JcfUnicodeFiles.pas" />
     <DCCReference Include="..\..\VersionConsts.pas" />
     <DCCReference Include="BaseTestProcess.pas" />
     <DCCReference Include="TestAddBeginEnd.pas" />
@@ -198,6 +199,7 @@
     <DCCReference Include="TestSpacingInsideBrackets.pas" />
     <DCCReference Include="TestTextAfterUnitEnd.pas" />
     <DCCReference Include="TestUnicodeFiles.pas" />
+    <DCCReference Include="TestUnicodeFunctions.pas" />
     <DCCReference Include="TestUsesFindReplace.pas" />
     <DCCReference Include="TestUsesReturns.pas" />
     <DCCReference Include="TestWarnings.pas" />

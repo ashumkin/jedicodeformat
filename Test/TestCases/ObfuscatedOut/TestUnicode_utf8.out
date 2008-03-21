@@ -1,0 +1,19 @@
+﻿unit unit1;
+
+interface
+
+uses Classes, SysUtils, resources, Forms, Controls, Graphics, Dialogs;
+
+type
+  tform1 = class(TForm)
+  private
+  public
+  end;
+
+var
+  form1: tform1;
+
+implementation
+
+initialization
+{$I *.res}end.

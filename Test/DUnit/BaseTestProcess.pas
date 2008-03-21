@@ -150,7 +150,7 @@ begin
   StrReplace(Result, AnsiLineBreak, '-q' + AnsiLineBreak, [rfReplaceAll]);
 end;
 
-function DiffText(const ps1, ps2: string): string;
+function DiffText(const ps1, ps2: WideString): string;
 var
   psDiff1, psDiff2: string;
   liStartDif: integer;

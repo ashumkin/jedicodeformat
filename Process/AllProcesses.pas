@@ -187,6 +187,7 @@ begin
   begin
     // normal clarify path
     ClarifySetup;
+
     Transform;
     Warnings;
     Capitalisation;

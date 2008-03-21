@@ -45,7 +45,7 @@ uses
   { jcl }
   JclStrings,
   { jcf }
-  TestConstants;
+  JcfUnicodeFiles, TestConstants;
 
 procedure TTestFile.Setup;
 begin
@@ -56,20 +56,23 @@ end;
 
 procedure TTestFile.TestFileContentsSame(const psFileName1, psFileName2: string);
 var
-  lsFile1, lsFile2: string;
+  lsFile1, lsFile2: WideString;
+  leFileType1, leFileType2: TFileContentType;
 begin
   Check(FileExists(psFileName1), 'File ' + psFileName1 + ' does not exist');
   Check(FileExists(psFileName2), 'File ' + psFileName2 + ' does not exist');
 
-  lsFile1 := FileToString(psFileName1);
-  lsFile2 := FileToString(psFileName2);
+  ReadTextFile(psFileName1, lsFile1, leFileType1);
+  ReadTextFile(psFileName2, lsFile2, leFileType2);
 
-  // first check lengths
+  // check types
+  Check(leFileType1 = leFileType2, 'File types differ');
+
+  // check lengths
   CheckEquals(Length(lsFile1), Length(lsFile2),
     'Files lengths differ, ' +
     IntToStr(Length(lsFile1)) + ' vs ' + IntToStr(Length(lsFile2)) + ' ' +
     psFileName1 + ' and ' + psFileName2);
-
 
   // check contents the same
   if (lsFile1 <> lsFile2) then

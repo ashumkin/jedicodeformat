@@ -561,6 +561,18 @@ begin
     ( not pt.HasParentNode(nStatementLabel)) then
     Inc(liIndentCount);
 
+  // program or library top level procs
+  // todo: finish. re bug 1898723 ] Identination of procedures in library
+  // make an option?
+  if pt.HasParentNode([nLibrary, nProgram]) and (liIndentCount >= 1) then
+  begin
+    if not pt.HasParentNode([nExports, nUses, nBlock]) then
+    begin
+      Dec(liIndentCount);
+    end;
+
+  end;
+
   Assert(liIndentCount >= 0, 'Indent count = ' + IntToStr(liIndentCount) +
     ' for ' + pt.Describe);
 

@@ -172,15 +172,15 @@ uses
   JclStrings,
   { local }
   ParseTreeNodeType, Tokens, Nesting,
-  JcfSettings, SetReturns,
-  AsmKeywords;
+  JcfSettings, JcfUnicode,
+  SetReturns, AsmKeywords;
 
 
 function NewReturn: TSourceToken;
 begin
   Result := TSourceToken.Create;
   Result.TokenType := ttReturn;
-  Result.SourceCode := AnsiLineBreak;
+  Result.SourceCode := WideLineBreak;
 end;
 
 function NewSpace(const piLength: integer): TSourceToken;
@@ -189,7 +189,7 @@ begin
 
   Result := TSourceToken.Create;
   Result.TokenType := ttWhiteSpace;
-  Result.SourceCode := StrRepeat(AnsiSpace, piLength);
+  Result.SourceCode := WideStringRepeat(WideSpace, piLength);
 end;
 
 procedure InsertTokenAfter(const pt, ptNew: TSourceToken);
@@ -543,7 +543,7 @@ begin
     exit;
 
   // otherwise, if it contains a return it's not single line 
-  if (Pos(AnsiLineBreak, pcToken.SourceCode) <= 0) then
+  if (Pos(WideLineBreak, pcToken.SourceCode) <= 0) then
     exit;
 
   Result := True;

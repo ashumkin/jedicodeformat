@@ -442,8 +442,8 @@ type
 const
   PREPROC_BLOCK_END = [ppElseIf, ppElse, ppEndIf, ppIfEnd];
 
-procedure GetPreprocessorSymbolData(const psSourceCode: string;
-  var peSymbolType: TPreProcessorSymbolType; var psText: string);
+procedure GetPreprocessorSymbolData(const psSourceCode: WideString;
+  var peSymbolType: TPreProcessorSymbolType; var psText: WideString);
 
 function PreProcSymbolTypeToString(const peSymbolType: TPreProcessorSymbolType): string;
 function PreProcSymbolTypeSetToString(
@@ -454,7 +454,8 @@ implementation
 uses
   SysUtils,
   Windows,
-  JclStrings;
+  JclStrings,
+  JcfUnicode;
 
 { the majority of these tokens have a fixed textual representation
   e.g. ':=', 'if'.
@@ -1015,8 +1016,8 @@ const
 
 
 { given a token, identify the preprocessor symbol and the text after it }
-procedure GetPreprocessorSymbolData(const psSourceCode: string;
-  var peSymbolType: TPreProcessorSymbolType; var psText: string);
+procedure GetPreprocessorSymbolData(const psSourceCode: WideString;
+  var peSymbolType: TPreProcessorSymbolType; var psText: WideString);
 var
   leLoop:    TPreProcessorSymbolType;
   liItemLen: integer;
@@ -1031,7 +1032,7 @@ begin
 
     liItemLen := Length(PreProcessorSymbolData[leLoop]);
     if AnsiSameText(StrLeft(psSourceCode, liItemLen), PreProcessorSymbolData[leLoop]) and
-      ( not CharIsAlpha(psSourceCode[liItemLen + 1])) then
+      ( not WideCharIsAlpha(psSourceCode[liItemLen + 1])) then
     begin
       peSymbolType := leLoop;
       break;

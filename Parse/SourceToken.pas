@@ -35,7 +35,7 @@ type
   TSourceToken = class(TParseTreeNode)
   private
     { property implementation }
-    fsSourceCode: string;
+    fsSourceCode: WideString;
     feTokenType: TTokenType;
     feWordType: TWordType;
     feCommentStyle: TCommentStyle;
@@ -45,7 +45,7 @@ type
     fbPreprocessedOut: boolean;
 
     fePreprocessorSymbol: TPreProcessorSymbolType;
-    fsPreProcessorText: string;
+    fsPreProcessorText: WideString;
 
   protected
   public
@@ -77,7 +77,7 @@ type
     property TokenType: TTokenType Read feTokenType Write feTokenType;
     property WordType: TWordType Read feWordType Write feWordType;
 
-    property SourceCode: string Read fsSourceCode Write fsSourceCode;
+    property SourceCode: WideString Read fsSourceCode Write fsSourceCode;
     property CommentStyle: TCommentStyle Read feCommentStyle Write feCommentStyle;
 
     property XPosition: integer Read fiXPosition Write fiXPosition;
@@ -86,7 +86,7 @@ type
       Read fiSolidTokenOnLineIndex Write fiSolidTokenOnLineIndex;
 
     property PreprocessorSymbol: TPreProcessorSymbolType Read fePreprocessorSymbol;
-    property PreProcessorText: string Read fsPreProcessorText;
+    property PreProcessorText: WideString Read fsPreProcessorText;
 
     property PreprocessedOut: boolean Read fbPreprocessedOut Write fbPreprocessedOut;
   end;

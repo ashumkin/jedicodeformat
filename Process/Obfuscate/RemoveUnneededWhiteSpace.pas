@@ -43,20 +43,22 @@ implementation
 
 uses
   JclStrings,
-  { local }SourceToken, Tokens, ParseTreeNodeType,
+  { local }
+  SourceToken, Tokens, ParseTreeNodeType,
+  JcfUnicode,
   FormatFlags, TokenUtils;
 
-function TextOrNumberString(const str: string): boolean;
+function TextOrNumberString(const str: WideString): boolean;
 var
   liLoop: integer;
-  ch:     char;
+  ch:     WideChar;
 begin
   Result := True;
 
   for liLoop := 1 to Length(str) do
   begin
     ch := str[liLoop];
-    if not (CharIsAlphaNum(ch) or (ch = '_') or (ch = '.')) then
+    if not (WideCharIsAlphaNum(ch) or (ch = '_') or (ch = '.')) then
     begin
       Result := False;
       break;

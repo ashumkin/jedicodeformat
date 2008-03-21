@@ -1,0 +1,3 @@
+unit ansi_unit1;interface uses classes,sysutils,resources,forms,controls,graphics
+,dialogs;type tform1=class(TForm)private public end;var form1:tform1;implementation
+initialization {$I *.res}end.

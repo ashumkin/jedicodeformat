@@ -45,6 +45,7 @@ implementation
 
 uses
   JclStrings,
+  JcfUnicode,
   SourceToken, Tokens, FormatFlags, TokenUtils, ParseTreeNodeType;
 
 function CanBreakHere(const pt: TSourceToken): boolean;
@@ -102,7 +103,7 @@ begin
 
         lcNew := TSourceToken.Create;
         lcNew.TokenType := ttReturn;
-        lcNew.SourceCode := AnsiLineBreak;
+        lcNew.SourceCode := WideLineBreak;
         XPos  := 0;
 
         InsertTokenAfter(lcToken, lcNew);

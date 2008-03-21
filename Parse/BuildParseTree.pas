@@ -278,7 +278,8 @@ uses
   { delphi }
   SysUtils, Forms,
   { jcl }
-  JclStrings;
+  JclStrings,
+  JcfUnicode;
 
 const
   UPDATE_INTERVAL = 512;
@@ -864,7 +865,6 @@ begin
   PushNode(nBlock);
 
   // [DeclSection]
-
   if lt in (Declarations + ProcedureWords) then
     RecogniseDeclSections;
 
@@ -2465,7 +2465,7 @@ begin
   begin
     lc2 := fcTokenList.SolidToken(2);
     lbOldStyleCharEscape := (lc2 <> nil) and (Length(lc2.Sourcecode) = 1) and
-      not (CharIsAlpha(lc2.Sourcecode[1]));
+      not (WideCharIsAlpha(lc2.Sourcecode[1]));
   end
   else
     lc2 := nil;

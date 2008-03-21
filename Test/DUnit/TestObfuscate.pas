@@ -286,6 +286,15 @@ type
 
     procedure TestDelphiNetLibrary;
 
+    procedure TestLibrary;
+
+    procedure TestUnicode_ansi;
+    procedure TestUnicode_be_ucs2;
+    procedure TestUnicode_be_ucs4;
+    procedure TestUnicode_le_ucs2;
+    procedure TestUnicode_le_ucs4;
+    procedure TestUnicode_utf8;
+
   end;
 
 implementation
@@ -774,6 +783,11 @@ begin
   TestFile('TestLibExports');
 end;
 
+procedure TTestObfuscate.TestLibrary;
+begin
+  TestFile('TestLibrary');
+end;
+
 procedure TTestObfuscate.TestLineBreaking;
 begin
   TestFile('TestLineBreaking');
@@ -1042,6 +1056,36 @@ end;
 procedure TTestObfuscate.TestAsmStructs;
 begin
   TestFile('TestAsmStructs');
+end;
+
+procedure TTestObfuscate.TestUnicode_ansi;
+begin
+  TestFile('TestUnicode_ansi');
+end;
+
+procedure TTestObfuscate.TestUnicode_be_ucs2;
+begin
+  TestFile('TestUnicode_be_ucs2');
+end;
+
+procedure TTestObfuscate.TestUnicode_be_ucs4;
+begin
+  TestFile('TestUnicode_be_ucs4');
+end;
+
+procedure TTestObfuscate.TestUnicode_le_ucs2;
+begin
+  TestFile('TestUnicode_le_ucs2');
+end;
+
+procedure TTestObfuscate.TestUnicode_le_ucs4;
+begin
+  TestFile('TestUnicode_le_ucs4');
+end;
+
+procedure TTestObfuscate.TestUnicode_utf8;
+begin
+  TestFile('TestUnicode_utf8');
 end;
 
 procedure TTestObfuscate.TestUnitAllDirectives;

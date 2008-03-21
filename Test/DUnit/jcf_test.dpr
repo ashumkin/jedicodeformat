@@ -180,7 +180,9 @@ uses
   AsmKeywords in '..\..\Parse\AsmKeywords.pas',
   TestAsmParamKeywords in 'TestAsmParamKeywords.pas',
   JcfUnicode in '..\..\Utils\JcfUnicode.pas',
-  TestUnicodeFiles in 'TestUnicodeFiles.pas';
+  TestUnicodeFiles in 'TestUnicodeFiles.pas',
+  TestUnicodeFunctions in 'TestUnicodeFunctions.pas',
+  JcfUnicodeFiles in '..\..\Utils\JcfUnicodeFiles.pas';
 
 {$R *.res}
 

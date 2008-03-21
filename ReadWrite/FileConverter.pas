@@ -108,7 +108,7 @@ uses
   { delphi }Windows, SysUtils, Dialogs, Controls, Forms,
   { jcl } JclFileUtils, JclStrings,
   { local }FileUtils, JcfMiscFunctions, JCFLog,
-  JcfRegistrySettings, JcfSettings;
+  JcfRegistrySettings, JcfSettings, JCfUnicodeFiles;
 
 constructor TFileConverter.Create;
 begin
@@ -172,14 +172,13 @@ begin
 end;
 
 procedure TFileConverter.ProcessFile(const psInputFileName: string);
-const
-  UFT8_Header : string = #$EF + #$BB + #$BF;
 var
   lsMessage, lsOut: string;
   wRes: word;
   lbFileIsChanged: boolean;
   lsOutType: string;
-  UTF8TempString : string;
+  lsSourceCode: WideString;
+  leContentType: TFileContentType;
 begin
   // do checks
   if not PreProcessChecks(psInputFileName) then
@@ -194,16 +193,10 @@ begin
 
   // convert in memory
   fsOriginalFileName := psInputFileName;
-  fcConverter.InputCode := FileToString(psInputFileName);
-  // Search UTF8 header signature
-  if(StrLeft(fcConverter.InputCode, 3) = UFT8_Header) then
-  begin
-   // GRemove UTF8 identifier
-   UTF8TempString := StrEnsureNoPrefix(UFT8_Header, fcConverter.InputCode);
-   // and converter to Ansi string
-   fcConverter.InputCode := Utf8ToAnsi(UTF8TempString);
-  end;
 
+  ReadTextFile(psInputFileName, lsSourceCode, leContentType);
+
+  fcConverter.InputCode := lsSourceCode;
 
   fcConverter.Convert;
 
@@ -281,7 +274,7 @@ begin
       begin
         // delete the old one, write the new one
         DeleteFile(psInputFileName);
-        StringToFile(psInputFileName, fcConverter.OutputCode);
+        WriteTextFile(psInputFileName, fcConverter.OutputCode, leContentType);
       end;
     end;
 
@@ -307,7 +300,8 @@ begin
       fsOutFileName := lsOut;
       { simple. Write to a new file
         doesn't matter if it;s not changed }
-      StringToFile(lsOut, fcConverter.OutputCode);
+      WriteTextFile(lsOut, fcConverter.OutputCode, leContentType);
+
     end;
     else
       Assert(False, 'Bad backup mode');

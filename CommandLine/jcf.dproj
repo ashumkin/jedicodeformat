@@ -1,4 +1,5 @@
-﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{b5459564-94c6-4c61-a720-d20bce7d7d75}</ProjectGuid>
     <MainSource>JCF.dpr</MainSource>
@@ -158,6 +159,8 @@
     <DCCReference Include="..\Utils\JCFHelp.pas" />
     <DCCReference Include="..\Utils\JcfLog.pas" />
     <DCCReference Include="..\Utils\JcfMiscFunctions.pas" />
+    <DCCReference Include="..\Utils\JcfUnicode.pas" />
+    <DCCReference Include="..\Utils\JcfUnicodeFiles.pas" />
     <DCCReference Include="..\VersionConsts.pas" />
   </ItemGroup>
 </Project>

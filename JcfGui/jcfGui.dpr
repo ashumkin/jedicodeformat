@@ -172,7 +172,9 @@ uses
   frAsm in '..\Ui\Settings\frAsm.pas' {fAsm: TFrame},
   RemoveReturnsAfter in '..\Process\Returns\RemoveReturnsAfter.pas',
   IndentAsmParam in '..\Process\Indent\IndentAsmParam.pas',
-  AsmKeywords in '..\Parse\AsmKeywords.pas';
+  AsmKeywords in '..\Parse\AsmKeywords.pas',
+  JcfUnicode in '..\Utils\JcfUnicode.pas',
+  JcfUnicodeFiles in '..\Utils\JcfUnicodeFiles.pas';
 
 {$R *.res}
 

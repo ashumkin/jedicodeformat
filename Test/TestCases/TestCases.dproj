@@ -111,7 +111,9 @@
     <DCCReference Include="TestArray.pas" />
     <DCCReference Include="TestAsm.pas" />
     <DCCReference Include="TestASMAnd.pas" />
-    <DCCReference Include="TestAsmCaps.pas" />
+    <DCCReference Include="TestAsmCaps.pas">
+      <Form>$R *.res</Form>
+    </DCCReference>
     <DCCReference Include="TestAsmLabel.pas" />
     <DCCReference Include="TestAsmOps.pas" />
     <DCCReference Include="TestAsmStructs.pas" />
@@ -172,7 +174,6 @@
     <DCCReference Include="TestNestedRecords.pas" />
     <DCCReference Include="TestOleParams.pas" />
     <DCCReference Include="TestOperators.pas" />
-    <DCCReference Include="TestPackedObject.pas" />
     <DCCReference Include="TestParams.pas" />
     <DCCReference Include="TestParamSpaces.pas" />
     <DCCReference Include="TestPointers.pas" />

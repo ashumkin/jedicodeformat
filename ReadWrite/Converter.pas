@@ -41,7 +41,7 @@ type
   TConverter = class(TObject)
   private
     { the strings for the in and out code }
-    fsInputCode, fsOutputCode: string;
+    fsInputCode, fsOutputCode: WideString;
 
     { classes to lex and parse the source }
     fcTokeniser: TBuildTokenList;
@@ -82,8 +82,8 @@ type
 
     procedure CollectOutput(const pcRoot: TParseTreeNode);
 
-    property InputCode: string read fsInputCode write fsInputCode;
-    property OutputCode: string read fsOutputCode write fsOutputCode;
+    property InputCode: WideString read fsInputCode write fsInputCode;
+    property OutputCode: WideString read fsOutputCode write fsOutputCode;
 
     property TokenCount: integer Read fiTokenCount;
     property ConvertError: boolean Read fbConvertError;
@@ -102,6 +102,7 @@ uses
   { JCL }
   JclStrings,
   { local }
+  JcfUnicode,
   SourceTokenList, SourceToken,
   fShowParseTree, JcfSettings, JcfRegistrySettings,
   AllProcesses, ParseError, PreProcessorParseTree,
@@ -362,7 +363,7 @@ const
 var
   liRealInputStart, liRealInputEnd: integer;
   liOutputStart, liOutputEnd: integer;
-  lsNewOutput: string;
+  lsNewOutput: WideString;
 begin
   Assert(piStartIndex >= 0);
   Assert(piEndIndex >= piStartIndex);
@@ -373,13 +374,13 @@ begin
   liRealInputEnd := piEndIndex;
 
   { get to the start of the line }
-  while (liRealInputStart > 1) and (not CharIsReturn(InputCode[liRealInputStart -1 ])) do
+  while (liRealInputStart > 1) and (not WideCharIsReturn(InputCode[liRealInputStart -1 ])) do
     dec(liRealInputStart);
 
   { get to the start of the next line }
-  while (liRealInputEnd < Length(InputCode)) and (not CharIsReturn(InputCode[liRealInputEnd])) do
+  while (liRealInputEnd < Length(InputCode)) and (not WideCharIsReturn(InputCode[liRealInputEnd])) do
     inc(liRealInputEnd);
-  while (liRealInputEnd < Length(InputCode)) and (CharIsReturn(InputCode[liRealInputEnd])) do
+  while (liRealInputEnd < Length(InputCode)) and (WideCharIsReturn(InputCode[liRealInputEnd])) do
     inc(liRealInputEnd);
 
   { put markers into the input }

@@ -285,6 +285,15 @@ type
     procedure TestGenericTypeNullable;
     procedure TestPackedObject;
 
+    procedure TestLibrary;
+
+    procedure TestUnicode_ansi;
+    procedure TestUnicode_be_ucs2;
+    procedure TestUnicode_be_ucs4;
+    procedure TestUnicode_le_ucs2;
+    procedure TestUnicode_le_ucs4;
+    procedure TestUnicode_utf8;
+
     procedure TestCases;
 
   end;
@@ -833,6 +842,11 @@ begin
   TestFile('TestLibExports', 119);
 end;
 
+procedure TFullTestClarify.TestLibrary;
+begin
+  TestFile('TestLibrary', 21);
+end;
+
 procedure TFullTestClarify.TestLineBreaking;
 begin
   TestFile('TestLineBreaking', 6108);
@@ -1081,6 +1095,36 @@ end;
 procedure TFullTestClarify.TestAsmStructs;
 begin
   TestFile('TestAsmStructs', 358);
+end;
+
+procedure TFullTestClarify.TestUnicode_ansi;
+begin
+  TestFile('TestUnicode_ansi', 89);
+end;
+
+procedure TFullTestClarify.TestUnicode_be_ucs2;
+begin
+  TestFile('TestUnicode_be_ucs2', 89);
+end;
+
+procedure TFullTestClarify.TestUnicode_be_ucs4;
+begin
+  TestFile('TestUnicode_be_ucs4', 89);
+end;
+
+procedure TFullTestClarify.TestUnicode_le_ucs2;
+begin
+  TestFile('TestUnicode_le_ucs2', 89);
+end;
+
+procedure TFullTestClarify.TestUnicode_le_ucs4;
+begin
+  TestFile('TestUnicode_le_ucs4', 89);
+end;
+
+procedure TFullTestClarify.TestUnicode_utf8;
+begin
+  TestFile('TestUnicode_utf8', 89);
 end;
 
 procedure TFullTestClarify.TestUnitAllDirectives;
