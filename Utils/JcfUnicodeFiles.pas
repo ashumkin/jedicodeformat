@@ -198,7 +198,7 @@ var
 begin
   // split into 16-bit words
   hi := value shr 16;
-  lo := value;
+  lo := (value and $0000FFFF); // Prevent Range check error by converting to a word
 
   hi := Swap(hi);
   lo := Swap(lo);
