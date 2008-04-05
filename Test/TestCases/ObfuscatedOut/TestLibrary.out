@@ -1,0 +1,8 @@
+library testlibrary;
+
+  procedure foo;
+  begin
+  end;
+
+begin
+end.
