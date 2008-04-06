@@ -23,6 +23,9 @@ under the License.
 
 interface
 
+type
+  AnsiCharSet = set of AnsiChar;
+
 function WideCharIsReturn(const C: WideChar): Boolean;
 function WideCharIsDigit(const wc: WideChar): Boolean;
 function WideCharIsAlpha(const wc: WideChar): Boolean;
@@ -33,6 +36,8 @@ function WideCharIsHexDigitDot(const wc: WideChar): Boolean;
 function WideCharIsPuncChar(const wc: WideChar): boolean;
 function WideCharIsWordChar(const wc: WideChar): Boolean;
 function WideCharIsWhiteSpaceNoReturn(const wc: WideChar): boolean;
+
+function WideCharInSet(const wc: WideChar; const charSet: AnsiCharSet): Boolean;
 
 function WideStringRepeat(const ws: WideString; const count: integer): WideString;
 
@@ -200,6 +205,29 @@ begin
   // Result := CharIsWhiteSpace(ch) and (ch <> AnsiLineFeed) and (ch <> AnsiCarriageReturn);
 
   Result := (ord(ch) <= Ord(AnsiSpace));
+end;
+
+{
+ Returnh true if the widechar is in the ansi char set
+}
+function WideCharInSet(const wc: WideChar; const charSet: AnsiCharSet): Boolean;
+var
+  ch: AnsiChar;
+begin
+  Result := False;
+
+  if WideCharIsHigh(wc) then
+  begin
+    exit;
+  end;
+
+  // null chars
+  if wc = WideNullChar then
+    exit;
+
+  ch := AnsiChar(wc);
+
+  Result := ch in charSet;
 end;
 
 function WideStringRepeat(const ws: WideString; const count: integer): WideString;

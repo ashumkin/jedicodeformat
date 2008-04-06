@@ -544,14 +544,14 @@ begin
   { scientific notation suffix, eg 3e2 = 30, 2.1e-3 = 0.0021 }
 
   { check for a trailing 'e' }
-  if Current in ['e', 'E'] then
+  if WideCharInSet(Current, ['e', 'E']) then
   begin
     // sci notation mode
     pcToken.SourceCode := pcToken.SourceCode + Current;
     Consume;
 
     // can be a minus or plus here
-    if Current in ['-', '+'] then
+    if WideCharInSet(Current, ['-', '+']) then
     begin
       pcToken.SourceCode := pcToken.SourceCode + Current;
       Consume;
@@ -657,16 +657,16 @@ function TBuildTokenList.TryPunctuation(const pcToken: TSourceToken): boolean;
   begin
     Result := False;
 
-    if (chLast in UnitaryPunctuation) or (ch in UnitaryPunctuation) then
+    if WideCharInSet(chLast, UnitaryPunctuation) or WideCharInSet(ch, UnitaryPunctuation) then
       exit;
 
-    if chLast in SingleChars then
+    if WideCharInSet(chLast, SingleChars) then
       exit;
 
     { '<' or '<' can only be followed by '<', '>' or '='.
      Beware of "if x<-1"
      }
-    if (chLast in ['<', '>']) and not (ch in ['<', '>', '=']) then
+    if WideCharInSet(chLast, ['<', '>']) and not WideCharInSet(ch, ['<', '>', '=']) then
       exit;
 
     // ':' can be followed by '=' only
