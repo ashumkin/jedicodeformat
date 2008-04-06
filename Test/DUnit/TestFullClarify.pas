@@ -844,7 +844,7 @@ end;
 
 procedure TFullTestClarify.TestLibrary;
 begin
-  TestFile('TestLibrary', 21);
+  TestFile('TestLibrary', 35);
 end;
 
 procedure TFullTestClarify.TestLineBreaking;

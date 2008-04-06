@@ -634,9 +634,8 @@ begin
 
   if fcTokenList.FirstSolidTokenType = ttOpenSquareBracket then
     RecogniseAttributes;
-    
-  RecogniseBlock(True);
 
+  RecogniseBlock(True);
 end;
 
 procedure TBuildParseTree.RecogniseUsesClause(const pbInFiles: boolean);

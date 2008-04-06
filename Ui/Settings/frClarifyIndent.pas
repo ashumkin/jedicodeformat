@@ -50,6 +50,7 @@ type
     cbKeepWithElsewhere: TCheckBox;
     cbIndentIfElse: TCheckBox;
     cbIndentCaseElse: TCheckBox;
+    cbIndentLibraryProcs: TCheckBox;
     procedure cbIndentBeginEndClick(Sender: TObject);
     procedure cbHasFirstLevelIndentClick(Sender: TObject);
   private
@@ -88,6 +89,8 @@ begin
     cbIndentBeginEnd.Checked := IndentBeginEnd;
     eIndentBeginEndSpaces.Value := IndentBeginEndSpaces;
 
+    cbIndentLibraryProcs.Checked := IndentLibraryProcs;
+
     cbHasFirstLevelIndent.Checked := HasFirstLevelIndent;
     eFirstLevelIndent.Value := FirstLevelIndent;
 
@@ -115,6 +118,8 @@ begin
     IndentSpaces   := edtIndentSpaces.Value;
     IndentBeginEnd := cbIndentBeginEnd.Checked;
     IndentBeginEndSpaces := eIndentBeginEndSpaces.Value;
+
+    IndentLibraryProcs := cbIndentLibraryProcs.Checked;
 
     HasFirstLevelIndent := cbHasFirstLevelIndent.Checked;
     FirstLevelIndent    := eFirstLevelIndent.Value;

@@ -37,6 +37,7 @@ type
     fbIndentClasses: boolean;
     fbIndentProcedures: boolean;
     fbIndentBeginEnd: boolean;
+    fbIndentLibraryProcs: boolean;
 
     fiIndentBeginEndSpaces: integer;
 
@@ -70,6 +71,8 @@ type
     property IndentBeginEndSpaces: integer Read fiIndentBeginEndSpaces
       Write fiIndentBeginEndSpaces;
 
+    property IndentLibraryProcs: boolean Read fbIndentLibraryProcs Write fbIndentLibraryProcs;
+
     property KeepCommentsWithCodeInProcs: boolean
       Read fbKeepCommentsWithCodeInProcs Write fbKeepCommentsWithCodeInProcs;
     property KeepCommentsWithCodeInGlobals: boolean
@@ -98,6 +101,8 @@ const
 
   REG_INDENT_BEGIN_END = 'IndentBeginEnd';
   REG_INDENT_BEGIN_END_SPACES = 'IndentbeginEndSpaces';
+
+  REG_INDENT_LIBRARY_PROCS = 'IndentLibraryProcs';
 
   REG_KEEP_COMMENTS_WITH_CODE_CLASS_DEF  = 'KeepCommentsWithCodeInClassDef';
   REG_KEEP_COMMENTS_WITH_CODE_IN_PROCS   = 'KeepCommentsWithCodeInProcs';
@@ -129,6 +134,8 @@ begin
   fbIndentBeginEnd := pcStream.Read(REG_INDENT_BEGIN_END, False);
   fiIndentBeginEndSpaces := pcStream.Read(REG_INDENT_BEGIN_END_SPACES, 1);
 
+  fbIndentLibraryProcs := pcStream.Read(REG_INDENT_LIBRARY_PROCS, True);
+
   fbKeepCommentsWithCodeInGlobals  :=
     pcStream.Read(REG_KEEP_COMMENTS_WITH_CODE_IN_GLOBALS, True);
   fbKeepCommentsWithCodeInProcs    :=
@@ -140,7 +147,6 @@ begin
 
   fbIndentElse := pcStream.Read(REG_INDENT_ELSE, False);
   fbIndentCaseElse := pcStream.Read(REG_INDENT_CASE_ELSE, True);
-
 end;
 
 procedure TSetIndent.WriteToStream(const pcOut: TSettingsOutput);
@@ -156,14 +162,16 @@ begin
   pcOut.Write(REG_INDENT_CLASSES, fbIndentClasses);
   pcOut.Write(REG_INDENT_PROCEDURES, fbIndentProcedures);
 
+  pcOut.Write(REG_INDENT_BEGIN_END, fbIndentBeginEnd);
+  pcOut.Write(REG_INDENT_BEGIN_END_SPACES, fiIndentBeginEndSpaces);
+
+  pcOut.Write(REG_INDENT_LIBRARY_PROCS, fbIndentLibraryProcs);
+
   pcOut.Write(REG_KEEP_COMMENTS_WITH_CODE_IN_GLOBALS, fbKeepCommentsWithCodeInGlobals);
   pcOut.Write(REG_KEEP_COMMENTS_WITH_CODE_IN_PROCS, fbKeepCommentsWithCodeInProcs);
   pcOut.Write(REG_KEEP_COMMENTS_WITH_CODE_CLASS_DEF, fbKeepCommentsWithCodeInClassDef);
   pcOut.Write(REG_KEEP_COMMENTS_WITH_CODE_ELSEWHERE, fbKeepCommentsWithCodeElsewhere);
 
-
-  pcOut.Write(REG_INDENT_BEGIN_END, fbIndentBeginEnd);
-  pcOut.Write(REG_INDENT_BEGIN_END_SPACES, fiIndentBeginEndSpaces);
   pcOut.Write(REG_INDENT_ELSE, fbIndentElse);
   pcOut.Write(REG_INDENT_CASE_ELSE, fbIndentCaseElse);
 end;

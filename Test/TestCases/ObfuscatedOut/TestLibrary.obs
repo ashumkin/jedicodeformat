@@ -1,1 +1,2 @@
-library testlibrary;procedure foo;begin end;begin end.
+library testlibrary;procedure foo;begin showmessage('Foo proc');end;begin showmessage
+('Lib main');end.

@@ -2,7 +2,9 @@ library testlibrary;
 
   procedure foo;
   begin
+    ShowMessage('Foo proc');
   end;
 
 begin
+  ShowMessage('Lib main');
 end.
