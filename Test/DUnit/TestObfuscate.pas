@@ -262,6 +262,7 @@ type
     procedure TestExports;
 
     procedure TestAsmCaps;
+    procedure TestAsmOffsetKeyword;
 
     procedure TestGenerics;
     procedure TestGenerics2;
@@ -1596,6 +1597,11 @@ end;
 procedure TTestObfuscate.TestAsmLabel;
 begin
   TestFile('TestAsmLabel');
+end;
+
+procedure TTestObfuscate.TestAsmOffsetKeyword;
+begin
+  TestFile('TestAsmOffsetKeyword');
 end;
 
 procedure TTestObfuscate.TestAsmOps;

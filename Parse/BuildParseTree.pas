@@ -4913,7 +4913,7 @@ begin
     Recognise(ttAmpersand);
   end;
 
-  { only parse trainling expressions if it is on the same line
+  { only parse trailing expressions if it is on the same line
     Asm is not completely white-space-independant }
   lcNext := fcTokenList.FirstTokenWithExclusion([ttWhiteSpace]);
   if (lcNext <> nil) and (lcNext.TokenType <> ttReturn) then
@@ -5011,6 +5011,11 @@ begin
       Recognise(ttOpenSquareBracket);
       RecogniseAsmExpr;
       Recognise(ttCloseSquareBracket);
+    end;
+    ttComma, ttSemicolon:
+    begin
+      // expression over, go home
+      // can be caused by bug 1933836 - the unary operator was actually a var name
     end
     else
     begin

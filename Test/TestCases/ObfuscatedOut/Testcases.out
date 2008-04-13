@@ -165,7 +165,8 @@ uses
   testautomated in 'TestAutomated.pas',
   testclassmethods in 'TestClassMethods.pas',
   testexports in 'TestExports.pas',
-  testasmcaps in 'TestAsmCaps.pas';
+  testasmcaps in 'TestAsmCaps.pas',
+  asmoffsetkeyword in 'AsmOffsetKeyword.pas';
 
 {$R *.res}
 begin

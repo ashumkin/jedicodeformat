@@ -1,0 +1,24 @@
+unit testasmoffsetkeyword;
+
+interface
+
+uses SysUtils;
+
+type
+  tmyclass = class(TObject)
+    field1: integer;
+    procedure dosomething(offset, x, y, dx, dy: integer); virtual;
+  end;
+
+implementation
+
+procedure tmyclass.dosomething(offset, x, y, dx, dy: integer);
+asm
+         PUSH    dy;
+         PUSH    &DX;
+         PUSH    y;
+         PUSH    x;
+         TEST    &offset, &offset;
+end;
+
+end.

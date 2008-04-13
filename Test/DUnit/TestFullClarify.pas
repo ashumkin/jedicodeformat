@@ -263,6 +263,7 @@ type
     procedure TestDelphiNetLibrary;
 
     procedure TestAsmCaps;
+    procedure TestAsmOffsetKeyword;
 
     procedure TestGenerics;
     procedure TestGenerics2;
@@ -579,7 +580,7 @@ end;
 
 procedure TFullTestClarify.TestCases;
 begin
-  TestFile('TestCases.dpr', 1365);
+  TestFile('TestCases.dpr', 1373);
 end;
 
 procedure TFullTestClarify.TestCast;
@@ -1085,6 +1086,11 @@ end;
 procedure TFullTestClarify.TestAutomated;
 begin
   TestFile('TestAutomated', 167);
+end;
+
+procedure TFullTestClarify.TestAsmOffsetKeyword;
+begin
+  TestFile('TestAsmOffsetKeyword', 145);
 end;
 
 procedure TFullTestClarify.TestAsmOps;
