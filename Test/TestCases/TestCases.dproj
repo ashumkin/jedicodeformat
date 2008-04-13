@@ -37,6 +37,7 @@
     <DelphiCompile Include="TestCases.dpr">
       <MainSource>MainSource</MainSource>
     </DelphiCompile>
+    <DCCReference Include="AsmOffsetKeyword.pas" />
     <DCCReference Include="EmptyTest1.pas" />
     <DCCReference Include="fBracketProp.pas">
       <Form>Form1</Form>
