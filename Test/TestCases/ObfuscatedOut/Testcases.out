@@ -166,7 +166,7 @@ uses
   testclassmethods in 'TestClassMethods.pas',
   testexports in 'TestExports.pas',
   testasmcaps in 'TestAsmCaps.pas',
-  asmoffsetkeyword in 'AsmOffsetKeyword.pas';
+  testasmoffsetkeyword in 'TestAsmOffsetKeyword.pas';
 
 {$R *.res}
 begin

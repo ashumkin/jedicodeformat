@@ -45,6 +45,7 @@ type
     fbRemoveBadReturns: boolean;
     fbAddGoodReturns: boolean;
     fbUsesClauseOnePerLine: boolean;
+    fbBreakAfterUses: boolean;
 
     fbRemoveExpressionReturns: boolean;
     fbRemoveVarReturns: boolean;
@@ -99,6 +100,7 @@ type
     property AddGoodReturns: boolean Read fbAddGoodReturns Write fbAddGoodReturns;
     property UsesClauseOnePerLine: boolean Read fbUsesClauseOnePerLine
       Write fbUsesClauseOnePerLine;
+    property BreakAfterUses: boolean read fbBreakAfterUses write fbBreakAfterUses;
 
     property RemoveExpressionReturns: boolean
       Read fbRemoveExpressionReturns Write fbRemoveExpressionReturns;
@@ -161,6 +163,7 @@ const
   REG_REMOVE_BAD_RETURNS = 'RemoveBadReturns';
   REG_ADD_GOOD_RETURNS   = 'AddGoodReturns';
   REG_USES_ONE_PER_LINE  = 'UsesOnePerLine';
+  REG_BREAK_AFTER_USES   = 'BreakAfterUses';
 
   REG_REMOVE_EXPRESSION_RETURNS = 'RemoveExpressionReturns';
   REG_REMOVE_VAR_RETURNS      = 'RemoveVarReturns';
@@ -217,6 +220,7 @@ begin
   fbRemoveBadReturns := pcStream.Read(REG_REMOVE_BAD_RETURNS, True);
   fbAddGoodReturns   := pcStream.Read(REG_ADD_GOOD_RETURNS, True);
   fbUsesClauseOnePerLine := pcStream.Read(REG_USES_ONE_PER_LINE, False);
+  fbBreakAfterUses := pcStream.Read(REG_BREAK_AFTER_USES, False);
 
   fbRemoveExpressionReturns := pcStream.Read(REG_REMOVE_EXPRESSION_RETURNS, False);
   fbRemoveVarReturns      := pcStream.Read(REG_REMOVE_VAR_RETURNS, True);

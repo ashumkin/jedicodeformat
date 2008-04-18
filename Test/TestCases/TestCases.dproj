@@ -105,6 +105,11 @@
     <DCCReference Include="LittleTest7.pas" />
     <DCCReference Include="LittleTest8.pas" />
     <DCCReference Include="LittleTest9.pas" />
+    <DCCReference Include="TAsmOffsetKeyword.pas" />
+    <DCCReference Include="TeAsmOffsetKeyword.pas" />
+    <DCCReference Include="TesAsmOffsetKeyword.pas">
+      <ModuleName>TestAsmOffsetKeyword</ModuleName>
+    </DCCReference>
     <DCCReference Include="test.dotted.name.pas" />
     <DCCReference Include="TestAbsolute.pas" />
     <DCCReference Include="TestAlign.pas" />

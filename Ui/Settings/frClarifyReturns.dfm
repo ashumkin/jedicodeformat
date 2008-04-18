@@ -91,5 +91,13 @@ inherited fClarifyReturns: TfClarifyReturns
       Caption = 'In misc. good places'
       TabOrder = 0
     end
+    object cbLineBreakAfterUses: TCheckBox
+      Left = 8
+      Top = 76
+      Width = 217
+      Height = 17
+      Caption = 'Line break after uses'
+      TabOrder = 2
+    end
   end
 end
