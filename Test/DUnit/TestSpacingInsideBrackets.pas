@@ -142,7 +142,6 @@ begin
 
 end;
 
-
 initialization
   TestFramework.RegisterTest('Processes', TTestSpacingInsideBrackets.Suite);
 end.

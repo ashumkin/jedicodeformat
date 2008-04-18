@@ -1,16 +1,4 @@
 unit BuildParseTree;
-
-{ AFS 27 October
- This unit turns a token stream into a full parse tree
- using the Recursive Descent method
-
- The tokens are then the leaves of a tree structure
-
- The grammer is 'Appendix A Object Pascal grammar'
- As found on the borland Web site.
- It is much extended via test cases as that is woefully incomplete
-}
-
 {(*}
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code
@@ -31,6 +19,17 @@ See the License for the specific language governing rights and limitations
 under the License.
 ------------------------------------------------------------------------------*)
 {*)}
+
+{ AFS 27 October
+ This unit turns a token stream into a full parse tree
+ using the Recursive Descent method
+
+ The tokens are then the leaves of a tree structure
+
+ The grammer is 'Appendix A Object Pascal grammar'
+ As found on the borland Web site.
+ It is much extended via test cases as that is woefully incomplete
+}
 
 interface
 
