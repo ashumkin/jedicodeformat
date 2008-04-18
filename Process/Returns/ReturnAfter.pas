@@ -262,7 +262,9 @@ begin
   if pt.TokenType = ttConditionalCompilationRemoved then
     exit;
 
-  if pt.HasParentNode(nUses) and (pt.TokenType = ttUses) and FormatSettings.Returns.BreakAfterUses then
+  { option to Break After Uses }
+  if pt.HasParentNode(nUses) and (pt.TokenType = ttUses) and
+  FormatSettings.Returns.BreakAfterUses then
   begin
     Result := true;
   end;

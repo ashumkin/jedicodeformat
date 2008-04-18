@@ -42,7 +42,7 @@ type
     gbInsert: TGroupBox;
     cbUsesClauseOnePerLine: TCheckBox;
     cbInsertReturns: TCheckBox;
-    cbLineBreakAfterUses: TCheckBox;
+    cbBreakAfterUses: TCheckBox;
   private
 
   public
@@ -82,7 +82,7 @@ begin
 
     cbInsertReturns.Checked := AddGoodReturns;
     cbUsesClauseOnePerLine.Checked := UsesClauseOnePerLine;
-    cbLineBreakAfterUses.Checked := BreakAfterUses;
+    cbBreakAfterUses.Checked := BreakAfterUses;
 
     rgReturnChars.ItemIndex := Ord(ReturnChars);
   end;
@@ -100,7 +100,7 @@ begin
 
     AddGoodReturns := cbInsertReturns.Checked;
     UsesClauseOnePerLine := cbUsesClauseOnePerLine.Checked;
-    BreakAfterUses := cbLineBreakAfterUses.Checked;
+    BreakAfterUses := cbBreakAfterUses.Checked;
 
     ReturnChars := TReturnChars(rgReturnChars.ItemIndex);
   end;
