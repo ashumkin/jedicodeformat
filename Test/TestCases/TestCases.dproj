@@ -107,9 +107,7 @@
     <DCCReference Include="LittleTest9.pas" />
     <DCCReference Include="TAsmOffsetKeyword.pas" />
     <DCCReference Include="TeAsmOffsetKeyword.pas" />
-    <DCCReference Include="TesAsmOffsetKeyword.pas">
-      <ModuleName>TestAsmOffsetKeyword</ModuleName>
-    </DCCReference>
+    <DCCReference Include="TesAsmOffsetKeyword.pas" />
     <DCCReference Include="test.dotted.name.pas" />
     <DCCReference Include="TestAbsolute.pas" />
     <DCCReference Include="TestAlign.pas" />
@@ -121,6 +119,7 @@
       <Form>$R *.res</Form>
     </DCCReference>
     <DCCReference Include="TestAsmLabel.pas" />
+    <DCCReference Include="TestAsmOffsetKeyword.pas" />
     <DCCReference Include="TestAsmOps.pas" />
     <DCCReference Include="TestAsmStructs.pas" />
     <DCCReference Include="TestAtExpr.pas" />
@@ -135,6 +134,7 @@
     <DCCReference Include="TestCharLiterals.pas" />
     <DCCReference Include="TestClassLines.pas" />
     <DCCReference Include="TestClassMethods.pas" />
+    <DCCReference Include="TestClassVarEmpty.pas" />
     <DCCReference Include="TestCommentIndent.pas" />
     <DCCReference Include="TestCommentIndent2.pas" />
     <DCCReference Include="TestComplexAsm2.pas" />
