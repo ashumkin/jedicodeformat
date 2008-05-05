@@ -15,7 +15,7 @@ object ExceptionDialog: TExceptionDialog
   Scaled = False
   OnCreate = FormCreate
   OnResize = FormResize
-  PixelsPerInch = 120
+  PixelsPerInch = 96
   TextHeight = 20
   object btnOk: TButton
     Left = 155
