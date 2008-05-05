@@ -2152,12 +2152,25 @@ begin
 end;
 
 procedure TBuildParseTree.RecogniseClassVars;
+var
+  lbHasVars: Boolean;
 begin
   PushNode(nClassVars);
 
   Recognise(ttClass);
   Recognise(ttVar);
-  RecogniseVarDecl;
+
+  // can be an empty section
+  lbHasVars := True;
+  if fcTokenList.FirstSolidTokenType in ClassVisibility + [ttEnd] then
+  begin
+    lbHasVars := False;
+  end;
+
+  if lbHasVars then
+  begin
+    RecogniseVarDecl;
+  end;
 
   PopNode;
 end;

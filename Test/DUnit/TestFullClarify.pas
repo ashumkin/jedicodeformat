@@ -285,6 +285,7 @@ type
     procedure TestGenericOperatorIs;
     procedure TestGenericTypeNullable;
     procedure TestPackedObject;
+    procedure TestClassVarEmpty;
 
     procedure TestLibrary;
 
@@ -656,6 +657,11 @@ end;
 procedure TFullTestClarify.TestEmptyClass;
 begin
   TestFile('TestEmptyClass', 244);
+end;
+
+procedure TFullTestClarify.TestClassVarEmpty;
+begin
+  TestFile('TestClassVarEmpty', 336);
 end;
 
 procedure TFullTestClarify.TestEsotericKeywords;

@@ -284,6 +284,7 @@ type
     procedure TestGenericOperatorIs;
     procedure TestGenericTypeNullable;
     procedure TestPackedObject;
+    procedure TestClassVarEmpty;
 
     procedure TestDelphiNetLibrary;
 
@@ -561,6 +562,11 @@ end;
 procedure TTestObfuscate.TestClassMethods;
 begin
   TestFile('TestClassMethods');
+end;
+
+procedure TTestObfuscate.TestClassVarEmpty;
+begin
+  TestFile('TestClassVarEmpty');
 end;
 
 procedure TTestObfuscate.TestCommentIndent;
