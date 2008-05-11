@@ -293,7 +293,7 @@ begin
       JvBrowseForFolderDialog1.Directory := edtInput.Text;
       if (JvBrowseForFolderDialog1.Execute) then
       begin
-        edtInput.Text := IncludeTrailingPathDelimiter(lsDir);
+        edtInput.Text := IncludeTrailingPathDelimiter(JvBrowseForFolderDialog1.Directory);
         AddCheckMRU(edtInput.Text);
         DisplayOutputFile;
       end;
