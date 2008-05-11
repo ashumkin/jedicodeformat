@@ -29,6 +29,8 @@ unit AlignAssign;
  Align the RHS of consecutive assign statements
 }
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses SourceToken, AlignBase;

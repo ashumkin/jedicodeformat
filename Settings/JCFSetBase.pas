@@ -30,6 +30,8 @@ unit JCFSetBase;
 
 }
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses

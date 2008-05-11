@@ -163,20 +163,20 @@ object frmMain: TfrmMain
       ExplicitTop = 108
     end
     inherited edtOutput: TEdit [3]
-      Left = 89
+      Left = 112
       Top = 139
-      Width = 544
-      ExplicitLeft = 89
+      Width = 521
+      ExplicitLeft = 112
       ExplicitTop = 139
-      ExplicitWidth = 544
+      ExplicitWidth = 521
     end
     inherited edtInput: TEdit [4]
-      Left = 89
+      Left = 112
       Top = 103
-      Width = 510
-      ExplicitLeft = 89
+      Width = 487
+      ExplicitLeft = 112
       ExplicitTop = 103
-      ExplicitWidth = 510
+      ExplicitWidth = 487
     end
     inherited rgBackup: TRadioGroup [5]
       Left = 328

@@ -33,6 +33,8 @@ unit MozComment;
  The easiest way to fix that, is this code below:
 }
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses BaseVisitor, SourceToken;

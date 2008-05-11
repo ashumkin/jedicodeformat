@@ -24,6 +24,8 @@ See http://www.gnu.org/licenses/gpl.html
 ------------------------------------------------------------------------------*)
 {*)}
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses

@@ -32,6 +32,8 @@ unit SettingsStream;
   that I have been recently working with Java io classes
 }
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses

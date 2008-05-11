@@ -28,6 +28,8 @@ unit SourceToken;
 { Created AFS 29 Nov 1999
   Token  - element of source code text }
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses

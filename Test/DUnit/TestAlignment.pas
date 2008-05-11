@@ -25,6 +25,8 @@ See http://www.gnu.org/licenses/gpl.html
 ------------------------------------------------------------------------------*)
 {*)}
 
+{$I JcfGlobal.inc}
+
 interface
 
 { AFS 31 March 2003

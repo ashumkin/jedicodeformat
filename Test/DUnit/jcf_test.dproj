@@ -28,6 +28,10 @@
     <DCC_ObjOutput>..\..\Output</DCC_ObjOutput>
     <DCC_HppOutput>..\..\Output</DCC_HppOutput>
     <DCC_Define>DEBUG</DCC_Define>
+    <DCC_UnitSearchPath>..\..\Include</DCC_UnitSearchPath>
+    <DCC_ResourcePath>..\..\Include</DCC_ResourcePath>
+    <DCC_ObjPath>..\..\Include</DCC_ObjPath>
+    <DCC_IncludePath>..\..\Include</DCC_IncludePath>
   </PropertyGroup>
   <ProjectExtensions>
     <Borland.Personality>Delphi.Personality</Borland.Personality>

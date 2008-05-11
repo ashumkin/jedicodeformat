@@ -27,6 +27,8 @@ See http://www.gnu.org/licenses/gpl.html
 
 { mostly spacing and line breaking +options }
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses JCFSetBase, SettingsTypes, SettingsStream;

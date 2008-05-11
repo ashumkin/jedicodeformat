@@ -29,6 +29,8 @@ unit AlignVars;
  Align the RHS of var types
 }
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses SourceToken, AlignBase;

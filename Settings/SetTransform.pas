@@ -29,6 +29,8 @@ unit SetTransform;
   AFS 5 June 2004 
 }
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses JCFSetBase, SettingsTypes, SettingsStream;

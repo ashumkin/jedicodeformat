@@ -59,9 +59,9 @@ inherited frBasic: TfrBasic
     OnClick = rgBackupClick
   end
   object edtInput: TEdit
-    Left = 81
+    Left = 96
     Top = 99
-    Width = 419
+    Width = 404
     Height = 28
     MaxLength = 255
     TabOrder = 2
@@ -70,9 +70,9 @@ inherited frBasic: TfrBasic
     OnKeyUp = edtInputKeyUp
   end
   object edtOutput: TEdit
-    Left = 81
+    Left = 96
     Top = 133
-    Width = 448
+    Width = 433
     Height = 28
     Color = clBtnFace
     MaxLength = 255

@@ -39,6 +39,8 @@ unit CodeWriter;
   Now called  TCodeWriter not TWriter to avoid a name clash with Classes.Writer
   }
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses SourceToken, ParseTreeNode;

@@ -24,6 +24,8 @@ the GNU General Public License Version 2 or later (the "GPL")
 See http://www.gnu.org/licenses/gpl.html
 ------------------------------------------------------------------------------*)
 {*)}
+{$I JcfGlobal.inc}
+
 interface
 
 { AFS 16 Oct 2003

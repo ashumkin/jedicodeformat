@@ -25,6 +25,8 @@ See http://www.gnu.org/licenses/gpl.html
 ------------------------------------------------------------------------------*)
 {*)}
 
+{$I JcfGlobal.inc}
+
 interface
 
 { the purpose of this process is to align the type names

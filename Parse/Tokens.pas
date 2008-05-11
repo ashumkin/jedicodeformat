@@ -45,6 +45,8 @@ unit Tokens;
   ie 'while' -> ttWhile
 }
 
+{$I JcfGlobal.inc}
+
 interface
 
 type

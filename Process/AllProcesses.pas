@@ -27,6 +27,8 @@ See http://www.gnu.org/licenses/gpl.html
 ------------------------------------------------------------------------------*)
 {*)}
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses
@@ -76,6 +78,7 @@ uses
   JcfSettings, SetClarify, VisitSetXY,
   { once-offs }
   //MozComment,
+  //GlobalInclude,
   { obfuscate}
   FixCase, RemoveComment, RemoveBlankLine, RemoveReturn, ReduceWhiteSpace,
   RemoveConsecutiveWhiteSpace, RemoveUnneededWhiteSpace, RebreakLines,
@@ -353,6 +356,7 @@ end;
 procedure TAllProcesses.OnceOffs;
 begin
   //ApplyVisitorType(TMozComment);
+  //ApplyVisitorType(TGlobalInclude);
 end;
 
 end.

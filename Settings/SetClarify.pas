@@ -28,6 +28,8 @@ See http://www.gnu.org/licenses/gpl.html
 
 unit SetClarify;
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses

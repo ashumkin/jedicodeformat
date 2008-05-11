@@ -25,6 +25,8 @@ See http://www.gnu.org/licenses/gpl.html
 ------------------------------------------------------------------------------*)
 {*)}
 
+{$I JcfGlobal.inc}
+
 interface
 
 { writer class for use in IDE pluggin - writes to the editor interface }

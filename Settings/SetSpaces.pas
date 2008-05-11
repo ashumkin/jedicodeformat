@@ -27,6 +27,8 @@ See http://www.gnu.org/licenses/gpl.html
 
 unit SetSpaces;
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses JCFSetBase, SettingsStream, SettingsTypes;

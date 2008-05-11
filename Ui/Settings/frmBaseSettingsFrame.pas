@@ -29,6 +29,8 @@ unit frmBaseSettingsFrame;
   AFS 29 Dec 1999
   Subclass of TFrame with common interface for settings }
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses

@@ -30,6 +30,8 @@ unit SetWordList;
   Stores a generic word list
 }
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses

@@ -25,10 +25,12 @@ See http://www.gnu.org/licenses/gpl.html
 ------------------------------------------------------------------------------*)
 {*)}
 
+{$I JcfGlobal.inc}
+
 interface
 
 const
-  PROGRAM_VERSION   = '2.37';
+  PROGRAM_VERSION   = '2.38';
   PROGRAM_DATE      = 'May 2008';
   PROGRAM_HOME_PAGE = 'http://jedicodeformat.sourceforge.net/';
   PROGRAM_SOURCEFORGE_HOME_PAGE = 'http://sourceforge.net/projects/jedicodeformat/';

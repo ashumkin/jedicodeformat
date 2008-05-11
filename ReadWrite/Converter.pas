@@ -32,6 +32,8 @@ unit Converter;
   Wrappers will also support the interface IConvert
 }
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses

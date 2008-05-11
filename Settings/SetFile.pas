@@ -29,6 +29,8 @@ unit SetFile;
   AFS 29 Dec 1999
 }
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses

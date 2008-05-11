@@ -48,6 +48,8 @@ unit CodeReader;
 
 }
 
+{$I JcfGlobal.inc}
+
 interface
 
 type

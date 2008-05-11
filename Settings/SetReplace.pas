@@ -29,6 +29,8 @@ unit SetReplace;
   AFS 17 Jan 2K
 }
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses

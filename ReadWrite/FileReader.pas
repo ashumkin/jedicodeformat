@@ -44,6 +44,8 @@ See http://www.gnu.org/licenses/gpl.html
   with the same interface
 }
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses CodeReader;

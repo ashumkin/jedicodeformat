@@ -27,6 +27,8 @@ See http://www.gnu.org/licenses/gpl.html
 ------------------------------------------------------------------------------*)
 {*)}
 
+{$I JcfGlobal.inc}
+
 interface
 
 { reader class for use in IDE pluggin - reads from editor interface }

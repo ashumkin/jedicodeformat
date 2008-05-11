@@ -29,6 +29,8 @@ unit JCFLog;
 
   Log file }
 
+{$I JcfGlobal.inc}
+
 interface
 
 { log level: only have two levels at present

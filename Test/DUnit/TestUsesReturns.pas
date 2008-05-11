@@ -27,6 +27,8 @@ See http://www.gnu.org/licenses/gpl.html
 { test the feature of adding returns
   after each item in the uses clause }
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses

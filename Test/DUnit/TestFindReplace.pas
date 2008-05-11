@@ -28,6 +28,8 @@ See http://www.gnu.org/licenses/gpl.html
 
 { test the find-replace feature }
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses

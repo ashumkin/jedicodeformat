@@ -29,12 +29,14 @@ unit GlobalInclude;
  add in the global include
 }
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses BaseVisitor, SourceToken;
 
 type
-  TMozComment = class(TBaseTreeNodeVisitor)
+  TGlobalInclude = class(TBaseTreeNodeVisitor)
   private
     fbWorkIsDone: boolean;
   protected
@@ -58,7 +60,7 @@ uses
 
 const
   { this directive will be inserted in all files above the unit header }
-  includeText = '{$I jcfGlobal.inc}' + AnsiLineBreak + AnsiLineBreak;
+  includeText = '{$I JcfGlobal.inc}' + AnsiLineBreak + AnsiLineBreak;
 
 function FirstOpportunityForInsert(const pt: TSourceToken): boolean;
 begin
@@ -72,20 +74,20 @@ begin
 end;
 
 
-constructor TMozComment.Create;
+constructor TGlobalInclude.Create;
 begin
   inherited;
   fbWorkIsDone := False;
 end;
 
-function TMozComment.IsIncludedInSettings: boolean;
+function TGlobalInclude.IsIncludedInSettings: boolean;
 begin
   Result := ( not FormatSettings.Obfuscate.Enabled) and
     (FormatSettings.Clarify.OnceOffs <> eDoNotRun)
 end;
 
 
-function TMozComment.VisitSourceToken(const pcToken: TObject): Boolean;
+function TGlobalInclude.VisitSourceToken(const pcToken: TObject): Boolean;
 var
   lcToken, lcNewComment: TSourceToken;
   lbInContext: boolean;

@@ -28,6 +28,8 @@ See http://www.gnu.org/licenses/gpl.html
 { AFS 16 June 2003
   - fix capitalisation on unit names
 }
+{$I JcfGlobal.inc}
+
 interface
 
 uses SwitchableVisitor;

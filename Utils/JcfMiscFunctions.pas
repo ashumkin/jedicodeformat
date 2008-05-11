@@ -43,6 +43,8 @@ See http://www.gnu.org/licenses/gpl.html
   So I am importing just what I need from ComponentFunctions here
 }
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses Classes;

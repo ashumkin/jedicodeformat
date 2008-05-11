@@ -32,6 +32,8 @@ unit FileWriter;
   and writing the file at once
   }
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses CodeWriter;

@@ -44,6 +44,8 @@ unit IntList;
 }
 
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses Classes, SysUtils;

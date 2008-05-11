@@ -30,6 +30,8 @@ unit BuildTokenList;
  This is the lexical analysis phase of the parsing
 }
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses

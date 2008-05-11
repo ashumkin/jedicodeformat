@@ -27,6 +27,8 @@ unit ConvertTypes;
 
 {$I jedi.inc}
 
+{$I JcfGlobal.inc}
+
 interface
 
 { settings on how to convert

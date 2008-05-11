@@ -30,6 +30,8 @@ unit fMain;
 }
 
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses

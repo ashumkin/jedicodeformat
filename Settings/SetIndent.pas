@@ -25,6 +25,8 @@ See http://www.gnu.org/licenses/gpl.html
 
 unit SetIndent;
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses JCFSetBase, SettingsStream;

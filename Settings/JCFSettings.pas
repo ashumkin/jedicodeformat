@@ -29,6 +29,8 @@ unit JCFSettings;
   The file name is stored in registry
   This allows centralised settings on a shared dir }
 
+{$I JcfGlobal.inc}
+
 interface
 
 uses
