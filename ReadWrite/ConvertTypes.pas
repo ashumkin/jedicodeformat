@@ -25,8 +25,6 @@ See http://www.gnu.org/licenses/gpl.html
 
 unit ConvertTypes;
 
-{$I jedi.inc}
-
 {$I JcfGlobal.inc}
 
 interface
