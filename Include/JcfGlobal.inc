@@ -1,10 +1,14 @@
 
-// FreePascal must be in Delphi mode
 {$IFDEF FPC}
-  {$mode delphi}
+  // FreePascal must be in Delphi mode
   {$MODE delphi}
   {$ASMMODE Intel}
 {$ELSE}
+  // define the appropriate DelphiXX constants
+  {$IFDEF VER190}
+     {$DEFINE DELPHI11}
+  {$ENDIF}
+
   {$IFDEF VER180}
     {$IFDEF BCB}
       {$DEFINE BCB10}
