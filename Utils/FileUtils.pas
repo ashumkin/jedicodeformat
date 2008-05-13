@@ -31,11 +31,14 @@ interface
 
 { this unit is a wrapper for platform-specific file fns
   IE a way to get rid of those portability warnings
-  and a place to put the equivalent linux fns
-  when we get there }
+  and a place to put the equivalent linux fns }
 
+{$IFDEF FPC}
+uses Dialogs;
+{$ELSE}
 {$IFDEF WIN32}
-uses {$WARNINGS OFF} FileCtrl {$WARNINGS ON};
+ uses {$WARNINGS OFF} FileCtrl {$WARNINGS ON};
+ {$ENDIF}
 {$ENDIF}
 
 
@@ -68,7 +71,11 @@ end;
 function SelectDirectory(const Caption: string; const Root: WideString;
   out Directory: string): Boolean;
 begin
+  {$IFDEF FPC}
+  Result := Dialogs.SelectDirectory(Caption, Root, Directory);
+  {$ELSE}
   Result := FileCtrl.SelectDirectory(Caption, Root, Directory);
+  {$ENDIF}
 end;
 
 function SelectDirectory(var Directory: string; Options: TSelectDirOpts;

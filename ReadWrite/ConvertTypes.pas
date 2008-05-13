@@ -48,6 +48,7 @@ type
 
 const
   OLD_REG_ROOT_KEY = '\Software\Jedi\JediCodeFormat';
+ {$IFDEF FPC} REG_ROOT_KEY = OLD_REG_ROOT_KEY; {$ENDIF}
  {$IFDEF DELPHI1} REG_ROOT_KEY = '\Software\Borland\Delphi\1.0\Jedi\JCF'; {$ENDIF}
  {$IFDEF DELPHI2} REG_ROOT_KEY = '\Software\Borland\Delphi\2.0\Jedi\JCF'; {$ENDIF}
  {$IFDEF DELPHI3} REG_ROOT_KEY = '\Software\Borland\Delphi\3.0\Jedi\JCF'; {$ENDIF}
@@ -63,6 +64,7 @@ const
 const
   SOURCE_FILE_FILTERS =
     'Delphi source (*.pas, *.dpr, *.dpk)|*.pas; *.dpr; *.dpk|' +
+    'Lazarus source (*.pas, *.pp, *.lpr, *.lpk)|*.pas, *.pp, *.lpr, *.lpk|' +
     'Pascal Source (*.pas, *.pp)|*.pas; *.pp|' +
     'Text files (*.txt)|*.txt|' +
     'All files (*.*)|*.*';

@@ -287,7 +287,7 @@ begin
 
   { procedure & function in class def get return but not blank line before }
   if (pt.TokenType in ProcedureWords + [ttProperty]) and
-    (pt.HasParentNode([nClassType, nClassType])) and
+    (pt.HasParentNode([nClassType])) and
     (not IsClassFunctionOrProperty(pt)) then
   begin
     Result := True;
