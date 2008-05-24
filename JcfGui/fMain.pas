@@ -36,8 +36,7 @@ interface
 
 uses
   { delphi }
-  Windows, SysUtils, Classes, Controls, Forms, Dialogs,
-  StdCtrls, ComCtrls, Menus,
+  Windows, SysUtils, Classes, Controls, Forms, Dialogs, StdCtrls, ComCtrls, Menus,
   ActnList, StdActns, ToolWin, ImgList, ShellAPI,
   { local }
   FileConverter, JCFSettings,

@@ -39,9 +39,7 @@
     <Borland.Personality>Delphi.Personality</Borland.Personality>
     <Borland.ProjectType>Package</Borland.ProjectType>
     <BorlandProject>
-<BorlandProject><Delphi.Personality><Parameters><Parameters Name="HostApplication">C:\Program Files\CodeGear\RAD Studio\5.0\bin\bds.exe</Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><Package_Options><Package_Options Name="PackageDescription">JEDI Code Format IDE Plugin for CodeGear Delphi 2007 for Win32</Package_Options><Package_Options Name="ImplicitBuild">True</Package_Options><Package_Options Name="DesigntimeOnly">True</Package_Options><Package_Options Name="RuntimeOnly">False</Package_Options></Package_Options><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">2</VersionInfo><VersionInfo Name="MinorVer">35</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">0</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1033</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName"></VersionInfoKeys><VersionInfoKeys Name="FileDescription">JEDI Code Format IDE Plugin for CodeGear Delphi 2007 for Win32</VersionInfoKeys><VersionInfoKeys Name="FileVersion">2.35.0.0</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">2.35</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Source><Source Name="MainSource">JCFIde2007.dpk</Source></Source><Excluded_Packages>
-      
-      
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="HostApplication">C:\Program Files\CodeGear\RAD Studio\5.0\bin\bds.exe</Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><Package_Options><Package_Options Name="PackageDescription">JEDI Code Format IDE Plugin for CodeGear Delphi 2007 for Win32</Package_Options><Package_Options Name="ImplicitBuild">True</Package_Options><Package_Options Name="DesigntimeOnly">True</Package_Options><Package_Options Name="RuntimeOnly">False</Package_Options></Package_Options><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">2</VersionInfo><VersionInfo Name="MinorVer">38</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">0</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1033</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName"></VersionInfoKeys><VersionInfoKeys Name="FileDescription">JEDI Code Format IDE Plugin for CodeGear Delphi 2007 for Win32</VersionInfoKeys><VersionInfoKeys Name="FileVersion">2.38.0.0</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">2.38</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Source><Source Name="MainSource">JCFIde2007.dpk</Source></Source><Excluded_Packages>
       
       
       <Excluded_Packages Name="$(BDS)\bin\dclofficexp100.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
@@ -53,6 +51,19 @@
     <DelphiCompile Include="JCFIde2007.dpk">
       <MainSource>MainSource</MainSource>
     </DelphiCompile>
+    <DCCReference Include="..\..\..\..\..\..\Desktop\dbrtl.dcp" />
+    <DCCReference Include="..\..\..\..\..\..\Desktop\DesignIDE.dcp" />
+    <DCCReference Include="..\..\..\..\..\..\Desktop\Jcl.dcp" />
+    <DCCReference Include="..\..\..\..\..\..\Desktop\JclVcl.dcp" />
+    <DCCReference Include="..\..\..\..\..\..\Desktop\JvCoreD11R.dcp" />
+    <DCCReference Include="..\..\..\..\..\..\Desktop\JvCustomD11R.dcp" />
+    <DCCReference Include="..\..\..\..\..\..\Desktop\JvStdCtrlsD11R.dcp" />
+    <DCCReference Include="..\..\..\..\..\..\Desktop\JvSystemD11R.dcp" />
+    <DCCReference Include="..\..\..\..\..\..\Desktop\rtl.dcp" />
+    <DCCReference Include="..\..\..\..\..\..\Desktop\vcl.dcp" />
+    <DCCReference Include="..\..\..\..\..\..\Desktop\vcldb.dcp" />
+    <DCCReference Include="..\..\..\..\..\..\Desktop\vcljpg.dcp" />
+    <DCCReference Include="..\..\..\..\..\..\Desktop\vclx.dcp" />
     <DCCReference Include="..\..\Parse\AsmKeywords.pas" />
     <DCCReference Include="..\..\Parse\BuildParseTree.pas" />
     <DCCReference Include="..\..\Parse\BuildTokenList.pas" />
@@ -96,20 +107,7 @@
     <DCCReference Include="..\..\Process\Obfuscate\RemoveConsecutiveWhiteSpace.pas" />
     <DCCReference Include="..\..\Process\Obfuscate\RemoveReturn.pas" />
     <DCCReference Include="..\..\Process\Obfuscate\RemoveUnneededWhiteSpace.pas" />
-    <DCCReference Include="..\..\Process\Onceoffs\dbrtl.dcp" />
-    <DCCReference Include="..\..\Process\Onceoffs\DesignIDE.dcp" />
-    <DCCReference Include="..\..\Process\Onceoffs\Jcl.dcp" />
-    <DCCReference Include="..\..\Process\Onceoffs\JclVcl.dcp" />
-    <DCCReference Include="..\..\Process\Onceoffs\JvCoreD11R.dcp" />
-    <DCCReference Include="..\..\Process\Onceoffs\JvCustomD11R.dcp" />
-    <DCCReference Include="..\..\Process\Onceoffs\JvStdCtrlsD11R.dcp" />
-    <DCCReference Include="..\..\Process\Onceoffs\JvSystemD11R.dcp" />
     <DCCReference Include="..\..\Process\Onceoffs\MozComment.pas" />
-    <DCCReference Include="..\..\Process\Onceoffs\rtl.dcp" />
-    <DCCReference Include="..\..\Process\Onceoffs\vcl.dcp" />
-    <DCCReference Include="..\..\Process\Onceoffs\vcldb.dcp" />
-    <DCCReference Include="..\..\Process\Onceoffs\vcljpg.dcp" />
-    <DCCReference Include="..\..\Process\Onceoffs\vclx.dcp" />
     <DCCReference Include="..\..\Process\RemoveEmptyComment.pas" />
     <DCCReference Include="..\..\Process\Returns\BlockStyles.pas" />
     <DCCReference Include="..\..\Process\Returns\LongLineBreaker.pas" />
@@ -190,37 +188,47 @@
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frAnyCapsSettings.pas">
       <Form>frAnyCapsSettings</Form>
+      <DesignClass>TFrame</DesignClass>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frAsm.pas" />
     <DCCReference Include="..\..\UI\Settings\frBasicSettings.pas">
       <Form>frBasic</Form>
+      <DesignClass>TFrame</DesignClass>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frBlankLines.pas">
       <Form>fBlankLines</Form>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frClarify.pas">
       <Form>fClarify</Form>
+      <DesignClass>TFrame</DesignClass>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frClarifyAlign.pas">
       <Form>fClarifyAlign</Form>
+      <DesignClass>TFrame</DesignClass>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frClarifyBlocks.pas">
       <Form>fClarifyBlocks</Form>
+      <DesignClass>TFrame</DesignClass>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frClarifyCaseBlocks.pas">
       <Form>fClarifyCaseBlocks</Form>
+      <DesignClass>TFrame</DesignClass>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frClarifyIndent.pas">
       <Form>fClarifyIndent</Form>
+      <DesignClass>TFrame</DesignClass>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frClarifyLongLineBreaker.pas">
       <Form>fClarifyLongLineBreaker</Form>
+      <DesignClass>TFrame</DesignClass>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frClarifyReturns.pas">
       <Form>fClarifyReturns</Form>
+      <DesignClass>TFrame</DesignClass>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frClarifySpaces.pas">
       <Form>fClarifySpaces</Form>
+      <DesignClass>TFrame</DesignClass>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frComments.pas">
       <Form>fComments</Form>
@@ -228,37 +236,47 @@
     <DCCReference Include="..\..\Ui\Settings\frCompilerDirectReturns.pas" />
     <DCCReference Include="..\..\Ui\Settings\frFiles.pas">
       <Form>fFiles</Form>
+      <DesignClass>TFrame</DesignClass>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frIdentifierCapsSettings.pas" />
     <DCCReference Include="..\..\Ui\Settings\frmBaseSettingsFrame.pas">
       <Form>frSettingsFrame</Form>
+      <DesignClass>TFrame</DesignClass>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frNotIdentifierCapsSettings.pas" />
     <DCCReference Include="..\..\Ui\Settings\frObfuscateSettings.pas">
       <Form>fObfuscateSettings</Form>
+      <DesignClass>TFrame</DesignClass>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frPreProcessor.pas">
       <Form>fPreProcessor</Form>
+      <DesignClass>TFrame</DesignClass>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frReplace.pas">
       <Form>fReplace</Form>
+      <DesignClass>TFrame</DesignClass>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frReservedCapsSettings.pas">
       <Form>frReservedCapsSettings</Form>
+      <DesignClass>TFrame</DesignClass>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frTransform.pas">
       <Form>fTransform</Form>
+      <DesignClass>TFrame</DesignClass>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frUnitCaps.pas">
       <Form>frUnitNameCaps</Form>
+      <DesignClass>TFrame</DesignClass>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frUses.pas">
       <Form>fUses</Form>
+      <DesignClass>TFrame</DesignClass>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frWarnings.pas" />
     <DCCReference Include="..\..\Utils\Delay.pas" />
     <DCCReference Include="..\..\Utils\DragDrop\frDrop.pas">
       <Form>FrameDrop</Form>
+      <DesignClass>TFrame</DesignClass>
     </DCCReference>
     <DCCReference Include="..\..\Utils\DragDrop\JCFDropTarget.pas" />
     <DCCReference Include="..\..\Utils\FileUtils.pas" />
