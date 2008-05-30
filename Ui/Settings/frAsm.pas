@@ -59,9 +59,17 @@ type
 
 implementation
 
-uses JcfHelp, JcfSettings, Capitalisation, SettingsTypes, SetAsm;
+uses
+  { jcf }
+  JcfHelp, JcfSettings,
+  { local }
+  Capitalisation, SettingsTypes, SetAsm;
 
-{$R *.dfm}
+{$ifdef FPC}
+  {$R *.lfm}
+{$else}
+  {$R *.dfm}
+{$endif}
 
 procedure TfAsm.Read;
 begin

@@ -71,7 +71,11 @@ implementation
 
 uses JCFHelp;
 
-{$R *.DFM}
+{$ifdef FPC}
+  {$R *.lfm}
+{$else}
+  {$R *.dfm}
+{$endif}
 
 constructor TfrSettingsFrame.Create(aOwner: TComponent);
 begin

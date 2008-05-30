@@ -43,22 +43,22 @@ type
     mWords: TJvMemo;
     procedure cbEnableAnyWordsClick(Sender: TObject);
     procedure FrameResize(Sender: TObject);
-  private
-    { Private declarations }
   public
     constructor Create(AOwner: TComponent); override;
 
     procedure Read; override;
     procedure Write; override;
-
   end;
 
 implementation
 
 uses JcfHelp, JcfSettings;
 
-{$R *.DFM}
-
+{$ifdef FPC}
+  {$R *.lfm}
+{$else}
+  {$R *.dfm}
+{$endif}
 
 constructor TfNotIdentifierCapsSettings.Create(AOwner: TComponent);
 begin

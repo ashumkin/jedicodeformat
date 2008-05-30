@@ -116,7 +116,11 @@ uses
   { local }
   ConvertTypes, JcfRegistrySettings, JcfSettings, JCFHelp, JcfFontSetFunctions;
 
-{$R *.dfm}
+{$ifdef FPC}
+  {$R *.lfm}
+{$else}
+  {$R *.dfm}
+{$endif}
 
 procedure TfmRegistrySettings.ReadSettings;
 var

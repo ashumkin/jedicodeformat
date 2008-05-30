@@ -52,7 +52,11 @@ type
 
 implementation
 
-{$R *.dfm}
+{$ifdef FPC}
+  {$R *.lfm}
+{$else}
+  {$R *.dfm}
+{$endif}
 
 uses JcfHelp, JcfSettings;
 

@@ -56,16 +56,19 @@ type
 
 implementation
 
-{$R *.DFM}
-
 uses JcfSettings, SettingsTypes, JcfHelp;
+
+{$ifdef FPC}
+  {$R *.lfm}
+{$else}
+  {$R *.dfm}
+{$endif}
 
 constructor TfClarifyBlocks.Create(AOwner: TComponent);
 begin
   inherited;
   fiHelpContext := HELP_CLARIFY_BLOCKS;
 end;
-
 
 {-------------------------------------------------------------------------------
   worker procs }

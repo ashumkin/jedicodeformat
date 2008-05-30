@@ -58,8 +58,11 @@ implementation
 
 uses JcfHelp, JcfSettings;
 
-{$R *.DFM}
-
+{$ifdef FPC}
+  {$R *.lfm}
+{$else}
+  {$R *.dfm}
+{$endif}
 
 constructor TfIdentifierCapsSettings.Create(AOwner: TComponent);
 begin

@@ -125,11 +125,17 @@ var
 
 implementation
 
-{$R *.DFM}
+{$ifdef FPC}
+  {$R *.lfm}
+{$else}
+  {$R *.dfm}
+{$endif}
 
 uses
-  { jcl }JclFileUtils,
-  { local }fAbout, ConvertTypes, fAllSettings, fRegistrySettings,
+  { jcl }
+  JclFileUtils,
+  { local }
+  fAbout, ConvertTypes, fAllSettings, fRegistrySettings,
   SettingsStream, JCFHelp, JcfRegistrySettings, JcfFontSetFunctions;
 
 function OkDialog(const psMsg: string): boolean;

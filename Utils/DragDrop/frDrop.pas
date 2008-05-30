@@ -79,7 +79,11 @@ function GetTextFormat(const pciData: IDataObject; var prFormatEtc: TFormatEtc):
 
 implementation
 
-{$R *.DFM}
+{$ifdef FPC}
+  {$R *.lfm}
+{$else}
+  {$R *.dfm}
+{$endif}
 
 { find a formatEtc in the IDataObject with the specified type }
 function GetFormat(const pciData: IDataObject; const piFormatId: integer;

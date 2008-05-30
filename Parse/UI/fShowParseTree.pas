@@ -85,7 +85,12 @@ procedure ShowParseTree(const pcRoot: TParseTreeNode);
 
 implementation
 
-{$R *.dfm}
+{$ifdef FPC}
+  {$R *.lfm}
+{$else}
+  {$R *.dfm}
+{$endif}
+
 
 uses SourceToken, Tokens, JCFHelp, JcfFontSetFunctions;
 

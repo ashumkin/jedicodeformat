@@ -56,11 +56,16 @@ type
 implementation
 
 uses
-    { delphi }
-    { jcl }JclFileUtils,
-    { local }FileUtils, JcfRegistrySettings, JcfSettings;
+    { jcl }
+    JclFileUtils,
+    { local }
+    FileUtils, JcfRegistrySettings, JcfSettings;
 
-{$R *.DFM}
+{$ifdef FPC}
+  {$R *.lfm}
+{$else}
+  {$R *.dfm}
+{$endif}
 
 procedure TfFiles.Read;
 var

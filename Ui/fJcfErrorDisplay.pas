@@ -31,7 +31,7 @@ interface
 
 { AFS 22 Sept 2003
   Exception handler form
-  that allows the exception etx to be copied out }
+  that allows the exception text to be copied out }
 
 uses
   SysUtils, Classes, Controls, Forms, StdCtrls;
@@ -44,7 +44,6 @@ type
     procedure FormResize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
-    { Private declarations }
   public
     procedure DisplayException(const pE: Exception);
     procedure DisplayErrorMessage(const sMessage: string;
@@ -59,7 +58,11 @@ implementation
 
 uses JclStrings, ParseError, JcfFontSetFunctions;
 
-{$R *.dfm}
+{$ifdef FPC}
+  {$R *.lfm}
+{$else}
+  {$R *.dfm}
+{$endif}
 
 procedure ShowExceptionDialog(const pE: Exception);
 var

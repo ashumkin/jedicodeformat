@@ -59,7 +59,11 @@ implementation
 
 uses SettingsTypes, JcfSettings, JcfHelp, SetTransform;
 
-{$R *.dfm}
+{$ifdef FPC}
+  {$R *.lfm}
+{$else}
+  {$R *.dfm}
+{$endif}
 
 constructor TfTransform.Create(AOwner: TComponent);
 begin

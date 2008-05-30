@@ -87,11 +87,16 @@ type
 implementation
 
 uses
-  { delphi }
-  { jcl }jclFileUtils,
-  { local }FileUtils, JcfHelp, JcfSettings, JcfRegistrySettings;
+  { jcl }
+  jclFileUtils,
+  { local }
+  FileUtils, JcfHelp, JcfSettings, JcfRegistrySettings;
 
-{$R *.DFM}
+{$ifdef FPC}
+  {$R *.lfm}
+{$else}
+  {$R *.dfm}
+{$endif}
 
 constructor TfrBasic.Create(AOwner: TComponent);
 var

@@ -158,9 +158,11 @@ uses
   { local }
   JCFHelp, ConvertTypes, fAbout, fRegistrySettings, fAllSettings, JcfFontSetFunctions;
 
-{$R *.dfm}
-
-
+{$ifdef FPC}
+  {$R *.lfm}
+{$else}
+  {$R *.dfm}
+{$endif}
 
 procedure TfmJCFNotepad.CheckInputState;
 begin

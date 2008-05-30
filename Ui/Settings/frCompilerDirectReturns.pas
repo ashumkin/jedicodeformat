@@ -54,9 +54,13 @@ type
 
 implementation
 
-{$R *.dfm}
-
 uses JcfSettings, SettingsTypes;
+
+{$ifdef FPC}
+  {$R *.lfm}
+{$else}
+  {$R *.dfm}
+{$endif}
 
 constructor TfCompilerDirectReturns.Create(AOwner: TComponent);
 begin
