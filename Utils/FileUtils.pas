@@ -81,7 +81,7 @@ uses SysUtils;
   {$IFDEF LINUX}
     // delphi-linux version
     This bit will not compile under linux yet
-    as the above win32 fns will not work there .
+    as the above win32 fns will not work there.
   {$ENDIF}
 {$ENDIF}
 
