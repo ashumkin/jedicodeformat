@@ -44,51 +44,45 @@ uses Dialogs;
 
 function FileIsReadOnly(const ps: string): boolean;
 
-function SelectDirectory(const Caption: string; const Root: widestring;
-  out Directory: string): boolean; overload;
-function SelectDirectory(var Directory: string; Options: TSelectDirOpts;
-  HelpCtx: longint): boolean; overload;
-
 implementation
-
-
 
 uses SysUtils;
 
-{$IFDEF WIN32}
+{$IFDEF FPC}
 
-function FileIsReadOnly(const ps: string): boolean;
-var
-  liAttr: integer;
-begin
-  Assert(FileExists(ps));
-{$WARNINGS OFF}
-  liAttr := FileGetAttr(ps);
-  Result := ((liAttr and faReadOnly) <> 0);
-{$WARNINGS ON}
-end;
+  // FPC version
+  function FileIsReadOnly(const ps: string): boolean;
+  var
+    liAttr: integer;
+  begin
+    Assert(FileExists(ps));
+  {$WARNINGS OFF}
+    liAttr := FileGetAttr(ps);
+    Result := ((liAttr and faReadOnly) <> 0);
+  {$WARNINGS ON}
+  end;
 
-function SelectDirectory(const Caption: string; const Root: WideString;
-  out Directory: string): Boolean;
-begin
-  {$IFDEF FPC}
-  Result := Dialogs.SelectDirectory(Caption, Root, Directory);
-  {$ELSE}
-  Result := FileCtrl.SelectDirectory(Caption, Root, Directory);
+{$ELSE}
+  {$IFDEF WIN32}
+
+  // delphi-windows version
+  function FileIsReadOnly(const ps: string): boolean;
+  var
+    liAttr: integer;
+  begin
+    Assert(FileExists(ps));
+  {$WARNINGS OFF}
+    liAttr := FileGetAttr(ps);
+    Result := ((liAttr and faReadOnly) <> 0);
+  {$WARNINGS ON}
+  end;
+
   {$ENDIF}
-end;
-
-function SelectDirectory(var Directory: string; Options: TSelectDirOpts;
-  HelpCtx: Longint): Boolean;
-begin
-  Result := FileCtrl.SelectDirectory(Directory, Options, HelpCtx);
-end;
-
-{$ENDIF}
-
-{$IFDEF LINUX}
-  This bit will not compile under linux yet
-  as the above win32 fns will not work there .
+  {$IFDEF LINUX}
+    // delphi-linux version
+    This bit will not compile under linux yet
+    as the above win32 fns will not work there .
+  {$ENDIF}
 {$ENDIF}
 
 end.
