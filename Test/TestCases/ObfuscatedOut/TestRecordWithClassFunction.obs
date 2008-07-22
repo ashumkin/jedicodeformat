@@ -1,0 +1,4 @@
+unit testrecordwithclassfunction;interface type ttestrecord=record private _lo:uint64
+;_hi:int64;public class function create(low:uint64;high:int64):ttestrecord;static
+;end;implementation class function ttestrecord.create(low:uint64;high:int64):ttestrecord
+;begin result._lo:=low;result._hi:=high;end;end. 

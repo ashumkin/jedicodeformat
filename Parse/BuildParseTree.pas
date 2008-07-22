@@ -1993,9 +1993,17 @@ begin
     ttOperator:
       RecogniseClassOperator(False);
     ttProcedure:
+    begin
+      PushNode(nFunctionDecl);
       RecogniseProcedureHeading(false, false);
+      PopNode;
+    end;
     ttFunction:
+    begin
+      PushNode(nFunctionDecl);
       RecogniseFunctionHeading(false, false);
+      PopNode;
+    end;
     else
       RecogniseClassVars;
   end;

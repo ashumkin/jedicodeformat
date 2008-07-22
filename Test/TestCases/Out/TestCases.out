@@ -167,7 +167,8 @@ uses
   TestExports in 'TestExports.pas',
   TestAsmCaps in 'TestAsmCaps.pas',
   TestAsmOffsetKeyword in 'TestAsmOffsetKeyword.pas',
-  TestClassVarEmpty in 'TestClassVarEmpty.pas';
+  TestClassVarEmpty in 'TestClassVarEmpty.pas',
+  TestRecordWithClassFunction in 'TestRecordWithClassFunction.pas';
 
 {$R *.res}
 

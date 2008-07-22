@@ -292,6 +292,7 @@ type
     procedure TestGenericTypeNullable;
     procedure TestPackedObject;
     procedure TestClassVarEmpty;
+    procedure TestRecordWithClassFunction;
 
     procedure TestLibrary;
 
@@ -587,7 +588,7 @@ end;
 
 procedure TFullTestClarify.TestCases;
 begin
-  TestFile('TestCases.dpr', 1381);
+  TestFile('TestCases.dpr', 1389);
 end;
 
 procedure TFullTestClarify.TestCast;
@@ -973,6 +974,11 @@ end;
 procedure TFullTestClarify.TestRecords;
 begin
   TestFile('TestRecords', 1455);
+end;
+
+procedure TFullTestClarify.TestRecordWithClassFunction;
+begin
+  TestFile('TestRecordWithClassFunction', 130);
 end;
 
 procedure TFullTestClarify.TestReg;

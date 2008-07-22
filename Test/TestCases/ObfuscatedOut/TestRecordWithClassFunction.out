@@ -1,0 +1,23 @@
+unit testrecordwithclassfunction;
+
+interface
+
+type
+  ttestrecord = record
+  private
+    _lo: uint64;
+    _hi: int64;
+  public
+    class function Create(low: uint64; high: int64): ttestrecord; static;
+  end;
+
+implementation
+
+class function ttestrecord.Create(low: uint64; high: int64): ttestrecord;
+begin
+  Result._lo := low;
+  Result._hi := high;
+end;
+
+end.
+ 

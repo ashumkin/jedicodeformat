@@ -66,5 +66,6 @@ testdllindex in'TestDLLIndex.pas',testasmand in'TestASMAnd.pas',testasmlabel in'
 'TestComplexAsm2.pas',testsubrangetype in'TestSubrangeType.pas',testampersand in'TestAmpersand.pas'
 ,testautomated in'TestAutomated.pas',testclassmethods in'TestClassMethods.pas',testexports
 in'TestExports.pas',testasmcaps in'TestAsmCaps.pas',testasmoffsetkeyword in'TestAsmOffsetKeyword.pas'
-,testclassvarempty in'TestClassVarEmpty.pas';{$R *.res}begin application.initialize
-;application.createform(tformtest,formtest);application.run;end. 
+,testclassvarempty in'TestClassVarEmpty.pas',testrecordwithclassfunction in'TestRecordWithClassFunction.pas'
+;{$R *.res}begin application.initialize;application.createform(tformtest,formtest
+);application.run;end. 
