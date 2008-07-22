@@ -129,6 +129,8 @@ type
     procedure RecogniseEnumeratedType;
     procedure RecogniseFieldDecl;
     procedure RecogniseFieldList;
+    procedure RecogniseRecordStaticItem;
+
     procedure RecogniseFileType;
     procedure RecogniseOrdIdent;
     procedure RecogniseOrdinalType;
@@ -1934,10 +1936,10 @@ begin
 
 end;
 
+{ recognise the fields of a record }
 procedure TBuildParseTree.RecogniseFieldList;
 var
   lcNextToken: TSourceToken;
-  lcNextClassItem: TSourceToken;
 begin
   // FieldList ->  FieldDecl/';'... [VariantSection] [';']
   lcNextToken := fcTokenList.FirstSolidToken;
@@ -1952,13 +1954,7 @@ begin
       ttConstructor:
         RecogniseConstructorHeading(True);
       ttClass:
-      begin
-        lcNextClassItem :=fcTokenList.SolidToken(2);
-        if lcNextClassItem.TokenType = ttOperator then
-          RecogniseClassOperator(False)
-        else
-          RecogniseClassVars;
-      end;
+        RecogniseRecordStaticItem;
       ttProperty:
         RecogniseProperty;
       else
@@ -1985,6 +1981,24 @@ begin
 
   if lcNextToken.TokenType = ttSemicolon then
     Recognise(ttSemicolon);
+end;
+
+procedure TBuildParseTree.RecogniseRecordStaticItem;
+var
+  lcNextItem: TSourceToken;
+begin
+  lcNextItem := fcTokenList.SolidToken(2);
+
+  case lcNextItem.TokenType of
+    ttOperator:
+      RecogniseClassOperator(False);
+    ttProcedure:
+      RecogniseProcedureHeading(false, false);
+    ttFunction:
+      RecogniseFunctionHeading(false, false);
+    else
+      RecogniseClassVars;
+  end;
 end;
 
 procedure TBuildParseTree.RecogniseFieldDecl;

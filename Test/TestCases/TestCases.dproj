@@ -188,6 +188,7 @@
     <DCCReference Include="TestPropertyLines.pas" />
     <DCCReference Include="TestRaise.pas" />
     <DCCReference Include="TestRecords.pas" />
+    <DCCReference Include="TestRecordWithClassFunction.pas" />
     <DCCReference Include="TestReg.pas" />
     <DCCReference Include="TestReint.pas" />
     <DCCReference Include="TestReturnRemoval.pas" />
