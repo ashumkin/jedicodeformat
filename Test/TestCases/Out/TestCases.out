@@ -168,7 +168,8 @@ uses
   TestAsmCaps in 'TestAsmCaps.pas',
   TestAsmOffsetKeyword in 'TestAsmOffsetKeyword.pas',
   TestClassVarEmpty in 'TestClassVarEmpty.pas',
-  TestRecordWithClassFunction in 'TestRecordWithClassFunction.pas';
+  TestRecordWithClassFunction in 'TestRecordWithClassFunction.pas',
+  TestOutKeyword in 'TestOutKeyword.pas';
 
 {$R *.res}
 

@@ -291,7 +291,8 @@ type
     procedure TestGenericTypeNullable;
     procedure TestPackedObject;
     procedure TestClassVarEmpty;
-   procedure TestRecordWithClassFunction;
+    procedure TestRecordWithClassFunction;
+    procedure TestOutKeyword;
 
     procedure TestDelphiNetLibrary;
 
@@ -855,6 +856,11 @@ end;
 procedure TTestObfuscate.TestOperators;
 begin
   TestFile('TestOperators');
+end;
+
+procedure TTestObfuscate.TestOutKeyword;
+begin
+  TestFile('TestOutKeyword');
 end;
 
 procedure TTestObfuscate.TestPackedObject;

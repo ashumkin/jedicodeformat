@@ -11,8 +11,8 @@ interface
 type
   IAmAnInterface = interface(IDispatch)
     ['{081A08A5-AC8E-4C99-89A4-6175E6320719}']
-    procedure Monkey(out out: olevariant); safecall;
-    procedure Soy(var out: integer); safecall;
+    procedure Monkey(out Out: olevariant); safecall;
+    procedure Soy(var Out: integer); safecall;
   end;
 
 

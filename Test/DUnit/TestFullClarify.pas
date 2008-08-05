@@ -293,6 +293,7 @@ type
     procedure TestPackedObject;
     procedure TestClassVarEmpty;
     procedure TestRecordWithClassFunction;
+    procedure TestOutKeyword;
 
     procedure TestLibrary;
 
@@ -588,7 +589,7 @@ end;
 
 procedure TFullTestClarify.TestCases;
 begin
-  TestFile('TestCases.dpr', 1389);
+  TestFile('TestCases.dpr', 1397);
 end;
 
 procedure TFullTestClarify.TestCast;
@@ -914,6 +915,11 @@ end;
 procedure TFullTestClarify.TestOperators;
 begin
   TestFile('TestOperators', 1233);
+end;
+
+procedure TFullTestClarify.TestOutKeyword;
+begin
+  TestFile('TestOutKeyword', 41);
 end;
 
 procedure TFullTestClarify.TestOleParams;
@@ -1303,7 +1309,7 @@ end;
 
 procedure TFullTestClarify.TestSimpleIfDef4;
 begin
-  TestFile('TestSimpleIfDef4', 92);
+  TestFile('TestSimpleIfDef4', 95);
 end;
 
 procedure TFullTestClarify.TestSimpleIfDef5;
@@ -1398,7 +1404,7 @@ end;
 
 procedure TFullTestClarify.TestSimpleIfDef6;
 begin
-  TestFile('TestSimpleIfDef6', 46);
+  TestFile('TestSimpleIfDef6', 49);
 end;
 
 procedure TFullTestClarify.TestSubrangeType;

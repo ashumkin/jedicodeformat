@@ -1,0 +1,2 @@
+unit testoutkeyword;interface type tmyclass=class out:integer;end;implementation
+end. 

@@ -180,6 +180,7 @@
     <DCCReference Include="TestNestedRecords.pas" />
     <DCCReference Include="TestOleParams.pas" />
     <DCCReference Include="TestOperators.pas" />
+    <DCCReference Include="TestOutKeyword.pas" />
     <DCCReference Include="TestParams.pas" />
     <DCCReference Include="TestParamSpaces.pas" />
     <DCCReference Include="TestPointers.pas" />
