@@ -578,7 +578,7 @@ begin
   AddKeyword('library', wtReservedWord, ttLibrary);
   AddKeyword('object', wtReservedWord, ttObject);
   AddKeyword('of', wtReservedWord, ttOf);
-  AddKeyword('out', wtReservedWord, ttOut);
+  AddKeyword('out', wtReservedWordDirective, ttOut);
   AddKeyword('packed', wtReservedWord, ttPacked);
   AddKeyword('procedure', wtReservedWord, ttProcedure);
   AddKeyword('program', wtReservedWord, ttProgram);
