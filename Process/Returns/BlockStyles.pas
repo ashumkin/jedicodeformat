@@ -83,7 +83,7 @@ type
 implementation
 
 uses
-  JclStrings,
+  JclAnsiStrings,
   Tokens, SourceToken, TokenUtils, JCFSettings,
   FormatFlags, SettingsTypes;
 

@@ -54,7 +54,7 @@ type
 implementation
 
 uses
-  JclStrings,
+  JclAnsiStrings,
   JcfSettings, TestConstants, ReturnAfter;
 
 procedure TTestUsesReturns.Setup;

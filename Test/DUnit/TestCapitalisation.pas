@@ -75,7 +75,7 @@ implementation
 uses
   SysUtils,
   { Jcl }
-  JclStrings,
+  JclAnsiStrings,
   { local }
   Capitalisation, JcfSettings, SetCaps, IdentifierCaps;
 

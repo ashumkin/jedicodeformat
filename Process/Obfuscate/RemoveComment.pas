@@ -49,7 +49,7 @@ type
 implementation
 
 uses
-  JclStrings,
+  JclAnsiStrings,
   SourceToken, Tokens, ParseTreeNodeType, FormatFlags;
 
 function CommentMustStay(const pc: TSourceToken): boolean;

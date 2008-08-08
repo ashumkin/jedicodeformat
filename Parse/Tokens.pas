@@ -460,7 +460,7 @@ implementation
 uses
   SysUtils,
   Windows,
-  JclStrings,
+  JclAnsiStrings,
   JcfUnicode;
 
 { the majority of these tokens have a fixed textual representation

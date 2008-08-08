@@ -80,7 +80,7 @@ type
 
 implementation
 
-uses JclStrings, BlockStyles, JcfSettings, SetReturns;
+uses JclAnsiStrings, BlockStyles, JcfSettings, SetReturns;
 
 const
 

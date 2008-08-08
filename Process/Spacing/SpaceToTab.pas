@@ -51,7 +51,7 @@ implementation
 
 uses
   SysUtils,
-  JclStrings,
+  JclAnsiStrings,
   JcfSettings, SourceToken, Tokens, FormatFlags;
 
 constructor TSpaceToTab.Create;

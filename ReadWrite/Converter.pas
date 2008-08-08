@@ -106,7 +106,7 @@ uses
   { delphi }
   Controls, Forms,
   { JCL }
-  JclStrings,
+  JclAnsiStrings,
   { local }
   JcfUnicode,
   SourceTokenList, SourceToken,

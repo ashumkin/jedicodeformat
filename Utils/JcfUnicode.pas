@@ -66,7 +66,7 @@ implementation
 
 uses
   Classes, SysUtils,
-  JclStrings;
+  JclAnsiStrings;
 
 const
   MaxAnsiChar = 127;

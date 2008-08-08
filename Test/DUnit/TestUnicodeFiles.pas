@@ -76,7 +76,7 @@ implementation
 uses
   SysUtils,
   Windows,
-  JclStrings,
+  JclAnsiStrings,
   JcfUnicodeFiles;
 
 const

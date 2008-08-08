@@ -71,7 +71,7 @@ implementation
 
 uses
   {delphi }SysUtils,
-  JclStrings;
+  JclAnsiStrings;
 
 { TFileReader }
 

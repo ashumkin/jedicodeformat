@@ -51,7 +51,7 @@ implementation
 
 uses
   { jcl }
-  JclStrings,
+  JclAnsiStrings,
   { local }
   JcfSettings, SourceToken, Tokens,
   FormatFlags, ParseTreeNodeType;

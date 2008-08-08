@@ -66,7 +66,7 @@ type
 
 implementation
 
-uses JclStrings,
+uses JclAnsiStrings,
   JcfSettings,
   Indenter, SetIndent;
 

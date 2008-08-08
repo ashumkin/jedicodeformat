@@ -64,7 +64,7 @@ type
 implementation
 
 uses
-  JclStrings,
+  JclAnsiStrings,
   JcfSettings, SetReturns,
   RemoveConsecutiveReturns, RemoveBlankLinesInVars, RemoveBlankLinesAfterProcHeader;
 

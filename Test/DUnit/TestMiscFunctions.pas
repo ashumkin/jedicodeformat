@@ -31,7 +31,7 @@ interface
 
 uses
   Classes,
-  JclStrings,
+  JclAnsiStrings,
   TestFrameWork,
   JcfMiscFunctions;
 

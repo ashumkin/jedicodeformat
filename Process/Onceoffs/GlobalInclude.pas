@@ -53,7 +53,7 @@ implementation
 
 uses
   { delphi }SysUtils,
-  JclStrings,
+  JclAnsiStrings,
   { local }Tokens, TokenUtils, JcfSettings,
   SettingsTypes, ParseTreeNodeType, SetClarify;
 

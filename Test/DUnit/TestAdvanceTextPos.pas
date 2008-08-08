@@ -35,7 +35,7 @@ interface
   This regression will ensure that the functionality is unchanged }
 
 uses
-  JclStrings,
+  JclAnsiStrings,
   TestFrameWork,
   JcfMiscFunctions;
 

@@ -57,7 +57,7 @@ type
 implementation
 
 uses
-  JclStrings,
+  JclAnsiStrings,
   SourceToken, Tokens, ParseTreeNodeType, JcfSettings,
   FormatFlags, TokenUtils, SettingsTypes;
 

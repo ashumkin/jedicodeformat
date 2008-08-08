@@ -53,7 +53,7 @@ uses
   SysUtils,
   Windows,
   { jl }
-  JclStrings,
+  JclAnsiStrings,
   { local }
   JcfRegistrySettings, JcfSettings, ConvertTypes;
 

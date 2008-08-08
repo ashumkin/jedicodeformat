@@ -69,7 +69,7 @@ implementation
 
 uses
     { delphi }SysUtils,
-    { jcl }JclStrings;
+    { jcl }JclAnsiStrings;
 
 const
   REG_ENABLED = 'Enabled';

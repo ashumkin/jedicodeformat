@@ -35,7 +35,7 @@ interface
 
 uses
   Classes,
-  JclStrings,
+  JclAnsiStrings,
   { delphi design time }
   ToolsAPI,
   { local }

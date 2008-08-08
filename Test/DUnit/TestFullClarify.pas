@@ -315,7 +315,7 @@ uses
   { delphi }
   SysUtils, Windows,
   { jcl }
-  JclStrings,
+  JclAnsiStrings,
   { DUnit}
   TestFrameWork,
   { JCF }

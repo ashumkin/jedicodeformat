@@ -50,7 +50,7 @@ implementation
 
 uses
   SysUtils,
-  JclStrings,
+  JclAnsiStrings,
   SourceToken, SettingsTypes, Tokens, ParseTreeNodeType,
   JcfSettings, FormatFlags, TokenUtils;
 

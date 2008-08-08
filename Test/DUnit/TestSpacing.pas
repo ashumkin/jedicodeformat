@@ -95,7 +95,7 @@ type
 
 implementation
 
-uses JclStrings,
+uses JclAnsiStrings,
   JcfSettings,
   NoReturnAfter, NoReturnBefore, NoSpaceAfter, NoSpaceBefore,
   SpaceBeforeColon,

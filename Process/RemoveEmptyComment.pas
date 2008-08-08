@@ -51,7 +51,7 @@ implementation
 
 uses
   SysUtils,
-  JclStrings,
+  JclAnsiStrings,
   FormatFlags, SourceToken, Tokens, TokenUtils, JcfSettings;
 
 

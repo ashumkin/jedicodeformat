@@ -95,7 +95,7 @@ implementation
 
 uses
   // jcf
-  JclStrings,
+  JclAnsiStrings,
   // local
   JcfSettings;
 

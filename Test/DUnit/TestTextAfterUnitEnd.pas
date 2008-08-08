@@ -59,7 +59,7 @@ type
 
 implementation
 
-uses JclStrings,
+uses JclAnsiStrings,
   JcfSettings,
   ReturnsAfterFinalEnd;
 

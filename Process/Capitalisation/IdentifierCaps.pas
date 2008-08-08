@@ -58,7 +58,7 @@ uses
   SysUtils,
   Windows,
   { JCL }
-  JclStrings,
+  JclAnsiStrings,
   { local }
   SourceToken, Tokens, ParseTreeNodeType,
   JcfSettings, FormatFlags, TokenUtils;

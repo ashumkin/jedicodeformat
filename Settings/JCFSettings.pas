@@ -136,7 +136,7 @@ uses
   { delphi }
   SysUtils, Dialogs, Windows,
   { jcl }
-  JclStrings,
+  JclAnsiStrings,
   { local }
   JCFSetBase,
   JcfRegistrySettings;

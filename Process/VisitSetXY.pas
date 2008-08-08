@@ -48,7 +48,7 @@ type
 implementation
 
 uses
-  JclStrings,
+  JclAnsiStrings,
   JcfMiscFunctions, SourceToken, Tokens;
 
 constructor TVisitSetXY.Create;

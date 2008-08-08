@@ -48,7 +48,7 @@ type
 implementation
 
 uses
-  JclStrings,
+  JclAnsiStrings,
   { local }
   SourceToken, Tokens, ParseTreeNodeType,
   JcfUnicode,

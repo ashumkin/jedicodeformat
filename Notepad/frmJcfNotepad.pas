@@ -154,7 +154,7 @@ uses
   { delphi }
   ClipBrd,
   { jcl }
-  JclStrings,
+  JclAnsiStrings,
   { local }
   JCFHelp, ConvertTypes, fAbout, fRegistrySettings, fAllSettings, JcfFontSetFunctions;
 

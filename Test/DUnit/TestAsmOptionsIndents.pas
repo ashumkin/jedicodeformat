@@ -65,7 +65,7 @@ implementation
 
 uses
   SysUtils,
-  JclStrings,
+  JclAnsiStrings,
   JCFSettings, SetAsm;
 
 const

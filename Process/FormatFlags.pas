@@ -77,7 +77,7 @@ uses
   { delphi }
   SysUtils, Windows,
   { Jcl}
-  JclStrings, JclSysUtils;
+  JclAnsiStrings, JclSysUtils;
 
 type
   TRFlagNameData = record

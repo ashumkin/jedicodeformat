@@ -68,7 +68,7 @@ implementation
 
 uses
   SysUtils,
-  JclStrings,
+  JclAnsiStrings,
   JcfSettings, AlignConst, AlignVars, AlignAssign, AlignComment,
   AlignTypedef, AlignField;
 

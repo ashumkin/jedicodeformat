@@ -71,7 +71,7 @@ type
 implementation
 
 uses
-  JclStrings,
+  JclAnsiStrings,
   TestFrameWork,
   JcfSettings,
   UsesClauseInsert, UsesClauseRemove, UsesClauseFindReplace;

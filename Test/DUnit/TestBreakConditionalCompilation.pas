@@ -91,7 +91,7 @@ uses
   { DUnit }
   TestFramework,
   { jcl }
-  JclStrings,
+  JclAnsiStrings,
   { local }
   JCFSettings;
 

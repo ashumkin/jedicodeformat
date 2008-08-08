@@ -87,7 +87,7 @@ implementation
 { TTestAddBeginEnd }
 
 uses
-  JclStrings,
+  JclAnsiStrings,
   JcfSettings, AddBeginEnd;
 
 procedure TTestAddBeginEnd.Setup;

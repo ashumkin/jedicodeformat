@@ -157,7 +157,7 @@ uses
   { delphi }
   SysUtils, Windows,
   { jcl }
-  JclStrings, JclSysUtils,
+  JclAnsiStrings, JclSysUtils,
   { local}
   JcfMiscFunctions;
 

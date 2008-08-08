@@ -50,7 +50,7 @@ uses
   { delphi }
   SysUtils, Windows,
   { jcl }
-  JclStrings,
+  JclAnsiStrings,
   { local }
   Tokens, SourceToken, SettingsTypes,
   ParseTreeNodeType, JcfSettings, FormatFlags, TokenUtils;

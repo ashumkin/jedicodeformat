@@ -313,7 +313,7 @@ uses
   { delphi }
   Windows, SysUtils, 
   { JCL }
-  JclStrings,
+  JclAnsiStrings,
   { local }
   FileConverter, ConvertTypes, JcfSettings, JcfRegistrySettings,
   TestConstants;

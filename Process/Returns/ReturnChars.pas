@@ -46,7 +46,7 @@ implementation
 
 uses
   { jcl }
-  JclStrings,
+  JclAnsiStrings,
   { local }
   Tokens, SettingsTypes,
   JcfSettings;

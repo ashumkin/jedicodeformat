@@ -31,7 +31,7 @@ uses
   SysUtils,
   Windows,
   FileCtrl,
-  JclStrings,
+  JclAnsiStrings,
   Converter in '..\ReadWrite\Converter.pas',
   FileConverter in '..\ReadWrite\FileConverter.pas',
   ConvertTypes in '..\ReadWrite\ConvertTypes.pas',

@@ -65,7 +65,7 @@ uses
   { delphi }
   SysUtils,
   { JCL }
-  JclStrings,
+  JclAnsiStrings,
   { local }
   SourceToken, FormatFlags, JcfSettings, SetReturns,
   TokenUtils, JcfMiscFunctions, Tokens, ParseTreeNode, ParseTreeNodeType;

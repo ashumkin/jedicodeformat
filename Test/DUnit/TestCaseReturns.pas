@@ -90,7 +90,7 @@ type
 
 implementation
 
-uses JclStrings,
+uses JclAnsiStrings,
   JcfSettings,
   BlockStyles, Indenter, SetReturns;
 

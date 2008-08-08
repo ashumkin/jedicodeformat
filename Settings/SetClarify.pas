@@ -72,7 +72,7 @@ implementation
 
 uses
   SysUtils,
-  JclStrings;
+  JclAnsiStrings;
 
 const
   REG_ONCE_OFFS = 'OnceOffs';

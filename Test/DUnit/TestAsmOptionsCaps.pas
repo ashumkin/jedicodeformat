@@ -75,7 +75,7 @@ type
 implementation
 
 uses
-  JclStrings,
+  JclAnsiStrings,
   JCFSettings, SetAsm;
 
 

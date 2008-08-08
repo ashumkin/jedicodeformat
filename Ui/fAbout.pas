@@ -65,7 +65,7 @@ implementation
 
 uses
   { delphi }URLMon,
-  { jcl }JclStrings,
+  { jcl }JclAnsiStrings,
   { local }VersionConsts, JCFHelp, JcfFontSetFunctions;
 
 procedure ShowURL(const ps: string);

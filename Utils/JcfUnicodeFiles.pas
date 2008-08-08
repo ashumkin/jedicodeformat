@@ -47,7 +47,7 @@ implementation
 
 uses
   Classes, SysUtils,
-  JclStrings,
+  JclAnsiStrings,
   JcfUnicode;
 
 const

@@ -50,7 +50,7 @@ implementation
 
 uses
   { jcl }
-  JclStrings,
+  JclAnsiStrings,
   { local }
   SourceToken, Tokens, ParseTreeNodeType, JcfSettings,
   FormatFlags, TokenUtils, SettingsTypes;

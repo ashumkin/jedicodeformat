@@ -285,7 +285,7 @@ uses
   { delphi }
   SysUtils, Forms,
   { jcl }
-  JclStrings,
+  JclAnsiStrings,
   JcfUnicode;
 
 const
