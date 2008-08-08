@@ -5,15 +5,24 @@
   {$ASMMODE Intel}
 {$ELSE}
   // define the appropriate DelphiXX constants
+
   {$IFDEF VER190}
      {$DEFINE DELPHI11}
   {$ENDIF}
 
   {$IFDEF VER180}
-    {$IFDEF BCB}
-      {$DEFINE BCB10}
+    {$IFDEF VER185}
+      {$IFDEF BCB}
+        {$DEFINE BCB11}
+      {$ELSE}
+        {$DEFINE DELPHI11}
+      {$ENDIF}
     {$ELSE}
-      {$DEFINE DELPHI10}
+      {$IFDEF BCB}
+        {$DEFINE BCB10}
+      {$ELSE}
+        {$DEFINE DELPHI10}
+      {$ENDIF}
     {$ENDIF}
   {$ENDIF}
 
