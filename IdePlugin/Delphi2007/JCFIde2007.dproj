@@ -39,7 +39,7 @@
     <Borland.Personality>Delphi.Personality</Borland.Personality>
     <Borland.ProjectType>Package</Borland.ProjectType>
     <BorlandProject>
-<BorlandProject><Delphi.Personality><Parameters><Parameters Name="HostApplication">C:\Program Files\CodeGear\RAD Studio\5.0\bin\bds.exe</Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><Package_Options><Package_Options Name="PackageDescription">JEDI Code Format IDE Plugin for CodeGear Delphi 2007 for Win32</Package_Options><Package_Options Name="ImplicitBuild">True</Package_Options><Package_Options Name="DesigntimeOnly">True</Package_Options><Package_Options Name="RuntimeOnly">False</Package_Options></Package_Options><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">2</VersionInfo><VersionInfo Name="MinorVer">39</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">0</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1033</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName"></VersionInfoKeys><VersionInfoKeys Name="FileDescription">JEDI Code Format IDE Plugin for CodeGear Delphi 2007 for Win32</VersionInfoKeys><VersionInfoKeys Name="FileVersion">2.39.0.0</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">2.39</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Source><Source Name="MainSource">JCFIde2007.dpk</Source></Source><Excluded_Packages>
+<BorlandProject><Delphi.Personality><Parameters><Parameters Name="HostApplication">C:\Program Files\CodeGear\RAD Studio\5.0\bin\bds.exe</Parameters><Parameters Name="UseLauncher">False</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters></Parameters><Package_Options><Package_Options Name="PackageDescription">JEDI Code Format IDE Plugin for CodeGear Delphi 2007 for Win32</Package_Options><Package_Options Name="ImplicitBuild">True</Package_Options><Package_Options Name="DesigntimeOnly">True</Package_Options><Package_Options Name="RuntimeOnly">False</Package_Options></Package_Options><VersionInfo><VersionInfo Name="IncludeVerInfo">True</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">2</VersionInfo><VersionInfo Name="MinorVer">38</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">0</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1033</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName"></VersionInfoKeys><VersionInfoKeys Name="FileDescription">JEDI Code Format IDE Plugin for CodeGear Delphi 2007 for Win32</VersionInfoKeys><VersionInfoKeys Name="FileVersion">2.38.0.0</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">2.38</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Source><Source Name="MainSource">JCFIde2007.dpk</Source></Source><Excluded_Packages>
       
       
       <Excluded_Packages Name="$(BDS)\bin\dclofficexp100.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
@@ -51,19 +51,19 @@
     <DelphiCompile Include="JCFIde2007.dpk">
       <MainSource>MainSource</MainSource>
     </DelphiCompile>
-    <DCCReference Include="..\..\..\..\..\..\Desktop\dbrtl.dcp" />
-    <DCCReference Include="..\..\..\..\..\..\Desktop\DesignIDE.dcp" />
-    <DCCReference Include="..\..\..\..\..\..\Desktop\Jcl.dcp" />
-    <DCCReference Include="..\..\..\..\..\..\Desktop\JclVcl.dcp" />
-    <DCCReference Include="..\..\..\..\..\..\Desktop\JvCoreD11R.dcp" />
-    <DCCReference Include="..\..\..\..\..\..\Desktop\JvCustomD11R.dcp" />
-    <DCCReference Include="..\..\..\..\..\..\Desktop\JvStdCtrlsD11R.dcp" />
-    <DCCReference Include="..\..\..\..\..\..\Desktop\JvSystemD11R.dcp" />
-    <DCCReference Include="..\..\..\..\..\..\Desktop\rtl.dcp" />
-    <DCCReference Include="..\..\..\..\..\..\Desktop\vcl.dcp" />
-    <DCCReference Include="..\..\..\..\..\..\Desktop\vcldb.dcp" />
-    <DCCReference Include="..\..\..\..\..\..\Desktop\vcljpg.dcp" />
-    <DCCReference Include="..\..\..\..\..\..\Desktop\vclx.dcp" />
+    <DCCReference Include="..\..\..\..\Projects\FlightTracker\dbrtl.dcp" />
+    <DCCReference Include="..\..\..\..\Projects\FlightTracker\DesignIDE.dcp" />
+    <DCCReference Include="..\..\..\..\Projects\FlightTracker\Jcl.dcp" />
+    <DCCReference Include="..\..\..\..\Projects\FlightTracker\JclVcl.dcp" />
+    <DCCReference Include="..\..\..\..\Projects\FlightTracker\JvCoreD11R.dcp" />
+    <DCCReference Include="..\..\..\..\Projects\FlightTracker\JvCustomD11R.dcp" />
+    <DCCReference Include="..\..\..\..\Projects\FlightTracker\JvStdCtrlsD11R.dcp" />
+    <DCCReference Include="..\..\..\..\Projects\FlightTracker\JvSystemD11R.dcp" />
+    <DCCReference Include="..\..\..\..\Projects\FlightTracker\rtl.dcp" />
+    <DCCReference Include="..\..\..\..\Projects\FlightTracker\vcl.dcp" />
+    <DCCReference Include="..\..\..\..\Projects\FlightTracker\vcldb.dcp" />
+    <DCCReference Include="..\..\..\..\Projects\FlightTracker\vcljpg.dcp" />
+    <DCCReference Include="..\..\..\..\Projects\FlightTracker\vclx.dcp" />
     <DCCReference Include="..\..\Parse\AsmKeywords.pas" />
     <DCCReference Include="..\..\Parse\BuildParseTree.pas" />
     <DCCReference Include="..\..\Parse\BuildTokenList.pas" />

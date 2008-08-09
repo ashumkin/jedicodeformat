@@ -126,13 +126,13 @@ CodePage=1252
 [Version Info Keys]
 CompanyName=Anthony Steele
 FileDescription=JEDI Code Format D7 IDE plugin
-FileVersion=2.30.0.0
+FileVersion=2.38.0.0
 InternalName=JEDI Code Format
 LegalCopyright=Anthony Steele 1999-2008 MPL
 LegalTrademarks=
 OriginalFilename=
 ProductName=
-ProductVersion=1.0.0.0
+ProductVersion=2.38
 Comments=
 [Excluded Packages]
 C:\PROGRA~1\Borland\Delphi7\Projects\Bpl\JclDebugIdeD70.bpl=JCL Debug IDE extension for Delphi 7

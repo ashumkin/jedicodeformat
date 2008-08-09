@@ -30,7 +30,7 @@ See http://www.gnu.org/licenses/gpl.html
 interface
 
 const
-  PROGRAM_VERSION   = '2.39';
+  PROGRAM_VERSION   = '2.38';
   PROGRAM_DATE      = 'August 2008';
   PROGRAM_HOME_PAGE = 'http://jedicodeformat.sourceforge.net/';
   PROGRAM_SOURCEFORGE_HOME_PAGE = 'http://sourceforge.net/projects/jedicodeformat/';
