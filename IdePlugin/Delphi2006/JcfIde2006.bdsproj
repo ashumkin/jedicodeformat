@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<PersonalityInfo>
 		<Option>
@@ -123,7 +123,7 @@
 			<Directories Name="UnitOutputDir">C:\Code\Jcf\Output</Directories>
 			<Directories Name="PackageDLLOutputDir">C:\Code\Jcf\Output</Directories>
 			<Directories Name="PackageDCPOutputDir"></Directories>
-			<Directories Name="SearchPath"></Directories>
+			<Directories Name="SearchPath">C:\Code\Jcf\Include</Directories>
 			<Directories Name="Packages"></Directories>
 			<Directories Name="Conditionals">IDEPLUGGIN</Directories>
 			<Directories Name="DebugSourceDirs"></Directories>
@@ -161,14 +161,14 @@
 		</VersionInfo>
 		<VersionInfoKeys>
 			<VersionInfoKeys Name="CompanyName">Anthony Steele</VersionInfoKeys>
-			<VersionInfoKeys Name="FileDescription">JEDI Code Format D10 IDE plugin</VersionInfoKeys>
-			<VersionInfoKeys Name="FileVersion">2.38.0.0</VersionInfoKeys>
-			<VersionInfoKeys Name="InternalName">JEDI Code Format</VersionInfoKeys>
+			<VersionInfoKeys Name="FileDescription">Jedi Code Format D10 IDE plugin</VersionInfoKeys>
+			<VersionInfoKeys Name="FileVersion">2.18.0.0</VersionInfoKeys>
+			<VersionInfoKeys Name="InternalName">Jedi Code Format</VersionInfoKeys>
 			<VersionInfoKeys Name="LegalCopyright">Anthony Steele 1999-2005 MPL</VersionInfoKeys>
 			<VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys>
 			<VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys>
 			<VersionInfoKeys Name="ProductName"></VersionInfoKeys>
-			<VersionInfoKeys Name="ProductVersion">2.38</VersionInfoKeys>
+			<VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
 			<VersionInfoKeys Name="Comments"></VersionInfoKeys>
 		</VersionInfoKeys>
 	</Delphi.Personality>
