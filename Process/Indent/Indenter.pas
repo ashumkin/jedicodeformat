@@ -603,7 +603,7 @@ begin
   // IndentBeginEnd option to indent begin/end words a bit extra
   if FormatSettings.Indent.IndentBeginEnd then
   begin
-    if (pt.TokenType in [ttBegin, ttEnd]) and InStatements(pt) then
+    if (pt.TokenType in [ttTry, ttExcept, ttFinally, ttBegin, ttEnd]) and InStatements(pt) then
     begin
       // filter out the begin/end that starts and ends a procedure
       if not pt.HasParentNode(nBlock, 2) then

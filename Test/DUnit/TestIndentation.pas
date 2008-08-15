@@ -62,6 +62,18 @@ type
     procedure TestIndenterBeginEnd1;
     procedure TestIndenterBeginEnd2;
     procedure TestIndenterBeginEnd3;
+
+    procedure TestIndenterTryFinallyEnd1;
+    procedure TestIndenterTryFinallyEnd2;
+    procedure TestIndenterTryFinallyEnd3;
+
+    procedure TestIndenterTryExceptEnd1;
+    procedure TestIndenterTryExceptEnd2;
+    procedure TestIndenterTryExceptEnd3;
+
+    procedure TestTwoLevel1;
+    procedure TestTwoLevel2;
+    procedure TestTwoLevel3;
   end;
 
 implementation
@@ -108,8 +120,40 @@ const
     'end' + AnsiLineBreak +
     'end;' + UNIT_FOOTER;
 
-     { the various out unit texts differ only in how much white space there is
-       before the lines of code in procedure foo. }
+  BASIC_TRY_FINALLY_UNIT_TEXT = UNIT_HEADER +
+    'function foo: integer;' + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
+    'try' + AnsiLineBreak +
+    'result := 2 + 2;' + AnsiLineBreak +
+    'finally' + AnsiLineBreak +
+    'result := 2 + 2;' + AnsiLineBreak +
+    'end' + AnsiLineBreak +
+    'end;' + UNIT_FOOTER;
+
+  BASIC_TRY_EXCEPT_UNIT_TEXT = UNIT_HEADER +
+    'function foo: integer;' + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
+    'try' + AnsiLineBreak +
+    'result := 2 + 2;' + AnsiLineBreak +
+    'except' + AnsiLineBreak +
+    'result := 2 + 2;' + AnsiLineBreak +
+    'end' + AnsiLineBreak +
+    'end;' + UNIT_FOOTER;
+
+  BASIC_TWO_LEVEL_UNIT_TEXT = UNIT_HEADER +
+    'function foo: integer;' + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
+    'try' + AnsiLineBreak +
+    'result := 2 + 2;' + AnsiLineBreak +
+    'except' + AnsiLineBreak +
+    'result := 2 + 2;' + AnsiLineBreak +
+    'end' + AnsiLineBreak +
+    'end' + AnsiLineBreak +
+    'end;' + UNIT_FOOTER;
+
+{ the various out unit texts differ only in how much white space there is
+  before the lines of code in procedure foo. }
 
 
 procedure TTestIndentation.TestIndent1Space;
@@ -269,6 +313,192 @@ begin
   FormatSettings.Indent.HasFirstLevelIndent := False;
 
   TestProcessResult(TIndenter, BASIC_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestIndentation.TestIndenterTryExceptEnd1;
+const
+  OUT_UNIT_TEXT = UNIT_HEADER +
+    'function foo: integer;' + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
+    '   try' + AnsiLineBreak +
+    '    result := 2 + 2;' + AnsiLineBreak +
+    '   except' + AnsiLineBreak +
+    '    result := 2 + 2;' + AnsiLineBreak +
+    '   end' + AnsiLineBreak +
+    'end;' + UNIT_FOOTER;
+begin
+  FormatSettings.Indent.IndentBeginEnd := True;
+  FormatSettings.Indent.IndentSpaces   := 2;
+  FormatSettings.Indent.IndentBeginEndSpaces := 1;
+  FormatSettings.Indent.HasFirstLevelIndent := False;
+
+  TestProcessResult(TIndenter, BASIC_TRY_EXCEPT_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestIndentation.TestIndenterTryExceptEnd2;
+const
+  OUT_UNIT_TEXT = UNIT_HEADER +
+    'function foo: integer;' + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
+    '    try' + AnsiLineBreak +
+    '    result := 2 + 2;' + AnsiLineBreak +
+    '    except' + AnsiLineBreak +
+    '    result := 2 + 2;' + AnsiLineBreak +
+    '    end' + AnsiLineBreak +
+    'end;' + UNIT_FOOTER;
+begin
+  FormatSettings.Indent.IndentBeginEnd := True;
+  FormatSettings.Indent.IndentSpaces   := 2;
+  FormatSettings.Indent.IndentBeginEndSpaces := 2;
+  FormatSettings.Indent.HasFirstLevelIndent := False;
+
+  TestProcessResult(TIndenter, BASIC_TRY_EXCEPT_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestIndentation.TestIndenterTryExceptEnd3;
+const
+  OUT_UNIT_TEXT = UNIT_HEADER +
+    'function foo: integer;' + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
+    '     try' + AnsiLineBreak +
+    '    result := 2 + 2;' + AnsiLineBreak +
+    '     except' + AnsiLineBreak +
+    '    result := 2 + 2;' + AnsiLineBreak +
+    '     end' + AnsiLineBreak +
+    'end;' + UNIT_FOOTER;
+begin
+  FormatSettings.Indent.IndentBeginEnd := True;
+  FormatSettings.Indent.IndentSpaces   := 2;
+  FormatSettings.Indent.IndentBeginEndSpaces := 3;
+  FormatSettings.Indent.HasFirstLevelIndent := False;
+
+  TestProcessResult(TIndenter, BASIC_TRY_EXCEPT_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestIndentation.TestIndenterTryFinallyEnd1;
+const
+  OUT_UNIT_TEXT = UNIT_HEADER +
+    'function foo: integer;' + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
+    '   try' + AnsiLineBreak +
+    '    result := 2 + 2;' + AnsiLineBreak +
+    '   finally' + AnsiLineBreak +
+    '    result := 2 + 2;' + AnsiLineBreak +
+    '   end' + AnsiLineBreak +
+    'end;' + UNIT_FOOTER;
+begin
+  FormatSettings.Indent.IndentBeginEnd := True;
+  FormatSettings.Indent.IndentSpaces   := 2;
+  FormatSettings.Indent.IndentBeginEndSpaces := 1;
+  FormatSettings.Indent.HasFirstLevelIndent := False;
+
+  TestProcessResult(TIndenter, BASIC_TRY_FINALLY_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestIndentation.TestIndenterTryFinallyEnd2;
+const
+  OUT_UNIT_TEXT = UNIT_HEADER +
+    'function foo: integer;' + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
+    '    try' + AnsiLineBreak +
+    '    result := 2 + 2;' + AnsiLineBreak +
+    '    finally' + AnsiLineBreak +
+    '    result := 2 + 2;' + AnsiLineBreak +
+    '    end' + AnsiLineBreak +
+    'end;' + UNIT_FOOTER;
+begin
+  FormatSettings.Indent.IndentBeginEnd := True;
+  FormatSettings.Indent.IndentSpaces   := 2;
+  FormatSettings.Indent.IndentBeginEndSpaces := 2;
+  FormatSettings.Indent.HasFirstLevelIndent := False;
+
+  TestProcessResult(TIndenter, BASIC_TRY_FINALLY_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestIndentation.TestIndenterTryFinallyEnd3;
+const
+  OUT_UNIT_TEXT = UNIT_HEADER +
+    'function foo: integer;' + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
+    '     try' + AnsiLineBreak +
+    '    result := 2 + 2;' + AnsiLineBreak +
+    '     finally' + AnsiLineBreak +
+    '    result := 2 + 2;' + AnsiLineBreak +
+    '     end' + AnsiLineBreak +
+    'end;' + UNIT_FOOTER;
+begin
+  FormatSettings.Indent.IndentBeginEnd := True;
+  FormatSettings.Indent.IndentSpaces   := 2;
+  FormatSettings.Indent.IndentBeginEndSpaces := 3;
+  FormatSettings.Indent.HasFirstLevelIndent := False;
+
+  TestProcessResult(TIndenter, BASIC_TRY_FINALLY_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestIndentation.TestTwoLevel1;
+const
+  OUT_UNIT_TEXT = UNIT_HEADER +
+    'function foo: integer;' + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
+    '   begin' + AnsiLineBreak +
+    '     try' + AnsiLineBreak +
+    '      result := 2 + 2;' + AnsiLineBreak +
+    '     except' + AnsiLineBreak +
+    '      result := 2 + 2;' + AnsiLineBreak +
+    '     end' + AnsiLineBreak +
+    '   end' + AnsiLineBreak +
+    'end;' + UNIT_FOOTER;
+begin
+  FormatSettings.Indent.IndentBeginEnd := True;
+  FormatSettings.Indent.IndentSpaces   := 2;
+  FormatSettings.Indent.IndentBeginEndSpaces := 1;
+  FormatSettings.Indent.HasFirstLevelIndent := False;
+
+  TestProcessResult(TIndenter, BASIC_TWO_LEVEL_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestIndentation.TestTwoLevel2;
+const
+  OUT_UNIT_TEXT = UNIT_HEADER +
+    'function foo: integer;' + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
+    '    begin' + AnsiLineBreak +
+    '      try' + AnsiLineBreak +
+    '      result := 2 + 2;' + AnsiLineBreak +
+    '      except' + AnsiLineBreak +
+    '      result := 2 + 2;' + AnsiLineBreak +
+    '      end' + AnsiLineBreak +
+    '    end' + AnsiLineBreak +
+    'end;' + UNIT_FOOTER;
+begin
+  FormatSettings.Indent.IndentBeginEnd := True;
+  FormatSettings.Indent.IndentSpaces   := 2;
+  FormatSettings.Indent.IndentBeginEndSpaces := 2;
+  FormatSettings.Indent.HasFirstLevelIndent := False;
+
+  TestProcessResult(TIndenter, BASIC_TWO_LEVEL_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestIndentation.TestTwoLevel3;
+const
+  OUT_UNIT_TEXT = UNIT_HEADER +
+    'function foo: integer;' + AnsiLineBreak +
+    'begin' + AnsiLineBreak +
+    '     begin' + AnsiLineBreak +
+    '       try' + AnsiLineBreak +
+    '      result := 2 + 2;' + AnsiLineBreak +
+    '       except' + AnsiLineBreak +
+    '      result := 2 + 2;' + AnsiLineBreak +
+    '       end' + AnsiLineBreak +
+    '     end' + AnsiLineBreak +
+    'end;' + UNIT_FOOTER;
+begin
+  FormatSettings.Indent.IndentBeginEnd := True;
+  FormatSettings.Indent.IndentSpaces   := 2;
+  FormatSettings.Indent.IndentBeginEndSpaces := 3;
+  FormatSettings.Indent.HasFirstLevelIndent := False;
+
+  TestProcessResult(TIndenter, BASIC_TWO_LEVEL_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
 initialization
