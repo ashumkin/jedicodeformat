@@ -1249,7 +1249,7 @@ end;
 
 procedure TFullTestClarify.LittleTest31;
 begin
-  TestFile('LittleTest31', 58);
+  TestFile('LittleTest31', 71);
 end;
 
 procedure TFullTestClarify.LittleTest32;
