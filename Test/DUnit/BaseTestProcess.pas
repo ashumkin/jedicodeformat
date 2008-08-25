@@ -236,11 +236,10 @@ begin
 
     ShowMessage(DiffText(lsOut, psOut));
 
-    {
     // debug temp - use external diff tool(WinMerge) to compare them
-    StringToFile('c:\t1.out', lsOut);
-    StringToFile('c:\t2.out', psOut);
-    {}
+    //StringToFile('c:\t1.out', lsOut);
+    //StringToFile('c:\t2.out', psOut);
+
   end;
   //*)
 

@@ -13,5 +13,8 @@ type
 
 implementation
 
+var
+  ls: string[10];
+
 end.
  
