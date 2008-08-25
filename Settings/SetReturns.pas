@@ -280,6 +280,7 @@ begin
   pcOut.Write(REG_REMOVE_BAD_RETURNS, fbRemoveBadReturns);
   pcOut.Write(REG_ADD_GOOD_RETURNS, fbAddGoodReturns);
   pcOut.Write(REG_USES_ONE_PER_LINE, UsesClauseOnePerLine);
+  pcOut.Write(REG_BREAK_AFTER_USES, BreakAfterUses);
 
   pcOut.Write(REG_REMOVE_EXPRESSION_RETURNS, fbRemoveExpressionReturns);
   pcOut.Write(REG_REMOVE_VAR_RETURNS, fbRemoveVarReturns);
