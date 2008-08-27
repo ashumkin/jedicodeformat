@@ -203,7 +203,7 @@ begin
   ReadTextFile(psInputFileName, lsSourceCode, leContentType);
 
   fcConverter.InputCode := lsSourceCode;
-
+  fcConverter.GuiMessages := GuiMessages;
   fcConverter.Convert;
 
   // was it converted ?

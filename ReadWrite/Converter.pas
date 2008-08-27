@@ -61,6 +61,10 @@ type
     fbConvertError: boolean;
     fOnStatusMessage: TStatusMessageProc;
 
+    { false for commandline UI - don't put up a parse fail dialog
+      This could be in  batch file on a server }
+    fbGuiMessages: boolean;
+
     function GetOnStatusMessage: TStatusMessageProc;
     procedure SetOnStatusMessage(const Value: TStatusMessageProc);
 
@@ -93,6 +97,7 @@ type
 
     property TokenCount: integer Read fiTokenCount;
     property ConvertError: boolean Read fbConvertError;
+    property GuiMessages: boolean read fbGuiMessages write fbGuiMessages;
 
     property Root: TParseTreeNode Read GetRoot;
 
@@ -128,6 +133,7 @@ begin
   fcTokeniser := TBuildTokenList.Create;
   fcBuildParseTree := TBuildParseTree.Create;
   fcSingleProcess := nil;
+  fbGuiMessages	:= True; // use Ui to show parse errors by default
 end;
 
 destructor TConverter.Destroy;
@@ -137,7 +143,6 @@ begin
 
   inherited;
 end;
-
 
 procedure TConverter.Clear;
 begin
@@ -181,7 +186,7 @@ begin
           fbConvertError := True;
           SendExceptionMessage(E);
 
-          if (GetRegSettings.ShowParseTreeOption = eShowOnError) then
+          if GuiMessages and (GetRegSettings.ShowParseTreeOption = eShowOnError) then
             ShowParseTree;
         end;
       end;
