@@ -205,7 +205,7 @@ end;
   The function that I have used is Ceil((x ^ 2) / 2)
   where x is (15 - <spaces to end>)
 }
-function NearEndScore(const piSpacesToEnd: integer): integer;
+function NearEndScore(const piSpacesToEnd: integer; const pcNext: TSourceToken): integer;
 const
   TAIL_SIZE: integer = 15;
 
@@ -213,8 +213,16 @@ const
     113, 98, 85, 72, 61,
     50, 41, 32, 25, 18,
     13, 8, 5, 2, 1);
+var
+  lsMessage: string;
 begin
-  Assert(piSpacesToEnd >= 0, 'Spaces to end is ' + IntToStr(piSpacesToEnd));
+  if piSpacesToEnd < 0 then
+  begin
+    lsMessage := 'Spaces to end is ' + IntToStr(piSpacesToEnd) +
+      ' on ' + pcNext.Describe + ' at ' + pcNext.DescribePosition;
+    Raise Exception.Create(lsMessage);
+  end;
+
   if piSpacesToEnd > TAIL_SIZE then
   begin
     Result := 0;
@@ -653,7 +661,7 @@ begin
     }
 
     // xpos is indexed from 1
-    liScoreAfter := NearEndScore(liTotalWidth - (lcNext.XPosition - 2));
+    liScoreAfter := NearEndScore(liTotalWidth - (lcNext.XPosition - 2), lcNext);
     // subtract this one - bad to break near end
     fcScores.Items[liLoop] := fcScores.Items[liLoop] - liScoreAfter;
   end;
