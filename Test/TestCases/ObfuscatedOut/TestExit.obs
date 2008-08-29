@@ -1,0 +1,3 @@
+unit testexit;interface implementation procedure hasexit;begin exit;end;procedure
+hasexitoneline;begin exit;end;procedure hasexitonelinenosemicolon;begin exit end;
+procedure hasexitif;begin if 1>3 then begin exit end;end;end. 

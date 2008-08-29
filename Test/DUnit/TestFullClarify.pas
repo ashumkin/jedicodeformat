@@ -294,6 +294,7 @@ type
     procedure TestClassVarEmpty;
     procedure TestRecordWithClassFunction;
     procedure TestOutKeyword;
+    procedure TestExit;
 
     procedure TestLibrary;
 
@@ -589,7 +590,7 @@ end;
 
 procedure TFullTestClarify.TestCases;
 begin
-  TestFile('TestCases.dpr', 1397);
+  TestFile('TestCases.dpr', 1405);
 end;
 
 procedure TFullTestClarify.TestCast;
@@ -685,6 +686,11 @@ end;
 procedure TFullTestClarify.TestExclusionFlags;
 begin
   TestFile('TestExclusionFlags', 723);
+end;
+
+procedure TFullTestClarify.TestExit;
+begin
+  TestFile('TestExit', 90);
 end;
 
 procedure TFullTestClarify.TestExports;

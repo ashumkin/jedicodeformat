@@ -293,6 +293,7 @@ type
     procedure TestClassVarEmpty;
     procedure TestRecordWithClassFunction;
     procedure TestOutKeyword;
+    procedure TestExit;
 
     procedure TestDelphiNetLibrary;
 
@@ -636,6 +637,11 @@ end;
 procedure TTestObfuscate.TestExclusionFlags;
 begin
   TestFile('TestExclusionFlags');
+end;
+
+procedure TTestObfuscate.TestExit;
+begin
+  TestFile('TestExit');
 end;
 
 procedure TTestObfuscate.TestExports;
