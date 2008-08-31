@@ -151,45 +151,13 @@ uses
   IndentAsmParam in '..\Process\Indent\IndentAsmParam.pas',
   AsmKeywords in '..\Parse\AsmKeywords.pas',
   JcfUnicode in '..\Utils\JcfUnicode.pas',
-  JcfUnicodeFiles in '..\Utils\JcfUnicodeFiles.pas';
-
-const
-  ABOUT_COMMANDLINE =
-    'JEDI Code Format V' + PROGRAM_VERSION + AnsiLineBreak +
-    ' ' + PROGRAM_DATE + AnsiLineBreak +
-    ' A Delphi Object-Pascal Source code formatter' + AnsiLineBreak +
-    ' A GUI version of this program is also available' + AnsiLineBreak +
-    ' Latest version at ' + PROGRAM_HOME_PAGE + AnsiLineBreak + AnsiLineBreak +
-    'Syntax: jcf [options] path/filename ' + AnsiLineBreak +
-    ' Parameters to the command-line program: ' + AnsiLineBreak + AnsiLineBreak +
-
-    ' Mode of operation: ' + AnsiLineBreak +
-    ' -obfuscate Obfuscate mode or ' + AnsiLineBreak +
-    ' -clarify Clarify mode' + AnsiLineBreak +
-    '   When neither is specified, registry setting will be used.' + AnsiLineBreak +
-    '   This normally means clarify.' + AnsiLineBreak + AnsiLineBreak +
-
-    ' Mode of source: ' + AnsiLineBreak +
-    ' -F Format a file. The file name must be specified.' + AnsiLineBreak +
-    ' -D Format a directory. The directory name must be specified.' + AnsiLineBreak +
-    ' -R Format a directory tree. The root directory name must be specified.' +
-    AnsiLineBreak +
-    '  When no file mode is specified, registry setting will be used.' +
-    AnsiLineBreak + AnsiLineBreak +
-
-    ' Mode of output: ' + AnsiLineBreak +
-    ' -inplace change the source file without backup' + AnsiLineBreak +
-    ' -out output to a new file' + AnsiLineBreak +
-    ' -backup change the file and leave the original file as a backup' + AnsiLineBreak +
-    '  If no output mode is specified, registry setting will be used.' +
-    AnsiLineBreak + AnsiLineBreak +
-
-    ' Other options: ' + AnsiLineBreak +
-    ' -config=filename  To specify a named configuration file' + AnsiLineBreak +
-    ' -y Overwrite files without confirmation.' + AnsiLineBreak +
-    ' -? Display this help' + AnsiLineBreak;
+  JcfUnicodeFiles in '..\Utils\JcfUnicodeFiles.pas',
+  CommandlineReturnCode in 'CommandlineReturnCode.pas',
+  CommandlineConstants in 'CommandlineConstants.pas',
+  StatusMessageReceiver in 'StatusMessageReceiver.pas';
 
 var
+  feReturnCode: TJcfCommandLineReturnCode;
   fbCmdLineShowHelp: boolean;
   fbQuietFail: boolean;
 
@@ -206,6 +174,28 @@ var
 
   fbHasNamedConfigFile: boolean;
   fsConfigFileName:     string;
+
+  lcStatus:  TStatusMsgReceiver;
+
+procedure ConvertFiles;
+var
+  lcConvert: TFileConverter;
+begin
+  lcConvert := TFileConverter.Create;
+  try
+    lcConvert.OnStatusMessage := lcStatus.OnReceiveStatusMessage;
+    // use command line settings
+    lcConvert.YesAll := fbYesAll;
+    lcConvert.GuiMessages := False;
+    lcConvert.SourceMode := GetRegSettings.SourceMode;
+    lcConvert.BackupMode := GetRegSettings.BackupMode;
+    lcConvert.Input := GetRegSettings.Input;
+    // do it!
+    lcConvert.Convert;
+  finally
+    lcConvert.Free;
+  end;
+end;
 
   function StripParamPrefix(const ps: string): string;
   begin
@@ -320,6 +310,7 @@ var
       WriteLn('No path found');
       WriteLn;
       fbCmdLineShowHelp := True;
+      feReturnCode := rcNoPathFound;
     end;
 
   { read settings from file? }
@@ -334,6 +325,7 @@ var
         WriteLn('Named config file ' + fsConfigFileName + ' was not found');
         WriteLn;
         fbQuietFail := True;
+        feReturnCode := rcConfigFileNotFound;
       end
     end;
 
@@ -343,6 +335,10 @@ var
         WriteLn('No settings to read');
         WriteLn;
         fbQuietFail := True;
+        if feReturnCode = rcSuccess then
+        begin
+          feReturnCode := rcSettingsNotRead;
+        end;
     end;
 
   { write to settings }
@@ -359,6 +355,7 @@ var
         begin
           WriteLn('File ' + StrDoubleQuote(lsPath) + ' not found');
           fbQuietFail := True;
+          feReturnCode := rcFileNotFound;
         end;
       end
       else
@@ -367,6 +364,7 @@ var
         begin
           WriteLn('Directory ' + StrDoubleQuote(lsPath) + ' not found');
           fbQuietFail := True;
+          feReturnCode := rcDirectoryNotFound;
         end;
       end;
     end;
@@ -375,39 +373,9 @@ var
     FormatSettings.Obfuscate.Enabled := fbCmdLineObfuscate;
   end;
 
-type
-  TStatusMsgReceiver = class(TObject)
-  public
-    procedure OnReceiveStatusMessage(const psFile, psMessage: string;
-      const piY, piX: integer);
-  end;
-
-var
-  lcConvert: TFileConverter;
-  lcStatus:  TStatusMsgReceiver;
-
-{ TStatusMsgReceiver }
-
-  procedure TStatusMsgReceiver.OnReceiveStatusMessage(const psFile, psMessage: string;
-  const piY, piX: integer);
-  var
-    lsMessage: string;
-  begin
-    if Pos(psFile, psMessage) = 0 then
-      lsMessage := psFile + ': ' + psMessage
-    else
-      lsMessage := psMessage;
-
-    if (piY >= 0) then
-      lsMessage := lsMessage + ' at line ' + IntToStr(piY);
-    if (piX >= 0) then
-      lsMessage := lsMessage + ' col ' + IntToStr(piX);
-
-    WriteLn(lsMessage);
-  end;
-
 { main program starts here }
 begin
+  feReturnCode := rcSuccess;
   { read registry }
   GetRegSettings.ReadAll;
 
@@ -430,22 +398,21 @@ begin
   end
   else
   begin
-    lcConvert := TFileConverter.Create;
-    try
-      lcConvert.OnStatusMessage := lcStatus.OnReceiveStatusMessage;
-      // use command line settings
-      lcConvert.YesAll := fbYesAll;
-      lcConvert.GuiMessages := False;
-      lcConvert.SourceMode := GetRegSettings.SourceMode;
-      lcConvert.BackupMode := GetRegSettings.BackupMode;
-      lcConvert.Input := GetRegSettings.Input;
 
-      // do it!
-      lcConvert.Convert;
-    finally
-      lcConvert.Free;
+    try
+      ConvertFiles;
+    except
+      on E: Exception do
+      begin
+        // failed with exception
+        Writeln()
+        feReturnCode := rcExceptionThrown;
+      end;
     end;
+
   end;
 
   FreeAndNil(lcStatus);
+
+  HaltOnError(feReturnCode);
 end.
