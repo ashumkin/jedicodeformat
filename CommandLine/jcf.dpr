@@ -177,26 +177,6 @@ var
 
   lcStatus:  TStatusMsgReceiver;
 
-procedure ConvertFiles;
-var
-  lcConvert: TFileConverter;
-begin
-  lcConvert := TFileConverter.Create;
-  try
-    lcConvert.OnStatusMessage := lcStatus.OnReceiveStatusMessage;
-    // use command line settings
-    lcConvert.YesAll := fbYesAll;
-    lcConvert.GuiMessages := False;
-    lcConvert.SourceMode := GetRegSettings.SourceMode;
-    lcConvert.BackupMode := GetRegSettings.BackupMode;
-    lcConvert.Input := GetRegSettings.Input;
-    // do it!
-    lcConvert.Convert;
-  finally
-    lcConvert.Free;
-  end;
-end;
-
   function StripParamPrefix(const ps: string): string;
   begin
     Result := ps;
@@ -373,6 +353,32 @@ end;
     FormatSettings.Obfuscate.Enabled := fbCmdLineObfuscate;
   end;
 
+  procedure ConvertFiles;
+  var
+    lcConvert: TFileConverter;
+  begin
+    lcConvert := TFileConverter.Create;
+    try
+      lcConvert.OnStatusMessage := lcStatus.OnReceiveStatusMessage;
+      // use command line settings
+      lcConvert.YesAll := fbYesAll;
+      lcConvert.GuiMessages := False;
+      lcConvert.SourceMode := GetRegSettings.SourceMode;
+      lcConvert.BackupMode := GetRegSettings.BackupMode;
+      lcConvert.Input := GetRegSettings.Input;
+      // do it!
+      lcConvert.Convert;
+
+      if lcConvert.ConvertError then
+      begin
+        feReturnCode := rcConvertError;
+      end;
+
+    finally
+      lcConvert.Free;
+    end;
+  end;
+
 { main program starts here }
 begin
   feReturnCode := rcSuccess;
@@ -398,18 +404,7 @@ begin
   end
   else
   begin
-
-    try
-      ConvertFiles;
-    except
-      on E: Exception do
-      begin
-        // failed with exception
-        Writeln()
-        feReturnCode := rcExceptionThrown;
-      end;
-    end;
-
+    ConvertFiles;
   end;
 
   FreeAndNil(lcStatus);

@@ -42,7 +42,7 @@ type
     rcSettingsNotRead = 4,
     rcFileNotFound = 5,
     rcDirectoryNotFound = 6,
-    rcExceptionThrown = 7
+    rcConvertError = 7
   );
 
 procedure HaltOnError(const returnCode: TJcfCommandLineReturnCode);
