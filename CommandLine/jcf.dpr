@@ -5,10 +5,10 @@ program JCF;
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code 
 
-The Original Code is jcf, released May 2003.
+The Original Code is JCF, released May 2003.
 The Initial Developer of the Original Code is Anthony Steele. 
 Portions created by Anthony Steele are Copyright (C) 1999-2008 Anthony Steele.
-All Rights Reserved. 
+All Rights Reserved.
 Contributor(s): Anthony Steele. 
 
 The contents of this file are subject to the Mozilla Public License Version 1.1
@@ -152,8 +152,8 @@ uses
   AsmKeywords in '..\Parse\AsmKeywords.pas',
   JcfUnicode in '..\Utils\JcfUnicode.pas',
   JcfUnicodeFiles in '..\Utils\JcfUnicodeFiles.pas',
-  CommandlineReturnCode in 'CommandlineReturnCode.pas',
-  CommandlineConstants in 'CommandlineConstants.pas',
+  CommandLineReturnCode in 'CommandLineReturnCode.pas',
+  CommandLineConstants in 'CommandLineConstants.pas',
   StatusMessageReceiver in 'StatusMessageReceiver.pas';
 
 var

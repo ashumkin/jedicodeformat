@@ -162,13 +162,13 @@
 		<VersionInfoKeys>
 			<VersionInfoKeys Name="CompanyName"></VersionInfoKeys>
 			<VersionInfoKeys Name="FileDescription">JEDI Code Format</VersionInfoKeys>
-			<VersionInfoKeys Name="FileVersion">2.38.0.0</VersionInfoKeys>
+			<VersionInfoKeys Name="FileVersion">2.39.0.0</VersionInfoKeys>
 			<VersionInfoKeys Name="InternalName"></VersionInfoKeys>
 			<VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys>
 			<VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys>
 			<VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys>
 			<VersionInfoKeys Name="ProductName"></VersionInfoKeys>
-			<VersionInfoKeys Name="ProductVersion">2.38</VersionInfoKeys>
+			<VersionInfoKeys Name="ProductVersion">2.39</VersionInfoKeys>
 			<VersionInfoKeys Name="Comments"></VersionInfoKeys>
 		</VersionInfoKeys>
 	</Delphi.Personality>

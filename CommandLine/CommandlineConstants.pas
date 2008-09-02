@@ -1,9 +1,9 @@
-unit CommandlineConstants;
+unit CommandLineConstants;
 
 interface
 
 uses
-  JclStrings,
+  JclAnsiStrings,
   VersionConsts;
 
 const

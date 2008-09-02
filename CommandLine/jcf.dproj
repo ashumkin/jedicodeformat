@@ -166,8 +166,8 @@
     <DCCReference Include="..\Utils\JcfUnicode.pas" />
     <DCCReference Include="..\Utils\JcfUnicodeFiles.pas" />
     <DCCReference Include="..\VersionConsts.pas" />
-    <DCCReference Include="CommandlineConstants.pas" />
-    <DCCReference Include="CommandlineReturnCode.pas" />
+    <DCCReference Include="CommandLineConstants.pas" />
+    <DCCReference Include="CommandLineReturnCode.pas" />
     <DCCReference Include="StatusMessageReceiver.pas" />
   </ItemGroup>
 </Project>

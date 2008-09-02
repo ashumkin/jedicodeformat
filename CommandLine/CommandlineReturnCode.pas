@@ -1,10 +1,10 @@
-unit CommandlineReturnCode;
+unit CommandLineReturnCode;
 
 {(*}
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code
 
-The Original Code is CommandlineReturnCode, released August 2008.
+The Original Code is CommandLineReturnCode, released August 2008.
 The Initial Developer of the Original Code is Anthony Steele.
 Portions created by Anthony Steele are Copyright (C) 2008 Anthony Steele.
 All Rights Reserved. 
