@@ -161,6 +161,7 @@
     <DCCReference Include="TestExports.pas" />
     <DCCReference Include="TestForward.pas" />
     <DCCReference Include="TestGoto.pas" />
+    <DCCReference Include="TestHexConstantElse.pas" />
     <DCCReference Include="TestIncAt.pas" />
     <DCCReference Include="TestInheritedExpr.pas" />
     <DCCReference Include="TestInitFinal.pas" />

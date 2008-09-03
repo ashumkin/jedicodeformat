@@ -294,6 +294,7 @@ type
     procedure TestRecordWithClassFunction;
     procedure TestOutKeyword;
     procedure TestExit;
+    procedure TestHexConstantElse;
 
     procedure TestDelphiNetLibrary;
 
@@ -752,6 +753,11 @@ end;
 procedure TTestObfuscate.TestGoto;
 begin
   TestFile('TestGoto');
+end;
+
+procedure TTestObfuscate.TestHexConstantElse;
+begin
+  TestFile('TestHexConstantElse');
 end;
 
 procedure TTestObfuscate.TestInitFinal;

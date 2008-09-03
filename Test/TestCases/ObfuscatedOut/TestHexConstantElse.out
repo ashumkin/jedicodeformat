@@ -1,0 +1,18 @@
+unit testhexconstantelse;
+
+interface
+
+implementation
+
+procedure testhexconstantelseproc;
+var
+  v: integer;
+begin
+  if 1 > 2 then
+    v := $000080FF
+  else
+    v := $0000FF80;
+end;
+
+end.
+ 

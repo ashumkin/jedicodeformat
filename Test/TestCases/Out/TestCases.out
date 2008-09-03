@@ -170,7 +170,8 @@ uses
   TestClassVarEmpty in 'TestClassVarEmpty.pas',
   TestRecordWithClassFunction in 'TestRecordWithClassFunction.pas',
   TestOutKeyword in 'TestOutKeyword.pas',
-  TestExit in 'TestExit.pas';
+  TestExit in 'TestExit.pas',
+  TestHexConstantElse in 'TestHexConstantElse.pas';
 
 {$R *.res}
 

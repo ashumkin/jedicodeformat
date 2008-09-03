@@ -164,13 +164,28 @@ begin
    must be for liLoop := 0 to 3 do
    }
 
-  if TextOrNumberString(pt1.SourceCode) then
+  if TextOrNumberString(pt1.SourceCode) and TextOrNumberString(pt2.SourceCode) then
   begin
     { always space between two text/number tokens }
-    Result := TextOrNumberString(pt2.SourceCode);
-  end
-  else
-    Result := False;
+    Result := True;
+    exit;
+  end;
+
+  { if one token is a number, even a number like "$000080FF",
+   must space them }
+  if TextOrNumberString(pt1.SourceCode) and (pt2.TokenType = ttNumber) then
+  begin
+    Result := True;
+    exit;
+  end;
+
+  if (pt1.TokenType = ttNumber) and TextOrNumberString(pt2.SourceCode) then
+  begin
+    Result := True;
+    exit;
+  end;
+
+  Result := False;
 end;
 
 

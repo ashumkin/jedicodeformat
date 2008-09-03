@@ -295,6 +295,7 @@ type
     procedure TestRecordWithClassFunction;
     procedure TestOutKeyword;
     procedure TestExit;
+    procedure TestHexConstantElse;
 
     procedure TestLibrary;
 
@@ -806,6 +807,11 @@ end;
 procedure TFullTestClarify.TestGoto;
 begin
   TestFile('TestGoto', 503);
+end;
+
+procedure TFullTestClarify.TestHexConstantElse;
+begin
+  TestFile('TestHexConstantElse', 62);
 end;
 
 procedure TFullTestClarify.TestInheritedExpr;
