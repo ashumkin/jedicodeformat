@@ -25,7 +25,7 @@ inherited fClarifyLongLineBreaker: TfClarifyLongLineBreaker
     HasMaxValue = True
     HasMinValue = True
     MaxLength = 3
-    MaxValue = 255.000000000000000000
+    MaxValue = 999.000000000000000000
     TabOrder = 0
   end
   object rgRebreakLongLines: TRadioGroup
