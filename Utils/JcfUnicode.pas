@@ -56,7 +56,13 @@ const
   WideSpace = WideChar(#32);
 
   {$IFDEF MSWINDOWS}
-  WideLineBreak = WideCarriageReturn + WideLineFeed;
+
+    {$IFDEF DELPHI7}
+      WideLineBreak = WideString(WideCarriageReturn) + WideString(WideLineFeed);
+    {$ELSE}
+      WideLineBreak = WideCarriageReturn + WideLineFeed;
+    {$ENDIF DELPHI7}
+
   {$ENDIF MSWINDOWS}
   {$IFDEF UNIX}
   WideLineBreak = WideLineFeed;
