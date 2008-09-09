@@ -175,7 +175,7 @@ var
   fbHasNamedConfigFile: boolean;
   fsConfigFileName:     string;
 
-  lcStatus:  TStatusMsgReceiver;
+  lcStatus:  TStatusMesssageReceiver;
 
   function StripParamPrefix(const ps: string): string;
   begin
@@ -385,7 +385,7 @@ begin
   { read registry }
   GetRegSettings.ReadAll;
 
-  lcStatus := TStatusMsgReceiver.Create;
+  lcStatus := TStatusMesssageReceiver.Create;
 
   ParseCommandLine;
 
