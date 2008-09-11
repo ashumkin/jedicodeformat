@@ -30,11 +30,15 @@ See http://www.gnu.org/licenses/gpl.html
 interface
 
 uses
+  { delphi }
   Classes,
+  { JCL }
   JclAnsiStrings,
+  { dunit }
   TestFrameWork,
+  { local }
   BaseVisitor,
-  Converter;
+  Converter, ConvertTypes;
 
 type
   TBaseTestProcess = class(TTestCase)
@@ -42,7 +46,9 @@ type
     fcConvert: TConverter;
     fcMessages: TStringList;
 
-    procedure OnStatusMessage(const psUnit, psMessage: string; const piY, piX: integer);
+    procedure OnStatusMessage(const psUnit, psMessage: string;
+      const peMessageType: TStatusMessageType;
+      const piY, piX: integer);
 
   protected
 
@@ -286,6 +292,7 @@ begin
 end;
 
 procedure TBaseTestProcess.OnStatusMessage(const psUnit, psMessage: string;
+  const peMessageType: TStatusMessageType;
   const piY, piX: integer);
 begin
   fcMessages.Add(psMessage);

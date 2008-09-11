@@ -37,7 +37,7 @@ uses
   { JEDI }
   JvMRUManager, JvMemo, JvComponent, JvExStdCtrls, JvFormPlacement, JvComponentBase,
   { local }
-  JcfRegistrySettings, Converter;
+  JcfRegistrySettings, Converter, ConvertTypes;
 
 { have to do file pos display *after* various processing }
 const
@@ -131,7 +131,8 @@ type
     fcConvert: TConverter;
 
     procedure OnConvertStatusMessage(const psUnit, psMessage: string;
-      const piY, piX: integer);
+     const peMessageType: TStatusMessageType;
+     const piY, piX: integer);
 
     procedure CheckInputState;
     procedure CheckCutPasteState;
@@ -156,7 +157,7 @@ uses
   { jcl }
   JclAnsiStrings,
   { local }
-  JCFHelp, ConvertTypes, fAbout, fRegistrySettings, fAllSettings, JcfFontSetFunctions;
+  JCFHelp, fAbout, fRegistrySettings, fAllSettings, JcfFontSetFunctions;
 
 {$ifdef FPC}
   {$R *.lfm}
@@ -576,6 +577,7 @@ begin
 end;
 
 procedure TfmJCFNotepad.OnConvertStatusMessage(const psUnit, psMessage: string;
+  const peMessageType: TStatusMessageType;
   const piY, piX: integer);
 var
   lsWholeMessage: string;

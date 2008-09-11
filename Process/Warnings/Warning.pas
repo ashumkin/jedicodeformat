@@ -94,7 +94,7 @@ begin
       lsMessage := lsMessage + ' in ' + GetBlockType(lcToken) + ' ' + lsProc;
   end;
 
-  fOnWarning('', lsMessage, lcToken.YPosition, lcToken.XPosition);
+  fOnWarning('', lsMessage, mtCodeWarning, lcToken.YPosition, lcToken.XPosition);
 end;
 
 

@@ -36,11 +36,22 @@ type
   TBackupMode = (cmInPlace, cmInPlaceWithBackup, cmSeperateOutput);
   TSourceMode = (fmSingleFile, fmDirectory, fmDirectoryRecursive);
 
+  TStatusMessageType =
+    (
+    mtException, // an exception was thrown - internal error
+    mtInputError, // program input params are not understood, file is readonly, etc
+    mtParseError, // could not parse the file
+    mtCodeWarning, // wanring issued on the code
+    mtFinalSummary, // summary of work down
+    mtProgress // summery of work in progress
+    );
+
 type
   { type for a proc to receive a message
   from the depths of the fornatter to the ui
   many of them have a line x,y specified }
   TStatusMessageProc = procedure(const psUnit, psMessage: string;
+    const peMessageType: TStatusMessageType;
     const piY, piX: integer) of object;
 
 type

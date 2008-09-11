@@ -2,10 +2,14 @@ unit StatusMessageReceiver;
 
 interface
 
+uses
+  ConvertTypes;
+
 type
   TStatusMesssageReceiver = class(TObject)
   public
     procedure OnReceiveStatusMessage(const psFile, psMessage: string;
+      const peMessageType: TStatusMessageType;
       const piY, piX: integer);
   end;
 
@@ -14,19 +18,19 @@ implementation
 uses
   SysUtils;
 
-{
-
-attempt at an emacs version
+{ An attempt at an emacs version
 procedure TStatusMesssageReceiver.OnReceiveStatusMessage(const psFile, psMessage: string;
-const piY, piX: integer);
+  const peMessageType: TStatusMessageType;
+  const piY, piX: integer);
 var
   lsPrefix: string;
   lsMessage: string;
 begin
-  lsPrefix := '';
-  if (Pos('Exception', psMessage) > 0) or (Pos('Error', psMessage) > 0) then
-  begin
-    lsPrefix := 'Error:';
+  case peMessageType of
+    mtException, meInputError, mtParseError:
+      lsPrefix := 'Error';
+    mtCodeWarning:
+      lsPrefix := 'Warning';
   end;
 
   if (piX < 0) or (piY < 0) then
@@ -46,7 +50,8 @@ end;
 }
 
 procedure TStatusMesssageReceiver.OnReceiveStatusMessage(const psFile, psMessage: string;
-const piY, piX: integer);
+  const peMessageType: TStatusMessageType;
+  const piY, piX: integer);
 var
   lsMessage: string;
 begin
@@ -62,5 +67,6 @@ begin
 
   WriteLn(lsMessage);
 end;
+
 
 end.

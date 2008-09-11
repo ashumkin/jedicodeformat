@@ -155,7 +155,7 @@ begin
       fcTreeWalker.Visit(fcRoot, lc);
 
       if lc.FinalSummary(lsMessage) then
-        OnMessage('', lsMessage, -1, -1);
+        OnMessage('', lsMessage, mtFinalSummary, -1, -1);
 
       Application.ProcessMessages;
 

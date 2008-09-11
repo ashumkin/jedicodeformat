@@ -63,6 +63,7 @@ type
     fiConvertCount: integer;
 
     procedure SendStatusMessage(const psUnit, psMessage: string;
+      const peMessageType: TStatusMessageType;
       const piY, piX: integer);
 
     procedure GetFileNames(const psDir: string; psFiles: TStrings);
@@ -137,19 +138,23 @@ begin
 
   if psInputFileName = '' then
   begin
-    SendStatusMessage('', 'Select a file', -1, -1);
+    SendStatusMessage('', 'Select a file', mtInputError, -1, -1);
     exit;
   end;
 
   if not FileExists(psInputFileName) then
   begin
-    SendStatusMessage(psInputFileName, 'The file "' + psInputFileName + '" does not exist', -1, -1);
+    SendStatusMessage(psInputFileName,
+      'The file "' + psInputFileName + '" does not exist',
+      mtInputError, -1, -1);
     exit;
   end;
 
   if FileGetSize(psInputFileName) < 1 then
   begin
-    SendStatusMessage(psInputFileName, 'The file "' + psInputFileName + '" is empty', -1, -1);
+    SendStatusMessage(psInputFileName, 'The file "' + psInputFileName + '" is empty',
+      mtInputError,
+      -1, -1);
     exit;
   end;
 
@@ -195,7 +200,7 @@ begin
 
   if GetRegSettings.LogLevel in [eLogFiles, eLogTokens] then
     Log.Write(lsMessage);
-  SendStatusMessage(psInputFileName, lsMessage, -1, -1);
+  SendStatusMessage(psInputFileName, lsMessage, mtProgress, -1, -1);
 
   // convert in memory
   fsOriginalFileName := psInputFileName;
@@ -227,7 +232,8 @@ begin
   begin
     if lsOut = '' then
     begin
-      SendStatusMessage(psInputFileName, 'No output/backup file specifed', -1, -1);
+      SendStatusMessage(psInputFileName, 'No output/backup file specifed',
+       mtInputError, -1, -1);
       exit;
     end;
 
@@ -324,7 +330,8 @@ var
 begin
   if not DirectoryExists(psDir) then
   begin
-    SendStatusMessage('', 'The directory ' + psDir + ' does not exist', -1, -1);
+    SendStatusMessage('', 'The directory ' + psDir + ' does not exist',
+      mtInputError, -1, -1);
     exit;
   end;
 
@@ -339,7 +346,7 @@ begin
   lsMessage := 'Processing directory ' + lsDir;
   //if Settings.Log.LogLevel in [eLogFiles, eLogTokens] then
   Log.Write(lsMessage);
-  SendStatusMessage('', lsMessage, -1, -1);
+  SendStatusMessage('', lsMessage, mtProgress, -1, -1);
 
   lsNames := TStringList.Create;
   try { finally free }
@@ -496,7 +503,7 @@ begin
 
   if lsMessage <> '' then
   begin
-    SendStatusMessage('', lsMessage, -1, -1);
+    SendStatusMessage('', lsMessage, mtProgress, -1, -1);
 
     Log.EmptyLine;
     Log.Write(lsMessage);
@@ -531,6 +538,7 @@ begin
 end;
 
 procedure TFileConverter.SendStatusMessage(const psUnit, psMessage: string;
+  const peMessageType: TStatusMessageType;
   const piY, piX: integer);
 var
   lsUnit: string;
@@ -540,7 +548,7 @@ begin
     lsUnit := OriginalFileName;
 
   if Assigned(fOnStatusMessage) then
-    fOnStatusMessage(lsUnit, psMessage, piY, piX);
+    fOnStatusMessage(lsUnit, psMessage, peMessageType, piY, piX);
 end;
 
 end.

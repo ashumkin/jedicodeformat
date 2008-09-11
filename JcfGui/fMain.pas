@@ -39,7 +39,7 @@ uses
   Windows, SysUtils, Classes, Controls, Forms, Dialogs, StdCtrls, ComCtrls, Menus,
   ActnList, StdActns, ToolWin, ImgList, ShellAPI,
   { local }
-  FileConverter, JCFSettings,
+  FileConverter, JCFSettings,  ConvertTypes,
   frBasicSettings, JvMRUManager, JvFormPlacement,
   JvMemo, frDrop, frmBaseSettingsFrame, JvComponent, JvExStdCtrls,
   JvComponentBase;
@@ -111,6 +111,7 @@ type
     fcConverter: TFileConverter;
 
     procedure ShowStatusMesssage(const psFile, psMessage: string;
+      const peMessageType: TStatusMessageType;
       const piY, piX: integer);
 
     procedure DoFormat;
@@ -135,7 +136,7 @@ uses
   { jcl }
   JclFileUtils,
   { local }
-  fAbout, ConvertTypes, fAllSettings, fRegistrySettings,
+  fAbout, fAllSettings, fRegistrySettings,
   SettingsStream, JCFHelp, JcfRegistrySettings, JcfFontSetFunctions;
 
 function OkDialog(const psMsg: string): boolean;
@@ -256,6 +257,7 @@ end;
 
 
 procedure TfrmMain.ShowStatusMesssage(const psFile, psMessage: string;
+  const peMessageType: TStatusMessageType;
   const piY, piX: integer);
 var
   lsMessage: string;

@@ -72,6 +72,7 @@ type
 
     { call this to report the current state of the proceedings }
     procedure SendStatusMessage(const psUnit, psMessage: string;
+      const peMessageType: TStatusMessageType;
       const piY, piX: integer);
 
     function GetRoot: TParseTreeNode;
@@ -248,7 +249,7 @@ begin
   lcProcess := TAllProcesses.Create;
   try
     lcProcess.OnMessage := SendStatusMessage;
-    
+
     lcProcess.Execute(fcBuildParseTree.Root);
   finally
     lcProcess.Free;
@@ -334,6 +335,7 @@ var
   lsMessage: string;
   liX, liY: integer;
   leParseError: TEParseError;
+  leMessageType:  TStatusMessageType;
 begin
   lsMessage := 'Exception ' + pe.ClassName +
         '  ' + pe.Message;
@@ -344,21 +346,24 @@ begin
     lsMessage := lsMessage + AnsiLineBreak + 'Near ' + leParseError.TokenMessage;
     liX := leParseError.XPosition;
     liY := leParseError.YPosition;
+    leMessageType := mtParseError;
   end
   else
   begin
     liX := -1;
     liY := -1;
+    leMessageType := mtException;
   end;
 
-  SendStatusMessage('', lsMessage, liY, liX);
+  SendStatusMessage('', lsMessage, leMessageType, liY, liX);
 end;
 
 procedure TConverter.SendStatusMessage(const psUnit, psMessage: string;
+  const peMessageType: TStatusMessageType;
   const piY, piX: integer);
 begin
   if Assigned(fOnStatusMessage) then
-    fOnStatusMessage(psUnit, psMessage, piY, piX);
+    fOnStatusMessage(psUnit, psMessage, peMessageType, piY, piX);
 end;
 
 procedure TConverter.ShowParseTree;

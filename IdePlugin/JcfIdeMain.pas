@@ -40,7 +40,7 @@ uses
   { delphi design time }
   ToolsAPI,
   { local}
-  EditorConverter, FileConverter;
+  EditorConverter, FileConverter, ConvertTypes;
 
 type
   TJcfIdeMain = class(TObject)
@@ -50,7 +50,9 @@ type
 
     procedure MakeEditorConverter;
 
-    procedure LogIDEMessage(const psFile, psMessage: string; const piY, piX: integer);
+    procedure LogIDEMessage(const psFile, psMessage: string;
+      const peMessageType: TStatusMessageType;
+      const piY, piX: integer);
     procedure FormatFile(const psFileName: string);
 
     procedure ClearToolMessages;
@@ -160,7 +162,7 @@ begin
   lciEditor := lciEditManager.TopBuffer;
   if (lciEditor = nil) or (lciEditor.EditViewCount = 0) then
   begin
-    LogIdeMessage('', 'No current window', 0, 0);
+    LogIdeMessage('', 'No current window', mtInputError, -1, -1);
     exit;
   end;
 
@@ -327,6 +329,7 @@ begin
 end;
 
 procedure TJcfIdeMain.LogIDEMessage(const psFile, psMessage: string;
+  const peMessageType: TStatusMessageType;
   const piY, piX: integer);
 var
   lciMessages: IOTAMessageServices40;

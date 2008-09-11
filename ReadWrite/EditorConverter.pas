@@ -54,6 +54,7 @@ type
     fiConvertCount: integer;
 
     procedure SendStatusMessage(const psUnit, psMessage: string;
+      const peMessageType: TStatusMessageType;
       const piY, piX: integer);
 
     function GetOnStatusMessage: TStatusMessageProc;
@@ -123,7 +124,8 @@ begin
     lcBuffer := pciUnit as IOTAEditBuffer;
     if lcBuffer.IsReadOnly then
     begin
-      SendStatusMessage(lcBuffer.FileName, 'Unit is read only. Cannot format ', -1, -1);
+      SendStatusMessage(lcBuffer.FileName, 'Unit is read only. Cannot format ',
+        mtInputError, -1, -1);
       exit;
     end;
   end;
@@ -139,7 +141,7 @@ begin
   if not ConvertError then
   begin
     WriteToIDE(pciUnit, fcConverter.OutputCode);
-    SendStatusMessage(lcBuffer.FileName, 'Formatted unit', -1, -1);
+    SendStatusMessage(lcBuffer.FileName, 'Formatted unit', mtProgress, -1, -1);
     Inc(fiConvertCount);
   end;
 end;
@@ -331,8 +333,9 @@ begin
     Result := 'IDE';
 end;
 
-procedure TEditorConverter.SendStatusMessage(const psUnit,
-  psMessage: string; const piY, piX: integer);
+procedure TEditorConverter.SendStatusMessage(const psUnit, psMessage: string;
+  const peMessageType: TStatusMessageType;
+  const piY, piX: integer);
 var
   lsUnit: string;
 begin
@@ -341,7 +344,7 @@ begin
     lsUnit := OriginalFileName;
 
   if Assigned(fOnStatusMessage) then
-    fOnStatusMessage(lsUnit, psMessage, piY, piX);
+    fOnStatusMessage(lsUnit, psMessage, peMessageType, piY, piX);
 end;
 
 procedure TEditorConverter.SetOnStatusMessage(const Value: TStatusMessageProc);
@@ -375,7 +378,7 @@ begin
     lsMessage := '';
 
   if lsMessage <> '' then
-    SendStatusMessage('', lsMessage, -1, -1);
+    SendStatusMessage('', lsMessage, mtFinalSummary, -1, -1);
 
   Log.EmptyLine;
   Log.Write(lsMessage);
