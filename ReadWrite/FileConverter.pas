@@ -543,12 +543,14 @@ procedure TFileConverter.SendStatusMessage(const psUnit, psMessage: string;
 var
   lsUnit: string;
 begin
-  lsUnit := psUnit;
-  if lsUnit = '' then
-    lsUnit := OriginalFileName;
-
   if Assigned(fOnStatusMessage) then
+  begin
+    lsUnit := psUnit;
+    if lsUnit = '' then
+      lsUnit := OriginalFileName;
+
     fOnStatusMessage(lsUnit, psMessage, peMessageType, piY, piX);
+  end;
 end;
 
 end.
