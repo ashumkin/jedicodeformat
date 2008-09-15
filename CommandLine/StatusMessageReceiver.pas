@@ -18,7 +18,7 @@ implementation
 uses
   SysUtils;
 
-{ An attempt at an emacs version
+{ An attempt at an emacs version  }
 procedure TStatusMesssageReceiver.OnReceiveStatusMessage(const psFile, psMessage: string;
   const peMessageType: TStatusMessageType;
   const piY, piX: integer);
@@ -27,7 +27,7 @@ var
   lsMessage: string;
 begin
   case peMessageType of
-    mtException, meInputError, mtParseError:
+    mtException, mtInputError, mtParseError:
       lsPrefix := 'Error';
     mtCodeWarning:
       lsPrefix := 'Warning';
@@ -47,8 +47,8 @@ begin
 
   WriteLn(lsMessage);
 end;
-}
 
+{
 procedure TStatusMesssageReceiver.OnReceiveStatusMessage(const psFile, psMessage: string;
   const peMessageType: TStatusMessageType;
   const piY, piX: integer);
@@ -67,6 +67,6 @@ begin
 
   WriteLn(lsMessage);
 end;
-
+}
 
 end.
