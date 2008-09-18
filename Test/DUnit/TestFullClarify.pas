@@ -991,7 +991,7 @@ end;
 
 procedure TFullTestClarify.TestRecords;
 begin
-  TestFile('TestRecords', 1455);
+  TestFile('TestRecords', 1495);
 end;
 
 procedure TFullTestClarify.TestRecordWithClassFunction;

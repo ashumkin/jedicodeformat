@@ -3,6 +3,14 @@ unit testrecords;
 interface
 
 type
+  tvisiblerecord = record
+    fdata: string;
+  private
+    f1: integer;
+  public
+    f2: integer;
+  end;
+
   tonelinerec = record
     s1, s2: string;
     fifred: integer;
@@ -46,7 +54,8 @@ type
   temployee = record
     firstname, lastname: string[40];
     birthdate: tdatetime;
-    case salaried: boolean of
+    case
+      salaried: boolean of
       True: (annualsalary: currency);
       False: (hourlywage: currency);
   end;
@@ -54,18 +63,17 @@ type
   tperson = record
     firstname, lastname: string[40];
     birthdate: tdatetime;
-    case citizen: boolean of
+    case citizen: boolean
+      of
       True: (birthplace: string[40]);
       False: (country: string[20];
-        entryport: string
-        [20];
+        entryport: string[20];
         entrydate, exitdate: tdatetime);
   end;
 
   tfoo = record
     bar: integer;
-    case spon: boolean
-      of
+    case spon: boolean of
       True: (baz: PChar);
       False: (wibble: integer;
         fish: integer);
@@ -73,19 +81,22 @@ type
 
   tfoo2 = record
     bar: integer;
-    case spon: boolean of
+    case spon: boolean
+      of
       True: (baz: PChar);
       False: (fred: tfoo);
   end;
 
   tfoo3 = record
     bar: integer;
-    case spon: boolean of
+    case spon: boolean
+      of
       True: (baz: PChar);
       False: (fred: tfoo;
         case boolean of
           False: (ligoop: integer);
-          True: (lcglorp: currency););
+          True:
+          (lcglorp: currency););
   end;
 
   tdeepnesting = record
@@ -94,14 +105,14 @@ type
       True: (baz1: PChar);
       False: (case spon2: boolean of
           True: (baz2: PChar);
-          False: (case spon3: boolean of
+          False: (case spon3: boolean
+            of
             True: (baz3: PChar);
             False: (case spon4: boolean of
               True: (baz4: PChar);
               False: (case spon5: boolean of
                 True: (baz5: PChar);
-                False: (case spon6: boolean
-                  of
+                False: (case spon6: boolean of
                   True: (baz6: PChar);
                   False: (liendpoint: integer););););););
   end;
@@ -129,13 +140,14 @@ type
   tlocalrec = record
     foo: integer;
     bar: (trout, mackrel, rain, earth);
-    case spon: boolean of
+    case spon: boolean
+      of
       True: (baz: PChar);
       False: (fred: tfoo;
-        case boolean
-          of
+        case boolean of
           False: (ligoop: integer);
-          True: (lcglorp: currency););
+          True:
+          (lcglorp: currency););
   end;
 var
   lrec: tlocalrec;

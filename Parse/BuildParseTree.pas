@@ -1923,6 +1923,8 @@ begin
 
   RecogniseFieldList;
 
+  lcNextToken := fcTokenList.FirstSolidToken;
+
   { delphi.net records can have public and private parts }
   while lcNextToken.TokenType in ClassVisibility + [ttStrict, ttClass] do
   begin

@@ -1,33 +1,34 @@
-unit testrecords;interface type tonelinerec=record s1,s2:string;fifred:integer;end
-;tleftrec=record f1:integer;f2:string;f3:double;end;tlongrec=record l1:tleftrec;a
-:string;b:currency;c:string;d:currency;e:string;f:currency;fred:boolean;g:string;
-h:currency;end;type tdaterec=record year:integer;month:(jan,feb,mar,apr,may,jun,jul
-,aug,sep,oct,nov,dec);day:1..31;end;tfoorec=record s1,s2:string end;tbarrec=record
-i1:integer end;type temployee=record firstname,lastname:string[40];birthdate:tdatetime
-;case salaried:boolean of true:(annualsalary:currency);false:(hourlywage:currency
-);end;tperson=record firstname,lastname:string[40];birthdate:tdatetime;case citizen
-:boolean of true:(birthplace:string[40]);false:(country:string[20];entryport:string
-[20];entrydate,exitdate:tdatetime);end;tfoo=record bar:integer;case spon:boolean 
-of true:(baz:pchar);false:(wibble:integer;fish:integer);end;tfoo2=record bar:integer
-;case spon:boolean of true:(baz:pchar);false:(fred:tfoo);end;tfoo3=record bar:integer
-;case spon:boolean of true:(baz:pchar);false:(fred:tfoo;case boolean of false:(ligoop
-:integer);true:(lcglorp:currency););end;tdeepnesting=record bar:integer;case spon1
-:boolean of true:(baz1:pchar);false:(case spon2:boolean of true:(baz2:pchar);false
-:(case spon3:boolean of true:(baz3:pchar);false:(case spon4:boolean of true:(baz4
-:pchar);false:(case spon5:boolean of true:(baz5:pchar);false:(case spon6:boolean 
-of true:(baz6:pchar);false:(liendpoint:integer););););););end;implementation type
-timprec=record s1,s2:string;fifred:integer;end;tshapelist=(rectangle,triangle,circle
-,ellipse,other);tfigure=record lifoo:integer;case tshapelist of rectangle:(height
-,width:real);triangle:(side1,side2,angle:real);circle:(radius:real);ellipse,other
-:();end;procedure hascomplexrecord;type tlocalrec=record foo:integer;bar:(trout,mackrel
-,rain,earth);case spon:boolean of true:(baz:pchar);false:(fred:tfoo;case boolean 
-of false:(ligoop:integer);true:(lcglorp:currency););end;var lrec:tlocalrec;begin 
-end;procedure hasanonrecordvar;var lrec:record foo:integer;bar:(trout,mackrel,rain
-,earth);case spon:boolean of true:(baz:pchar);false:(fred:tfoo;case boolean of false
-:(ligoop:integer);true:(lcglorp:currency););end;begin end;procedure hasanonrecordvars2
-;var li:integer;lrec1:record foo:integer;bar:(trout,mackrel,rain,earth);end;s2,s3
-,s4:string;lrec2:record foo:integer;bar:(trout2,mackrel2,rain2,mars);case spon:boolean
-of true:(baz:pchar);false:(fred:tfoo);end;d1,d2,d3,d4:double;lrec:record foo:integer
-;bar:(trout3,mackrel3,cloud,earthprime);case spon:boolean of true:(baz:pchar);false
-:(fred:tfoo;case boolean of false:(ligoop:integer);true:(lcglorp:currency););end;
-c1,c2,c3:currency;begin end;end. 
+unit testrecords;interface type tvisiblerecord=record fdata:string;private f1:integer
+;public f2:integer;end;tonelinerec=record s1,s2:string;fifred:integer;end;tleftrec
+=record f1:integer;f2:string;f3:double;end;tlongrec=record l1:tleftrec;a:string;b
+:currency;c:string;d:currency;e:string;f:currency;fred:boolean;g:string;h:currency
+;end;type tdaterec=record year:integer;month:(jan,feb,mar,apr,may,jun,jul,aug,sep
+,oct,nov,dec);day:1..31;end;tfoorec=record s1,s2:string end;tbarrec=record i1:integer
+end;type temployee=record firstname,lastname:string[40];birthdate:tdatetime;case 
+salaried:boolean of true:(annualsalary:currency);false:(hourlywage:currency);end;
+tperson=record firstname,lastname:string[40];birthdate:tdatetime;case citizen:boolean
+of true:(birthplace:string[40]);false:(country:string[20];entryport:string[20];entrydate
+,exitdate:tdatetime);end;tfoo=record bar:integer;case spon:boolean of true:(baz:pchar
+);false:(wibble:integer;fish:integer);end;tfoo2=record bar:integer;case spon:boolean
+of true:(baz:pchar);false:(fred:tfoo);end;tfoo3=record bar:integer;case spon:boolean
+of true:(baz:pchar);false:(fred:tfoo;case boolean of false:(ligoop:integer);true:
+(lcglorp:currency););end;tdeepnesting=record bar:integer;case spon1:boolean of true
+:(baz1:pchar);false:(case spon2:boolean of true:(baz2:pchar);false:(case spon3:boolean
+of true:(baz3:pchar);false:(case spon4:boolean of true:(baz4:pchar);false:(case spon5
+:boolean of true:(baz5:pchar);false:(case spon6:boolean of true:(baz6:pchar);false
+:(liendpoint:integer););););););end;implementation type timprec=record s1,s2:string
+;fifred:integer;end;tshapelist=(rectangle,triangle,circle,ellipse,other);tfigure=
+record lifoo:integer;case tshapelist of rectangle:(height,width:real);triangle:(side1
+,side2,angle:real);circle:(radius:real);ellipse,other:();end;procedure hascomplexrecord
+;type tlocalrec=record foo:integer;bar:(trout,mackrel,rain,earth);case spon:boolean
+of true:(baz:pchar);false:(fred:tfoo;case boolean of false:(ligoop:integer);true:
+(lcglorp:currency););end;var lrec:tlocalrec;begin end;procedure hasanonrecordvar;
+var lrec:record foo:integer;bar:(trout,mackrel,rain,earth);case spon:boolean of true
+:(baz:pchar);false:(fred:tfoo;case boolean of false:(ligoop:integer);true:(lcglorp
+:currency););end;begin end;procedure hasanonrecordvars2;var li:integer;lrec1:record
+foo:integer;bar:(trout,mackrel,rain,earth);end;s2,s3,s4:string;lrec2:record foo:integer
+;bar:(trout2,mackrel2,rain2,mars);case spon:boolean of true:(baz:pchar);false:(fred
+:tfoo);end;d1,d2,d3,d4:double;lrec:record foo:integer;bar:(trout3,mackrel3,cloud,
+earthprime);case spon:boolean of true:(baz:pchar);false:(fred:tfoo;case boolean of
+false:(ligoop:integer);true:(lcglorp:currency););end;c1,c2,c3:currency;begin end;
+end. 

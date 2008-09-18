@@ -12,6 +12,15 @@ interface
 
 type
 
+  TVisibleRecord = record
+    fData: string;
+  private
+    f1: integer;
+  public
+    f2: integer;
+  end;
+
+
   TOneLineRec = record
     s1, s2: string;
     fiFred: integer;
