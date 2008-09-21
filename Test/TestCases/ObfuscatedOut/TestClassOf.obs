@@ -1,0 +1,2 @@
+unit testclassof;interface uses classes;type mystringlistclass=class of tstringlist
+;mystringnamespacedlistclass=class of classes.tstringlist;implementation end. 

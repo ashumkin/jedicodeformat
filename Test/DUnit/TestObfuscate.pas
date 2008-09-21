@@ -298,6 +298,8 @@ type
 
     procedure TestDelphiNetLibrary;
 
+    procedure TestClassOf;
+
     procedure TestLibrary;
 
     procedure TestUnicode_ansi;
@@ -572,6 +574,11 @@ end;
 procedure TTestObfuscate.TestClassMethods;
 begin
   TestFile('TestClassMethods');
+end;
+
+procedure TTestObfuscate.TestClassOf;
+begin
+  TestFile('TestClassOf');
 end;
 
 procedure TTestObfuscate.TestClassVarEmpty;

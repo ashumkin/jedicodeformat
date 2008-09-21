@@ -296,6 +296,7 @@ type
     procedure TestOutKeyword;
     procedure TestExit;
     procedure TestHexConstantElse;
+    procedure TestClassOf;
 
     procedure TestLibrary;
 
@@ -591,7 +592,7 @@ end;
 
 procedure TFullTestClarify.TestCases;
 begin
-  TestFile('TestCases.dpr', 1413);
+  TestFile('TestCases.dpr', 1421);
 end;
 
 procedure TFullTestClarify.TestCast;
@@ -617,6 +618,11 @@ end;
 procedure TFullTestClarify.TestClassMethods;
 begin
   TestFile('TestClassMethods', 176);
+end;
+
+procedure TFullTestClarify.TestClassOf;
+begin
+  TestFile('TestClassOf', 53);
 end;
 
 procedure TFullTestClarify.TestCommentIndent;

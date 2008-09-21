@@ -171,7 +171,8 @@ uses
   testrecordwithclassfunction in 'TestRecordWithClassFunction.pas',
   testoutkeyword in 'TestOutKeyword.pas',
   testexit in 'TestExit.pas',
-  testhexconstantelse in 'TestHexConstantElse.pas';
+  testhexconstantelse in 'TestHexConstantElse.pas',
+  testclassof in 'TestClassOf.pas';
 
 {$R *.res}
 begin

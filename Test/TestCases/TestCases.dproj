@@ -37,7 +37,6 @@
     <DelphiCompile Include="TestCases.dpr">
       <MainSource>MainSource</MainSource>
     </DelphiCompile>
-    <DCCReference Include="AsmOffsetKeyword.pas" />
     <DCCReference Include="EmptyTest1.pas" />
     <DCCReference Include="fBracketProp.pas">
       <Form>Form1</Form>
@@ -105,9 +104,6 @@
     <DCCReference Include="LittleTest7.pas" />
     <DCCReference Include="LittleTest8.pas" />
     <DCCReference Include="LittleTest9.pas" />
-    <DCCReference Include="TAsmOffsetKeyword.pas" />
-    <DCCReference Include="TeAsmOffsetKeyword.pas" />
-    <DCCReference Include="TesAsmOffsetKeyword.pas" />
     <DCCReference Include="test.dotted.name.pas" />
     <DCCReference Include="TestAbsolute.pas" />
     <DCCReference Include="TestAlign.pas" />
@@ -116,10 +112,18 @@
     <DCCReference Include="TestAsm.pas" />
     <DCCReference Include="TestASMAnd.pas" />
     <DCCReference Include="TestAsmCaps.pas">
-      <Form>$R *.res</Form>
+      <Form>
+  TestAsmOffsetKeyword in 'TestAsmOffsetKeyword.pas',
+  TestClassVarEmpty in 'TestClassVarEmpty.pas',
+  TestRecordWithClassFunction in 'TestRecordWithClassFunction.pas',
+  TestOutKeyword in 'TestOutKeyword.pas',
+  TestExit in 'TestExit.pas',
+  TestHexConstantElse in 'TestHexConstantElse.pas',
+  TestClassOf in 'TestClassOf.pas';
+
+{$R *.res</Form>
     </DCCReference>
     <DCCReference Include="TestAsmLabel.pas" />
-    <DCCReference Include="TestAsmOffsetKeyword.pas" />
     <DCCReference Include="TestAsmOps.pas" />
     <DCCReference Include="TestAsmStructs.pas" />
     <DCCReference Include="TestAtExpr.pas" />
@@ -134,7 +138,6 @@
     <DCCReference Include="TestCharLiterals.pas" />
     <DCCReference Include="TestClassLines.pas" />
     <DCCReference Include="TestClassMethods.pas" />
-    <DCCReference Include="TestClassVarEmpty.pas" />
     <DCCReference Include="TestCommentIndent.pas" />
     <DCCReference Include="TestCommentIndent2.pas" />
     <DCCReference Include="TestComplexAsm2.pas" />
@@ -157,11 +160,9 @@
     <DCCReference Include="TestEsotericKeywords.pas" />
     <DCCReference Include="TestExclusion.pas" />
     <DCCReference Include="TestExclusionFlags.pas" />
-    <DCCReference Include="TestExit.pas" />
     <DCCReference Include="TestExports.pas" />
     <DCCReference Include="TestForward.pas" />
     <DCCReference Include="TestGoto.pas" />
-    <DCCReference Include="TestHexConstantElse.pas" />
     <DCCReference Include="TestIncAt.pas" />
     <DCCReference Include="TestInheritedExpr.pas" />
     <DCCReference Include="TestInitFinal.pas" />
@@ -182,7 +183,6 @@
     <DCCReference Include="TestNestedRecords.pas" />
     <DCCReference Include="TestOleParams.pas" />
     <DCCReference Include="TestOperators.pas" />
-    <DCCReference Include="TestOutKeyword.pas" />
     <DCCReference Include="TestParams.pas" />
     <DCCReference Include="TestParamSpaces.pas" />
     <DCCReference Include="TestPointers.pas" />
@@ -191,7 +191,6 @@
     <DCCReference Include="TestPropertyLines.pas" />
     <DCCReference Include="TestRaise.pas" />
     <DCCReference Include="TestRecords.pas" />
-    <DCCReference Include="TestRecordWithClassFunction.pas" />
     <DCCReference Include="TestReg.pas" />
     <DCCReference Include="TestReint.pas" />
     <DCCReference Include="TestReturnRemoval.pas" />

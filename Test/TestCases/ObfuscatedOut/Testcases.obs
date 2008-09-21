@@ -68,5 +68,5 @@ testdllindex in'TestDLLIndex.pas',testasmand in'TestASMAnd.pas',testasmlabel in'
 in'TestExports.pas',testasmcaps in'TestAsmCaps.pas',testasmoffsetkeyword in'TestAsmOffsetKeyword.pas'
 ,testclassvarempty in'TestClassVarEmpty.pas',testrecordwithclassfunction in'TestRecordWithClassFunction.pas'
 ,testoutkeyword in'TestOutKeyword.pas',testexit in'TestExit.pas',testhexconstantelse
-in'TestHexConstantElse.pas';{$R *.res}begin application.initialize;application.createform
-(tformtest,formtest);application.run;end. 
+in'TestHexConstantElse.pas',testclassof in'TestClassOf.pas';{$R *.res}begin application
+.initialize;application.createform(tformtest,formtest);application.run;end. 

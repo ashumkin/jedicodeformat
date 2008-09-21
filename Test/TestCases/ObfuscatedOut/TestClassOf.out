@@ -1,0 +1,14 @@
+unit testclassof;
+
+interface
+
+uses Classes;
+
+type
+  mystringlistclass = class of TStringList;
+  mystringnamespacedlistclass = class of Classes.TStringList;
+
+implementation
+
+end.
+ 

@@ -4025,7 +4025,7 @@ begin
     if fcTokenList.FirstSolidTokenType = ttOf then
     begin
       Recognise(ttOf);
-      RecogniseIdentifier(False, idStrict);
+      RecogniseIdentifier(True, idStrict);
       PopNode;
       exit;
     end;
