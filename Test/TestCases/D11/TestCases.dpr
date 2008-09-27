@@ -102,7 +102,7 @@ uses
   LittleTest26 in '..\LittleTest26.pas',
   LittleTest27 in '..\LittleTest27.pas',
   TestAsm in '..\TestAsm.pas',
-  testCaseIfFormat in '..\TestCaseIfFormat.pas',
+  TestCaseIfFormat in '..\TestCaseIfFormat.pas',
   LittleTest28 in '..\LittleTest28.pas',
   TestEmptyCase in '..\TestEmptyCase.pas',
   LittleTest29 in '..\LittleTest29.pas',
