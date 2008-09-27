@@ -6,6 +6,14 @@
 {$ELSE}
   // define the appropriate DelphiXX constants
 
+  {$IFDEF VER200}
+     {$IFDEF BCB}
+       {$DEFINE BCB12}
+     {$ELSE}
+       {$DEFINE DELPHI12}
+     {$ENDIF}
+  {$ENDIF}
+
   {$IFDEF VER190}
      {$DEFINE DELPHI11}
   {$ENDIF}
