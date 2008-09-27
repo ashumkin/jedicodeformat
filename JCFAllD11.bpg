@@ -24,7 +24,7 @@ JCFGui.exe: JCFGui\D11\JCFGui.dpr
 JCFGui.exe: JCFGui\D11\JCFGui.dpr
   $(DCC)
 
-JCFIde2007.bpl: IdePlugin\D11\JCFIdeD11.dpk
+JCFIdeD11.bpl: IdePlugin\D11\JCFIdeD11.dpk
   $(DCC)
 
 jcf.exe: CommandLine\D11\jcf.dpr

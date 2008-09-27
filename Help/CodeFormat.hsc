@@ -59,7 +59,7 @@ FALSE
 47
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fmodern Courier New;}{\f3\fnil\fcharset0 Arial;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green128\blue0;}
-\viewkind4\uc1\pard\cf1\b\f0\fs32 JEDI Code Format \lang1036\f1 (JCF) \lang2057 2.38\cf0\lang1031\b0\f0\fs20 
+\viewkind4\uc1\pard\cf1\b\f0\fs32 JEDI Code Format \lang1036\f1 (JCF) \lang2057 2.39\cf0\lang1031\b0\f0\fs20 
 \par \cf2\{keepn\}
 \par \cf0 
 \par This is the main \lang2057\f1 help\lang1031\f0  for \lang2057\f1 JEDI Code Format (JCF)\lang1031\f0 .\lang2057\f1  \lang1036 JCF\lang1031\f0  can standardise all aspects of Delphi Object Pascal source code formatting, including indentation, spacing and capitalisation\lang2057\f1 .\lang1031\f0  \lang2057\f1 JCF is intended to be able to format all compilable Delphi Source code. Source that does not compile cannot always be formatted correctly.\lang1031\f0 
@@ -116,7 +116,7 @@ Writing
 
 
 FALSE
-26
+28
 {\rtf1\ansi\ansicpg1252\deff0\deflang2057{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil Arial;}}
 {\colortbl ;\red0\green0\blue255;\red0\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\fs32 Programs\cf2\b0\f1\fs20 
@@ -127,17 +127,19 @@ FALSE
 \par 
 \par \b JCFGui.exe\b0  - A GUI interface to formatting files and directories. Best used when you want to interactively format a file, directory or directory tree.
 \par 
-\par \b JCFIde5.bpl\b0  - The JCF Delphi IDE plug-in compiled for Delphi 5. Requires JCL and JCVL. This is the easiest way to use JCF. Just press a button and watch your code change. the other advantage is that if you don't like the results, by clicking "undo" twice immediately you can undo the format.
+\par \b JCFIdeD5.bpl\b0  - The JCF Delphi IDE plug-in compiled for Delphi 5. Requires JCL and JCVL. This is the easiest way to use JCF. Just press a button and watch your code change. the other advantage is that if you don't like the results, by clicking "undo" twice immediately you can undo the format.
 \par 
-\par \b JCFIde6.bpl\b0  - The JCF Delphi IDE plug-in compiled for Delphi 6. Otherwise as above.
+\par \b JCFIdeD6.bpl\b0  - The JCF Delphi IDE plug-in compiled for Borland Delphi 6. Otherwise as above.
 \par 
-\par \b JCFIde7.bpl\b0  - The JCF Delphi IDE plug-in compiled for Delphi 7. Otherwise as above.
+\par \b JCFIdeD7.bpl\b0  - The JCF Delphi IDE plug-in compiled for Borland Delphi 7. Otherwise as above.
 \par 
-\par \b JCFIde2005.bpl\b0  - The JCF Delphi IDE plug-in compiled for Delphi 2005. Otherwise as above.
+\par \b JCFIdeD9.bpl\b0  - The JCF Delphi IDE plug-in compiled for Borland Delphi 2005. Otherwise as above.
 \par 
-\par \b JCFIde2006.bpl\b0  - The JCF Delphi IDE plug-in compiled for Delphi 2006. Otherwise as above.
+\par \b JCFIdeD10.bpl\b0  - The JCF Delphi IDE plug-in compiled for Borland Delphi 2006. Otherwise as above.
 \par 
-\par \b JCFIde2007.bpl\b0  - The JCF Delphi IDE plug-in compiled for Delphi 2007. Otherwise as above.
+\par \b JCFIdeD11.bpl\b0  - The JCF Delphi IDE plug-in compiled for CodeGear Delphi 2007 for Win32. Otherwise as above.
+\par \b 
+\par JCFIdeD12.bpl\b0  - The JCF Delphi IDE plug-in compiled for CodeGear Delphi 2009 for Win32. Otherwise as above.
 \par 
 \par If anyone compiles the IDE plug-in for other versions of Delphi I will gladly upload the binaries to SourceForge.
 \par 

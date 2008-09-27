@@ -44,6 +44,12 @@
       
       
       
+      
+      
+      
+      
+      
+      
       <Excluded_Packages Name="$(BDS)\bin\dclofficexp100.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
       <Excluded_Packages Name="$(BDS)\bin\dcloffice2k100.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
     </Excluded_Packages></Delphi.Personality></BorlandProject></BorlandProject>
@@ -53,10 +59,6 @@
     <DelphiCompile Include="JCFGui.dpr">
       <MainSource>MainSource</MainSource>
     </DelphiCompile>
-    <DCCReference Include="..fMain.pas">
-      <ModuleName>fMain</ModuleName>
-      <Form>frmMain</Form>
-    </DCCReference>
     <DCCReference Include="..\..\Parse\AsmKeywords.pas" />
     <DCCReference Include="..\..\Parse\BuildParseTree.pas" />
     <DCCReference Include="..\..\Parse\BuildTokenList.pas" />
@@ -294,6 +296,9 @@
     <DCCReference Include="..\..\Utils\JcfUnicode.pas" />
     <DCCReference Include="..\..\Utils\JcfUnicodeFiles.pas" />
     <DCCReference Include="..\..\VersionConsts.pas" />
+    <DCCReference Include="..\fMain.pas">
+      <Form>frmMain</Form>
+    </DCCReference>
     <DCCReference Include="..\Parse\AsmKeywords.pas" />
     <DCCReference Include="..\Parse\BuildParseTree.pas" />
     <DCCReference Include="..\Parse\BuildTokenList.pas" />
@@ -532,11 +537,5 @@
     <DCCReference Include="..\Utils\JcfUnicode.pas" />
     <DCCReference Include="..\Utils\JcfUnicodeFiles.pas" />
     <DCCReference Include="..\VersionConsts.pas" />
-    <DCCReference Include=".fMain.pas">
-      <Form>frmMain</Form>
-    </DCCReference>
-    <DCCReference Include="fMain.pas">
-      <Form>frmMain</Form>
-    </DCCReference>
   </ItemGroup>
 </Project>

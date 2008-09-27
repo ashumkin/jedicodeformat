@@ -36,36 +36,36 @@ function GetHelpFilePath: string;
 const
 
   { help context ids }
-  HELP_MAIN     = 10;
+  HELP_MAIN = 10;
   HELP_PROGRAMS = 12;
   HELP_SETTINGS_STORED = 15;
   HELP_SETTINGS_LOGGING = 24;
   HELP_SETTINGS_EXCLUSIONS = 26;
 
   HELP_BASIC_SETTINGS = 30;
-  HELP_FORMAT_FILE    = 40;
+  HELP_FORMAT_FILE = 40;
 
   HELP_OBFUSCATE_SETTINGS = 50;
-  HELP_CLARIFY          = 60;
-  HELP_CLARIFY_SPACES   = 70;
+  HELP_CLARIFY = 60;
+  HELP_CLARIFY_SPACES = 70;
   HELP_CLARIFY_INDENTATION = 80;
   HELP_CLARIFY_LONG_LINES = 85;
-  HELP_CLARIFY_RETURNS  = 90;
+  HELP_CLARIFY_RETURNS = 90;
   HELP_CLARIFY_BLANK_LINES = 95;
-  HELP_CLARIFY_BLOCKS   = 100;
-  HELP_CLARIFY_ALIGN    = 110;
+  HELP_CLARIFY_BLOCKS = 100;
+  HELP_CLARIFY_ALIGN = 110;
   HELP_CLARIFY_COMMENTS = 80;
 
-  HELP_CLARIFY_CAPITALISATION        = 120;
-  HELP_CLARIFY_FIND_AND_REPLACE      = 130;
+  HELP_CLARIFY_CAPITALISATION = 120;
+  HELP_CLARIFY_FIND_AND_REPLACE = 130;
   HELP_CLARIFY_FIND_AND_REPLACE_USES = 140;
-  HELP_COMMAND_LINE_PARAMS           = 200;
+  HELP_COMMAND_LINE_PARAMS = 200;
 
   HELP_CLARIFY_TRANSFORM = 211;
-  HELP_CLARIFY_WARNINGS  = 212;
+  HELP_CLARIFY_WARNINGS = 212;
 
   HELP_ISSUES = 220;
-  HELP_INFO   = 1000;
+  HELP_INFO = 1000;
 
   HELP_FILE_NAME = 'CodeFormat.chm';
 
@@ -83,33 +83,39 @@ begin
   if not FileExists(HelpFilePath) then
   begin
     HelpFilePath := IncludeTrailingPathDelimiter(
-      ExtractFilePath(GetModuleName(GetModuleHandle('JCFIde2007.bpl')))) +
+      ExtractFilePath(GetModuleName(GetModuleHandle('JCFIdeD12.bpl')))) +
       HELP_FILE_NAME;
     if not FileExists(HelpFilePath) then
     begin
       HelpFilePath := IncludeTrailingPathDelimiter(
-        ExtractFilePath(GetModuleName(GetModuleHandle('JCFIde2006.bpl')))) +
+        ExtractFilePath(GetModuleName(GetModuleHandle('JCFIdeD11.bpl')))) +
         HELP_FILE_NAME;
       if not FileExists(HelpFilePath) then
       begin
         HelpFilePath := IncludeTrailingPathDelimiter(
-          ExtractFilePath(GetModuleName(GetModuleHandle('JCFIde2005.bpl')))) +
+          ExtractFilePath(GetModuleName(GetModuleHandle('JCFIdeD10.bpl')))) +
           HELP_FILE_NAME;
         if not FileExists(HelpFilePath) then
         begin
           HelpFilePath := IncludeTrailingPathDelimiter(
-            ExtractFilePath(GetModuleName(GetModuleHandle('JCFIde7.bpl')))) +
+            ExtractFilePath(GetModuleName(GetModuleHandle('JCFIdeD9.bpl')))) +
             HELP_FILE_NAME;
           if not FileExists(HelpFilePath) then
           begin
             HelpFilePath := IncludeTrailingPathDelimiter(
-              ExtractFilePath(GetModuleName(GetModuleHandle('JCFIde6.bpl')))) +
+              ExtractFilePath(GetModuleName(GetModuleHandle('JCFIdeD7.bpl')))) +
               HELP_FILE_NAME;
             if not FileExists(HelpFilePath) then
             begin
               HelpFilePath := IncludeTrailingPathDelimiter(
-                ExtractFilePath(GetModuleName(GetModuleHandle('JCFIde5.bpl')))) +
+                ExtractFilePath(GetModuleName(GetModuleHandle('JCFIdeD6.bpl')))) +
                 HELP_FILE_NAME;
+              if not FileExists(HelpFilePath) then
+              begin
+                HelpFilePath := IncludeTrailingPathDelimiter(
+                  ExtractFilePath(GetModuleName(GetModuleHandle('JCFIdeD5.bpl')))) +
+                  HELP_FILE_NAME;
+              end;
             end;
           end;
         end;
