@@ -45,6 +45,8 @@ type
     fsRefDir: string;
     fsFileMask: string;
     fsOutputExt: string;
+    fsOutputSubdir: string;
+    fiExpectedCount: integer;
 
     fsFileNames: TStringList;
 
@@ -61,6 +63,9 @@ type
   published
     procedure TestFormatClarify;
     procedure TestFormatObfuscate;
+
+    procedure TestFormatClarifyProject;
+    procedure TestFormatObfuscateProject;
 
   end;
 
@@ -93,13 +98,13 @@ end;
 procedure TTestCommandline.GetOutFiles;
 begin
   fsFileNames.Clear;
-  BuildFileList(GetTestFilesDir + fsFileMask, faAnyFile, fsFileNames);
+  BuildFileList(GetTestFilesDir + fsOutputSubdir + fsFileMask, faAnyFile, fsFileNames);
 end;
 
 procedure TTestCommandline.CompareFileToRef(const psFileName: string);
 begin
-  TestFileContentsSame(GetTestFilesDir + psFileName, fsRefDir + psFileName);
-  SysUtils.DeleteFile(GetTestFilesDir + psFileName);
+  TestFileContentsSame(GetTestFilesDir + fsOutputSubdir + psFileName, fsRefDir + psFileName);
+  SysUtils.DeleteFile(GetTestFilesDir + fsOutputSubdir + psFileName);
 end;
 
 procedure TTestCommandline.RunJcfCommandline;
@@ -109,6 +114,7 @@ var
   lbRes:     boolean;
 var
   lsSaveExt: string;
+  lsFileName: string;
 begin
   lsSaveExt := GetRegSettings.OutputExtension;
 
@@ -127,7 +133,10 @@ begin
     if fsFileNames.Count > 0 then
     begin
       for liLoop := 0 to fsFileNames.Count - 1 do
-        SysUtils.DeleteFile(GetTestFilesDir + fsFileNames[liLoop]);
+      begin
+        lsFileName := GetTestFilesDir + fsOutputSubdir + fsFileNames[liLoop];
+        SysUtils.DeleteFile(lsFileName);
+      end;
 
       // should be none left
       GetOutFiles;
@@ -145,7 +154,7 @@ begin
 
     // should be back
     GetOutFiles;
-    CheckEquals(EXPECTED_FILE_COUNT, fsFileNames.Count, 'File count differs');
+    CheckEquals(fiExpectedCount, fsFileNames.Count, 'File count differs');
 
     // for each, compare to the reference versions
     GetOutFiles;
@@ -159,29 +168,67 @@ begin
   end;
 end;
 
-
-
+// test clarifying the .pas files with the commandline program
 procedure TTestCommandline.TestFormatClarify;
 begin
   fsOutputExt := 'out';
+  fsOutputSubdir := '';
+
   fsJcfParams := ' -config="' + GetTestSettingsFileName +
     '" -out -D "' + GetTestFilesDir + '"';
   fsRefDir    := GetRefOutFilesDir;
   fsFileMask  := '*.out';
+  fiExpectedCount := EXPECTED_FILE_COUNT;
 
   RunJcfCommandline;
 end;
 
+// test clarifying the .dpr files with the commandline program
+procedure TTestCommandline.TestFormatClarifyProject;
+begin
+  fsOutputExt := 'out';
+  fsOutputSubdir := 'D11\';
+
+  fsJcfParams := ' -config="' + GetTestSettingsFileName +
+    '" -out -D "' + GetTestFilesDir + fsOutputSubdir + '"';
+  fsRefDir    := GetRefOutFilesDir + fsOutputSubdir;
+  fsFileMask  := '*.out';
+  fiExpectedCount := 1;
+
+  RunJcfCommandline;
+end;
+
+// test obfuscating the .pas files with the commandline program
 procedure TTestCommandline.TestFormatObfuscate;
 begin
   fsOutputExt := 'obs';
+  fsOutputSubdir := '';
+
   fsJcfParams := ' -obfuscate -config="' + GetTestFilesDir +
     'JCFObfuscateSettings.cfg" ' +
     '-out -D "' + GetTestFilesDir + '"';
   fsRefDir    := GetObsOutFilesDir;
   fsFileMask  := '*.obs';
+  fiExpectedCount := EXPECTED_FILE_COUNT;
 
   RunJcfCommandline;
+end;
+
+// test obfuscating the .dpr files with the commandline program
+procedure TTestCommandline.TestFormatObfuscateProject;
+begin
+  fsOutputExt := 'obs';
+  fsOutputSubdir := 'D11\';
+
+  fsJcfParams := ' -obfuscate -config="' + GetTestFilesDir +
+    'JCFObfuscateSettings.cfg" ' +
+    '-out -D "' + GetTestFilesDir + fsOutputSubdir + '"';
+  fsRefDir    := GetObsOutFilesDir + fsOutputSubdir;
+  fsFileMask  := '*.obs';
+  fiExpectedCount := 1;
+
+  RunJcfCommandline;
+
 end;
 
 initialization
