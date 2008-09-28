@@ -308,7 +308,6 @@ type
     procedure TestUnicode_utf8;
 
     procedure TestCases;
-
   end;
 
 
@@ -592,7 +591,7 @@ end;
 
 procedure TFullTestClarify.TestCases;
 begin
-  TestFile('TestCases.dpr', 1421);
+  TestFile('D11\TestCases.dpr', 1421);
 end;
 
 procedure TFullTestClarify.TestCast;

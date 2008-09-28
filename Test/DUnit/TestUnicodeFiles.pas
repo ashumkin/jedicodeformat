@@ -80,14 +80,14 @@ uses
   JcfUnicodeFiles;
 
 const
-  ANSI_FILE = '..\Test\TestCases\TestUnicode_ansi.pas';
-  UTF8_FILE = '..\Test\TestCases\TestUnicode_utf8.pas';
-  BE_UCS2_FILE = '..\Test\TestCases\TestUnicode_be_ucs2.pas';
-  LE_UCS2_FILE = '..\Test\TestCases\TestUnicode_le_ucs2.pas';
-  BE_UCS4_FILE = '..\Test\TestCases\TestUnicode_be_ucs4.pas';
-  LE_UCS4_FILE = '..\Test\TestCases\TestUnicode_le_ucs4.pas';
+  ANSI_FILE = '..\..\Test\TestCases\TestUnicode_ansi.pas';
+  UTF8_FILE = '..\..\Test\TestCases\TestUnicode_utf8.pas';
+  BE_UCS2_FILE = '..\..\Test\TestCases\TestUnicode_be_ucs2.pas';
+  LE_UCS2_FILE = '..\..\Test\TestCases\TestUnicode_le_ucs2.pas';
+  BE_UCS4_FILE = '..\..\Test\TestCases\TestUnicode_be_ucs4.pas';
+  LE_UCS4_FILE = '..\..\Test\TestCases\TestUnicode_le_ucs4.pas';
 
-  TEMP_FILE = '..\Test\TestCases\TempUnicodeFile.tmp';
+  TEMP_FILE = '..\..\Test\TestCases\TempUnicodeFile.tmp';
 
 {
   Check that the file starts with "unit"

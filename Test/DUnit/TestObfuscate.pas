@@ -1009,7 +1009,7 @@ end;
 
 procedure TTestObfuscate.TestCases;
 begin
-  TestFile('Testcases.dpr');
+  TestFile('D11\Testcases.dpr');
 end;
 
 procedure TTestObfuscate.TestProcBlankLines;

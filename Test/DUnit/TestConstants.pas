@@ -63,8 +63,10 @@ var
 
 procedure GenerateDirs;
 const
-  OUTPUT_DIR: string      = '\output\';
+  OUTPUT_DIR: string      = '\Output\';
   OUTPUT_DIR_LEN: integer = 8;
+var
+  outputIndex: integer;
 begin
   // calculate this once, read the app path
   msEXEFilesDir := ExtractFilePath(ParamStr(0));
@@ -73,8 +75,11 @@ begin
   { expect this to be, in my e.g. "C:\Code\JcfCheckout\CodeFormat\Jcf2\Output\"
     The base dir strips off the /output
   }
-  if AnsiSameText(StrRight(msBaseDir, OUTPUT_DIR_LEN), OUTPUT_DIR) then
-    msBaseDir := StrChopRight(msBaseDir, OUTPUT_DIR_LEN - 1);
+  outputIndex := Pos(OUTPUT_DIR, msBaseDir);
+  if outputIndex > 0 then
+  begin
+    msBaseDir := StrLeft(msBaseDir, outputIndex);
+  end;
 end;
 
 function GetBaseDir: string;
