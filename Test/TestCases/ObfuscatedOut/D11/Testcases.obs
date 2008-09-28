@@ -1,0 +1,77 @@
+program testcases;uses forms,emptytest1 in'..\EmptyTest1.pas',fformtest in'..\fFormTest.pas'
+{FormTest},littletest1 in'..\LittleTest1.pas',littletest2 in'..\LittleTest2.pas',
+littletest3 in'..\LittleTest3.pas',littletest4 in'..\LittleTest4.pas',littletest5
+in'..\LittleTest5.pas',testabsolute in'..\TestAbsolute.pas',testalign in'..\TestAlign.pas'
+,testblanklineremoval in'..\TestBlankLineRemoval.pas',testbogusdirectives in'..\TestBogusDirectives.pas'
+,testbogustypes in'..\TestBogusTypes.pas',testcaseblock in'..\TestCaseBlock.pas',
+testcast in'..\TestCast.pas',testcastsimple in'..\TestCastSimple.pas',testcharliterals
+in'..\TestCharLiterals.pas',testclasslines in'..\TestClassLines.pas',testcommentindent
+in'..\TestCommentIndent.pas',testconstrecords in'..\TestConstRecords.pas',testd6 
+in'..\TestD6.pas',testdeclarations2 in'..\TestDeclarations2.pas',testdeclarations
+in'..\TestDeclarations.pas',testdefaultparams in'..\TestDefaultParams.pas',testemptyclass
+in'..\TestEmptyClass.pas',testesoterickeywords in'..\TestEsotericKeywords.pas',testexclusion
+in'..\TestExclusion.pas',testexclusionflags in'..\TestExclusionFlags.pas',testforward
+in'..\TestForward.pas',testgoto in'..\TestGoto.pas',testinitfinal in'..\TestInitFinal.pas'
+,testinterfaceimplements in'..\TestInterfaceImplements.pas',testinterfaces in'..\TestInterfaces.pas'
+,testlayout in'..\TestLayout.pas',testlayoutbare2 in'..\TestLayoutBare2.pas',testlayoutbare3
+in'..\TestLayoutBare3.pas',testlayoutbare in'..\TestLayoutBare.pas',testlinebreaking
+in'..\TestLineBreaking.pas',testlocaltypes in'..\TestLocalTypes.pas',testlongstrings
+in'..\TestLongStrings.pas',testmarcov in'..\TestMarcoV.pas',testmh in'..\TestMH.pas'
+,testmixedmodecaps in'..\TestMixedModeCaps.pas',testnested in'..\TestNested.pas',
+testnestedrecords in'..\TestNestedRecords.pas',testoperators in'..\TestOperators.pas'
+,testparams in'..\TestParams.pas',testparamspaces in'..\TestParamSpaces.pas',testpointers
+in'..\TestPointers.pas',testproperties in'..\TestProperties.pas',testpropertylines
+in'..\TestPropertyLines.pas',testrecords in'..\TestRecords.pas',testreg in'..\TestReg.pas'
+,testreint in'..\TestReint.pas',testreturnremoval in'..\TestReturnRemoval.pas',testreturns
+in'..\TestReturns.pas',testrunonconst in'..\TestRunOnConst.pas',testrunondef in'..\TestRunOnDef.pas'
+,testtry in'..\TestTry.pas',testtypedefs in'..\TestTypeDefs.pas',testuses in'..\TestUses.pas'
+,testwarnings in'..\TestWarnings.pas',testwith in'..\TestWith.pas',littletest6 in
+'..\LittleTest6.pas',testarray in'..\TestArray.pas',testvarparam in'..\TestVarParam.pas'
+,littletest7 in'..\LittleTest7.pas',littletest8 in'..\LittleTest8.pas',testderef 
+in'..\TestDeref.pas',littletest9 in'..\LittleTest9.pas',testpropertyinherited in'..\TestPropertyInherited.pas'
+,testmessages in'..\TestMessages.pas',littletest10 in'..\LittleTest10.pas',testinheritedexpr
+in'..\TestInheritedExpr.pas',littletest11 in'..\LittleTest11.pas',littletest12 in
+'..\LittleTest12.pas',littletest13 in'..\LittleTest13.pas',testoleparams in'..\TestOleParams.pas'
+,littletest14 in'..\LittleTest14.pas',littletest15 in'..\LittleTest15.pas',littletest16
+in'..\LittleTest16.pas',littletest17 in'..\LittleTest17.pas',littletest18 in'..\LittleTest18.pas'
+,testatexpr in'..\TestAtExpr.pas',testasmstructs in'..\TestAsmStructs.pas',testunitplatform
+in'..\TestUnitPlatform.pas',testunitalldirectives in'..\TestUnitAllDirectives.pas'
+,testunitdeprecated in'..\TestUnitDeprecated.pas',testunitlibrary in'..\TestUnitLibrary.pas'
+,littletest19 in'..\LittleTest19.pas',littletest20 in'..\LittleTest20.pas',testraise
+in'..\TestRaise.pas',littletest21 in'..\LittleTest21.pas',littletest22 in'..\LittleTest22.pas'
+,littletest23 in'..\LittleTest23.pas',testemptysquarebrackets in'..\TestEmptySquareBrackets.pas'
+,littletest24 in'..\LittleTest24.pas',littletest25 in'..\LittleTest25.pas',littletest26
+in'..\LittleTest26.pas',littletest27 in'..\LittleTest27.pas',testasm in'..\TestAsm.pas'
+,testcaseifformat in'..\TestCaseIfFormat.pas',littletest28 in'..\LittleTest28.pas'
+,testemptycase in'..\TestEmptyCase.pas',littletest29 in'..\LittleTest29.pas',littletest30
+in'..\LittleTest30.pas',littletest31 in'..\LittleTest31.pas',littletest32 in'..\LittleTest32.pas'
+,littletest33 in'..\LittleTest33.pas',littletest34 in'..\LittleTest34.pas',testsimpleifdef
+in'..\TestSimpleIfdef.pas',testsimpleifdef2 in'..\TestSimpleIfdef2.pas',testsimpleifdef3
+in'..\TestSimpleIfdef3.pas',littletest35 in'..\LittleTest35.pas',littletest36 in'..\LittleTest36.pas'
+,littletest37 in'..\LittleTest37.pas',testsimpleifdef4 in'..\TestSimpleIfDef4.pas'
+,testsimpleifdef5 in'..\TestSimpleIfDef5.pas',littletest38 in'..\LittleTest38.pas'
+,littletest39 in'..\LittleTest39.pas',littletest40 in'..\LittleTest40.pas',testdefines
+in'..\TestDefines.pas',littletest41 in'..\LittleTest41.pas',littletest42 in'..\LittleTest42.pas'
+,littletest43 in'..\LittleTest43.pas',littletest44 in'..\LittleTest44.pas',littletest45
+in'..\LittleTest45.pas',littletest46 in'..\LittleTest46.pas',littletest47 in'..\LittleTest47.pas'
+,testwarndestroy in'..\TestWarnDestroy.pas',littletest48 in'..\LittleTest48.pas',
+littletest49 in'..\LittleTest49.pas',littletest50 in'..\LittleTest50.pas',littletest51
+in'..\LittleTest51.pas',littletest52 in'..\LittleTest52.pas',testsimpleifdef6 in'..\TestSimpleIfDef6.pas'
+,littletest53 in'..\LittleTest53.pas',littletest54 in'..\LittleTest54.pas',littletest55
+in'..\LittleTest55.pas',littletest56 in'..\LittleTest56.pas',littletest57 in'..\LittleTest57.pas'
+,littletest58 in'..\LittleTest58.pas',littletest59 in'..\LittleTest59.pas',littletest60
+in'..\LittleTest60.pas',testcommentindent2 in'..\TestCommentIndent2.pas',fbracketprop
+in'..\fBracketProp.pas'{Form1},testendelse in'..\TestEndElse.pas',testcondreturns
+in'..\TestCondReturns.pas',testconstbug in'..\TestConstBug.pas',test.dotted.name 
+in'..\test.dotted.name.pas',testcondcompbreaks in'..\TestCondCompBreaks.pas',testdelphinetkeywords
+in'..\TestDelphiNetKeywords.pas',testincat in'..\TestIncAt.pas',testdllindex in'..\TestDLLIndex.pas'
+,testasmand in'..\TestASMAnd.pas',testasmlabel in'..\TestAsmLabel.pas',testvarargs
+in'..\TestVarArgs.pas',testasmops in'..\TestAsmOps.pas',testcomplexasm2 in'..\TestComplexAsm2.pas'
+,testsubrangetype in'..\TestSubrangeType.pas',testampersand in'..\TestAmpersand.pas'
+,testautomated in'..\TestAutomated.pas',testclassmethods in'..\TestClassMethods.pas'
+,testexports in'..\TestExports.pas',testasmcaps in'..\TestAsmCaps.pas',testasmoffsetkeyword
+in'..\TestAsmOffsetKeyword.pas',testclassvarempty in'..\TestClassVarEmpty.pas',testrecordwithclassfunction
+in'..\TestRecordWithClassFunction.pas',testoutkeyword in'..\TestOutKeyword.pas',testexit
+in'..\TestExit.pas',testhexconstantelse in'..\TestHexConstantElse.pas',testclassof
+in'..\TestClassOf.pas';{$R *.res}begin application.initialize;application.createform
+(tformtest,formtest);application.run;end. 
