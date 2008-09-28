@@ -98,7 +98,7 @@ uses
 
 procedure TTestBreakConditionalCompilation.Setup;
 const
-  IN_FILE_NAME = '..\Test\TestCases\TestCondCompBreaks.pas';
+  IN_FILE_NAME = '..\..\Test\TestCases\TestCondCompBreaks.pas';
 begin
   inherited;
 
@@ -150,7 +150,7 @@ end;
 
 procedure TTestBreakConditionalCompilation.TestNoChange;
 begin
-  Check(fsFileIn <> '');
+  Check(fsFileIn <> '', 'No input file');
 
   FormatSettings.Returns.BeforeCompilerDirectUses := eLeave;
   FormatSettings.Returns.BeforeCompilerDirectStatements := eLeave;
@@ -166,7 +166,7 @@ procedure TTestBreakConditionalCompilation.TestUsesBreakBeforeAdd;
 var
   lsFileOut: string;
 begin
-  Check(fsFileIn <> '');
+  Check(fsFileIn <> '', 'No input file');
 
   FormatSettings.Returns.BeforeCompilerDirectUses := eAlways;
 
@@ -187,7 +187,7 @@ procedure TTestBreakConditionalCompilation.TestUsesBreakBeforeRemove;
 var
   lsFileOut: string;
 begin
-  Check(fsFileIn <> '');
+  Check(fsFileIn <> '', 'No input file');
 
   FormatSettings.Returns.BeforeCompilerDirectUses := eNever;
 
@@ -207,7 +207,7 @@ procedure TTestBreakConditionalCompilation.TestUsesBreakAfterAdd;
 var
   lsFileOut: string;
 begin
-  Check(fsFileIn <> '');
+  Check(fsFileIn <> '', 'No input file');
 
   FormatSettings.Returns.AfterCompilerDirectUses := eAlways;
 
@@ -227,7 +227,7 @@ procedure TTestBreakConditionalCompilation.TestUsesBreakAfterRemove;
 var
   lsFileOut: string;
 begin
-  Check(fsFileIn <> '');
+  Check(fsFileIn <> '', 'No input file');
 
   FormatSettings.Returns.AfterCompilerDirectUses := eNever;
 
@@ -247,7 +247,7 @@ procedure TTestBreakConditionalCompilation.TestCodeBreakBeforeAdd;
 var
   lsFileOut: string;
 begin
-  Check(fsFileIn <> '');
+  Check(fsFileIn <> '', 'No input file');
 
   FormatSettings.Returns.BeforeCompilerDirectStatements := eAlways;
 
@@ -273,7 +273,7 @@ procedure TTestBreakConditionalCompilation.TestCodeBreakBeforeRemove;
 var
   lsFileOut: string;
 begin
-  Check(fsFileIn <> '');
+  Check(fsFileIn <> '', 'No input file');
 
   FormatSettings.Returns.BeforeCompilerDirectStatements := eNever;
 
@@ -295,7 +295,7 @@ var
   lsPrefix: string;
   lsFileOut: string;
 begin
-  Check(fsFileIn <> '');
+  Check(fsFileIn <> '', 'No input file');
 
   FormatSettings.Returns.AfterCompilerDirectStatements := eAlways;
 
@@ -323,7 +323,7 @@ var
   lsFileOut: string;
   lsPrefix: string;
 begin
-  Check(fsFileIn <> '');
+  Check(fsFileIn <> '', 'No input file');
 
   FormatSettings.Returns.AfterCompilerDirectStatements := eNever;
 
@@ -349,7 +349,7 @@ var
   lsFind, lsReplace: string;
   lsFileOut: string;
 begin
-  Check(fsFileIn <> '');
+  Check(fsFileIn <> '', 'No input file');
 
   FormatSettings.Returns.BeforeCompilerDirectGeneral := eAlways;
 
@@ -376,13 +376,12 @@ begin
   TestFormatResult(fsFileIn, lsFileOut);
 end;
 
-
 procedure TTestBreakConditionalCompilation.TestGeneralBreakAfterRemove;
 var
   lsFind, lsReplace: string;
   lsFileOut: string;
 begin
-  Check(fsFileIn <> '');
+  Check(fsFileIn <> '', 'No input file');
 
   FormatSettings.Returns.AfterCompilerDirectGeneral := eNever;
 
@@ -412,7 +411,7 @@ var
   lsFind, lsReplace: string;
   lsFileOut: string;
 begin
-  Check(fsFileIn <> '');
+  Check(fsFileIn <> '', 'No input file');
 
   FormatSettings.Returns.AfterCompilerDirectGeneral := eAlways;
 
@@ -430,13 +429,12 @@ begin
   TestFormatResult(fsFileIn, lsFileOut);
 end;
 
-
 procedure TTestBreakConditionalCompilation.TestGeneralBreakBeforeRemove;
 var
   lsFind, lsReplace: string;
   lsFileOut: string;
 begin
-  Check(fsFileIn <> '');
+  Check(fsFileIn <> '', 'No input file');
 
   FormatSettings.Returns.AfterCompilerDirectGeneral := eNever;
 
