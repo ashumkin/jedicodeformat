@@ -156,7 +156,7 @@ begin
 end;
 
 
-function MarkReturns(const ps: string): string;
+function MarkReturns(const ps: string): AnsiString;
 begin
   Result := ps;
   StrReplace(Result, AnsiLineBreak, '-q' + AnsiLineBreak, [rfReplaceAll]);

@@ -407,8 +407,8 @@ begin
 
   { locate the markers in the output,
     and replace before and after }
-  liOutputStart := Pos(FORMAT_START, fsOutputCode) + Length(FORMAT_START);
-  liOutputEnd := Pos(FORMAT_END, fsOutputCode);
+  liOutputStart := Pos(WideString(FORMAT_START), fsOutputCode) + Length(FORMAT_START);
+  liOutputEnd := Pos(WideString(FORMAT_END), fsOutputCode);
 
 
   { splice }

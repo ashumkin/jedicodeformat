@@ -71,6 +71,7 @@ const
  {$IFDEF DELPHI9} REG_ROOT_KEY = '\Software\Borland\BDS\3.0\Jedi\JCF'; {$ENDIF}
  {$IFDEF DELPHI10} REG_ROOT_KEY = '\Software\Borland\BDS\4.0\Jedi\JCF'; {$ENDIF}
  {$IFDEF DELPHI11} REG_ROOT_KEY = '\Software\Borland\BDS\5.0\Jedi\JCF'; {$ENDIF}
+ {$IFDEF DELPHI12} REG_ROOT_KEY = '\Software\CodeGear\BDS\6.0\Jedi\JCF'; {$ENDIF}
 
 const
   SOURCE_FILE_FILTERS =

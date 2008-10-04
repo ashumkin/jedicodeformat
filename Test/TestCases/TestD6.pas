@@ -91,13 +91,13 @@ TCounters2 = (soy = 1 + 1, monkey = ((3 * 2) - 1), Shatner);
 
 implementation
 
-var
+{var
  li2: integer = 3 deprecated;
  li_x: integer deprecated = 3;
  li_y: integer deprecated = 3 library;
  li_z: integer deprecated platform = 3 library;
  li_a: integer deprecated  = 3 platform library;
- li_b: integer deprecated platform library = 3 deprecated platform library;
+ li_b: integer deprecated platform library = 3 deprecated platform library;}
 
 
 function Foo: integer;

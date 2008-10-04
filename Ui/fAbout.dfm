@@ -18,7 +18,7 @@ object frmAboutBox: TfrmAboutBox
   OnCreate = FormCreate
   OnKeyUp = FormKeyUp
   OnResize = FormResize
-  PixelsPerInch = 96
+  PixelsPerInch = 120
   TextHeight = 20
   object bbOK: TBitBtn
     Left = 191

@@ -135,7 +135,7 @@ begin
 
   lcToken := TSourceToken(pcToken);
 
-  if (lcToken.TokenType = ttComment) and (Pos(MozURL, lcToken.SourceCode) > 0) then
+  if (lcToken.TokenType = ttComment) and (Pos(WideString(MozURL), lcToken.SourceCode) > 0) then
   begin
     fbWorkIsDone := True;
     exit;
@@ -149,7 +149,7 @@ begin
     This will be inserted into the standard comment string
   }
 
-  lsFile := UnitName(lcToken);
+  lsFile := JCFUnitName(lcToken);
 
   lsComment := MozCommentString;
   lsComment := StringReplace(lsComment, '<FileName>', lsFile, [rfReplaceAll]);

@@ -153,8 +153,8 @@ const
  //BUF_SIZE = 120; // small for testing
 var
   lciEditorReader: IOTAEditReader;
-  lsBuf:  string;
-  lpBuf:  pchar;
+  lsBuf:  AnsiString;
+  lpBuf:  PAnsiChar;
   liActualSize, liPos: integer;
   lbDone: boolean;
   //liLoopCount: integer;
@@ -177,7 +177,7 @@ begin
   begin
     // clear the buffer
     SetLength(lsBuf, BUF_SIZE);
-    lpBuf := pchar(lsBuf);
+    lpBuf := PAnsiChar(lsBuf);
     FillChar(lpBuf^, BUF_SIZE, 0);
 
     // get some text into the buffer
@@ -217,7 +217,7 @@ var
   lsOriginalSource: string;
   liSourcePos{, liDestPos}: integer;
   lcSourceLines, lcDestLines: TStrings;
-  lcSameStart, lcSameEnd: TSTrings;
+  lcSameStart, lcSameEnd: TStrings;
   lsSourceLine, lsDestLine: string;
   liIndex, liMaxIndex: integer;
 begin
@@ -278,7 +278,7 @@ begin
         // the line is different, replace it
         lciEditorWriter.DeleteTo(liSourcePos);
         if lsDestLine <> '' then
-          lciEditorWriter.Insert(pchar(lsDestLine));
+          lciEditorWriter.Insert(PAnsiChar(lsDestLine));
       end;
 
        inc(liIndex);

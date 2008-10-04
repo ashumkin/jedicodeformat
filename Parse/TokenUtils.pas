@@ -123,7 +123,7 @@ function InFilesUses(const pt: TParseTreeNode): boolean;
 
 function Root(const pt: TParseTreeNode): TParseTreeNode;
 
-function UnitName(const pt: TParseTreeNode): string;
+function JCFUnitName(const pt: TParseTreeNode): string;
 
 { identifying identifiers is tricky
 since delphi is more lenient about
@@ -549,7 +549,7 @@ begin
     exit;
 
   // otherwise, if it contains a return it's not single line 
-  if (Pos(WideLineBreak, pcToken.SourceCode) <= 0) then
+  if (Pos(WideString(WideLineBreak), pcToken.SourceCode) <= 0) then
     exit;
 
   Result := True;
@@ -690,7 +690,7 @@ begin
     Result := Result.Parent;
 end;
 
-function UnitName(const pt: TParseTreeNode): string;
+function JCFUnitName(const pt: TParseTreeNode): string;
 var
   lcRoot: TParseTreeNode;
   lcUnitHeader: TParseTreeNode;

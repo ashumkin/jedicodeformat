@@ -65,7 +65,7 @@ end;
 function TTabToSpace.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
 var
   lcSourceToken, lcNextToken: TSourceToken;
-  ls: string;
+  ls: AnsiString;
 begin
   Result := False;
   lcSourceToken := TSourceToken(pcNode);

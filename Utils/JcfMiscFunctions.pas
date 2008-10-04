@@ -84,7 +84,7 @@ uses
   { delphi }
   SysUtils, Forms,
   { jcl }
-  JclAnsiStrings, JclFileUtils, JclSysUtils;
+  JclStrings, JclAnsiStrings, JclFileUtils, JclSysUtils;
 
 function GetApplicationFolder: string;
 begin
@@ -108,7 +108,7 @@ begin
   // de-localise the string if need be
   if (DecimalSeparator <> '.') and (Pos(DecimalSeparator, s) > 0) then
   begin
-    StrReplace(s, DecimalSeparator, '.');
+    JclStrings.StrReplace(s, DecimalSeparator, '.');
   end;
 
   Val(s, Result, Code);
@@ -193,7 +193,7 @@ function PosLast(const ASubString, AString: ansistring;
   const ALastPos: integer = 0): integer; {AdemBaba}
 var
   {This is at least two or three times faster than Jedi's StrLastPos. I tested it}
-  LastChar1: char;
+  LastChar1: AnsiChar;
   Index1:    integer;
   Index2:    integer;
   Index3:    integer;
@@ -240,7 +240,7 @@ procedure PosLastAndCount(const ASubString, AString: ansistring;
   var ALastPos: integer; var ACount: integer);
 var
   {This gets the last occurance and count in one go. It saves time}
-  LastCahr1: char;
+  LastChar1: AnsiChar;
   Index1:    integer;
   Index2:    integer;
   Index3:    integer;
@@ -256,11 +256,11 @@ begin
     Exit
   else
   begin
-    LastCahr1 := ASubString[Length2];
+    LastChar1 := ASubString[Length2];
     Index1    := Length1;
     while Index1 > 0 do
     begin
-      if (AString[Index1] = LastCahr1) then
+      if (AString[Index1] = LastChar1) then
       begin
         Index2 := Index1;
         Index3 := Length2;

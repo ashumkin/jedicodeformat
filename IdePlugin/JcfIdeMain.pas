@@ -84,9 +84,9 @@ uses
   { local }fAllSettings, fAbout, JcfRegistrySettings, fRegistrySettings;
 
 
-function FileIsAllowedType(const psFileName: string): boolean;
+function FileIsAllowedType(const psFileName: AnsiString): boolean;
 const
-  ALLOWED_FILE_TYPES: array[1..3] of string = ('.pas', '.dpr', '.dpk');
+  ALLOWED_FILE_TYPES: array[1..3] of AnsiString = ('.pas', '.dpr', '.dpk');
 begin
   Result := StrIsOneOf(StrRight(psFileName, 4), ALLOWED_FILE_TYPES);
 end;

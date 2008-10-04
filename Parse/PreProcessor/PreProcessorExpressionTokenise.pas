@@ -42,7 +42,7 @@ uses PreProcessorExpressionTokens;
 type
   TPreProcessorExpressionTokeniser = class
   private
-    fsExpr: string;
+    fsExpr: AnsiString;
     fiCurrentIndex: integer;
     fbHasError: boolean;
 
@@ -61,7 +61,7 @@ type
 
     procedure Tokenise;
 
-    property Expression: string Read fsExpr Write fsExpr;
+    property Expression: AnsiString Read fsExpr Write fsExpr;
     property Tokens: TPreProcessorExpressionTokenList Read fcTokens;
     property HasError: boolean Read fbHasError;
   end;

@@ -89,7 +89,7 @@ end;
 
 procedure TfrmAboutBox.FormCreate(Sender: TObject);
 var
-  ls: string;
+  ls: AnsiString;
 begin
   inherited;
 

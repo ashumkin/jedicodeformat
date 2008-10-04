@@ -3,7 +3,7 @@ object fmRegistrySettings: TfmRegistrySettings
   Top = 151
   BorderStyle = bsDialog
   Caption = 'JCF Registry Settings'
-  ClientHeight = 380
+  ClientHeight = 389
   ClientWidth = 771
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
@@ -24,16 +24,14 @@ object fmRegistrySettings: TfmRegistrySettings
     Left = 0
     Top = 0
     Width = 771
-    Height = 325
+    Height = 334
     ActivePage = tsGeneral
     Align = alClient
     TabOrder = 0
+    ExplicitHeight = 325
     object tsGeneral: TTabSheet
       Caption = '&General'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitHeight = 290
       object sbFile: TSpeedButton
         Left = 731
         Top = 11
@@ -300,29 +298,34 @@ object fmRegistrySettings: TfmRegistrySettings
   end
   object pnlBottom: TPanel
     Left = 0
-    Top = 325
+    Top = 334
     Width = 771
     Height = 55
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 1
+    ExplicitTop = 325
     object btnOK: TBitBtn
       Left = 300
       Top = 9
       Width = 92
       Height = 38
+      DoubleBuffered = True
+      Kind = bkOK
+      ParentDoubleBuffered = False
       TabOrder = 0
       OnClick = btnOKClick
-      Kind = bkOK
     end
     object btnCancel: TBitBtn
       Left = 408
       Top = 9
       Width = 92
       Height = 38
+      DoubleBuffered = True
+      Kind = bkCancel
+      ParentDoubleBuffered = False
       TabOrder = 1
       OnClick = btnCancelClick
-      Kind = bkCancel
     end
   end
   object dlgOpen: TOpenDialog

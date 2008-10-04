@@ -43,7 +43,7 @@ type
   TTestBreakConditionalCompilation = class(TBaseTestProcess)
   private
     { the input file }
-    fsFileIn: string;
+    fsFileIn: AnsiString;
 
     { the saved settings }
     feSaveRebreakLines: TWhenToRebreakLines;
@@ -57,7 +57,7 @@ type
     feSaveAfterCompilerDirectGeneral: TTriOptionStyle;
 
 
-    procedure CheckReplace(var ps: string; const psFind, psReplace: string);
+    procedure CheckReplace(var ps: AnsiString; const psFind, psReplace: AnsiString);
 
   protected
     procedure SetUp; override;
@@ -138,8 +138,8 @@ begin
   inherited;
 end;
 
-procedure TTestBreakConditionalCompilation.CheckReplace(var ps: string;
-  const psFind, psReplace: string);
+procedure TTestBreakConditionalCompilation.CheckReplace(var ps: AnsiString;
+  const psFind, psReplace: AnsiString);
 begin
  Check(Pos(psFind, ps) > 0, 'String not found: ' + psFind);
  StrReplace(ps, psFind, psReplace, [rfIgnoreCase]);
@@ -164,7 +164,7 @@ end;
 
 procedure TTestBreakConditionalCompilation.TestUsesBreakBeforeAdd;
 var
-  lsFileOut: string;
+  lsFileOut: AnsiString;
 begin
   Check(fsFileIn <> '', 'No input file');
 
@@ -185,7 +185,7 @@ end;
 
 procedure TTestBreakConditionalCompilation.TestUsesBreakBeforeRemove;
 var
-  lsFileOut: string;
+  lsFileOut: AnsiString;
 begin
   Check(fsFileIn <> '', 'No input file');
 
@@ -205,7 +205,7 @@ end;
 
 procedure TTestBreakConditionalCompilation.TestUsesBreakAfterAdd;
 var
-  lsFileOut: string;
+  lsFileOut: AnsiString;
 begin
   Check(fsFileIn <> '', 'No input file');
 
@@ -245,7 +245,7 @@ end;
 
 procedure TTestBreakConditionalCompilation.TestCodeBreakBeforeAdd;
 var
-  lsFileOut: string;
+  lsFileOut: AnsiString;
 begin
   Check(fsFileIn <> '', 'No input file');
 
@@ -271,7 +271,7 @@ end;
 
 procedure TTestBreakConditionalCompilation.TestCodeBreakBeforeRemove;
 var
-  lsFileOut: string;
+  lsFileOut: AnsiString;
 begin
   Check(fsFileIn <> '', 'No input file');
 
@@ -320,8 +320,8 @@ end;
 
 procedure TTestBreakConditionalCompilation.TestCodeBreakAfterRemove;
 var
-  lsFileOut: string;
-  lsPrefix: string;
+  lsFileOut: AnsiString;
+  lsPrefix: AnsiString;
 begin
   Check(fsFileIn <> '', 'No input file');
 
@@ -346,8 +346,8 @@ end;
 
 procedure TTestBreakConditionalCompilation.TestGeneralBreakBeforeAdd;
 var
-  lsFind, lsReplace: string;
-  lsFileOut: string;
+  lsFind, lsReplace: AnsiString;
+  lsFileOut: AnsiString;
 begin
   Check(fsFileIn <> '', 'No input file');
 
@@ -408,8 +408,8 @@ end;
 
 procedure TTestBreakConditionalCompilation.TestGeneralBreakAfterAdd;
 var
-  lsFind, lsReplace: string;
-  lsFileOut: string;
+  lsFind, lsReplace: AnsiString;
+  lsFileOut: AnsiString;
 begin
   Check(fsFileIn <> '', 'No input file');
 
