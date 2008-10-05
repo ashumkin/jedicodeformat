@@ -33,7 +33,12 @@ const
 var
   firstindexkeybuffer: array[0..max_keylen - 1] of char;
 begin
+{$IFDEF UNICODE}
+ (StrEnd(PWideChar(@FirstIndexKeyBuffer[FLDCHG_DATA+TEXT_FLDNUM_SIZE])-1))^:=#0; {<--HERE}
+
+{$ELSE}
   (strend(@firstindexkeybuffer[fldchg_data + text_fldnum_size]) -1)^ := #0;
+{$ENDIF}
 end;
 
 end.
