@@ -581,6 +581,7 @@ begin
       end;
 
       lcExcludedText := TSourceToken.Create;
+      lcExcludedText.FileName := lcCurrentToken.FileName;
       lcExcludedText.TokenType := ttConditionalCompilationRemoved;
       lcExcludedText.SourceCode := lsOutText;
 

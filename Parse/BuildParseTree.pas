@@ -1309,20 +1309,24 @@ procedure TBuildParseTree.SplitGreaterThanOrEqual;
 var
   liIndex: integer;
   lcNewToken: TSourceToken;
+  fsFileName: string;
 begin
   if fcTokenList.FirstTokenType = ttGreaterThanOrEqual then
   begin
     liIndex := fcTokenList.CurrentTokenIndex;
+    fsFileName := fcTokenList.SourceTokens[liIndex].FileName;
 
     fcTokenList.Delete(liIndex);
 
     lcNewToken := TSourceToken.Create();
+    lcNewToken.FileName := fsFileName;
     lcNewToken.SourceCode := '>';
     lcNewToken.TokenType := ttGreaterThan;
 
     fcTokenList.Insert(liIndex, lcNewToken);
 
     lcNewToken := TSourceToken.Create();
+    lcNewToken.FileName := fsFileName;
     lcNewToken.SourceCode := '=';
     lcNewToken.TokenType := ttEquals;
 

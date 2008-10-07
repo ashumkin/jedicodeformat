@@ -1371,7 +1371,7 @@ end;
 
 procedure TFullTestClarify.LittleTest44;
 begin
-  TestFile('LittleTest44', 286);
+  TestFile('LittleTest44', 318);
 end;
 
 procedure TFullTestClarify.LittleTest45;

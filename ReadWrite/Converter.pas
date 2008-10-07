@@ -48,6 +48,7 @@ type
   private
     { the strings for the in and out code }
     fsInputCode, fsOutputCode: WideString;
+    fsFileName: string;
 
     { classes to lex and parse the source }
     fcTokeniser: TBuildTokenList;
@@ -95,6 +96,7 @@ type
 
     property InputCode: WideString read fsInputCode write fsInputCode;
     property OutputCode: WideString read fsOutputCode write fsOutputCode;
+    property FileName: string read fsFileName write fsFileName;
 
     property TokenCount: integer Read fiTokenCount;
     property ConvertError: boolean Read fbConvertError;
@@ -132,6 +134,7 @@ begin
 
   { owned objects }
   fcTokeniser := TBuildTokenList.Create;
+  fcTokeniser.FileName := FileName;
   fcBuildParseTree := TBuildParseTree.Create;
   fcSingleProcess := nil;
   fbGuiMessages	:= True; // use Ui to show parse errors by default
@@ -167,6 +170,8 @@ begin
 
     // turn text into tokens
     fcTokeniser.SourceCode := InputCode;
+    fcTokeniser.FileName := FileName;
+
     lcTokenList := fcTokeniser.BuildTokenList;
     try   { finally free the list  }
       try { show exceptions }

@@ -204,6 +204,7 @@ begin
   Assert(pt.Parent <> nil);
   Assert(ptNew <> nil);
 
+  ptNew.FileName := pt.FileName;
   pt.Parent.InsertChild(pt.IndexOfSelf + 1, ptNew);
 end;
 
@@ -213,6 +214,7 @@ begin
   Assert(pt.Parent <> nil);
   Assert(ptNew <> nil);
 
+  ptNew.FileName := pt.FileName;
   pt.Parent.InsertChild(pt.IndexOfSelf, ptNew);
 end;
 
@@ -233,6 +235,7 @@ begin
   Assert(pt.Parent <> nil);
 
   Result := NewSpace(piSpaces);
+  Result.FileName := pt.FileName;
   pt.Parent.InsertChild(pt.IndexOfSelf, Result);
 end;
 

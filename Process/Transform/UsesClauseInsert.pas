@@ -234,6 +234,7 @@ begin
   Inc(liInsertPos);
 
   lcNew := TSourceToken.Create;
+  lcNew.FileName := pcToken.FileName;
   lcNew.TokenType := ttUses;
   lcNew.SourceCode := 'uses';
 
@@ -250,6 +251,7 @@ begin
 
     { uses item }
     lcNew := TSourceToken.Create;
+    lcNew.FileName := pcToken.FileName;
     lcNew.TokenType := ttIdentifier;
     lcNew.SourceCode := lcInserts.Strings[liLoop];
 
@@ -258,6 +260,8 @@ begin
 
     { , or ;}
     lcNew := TSourceToken.Create;
+    lcNew.FileName := pcToken.FileName;
+
     if liLoop = (lcInserts.Count - 1) then
     begin
       lcNew.TokenType  := ttSemiColon;

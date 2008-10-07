@@ -39,6 +39,7 @@ type
   private
     // running totals of x and Y pos, and count of solid tokens on the line
     fiX, fiY, fiSolidTokenOnLineIndex: integer;
+    fsFileName: string;
   public
     constructor Create; override;
 
@@ -59,6 +60,7 @@ begin
   fiX := 1;
   fiY := 1;
   fiSolidTokenOnLineIndex := 0;
+  fsFileName := '';
 end;
 
 function TVisitSetXY.VisitSourceToken(const pcToken: TObject): boolean;
@@ -68,6 +70,21 @@ begin
   Result := False;
   lcToken := TSourceToken(pcToken);
 
+    // track the file name
+  if (fsFileName = '') and (lcToken.FileName <> '') then
+  begin
+    fsFileName := lcToken.FileName;
+  end;
+
+  // apply file name to all tokens that don't have it
+  if lcToken.FileName = '' then
+  begin
+    lcToken.FileName := fsFileName;
+  end;
+  
+
+
+  // track position
   lcToken.XPosition := fiX;
   lcToken.YPosition := fiY;
   lcToken.SolidTokenOnLineIndex := fiSolidTokenOnLineIndex;

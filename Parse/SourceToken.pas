@@ -46,6 +46,7 @@ type
     feWordType: TWordType;
     feCommentStyle: TCommentStyle;
 
+    fsFileName: string;
     fiXPosition, fiYPosition: integer;
     fiSolidTokenOnLineIndex: integer;
     fbPreprocessedOut: boolean;
@@ -86,6 +87,7 @@ type
     property SourceCode: WideString Read fsSourceCode Write fsSourceCode;
     property CommentStyle: TCommentStyle Read feCommentStyle Write feCommentStyle;
 
+    property FileName: string read fsFileName write fsFileName;
     property XPosition: integer Read fiXPosition Write fiXPosition;
     property YPosition: integer Read fiYPosition Write fiYPosition;
     property SolidTokenOnLineIndex: integer

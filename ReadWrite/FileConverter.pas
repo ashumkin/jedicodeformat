@@ -207,6 +207,7 @@ begin
 
   ReadTextFile(psInputFileName, lsSourceCode, leContentType);
 
+  fcConverter.FileName := psInputFileName;
   fcConverter.InputCode := lsSourceCode;
   fcConverter.GuiMessages := GuiMessages;
   fcConverter.Convert;

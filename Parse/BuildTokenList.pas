@@ -46,6 +46,7 @@ type
   private
     { property implementation }
     fsSourceCode: WideString;
+    fsFileName: string;
 
     { woker procs }
     fiCurrentIndex: integer;
@@ -94,6 +95,7 @@ type
     function BuildTokenList: TSourceTokenList;
 
     property SourceCode: WideString read fsSourceCode write SetSourceCode;
+    property FileName: string read fsFileName write fsFileName;
   end;
 
 
@@ -196,6 +198,7 @@ begin
   else
   begin
     lcNewToken := TSourceToken.Create;
+    lcNewToken.FileName := FileName;
     DoAllTheTries;
 
     lcNewToken.WordType := WordTypeOfToken(lcNewToken.TokenType);

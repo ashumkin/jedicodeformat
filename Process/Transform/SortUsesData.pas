@@ -275,7 +275,7 @@ var
   liloop: integer;
   lbHasComma: Boolean;
   lcComma: TSourceToken;
-
+  lsFileName: string;
 
 begin
   if Count < 1 then
@@ -284,12 +284,14 @@ begin
   Assert(pcNode <> nil);
   liIndentifierIndex := IndentifierIndex;
   lbHasSolid := False;
+  lsFileName := '';
 
   if liIndentifierIndex < 0 then
   begin
     for liLoop := 0 to Count - 1 do
     begin
       lcToken := Items[liLoop];
+      lsFileName := lcToken.FileName;
       AddToken(lcToken);
     end;
   end
@@ -298,9 +300,9 @@ begin
     for liLoop := 0 to liIndentifierIndex - 1 do
     begin
       lcToken := Items[liLoop];
+      lsFileName := lcToken.FileName;
       AddToken(lcToken);
     end;
-
 
     // attach the data back onto the parent node, a uses clause
     lbHasSolid := True;
@@ -331,6 +333,8 @@ begin
     if not lbHasComma then
     begin
       lcComma := TSourceToken.Create;
+      lcComma.FileName := lsFileName;
+
       lcComma.SourceCode := ',';
       lcComma.TokenType := ttComma;
 
