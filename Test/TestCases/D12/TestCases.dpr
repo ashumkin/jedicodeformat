@@ -177,6 +177,7 @@ uses
 
 begin
   Application.Initialize;
+  Application.Title := 'Test Cases';
   Application.CreateForm(TFormTest, FormTest);
   Application.Run;
 end.

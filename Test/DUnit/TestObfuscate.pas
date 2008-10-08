@@ -404,10 +404,10 @@ begin
   Check(FileExists(psFileName1), 'File ' + psFileName1 + ' does not exist');
   Check(FileExists(psFileName2), 'File ' + psFileName2 + ' does not exist');
 
-  lsFile1 := string(FileToString(psFileName1));
-  lsFile2 := string(FileToString(psFileName2));
+  lsFile1 := JclStrings.FileToString(psFileName1);
+  lsFile2 := JclStrings.FileToString(psFileName2);
 
-  // check contents the same 
+  // check contents the same
   if (lsFile1 <> lsFile2) then
     Fail('Files differ ' + psFileName1 + ' and ' + psFileName2);
 end;

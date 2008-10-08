@@ -76,6 +76,7 @@ implementation
 uses
   SysUtils,
   Windows,
+  JclStrings,
   JclAnsiStrings,
   JcfUnicodeFiles;
 
@@ -215,7 +216,7 @@ var
 begin
   ReadTextFile(ANSI_FILE, lsReadTextFile, le);
 
-  lsFileToString := string(FileToString(ANSI_FILE));
+  lsFileToString := JclStrings.FileToString(ANSI_FILE);
   lwsFileToString := lsFileToString;
 
   Check(lwsFileToString = lsReadTextFile);

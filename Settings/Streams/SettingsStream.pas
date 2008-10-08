@@ -238,14 +238,15 @@ begin
   inherited;
 end;
 
-// internal used to implment all writes
+// internal used to implement all writes
 procedure TSettingsStreamOutput.WriteText(const psText: string);
 var
   lp: pchar;
 begin
   Assert(fcStream <> nil);
   lp := pchar(psText);
-  fcStream.WriteBuffer(lp^, Length(psText));
+  //fcStream.WriteBuffer(lp^, Length(psText)); // Changed for Delphi 2009 support
+  fcStream.WriteBuffer(lp^, Length(psText) * SizeOf(Char));
 end;
 
 procedure TSettingsStreamOutput.WriteXMLHeader;

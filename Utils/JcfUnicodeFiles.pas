@@ -46,7 +46,7 @@ procedure WriteTextFile(const psFileName: string; const psContents: WideString;
 implementation
 
 uses
-  Classes, SysUtils,
+  Classes, SysUtils, Dialogs,
   JclAnsiStrings,
   JcfUnicode;
 
@@ -169,7 +169,7 @@ begin
   SetLength(lsContents8bit, liBytesRemaining);
   if pcFileStream.Size > 0 then
   begin
-    pcFileStream.ReadBuffer(lsContents8bit[1], liBytesRemaining);
+     pcFileStream.ReadBuffer(lsContents8bit[1], liBytesRemaining);
   end;
 
   // convert to wide char
@@ -191,7 +191,7 @@ begin
   begin
     // swap the bytes
     for liLoop := 1 to Length(lsWideContents) do
-      lsWideContents[liLoop] := widechar(Swap(word(lsWideContents[liLoop])));
+      lsWideContents[liLoop] := WideChar(Swap(word(lsWideContents[liLoop])));
   end;
 
   Result := lsWideContents;

@@ -197,7 +197,7 @@ begin
     exit;
 
   GetRegSettings.InputDir := ExtractFilePath(psFileName);
-  mInput.Text := string(FileToString(psFileName));
+  mInput.Text := JclStrings.FileToString(psFileName);
   sb1.Panels[1].Text := psFileName;
   AddCheckMRU(psFileName);
 

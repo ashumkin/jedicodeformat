@@ -91,7 +91,7 @@ uses
   { DUnit }
   TestFramework,
   { jcl }
-  JclAnsiStrings,
+  JclStrings, JclAnsiStrings,
   { local }
   JCFSettings;
 
@@ -103,7 +103,7 @@ begin
   inherited;
 
   if FileExists(IN_FILE_NAME) then
-    fsFileIn := FileToString(IN_FILE_NAME)
+    fsFileIn := JclStrings.FileToString(IN_FILE_NAME)
   else
     fsFileIn := '';
 

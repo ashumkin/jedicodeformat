@@ -136,6 +136,7 @@ uses
   { delphi }
   SysUtils, Dialogs, Windows,
   { jcl }
+  JclStrings,
   JclAnsiStrings,
   { local }
   JCFSetBase,
@@ -232,8 +233,8 @@ begin
   begin
     // debug ShowMessage('Reading settings from file ' + lsSettingsFileName);
 
-      // now we know the file exists - try get settings from it
-    lsText := string(FileToString(psFileName));
+    // now we know the file exists - try get settings from it
+    lsText := JclStrings.FileToString(psFileName);
     lcFile := TSettingsInputString.Create(lsText);
     try
       FromStream(lcFile);
@@ -329,7 +330,9 @@ procedure TFormatSettings.ToStream(const pcStream: TSettingsOutput);
 begin
   Assert(pcStream <> nil);
   pcStream.WriteXMLHeader;
+
   pcStream.OpenSection(CODEFORMAT_SETTINGS_SECTION);
+
   pcStream.Write(REG_VERSION, PROGRAM_VERSION);
   pcStream.Write(REG_WRITE_DATETIME, Now);
   pcStream.Write(REG_DESCRIPTION, Description);

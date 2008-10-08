@@ -28,10 +28,8 @@ object fmRegistrySettings: TfmRegistrySettings
     ActivePage = tsGeneral
     Align = alClient
     TabOrder = 0
-    ExplicitHeight = 325
     object tsGeneral: TTabSheet
       Caption = '&General'
-      ExplicitHeight = 290
       object sbFile: TSpeedButton
         Left = 731
         Top = 11
@@ -119,10 +117,6 @@ object fmRegistrySettings: TfmRegistrySettings
     object tsLogFile: TTabSheet
       Caption = '&Log file'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object sbSpecifedDir: TSpeedButton
         Left = 180
         Top = 195
@@ -222,10 +216,6 @@ object fmRegistrySettings: TfmRegistrySettings
       Caption = '&Exclusions'
       ImageIndex = 2
       OnResize = tsExclusionsResize
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object lblFilesCaption: TLabel
         Left = 11
         Top = 5
@@ -264,10 +254,6 @@ object fmRegistrySettings: TfmRegistrySettings
     object tsIde: TTabSheet
       Caption = 'IDE'
       ImageIndex = 3
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object cbEditorIntegration: TCheckBox
         Left = 11
         Top = 15
@@ -304,7 +290,6 @@ object fmRegistrySettings: TfmRegistrySettings
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitTop = 325
     object btnOK: TBitBtn
       Left = 300
       Top = 9
