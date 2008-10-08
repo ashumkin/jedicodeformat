@@ -35,6 +35,7 @@ interface
   This regression will ensure that the functionality is unchanged }
 
 uses
+  JclStrings,
   JclAnsiStrings,
   TestFrameWork,
   JcfMiscFunctions;
@@ -90,7 +91,7 @@ var
 begin
   for liStringLengthLoop := 1 to 5 do
   begin
-    lsTest := StrRepeat('X', liStringLengthLoop);
+    lsTest := JclStrings.StrRepeat('X', liStringLengthLoop);
 
     for liXLoop := 0 to MAX_LOOP do
     begin
@@ -122,7 +123,7 @@ begin
   for liStringLengthLoop := 1 to 20 do
   begin
     { add one or more returns }
-    lsTest := StrRepeat(AnsiLineBreak, liStringLengthLoop);
+    lsTest := JclStrings.StrRepeat(AnsiLineBreak, liStringLengthLoop);
 
     for liXLoop := 0 to MAX_LOOP do
     begin
@@ -156,7 +157,7 @@ var
 begin
   for liStringLengthLoop := 1 to 10 do
   begin
-    lsTest := StrRepeat('X', liStringLengthLoop) + AnsiLineBreak;
+    lsTest := JclStrings.StrRepeat('X', liStringLengthLoop) + AnsiLineBreak;
 
     for liXLoop := 0 to MAX_LOOP do
     begin
@@ -194,8 +195,8 @@ begin
   for liStringLengthLoop := 1 to 10 do
   begin
     { as liStringLengthLoop, the lines get longer, and there's more of them }
-    lsLine := StrRepeat('X', liStringLengthLoop);
-    lsTest := StrRepeat(lsLine + AnsiLineBreak, liStringLengthLoop) + lsLine;
+    lsLine := JclStrings.StrRepeat('X', liStringLengthLoop);
+    lsTest := JclStrings.StrRepeat(lsLine + AnsiLineBreak, liStringLengthLoop) + lsLine;
 
     for liXLoop := 0 to MAX_LOOP do
     begin

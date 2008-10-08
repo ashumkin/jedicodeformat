@@ -317,6 +317,7 @@ uses
   { delphi }
   SysUtils, Windows,
   { jcl }
+  JclStrings,
   JclAnsiStrings,
   { DUnit}
   TestFrameWork,
@@ -337,11 +338,11 @@ begin
   Assert(psName <> '');
 
   { does it have an file extension? }
-  liLastDotPos := StrLastPos('.', psName);
+  liLastDotPos := JclStrings.StrLastPos('.', psName);
   if liLastDotPos > 0 then
   begin
     lsInName := psName;
-    lsClearFileName := StrLeft(psName, liLastDotPos) + 'out';
+    lsClearFileName := JclStrings.StrLeft(psName, liLastDotPos) + 'out';
   end
   else
   begin

@@ -181,12 +181,12 @@ var
   begin
     Result := ps;
 
-    if StrLeft(Result, 1) = '/' then
-      Result := StrRestOf(Result, 2);
-    if StrLeft(ps, 1) = '\' then
-      Result := StrRestOf(Result, 2);
-    if StrLeft(Result, 1) = '-' then
-      Result := StrRestOf(Result, 2);
+    if StrLeft(AnsiString(Result), 1) = '/' then
+      Result := string(StrRestOf(AnsiString(Result), 2));
+    if StrLeft(AnsiString(ps), 1) = '\' then
+      Result := string(StrRestOf(AnsiString(Result), 2));
+    if StrLeft(AnsiString(Result), 1) = '-' then
+      Result := string(StrRestOf(AnsiString(Result), 2));
   end;
 
   procedure ParseCommandLine;
@@ -210,11 +210,11 @@ var
     { look for something that is not a -/\ param }
       lsOpt := ParamStr(liLoop);
 
-      if (StrLeft(lsOpt, 1) <> '-') and (StrLeft(lsOpt, 1) <> '/') and
-        (StrLeft(lsOpt, 1) <> '\') and (StrLeft(lsOpt, 1) <> '?') then
+      if (StrLeft(AnsiString(lsOpt), 1) <> '-') and (StrLeft(AnsiString(lsOpt), 1) <> '/') and
+        (StrLeft(AnsiString(lsOpt), 1) <> '\') and (StrLeft(AnsiString(lsOpt), 1) <> '?') then
       begin
       // must be a path
-        lsPath := StrTrimQuotes(lsOpt);
+        lsPath := string(StrTrimQuotes(AnsiString(lsOpt)));
         continue;
       end;
 
@@ -271,14 +271,14 @@ var
       begin
         fbYesAll := True;
       end
-      else if StrFind('config', lsOpt) = 1 then
+      else if StrFind('config', AnsiString(lsOpt)) = 1 then
       begin
         fbHasNamedConfigFile := True;
-        fsConfigFileName     := StrAfter('=', lsOpt);
+        fsConfigFileName     := string(StrAfter('=', AnsiString(lsOpt)));
       end
       else
       begin
-        WriteLn('Unknown option ' + StrDoubleQuote(lsOpt));
+        WriteLn('Unknown option ' + StrDoubleQuote(AnsiString(lsOpt)));
         WriteLn;
         fbCmdLineShowHelp := True;
         break;
@@ -333,7 +333,7 @@ var
       begin
         if not FileExists(lsPath) then
         begin
-          WriteLn('File ' + StrDoubleQuote(lsPath) + ' not found');
+          WriteLn('File ' + StrDoubleQuote(AnsiString(lsPath)) + ' not found');
           fbQuietFail := True;
           feReturnCode := rcFileNotFound;
         end;
@@ -342,7 +342,7 @@ var
       begin
         if not DirectoryExists(lsPath) then
         begin
-          WriteLn('Directory ' + StrDoubleQuote(lsPath) + ' not found');
+          WriteLn('Directory ' + StrDoubleQuote(AnsiString(lsPath)) + ' not found');
           fbQuietFail := True;
           feReturnCode := rcDirectoryNotFound;
         end;

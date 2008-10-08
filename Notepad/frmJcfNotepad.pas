@@ -155,6 +155,7 @@ uses
   { delphi }
   ClipBrd,
   { jcl }
+  JclStrings,
   JclAnsiStrings,
   { local }
   JCFHelp, fAbout, fRegistrySettings, fAllSettings, JcfFontSetFunctions;
@@ -196,7 +197,7 @@ begin
     exit;
 
   GetRegSettings.InputDir := ExtractFilePath(psFileName);
-  mInput.Text := FileToString(psFileName);
+  mInput.Text := string(FileToString(psFileName));
   sb1.Panels[1].Text := psFileName;
   AddCheckMRU(psFileName);
 
@@ -313,7 +314,7 @@ begin
   if SaveDialog1.Execute then
   begin
     GetRegSettings.OutputDir := ExtractFilePath(SaveDialog1.FileName);
-    StringToFile(SaveDialog1.FileName, mOutput.Text);
+    StringToFile(SaveDialog1.FileName, AnsiString(mOutput.Text));
     sb1.Panels[1].Text := 'Saved output: ' + SaveDialog1.FileName;
     AddCheckMRU(SaveDialog1.FileName);
   end;
@@ -421,7 +422,7 @@ begin
   if SaveDialog1.Execute then
   begin
     GetRegSettings.OutputDir := ExtractFilePath(SaveDialog1.FileName);
-    StringToFile(SaveDialog1.FileName, mInput.Text);
+    StringToFile(SaveDialog1.FileName,  AnsiString(mInput.Text));
     sb1.Panels[1].Text := 'Saved input as ' + SaveDialog1.FileName;
     AddCheckMRU(SaveDialog1.FileName);
   end;
@@ -513,12 +514,12 @@ begin
   Inc(liY);
 
   if liX > 0 then
-    lsX := StrPadLeft(IntToStr(liX), POS_NUM_LEN, ' ')
+    lsX := JclStrings.StrPadLeft(IntToStr(liX), POS_NUM_LEN, ' ')
   else
     lsX := '?';
 
   if liY > 0 then
-    lsY := StrPadLeft(IntToStr(liY), POS_NUM_LEN, ' ')
+    lsY := JclStrings.StrPadLeft(IntToStr(liY), POS_NUM_LEN, ' ')
   else
     lsY := '?';
 

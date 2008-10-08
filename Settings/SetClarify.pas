@@ -72,6 +72,7 @@ implementation
 
 uses
   SysUtils,
+  JclStrings,
   JclAnsiStrings;
 
 const
@@ -109,8 +110,8 @@ function TSetClarify.ExtensionIsFormatted(psExt: string): boolean;
 begin
   psExt := Trim(psExt);
 
-  if StrLeft(psExt, 1) = '.' then
-    psExt := StrRestof(psExt, 2);
+  if JclStrings.StrLeft(psExt, 1) = '.' then
+    psExt := JclStrings.StrRestof(psExt, 2);
 
   Result := (FileExtensions.IndexOf(psExt) >= 0);
 end;

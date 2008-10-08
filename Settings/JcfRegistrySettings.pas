@@ -188,7 +188,7 @@ uses
   { delphi }
   SysUtils, Dialogs,
   { jcl }
-  JclFileUtils, JclSysInfo, JclShell, JclAnsiStrings,
+  JclFileUtils, JclSysInfo, JclShell, JclStrings, JclAnsiStrings,
   { jcf }
   JcfMiscFunctions;
 
@@ -538,10 +538,10 @@ begin
 
   if not Result then
   begin
-    liPos := StrLastPos('/', psDir);
+    liPos := JclStrings.StrLastPos('/', psDir);
     if liPos > 0 then
     begin
-      lsBareDir := StrRestOf(psDir, liPos + 1);
+      lsBareDir := JclStrings.StrRestOf(psDir, liPos + 1);
       Result := (fcExclusionsDirs.IndexOf(lsBareDir) >= 0);
     end;
   end;
@@ -582,7 +582,7 @@ begin
   begin
     lsExt  := ExtractFileExt(psIn);
     liMainFileNameLength := Length(psIn) - Length(lsExt);
-    Result := StrLeft(psIn, liMainFileNameLength);
+    Result := JclStrings.StrLeft(psIn, liMainFileNameLength);
 
     if peMode = cmInPlaceWithBackup then
       Result := Result + '.' + BackupExtension

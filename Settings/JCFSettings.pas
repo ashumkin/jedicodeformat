@@ -233,7 +233,7 @@ begin
     // debug ShowMessage('Reading settings from file ' + lsSettingsFileName);
 
       // now we know the file exists - try get settings from it
-    lsText := FileToString(psFileName);
+    lsText := string(FileToString(psFileName));
     lcFile := TSettingsInputString.Create(lsText);
     try
       FromStream(lcFile);

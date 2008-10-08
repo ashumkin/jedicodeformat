@@ -52,13 +52,13 @@ implementation
 
 uses
   SysUtils,
-  JclAnsiStrings,
+  JclStrings, JclAnsiStrings,
   JcfSettings, SourceToken, Tokens, FormatFlags;
 
 constructor TTabToSpace.Create;
 begin
   inherited;
-  fsSpaces    := StrRepeat(AnsiSpace, FormatSettings.Spaces.SpacesPerTab);
+  fsSpaces    := JclStrings.StrRepeat(AnsiSpace, FormatSettings.Spaces.SpacesPerTab);
   FormatFlags := FormatFlags + [eAddSpace, eRemoveSpace];
 end;
 
@@ -74,7 +74,7 @@ begin
     exit;
 
   { can't pass property as var parameter so ls local var is used }
-  ls := lcSourceToken.SourceCode;
+  ls := AnsiString(lcSourceToken.SourceCode);
 
   { merge any following whitespace tokens with a whitespace }
   if (lcSourceToken.TokenType = ttWhiteSpace) then
@@ -82,14 +82,14 @@ begin
     lcNextToken := lcSourceToken.NextToken;
     while (lcNextToken <> nil) and (lcNextToken.TokenType = ttWhiteSpace) do
     begin
-      ls := ls + lcNextToken.SourceCode;
+      ls := ls + AnsiString(lcNextToken.SourceCode);
       lcNextToken.SourceCode := '';
       lcNextToken := lcNextToken.NextToken;
     end;
   end;
 
-  StrReplace(ls, AnsiTab, fsSpaces, [rfReplaceAll]);
-  lcSourceToken.SourceCode := ls;
+  StrReplace(ls, AnsiTab, AnsiString(fsSpaces), [rfReplaceAll]);
+  lcSourceToken.SourceCode := WideSTring(ls);
 end;
 
 function TTabToSpace.IsIncludedInSettings: boolean;

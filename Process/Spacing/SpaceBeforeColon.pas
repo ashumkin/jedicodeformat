@@ -48,7 +48,7 @@ type
 implementation
 
 uses
-  JclAnsiStrings,
+  JclStrings, JclAnsiStrings,
   JcfSettings, SetSpaces, SourceToken, Tokens, ParseTreeNodeType,
   FormatFlags, TokenUtils;
 
@@ -167,7 +167,7 @@ begin
     { modify the existing previous space, or make a new one? }
     if (lcPrev.TokenType = ttWhiteSpace) then
     begin
-      lcPrev.SourceCode := StrRepeat(AnsiSpace, liSpaces);
+      lcPrev.SourceCode := JclStrings.StrRepeat(AnsiSpace, liSpaces);
     end
     else
     begin

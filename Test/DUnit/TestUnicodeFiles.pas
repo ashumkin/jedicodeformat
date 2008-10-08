@@ -215,7 +215,7 @@ var
 begin
   ReadTextFile(ANSI_FILE, lsReadTextFile, le);
 
-  lsFileToString := FileToString(ANSI_FILE);
+  lsFileToString := string(FileToString(ANSI_FILE));
   lwsFileToString := lsFileToString;
 
   Check(lwsFileToString = lsReadTextFile);

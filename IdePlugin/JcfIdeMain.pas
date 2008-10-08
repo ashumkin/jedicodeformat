@@ -247,7 +247,7 @@ begin
 
     // check that it's open, and a .pas or .dpr
     if (lciEditor <> nil) and (lciEditor.EditViewCount > 0) and
-      (FileIsAllowedType(lciEditor.FileName)) then
+      (FileIsAllowedType(AnsiString(lciEditor.FileName))) then
     begin
       fcEditorConverter.Convert(lciEditor);
     end;
@@ -263,7 +263,7 @@ begin
     exit;
 
   // check that it's a .pas or .dpr
-  if not FileIsAllowedType(psFileName) then
+  if not FileIsAllowedType(AnsiString(psFileName)) then
     exit;
 
   if fcFileConverter = nil then

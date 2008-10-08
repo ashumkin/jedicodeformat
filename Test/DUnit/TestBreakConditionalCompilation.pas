@@ -141,11 +141,11 @@ end;
 procedure TTestBreakConditionalCompilation.CheckReplace(var ps: AnsiString;
   const psFind, psReplace: AnsiString);
 begin
- Check(Pos(psFind, ps) > 0, 'String not found: ' + psFind);
+ Check(Pos(psFind, ps) > 0, string('String not found: ' + psFind));
  StrReplace(ps, psFind, psReplace, [rfIgnoreCase]);
 
  if Pos(psFind, psReplace) = 0 then
-   Check(Pos(psFind, ps) = 0, 'String still found' + psFind);
+   Check(Pos(psFind, ps) = 0, string('String still found' + psFind));
 end;
 
 procedure TTestBreakConditionalCompilation.TestNoChange;
@@ -159,7 +159,7 @@ begin
   FormatSettings.Returns.AfterCompilerDirectStatements := eLeave;
   FormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
 
-  TestFormatResult(fsFileIn, fsFileIn);
+  TestFormatResult(string(fsFileIn), string(fsFileIn));
 end;
 
 procedure TTestBreakConditionalCompilation.TestUsesBreakBeforeAdd;
@@ -179,7 +179,7 @@ begin
   lsFileOut := fsFileIn;
   CheckReplace(lsFileOut, ' {$IFDEF BAR_RAISED}', AnsiLineBreak + '{$IFDEF BAR_RAISED}');
   CheckReplace(lsFileOut, ' {$ENDIF} Dialogs', AnsiLineBreak + '{$ENDIF} Dialogs');
-  TestFormatResult(fsFileIn, lsFileOut);
+  TestFormatResult(string(fsFileIn), string(lsFileOut));
 end;
 
 
@@ -200,7 +200,7 @@ begin
   lsFileOut := fsFileIn;
   CheckReplace(fsFileIn, '{$IFDEF BAR_RAISED}', AnsiLineBreak + '{$IFDEF BAR_RAISED}');
   CheckReplace(fsFileIn, '{$ENDIF} Dialogs', AnsiLineBreak + '{$ENDIF} Dialogs');
-  TestFormatResult(fsFileIn, lsFileOut);
+  TestFormatResult(string(fsFileIn), string(lsFileOut));
 end;
 
 procedure TTestBreakConditionalCompilation.TestUsesBreakAfterAdd;
@@ -220,7 +220,7 @@ begin
   lsFileOut := fsFileIn;
   CheckReplace(lsFileOut, '{$IFDEF BAR_RAISED}', '{$IFDEF BAR_RAISED}' + AnsiLineBreak + ' ');
   CheckReplace(lsFileOut, 'Classes, {$ENDIF}', 'Classes, {$ENDIF}' + AnsiLineBreak + ' ');
-  TestFormatResult(fsFileIn, lsFileOut);
+  TestFormatResult(string(fsFileIn), string(lsFileOut));
 end;
 
 procedure TTestBreakConditionalCompilation.TestUsesBreakAfterRemove;
@@ -237,10 +237,10 @@ begin
   FormatSettings.Returns.AfterCompilerDirectStatements := eLeave;
   FormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
 
-  lsFileOut := fsFileIn;
+  lsFileOut := string(fsFileIn);
   CheckReplace(fsFileIn, '{$IFDEF BAR_RAISED} ', '{$IFDEF BAR_RAISED}' + AnsiLineBreak + ' ');
   CheckReplace(fsFileIn, 'Classes, {$ENDIF} ', 'Classes, {$ENDIF}' + AnsiLineBreak + ' ');
-  TestFormatResult(fsFileIn, lsFileOut);
+  TestFormatResult(string(fsFileIn), lsFileOut);
 end;
 
 procedure TTestBreakConditionalCompilation.TestCodeBreakBeforeAdd;
@@ -265,7 +265,7 @@ begin
   CheckReplace(lsFileOut,  '  {$IFDEF HAS_STUFF}', '{$IFDEF HAS_STUFF}');
   CheckReplace(lsFileOut, '  {$ENDIF}', '{$ENDIF}');
 
-  TestFormatResult(fsFileIn, lsFileOut);
+  TestFormatResult(string(fsFileIn), string(lsFileOut));
 end;
 
 
@@ -287,7 +287,7 @@ begin
 
   CheckReplace(lsFileOut,  AnsiLineBreak + '  {$IFDEF HAS_STUFF}', '  {$IFDEF HAS_STUFF}');
   CheckReplace(lsFileOut, AnsiLineBreak + '  {$ENDIF}', '  {$ENDIF}');
-  TestFormatResult(fsFileIn, lsFileOut);
+  TestFormatResult(string(fsFileIn), string(lsFileOut));
 end;
 
 procedure TTestBreakConditionalCompilation.TestCodeBreakAfterAdd;
@@ -305,15 +305,15 @@ begin
   FormatSettings.Returns.AfterCompilerDirectUses := eLeave;
   FormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
 
-  lsFileOut := fsFileIn;
+  lsFileOut := string(fsFileIn);
 
   lsPrefix := '{$IFDEF HAS_STUFF}';
-  CheckReplace(fsFileIn, lsPrefix + AnsiLineBreak, lsPrefix);
+  CheckReplace(fsFileIn, AnsiString(lsPrefix + AnsiLineBreak), AnsiString(lsPrefix));
 
   lsPrefix := 'SomeStuff;' + AnsiLineBreak + '  {$ENDIF}';
-  CheckReplace(fsFileIn, lsPrefix + AnsiLineBreak, lsPrefix);
+  CheckReplace(fsFileIn, AnsiString(lsPrefix + AnsiLineBreak), AnsiString(lsPrefix));
 
-  TestFormatResult(fsFileIn, lsFileOut);
+  TestFormatResult(string(fsFileIn), lsFileOut);
 end;
 
 
@@ -340,7 +340,7 @@ begin
   lsPrefix := 'SomeStuff;' + AnsiLineBreak + '  {$ENDIF}';
   CheckReplace(lsFileOut, lsPrefix + AnsiLineBreak, lsPrefix);
 
-  TestFormatResult(fsFileIn, lsFileOut);
+  TestFormatResult(string(fsFileIn), string(lsFileOut));
 end;
 
 
@@ -373,7 +373,7 @@ begin
   lsReplace := '{$IFDEF SYM2}' + AnsiLineBreak + AnsiLineBreak;
   CheckReplace(lsFileOut, lsFind, lsReplace);
 
-  TestFormatResult(fsFileIn, lsFileOut);
+  TestFormatResult(string(fsFileIn), string(lsFileOut));
 end;
 
 procedure TTestBreakConditionalCompilation.TestGeneralBreakAfterRemove;
@@ -391,11 +391,11 @@ begin
   FormatSettings.Returns.AfterCompilerDirectUses := eLeave;
   FormatSettings.Returns.AfterCompilerDirectStatements := eLeave;
 
-  lsFileOut := fsFileIn;
+  lsFileOut := string(fsFileIn);
 
   lsFind := '{$IFDEF SYM2}';
   lsReplace := '{$IFDEF SYM2}' + AnsiLineBreak + AnsiLineBreak;
-  CheckReplace(fsFileIn, lsFind, lsReplace);
+  CheckReplace(fsFileIn, AnsiString(lsFind), AnsiString(lsReplace));
 
   (*
   lsReplace := '''Black socks'';' + AnsiLineBreak + '{$ENDIF}';
@@ -403,7 +403,7 @@ begin
   CheckReplace(fsFileIn, lsFind, lsReplace);
   *)
   
-  TestFormatResult(fsFileIn, lsFileOut);
+  TestFormatResult(string(fsFileIn), lsFileOut);
 end;
 
 procedure TTestBreakConditionalCompilation.TestGeneralBreakAfterAdd;
@@ -426,13 +426,13 @@ begin
   lsReplace := '{$IFDEF SYM2}' + AnsiLineBreak;
   CheckReplace(lsFileOut, lsFind, lsReplace);
 
-  TestFormatResult(fsFileIn, lsFileOut);
+  TestFormatResult(string(fsFileIn), string(lsFileOut));
 end;
 
 procedure TTestBreakConditionalCompilation.TestGeneralBreakBeforeRemove;
 var
   lsFind, lsReplace: string;
-  lsFileOut: string;
+  lsFileOut: AnsiString;
 begin
   Check(fsFileIn <> '', 'No input file');
 
@@ -447,9 +447,9 @@ begin
   lsFileOut := fsFileIn;
   lsFind := '{$IFDEF SYM2} ';
   lsReplace := '{$IFDEF SYM2} ' + AnsiLineBreak;
-  CheckReplace(fsFileIn, lsFind, lsReplace);
+  CheckReplace(fsFileIn, AnsiString(lsFind), AnsiString(lsReplace));
 
-  TestFormatResult(fsFileIn, lsFileOut);
+  TestFormatResult(string(fsFileIn), string(lsFileOut));
 end;
 
 initialization

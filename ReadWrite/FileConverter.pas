@@ -304,7 +304,7 @@ begin
           raise Exception.Create('TFileConverter.ProcessFile: ' +
           ' could not rename source file ' + psInputFileName + ' to ' + lsOut);
 
-        StringToFile(psInputFileName, fcConverter.OutputCode);
+        StringToFile(psInputFileName, AnsiString(fcConverter.OutputCode));
       end;
     end;
 

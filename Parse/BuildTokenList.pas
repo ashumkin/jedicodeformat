@@ -650,7 +650,7 @@ function TBuildTokenList.TryPunctuation(const pcToken: TSourceToken): boolean;
     { these have meanings on thier own and should not be recognised as part of the punc.
      e.g '=(' is not a punctation symbol, but 2 of them ( for e.g. in const a=(3);
      simlarly ');' is 2 puncs }
-    UnitaryPunctuation: set of char = [
+    UnitaryPunctuation: set of AnsiChar = [
       AnsiSingleQuote, '"', '(', ')', '[', ']', '{',
       '#', '$', '_', ';', '@', '^', ','];
 
@@ -661,7 +661,7 @@ function TBuildTokenList.TryPunctuation(const pcToken: TSourceToken): boolean;
       also a:=a*-1;
       q:=q--1; // q equals q minus minus-one. It sucks but it compiles so it must be parsed
       etc }
-    SingleChars: set of char = ['=', '+', '-', '*', '/', '\'];
+    SingleChars: set of AnsiChar = ['=', '+', '-', '*', '/', '\'];
 
   begin
     Result := False;

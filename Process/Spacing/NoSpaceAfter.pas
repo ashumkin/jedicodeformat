@@ -116,7 +116,7 @@ begin
 
   { no space after unary operator in expression }
   if pt.HasParentNode(nExpression) and IsUnaryOperator(pt) and
-    ( not StrHasAlpha(pt.SourceCode)) then
+    ( not StrHasAlpha(AnsiString(pt.SourceCode))) then
   begin
     Result := True;
     exit;

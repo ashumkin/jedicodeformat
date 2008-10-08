@@ -317,6 +317,7 @@ uses
   { delphi }
   Windows, SysUtils, 
   { JCL }
+  JclStrings,
   JclAnsiStrings,
   { local }
   FileConverter, ConvertTypes, JcfSettings, JcfRegistrySettings,
@@ -403,8 +404,8 @@ begin
   Check(FileExists(psFileName1), 'File ' + psFileName1 + ' does not exist');
   Check(FileExists(psFileName2), 'File ' + psFileName2 + ' does not exist');
 
-  lsFile1 := FileToString(psFileName1);
-  lsFile2 := FileToString(psFileName2);
+  lsFile1 := string(FileToString(psFileName1));
+  lsFile2 := string(FileToString(psFileName2));
 
   // check contents the same 
   if (lsFile1 <> lsFile2) then
@@ -422,9 +423,9 @@ begin
   { does it have an file extension? }
   if Pos('.', psName) > 0 then
   begin
-    liLastDotPos := StrLastPos('.', psName);
+    liLastDotPos := JclStrings.StrLastPos('.', psName);
     lsInName      := psName;
-    lsPrefix := StrLeft(psName, liLastDotPos);
+    lsPrefix := JclStrings.StrLeft(psName, liLastDotPos);
     lsObsFileName := lsPrefix + 'obs';
     lsRemadeFileName := lsPrefix + 'out';
   end

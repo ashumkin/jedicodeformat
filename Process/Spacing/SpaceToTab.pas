@@ -57,7 +57,7 @@ uses
 constructor TSpaceToTab.Create;
 begin
   inherited;
-  fsSpaces    := StrRepeat(AnsiSpace, FormatSettings.Spaces.SpacesForTab);
+  fsSpaces    := string(StrRepeat(AnsiSpace, FormatSettings.Spaces.SpacesForTab));
   FormatFlags := FormatFlags + [eAddSpace, eRemoveSpace];
 end;
 
@@ -77,18 +77,18 @@ begin
   { Merge following space tokens
     can't pass property as var parameter so ls local var is used }
 
-	ls := lcSourceToken.SourceCode;
+	ls := AnsiString(lcSourceToken.SourceCode);
 	lcNextToken := lcSourceToken.NextToken;
 	while (lcNextToken <> nil) and (lcNextToken.TokenType = ttWhiteSpace) do
 	begin
-		ls := ls + lcNextToken.SourceCode;
+		ls := ls + AnsiString(lcNextToken.SourceCode);
 		lcNextToken.SourceCode := '';
 		lcNextToken := lcNextToken.NextToken;
 	end;
 
   lsTab := AnsiTab;
-  StrReplace(ls, fsSpaces, lsTab, [rfReplaceAll]);
-  lcSourceToken.SourceCode := ls;
+  StrReplace(ls, AnsiString(fsSpaces), lsTab, [rfReplaceAll]);
+  lcSourceToken.SourceCode := WideString(ls);
 end;
 
 function TSpaceToTab.IsIncludedInSettings: boolean;

@@ -71,7 +71,6 @@
 			<DCCReference Include="..\TestClassLines.pas"/>
 			<DCCReference Include="..\TestCommentIndent.pas"/>
 			<DCCReference Include="..\TestConstRecords.pas"/>
-			<DCCReference Include="..\TestD6.pas"/>
 			<DCCReference Include="..\TestDeclarations2.pas"/>
 			<DCCReference Include="..\TestDeclarations.pas"/>
 			<DCCReference Include="..\TestDefaultParams.pas"/>

@@ -193,7 +193,7 @@ begin
 
      The way is to ensure that you only append as many characters as you've actually read (liActualSize bytes)
      from the buffer into the result. }
-    Result := Result + Copy(lsBuf, 1, liActualSize);
+    Result := Result + string(Copy(lsBuf, 1, liActualSize));
       //WP: Changed from just adding lsBuf
 
     // more stuff to read after this?
@@ -278,7 +278,7 @@ begin
         // the line is different, replace it
         lciEditorWriter.DeleteTo(liSourcePos);
         if lsDestLine <> '' then
-          lciEditorWriter.Insert(PAnsiChar(lsDestLine));
+          lciEditorWriter.Insert(PAnsiChar(AnsiString(lsDestLine)));
       end;
 
        inc(liIndex);

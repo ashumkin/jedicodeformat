@@ -517,7 +517,7 @@ begin
   try
     // tokenise
     try
-      lcTokeniser.Expression := psExpression;
+      lcTokeniser.Expression := AnsiString(psExpression);
       lcTokeniser.Tokenise;
     except
       on E: Exception do

@@ -51,7 +51,7 @@ implementation
 
 uses
   { jcl }
-  JclAnsiStrings,
+  JclStrings, JclAnsiStrings,
   { local }
   JcfSettings, SourceToken, Tokens,
   FormatFlags, ParseTreeNodeType;
@@ -59,7 +59,7 @@ uses
 constructor TMaxSpaces.Create;
 begin
   inherited;
-  fsSpaces    := StrRepeat(AnsiSpace, FormatSettings.Spaces.MaxSpacesInCode);
+  fsSpaces    := JclStrings.StrRepeat(AnsiSpace, FormatSettings.Spaces.MaxSpacesInCode);
   FormatFlags := FormatFlags + [eRemoveSpace];
 end;
 

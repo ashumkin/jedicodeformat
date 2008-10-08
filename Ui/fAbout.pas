@@ -96,10 +96,10 @@ begin
   SetObjectFontToSystemFont(Self);
 
   // show the version from the program constant
-  ls := mWhat.Text;
+  ls := AnsiString(mWhat.Text);
   StrReplace(ls, '%VERSION%', PROGRAM_VERSION);
   StrReplace(ls, '%DATE%', PROGRAM_DATE);
-  mWhat.Text := ls;
+  mWhat.Text := string(ls);
 
   hlHomePage.Caption := 'Find more information on the web at : ' + PROGRAM_HOME_PAGE;
   hlHomePage.Url := PROGRAM_HOME_PAGE;

@@ -161,7 +161,7 @@ begin
 
   for liLoop := 1 to pcValue.Count do
   begin
-    lsItem := psTagName + '_' + PadNumber(liLoop);
+    lsItem := psTagName + '_' + string(PadNumber(liLoop));
     Write(lsItem, pcValue.Strings[liLoop - 1]);
   end;
 end;
@@ -272,7 +272,7 @@ begin
 
     for liLoop := 1 to liCount do
     begin
-      lsItemName := psTag + '_' + PadNumber(liLoop);
+      lsItemName := psTag + '_' + string(PadNumber(liLoop));
       lsItem     := Read(lsItemName, '');
       if lsItem <> '' then
         pcStrings.Add(lsItem);

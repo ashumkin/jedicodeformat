@@ -51,8 +51,8 @@ uses Classes;
 
 function GetApplicationFolder: string;
 
-function PadNumber(const pi: integer): ansistring;
-function StrHasAlpha(const str: ansistring): boolean;
+function PadNumber(const pi: integer): AnsiString;
+function StrHasAlpha(const str: AnsiString): boolean;
 function GetLastDir(psPath: string): string;
 
 function Str2Float(s: string): double;
@@ -128,12 +128,12 @@ begin
   DecimalSeparator := OrgSep;
 end;
 
-function PadNumber(const pi: integer): ansistring;
+function PadNumber(const pi: integer): AnsiString;
 begin
-  Result := IntToStrZeroPad(pi, 3);
+  Result := AnsiString(IntToStrZeroPad(pi, 3));
 end;
 
-function StrHasAlpha(const str: ansistring): boolean;
+function StrHasAlpha(const str: AnsiString): boolean;
 var
   liLoop: integer;
 begin
@@ -161,14 +161,14 @@ begin
   if not (DirectoryExists(psPath)) and FileExists(psPath) then
   begin
     // must be a file - remove the last bit
-    liPos := StrLastPos(DirDelimiter, psPath);
+    liPos := JclStrings.StrLastPos(DirDelimiter, psPath);
     if liPos > 0 then
-      psPath := StrLeft(psPath, liPos - 1);
+      psPath := JclStrings.StrLeft(psPath, liPos - 1);
   end;
 
-  liPos := StrLastPos(DirDelimiter, psPath);
+  liPos := JclStrings.StrLastPos(DirDelimiter, psPath);
   if liPos > 0 then
-    Result := StrRestOf(psPath, liPos + 1);
+    Result := JclStrings.StrRestOf(psPath, liPos + 1);
 end;
 
 function SetFileNameExtension(const psFileName, psExt: string): string;
@@ -184,7 +184,7 @@ begin
 
   lsOldExt := ExtractFileExt(psFileName);
   liMainFileNameLength := Length(psFileName) - Length(lsOldExt);
-  Result   := StrLeft(psFileName, liMainFileNameLength);
+  Result   := JclStrings.StrLeft(psFileName, liMainFileNameLength);
 
   Result := Result + '.' + psExt;
 end;
@@ -236,7 +236,7 @@ begin
   end;
 end;
 
-procedure PosLastAndCount(const ASubString, AString: ansistring;
+procedure PosLastAndCount(const ASubString, AString: AnsiString;
   var ALastPos: integer; var ACount: integer);
 var
   {This gets the last occurance and count in one go. It saves time}
@@ -325,7 +325,7 @@ begin
         Inc(ARow, Length1);
     end;
     else
-      PosLastAndCount(AnsiLineBreak, AText, Pos1, Count1);
+      PosLastAndCount(AnsiLineBreak, AnsiString(AText), Pos1, Count1);
       if Pos1 <= 0 then
         Inc(ARow, Length1)
       else
@@ -343,7 +343,7 @@ function LastLineLength(const AString: string): integer;
 var { in a multiline sting, how many chars on last line (after last return) }
   Pos1: integer;
 begin
-  Pos1 := PosLast(AnsiLineBreak, AString); {AdemBaba}
+  Pos1 := PosLast(AnsiLineBreak, AnsiString(AString)); {AdemBaba}
   if Pos1 <= 0 then
     Result := Length(AString)
   else
@@ -365,9 +365,9 @@ begin
   liIndex := 1;
   while True do
   begin
-    liPos := StrSearch(AnsiCrLf, s, liIndex);
+    liPos := StrSearch(AnsiCrLf, AnsiString(s), liIndex);
 
-    liPosLf := StrSearch(AnsiLineFeed, s, liIndex);
+    liPosLf := StrSearch(AnsiLineFeed, AnsiString(s), liIndex);
 
     if ((liPosLf > 0) and
       ((liPos = 0) or (liPosLf < (liPos + 1)))) then
