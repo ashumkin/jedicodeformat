@@ -241,12 +241,11 @@ end;
 // internal used to implement all writes
 procedure TSettingsStreamOutput.WriteText(const psText: string);
 var
-  lp: pchar;
+  lp: PAnsiChar;
 begin
   Assert(fcStream <> nil);
-  lp := pchar(psText);
-  //fcStream.WriteBuffer(lp^, Length(psText)); // Changed for Delphi 2009 support
-  fcStream.WriteBuffer(lp^, Length(psText) * SizeOf(Char));
+  lp := PAnsiChar(AnsiString(psText));
+  fcStream.WriteBuffer(lp^, Length(psText));
 end;
 
 procedure TSettingsStreamOutput.WriteXMLHeader;

@@ -216,7 +216,7 @@ var
 begin
   ReadTextFile(ANSI_FILE, lsReadTextFile, le);
 
-  lsFileToString := JclStrings.FileToString(ANSI_FILE);
+  lsFileToString := string(JclStrings.FileToString(ANSI_FILE));
   lwsFileToString := lsFileToString;
 
   Check(lwsFileToString = lsReadTextFile);

@@ -234,7 +234,7 @@ begin
     // debug ShowMessage('Reading settings from file ' + lsSettingsFileName);
 
     // now we know the file exists - try get settings from it
-    lsText := JclStrings.FileToString(psFileName);
+    lsText := string(JclStrings.FileToString(psFileName));
     lcFile := TSettingsInputString.Create(lsText);
     try
       FromStream(lcFile);
