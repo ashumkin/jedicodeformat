@@ -162,7 +162,6 @@ var
   fbQuietFail: boolean;
 
   fbCmdLineObfuscate: boolean;
-  fbCmdLineClarify:   boolean;
 
   fbHasSourceMode:     boolean;
   feCmdLineSourceMode: TSourceMode;
@@ -198,7 +197,6 @@ var
     fbCmdLineShowHelp := (ParamCount = 0);
     fbQuietFail := False;
     fbCmdLineObfuscate := False;
-    fbCmdLineClarify := False;
     fbHasSourceMode := False;
     fbHasBackupMode := False;
     fbYesAll := False;
@@ -228,12 +226,10 @@ var
       else if AnsiSameText(lsOpt, 'obfuscate') then
       begin
         fbCmdLineObfuscate := True;
-        fbCmdLineClarify   := False;
       end
       else if AnsiSameText(lsOpt, 'clarify') then
       begin
         fbCmdLineObfuscate := False;
-        fbCmdLineClarify   := True;
       end
 
       else if AnsiSameText(lsOpt, 'inplace') then
