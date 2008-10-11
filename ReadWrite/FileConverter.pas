@@ -112,7 +112,7 @@ type
 implementation
 
 uses
-  { delphi }Windows, SysUtils, Dialogs, Controls, Forms,
+  { delphi } Windows, SysUtils, Dialogs, Controls, Forms,
   { jcl } JclFileUtils, JclAnsiStrings,
   { local }FileUtils, JcfMiscFunctions, JCFLog,
   JcfRegistrySettings, JcfSettings, JCfUnicodeFiles;

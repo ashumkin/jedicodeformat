@@ -31,7 +31,7 @@ interface
 
 uses
   { delphi }
-  Windows, Classes, Forms, Graphics, Controls, StdCtrls,
+  Classes, Forms, Graphics, Controls, StdCtrls,
   Buttons, ExtCtrls, ShellAPI, SysUtils,
   { JVCL }
   JvLabel, JvExControls, JvComponent;
@@ -64,9 +64,12 @@ implementation
 {$endif}
 
 uses
-  { delphi }URLMon,
-  { jcl }JclAnsiStrings,
-  { local }VersionConsts, JCFHelp, JcfFontSetFunctions;
+  { delphi }
+  Windows, URLMon,
+  { jcl }
+  JclAnsiStrings,
+  { local }
+  VersionConsts, JCFHelp, JcfFontSetFunctions;
 
 procedure ShowURL(const ps: string);
 var
