@@ -1,6 +1,8 @@
 unit testasm;interface procedure procasm1;procedure procasm2;procedure procasm3;
 implementation uses dialogs;procedure procasm1;var li1,li2:integer;lb:boolean;begin
 li1:=random(10);li2:=random(10);asm
+mov esi,dword ptr[eax+03ch]
+mov eax,0cb40h
 mov eax,li1
 push dword ptr[edx]
 mov edx,[ebp+8]

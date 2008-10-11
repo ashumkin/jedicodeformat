@@ -32,7 +32,9 @@ begin
   li2 := Random (10);
 
   asm
+    MOV ESI, DWORD PTR [EAX + 03Ch]
 
+    MOV     EAX, 0CB40h
     MOV     EAX,li1
           PUSH    DWORD PTR [EDX]
         MOV     EDX,[EBP+8]

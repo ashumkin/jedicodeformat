@@ -566,7 +566,7 @@ end;
 
 procedure TFullTestClarify.TestAsm;
 begin
-  TestFile('TestAsm', 930);
+  TestFile('TestAsm', 958);
 end;
 
 

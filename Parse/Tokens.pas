@@ -458,8 +458,8 @@ function PreProcSymbolTypeSetToString(
 implementation
 
 uses
-  SysUtils,
   Windows,
+  SysUtils,
   JclStrings,
   JclAnsiStrings,
   JcfUnicode;

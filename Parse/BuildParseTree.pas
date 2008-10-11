@@ -4795,17 +4795,20 @@ begin
     end
     else
     begin
-      while not (fcTokenList.FirstTokenType in [ttSemicolon, ttReturn,
-          ttComment, ttEnd]) do
+      while not (fcTokenList.FirstTokenType in [ttSemicolon, ttReturn, ttComment, ttEnd]) do
       begin
         if fcTokenList.FirstSolidTokenType = ttComma then
+        begin
           Recognise(ttComma);
+        end;
         RecogniseAsmParam;
 
         RecogniseWhiteSpace;
 
         if fcTokenList.FirstSolidTokenType = ttEnd then
+        begin
           Break;
+        end;
 
         if fcTokenList.FirstSolidTokenType = ttSemiColon then
         begin
@@ -4931,7 +4934,7 @@ var
   lc, lcNext: TSourceToken;
   lbHasLabel: boolean;
 begin
-  { um.
+  { um.  No formal grammar for these
 
   AsmParam
     -> Ident
@@ -5008,6 +5011,7 @@ end;
 procedure TBuildParseTree.RecogniseAsmFactor;
 var
   lcNext: TSourceToken;
+  lcLastChar: WideChar;
 begin
   if fcTokenList.FirstSolidTokenType = ttNot then
     Recognise(ttNot);
@@ -5034,10 +5038,17 @@ begin
       Recognise(ttNumber);
 
       // numbers in Asm blocks can be suffixed with 'h' for hex
+      // there could be unanounced hex digits before the 'h'
       lcNext := fcTokenList.FirstSolidToken;
-      if (lcNext.TokenType = ttIdentifier) and (lcNext.SourceCode = 'h') then
+      if (lcNext.TokenType = ttIdentifier) then
       begin
-        Recognise(ttIdentifier);
+        lcLastChar := lcNext.SourceCode[Length(lcNext.SourceCode)];
+
+        if (lcLastChar = 'h') then
+        begin
+          Recognise(ttIdentifier);
+        end;
+
       end;
 
     end;

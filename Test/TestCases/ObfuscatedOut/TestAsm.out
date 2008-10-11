@@ -18,6 +18,8 @@ begin
   li1 := random(10);
   li2 := random(10);
   asm
+           MOV     ESI,dword ptr[EAX+03CH]
+           MOV     EAX,0cb40h
            MOV     EAX,li1
            PUSH    dword ptr[EDX]
            MOV     EDX,[EBP+8]
