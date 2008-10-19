@@ -55,7 +55,6 @@ type
 
     procedure TestNoSpaceBefore;
     procedure TestNoSpaceBefore2;
-    procedure TestNoSpaceBeforeColon;
 
     procedure TestNoSpaceAfterOperator;
     procedure TestNoSpaceAfterOperator2;
@@ -166,19 +165,6 @@ const
     ' implementation ' + UNIT_FOOTER;
 begin
   TestProcessResult(TNoSpaceBefore, IN_UNIT_TEXT, OUT_UNIT_TEXT);
-end;
-
-{ preserve line breaks if the user put them in }
-
-procedure TTestSpacing.TestNoSpaceBeforeColon;
-const
-  //JcfSettings.SetSpaces.SpacesBeforeColonFn := 0;
-  IN_UNIT_TEXT  = UNIT_HEADER + ' function foo : integer; begin result := 2; end; ' +
-    UNIT_FOOTER;
-  OUT_UNIT_TEXT = UNIT_HEADER + ' function foo: integer; begin result := 2; end; ' +
-    UNIT_FOOTER;
-begin
-  TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
 procedure TTestSpacing.TestNoSpaceAfterOperator;
