@@ -60,11 +60,21 @@ type
 
   published
 
-    procedure TestNoSpaceBeforeColonRemove;
-    procedure TestNoSpaceBeforeColonSame;
+    procedure TestNoSpaceBeforeColonFnRemove;
+    procedure TestNoSpaceBeforeColonFnSame;
 
-    procedure TestSingleSpaceBeforeColonAdd;
-    procedure TestSingleSpaceBeforeColonSame;
+    procedure TestSingleSpaceBeforeColonFnAdd;
+    procedure TestSingleSpaceBeforeColonFnSame;
+
+    procedure TestNoSpaceBeforeColonVarRemove;
+    procedure TestNoSpaceBeforeColonVarSame;
+    procedure TestSingleSpaceBeforeColonVarAdd;
+    procedure TestSingleSpaceBeforeColonVarSame;
+
+    procedure TestNoSpaceBeforeColonConstRemove;
+    procedure TestNoSpaceBeforeColonConstSame;
+    procedure TestSingleSpaceBeforeColonConstAdd;
+    procedure TestSingleSpaceBeforeColonConstSame;
   end;
 
 implementation
@@ -110,7 +120,7 @@ begin
 end;
 
 
-procedure TTestSpaceBeforeColon.TestNoSpaceBeforeColonRemove;
+procedure TTestSpaceBeforeColon.TestNoSpaceBeforeColonFnRemove;
 const
   IN_UNIT_TEXT  = UNIT_HEADER + ' function foo : integer; begin result := 2; end; ' +
     UNIT_FOOTER;
@@ -122,7 +132,7 @@ begin
   TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
-procedure TTestSpaceBeforeColon.TestNoSpaceBeforeColonSame;
+procedure TTestSpaceBeforeColon.TestNoSpaceBeforeColonFnSame;
 const
   IN_UNIT_TEXT  = UNIT_HEADER + ' function foo: integer; begin result := 2; end; ' +
     UNIT_FOOTER;
@@ -134,8 +144,7 @@ begin
   TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
-
-procedure TTestSpaceBeforeColon.TestSingleSpaceBeforeColonAdd;
+procedure TTestSpaceBeforeColon.TestSingleSpaceBeforeColonFnAdd;
 const
   //JcfSettings.SetSpaces.SpacesBeforeColonFn := 0;
   IN_UNIT_TEXT  = UNIT_HEADER + ' function foo: integer; begin result := 2; end; ' +
@@ -147,7 +156,7 @@ begin
   TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
-procedure TTestSpaceBeforeColon.TestSingleSpaceBeforeColonSame;
+procedure TTestSpaceBeforeColon.TestSingleSpaceBeforeColonFnSame;
 const
   //JcfSettings.SetSpaces.SpacesBeforeColonFn := 0;
   IN_UNIT_TEXT  = UNIT_HEADER + ' function foo : integer; begin result := 2; end; ' +
@@ -156,6 +165,102 @@ const
     UNIT_FOOTER;
 begin
   FormatSettings.Spaces.SpacesBeforeColonFn := 1;
+  TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestSpaceBeforeColon.TestNoSpaceBeforeColonVarRemove;
+const
+  IN_UNIT_TEXT  = UNIT_HEADER + ' var foo : integer;' +
+    UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' var foo: integer;' +
+    UNIT_FOOTER;
+begin
+  FormatSettings.Spaces.SpacesBeforeColonVar := 0;
+
+  TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestSpaceBeforeColon.TestNoSpaceBeforeColonVarSame;
+const
+  IN_UNIT_TEXT  = UNIT_HEADER + ' var foo: integer;' +
+    UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' var foo: integer;' +
+    UNIT_FOOTER;
+begin
+  FormatSettings.Spaces.SpacesBeforeColonVar := 0;
+
+  TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestSpaceBeforeColon.TestSingleSpaceBeforeColonVarAdd;
+const
+  IN_UNIT_TEXT  = UNIT_HEADER + ' var foo: integer;' +
+    UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' var foo : integer;' +
+    UNIT_FOOTER;
+begin
+  FormatSettings.Spaces.SpacesBeforeColonVar := 1;
+
+  TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestSpaceBeforeColon.TestSingleSpaceBeforeColonVarSame;
+const
+  IN_UNIT_TEXT  = UNIT_HEADER + ' var foo : integer;' +
+    UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' var foo : integer;' +
+    UNIT_FOOTER;
+begin
+  FormatSettings.Spaces.SpacesBeforeColonVar := 1;
+
+  TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestSpaceBeforeColon.TestNoSpaceBeforeColonConstRemove;
+const
+  IN_UNIT_TEXT  = UNIT_HEADER + ' const foo : integer = 3;' +
+    UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' const foo: integer = 3;' +
+    UNIT_FOOTER;
+begin
+  FormatSettings.Spaces.SpacesBeforeColonConst := 0;
+
+  TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestSpaceBeforeColon.TestNoSpaceBeforeColonConstSame;
+const
+  IN_UNIT_TEXT  = UNIT_HEADER + ' const foo: integer = 3;' +
+    UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' const foo: integer = 3;' +
+    UNIT_FOOTER;
+begin
+  FormatSettings.Spaces.SpacesBeforeColonConst := 0;
+
+  TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestSpaceBeforeColon.TestSingleSpaceBeforeColonConstAdd;
+const
+  IN_UNIT_TEXT  = UNIT_HEADER + ' const foo: integer = 3;' +
+    UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' const foo : integer = 3;' +
+    UNIT_FOOTER;
+begin
+  FormatSettings.Spaces.SpacesBeforeColonConst := 1;
+
+  TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
+end;
+
+procedure TTestSpaceBeforeColon.TestSingleSpaceBeforeColonConstSame;
+const
+  IN_UNIT_TEXT  = UNIT_HEADER + ' const foo : integer = 3;' +
+    UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' const foo : integer = 3;' +
+    UNIT_FOOTER;
+begin
+  FormatSettings.Spaces.SpacesBeforeColonConst := 1;
+
   TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
