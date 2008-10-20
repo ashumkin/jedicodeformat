@@ -55,7 +55,7 @@ type
 
 implementation
 
-uses JclStrings,
+uses JclStrings, JclAnsiStrings,
   JcfSettings, SetSpaces, SingleSpaceBefore;
 
 const
