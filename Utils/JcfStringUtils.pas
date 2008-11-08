@@ -1,4 +1,4 @@
-unit JcfSTringUtils;
+unit JcfStringUtils;
 
 {(*}
 (*------------------------------------------------------------------------------
@@ -29,11 +29,10 @@ See http://www.gnu.org/licenses/gpl.html
 
 {
 This unit contains string utility code
-For use when the JCL string functions are not avaialble
+For use when the JCL string functions are not avaialable
 }
 
 interface
-
 uses
   SysUtils, Classes;
 
@@ -91,21 +90,11 @@ const
 
   AnsiDoubleQuote = Char('"');
   AnsiSingleQuote = Char('''');
-const
-  // CharType return values
-  C1_UPPER  = $0001; // Uppercase
-  C1_LOWER  = $0002; // Lowercase
-  C1_DIGIT  = $0004; // Decimal digits
-  C1_SPACE  = $0008; // Space characters
-  C1_PUNCT  = $0010; // Punctuation
-  C1_CNTRL  = $0020; // Control characters
-  C1_BLANK  = $0040; // Blank characters
-  C1_XDIGIT = $0080; // Hexadecimal digits
-  C1_ALPHA  = $0100; // Any linguistic character: alphabetic, syllabary, or ideographic
 
+
+function CharIsControl(const C: Char): Boolean;
 function CharIsAlpha(const C: Char): Boolean;
 function CharIsAlphaNum(const C: Char): Boolean;
-function CharIsControl(const C: Char): Boolean;
 function CharIsDigit(const C: Char): Boolean;
 function CharIsReturn(const C: Char): Boolean;
 function CharIsWhiteSpace(const C: Char): Boolean;
@@ -139,101 +128,64 @@ function StrToBoolean(const S: string): Boolean;
 
 function StrFind(const Substr, S: string; const Index: Integer = 1): Integer;
 
-procedure StrToStrings(S, Sep: string; const List: TStrings; const AllowEmptyString: Boolean = True);
-function StringsToStr(const List: TStrings; const Sep: string; const AllowEmptyString: Boolean = True): string;
-procedure TrimStrings(const List: TStrings; DeleteIfEmpty: Boolean = True );
+procedure TrimStrings(const List: TStrings; DeleteIfEmpty: Boolean = True);
 
 function FileToString(const FileName: string): AnsiString;
 procedure StringToFile(const FileName: string; const Contents: AnsiString);
 function StrFillChar(const C: Char; Count: Integer): string;
-function IntToStrZeroPad(Value, Count: Integer): AnsiString;
+function IntToStrZeroPad(Value, Count: Integer): String;
 function PathExtractFileNameNoExt(const Path: string): string;
 function GetWindowsTempFolder: string;
 function FileGetSize(const FileName: string): Int64;
+procedure ShellExecEx(const FileName: string; const Parameters: string = '');
+function GetTickCount: Cardinal;
+function IsMultiByte(const pcChar: WideChar): Boolean;
+
+function IsWinVista: Boolean;
+function IsWinXP: Boolean;
+function IsWin2k: Boolean;
+function IsWin2003: Boolean;
 
 type
   EJcfConversionError = class(Exception)
   end;
 
 implementation
-{$IFDEF MSWINDOWS}
+
 uses
-  Windows;
-{$ENDIF}
-
-resourcestring
-  RsStringToBoolean      = 'Unable to convert the string "%s" to a boolean';
-
-var
-  AnsiCharTypes: array [Char] of Word;
-
-procedure LoadCharTypes;
-var
-  CurrChar: Char;
-  CurrType: Word;
-  {$IFDEF CLR}
-  Category: System.Globalization.UnicodeCategory;
-  {$ENDIF CLR}
-begin
-  for CurrChar := Low(Char) to High(Char) do
-  begin
-    {$IFDEF MSWINDOWS}
-    GetStringTypeExA(LOCALE_USER_DEFAULT, CT_CTYPE1, @CurrChar, SizeOf(Char), CurrType);
-    {$DEFINE CHAR_TYPES_INITIALIZED}
-    {$ENDIF MSWINDOWS}
-    {$IFDEF LINUX}
-    CurrType := 0;
-    if isupper(Byte(CurrChar)) <> 0 then
-      CurrType := CurrType or C1_UPPER;
-    if islower(Byte(CurrChar)) <> 0 then
-      CurrType := CurrType or C1_LOWER;
-    if isdigit(Byte(CurrChar)) <> 0 then
-      CurrType := CurrType or C1_DIGIT;
-    if isspace(Byte(CurrChar)) <> 0 then
-      CurrType := CurrType or C1_SPACE;
-    if ispunct(Byte(CurrChar)) <> 0 then
-      CurrType := CurrType or C1_PUNCT;
-    if iscntrl(Byte(CurrChar)) <> 0 then
-      CurrType := CurrType or C1_CNTRL;
-    if isblank(Byte(CurrChar)) <> 0 then
-      CurrType := CurrType or C1_BLANK;
-    if isxdigit(Byte(CurrChar)) <> 0 then
-      CurrType := CurrType or C1_XDIGIT;
-    if isalpha(Byte(CurrChar)) <> 0 then
-      CurrType := CurrType or C1_ALPHA;
-    {$DEFINE CHAR_TYPES_INITIALIZED}
-    {$ENDIF LINUX}
-    AnsiCharTypes[CurrChar] := CurrType;
-    {$IFNDEF CHAR_TYPES_INITIALIZED}
-    Implement case map initialization here
-    {$ENDIF ~CHAR_TYPES_INITIALIZED}
-  end;
-end;
+{$ifdef MSWINDOWS}
+  Windows, ShellApi
+{$endif}
+{$ifdef Unix}
+  Unix
+{$endif}
+{$ifdef fpc}
+  , LCLIntf, FileUtil
+{$endif};
 
 function CharIsAlpha(const C: Char): Boolean;
 begin
-  Result := (AnsiCharTypes[C] and C1_ALPHA) <> 0;
+  Result := C in ['a'..'z','A'..'Z'];
 end;
 
 function CharIsAlphaNum(const C: Char): Boolean;
 begin
-  Result := ((AnsiCharTypes[C] and C1_ALPHA) <> 0) or
-    ((AnsiCharTypes[C] and C1_DIGIT) <> 0);
+  Result := CharIsAlpha(C) or CharIsDigit(C);
 end;
 
 function CharIsControl(const C: Char): Boolean;
 begin
-  Result := (AnsiCharTypes[C] and C1_CNTRL) <> 0;
+  Result := C <= #31;
 end;
 
 function CharIsDigit(const C: Char): Boolean;
 begin
-  Result := (AnsiCharTypes[C] and C1_DIGIT) <> 0;
+  Result := C in ['0'..'9'];
 end;
 
 function CharIsReturn(const C: Char): Boolean;
 begin
-  Result := (C = AnsiLineFeed) or (C = AnsiCarriageReturn);
+  Result := C in [AnsiLineFeed, AnsiCarriageReturn];
 end;
 
 function CharIsWhiteSpace(const C: Char): Boolean;
@@ -249,73 +201,71 @@ end;
 
 function StrIsAlpha(const S: string): Boolean;
 var
-  I: Integer;
+  I, L: integer;
 begin
-  Result := S <> '';
-  for I := 1 to Length(S) do
-  begin
+  L := Length(S);
+  Result := L > 0;
+  for I := 1 to L do
     if not CharIsAlpha(S[I]) then
     begin
       Result := False;
-      Exit;
+      break;
     end;
-  end;
 end;
 
 function StrIsAlphaNum(const S: string): Boolean;
 var
-  I: Integer;
+  I, L: integer;
 begin
-  Result := S <> '';
-  for I := 1 to Length(S) do
-  begin
+  L := Length(S);
+  Result := L > 0;
+  for I := 1 to L do
     if not CharIsAlphaNum(S[I]) then
     begin
       Result := False;
-      Exit;
+      break;
     end;
-  end;
 end;
 
 function StrTrimQuotes(const S: string): string;
 var
-  First, Last: Char;
+  C1, C2: Char;
   L: Integer;
 begin
-  L := Length(S);
-  if L > 1 then
+  Result := S;
+  L := Length(Result);
+  if L >= 2 then
   begin
-    First := S[1];
-    Last := S[L];
-    if (First = Last) and ((First = AnsiSingleQuote) or (First = AnsiDoubleQuote)) then
-      Result := Copy(S, 2, L - 2)
-    else
-      Result := S;
-  end
-  else
-    Result := S;
+    C1 := Result[1];
+    C2 := Result[L];
+    if (C1 = C2) and (C1 in [AnsiSingleQuote, AnsiDoubleQuote]) then
+    begin
+      Delete(Result, L, 1);
+      Delete(Result, 1, 1);
+    end;
+  end;
 end;
 
 function StrAfter(const SubStr, S: string): string;
 var
   P: Integer;
 begin
-  P := StrFind(SubStr, S, 1); // StrFind is case-insensitive pos
-  if P <= 0 then
-    Result := ''           // substr not found -> nothing after it
+  P := StrSearch(SubStr, S, 1);
+  if P > 0 then
+    Result := Copy(S, P + Length(SubStr), Length(S))
   else
-    Result := StrRestOf(S, P + Length(SubStr));
+    Result := '';
 end;
 
 function StrBefore(const SubStr, S: string): string;
 var
   P: Integer;
 begin
-  P := StrFind(SubStr, S, 1);
-  if P <= 0 then
-    Result := S
+  P := StrSearch(SubStr, S, 1);
+  if P > 0 then
+    Result := Copy(S, 1, P - 1)
   else
-    Result := StrLeft(S, P - 1);
+    Result := S;
 end;
 
 function StrChopRight(const S: string; N: Integer): string;
@@ -325,23 +275,17 @@ end;
 
 function StrLastPos(const SubStr, S: string): Integer;
 var
-  Last, Current: PChar;
+  NewPos: Integer;
 begin
   Result := 0;
-  Last := nil;
-  Current := PChar(S);
-
-  while (Current <> nil) and (Current^ <> #0) do
+  while Result < Length(S) do
   begin
-    Current := AnsiStrPos(PChar(Current), PChar(SubStr));
-    if Current <> nil then
-    begin
-      Last := Current;
-      Inc(Current);
-    end;
+    NewPos := StrSearch(SubStr, S, Result + 1);
+    if NewPos > 0 then
+      Result := NewPos
+    else
+      break;
   end;
-  if Last <> nil then
-    Result := Abs((Longint(PChar(S)) - Longint(Last)) div SizeOf(Char)) + 1;
 end;
 
 function StrLeft(const S: string; Count: Integer): string;
@@ -366,84 +310,53 @@ end;
 
 function StrSmartCase(const S: string; Delimiters: TSysCharSet): string;
 var
-  Source, Dest: PChar;
-  Index, Len: Integer;
+  i: integer;
 begin
-  Result := '';
+  // if no delimiters passed then use default set
   if Delimiters = [] then
-    Include(Delimiters, AnsiSpace);
-
-  if S <> '' then
-  begin
-    Result := S;
-    UniqueString(Result);
-
-    Len := Length(S);
-    Source := PChar(S);
-    Dest := PChar(Result);
-    Inc(Dest);
-
-    for Index := 2 to Len do
-    begin
-      if (Source^ in Delimiters) and not (Dest^ in Delimiters) then
-        Dest^ := CharUpper(Dest^);
-      Inc(Dest);
-      Inc(Source);
-    end;
-    Result[1] := CharUpper(Result[1]);
-  end;
+    Delimiters := AnsiWhiteSpace;
+  Result := S;
+  for i := 1 to Length(Result) do
+    if (i = 1) or (Result[i - 1] in Delimiters) then
+      Result[i] := UpCase(Result[i]);
 end;
 
 function StrCharCount(const S: string; C: Char): Integer;
 var
-  I: Integer;
+  i: integer;
 begin
   Result := 0;
-  for I := 1 to Length(S) do
-    if S[I] = C then
-      Inc(Result);
+  for i := 1 to Length(S) do
+    if S[i] = C then
+      inc(Result);
 end;
 
 function StrStrCount(const S, SubS: string): Integer;
 var
-  I: Integer;
+  P: integer;
 begin
   Result := 0;
-  if (Length(SubS) > Length(S)) or (Length(SubS) = 0) or (Length(S) = 0) then
-    Exit;
-  if Length(SubS) = 1 then
+  P := 1;
+  while P < Length(S) do
   begin
-    Result := StrCharCount(S, SubS[1]);
-    Exit;
+    P := StrSearch(Subs, S, P);
+    if P > 0 then
+    begin
+      inc(Result);
+      inc(P);
+    end
+    else
+      break;
   end;
-  I := StrSearch(SubS, S, 1);
-
-  if I > 0 then
-    Inc(Result);
-
-  while (I > 0) and (Length(S) > I+Length(SubS)) do
-  begin
-    I := StrSearch(SubS, S, I+1);
-
-    if I > 0 then
-      Inc(Result);
-  end
 end;
 
 function StrRepeat(const S: string; Count: Integer): string;
-var
-  Len, Index: Integer;
-  Dest, Source: PChar;
 begin
-  Len := Length(S);
-  SetLength(Result, Count * Len);
-  Dest := PChar(Result);
-  Source := PChar(S);
-  if Dest <> nil then
-    for Index := 0 to Count - 1 do
+  Result := '';
+  while Count > 0 do
   begin
-    Move(Source^, Dest^, Len*SizeOf(Char));
-    Inc(Dest,Len*SizeOf(Char));
+    Result := Result + S;
+    Dec(Count);
   end;
 end;
 
@@ -455,170 +368,110 @@ end;
 function StrSearch(const Substr, S: string; const Index: Integer = 1): Integer;
 begin
   // Paul: I expect original code was more efficient :) 
-  Result := Pos(SubStr, Copy(S, Index, Length(S)));
+  Result := Pos(SubStr, Copy(S, Index, Length(S))) + Index - 1;
 end;
 
 function BooleanToStr(B: Boolean): string;
 const
-  Bools: array [Boolean] of string = ('False', 'True');
+  BoolToStrMap: array[Boolean] of String =
+  (
+ { false } 'False',
+ { true  } 'True'
+  );
 begin
-  Result := Bools[B];
+  Result := BoolToStrMap[B];
 end;
-
-const
-  DefaultTrueBoolStr  = 'True';  // DO NOT LOCALIZE
-  DefaultFalseBoolStr = 'False'; // DO NOT LOCALIZE
-
-  DefaultYesBoolStr   = 'Yes';   // DO NOT LOCALIZE
-  DefaultNoBoolStr    = 'No';    // DO NOT LOCALIZE
 
 function StrToBoolean(const S: string): Boolean;
 var
-  LowerCasedText: string;
+  LowerS: String;
 begin
-  { TODO : Possibility to add localized strings, like in Delphi 7 }
-  { TODO : Lower case constants }
-  LowerCasedText := LowerCase(S);
-  Result := ((S = '1') or
-    (LowerCasedText = LowerCase(DefaultTrueBoolStr)) or (LowerCasedText = LowerCase(DefaultYesBoolStr))) or
-    (LowerCasedText = LowerCase(DefaultTrueBoolStr[1])) or (LowerCasedText = LowerCase(DefaultYesBoolStr[1]));
-  if not Result then
-  begin
-    Result := not ((S = '0') or
-      (LowerCasedText = LowerCase(DefaultFalseBoolStr)) or (LowerCasedText = LowerCase(DefaultNoBoolStr)) or
-      (LowerCasedText = LowerCase(DefaultFalseBoolStr[1])) or (LowerCasedText = LowerCase(DefaultNoBoolStr[1])));
-    if Result then
-      raise EJcfConversionError.CreateResFmt(@RsStringToBoolean, [S]);
-  end;
+  LowerS := LowerCase(S);
+  if (LowerS = 'false') or (LowerS = 'no') or (LowerS = '0') then
+    Result := False
+  else
+  if (LowerS = 'true') or (LowerS = 'yes') or (LowerS = '1') then
+    Result := True
+  else
+    raise EJcfConversionError.Create('Cannot convert string [' + S + '] to boolean');
 end;
 
 
 function StrFind(const Substr, S: string; const Index: Integer = 1): Integer;
 begin
   // Paul: original code used comparision by char case table
-  Result := StrSearch(LowerCase(S), LowerCase(S), Index);
+  Result := StrSearch(LowerCase(SubStr), LowerCase(S), Index);
 end;
 
-procedure StrToStrings(S, Sep: string; const List: TStrings; const AllowEmptyString: Boolean = True);
+procedure TrimStrings(const List: TStrings; DeleteIfEmpty: Boolean = True);
 var
-  I, L: Integer;
-  Left: string;
+  i: integer;
 begin
-  Assert(List <> nil);
-  List.BeginUpdate;
-  try
-    List.Clear;
-    L := Length(Sep);
-    I := Pos(Sep, S);
-    while I > 0 do
+  if List <> nil then
+    for i := List.Count - 1 downto 0 do
     begin
-      Left := StrLeft(S, I - 1);
-      if (Left <> '') or AllowEmptyString then
-        List.Add(Left);
-      Delete(S, 1, I + L - 1);
-      I := Pos(Sep, S);
+      List[i] := Trim(List[i]);
+      if DeleteIfEmpty and (List[i] = '') then
+        List.Delete(i);
     end;
-    if S <> '' then
-      List.Add(S);  // Ignore empty strings at the end.
-  finally
-    List.EndUpdate;
-  end;
-end;
-
-function StringsToStr(const List: TStrings; const Sep: string; const AllowEmptyString: Boolean): string;
-var
-  I, L: Integer;
-begin
-  Result := '';
-  for I := 0 to List.Count - 1 do
-  begin
-    if (List[I] <> '') or AllowEmptyString then
-    begin
-      // don't combine these into one addition, somehow it hurts performance
-      Result := Result + List[I];
-      Result := Result + Sep;
-    end;
-  end;
-  // remove terminating separator
-  if List.Count <> 0 then
-  begin
-    L := Length(Sep);
-    Delete(Result, Length(Result) - L + 1, L);
-  end;
-end;
-
-procedure TrimStrings(const List: TStrings; DeleteIfEmpty: Boolean = True );
-var
-  I: Integer;
-begin
-  Assert(List <> nil);
-  List.BeginUpdate;
-  try
-    for I := List.Count - 1 downto 0 do
-    begin
-      List[I] := Trim(List[I]);
-      if (List[I] = '') and DeleteIfEmpty then
-        List.Delete(I);
-    end;
-  finally
-    List.EndUpdate;
-  end;
 end;
 
 function FileToString(const FileName: string): AnsiString;
 var
-  fs: TFileStream;
-  Len: Integer;
+  S: TStream;
 begin
-  fs := TFileStream.Create(FileName, fmOpenRead or fmShareDenyWrite);
+  S := nil;
   try
-    Len := fs.Size;
-    SetLength(Result, Len);
-    if Len > 0 then
-      fs.ReadBuffer(Result[1], Len);
+    S := TFileStream.Create(FileName, fmOpenRead or fmShareDenyNone);
+    SetLength(Result, S.Size);
+    S.Read(PAnsiChar(Result)^, S.Size);
   finally
-    fs.Free;
+    S.Free;
   end;
 end;
 
 procedure StringToFile(const FileName: string; const Contents: AnsiString);
 var
-  fs: TFileStream;
-  Len: Integer;
+  S: TStream;
 begin
-  fs := TFileStream.Create(FileName, fmCreate);
+  S := nil;
   try
-    Len := Length(Contents);
-    if Len > 0 then
-      fs.WriteBuffer(Contents[1], Len);
+    S := TFileStream.Create(FileName, fmCreate);
+    S.Write(PAnsiChar(Contents)^, Length(Contents));
   finally
-    fs.Free;
+    S.Free;
   end;
 end;
 
 function StrFillChar(const C: Char; Count: Integer): string;
 begin
   SetLength(Result, Count);
-  if (Count > 0) then
-    FillChar(Result[1], Count, Ord(C));
+  if Count > 0 then
+    FillChar(Result[1], Count, C);
 end;
 
-function IntToStrZeroPad(Value, Count: Integer): AnsiString;
+function IntToStrZeroPad(Value, Count: Integer): String;
 begin
   Result := IntToStr(Value);
-  if Length(Result) < Count then
-    Result := StrFillChar('0', Count - Length(Result)) + Result;
+  while Length(Result) < Count do
+    Result := '0' + Result;
 end;
 
 function PathRemoveExtension(const Path: string): string;
 var
-  I: Integer;
+  p: Integer;
 begin
-  I := LastDelimiter(':.' + PathSeparator, Path);
-  if (I > 0) and (Path[I] = '.') then
-    Result := Copy(Path, 1, I - 1)
-  else
-    Result := Path;
+  // from lazarus FileUtil
+  Result := Path;
+  p := Length(Result);
+  while (p>0) do
+  begin
+    case Result[p] of
+      PathDelim: Exit;
+      '.': Result := copy(Result, 1, p-1);
+    end;
+    Dec(p);
+  end;
 end;
 
 function PathExtractFileNameNoExt(const Path: string): string;
@@ -626,72 +479,116 @@ begin
   Result := PathRemoveExtension(ExtractFileName(Path));
 end;
 
-procedure StrResetLength(var S: string);
-begin
-  SetLength(S, StrLen(PChar(S)));
-end;
-
 function PathRemoveSeparator(const Path: string): string;
-var
-  L: Integer;
 begin
-  L := Length(Path);
-  if (L <> 0) and (AnsiLastChar(Path) = PathSeparator) then
-    Result := Copy(Path, 1, L - 1)
-  else
-    Result := Path;
+  Result := Path;
+  if (Result <> '') and (Result[Length(Result)] = PathDelim) then
+    Delete(Result, Length(Result), 1);
 end;
 
 function GetWindowsTempFolder: string;
+{$ifndef fpc}
 var
-  Required: Cardinal;
+  buf: string;
+{$endif}
 begin
-  Result := '';
-  Required := GetTempPath(0, nil);
-  if Required <> 0 then
-  begin
-    SetLength(Result, Required);
-    GetTempPath(Required, PChar(Result));
-    StrResetLength(Result);
-    Result := PathRemoveSeparator(Result);
-  end;
+{$ifdef fpc}
+  Result := GetTempDir;
+{$else}
+  SetLength(buf, MAX_PATH);
+  SetLength(buf, GetTempPath(Length(buf) + SizeOf(char), PChar(buf)));
+  Result:=buf;
+  Result := IncludeTrailingPathDelimiter(Result);
+{$endif}
 end;
 
 function FileGetSize(const FileName: string): Int64;
-{$IFDEF MSWINDOWS}
+{$ifndef fpc}
 var
-  SearchRec: TSearchRec;
-  OldMode: Cardinal;
-  Size: ULARGE_INTEGER;
+  FileInfo: TSearchRec;
+{$endif}
 begin
-  Result := -1;
-  OldMode := SetErrorMode(SEM_FAILCRITICALERRORS);
-  try
-    if FindFirst(FileName, faAnyFile, SearchRec) = 0 then
-    begin
-      Size.LowPart := SearchRec.FindData.nFileSizeLow;
-      Size.HighPart := SearchRec.FindData.nFileSizeHigh;
-      Result := Size.QuadPart;
-      SysUtils.FindClose(SearchRec);
-    end;
-  finally
-    SetErrorMode(OldMode);
+{$ifdef fpc}
+  Result := FileUtil.FileSize(FileName);
+{$else}
+  // from LCL FileUtil code
+  FileInfo.Name := Filename;
+  FileInfo.FindHandle := Windows.FindFirstFile(Windows.LPTSTR(FileInfo.Name), FileInfo.FindData);
+  if FileInfo.FindHandle = Windows.Invalid_Handle_value then
+  begin
+    Result:=-1;
+    Exit;
   end;
+  Result := (int64(FileInfo.FindData.nFileSizeHigh) shl 32) + FileInfo.FindData.nFileSizeLow;
+  Windows.FindClose(FileInfo.FindHandle);
+{$endif}
 end;
-{$ENDIF MSWINDOWS}
-{$IFDEF UNIX}
-var
-  Buf: TStatBuf64;
+
+procedure ShellExecEx(const FileName: string; const Parameters: string = '');
 begin
-  Result := -1;
-  if GetFileStatus(FileName, Buf, False) = 0 then
-    Result := Buf.st_size;
+  {$ifdef MSWINDOWS}
+    ShellApi.ShellExecute(0, 'open', PChar(FileName), PChar(Parameters), nil, SW_SHOW);
+  {$endif}
+  {$ifdef unix}
+    Shell(format('%s %s',[FileName, Parameters]));
+  {$endif}
 end;
-{$ENDIF UNIX}
 
+function GetTickCount: DWord;
+begin
+{$ifdef MSWINDOWS}
+  Result := Windows.GetTickCount;
+{$else}
+  Result := LCLIntf.GetTickCount;
+{$endif}
+end;
 
-initialization
-  LoadCharTypes;  // this table first
+function IsMultiByte(const pcChar: WideChar): Boolean;
+begin
+{$ifdef MSWINDOWS}
+  Result := IsDBCSLeadByte(Byte(pcChar));
+{$else}
+  Result := False;
+  // TODO: ?
+{$endif}
+end;
+
+function IsWinVista: Boolean;
+begin
+{$IFDEF MSWINDOWS}
+  Result := Win32MajorVersion = 6;
+  // can be also window server 2008
+{$ELSE}
+  Result := False;
+{$ENDIF}
+end;
+
+function IsWinXP: Boolean;
+begin
+{$IFDEF MSWINDOWS}
+  Result := (Win32MajorVersion = 5) and (Win32MinorVersion = 1);
+{$ELSE}
+  Result := False;
+{$ENDIF}
+end;
+
+function IsWin2k: Boolean;
+begin
+{$IFDEF MSWINDOWS}
+  Result := (Win32MajorVersion = 5) and (Win32MinorVersion = 0);
+{$ELSE}
+  Result := False;
+{$ENDIF}
+end;
+
+function IsWin2003: Boolean;
+begin
+{$IFDEF MSWINDOWS}
+  Result := (Win32MajorVersion = 5) and (Win32MinorVersion = 2);
+  // can be also window xp 64 bit
+{$ELSE}
+  Result := False;
+{$ENDIF}
+end;
 
 end.
-
