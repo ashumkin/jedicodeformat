@@ -224,6 +224,7 @@
 			<DCCReference Include="..\TestExit.pas"/>
 			<DCCReference Include="..\TestHexConstantElse.pas"/>
 			<DCCReference Include="..\TestClassOf.pas"/>
+			<DCCReference Include="..\TestD9Inherited.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

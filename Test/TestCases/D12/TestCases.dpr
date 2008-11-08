@@ -171,7 +171,8 @@ uses
   TestOutKeyword in '..\TestOutKeyword.pas',
   TestExit in '..\TestExit.pas',
   TestHexConstantElse in '..\TestHexConstantElse.pas',
-  TestClassOf in '..\TestClassOf.pas';
+  TestClassOf in '..\TestClassOf.pas',
+  TestD9Inherited in '..\TestD9Inherited.pas';
 
 {$R *.res}
 

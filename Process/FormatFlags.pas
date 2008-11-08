@@ -194,8 +194,8 @@ begin
   { rest should read <setting>=<state>
     where the setting is one of the format flags, and the state is 'on' or 'off'
   }
-  lsSetting := Trim(JclStrings.StrBefore('=', lsRest));
-  lsState   := Trim(JclStrings.StrAfter('=', lsRest));
+  lsSetting := Trim(JclAnsiStrings.StrBefore('=', lsRest));
+  lsState   := Trim(JclAnsiStrings.StrAfter('=', lsRest));
 
   { is the comment well formed? }
   if (lsSetting = '') or (lsState = '') then

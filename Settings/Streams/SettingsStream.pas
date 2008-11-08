@@ -381,8 +381,8 @@ begin
   lsStart := '<' + psTag + '>';
   lsEnd   := '</' + psTag + '>';
 
-  liStart := JclStrings.StrFind(lsStart, fsText, 1);
-  liEnd   := JclStrings.StrFind(lsEnd, fsText, 1);
+  liStart := JclAnsiStrings.StrFind(lsStart, fsText, 1);
+  liEnd   := JclAnsiStrings.StrFind(lsEnd, fsText, 1);
 
   if (liStart > 0) and (liEnd > liStart) then
   begin

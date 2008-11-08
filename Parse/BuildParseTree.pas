@@ -2406,10 +2406,13 @@ begin
   begin
     Recognise(ttInherited);
 
-    RecogniseDesignator;
-    if fcTokenList.FirstSolidTokenType = ttOpenBracket then
+    if not (fcTokenList.FirstSolidTokenType in Operators + [ttSemicolon]) then
     begin
-      RecogniseActualParams;
+      RecogniseDesignator;
+      if fcTokenList.FirstSolidTokenType = ttOpenBracket then
+      begin
+        RecogniseActualParams;
+      end;
     end;
   end
   else if (lc.TokenType = ttNumber) then

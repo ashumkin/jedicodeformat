@@ -361,7 +361,6 @@ begin
   if (s = '') then
     exit;
 
-
   liIndex := 1;
   while True do
   begin

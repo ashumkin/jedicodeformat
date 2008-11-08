@@ -299,6 +299,7 @@ type
     procedure TestDelphiNetLibrary;
 
     procedure TestClassOf;
+    procedure TestD9Inherited;
 
     procedure TestLibrary;
 
@@ -610,6 +611,11 @@ end;
 procedure TTestObfuscate.TestD6;
 begin
   TestFile('TestD6');
+end;
+
+procedure TTestObfuscate.TestD9Inherited;
+begin
+  TestFile('TestD9Inherited');
 end;
 
 procedure TTestObfuscate.TestDeclarations;
