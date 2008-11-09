@@ -1,0 +1,21 @@
+unit testdelphi2009generics;
+
+interface
+
+uses generics.collections;
+
+implementation
+
+function testlist: integer;
+var
+  lilist: TList<integer>;
+begin
+  lilist := TList<integer>.Create();
+  lilist.add(12);
+  lilist.add(24);
+  lilist.add(48);
+  Result := lilist.Count;
+end;
+
+end.
+ 

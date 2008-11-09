@@ -297,7 +297,9 @@ type
     procedure TestExit;
     procedure TestHexConstantElse;
     procedure TestClassOf;
-    procedure TestD9Inherited;
+
+    procedure TestDelphi2009Inherited;
+    procedure TestDelphi2009Generics;
 
     procedure TestLibrary;
 
@@ -651,9 +653,14 @@ begin
   TestFile('TestD6', 959);
 end;
 
-procedure TFullTestClarify.TestD9Inherited;
+procedure TFullTestClarify.TestDelphi2009Generics;
 begin
-  TestFile('TestD9Inherited', 189);
+  TestFile('TestDelphi2009Generics', 103);
+end;
+
+procedure TFullTestClarify.TestDelphi2009Inherited;
+begin
+  TestFile('TestDelphi2009Inherited', 189);
 end;
 
 procedure TFullTestClarify.TestDeclarations;

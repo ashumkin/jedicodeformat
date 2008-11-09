@@ -172,7 +172,8 @@ uses
   TestExit in '..\TestExit.pas',
   TestHexConstantElse in '..\TestHexConstantElse.pas',
   TestClassOf in '..\TestClassOf.pas',
-  TestD9Inherited in '..\TestD9Inherited.pas';
+  TestDelphi2009Inherited in '..\TestDelphi2009Inherited.pas',
+  TestDelphi2009Generics in '..\TestDelphi2009Generics.pas';
 
 {$R *.res}
 

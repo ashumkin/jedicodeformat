@@ -1,4 +1,4 @@
-unit TestD9Inherited;
+unit TestDelphi2009Inherited;
 
 interface
 
