@@ -1,5 +1,11 @@
 unit TestDelphi2009Generics;
 
+{ AFS November 2008
+ This unit compiles but is not semantically meaningfull
+ it is test cases for the code formatting utility
+
+ This code test Delphi 2009 Features  }
+
 interface
 
 uses Generics.Collections;

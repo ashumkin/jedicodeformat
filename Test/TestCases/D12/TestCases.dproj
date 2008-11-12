@@ -226,6 +226,7 @@
 			<DCCReference Include="..\TestClassOf.pas"/>
 			<DCCReference Include="..\TestDelphi2009Inherited.pas"/>
 			<DCCReference Include="..\TestDelphi2009Generics.pas"/>
+			<DCCReference Include="..\TestDelphi2009AnonymousMethod.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>
