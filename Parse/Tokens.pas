@@ -206,6 +206,9 @@ type
     ttUnsafe,
     ttVarArgs,
 
+    { delphi 2009 }
+    ttReference,
+
     { built-in constants }
     ttNil,
     ttTrue,
@@ -670,6 +673,10 @@ begin
   AddKeyword('remove', wtReservedWordDirective, ttRemove);
   AddKeyword('unsafe', wtReservedWordDirective, ttUnsafe);
   AddKeyword('varargs', wtReservedWordDirective, ttVarArgs);
+
+  { delphi 2009 }
+    AddKeyword('reference', wtReservedWordDirective, ttReference);
+
 
   { operators that are words not symbols }
   AddKeyword('and', wtOperator, ttAnd);

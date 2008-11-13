@@ -1,0 +1,14 @@
+unit testdelphi2009anonymousmethod;interface uses generics.collections,generics.
+defaults,classes;type tintprocedure=reference to procedure(var x:integer);tintfunction
+=reference to function(var x:integer):integer;tgenericfunction<t> =reference to function
+(var x:t):t;tintstringprocedure=reference to procedure(var x:integer;const y:string
+);implementation procedure sorttest;var lilist:tlist<integer>;begin lilist:=tlist
+<integer>.create();lilist.add(48);lilist.add(12);lilist.add(400);lilist.add(24);lilist
+.add(4);lilist.sort(tcomparer<integer>.construct(function(const item1,item2:integer
+):integer begin result:=item1-item2;end));end;procedure streamtest;var a:integer;
+begin while(function(stream:tstream;var a:integer;b:integer):integer begin result
+:=50;end)(nil,a,0)>0 do begin end;end;function makeintprocedure:tintprocedure;begin
+result:=procedure(var x:integer)begin x:=x+1;end;end;function makeintfunction:tintfunction
+;begin result:=function(var x:integer):integer begin result:=x+1;end;end;procedure
+useintfunction;var fn:tintfunction;x:integer;begin fn:=makeintfunction();x:=3;fn(
+x);end;end. 

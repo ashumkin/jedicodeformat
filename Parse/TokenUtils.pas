@@ -82,6 +82,7 @@ function InRoundBrackets(const pt: TSourceToken): boolean;
 
 function SemicolonNext(const pt: TSourceToken): boolean;
 
+
 { true if the token is in code, ie in procedure/fn body,
   init section, finalization section, etc
 

@@ -1,0 +1,5 @@
+unit testdelphi2009inherited;interface type tbase=class public function foo:integer
+;virtual;end;tderived=class(TBase)public function foo:integer;override;end;tderived2
+=class(TBase)public function foo:integer;override;end;implementation function tbase
+.foo:integer;begin result:=42;end;function tderived.foo:integer;begin result:=inherited
+;end;function tderived2.foo:integer;begin result:=inherited+2;end;end. 

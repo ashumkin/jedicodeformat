@@ -300,6 +300,7 @@ type
 
     procedure TestDelphi2009Inherited;
     procedure TestDelphi2009Generics;
+    procedure TestDelphi2009AnonymousMethod;
 
     procedure TestLibrary;
 
@@ -655,12 +656,17 @@ end;
 
 procedure TFullTestClarify.TestDelphi2009Generics;
 begin
-  TestFile('TestDelphi2009Generics', 103);
+  TestFile('TestDelphi2009Generics', 152);
+end;
+
+procedure TFullTestClarify.TestDelphi2009AnonymousMethod;
+begin
+  TestFile('TestDelphi2009AnonymousMethod', 521);
 end;
 
 procedure TFullTestClarify.TestDelphi2009Inherited;
 begin
-  TestFile('TestDelphi2009Inherited', 189);
+  TestFile('TestDelphi2009Inherited', 192);
 end;
 
 procedure TFullTestClarify.TestDeclarations;

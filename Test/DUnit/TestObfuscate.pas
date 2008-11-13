@@ -302,6 +302,7 @@ type
 
     procedure TestDelphi2009Inherited;
     procedure TestDelphi2009Generics;
+    procedure TestDelphi2009AnonymousMethod;
 
     procedure TestLibrary;
 
@@ -613,6 +614,11 @@ end;
 procedure TTestObfuscate.TestD6;
 begin
   TestFile('TestD6');
+end;
+
+procedure TTestObfuscate.TestDelphi2009AnonymousMethod;
+begin
+  TestFile('TestDelphi2009AnonymousMethod');
 end;
 
 procedure TTestObfuscate.TestDelphi2009Generics;

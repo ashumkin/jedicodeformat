@@ -25,4 +25,12 @@ begin
   result := liList.Count;
 end;
 
+type
+   TRecordList<T> = class(TEnumerable<T>)
+   public
+   type
+      TEnumerator = class(TEnumerator<T>)
+      end;
+   end;
+
 end.

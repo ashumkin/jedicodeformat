@@ -1,0 +1,5 @@
+unit testdelphi2009generics;interface uses generics.collections;implementation function
+testlist:integer;var lilist:tlist<integer>;begin lilist:=tlist<integer>.create();
+lilist.add(12);lilist.add(24);lilist.add(48);result:=lilist.count;end;type trecordlist
+<t> =class(TEnumerable<T>)public type tenumerator=class(TEnumerator<T>)end;end;end
+. 

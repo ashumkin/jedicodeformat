@@ -14,10 +14,10 @@ uses
   Classes;
 
 type
-  TIntProcedure = reference to procedure (var x: Integer);
-  TIntFunction = reference to function (var x: Integer): integer;
-  TGenericFunction<T> = reference to function(var x: T): T;
-  TIntStringProcedure = reference to procedure (var x: Integer; const y: string);
+  TIntProcedure = reference to procedure (var x: integer);
+  TIntFunction  = reference to function (var x: integer): integer;
+  TGenericFunction<T> = reference to function (var x: T): T;
+  TIntStringProcedure = reference to procedure (var x: integer; const y: string);
 
 implementation
 
@@ -34,10 +34,11 @@ begin
   liList.Add(4);
 
   liList.Sort(TComparer<integer>.Construct(
-     function(const Item1, Item2: integer): Integer
-      begin
-         Result := Item1 - Item2;
-       end));
+
+    function (const Item1, Item2: integer): integer
+    begin
+      Result := Item1 - Item2;
+    end));
 end;
 
 procedure StreamTest;
@@ -45,10 +46,12 @@ var
   a: integer;
 begin
 
-  while (function (Stream: TStream; var a: Integer; b: Integer): Integer
-  begin
-    result := 50;
-  end)(nil, a, 0) > 0 do
+  while (
+
+      function (Stream: TStream; var a: integer; b: integer): integer
+      begin
+        Result := 50;
+      end)(nil, a, 0) > 0 do
   begin
   end;
 
@@ -56,25 +59,31 @@ end;
 
 function MakeIntProcedure: TIntProcedure;
 begin
-  Result := procedure (var x: Integer)
+  Result :=
+
+    procedure (var x: integer)
     begin
       x := x + 1;
     end;
+
 end;
 
 function MakeIntFunction: TIntFunction;
 begin
-  Result := function (var x: Integer): integer
+  Result :=
+
+    function (var x: integer): integer
     begin
       Result := x + 1;
     end;
+
 end;
 
 
 procedure UseIntFunction;
 var
   fn: TIntFunction;
-  x: integer;
+  x:  integer;
 begin
   fn := MakeIntFunction();
 
