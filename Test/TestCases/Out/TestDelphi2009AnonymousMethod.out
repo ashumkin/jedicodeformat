@@ -34,7 +34,6 @@ begin
   liList.Add(4);
 
   liList.Sort(TComparer<integer>.Construct(
-
     function (const Item1, Item2: integer): integer
     begin
       Result := Item1 - Item2;
@@ -46,9 +45,7 @@ var
   a: integer;
 begin
 
-  while (
-
-      function (Stream: TStream; var a: integer; b: integer): integer
+  while (function (Stream: TStream; var a: integer; b: integer): integer
       begin
         Result := 50;
       end)(nil, a, 0) > 0 do
@@ -59,9 +56,7 @@ end;
 
 function MakeIntProcedure: TIntProcedure;
 begin
-  Result :=
-
-    procedure (var x: integer)
+  Result := procedure (var x: integer)
     begin
       x := x + 1;
     end;
@@ -70,9 +65,7 @@ end;
 
 function MakeIntFunction: TIntFunction;
 begin
-  Result :=
-
-    function (var x: integer): integer
+  Result := function (var x: integer): integer
     begin
       Result := x + 1;
     end;

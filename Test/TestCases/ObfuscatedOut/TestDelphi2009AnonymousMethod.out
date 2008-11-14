@@ -23,9 +23,7 @@ begin
   lilist.add(400);
   lilist.add(24);
   lilist.add(4);
-  lilist.sort(tcomparer<integer>.construct(
-
-    function (const item1, item2: integer): integer
+  lilist.sort(tcomparer<integer>.construct(function (const item1, item2: integer): integer
     begin
       Result := item1 - item2;
     end));
@@ -35,9 +33,7 @@ procedure streamtest;
 var
   a: integer;
 begin
-  while (
-
-      function (stream: tstream; var a: integer; b: integer): integer
+  while (function (stream: tstream; var a: integer; b: integer): integer
       begin
         Result := 50;
       end)(nil, a, 0) > 0 do
@@ -47,9 +43,7 @@ end;
 
 function makeintprocedure: tintprocedure;
 begin
-  Result :=
-
-    procedure (var x: integer)
+  Result := procedure (var x: integer)
     begin
       x := x + 1;
     end;
@@ -58,9 +52,7 @@ end;
 
 function makeintfunction: tintfunction;
 begin
-  Result :=
-
-    function (var x: integer): integer
+  Result := function (var x: integer): integer
     begin
       Result := x + 1;
     end;
