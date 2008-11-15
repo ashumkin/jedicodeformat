@@ -81,7 +81,14 @@ begin
     exit;
 
   if pt.HasParentNode(nGeneric, 1) then
+  begin
+    if pt.TokenType in [ttComma, ttColon] then
+    begin
+      Result := true;
+    end;
+
     exit;
+  end;
 
   // if the next token is a comment, leave it where it is, do not adjust spacing
   if ptNext.TokenType = ttComment then

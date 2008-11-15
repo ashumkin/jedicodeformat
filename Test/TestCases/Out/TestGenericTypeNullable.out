@@ -12,7 +12,7 @@ uses
 type
   // System.Nullable est une structure
   // public struct Nullable<T> where T : struct
-  TTestNullable<T:record> = class
+  TTestNullable<T: record> = class
     procedure Inverser(Arg: System.Nullable<T>; Valeur: System.Nullable<T>);
   end;
 

@@ -29,23 +29,23 @@ type
   End;
   }
 
-  TTest<I,S> = class
+  TTest<I, S> = class
     FData: I;
     Fitem: S;
   end;
 
   //Surcharge générique à partir d'une autre surcharge générique de la même classe
-  TGeneric<A,B> = class
+  TGeneric<A, B> = class
     FData: A;
     Fitem: B;
   end;
 
-  TGeneric<A> = class(TGeneric<A,string>)
+  TGeneric<A> = class(TGeneric<A, string>)
     FData: A;
   end;
 
   //Surcharge générique à partir d'une autre surcharge générique d'une autre classe
-  TGenericTest<R,U> = class(TGeneric<R>)
+  TGenericTest<R, U> = class(TGeneric<R>)
     FData: R;
   end;
 
@@ -57,12 +57,12 @@ type
 var
   Gen1: TTest;
   Gen2: TTest<integer>;
-  Gen3: TTest<integer,string>;
+  Gen3: TTest<integer, string>;
 begin
   try
     Gen1 := TTest.Create;
     Gen2 := TTest<integer>.Create;
-    Gen3 := TTest<integer,string>.Create;
+    Gen3 := TTest<integer, string>.Create;
   except
     on E: Exception do
       Writeln(E.ClassName, ': ', E.Message);

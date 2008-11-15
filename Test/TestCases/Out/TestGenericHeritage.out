@@ -41,7 +41,7 @@ type
   end;
 
   //Classe générique dérivée d'une classe générique
-  TGeneriqueDeriveeDeGenerique<I,S> = class(TGeneriqueDeriveeDeClass<I>)
+  TGeneriqueDeriveeDeGenerique<I, S> = class(TGeneriqueDeriveeDeClass<I>)
     FData: I;
     Fitem: S;
   end;
@@ -55,7 +55,7 @@ constructor> = class
   //Classe générique dérivée d'une classe générique contrainte
   //Dans ce cas les contraintes doivent être redéclarées.
   TGeneriqueDeriveeDeGeneriqueContraint<I:
-constructor,S> = class(TGeneriqueContraint<I>)
+constructor, S> = class(TGeneriqueContraint<I>)
     FData: I;
     Fitem: S;
   end;

@@ -11,7 +11,7 @@ type
   tchien = class(TMammifere)
     procedure getnom; override;
   end;
-  thandlermethod<t:tmammifere> = function: t of object;
+  thandlermethod<t: tmammifere> = function: t of object;
   tmondelegue  = thandlermethod<tmammifere>;
   tmondelegue2 = thandlermethod<tchien>;
 

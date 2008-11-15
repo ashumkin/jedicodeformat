@@ -23,7 +23,7 @@ type
   end;
 
   // Definie les délégués.
-  THandlerMethod<T:TMammifere> = function: T of object;
+  THandlerMethod<T: TMammifere> = function: T of object;
 
   TMonDelegue  = THandlerMethod<TMammifere>;
   TMonDelegue2 = THandlerMethod<TChien>;

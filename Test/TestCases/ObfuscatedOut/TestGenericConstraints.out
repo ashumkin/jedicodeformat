@@ -21,39 +21,39 @@ type
     Data: t;
   end;
 
-  tgenericclass<r:record> = class
+  tgenericclass<r: record> = class
     champ: r;
   end;
 
-  tgenericrecord<c:class> = record
+  tgenericrecord<c: class> = record
     maclasse: c;
   end;
 
-  tgenericclass2<c:class> = class
+  tgenericclass2<c: class> = class
     valeur: c;
   end;
 
-  tgenericrecord2<c:TList> = record
+  tgenericrecord2<c: TList> = record
     maclasse: c;
   end;
 
-  tgenericrecord3<c:class,
+  tgenericrecord3<c: class,
 constructor> = record
     maclasse: c;
   end;
 
-  tgenericclass3<u:tgenericclass<tenregistrement>> = class
+  tgenericclass3<u: tgenericclass<tenregistrement>> = class
     enregistrementun: u;
   end;
 
-  tgenericclass4<u:tgenericclass<tenregistrement>> = class
+  tgenericclass4<u: tgenericclass<tenregistrement>> = class
     enregistrementun:    u;
     enregistrementdeux:  tgenericrecord<TObject>;
     enregistrementtrois: tgenericrecord<tgenericclass<tenregistrement>>;
   end;
 
-  tclasscontraintetypenu<t,u> = class
-    type tclassimbriquee<s:u> = class
+  tclasscontraintetypenu<t, u> = class
+    type tclassimbriquee<s: u> = class
       valeur: s;
     end;
   end;
@@ -72,7 +72,7 @@ var
   obj5:    tgenericclass<tenregistrement>;
   obj6:    tgenericclass<integer>;
   obj7:    tgenericclass<couleurs>;
-  parent:  tclasscontraintetypenu<string,integer>;
+  parent:  tclasscontraintetypenu<string, integer>;
   naked:   TObject;
 begin
   try
@@ -85,9 +85,9 @@ begin
     obj2.valeur := TObject.Create;
     obj3   := tgenericclass2<string>.Create;
     obj3.valeur := 'Toto';
-    parent := tclasscontraintetypenu<string,integer>.Create;
+    parent := tclasscontraintetypenu<string, integer>.Create;
     naked  :=
-      tclasscontraintetypenu<string,integer>.tclassimbriquee<string>.Create;
+      tclasscontraintetypenu<string, integer>.tclassimbriquee<string>.Create;
   except
     on e: Exception do
       writeln(e.ClassName, ': ', e.message);

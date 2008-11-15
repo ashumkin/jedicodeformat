@@ -12,32 +12,32 @@ type
     fdata: i;
   end;
 
-  ttest<i,s> = class
+  ttest<i, s> = class
     fdata: i;
     fitem: s;
   end;
 
-  tgeneric<a,b> = class
+  tgeneric<a, b> = class
     fdata: a;
     fitem: b;
   end;
 
-  tgeneric<a> = class(TGeneric<A,string>)
+  tgeneric<a> = class(TGeneric<A, string>)
     fdata: a;
   end;
 
-  tgenerictest<r,u> = class(TGeneric<R>)
+  tgenerictest<r, u> = class(TGeneric<R>)
     fdata: r;
   end;
 var
   gen1: ttest;
   gen2: ttest<integer>;
-  gen3: ttest<integer,string>;
+  gen3: ttest<integer, string>;
 begin
   try
     gen1 := ttest.Create;
     gen2 := ttest<integer>.Create;
-    gen3 := ttest<integer,string>.Create;
+    gen3 := ttest<integer, string>.Create;
   except
     on e: Exception do
       writeln(e.ClassName, ': ', e.message);

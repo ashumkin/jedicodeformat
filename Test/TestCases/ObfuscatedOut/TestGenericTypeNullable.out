@@ -4,7 +4,7 @@ uses
   SysUtils;
 
 type
-  ttestnullable<t:record> = class
+  ttestnullable<t: record> = class
     procedure inverser(arg: system.nullable<t>; valeur: system.nullable<t>);
   end;
 

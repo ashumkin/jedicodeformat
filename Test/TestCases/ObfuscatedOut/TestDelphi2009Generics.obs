@@ -1,5 +1,8 @@
-unit testdelphi2009generics;interface uses generics.collections;implementation function
-testlist:integer;var lilist:tlist<integer>;begin lilist:=tlist<integer>.create();
-lilist.add(12);lilist.add(24);lilist.add(48);result:=lilist.count;end;type trecordlist
-<t> =class(TEnumerable<T>)public type tenumerator=class(TEnumerator<T>)end;end;end
-. 
+unit testdelphi2009generics;interface uses generics.collections;type trecordlist
+<t> =class(TEnumerable<T>)public type tenumerator=class(TEnumerator<T>)end;end;tgenericone
+<t> =class public function gett:t;virtual;abstract;end;tgenerictwo<s,t> =class public
+function gett:t;virtual;abstract;function gets:s;virtual;abstract;end;tgenericthree
+<s,t,u> =class public function gett:t;virtual;abstract;function gets:s;virtual;abstract
+;function getu:u;virtual;abstract;end;implementation function testlist:integer;var
+lilist:tlist<integer>;begin lilist:=tlist<integer>.create();lilist.add(12);lilist
+.add(24);lilist.add(48);result:=lilist.count;end;end. 

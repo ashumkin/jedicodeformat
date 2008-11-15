@@ -34,29 +34,29 @@ type
   end;
 
 
-  TGenericClass<R:record> = class
+  TGenericClass<R: record> = class
     //Contrainte record sur une classe, attend un paramètre de type d'un type valeur
     Champ: R;
   end;
 
 
-  TGenericRecord<C:class> = record
+  TGenericRecord<C: class> = record
     //Contrainte class sur un enregistrement, attend un paramètre de type du type Classe
     MaClasse: C;
   end;
 
-  TGenericClass2<C:class> = class
+  TGenericClass2<C: class> = class
     //Contrainte class sur une classe , attend un paramètre de type du type Classe
     Valeur: C;
   end;
 
 
-  TGenericRecord2<C:TList> = record
+  TGenericRecord2<C: TList> = record
     //Contrainte sur une classe ancêtre, attend un paramètre de type du type TList et dévirée
     MaClasse: C;
   end;
 
-  TGenericRecord3<C:class,
+  TGenericRecord3<C: class,
 constructor> = record //Les contraintes peuvent être couplées.
     MaClasse: C;
   end;
@@ -67,12 +67,12 @@ constructor> = record //Les contraintes peuvent être couplées.
 
   //TGenericClass2<U:TGenericClass<R:Record>>=Class // E2003: Identificateur non déclaré : 'R'
   // Nécessite un type fermé.
-  TGenericClass3<U:TGenericClass<TEnregistrement>> = class
+  TGenericClass3<U: TGenericClass<TEnregistrement>> = class
     //Contrainte sur une classe générique particuliére
     EnregistrementUn: U;
   end;
 
-  TGenericClass4<U:TGenericClass<TEnregistrement>> = class
+  TGenericClass4<U: TGenericClass<TEnregistrement>> = class
     EnregistrementUn:    U;
     EnregistrementDeux:  TGenericRecord<TObject>;
     EnregistrementTrois: TGenericRecord<TGenericClass<TEnregistrement>>;
@@ -80,9 +80,9 @@ constructor> = record //Les contraintes peuvent être couplées.
     //EnregistrementQuatre: TGenericClass<TGenericRecord<TObject>>;
   end;
 
-  TClassContrainteTypeNu<T,U> = class
+  TClassContrainteTypeNu<T, U> = class
     type
-    TClassImbriquee<S:U> = class
+    TClassImbriquee<S: U> = class
       Valeur: S;
     end;
   end;
@@ -106,7 +106,7 @@ var
   Obj6: TGenericClass<integer>;
   Obj7: TGenericClass<Couleurs>;
 
-  Parent: TClassContrainteTypeNu<string,integer>;
+  Parent: TClassContrainteTypeNu<string, integer>;
   Naked:  TObject;
 
 begin
@@ -124,9 +124,9 @@ begin
     Obj3 := TGenericClass2<string>.Create;
     Obj3.Valeur := 'Toto';
 
-    Parent := TClassContrainteTypeNu<string,integer>.Create;
+    Parent := TClassContrainteTypeNu<string, integer>.Create;
     //E2515 Le paramètre type 'S' n'est pas compatible avec le type 'Integer'
-    Naked  := TClassContrainteTypeNu<string,integer>.TClassImbriquee<string>.Create;
+    Naked  := TClassContrainteTypeNu<string, integer>.TClassImbriquee<string>.Create;
   except
     on E: Exception do
       Writeln(E.ClassName, ': ', E.Message);

@@ -21,7 +21,7 @@ type
     fdata: i;
   end;
 
-  tgeneriquederiveedegenerique<i,s> = class(TGeneriqueDeriveeDeClass<I>)
+  tgeneriquederiveedegenerique<i, s> = class(TGeneriqueDeriveeDeClass<I>)
     fdata: i;
     fitem: s;
   end;
@@ -32,7 +32,7 @@ constructor> = class
   end;
 
   tgeneriquederiveedegeneriquecontraint<i:
-constructor,s> = class(TGeneriqueContraint<I>)
+constructor, s> = class(TGeneriqueContraint<I>)
     fdata: i;
     fitem: s;
   end;

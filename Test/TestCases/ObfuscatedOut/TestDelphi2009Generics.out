@@ -4,6 +4,32 @@ interface
 
 uses generics.collections;
 
+type
+  trecordlist<t> = class(TEnumerable<T>)
+  public
+    type tenumerator = class(TEnumerator<T>)
+    end;
+
+  end;
+
+  tgenericone<t> = class
+  public
+    function gett: t; virtual; abstract;
+  end;
+
+  tgenerictwo<s, t> = class
+  public
+    function gett: t; virtual; abstract;
+    function gets: s; virtual; abstract;
+  end;
+
+  tgenericthree<s, t, u> = class
+  public
+    function gett: t; virtual; abstract;
+    function gets: s; virtual; abstract;
+    function getu: u; virtual; abstract;
+  end;
+
 implementation
 
 function testlist: integer;
@@ -16,14 +42,6 @@ begin
   lilist.add(48);
   Result := lilist.Count;
 end;
-
-type
-  trecordlist<t> = class(TEnumerable<T>)
-  public
-    type tenumerator = class(TEnumerator<T>)
-    end;
-
-  end;
 
 end.
  

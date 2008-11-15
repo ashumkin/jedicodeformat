@@ -656,7 +656,7 @@ end;
 
 procedure TFullTestClarify.TestDelphi2009Generics;
 begin
-  TestFile('TestDelphi2009Generics', 152);
+  TestFile('TestDelphi2009Generics', 302);
 end;
 
 procedure TFullTestClarify.TestDelphi2009AnonymousMethod;
