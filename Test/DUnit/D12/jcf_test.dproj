@@ -273,6 +273,7 @@
 						<Source Name="MainSource">jcf_test.dpr</Source>
 					</Source>
 				</Delphi.Personality>
+				<ModelSupport>False</ModelSupport>
 			</BorlandProject>
 			<ProjectFileVersion>12</ProjectFileVersion>
 		</ProjectExtensions>
