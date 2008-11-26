@@ -75,7 +75,7 @@ implementation
 uses
   SysUtils,
   { Jcl }
-  JclAnsiStrings,
+  JclStrings,
   { local }
   Capitalisation, JcfSettings, SetCaps, IdentifierCaps;
 
@@ -140,27 +140,27 @@ end;
 
 const
   LOWER_PROPERTY =
-    'private' + AnsiLineBreak +
-    'fiFoo: integer;' + AnsiLineBreak +
-    'public' + AnsiLineBreak +
-    ' property foo read fiFoo write fiFoo;' + AnsiLineBreak;
+    'private' + NativeLineBreak +
+    'fiFoo: integer;' + NativeLineBreak +
+    'public' + NativeLineBreak +
+    ' property foo read fiFoo write fiFoo;' + NativeLineBreak;
 
   UPPER_PROPERTY =
-    'PRIVATE' + AnsiLineBreak +
-    'fiFoo: integer;' + AnsiLineBreak +
-    'PUBLIC' + AnsiLineBreak +
-      ' property foo READ fiFoo WRITE fiFoo;' + AnsiLineBreak;
+    'PRIVATE' + NativeLineBreak +
+    'fiFoo: integer;' + NativeLineBreak +
+    'PUBLIC' + NativeLineBreak +
+      ' property foo READ fiFoo WRITE fiFoo;' + NativeLineBreak;
 
   MIXED_PROPERTY =
-    'Private' + AnsiLineBreak +
-    'fiFoo: integer;' + AnsiLineBreak +
-    'Public' + AnsiLineBreak +
-      ' property foo Read fiFoo Write fiFoo;' + AnsiLineBreak;
+    'Private' + NativeLineBreak +
+    'fiFoo: integer;' + NativeLineBreak +
+    'Public' + NativeLineBreak +
+      ' property foo Read fiFoo Write fiFoo;' + NativeLineBreak;
 
   UNIT_TEXT_PREFIX  = UNIT_HEADER +
-    'type TFoo = class' + AnsiLineBreak;
+    'type TFoo = class' + NativeLineBreak;
 
-  UNIT_TEXT_SUFFIX = 'end;' + AnsiLineBreak +
+  UNIT_TEXT_SUFFIX = 'end;' + NativeLineBreak +
     UNIT_FOOTER;
 
   LOWER_UNIT = UNIT_TEXT_PREFIX + LOWER_PROPERTY + UNIT_TEXT_SUFFIX;
@@ -209,75 +209,75 @@ end;
 
 const
   TEST_IDENTIFIER_CAPS_IN =
-    'unit testCaps;' + AnsiLineBreak +
-    'interface' + AnsiLineBreak +
-    'type' + AnsiLineBreak +
-    '  TTester = class' + AnsiLineBreak +
-    '  private' + AnsiLineBreak +
-    '    fbRead: boolean;' + AnsiLineBreak +
-    '    fbWrite: boolean;' + AnsiLineBreak +
-    '    procedure SetRead(const Value: boolean);' + AnsiLineBreak +
-    '    public' + AnsiLineBreak +
-    '      property read: boolean read fbRead write SetRead;' + AnsiLineBreak +
-    '      property write: boolean read fbWrite write fbWrite;' + AnsiLineBreak +
-    '  end;' + AnsiLineBreak +
-    'implementation' + AnsiLineBreak +
-    'procedure TTester.SetRead(const Value: boolean);' + AnsiLineBreak +
-    'var' + AnsiLineBreak +
-    '  strict: integer;' + AnsiLineBreak +
-    '  public: boolean;' + AnsiLineBreak +
-    '  override: boolean;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '  fbRead := Value;' + AnsiLineBreak +
-    'end;' + AnsiLineBreak +
+    'unit testCaps;' + NativeLineBreak +
+    'interface' + NativeLineBreak +
+    'type' + NativeLineBreak +
+    '  TTester = class' + NativeLineBreak +
+    '  private' + NativeLineBreak +
+    '    fbRead: boolean;' + NativeLineBreak +
+    '    fbWrite: boolean;' + NativeLineBreak +
+    '    procedure SetRead(const Value: boolean);' + NativeLineBreak +
+    '    public' + NativeLineBreak +
+    '      property read: boolean read fbRead write SetRead;' + NativeLineBreak +
+    '      property write: boolean read fbWrite write fbWrite;' + NativeLineBreak +
+    '  end;' + NativeLineBreak +
+    'implementation' + NativeLineBreak +
+    'procedure TTester.SetRead(const Value: boolean);' + NativeLineBreak +
+    'var' + NativeLineBreak +
+    '  strict: integer;' + NativeLineBreak +
+    '  public: boolean;' + NativeLineBreak +
+    '  override: boolean;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '  fbRead := Value;' + NativeLineBreak +
+    'end;' + NativeLineBreak +
     'end.';
 
   TEST_IDENTIFIER_CAPS_OUT_IDS =
-    'unit testCaps;' + AnsiLineBreak +
-    'interface' + AnsiLineBreak +
-    'type' + AnsiLineBreak +
-    '  TTester = class' + AnsiLineBreak +
-    '  private' + AnsiLineBreak +
-    '    fbRead: boolean;' + AnsiLineBreak +
-    '    fbWrite: boolean;' + AnsiLineBreak +
-    '    procedure SetRead(const Value: boolean);' + AnsiLineBreak +
-    '    public' + AnsiLineBreak +
-    '      property Read: boolean read fbRead write SetRead;' + AnsiLineBreak +
-    '      property Write: boolean read fbWrite write fbWrite;' + AnsiLineBreak +
-    '  end;' + AnsiLineBreak +
-    'implementation' + AnsiLineBreak +
-    'procedure TTester.SetRead(const Value: boolean);' + AnsiLineBreak +
-    'var' + AnsiLineBreak +
-    '  Strict: integer;' + AnsiLineBreak +
-    '  Public: boolean;' + AnsiLineBreak +
-    '  override: boolean;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '  fbRead := Value;' + AnsiLineBreak +
-    'end;' + AnsiLineBreak +
+    'unit testCaps;' + NativeLineBreak +
+    'interface' + NativeLineBreak +
+    'type' + NativeLineBreak +
+    '  TTester = class' + NativeLineBreak +
+    '  private' + NativeLineBreak +
+    '    fbRead: boolean;' + NativeLineBreak +
+    '    fbWrite: boolean;' + NativeLineBreak +
+    '    procedure SetRead(const Value: boolean);' + NativeLineBreak +
+    '    public' + NativeLineBreak +
+    '      property Read: boolean read fbRead write SetRead;' + NativeLineBreak +
+    '      property Write: boolean read fbWrite write fbWrite;' + NativeLineBreak +
+    '  end;' + NativeLineBreak +
+    'implementation' + NativeLineBreak +
+    'procedure TTester.SetRead(const Value: boolean);' + NativeLineBreak +
+    'var' + NativeLineBreak +
+    '  Strict: integer;' + NativeLineBreak +
+    '  Public: boolean;' + NativeLineBreak +
+    '  override: boolean;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '  fbRead := Value;' + NativeLineBreak +
+    'end;' + NativeLineBreak +
     'end.';
 
     TEST_IDENTIFIER_CAPS_OUT_BOTH =
-    'unit testCaps;' + AnsiLineBreak +
-    'interface' + AnsiLineBreak +
-    'type' + AnsiLineBreak +
-    '  TTester = class' + AnsiLineBreak +
-    '  private' + AnsiLineBreak +
-    '    fbRead: boolean;' + AnsiLineBreak +
-    '    fbWrite: boolean;' + AnsiLineBreak +
-    '    procedure SetRead(const Value: boolean);' + AnsiLineBreak +
-    '    PUBLIC' + AnsiLineBreak +
-    '      property Read: boolean READ fbRead WRITE SetRead;' + AnsiLineBreak +
-    '      property Write: boolean READ fbWrite WRITE fbWrite;' + AnsiLineBreak +
-    '  end;' + AnsiLineBreak +
-    'implementation' + AnsiLineBreak +
-    'procedure TTester.SetRead(const Value: boolean);' + AnsiLineBreak +
-    'var' + AnsiLineBreak +
-    '  Strict: integer;' + AnsiLineBreak +
-    '  Public: boolean;' + AnsiLineBreak +
-    '  override: boolean;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '  fbRead := Value;' + AnsiLineBreak +
-    'end;' + AnsiLineBreak +
+    'unit testCaps;' + NativeLineBreak +
+    'interface' + NativeLineBreak +
+    'type' + NativeLineBreak +
+    '  TTester = class' + NativeLineBreak +
+    '  private' + NativeLineBreak +
+    '    fbRead: boolean;' + NativeLineBreak +
+    '    fbWrite: boolean;' + NativeLineBreak +
+    '    procedure SetRead(const Value: boolean);' + NativeLineBreak +
+    '    PUBLIC' + NativeLineBreak +
+    '      property Read: boolean READ fbRead WRITE SetRead;' + NativeLineBreak +
+    '      property Write: boolean READ fbWrite WRITE fbWrite;' + NativeLineBreak +
+    '  end;' + NativeLineBreak +
+    'implementation' + NativeLineBreak +
+    'procedure TTester.SetRead(const Value: boolean);' + NativeLineBreak +
+    'var' + NativeLineBreak +
+    '  Strict: integer;' + NativeLineBreak +
+    '  Public: boolean;' + NativeLineBreak +
+    '  override: boolean;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '  fbRead := Value;' + NativeLineBreak +
+    'end;' + NativeLineBreak +
     'end.';
 
 

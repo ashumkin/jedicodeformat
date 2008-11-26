@@ -89,18 +89,18 @@ type
 implementation
 
 uses
-  JclAnsiStrings,
+  JclStrings,
   SortUses,
   JcfSettings;
 
 const
   TEST_UNIT_START =
-    'unit TestUnit;' + AnsiLineBreak + AnsiLineBreak +
-    'interface' + AnsiLineBreak;
+    'unit TestUnit;' + NativeLineBreak + NativeLineBreak +
+    'interface' + NativeLineBreak;
 
 TEST_UNIT_END =
-    AnsiLineBreak +
-    'implementation' + AnsiLineBreak + AnsiLineBreak +
+    NativeLineBreak +
+    'implementation' + NativeLineBreak + NativeLineBreak +
     'end.';
 
 procedure SetTestSortState;
@@ -153,7 +153,7 @@ end;
 procedure TTestSortUses.Test1;
 const
   IN_UNIT_TEXT = TEST_UNIT_START +
-    ' uses aUnit;' + AnsiLineBreak +
+    ' uses aUnit;' + NativeLineBreak +
     TEST_UNIT_END;
 begin
   SetTestSortState;
@@ -164,7 +164,7 @@ end;
 procedure TTestSortUses.Test2;
 const
   IN_UNIT_TEXT = TEST_UNIT_START +
-    ' uses aUnit, bUnit;' + AnsiLineBreak +
+    ' uses aUnit, bUnit;' + NativeLineBreak +
     TEST_UNIT_END;
 begin
   SetTestSortState;
@@ -176,10 +176,10 @@ end;
 procedure TTestSortUses.Test2_outofOrder;
 const
   IN_UNIT_TEXT = TEST_UNIT_START +
-    ' uses bUnit, aUnit;' + AnsiLineBreak +
+    ' uses bUnit, aUnit;' + NativeLineBreak +
     TEST_UNIT_END;
   OUT_UNIT_TEXT = TEST_UNIT_START +
-    ' uses aUnit, bUnit;' + AnsiLineBreak +
+    ' uses aUnit, bUnit;' + NativeLineBreak +
     TEST_UNIT_END;
 begin
   SetTestSortState;
@@ -190,10 +190,10 @@ end;
 procedure TTestSortUses.Test2_outofOrder_DotNet;
 const
   IN_UNIT_TEXT = TEST_UNIT_START +
-    ' uses Foo.bUnit, Foo.aUnit;' + AnsiLineBreak +
+    ' uses Foo.bUnit, Foo.aUnit;' + NativeLineBreak +
     TEST_UNIT_END;
   OUT_UNIT_TEXT = TEST_UNIT_START +
-    ' uses Foo.aUnit, Foo.bUnit;' + AnsiLineBreak +
+    ' uses Foo.aUnit, Foo.bUnit;' + NativeLineBreak +
     TEST_UNIT_END;
 begin
   SetTestSortState;
@@ -204,10 +204,10 @@ end;
 procedure TTestSortUses.Test2_outofOrder_DotNet2;
 const
   IN_UNIT_TEXT = TEST_UNIT_START +
-    ' uses Foo.bUnit, Bar.bUnit;' + AnsiLineBreak +
+    ' uses Foo.bUnit, Bar.bUnit;' + NativeLineBreak +
     TEST_UNIT_END;
   OUT_UNIT_TEXT = TEST_UNIT_START +
-    ' uses Bar.bUnit, Foo.bUnit;' + AnsiLineBreak +
+    ' uses Bar.bUnit, Foo.bUnit;' + NativeLineBreak +
     TEST_UNIT_END;
 begin
   SetTestSortState;
@@ -218,10 +218,10 @@ end;
 procedure TTestSortUses.Test4_outofOrder_DotNet;
 const
   IN_UNIT_TEXT = TEST_UNIT_START +
-    ' uses Foo.bUnit, Bar.aUnit, Bar.bUnit, Foo.aUnit;' + AnsiLineBreak +
+    ' uses Foo.bUnit, Bar.aUnit, Bar.bUnit, Foo.aUnit;' + NativeLineBreak +
     TEST_UNIT_END;
   OUT_UNIT_TEXT = TEST_UNIT_START +
-    ' uses Bar.aUnit, Bar.bUnit, Foo.aUnit, Foo.bUnit;' + AnsiLineBreak +
+    ' uses Bar.aUnit, Bar.bUnit, Foo.aUnit, Foo.bUnit;' + NativeLineBreak +
     TEST_UNIT_END;
 begin
   SetTestSortState;
@@ -233,10 +233,10 @@ end;
 procedure TTestSortUses.Test6_outofOrder_DotNet;
 const
   IN_UNIT_TEXT = TEST_UNIT_START +
-    ' uses Zed.Bee, Foo.bUnit, Bar.aUnit, Bar.bUnit, Foo.aUnit, System.Type;' + AnsiLineBreak +
+    ' uses Zed.Bee, Foo.bUnit, Bar.aUnit, Bar.bUnit, Foo.aUnit, System.Type;' + NativeLineBreak +
     TEST_UNIT_END;
   OUT_UNIT_TEXT = TEST_UNIT_START +
-    ' uses Bar.aUnit, Bar.bUnit, Foo.aUnit, Foo.bUnit, System.Type, Zed.Bee;' + AnsiLineBreak +
+    ' uses Bar.aUnit, Bar.bUnit, Foo.aUnit, Foo.bUnit, System.Type, Zed.Bee;' + NativeLineBreak +
     TEST_UNIT_END;
 begin
   SetTestSortState;
@@ -247,7 +247,7 @@ end;
 procedure TTestSortUses.Test3;
 const
   IN_UNIT_TEXT = TEST_UNIT_START +
-    ' uses aUnit, bUnit, cUnit;' + AnsiLineBreak +
+    ' uses aUnit, bUnit, cUnit;' + NativeLineBreak +
     TEST_UNIT_END;
 begin
   SetTestSortState;
@@ -258,10 +258,10 @@ end;
 procedure TTestSortUses.Test3_outofOrder;
 const
   IN_UNIT_TEXT = TEST_UNIT_START +
-    ' uses cUnit, aUnit, bUnit;' + AnsiLineBreak +
+    ' uses cUnit, aUnit, bUnit;' + NativeLineBreak +
     TEST_UNIT_END;
   OUT_UNIT_TEXT = TEST_UNIT_START +
-    ' uses aUnit, bUnit, cUnit;' + AnsiLineBreak +
+    ' uses aUnit, bUnit, cUnit;' + NativeLineBreak +
     TEST_UNIT_END;
 begin
   SetTestSortState;
@@ -272,10 +272,10 @@ end;
 procedure TTestSortUses.Test10_outofOrder;
 const
   IN_UNIT_TEXT = TEST_UNIT_START +
-    ' uses dUnit, cUnit, wUnit, zUnit, fUnit, aUnit, bUnit, jUnit, nUnit, pUnit;' + AnsiLineBreak +
+    ' uses dUnit, cUnit, wUnit, zUnit, fUnit, aUnit, bUnit, jUnit, nUnit, pUnit;' + NativeLineBreak +
     TEST_UNIT_END;
   OUT_UNIT_TEXT = TEST_UNIT_START +
-    ' uses aUnit, bUnit, cUnit, dUnit, fUnit, jUnit, nUnit, pUnit, wUnit, zUnit;' + AnsiLineBreak +
+    ' uses aUnit, bUnit, cUnit, dUnit, fUnit, jUnit, nUnit, pUnit, wUnit, zUnit;' + NativeLineBreak +
     TEST_UNIT_END;
 begin
   SetTestSortState;
@@ -286,12 +286,12 @@ end;
 procedure TTestSortUses.TestSectionsReturn1;
 const
   IN_UNIT_TEXT = TEST_UNIT_START +
-    ' uses cUnit, aUnit,' + AnsiLineBreak +
-    ' zUnit, bUnit;' + AnsiLineBreak +
+    ' uses cUnit, aUnit,' + NativeLineBreak +
+    ' zUnit, bUnit;' + NativeLineBreak +
     TEST_UNIT_END;
   OUT_UNIT_TEXT = TEST_UNIT_START +
-    ' uses aUnit, cUnit, ' + AnsiLineBreak +
-    ' bUnit, zUnit;' + AnsiLineBreak +
+    ' uses aUnit, cUnit, ' + NativeLineBreak +
+    ' bUnit, zUnit;' + NativeLineBreak +
     TEST_UNIT_END;
 begin
   SetTestSortState;
@@ -302,12 +302,12 @@ end;
 procedure TTestSortUses.TestSectionsReturn2;
 const
   IN_UNIT_TEXT = TEST_UNIT_START +
-    ' uses aUnit,' + AnsiLineBreak +
-    ' zUnit, bUnit;' + AnsiLineBreak +
+    ' uses aUnit,' + NativeLineBreak +
+    ' zUnit, bUnit;' + NativeLineBreak +
     TEST_UNIT_END;
   OUT_UNIT_TEXT = TEST_UNIT_START +
-    ' uses aUnit,' + AnsiLineBreak +
-    ' bUnit, zUnit;' + AnsiLineBreak +
+    ' uses aUnit,' + NativeLineBreak +
+    ' bUnit, zUnit;' + NativeLineBreak +
     TEST_UNIT_END;
 begin
   SetTestSortState;
@@ -317,14 +317,14 @@ begin
 procedure TTestSortUses.TestSectionsReturn3;
 const
   IN_UNIT_TEXT = TEST_UNIT_START +
-    ' uses cUnit, aUnit,' + AnsiLineBreak +
-    ' fUnit,' + AnsiLineBreak +
-    ' zUnit, bUnit;' + AnsiLineBreak +
+    ' uses cUnit, aUnit,' + NativeLineBreak +
+    ' fUnit,' + NativeLineBreak +
+    ' zUnit, bUnit;' + NativeLineBreak +
     TEST_UNIT_END;
   OUT_UNIT_TEXT = TEST_UNIT_START +
-    ' uses aUnit, cUnit, ' + AnsiLineBreak +
-    ' fUnit,' + AnsiLineBreak +
-    ' bUnit, zUnit;' + AnsiLineBreak +
+    ' uses aUnit, cUnit, ' + NativeLineBreak +
+    ' fUnit,' + NativeLineBreak +
+    ' bUnit, zUnit;' + NativeLineBreak +
     TEST_UNIT_END;
 begin
   SetTestSortState;
@@ -337,14 +337,14 @@ end;
 procedure TTestSortUses.TestSectionsReturnComma;
 const
   IN_UNIT_TEXT = TEST_UNIT_START +
-    ' Uses SysUtils {Exception}' + AnsiLineBreak +
+    ' Uses SysUtils {Exception}' + NativeLineBreak +
     ', WinTypes' +
-    ';' + AnsiLineBreak +
+    ';' + NativeLineBreak +
     TEST_UNIT_END;
   OUT_UNIT_TEXT = TEST_UNIT_START +
-    ' Uses SysUtils {Exception}, ' +  AnsiLineBreak +
+    ' Uses SysUtils {Exception}, ' +  NativeLineBreak +
     ' WinTypes' +
-    ';' + AnsiLineBreak +
+    ';' + NativeLineBreak +
     TEST_UNIT_END;
 begin
   SetTestSortState;
@@ -356,10 +356,10 @@ end;
 procedure TTestSortUses.TestComment1;
 const
   IN_UNIT_TEXT = TEST_UNIT_START +
-    ' uses bUnit {a comment}, aUnit;' + AnsiLineBreak +
+    ' uses bUnit {a comment}, aUnit;' + NativeLineBreak +
     TEST_UNIT_END;
   OUT_UNIT_TEXT = TEST_UNIT_START +
-    ' uses aUnit, bUnit {a comment};' + AnsiLineBreak +
+    ' uses aUnit, bUnit {a comment};' + NativeLineBreak +
     TEST_UNIT_END;
 begin
   SetTestSortState;
@@ -370,10 +370,10 @@ end;
 procedure TTestSortUses.TestComment2;
 const
   IN_UNIT_TEXT = TEST_UNIT_START +
-    ' uses bUnit, aUnit {a comment};' + AnsiLineBreak +
+    ' uses bUnit, aUnit {a comment};' + NativeLineBreak +
     TEST_UNIT_END;
   OUT_UNIT_TEXT = TEST_UNIT_START +
-    ' uses aUnit {a comment}, bUnit;' + AnsiLineBreak +
+    ' uses aUnit {a comment}, bUnit;' + NativeLineBreak +
     TEST_UNIT_END;
 begin
   SetTestSortState;
@@ -384,12 +384,12 @@ end;
 procedure TTestSortUses.TestComment3;
 const
   IN_UNIT_TEXT = TEST_UNIT_START +
-    ' uses bUnit, // a comment' + AnsiLineBreak +
-    ' aUnit;' + AnsiLineBreak +
+    ' uses bUnit, // a comment' + NativeLineBreak +
+    ' aUnit;' + NativeLineBreak +
     TEST_UNIT_END;
   OUT_UNIT_TEXT = TEST_UNIT_START +
-    ' uses aUnit, bUnit, // a comment' + AnsiLineBreak +
-    ';' + AnsiLineBreak + TEST_UNIT_END;
+    ' uses aUnit, bUnit, // a comment' + NativeLineBreak +
+    ';' + NativeLineBreak + TEST_UNIT_END;
 begin
   SetTestSortState;
 
@@ -399,21 +399,21 @@ end;
 procedure TTestSortUses.TestSortByCommentSection1;
 const
   IN_UNIT_TEXT = TEST_UNIT_START +
-    ' uses bDUnit,' + AnsiLineBreak +
-    ' zDUnit,' + AnsiLineBreak +
-    ' fDUnit,' + AnsiLineBreak +
-    ' { new section }' + AnsiLineBreak +
-    ' gUnit,' + AnsiLineBreak +
-    ' aUnit,' + AnsiLineBreak +
-    ' cUnit; ' + AnsiLineBreak +
+    ' uses bDUnit,' + NativeLineBreak +
+    ' zDUnit,' + NativeLineBreak +
+    ' fDUnit,' + NativeLineBreak +
+    ' { new section }' + NativeLineBreak +
+    ' gUnit,' + NativeLineBreak +
+    ' aUnit,' + NativeLineBreak +
+    ' cUnit; ' + NativeLineBreak +
     TEST_UNIT_END;
   OUT_UNIT_TEXT = TEST_UNIT_START +
-    ' uses bDUnit,' + AnsiLineBreak +
-    ' fDUnit,' + AnsiLineBreak +
-    ' zDUnit,' + AnsiLineBreak +
-    ' { new section }' + AnsiLineBreak +
-    ' aUnit,' + AnsiLineBreak +
-    ' cUnit, gUnit; ' + AnsiLineBreak + TEST_UNIT_END;
+    ' uses bDUnit,' + NativeLineBreak +
+    ' fDUnit,' + NativeLineBreak +
+    ' zDUnit,' + NativeLineBreak +
+    ' { new section }' + NativeLineBreak +
+    ' aUnit,' + NativeLineBreak +
+    ' cUnit, gUnit; ' + NativeLineBreak + TEST_UNIT_END;
 begin
   SetTestSortState;
   FormatSettings.Transform.BreakUsesSortOnComment := True;
@@ -424,21 +424,21 @@ end;
 procedure TTestSortUses.TestSortByCommentSection2;
 const
   IN_UNIT_TEXT = TEST_UNIT_START +
-    ' uses bDUnit,' + AnsiLineBreak +
-    ' zDUnit,' + AnsiLineBreak +
-    ' fDUnit,' + AnsiLineBreak +
-    ' // new section' + AnsiLineBreak +
-    ' gUnit,' + AnsiLineBreak +
-    ' aUnit,' + AnsiLineBreak +
-    ' cUnit; ' + AnsiLineBreak +
+    ' uses bDUnit,' + NativeLineBreak +
+    ' zDUnit,' + NativeLineBreak +
+    ' fDUnit,' + NativeLineBreak +
+    ' // new section' + NativeLineBreak +
+    ' gUnit,' + NativeLineBreak +
+    ' aUnit,' + NativeLineBreak +
+    ' cUnit; ' + NativeLineBreak +
     TEST_UNIT_END;
   OUT_UNIT_TEXT = TEST_UNIT_START +
-    ' uses bDUnit,' + AnsiLineBreak +
-    ' fDUnit,' + AnsiLineBreak +
-    ' zDUnit,' + AnsiLineBreak +
-    ' // new section' + AnsiLineBreak +
-    ' aUnit,' + AnsiLineBreak +
-    ' cUnit, gUnit; ' + AnsiLineBreak + TEST_UNIT_END;
+    ' uses bDUnit,' + NativeLineBreak +
+    ' fDUnit,' + NativeLineBreak +
+    ' zDUnit,' + NativeLineBreak +
+    ' // new section' + NativeLineBreak +
+    ' aUnit,' + NativeLineBreak +
+    ' cUnit, gUnit; ' + NativeLineBreak + TEST_UNIT_END;
 begin
   SetTestSortState;
   FormatSettings.Transform.BreakUsesSortOnComment := True;
@@ -449,22 +449,22 @@ end;
 procedure TTestSortUses.TestIfDef1;
 const
   IN_UNIT_TEXT = TEST_UNIT_START +
-    'uses' + AnsiLineBreak +
-    '  aZUnit, qZUnit, bZUnit, fZUNit,' + AnsiLineBreak +
-    '  {$IFDEF foo}' +  AnsiLineBreak +
-    '  aUnit, gUnit, bUnit;' + AnsiLineBreak +
-    '  {$ELSE}' +  AnsiLineBreak +
-    '  aQUnit, gQUnit, bQUnit;' + AnsiLineBreak +
-    '  {$ENDIF}' + AnsiLineBreak +
+    'uses' + NativeLineBreak +
+    '  aZUnit, qZUnit, bZUnit, fZUNit,' + NativeLineBreak +
+    '  {$IFDEF foo}' +  NativeLineBreak +
+    '  aUnit, gUnit, bUnit;' + NativeLineBreak +
+    '  {$ELSE}' +  NativeLineBreak +
+    '  aQUnit, gQUnit, bQUnit;' + NativeLineBreak +
+    '  {$ENDIF}' + NativeLineBreak +
     TEST_UNIT_END;
   OUT_UNIT_TEXT = TEST_UNIT_START +
-    'uses' + AnsiLineBreak +
-    '  aZUnit, bZUnit, fZUNit,' + AnsiLineBreak +
-    '  qZUnit, {$IFDEF foo}' + AnsiLineBreak +
-    '  aUnit, gUnit, bUnit;' + AnsiLineBreak +
-    '  {$ELSE}' + AnsiLineBreak +
-    '  aQUnit, bQUnit, gQUnit;' + AnsiLineBreak +
-    '  {$ENDIF}' + AnsiLineBreak +
+    'uses' + NativeLineBreak +
+    '  aZUnit, bZUnit, fZUNit,' + NativeLineBreak +
+    '  qZUnit, {$IFDEF foo}' + NativeLineBreak +
+    '  aUnit, gUnit, bUnit;' + NativeLineBreak +
+    '  {$ELSE}' + NativeLineBreak +
+    '  aQUnit, bQUnit, gQUnit;' + NativeLineBreak +
+    '  {$ENDIF}' + NativeLineBreak +
     TEST_UNIT_END;
 begin
   SetTestSortState;
@@ -475,24 +475,24 @@ end;
 procedure TTestSortUses.TestIfDef2;
 const
   IN_UNIT_TEXT = TEST_UNIT_START +
-    'uses' + AnsiLineBreak +
-    'aZUnit, qZUnit, bZUnit, fZUNit,' + AnsiLineBreak +
-    '{$IFDEF foo}' + AnsiLineBreak +
-    'aUnit, gUnit, bUnit,' + AnsiLineBreak +
-    '{$ELSE}' + AnsiLineBreak +
-    'aQUnit, gQUnit, bQUnit,' + AnsiLineBreak +
-    '{$ENDIF}' + AnsiLineBreak +
-    'xMUnit, gMUnit, rMUnit;' + AnsiLineBreak +
+    'uses' + NativeLineBreak +
+    'aZUnit, qZUnit, bZUnit, fZUNit,' + NativeLineBreak +
+    '{$IFDEF foo}' + NativeLineBreak +
+    'aUnit, gUnit, bUnit,' + NativeLineBreak +
+    '{$ELSE}' + NativeLineBreak +
+    'aQUnit, gQUnit, bQUnit,' + NativeLineBreak +
+    '{$ENDIF}' + NativeLineBreak +
+    'xMUnit, gMUnit, rMUnit;' + NativeLineBreak +
   TEST_UNIT_END;
   OUT_UNIT_TEXT = TEST_UNIT_START +
-    'uses' + AnsiLineBreak +
-    'aZUnit, bZUnit, fZUNit,' + AnsiLineBreak +
-    'qZUnit, {$IFDEF foo}' + AnsiLineBreak +
-    'aUnit, gUnit, bUnit,' + AnsiLineBreak +
-    '{$ELSE}' + AnsiLineBreak +
-    'aQUnit, bQUnit,' + AnsiLineBreak +
-    'gQUnit, {$ENDIF}' + AnsiLineBreak +
-    'gMUnit, rMUnit, xMUnit;' + AnsiLineBreak +
+    'uses' + NativeLineBreak +
+    'aZUnit, bZUnit, fZUNit,' + NativeLineBreak +
+    'qZUnit, {$IFDEF foo}' + NativeLineBreak +
+    'aUnit, gUnit, bUnit,' + NativeLineBreak +
+    '{$ELSE}' + NativeLineBreak +
+    'aQUnit, bQUnit,' + NativeLineBreak +
+    'gQUnit, {$ENDIF}' + NativeLineBreak +
+    'gMUnit, rMUnit, xMUnit;' + NativeLineBreak +
     TEST_UNIT_END;
 begin
   SetTestSortState;
@@ -503,21 +503,21 @@ end;
 procedure TTestSortUses.TestProgram;
 const
   IN_UNIT_TEXT =
-  ' program Project1;' + AnsiLineBreak + AnsiLineBreak +
-  '{$APPTYPE CONSOLE}' + AnsiLineBreak + AnsiLineBreak +
-  'uses' + AnsiLineBreak +
-  '  SysUtils, Windows, Controls, Messages; ' +  AnsiLineBreak + AnsiLineBreak +
-  'begin' + AnsiLineBreak +
-  '  Writeln(''Hello World !'');' + AnsiLineBreak +
+  ' program Project1;' + NativeLineBreak + NativeLineBreak +
+  '{$APPTYPE CONSOLE}' + NativeLineBreak + NativeLineBreak +
+  'uses' + NativeLineBreak +
+  '  SysUtils, Windows, Controls, Messages; ' +  NativeLineBreak + NativeLineBreak +
+  'begin' + NativeLineBreak +
+  '  Writeln(''Hello World !'');' + NativeLineBreak +
   'end.';
 
   OUT_UNIT_TEXT =
-  ' program Project1;' + AnsiLineBreak + AnsiLineBreak +
-  '{$APPTYPE CONSOLE}' + AnsiLineBreak + AnsiLineBreak +
-  'uses' + AnsiLineBreak +
-  '  Controls, Messages, SysUtils, Windows; ' +  AnsiLineBreak + AnsiLineBreak +
-  'begin' + AnsiLineBreak +
-  '  Writeln(''Hello World !'');' + AnsiLineBreak +
+  ' program Project1;' + NativeLineBreak + NativeLineBreak +
+  '{$APPTYPE CONSOLE}' + NativeLineBreak + NativeLineBreak +
+  'uses' + NativeLineBreak +
+  '  Controls, Messages, SysUtils, Windows; ' +  NativeLineBreak + NativeLineBreak +
+  'begin' + NativeLineBreak +
+  '  Writeln(''Hello World !'');' + NativeLineBreak +
   'end.';
 
 begin

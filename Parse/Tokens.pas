@@ -464,7 +464,6 @@ uses
   Windows,
   SysUtils,
   JclStrings,
-  JclAnsiStrings,
   JcfUnicode;
 
 { the majority of these tokens have a fixed textual representation
@@ -1045,7 +1044,7 @@ begin
       continue;
 
     liItemLen := Length(PreProcessorSymbolData[leLoop]);
-    if AnsiSameText(JclStrings.StrLeft(psSourceCode, liItemLen), PreProcessorSymbolData[leLoop]) and
+    if AnsiSameText(StrLeft(psSourceCode, liItemLen), PreProcessorSymbolData[leLoop]) and
       ( not WideCharIsAlpha(psSourceCode[liItemLen + 1])) then
     begin
       peSymbolType := leLoop;
@@ -1056,12 +1055,12 @@ begin
   if peSymbolType = ppNone then
     exit;
 
-  psText := JclStrings.StrRestOf(psSourceCode, Length(PreProcessorSymbolData[peSymbolType]) + 1);
+  psText := StrRestOf(psSourceCode, Length(PreProcessorSymbolData[peSymbolType]) + 1);
 
   if psText <> '' then
   begin
-    if JclStrings.StrRight(psText, 1) = '}' then
-      psText := JclStrings.StrChopRight(psText, 1);
+    if StrRight(psText, 1) = '}' then
+      psText := StrChopRight(psText, 1);
 
     psText := Trim(psText);
   end;

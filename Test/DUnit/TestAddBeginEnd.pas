@@ -84,10 +84,8 @@ type
 
 implementation
 
-{ TTestAddBeginEnd }
-
 uses
-  JclAnsiStrings,
+  JclStrings,
   JcfSettings, AddBeginEnd;
 
 procedure TTestAddBeginEnd.Setup;
@@ -104,31 +102,31 @@ begin
 end;
 
 const
-  UNIT_HEADER = 'unit CaseTest;' + AnsiLineBreak + AnsiLineBreak +
-    'interface ' + AnsiLineBreak + AnsiLineBreak +
-    'implementation' + AnsiLineBreak + AnsiLineBreak +
-    'uses Dialogs;' + AnsiLineBreak + AnsiLineBreak +
-    'procedure foo(i: integer);' + AnsiLineBreak +
-    'begin' + AnsiLineBreak;
+  UNIT_HEADER = 'unit CaseTest;' + NativeLineBreak + NativeLineBreak +
+    'interface ' + NativeLineBreak + NativeLineBreak +
+    'implementation' + NativeLineBreak + NativeLineBreak +
+    'uses Dialogs;' + NativeLineBreak + NativeLineBreak +
+    'procedure foo(i: integer);' + NativeLineBreak +
+    'begin' + NativeLineBreak;
 
-  UNIT_FOOTER = AnsiLineBreak + 'end;' + AnsiLineBreak + AnsiLineBreak +
+  UNIT_FOOTER = NativeLineBreak + 'end;' + NativeLineBreak + NativeLineBreak +
     'end.';
 
   IF_STATEMENT_TEXT_NO_BEGIN =
     UNIT_HEADER +
-    '  if i > 10 then ' + AnsiLineBreak +
+    '  if i > 10 then ' + NativeLineBreak +
     '    ShowMessage(''big'');' +
     UNIT_FOOTER;
 
   IF_STATEMENT_TEXT_WITH_BEGIN =
     UNIT_HEADER +
-    '  if i > 10 then ' + AnsiLineBreak +
+    '  if i > 10 then ' + NativeLineBreak +
     '    begin ShowMessage(''big'') end;' +
     UNIT_FOOTER;
 
   IF_ELSE_STATEMENT_TEXT_NO_BEGIN =
     UNIT_HEADER +
-    '  if i > 10 then ' + AnsiLineBreak +
+    '  if i > 10 then ' + NativeLineBreak +
     '    ShowMessage(''big'')' +
     ' else ' +
     '    ShowMessage(''small'');' +
@@ -136,7 +134,7 @@ const
 
   IF_ELSE_STATEMENT_TEXT_WITH_BEGIN =
     UNIT_HEADER +
-    '  if i > 10 then ' + AnsiLineBreak +
+    '  if i > 10 then ' + NativeLineBreak +
     '    begin ShowMessage(''big'') end' +
     ' else ' +
     '    begin ShowMessage(''small'') end;' +
@@ -144,59 +142,59 @@ const
 
   DOUBLE_IF_STATEMENT_TEXT_NO_BEGIN =
     UNIT_HEADER +
-    '  if i > 10 then ' + AnsiLineBreak +
-    '    if i > 20 then ' + AnsiLineBreak +
+    '  if i > 10 then ' + NativeLineBreak +
+    '    if i > 20 then ' + NativeLineBreak +
     '      ShowMessage(''big'');' +
     UNIT_FOOTER;
 
   DOUBLE_IF_STATEMENT_TEXT_WITH_BEGIN =
     UNIT_HEADER +
-    '  if i > 10 then ' + AnsiLineBreak +
-    '    begin if i > 20 then ' + AnsiLineBreak +
+    '  if i > 10 then ' + NativeLineBreak +
+    '    begin if i > 20 then ' + NativeLineBreak +
     '      begin ShowMessage(''big'') end end;' +
     UNIT_FOOTER;
 
   WHILE_STATEMENT_TEXT_NO_BEGIN =
     UNIT_HEADER +
-    '  while i > 10 do ' + AnsiLineBreak +
+    '  while i > 10 do ' + NativeLineBreak +
     '    ShowMessage(''big'');' +
     UNIT_FOOTER;
 
   WHILE_STATEMENT_TEXT_WITH_BEGIN =
     UNIT_HEADER +
-    '  while i > 10 do ' + AnsiLineBreak +
+    '  while i > 10 do ' + NativeLineBreak +
     '    begin ShowMessage(''big'') end;' +
     UNIT_FOOTER;
 
 
   FOR_STATEMENT_TEXT_NO_BEGIN =
     UNIT_HEADER +
-    '  for i := 1 to 3 do ' + AnsiLineBreak +
+    '  for i := 1 to 3 do ' + NativeLineBreak +
     '    ShowMessage(''big'');' +
     UNIT_FOOTER;
 
   FOR_STATEMENT_TEXT_WITH_BEGIN =
     UNIT_HEADER +
-    '  for i := 1 to 3 do ' + AnsiLineBreak +
+    '  for i := 1 to 3 do ' + NativeLineBreak +
     '    begin ShowMessage(''big'') end;' +
     UNIT_FOOTER;
 
 
   WITH_STATEMENT_TEXT_NO_BEGIN =
     UNIT_HEADER +
-    '  with i do ' + AnsiLineBreak +
+    '  with i do ' + NativeLineBreak +
     '    ShowMessage(''big'');' +
     UNIT_FOOTER;
 
   WITH_STATEMENT_TEXT_WITH_BEGIN =
     UNIT_HEADER +
-    '  with i do ' + AnsiLineBreak +
+    '  with i do ' + NativeLineBreak +
     '    begin ShowMessage(''big'') end;' +
     UNIT_FOOTER;
 
   CASE_STATEMENT_TEXT_NO_BEGIN =
     UNIT_HEADER +
-    '  case i of ' + AnsiLineBreak +
+    '  case i of ' + NativeLineBreak +
     '    1: ShowMessage(''one'');' +
     '    2: ShowMessage(''two'');' +
     '    else ShowMessage(''lots'');' +
@@ -205,7 +203,7 @@ const
 
   CASE_STATEMENT_TEXT_WITH_BEGIN =
     UNIT_HEADER +
-    '  case i of ' + AnsiLineBreak +
+    '  case i of ' + NativeLineBreak +
     '    1: begin ShowMessage(''one''); end;' +
     '    2: begin ShowMessage(''two''); end;' +
     '    else begin ShowMessage(''lots''); end;' +
@@ -215,22 +213,22 @@ const
 
   IF_FOR_STATEMENT_TEXT_NO_BEGIN =
     UNIT_HEADER +
-    '  if i > 3 then' + AnsiLineBreak +
-    '    for i := 1 to 3 do ' + AnsiLineBreak +
+    '  if i > 3 then' + NativeLineBreak +
+    '    for i := 1 to 3 do ' + NativeLineBreak +
     '      ShowMessage(''big'');' +
     UNIT_FOOTER;
 
   IF_FOR_STATEMENT_TEXT_WITH_BEGIN =
     UNIT_HEADER +
-    '  if i > 3 then' + AnsiLineBreak +
-    '    begin for i := 1 to 3 do ' + AnsiLineBreak +
+    '  if i > 3 then' + NativeLineBreak +
+    '    begin for i := 1 to 3 do ' + NativeLineBreak +
     '      begin ShowMessage(''big'') end; end;' +
     UNIT_FOOTER;
 
   IF_FOR_ELSE_STATEMENT_TEXT_NO_BEGIN =
     UNIT_HEADER +
-    '  if i > 3 then' + AnsiLineBreak +
-    '    for i := 1 to 3 do ' + AnsiLineBreak +
+    '  if i > 3 then' + NativeLineBreak +
+    '    for i := 1 to 3 do ' + NativeLineBreak +
     '      ShowMessage(''big'')' +
     '  else' +
     '    ShowMessage(''small'');' +
@@ -238,8 +236,8 @@ const
 
   IF_FOR_ELSE_STATEMENT_TEXT_WITH_BEGIN =
     UNIT_HEADER +
-    '  if i > 3 then' + AnsiLineBreak +
-    '    begin for i := 1 to 3 do ' + AnsiLineBreak +
+    '  if i > 3 then' + NativeLineBreak +
+    '    begin for i := 1 to 3 do ' + NativeLineBreak +
     '      begin ShowMessage(''big'') end end' +
     '  else' +
     '    begin ShowMessage(''small'') end;' +
@@ -247,8 +245,8 @@ const
 
   IF_FOR_ELSE_IF_STATEMENT_TEXT_NO_BEGIN =
     UNIT_HEADER +
-    '  if i > 3 then' + AnsiLineBreak +
-    '    for i := 1 to 3 do ' + AnsiLineBreak +
+    '  if i > 3 then' + NativeLineBreak +
+    '    for i := 1 to 3 do ' + NativeLineBreak +
     '      ShowMessage(''big'')' +
     '  else if i > 2 then' +
     '    ShowMessage(''small'');' +
@@ -256,8 +254,8 @@ const
 
   IF_FOR_ELSE_IF_STATEMENT_TEXT_WITH_BEGIN =
     UNIT_HEADER +
-    '  if i > 3 then' + AnsiLineBreak +
-    '    begin for i := 1 to 3 do ' + AnsiLineBreak +
+    '  if i > 3 then' + NativeLineBreak +
+    '    begin for i := 1 to 3 do ' + NativeLineBreak +
     '      begin ShowMessage(''big'') end end' +
     '  else if i > 2 then' +
     '    begin ShowMessage(''small'') end;' +
@@ -269,41 +267,41 @@ const
     Thus changing the program meaning }
   NESTED_IF_TEXT_WITH_BEGIN1 =
     UNIT_HEADER +
-    '  if i > 3 then' + AnsiLineBreak +
-    '  begin' + AnsiLineBreak +
-    '    if i > 5 then' + AnsiLineBreak +
-    '      ShowMessage(''bigger'')' + AnsiLineBreak +
-    '  end' + AnsiLineBreak +
-    '  else' + AnsiLineBreak +
+    '  if i > 3 then' + NativeLineBreak +
+    '  begin' + NativeLineBreak +
+    '    if i > 5 then' + NativeLineBreak +
+    '      ShowMessage(''bigger'')' + NativeLineBreak +
+    '  end' + NativeLineBreak +
+    '  else' + NativeLineBreak +
     '    ShowMessage(''big'');' +
     UNIT_FOOTER;
 
     NESTED_IF_WITH_ALL_BEGINS1 =
       UNIT_HEADER +
-    '  if i > 3 then' + AnsiLineBreak +
-    '  begin'+ AnsiLineBreak +
-    '    if i > 5 then' + AnsiLineBreak +
-    '      begin ShowMessage(''bigger'') end' + AnsiLineBreak +
-    '  end' + AnsiLineBreak +
-    '  else' + AnsiLineBreak +
+    '  if i > 3 then' + NativeLineBreak +
+    '  begin'+ NativeLineBreak +
+    '    if i > 5 then' + NativeLineBreak +
+    '      begin ShowMessage(''bigger'') end' + NativeLineBreak +
+    '  end' + NativeLineBreak +
+    '  else' + NativeLineBreak +
     '    begin ShowMessage(''big'') end;' + 
     UNIT_FOOTER;
 
   NESTED_IF_TEXT_WITH_BEGIN2 =
     UNIT_HEADER +
-    '  if i > 3 then' + AnsiLineBreak +
-    '    begin if i > 5 then' + AnsiLineBreak +
-    '     begin ShowMessage(''bigger'') end' + AnsiLineBreak +
-    '    else' + AnsiLineBreak +
+    '  if i > 3 then' + NativeLineBreak +
+    '    begin if i > 5 then' + NativeLineBreak +
+    '     begin ShowMessage(''bigger'') end' + NativeLineBreak +
+    '    else' + NativeLineBreak +
     '     begin ShowMessage(''big'') end end;' +
     UNIT_FOOTER;
 
   NESTED_IF_TEXT_NO_BEGIN2 =
     UNIT_HEADER +
-    '  if i > 3 then' + AnsiLineBreak +
-    '    if i > 5 then' + AnsiLineBreak +
-    '     ShowMessage(''bigger'')' + AnsiLineBreak +
-    '    else' + AnsiLineBreak +
+    '  if i > 3 then' + NativeLineBreak +
+    '    if i > 5 then' + NativeLineBreak +
+    '     ShowMessage(''bigger'')' + NativeLineBreak +
+    '    else' + NativeLineBreak +
     '     ShowMessage(''big'');' +
     UNIT_FOOTER;
 
@@ -532,14 +530,14 @@ end;
 const
   TEST_1174572_IN =
     UNIT_HEADER +
-    '  if i > 3 then' + AnsiLineBreak +
-    '  begin' + AnsiLineBreak +
-    '    if i > 5 then' + AnsiLineBreak +
-    '      ShowMessage(''foo'')' + AnsiLineBreak +
-    '    else if Condition_C then' + AnsiLineBreak +
-    '      ShowMessage(''fish'')' + AnsiLineBreak +
-    '  end' + AnsiLineBreak +
-    '  else' + AnsiLineBreak +
+    '  if i > 3 then' + NativeLineBreak +
+    '  begin' + NativeLineBreak +
+    '    if i > 5 then' + NativeLineBreak +
+    '      ShowMessage(''foo'')' + NativeLineBreak +
+    '    else if Condition_C then' + NativeLineBreak +
+    '      ShowMessage(''fish'')' + NativeLineBreak +
+    '  end' + NativeLineBreak +
+    '  else' + NativeLineBreak +
     '    ShowMessage(''spon'');' +
     UNIT_FOOTER;
 
@@ -557,15 +555,15 @@ end;
 const
   TEST_1262542_IN =
     UNIT_HEADER +
-    '  if i > 3 then' + AnsiLineBreak +
-    '    if i > 5 then' + AnsiLineBreak +
-    '      ShowMessage(''foo'')' + AnsiLineBreak +
-    '    else' + AnsiLineBreak  +
-    '    begin' + AnsiLineBreak +
-    '      if Condition_C then' + AnsiLineBreak +
-    '         ShowMessage(''fish'')' + AnsiLineBreak +
-    '     end' + AnsiLineBreak +
-    '  else' + AnsiLineBreak +
+    '  if i > 3 then' + NativeLineBreak +
+    '    if i > 5 then' + NativeLineBreak +
+    '      ShowMessage(''foo'')' + NativeLineBreak +
+    '    else' + NativeLineBreak  +
+    '    begin' + NativeLineBreak +
+    '      if Condition_C then' + NativeLineBreak +
+    '         ShowMessage(''fish'')' + NativeLineBreak +
+    '     end' + NativeLineBreak +
+    '  else' + NativeLineBreak +
     '    ShowMessage(''spon'');' +
     UNIT_FOOTER;
 

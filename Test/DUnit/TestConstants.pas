@@ -54,7 +54,6 @@ uses
   Windows,
   { jcl }
   JclStrings,
-  JclAnsiStrings,
   { local }
   JcfRegistrySettings, JcfSettings, ConvertTypes;
 
@@ -79,7 +78,7 @@ begin
   outputIndex := Pos(OUTPUT_DIR, msBaseDir);
   if outputIndex > 0 then
   begin
-    msBaseDir := JclStrings.StrLeft(msBaseDir, outputIndex);
+    msBaseDir := StrLeft(msBaseDir, outputIndex);
   end;
 end;
 

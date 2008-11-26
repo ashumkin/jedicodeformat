@@ -115,7 +115,6 @@ uses
   Controls, Forms,
   { JCL }
   JclStrings,
-  JclAnsiStrings,
   { local }
   JcfUnicode,
   SourceTokenList, SourceToken,
@@ -125,7 +124,7 @@ uses
 
 function StrInsert(const psSub, psMain: string; const piPos: integer): string;
 begin
-  Result := JclStrings.StrLeft(psMain, piPos - 1) + psSub + JclStrings.StrRestOf(psMain, piPos);
+  Result := StrLeft(psMain, piPos - 1) + psSub + StrRestOf(psMain, piPos);
 end;
 
 
@@ -244,7 +243,6 @@ begin
   finally
     Screen.Cursor := leOldCursor;
   end;
-
 end;
 
 { this is what alters the code (in parse tree form) from source to output }
@@ -349,7 +347,7 @@ begin
   if pe is TEParseError then
   begin
     leParseError := TEParseError(pe);
-    lsMessage := lsMessage + AnsiLineBreak + 'Near ' + leParseError.TokenMessage;
+    lsMessage := lsMessage + NativeLineBreak + 'Near ' + leParseError.TokenMessage;
     liX := leParseError.XPosition;
     liY := leParseError.YPosition;
     leMessageType := mtParseError;
@@ -418,9 +416,9 @@ begin
 
 
   { splice }
-  lsNewOutput := JclStrings.StrLeft(fsInputCode, liRealInputStart - 1);
+  lsNewOutput := StrLeft(fsInputCode, liRealInputStart - 1);
   lsNewOutput := lsNewOutput + Copy(fsOutputCode, liOutputStart, (liOutputEnd - liOutputStart));
-  lsNewOutput := lsNewOutput + JclStrings.StrRestOf(fsInputCode, liRealInputEnd + Length(FORMAT_START) + Length(FORMAT_END));
+  lsNewOutput := lsNewOutput + StrRestOf(fsInputCode, liRealInputEnd + Length(FORMAT_START) + Length(FORMAT_END));
 
   fsOutputCode := lsNewOutput;
 end;

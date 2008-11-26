@@ -57,21 +57,21 @@ type
 implementation
 
 uses
-  JclAnsiStrings,
+  JclStrings,
   JcfSettings,
   ReturnAfter;
 
 const
-  INTERFACE_HEADER = 'unit Test;' + AnsiLineBreak + AnsiLineBreak +
-    'interface' + AnsiLineBreak + AnsiLineBreak;
+  INTERFACE_HEADER = 'unit Test;' + NativeLineBreak + NativeLineBreak +
+    'interface' + NativeLineBreak + NativeLineBreak;
 
   IMPLEMENTATION_SECTION =
-    'implementation' + AnsiLineBreak + AnsiLineBreak +
+    'implementation' + NativeLineBreak + NativeLineBreak +
     'end.';
 
-  USES_ONE_LINE = 'uses foo, bar;' + AnsiLineBreak + AnsiLineBreak;
-  USES_BREAK_AFTER_USES = 'uses' + AnsiLineBreak + 'foo, bar;' + AnsiLineBreak + AnsiLineBreak;
-  USES_ONE_PER_LINE = 'uses' + AnsiLineBreak + 'foo,' + AnsiLineBreak + 'bar;' + AnsiLineBreak + AnsiLineBreak;
+  USES_ONE_LINE = 'uses foo, bar;' + NativeLineBreak + NativeLineBreak;
+  USES_BREAK_AFTER_USES = 'uses' + NativeLineBreak + 'foo, bar;' + NativeLineBreak + NativeLineBreak;
+  USES_ONE_PER_LINE = 'uses' + NativeLineBreak + 'foo,' + NativeLineBreak + 'bar;' + NativeLineBreak + NativeLineBreak;
 
   UNIT_ALL_ONE_LINE =
     INTERFACE_HEADER + USES_ONE_LINE + IMPLEMENTATION_SECTION;

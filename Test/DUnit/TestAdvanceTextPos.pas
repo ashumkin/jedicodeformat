@@ -36,7 +36,6 @@ interface
 
 uses
   JclStrings,
-  JclAnsiStrings,
   TestFrameWork,
   JcfMiscFunctions;
 
@@ -91,7 +90,7 @@ var
 begin
   for liStringLengthLoop := 1 to 5 do
   begin
-    lsTest := JclStrings.StrRepeat('X', liStringLengthLoop);
+    lsTest := StrRepeat('X', liStringLengthLoop);
 
     for liXLoop := 0 to MAX_LOOP do
     begin
@@ -123,7 +122,7 @@ begin
   for liStringLengthLoop := 1 to 20 do
   begin
     { add one or more returns }
-    lsTest := JclStrings.StrRepeat(AnsiLineBreak, liStringLengthLoop);
+    lsTest := StrRepeat(NativeLineBreak, liStringLengthLoop);
 
     for liXLoop := 0 to MAX_LOOP do
     begin
@@ -157,7 +156,7 @@ var
 begin
   for liStringLengthLoop := 1 to 10 do
   begin
-    lsTest := JclStrings.StrRepeat('X', liStringLengthLoop) + AnsiLineBreak;
+    lsTest := StrRepeat('X', liStringLengthLoop) + NativeLineBreak;
 
     for liXLoop := 0 to MAX_LOOP do
     begin
@@ -195,8 +194,8 @@ begin
   for liStringLengthLoop := 1 to 10 do
   begin
     { as liStringLengthLoop, the lines get longer, and there's more of them }
-    lsLine := JclStrings.StrRepeat('X', liStringLengthLoop);
-    lsTest := JclStrings.StrRepeat(lsLine + AnsiLineBreak, liStringLengthLoop) + lsLine;
+    lsLine := StrRepeat('X', liStringLengthLoop);
+    lsTest := StrRepeat(lsLine + NativeLineBreak, liStringLengthLoop) + lsLine;
 
     for liXLoop := 0 to MAX_LOOP do
     begin
@@ -214,7 +213,7 @@ begin
         { and if it ends in a return... }
         liX := liXLoop;
         liy := liYLoop;
-        lsTest2 := lsTest + 'fooo' + AnsiLinebreak;
+        lsTest2 := lsTest + 'fooo' + NativeLineBreak;
 
         AdvanceTextPos(lsTest2, liX, liY);
 

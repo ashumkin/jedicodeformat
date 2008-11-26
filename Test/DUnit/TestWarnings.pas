@@ -95,7 +95,7 @@ implementation
 
 uses
   // jcf
-  JclAnsiStrings,
+  JclStrings,
   // local
   JcfSettings;
 
@@ -304,7 +304,7 @@ procedure TTestWarnings.TestWarnUnusedParam6;
 const
   // this one should have only paramC unused
   UNIT_TEXT = UNIT_HEADER +
-    ' function fred(var paramA, paramB, paramC: integer): integer; ' +  AnsiLineBreak +
+    ' function fred(var paramA, paramB, paramC: integer): integer; ' +  NativeLineBreak +
     ' begin if b > 10 then Result := foo(paramA, paramB, paramB - 1) else Result := paramA + paramB; end; ' +
     UNIT_FOOTER;
 begin
@@ -315,7 +315,7 @@ procedure TTestWarnings.TestWarnUnusedParam7;
 const
   // this one should have only paramC unused
   UNIT_TEXT = UNIT_HEADER +
-    ' function TMyList.GetItem(Index: integer): TMyItem; ' +  AnsiLineBreak +
+    ' function TMyList.GetItem(Index: integer): TMyItem; ' +  NativeLineBreak +
     ' begin Result := TMyItem(inherited Items[Index]); end; ' +
     UNIT_FOOTER;
 begin
@@ -326,8 +326,8 @@ procedure TTestWarnings.TestWarnUnusedParamClass;
 const
   // this one should have 1 param warning
   UNIT_TEXT = UNIT_HEADER +
-    ' type TMyClass = class ' + AnsiLineBreak +
-    ' public  function fred(const foo: integer): integer; end; ' + AnsiLineBreak +
+    ' type TMyClass = class ' + NativeLineBreak +
+    ' public  function fred(const foo: integer): integer; end; ' + NativeLineBreak +
     ' function TMyClass.fred(const foo: integer): integer; begin Result := 3; end; ' +
     UNIT_FOOTER;
 begin
@@ -339,8 +339,8 @@ procedure TTestWarnings.TestWarnUnusedParamConstructor;
 const
   // this one should have 1 param warning
   UNIT_TEXT = UNIT_HEADER +
-    ' type TMyClass = class ' + AnsiLineBreak +
-    ' public constructor Create(const foo: integer); end; ' + AnsiLineBreak +
+    ' type TMyClass = class ' + NativeLineBreak +
+    ' public constructor Create(const foo: integer); end; ' + NativeLineBreak +
     'constructor TMyClass.Create(const foo: integer); begin  inherited; end; ' +
     UNIT_FOOTER;
 begin
@@ -351,9 +351,9 @@ procedure TTestWarnings.TestWarnUnusedParamClassFn;
 const
   // this one should have 1 param warning
   UNIT_TEXT = UNIT_HEADER +
-    ' type TMyClass = class ' + AnsiLineBreak +
-    ' public class function fred(const foo: integer): integer; end; ' + AnsiLineBreak +
-    'class function TMyClass.fred(const foo: integer): integer; ' + AnsiLineBreak +
+    ' type TMyClass = class ' + NativeLineBreak +
+    ' public class function fred(const foo: integer): integer; end; ' + NativeLineBreak +
+    'class function TMyClass.fred(const foo: integer): integer; ' + NativeLineBreak +
     'begin Result := 3; end; ' +
     UNIT_FOOTER;
 begin
@@ -364,9 +364,9 @@ procedure TTestWarnings.TestWarnUnusedParamOpOverload;
 const
   // this one should have 1 param warning
   UNIT_TEXT = UNIT_HEADER +
-    ' type TMyClass = class ' + AnsiLineBreak +
-    ' class operator Add(A,B: TMyClass): TMyClass; end; ' + AnsiLineBreak +
-    ' class operator TMyClass.Add(paramA, paramB: TMyClass): TMyClass; ' +  AnsiLineBreak +
+    ' type TMyClass = class ' + NativeLineBreak +
+    ' class operator Add(A,B: TMyClass): TMyClass; end; ' + NativeLineBreak +
+    ' class operator TMyClass.Add(paramA, paramB: TMyClass): TMyClass; ' +  NativeLineBreak +
     ' begin Result := paramA; end; ' +
     UNIT_FOOTER;
 begin
@@ -377,9 +377,9 @@ procedure TTestWarnings.TestUnusedParamClassConstructor;
 const
   // this one should have 1 param warning
   UNIT_TEXT = UNIT_HEADER +
-    ' type TMyClass = class ' + AnsiLineBreak +
-    ' class constructor Create(const ParamA: integer); end; ' + AnsiLineBreak +
-    ' class constructor TMyClass.Create(const ParamA: integer); ' + AnsiLineBreak +
+    ' type TMyClass = class ' + NativeLineBreak +
+    ' class constructor Create(const ParamA: integer); end; ' + NativeLineBreak +
+    ' class constructor TMyClass.Create(const ParamA: integer); ' + NativeLineBreak +
     ' begin inherited Create(); end; ' +
     UNIT_FOOTER;
 begin
@@ -390,11 +390,11 @@ procedure TTestWarnings.TestUnusedInnerClass;
 const
   // this one should have 1 param warning
   UNIT_TEXT = UNIT_HEADER +
-    ' type TOuterClass = class ' + AnsiLineBreak +
-    ' type TInnerClass = class  ' + AnsiLineBreak +
-    ' procedure innerProc(const paramA, paramB: integer); '  + AnsiLineBreak +
-    ' end; end; ' +  AnsiLineBreak +
-    ' procedure TOuterClass.TInnerClass.innerProc(var paramA, paramB: integer); ' + AnsiLineBreak +
+    ' type TOuterClass = class ' + NativeLineBreak +
+    ' type TInnerClass = class  ' + NativeLineBreak +
+    ' procedure innerProc(const paramA, paramB: integer); '  + NativeLineBreak +
+    ' end; end; ' +  NativeLineBreak +
+    ' procedure TOuterClass.TInnerClass.innerProc(var paramA, paramB: integer); ' + NativeLineBreak +
     ' begin paramB := paramB; end; ' +
     UNIT_FOOTER;
 begin

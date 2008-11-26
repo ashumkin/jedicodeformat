@@ -56,7 +56,11 @@ procedure ShowErrorMessageDialog(const psMessage: string; const psCaption: strin
 
 implementation
 
-uses JclAnsiStrings, ParseError, JcfFontSetFunctions;
+uses
+  { jcl }
+  JclStrings,
+  { local }
+  ParseError, JcfFontSetFunctions;
 
 {$ifdef FPC}
   {$R *.lfm}
@@ -109,7 +113,7 @@ begin
 
     if (lcParseError.XPosition > 0) or (lcParseError.YPosition > 0) then
     begin
-      mExceptionMessage.Text := mExceptionMessage.Text + AnsiLineBreak +
+      mExceptionMessage.Text := mExceptionMessage.Text + NativeLineBreak +
         'At line ' + IntToStr(lcParseError.YPosition) + ' col ' +
         IntToStr(lcParseError.XPosition);
 
@@ -121,7 +125,7 @@ begin
   else
   begin
     Caption := 'Exception ' + pE.ClassName;
-    mExceptionMessage.Text := 'Type: ' + pE.ClassName + AnsiLineBreak;
+    mExceptionMessage.Text := 'Type: ' + pE.ClassName + NativeLineBreak;
     mExceptionMessage.Text := mExceptionMessage.Text + pE.Message;
   end;
 
@@ -140,7 +144,7 @@ begin
   mExceptionMessage.Text := sMessage;
   if (piY > 0) or (piX > 0) then
   begin
-    mExceptionMessage.Text := mExceptionMessage.Text + AnsiLineBreak +
+    mExceptionMessage.Text := mExceptionMessage.Text + NativeLineBreak +
       ' at line ' + IntToStr(piY) + ' col ' + IntToStr(piX);
   end;
 

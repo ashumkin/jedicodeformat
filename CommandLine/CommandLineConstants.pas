@@ -30,44 +30,44 @@ See http://www.gnu.org/licenses/gpl.html
 interface
 
 uses
-  JclAnsiStrings,
+  JclStrings,
   VersionConsts;
 
 const
   ABOUT_COMMANDLINE =
-    'JEDI Code Format V' + PROGRAM_VERSION + AnsiLineBreak +
-    ' ' + PROGRAM_DATE + AnsiLineBreak +
-    ' A Delphi Object-Pascal Source code formatter' + AnsiLineBreak +
-    ' A GUI version of this program is also available' + AnsiLineBreak +
-    ' Latest version at ' + PROGRAM_HOME_PAGE + AnsiLineBreak + AnsiLineBreak +
-    'Syntax: jcf [options] path/filename ' + AnsiLineBreak +
-    ' Parameters to the command-line program: ' + AnsiLineBreak + AnsiLineBreak +
+    'JEDI Code Format V' + PROGRAM_VERSION + NativeLineBreak +
+    ' ' + PROGRAM_DATE + NativeLineBreak +
+    ' A Delphi Object-Pascal Source code formatter' + NativeLineBreak +
+    ' A GUI version of this program is also available' + NativeLineBreak +
+    ' Latest version at ' + PROGRAM_HOME_PAGE + NativeLineBreak + NativeLineBreak +
+    'Syntax: jcf [options] path/filename ' + NativeLineBreak +
+    ' Parameters to the command-line program: ' + NativeLineBreak + NativeLineBreak +
 
-    ' Mode of operation: ' + AnsiLineBreak +
-    ' -obfuscate Obfuscate mode or ' + AnsiLineBreak +
-    ' -clarify Clarify mode' + AnsiLineBreak +
-    '   When neither is specified, registry setting will be used.' + AnsiLineBreak +
-    '   This normally means clarify.' + AnsiLineBreak + AnsiLineBreak +
+    ' Mode of operation: ' + NativeLineBreak +
+    ' -obfuscate Obfuscate mode or ' + NativeLineBreak +
+    ' -clarify Clarify mode' + NativeLineBreak +
+    '   When neither is specified, registry setting will be used.' + NativeLineBreak +
+    '   This normally means clarify.' + NativeLineBreak + NativeLineBreak +
 
-    ' Mode of source: ' + AnsiLineBreak +
-    ' -F Format a file. The file name must be specified.' + AnsiLineBreak +
-    ' -D Format a directory. The directory name must be specified.' + AnsiLineBreak +
+    ' Mode of source: ' + NativeLineBreak +
+    ' -F Format a file. The file name must be specified.' + NativeLineBreak +
+    ' -D Format a directory. The directory name must be specified.' + NativeLineBreak +
     ' -R Format a directory tree. The root directory name must be specified.' +
-    AnsiLineBreak +
+    NativeLineBreak +
     '  When no file mode is specified, registry setting will be used.' +
-    AnsiLineBreak + AnsiLineBreak +
+    NativeLineBreak + NativeLineBreak +
 
-    ' Mode of output: ' + AnsiLineBreak +
-    ' -inplace change the source file without backup' + AnsiLineBreak +
-    ' -out output to a new file' + AnsiLineBreak +
-    ' -backup change the file and leave the original file as a backup' + AnsiLineBreak +
+    ' Mode of output: ' + NativeLineBreak +
+    ' -inplace change the source file without backup' + NativeLineBreak +
+    ' -out output to a new file' + NativeLineBreak +
+    ' -backup change the file and leave the original file as a backup' + NativeLineBreak +
     '  If no output mode is specified, registry setting will be used.' +
-    AnsiLineBreak + AnsiLineBreak +
+    NativeLineBreak + NativeLineBreak +
 
-    ' Other options: ' + AnsiLineBreak +
-    ' -config=filename  To specify a named configuration file' + AnsiLineBreak +
-    ' -y Overwrite files without confirmation.' + AnsiLineBreak +
-    ' -? Display this help' + AnsiLineBreak;
+    ' Other options: ' + NativeLineBreak +
+    ' -config=filename  To specify a named configuration file' + NativeLineBreak +
+    ' -y Overwrite files without confirmation.' + NativeLineBreak +
+    ' -? Display this help' + NativeLineBreak;
 
 implementation
 

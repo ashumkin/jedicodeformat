@@ -83,7 +83,8 @@ type
 implementation
 
 uses
-  JclAnsiStrings,
+  { jcl }
+  JclStrings,
   Tokens, SourceToken, TokenUtils, JCFSettings,
   FormatFlags, SettingsTypes;
 
@@ -208,7 +209,7 @@ begin
           if lcNextSpace.TokenType = ttWhiteSpace then
           begin
             lcNextSpace.TokenType := ttReturn;
-            lcNextSpace.SourceCode := AnsiLineBreak;
+            lcNextSpace.SourceCode := NativeLineBreak;
           end
           else
             InsertTokenAfter(lcSourceToken, NewReturn);

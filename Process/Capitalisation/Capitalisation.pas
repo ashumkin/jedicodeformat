@@ -50,7 +50,7 @@ implementation
 
 uses
   SysUtils,
-  JclStrings, JclAnsiStrings,
+  JclStrings,
   SourceToken, SettingsTypes, Tokens, ParseTreeNodeType,
   JcfSettings, FormatFlags, TokenUtils;
 
@@ -77,7 +77,7 @@ begin
     ctLower:
       pct.SourceCode := AnsiLowerCase(pct.SourceCode);
     ctMixed:
-      pct.SourceCode := JclStrings.StrSmartCase(AnsiLowerCase(pct.SourceCode), []);
+      pct.SourceCode := StrSmartCase(AnsiLowerCase(pct.SourceCode), []);
     ctLeaveAlone: ;
   end;
 end;

@@ -75,77 +75,77 @@ type
 implementation
 
 uses
-  JclAnsiStrings,
+  JclStrings,
   JCFSettings, SetAsm;
 
 
 const
-  UNIT_HEADER = 'unit CaseTest;' + AnsiLineBreak + AnsiLineBreak +
-    'interface' + AnsiLineBreak + AnsiLineBreak +
-    'implementation' + AnsiLineBreak + AnsiLineBreak +
-    'uses Dialogs;' + AnsiLineBreak + AnsiLineBreak +
-    'procedure foo(i: integer);' + AnsiLineBreak +
-    'begin' + AnsiLineBreak;
+  UNIT_HEADER = 'unit CaseTest;' + NativeLineBreak + NativeLineBreak +
+    'interface' + NativeLineBreak + NativeLineBreak +
+    'implementation' + NativeLineBreak + NativeLineBreak +
+    'uses Dialogs;' + NativeLineBreak + NativeLineBreak +
+    'procedure foo(i: integer);' + NativeLineBreak +
+    'begin' + NativeLineBreak;
 
-  UNIT_FOOTER = AnsiLineBreak + 'end;' + AnsiLineBreak + AnsiLineBreak +
+  UNIT_FOOTER = NativeLineBreak + 'end;' + NativeLineBreak + NativeLineBreak +
     'end.';
 
   ASM_STATEMENTS_UPPER =
     UNIT_HEADER +
-    '  asm' + AnsiLineBreak +
-    '    MOV   ECX, [EDX]' + AnsiLineBreak +
-    '    XCHG  ECX, [EAX]' + AnsiLineBreak +
-    '    CALL    Procasm2' + AnsiLineBreak +
-    '  end;' + AnsiLineBreak +
+    '  asm' + NativeLineBreak +
+    '    MOV   ECX, [EDX]' + NativeLineBreak +
+    '    XCHG  ECX, [EAX]' + NativeLineBreak +
+    '    CALL    Procasm2' + NativeLineBreak +
+    '  end;' + NativeLineBreak +
     UNIT_FOOTER;
 
     ASM_STATEMENTS_LOWER =
     UNIT_HEADER +
-    '  asm' + AnsiLineBreak +
-    '    mov   ecx, [edx]' + AnsiLineBreak +
-    '    xchg  ecx, [eax]' + AnsiLineBreak +
-    '    call    Procasm2' + AnsiLineBreak +
-    '  end;' + AnsiLineBreak +
+    '  asm' + NativeLineBreak +
+    '    mov   ecx, [edx]' + NativeLineBreak +
+    '    xchg  ecx, [eax]' + NativeLineBreak +
+    '    call    Procasm2' + NativeLineBreak +
+    '  end;' + NativeLineBreak +
     UNIT_FOOTER;
 
 
     ASM_STATEMENTS_MIXED =
     UNIT_HEADER +
-    '  asm' + AnsiLineBreak +
-    '    MOV   ecx, [EDX]' + AnsiLineBreak +
-    '    xchg  ECX, [eax]' + AnsiLineBreak +
-    '    CALL    Procasm2' + AnsiLineBreak +
-    '  end;' + AnsiLineBreak +
+    '  asm' + NativeLineBreak +
+    '    MOV   ecx, [EDX]' + NativeLineBreak +
+    '    xchg  ECX, [eax]' + NativeLineBreak +
+    '    CALL    Procasm2' + NativeLineBreak +
+    '  end;' + NativeLineBreak +
     UNIT_FOOTER;
 
     ASM_STATEMENTS_INITALCAPS =
     UNIT_HEADER +
-    '  asm' + AnsiLineBreak +
-    '    Mov   Ecx, [Edx]' + AnsiLineBreak +
-    '    Xchg  Ecx, [Eax]' + AnsiLineBreak +
-    '    Call    Procasm2' + AnsiLineBreak +
-    '  end;' + AnsiLineBreak +
+    '  asm' + NativeLineBreak +
+    '    Mov   Ecx, [Edx]' + NativeLineBreak +
+    '    Xchg  Ecx, [Eax]' + NativeLineBreak +
+    '    Call    Procasm2' + NativeLineBreak +
+    '  end;' + NativeLineBreak +
     UNIT_FOOTER;
 
 
     ASM_STATEMENTS_VarCaps_Lower =
     UNIT_HEADER +
-    '  asm' + AnsiLineBreak +
-    '    Mov   Ecx, [Edx]' + AnsiLineBreak +
-    '    Xchg  Ecx, [Eax]' + AnsiLineBreak +
-    '    Call    Procasm2' + AnsiLineBreak +
-    '    jmp   [_NetGroupDel]' + AnsiLineBreak +
-    '  end;' + AnsiLineBreak +
+    '  asm' + NativeLineBreak +
+    '    Mov   Ecx, [Edx]' + NativeLineBreak +
+    '    Xchg  Ecx, [Eax]' + NativeLineBreak +
+    '    Call    Procasm2' + NativeLineBreak +
+    '    jmp   [_NetGroupDel]' + NativeLineBreak +
+    '  end;' + NativeLineBreak +
     UNIT_FOOTER;
 
     ASM_STATEMENTS_VarCaps_Upper =
     UNIT_HEADER +
-    '  asm' + AnsiLineBreak +
-    '    MOV   ECX, [EDX]' + AnsiLineBreak +
-    '    XCHG  ECX, [EAX]' + AnsiLineBreak +
-    '    CALL    Procasm2' + AnsiLineBreak +
-    '    JMP   [_NetGroupDel]' + AnsiLineBreak +
-    '  end;' + AnsiLineBreak +
+    '  asm' + NativeLineBreak +
+    '    MOV   ECX, [EDX]' + NativeLineBreak +
+    '    XCHG  ECX, [EAX]' + NativeLineBreak +
+    '    CALL    Procasm2' + NativeLineBreak +
+    '    JMP   [_NetGroupDel]' + NativeLineBreak +
+    '  end;' + NativeLineBreak +
     UNIT_FOOTER;
 
 

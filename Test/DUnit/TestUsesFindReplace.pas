@@ -71,7 +71,7 @@ type
 implementation
 
 uses
-  JclAnsiStrings,
+  JclStrings,
   TestFrameWork,
   JcfSettings,
   UsesClauseInsert, UsesClauseRemove, UsesClauseFindReplace;
@@ -134,11 +134,11 @@ end;
 
 procedure TTestUsesFindReplace.TestCreateIntfUses;
 const
-  IN_UNIT_TEXT = 'unit Test;' + AnsiLineBreak +
-    'interface' + AnsiLineBreak + 'implementation' + UNIT_FOOTER;
+  IN_UNIT_TEXT = 'unit Test;' + NativeLineBreak +
+    'interface' + NativeLineBreak + 'implementation' + UNIT_FOOTER;
 
-  OUT_UNIT_TEXT = 'unit Test;' + AnsiLineBreak +
-    'interface uses foo;' + AnsiLineBreak + 'implementation' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = 'unit Test;' + NativeLineBreak +
+    'interface uses foo;' + NativeLineBreak + 'implementation' + UNIT_FOOTER;
 begin
   FormatSettings.UsesClause.InsertInterface.Clear;
   FormatSettings.UsesClause.InsertInterface.Add('foo');
@@ -170,9 +170,9 @@ end;
 procedure TTestUsesFindReplace.TestAddInterface;
 const
   IN_UNIT_TEXT  = INTERFACE_HEADER + 'uses Bar;' +
-    'implementation' + AnsiLineBreak + UNIT_FOOTER;
+    'implementation' + NativeLineBreak + UNIT_FOOTER;
   OUT_UNIT_TEXT = INTERFACE_HEADER + 'uses Bar,IntfFoo;' +
-    'implementation' + AnsiLineBreak + UNIT_FOOTER;
+    'implementation' + NativeLineBreak + UNIT_FOOTER;
 begin
   FormatSettings.UsesClause.InsertInterface.Add('IntfFoo');
   FormatSettings.UsesClause.InsertImplementation.Clear;
@@ -183,9 +183,9 @@ end;
 procedure TTestUsesFindReplace.TestAddBoth;
 const
   IN_UNIT_TEXT  = INTERFACE_HEADER + 'uses Bar;' +
-    'implementation' + AnsiLineBreak + UNIT_FOOTER;
+    'implementation' + NativeLineBreak + UNIT_FOOTER;
   OUT_UNIT_TEXT = INTERFACE_HEADER + 'uses Bar,IntfFoo;' +
-    'implementation uses foo;' + AnsiLineBreak + UNIT_FOOTER;
+    'implementation uses foo;' + NativeLineBreak + UNIT_FOOTER;
 begin
   FormatSettings.UsesClause.InsertInterface.Add('IntfFoo');
   // impl keeps the 'foo' item
@@ -196,10 +196,10 @@ end;
 procedure TTestUsesFindReplace.TestAddBoth2;
 const
   IN_UNIT_TEXT  = INTERFACE_HEADER +
-    'implementation uses Bar;' + AnsiLineBreak + UNIT_FOOTER;
-  OUT_UNIT_TEXT = 'unit Test;' + AnsiLineBreak +
-    'interface uses IntfFoo;' + AnsiLineBreak +
-    'implementation uses Bar,foo;' + AnsiLineBreak + UNIT_FOOTER;
+    'implementation uses Bar;' + NativeLineBreak + UNIT_FOOTER;
+  OUT_UNIT_TEXT = 'unit Test;' + NativeLineBreak +
+    'interface uses IntfFoo;' + NativeLineBreak +
+    'implementation uses Bar,foo;' + NativeLineBreak + UNIT_FOOTER;
 begin
   FormatSettings.UsesClause.InsertInterface.Add('IntfFoo');
   // impl keeps the 'foo' item
@@ -274,11 +274,11 @@ end;
 
 procedure TTestUsesFindReplace.TestReplace5;
 const
-  IN_UNIT_TEXT  = INTERFACE_HEADER + 'uses foo, Fish;' + AnsiLineBreak +
-    'implementation' + AnsiLineBreak +
+  IN_UNIT_TEXT  = INTERFACE_HEADER + 'uses foo, Fish;' + NativeLineBreak +
+    'implementation' + NativeLineBreak +
     'uses bar, spon;' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = INTERFACE_HEADER + 'uses foo2, Fish;' + AnsiLineBreak +
-    'implementation' + AnsiLineBreak +
+  OUT_UNIT_TEXT = INTERFACE_HEADER + 'uses foo2, Fish;' + NativeLineBreak +
+    'implementation' + NativeLineBreak +
     'uses  spon;' + UNIT_FOOTER;
 begin
   FormatSettings.UsesClause.Find.Add('bar');
@@ -287,11 +287,11 @@ end;
 
 procedure TTestUsesFindReplace.TestReplace6;
 const
-  IN_UNIT_TEXT  = INTERFACE_HEADER + 'uses foo, Fish;' + AnsiLineBreak +
-    'implementation' + AnsiLineBreak +
+  IN_UNIT_TEXT  = INTERFACE_HEADER + 'uses foo, Fish;' + NativeLineBreak +
+    'implementation' + NativeLineBreak +
     'uses spon, bar;' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = INTERFACE_HEADER + 'uses foo2, Fish;' + AnsiLineBreak +
-    'implementation' + AnsiLineBreak +
+  OUT_UNIT_TEXT = INTERFACE_HEADER + 'uses foo2, Fish;' + NativeLineBreak +
+    'implementation' + NativeLineBreak +
     'uses spon ;' + UNIT_FOOTER;
 begin
   FormatSettings.UsesClause.Find.Add('bar');
@@ -300,11 +300,11 @@ end;
 
 procedure TTestUsesFindReplace.TestReplace7;
 const
-  IN_UNIT_TEXT  = INTERFACE_HEADER + 'uses foo, Fish;' + AnsiLineBreak +
-    'implementation' + AnsiLineBreak +
+  IN_UNIT_TEXT  = INTERFACE_HEADER + 'uses foo, Fish;' + NativeLineBreak +
+    'implementation' + NativeLineBreak +
     'uses bar;' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = INTERFACE_HEADER + 'uses foo2, Fish;' + AnsiLineBreak +
-    'implementation' + AnsiLineBreak + ' ' +
+  OUT_UNIT_TEXT = INTERFACE_HEADER + 'uses foo2, Fish;' + NativeLineBreak +
+    'implementation' + NativeLineBreak + ' ' +
     UNIT_FOOTER;
 begin
   FormatSettings.UsesClause.Find.Add('bar');
@@ -313,11 +313,11 @@ end;
 
 procedure TTestUsesFindReplace.TestReplace8;
 const
-  IN_UNIT_TEXT  = INTERFACE_HEADER + 'uses foo, bar;' + AnsiLineBreak +
-    'implementation' + AnsiLineBreak +
+  IN_UNIT_TEXT  = INTERFACE_HEADER + 'uses foo, bar;' + NativeLineBreak +
+    'implementation' + NativeLineBreak +
     'uses Fish;' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = INTERFACE_HEADER + 'uses foo2 ;' + AnsiLineBreak +
-    'implementation' + AnsiLineBreak +
+  OUT_UNIT_TEXT = INTERFACE_HEADER + 'uses foo2 ;' + NativeLineBreak +
+    'implementation' + NativeLineBreak +
     'uses Fish;' + UNIT_FOOTER;
 begin
   FormatSettings.UsesClause.Find.Add('bar');

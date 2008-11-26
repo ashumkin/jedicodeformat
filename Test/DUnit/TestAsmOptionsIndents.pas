@@ -65,45 +65,45 @@ implementation
 
 uses
   SysUtils,
-  JclAnsiStrings,
+  JclStrings,
   JCFSettings, SetAsm;
 
 const
-  UNIT_HEADER = 'unit CaseTest;' + AnsiLineBreak + AnsiLineBreak +
-    'interface' + AnsiLineBreak + AnsiLineBreak +
-    'implementation' + AnsiLineBreak + AnsiLineBreak +
-    'uses Dialogs;' + AnsiLineBreak + AnsiLineBreak +
-    'procedure foo(i: integer);' + AnsiLineBreak +
-    'begin' + AnsiLineBreak;
+  UNIT_HEADER = 'unit CaseTest;' + NativeLineBreak + NativeLineBreak +
+    'interface' + NativeLineBreak + NativeLineBreak +
+    'implementation' + NativeLineBreak + NativeLineBreak +
+    'uses Dialogs;' + NativeLineBreak + NativeLineBreak +
+    'procedure foo(i: integer);' + NativeLineBreak +
+    'begin' + NativeLineBreak;
 
-  UNIT_FOOTER = AnsiLineBreak + 'end;' + AnsiLineBreak + AnsiLineBreak +
+  UNIT_FOOTER = NativeLineBreak + 'end;' + NativeLineBreak + NativeLineBreak +
     'end.';
 
   ASM_STATEMENTS_NOT_INDENTED =
     UNIT_HEADER +
-    '  asm' + AnsiLineBreak +
-    '    MOV ECX, [EDX]' + AnsiLineBreak +
-    '    XCHG ECX, [EAX]' + AnsiLineBreak +
-    '    CALL PROCASM2' + AnsiLineBreak +
-    '  end;' + AnsiLineBreak +
+    '  asm' + NativeLineBreak +
+    '    MOV ECX, [EDX]' + NativeLineBreak +
+    '    XCHG ECX, [EAX]' + NativeLineBreak +
+    '    CALL PROCASM2' + NativeLineBreak +
+    '  end;' + NativeLineBreak +
     UNIT_FOOTER;
 
     ASM_STATEMENTS_INDENTED =
     UNIT_HEADER +
-    '  asm' + AnsiLineBreak +
-    '           MOV ECX, [EDX]' + AnsiLineBreak +
-    '           XCHG ECX, [EAX]' + AnsiLineBreak +
-    '           CALL PROCASM2' + AnsiLineBreak +
-    '  end;' + AnsiLineBreak +
+    '  asm' + NativeLineBreak +
+    '           MOV ECX, [EDX]' + NativeLineBreak +
+    '           XCHG ECX, [EAX]' + NativeLineBreak +
+    '           CALL PROCASM2' + NativeLineBreak +
+    '  end;' + NativeLineBreak +
     UNIT_FOOTER;
 
     ASM_STATEMENTS_PARAMS_INDENTED =
     UNIT_HEADER +
-    '  asm' + AnsiLineBreak +
-    '           MOV     ECX, [EDX]' + AnsiLineBreak +
-    '           XCHG    ECX, [EAX]' + AnsiLineBreak +
-    '           CALL    PROCASM2' + AnsiLineBreak +
-    '  end;' + AnsiLineBreak +
+    '  asm' + NativeLineBreak +
+    '           MOV     ECX, [EDX]' + NativeLineBreak +
+    '           XCHG    ECX, [EAX]' + NativeLineBreak +
+    '           CALL    PROCASM2' + NativeLineBreak +
+    '  end;' + NativeLineBreak +
     UNIT_FOOTER;
 
 

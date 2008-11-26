@@ -94,7 +94,8 @@ type
 
 implementation
 
-uses JclAnsiStrings,
+uses
+  JclStrings,
   JcfSettings,
   NoReturnAfter, NoReturnBefore, NoSpaceAfter, NoSpaceBefore,
   SpaceBeforeColon,
@@ -121,7 +122,7 @@ end;
 
 procedure TTestSpacing.TestNoReturnAfter;
 const
-  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure foo; begin if ' + AnsiLineBreak +
+  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure foo; begin if ' + NativeLineBreak +
     '(foo) then ; end; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin if (foo) then ; end; ' +
     UNIT_FOOTER;
@@ -132,7 +133,7 @@ end;
 
 procedure TTestSpacing.TestNoReturnBefore;
 const
-  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure foo; begin a ' + AnsiLineBreak +
+  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure foo; begin a ' + NativeLineBreak +
     ':= 2; end; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin a := 2; end; ' + UNIT_FOOTER;
 begin
@@ -169,9 +170,9 @@ end;
 
 procedure TTestSpacing.TestNoSpaceAfterOperator;
 const
-  IN_UNIT_TEXT  = UNIT_HEADER + ' function foo: ' + AnsiLineBreak +
+  IN_UNIT_TEXT  = UNIT_HEADER + ' function foo: ' + NativeLineBreak +
     '  integer; begin result := 2 + 2; end; ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = UNIT_HEADER + ' function foo: ' + AnsiLineBreak +
+  OUT_UNIT_TEXT = UNIT_HEADER + ' function foo: ' + NativeLineBreak +
     '  integer; begin result := 2 + 2; end; ' + UNIT_FOOTER;
 begin
   TestProcessResult(TNoSpaceAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -179,9 +180,9 @@ end;
 
 procedure TTestSpacing.TestNoSpaceAfterOperator2;
 const
-  IN_UNIT_TEXT  = UNIT_HEADER + ' function foo: ' + AnsiLineBreak +
+  IN_UNIT_TEXT  = UNIT_HEADER + ' function foo: ' + NativeLineBreak +
     '  integer; begin result := 2 * - 2; end; ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = UNIT_HEADER + ' function foo: ' + AnsiLineBreak +
+  OUT_UNIT_TEXT = UNIT_HEADER + ' function foo: ' + NativeLineBreak +
     '  integer; begin result := 2 * -2; end; ' + UNIT_FOOTER;
 begin
   TestProcessResult(TNoSpaceAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -239,9 +240,9 @@ end;
 
 procedure TTestSpacing.TestSingleSpaceAfterColon2;
 const
-  IN_UNIT_TEXT  = UNIT_HEADER + ' function foo: ' + AnsiLineBreak +
+  IN_UNIT_TEXT  = UNIT_HEADER + ' function foo: ' + NativeLineBreak +
     '  integer; begin result := 2; end; ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = UNIT_HEADER + ' function foo: ' + AnsiLineBreak +
+  OUT_UNIT_TEXT = UNIT_HEADER + ' function foo: ' + NativeLineBreak +
     '  integer; begin result := 2; end; ' + UNIT_FOOTER;
 begin
   TestProcessResult(TSingleSpaceAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -251,11 +252,11 @@ end;
 procedure TTestSpacing.TestReturnBefore;
 const
   IN_UNIT_TEXT  = UNIT_HEADER + 'procedure foo; begin a := 2; end;' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = 'unit Test;' + AnsiLineBreak + AnsiLineBreak + 'interface' +
-    AnsiLineBreak + AnsiLineBreak +
-    'implementation' + AnsiLineBreak + AnsiLineBreak +
-    'procedure foo;' + AnsiLineBreak + 'begin a := 2;' + AnsiLineBreak +
-    'end;' + AnsiLineBreak + AnsiLineBreak + 'end.';
+  OUT_UNIT_TEXT = 'unit Test;' + NativeLineBreak + NativeLineBreak + 'interface' +
+    NativeLineBreak + NativeLineBreak +
+    'implementation' + NativeLineBreak + NativeLineBreak +
+    'procedure foo;' + NativeLineBreak + 'begin a := 2;' + NativeLineBreak +
+    'end;' + NativeLineBreak + NativeLineBreak + 'end.';
 begin
   TestProcessResult(TReturnBefore, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -265,11 +266,11 @@ const
   UNLINED_UNIT_HEADER = 'unit Test; interface implementation';
   IN_UNIT_TEXT  = UNLINED_UNIT_HEADER + ' procedure foo; begin a := 2; end;' +
     UNIT_FOOTER;
-  OUT_UNIT_TEXT = 'unit Test;' + AnsiLineBreak + AnsiLineBreak +
-    'interface' + AnsiLineBreak + AnsiLineBreak +
-    'implementation' + AnsiLineBreak + AnsiLineBreak +
-    'procedure foo;' + AnsiLineBreak + 'begin' + AnsiLineBreak +
-    'a := 2;' + AnsiLineBreak + 'end;' + AnsiLineBreak + AnsiLineBreak + 'end.';
+  OUT_UNIT_TEXT = 'unit Test;' + NativeLineBreak + NativeLineBreak +
+    'interface' + NativeLineBreak + NativeLineBreak +
+    'implementation' + NativeLineBreak + NativeLineBreak +
+    'procedure foo;' + NativeLineBreak + 'begin' + NativeLineBreak +
+    'a := 2;' + NativeLineBreak + 'end;' + NativeLineBreak + NativeLineBreak + 'end.';
 begin
   TestProcessResult(TReturnAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -277,9 +278,9 @@ end;
 
 procedure TTestSpacing.TestBlankLinesAfterProcHeader;
 const
-  IN_UNIT_TEXT  = UNIT_HEADER + 'procedure foo;' + AnsiLineBreak + AnsiLineBreak +
-    AnsiLineBreak + AnsiLineBreak + 'begin a := 2; end; ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = UNIT_HEADER + 'procedure foo;' + AnsiLineBreak + AnsiLineBreak +
+  IN_UNIT_TEXT  = UNIT_HEADER + 'procedure foo;' + NativeLineBreak + NativeLineBreak +
+    NativeLineBreak + NativeLineBreak + 'begin a := 2; end; ' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + 'procedure foo;' + NativeLineBreak + NativeLineBreak +
     'begin a := 2; end; ' + UNIT_FOOTER;
 begin
   TestProcessResult(TRemoveBlankLinesAfterProcHeader, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -287,9 +288,9 @@ end;
 
 procedure TTestSpacing.TestBlankLinesAfterBegin;
 const
-  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure foo; begin' + AnsiLineBreak + AnsiLineBreak +
-    AnsiLineBreak + AnsiLineBreak + 'end; ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin' + AnsiLineBreak + AnsiLineBreak +
+  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure foo; begin' + NativeLineBreak + NativeLineBreak +
+    NativeLineBreak + NativeLineBreak + 'end; ' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin' + NativeLineBreak + NativeLineBreak +
     'end; ' + UNIT_FOOTER;
 begin
   TestProcessResult(TRemoveReturnsAfterBegin, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -297,9 +298,9 @@ end;
 
 procedure TTestSpacing.TestBlankLinesBeforeEnd;
 const
-  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure foo; begin' + AnsiLineBreak + AnsiLineBreak +
-    AnsiLineBreak + AnsiLineBreak + 'end; ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin' + AnsiLineBreak + AnsiLineBreak +
+  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure foo; begin' + NativeLineBreak + NativeLineBreak +
+    NativeLineBreak + NativeLineBreak + 'end; ' + UNIT_FOOTER;
+  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin' + NativeLineBreak + NativeLineBreak +
     'end; ' + UNIT_FOOTER;
 begin
   TestProcessResult(TRemoveReturnsBeforeEnd, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -360,7 +361,7 @@ end;
 
 procedure TTestSpacing.TestTabToSpace;
 const
-  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure foo;' + AnsiTab +
+  IN_UNIT_TEXT  = UNIT_HEADER + ' procedure foo;' + NativeTab +
     'begin a := 2; end; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo;  begin a := 2; end; ' + UNIT_FOOTER;
 begin
@@ -370,7 +371,7 @@ end;
 procedure TTestSpacing.TestSpaceToTab;
 const
   IN_UNIT_TEXT  = UNIT_HEADER + ' procedure foo;  begin a := 2; end; ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo;' + AnsiTab +
+  OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo;' + NativeTab +
     'begin a := 2; end; ' + UNIT_FOOTER;
 begin
   TestProcessResult(TSpaceToTab, IN_UNIT_TEXT, OUT_UNIT_TEXT);

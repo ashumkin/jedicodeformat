@@ -34,7 +34,6 @@ uses
   Classes,
   { JCL }
   JclStrings,
-  JclAnsiStrings,
   { dunit }
   TestFrameWork,
   { local }
@@ -74,17 +73,17 @@ type
   end;
 
 const
-  INTERFACE_HEADER = 'unit Test;' + AnsiLineBreak +
-    'interface' + AnsiLineBreak;
+  INTERFACE_HEADER = 'unit Test;' + NativeLineBreak +
+    'interface' + NativeLineBreak;
   UNIT_HEADER      = INTERFACE_HEADER +
-    'implementation' + AnsiLineBreak;
-  UNIT_FOOTER      = AnsiLineBreak + 'end.';
+    'implementation' + NativeLineBreak;
+  UNIT_FOOTER      = NativeLineBreak + 'end.';
 
-  SPACED_INTERFACE_HEADER = 'unit Test;' + AnsiLineBreak + AnsiLineBreak +
-    'interface' + AnsiLineBreak + AnsiLineBreak;
+  SPACED_INTERFACE_HEADER = 'unit Test;' + NativeLineBreak + NativeLineBreak +
+    'interface' + NativeLineBreak + NativeLineBreak;
 
   SPACED_UNIT_HEADER = SPACED_INTERFACE_HEADER +
-    'implementation' + AnsiLineBreak;
+    'implementation' + NativeLineBreak;
 
 implementation
 
@@ -142,7 +141,7 @@ begin
   for liLoop := Low(psWarningMatches) to High(psWarningMatches) do
   begin
     // containing certain text
-    lbFound := (JclStrings.StrIPos(psWarningMatches[liLoop], fcMessages.Text) > 0);
+    lbFound := (StrIPos(psWarningMatches[liLoop], fcMessages.Text) > 0);
 
     Check(lbFound, psWarningMatches[liLoop] + ' was not found in output ' +
       fcMessages.Text);
@@ -157,10 +156,10 @@ begin
 end;
 
 
-function MarkReturns(const ps: string): AnsiString;
+function MarkReturns(const ps: string): string;
 begin
-  Result := AnsiString(ps);
-  StrReplace(Result, AnsiLineBreak, '-q' + AnsiLineBreak, [rfReplaceAll]);
+  Result := ps;
+  StrReplace(Result, NativeLineBreak, '-q' + NativeLineBreak, [rfReplaceAll]);
 end;
 
 function DiffText(const ps1, ps2: WideString): string;
@@ -176,22 +175,22 @@ begin
   // strip same chars on start
   while (length(psDiff1) > 0) and (length(psDiff2) > 0) and (psDiff1[1] = psDiff2[1]) do
   begin
-    psDiff1 := JclStrings.StrRestOf(psDiff1, 2);
-    psDiff2 := JclStrings.StrRestOf(psDiff2, 2);
+    psDiff1 := StrRestOf(psDiff1, 2);
+    psDiff2 := StrRestOf(psDiff2, 2);
     inc(liStartDif);
   end;
 
   while (length(psDiff1) > 0) and (length(psDiff2) > 0) and
     (psDiff1[length(psDiff1)] = psDiff2[length(psDiff2)]) do
   begin
-    psDiff1 := JclStrings.StrChopRight(psDiff1, 1);
-    psDiff2 := JclStrings.StrChopRight(psDiff2, 1);
+    psDiff1 := StrChopRight(psDiff1, 1);
+    psDiff2 := StrChopRight(psDiff2, 1);
   end;
 
-  lsBeforeDif := JclStrings.StrLeft(ps1, liStartDif);
+  lsBeforeDif := StrLeft(ps1, liStartDif);
   Result := psDiff1 + '<->' + psDiff2 +
-    AnsiLineBreak + 'at char ' + IntToStr(liStartDif) + AnsiLineBreak +
-    ' After: ' + AnsiLineBreak +
+    NativeLineBreak + 'at char ' + IntToStr(liStartDif) + NativeLineBreak +
+    ' After: ' + NativeLineBreak +
     lsBeforeDif + '-q';
 end;
 
@@ -227,9 +226,9 @@ begin
     this is not ideal for TestTextAfterUnitEnd
     but better than a trim
   }
-  if (JclStrings.StrRight(lsOut, 2) = AnsiLineBreak) then
+  if (StrRight(lsOut, 2) = NativeLineBreak) then
   begin
-    lsOut := JclStrings.StrChopRight(lsOut, 2);
+    lsOut := StrChopRight(lsOut, 2);
   end;
 
   //(*
@@ -237,8 +236,8 @@ begin
   if (lsOut <> psOut) then
   begin
     ShowMessage(string(MarkReturns(lsOut)) +
-      AnsiLineBreak + AnsiLineBreak + '-- should have been --' +
-      AnsiLineBreak + AnsiLineBreak +
+      NativeLineBreak + NativeLineBreak + '-- should have been --' +
+      NativeLineBreak + NativeLineBreak +
       string(MarkReturns(psOut)));
 
     ShowMessage(DiffText(lsOut, psOut));
@@ -270,9 +269,9 @@ begin
     this is not ideal for TestTextAfterUnitEnd
     but better than a trim
   }
-  if (JclStrings.StrRight(lsOut, 2) = AnsiLineBreak) then
+  if (StrRight(lsOut, 2) = NativeLineBreak) then
   begin
-    lsOut := JclStrings.StrChopRight(lsOut, 2);
+    lsOut := StrChopRight(lsOut, 2);
   end;
 
   { }
@@ -280,8 +279,8 @@ begin
   if (lsOut <> psOut) then
   begin
     ShowMessage(string(MarkReturns(lsOut)) +
-      AnsiLineBreak + AnsiLineBreak + '-- should have been --' +
-      AnsiLineBreak + AnsiLineBreak +
+      NativeLineBreak + NativeLineBreak + '-- should have been --' +
+      NativeLineBreak + NativeLineBreak +
       string(MarkReturns(psOut)));
 
     ShowMessage(DiffText(lsOut, psOut));

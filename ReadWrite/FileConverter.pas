@@ -113,7 +113,7 @@ implementation
 
 uses
   { delphi } Windows, SysUtils, Dialogs, Controls, Forms,
-  { jcl } JclFileUtils, JclAnsiStrings,
+  { jcl } JclFileUtils, JclStrings,
   { local }FileUtils, JcfMiscFunctions, JCFLog,
   JcfRegistrySettings, JcfSettings, JCfUnicodeFiles;
 
@@ -304,7 +304,7 @@ begin
           raise Exception.Create('TFileConverter.ProcessFile: ' +
           ' could not rename source file ' + psInputFileName + ' to ' + lsOut);
 
-        StringToFile(psInputFileName, AnsiString(fcConverter.OutputCode));
+        StringToFile(psInputFileName, fcConverter.OutputCode);
       end;
     end;
 

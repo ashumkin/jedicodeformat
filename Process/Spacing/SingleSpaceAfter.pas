@@ -50,7 +50,7 @@ implementation
 
 uses
   { jcl }
-  JclAnsiStrings,
+  JclStrings,
   { local }
   SourceToken, Tokens, ParseTreeNodeType, JcfSettings,
   FormatFlags, TokenUtils, SettingsTypes;
@@ -315,7 +315,7 @@ begin
     lcNext := lcSourceToken.NextToken;
     if lcNext.TokenType = ttWhiteSpace then
     begin
-      lcNext.SourceCode := AnsiSpace;
+      lcNext.SourceCode := NativeSpace;
 
       { empty any preceeding whitespace }
       repeat
@@ -330,7 +330,7 @@ begin
       // insert a space
       lcNew := TSourceToken.Create;
       lcNew.TokenType := ttWhiteSpace;
-      lcNew.SourceCode := AnsiSpace;
+      lcNew.SourceCode := NativeSpace;
 
       InsertTokenAfter(lcSourceToken, lcNew);
     end;

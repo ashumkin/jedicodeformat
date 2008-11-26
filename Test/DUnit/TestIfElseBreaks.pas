@@ -80,67 +80,69 @@ type
 
 implementation
 
-uses JclAnsiStrings, BlockStyles, JcfSettings, SetReturns;
+uses
+  JclStrings,
+  BlockStyles, JcfSettings, SetReturns;
 
 const
 
   RETURN_ADDED_TEXT =
-    'unit TestIfElseBreak;' + AnsiLineBreak +
-    AnsiLineBreak +
-    'interface' + AnsiLineBreak +
-    AnsiLineBreak +
-    'implementation' + AnsiLineBreak +
-    AnsiLineBreak +
-    'uses Dialogs;' + AnsiLineBreak +
-    AnsiLineBreak +
-    'procedure TestBreaks;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    'if True then' + AnsiLineBreak +
-    '  ShowMessage(''twoo'');' + AnsiLineBreak +
-    AnsiLineBreak +
-    'if True then' + AnsiLineBreak +
-    '  ShowMessage(''twoo'')' + AnsiLineBreak +
-    'else' + AnsiLineBreak +
-    '  ShowMessage(''false'');' + AnsiLineBreak +
-    AnsiLineBreak +
-    'if True then' + AnsiLineBreak +
-    '  ShowMessage(''twoo'')' + AnsiLineBreak +
-    'else' + AnsiLineBreak +
-    'if True then' + AnsiLineBreak +
-    '  ShowMessage(''twoo'')' + AnsiLineBreak +
-    'else' + AnsiLineBreak +
-    '  ShowMessage(''false'');' + AnsiLineBreak +
-    'end;' + AnsiLineBreak +
-    AnsiLineBreak +
+    'unit TestIfElseBreak;' + NativeLineBreak +
+    NativeLineBreak +
+    'interface' + NativeLineBreak +
+    NativeLineBreak +
+    'implementation' + NativeLineBreak +
+    NativeLineBreak +
+    'uses Dialogs;' + NativeLineBreak +
+    NativeLineBreak +
+    'procedure TestBreaks;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'if True then' + NativeLineBreak +
+    '  ShowMessage(''twoo'');' + NativeLineBreak +
+    NativeLineBreak +
+    'if True then' + NativeLineBreak +
+    '  ShowMessage(''twoo'')' + NativeLineBreak +
+    'else' + NativeLineBreak +
+    '  ShowMessage(''false'');' + NativeLineBreak +
+    NativeLineBreak +
+    'if True then' + NativeLineBreak +
+    '  ShowMessage(''twoo'')' + NativeLineBreak +
+    'else' + NativeLineBreak +
+    'if True then' + NativeLineBreak +
+    '  ShowMessage(''twoo'')' + NativeLineBreak +
+    'else' + NativeLineBreak +
+    '  ShowMessage(''false'');' + NativeLineBreak +
+    'end;' + NativeLineBreak +
+    NativeLineBreak +
     'end.';
 
   RETURN_REMOVED_TEXT =
-    'unit TestIfElseBreak;' + AnsiLineBreak +
-    AnsiLineBreak +
-    'interface' + AnsiLineBreak +
-    AnsiLineBreak +
-    'implementation' + AnsiLineBreak +
-    AnsiLineBreak +
-    'uses Dialogs;' + AnsiLineBreak +
-    AnsiLineBreak +
-    'procedure TestBreaks;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    'if True then' + AnsiLineBreak +
-    '  ShowMessage(''twoo'');' + AnsiLineBreak +
-    AnsiLineBreak +
-    'if True then' + AnsiLineBreak +
-    '  ShowMessage(''twoo'')' + AnsiLineBreak +
-    'else' + AnsiLineBreak +
-    '  ShowMessage(''false'');' + AnsiLineBreak +
-    AnsiLineBreak +
-    'if True then' + AnsiLineBreak +
-    '  ShowMessage(''twoo'')' + AnsiLineBreak +
-    'else if True then' + AnsiLineBreak +
-    '  ShowMessage(''twoo'')' + AnsiLineBreak +
-    'else' + AnsiLineBreak +
-    '  ShowMessage(''false'');' + AnsiLineBreak +
-    'end;' + AnsiLineBreak +
-    AnsiLineBreak +
+    'unit TestIfElseBreak;' + NativeLineBreak +
+    NativeLineBreak +
+    'interface' + NativeLineBreak +
+    NativeLineBreak +
+    'implementation' + NativeLineBreak +
+    NativeLineBreak +
+    'uses Dialogs;' + NativeLineBreak +
+    NativeLineBreak +
+    'procedure TestBreaks;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'if True then' + NativeLineBreak +
+    '  ShowMessage(''twoo'');' + NativeLineBreak +
+    NativeLineBreak +
+    'if True then' + NativeLineBreak +
+    '  ShowMessage(''twoo'')' + NativeLineBreak +
+    'else' + NativeLineBreak +
+    '  ShowMessage(''false'');' + NativeLineBreak +
+    NativeLineBreak +
+    'if True then' + NativeLineBreak +
+    '  ShowMessage(''twoo'')' + NativeLineBreak +
+    'else if True then' + NativeLineBreak +
+    '  ShowMessage(''twoo'')' + NativeLineBreak +
+    'else' + NativeLineBreak +
+    '  ShowMessage(''false'');' + NativeLineBreak +
+    'end;' + NativeLineBreak +
+    NativeLineBreak +
     'end.';
 
     { TTestIfElseBreaks }
@@ -178,17 +180,17 @@ end;
 procedure TTestIfElseBreaks.TestBlockStyleNever;
 const
   IN_TEXT  = UNIT_HEADER +
-    'procedure foo;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    'if bar then ' + AnsiLineBreak +
-    ' Fish();' + AnsiLineBreak +
-    'end;' + AnsiLineBreak +
+    'procedure foo;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'if bar then ' + NativeLineBreak +
+    ' Fish();' + NativeLineBreak +
+    'end;' + NativeLineBreak +
     UNIT_FOOTER;
   OUT_TEXT = UNIT_HEADER +
-    'procedure foo;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    'if bar then  Fish();' + AnsiLineBreak +
-    'end;' + AnsiLineBreak +
+    'procedure foo;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'if bar then  Fish();' + NativeLineBreak +
+    'end;' + NativeLineBreak +
     UNIT_FOOTER;
 begin
   FormatSettings.Returns.BlockStyle := eNever;
@@ -199,11 +201,11 @@ end;
 procedure TTestIfElseBreaks.TestBlockStyleNeverWithComment;
 const
   IN_TEXT = UNIT_HEADER +
-    'procedure foo;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    'if bar then // noremove' + AnsiLineBreak +
-    ' Fish();' + AnsiLineBreak +
-    'end;' + AnsiLineBreak +
+    'procedure foo;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'if bar then // noremove' + NativeLineBreak +
+    ' Fish();' + NativeLineBreak +
+    'end;' + NativeLineBreak +
     UNIT_FOOTER;
 begin
   FormatSettings.Returns.BlockStyle := eNever;
@@ -214,20 +216,20 @@ end;
 procedure TTestIfElseBreaks.TestIfElseStyleNever;
 const
   IN_TEXT  = UNIT_HEADER +
-    'procedure foo;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    'if bar then' + AnsiLineBreak +
-    ' Fish()' + AnsiLineBreak +
-    'else if spon then' + AnsiLineBreak +
-    ' Wibble();' + AnsiLineBreak +
-    'end;' + AnsiLineBreak +
+    'procedure foo;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'if bar then' + NativeLineBreak +
+    ' Fish()' + NativeLineBreak +
+    'else if spon then' + NativeLineBreak +
+    ' Wibble();' + NativeLineBreak +
+    'end;' + NativeLineBreak +
     UNIT_FOOTER;
   OUT_TEXT = UNIT_HEADER +
-    'procedure foo;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    'if bar then Fish()' + AnsiLineBreak +
-    'else if spon then Wibble();' + AnsiLineBreak +
-    'end;' + AnsiLineBreak +
+    'procedure foo;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'if bar then Fish()' + NativeLineBreak +
+    'else if spon then Wibble();' + NativeLineBreak +
+    'end;' + NativeLineBreak +
     UNIT_FOOTER;
 begin
   FormatSettings.Returns.BlockStyle := eNever;
@@ -238,22 +240,22 @@ end;
 procedure TTestIfElseBreaks.TestIfElseNeverWithComment;
 const
   IN_TEXT  = UNIT_HEADER +
-    'procedure foo;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    'if bar then // comment' + AnsiLineBreak +
-    ' Fish()' + AnsiLineBreak +
-    'else if spon then // comment' + AnsiLineBreak +
-    ' Wibble();' + AnsiLineBreak +
-    'end;' + AnsiLineBreak +
+    'procedure foo;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'if bar then // comment' + NativeLineBreak +
+    ' Fish()' + NativeLineBreak +
+    'else if spon then // comment' + NativeLineBreak +
+    ' Wibble();' + NativeLineBreak +
+    'end;' + NativeLineBreak +
     UNIT_FOOTER;
   OUT_TEXT = UNIT_HEADER +
-    'procedure foo;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    'if bar then // comment' + AnsiLineBreak +
-    ' Fish()' + AnsiLineBreak +
-    'else if spon then // comment' + AnsiLineBreak +
-    ' Wibble();' + AnsiLineBreak +
-    'end;' + AnsiLineBreak +
+    'procedure foo;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'if bar then // comment' + NativeLineBreak +
+    ' Fish()' + NativeLineBreak +
+    'else if spon then // comment' + NativeLineBreak +
+    ' Wibble();' + NativeLineBreak +
+    'end;' + NativeLineBreak +
     UNIT_FOOTER;
 begin
   FormatSettings.Returns.BlockStyle := eNever;
@@ -301,33 +303,33 @@ end;
 
 const
   CASE_STATEMENT_IN_TEXT_NO_BREAKS =
-    'unit CaseTest;' + AnsiLineBreak + AnsiLineBreak +
-    'interface ' + AnsiLineBreak + AnsiLineBreak +
-    'implementation' + AnsiLineBreak + AnsiLineBreak +
-    'uses Dialogs;' + AnsiLineBreak + AnsiLineBreak +
-    'procedure foo(i: integer);' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '  case i of' + AnsiLineBreak +
-    '    1: ShowMessage(''1 ... OK'');' + AnsiLineBreak +
-    '    else ShowMessage(''else ... OK'');' + AnsiLineBreak +
-    '   end;' + AnsiLineBreak +
-    '  end;' + AnsiLineBreak + AnsiLineBreak +
+    'unit CaseTest;' + NativeLineBreak + NativeLineBreak +
+    'interface ' + NativeLineBreak + NativeLineBreak +
+    'implementation' + NativeLineBreak + NativeLineBreak +
+    'uses Dialogs;' + NativeLineBreak + NativeLineBreak +
+    'procedure foo(i: integer);' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '  case i of' + NativeLineBreak +
+    '    1: ShowMessage(''1 ... OK'');' + NativeLineBreak +
+    '    else ShowMessage(''else ... OK'');' + NativeLineBreak +
+    '   end;' + NativeLineBreak +
+    '  end;' + NativeLineBreak + NativeLineBreak +
     'end.';
 
   CASE_STATEMENT_IN_TEXT_BREAKS =
-    'unit CaseTest;' + AnsiLineBreak + AnsiLineBreak +
-    'interface ' + AnsiLineBreak + AnsiLineBreak +
-    'implementation' + AnsiLineBreak + AnsiLineBreak +
-    'uses Dialogs;' + AnsiLineBreak + AnsiLineBreak +
-    'procedure foo(i: integer);' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '  case i of' + AnsiLineBreak +
-    '    1:' + AnsiLineBreak +
-    'ShowMessage(''1 ... OK'');' + AnsiLineBreak +
-    '    else' + AnsiLineBreak +
-    'ShowMessage(''else ... OK'');' + AnsiLineBreak +
-    '   end;' + AnsiLineBreak +
-    '  end;' + AnsiLineBreak + AnsiLineBreak +
+    'unit CaseTest;' + NativeLineBreak + NativeLineBreak +
+    'interface ' + NativeLineBreak + NativeLineBreak +
+    'implementation' + NativeLineBreak + NativeLineBreak +
+    'uses Dialogs;' + NativeLineBreak + NativeLineBreak +
+    'procedure foo(i: integer);' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '  case i of' + NativeLineBreak +
+    '    1:' + NativeLineBreak +
+    'ShowMessage(''1 ... OK'');' + NativeLineBreak +
+    '    else' + NativeLineBreak +
+    'ShowMessage(''else ... OK'');' + NativeLineBreak +
+    '   end;' + NativeLineBreak +
+    '  end;' + NativeLineBreak + NativeLineBreak +
     'end.';
 
 procedure TTestIfElseBreaks.TestCaseStatementNever1;
@@ -392,34 +394,34 @@ end;
 
 const
   BROKEN_END_ELSE_UNIT_TEXT =
-   'unit TestCase;' + AnsiLineBreak +
-   'interface' + AnsiLineBreak +
-   'implementation' + AnsiLineBreak +
-   AnsiLineBreak +
-   'procedure foo;' + AnsiLineBreak +
-   'begin' + AnsiLineBreak +
-   'if (a > b) then' + AnsiLineBreak +
-   'begin' + AnsiLineBreak +
-   'end' + AnsiLineBreak +
-   'else' + AnsiLineBreak +
-   'begin' + AnsiLineBreak +
-   'end;' + AnsiLineBreak +
-   'end;' + AnsiLineBreak +
+   'unit TestCase;' + NativeLineBreak +
+   'interface' + NativeLineBreak +
+   'implementation' + NativeLineBreak +
+   NativeLineBreak +
+   'procedure foo;' + NativeLineBreak +
+   'begin' + NativeLineBreak +
+   'if (a > b) then' + NativeLineBreak +
+   'begin' + NativeLineBreak +
+   'end' + NativeLineBreak +
+   'else' + NativeLineBreak +
+   'begin' + NativeLineBreak +
+   'end;' + NativeLineBreak +
+   'end;' + NativeLineBreak +
    'end.';
 
   UNBROKEN_END_ELSE_UNIT_TEXT =
-   'unit TestCase;' + AnsiLineBreak +
-   'interface' + AnsiLineBreak +
-   'implementation' + AnsiLineBreak +
-   AnsiLineBreak +
-   'procedure foo;' + AnsiLineBreak +
-   'begin' + AnsiLineBreak +
-   'if (a > b) then' + AnsiLineBreak +
-   'begin' + AnsiLineBreak +
-   'end else' + AnsiLineBreak +
-   'begin' + AnsiLineBreak +
-   'end;' + AnsiLineBreak +
-   'end;' + AnsiLineBreak +
+   'unit TestCase;' + NativeLineBreak +
+   'interface' + NativeLineBreak +
+   'implementation' + NativeLineBreak +
+   NativeLineBreak +
+   'procedure foo;' + NativeLineBreak +
+   'begin' + NativeLineBreak +
+   'if (a > b) then' + NativeLineBreak +
+   'begin' + NativeLineBreak +
+   'end else' + NativeLineBreak +
+   'begin' + NativeLineBreak +
+   'end;' + NativeLineBreak +
+   'end;' + NativeLineBreak +
    'end.';
 
 procedure TTestIfElseBreaks.TestEndElseStyle1;
@@ -464,26 +466,26 @@ end;
 
 const
   ELSE_BEGIN_TEXT_NO_RETURN  = UNIT_HEADER +
-    'procedure foo;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    'if bar then // comment' + AnsiLineBreak +
-    ' Fish()' + AnsiLineBreak +
-    'else begin ' + AnsiLineBreak +
-    '   Wibble();' + AnsiLineBreak +
-    '  end;' + AnsiLineBreak +
-    'end;' + AnsiLineBreak +
+    'procedure foo;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'if bar then // comment' + NativeLineBreak +
+    ' Fish()' + NativeLineBreak +
+    'else begin ' + NativeLineBreak +
+    '   Wibble();' + NativeLineBreak +
+    '  end;' + NativeLineBreak +
+    'end;' + NativeLineBreak +
     UNIT_FOOTER;
 
   ELSE_BEGIN_TEXT_WITH_RETURN = UNIT_HEADER +
-    'procedure foo;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    'if bar then // comment' + AnsiLineBreak +
-    ' Fish()' + AnsiLineBreak +
-    'else'+ AnsiLineBreak +
-    'begin ' + AnsiLineBreak +
-    '   Wibble();' + AnsiLineBreak +
-    '  end;' + AnsiLineBreak +
-    'end;' + AnsiLineBreak +
+    'procedure foo;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'if bar then // comment' + NativeLineBreak +
+    ' Fish()' + NativeLineBreak +
+    'else'+ NativeLineBreak +
+    'begin ' + NativeLineBreak +
+    '   Wibble();' + NativeLineBreak +
+    '  end;' + NativeLineBreak +
+    'end;' + NativeLineBreak +
     UNIT_FOOTER;
 
 

@@ -47,34 +47,34 @@ type
 
 implementation
 
-uses JclAnsiStrings, BlockStyles, JcfSettings, SetReturns;
-
-{ TTestFormatPart }
+uses
+  JclStrings,
+  BlockStyles, JcfSettings, SetReturns;
 
 const
   UNIT_IN = UNIT_HEADER +
-    'procedure fred; ' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    'end;'  + AnsiLineBreak +
+    'procedure fred; ' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'end;'  + NativeLineBreak +
     UNIT_FOOTER;
 
   UNIT_OUT_TOP = SPACED_UNIT_HEADER +
-    'procedure fred; ' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    'end;'  + AnsiLineBreak +
+    'procedure fred; ' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'end;'  + NativeLineBreak +
     UNIT_FOOTER;
 
-  UNIT_OUT_TOP_MID = SPACED_UNIT_HEADER +  AnsiLineBreak +
-    'procedure fred; ' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    'end;'  + AnsiLineBreak +
+  UNIT_OUT_TOP_MID = SPACED_UNIT_HEADER +  NativeLineBreak +
+    'procedure fred; ' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'end;'  + NativeLineBreak +
     UNIT_FOOTER;
 
 
   UNIT_OUT_MID = UNIT_HEADER + 
-    'procedure fred; ' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    'end;'  + AnsiLineBreak +
+    'procedure fred; ' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'end;'  + NativeLineBreak +
     UNIT_FOOTER;
 
 procedure TTestFormatPart.Setup;

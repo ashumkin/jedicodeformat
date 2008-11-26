@@ -67,7 +67,7 @@ uses
   { delphi }
   Windows, URLMon,
   { jcl }
-  JclAnsiStrings,
+  JclStrings,
   { local }
   VersionConsts, JCFHelp, JcfFontSetFunctions;
 
@@ -92,14 +92,14 @@ end;
 
 procedure TfrmAboutBox.FormCreate(Sender: TObject);
 var
-  ls: AnsiString;
+  ls: string;
 begin
   inherited;
 
   SetObjectFontToSystemFont(Self);
 
   // show the version from the program constant
-  ls := AnsiString(mWhat.Text);
+  ls := mWhat.Text;
   StrReplace(ls, '%VERSION%', PROGRAM_VERSION);
   StrReplace(ls, '%DATE%', PROGRAM_DATE);
   mWhat.Text := string(ls);

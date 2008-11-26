@@ -49,7 +49,7 @@ uses
   { delphi }
   SysUtils,
   { jcl }
-  JclAnsiStrings,
+  JclStrings,
   { jcf }
   JcfUnicodeFiles, TestConstants;
 

@@ -47,7 +47,7 @@ implementation
 
 uses
   Classes, SysUtils, Dialogs,
-  JclAnsiStrings,
+  JclStrings,
   JcfUnicode;
 
 const
@@ -155,6 +155,7 @@ begin
   pcFileStream.Seek(liOffsetBytes, soFromBeginning);
 end;
 
+{ this is one of the few cases where 'AnsiString' must be used }
 function Read8BitFile(const pcFileStream: TFileStream): WideString;
 var
   liBytesRemaining: integer;
@@ -274,6 +275,7 @@ begin
   end;
 end;
 
+{ this is one of the few cases when "AnsiString" must be used }
 procedure Write8BitFile(const pcFileStream: TFileStream;
   const psContents: WideString; const pbUtf8Header: boolean);
 var

@@ -74,10 +74,12 @@ type
 implementation
 
 uses
+  { Delphi }
   SysUtils,
   Windows,
+  { jcl }
   JclStrings,
-  JclAnsiStrings,
+  { local }
   JcfUnicodeFiles;
 
 const
@@ -216,7 +218,7 @@ var
 begin
   ReadTextFile(ANSI_FILE, lsReadTextFile, le);
 
-  lsFileToString := string(JclStrings.FileToString(ANSI_FILE));
+  lsFileToString := string(FileToString(ANSI_FILE));
   lwsFileToString := lsFileToString;
 
   Check(lwsFileToString = lsReadTextFile);

@@ -105,8 +105,9 @@ uses
  { delphi }
  Forms, SysUtils,
  { jcl }
- JclAnsiStrings, JcfUnicode,
+ JclStrings,
  { local }
+ JcfUnicode,
  JcfRegistrySettings;
 
 
@@ -161,9 +162,9 @@ var
     { the rest }
     if TryWhiteSpace(lcNewToken) then
       exit;
-    if TryLiteralString(lcNewToken, AnsiSingleQuote) then
+    if TryLiteralString(lcNewToken, NativeSingleQuote) then
       exit;
-    if TryLiteralString(lcNewToken, AnsiDoubleQuote) then
+    if TryLiteralString(lcNewToken, NativeDoubleQuote) then
       exit;
 
     if TryWord(lcNewToken) then
@@ -651,7 +652,7 @@ function TBuildTokenList.TryPunctuation(const pcToken: TSourceToken): boolean;
      e.g '=(' is not a punctation symbol, but 2 of them ( for e.g. in const a=(3);
      simlarly ');' is 2 puncs }
     UnitaryPunctuation: set of AnsiChar = [
-      AnsiSingleQuote, '"', '(', ')', '[', ']', '{',
+      NativeSingleQuote, '"', '(', ')', '[', ']', '{',
       '#', '$', '_', ';', '@', '^', ','];
 
    { these can't have anything following them:

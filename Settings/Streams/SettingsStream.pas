@@ -157,12 +157,12 @@ uses
   { delphi }
   SysUtils, Windows,
   { jcl }
-  JclStrings, JclAnsiStrings, JclSysUtils,
+  JclStrings, JclSysUtils,
   { local}
   JcfMiscFunctions;
 
 const
-  XML_HEADER = '<?xml version="1.0" ?>' + AnsiLineBreak;
+  XML_HEADER = '<?xml version="1.0" ?>' + NativeLineBreak;
 
 procedure TSettingsOutput.WriteXMLHeader;
 begin
@@ -244,6 +244,8 @@ var
   lp: PAnsiChar;
 begin
   Assert(fcStream <> nil);
+
+  // write as 8-bit text or as 16?
   lp := PAnsiChar(AnsiString(psText));
   fcStream.WriteBuffer(lp^, Length(psText));
 end;
@@ -255,14 +257,14 @@ end;
 
 procedure TSettingsStreamOutput.OpenSection(const psName: string);
 begin
-  WriteText(JclStrings.StrRepeat('  ', fiOpenSections) + '<' + psName + '>' + AnsiLineBreak);
+  WriteText(StrRepeat('  ', fiOpenSections) + '<' + psName + '>' + NativeLineBreak);
   Inc(fiOpenSections);
 end;
 
 procedure TSettingsStreamOutput.CloseSection(const psName: string);
 begin
   Dec(fiOpenSections);
-  WriteText(JclStrings.StrRepeat('  ', fiOpenSections) + '</' + psName + '>' + AnsiLineBreak);
+  WriteText(StrRepeat('  ', fiOpenSections) + '</' + psName + '>' + NativeLineBreak);
 end;
 
 
@@ -271,8 +273,8 @@ var
   lsTemp: string;
 begin
   Assert(fcStream <> nil);
-  lsTemp := JclStrings.StrRepeat('  ', fiOpenSections + 1) + '<' + psTagName + '> ' +
-    psValue + ' </' + psTagName + '>' + AnsiLineBreak;
+  lsTemp := StrRepeat('  ', fiOpenSections + 1) + '<' + psTagName + '> ' +
+    psValue + ' </' + psTagName + '>' + NativeLineBreak;
   WriteText(lsTemp);
 end;
 
@@ -381,8 +383,8 @@ begin
   lsStart := '<' + psTag + '>';
   lsEnd   := '</' + psTag + '>';
 
-  liStart := JclStrings.StrFind(lsStart, fsText, 1);
-  liEnd   := JclStrings.StrFind(lsEnd, fsText, 1);
+  liStart := StrFind(lsStart, fsText, 1);
+  liEnd   := StrFind(lsEnd, fsText, 1);
 
   if (liStart > 0) and (liEnd > liStart) then
   begin
@@ -459,9 +461,9 @@ begin
       Result := piDefault;
   except
     on E: Exception do
-      raise Exception.Create('Could not read integer setting' + AnsiLineBreak +
-        'name: ' + psTag + AnsiLineBreak +
-        'value: ' + lsNewText + AnsiLineBreak + E.Message);
+      raise Exception.Create('Could not read integer setting' + NativeLineBreak +
+        'name: ' + psTag + NativeLineBreak +
+        'value: ' + lsNewText + NativeLineBreak + E.Message);
   end;
 
 end;
@@ -479,9 +481,9 @@ begin
       Result := pfDefault;
   except
     on E: Exception do
-      raise Exception.Create('Could not read float setting' + AnsiLineBreak +
-        'name: ' + psTag + AnsiLineBreak +
-        'value: ' + lsNewText + AnsiLineBreak + E.Message);
+      raise Exception.Create('Could not read float setting' + NativeLineBreak +
+        'name: ' + psTag + NativeLineBreak +
+        'value: ' + lsNewText + NativeLineBreak + E.Message);
   end;
 end;
 
@@ -499,9 +501,9 @@ begin
       Result := pbDefault;
   except
     on E: Exception do
-      raise Exception.Create('Could not read boolean setting' + AnsiLineBreak +
-        'name: ' + psTag + AnsiLineBreak +
-        'value: ' + lsNewText + AnsiLineBreak + E.Message);
+      raise Exception.Create('Could not read boolean setting' + NativeLineBreak +
+        'name: ' + psTag + NativeLineBreak +
+        'value: ' + lsNewText + NativeLineBreak + E.Message);
   end;
 
 end;

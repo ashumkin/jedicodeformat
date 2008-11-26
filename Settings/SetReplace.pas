@@ -68,8 +68,10 @@ type
 implementation
 
 uses
-    { delphi }SysUtils,
-    { jcl }JclStrings, JclAnsiStrings;
+  { delphi }
+  SysUtils,
+  { jcl }
+  JclStrings;
 
 const
   REG_ENABLED = 'Enabled';
@@ -124,8 +126,8 @@ begin
   liPos := Pos(';', ps);
   if liPos > 0 then
   begin
-    psOut1 := Trim(JclStrings.StrLeft(ps, liPos - 1));
-    psOut2 := Trim(JclStrings.StrRestOf(ps, liPos + 1));
+    psOut1 := Trim(StrLeft(ps, liPos - 1));
+    psOut2 := Trim(StrRestOf(ps, liPos + 1));
   end;
 end;
 

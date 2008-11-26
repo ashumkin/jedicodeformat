@@ -137,7 +137,6 @@ uses
   SysUtils, Dialogs, Windows,
   { jcl }
   JclStrings,
-  JclAnsiStrings,
   { local }
   JCFSetBase,
   JcfRegistrySettings;
@@ -234,7 +233,7 @@ begin
     // debug ShowMessage('Reading settings from file ' + lsSettingsFileName);
 
     // now we know the file exists - try get settings from it
-    lsText := string(JclStrings.FileToString(psFileName));
+    lsText := string(FileToString(psFileName));
     lcFile := TSettingsInputString.Create(lsText);
     try
       FromStream(lcFile);
@@ -246,7 +245,7 @@ begin
   begin
     if pbMustExist then
     begin
-      MessageDlg('The settings file "' + psFileName + '" does not exist.' + AnsiLineBreak +
+      MessageDlg('The settings file "' + psFileName + '" does not exist.' + NativeLineBreak +
         'The formatter will work better if it is configured to use a valid settings file',
         mtError, [mbOK], 0);
       end;
@@ -309,7 +308,7 @@ begin
       if lcReg.FormatFileWriteOption = eAlwaysWrite then
       begin
         MessageDlg('Error writing settings file ' +
-          GetRegSettings.FormatConfigFileName + AnsiLineBreak + ' :' +
+          GetRegSettings.FormatConfigFileName + NativeLineBreak + ' :' +
           E.Message, mtError, [mbOK], 0);
       end;
     end;

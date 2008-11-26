@@ -90,7 +90,8 @@ type
 
 implementation
 
-uses JclAnsiStrings,
+uses
+  JclStrings,
   JcfSettings,
   BlockStyles, Indenter, SetReturns;
 
@@ -109,11 +110,11 @@ const
 
   UNIT_TEXT_NEW_LINE = UNIT_HEADER + ' procedure foo; begin' +
     ' case x of ' +
-    ' 1:' + AnsiLineBreak +
+    ' 1:' + NativeLineBreak +
     'Bar; ' +
-    ' 2:' + AnsiLineBreak +
+    ' 2:' + NativeLineBreak +
     'Fish; ' +
-    ' else' + AnsiLineBreak +
+    ' else' + NativeLineBreak +
     'Spock; ' +
     ' end; ' +
     ' end; ' +
@@ -123,7 +124,7 @@ const
     ' case x of ' +
     ' 1: Bar; ' +
     ' 2: Fish; ' +
-    ' else' + AnsiLineBreak +
+    ' else' + NativeLineBreak +
     'Spock; ' +
     ' end; ' +
     ' end; ' +
@@ -133,11 +134,11 @@ const
   { test breaking on else ... begin}
   UNIT_TEXT_ELSE_BEGIN = UNIT_HEADER + ' procedure foo; begin' +
     ' case x of ' +
-    ' 1:' + AnsiLineBreak +
+    ' 1:' + NativeLineBreak +
     'Bar; ' +
-    ' 2:' + AnsiLineBreak +
+    ' 2:' + NativeLineBreak +
     'Fish; ' +
-    ' else begin' + AnsiLineBreak +
+    ' else begin' + NativeLineBreak +
     'Spock; ' +
     ' end; end; ' +
     ' end; ' +
@@ -146,12 +147,12 @@ const
 
   UNIT_TEXT_ELSE_BEGIN_NEWLINE = UNIT_HEADER + ' procedure foo; begin' +
     ' case x of ' +
-    ' 1:' + AnsiLineBreak +
+    ' 1:' + NativeLineBreak +
     'Bar; ' +
-    ' 2:' + AnsiLineBreak +
+    ' 2:' + NativeLineBreak +
     'Fish; ' +
-    ' else' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
+    ' else' + NativeLineBreak +
+    'begin' + NativeLineBreak +
     'Spock; ' +
     ' end; end; ' +
     ' end; ' +
@@ -168,34 +169,34 @@ const
 
   UNIT_TEXT_CASE_BEGIN_NEW_LINE = UNIT_HEADER + ' procedure foo; begin' +
     ' case x of ' +
-    ' 1:' + AnsiLineBreak +
+    ' 1:' + NativeLineBreak +
     'begin Bar;  end ' +
-    ' 2:' + AnsiLineBreak +
+    ' 2:' + NativeLineBreak +
     'begin Fish; end ' +
     ' end; ' +
     ' end; ' +
     UNIT_FOOTER;
 
-  UNIT_TEXT_INDENTED = UNIT_HEADER + AnsiLineBreak +
-    'procedure foo;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '  case x of' + AnsiLineBreak +
-    '    1: Bar;' + AnsiLineBreak +
-    '    2: Fish;' + AnsiLineBreak +
-    '    else Spock;' + AnsiLineBreak +
-    '  end;' + AnsiLineBreak +
-    'end;' + AnsiLineBreak +
+  UNIT_TEXT_INDENTED = UNIT_HEADER + NativeLineBreak +
+    'procedure foo;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '  case x of' + NativeLineBreak +
+    '    1: Bar;' + NativeLineBreak +
+    '    2: Fish;' + NativeLineBreak +
+    '    else Spock;' + NativeLineBreak +
+    '  end;' + NativeLineBreak +
+    'end;' + NativeLineBreak +
     UNIT_FOOTER;
 
-  UNIT_TEXT_INDENTED_ELSE = UNIT_HEADER + AnsiLineBreak +
-    'procedure foo;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '  case x of' + AnsiLineBreak +
-    '    1: Bar;' + AnsiLineBreak +
-    '    2: Fish;' + AnsiLineBreak +
-    '  else Spock;' + AnsiLineBreak +
-    '  end;' + AnsiLineBreak +
-    'end;' + AnsiLineBreak +
+  UNIT_TEXT_INDENTED_ELSE = UNIT_HEADER + NativeLineBreak +
+    'procedure foo;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '  case x of' + NativeLineBreak +
+    '    1: Bar;' + NativeLineBreak +
+    '    2: Fish;' + NativeLineBreak +
+    '  else Spock;' + NativeLineBreak +
+    '  end;' + NativeLineBreak +
+    'end;' + NativeLineBreak +
     UNIT_FOOTER;
 
 procedure TTestCaseReturns.Setup;

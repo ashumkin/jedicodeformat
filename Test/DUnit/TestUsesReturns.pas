@@ -54,7 +54,7 @@ type
 implementation
 
 uses
-  JclAnsiStrings,
+  JclStrings,
   JcfSettings, TestConstants, ReturnAfter;
 
 procedure TTestUsesReturns.Setup;
@@ -82,8 +82,8 @@ end;
 procedure TTestUsesReturns.Test1;
 const
   IN_UNIT_TEXT  = UNIT_HEADER + ' uses foo; ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = SPACED_UNIT_HEADER + AnsiLineBreak +
-    ' uses' + AnsiLineBreak + 'foo;' + AnsiLineBreak + UNIT_FOOTER;
+  OUT_UNIT_TEXT = SPACED_UNIT_HEADER + NativeLineBreak +
+    ' uses' + NativeLineBreak + 'foo;' + NativeLineBreak + UNIT_FOOTER;
 begin
   TestProcessResult(TReturnAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -91,10 +91,10 @@ end;
 procedure TTestUsesReturns.Test2;
 const
   IN_UNIT_TEXT  = UNIT_HEADER + ' uses foo, bar; ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = SPACED_UNIT_HEADER + AnsiLineBreak +
-    ' uses' + AnsiLineBreak +
-    'foo,' + AnsiLineBreak +
-    'bar;' + AnsiLineBreak +
+  OUT_UNIT_TEXT = SPACED_UNIT_HEADER + NativeLineBreak +
+    ' uses' + NativeLineBreak +
+    'foo,' + NativeLineBreak +
+    'bar;' + NativeLineBreak +
     UNIT_FOOTER;
 begin
   TestProcessResult(TReturnAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -103,11 +103,11 @@ end;
 procedure TTestUsesReturns.Test3;
 const
   IN_UNIT_TEXT  = UNIT_HEADER + ' uses foo, bar, fish; ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = SPACED_UNIT_HEADER + AnsiLineBreak +
-    ' uses' + AnsiLineBreak +
-    'foo,' + AnsiLineBreak +
-    'bar,' + AnsiLineBreak +
-    'fish;' + AnsiLineBreak + UNIT_FOOTER;
+  OUT_UNIT_TEXT = SPACED_UNIT_HEADER + NativeLineBreak +
+    ' uses' + NativeLineBreak +
+    'foo,' + NativeLineBreak +
+    'bar,' + NativeLineBreak +
+    'fish;' + NativeLineBreak + UNIT_FOOTER;
 begin
   TestProcessResult(TReturnAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -117,11 +117,11 @@ end;
 procedure TTestUsesReturns.TestComment1;
 const
   IN_UNIT_TEXT  = UNIT_HEADER + ' uses foo {foo}, bar, fish; ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = SPACED_UNIT_HEADER + AnsiLineBreak +
-    ' uses' + AnsiLineBreak +
-    'foo {foo},' + AnsiLineBreak +
-    'bar,' + AnsiLineBreak +
-    'fish;' + AnsiLineBreak + UNIT_FOOTER;
+  OUT_UNIT_TEXT = SPACED_UNIT_HEADER + NativeLineBreak +
+    ' uses' + NativeLineBreak +
+    'foo {foo},' + NativeLineBreak +
+    'bar,' + NativeLineBreak +
+    'fish;' + NativeLineBreak + UNIT_FOOTER;
 begin
   TestProcessResult(TReturnAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -129,10 +129,10 @@ end;
 procedure TTestUsesReturns.TestComment2;
 const
   IN_UNIT_TEXT  = UNIT_HEADER + ' uses foo, {foo} bar, fish; ' + UNIT_FOOTER;
-  OUT_UNIT_TEXT = SPACED_UNIT_HEADER + AnsiLineBreak +
-    ' uses' + AnsiLineBreak +
-    'foo, {foo} bar,' + AnsiLineBreak +
-    'fish;' + AnsiLineBreak + UNIT_FOOTER;
+  OUT_UNIT_TEXT = SPACED_UNIT_HEADER + NativeLineBreak +
+    ' uses' + NativeLineBreak +
+    'foo, {foo} bar,' + NativeLineBreak +
+    'fish;' + NativeLineBreak + UNIT_FOOTER;
 begin
   TestProcessResult(TReturnAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;

@@ -64,7 +64,7 @@ type
 implementation
 
 uses
-  JclAnsiStrings,
+  JclStrings,
   JcfSettings, SetReturns,
   RemoveConsecutiveReturns, RemoveBlankLinesInVars, RemoveBlankLinesAfterProcHeader;
 
@@ -101,14 +101,14 @@ end;
 procedure TTestRemoveBlankLines.Test1;
 const
   IN_UNIT_TEXT  = UNIT_HEADER +
-    AnsiLineBreak + AnsiLineBreak +
-    AnsiLineBreak + AnsiLineBreak +
-    AnsiLineBreak + AnsiLineBreak +
-    AnsiLineBreak + AnsiLineBreak +
+    NativeLineBreak + NativeLineBreak +
+    NativeLineBreak + NativeLineBreak +
+    NativeLineBreak + NativeLineBreak +
+    NativeLineBreak + NativeLineBreak +
     UNIT_FOOTER;
   OUT_UNIT_TEXT = UNIT_HEADER +
-    AnsiLineBreak + AnsiLineBreak +
-    AnsiLineBreak +
+    NativeLineBreak + NativeLineBreak +
+    NativeLineBreak +
     UNIT_FOOTER;
 begin
   TestProcessResult(TRemoveConsecutiveReturns, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -117,38 +117,38 @@ end;
 
 const
   UNIT_TEXT_VAR_LINES_0  = UNIT_HEADER +
-    ' procedure foo; ' + AnsiLineBreak +
-    'var' + AnsiLineBreak +
-    '  a: integer;' + AnsiLineBreak +
-    'begin end;' + AnsiLineBreak +
+    ' procedure foo; ' + NativeLineBreak +
+    'var' + NativeLineBreak +
+    '  a: integer;' + NativeLineBreak +
+    'begin end;' + NativeLineBreak +
     UNIT_FOOTER;
 
   UNIT_TEXT_VAR_LINES_1  = UNIT_HEADER +
-    ' procedure foo; ' + AnsiLineBreak +
-    'var' + AnsiLineBreak +
-    '  a: integer;' + AnsiLineBreak +
-    AnsiLineBreak +
-    'begin end;' + AnsiLineBreak +
+    ' procedure foo; ' + NativeLineBreak +
+    'var' + NativeLineBreak +
+    '  a: integer;' + NativeLineBreak +
+    NativeLineBreak +
+    'begin end;' + NativeLineBreak +
     UNIT_FOOTER;
 
   UNIT_TEXT_VAR_LINES_2  = UNIT_HEADER +
-    ' procedure foo; ' + AnsiLineBreak +
-    'var' + AnsiLineBreak +
-    '  a: integer;' + AnsiLineBreak +
-    AnsiLineBreak +
-    AnsiLineBreak +
-    'begin end;' + AnsiLineBreak +
+    ' procedure foo; ' + NativeLineBreak +
+    'var' + NativeLineBreak +
+    '  a: integer;' + NativeLineBreak +
+    NativeLineBreak +
+    NativeLineBreak +
+    'begin end;' + NativeLineBreak +
     UNIT_FOOTER;
 
 
   UNIT_TEXT_VAR_LINES_3  = UNIT_HEADER +
-    ' procedure foo; ' + AnsiLineBreak +
-    'var' + AnsiLineBreak +
-    '  a: integer;' + AnsiLineBreak +
-    AnsiLineBreak +
-    AnsiLineBreak +
-    AnsiLineBreak +
-    'begin end;' + AnsiLineBreak +
+    ' procedure foo; ' + NativeLineBreak +
+    'var' + NativeLineBreak +
+    '  a: integer;' + NativeLineBreak +
+    NativeLineBreak +
+    NativeLineBreak +
+    NativeLineBreak +
+    'begin end;' + NativeLineBreak +
     UNIT_FOOTER;
 
 
@@ -200,34 +200,34 @@ end;
 
 const
   UNIT_TEXT_HEADER_LINES_0  = UNIT_HEADER +
-    ' procedure foo; ' + AnsiLineBreak +
-    'var' + AnsiLineBreak +
-    '  a: integer;' + AnsiLineBreak +
-    'begin end;' + AnsiLineBreak +
+    ' procedure foo; ' + NativeLineBreak +
+    'var' + NativeLineBreak +
+    '  a: integer;' + NativeLineBreak +
+    'begin end;' + NativeLineBreak +
     UNIT_FOOTER;
 
   UNIT_TEXT_HEADER_LINES_1  = UNIT_HEADER +
-    ' procedure foo; ' + AnsiLineBreak +
-     AnsiLineBreak +
-    'var' + AnsiLineBreak +
-    '  a: integer;' + AnsiLineBreak +
-    'begin end;' + AnsiLineBreak +
+    ' procedure foo; ' + NativeLineBreak +
+     NativeLineBreak +
+    'var' + NativeLineBreak +
+    '  a: integer;' + NativeLineBreak +
+    'begin end;' + NativeLineBreak +
     UNIT_FOOTER;
 
   UNIT_TEXT_HEADER_LINES_2  = UNIT_HEADER +
-    ' procedure foo; ' + AnsiLineBreak +
-     AnsiLineBreak +
-    'var' + AnsiLineBreak +
-    '  a: integer;' + AnsiLineBreak +
-    'begin end;' + AnsiLineBreak +
+    ' procedure foo; ' + NativeLineBreak +
+     NativeLineBreak +
+    'var' + NativeLineBreak +
+    '  a: integer;' + NativeLineBreak +
+    'begin end;' + NativeLineBreak +
     UNIT_FOOTER;
 
   UNIT_TEXT_HEADER_LINES_3  = UNIT_HEADER +
-    ' procedure foo; ' + AnsiLineBreak +
-     AnsiLineBreak +
-    'var' + AnsiLineBreak +
-    '  a: integer;' + AnsiLineBreak +
-    'begin end;' + AnsiLineBreak +
+    ' procedure foo; ' + NativeLineBreak +
+     NativeLineBreak +
+    'var' + NativeLineBreak +
+    '  a: integer;' + NativeLineBreak +
+    'begin end;' + NativeLineBreak +
     UNIT_FOOTER;
 
 

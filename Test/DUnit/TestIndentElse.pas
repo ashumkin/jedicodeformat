@@ -60,7 +60,8 @@ type
 
 implementation
 
-uses JclAnsiStrings,
+uses
+  JclStrings,
   JcfSettings,
   Indenter;
 
@@ -100,14 +101,14 @@ end;
 
 const
   BASIC_UNIT_TEXT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '  if a > b then' + AnsiLineBreak +
-    '  begin' + AnsiLineBreak +
-    '  end' + AnsiLineBreak +
-    '  else' + AnsiLineBreak +
-    '  begin' + AnsiLineBreak +
-    '  end;'+ AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '  if a > b then' + NativeLineBreak +
+    '  begin' + NativeLineBreak +
+    '  end' + NativeLineBreak +
+    '  else' + NativeLineBreak +
+    '  begin' + NativeLineBreak +
+    '  end;'+ NativeLineBreak +
     'end;' + UNIT_FOOTER;
 
 
@@ -118,27 +119,27 @@ end;
 
 const
   IF_ELSE_1_IN = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '  if a > b then' + AnsiLineBreak +
-    '  begin' + AnsiLineBreak +
-    '  end' + AnsiLineBreak +
-    '  else' + AnsiLineBreak +
-    '  if a > c then' + AnsiLineBreak +
-    '  begin' + AnsiLineBreak +
-    '  end;'+ AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '  if a > b then' + NativeLineBreak +
+    '  begin' + NativeLineBreak +
+    '  end' + NativeLineBreak +
+    '  else' + NativeLineBreak +
+    '  if a > c then' + NativeLineBreak +
+    '  begin' + NativeLineBreak +
+    '  end;'+ NativeLineBreak +
     'end;' + UNIT_FOOTER;
 
   IF_ELSE_1_OUT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '  if a > b then' + AnsiLineBreak +
-    '  begin' + AnsiLineBreak +
-    '  end' + AnsiLineBreak +
-    '  else' + AnsiLineBreak +
-    '    if a > c then' + AnsiLineBreak +
-    '    begin' + AnsiLineBreak +
-    '    end;'+ AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '  if a > b then' + NativeLineBreak +
+    '  begin' + NativeLineBreak +
+    '  end' + NativeLineBreak +
+    '  else' + NativeLineBreak +
+    '    if a > c then' + NativeLineBreak +
+    '    begin' + NativeLineBreak +
+    '    end;'+ NativeLineBreak +
     'end;' + UNIT_FOOTER;
 
 procedure TTestIndentElse.TestIfElse1;
@@ -148,35 +149,35 @@ end;
 
 const
   IF_ELSE_2_IN = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '  if a > b then' + AnsiLineBreak +
-    '  begin' + AnsiLineBreak +
-    '  end' + AnsiLineBreak +
-    '  else' + AnsiLineBreak +
-    '  if a > c then' + AnsiLineBreak +
-    '  begin' + AnsiLineBreak +
-    '  end'+ AnsiLineBreak +
-    '  else' + AnsiLineBreak +
-    '  if a > d then' + AnsiLineBreak +
-    '  begin' + AnsiLineBreak +
-    '  end;'+ AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '  if a > b then' + NativeLineBreak +
+    '  begin' + NativeLineBreak +
+    '  end' + NativeLineBreak +
+    '  else' + NativeLineBreak +
+    '  if a > c then' + NativeLineBreak +
+    '  begin' + NativeLineBreak +
+    '  end'+ NativeLineBreak +
+    '  else' + NativeLineBreak +
+    '  if a > d then' + NativeLineBreak +
+    '  begin' + NativeLineBreak +
+    '  end;'+ NativeLineBreak +
     'end;' + UNIT_FOOTER;
 
   IF_ELSE_2_OUT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '  if a > b then' + AnsiLineBreak +
-    '  begin' + AnsiLineBreak +
-    '  end' + AnsiLineBreak +
-    '  else' + AnsiLineBreak +
-    '    if a > c then' + AnsiLineBreak +
-    '    begin' + AnsiLineBreak +
-    '    end'+ AnsiLineBreak +
-    '    else' + AnsiLineBreak +
-    '      if a > d then' + AnsiLineBreak +
-    '      begin' + AnsiLineBreak +
-    '      end;'+ AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '  if a > b then' + NativeLineBreak +
+    '  begin' + NativeLineBreak +
+    '  end' + NativeLineBreak +
+    '  else' + NativeLineBreak +
+    '    if a > c then' + NativeLineBreak +
+    '    begin' + NativeLineBreak +
+    '    end'+ NativeLineBreak +
+    '    else' + NativeLineBreak +
+    '      if a > d then' + NativeLineBreak +
+    '      begin' + NativeLineBreak +
+    '      end;'+ NativeLineBreak +
     'end;' + UNIT_FOOTER;
 
 procedure TTestIndentElse.TestIfElse2;
@@ -186,43 +187,43 @@ end;
 
 const
   IF_ELSE_3_IN = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '  if a > b then' + AnsiLineBreak +
-    '  begin' + AnsiLineBreak +
-    '  end' + AnsiLineBreak +
-    '  else' + AnsiLineBreak +
-    '  if a > c then' + AnsiLineBreak +
-    '  begin' + AnsiLineBreak +
-    '  end'+ AnsiLineBreak +
-    '  else' + AnsiLineBreak +
-    '  if a > d then' + AnsiLineBreak +
-    '  begin' + AnsiLineBreak +
-    '  end'+ AnsiLineBreak +
-    '  else' + AnsiLineBreak +
-    '  if a > e then' + AnsiLineBreak +
-    '  begin' + AnsiLineBreak +
-    '  end;'+ AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '  if a > b then' + NativeLineBreak +
+    '  begin' + NativeLineBreak +
+    '  end' + NativeLineBreak +
+    '  else' + NativeLineBreak +
+    '  if a > c then' + NativeLineBreak +
+    '  begin' + NativeLineBreak +
+    '  end'+ NativeLineBreak +
+    '  else' + NativeLineBreak +
+    '  if a > d then' + NativeLineBreak +
+    '  begin' + NativeLineBreak +
+    '  end'+ NativeLineBreak +
+    '  else' + NativeLineBreak +
+    '  if a > e then' + NativeLineBreak +
+    '  begin' + NativeLineBreak +
+    '  end;'+ NativeLineBreak +
     'end;' + UNIT_FOOTER;
 
   IF_ELSE_3_OUT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '  if a > b then' + AnsiLineBreak +
-    '  begin' + AnsiLineBreak +
-    '  end' + AnsiLineBreak +
-    '  else' + AnsiLineBreak +
-    '    if a > c then' + AnsiLineBreak +
-    '    begin' + AnsiLineBreak +
-    '    end'+ AnsiLineBreak +
-    '    else' + AnsiLineBreak +
-    '      if a > d then' + AnsiLineBreak +
-    '      begin' + AnsiLineBreak +
-    '      end'+ AnsiLineBreak +
-    '      else' + AnsiLineBreak +
-    '        if a > e then' + AnsiLineBreak +
-    '        begin' + AnsiLineBreak +
-    '        end;'+ AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '  if a > b then' + NativeLineBreak +
+    '  begin' + NativeLineBreak +
+    '  end' + NativeLineBreak +
+    '  else' + NativeLineBreak +
+    '    if a > c then' + NativeLineBreak +
+    '    begin' + NativeLineBreak +
+    '    end'+ NativeLineBreak +
+    '    else' + NativeLineBreak +
+    '      if a > d then' + NativeLineBreak +
+    '      begin' + NativeLineBreak +
+    '      end'+ NativeLineBreak +
+    '      else' + NativeLineBreak +
+    '        if a > e then' + NativeLineBreak +
+    '        begin' + NativeLineBreak +
+    '        end;'+ NativeLineBreak +
     'end;' + UNIT_FOOTER;
 
 
@@ -233,51 +234,51 @@ end;
 
 const
   IF_ELSE_STATEMENTS = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '  if a > b then' + AnsiLineBreak +
-    '  begin' + AnsiLineBreak +
-    '    a := b;' + AnsiLineBreak +
-    '  end' + AnsiLineBreak +
-    '  else' + AnsiLineBreak +
-    '  if a > c then' + AnsiLineBreak +
-    '  begin' + AnsiLineBreak +
-    '    a := b;' + AnsiLineBreak +
-    '  end'+ AnsiLineBreak +
-    '  else' + AnsiLineBreak +
-    '  if a > d then' + AnsiLineBreak +
-    '  begin' + AnsiLineBreak +
-    '    a := b;' + AnsiLineBreak +
-    '  end'+ AnsiLineBreak +
-    '  else' + AnsiLineBreak +
-    '  if a > e then' + AnsiLineBreak +
-    '  begin' + AnsiLineBreak +
-    '    a := b;' + AnsiLineBreak +
-    '  end;'+ AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '  if a > b then' + NativeLineBreak +
+    '  begin' + NativeLineBreak +
+    '    a := b;' + NativeLineBreak +
+    '  end' + NativeLineBreak +
+    '  else' + NativeLineBreak +
+    '  if a > c then' + NativeLineBreak +
+    '  begin' + NativeLineBreak +
+    '    a := b;' + NativeLineBreak +
+    '  end'+ NativeLineBreak +
+    '  else' + NativeLineBreak +
+    '  if a > d then' + NativeLineBreak +
+    '  begin' + NativeLineBreak +
+    '    a := b;' + NativeLineBreak +
+    '  end'+ NativeLineBreak +
+    '  else' + NativeLineBreak +
+    '  if a > e then' + NativeLineBreak +
+    '  begin' + NativeLineBreak +
+    '    a := b;' + NativeLineBreak +
+    '  end;'+ NativeLineBreak +
     'end;' + UNIT_FOOTER;
 
   IF_ELSE_STATEMENTS_OUT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '  if a > b then' + AnsiLineBreak +
-    '  begin' + AnsiLineBreak +
-    '    a := b;' + AnsiLineBreak +
-    '  end' + AnsiLineBreak +
-    '  else' + AnsiLineBreak +
-    '    if a > c then' + AnsiLineBreak +
-    '    begin' + AnsiLineBreak +
-    '      a := b;' + AnsiLineBreak +
-    '    end'+ AnsiLineBreak +
-    '    else' + AnsiLineBreak +
-    '      if a > d then' + AnsiLineBreak +
-    '      begin' + AnsiLineBreak +
-    '        a := b;' + AnsiLineBreak +
-    '      end'+ AnsiLineBreak +
-    '      else' + AnsiLineBreak +
-    '        if a > e then' + AnsiLineBreak +
-    '        begin' + AnsiLineBreak +
-    '          a := b;' + AnsiLineBreak +
-    '        end;'+ AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '  if a > b then' + NativeLineBreak +
+    '  begin' + NativeLineBreak +
+    '    a := b;' + NativeLineBreak +
+    '  end' + NativeLineBreak +
+    '  else' + NativeLineBreak +
+    '    if a > c then' + NativeLineBreak +
+    '    begin' + NativeLineBreak +
+    '      a := b;' + NativeLineBreak +
+    '    end'+ NativeLineBreak +
+    '    else' + NativeLineBreak +
+    '      if a > d then' + NativeLineBreak +
+    '      begin' + NativeLineBreak +
+    '        a := b;' + NativeLineBreak +
+    '      end'+ NativeLineBreak +
+    '      else' + NativeLineBreak +
+    '        if a > e then' + NativeLineBreak +
+    '        begin' + NativeLineBreak +
+    '          a := b;' + NativeLineBreak +
+    '        end;'+ NativeLineBreak +
     'end;' + UNIT_FOOTER;
 
 procedure TTestIndentElse.TestIfElseStatements;

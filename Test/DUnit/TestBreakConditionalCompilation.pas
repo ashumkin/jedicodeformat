@@ -43,7 +43,7 @@ type
   TTestBreakConditionalCompilation = class(TBaseTestProcess)
   private
     { the input file }
-    fsFileIn: AnsiString;
+    fsFileIn: string;
 
     { the saved settings }
     feSaveRebreakLines: TWhenToRebreakLines;
@@ -57,7 +57,7 @@ type
     feSaveAfterCompilerDirectGeneral: TTriOptionStyle;
 
 
-    procedure CheckReplace(var ps: AnsiString; const psFind, psReplace: AnsiString);
+    procedure CheckReplace(var ps: string; const psFind, psReplace: string);
 
   protected
     procedure SetUp; override;
@@ -91,7 +91,7 @@ uses
   { DUnit }
   TestFramework,
   { jcl }
-  JclStrings, JclAnsiStrings,
+  JclStrings,
   { local }
   JCFSettings;
 
@@ -103,9 +103,13 @@ begin
   inherited;
 
   if FileExists(IN_FILE_NAME) then
-    fsFileIn := JclStrings.FileToString(IN_FILE_NAME)
+  begin
+    fsFileIn := FileToString(IN_FILE_NAME);
+  end
   else
+  begin
     fsFileIn := '';
+  end;
 
   { store settings }
   feSaveRebreakLines := FormatSettings.Returns.RebreakLines;
@@ -138,8 +142,8 @@ begin
   inherited;
 end;
 
-procedure TTestBreakConditionalCompilation.CheckReplace(var ps: AnsiString;
-  const psFind, psReplace: AnsiString);
+procedure TTestBreakConditionalCompilation.CheckReplace(var ps: string;
+  const psFind, psReplace: string);
 begin
  Check(Pos(psFind, ps) > 0, string('String not found: ' + psFind));
  StrReplace(ps, psFind, psReplace, [rfIgnoreCase]);
@@ -164,7 +168,7 @@ end;
 
 procedure TTestBreakConditionalCompilation.TestUsesBreakBeforeAdd;
 var
-  lsFileOut: AnsiString;
+  lsFileOut: string;
 begin
   Check(fsFileIn <> '', 'No input file');
 
@@ -177,15 +181,15 @@ begin
   FormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
 
   lsFileOut := fsFileIn;
-  CheckReplace(lsFileOut, ' {$IFDEF BAR_RAISED}', AnsiLineBreak + '{$IFDEF BAR_RAISED}');
-  CheckReplace(lsFileOut, ' {$ENDIF} Dialogs', AnsiLineBreak + '{$ENDIF} Dialogs');
+  CheckReplace(lsFileOut, ' {$IFDEF BAR_RAISED}', NativeLineBreak + '{$IFDEF BAR_RAISED}');
+  CheckReplace(lsFileOut, ' {$ENDIF} Dialogs', NativeLineBreak + '{$ENDIF} Dialogs');
   TestFormatResult(string(fsFileIn), string(lsFileOut));
 end;
 
 
 procedure TTestBreakConditionalCompilation.TestUsesBreakBeforeRemove;
 var
-  lsFileOut: AnsiString;
+  lsFileOut: string;
 begin
   Check(fsFileIn <> '', 'No input file');
 
@@ -198,14 +202,14 @@ begin
   FormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
 
   lsFileOut := fsFileIn;
-  CheckReplace(fsFileIn, '{$IFDEF BAR_RAISED}', AnsiLineBreak + '{$IFDEF BAR_RAISED}');
-  CheckReplace(fsFileIn, '{$ENDIF} Dialogs', AnsiLineBreak + '{$ENDIF} Dialogs');
+  CheckReplace(fsFileIn, '{$IFDEF BAR_RAISED}', NativeLineBreak + '{$IFDEF BAR_RAISED}');
+  CheckReplace(fsFileIn, '{$ENDIF} Dialogs', NativeLineBreak + '{$ENDIF} Dialogs');
   TestFormatResult(string(fsFileIn), string(lsFileOut));
 end;
 
 procedure TTestBreakConditionalCompilation.TestUsesBreakAfterAdd;
 var
-  lsFileOut: AnsiString;
+  lsFileOut: string;
 begin
   Check(fsFileIn <> '', 'No input file');
 
@@ -218,8 +222,8 @@ begin
   FormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
 
   lsFileOut := fsFileIn;
-  CheckReplace(lsFileOut, '{$IFDEF BAR_RAISED}', '{$IFDEF BAR_RAISED}' + AnsiLineBreak + ' ');
-  CheckReplace(lsFileOut, 'Classes, {$ENDIF}', 'Classes, {$ENDIF}' + AnsiLineBreak + ' ');
+  CheckReplace(lsFileOut, '{$IFDEF BAR_RAISED}', '{$IFDEF BAR_RAISED}' + NativeLineBreak + ' ');
+  CheckReplace(lsFileOut, 'Classes, {$ENDIF}', 'Classes, {$ENDIF}' + NativeLineBreak + ' ');
   TestFormatResult(string(fsFileIn), string(lsFileOut));
 end;
 
@@ -238,14 +242,14 @@ begin
   FormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
 
   lsFileOut := string(fsFileIn);
-  CheckReplace(fsFileIn, '{$IFDEF BAR_RAISED} ', '{$IFDEF BAR_RAISED}' + AnsiLineBreak + ' ');
-  CheckReplace(fsFileIn, 'Classes, {$ENDIF} ', 'Classes, {$ENDIF}' + AnsiLineBreak + ' ');
+  CheckReplace(fsFileIn, '{$IFDEF BAR_RAISED} ', '{$IFDEF BAR_RAISED}' + NativeLineBreak + ' ');
+  CheckReplace(fsFileIn, 'Classes, {$ENDIF} ', 'Classes, {$ENDIF}' + NativeLineBreak + ' ');
   TestFormatResult(string(fsFileIn), lsFileOut);
 end;
 
 procedure TTestBreakConditionalCompilation.TestCodeBreakBeforeAdd;
 var
-  lsFileOut: AnsiString;
+  lsFileOut: string;
 begin
   Check(fsFileIn <> '', 'No input file');
 
@@ -259,8 +263,8 @@ begin
 
   lsFileOut := fsFileIn;
 
-  CheckReplace(fsFileIn,  AnsiLineBreak + '  {$IFDEF HAS_STUFF}', '{$IFDEF HAS_STUFF}');
-  CheckReplace(fsFileIn, AnsiLineBreak + '  {$ENDIF}', '{$ENDIF}');
+  CheckReplace(fsFileIn,  NativeLineBreak + '  {$IFDEF HAS_STUFF}', '{$IFDEF HAS_STUFF}');
+  CheckReplace(fsFileIn, NativeLineBreak + '  {$ENDIF}', '{$ENDIF}');
 
   CheckReplace(lsFileOut,  '  {$IFDEF HAS_STUFF}', '{$IFDEF HAS_STUFF}');
   CheckReplace(lsFileOut, '  {$ENDIF}', '{$ENDIF}');
@@ -271,7 +275,7 @@ end;
 
 procedure TTestBreakConditionalCompilation.TestCodeBreakBeforeRemove;
 var
-  lsFileOut: AnsiString;
+  lsFileOut: string;
 begin
   Check(fsFileIn <> '', 'No input file');
 
@@ -285,8 +289,8 @@ begin
 
   lsFileOut := fsFileIn;
 
-  CheckReplace(lsFileOut,  AnsiLineBreak + '  {$IFDEF HAS_STUFF}', '  {$IFDEF HAS_STUFF}');
-  CheckReplace(lsFileOut, AnsiLineBreak + '  {$ENDIF}', '  {$ENDIF}');
+  CheckReplace(lsFileOut,  NativeLineBreak + '  {$IFDEF HAS_STUFF}', '  {$IFDEF HAS_STUFF}');
+  CheckReplace(lsFileOut, NativeLineBreak + '  {$ENDIF}', '  {$ENDIF}');
   TestFormatResult(string(fsFileIn), string(lsFileOut));
 end;
 
@@ -308,10 +312,10 @@ begin
   lsFileOut := string(fsFileIn);
 
   lsPrefix := '{$IFDEF HAS_STUFF}';
-  CheckReplace(fsFileIn, AnsiString(lsPrefix + AnsiLineBreak), AnsiString(lsPrefix));
+  CheckReplace(fsFileIn, lsPrefix + NativeLineBreak, lsPrefix);
 
-  lsPrefix := 'SomeStuff;' + AnsiLineBreak + '  {$ENDIF}';
-  CheckReplace(fsFileIn, AnsiString(lsPrefix + AnsiLineBreak), AnsiString(lsPrefix));
+  lsPrefix := 'SomeStuff;' + NativeLineBreak + '  {$ENDIF}';
+  CheckReplace(fsFileIn, lsPrefix + NativeLineBreak, lsPrefix);
 
   TestFormatResult(string(fsFileIn), lsFileOut);
 end;
@@ -320,8 +324,8 @@ end;
 
 procedure TTestBreakConditionalCompilation.TestCodeBreakAfterRemove;
 var
-  lsFileOut: AnsiString;
-  lsPrefix: AnsiString;
+  lsFileOut: string;
+  lsPrefix: string;
 begin
   Check(fsFileIn <> '', 'No input file');
 
@@ -336,9 +340,9 @@ begin
   lsFileOut := fsFileIn;
 
   lsPrefix := '{$IFDEF HAS_STUFF}';
-  CheckReplace(lsFileOut, lsPrefix + AnsiLineBreak, lsPrefix);
-  lsPrefix := 'SomeStuff;' + AnsiLineBreak + '  {$ENDIF}';
-  CheckReplace(lsFileOut, lsPrefix + AnsiLineBreak, lsPrefix);
+  CheckReplace(lsFileOut, lsPrefix + NativeLineBreak, lsPrefix);
+  lsPrefix := 'SomeStuff;' + NativeLineBreak + '  {$ENDIF}';
+  CheckReplace(lsFileOut, lsPrefix + NativeLineBreak, lsPrefix);
 
   TestFormatResult(string(fsFileIn), string(lsFileOut));
 end;
@@ -346,8 +350,8 @@ end;
 
 procedure TTestBreakConditionalCompilation.TestGeneralBreakBeforeAdd;
 var
-  lsFind, lsReplace: AnsiString;
-  lsFileOut: AnsiString;
+  lsFind, lsReplace: string;
+  lsFileOut: string;
 begin
   Check(fsFileIn <> '', 'No input file');
 
@@ -361,16 +365,16 @@ begin
 
   lsFileOut := fsFileIn;
 
-  lsFind := AnsiLineBreak + AnsiLineBreak + '{$IFDEF SYM2}';
+  lsFind := NativeLineBreak + NativeLineBreak + '{$IFDEF SYM2}';
   lsReplace := '{$IFDEF SYM2}';
   CheckReplace(fsFileIn, lsFind, lsReplace);
 
   lsFind := '''Black socks''; {$ENDIF}';
-  lsReplace := '''Black socks'';' + AnsiLineBreak + AnsiLineBreak + '{$ENDIF}';
+  lsReplace := '''Black socks'';' + NativeLineBreak + NativeLineBreak + '{$ENDIF}';
   CheckReplace(lsFileOut, lsFind, lsReplace);
 
   lsFind := '{$IFDEF SYM2} ';
-  lsReplace := '{$IFDEF SYM2}' + AnsiLineBreak + AnsiLineBreak;
+  lsReplace := '{$IFDEF SYM2}' + NativeLineBreak + NativeLineBreak;
   CheckReplace(lsFileOut, lsFind, lsReplace);
 
   TestFormatResult(string(fsFileIn), string(lsFileOut));
@@ -394,11 +398,11 @@ begin
   lsFileOut := string(fsFileIn);
 
   lsFind := '{$IFDEF SYM2}';
-  lsReplace := '{$IFDEF SYM2}' + AnsiLineBreak + AnsiLineBreak;
-  CheckReplace(fsFileIn, AnsiString(lsFind), AnsiString(lsReplace));
+  lsReplace := '{$IFDEF SYM2}' + NativeLineBreak + NativeLineBreak;
+  CheckReplace(fsFileIn, lsFind, lsReplace);
 
   (*
-  lsReplace := '''Black socks'';' + AnsiLineBreak + '{$ENDIF}';
+  lsReplace := '''Black socks'';' + NativeLineBreak + '{$ENDIF}';
   lsFind := '''Black socks''; {$ENDIF}';
   CheckReplace(fsFileIn, lsFind, lsReplace);
   *)
@@ -408,8 +412,8 @@ end;
 
 procedure TTestBreakConditionalCompilation.TestGeneralBreakAfterAdd;
 var
-  lsFind, lsReplace: AnsiString;
-  lsFileOut: AnsiString;
+  lsFind, lsReplace: string;
+  lsFileOut: string;
 begin
   Check(fsFileIn <> '', 'No input file');
 
@@ -423,7 +427,7 @@ begin
 
   lsFileOut := fsFileIn;
   lsFind := '{$IFDEF SYM2} ';
-  lsReplace := '{$IFDEF SYM2}' + AnsiLineBreak;
+  lsReplace := '{$IFDEF SYM2}' + NativeLineBreak;
   CheckReplace(lsFileOut, lsFind, lsReplace);
 
   TestFormatResult(string(fsFileIn), string(lsFileOut));
@@ -432,7 +436,7 @@ end;
 procedure TTestBreakConditionalCompilation.TestGeneralBreakBeforeRemove;
 var
   lsFind, lsReplace: string;
-  lsFileOut: AnsiString;
+  lsFileOut: string;
 begin
   Check(fsFileIn <> '', 'No input file');
 
@@ -446,8 +450,8 @@ begin
 
   lsFileOut := fsFileIn;
   lsFind := '{$IFDEF SYM2} ';
-  lsReplace := '{$IFDEF SYM2} ' + AnsiLineBreak;
-  CheckReplace(fsFileIn, AnsiString(lsFind), AnsiString(lsReplace));
+  lsReplace := '{$IFDEF SYM2} ' + NativeLineBreak;
+  CheckReplace(fsFileIn, lsFind, lsReplace);
 
   TestFormatResult(string(fsFileIn), string(lsFileOut));
 end;

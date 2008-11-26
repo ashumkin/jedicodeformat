@@ -4,7 +4,7 @@ unit JcfStringUtils;
 (*------------------------------------------------------------------------------
  Delphi Code formatter source code 
 
-The Original Code is JcfSTringUtils, released October 2008.
+The Original Code is JcfStringUtils, released October 2008.
 The Initial Developer of the Original Code is Paul Ishenin 
 Portions created by Paul Ishenin are Copyright (C) 1999-2008 Paul Ishenin
 All Rights Reserved. 

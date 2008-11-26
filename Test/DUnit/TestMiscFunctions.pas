@@ -31,7 +31,7 @@ interface
 
 uses
   Classes,
-  JclAnsiStrings,
+  JclStrings,
   TestFrameWork,
   JcfMiscFunctions;
 
@@ -97,11 +97,11 @@ procedure TBaseTestProcess.TestTwoLines;
 var
   lcOut: TStrings;
 begin
-  lcOut := SplitIntoLines('fred' + AnsiCrLf + 'Bloggs');
+  lcOut := SplitIntoLines('fred' + NativeCrLf + 'Bloggs');
   try
 
     CheckEquals(2,lcOut.Count);
-    CheckEquals('fred' + AnsiCrLf, lcOut[0]);
+    CheckEquals('fred' + NativeCrLf, lcOut[0]);
     CheckEquals('Bloggs', lcOut[1]);
   finally
     lcOut.Free;
@@ -112,12 +112,12 @@ procedure TBaseTestProcess.TestTwoEnded;
 var
   lcOut: TStrings;
 begin
-  lcOut := SplitIntoLines('fred' + AnsiCrLf + 'Bloggs' + AnsiCrLf);
+  lcOut := SplitIntoLines('fred' + NativeCrLf + 'Bloggs' + NativeCrLf);
   try
 
     CheckEquals(2,lcOut.Count);
-    CheckEquals('fred' + AnsiCrLf, lcOut[0]);
-    CheckEquals('Bloggs' + AnsiCrLf, lcOut[1]);
+    CheckEquals('fred' + NativeCrLf, lcOut[0]);
+    CheckEquals('Bloggs' + NativeCrLf, lcOut[1]);
   finally
     lcOut.Free;
   end;
@@ -127,12 +127,12 @@ procedure TBaseTestProcess.TestThreeLines;
 var
   lcOut: TStrings;
 begin
-  lcOut := SplitIntoLines('fred' + AnsiCrLf + 'Bloggs' + AnsiCrLf + 'Fish');
+  lcOut := SplitIntoLines('fred' + NativeCrLf + 'Bloggs' + NativeCrLf + 'Fish');
   try
 
     CheckEquals(3,lcOut.Count);
-    CheckEquals('fred' + AnsiCrLf, lcOut[0]);
-    CheckEquals('Bloggs' + AnsiCrLf, lcOut[1]);
+    CheckEquals('fred' + NativeCrLf, lcOut[0]);
+    CheckEquals('Bloggs' + NativeCrLf, lcOut[1]);
     CheckEquals('Fish', lcOut[2]);
   finally
     lcOut.Free;
@@ -145,18 +145,18 @@ var
   lcOut: TStrings;
 begin
   lcOut := SplitIntoLines(
-    'fred' + AnsiCrLf +
-    'Bloggs' + AnsiCrLf +
-    'Fish' + AnsiCrLf +
-    'Fish' + AnsiCrLf +
-    'Fish' + AnsiCrLf +
+    'fred' + NativeCrLf +
+    'Bloggs' + NativeCrLf +
+    'Fish' + NativeCrLf +
+    'Fish' + NativeCrLf +
+    'Fish' + NativeCrLf +
     'Fish');
   try
 
     CheckEquals(6,lcOut.Count);
-    CheckEquals('fred' + AnsiCrLf, lcOut[0]);
-    CheckEquals('Bloggs' + AnsiCrLf, lcOut[1]);
-    CheckEquals('Fish' + AnsiCrLf, lcOut[2]);
+    CheckEquals('fred' + NativeCrLf, lcOut[0]);
+    CheckEquals('Bloggs' + NativeCrLf, lcOut[1]);
+    CheckEquals('Fish' + NativeCrLf, lcOut[2]);
   finally
     lcOut.Free;
   end;
@@ -167,12 +167,12 @@ procedure TBaseTestProcess.TestBlankLines;
 var
   lcOut: TStrings;
 begin
-  lcOut := SplitIntoLines(AnsiCrLf + AnsiCrLf);
+  lcOut := SplitIntoLines(NativeCrLf + NativeCrLf);
   try
 
     CheckEquals(2,lcOut.Count);
-    CheckEquals(AnsiCrLf, lcOut[0]);
-    CheckEquals(AnsiCrLf, lcOut[1]);
+    CheckEquals(NativeCrLf, lcOut[0]);
+    CheckEquals(NativeCrLf, lcOut[1]);
   finally
     lcOut.Free;
   end;
@@ -182,13 +182,13 @@ procedure TBaseTestProcess.TestBlankLines2;
 var
   lcOut: TStrings;
 begin
-  lcOut := SplitIntoLines(AnsiCrLf + 'foo' + AnsiCrLf + AnsiCrLf);
+  lcOut := SplitIntoLines(NativeCrLf + 'foo' + NativeCrLf + NativeCrLf);
   try
 
     CheckEquals(3,lcOut.Count);
-    CheckEquals(AnsiCrLf, lcOut[0]);
-    CheckEquals('foo' + AnsiCrLf, lcOut[1]);
-    CheckEquals(AnsiCrLf, lcOut[2]);
+    CheckEquals(NativeCrLf, lcOut[0]);
+    CheckEquals('foo' + NativeCrLf, lcOut[1]);
+    CheckEquals(NativeCrLf, lcOut[2]);
   finally
     lcOut.Free;
   end;
@@ -200,13 +200,13 @@ var
   lcOut: TStrings;
 begin
   lcOut := SplitIntoLines(
-    'fred' + AnsiLineFeed +
-    'Bloggs' + AnsiLineFeed);
+    'fred' + NativeLineFeed +
+    'Bloggs' + NativeLineFeed);
   try
 
     CheckEquals(2,lcOut.Count);
-    CheckEquals('fred' + AnsiLineFeed, lcOut[0]);
-    CheckEquals('Bloggs' + AnsiLineFeed, lcOut[1]);
+    CheckEquals('fred' + NativeLineFeed, lcOut[0]);
+    CheckEquals('Bloggs' + NativeLineFeed, lcOut[1]);
   finally
     lcOut.Free;
   end;
@@ -217,15 +217,15 @@ var
   lcOut: TStrings;
 begin
   lcOut := SplitIntoLines(
-    'fred' + AnsiLineFeed +
-    'Bloggs' + AnsiCrLf +
-    'Fish' +  AnsiLineFeed);
+    'fred' + NativeLineFeed +
+    'Bloggs' + NativeCrLf +
+    'Fish' +  NativeLineFeed);
   try
 
     CheckEquals(3,lcOut.Count);
-    CheckEquals('fred' + AnsiLineFeed, lcOut[0]);
-    CheckEquals('Bloggs' + AnsiCrLf, lcOut[1]);
-    CheckEquals('Fish' + AnsiLineFeed, lcOut[2]);
+    CheckEquals('fred' + NativeLineFeed, lcOut[0]);
+    CheckEquals('Bloggs' + NativeCrLf, lcOut[1]);
+    CheckEquals('Fish' + NativeLineFeed, lcOut[2]);
   finally
     lcOut.Free;
   end;
@@ -237,15 +237,15 @@ var
   lcOut: TStrings;
 begin
   lcOut := SplitIntoLines(
-    'fred' + AnsiCrLf +
-    'Bloggs' + AnsiLineFeed +
-    'Fish' +  AnsiCrLf);
+    'fred' + NativeCrLf +
+    'Bloggs' + NativeLineFeed +
+    'Fish' +  NativeCrLf);
   try
 
     CheckEquals(3,lcOut.Count);
-    CheckEquals('fred' + AnsiCrLf, lcOut[0]);
-    CheckEquals('Bloggs' + AnsiLineFeed, lcOut[1]);
-    CheckEquals('Fish' + AnsiCrLf, lcOut[2]);
+    CheckEquals('fred' + NativeCrLf, lcOut[0]);
+    CheckEquals('Bloggs' + NativeLineFeed, lcOut[1]);
+    CheckEquals('Fish' + NativeCrLf, lcOut[2]);
   finally
     lcOut.Free;
   end;
@@ -255,13 +255,13 @@ procedure TBaseTestProcess.TestMixedEmptyLines;
 var
   lcOut: TStrings;
 begin
-  lcOut := SplitIntoLines(AnsiCrLf + AnsiLineFeed + AnsiCrLf);
+  lcOut := SplitIntoLines(NativeCrLf + NativeLineFeed + NativeCrLf);
   try
 
     CheckEquals(3,lcOut.Count);
-    CheckEquals(AnsiCrLf, lcOut[0]);
-    CheckEquals(AnsiLineFeed, lcOut[1]);
-    CheckEquals(AnsiCrLf, lcOut[2]);
+    CheckEquals(NativeCrLf, lcOut[0]);
+    CheckEquals(NativeLineFeed, lcOut[1]);
+    CheckEquals(NativeCrLf, lcOut[2]);
   finally
     lcOut.Free;
   end;

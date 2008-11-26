@@ -51,7 +51,7 @@ type
 implementation
 
 uses
-  JclAnsiStrings,
+  JclStrings,
   JcfSettings, RemoveComment;
 
 procedure TTestRemoveComment.Setup;
@@ -87,11 +87,11 @@ end;
 procedure TTestRemoveComment.TestSlash;
 const
   IN_UNIT_TEXT = UNIT_HEADER +
-    '//  ' + AnsiLineBreak +
+    '//  ' + NativeLineBreak +
     UNIT_FOOTER;
 
   OUT_UNIT_TEXT = UNIT_HEADER +
-    AnsiLineBreak +
+    NativeLineBreak +
     UNIT_FOOTER;
 begin
 
@@ -100,13 +100,13 @@ end;
 procedure TTestRemoveComment.TestBoth;
 const
   IN_UNIT_TEXT = UNIT_HEADER +
-    '//  ' + AnsiLineBreak +
-    '{  }' + AnsiLineBreak +
+    '//  ' + NativeLineBreak +
+    '{  }' + NativeLineBreak +
     UNIT_FOOTER;
 
   OUT_UNIT_TEXT = UNIT_HEADER +
-    ' ' + AnsiLineBreak +
-    ' ' + AnsiLineBreak +
+    ' ' + NativeLineBreak +
+    ' ' + NativeLineBreak +
     UNIT_FOOTER;
 begin
   TestProcessResult(TRemoveComment, IN_UNIT_TEXT, OUT_UNIT_TEXT);

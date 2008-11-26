@@ -42,7 +42,7 @@ uses PreProcessorExpressionTokens;
 type
   TPreProcessorExpressionTokeniser = class
   private
-    fsExpr: AnsiString;
+    fsExpr: String;
     fiCurrentIndex: integer;
     fbHasError: boolean;
 
@@ -61,7 +61,7 @@ type
 
     procedure Tokenise;
 
-    property Expression: AnsiString Read fsExpr Write fsExpr;
+    property Expression: String Read fsExpr Write fsExpr;
     property Tokens: TPreProcessorExpressionTokenList Read fcTokens;
     property HasError: boolean Read fbHasError;
   end;
@@ -72,7 +72,7 @@ uses
   { delphi }
   SysUtils, Windows,
   { jcl }
-  JclStrings, JclAnsiStrings;
+  JclStrings;
 
 
 constructor TPreProcessorExpressionTokeniser.Create;
@@ -94,7 +94,7 @@ end;
 
 function TPreProcessorExpressionTokeniser.StartsWith(const ps: string): boolean;
 begin
-  Result := AnsiSameText(JclStrings.StrLeft(Rest, Length(ps)), ps);
+  Result := AnsiSameText(StrLeft(Rest, Length(ps)), ps);
 end;
 
 procedure TPreProcessorExpressionTokeniser.Tokenise;

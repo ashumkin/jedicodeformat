@@ -59,7 +59,8 @@ type
 
 implementation
 
-uses JclAnsiStrings,
+uses
+  JclStrings,
   JcfSettings,
   ReturnsAfterFinalEnd;
 
@@ -83,7 +84,7 @@ end;
 procedure TTestTextAfterUnitEnd.TestTooFew;
 const
   IN_UNIT_TEXT = TEST_UNIT;
-  OUT_UNIT_TEXT = TEST_UNIT + AnsiLineBreak + AnsiLineBreak;
+  OUT_UNIT_TEXT = TEST_UNIT + NativeLineBreak + NativeLineBreak;
 begin
   FormatSettings.Returns.NumReturnsAfterFinalEnd := 3;
   TestProcessResult(TReturnsAfterFinalEnd, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -91,8 +92,8 @@ end;
 
 procedure TTestTextAfterUnitEnd.TestTooMany;
 const
-  IN_UNIT_TEXT = TEST_UNIT  + AnsiLineBreak + AnsiLineBreak +  AnsiLineBreak + AnsiLineBreak;
-  OUT_UNIT_TEXT = TEST_UNIT + AnsiLineBreak + AnsiLineBreak;
+  IN_UNIT_TEXT = TEST_UNIT  + NativeLineBreak + NativeLineBreak +  NativeLineBreak + NativeLineBreak;
+  OUT_UNIT_TEXT = TEST_UNIT + NativeLineBreak + NativeLineBreak;
 begin
   FormatSettings.Returns.NumReturnsAfterFinalEnd := 3;
   TestProcessResult(TReturnsAfterFinalEnd, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -100,8 +101,8 @@ end;
 
 procedure TTestTextAfterUnitEnd.TestComment;
 const
-  IN_UNIT_TEXT = TEST_UNIT  + AnsiLineBreak + '//foo' + AnsiLineBreak +  AnsiLineBreak + AnsiLineBreak;
-  OUT_UNIT_TEXT = TEST_UNIT + AnsiLineBreak + '//foo' + AnsiLineBreak;
+  IN_UNIT_TEXT = TEST_UNIT  + NativeLineBreak + '//foo' + NativeLineBreak +  NativeLineBreak + NativeLineBreak;
+  OUT_UNIT_TEXT = TEST_UNIT + NativeLineBreak + '//foo' + NativeLineBreak;
 begin
   FormatSettings.Returns.NumReturnsAfterFinalEnd := 3;
   TestProcessResult(TReturnsAfterFinalEnd, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -110,9 +111,9 @@ end;
 
 procedure TTestTextAfterUnitEnd.TestText;
 const
-  IN_UNIT_TEXT = TEST_UNIT  + AnsiLineBreak + 'junk' + AnsiLineBreak +
-    AnsiLineBreak + AnsiLineBreak;
-  OUT_UNIT_TEXT = TEST_UNIT + AnsiLineBreak + 'junk' + AnsiLineBreak;
+  IN_UNIT_TEXT = TEST_UNIT  + NativeLineBreak + 'junk' + NativeLineBreak +
+    NativeLineBreak + NativeLineBreak;
+  OUT_UNIT_TEXT = TEST_UNIT + NativeLineBreak + 'junk' + NativeLineBreak;
 begin
   FormatSettings.Returns.NumReturnsAfterFinalEnd := 3;
   TestProcessResult(TReturnsAfterFinalEnd, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -120,9 +121,9 @@ end;
 
 procedure TTestTextAfterUnitEnd.TestMoreText;
 const
-  IN_UNIT_TEXT = TEST_UNIT  + AnsiLineBreak + 'junk' + AnsiLineBreak +
-    'more junk' + AnsiLineBreak + AnsiLineBreak;
-  OUT_UNIT_TEXT = TEST_UNIT + AnsiLineBreak + 'junk' + AnsiLineBreak +
+  IN_UNIT_TEXT = TEST_UNIT  + NativeLineBreak + 'junk' + NativeLineBreak +
+    'more junk' + NativeLineBreak + NativeLineBreak;
+  OUT_UNIT_TEXT = TEST_UNIT + NativeLineBreak + 'junk' + NativeLineBreak +
     'more junk';
 begin
   FormatSettings.Returns.NumReturnsAfterFinalEnd := 3;
@@ -131,12 +132,12 @@ end;
 
 procedure TTestTextAfterUnitEnd.TestText3;
 const
-  IN_UNIT_TEXT = TEST_UNIT  + AnsiLineBreak + 'junk' + AnsiLineBreak +
-    'more junk' + AnsiLineBreak +
-    'warrawak' + AnsiLineBreak +
-    AnsiLineBreak;
-  OUT_UNIT_TEXT = TEST_UNIT + AnsiLineBreak + 'junk' + AnsiLineBreak +
-    'more junk' + AnsiLineBreak +
+  IN_UNIT_TEXT = TEST_UNIT  + NativeLineBreak + 'junk' + NativeLineBreak +
+    'more junk' + NativeLineBreak +
+    'warrawak' + NativeLineBreak +
+    NativeLineBreak;
+  OUT_UNIT_TEXT = TEST_UNIT + NativeLineBreak + 'junk' + NativeLineBreak +
+    'more junk' + NativeLineBreak +
     'warrawak';
 begin
   FormatSettings.Returns.NumReturnsAfterFinalEnd := 3;
@@ -145,14 +146,14 @@ end;
 
 procedure TTestTextAfterUnitEnd.TestText4;
 const
-  IN_UNIT_TEXT = TEST_UNIT  + AnsiLineBreak + 'junk' + AnsiLineBreak +
-    'more junk' + AnsiLineBreak +
-    'warrawak' + AnsiLineBreak +
-    'narrank' + AnsiLineBreak +
-    AnsiLineBreak;
-  OUT_UNIT_TEXT = TEST_UNIT + AnsiLineBreak + 'junk' + AnsiLineBreak +
-    'more junk' + AnsiLineBreak +
-    'warrawak' + AnsiLineBreak +
+  IN_UNIT_TEXT = TEST_UNIT  + NativeLineBreak + 'junk' + NativeLineBreak +
+    'more junk' + NativeLineBreak +
+    'warrawak' + NativeLineBreak +
+    'narrank' + NativeLineBreak +
+    NativeLineBreak;
+  OUT_UNIT_TEXT = TEST_UNIT + NativeLineBreak + 'junk' + NativeLineBreak +
+    'more junk' + NativeLineBreak +
+    'warrawak' + NativeLineBreak +
     'narrank';
 begin
   FormatSettings.Returns.NumReturnsAfterFinalEnd := 3;

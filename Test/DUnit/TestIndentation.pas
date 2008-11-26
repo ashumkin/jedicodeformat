@@ -78,7 +78,8 @@ type
 
 implementation
 
-uses JclAnsiStrings,
+uses
+  JclStrings,
   JcfSettings,
   Indenter, SetIndent;
 
@@ -113,43 +114,43 @@ end;
 
 const
   BASIC_UNIT_TEXT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    'result := 2 + 2;' + AnsiLineBreak +
-    'end' + AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'result := 2 + 2;' + NativeLineBreak +
+    'end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 
   BASIC_TRY_FINALLY_UNIT_TEXT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    'try' + AnsiLineBreak +
-    'result := 2 + 2;' + AnsiLineBreak +
-    'finally' + AnsiLineBreak +
-    'result := 2 + 2;' + AnsiLineBreak +
-    'end' + AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'try' + NativeLineBreak +
+    'result := 2 + 2;' + NativeLineBreak +
+    'finally' + NativeLineBreak +
+    'result := 2 + 2;' + NativeLineBreak +
+    'end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 
   BASIC_TRY_EXCEPT_UNIT_TEXT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    'try' + AnsiLineBreak +
-    'result := 2 + 2;' + AnsiLineBreak +
-    'except' + AnsiLineBreak +
-    'result := 2 + 2;' + AnsiLineBreak +
-    'end' + AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'try' + NativeLineBreak +
+    'result := 2 + 2;' + NativeLineBreak +
+    'except' + NativeLineBreak +
+    'result := 2 + 2;' + NativeLineBreak +
+    'end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 
   BASIC_TWO_LEVEL_UNIT_TEXT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    'try' + AnsiLineBreak +
-    'result := 2 + 2;' + AnsiLineBreak +
-    'except' + AnsiLineBreak +
-    'result := 2 + 2;' + AnsiLineBreak +
-    'end' + AnsiLineBreak +
-    'end' + AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'try' + NativeLineBreak +
+    'result := 2 + 2;' + NativeLineBreak +
+    'except' + NativeLineBreak +
+    'result := 2 + 2;' + NativeLineBreak +
+    'end' + NativeLineBreak +
+    'end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 
 { the various out unit texts differ only in how much white space there is
@@ -159,11 +160,11 @@ const
 procedure TTestIndentation.TestIndent1Space;
 const
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    ' begin' + AnsiLineBreak +
-    '  result := 2 + 2;' + AnsiLineBreak +
-    ' end' + AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    ' begin' + NativeLineBreak +
+    '  result := 2 + 2;' + NativeLineBreak +
+    ' end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
   FormatSettings.Indent.IndentBeginEnd := False;
@@ -176,11 +177,11 @@ end;
 procedure TTestIndentation.TestIndent2Spaces;
 const
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '  begin' + AnsiLineBreak +
-    '    result := 2 + 2;' + AnsiLineBreak +
-    '  end' + AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '  begin' + NativeLineBreak +
+    '    result := 2 + 2;' + NativeLineBreak +
+    '  end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
   FormatSettings.Indent.IndentBeginEnd := False;
@@ -193,11 +194,11 @@ end;
 procedure TTestIndentation.TestIndent3Spaces;
 const
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '   begin' + AnsiLineBreak +
-    '      result := 2 + 2;' + AnsiLineBreak +
-    '   end' + AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '   begin' + NativeLineBreak +
+    '      result := 2 + 2;' + NativeLineBreak +
+    '   end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
   FormatSettings.Indent.IndentBeginEnd := False;
@@ -210,11 +211,11 @@ end;
 procedure TTestIndentation.TestFirstLevelIndent1;
 const
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    ' begin' + AnsiLineBreak +
-    '   result := 2 + 2;' + AnsiLineBreak +
-    ' end' + AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    ' begin' + NativeLineBreak +
+    '   result := 2 + 2;' + NativeLineBreak +
+    ' end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
   FormatSettings.Indent.IndentBeginEnd   := False;
@@ -228,11 +229,11 @@ end;
 procedure TTestIndentation.TestFirstLevelIndent2;
 const
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '  begin' + AnsiLineBreak +
-    '    result := 2 + 2;' + AnsiLineBreak +
-    '  end' + AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '  begin' + NativeLineBreak +
+    '    result := 2 + 2;' + NativeLineBreak +
+    '  end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
   FormatSettings.Indent.IndentBeginEnd   := False;
@@ -246,11 +247,11 @@ end;
 procedure TTestIndentation.TestFirstLevelIndent3;
 const
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '   begin' + AnsiLineBreak +
-    '     result := 2 + 2;' + AnsiLineBreak +
-    '   end' + AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '   begin' + NativeLineBreak +
+    '     result := 2 + 2;' + NativeLineBreak +
+    '   end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
   FormatSettings.Indent.IndentBeginEnd   := False;
@@ -264,11 +265,11 @@ end;
 procedure TTestIndentation.TestIndenterBeginEnd1;
 const
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '   begin' + AnsiLineBreak +
-    '    result := 2 + 2;' + AnsiLineBreak +
-    '   end' + AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '   begin' + NativeLineBreak +
+    '    result := 2 + 2;' + NativeLineBreak +
+    '   end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
   FormatSettings.Indent.IndentBeginEnd := True;
@@ -282,11 +283,11 @@ end;
 procedure TTestIndentation.TestIndenterBeginEnd2;
 const
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '    begin' + AnsiLineBreak +
-    '    result := 2 + 2;' + AnsiLineBreak +
-    '    end' + AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '    begin' + NativeLineBreak +
+    '    result := 2 + 2;' + NativeLineBreak +
+    '    end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
   FormatSettings.Indent.IndentBeginEnd := True;
@@ -300,11 +301,11 @@ end;
 procedure TTestIndentation.TestIndenterBeginEnd3;
 const
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '     begin' + AnsiLineBreak +
-    '    result := 2 + 2;' + AnsiLineBreak +
-    '     end' + AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '     begin' + NativeLineBreak +
+    '    result := 2 + 2;' + NativeLineBreak +
+    '     end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
   FormatSettings.Indent.IndentBeginEnd := True;
@@ -318,13 +319,13 @@ end;
 procedure TTestIndentation.TestIndenterTryExceptEnd1;
 const
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '   try' + AnsiLineBreak +
-    '    result := 2 + 2;' + AnsiLineBreak +
-    '   except' + AnsiLineBreak +
-    '    result := 2 + 2;' + AnsiLineBreak +
-    '   end' + AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '   try' + NativeLineBreak +
+    '    result := 2 + 2;' + NativeLineBreak +
+    '   except' + NativeLineBreak +
+    '    result := 2 + 2;' + NativeLineBreak +
+    '   end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
   FormatSettings.Indent.IndentBeginEnd := True;
@@ -338,13 +339,13 @@ end;
 procedure TTestIndentation.TestIndenterTryExceptEnd2;
 const
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '    try' + AnsiLineBreak +
-    '    result := 2 + 2;' + AnsiLineBreak +
-    '    except' + AnsiLineBreak +
-    '    result := 2 + 2;' + AnsiLineBreak +
-    '    end' + AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '    try' + NativeLineBreak +
+    '    result := 2 + 2;' + NativeLineBreak +
+    '    except' + NativeLineBreak +
+    '    result := 2 + 2;' + NativeLineBreak +
+    '    end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
   FormatSettings.Indent.IndentBeginEnd := True;
@@ -358,13 +359,13 @@ end;
 procedure TTestIndentation.TestIndenterTryExceptEnd3;
 const
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '     try' + AnsiLineBreak +
-    '    result := 2 + 2;' + AnsiLineBreak +
-    '     except' + AnsiLineBreak +
-    '    result := 2 + 2;' + AnsiLineBreak +
-    '     end' + AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '     try' + NativeLineBreak +
+    '    result := 2 + 2;' + NativeLineBreak +
+    '     except' + NativeLineBreak +
+    '    result := 2 + 2;' + NativeLineBreak +
+    '     end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
   FormatSettings.Indent.IndentBeginEnd := True;
@@ -378,13 +379,13 @@ end;
 procedure TTestIndentation.TestIndenterTryFinallyEnd1;
 const
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '   try' + AnsiLineBreak +
-    '    result := 2 + 2;' + AnsiLineBreak +
-    '   finally' + AnsiLineBreak +
-    '    result := 2 + 2;' + AnsiLineBreak +
-    '   end' + AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '   try' + NativeLineBreak +
+    '    result := 2 + 2;' + NativeLineBreak +
+    '   finally' + NativeLineBreak +
+    '    result := 2 + 2;' + NativeLineBreak +
+    '   end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
   FormatSettings.Indent.IndentBeginEnd := True;
@@ -398,13 +399,13 @@ end;
 procedure TTestIndentation.TestIndenterTryFinallyEnd2;
 const
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '    try' + AnsiLineBreak +
-    '    result := 2 + 2;' + AnsiLineBreak +
-    '    finally' + AnsiLineBreak +
-    '    result := 2 + 2;' + AnsiLineBreak +
-    '    end' + AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '    try' + NativeLineBreak +
+    '    result := 2 + 2;' + NativeLineBreak +
+    '    finally' + NativeLineBreak +
+    '    result := 2 + 2;' + NativeLineBreak +
+    '    end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
   FormatSettings.Indent.IndentBeginEnd := True;
@@ -418,13 +419,13 @@ end;
 procedure TTestIndentation.TestIndenterTryFinallyEnd3;
 const
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '     try' + AnsiLineBreak +
-    '    result := 2 + 2;' + AnsiLineBreak +
-    '     finally' + AnsiLineBreak +
-    '    result := 2 + 2;' + AnsiLineBreak +
-    '     end' + AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '     try' + NativeLineBreak +
+    '    result := 2 + 2;' + NativeLineBreak +
+    '     finally' + NativeLineBreak +
+    '    result := 2 + 2;' + NativeLineBreak +
+    '     end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
   FormatSettings.Indent.IndentBeginEnd := True;
@@ -438,15 +439,15 @@ end;
 procedure TTestIndentation.TestTwoLevel1;
 const
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '   begin' + AnsiLineBreak +
-    '     try' + AnsiLineBreak +
-    '      result := 2 + 2;' + AnsiLineBreak +
-    '     except' + AnsiLineBreak +
-    '      result := 2 + 2;' + AnsiLineBreak +
-    '     end' + AnsiLineBreak +
-    '   end' + AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '   begin' + NativeLineBreak +
+    '     try' + NativeLineBreak +
+    '      result := 2 + 2;' + NativeLineBreak +
+    '     except' + NativeLineBreak +
+    '      result := 2 + 2;' + NativeLineBreak +
+    '     end' + NativeLineBreak +
+    '   end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
   FormatSettings.Indent.IndentBeginEnd := True;
@@ -460,15 +461,15 @@ end;
 procedure TTestIndentation.TestTwoLevel2;
 const
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '    begin' + AnsiLineBreak +
-    '      try' + AnsiLineBreak +
-    '      result := 2 + 2;' + AnsiLineBreak +
-    '      except' + AnsiLineBreak +
-    '      result := 2 + 2;' + AnsiLineBreak +
-    '      end' + AnsiLineBreak +
-    '    end' + AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '    begin' + NativeLineBreak +
+    '      try' + NativeLineBreak +
+    '      result := 2 + 2;' + NativeLineBreak +
+    '      except' + NativeLineBreak +
+    '      result := 2 + 2;' + NativeLineBreak +
+    '      end' + NativeLineBreak +
+    '    end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
   FormatSettings.Indent.IndentBeginEnd := True;
@@ -482,15 +483,15 @@ end;
 procedure TTestIndentation.TestTwoLevel3;
 const
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'function foo: integer;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    '     begin' + AnsiLineBreak +
-    '       try' + AnsiLineBreak +
-    '      result := 2 + 2;' + AnsiLineBreak +
-    '       except' + AnsiLineBreak +
-    '      result := 2 + 2;' + AnsiLineBreak +
-    '       end' + AnsiLineBreak +
-    '     end' + AnsiLineBreak +
+    'function foo: integer;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '     begin' + NativeLineBreak +
+    '       try' + NativeLineBreak +
+    '      result := 2 + 2;' + NativeLineBreak +
+    '       except' + NativeLineBreak +
+    '      result := 2 + 2;' + NativeLineBreak +
+    '       end' + NativeLineBreak +
+    '     end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
   FormatSettings.Indent.IndentBeginEnd := True;

@@ -322,7 +322,6 @@ uses
   SysUtils, Windows,
   { jcl }
   JclStrings,
-  JclAnsiStrings,
   { DUnit}
   TestFrameWork,
   { JCF }
@@ -342,11 +341,11 @@ begin
   Assert(psName <> '');
 
   { does it have an file extension? }
-  liLastDotPos := JclStrings.StrLastPos('.', psName);
+  liLastDotPos := StrLastPos('.', psName);
   if liLastDotPos > 0 then
   begin
     lsInName := psName;
-    lsClearFileName := JclStrings.StrLeft(psName, liLastDotPos) + 'out';
+    lsClearFileName := StrLeft(psName, liLastDotPos) + 'out';
   end
   else
   begin

@@ -70,7 +70,7 @@ implementation
 uses
   { delphi }
   SysUtils,
-  JclStrings, JclAnsiStrings,
+  JclStrings,
   { JCF  }
   SourceToken, Tokens, ParseTreeNode, ParseTreeNodeType, TokenUtils,
   JcfRegistrySettings;
@@ -173,7 +173,7 @@ begin
       Inc(fiCommentTokens);
       fiCommentChars := fiCommentChars + liLen;
 
-      fiLines := fiLines + JclStrings.StrStrCount(lcSourceToken.SourceCode, AnsiLineBreak);
+      fiLines := fiLines + StrStrCount(lcSourceToken.SourceCode, NativeLineBreak);
     end;
     ttReturn:
     begin
@@ -198,50 +198,50 @@ function TBasicStats.FinalSummary(var psMessage: string): boolean;
 begin
   Result := True;
 
-  psMessage := AnsiLineBreak + 'Basic numbers and averages: ' + AnsiLineBreak +
-    'Unit is ' + IntToStr(fiLines) + ' lines long' + AnsiLineBreak +
+  psMessage := NativeLineBreak + 'Basic numbers and averages: ' + NativeLineBreak +
+    'Unit is ' + IntToStr(fiLines) + ' lines long' + NativeLineBreak +
     'Unit has ' + IntToStr(fiTotalTokens) + ' tokens in ' +
-    IntToStr(fiTotalChars) + ' characters: ' + AnsiLineBreak +
-    DisplayRatio(fiTotalChars, fiTotalTokens) + ' chars per token' + AnsiLineBreak +
-    DisplayRatio(fiTotalChars, fiLines) + ' chars per line ' + AnsiLineBreak +
+    IntToStr(fiTotalChars) + ' characters: ' + NativeLineBreak +
+    DisplayRatio(fiTotalChars, fiTotalTokens) + ' chars per token' + NativeLineBreak +
+    DisplayRatio(fiTotalChars, fiLines) + ' chars per line ' + NativeLineBreak +
     DisplayRatio(fiTotalTokens, fiLines) + ' tokens per line ' +
-    AnsiLineBreak + AnsiLineBreak;
+    NativeLineBreak + NativeLineBreak;
 
   psMessage := psMessage +
     IntToStr(fiCommentTokens) + ' comments in ' + IntToStr(fiCommentChars) +
-    ' characters ' + AnsiLineBreak +
+    ' characters ' + NativeLineBreak +
     DisplayRatio(fiCommentChars, fiCommentTokens) + ' chars per comment' +
-    AnsiLineBreak +
+    NativeLineBreak +
     DisplayPercent(fiCommentChars, fiTotalChars) + ' of chars are comments ' +
-    AnsiLineBreak + AnsiLineBreak;
+    NativeLineBreak + NativeLineBreak;
 
   psMessage := psMessage +
     IntToStr(fiSpaceTokens) + ' spacing and return tokens in ' +
-    IntToStr(fiSpaceChars) + ' characters ' + AnsiLineBreak +
-    DisplayRatio(fiSpaceChars, fiSpaceTokens) + ' chars per token' + AnsiLineBreak +
+    IntToStr(fiSpaceChars) + ' characters ' + NativeLineBreak +
+    DisplayRatio(fiSpaceChars, fiSpaceTokens) + ' chars per token' + NativeLineBreak +
     DisplayPercent(fiSpaceChars, fiTotalChars) + ' of chars are spacing ' +
-    AnsiLineBreak + AnsiLineBreak;
+    NativeLineBreak + NativeLineBreak;
 
   psMessage := psMessage +
     IntToStr(fiSolidTokens) + ' solid tokens in ' + IntToStr(fiSolidChars) +
-    ' characters ' + AnsiLineBreak +
-    DisplayRatio(fiSolidChars, fiSolidTokens) + ' chars per token' + AnsiLineBreak +
-    DisplayPercent(fiSolidChars, fiTotalChars) + ' of chars are solid' + AnsiLineBreak +
+    ' characters ' + NativeLineBreak +
+    DisplayRatio(fiSolidChars, fiSolidTokens) + ' chars per token' + NativeLineBreak +
+    DisplayPercent(fiSolidChars, fiTotalChars) + ' of chars are solid' + NativeLineBreak +
     DisplayPercent(fiSolidTokens, fiTotalTokens) + ' of tokens are solid' +
-    AnsiLineBreak + AnsiLineBreak;
+    NativeLineBreak + NativeLineBreak;
 
   psMessage := psMessage +
-    IntToStr(fiConsts) + ' constants ' + AnsiLineBreak +
-    IntToStr(fiTypes) + ' types ' + AnsiLineBreak +
-    IntToStr(fiClasses) + ' classes ' + AnsiLineBreak +
-    IntToStr(fiInterfaces) + ' interfaces ' + AnsiLineBreak +
-    IntToStr(fiAllProcs) + ' procedures ' + AnsiLineBreak + AnsiLineBreak;
+    IntToStr(fiConsts) + ' constants ' + NativeLineBreak +
+    IntToStr(fiTypes) + ' types ' + NativeLineBreak +
+    IntToStr(fiClasses) + ' classes ' + NativeLineBreak +
+    IntToStr(fiInterfaces) + ' interfaces ' + NativeLineBreak +
+    IntToStr(fiAllProcs) + ' procedures ' + NativeLineBreak + NativeLineBreak;
 
   psMessage := psMessage +
-    IntToStr(liInterfaceGlobalVars) + ' global vars in interface ' + AnsiLineBreak +
-    IntToStr(liGlobalVars) + ' global vars in rest of unit ' + AnsiLineBreak +
+    IntToStr(liInterfaceGlobalVars) + ' global vars in interface ' + NativeLineBreak +
+    IntToStr(liGlobalVars) + ' global vars in rest of unit ' + NativeLineBreak +
     IntToStr(fiInterfaceProcs) + ' procedures in interface ' +
-    AnsiLineBreak + AnsiLineBreak;
+    NativeLineBreak + NativeLineBreak;
 
 end;
 

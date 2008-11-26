@@ -58,7 +58,10 @@ type
 
 implementation
 
-uses JclAnsiStrings,
+uses
+  { jcl }
+  JclStrings,
+  { local }
   JcfSettings,
   NoReturnAfter, NoReturnBefore, NoSpaceAfter, NoSpaceBefore,
   SpaceBeforeColon,

@@ -58,7 +58,7 @@ uses
   SysUtils,
   Windows,
   { JCL }
-  JclAnsiStrings,
+  JclStrings,
   { local }
   SourceToken, Tokens, ParseTreeNodeType,
   JcfSettings, FormatFlags, TokenUtils;
@@ -138,7 +138,7 @@ begin
   begin
     Result := True;
     if psMessage <> '' then
-      psMessage := psMessage + AnsiLinebreak;
+      psMessage := psMessage + NativeLineBreak;
 
     psMessage := psMessage + 'Non-identifier caps: ';
 

@@ -67,8 +67,11 @@ type
 implementation
 
 uses
+  { delphi }
   SysUtils,
-  JclAnsiStrings,
+  { jcl }
+  JclStrings,
+  { local }
   JcfSettings, AlignConst, AlignVars, AlignAssign, AlignComment,
   AlignTypedef, AlignField;
 
@@ -81,17 +84,17 @@ end;
 procedure TTestAlignment.TestAlignConst;
 const
   IN_UNIT_TEXT = UNIT_HEADER +
-    'const' + AnsiLineBreak +
-    '  a = 3;' + AnsiLineBreak +
-    '  bee = 3;' + AnsiLineBreak +
-    '  deedee = 4.567;' + AnsiLineBreak +
+    'const' + NativeLineBreak +
+    '  a = 3;' + NativeLineBreak +
+    '  bee = 3;' + NativeLineBreak +
+    '  deedee = 4.567;' + NativeLineBreak +
     UNIT_FOOTER;
 
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'const' + AnsiLineBreak +
-    '  a      = 3;' + AnsiLineBreak +
-    '  bee    = 3;' + AnsiLineBreak +
-    '  deedee = 4.567;' + AnsiLineBreak +
+    'const' + NativeLineBreak +
+    '  a      = 3;' + NativeLineBreak +
+    '  bee    = 3;' + NativeLineBreak +
+    '  deedee = 4.567;' + NativeLineBreak +
     UNIT_FOOTER;
 begin
   TestProcessResult(TAlignConst, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -100,21 +103,21 @@ end;
 procedure TTestAlignment.TestAlignConst2;
 const
   IN_UNIT_TEXT = UNIT_HEADER +
-    'procedure foo;' + AnsiLineBreak +
-    'const' + AnsiLineBreak +
-    '  a = 3;' + AnsiLineBreak +
-    '  bee = 3;' + AnsiLineBreak +
-    '  deedee = 4.567;' + AnsiLineBreak +
-    ' begin end; ' + AnsiLineBreak +
+    'procedure foo;' + NativeLineBreak +
+    'const' + NativeLineBreak +
+    '  a = 3;' + NativeLineBreak +
+    '  bee = 3;' + NativeLineBreak +
+    '  deedee = 4.567;' + NativeLineBreak +
+    ' begin end; ' + NativeLineBreak +
     UNIT_FOOTER;
 
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'procedure foo;' + AnsiLineBreak +
-    'const' + AnsiLineBreak +
-    '  a      = 3;' + AnsiLineBreak +
-    '  bee    = 3;' + AnsiLineBreak +
-    '  deedee = 4.567;' + AnsiLineBreak +
-    ' begin end; ' + AnsiLineBreak +
+    'procedure foo;' + NativeLineBreak +
+    'const' + NativeLineBreak +
+    '  a      = 3;' + NativeLineBreak +
+    '  bee    = 3;' + NativeLineBreak +
+    '  deedee = 4.567;' + NativeLineBreak +
+    ' begin end; ' + NativeLineBreak +
     UNIT_FOOTER;
 begin
   TestProcessResult(TAlignConst, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -123,17 +126,17 @@ end;
 procedure TTestAlignment.TestAlignConst3;
 const
   IN_UNIT_TEXT = UNIT_HEADER +
-    'const' + AnsiLineBreak +
-    '  a = 3; ' + AnsiLineBreak +
-    '  bee = 3;  ' + AnsiLineBreak +
-    '  deedee = 4.567;   ' + AnsiLineBreak +
+    'const' + NativeLineBreak +
+    '  a = 3; ' + NativeLineBreak +
+    '  bee = 3;  ' + NativeLineBreak +
+    '  deedee = 4.567;   ' + NativeLineBreak +
     UNIT_FOOTER;
 
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'const' + AnsiLineBreak +
-    '  a      = 3; ' + AnsiLineBreak +
-    '  bee    = 3;  ' + AnsiLineBreak +
-    '  deedee = 4.567;   ' + AnsiLineBreak +
+    'const' + NativeLineBreak +
+    '  a      = 3; ' + NativeLineBreak +
+    '  bee    = 3;  ' + NativeLineBreak +
+    '  deedee = 4.567;   ' + NativeLineBreak +
     UNIT_FOOTER;
 begin
   TestProcessResult(TAlignConst, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -142,15 +145,15 @@ end;
 procedure TTestAlignment.TestAlignConst4;
 const
   IN_UNIT_TEXT = UNIT_HEADER +
-    'const' + AnsiLineBreak +
-    '  a = 3;' + AnsiLineBreak +
-    '  bee = 3;' + AnsiLineBreak +
+    'const' + NativeLineBreak +
+    '  a = 3;' + NativeLineBreak +
+    '  bee = 3;' + NativeLineBreak +
     UNIT_FOOTER;
 
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'const' + AnsiLineBreak +
-    '  a   = 3;' + AnsiLineBreak +
-    '  bee = 3;' + AnsiLineBreak +
+    'const' + NativeLineBreak +
+    '  a   = 3;' + NativeLineBreak +
+    '  bee = 3;' + NativeLineBreak +
     UNIT_FOOTER;
 begin
   TestProcessResult(TAlignConst, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -159,15 +162,15 @@ end;
 procedure TTestAlignment.TestAlignVars;
 const
   IN_UNIT_TEXT = UNIT_HEADER +
-    'var' + AnsiLineBreak +
-    '  a: integer;' + AnsiLineBreak +
-    '  bee: string;' + AnsiLineBreak +
+    'var' + NativeLineBreak +
+    '  a: integer;' + NativeLineBreak +
+    '  bee: string;' + NativeLineBreak +
     UNIT_FOOTER;
 
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'var' + AnsiLineBreak +
-    '  a:   integer;' + AnsiLineBreak +
-    '  bee: string;' + AnsiLineBreak +
+    'var' + NativeLineBreak +
+    '  a:   integer;' + NativeLineBreak +
+    '  bee: string;' + NativeLineBreak +
     UNIT_FOOTER;
 begin
   TestProcessResult(TAlignVars, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -176,17 +179,17 @@ end;
 procedure TTestAlignment.TestAlignVars2;
 const
   IN_UNIT_TEXT = UNIT_HEADER +
-    'var' + AnsiLineBreak +
-    '  a: integer;' + AnsiLineBreak +
-    '  bee: string;' + AnsiLineBreak +
-    '  deedee: float;' + AnsiLineBreak +
+    'var' + NativeLineBreak +
+    '  a: integer;' + NativeLineBreak +
+    '  bee: string;' + NativeLineBreak +
+    '  deedee: float;' + NativeLineBreak +
     UNIT_FOOTER;
 
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'var' + AnsiLineBreak +
-    '  a:      integer;' + AnsiLineBreak +
-    '  bee:    string;' + AnsiLineBreak +
-    '  deedee: float;' + AnsiLineBreak +
+    'var' + NativeLineBreak +
+    '  a:      integer;' + NativeLineBreak +
+    '  bee:    string;' + NativeLineBreak +
+    '  deedee: float;' + NativeLineBreak +
     UNIT_FOOTER;
 begin
   TestProcessResult(TAlignVars, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -196,30 +199,30 @@ end;
 // input for align vars and allign assign tests
 const
   MULTI_ALIGN_IN_UNIT_TEXT = UNIT_HEADER +
-    'procedure foo;' + AnsiLineBreak +
-    'var' + AnsiLineBreak +
-    '  a: integer;' + AnsiLineBreak +
-    '  bee: string;' + AnsiLineBreak +
-    '  deedee: float;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    ' a := 3;' + AnsiLineBreak +
-    ' bee := ''foo'';' + AnsiLineBreak +
-    ' deedee := 34.56;' + AnsiLineBreak +
+    'procedure foo;' + NativeLineBreak +
+    'var' + NativeLineBreak +
+    '  a: integer;' + NativeLineBreak +
+    '  bee: string;' + NativeLineBreak +
+    '  deedee: float;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    ' a := 3;' + NativeLineBreak +
+    ' bee := ''foo'';' + NativeLineBreak +
+    ' deedee := 34.56;' + NativeLineBreak +
     'end;' +
     UNIT_FOOTER;
 
 procedure TTestAlignment.TestAlignVars3;
 const
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'procedure foo;' + AnsiLineBreak +
-    'var' + AnsiLineBreak +
-    '  a:      integer;' + AnsiLineBreak +
-    '  bee:    string;' + AnsiLineBreak +
-    '  deedee: float;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    ' a := 3;' + AnsiLineBreak +
-    ' bee := ''foo'';' + AnsiLineBreak +
-    ' deedee := 34.56;' + AnsiLineBreak +
+    'procedure foo;' + NativeLineBreak +
+    'var' + NativeLineBreak +
+    '  a:      integer;' + NativeLineBreak +
+    '  bee:    string;' + NativeLineBreak +
+    '  deedee: float;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    ' a := 3;' + NativeLineBreak +
+    ' bee := ''foo'';' + NativeLineBreak +
+    ' deedee := 34.56;' + NativeLineBreak +
     'end;' +
     UNIT_FOOTER;
 
@@ -233,15 +236,15 @@ end;
 procedure TTestAlignment.TestAlignAssign;
 const
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'procedure foo;' + AnsiLineBreak +
-    'var' + AnsiLineBreak +
-    '  a: integer;' + AnsiLineBreak +
-    '  bee: string;' + AnsiLineBreak +
-    '  deedee: float;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    ' a      := 3;' + AnsiLineBreak +
-    ' bee    := ''foo'';' + AnsiLineBreak +
-    ' deedee := 34.56;' + AnsiLineBreak +
+    'procedure foo;' + NativeLineBreak +
+    'var' + NativeLineBreak +
+    '  a: integer;' + NativeLineBreak +
+    '  bee: string;' + NativeLineBreak +
+    '  deedee: float;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    ' a      := 3;' + NativeLineBreak +
+    ' bee    := ''foo'';' + NativeLineBreak +
+    ' deedee := 34.56;' + NativeLineBreak +
     'end;' +
     UNIT_FOOTER;
 begin
@@ -257,38 +260,38 @@ end;
 procedure TTestAlignment.TestAlignAssign2;
 const
   IN_UNIT_TEXT = UNIT_HEADER +
-    'procedure foo;' + AnsiLineBreak +
-    'var' + AnsiLineBreak +
-    '  a, aa: integer;' + AnsiLineBreak +
-    '  bee, bee2: string;' + AnsiLineBreak +
-    '  deedee, deedee2: float;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    ' a := 3;' + AnsiLineBreak +
-    ' bee := ''foo'';' + AnsiLineBreak +
-    ' deedee := 34.56;' + AnsiLineBreak +
-    ' Foo;' + AnsiLineBreak +
-    ' Bar;' + AnsiLineBreak +
-    ' aa := 3;' + AnsiLineBreak +
-    ' deedee2 := 34.56;' + AnsiLineBreak +
-    ' bee2 := ''foo'';' + AnsiLineBreak +
+    'procedure foo;' + NativeLineBreak +
+    'var' + NativeLineBreak +
+    '  a, aa: integer;' + NativeLineBreak +
+    '  bee, bee2: string;' + NativeLineBreak +
+    '  deedee, deedee2: float;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    ' a := 3;' + NativeLineBreak +
+    ' bee := ''foo'';' + NativeLineBreak +
+    ' deedee := 34.56;' + NativeLineBreak +
+    ' Foo;' + NativeLineBreak +
+    ' Bar;' + NativeLineBreak +
+    ' aa := 3;' + NativeLineBreak +
+    ' deedee2 := 34.56;' + NativeLineBreak +
+    ' bee2 := ''foo'';' + NativeLineBreak +
     'end;' +
     UNIT_FOOTER;
 
   OUT_UNIT_TEXT = UNIT_HEADER +
-    'procedure foo;' + AnsiLineBreak +
-    'var' + AnsiLineBreak +
-    '  a, aa: integer;' + AnsiLineBreak +
-    '  bee, bee2: string;' + AnsiLineBreak +
-    '  deedee, deedee2: float;' + AnsiLineBreak +
-    'begin' + AnsiLineBreak +
-    ' a      := 3;' + AnsiLineBreak +
-    ' bee    := ''foo'';' + AnsiLineBreak +
-    ' deedee := 34.56;' + AnsiLineBreak +
-    ' Foo;' + AnsiLineBreak +
-    ' Bar;' + AnsiLineBreak +
-    ' aa      := 3;' + AnsiLineBreak +
-    ' deedee2 := 34.56;' + AnsiLineBreak +
-    ' bee2    := ''foo'';' + AnsiLineBreak +
+    'procedure foo;' + NativeLineBreak +
+    'var' + NativeLineBreak +
+    '  a, aa: integer;' + NativeLineBreak +
+    '  bee, bee2: string;' + NativeLineBreak +
+    '  deedee, deedee2: float;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    ' a      := 3;' + NativeLineBreak +
+    ' bee    := ''foo'';' + NativeLineBreak +
+    ' deedee := 34.56;' + NativeLineBreak +
+    ' Foo;' + NativeLineBreak +
+    ' Bar;' + NativeLineBreak +
+    ' aa      := 3;' + NativeLineBreak +
+    ' deedee2 := 34.56;' + NativeLineBreak +
+    ' bee2    := ''foo'';' + NativeLineBreak +
     'end;' +
     UNIT_FOOTER;
 begin
@@ -299,14 +302,14 @@ end;
 
 procedure TTestAlignment.TestAlignComments;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
-    ' // foo' + AnsiLineBreak +
-    '     { bar bie } ' + AnsiLineBreak +
+  IN_UNIT_TEXT = UNIT_HEADER + NativeLineBreak +
+    ' // foo' + NativeLineBreak +
+    '     { bar bie } ' + NativeLineBreak +
     UNIT_FOOTER;
 
-  OUT_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
-    '     // foo' + AnsiLineBreak +
-    '     { bar bie } ' + AnsiLineBreak +
+  OUT_UNIT_TEXT = UNIT_HEADER + NativeLineBreak +
+    '     // foo' + NativeLineBreak +
+    '     { bar bie } ' + NativeLineBreak +
     UNIT_FOOTER;
 begin
   TestProcessResult(TAlignComment, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -314,16 +317,16 @@ end;
 
 procedure TTestAlignment.TestAlignComments2;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
-    ' // foo' + AnsiLineBreak +
-    '    { bar bie } ' + AnsiLineBreak +
-    '      // baz' + AnsiLineBreak +
+  IN_UNIT_TEXT = UNIT_HEADER + NativeLineBreak +
+    ' // foo' + NativeLineBreak +
+    '    { bar bie } ' + NativeLineBreak +
+    '      // baz' + NativeLineBreak +
     UNIT_FOOTER;
 
-  OUT_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
-    '      // foo' + AnsiLineBreak +
-    '      { bar bie } ' + AnsiLineBreak +
-    '      // baz' + AnsiLineBreak +
+  OUT_UNIT_TEXT = UNIT_HEADER + NativeLineBreak +
+    '      // foo' + NativeLineBreak +
+    '      { bar bie } ' + NativeLineBreak +
+    '      // baz' + NativeLineBreak +
     UNIT_FOOTER;
 begin
   TestProcessResult(TAlignComment, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -331,16 +334,16 @@ end;
 
 procedure TTestAlignment.TestAlignTypedef;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
-    ' type ' + AnsiLineBreak +
-    '  foo = integer; ' + AnsiLineBreak +
-    '  barnee = string; ' + AnsiLineBreak +
+  IN_UNIT_TEXT = UNIT_HEADER + NativeLineBreak +
+    ' type ' + NativeLineBreak +
+    '  foo = integer; ' + NativeLineBreak +
+    '  barnee = string; ' + NativeLineBreak +
     UNIT_FOOTER;
 
-  OUT_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
-    ' type ' + AnsiLineBreak +
-    '  foo    = integer; ' + AnsiLineBreak +
-    '  barnee = string; ' + AnsiLineBreak +
+  OUT_UNIT_TEXT = UNIT_HEADER + NativeLineBreak +
+    ' type ' + NativeLineBreak +
+    '  foo    = integer; ' + NativeLineBreak +
+    '  barnee = string; ' + NativeLineBreak +
     UNIT_FOOTER;
 begin
   TestProcessResult(TAlignTypedef, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -348,18 +351,18 @@ end;
 
 procedure TTestAlignment.TestAlignTypedef2;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
-    ' type ' + AnsiLineBreak +
-    '  foo = integer; ' + AnsiLineBreak +
-    '  barnee = string; ' + AnsiLineBreak +
-    '  Baaaaaaz = float; ' + AnsiLineBreak +
+  IN_UNIT_TEXT = UNIT_HEADER + NativeLineBreak +
+    ' type ' + NativeLineBreak +
+    '  foo = integer; ' + NativeLineBreak +
+    '  barnee = string; ' + NativeLineBreak +
+    '  Baaaaaaz = float; ' + NativeLineBreak +
     UNIT_FOOTER;
 
-  OUT_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
-    ' type ' + AnsiLineBreak +
-    '  foo      = integer; ' + AnsiLineBreak +
-    '  barnee   = string; ' + AnsiLineBreak +
-    '  Baaaaaaz = float; ' + AnsiLineBreak +
+  OUT_UNIT_TEXT = UNIT_HEADER + NativeLineBreak +
+    ' type ' + NativeLineBreak +
+    '  foo      = integer; ' + NativeLineBreak +
+    '  barnee   = string; ' + NativeLineBreak +
+    '  Baaaaaaz = float; ' + NativeLineBreak +
     UNIT_FOOTER;
 begin
   TestProcessResult(TAlignTypedef, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -367,32 +370,32 @@ end;
 
 procedure TTestAlignment.TestAlignFields;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
-    ' type ' + AnsiLineBreak +
-    '  foo = class ' + AnsiLineBreak +
-    '  private' + AnsiLineBreak +
-    '   aaaa: integer;' + AnsiLineBreak +
-    '   aaaaaa: integer;' + AnsiLineBreak +
-    '   aa: integer;' + AnsiLineBreak +
-    '  public' + AnsiLineBreak +
-    '   fi: integer;' + AnsiLineBreak +
-    '   fi1: integer;' + AnsiLineBreak +
-    '   fi111: integer;' + AnsiLineBreak +
-    '  end; ' + AnsiLineBreak +
+  IN_UNIT_TEXT = UNIT_HEADER + NativeLineBreak +
+    ' type ' + NativeLineBreak +
+    '  foo = class ' + NativeLineBreak +
+    '  private' + NativeLineBreak +
+    '   aaaa: integer;' + NativeLineBreak +
+    '   aaaaaa: integer;' + NativeLineBreak +
+    '   aa: integer;' + NativeLineBreak +
+    '  public' + NativeLineBreak +
+    '   fi: integer;' + NativeLineBreak +
+    '   fi1: integer;' + NativeLineBreak +
+    '   fi111: integer;' + NativeLineBreak +
+    '  end; ' + NativeLineBreak +
     UNIT_FOOTER;
 
-  OUT_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
-    ' type ' + AnsiLineBreak +
-    '  foo = class ' + AnsiLineBreak +
-    '  private' + AnsiLineBreak +
-    '   aaaa:   integer;' + AnsiLineBreak +
-    '   aaaaaa: integer;' + AnsiLineBreak +
-    '   aa:     integer;' + AnsiLineBreak +
-    '  public' + AnsiLineBreak +
-    '   fi:    integer;' + AnsiLineBreak +
-    '   fi1:   integer;' + AnsiLineBreak +
-    '   fi111: integer;' + AnsiLineBreak +
-    '  end; ' + AnsiLineBreak +
+  OUT_UNIT_TEXT = UNIT_HEADER + NativeLineBreak +
+    ' type ' + NativeLineBreak +
+    '  foo = class ' + NativeLineBreak +
+    '  private' + NativeLineBreak +
+    '   aaaa:   integer;' + NativeLineBreak +
+    '   aaaaaa: integer;' + NativeLineBreak +
+    '   aa:     integer;' + NativeLineBreak +
+    '  public' + NativeLineBreak +
+    '   fi:    integer;' + NativeLineBreak +
+    '   fi1:   integer;' + NativeLineBreak +
+    '   fi111: integer;' + NativeLineBreak +
+    '  end; ' + NativeLineBreak +
     UNIT_FOOTER;
 begin
   TestProcessResult(TAlignField, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -400,22 +403,22 @@ end;
 
 procedure TTestAlignment.TestAlignFields2;
 const
-  IN_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
-    ' type ' + AnsiLineBreak +
-    '  TRfoo = record ' + AnsiLineBreak +
-    '   fi: integer;' + AnsiLineBreak +
-    '   fi1: integer;' + AnsiLineBreak +
-    '   fi111: integer;' + AnsiLineBreak +
-    '  end; ' + AnsiLineBreak +
+  IN_UNIT_TEXT = UNIT_HEADER + NativeLineBreak +
+    ' type ' + NativeLineBreak +
+    '  TRfoo = record ' + NativeLineBreak +
+    '   fi: integer;' + NativeLineBreak +
+    '   fi1: integer;' + NativeLineBreak +
+    '   fi111: integer;' + NativeLineBreak +
+    '  end; ' + NativeLineBreak +
     UNIT_FOOTER;
 
-  OUT_UNIT_TEXT = UNIT_HEADER + AnsiLineBreak +
-    ' type ' + AnsiLineBreak +
-    '  TRfoo = record ' + AnsiLineBreak +
-    '   fi:    integer;' + AnsiLineBreak +
-    '   fi1:   integer;' + AnsiLineBreak +
-    '   fi111: integer;' + AnsiLineBreak +
-    '  end; ' + AnsiLineBreak +
+  OUT_UNIT_TEXT = UNIT_HEADER + NativeLineBreak +
+    ' type ' + NativeLineBreak +
+    '  TRfoo = record ' + NativeLineBreak +
+    '   fi:    integer;' + NativeLineBreak +
+    '   fi1:   integer;' + NativeLineBreak +
+    '   fi111: integer;' + NativeLineBreak +
+    '  end; ' + NativeLineBreak +
     UNIT_FOOTER;
 begin
   TestProcessResult(TAlignField, IN_UNIT_TEXT, OUT_UNIT_TEXT);

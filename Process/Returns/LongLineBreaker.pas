@@ -64,8 +64,8 @@ implementation
 uses
   { delphi }
   SysUtils,
-  { JCL }
-  JclAnsiStrings,
+  { jcl }
+  JclStrings,
   { local }
   SourceToken, FormatFlags, JcfSettings, SetReturns,
   TokenUtils, JcfMiscFunctions, Tokens, ParseTreeNode, ParseTreeNodeType;
@@ -534,7 +534,7 @@ begin
       end;
       ttComment:
       begin
-        if Pos(AnsiLineBreak, lt.SourceCode) <= 0 then
+        if Pos(WideString(NativeLineBreak), lt.SourceCode) <= 0 then
           liPos := liPos + Length(lt.SourceCode)
         else
           liPos := LastLineLength(lt.SourceCode);
