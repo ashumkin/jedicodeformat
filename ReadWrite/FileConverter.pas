@@ -301,10 +301,12 @@ begin
         { rename the original file to the backup file name,
           write processed code back to the original file }
         if not RenameFile(psInputFileName, lsOut) then
+        begin
           raise Exception.Create('TFileConverter.ProcessFile: ' +
           ' could not rename source file ' + psInputFileName + ' to ' + lsOut);
+        end;
 
-        StringToFile(psInputFileName, fcConverter.OutputCode);
+        WriteTextFile(psInputFileName, fcConverter.OutputCode, leContentType);
       end;
     end;
 

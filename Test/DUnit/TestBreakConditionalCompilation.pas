@@ -93,18 +93,23 @@ uses
   { jcl }
   JclStrings,
   { local }
+  JcfUnicodeFiles,
   JCFSettings;
 
 
 procedure TTestBreakConditionalCompilation.Setup;
 const
   IN_FILE_NAME = '..\..\Test\TestCases\TestCondCompBreaks.pas';
+var
+  leContentType: TFileContentType;
+  lsFileContents: WideString;
 begin
   inherited;
 
   if FileExists(IN_FILE_NAME) then
   begin
-    fsFileIn := FileToString(IN_FILE_NAME);
+    ReadTextFile(IN_FILE_NAME, lsFileContents, leContentType);
+    fsFileIn := string(lsFileContents);
   end
   else
   begin
