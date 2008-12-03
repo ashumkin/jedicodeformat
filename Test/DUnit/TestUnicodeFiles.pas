@@ -29,6 +29,13 @@ See http://www.gnu.org/licenses/gpl.html
 
 interface
 
+{
+ Test reading and writing files in unicode formats
+ 8-bit: Ansi, UTF-8
+ 16-bit: little-endian and big-endian
+ 32-bit: little-endian and big-endian
+}
+
 uses
   TestFrameWork;
 
