@@ -40,6 +40,7 @@ type
     leSaveCaseLabelStyle, leSaveCaseElseStyle: TTriOptionStyle;
     leSaveEndElseStyle: TTriOptionStyle;
     leSaveElseBeginStyle: TTriOptionStyle;
+    leSaveBlockBeginStyle: TTriOptionStyle;
 
   protected
     procedure SetUp; override;
@@ -54,6 +55,9 @@ type
 
     procedure TestBlockStyleNever;
     procedure TestBlockStyleNeverWithComment;
+
+    procedure TestIfBeginStyleNever;
+    procedure TestIfBeginStyleAlways;
 
     procedure TestIfElseStyleNever;
     procedure TestIfElseNeverWithComment;
@@ -160,6 +164,8 @@ begin
   leSaveEndElseStyle := FormatSettings.Returns.EndElseStyle;
   leSaveElseBeginStyle := FormatSettings.Returns.ElseBeginStyle;
 
+  leSaveBlockBeginStyle := FormatSettings.Returns.BlockBeginStyle;
+
   FormatSettings.Returns.ElseBeginStyle := eLeave;
 end;
 
@@ -175,6 +181,8 @@ begin
 
   FormatSettings.Returns.EndElseStyle := leSaveEndElseStyle;
   FormatSettings.Returns.ElseBeginStyle := leSaveElseBeginStyle;
+
+  FormatSettings.Returns.BlockBeginStyle := leSaveBlockBeginStyle;
 end;
 
 procedure TTestIfElseBreaks.TestBlockStyleNever;
@@ -236,6 +244,65 @@ begin
 
   TestProcessResult(TBlockStyles, IN_TEXT, OUT_TEXT);
 end;
+
+procedure TTestIfElseBreaks.TestIfBeginStyleNever;
+const
+  IN_TEXT  = UNIT_HEADER +
+    'procedure foo;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'if bar then' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '  Fish()' + NativeLineBreak +
+    'end' + NativeLineBreak +
+    'else if spon then' + NativeLineBreak +
+    ' Wibble();' + NativeLineBreak +
+    'end;' + NativeLineBreak +
+    UNIT_FOOTER;
+  OUT_TEXT = UNIT_HEADER +
+    'procedure foo;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'if bar then begin' + NativeLineBreak +
+    '  Fish()' + NativeLineBreak +
+    'end' + NativeLineBreak +
+    'else if spon then' + NativeLineBreak +
+    ' Wibble();' + NativeLineBreak +
+    'end;' + NativeLineBreak +
+    UNIT_FOOTER;
+begin
+  FormatSettings.Returns.BlockBeginStyle := eNever;
+
+  TestProcessResult(TBlockStyles, IN_TEXT, OUT_TEXT);
+end;
+
+procedure TTestIfElseBreaks.TestIfBeginStyleAlways;
+const
+  IN_TEXT = UNIT_HEADER +
+    'procedure foo;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'if bar then begin' + NativeLineBreak +
+    '  Fish()' + NativeLineBreak +
+    'end' + NativeLineBreak +
+    'else if spon then' + NativeLineBreak +
+    ' Wibble();' + NativeLineBreak +
+    'end;' + NativeLineBreak +
+    UNIT_FOOTER;
+  OUT_TEXT  = UNIT_HEADER +
+    'procedure foo;' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'if bar then' + NativeLineBreak +
+    'begin' + NativeLineBreak +
+    '  Fish()' + NativeLineBreak +
+    'end' + NativeLineBreak +
+    'else if spon then' + NativeLineBreak +
+    ' Wibble();' + NativeLineBreak +
+    'end;' + NativeLineBreak +
+    UNIT_FOOTER;
+begin
+  FormatSettings.Returns.BlockBeginStyle := eAlways;
+
+  TestProcessResult(TBlockStyles, IN_TEXT, OUT_TEXT);
+end;
+
 
 procedure TTestIfElseBreaks.TestIfElseNeverWithComment;
 const
