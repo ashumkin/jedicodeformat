@@ -37,59 +37,59 @@ uses
   SysUtils, Classes;
 
 const
-  AnsiNull           = Char(#0);
-  AnsiSoh            = Char(#1);
-  AnsiStx            = Char(#2);
-  AnsiEtx            = Char(#3);
-  AnsiEot            = Char(#4);
-  AnsiEnq            = Char(#5);
-  AnsiAck            = Char(#6);
-  AnsiBell           = Char(#7);
-  AnsiBackspace      = Char(#8);
-  AnsiTab            = Char(#9);
-  AnsiLineFeed       = AnsiChar(#10);
-  AnsiVerticalTab    = Char(#11);
-  AnsiFormFeed       = Char(#12);
-  AnsiCarriageReturn = AnsiChar(#13);
-  AnsiCrLf           = AnsiString(#13#10);
-  AnsiSo             = Char(#14);
-  AnsiSi             = Char(#15);
-  AnsiDle            = Char(#16);
-  AnsiDc1            = Char(#17);
-  AnsiDc2            = Char(#18);
-  AnsiDc3            = Char(#19);
-  AnsiDc4            = Char(#20);
-  AnsiNak            = Char(#21);
-  AnsiSyn            = Char(#22);
-  AnsiEtb            = Char(#23);
-  AnsiCan            = Char(#24);
-  AnsiEm             = Char(#25);
-  AnsiEndOfFile      = Char(#26);
-  AnsiEscape         = Char(#27);
-  AnsiFs             = Char(#28);
-  AnsiGs             = Char(#29);
-  AnsiRs             = Char(#30);
-  AnsiUs             = Char(#31);
-  AnsiSpace          = Char(' ');
-  AnsiComma          = Char(',');
-  AnsiBackslash      = Char('\');
-  AnsiForwardSlash   = Char('/');
+  NativeNull           = Char(#0);
+  NativeSoh            = Char(#1);
+  NativeStx            = Char(#2);
+  NativeEtx            = Char(#3);
+  NativeEot            = Char(#4);
+  NativeEnq            = Char(#5);
+  NativeAck            = Char(#6);
+  NativeBell           = Char(#7);
+  NativeBackspace      = Char(#8);
+  NativeTab            = Char(#9);
+  NativeLineFeed       = AnsiChar(#10);
+  NativeVerticalTab    = Char(#11);
+  NativeFormFeed       = Char(#12);
+  NativeCarriageReturn = AnsiChar(#13);
+  NativeCrLf           = AnsiString(#13#10);
+  NativeSo             = Char(#14);
+  NativeSi             = Char(#15);
+  NativeDle            = Char(#16);
+  NativeDc1            = Char(#17);
+  NativeDc2            = Char(#18);
+  NativeDc3            = Char(#19);
+  NativeDc4            = Char(#20);
+  NativeNak            = Char(#21);
+  NativeSyn            = Char(#22);
+  NativeEtb            = Char(#23);
+  NativeCan            = Char(#24);
+  NativeEm             = Char(#25);
+  NativeEndOfFile      = Char(#26);
+  NativeEscape         = Char(#27);
+  NativeFs             = Char(#28);
+  NativeGs             = Char(#29);
+  NativeRs             = Char(#30);
+  NativeUs             = Char(#31);
+  NativeSpace          = Char(' ');
+  NativeComma          = Char(',');
+  NativeBackslash      = Char('\');
+  NativeForwardSlash   = Char('/');
 
   {$IFDEF MSWINDOWS}
-  AnsiLineBreak = AnsiCrLf;
+  NativeLineBreak = NativeCrLf;
   PathSeparator    = '\';
   {$ENDIF MSWINDOWS}
   {$IFDEF UNIX}
-  AnsiLineBreak = AnsiLineFeed;
+  NativeLineBreak = AnsiLineFeed;
   PathSeparator    = '/';
   {$ENDIF UNIX}
   DirDelimiter = PathSeparator;
-  AnsiHexDigits      = ['0'..'9', 'A'..'F', 'a'..'f'];
-  AnsiWhiteSpace     = [AnsiTab, AnsiLineFeed, AnsiVerticalTab,
-    AnsiFormFeed, AnsiCarriageReturn, AnsiSpace];
+  NativeHexDigits      = ['0'..'9', 'A'..'F', 'a'..'f'];
+  NativeWhiteSpace     = [NativeTab, NativeLineFeed, NativeVerticalTab,
+    NativeFormFeed, NativeCarriageReturn, NativeSpace];
 
-  AnsiDoubleQuote = Char('"');
-  AnsiSingleQuote = Char('''');
+  NativeDoubleQuote = Char('"');
+  NativeSingleQuote = Char('''');
 
 
 function CharIsControl(const C: Char): Boolean;
@@ -163,9 +163,19 @@ uses
   , LCLIntf, FileUtil
 {$endif};
 
+{$IFNDEF DELPHI12}
+
+// define  CharInSet for Delphi 2007 or earlier
+function CharInSet(const C: Char; const testSet: TSysCharSet): boolean;
+begin
+  Result := C in testSet;
+end;
+
+{$ENDIF}
+
 function CharIsAlpha(const C: Char): Boolean;
 begin
-  Result := C in ['a'..'z','A'..'Z'];
+  Result := CharInSet(C, ['a'..'z','A'..'Z']);
 end;
 
 function CharIsAlphaNum(const C: Char): Boolean;
@@ -180,17 +190,17 @@ end;
 
 function CharIsDigit(const C: Char): Boolean;
 begin
-  Result := C in ['0'..'9'];
+  Result := CharInSet(C, ['0'..'9']);
 end;
 
 function CharIsReturn(const C: Char): Boolean;
 begin
-  Result := C in [AnsiLineFeed, AnsiCarriageReturn];
+  Result := CharInSet(C, [NativeLineFeed, NativeCarriageReturn]);
 end;
 
 function CharIsWhiteSpace(const C: Char): Boolean;
 begin
-  Result := C in AnsiWhiteSpace;
+  Result := CharInSet(C, NativeWhiteSpace) ;
 end;
 
 function CharUpper(const C: Char): Char;
@@ -238,7 +248,7 @@ begin
   begin
     C1 := Result[1];
     C2 := Result[L];
-    if (C1 = C2) and (C1 in [AnsiSingleQuote, AnsiDoubleQuote]) then
+    if (C1 = C2) and (CharInSet(C1, [NativeSingleQuote, NativeDoubleQuote])) then
     begin
       Delete(Result, L, 1);
       Delete(Result, 1, 1);
@@ -305,7 +315,7 @@ end;
 
 function StrDoubleQuote(const S: string): string;
 begin
-  Result := AnsiDoubleQuote + S + AnsiDoubleQuote;
+  Result := NativeDoubleQuote + S + NativeDoubleQuote;
 end;
 
 function StrSmartCase(const S: string; Delimiters: TSysCharSet): string;
@@ -314,10 +324,10 @@ var
 begin
   // if no delimiters passed then use default set
   if Delimiters = [] then
-    Delimiters := AnsiWhiteSpace;
+    Delimiters := NativeWhiteSpace;
   Result := S;
   for i := 1 to Length(Result) do
-    if (i = 1) or (Result[i - 1] in Delimiters) then
+    if (i = 1) or (CharInSet(Result[i - 1], Delimiters)) then
       Result[i] := UpCase(Result[i]);
 end;
 
@@ -367,8 +377,11 @@ end;
 
 function StrSearch(const Substr, S: string; const Index: Integer = 1): Integer;
 begin
-  // Paul: I expect original code was more efficient :) 
-  Result := Pos(SubStr, Copy(S, Index, Length(S))) + Index - 1;
+  // Paul: I expect original code was more efficient :)
+  Result := Pos(SubStr, Copy(S, Index, Length(S)));
+
+  if Result > 0 then
+    Result := Result + Index - 1;
 end;
 
 function BooleanToStr(B: Boolean): string;
@@ -501,6 +514,10 @@ begin
   Result := IncludeTrailingPathDelimiter(Result);
 {$endif}
 end;
+
+// We know that this unit contains platform-specific code
+// it's guarded by ifdefs
+{$WARN SYMBOL_PLATFORM OFF}
 
 function FileGetSize(const FileName: string): Int64;
 {$ifndef fpc}
