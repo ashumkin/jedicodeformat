@@ -48,7 +48,8 @@ type
 implementation
 
 uses
-  JclStrings,
+  { local }
+  JcfStringUtils,
   JcfSettings, SetSpaces, SourceToken, Tokens, ParseTreeNodeType,
   FormatFlags, TokenUtils;
 

@@ -71,8 +71,10 @@ const
 implementation
 
 uses
+  { Delphi }
   Classes, SysUtils,
-  JclStrings;
+  { local }
+  JcfStringUtils;
 
 const
   MaxAnsiChar = 127;

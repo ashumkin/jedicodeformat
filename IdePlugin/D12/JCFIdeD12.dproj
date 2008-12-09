@@ -300,6 +300,7 @@
 			<DCCReference Include="..\..\Parse\AsmKeywords.pas"/>
 			<DCCReference Include="..\..\Utils\JcfUnicode.pas"/>
 			<DCCReference Include="..\..\Utils\JcfUnicodeFiles.pas"/>
+			<DCCReference Include="..\..\Utils\JcfStringUtils.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

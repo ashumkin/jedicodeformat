@@ -154,7 +154,8 @@ uses
   JcfUnicodeFiles in '..\..\Utils\JcfUnicodeFiles.pas',
   CommandLineReturnCode in '..\CommandLineReturnCode.pas',
   CommandLineConstants in '..\CommandLineConstants.pas',
-  StatusMessageReceiver in '..\StatusMessageReceiver.pas';
+  StatusMessageReceiver in '..\StatusMessageReceiver.pas',
+  JcfStringUtils in '..\..\Utils\JcfStringUtils.pas';
 
 var
   feReturnCode: TJcfCommandLineReturnCode;

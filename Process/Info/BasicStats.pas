@@ -71,9 +71,8 @@ implementation
 uses
   { delphi }
   SysUtils,
-  { JCL }
-  JclStrings,
   { JCF  }
+  JcfStringUtils,
   SourceToken, Tokens, ParseTreeNode, ParseTreeNodeType, TokenUtils,
   JcfRegistrySettings;
 

@@ -45,9 +45,8 @@ type
 implementation
 
 uses
-  { jcl }
-  JclStrings,
   { local }
+  JcfStringUtils,
   Tokens, SettingsTypes,
   JcfSettings;
 

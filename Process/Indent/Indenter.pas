@@ -53,8 +53,8 @@ implementation
 uses
   { delphi }
   SysUtils,
-  { jcf }
-  JclStrings,
+  { local }
+  JcfStringUtils,
   SourceToken, Nesting, FormatFlags, JcfSettings, TokenUtils,
   Tokens, ParseTreeNode, ParseTreeNodeType, SetIndent, SetAsm;
 

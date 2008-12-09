@@ -50,9 +50,8 @@ type
 implementation
 
 uses
-  { jcl }
-  JclStrings,
   { local }
+  JcfStringUtils,
   JcfSettings, SourceToken, Tokens,
   FormatFlags, ParseTreeNodeType;
 

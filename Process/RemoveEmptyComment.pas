@@ -50,8 +50,10 @@ type
 implementation
 
 uses
+  { system }
   SysUtils,
-  JclStrings,
+  { local }
+  JcfStringUtils,
   FormatFlags, SourceToken, Tokens, TokenUtils, JcfSettings;
 
 

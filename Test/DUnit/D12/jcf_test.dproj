@@ -219,6 +219,7 @@
 			<DCCReference Include="..\TestUnicodeFunctions.pas"/>
 			<DCCReference Include="..\..\..\Utils\JcfUnicodeFiles.pas"/>
 			<DCCReference Include="..\TestBreakAfterUses.pas"/>
+			<DCCReference Include="..\..\..\Utils\JcfStringUtils.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

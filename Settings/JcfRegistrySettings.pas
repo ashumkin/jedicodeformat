@@ -40,8 +40,10 @@ See http://www.gnu.org/licenses/gpl.html
 interface
 
 uses
-  { delphi } Registry, Classes,
-  { local }ConvertTypes;
+  { delphi }
+  Registry, Classes,
+  { local }
+  ConvertTypes;
 
 type
   TLogLevel = (eLogErrorsOnly, eLogFiles, eLogTokens);
@@ -188,9 +190,9 @@ uses
   { delphi }
   SysUtils, Dialogs, Windows,
   { jcl }
-  JclFileUtils, JclSysInfo, JclShell, JclStrings,
+  JclFileUtils, JclSysInfo, JclShell,
   { jcf }
-  JcfMiscFunctions;
+  JcfStringUtils, JcfMiscFunctions;
 
 const
   REG_GENERAL_SECTION = 'General';

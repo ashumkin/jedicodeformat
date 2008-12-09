@@ -175,11 +175,11 @@ implementation
 uses
   { delphi }
   SysUtils, Windows,
-  { jcl }
-  JclStrings,
   { local }
+  JcfSettings,
+  JcfUnicode,
+  JcfStringUtils,
   ParseTreeNodeType, Tokens, Nesting,
-  JcfSettings, JcfUnicode,
   SetReturns, AsmKeywords;
 
 

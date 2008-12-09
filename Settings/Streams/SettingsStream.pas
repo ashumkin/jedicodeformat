@@ -41,7 +41,6 @@ uses
   Classes;
 
 type
-
   // abstract base class - interface
   TSettingsOutput = class(TObject)
   private
@@ -157,9 +156,9 @@ uses
   { delphi }
   SysUtils, Windows,
   { jcl }
-  JclStrings, JclSysUtils,
+  JclSysUtils,
   { local}
-  JcfMiscFunctions;
+  JcfStringUtils, JcfMiscFunctions;
 
 const
   XML_HEADER = '<?xml version="1.0" ?>' + NativeLineBreak;

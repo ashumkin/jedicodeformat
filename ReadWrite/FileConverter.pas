@@ -112,9 +112,13 @@ type
 implementation
 
 uses
-  { delphi } Windows, SysUtils, Dialogs, Controls, Forms,
-  { jcl } JclFileUtils, JclStrings,
-  { local }FileUtils, JcfMiscFunctions, JCFLog,
+  { delphi }
+  Windows, SysUtils, Dialogs, Controls, Forms,
+  { jcl }
+  JclFileUtils,
+  { local }
+  JcfStringUtils,
+  FileUtils, JcfMiscFunctions, JCFLog,
   JcfRegistrySettings, JcfSettings, JCfUnicodeFiles;
 
 constructor TFileConverter.Create;

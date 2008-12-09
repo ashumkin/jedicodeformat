@@ -251,7 +251,7 @@ const
     'procedure foo;' + NativeLineBreak +
     'begin' + NativeLineBreak +
     'if bar then' + NativeLineBreak +
-    'begin' + NativeLineBreak +
+    '  begin' + NativeLineBreak +
     '  Fish()' + NativeLineBreak +
     'end' + NativeLineBreak +
     'else if spon then' + NativeLineBreak +

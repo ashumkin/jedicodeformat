@@ -34,7 +34,8 @@ unit JCFSettings;
 interface
 
 uses
-  { local }SetObfuscate, SetClarify,
+  { local }
+  SetObfuscate, SetClarify,
   SetIndent, SetSpaces, SetReturns,
   SetComments, SetCaps, SetWordList,
   SetAlign, SetReplace, SetUses, SetPreProcessor,
@@ -135,9 +136,8 @@ implementation
 uses
   { delphi }
   SysUtils, Dialogs, Windows,
-  { jcl }
-  JclStrings,
   { local }
+  JcfStringUtils,
   JCFSetBase,
   JcfRegistrySettings;
 

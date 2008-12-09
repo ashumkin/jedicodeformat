@@ -51,9 +51,11 @@ type
 implementation
 
 uses
+  { Delphi }
   SysUtils,
   WideStrUtils,
-  JclStrings,
+  { local }
+  JcfStringUtils,
   JcfSettings, SourceToken, Tokens, FormatFlags;
 
 constructor TTabToSpace.Create;

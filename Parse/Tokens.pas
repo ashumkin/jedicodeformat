@@ -461,9 +461,11 @@ function PreProcSymbolTypeSetToString(
 implementation
 
 uses
+  { system }
   Windows,
   SysUtils,
-  JclStrings,
+  { local }
+  JcfStringUtils,
   JcfUnicode;
 
 { the majority of these tokens have a fixed textual representation

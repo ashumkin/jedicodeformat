@@ -113,9 +113,8 @@ implementation
 uses
   { delphi }
   Controls, Forms,
-  { JCL }
-  JclStrings,
   { local }
+  JcfStringUtils,
   JcfUnicode,
   SourceTokenList, SourceToken,
   fShowParseTree, JcfSettings, JcfRegistrySettings,

@@ -163,6 +163,7 @@
     <DCCReference Include="..\..\Utils\JCFHelp.pas" />
     <DCCReference Include="..\..\Utils\JcfLog.pas" />
     <DCCReference Include="..\..\Utils\JcfMiscFunctions.pas" />
+    <DCCReference Include="..\..\Utils\JcfStringUtils.pas" />
     <DCCReference Include="..\..\Utils\JcfUnicode.pas" />
     <DCCReference Include="..\..\Utils\JcfUnicodeFiles.pas" />
     <DCCReference Include="..\..\VersionConsts.pas" />

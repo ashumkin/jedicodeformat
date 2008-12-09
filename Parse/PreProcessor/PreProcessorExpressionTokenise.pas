@@ -71,8 +71,8 @@ implementation
 uses
   { delphi }
   SysUtils, Windows,
-  { jcl }
-  JclStrings;
+  { local }
+  JcfStringUtils;
 
 
 constructor TPreProcessorExpressionTokeniser.Create;

@@ -30,7 +30,7 @@ See http://www.gnu.org/licenses/gpl.html
 interface
 
 uses
-  JclStrings,
+  JcfStringUtils,
   VersionConsts;
 
 const

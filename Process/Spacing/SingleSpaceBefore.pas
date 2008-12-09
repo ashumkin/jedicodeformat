@@ -57,8 +57,8 @@ type
 implementation
 
 uses
-  { jcl }
-  JclStrings,
+  { local }
+  JcfStringUtils,
   SourceToken, Tokens, ParseTreeNodeType, JcfSettings,
   FormatFlags, TokenUtils, SettingsTypes;
 

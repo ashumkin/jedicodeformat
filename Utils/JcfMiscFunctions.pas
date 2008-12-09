@@ -84,7 +84,9 @@ uses
   { delphi }
   SysUtils, Forms,
   { jcl }
-  JclStrings, JclFileUtils, JclSysUtils;
+  JclFileUtils, JclSysUtils,
+  { local }
+  JcfStringUtils;
 
 function GetApplicationFolder: string;
 begin

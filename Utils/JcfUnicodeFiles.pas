@@ -46,8 +46,10 @@ procedure WriteTextFile(const psFileName: string; const psContents: WideString;
 implementation
 
 uses
+  { delphi }
   Classes, SysUtils, Dialogs,
-  JclStrings,
+  { local }
+  JcfStringUtils,
   JcfUnicode;
 
 const

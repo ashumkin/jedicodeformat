@@ -181,6 +181,7 @@
 			<DCCReference Include="..\CommandLineReturnCode.pas"/>
 			<DCCReference Include="..\CommandLineConstants.pas"/>
 			<DCCReference Include="..\StatusMessageReceiver.pas"/>
+			<DCCReference Include="..\..\Utils\JcfStringUtils.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

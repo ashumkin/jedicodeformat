@@ -287,8 +287,8 @@ implementation
 uses
   { delphi }
   SysUtils, Forms,
-  { jcl }
-  JclStrings,
+  { local }
+  JcfStringUtils,
   JcfUnicode;
 
 const

@@ -71,8 +71,10 @@ type
 implementation
 
 uses
+  { Delphi }
   SysUtils,
-  JclStrings;
+  { local }
+  JcfStringUtils;
 
 const
   REG_ONCE_OFFS = 'OnceOffs';

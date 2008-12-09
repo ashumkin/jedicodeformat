@@ -49,12 +49,12 @@ type
 implementation
 
 uses
+  { system }
   SysUtils,
-  JclStrings,
+  { local }
+  JcfStringUtils,
   SourceToken, SettingsTypes, Tokens, ParseTreeNodeType,
   JcfSettings, FormatFlags, TokenUtils;
-
-{ TCapitalisation }
 
 procedure FixCaps(const pct: TSourceToken; const caps: TCapitalisationType);
 begin

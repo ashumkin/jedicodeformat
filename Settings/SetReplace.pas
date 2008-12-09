@@ -34,8 +34,10 @@ unit SetReplace;
 interface
 
 uses
-    { delphi }Classes,
-    { local }JCFSetBase, SettingsStream;
+  { delphi }
+  Classes,
+  { local }
+  JCFSetBase, SettingsStream;
 
 type
 
@@ -70,8 +72,8 @@ implementation
 uses
   { delphi }
   SysUtils,
-  { jcl }
-  JclStrings;
+  { locals }
+  JcfStringUtils;
 
 const
   REG_ENABLED = 'Enabled';
