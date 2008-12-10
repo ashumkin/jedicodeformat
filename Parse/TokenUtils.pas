@@ -174,7 +174,7 @@ implementation
 
 uses
   { delphi }
-  SysUtils, Windows,
+  {$IFNDEF FPC}Windows,{$ENDIF} SysUtils, 
   { local }
   JcfSettings,
   JcfUnicode,

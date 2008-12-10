@@ -47,10 +47,7 @@ implementation
 
 uses
   { delphi }
-  Classes, SysUtils, Dialogs,
-  { local }
-  JcfStringUtils,
-  JcfUnicode;
+  Classes, SysUtils, Dialogs;
 
 const
   // byte order markers (BOM)

@@ -53,7 +53,6 @@ implementation
 uses
   { Delphi }
   SysUtils,
-  WideStrUtils,
   { local }
   JcfStringUtils,
   JcfSettings, SourceToken, Tokens, FormatFlags;

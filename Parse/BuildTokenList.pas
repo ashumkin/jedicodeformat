@@ -109,17 +109,14 @@ uses
  JcfUnicode,
  JcfRegistrySettings;
 
-
-const
-  codepage_Chinese = 950;
-
 function CheckMultiByte(const pcChar: WideChar): Boolean;
 begin
   Result := False;
 
   if GetRegSettings.CheckMultiByteChars then
+  begin
     Result := IsDBCSLeadByte(Byte(pcChar));
-    //Result := IsDBCSLeadByteEx(codepage_Chinese, Byte(pcChar));
+  end;
 end;
 
 { TBuildTokenList }

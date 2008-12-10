@@ -61,7 +61,7 @@ type
 
     procedure PreVisitParseTreeNode(const pcNode: TObject); override;
     function VisitSourceToken(const pcNode: TObject): Boolean; override;
-    function FinalSummary(var psMessage: string): boolean; override;
+    function FinalSummary(out psMessage: string): boolean; override;
 
     function IsIncludedInSettings: boolean; override;
   end;
@@ -195,7 +195,7 @@ begin
   end;
 end;
 
-function TBasicStats.FinalSummary(var psMessage: string): boolean;
+function TBasicStats.FinalSummary(out psMessage: string): boolean;
 begin
   Result := True;
 

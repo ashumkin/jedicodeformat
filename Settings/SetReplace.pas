@@ -48,7 +48,7 @@ type
 
     fcLeftWords, fcRightWords: TStringList;
 
-    procedure SplitWord(const ps: string; var psOut1, psOut2: string);
+    procedure SplitWord(const ps: string; out psOut1, psOut2: string);
 
   protected
   public
@@ -118,7 +118,7 @@ begin
   pcOut.Write(REG_WORDS, fcWords);
 end;
 
-procedure TSetReplace.SplitWord(const ps: string; var psOut1, psOut2: string);
+procedure TSetReplace.SplitWord(const ps: string; out psOut1, psOut2: string);
 var
   liPos: integer;
 begin

@@ -416,8 +416,8 @@ const
   AsmOffsets: TTokenTypeSet = [ttVmtOffset, ttDmtOffset];
 
 { interpret a string as a token }
-procedure TypeOfToken(const psWord: string; var peWordType: TWordType;
-  var peToken: TTokenType); overload;
+procedure TypeOfToken(const psWord: string; out peWordType: TWordType;
+  out peToken: TTokenType); overload;
 function TypeOfToken(const psWord: string): TTokenType; overload;
 function WordTypeOfToken(const peTokenType: TTokenType): TWordType; overload;
 
@@ -462,7 +462,9 @@ implementation
 
 uses
   { system }
+{$IFNDEF FPC}
   Windows,
+{$ENDIF}
   SysUtils,
   { local }
   JcfStringUtils,
@@ -829,8 +831,8 @@ end;
 
 
 { turn text to enum. Assumes data is sorted out and sorted }
-procedure TypeOfToken(const psWord: string; var peWordType: TWordType;
-  var peToken: TTokenType);
+procedure TypeOfToken(const psWord: string; out peWordType: TWordType;
+  out peToken: TTokenType);
 var
   liMapItemLoop:  integer;
   liCharIndex:    integer;

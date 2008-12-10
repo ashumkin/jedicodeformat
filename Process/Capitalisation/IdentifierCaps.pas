@@ -48,15 +48,14 @@ type
 
     function IsIncludedInSettings: boolean; override;
     { return true if you want the message logged}
-    function FinalSummary(var psMessage: string): boolean; override;
+    function FinalSummary(out psMessage: string): boolean; override;
   end;
 
 implementation
 
 uses
   { delphi }
-  SysUtils,
-  Windows,
+  {$IFNDEF FPC}Windows,{$ENDIF} SysUtils,
   { local }
   JcfStringUtils,
   SourceToken, Tokens, ParseTreeNodeType,
@@ -116,7 +115,7 @@ begin
   FormatFlags  := FormatFlags + [eCapsSpecificWord];
 end;
 
-function TIdentifierCaps.FinalSummary(var psMessage: string): boolean;
+function TIdentifierCaps.FinalSummary(out psMessage: string): boolean;
 begin
   Result := False;
   psMessage := '';
