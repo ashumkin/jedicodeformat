@@ -189,8 +189,6 @@ implementation
 uses
   { delphi }
   SysUtils, Dialogs, Windows,
-  { jcl }
-  JclFileUtils, JclSysInfo, JclShell,
   { jcf }
   JcfStringUtils, JcfMiscFunctions;
 

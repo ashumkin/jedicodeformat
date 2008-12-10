@@ -155,8 +155,6 @@ implementation
 uses
   { delphi }
   SysUtils, Windows,
-  { jcl }
-  JclSysUtils,
   { local}
   JcfStringUtils, JcfMiscFunctions;
 

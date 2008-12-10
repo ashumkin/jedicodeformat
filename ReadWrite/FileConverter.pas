@@ -114,8 +114,6 @@ implementation
 uses
   { delphi }
   Windows, SysUtils, Dialogs, Controls, Forms,
-  { jcl }
-  JclFileUtils,
   { local }
   JcfStringUtils,
   FileUtils, JcfMiscFunctions, JCFLog,

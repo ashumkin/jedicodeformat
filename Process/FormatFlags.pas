@@ -76,8 +76,6 @@ implementation
 uses
   { delphi }
   SysUtils, Windows,
-  { Jcl}
-  JclSysUtils,
   { local }
   JcfStringUtils;
 
@@ -211,7 +209,7 @@ begin
   try
     pbOn := LStrToBoolean(lsState);
   except
-    On EJclConversionError do
+    On EJcfConversionError do
     begin
       psError := 'In comment ' + StrDoubleQuote(psComment) + ' , ' +
         ' state ' + StrDoubleQuote(lsState) + ' cannot be parsed to either on or off';

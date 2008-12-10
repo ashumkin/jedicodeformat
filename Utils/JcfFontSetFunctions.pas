@@ -42,8 +42,8 @@ implementation
 uses
   { delphi }
   StdCtrls, ComCtrls, Graphics, TypInfo,
-  { jcl }
-  JclSysUtils, JclSysInfo;
+  { local }
+  JcfStringUtils;
 
 procedure SetCaptionFont(const AObjectFont: TFont);
 begin

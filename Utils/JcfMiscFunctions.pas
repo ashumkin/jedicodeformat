@@ -83,8 +83,6 @@ implementation
 uses
   { delphi }
   SysUtils, Forms,
-  { jcl }
-  JclFileUtils, JclSysUtils,
   { local }
   JcfStringUtils;
 

@@ -57,10 +57,8 @@ procedure ShowErrorMessageDialog(const psMessage: string; const psCaption: strin
 implementation
 
 uses
-  { jcl }
-  JclStrings,
   { local }
-  ParseError, JcfFontSetFunctions;
+  ParseError, JcfStringUtils, JcfFontSetFunctions;
 
 {$ifdef FPC}
   {$R *.lfm}
