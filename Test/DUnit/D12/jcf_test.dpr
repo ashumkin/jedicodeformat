@@ -188,7 +188,8 @@ uses
   TestUnicodeFunctions in '..\TestUnicodeFunctions.pas',
   JcfUnicodeFiles in '..\..\..\Utils\JcfUnicodeFiles.pas',
   TestBreakAfterUses in '..\TestBreakAfterUses.pas',
-  JcfStringUtils in '..\..\..\Utils\JcfStringUtils.pas';
+  JcfStringUtils in '..\..\..\Utils\JcfStringUtils.pas',
+  TestJcfStringUtils in '..\TestJcfStringUtils.pas';
 
 {$R *.res}
 
