@@ -75,7 +75,7 @@ implementation
 
 uses
   { delphi }
-  SysUtils, Windows,
+  {$ifndef fpc}Windows,{$endif} SysUtils,
   { local }
   JcfStringUtils;
 
