@@ -111,8 +111,8 @@ type
   private
     fsText: string;
 
-    procedure InternalGetValue(const psTag: string; var psResult: string;
-      var pbFound: boolean);
+    procedure InternalGetValue(const psTag: string; out psResult: string;
+      out pbFound: boolean);
 
     //function RestrictToSection(const psSection: string): boolean;
 
@@ -372,7 +372,7 @@ begin
 end;
 
 procedure TSettingsInputString.InternalGetValue(const psTag: string;
-  var psResult: string; var pbFound: boolean);
+  out psResult: string; out pbFound: boolean);
 var
   liStart, liEnd: integer;
   lsStart, lsEnd: string;
