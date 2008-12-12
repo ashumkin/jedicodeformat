@@ -3,8 +3,6 @@ object frmShowParseTree: TfrmShowParseTree
   Height = 555
   Top = 116
   Width = 581
-  HorzScrollBar.Page = 580
-  VertScrollBar.Page = 554
   ActiveControl = pcPages
   BorderIcons = [biSystemMenu, biMaximize]
   Caption = 'JCF Parse Tree'
@@ -18,15 +16,18 @@ object frmShowParseTree: TfrmShowParseTree
   OnKeyUp = FormKeyUp
   OnShow = FormShow
   Position = poOwnerFormCenter
-  LCLVersion = '0.9.25'
+  LCLVersion = '0.9.27'
   object StatusBar1: TStatusBar
+    Left = 0
     Height = 23
     Top = 532
     Width = 581
     Panels = <>
   end
   object pnlTop: TPanel
+    Left = 0
     Height = 85
+    Top = 0
     Width = 581
     Align = alTop
     BevelOuter = bvNone
@@ -37,31 +38,32 @@ object frmShowParseTree: TfrmShowParseTree
     TabOrder = 1
     object lblTreeCount: TLabel
       Left = 11
-      Height = 14
+      Height = 18
       Top = 31
-      Width = 83
+      Width = 115
       Caption = 'Tree has ? nodes'
       ParentColor = False
     end
     object lblTreeDepth: TLabel
       Left = 11
-      Height = 14
+      Height = 18
       Top = 55
-      Width = 123
+      Width = 167
       Caption = 'Tree has max depth of ??'
       ParentColor = False
     end
     object cbShowWhiteSpace: TCheckBox
       Left = 11
-      Height = 19
+      Height = 23
       Top = 5
-      Width = 110
+      Width = 141
       Caption = 'Show whitespace'
       OnClick = cbShowWhiteSpaceClick
       TabOrder = 0
     end
   end
   object pnlBottom: TPanel
+    Left = 0
     Height = 50
     Top = 482
     Width = 581
@@ -104,6 +106,7 @@ object frmShowParseTree: TfrmShowParseTree
     end
   end
   object pcPages: TPageControl
+    Left = 0
     Height = 397
     Top = 85
     Width = 581
@@ -113,27 +116,34 @@ object frmShowParseTree: TfrmShowParseTree
     TabOrder = 3
     object tsTokens: TTabSheet
       Caption = 'Tokens'
-      ClientHeight = 371
+      ClientHeight = 367
       ClientWidth = 573
       object lvTokens: TListView
-        Height = 371
+        Left = 0
+        Height = 367
+        Top = 0
         Width = 573
         Align = alClient
         Columns = <        
           item
+            AutoSize = False
             Caption = 'Index'
             Width = 63
           end        
           item
+            AutoSize = False
             Caption = 'Type'
             Width = 185
           end        
           item
+            AutoSize = False
             Caption = 'Text'
             Width = 271
           end>
         ReadOnly = True
         RowSelect = True
+        SortColumn = 0
+        SortType = stNone
         TabOrder = 0
         ViewStyle = vsReport
         OnDblClick = lvTokensDblClick
@@ -146,9 +156,12 @@ object frmShowParseTree: TfrmShowParseTree
       ClientWidth = 573
       ImageIndex = 1
       object tvParseTree: TTreeView
+        Left = 0
         Height = 371
+        Top = 0
         Width = 573
         Align = alClient
+        Ctl3D = False
         DefaultItemHeight = 15
         HideSelection = False
         Indent = 22

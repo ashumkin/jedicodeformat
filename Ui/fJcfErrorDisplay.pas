@@ -58,11 +58,10 @@ implementation
 
 uses
   { local }
-  ParseError, JcfStringUtils, JcfFontSetFunctions;
+  ParseError, JcfStringUtils, JcfFontSetFunctions
+  {$ifdef fpc}, LResources{$endif};
 
-{$ifdef FPC}
-  {$R *.lfm}
-{$else}
+{$ifndef FPC}
   {$R *.dfm}
 {$endif}
 
@@ -166,5 +165,10 @@ begin
   mExceptionMessage.Width  := ClientWidth - (PAD * 2);
   mExceptionMessage.Height := ClientHeight - (btnOk.Height + (PAD * 3));
 end;
+
+initialization
+{$ifdef FPC}
+  {$I fJcfErrorDisplay.lrs}
+{$endif}
 
 end.

@@ -85,14 +85,13 @@ procedure ShowParseTree(const pcRoot: TParseTreeNode);
 
 implementation
 
-{$ifdef FPC}
-  {$R *.lfm}
-{$else}
+{$ifndef FPC}
   {$R *.dfm}
 {$endif}
 
-
-uses SourceToken, Tokens, JCFHelp, JcfFontSetFunctions;
+uses
+  SourceToken, Tokens, JCFHelp, JcfFontSetFunctions
+  {$ifdef fpc}, LResources{$endif};
 
 procedure ShowParseTree(const pcRoot: TParseTreeNode);
 var
@@ -324,5 +323,10 @@ begin
         ShellExecute(Handle, 'open', PChar(Application.HelpFile), nil, nil, SW_SHOWNORMAL);
     end;
 end;
+
+initialization
+{$ifdef fpc}
+  {$I fShowParseTree.lrs}
+{$endif}
 
 end.
