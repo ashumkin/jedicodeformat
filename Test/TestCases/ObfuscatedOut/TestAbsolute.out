@@ -4,7 +4,7 @@ interface
 
 implementation
 
-uses Classes;
+uses Classes, types;
 
 function methodpointertodouble(pmmethod: TNotifyEvent): double;
 var
@@ -15,4 +15,14 @@ begin
   Result   := ldcast;
 end;
 
+var
+  foo: tpoint;
+
+var
+  foox: longint absolute foo.x;
+
+var
+  myfoo: tpoint absolute testabsolute.foo;
+
 end.
+ 

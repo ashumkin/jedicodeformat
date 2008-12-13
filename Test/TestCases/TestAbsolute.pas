@@ -13,7 +13,7 @@ interface
 
 implementation
                                                       
-uses Classes;
+uses Classes, Types;
 
 
 { a hack extracted from a much larger program
@@ -31,5 +31,13 @@ begin
   Result := ldCast
 end;
 
+
+{
+  Test absolute with dotted names
+}
+var foo: TPoint;
+
+var foox: Longint absolute foo.X;
+var myfoo: TPoint absolute TestAbsolute.foo;
+
 end.
- 
