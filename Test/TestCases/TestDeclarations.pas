@@ -54,6 +54,8 @@ const
 { funny chars }
 BIT_TWIDDLED: integer = $F00F;
 HEX_VALUE: integer = $0BADBEEF;
+LOWER_HEX: integer = $cafe + $babe;
+
 MY_FAVORITE_LETTER: char = #96;
 
 { sets }

@@ -5,20 +5,20 @@ unit testdeclarations;interface const fred_const_1=34;fred_const_two='Fred';gimp
 ='Cannot create fred %s';openerror='Cannot open fool %s';linetoolong='Line too silly'
 ;productname='CodeFormat\000\000';someresourcestring=gimp;type t1=integer;type t2
 =type integer;type tintsubrange=-12..23;const bit_twiddled:integer=$F00F;hex_value
-:integer=$0BADBEEF;my_favorite_letter:char=#96;type tstuff=(ethis,ethat,etheother
-,esomethingelse,fish,wibble,spon);tstuffset=set of tstuff;tsillystuff=fish..spon;
-const mystuff=[ethis,etheother];otherstuff=[ethat,esomethingelse];var fred1:integer
-;fredtwo:string;f3:boolean;myfile:file;myintfile:file of integer;type tfredproc=procedure
-(var psfred:integer)of object;tfredfunction=function(const psfred:string):string;
-tmultiparamfn=function(a:integer;b:string;c:currency):tobject;tbadlyspacedfn=function
-(a:integer;b:string;c:currency;d:string):tobject;tmultilinefn=function(a:integer;
-b:string;c:currency;d:string):tobject of object;tmultilinefn2=function(a:integer;
-const b:string;var c:currency;d:string):tobject of object;tfluggle=array[1..10]of
-boolean;tflig=array[1..12]of integer;var fred3:integer=42;myfluggle:tfluggle=(true
-,false,true,true,false,true,false,true,true,false);myflig:tflig=(1,2,3,4,5,6,7,8,
-9,10,11,12);function fnfred(var pifred:integer):integer;function fnfredconst(const
-psfred:string):string;implementation function fnfred(var pifred:integer):integer;
-var lifr:integer;lglimmer:array[4..12]of double;begin lifr:=pifred;result:=3+lifr
+:integer=$0BADBEEF;lower_hex:integer=$cafe+$babe;my_favorite_letter:char=#96;type
+tstuff=(ethis,ethat,etheother,esomethingelse,fish,wibble,spon);tstuffset=set of tstuff
+;tsillystuff=fish..spon;const mystuff=[ethis,etheother];otherstuff=[ethat,esomethingelse
+];var fred1:integer;fredtwo:string;f3:boolean;myfile:file;myintfile:file of integer
+;type tfredproc=procedure(var psfred:integer)of object;tfredfunction=function(const
+psfred:string):string;tmultiparamfn=function(a:integer;b:string;c:currency):tobject
+;tbadlyspacedfn=function(a:integer;b:string;c:currency;d:string):tobject;tmultilinefn
+=function(a:integer;b:string;c:currency;d:string):tobject of object;tmultilinefn2
+=function(a:integer;const b:string;var c:currency;d:string):tobject of object;tfluggle
+=array[1..10]of boolean;tflig=array[1..12]of integer;var fred3:integer=42;myfluggle
+:tfluggle=(true,false,true,true,false,true,false,true,true,false);myflig:tflig=(1
+,2,3,4,5,6,7,8,9,10,11,12);function fnfred(var pifred:integer):integer;function fnfredconst
+(const psfred:string):string;implementation function fnfred(var pifred:integer):integer
+;var lifr:integer;lglimmer:array[4..12]of double;begin lifr:=pifred;result:=3+lifr
 ;if lifr>12 then begin result:=result*2;end;myfluggle[result]:=myflig[pifred+1]+myflig
 [myflig[pifred+1]]>10;end;function beeg:double;begin result:=1;result:=result+9.9E+10
 ;end;function fnfredconst(const psfred:string):string;const fred_prefix='Fred ';resourcestring

@@ -37,6 +37,7 @@ type
 const
   bit_twiddled: integer = $F00F;
   hex_value: integer    = $0BADBEEF;
+  lower_hex: integer    = $cafe + $babe;
   my_favorite_letter: char = #96;
 
 type
@@ -63,8 +64,7 @@ type
   tmultilinefn = function(a: integer; b: string; c: currency; d: string): TObject of object;
   tmultilinefn2 = function(a: integer; const b: string;
     var c: currency; d: string): TObject of object;
-  tfluggle = array[1..10] of
-    boolean;
+  tfluggle = array[1..10] of boolean;
   tflig    = array[1..12] of integer;
 
 var

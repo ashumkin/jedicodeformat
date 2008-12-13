@@ -190,7 +190,8 @@ uses
   TestBreakAfterUses in '..\TestBreakAfterUses.pas',
   TestSpaceBeforeColon in '..\TestSpaceBeforeColon.pas',
   TestSpaceBeforeBrackets in '..\TestSpaceBeforeBrackets.pas',
-  TestJcfStringUtils in '..\TestJcfStringUtils.pas';
+  TestJcfStringUtils in '..\TestJcfStringUtils.pas',
+  TestJcfUnicode in '..\TestJcfUnicode.pas';
 
 {$R *.res}
 

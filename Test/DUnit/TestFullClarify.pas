@@ -549,7 +549,7 @@ end;
 
 procedure TFullTestClarify.TestAbsolute;
 begin
-  TestFile('TestAbsolute', 86);
+  TestFile('TestAbsolute', 129);
 end;
 
 procedure TFullTestClarify.TestAlign;
@@ -670,7 +670,7 @@ end;
 
 procedure TFullTestClarify.TestDeclarations;
 begin
-  TestFile('TestDeclarations', 1004);
+  TestFile('TestDeclarations', 1019);
 end;
 
 procedure TFullTestClarify.TestDeclarations2;

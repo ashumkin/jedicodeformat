@@ -172,107 +172,81 @@
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frAnyCapsSettings.pas" />
     <DCCReference Include="..\..\Ui\Settings\frAsm.pas">
-      <DesignClass>TFrame</DesignClass>
       <Form>fAsm</Form>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frBasicSettings.pas">
-      <DesignClass>TFrame</DesignClass>
       <Form>frBasic</Form>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frBlankLines.pas">
-      <DesignClass>TFrame</DesignClass>
       <Form>fBlankLines</Form>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frClarify.pas">
-      <DesignClass>TFrame</DesignClass>
       <Form>fClarify</Form>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frClarifyAlign.pas">
-      <DesignClass>TFrame</DesignClass>
       <Form>fClarifyAlign</Form>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frClarifyBlocks.pas">
-      <DesignClass>TFrame</DesignClass>
       <Form>fClarifyBlocks</Form>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frClarifyCaseBlocks.pas">
-      <DesignClass>TFrame</DesignClass>
       <Form>fClarifyCaseBlocks</Form>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frClarifyIndent.pas">
-      <DesignClass>TFrame</DesignClass>
       <Form>fClarifyIndent</Form>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frClarifyLongLineBreaker.pas">
-      <DesignClass>TFrame</DesignClass>
       <Form>fClarifyLongLineBreaker</Form>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frClarifyReturns.pas">
-      <DesignClass>TFrame</DesignClass>
       <Form>fClarifyReturns</Form>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frClarifySpaces.pas">
-      <DesignClass>TFrame</DesignClass>
       <Form>fClarifySpaces</Form>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frComments.pas">
-      <DesignClass>TFrame</DesignClass>
       <Form>fComments</Form>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frCompilerDirectReturns.pas">
-      <DesignClass>TFrame</DesignClass>
       <Form>fCompilerDirectReturns</Form>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frFiles.pas">
-      <DesignClass>TFrame</DesignClass>
       <Form>fFiles</Form>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frIdentifierCapsSettings.pas">
-      <DesignClass>TFrame</DesignClass>
       <Form>fIdentifierCapsSettings</Form>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frmBaseSettingsFrame.pas">
-      <DesignClass>TFrame</DesignClass>
       <Form>frSettingsFrame</Form>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frNotIdentifierCapsSettings.pas">
-      <DesignClass>TFrame</DesignClass>
       <Form>fNotIdentifierCapsSettings</Form>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frObfuscateSettings.pas">
-      <DesignClass>TFrame</DesignClass>
       <Form>fObfuscateSettings</Form>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frPreProcessor.pas">
-      <DesignClass>TFrame</DesignClass>
       <Form>fPreProcessor</Form>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frReplace.pas">
-      <DesignClass>TFrame</DesignClass>
       <Form>fReplace</Form>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frReservedCapsSettings.pas">
-      <DesignClass>TFrame</DesignClass>
       <Form>frReservedCapsSettings</Form>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frTransform.pas">
-      <DesignClass>TFrame</DesignClass>
       <Form>fTransform</Form>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frUnitCaps.pas">
-      <DesignClass>TFrame</DesignClass>
       <Form>frUnitNameCaps</Form>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frUses.pas">
-      <DesignClass>TFrame</DesignClass>
       <Form>fUses</Form>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frWarnings.pas">
-      <DesignClass>TFrame</DesignClass>
       <Form>fWarnings</Form>
     </DCCReference>
     <DCCReference Include="..\..\Utils\DragDrop\frDrop.pas">
-      <DesignClass>TFrame</DesignClass>
       <Form>FrameDrop</Form>
     </DCCReference>
     <DCCReference Include="..\..\Utils\DragDrop\JCFDropTarget.pas" />
@@ -282,7 +256,9 @@
     <DCCReference Include="..\..\Utils\JCFHelp.pas" />
     <DCCReference Include="..\..\Utils\JcfLog.pas" />
     <DCCReference Include="..\..\Utils\JcfMiscFunctions.pas" />
-    <DCCReference Include="..\..\Utils\JcfStringUtils.pas" />
+    <DCCReference Include="..\..\Utils\JcfStringUtils.pas">
+      <Form>$R *.res</Form>
+    </DCCReference>
     <DCCReference Include="..\..\Utils\JcfUnicode.pas" />
     <DCCReference Include="..\..\Utils\JcfUnicodeFiles.pas" />
     <DCCReference Include="..\..\VersionConsts.pas" />
