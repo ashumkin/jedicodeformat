@@ -1,4 +1,4 @@
-﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 		<PropertyGroup>
 			<ProjectGuid>{f6fbe7df-6dfc-492e-b3ef-8a613a12e1d5}</ProjectGuid>
 			<MainSource>TestCases.dpr</MainSource>
@@ -268,7 +268,7 @@
 					<VersionInfoKeys>
 						<VersionInfoKeys Name="CompanyName"/>
 						<VersionInfoKeys Name="FileDescription">Test Cases</VersionInfoKeys>
-						<VersionInfoKeys Name="FileVersion">2.41.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="FileVersion">2.42.0.0</VersionInfoKeys>
 						<VersionInfoKeys Name="InternalName"/>
 						<VersionInfoKeys Name="LegalCopyright"/>
 						<VersionInfoKeys Name="LegalTrademarks"/>

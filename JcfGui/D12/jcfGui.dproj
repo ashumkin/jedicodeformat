@@ -1,4 +1,4 @@
-﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 		<PropertyGroup>
 			<ProjectGuid>{93034ae3-59fd-404f-8011-95932edd11b7}</ProjectGuid>
 			<MainSource>JCFGui.dpr</MainSource>
@@ -336,7 +336,7 @@
 					<VersionInfoKeys>
 						<VersionInfoKeys Name="CompanyName"/>
 						<VersionInfoKeys Name="FileDescription">JEDI Code Format</VersionInfoKeys>
-						<VersionInfoKeys Name="FileVersion">2.41.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="FileVersion">2.42.0.0</VersionInfoKeys>
 						<VersionInfoKeys Name="InternalName"/>
 						<VersionInfoKeys Name="LegalCopyright"/>
 						<VersionInfoKeys Name="LegalTrademarks"/>
