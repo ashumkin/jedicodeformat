@@ -45,47 +45,61 @@ addfloats(((1.2345678901*-47)+12.1234567890)*(1.2345678901+(12.0987654321*-12.98
 (1.234,5.678)),addfloats(addfloats(1.234,5.678),addfloats(1.234,5.678)));lf:=addfloats
 (addfloats(addfloats(1.234*addfloats(1.234,5.678),5.678-addfloats(1.234,5.678)),addfloats
 (1.234,5.678)),addfloats(addfloats(1.234,5.678),addfloats(1.234,5.678)));end;procedure
-breakit;var lsstring:string;begin lsstring:=doublestring('a');lsstring:=doublestring
-('aa');lsstring:=doublestring('aaa');lsstring:=doublestring('aaaa');lsstring:=doublestring
-('aaaaa');lsstring:=doublestring('aaaaaa');lsstring:=doublestring('aaaaaaa');lsstring
-:=doublestring('aaaaaaaa');lsstring:=doublestring('aaaaaaaaa');lsstring:=doublestring
-('aaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaa'
-);lsstring:=doublestring('aaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaa'
-);lsstring:=doublestring('aaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaa'
-);lsstring:=doublestring('aaaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaaa'
-);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaa'
-);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaa'
-);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaa'
-);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaa'
-);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring(
-'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring
-('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring
-('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring
-('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring
-('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring
-:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring
-('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring
-:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring
-('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring
-:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring
-:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring
-:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring
-:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring
-:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring
-:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring
-:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring
-:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring
-:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+dummy;begin end;procedure testifdef;begin dummy;{$ifdef notDefined}Dummy;{$endif}
+dummy;{$ifdef notDefined}Dummy;Dummy;{$endif}dummy;{$ifdef notDefined}Dummy;Dummy;Dummy;
+{$endif}dummy;{$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;{$endif}dummy;{$ifdef notDefined}
+Dummy;Dummy;Dummy;Dummy;Dummy;{$endif}dummy;{$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;
+{$endif}dummy;{$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;{$endif}
+dummy;{$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;{$endif}
+dummy;{$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;{$endif}
+dummy;{$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;
+{$endif}dummy;{$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;
+{$endif}dummy;{$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;
+{$endif}dummy;{$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;
+{$endif}dummy;{$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;
+{$endif}dummy;{$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;
+{$endif}dummy;{$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;
+{$endif}end;procedure breakit;var lsstring:string;begin lsstring:=doublestring('a'
+);lsstring:=doublestring('aa');lsstring:=doublestring('aaa');lsstring:=doublestring
+('aaaa');lsstring:=doublestring('aaaaa');lsstring:=doublestring('aaaaaa');lsstring
+:=doublestring('aaaaaaa');lsstring:=doublestring('aaaaaaaa');lsstring:=doublestring
+('aaaaaaaaa');lsstring:=doublestring('aaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaa'
+);lsstring:=doublestring('aaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaa');
+lsstring:=doublestring('aaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaa'
+);lsstring:=doublestring('aaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaa'
+);lsstring:=doublestring('aaaaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaaaa'
+);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaa'
+);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaa'
+);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaa'
+);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaa'
+);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring
+('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring
+('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring
+('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring
+('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=
+doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring
+('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring
+:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring
+('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring
+:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring
+('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+);lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
 );lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
 );lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
 );lsstring:=doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'

@@ -120,6 +120,56 @@ begin
     addfloats(1.234, 5.678), addfloats(1.234, 5.678)));
 end;
 
+procedure dummy;
+begin
+end;
+
+procedure testifdef;
+begin
+  dummy;
+{$ifdef notDefined}Dummy;{$endif}
+  dummy;
+{$ifdef notDefined}Dummy;Dummy;{$endif}
+  dummy;
+{$ifdef notDefined}Dummy;Dummy;Dummy;
+{$endif}
+  dummy;
+{$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;{$endif}
+  dummy;
+{$ifdef notDefined}
+Dummy;Dummy;Dummy;Dummy;Dummy;{$endif}
+  dummy;
+{$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;
+{$endif}
+  dummy;
+{$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;{$endif}
+  dummy;
+{$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;{$endif}
+  dummy;
+{$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;{$endif}
+  dummy;
+{$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;
+{$endif}
+  dummy;
+{$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;
+{$endif}
+  dummy;
+{$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;
+{$endif}
+  dummy;
+{$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;
+{$endif}
+  dummy;
+{$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;
+{$endif}
+  dummy;
+{$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;
+{$endif}
+  dummy;
+{$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;
+{$endif}
+end;
+
 procedure breakit;
 var
   lsstring: string;
@@ -166,7 +216,8 @@ begin
   lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
   lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
   lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-  lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+  lsstring :=
+    doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
   lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
   lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
   lsstring := doublestring('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');

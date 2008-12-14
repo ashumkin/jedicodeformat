@@ -129,6 +129,47 @@ begin
   lf := AddFloats(AddFloats(AddFloats(1.234 * AddFloats(1.234, 5.678), 5.678 - AddFloats(1.234, 5.678)), AddFloats(1.234, 5.678)),AddFloats(AddFloats(1.234, 5.678), AddFloats(1.234, 5.678)));
 end;
 
+procedure Dummy;
+begin
+
+end;
+
+procedure TestIfDef;
+begin
+    Dummy;
+    {$ifdef notDefined}Dummy;{$endif}
+    Dummy;
+    {$ifdef notDefined}Dummy;Dummy;{$endif}
+    Dummy;
+    {$ifdef notDefined}Dummy;Dummy;Dummy;{$endif}
+    Dummy;
+    {$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;{$endif}
+    Dummy;
+    {$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;{$endif}
+    Dummy;
+    {$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;{$endif}
+    Dummy;
+    {$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;{$endif}
+    Dummy;
+    {$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;{$endif}
+    Dummy;
+    {$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;{$endif}
+    Dummy;
+    {$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;{$endif}
+    Dummy;
+    {$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;{$endif}
+    Dummy;
+    {$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;{$endif}
+    Dummy;
+    {$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;{$endif}
+    Dummy;
+    {$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;{$endif}
+    Dummy;
+    {$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;{$endif}
+    Dummy;
+    {$ifdef notDefined}Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;Dummy;{$endif}
+end;
+
 // something harder
 procedure BreakIt;
 var

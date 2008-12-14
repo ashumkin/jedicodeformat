@@ -900,7 +900,7 @@ end;
 
 procedure TFullTestClarify.TestLineBreaking;
 begin
-  TestFile('TestLineBreaking', 6108);
+  TestFile('TestLineBreaking', 6531);
 end;
 
 procedure TFullTestClarify.TestLocalTypes;
