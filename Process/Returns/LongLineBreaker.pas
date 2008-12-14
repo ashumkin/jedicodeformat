@@ -218,7 +218,9 @@ begin
   if piSpacesToEnd < 0 then
   begin
     lsMessage := 'Spaces to end is ' + IntToStr(piSpacesToEnd) +
-      ' on ' + pcNext.Describe + ' at ' + pcNext.DescribePosition;
+      ' on ' + pcNext.Describe + ' at ' + pcNext.DescribePosition +
+      ' line is ' + NativeLineBreak + pcNext.SourceLine;
+
     Raise Exception.Create(lsMessage);
   end;
 
