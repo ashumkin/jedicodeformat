@@ -182,6 +182,7 @@
 			<DCCReference Include="..\CommandLineConstants.pas"/>
 			<DCCReference Include="..\StatusMessageReceiver.pas"/>
 			<DCCReference Include="..\..\Utils\JcfStringUtils.pas"/>
+			<DCCReference Include="..\..\Process\Spacing\MoveSpaceToBeforeColon.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

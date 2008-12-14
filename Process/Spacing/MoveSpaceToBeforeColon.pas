@@ -51,7 +51,7 @@ type
 implementation
 
 uses
-  FormatFlags, SourceToken, Tokens, TokenUtils;
+  FormatFlags, SourceToken, Tokens, TokenUtils, JcfSettings;
 
 constructor TMoveSpaceToBeforeColon.Create;
 begin
@@ -62,7 +62,7 @@ end;
 function TMoveSpaceToBeforeColon.EnabledVisitSourceToken(const pcNode: TObject): boolean;
 var
   lcSourceToken: TSourceToken;
-  lcPrev: TSourceToken;
+  lcNext: TSourceToken;
   lcNew: TSourceToken;
 begin
   Result := False;
@@ -70,18 +70,20 @@ begin
 
   if lcSourceToken.TokenType = ttColon then
   begin
-    lcPrev := lcSourceToken.PriorToken;
+    lcNext := lcSourceToken.NextToken;
 
-    if (lcPrev <> nil) and (lcPrev.TokenType = ttWhiteSpace) then
+    if (lcNext <> nil) and (lcNext.TokenType = ttWhiteSpace) and
+     (Length(lcNext.SourceCode) > 0) then
     begin
-      // put the space after
+      // put the space before
       lcNew := TSourceToken.Create;
       lcNew.TokenType := ttWhiteSpace;
-      lcNew.SourceCode := lcPrev.SourceLine;
+      lcNew.SourceCode := lcNext.SourceCode;
 
-      InsertTokenAfter(lcSourceToken, lcNew);
+      InsertTokenBefore(lcSourceToken, lcNew);
 
-      BlankToken(lcPrev);
+      BlankToken(lcNext);
+      Result := True;
     end;
 
   end;
@@ -89,7 +91,7 @@ end;
 
 function TMoveSpaceToBeforeColon.IsIncludedInSettings: boolean;
 begin
-  Result := true;
+  Result := FormatSettings.Spaces.MoveSpaceToBeforeColon;
 end;
 
 end.

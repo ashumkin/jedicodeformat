@@ -221,6 +221,7 @@
 			<DCCReference Include="..\TestBreakAfterUses.pas"/>
 			<DCCReference Include="..\..\..\Utils\JcfStringUtils.pas"/>
 			<DCCReference Include="..\TestJcfStringUtils.pas"/>
+			<DCCReference Include="..\..\..\Process\Spacing\MoveSpaceToBeforeColon.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

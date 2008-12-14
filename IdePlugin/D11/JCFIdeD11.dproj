@@ -113,15 +113,29 @@
     <DCCReference Include="..\..\Process\Returns\ReturnBefore.pas" />
     <DCCReference Include="..\..\Process\Returns\ReturnChars.pas" />
     <DCCReference Include="..\..\Process\Returns\ReturnsAfterFinalEnd.pas" />
+    <DCCReference Include="..\..\Process\Spacing\dbrtl.dcp" />
+    <DCCReference Include="..\..\Process\Spacing\DesignIDE.dcp" />
+    <DCCReference Include="..\..\Process\Spacing\Jcl.dcp" />
+    <DCCReference Include="..\..\Process\Spacing\JclVcl.dcp" />
+    <DCCReference Include="..\..\Process\Spacing\JvCoreD11R.dcp" />
+    <DCCReference Include="..\..\Process\Spacing\JvCustomD11R.dcp" />
+    <DCCReference Include="..\..\Process\Spacing\JvStdCtrlsD11R.dcp" />
+    <DCCReference Include="..\..\Process\Spacing\JvSystemD11R.dcp" />
     <DCCReference Include="..\..\Process\Spacing\MaxSpaces.pas" />
+    <DCCReference Include="..\..\Process\Spacing\MoveSpaceToBeforeColon.pas" />
     <DCCReference Include="..\..\Process\Spacing\NoSpaceAfter.pas" />
     <DCCReference Include="..\..\Process\Spacing\NoSpaceBefore.pas" />
     <DCCReference Include="..\..\Process\Spacing\RemoveSpaceAtLineEnd.pas" />
+    <DCCReference Include="..\..\Process\Spacing\rtl.dcp" />
     <DCCReference Include="..\..\Process\Spacing\SingleSpaceAfter.pas" />
     <DCCReference Include="..\..\Process\Spacing\SingleSpaceBefore.pas" />
     <DCCReference Include="..\..\Process\Spacing\SpaceBeforeColon.pas" />
     <DCCReference Include="..\..\Process\Spacing\SpaceToTab.pas" />
     <DCCReference Include="..\..\Process\Spacing\TabToSpace.pas" />
+    <DCCReference Include="..\..\Process\Spacing\vcl.dcp" />
+    <DCCReference Include="..\..\Process\Spacing\vcldb.dcp" />
+    <DCCReference Include="..\..\Process\Spacing\vcljpg.dcp" />
+    <DCCReference Include="..\..\Process\Spacing\vclx.dcp" />
     <DCCReference Include="..\..\Process\SwitchableVisitor.pas" />
     <DCCReference Include="..\..\Process\Transform\AddBeginEnd.pas" />
     <DCCReference Include="..\..\Process\Transform\AddBlockEndSemicolon.pas" />
@@ -262,9 +276,7 @@
       <Form>fUses</Form>
     </DCCReference>
     <DCCReference Include="..\..\Ui\Settings\frWarnings.pas" />
-    <DCCReference Include="..\..\Utils\dbrtl.dcp" />
     <DCCReference Include="..\..\Utils\Delay.pas" />
-    <DCCReference Include="..\..\Utils\DesignIDE.dcp" />
     <DCCReference Include="..\..\Utils\DragDrop\frDrop.pas">
       <DesignClass>TFrame</DesignClass>
       <Form>FrameDrop</Form>
@@ -279,17 +291,6 @@
     <DCCReference Include="..\..\Utils\JcfStringUtils.pas" />
     <DCCReference Include="..\..\Utils\JcfUnicode.pas" />
     <DCCReference Include="..\..\Utils\JcfUnicodeFiles.pas" />
-    <DCCReference Include="..\..\Utils\Jcl.dcp" />
-    <DCCReference Include="..\..\Utils\JclVcl.dcp" />
-    <DCCReference Include="..\..\Utils\JvCoreD11R.dcp" />
-    <DCCReference Include="..\..\Utils\JvCustomD11R.dcp" />
-    <DCCReference Include="..\..\Utils\JvStdCtrlsD11R.dcp" />
-    <DCCReference Include="..\..\Utils\JvSystemD11R.dcp" />
-    <DCCReference Include="..\..\Utils\rtl.dcp" />
-    <DCCReference Include="..\..\Utils\vcl.dcp" />
-    <DCCReference Include="..\..\Utils\vcldb.dcp" />
-    <DCCReference Include="..\..\Utils\vcljpg.dcp" />
-    <DCCReference Include="..\..\Utils\vclx.dcp" />
     <DCCReference Include="..\..\VersionConsts.pas" />
     <DCCReference Include="..\JCFIdeMain.pas" />
     <DCCReference Include="..\JCFIdeRegister.pas" />
