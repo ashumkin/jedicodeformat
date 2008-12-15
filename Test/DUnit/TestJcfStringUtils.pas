@@ -44,6 +44,15 @@ type
     procedure TestWideStringReplaceMatch;
     procedure TestWideStringReplaceTwice;
     procedure TestWideStringReplaceTwiceReplaceAll;
+
+    procedure TestStrSearchEmpty1;
+    procedure TestStrSearchEmpty2;
+
+    procedure TestStrSearchFound1;
+    procedure TestStrSearchFound2;
+
+    procedure TestStrSearchNotFound1;
+    procedure TestStrSearchNotFound2;
   end;
 
 implementation
@@ -54,6 +63,54 @@ uses
   { local }
   JcfStringUtils;
 
+
+procedure TTestJcfStringUtils.TestStrSearchEmpty1;
+var
+  liIndex: integer;
+begin
+  liIndex := StrSearch('foo', '');
+  CheckEquals(0, liIndex);
+end;
+
+procedure TTestJcfStringUtils.TestStrSearchEmpty2;
+var
+  liIndex: integer;
+begin
+  liIndex := StrSearch('foo', '', 5);
+  CheckEquals(0, liIndex);
+end;
+
+procedure TTestJcfStringUtils.TestStrSearchFound1;
+var
+  liIndex: integer;
+begin
+  liIndex := StrSearch('foo', 'more food please');
+  CheckEquals(6, liIndex);
+end;
+
+procedure TTestJcfStringUtils.TestStrSearchFound2;
+var
+  liIndex: integer;
+begin
+  liIndex := StrSearch('foo', 'more food please', 9);
+  CheckEquals(0, liIndex);
+end;
+
+procedure TTestJcfStringUtils.TestStrSearchNotFound1;
+var
+  liIndex: integer;
+begin
+  liIndex := StrSearch('boo', 'more food please');
+  CheckEquals(0, liIndex);
+end;
+
+procedure TTestJcfStringUtils.TestStrSearchNotFound2;
+var
+  liIndex: integer;
+begin
+  liIndex := StrSearch('boo', 'more food please', 9);
+  CheckEquals(0, liIndex);
+end;
 
 procedure TTestJcfStringUtils.TestWideStringReplaceBlank;
 var
