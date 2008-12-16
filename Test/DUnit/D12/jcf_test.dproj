@@ -223,6 +223,7 @@
 			<DCCReference Include="..\TestJcfStringUtils.pas"/>
 			<DCCReference Include="..\..\..\Process\Spacing\MoveSpaceToBeforeColon.pas"/>
 			<DCCReference Include="..\TestJcfUnicode.pas"/>
+			<DCCReference Include="..\TestMoveSpaceToBeforeColon.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

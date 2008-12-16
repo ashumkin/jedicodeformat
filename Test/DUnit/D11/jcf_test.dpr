@@ -191,7 +191,8 @@ uses
   TestSpaceBeforeColon in '..\TestSpaceBeforeColon.pas',
   TestSpaceBeforeBrackets in '..\TestSpaceBeforeBrackets.pas',
   TestJcfStringUtils in '..\TestJcfStringUtils.pas',
-  TestJcfUnicode in '..\TestJcfUnicode.pas';
+  TestJcfUnicode in '..\TestJcfUnicode.pas',
+  TestMoveSpaceToBeforeColon in '..\TestMoveSpaceToBeforeColon.pas';
 
 {$R *.res}
 

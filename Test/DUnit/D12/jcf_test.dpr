@@ -191,7 +191,8 @@ uses
   JcfStringUtils in '..\..\..\Utils\JcfStringUtils.pas',
   TestJcfStringUtils in '..\TestJcfStringUtils.pas',
   MoveSpaceToBeforeColon in '..\..\..\Process\Spacing\MoveSpaceToBeforeColon.pas',
-  TestJcfUnicode in '..\TestJcfUnicode.pas';
+  TestJcfUnicode in '..\TestJcfUnicode.pas',
+  TestMoveSpaceToBeforeColon in '..\TestMoveSpaceToBeforeColon.pas';
 
 {$R *.res}
 
