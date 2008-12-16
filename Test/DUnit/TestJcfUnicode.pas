@@ -41,6 +41,8 @@ type
 
   published
 
+    // test WideCharIsHexDigitDot
+    procedure TestWideCharIsHexDigitDotSucessDigits;
     procedure TestWideCharIsHexDigitDotSucessUppercase;
     procedure TestWideCharIsHexDigitDotSucessLowercase;
     procedure TestWideCharIsHexDigitDotFail;
@@ -54,7 +56,7 @@ uses
   { local }
   JcfUnicode;
 
-procedure TTestJcfUnicode.TestWideCharIsHexDigitDotSucessUppercase;
+procedure TTestJcfUnicode.TestWideCharIsHexDigitDotSucessDigits;
 begin
   CheckTrue(WideCharIsHexDigitDot('0'));
   CheckTrue(WideCharIsHexDigitDot('1'));
@@ -66,6 +68,12 @@ begin
   CheckTrue(WideCharIsHexDigitDot('7'));
   CheckTrue(WideCharIsHexDigitDot('8'));
   CheckTrue(WideCharIsHexDigitDot('9'));
+  CheckTrue(WideCharIsHexDigitDot('0'));
+  CheckTrue(WideCharIsHexDigitDot('.'));
+end;
+
+procedure TTestJcfUnicode.TestWideCharIsHexDigitDotSucessUppercase;
+begin
   CheckTrue(WideCharIsHexDigitDot('A'));
   CheckTrue(WideCharIsHexDigitDot('B'));
   CheckTrue(WideCharIsHexDigitDot('C'));
@@ -81,7 +89,11 @@ begin
   CheckFalse(WideCharIsHexDigitDot('z'));
   CheckFalse(WideCharIsHexDigitDot(' '));
   CheckFalse(WideCharIsHexDigitDot('?'));
+  CheckFalse(WideCharIsHexDigitDot('$'));
+  CheckFalse(WideCharIsHexDigitDot(#0));
+  CheckFalse(WideCharIsHexDigitDot(#123));
 end;
+
 
 procedure TTestJcfUnicode.TestWideCharIsHexDigitDotSucessLowercase;
 begin
