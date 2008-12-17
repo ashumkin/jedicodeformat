@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{db034cfc-48ca-4b05-8d76-af97e366c8ac}</ProjectGuid>
@@ -53,6 +53,19 @@
     <DelphiCompile Include="JCFIdeD11.dpk">
       <MainSource>MainSource</MainSource>
     </DelphiCompile>
+    <DCCReference Include="$(SystemRoot)\system32\dbrtl.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\DesignIDE.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\Jcl.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\JclVcl.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\JvCoreD11R.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\JvCustomD11R.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\JvStdCtrlsD11R.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\JvSystemD11R.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\rtl.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\vcl.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\vcldb.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\vcljpg.dcp" />
+    <DCCReference Include="$(SystemRoot)\system32\vclx.dcp" />
     <DCCReference Include="..\..\Parse\AsmKeywords.pas" />
     <DCCReference Include="..\..\Parse\BuildParseTree.pas" />
     <DCCReference Include="..\..\Parse\BuildTokenList.pas" />
@@ -113,29 +126,16 @@
     <DCCReference Include="..\..\Process\Returns\ReturnBefore.pas" />
     <DCCReference Include="..\..\Process\Returns\ReturnChars.pas" />
     <DCCReference Include="..\..\Process\Returns\ReturnsAfterFinalEnd.pas" />
-    <DCCReference Include="..\..\Process\Spacing\dbrtl.dcp" />
-    <DCCReference Include="..\..\Process\Spacing\DesignIDE.dcp" />
-    <DCCReference Include="..\..\Process\Spacing\Jcl.dcp" />
-    <DCCReference Include="..\..\Process\Spacing\JclVcl.dcp" />
-    <DCCReference Include="..\..\Process\Spacing\JvCoreD11R.dcp" />
-    <DCCReference Include="..\..\Process\Spacing\JvCustomD11R.dcp" />
-    <DCCReference Include="..\..\Process\Spacing\JvStdCtrlsD11R.dcp" />
-    <DCCReference Include="..\..\Process\Spacing\JvSystemD11R.dcp" />
     <DCCReference Include="..\..\Process\Spacing\MaxSpaces.pas" />
     <DCCReference Include="..\..\Process\Spacing\MoveSpaceToBeforeColon.pas" />
     <DCCReference Include="..\..\Process\Spacing\NoSpaceAfter.pas" />
     <DCCReference Include="..\..\Process\Spacing\NoSpaceBefore.pas" />
     <DCCReference Include="..\..\Process\Spacing\RemoveSpaceAtLineEnd.pas" />
-    <DCCReference Include="..\..\Process\Spacing\rtl.dcp" />
     <DCCReference Include="..\..\Process\Spacing\SingleSpaceAfter.pas" />
     <DCCReference Include="..\..\Process\Spacing\SingleSpaceBefore.pas" />
     <DCCReference Include="..\..\Process\Spacing\SpaceBeforeColon.pas" />
     <DCCReference Include="..\..\Process\Spacing\SpaceToTab.pas" />
     <DCCReference Include="..\..\Process\Spacing\TabToSpace.pas" />
-    <DCCReference Include="..\..\Process\Spacing\vcl.dcp" />
-    <DCCReference Include="..\..\Process\Spacing\vcldb.dcp" />
-    <DCCReference Include="..\..\Process\Spacing\vcljpg.dcp" />
-    <DCCReference Include="..\..\Process\Spacing\vclx.dcp" />
     <DCCReference Include="..\..\Process\SwitchableVisitor.pas" />
     <DCCReference Include="..\..\Process\Transform\AddBeginEnd.pas" />
     <DCCReference Include="..\..\Process\Transform\AddBlockEndSemicolon.pas" />

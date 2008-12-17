@@ -1,4 +1,4 @@
-	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 		<PropertyGroup>
 			<ProjectGuid>{db034cfc-48ca-4b05-8d76-af97e366c8ac}</ProjectGuid>
 			<MainSource>JCFIdeD12.dpk</MainSource>
