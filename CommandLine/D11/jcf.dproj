@@ -102,6 +102,7 @@
     <DCCReference Include="..\..\Process\Returns\ReturnChars.pas" />
     <DCCReference Include="..\..\Process\Returns\ReturnsAfterFinalEnd.pas" />
     <DCCReference Include="..\..\Process\Spacing\MaxSpaces.pas" />
+    <DCCReference Include="..\..\Process\Spacing\MoveSpaceToBeforeColon.pas" />
     <DCCReference Include="..\..\Process\Spacing\NoSpaceAfter.pas" />
     <DCCReference Include="..\..\Process\Spacing\NoSpaceBefore.pas" />
     <DCCReference Include="..\..\Process\Spacing\RemoveSpaceAtLineEnd.pas" />
