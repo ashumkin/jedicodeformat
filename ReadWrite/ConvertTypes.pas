@@ -77,7 +77,7 @@ const
   SOURCE_FILE_FILTERS =
     'All source|*.pas; *.dpr; *.dpk; *.pp; *.lpr; *.lpk; *.txt|' +
     'Delphi source (*.pas, *.dpr, *.dpk)|*.pas; *.dpr; *.dpk|' +
-    'Lazarus source (*.pas, *.pp, *.lpr, *.lpk)|*.pas; *.pp; *.lpr; *.lpk|' +
+    'FreePascal source (*.pas, *.pp, *.lpr, *.lpk)|*.pas; *.pp; *.lpr; *.lpk|' +
     'Pascal Source (*.pas, *.pp)|*.pas; *.pp|' +
     'Text files (*.txt)|*.txt|' +
     'All files (*.*)|*.*';
