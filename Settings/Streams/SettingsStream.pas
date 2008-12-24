@@ -134,14 +134,19 @@ type
 
 
   { dummy impl that always returns the default }
+
+  { TSettingsInputDummy }
+
   TSettingsInputDummy = class(TSettingsInput)
   private
   public
     function ExtractSection(const psSection: string): TSettingsInput; override;
     function HasTag(const psTag: string): boolean; override;
 
+    function Read(const psTag: string): string; override;
     function Read(const psTag, psDefault: string): string; override;
     function Read(const psTag: string; const piDefault: integer): integer; override;
+    function Read(const psTag: string; const pfDefault: double): double; override;
     function Read(const psTag: string; const pbDefault: boolean): boolean; override;
     function Read(const psTag: string; const pcStrings: TStrings): boolean; override;
   end;
@@ -431,6 +436,12 @@ begin
   Result := piDefault;
 end;
 
+function TSettingsInputDummy.Read(const psTag: string;
+  const pfDefault: double): double;
+begin
+  Result := pfDefault;
+end;
+
 function TSettingsInputDummy.Read(const psTag, psDefault: string): string;
 begin
   Result := psDefault;
@@ -444,6 +455,11 @@ end;
 function TSettingsInputDummy.HasTag(const psTag: string): boolean;
 begin
   Result := True;
+end;
+
+function TSettingsInputDummy.Read(const psTag: string): string;
+begin
+  Result := '';
 end;
 
 function TSettingsInputDummy.Read(const psTag: string;
