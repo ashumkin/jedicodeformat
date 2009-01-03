@@ -311,6 +311,9 @@ type
     procedure TestUnicode_le_ucs4;
     procedure TestUnicode_utf8;
 
+    procedure TestUnicodeStrings;
+
+
     procedure TestCases;
   end;
 
@@ -1161,6 +1164,11 @@ end;
 procedure TFullTestClarify.TestAsmStructs;
 begin
   TestFile('TestAsmStructs', 358);
+end;
+
+procedure TFullTestClarify.TestUnicodeStrings;
+begin
+  TestFile('TestUnicodeStrings', 89);
 end;
 
 procedure TFullTestClarify.TestUnicode_ansi;

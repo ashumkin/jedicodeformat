@@ -1,0 +1,16 @@
+﻿unit testunicodestrings;
+
+interface
+
+const
+  mixedstring: string =
+    'English للغة العربية 中文 中文简体 ウェブ全体から検索';
+  mixedstringnotype = 'English للغة العربية 中文 中文简体 ウェブ全体から検索';
+  englishstring = 'An English string';
+  arabicstring: string = 'للغة العربية';
+  easternstring: string = '中文 中文简体 ウェブ全体から検索';
+
+implementation
+
+end.
+ 

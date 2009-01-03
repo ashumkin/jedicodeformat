@@ -313,6 +313,8 @@ type
     procedure TestUnicode_le_ucs4;
     procedure TestUnicode_utf8;
 
+    procedure TestUnicodeStrings;
+
   end;
 
 implementation
@@ -1119,6 +1121,11 @@ end;
 procedure TTestObfuscate.TestAsmStructs;
 begin
   TestFile('TestAsmStructs');
+end;
+
+procedure TTestObfuscate.TestUnicodeStrings;
+begin
+  TestFile('TestUnicodeStrings');
 end;
 
 procedure TTestObfuscate.TestUnicode_ansi;

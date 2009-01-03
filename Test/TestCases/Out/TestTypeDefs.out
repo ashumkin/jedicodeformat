@@ -5,7 +5,7 @@ unit TestTypeDefs;
  This unit compiles but is not semantically meaningfull
  it is test cases for the code formatting utility
 
- This unit test type declarations, including record, class and interface declarations.
+ This unit tests type declarations, including record, class and interface declarations.
  also fowards declarations are tested
 }
 
