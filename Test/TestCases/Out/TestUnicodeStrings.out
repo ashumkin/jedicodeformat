@@ -12,10 +12,8 @@
 interface
 
 const
-  MixedString: string =
-    'English للغة العربية 中文 中文简体 ウェブ全体から検索';
-  MixedStringNoType   =
-    'English للغة العربية 中文 中文简体 ウェブ全体から検索';
+  MixedString: string = 'English للغة العربية 中文 中文简体 ウェブ全体から検索';
+  MixedStringNoType   = 'English للغة العربية 中文 中文简体 ウェブ全体から検索';
 
   EnglishString = 'An English string';
   ArabicString: string = 'للغة العربية';
