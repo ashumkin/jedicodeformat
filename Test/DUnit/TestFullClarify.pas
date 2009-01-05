@@ -1168,7 +1168,7 @@ end;
 
 procedure TFullTestClarify.TestUnicodeStrings;
 begin
-  TestFile('TestUnicodeStrings', 72);
+  TestFile('TestUnicodeStrings', 91);
 end;
 
 procedure TFullTestClarify.TestUnicode_ansi;
