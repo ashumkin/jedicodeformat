@@ -58,6 +58,23 @@ type
     property Foo: integer read FFoo write FFoo;
 end;
 
+  //test empty var
+  TMyClassWithVar1 = class
+  public
+  const
+    CONST_VALUE = 'value';
+  var
+  private
+    FField : integer
+  end;
+
+  TMyClassWithVar2 = class
+  var
+  public
+    FField : integer
+  end;
+
+
 implementation
 
 { TMyClass }

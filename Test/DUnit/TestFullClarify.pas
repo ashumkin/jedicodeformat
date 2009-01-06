@@ -698,7 +698,7 @@ end;
 
 procedure TFullTestClarify.TestClassVarEmpty;
 begin
-  TestFile('TestClassVarEmpty', 336);
+  TestFile('TestClassVarEmpty', 404);
 end;
 
 procedure TFullTestClarify.TestEsotericKeywords;

@@ -48,6 +48,21 @@ type
     property foo: integer Read ffoo Write ffoo;
   end;
 
+  tmyclasswithvar1 = class
+  public
+  const
+    const_value = 'value';
+  var
+  private
+    ffield: integer
+  end;
+
+  tmyclasswithvar2 = class
+  var
+  public
+    ffield: integer
+  end;
+
 implementation
 
 procedure tmyclass1.someprotectedmethod;

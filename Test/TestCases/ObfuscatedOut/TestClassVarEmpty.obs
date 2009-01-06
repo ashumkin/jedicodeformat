@@ -4,8 +4,9 @@ procedure somemethod;protected class var public function somefunction:boolean;en
 ;type tmyclass3=class(TObject)private procedure somemethod;protected class var end
 ;type tmyclass4=class(TObject)private procedure somemethod;protected class var public
 end;type tmyclass5=class(TObject)private ffoo:integer;procedure somemethod;protected
-class var public property foo:integer read ffoo write ffoo;end;implementation procedure
-tmyclass1.someprotectedmethod;begin end;function tmyclass2.somefunction:boolean;begin
-result:=true;end;procedure tmyclass2.somemethod;begin end;procedure tmyclass3.somemethod
-;begin end;procedure tmyclass4.somemethod;begin end;procedure tmyclass5.somemethod
-;begin end;end. 
+class var public property foo:integer read ffoo write ffoo;end;tmyclasswithvar1=class
+public const const_value='value';var private ffield:integer end;tmyclasswithvar2=
+class var public ffield:integer end;implementation procedure tmyclass1.someprotectedmethod
+;begin end;function tmyclass2.somefunction:boolean;begin result:=true;end;procedure
+tmyclass2.somemethod;begin end;procedure tmyclass3.somemethod;begin end;procedure
+tmyclass4.somemethod;begin end;procedure tmyclass5.somemethod;begin end;end. 
