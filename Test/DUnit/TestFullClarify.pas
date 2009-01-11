@@ -323,11 +323,10 @@ implementation
 uses
   { delphi }
   SysUtils, Windows,
-  { jcl }
-  JclStrings,
   { DUnit}
   TestFrameWork,
   { JCF }
+  JcfStringUtils,
   FileConverter, ConvertTypes, JcfSettings, JcfRegistrySettings,
   TestConstants;
 

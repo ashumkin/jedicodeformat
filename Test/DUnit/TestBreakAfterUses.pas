@@ -57,7 +57,7 @@ type
 implementation
 
 uses
-  JclStrings,
+  JcfStringUtils,
   JcfSettings,
   ReturnAfter;
 

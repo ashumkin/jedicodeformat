@@ -90,9 +90,8 @@ uses
   SysUtils,
   { DUnit }
   TestFramework,
-  { jcl }
-  JclStrings,
   { local }
+  JcfStringUtils,
   JcfUnicodeFiles,
   JCFSettings;
 

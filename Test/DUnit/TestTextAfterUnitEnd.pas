@@ -60,11 +60,9 @@ type
 implementation
 
 uses
-  JclStrings,
+  JcfStringUtils,
   JcfSettings,
   ReturnsAfterFinalEnd;
-
-{ TTestTextAfterUnitEnd }
 
 const
   TEST_UNIT = UNIT_HEADER + UNIT_FOOTER;

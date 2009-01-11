@@ -51,7 +51,7 @@ type
 implementation
 
 uses
-  JclStrings,
+  JcfStringUtils,
   JcfSettings, RemoveComment;
 
 procedure TTestRemoveComment.Setup;

@@ -84,9 +84,8 @@ uses
   { Delphi }
   SysUtils,
   Windows,
-  { jcl }
-  JclStrings,
   { local }
+  JcfStringUtils,
   JcfUnicodeFiles;
 
 const

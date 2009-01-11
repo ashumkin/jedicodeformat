@@ -94,9 +94,8 @@ type
 implementation
 
 uses
-  // jcf
-  JclStrings,
-  // local
+  { local }
+  JcfStringUtils,
   JcfSettings;
 
 const

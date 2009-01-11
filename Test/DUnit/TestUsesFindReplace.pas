@@ -71,8 +71,10 @@ type
 implementation
 
 uses
-  JclStrings,
+  { DUnit }
   TestFrameWork,
+  { local }
+  JcfStringutils,
   JcfSettings,
   UsesClauseInsert, UsesClauseRemove, UsesClauseFindReplace;
 

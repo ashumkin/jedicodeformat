@@ -89,7 +89,7 @@ type
 implementation
 
 uses
-  JclStrings,
+  JcfStringUtils,
   SortUses,
   JcfSettings;
 

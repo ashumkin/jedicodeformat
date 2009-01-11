@@ -56,8 +56,8 @@ type
 implementation
 
 uses
-  { jcl }
-  JclStrings, JcfSettings;
+  { local }
+  JcfStringUtils, JcfSettings;
 
 const
   ProgramWithIndent: string =
@@ -116,6 +116,7 @@ end;
 
 procedure TTestIndentLibraryProcs.TestIndentTrueChange;
 begin
+  // when the setting is on, code without indent should be indented
   FormatSettings.Indent.IndentLibraryProcs := True;
 
   TestFormatResult(ProgramNoIndent, ProgramWithIndent);
@@ -123,6 +124,7 @@ end;
 
 procedure TTestIndentLibraryProcs.TestIndentTrueNoChange;
 begin
+  // when the setting is on, code with indent should be left as is
   FormatSettings.Indent.IndentLibraryProcs := True;
 
   TestFormatResult(ProgramWithIndent, ProgramWithIndent);
@@ -130,6 +132,7 @@ end;
 
 procedure TTestIndentLibraryProcs.TestIndentFalseNoChange;
 begin
+  // when the setting is off, code without indent should be left as is
   FormatSettings.Indent.IndentLibraryProcs := False;
 
   TestFormatResult(ProgramNoIndent, ProgramNoIndent);
@@ -137,6 +140,7 @@ end;
 
 procedure TTestIndentLibraryProcs.TestIndentFalseChange;
 begin
+  // when the setting is off, code with indent should have indent removed
   FormatSettings.Indent.IndentLibraryProcs := False;
 
   TestFormatResult(ProgramWithIndent, ProgramNoIndent);

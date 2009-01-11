@@ -48,9 +48,8 @@ implementation
 uses
   { delphi }
   SysUtils,
-  { jcl }
-  JclStrings,
   { jcf }
+  JcfStringUtils,
   JcfUnicodeFiles, TestConstants;
 
 procedure TTestFile.Setup;

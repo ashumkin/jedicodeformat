@@ -85,7 +85,7 @@ type
 implementation
 
 uses
-  JclStrings,
+  JcfStringUtils,
   JcfSettings, AddBeginEnd;
 
 procedure TTestAddBeginEnd.Setup;

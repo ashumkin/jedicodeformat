@@ -59,9 +59,8 @@ type
 implementation
 
 uses
-  { jcl }
-  JclStrings,
   { local }
+  JcfStringUtils,
   JcfSettings,
   NoReturnAfter, NoReturnBefore, NoSpaceAfter, NoSpaceBefore,
   SpaceBeforeColon,

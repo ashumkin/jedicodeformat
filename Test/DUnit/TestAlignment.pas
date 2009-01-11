@@ -69,9 +69,8 @@ implementation
 uses
   { delphi }
   SysUtils,
-  { jcl }
-  JclStrings,
   { local }
+  JcfStringUtils,
   JcfSettings, AlignConst, AlignVars, AlignAssign, AlignComment,
   AlignTypedef, AlignField;
 

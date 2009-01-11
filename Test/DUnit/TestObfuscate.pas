@@ -322,9 +322,8 @@ implementation
 uses
   { delphi }
   Windows, SysUtils, 
-  { JCL }
-  JclStrings,
   { local }
+  JcfStringUtils,
   FileConverter, ConvertTypes, JcfSettings, JcfRegistrySettings,
   TestConstants;
 

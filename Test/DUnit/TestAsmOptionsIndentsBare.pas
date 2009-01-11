@@ -68,8 +68,10 @@ type
 implementation
 
 uses
+  { delphi }
   SysUtils,
-  JclStrings,
+  { local }
+  JcfStringUtils,
   JCFSettings, SetAsm;
 
 const

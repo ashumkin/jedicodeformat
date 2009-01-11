@@ -91,7 +91,7 @@ type
 implementation
 
 uses
-  JclStrings,
+  JcfStringUtils,
   JcfSettings,
   BlockStyles, Indenter, SetReturns;
 

@@ -30,9 +30,12 @@ See http://www.gnu.org/licenses/gpl.html
 interface
 
 uses
+  { delphi }
   Classes,
-  JclStrings,
+  { DUnit }
   TestFrameWork,
+  { local }
+  JcfStringUtils,
   JcfMiscFunctions;
 
 type

@@ -61,7 +61,7 @@ implementation
 
 uses
   Windows,
-  JclFileUtils, JclStrings,
+  JclFileUtils, JcfStringUtils,
   ConvertTypes;
 
 const

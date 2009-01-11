@@ -85,7 +85,7 @@ type
 implementation
 
 uses
-  JclStrings,
+  JcfStringUtils,
   BlockStyles, JcfSettings, SetReturns;
 
 const

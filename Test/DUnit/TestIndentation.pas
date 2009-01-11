@@ -79,7 +79,7 @@ type
 implementation
 
 uses
-  JclStrings,
+  JcfStringUtils,
   JcfSettings,
   Indenter, SetIndent;
 

@@ -52,9 +52,8 @@ uses
   { delphi }
   SysUtils,
   Windows,
-  { jcl }
-  JclStrings,
   { local }
+  JcfStringUtils,
   JcfRegistrySettings, JcfSettings, ConvertTypes;
 
 var
