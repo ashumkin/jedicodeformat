@@ -35,8 +35,10 @@ interface
   This regression will ensure that the functionality is unchanged }
 
 uses
-  JclStrings,
+  { DUnit }
   TestFrameWork,
+  { Local }
+  JcfStringUtils,
   JcfMiscFunctions;
 
 type

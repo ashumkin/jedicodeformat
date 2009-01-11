@@ -67,7 +67,7 @@ uses
   { delphi }
   Windows, URLMon,
   { jcl }
-  JclStrings,
+  JcfStringUtils,
   { local }
   VersionConsts, JCFHelp, JcfFontSetFunctions;
 

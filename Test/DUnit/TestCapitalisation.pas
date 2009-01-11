@@ -74,9 +74,8 @@ implementation
 
 uses
   SysUtils,
-  { Jcl }
-  JclStrings,
   { local }
+  JcfStringUtils,
   Capitalisation, JcfSettings, SetCaps, IdentifierCaps;
 
 
