@@ -30,7 +30,8 @@ See http://www.gnu.org/licenses/gpl.html
 interface
 
 { AFS Jan 2009
-  Test the "IndentLibraryProcs" flag }
+  Test the "IndentLibraryProcs" flag
+  and the IndentProcedureBody flag }
 
 uses
   TestFrameWork,
@@ -40,6 +41,7 @@ type
   TTestIndentLibraryProcs = class(TBaseTestProcess)
   private
     fbSaveIndentLibraryProcs: boolean;
+    fbSaveIndentProcedureBody: boolean;
 
   public
     procedure SetUp; override;
@@ -51,6 +53,8 @@ type
 
     procedure TestIndentFalseNoChange;
     procedure TestIndentFalseChange;
+
+    procedure TestIndentProcedureBody;
   end;
 
 implementation
@@ -98,6 +102,25 @@ const
     'begin' + NativeLineBreak +
     'end.';
 
+  ProgramBodyIndent: string =
+    'program TestIndent;' + NativeLineBreak +
+    NativeLineBreak +
+    'procedure AProc(r: Arec);' + NativeLineBreak +
+    '  const' + NativeLineBreak +
+    '    pi = 3.1415926535;' + NativeLineBreak +
+    '  type' + NativeLineBreak +
+    '    Brec = record' + NativeLineBreak +
+    '      e, f, g, h: integer;' + NativeLineBreak +
+    '    end;' + NativeLineBreak +
+    '  var' + NativeLineBreak +
+    '    Bee: brec;' + NativeLineBreak +
+    '  begin' + NativeLineBreak +
+    '    r.Afield := ''Hah!'';' + NativeLineBreak +
+    '  end;' + NativeLineBreak +
+    NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'end.';
+
 { TTestIndentLibraryProcs }
 
 procedure TTestIndentLibraryProcs.SetUp;
@@ -105,6 +128,7 @@ begin
   inherited;
 
   fbSaveIndentLibraryProcs := FormatSettings.Indent.IndentLibraryProcs;
+  fbSaveIndentProcedureBody := FormatSettings.Indent.IndentProcedureBody;
 end;
 
 procedure TTestIndentLibraryProcs.TearDown;
@@ -112,12 +136,14 @@ begin
   inherited;
 
   FormatSettings.Indent.IndentLibraryProcs := fbSaveIndentLibraryProcs;
+  FormatSettings.Indent.IndentProcedureBody := fbSaveIndentProcedureBody;
 end;
 
 procedure TTestIndentLibraryProcs.TestIndentTrueChange;
 begin
   // when the setting is on, code without indent should be indented
   FormatSettings.Indent.IndentLibraryProcs := True;
+  FormatSettings.Indent.IndentProcedureBody := False;
 
   TestFormatResult(ProgramNoIndent, ProgramWithIndent);
 end;
@@ -126,6 +152,7 @@ procedure TTestIndentLibraryProcs.TestIndentTrueNoChange;
 begin
   // when the setting is on, code with indent should be left as is
   FormatSettings.Indent.IndentLibraryProcs := True;
+  FormatSettings.Indent.IndentProcedureBody := False;
 
   TestFormatResult(ProgramWithIndent, ProgramWithIndent);
 end;
@@ -134,6 +161,7 @@ procedure TTestIndentLibraryProcs.TestIndentFalseNoChange;
 begin
   // when the setting is off, code without indent should be left as is
   FormatSettings.Indent.IndentLibraryProcs := False;
+  FormatSettings.Indent.IndentProcedureBody := False;
 
   TestFormatResult(ProgramNoIndent, ProgramNoIndent);
 end;
@@ -142,8 +170,18 @@ procedure TTestIndentLibraryProcs.TestIndentFalseChange;
 begin
   // when the setting is off, code with indent should have indent removed
   FormatSettings.Indent.IndentLibraryProcs := False;
+  FormatSettings.Indent.IndentProcedureBody := False;
 
   TestFormatResult(ProgramWithIndent, ProgramNoIndent);
+end;
+
+procedure TTestIndentLibraryProcs.TestIndentProcedureBody;
+begin
+  // test the IndentProcedureBody setting
+  FormatSettings.Indent.IndentLibraryProcs := False;
+  FormatSettings.Indent.IndentProcedureBody := True;
+
+  TestFormatResult(ProgramWithIndent, ProgramBodyIndent);
 end;
 
 initialization
