@@ -135,6 +135,9 @@ function FileToString(const FileName: string): AnsiString;
 procedure StringToFile(const FileName: string; const Contents: AnsiString);
 function StrFillChar(const C: Char; Count: Integer): string;
 function IntToStrZeroPad(Value, Count: Integer): String;
+function StrPadLeft(const pcOriginal: string;
+  const piDesiredLength: integer; const pcPad: Char): string;
+
 function WideStringReplace(const S, OldPattern, NewPattern: WideString; Flags: TReplaceFlags): WideString;
 
 function PathExtractFileNameNoExt(const Path: string): string;
@@ -484,6 +487,19 @@ begin
   Result := IntToStr(Value);
   while Length(Result) < Count do
     Result := '0' + Result;
+end;
+
+{ pad the string on the left had side until it fits }
+function StrPadLeft(const pcOriginal: string;
+  const piDesiredLength: integer; const pcPad: Char): string;
+begin
+  Result := pcOriginal;
+
+  while (Length(Result) < piDesiredLength) do
+  begin
+    Result := pcPad + Result;
+  end;
+
 end;
 
 // Based on FreePascal version of StringReplace

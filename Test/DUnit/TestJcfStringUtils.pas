@@ -53,6 +53,10 @@ type
 
     procedure TestStrSearchNotFound1;
     procedure TestStrSearchNotFound2;
+
+    procedure TestStrPadLeftNumber;
+    procedure TestStrPadLeftFiveChars;
+
   end;
 
 implementation
@@ -62,6 +66,28 @@ uses
   SysUtils,
   { local }
   JcfStringUtils;
+
+
+procedure TTestJcfStringUtils.TestStrPadLeftNumber;
+begin
+  // pad on the left with zeros until it's 3 chars long
+  CheckEquals('000', StrPadLeft('', 3, '0'));
+  CheckEquals('001', StrPadLeft('1', 3, '0'));
+  CheckEquals('011', StrPadLeft('11', 3, '0'));
+  CheckEquals('111', StrPadLeft('111', 3, '0'));
+
+  // if it's longer already, left unchanged
+  CheckEquals('1111', StrPadLeft('1111', 3, '0'));
+end;
+
+procedure TTestJcfStringUtils.TestStrPadLeftFiveChars;
+begin
+  // pad on the left with zeros until it's 5 chars long
+  CheckEquals('00000', StrPadLeft('', 5, '0'));
+  CheckEquals('00001', StrPadLeft('1', 5, '0'));
+  CheckEquals('00011', StrPadLeft('11', 5, '0'));
+  CheckEquals('00111', StrPadLeft('111', 5, '0'));
+end;
 
 
 procedure TTestJcfStringUtils.TestStrSearchEmpty1;
