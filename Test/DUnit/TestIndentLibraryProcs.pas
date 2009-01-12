@@ -55,6 +55,7 @@ type
     procedure TestIndentFalseChange;
 
     procedure TestIndentProcedureBody;
+    procedure TestIndentBoth;
   end;
 
 implementation
@@ -121,6 +122,25 @@ const
     'begin' + NativeLineBreak +
     'end.';
 
+  ProgramBothIndent: string =
+    'program TestIndent;' + NativeLineBreak +
+    NativeLineBreak +
+    '  procedure AProc(r: Arec);' + NativeLineBreak +
+    '    const' + NativeLineBreak +
+    '      pi = 3.1415926535;' + NativeLineBreak +
+    '    type' + NativeLineBreak +
+    '      Brec = record' + NativeLineBreak +
+    '        e, f, g, h: integer;' + NativeLineBreak +
+    '      end;' + NativeLineBreak +
+    '    var' + NativeLineBreak +
+    '      Bee: brec;' + NativeLineBreak +
+    '    begin' + NativeLineBreak +
+    '      r.Afield := ''Hah!'';' + NativeLineBreak +
+    '    end;' + NativeLineBreak +
+    NativeLineBreak +
+    'begin' + NativeLineBreak +
+    'end.';
+
 { TTestIndentLibraryProcs }
 
 procedure TTestIndentLibraryProcs.SetUp;
@@ -183,6 +203,16 @@ begin
 
   TestFormatResult(ProgramWithIndent, ProgramBodyIndent);
 end;
+
+procedure TTestIndentLibraryProcs.TestIndentBoth;
+begin
+  // test the IndentProcedureBody setting
+  FormatSettings.Indent.IndentLibraryProcs := True;
+  FormatSettings.Indent.IndentProcedureBody := True;
+
+  TestFormatResult(ProgramWithIndent, ProgramBothIndent);
+end;
+
 
 initialization
   TestFramework.RegisterTest('Processes', TTestIndentLibraryProcs.Suite);
