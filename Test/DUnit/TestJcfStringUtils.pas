@@ -57,6 +57,9 @@ type
     procedure TestStrPadLeftNumber;
     procedure TestStrPadLeftFiveChars;
 
+    procedure TestStrIPos_Misses;
+    procedure TestStrIPos_Match1;
+    procedure TestStrIPos_Match4;
   end;
 
 implementation
@@ -78,6 +81,46 @@ begin
 
   // if it's longer already, left unchanged
   CheckEquals('1111', StrPadLeft('1111', 3, '0'));
+end;
+
+procedure TTestJcfStringUtils.TestStrIPos_Misses;
+begin
+  // should all return "not found"
+  CheckEquals(0, StrIPos('foo', ''));
+  CheckEquals(0, StrIPos('foo', 'bar'));
+  CheckEquals(0, StrIPos('foo', 'goo'));
+end;
+
+procedure TTestJcfStringUtils.TestStrIPos_Match1;
+begin
+  // should all match at pos 1
+  CheckEquals(1, StrIPos('foo', 'foo'));
+  CheckEquals(1, StrIPos('foo', 'Foo'));
+  CheckEquals(1, StrIPos('foo', 'FOO'));
+
+  CheckEquals(1, StrIPos('Foo', 'foo'));
+  CheckEquals(1, StrIPos('Foo', 'Foo'));
+  CheckEquals(1, StrIPos('Foo', 'FOO'));
+
+  CheckEquals(1, StrIPos('FOO', 'foo'));
+  CheckEquals(1, StrIPos('FOO', 'Foo'));
+  CheckEquals(1, StrIPos('FOO', 'FOO'));
+end;
+
+procedure TTestJcfStringUtils.TestStrIPos_Match4;
+begin
+  // should all match at pos 4
+  CheckEquals(4, StrIPos('foo', '123foo'));
+  CheckEquals(4, StrIPos('foo', '123Foo'));
+  CheckEquals(4, StrIPos('foo', '123FOO'));
+
+  CheckEquals(4, StrIPos('Foo', '123foo'));
+  CheckEquals(4, StrIPos('Foo', '123Foo'));
+  CheckEquals(4, StrIPos('Foo', '123FOO'));
+
+  CheckEquals(4, StrIPos('FOO', '123foo'));
+  CheckEquals(4, StrIPos('FOO', '123Foo'));
+  CheckEquals(4, StrIPos('FOO', '123FOO'));
 end;
 
 procedure TTestJcfStringUtils.TestStrPadLeftFiveChars;

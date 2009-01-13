@@ -110,6 +110,8 @@ function StrAfter(const SubStr, S: string): string;
 function StrBefore(const SubStr, S: string): string;
 function StrChopRight(const S: string; N: Integer): string;
 function StrLastPos(const SubStr, S: string): Integer;
+function StrIPos(const SubStr, S: string): integer;
+
 function StrLeft(const S: string; Count: Integer): string;
 function StrRestOf(const S: string; N: Integer ): string;
 function StrRight(const S: string; Count: Integer): string;
@@ -302,6 +304,13 @@ begin
     else
       break;
   end;
+end;
+
+{ case-insensitive "pos" }
+function StrIPos(const SubStr, S: string): integer;
+begin
+  // simple and inneficient implmentation
+  Result := Pos(UpperCase(SubStr), UpperCase(s));
 end;
 
 function StrLeft(const S: string; Count: Integer): string;

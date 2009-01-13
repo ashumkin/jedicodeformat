@@ -32,11 +32,10 @@ interface
 uses
   { delphi }
   Classes,
-  { JCL }
-  JclStrings,
   { dunit }
   TestFrameWork,
   { local }
+  JcfStringUtils,
   BaseVisitor,
   Converter, ConvertTypes;
 
@@ -87,7 +86,10 @@ const
 
 implementation
 
-uses SysUtils, Dialogs,
+uses
+  { delphi }
+  SysUtils, Dialogs,
+  { local }
   TestConstants;
 
 procedure TBaseTestProcess.Setup;
