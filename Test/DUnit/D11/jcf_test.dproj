@@ -47,6 +47,10 @@
     <DelphiCompile Include="jcf_test.dpr">
       <MainSource>MainSource</MainSource>
     </DelphiCompile>
+    <DCCReference Include="..\..\..\JcVersionConsts.pas">
+      <ModuleName>JcfVersionConsts</ModuleName>
+    </DCCReference>
+    <DCCReference Include="..\..\..\JVersionConsts.pas" />
     <DCCReference Include="..\..\..\Parse\AsmKeywords.pas" />
     <DCCReference Include="..\..\..\Parse\BuildParseTree.pas" />
     <DCCReference Include="..\..\..\Parse\BuildTokenList.pas" />

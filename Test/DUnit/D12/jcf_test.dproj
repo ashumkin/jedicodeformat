@@ -96,7 +96,7 @@
 			<DCCReference Include="..\..\..\Settings\SetSpaces.pas"/>
 			<DCCReference Include="..\..\..\Settings\Streams\SettingsStream.pas"/>
 			<DCCReference Include="..\..\..\Settings\Streams\RegistrySettings.pas"/>
-			<DCCReference Include="..\..\..\VersionConsts.pas"/>
+			<DCCReference Include="..\..\..\JcfVersionConsts.pas"/>
 			<DCCReference Include="..\..\..\Process\Capitalisation\Capitalisation.pas"/>
 			<DCCReference Include="..\..\..\Process\Capitalisation\SpecificWordCaps.pas"/>
 			<DCCReference Include="..\..\..\Process\Warnings\WarnCaseNoElse.pas"/>

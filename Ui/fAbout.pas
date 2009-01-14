@@ -69,7 +69,7 @@ uses
   { jcl }
   JcfStringUtils,
   { local }
-  VersionConsts, JCFHelp, JcfFontSetFunctions;
+  JcfVersionConsts, JCFHelp, JcfFontSetFunctions;
 
 procedure ShowURL(const ps: string);
 var

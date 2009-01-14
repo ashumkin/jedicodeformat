@@ -101,7 +101,7 @@
 			<DCCReference Include="..\..\Process\Warnings\WarnDestroy.pas"/>
 			<DCCReference Include="..\..\Process\Warnings\WarnEmptyBlock.pas"/>
 			<DCCReference Include="..\..\Process\Warnings\Warning.pas"/>
-			<DCCReference Include="..\..\VersionConsts.pas"/>
+			<DCCReference Include="..\..\JcfVersionConsts.pas"/>
 			<DCCReference Include="..\..\Settings\JcfRegistrySettings.pas"/>
 			<DCCReference Include="..\..\Parse\TokenUtils.pas"/>
 			<DCCReference Include="..\..\Process\Spacing\NoSpaceBefore.pas"/>

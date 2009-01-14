@@ -67,7 +67,7 @@ uses
   SetSpaces in '..\..\..\Settings\SetSpaces.pas',
   SettingsStream in '..\..\..\Settings\Streams\SettingsStream.pas',
   RegistrySettings in '..\..\..\Settings\Streams\RegistrySettings.pas',
-  VersionConsts in '..\..\..\VersionConsts.pas',
+  JcfVersionConsts in '..\..\..\JcfVersionConsts.pas',
   Capitalisation in '..\..\..\Process\Capitalisation\Capitalisation.pas',
   SpecificWordCaps in '..\..\..\Process\Capitalisation\SpecificWordCaps.pas',
   WarnCaseNoElse in '..\..\..\Process\Warnings\WarnCaseNoElse.pas',

@@ -74,7 +74,7 @@ uses
   WarnDestroy in '..\..\Process\Warnings\WarnDestroy.pas',
   WarnEmptyBlock in '..\..\Process\Warnings\WarnEmptyBlock.pas',
   Warning in '..\..\Process\Warnings\Warning.pas',
-  VersionConsts in '..\..\VersionConsts.pas',
+  JcfVersionConsts in '..\..\JcfVersionConsts.pas',
   JcfRegistrySettings in '..\..\Settings\JcfRegistrySettings.pas',
   TokenUtils in '..\..\Parse\TokenUtils.pas',
   NoSpaceBefore in '..\..\Process\Spacing\NoSpaceBefore.pas',

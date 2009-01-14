@@ -52,7 +52,7 @@ contains
   JCFSetBase in '..\..\Settings\JCFSetBase.pas',
   Converter in '..\..\ReadWrite\Converter.pas',
   fAbout in '..\..\Ui\fAbout.pas' {frmAboutBox},
-  VersionConsts in '..\..\VersionConsts.pas',
+  JcfVersionConsts in '..\..\JcfVersionConsts.pas',
   VisitStripEmptySpace in '..\..\Process\VisitStripEmptySpace.pas',
   AllProcesses in '..\..\Process\AllProcesses.pas',
   BaseVisitor in '..\..\Process\BaseVisitor.pas',
