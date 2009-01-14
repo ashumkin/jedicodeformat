@@ -31,8 +31,8 @@ See http://www.gnu.org/licenses/gpl.html
 This unit contains string utility code
 For use when the JCL string functions are not avaialable
 }
-
 interface
+
 uses
   SysUtils, Classes;
 
@@ -143,16 +143,9 @@ function StrPadLeft(const pcOriginal: string;
 function WideStringReplace(const S, OldPattern, NewPattern: WideString; Flags: TReplaceFlags): WideString;
 
 function PathExtractFileNameNoExt(const Path: string): string;
-function GetWindowsTempFolder: string;
-function FileGetSize(const FileName: string): Int64;
-procedure ShellExecEx(const FileName: string; const Parameters: string = '');
-function GetTickCount: Cardinal;
-function IsMultiByte(const pcChar: WideChar): Boolean;
 
-function IsWinVista: Boolean;
-function IsWinXP: Boolean;
-function IsWin2k: Boolean;
-function IsWin2003: Boolean;
+function PadNumber(const pi: integer): string;
+function StrHasAlpha(const str: String): boolean;
 
 type
   EJcfConversionError = class(Exception)
@@ -550,6 +543,29 @@ begin
   end;
 end;
 
+function PadNumber(const pi: integer): string;
+begin
+  Result := IntToStrZeroPad(pi, 3);
+end;
+
+function StrHasAlpha(const str: String): boolean;
+var
+  liLoop: integer;
+begin
+  Result := False;
+
+  for liLoop := 1 to Length(str) do
+  begin
+    if CharIsAlpha(str[liLoop]) then
+    begin
+      Result := True;
+      break;
+    end;
+  end;
+end;
+
+{------------------------------------------------------
+  functions to manipulate file paths in strings }
 
 function PathRemoveExtension(const Path: string): string;
 var
@@ -578,115 +594,6 @@ begin
   Result := Path;
   if (Result <> '') and (Result[Length(Result)] = PathDelim) then
     Delete(Result, Length(Result), 1);
-end;
-
-function GetWindowsTempFolder: string;
-{$ifndef fpc}
-var
-  buf: string;
-{$endif}
-begin
-{$ifdef fpc}
-  Result := GetTempDir;
-{$else}
-  SetLength(buf, MAX_PATH);
-  SetLength(buf, GetTempPath(Length(buf) + SizeOf(char), PChar(buf)));
-  Result:=buf;
-  Result := IncludeTrailingPathDelimiter(Result);
-{$endif}
-end;
-
-// We know that this unit contains platform-specific code
-// it's guarded by ifdefs
-{$WARN SYMBOL_PLATFORM OFF}
-
-function FileGetSize(const FileName: string): Int64;
-{$ifndef fpc}
-var
-  FileInfo: TSearchRec;
-{$endif}
-begin
-{$ifdef fpc}
-  Result := FileUtil.FileSize(FileName);
-{$else}
-  // from LCL FileUtil code
-  FileInfo.Name := Filename;
-  FileInfo.FindHandle := Windows.FindFirstFile(Windows.LPTSTR(FileInfo.Name), FileInfo.FindData);
-  if FileInfo.FindHandle = Windows.Invalid_Handle_value then
-  begin
-    Result:=-1;
-    Exit;
-  end;
-  Result := (int64(FileInfo.FindData.nFileSizeHigh) shl 32) + FileInfo.FindData.nFileSizeLow;
-  Windows.FindClose(FileInfo.FindHandle);
-{$endif}
-end;
-
-procedure ShellExecEx(const FileName: string; const Parameters: string = '');
-begin
-  {$ifdef MSWINDOWS}
-    ShellApi.ShellExecute(0, 'open', PChar(FileName), PChar(Parameters), nil, SW_SHOW);
-  {$endif}
-  {$ifdef unix}
-    Shell(format('%s %s',[FileName, Parameters]));
-  {$endif}
-end;
-
-function GetTickCount: DWord;
-begin
-{$ifdef MSWINDOWS}
-  Result := Windows.GetTickCount;
-{$else}
-  Result := LCLIntf.GetTickCount;
-{$endif}
-end;
-
-function IsMultiByte(const pcChar: WideChar): Boolean;
-begin
-{$ifdef MSWINDOWS}
-  Result := IsDBCSLeadByte(Byte(pcChar));
-{$else}
-  Result := False;
-  // TODO: ?
-{$endif}
-end;
-
-function IsWinVista: Boolean;
-begin
-{$IFDEF MSWINDOWS}
-  Result := Win32MajorVersion = 6;
-  // can be also window server 2008
-{$ELSE}
-  Result := False;
-{$ENDIF}
-end;
-
-function IsWinXP: Boolean;
-begin
-{$IFDEF MSWINDOWS}
-  Result := (Win32MajorVersion = 5) and (Win32MinorVersion = 1);
-{$ELSE}
-  Result := False;
-{$ENDIF}
-end;
-
-function IsWin2k: Boolean;
-begin
-{$IFDEF MSWINDOWS}
-  Result := (Win32MajorVersion = 5) and (Win32MinorVersion = 0);
-{$ELSE}
-  Result := False;
-{$ENDIF}
-end;
-
-function IsWin2003: Boolean;
-begin
-{$IFDEF MSWINDOWS}
-  Result := (Win32MajorVersion = 5) and (Win32MinorVersion = 2);
-  // can be also window xp 64 bit
-{$ELSE}
-  Result := False;
-{$ENDIF}
 end;
 
 end.

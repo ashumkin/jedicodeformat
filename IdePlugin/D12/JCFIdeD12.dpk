@@ -126,7 +126,7 @@ contains
   JCFHelp in '..\..\Utils\JCFHelp.pas',
   FileConverter in '..\..\ReadWrite\FileConverter.pas',
   IntList in '..\..\Utils\IntList.pas',
-  FileUtils in '..\..\Utils\FileUtils.pas',
+  JcfFileUtils in '..\..\Utils\JcfFileUtils.pas',
   SetAlign in '..\..\Settings\SetAlign.pas',
   SetCaps in '..\..\Settings\SetCaps.pas',
   SetClarify in '..\..\Settings\SetClarify.pas',
@@ -197,6 +197,7 @@ contains
   JcfUnicode in '..\..\Utils\JcfUnicode.pas',
   JcfUnicodeFiles in '..\..\Utils\JcfUnicodeFiles.pas',
   JcfStringUtils in '..\..\Utils\JcfStringUtils.pas',
-  MoveSpaceToBeforeColon in '..\..\Process\Spacing\MoveSpaceToBeforeColon.pas';
+  MoveSpaceToBeforeColon in '..\..\Process\Spacing\MoveSpaceToBeforeColon.pas',
+  JcfSystemUtils in '..\..\Utils\JcfSystemUtils.pas';
 
 end.

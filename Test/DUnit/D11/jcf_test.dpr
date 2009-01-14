@@ -39,7 +39,7 @@ uses
   ConvertTypes in '..\..\..\ReadWrite\ConvertTypes.pas',
   FileConverter in '..\..\..\ReadWrite\FileConverter.pas',
   JcfMiscFunctions in '..\..\..\Utils\JcfMiscFunctions.pas',
-  FileUtils in '..\..\..\Utils\FileUtils.pas',
+  JcfFileUtils in '..\..\..\Utils\JcfFileUtils.pas',
   JcfLog in '..\..\..\Utils\JcfLog.pas',
   TestAdvanceTextPos in '..\TestAdvanceTextPos.pas',
   BaseVisitor in '..\..\..\Process\BaseVisitor.pas',
@@ -194,7 +194,8 @@ uses
   TestJcfUnicode in '..\TestJcfUnicode.pas',
   TestMoveSpaceToBeforeColon in '..\TestMoveSpaceToBeforeColon.pas',
   MoveSpaceToBeforeColon in '..\..\..\Process\Spacing\MoveSpaceToBeforeColon.pas',
-  JcfStringUtils in '..\..\..\Utils\JcfStringUtils.pas';
+  JcfStringUtils in '..\..\..\Utils\JcfStringUtils.pas',
+  JcfSystemUtils in '..\..\..\Utils\JcfSystemUtils.pas';
 
 {$R *.res}
 

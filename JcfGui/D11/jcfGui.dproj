@@ -45,9 +45,8 @@
     <DelphiCompile Include="JCFGui.dpr">
       <MainSource>MainSource</MainSource>
     </DelphiCompile>
-    <DCCReference Include="..\..\JcVersionConsts.pas">
-      <ModuleName>JcfVersionConsts</ModuleName>
-    </DCCReference>
+    <DCCReference Include="..\..\JcfVersionConsts.pas" />
+    <DCCReference Include="..\..\JcVersionConsts.pas" />
     <DCCReference Include="..\..\JVersionConsts.pas" />
     <DCCReference Include="..\..\Parse\AsmKeywords.pas" />
     <DCCReference Include="..\..\Parse\BuildParseTree.pas" />
@@ -280,13 +279,17 @@
     <DCCReference Include="..\..\Utils\DragDrop\JCFDropTarget.pas" />
     <DCCReference Include="..\..\Utils\FileUtils.pas" />
     <DCCReference Include="..\..\Utils\IntList.pas" />
+    <DCCReference Include="..\..\Utils\JcfFileUtils.pas" />
     <DCCReference Include="..\..\Utils\JcfFontSetFunctions.pas" />
     <DCCReference Include="..\..\Utils\JCFHelp.pas" />
+    <DCCReference Include="..\..\Utils\JcFileUtils.pas" />
     <DCCReference Include="..\..\Utils\JcfLog.pas" />
     <DCCReference Include="..\..\Utils\JcfMiscFunctions.pas" />
     <DCCReference Include="..\..\Utils\JcfStringUtils.pas" />
+    <DCCReference Include="..\..\Utils\JcfSystemUtils.pas" />
     <DCCReference Include="..\..\Utils\JcfUnicode.pas" />
     <DCCReference Include="..\..\Utils\JcfUnicodeFiles.pas" />
+    <DCCReference Include="..\..\Utils\JFileUtils.pas" />
     <DCCReference Include="..\..\VersionConsts.pas" />
     <DCCReference Include="..\fMain.pas">
       <Form>frmMain</Form>

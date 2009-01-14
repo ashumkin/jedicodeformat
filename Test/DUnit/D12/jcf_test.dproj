@@ -68,7 +68,7 @@
 			<DCCReference Include="..\..\..\ReadWrite\ConvertTypes.pas"/>
 			<DCCReference Include="..\..\..\ReadWrite\FileConverter.pas"/>
 			<DCCReference Include="..\..\..\Utils\JcfMiscFunctions.pas"/>
-			<DCCReference Include="..\..\..\Utils\FileUtils.pas"/>
+			<DCCReference Include="..\..\..\Utils\JcfFileUtils.pas"/>
 			<DCCReference Include="..\..\..\Utils\JcfLog.pas"/>
 			<DCCReference Include="..\TestAdvanceTextPos.pas"/>
 			<DCCReference Include="..\..\..\Process\BaseVisitor.pas"/>
@@ -225,6 +225,7 @@
 			<DCCReference Include="..\TestJcfUnicode.pas"/>
 			<DCCReference Include="..\TestMoveSpaceToBeforeColon.pas"/>
 			<DCCReference Include="..\TestIndentLibraryProcs.pas"/>
+			<DCCReference Include="..\..\..\Utils\JcfSystemUtils.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

@@ -212,7 +212,7 @@
 			<DCCReference Include="..\..\Utils\JCFHelp.pas"/>
 			<DCCReference Include="..\..\ReadWrite\FileConverter.pas"/>
 			<DCCReference Include="..\..\Utils\IntList.pas"/>
-			<DCCReference Include="..\..\Utils\FileUtils.pas"/>
+			<DCCReference Include="..\..\Utils\JcfFileUtils.pas"/>
 			<DCCReference Include="..\..\Settings\SetAlign.pas"/>
 			<DCCReference Include="..\..\Settings\SetCaps.pas"/>
 			<DCCReference Include="..\..\Settings\SetClarify.pas"/>
@@ -302,6 +302,7 @@
 			<DCCReference Include="..\..\Utils\JcfUnicodeFiles.pas"/>
 			<DCCReference Include="..\..\Utils\JcfStringUtils.pas"/>
 			<DCCReference Include="..\..\Process\Spacing\MoveSpaceToBeforeColon.pas"/>
+			<DCCReference Include="..\..\Utils\JcfSystemUtils.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

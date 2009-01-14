@@ -67,7 +67,7 @@
 			<DCCReference Include="..\..\Process\VisitSetXY.pas"/>
 			<DCCReference Include="..\..\Process\BaseVisitor.pas"/>
 			<DCCReference Include="..\..\Utils\JcfMiscFunctions.pas"/>
-			<DCCReference Include="..\..\Utils\FileUtils.pas"/>
+			<DCCReference Include="..\..\Utils\JcfFileUtils.pas"/>
 			<DCCReference Include="..\..\Utils\JcfLog.pas"/>
 			<DCCReference Include="..\..\Parse\UI\fShowParseTree.pas">
 				<Form>frmShowParseTree</Form>
@@ -183,6 +183,7 @@
 			<DCCReference Include="..\StatusMessageReceiver.pas"/>
 			<DCCReference Include="..\..\Utils\JcfStringUtils.pas"/>
 			<DCCReference Include="..\..\Process\Spacing\MoveSpaceToBeforeColon.pas"/>
+			<DCCReference Include="..\..\Utils\JcfSystemUtils.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>
