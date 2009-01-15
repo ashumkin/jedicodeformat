@@ -79,9 +79,9 @@ uses
   { lazarus }
   Menus, Dialogs, Controls,
   { jcf }
-  JcfStringUtils{,}
+  JcfStringUtils,
   { local }
-  {fAllSettings, fAbout, JcfRegistrySettings, fRegistrySettings};
+  fAbout{, fAllSettings, JcfRegistrySettings, fRegistrySettings};
 
 
 function FileIsAllowedType(const psFileName: string): boolean;
@@ -163,8 +163,30 @@ begin
 end;
 
 procedure TJcfIdeMain.DoFormatOpen(Sender: TObject);
+var
+  lciEditor: TSourceEditorInterface;
+  liLoop: integer;
 begin
-  // todo?
+  MakeEditorConverter;
+
+  if (SourceEditorWindow = nil) then
+    Exit;
+
+  ClearToolMessages;
+  fcEditorConverter.BeforeConvert;
+
+  for liLoop := 0 to SourceEditorWindow.Count - 1 do
+  begin
+    lciEditor := SourceEditorWindow.Items[liLoop];
+
+    // check that it's open, and a .pas or .dpr
+    if (lciEditor <> nil) and (FileIsAllowedType(lciEditor.FileName)) then
+    begin
+      fcEditorConverter.Convert(lciEditor);
+    end;
+  end;
+
+  fcEditorConverter.AfterConvert;
 end;
 
 
@@ -191,6 +213,7 @@ procedure TJcfIdeMain.DoFormatSettings(Sender: TObject);
   lfAllSettings: TFormAllSettings;
 }
 begin
+  ShowMessage('unimplemented');
 { TODO: convert JCF settings form (it contains some TJvXXX components atm)
   if not GetRegSettings.HasRead then
     GetRegSettings.ReadAll;
@@ -205,18 +228,15 @@ begin
 end;
 
 procedure TJcfIdeMain.DoAbout(Sender: TObject);
-{var
+var
   lcAbout: TfrmAboutBox;
-}
 begin
-{ TODO: convert JCF about box (it contains some TJvXXX components atm)
   lcAbout := TfrmAboutBox.Create(nil);
   try
     lcAbout.ShowModal;
   finally
     lcAbout.Free;
   end;
-}
 end;
 
 procedure TJcfIdeMain.DoRegistrySettings(Sender: TObject);
@@ -224,6 +244,7 @@ procedure TJcfIdeMain.DoRegistrySettings(Sender: TObject);
   lcAbout: TfmRegistrySettings;
 }
 begin
+  ShowMessage('unimplemented');
 { TODO: convert JCF registry settings (it contains some TJvXXX components atm)
   if not GetRegSettings.HasRead then
     GetRegSettings.ReadAll;
