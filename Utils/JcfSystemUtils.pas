@@ -28,8 +28,8 @@ See http://www.gnu.org/licenses/gpl.html
 {$I JcfGlobal.inc}
 
 {
-This unit contains OS/File utility code
-For use when the JCL functions are not avaialable
+This unit contains OS and File utility code
+For use when the JCL functions are not available
 }
 interface
 
@@ -37,7 +37,10 @@ uses
   SysUtils, Classes;
 
 function GetWindowsTempFolder: string;
+
+function FileIsReadOnly(const ps: string): boolean;
 function FileGetSize(const FileName: string): Int64;
+
 procedure ShellExecEx(const FileName: string; const Parameters: string = '');
 function GetTickCount: Cardinal;
 function IsMultiByte(const pcChar: WideChar): Boolean;
@@ -49,16 +52,21 @@ function IsWin2003: Boolean;
 
 implementation
 
+// We know that this unit contains platform-specific code
+// it's guarded by ifdefs
+{$WARN SYMBOL_PLATFORM OFF}
+
 uses
-{$ifdef MSWINDOWS}
-  Windows, ShellApi
-{$endif}
-{$ifdef Unix}
-  Unix
-{$endif}
-{$ifdef fpc}
-  , LCLIntf, FileUtil
-{$endif};
+  {$ifdef MSWINDOWS}
+    Windows, ShellApi, {$WARNINGS OFF} FileCtrl {$WARNINGS ON}
+  {$endif}
+  {$ifdef Unix}
+    Unix,
+  {$endif}
+  {$ifdef fpc}
+    LCLIntf, FileUtil, Dialogs
+  {$endif}
+  ;
 
 function GetWindowsTempFolder: string;
 {$ifndef fpc}
@@ -76,9 +84,38 @@ begin
 {$endif}
 end;
 
-// We know that this unit contains platform-specific code
-// it's guarded by ifdefs
-{$WARN SYMBOL_PLATFORM OFF}
+{$IFDEF FPC}
+
+  // FPC version
+  function FileIsReadOnly(const ps: string): boolean;
+  var
+    liAttr: integer;
+  begin
+    Assert(FileExists(ps));
+  {$WARNINGS OFF}
+    liAttr := FileGetAttr(ps);
+    Result := ((liAttr and faReadOnly) <> 0);
+  {$WARNINGS ON}
+  end;
+
+{$ELSE}
+  {$IFDEF WIN32}
+
+  // delphi-windows version
+  function FileIsReadOnly(const ps: string): boolean;
+  var
+    liAttr: integer;
+  begin
+    Assert(FileExists(ps));
+  {$WARNINGS OFF}
+    liAttr := FileGetAttr(ps);
+    Result := ((liAttr and faReadOnly) <> 0);
+  {$WARNINGS ON}
+  end;
+
+  {$ENDIF}
+{$ENDIF}
+
 
 function FileGetSize(const FileName: string): Int64;
 {$ifndef fpc}

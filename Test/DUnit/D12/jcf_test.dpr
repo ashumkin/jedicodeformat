@@ -39,7 +39,6 @@ uses
   ConvertTypes in '..\..\..\ReadWrite\ConvertTypes.pas',
   FileConverter in '..\..\..\ReadWrite\FileConverter.pas',
   JcfMiscFunctions in '..\..\..\Utils\JcfMiscFunctions.pas',
-  JcfFileUtils in '..\..\..\Utils\JcfFileUtils.pas',
   JcfLog in '..\..\..\Utils\JcfLog.pas',
   TestAdvanceTextPos in '..\TestAdvanceTextPos.pas',
   BaseVisitor in '..\..\..\Process\BaseVisitor.pas',

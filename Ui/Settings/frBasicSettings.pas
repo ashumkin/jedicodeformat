@@ -90,7 +90,7 @@ uses
   { jcl }
   jclFileUtils,
   { local }
-  JcfFileUtils, JcfHelp, JcfSettings, JcfRegistrySettings;
+  JcfHelp, JcfSettings, JcfRegistrySettings;
 
 {$ifdef FPC}
   {$R *.lfm}

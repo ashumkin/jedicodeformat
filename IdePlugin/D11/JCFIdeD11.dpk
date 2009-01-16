@@ -127,7 +127,6 @@ contains
   JCFHelp in '..\..\Utils\JCFHelp.pas',
   FileConverter in '..\..\ReadWrite\FileConverter.pas',
   IntList in '..\..\Utils\IntList.pas',
-  JcfFileUtils in '..\..\Utils\JcfFileUtils.pas',
   SetAlign in '..\..\Settings\SetAlign.pas',
   SetCaps in '..\..\Settings\SetCaps.pas',
   SetClarify in '..\..\Settings\SetClarify.pas',
