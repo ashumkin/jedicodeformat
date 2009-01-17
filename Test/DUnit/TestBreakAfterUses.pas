@@ -39,6 +39,7 @@ uses
 type
   TTestBreakAfterUses = class(TBaseTestProcess)
   private
+    fbAddGoodReturns: boolean;
     fbBreakAfterUses: boolean;
     fbUsesClauseOnePerLine: boolean;
 
@@ -47,10 +48,16 @@ type
     procedure TearDown; override;
 
   published
+    { there are 3 boolean vars -
+      these cover all 8 possible combinations of options }
+    procedure TestAllOff;
     procedure TestNoChange;
     procedure TestBreakAfterUses;
-    procedure TestUsesClauseBoth;
+    procedure TestBreakAfterUsesAndGoodReturns;
+    procedure TestUsesClauseAll;
     procedure TestUsesClauseOnePerLine;
+    procedure TestUsesSpacing;
+    procedure TestUsesClauseOnePerLineNoOtherReturns;
 
   end;
 
@@ -86,6 +93,7 @@ procedure TTestBreakAfterUses.SetUp;
 begin
   inherited;
 
+  fbAddGoodReturns := FormatSettings.Returns.AddGoodReturns;
   fbBreakAfterUses := FormatSettings.Returns.BreakAfterUses;
   fbUsesClauseOnePerLine := FormatSettings.Returns.UsesClauseOnePerLine;
 
@@ -95,13 +103,27 @@ procedure TTestBreakAfterUses.TearDown;
 begin
   inherited;
 
+  FormatSettings.Returns.AddGoodReturns := fbAddGoodReturns;
   FormatSettings.Returns.BreakAfterUses := fbBreakAfterUses;
   FormatSettings.Returns.UsesClauseOnePerLine := fbUsesClauseOnePerLine;
 
 end;
 
+procedure TTestBreakAfterUses.TestAllOff;
+begin
+  FormatSettings.Returns.AddGoodReturns := False;
+  FormatSettings.Returns.BreakAfterUses := False;
+  FormatSettings.Returns.UsesClauseOnePerLine := False;
+
+  // processes are turned off, no change
+  TestProcessResult(TReturnAfter, UNIT_ALL_ONE_LINE, UNIT_ALL_ONE_LINE);
+
+end;
+
+
 procedure TTestBreakAfterUses.TestNoChange;
 begin
+  FormatSettings.Returns.AddGoodReturns := True;
   FormatSettings.Returns.BreakAfterUses := False;
   FormatSettings.Returns.UsesClauseOnePerLine := False;
 
@@ -112,28 +134,63 @@ end;
 
 procedure TTestBreakAfterUses.TestBreakAfterUses;
 begin
+  FormatSettings.Returns.AddGoodReturns := False;
   FormatSettings.Returns.BreakAfterUses := True;
   FormatSettings.Returns.UsesClauseOnePerLine := False;
 
-  // processes are turned off, no change
+  // break after uses is applied
+  TestProcessResult(TReturnAfter, UNIT_ALL_ONE_LINE, UNIT_BREAK_AFTER_USES);
+end;
+
+procedure TTestBreakAfterUses.TestUsesSpacing;
+begin
+  FormatSettings.Returns.AddGoodReturns := False;
+  FormatSettings.Returns.BreakAfterUses := True;
+  FormatSettings.Returns.UsesClauseOnePerLine := True;
+
+  // break after uses is applied
+  TestProcessResult(TReturnAfter, UNIT_ALL_ONE_LINE, UNIT_ONE_PER_LINE);
+end;
+
+
+procedure TTestBreakAfterUses.TestBreakAfterUsesAndGoodReturns;
+begin
+  FormatSettings.Returns.AddGoodReturns := True;
+  FormatSettings.Returns.BreakAfterUses := True;
+  FormatSettings.Returns.UsesClauseOnePerLine := False;
+
+  // break after uses is applied
   TestProcessResult(TReturnAfter, UNIT_ALL_ONE_LINE, UNIT_BREAK_AFTER_USES);
 end;
 
 procedure TTestBreakAfterUses.TestUsesClauseOnePerLine;
 begin
+  FormatSettings.Returns.AddGoodReturns := True;
   FormatSettings.Returns.BreakAfterUses := False;
   FormatSettings.Returns.UsesClauseOnePerLine := True;
 
-  // processes are turned off, no change
+  // uses clause on one line
   TestProcessResult(TReturnAfter, UNIT_ALL_ONE_LINE, UNIT_ONE_PER_LINE);
 end;
 
-procedure TTestBreakAfterUses.TestUsesClauseBoth;
+procedure TTestBreakAfterUses.TestUsesClauseOnePerLineNoOtherReturns;
 begin
+  FormatSettings.Returns.AddGoodReturns := False;
+  FormatSettings.Returns.BreakAfterUses := False;
+  FormatSettings.Returns.UsesClauseOnePerLine := True;
+
+  // uses clause on one line
+  TestProcessResult(TReturnAfter, UNIT_ALL_ONE_LINE, UNIT_ONE_PER_LINE);
+end;
+
+
+procedure TTestBreakAfterUses.TestUsesClauseAll;
+begin
+  FormatSettings.Returns.AddGoodReturns := True;
   FormatSettings.Returns.BreakAfterUses := True;
   FormatSettings.Returns.UsesClauseOnePerLine := True;
 
-  // processes are turned off, no change
+  // all options are on
   TestProcessResult(TReturnAfter, UNIT_ALL_ONE_LINE, UNIT_ONE_PER_LINE);
 end;
 
