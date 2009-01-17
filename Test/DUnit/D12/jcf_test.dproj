@@ -68,7 +68,6 @@
 			<DCCReference Include="..\..\..\ReadWrite\ConvertTypes.pas"/>
 			<DCCReference Include="..\..\..\ReadWrite\FileConverter.pas"/>
 			<DCCReference Include="..\..\..\Utils\JcfMiscFunctions.pas"/>
-			<DCCReference Include="..\..\..\Utils\JcfFileUtils.pas"/>
 			<DCCReference Include="..\..\..\Utils\JcfLog.pas"/>
 			<DCCReference Include="..\TestAdvanceTextPos.pas"/>
 			<DCCReference Include="..\..\..\Process\BaseVisitor.pas"/>
