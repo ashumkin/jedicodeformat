@@ -425,13 +425,13 @@ object frmAboutBox: TfrmAboutBox
     object hlHomePage: TLabel
       Left = 10
       Top = 354
-      Width = 86
-      Height = 20
+      Width = 84
+      Height = 17
       Cursor = crHandPoint
-      Caption = 'hlHomePage'
+      Caption = 'Home Page is:'
       Font.Charset = ANSI_CHARSET
       Font.Color = clBlack
-      Font.Height = -15
+      Font.Height = -13
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False
@@ -441,51 +441,71 @@ object frmAboutBox: TfrmAboutBox
     end
     object lblMPL: TLabel
       Left = 10
-      Top = 246
-      Width = 462
-      Height = 40
+      Top = 232
+      Width = 414
+      Height = 34
       Cursor = crHandPoint
       Caption = 
         'This program is open source software. It is released under the M' +
         'ozilla Public licence (MPL).  http://www.mozilla.org/MPL'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
       Transparent = True
       WordWrap = True
       OnClick = lblMPLClick
     end
     object lblGnuLicence: TLabel
       Left = 10
-      Top = 292
-      Width = 453
-      Height = 60
+      Top = 285
+      Width = 403
+      Height = 51
       Cursor = crHandPoint
       Caption = 
         'Alternatively, this program may be used under the terms of the G' +
         'NU General Public License Version 2 or later (the "GPL")  See ht' +
         'tp://www.gnu.org/licenses/gpl.html'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
       Transparent = True
       WordWrap = True
       OnClick = lblGnuLicenceClick
     end
-    object mWarning: TMemo
+    object mWarning: TLabel
       Left = 10
-      Top = 180
-      Width = 466
-      Height = 64
-      BorderStyle = bsNone
-      Color = clBtnFace
-      Lines.Strings = (
-        'This program is still under development.  In spite of thorough '
-        'testing and removal of reported bugs, no guarantees are given.'
-        'Please make backups, or better yet use a source control system.')
-      ReadOnly = True
-      TabOrder = 0
+      Top = 166
+      Width = 429
+      Height = 60
+      Caption = 
+        'In spite of thorough testing and removal of reported bugs, no gu' +
+        'arantees are given. Please make backups, or use a source control' +
+        ' system.'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      WordWrap = True
     end
     object mWhat: TMemo
       Left = 151
       Top = 10
       Width = 329
-      Height = 166
+      Height = 175
       BorderStyle = bsNone
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = []
       Lines.Strings = (
         'Version %VERSION%'
         '%DATE%'
@@ -494,10 +514,11 @@ object frmAboutBox: TfrmAboutBox
         'make readable the layout of any Delphi '
         'Object-Pascal source code.'
         ''
-        'Copyright Anthony Steele 1999-2008')
+        'Copyright Anthony Steele 1999-2009')
       ParentColor = True
+      ParentFont = False
       ReadOnly = True
-      TabOrder = 1
+      TabOrder = 0
     end
   end
 end

@@ -41,7 +41,7 @@ type
     bbOK:          TBitBtn;
     pnlClient:     TPanel;
     imgOpenSource: TImage;
-    mWarning:      TMemo;
+    mWarning:      TLabel;
     mWhat:         TMemo;
     lblMPL:        TLabel;
     hlHomePage:    TLabel;
