@@ -3,7 +3,7 @@ object frmAboutBox: TfrmAboutBox
   Top = 235
   BorderStyle = bsDialog
   Caption = 'About JEDI Code Format'
-  ClientHeight = 445
+  ClientHeight = 446
   ClientWidth = 483
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
@@ -22,23 +22,25 @@ object frmAboutBox: TfrmAboutBox
   TextHeight = 20
   object bbOK: TBitBtn
     Left = 191
-    Top = 399
+    Top = 402
     Width = 100
     Height = 37
-    TabOrder = 1
+    DoubleBuffered = True
     Kind = bkOK
+    ParentDoubleBuffered = False
+    TabOrder = 1
   end
   object pnlClient: TPanel
     Left = 0
     Top = 0
     Width = 483
-    Height = 393
+    Height = 398
     Align = alTop
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 0
     object imgOpenSource: TImage
-      Left = 11
+      Left = 10
       Top = 21
       Width = 133
       Height = 139
@@ -420,10 +422,10 @@ object frmAboutBox: TfrmAboutBox
         0800}
       OnClick = imgOpenSourceClick
     end
-    object hlHomePage: TJvLabel
-      Left = 11
-      Top = 307
-      Width = 88
+    object hlHomePage: TLabel
+      Left = 10
+      Top = 354
+      Width = 86
       Height = 20
       Cursor = crHandPoint
       Caption = 'hlHomePage'
@@ -435,37 +437,40 @@ object frmAboutBox: TfrmAboutBox
       ParentFont = False
       Transparent = True
       WordWrap = True
-      HotTrack = True
-      HotTrackFont.Charset = ANSI_CHARSET
-      HotTrackFont.Color = clBlue
-      HotTrackFont.Height = -15
-      HotTrackFont.Name = 'Segoe UI'
-      HotTrackFont.Style = [fsUnderline]
-      URL = 'http://delphi-jedi.org'
+      OnClick = hlHomePageClick
     end
-    object lblMPL: TJvLabel
-      Left = 11
-      Top = 259
-      Width = 464
+    object lblMPL: TLabel
+      Left = 10
+      Top = 246
+      Width = 462
       Height = 40
       Cursor = crHandPoint
       Caption = 
         'This program is open source software. It is released under the M' +
-        'ozilla '#13#10'Public licence (MPL).  http://www.mozilla.org/MPL'
+        'ozilla Public licence (MPL).  http://www.mozilla.org/MPL'
       Transparent = True
-      HotTrack = True
-      HotTrackFont.Charset = ANSI_CHARSET
-      HotTrackFont.Color = clBlue
-      HotTrackFont.Height = -15
-      HotTrackFont.Name = 'Segoe UI'
-      HotTrackFont.Style = [fsUnderline]
-      URL = 'http://www.mozilla.org/MPL'
+      WordWrap = True
+      OnClick = lblMPLClick
+    end
+    object lblGnuLicence: TLabel
+      Left = 10
+      Top = 292
+      Width = 453
+      Height = 60
+      Cursor = crHandPoint
+      Caption = 
+        'Alternatively, this program may be used under the terms of the G' +
+        'NU General Public License Version 2 or later (the "GPL")  See ht' +
+        'tp://www.gnu.org/licenses/gpl.html'
+      Transparent = True
+      WordWrap = True
+      OnClick = lblGnuLicenceClick
     end
     object mWarning: TMemo
-      Left = 11
-      Top = 183
-      Width = 462
-      Height = 70
+      Left = 10
+      Top = 180
+      Width = 466
+      Height = 64
       BorderStyle = bsNone
       Color = clBtnFace
       Lines.Strings = (
@@ -477,7 +482,7 @@ object frmAboutBox: TfrmAboutBox
     end
     object mWhat: TMemo
       Left = 151
-      Top = 11
+      Top = 10
       Width = 329
       Height = 166
       BorderStyle = bsNone

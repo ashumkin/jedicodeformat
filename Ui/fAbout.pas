@@ -43,15 +43,20 @@ type
     imgOpenSource: TImage;
     mWarning:      TMemo;
     mWhat:         TMemo;
-    lblMPL:        TJvLabel;
-    hlHomePage:    TJvLabel;
+    lblMPL:        TLabel;
+    hlHomePage:    TLabel;
+    lblGnuLicence: TLabel;
 
     procedure FormCreate(Sender: TObject);
     procedure imgOpenSourceClick(Sender: TObject);
     procedure lblMPLClick(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
+    procedure hlHomePageClick(Sender: TObject);
+    procedure lblGnuLicenceClick(Sender: TObject);
   private
+    procedure DoLayout;
+    procedure ControlFillWidthControl(const pcControl: TControl);
   public
   end;
 
@@ -79,15 +84,45 @@ begin
   HLinkNavigateString(nil, pWideChar(lws));
 end;
 
+function Below(Const pcControl: TControl): integer;
+const
+  SPACING = 4;
+begin
+  Result := pcControl.Top + pcControl.Height + SPACING;
+end;
+
 
 procedure TfrmAboutBox.imgOpenSourceClick(Sender: TObject);
 begin
   ShowURL('http://www.delphi-jedi.org');
 end;
 
+procedure TfrmAboutBox.lblGnuLicenceClick(Sender: TObject);
+begin
+  ShowURL('http://www.gnu.org/licenses/gpl.html');
+end;
+
 procedure TfrmAboutBox.lblMPLClick(Sender: TObject);
 begin
-  ShowURL(lblMPL.Caption);
+  ShowURL('http://www.mozilla.org/MPL');
+end;
+
+procedure TfrmAboutBox.hlHomePageClick(Sender: TObject);
+begin
+  ShowURL(PROGRAM_HOME_PAGE);
+end;
+
+procedure TfrmAboutBox.DoLayout;
+begin
+  ControlFillWidthControl(mWarning);
+  ControlFillWidthControl(lblMPL);
+  ControlFillWidthControl(lblGnuLicence);
+  ControlFillWidthControl(hlHomePage);
+
+  mWarning.Top := Below(mWhat);
+  lblMPL.Top := Below(mWarning);
+  lblGnuLicence.Top := Below(lblMPL);
+  hlHomePage.Top := Below(lblGnuLicence);
 end;
 
 procedure TfrmAboutBox.FormCreate(Sender: TObject);
@@ -104,23 +139,13 @@ begin
   StrReplace(ls, '%DATE%', PROGRAM_DATE);
   mWhat.Text := string(ls);
 
-  hlHomePage.Caption := 'Find more information on the web at : ' + PROGRAM_HOME_PAGE;
-  hlHomePage.Url := PROGRAM_HOME_PAGE;
+  hlHomePage.Caption := 'Find more information on the web at: ' + PROGRAM_HOME_PAGE;
+  DoLayout;
 end;
 
-
 procedure TfrmAboutBox.FormResize(Sender: TObject);
-const
-  SPACING = 8;
 begin
-  mWarning.Left  := SPACING;
-  mWarning.Width := pnlClient.ClientWidth - (2 * SPACING);
-
-  lblMPL.Left  := SPACING;
-  lblMPL.Width := pnlClient.ClientWidth - (2 * SPACING);
-
-  hlHomePage.Left  := SPACING;
-  hlHomePage.Width := pnlClient.ClientWidth - (2 * SPACING);
+  DoLayout;
 end;
 
 procedure TfrmAboutBox.FormKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
@@ -132,6 +157,14 @@ begin
       if FileExists(Application.HelpFile) then
         ShellExecute(Handle, 'open', PChar(Application.HelpFile), nil, nil, SW_SHOWNORMAL);
     end;
+end;
+
+procedure TfrmAboutBox.ControlFillWidthControl(const pcControl: TControl);
+const
+  SPACING = 8;
+begin
+  pcControl.Left  := SPACING;
+  pcControl.Width := pnlClient.ClientWidth - (2 * SPACING);
 end;
 
 end.
