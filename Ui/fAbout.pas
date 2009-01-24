@@ -132,6 +132,11 @@ begin
   inherited;
 
   SetObjectFontToSystemFont(Self);
+  SetObjectFontToSystemFont(mWhat.Font);
+  SetObjectFontToSystemFont(mWarning.Font);
+  SetObjectFontToSystemFont(lblMPL);
+  SetObjectFontToSystemFont(lblGnuLicence);
+  SetObjectFontToSystemFont(hlHomePage);
 
   // show the version from the program constant
   ls := mWhat.Text;

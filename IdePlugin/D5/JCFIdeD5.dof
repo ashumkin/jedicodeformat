@@ -68,13 +68,13 @@ CodePage=1252
 [Version Info Keys]
 CompanyName=
 FileDescription=JEDI Code Format IDE Plugin for Borland Delphi 5
-FileVersion=2.42.0.0
+FileVersion=2.43.0.0
 InternalName=JEDI Code Format
 LegalCopyright=
 LegalTrademarks=
 OriginalFilename=
 ProductName=
-ProductVersion=2.42
+ProductVersion=2.43
 Comments=
 [Excluded Packages]
 C:\PROGRA~1\Borland\Delphi6\Projects\Bpl\DevExBroker1D6.bpl=Developer Express classes for GUI Broker v1.0

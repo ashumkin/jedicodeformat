@@ -126,13 +126,13 @@ CodePage=1252
 [Version Info Keys]
 CompanyName=
 FileDescription=JEDI Code Format IDE Plugin for Borland Delphi 7
-FileVersion=2.42.0.0
+FileVersion=2.43.0.0
 InternalName=JEDI Code Format
 LegalCopyright=
 LegalTrademarks=
 OriginalFilename=
 ProductName=
-ProductVersion=2.42
+ProductVersion=2.43
 Comments=
 [Excluded Packages]
 C:\PROGRA~1\Borland\Delphi7\Projects\Bpl\JclDebugIdeD70.bpl=JCL Debug IDE extension for Delphi 7

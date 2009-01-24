@@ -160,13 +160,13 @@
 		<VersionInfoKeys>
 			<VersionInfoKeys Name="CompanyName">Anthony Steele</VersionInfoKeys>
 			<VersionInfoKeys Name="FileDescription">JEDI Code Format D9 IDE plugin</VersionInfoKeys>
-			<VersionInfoKeys Name="FileVersion">2.42.0.0</VersionInfoKeys>
+			<VersionInfoKeys Name="FileVersion">2.43.0.0</VersionInfoKeys>
 			<VersionInfoKeys Name="InternalName">JEDI Code Format</VersionInfoKeys>
 			<VersionInfoKeys Name="LegalCopyright">Anthony Steele 1999-2008 MPL</VersionInfoKeys>
 			<VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys>
 			<VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys>
 			<VersionInfoKeys Name="ProductName"></VersionInfoKeys>
-			<VersionInfoKeys Name="ProductVersion">2.42</VersionInfoKeys>
+			<VersionInfoKeys Name="ProductVersion">2.43</VersionInfoKeys>
 			<VersionInfoKeys Name="Comments"></VersionInfoKeys>
 		</VersionInfoKeys>  
     <Excluded_Packages>

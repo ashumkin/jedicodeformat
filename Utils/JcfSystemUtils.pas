@@ -45,6 +45,9 @@ procedure ShellExecEx(const FileName: string; const Parameters: string = '');
 function GetTickCount: Cardinal;
 function IsMultiByte(const pcChar: WideChar): Boolean;
 
+function IsWinServer2008R2: Boolean;
+function IsWin7: Boolean;
+function IsWinServer2008: Boolean;
 function IsWinVista: Boolean;
 function IsWinXP: Boolean;
 function IsWin2k: Boolean;
@@ -168,11 +171,41 @@ begin
 {$endif}
 end;
 
+function IsWinServer2008R2: Boolean;
+begin
+{$IFDEF MSWINDOWS}
+  Result := (Win32MajorVersion = 6) and (Win32MinorVersion = 1);
+  // Should also make sure it's a server (see JclSysInfo)
+{$ELSE}
+  Result := False;
+{$ENDIF}
+end;
+
+function IsWin7: Boolean;
+begin
+{$IFDEF MSWINDOWS}
+  Result := (Win32MajorVersion = 6) and (Win32MinorVersion = 1);
+  // Should also make sure it's a workstation (see JclSysInfo)
+{$ELSE}
+  Result := False;
+{$ENDIF}
+end;
+
+function IsWinServer2008: Boolean;
+begin
+{$IFDEF MSWINDOWS}
+  Result := (Win32MajorVersion = 6) and (Win32MinorVersion = 0);
+  // Should also make sure it's a server (see JclSysInfo)
+{$ELSE}
+  Result := False;
+{$ENDIF}
+end;
+
 function IsWinVista: Boolean;
 begin
 {$IFDEF MSWINDOWS}
-  Result := Win32MajorVersion = 6;
-  // can be also window server 2008
+  Result := (Win32MajorVersion = 6) and (Win32MinorVersion = 0);
+  // Should also make sure it's a workstation (see JclSysInfo)
 {$ELSE}
   Result := False;
 {$ENDIF}

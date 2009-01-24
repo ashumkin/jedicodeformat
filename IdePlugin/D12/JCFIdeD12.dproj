@@ -212,7 +212,6 @@
 			<DCCReference Include="..\..\Utils\JCFHelp.pas"/>
 			<DCCReference Include="..\..\ReadWrite\FileConverter.pas"/>
 			<DCCReference Include="..\..\Utils\IntList.pas"/>
-			<DCCReference Include="..\..\Utils\JcfFileUtils.pas"/>
 			<DCCReference Include="..\..\Settings\SetAlign.pas"/>
 			<DCCReference Include="..\..\Settings\SetCaps.pas"/>
 			<DCCReference Include="..\..\Settings\SetClarify.pas"/>
@@ -331,7 +330,7 @@
 						<VersionInfo Name="IncludeVerInfo">True</VersionInfo>
 						<VersionInfo Name="AutoIncBuild">False</VersionInfo>
 						<VersionInfo Name="MajorVer">2</VersionInfo>
-						<VersionInfo Name="MinorVer">42</VersionInfo>
+						<VersionInfo Name="MinorVer">43</VersionInfo>
 						<VersionInfo Name="Release">0</VersionInfo>
 						<VersionInfo Name="Build">0</VersionInfo>
 						<VersionInfo Name="Debug">False</VersionInfo>
@@ -345,13 +344,13 @@
 					<VersionInfoKeys>
 						<VersionInfoKeys Name="CompanyName"/>
 						<VersionInfoKeys Name="FileDescription">JEDI Code Format IDE Plugin for CodeGear Delphi 2009 for Win32</VersionInfoKeys>
-						<VersionInfoKeys Name="FileVersion">2.42.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="FileVersion">2.43.0.0</VersionInfoKeys>
 						<VersionInfoKeys Name="InternalName"/>
 						<VersionInfoKeys Name="LegalCopyright"/>
 						<VersionInfoKeys Name="LegalTrademarks"/>
 						<VersionInfoKeys Name="OriginalFilename"/>
 						<VersionInfoKeys Name="ProductName"/>
-						<VersionInfoKeys Name="ProductVersion">2.42</VersionInfoKeys>
+						<VersionInfoKeys Name="ProductVersion">2.43</VersionInfoKeys>
 						<VersionInfoKeys Name="Comments"/>
 					</VersionInfoKeys>
 					<Source>

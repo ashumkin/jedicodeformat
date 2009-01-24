@@ -3,8 +3,8 @@ object frmAboutBox: TfrmAboutBox
   Top = 235
   BorderStyle = bsDialog
   Caption = 'About JEDI Code Format'
-  ClientHeight = 446
-  ClientWidth = 483
+  ClientHeight = 478
+  ClientWidth = 447
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -21,8 +21,8 @@ object frmAboutBox: TfrmAboutBox
   PixelsPerInch = 120
   TextHeight = 20
   object bbOK: TBitBtn
-    Left = 191
-    Top = 402
+    Left = 167
+    Top = 427
     Width = 100
     Height = 37
     DoubleBuffered = True
@@ -33,12 +33,13 @@ object frmAboutBox: TfrmAboutBox
   object pnlClient: TPanel
     Left = 0
     Top = 0
-    Width = 483
-    Height = 398
+    Width = 447
+    Height = 412
     Align = alTop
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 0
+    ExplicitWidth = 448
     object imgOpenSource: TImage
       Left = 10
       Top = 21
@@ -425,13 +426,13 @@ object frmAboutBox: TfrmAboutBox
     object hlHomePage: TLabel
       Left = 10
       Top = 354
-      Width = 84
-      Height = 17
+      Width = 431
+      Height = 44
       Cursor = crHandPoint
       Caption = 'Home Page is:'
       Font.Charset = ANSI_CHARSET
-      Font.Color = clBlack
-      Font.Height = -13
+      Font.Color = clWindowText
+      Font.Height = -15
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False
@@ -442,15 +443,15 @@ object frmAboutBox: TfrmAboutBox
     object lblMPL: TLabel
       Left = 10
       Top = 232
-      Width = 414
-      Height = 34
+      Width = 431
+      Height = 40
       Cursor = crHandPoint
       Caption = 
         'This program is open source software. It is released under the M' +
         'ozilla Public licence (MPL).  http://www.mozilla.org/MPL'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -13
+      Font.Height = -15
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False
@@ -461,16 +462,16 @@ object frmAboutBox: TfrmAboutBox
     object lblGnuLicence: TLabel
       Left = 10
       Top = 285
-      Width = 403
-      Height = 51
+      Width = 431
+      Height = 60
       Cursor = crHandPoint
       Caption = 
         'Alternatively, this program may be used under the terms of the G' +
-        'NU General Public License Version 2 or later (the "GPL")  See ht' +
-        'tp://www.gnu.org/licenses/gpl.html'
+        'NU General Public License Version 2 or later (the "GPL").  See h' +
+        'ttp://www.gnu.org/licenses/gpl.html'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -13
+      Font.Height = -15
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False
@@ -481,7 +482,7 @@ object frmAboutBox: TfrmAboutBox
     object mWarning: TLabel
       Left = 10
       Top = 166
-      Width = 429
+      Width = 431
       Height = 60
       Caption = 
         'In spite of thorough testing and removal of reported bugs, no gu' +
@@ -489,7 +490,7 @@ object frmAboutBox: TfrmAboutBox
         ' system.'
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -16
+      Font.Height = -15
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False
@@ -498,12 +499,12 @@ object frmAboutBox: TfrmAboutBox
     object mWhat: TMemo
       Left = 151
       Top = 10
-      Width = 329
+      Width = 290
       Height = 175
       BorderStyle = bsNone
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
-      Font.Height = -16
+      Font.Height = -15
       Font.Name = 'Segoe UI'
       Font.Style = []
       Lines.Strings = (
