@@ -1,0 +1,25 @@
+unit TestAnonFunctionInInitialization;
+
+{ This unit compiles but is not semantically meaningfull
+ it is test cases for the code formatting utility
+ to test delphi 2009 anon functions }
+
+
+interface
+
+implementation
+
+type
+  TStringFunction = reference to function: string;
+
+var
+  foo: TStringFunction;
+
+initialization
+
+  foo := function: string
+    begin
+      Result := 'fred';
+    end;
+
+end.

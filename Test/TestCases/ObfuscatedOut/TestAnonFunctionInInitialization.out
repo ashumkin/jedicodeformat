@@ -1,0 +1,19 @@
+unit testanonfunctionininitialization;
+
+interface
+
+implementation
+
+type
+  tstringfunction = reference to function: string;
+
+var
+  foo: tstringfunction;
+
+initialization
+  foo := function: string
+    begin
+      Result := 'fred';
+    end;
+
+end.

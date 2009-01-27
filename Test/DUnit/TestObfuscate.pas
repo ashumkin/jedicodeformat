@@ -303,6 +303,7 @@ type
     procedure TestDelphi2009Inherited;
     procedure TestDelphi2009Generics;
     procedure TestDelphi2009AnonymousMethod;
+    procedure TestAnonFunctionInInitialization;
 
     procedure TestLibrary;
 
@@ -524,6 +525,11 @@ end;
 procedure TTestObfuscate.TestAmpersand;
 begin
   TestFile('TestAmpersand');
+end;
+
+procedure TTestObfuscate.TestAnonFunctionInInitialization;
+begin
+  TestFile('TestAnonFunctionInInitialization');
 end;
 
 procedure TTestObfuscate.TestArray;

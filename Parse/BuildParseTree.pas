@@ -5523,7 +5523,7 @@ begin
   begin
     lcNext := fcTokenList.SolidToken(2);
     if lcNext <> nil then
-      Result := (lcNext.TokenType = ttOpenBracket);
+      Result := (lcNext.TokenType in [ttOpenBracket, ttColon]);
   end;
 end;
 

@@ -301,6 +301,7 @@ type
     procedure TestDelphi2009Inherited;
     procedure TestDelphi2009Generics;
     procedure TestDelphi2009AnonymousMethod;
+    procedure TestAnonFunctionInInitialization;
 
     procedure TestLibrary;
 
@@ -562,6 +563,11 @@ end;
 procedure TFullTestClarify.TestAmpersand;
 begin
   TestFile('TestAmpersand', 87);
+end;
+
+procedure TFullTestClarify.TestAnonFunctionInInitialization;
+begin
+  TestFile('TestAnonFunctionInInitialization', 76);
 end;
 
 procedure TFullTestClarify.TestArray;

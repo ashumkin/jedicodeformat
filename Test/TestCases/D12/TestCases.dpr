@@ -175,7 +175,8 @@ uses
   TestDelphi2009Inherited in '..\TestDelphi2009Inherited.pas',
   TestDelphi2009Generics in '..\TestDelphi2009Generics.pas',
   TestDelphi2009AnonymousMethod in '..\TestDelphi2009AnonymousMethod.pas',
-  TestUnicodeStrings in '..\TestUnicodeStrings.pas';
+  TestUnicodeStrings in '..\TestUnicodeStrings.pas',
+  TestAnonFunctionInInitialization in '..\TestAnonFunctionInInitialization.pas';
 
 {$R *.res}
 
