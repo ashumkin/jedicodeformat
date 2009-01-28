@@ -9,6 +9,7 @@ type
 
 var
   foo: tstringfunction;
+  bar: string;
 
 initialization
   foo := function: string
@@ -16,4 +17,5 @@ initialization
       Result := 'fred';
     end;
 
+  bar := foo();
 end.

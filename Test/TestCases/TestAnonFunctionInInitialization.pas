@@ -14,6 +14,7 @@ Type
 
 var
   foo: TStringFunction;
+  bar: string;
 
 initialization
 
@@ -21,6 +22,8 @@ foo := function: String
   begin
     result := 'fred';
   end;
+
+  bar := foo();
 
 end.
 

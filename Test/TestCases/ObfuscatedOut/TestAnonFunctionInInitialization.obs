@@ -1,3 +1,3 @@
 unit testanonfunctionininitialization;interface implementation type tstringfunction
-=reference to function:string;var foo:tstringfunction;initialization foo:=function
-:string begin result:='fred';end;end.
+=reference to function:string;var foo:tstringfunction;bar:string;initialization foo
+:=function:string begin result:='fred';end;bar:=foo();end.

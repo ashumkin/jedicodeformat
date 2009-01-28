@@ -567,7 +567,7 @@ end;
 
 procedure TFullTestClarify.TestAnonFunctionInInitialization;
 begin
-  TestFile('TestAnonFunctionInInitialization', 76);
+  TestFile('TestAnonFunctionInInitialization', 94);
 end;
 
 procedure TFullTestClarify.TestArray;

@@ -3632,8 +3632,10 @@ begin
   begin
     RecogniseBlock;
 
-    if fcTokenList.FirstSolidTokenType = ttSemiColon then
+    if (not pbAnon) and (fcTokenList.FirstSolidTokenType = ttSemiColon) then
+    begin
       Recognise(ttSemicolon);
+    end;
   end;
 
   PopNode;
@@ -3663,8 +3665,10 @@ begin
   begin
     RecogniseBlock;
 
-    if fcTokenList.FirstSolidTokenType = ttSemiColon then
+    if (not pbAnon) and (fcTokenList.FirstSolidTokenType = ttSemiColon) then
+    begin
       Recognise(ttSemicolon);
+    end;
   end;
 
   PopNode;
