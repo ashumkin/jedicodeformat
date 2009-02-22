@@ -119,7 +119,7 @@ begin
     FormatSettings.Obfuscate.Enabled    := False;
 
     lcConverter.SourceMode := fmSingleFile;
-    lcConverter.BackupMode := cmSeperateOutput;
+    lcConverter.BackupMode := cmSeparateOutput;
     GetRegSettings.OutputExtension := 'out';
 
     GetRegSettings.ShowParseTreeOption := eShowNever;

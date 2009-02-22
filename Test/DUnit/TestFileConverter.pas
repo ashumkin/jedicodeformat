@@ -164,7 +164,7 @@ end;
 
 procedure TTestFileConverter.TestSeperateOutput;
 begin
-  fcFileCoverter.BackupMode := cmSeperateOutput;
+  fcFileCoverter.BackupMode := cmSeparateOutput;
   fcFileCoverter.Convert;
 
   Check(FileExists(fsFileName));

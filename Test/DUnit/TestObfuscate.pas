@@ -352,7 +352,7 @@ begin
     lcConverter.GuiMessages := False;
 
     lcConverter.SourceMode := fmSingleFile;
-    lcConverter.BackupMode := cmSeperateOutput;
+    lcConverter.BackupMode := cmSeparateOutput;
 
     FormatSettings.Obfuscate.Enabled := True;
 
@@ -378,7 +378,7 @@ begin
     lcConverter.YesAll      := True;
     lcConverter.GuiMessages := False;
     lcConverter.SourceMode  := fmSingleFile;
-    lcConverter.BackupMode  := cmSeperateOutput;
+    lcConverter.BackupMode  := cmSeparateOutput;
 
     lcConverter.Input := lsObsFileName;
     lcConverter.Convert;

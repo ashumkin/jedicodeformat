@@ -381,7 +381,7 @@ begin
 
     { see also TestFileParse }
     lcConverter.SourceMode := fmSingleFile;
-    lcConverter.BackupMode := cmSeperateOutput;
+    lcConverter.BackupMode := cmSeparateOutput;
 
     GetRegSettings.OutputExtension := 'out';
     lcConverter.Input := psInFileName;
@@ -435,7 +435,7 @@ begin
 
     { see also TestFileParse }
     lcConverter.SourceMode := fmSingleFile;
-    lcConverter.BackupMode := cmSeperateOutput;
+    lcConverter.BackupMode := cmSeparateOutput;
 
     GetRegSettings.OutputExtension := 'out';
     lcConverter.Input := psInFileName;
