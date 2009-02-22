@@ -241,7 +241,7 @@ var
       else if AnsiSameText(lsOpt, 'out') then
       begin
         fbHasBackupMode     := True;
-        feCmdLineBackupMode := cmSeperateOutput;
+        feCmdLineBackupMode := cmSeparateOutput;
       end
       else if AnsiSameText(lsOpt, 'backup') then
       begin
