@@ -54,7 +54,7 @@ type
   published
     procedure TestInPlace;
     procedure TestInPlaceWithBackup;
-    procedure TestSeperateOutput;
+    procedure TestSeparateOutput;
   end;
 
 implementation
@@ -162,7 +162,7 @@ begin
   Check(TimesEqual(lrFileTime1, lrFileTime2));
 end;
 
-procedure TTestFileConverter.TestSeperateOutput;
+procedure TTestFileConverter.TestSeparateOutput;
 begin
   fcFileCoverter.BackupMode := cmSeparateOutput;
   fcFileCoverter.Convert;

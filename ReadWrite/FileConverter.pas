@@ -173,7 +173,7 @@ begin
 
   { all kinds of chaos ensues if you work with readonly files,
     for e.g. you can rename them to .bak, but on the next run you will be unable to delete the old .bak files.
-    They are only safe when the source is read not written, ie "output to seperate file" backup mode
+    They are only safe when the source is read not written, ie "output to separate file" backup mode
   }
   if (BackupMode <> cmSeparateOutput) and (FileIsReadOnly(psInputFileName)) then
   begin

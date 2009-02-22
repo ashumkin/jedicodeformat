@@ -3896,7 +3896,7 @@ procedure TBuildParseTree.RecogniseProcedureDirectives;
 var
   lbFirstPass: boolean;
 begin
-  { these are semi-colon seperated
+  { these are semi-colon separated
 
     want to leave 'Function foo;' as is,
     but strip off the '; safecall' off 'Function bar; safecall;'
@@ -4923,7 +4923,7 @@ begin
      -> [AsmLabel]
      -> Opcode [AsmParam] [',' AsmParam]...
 
-     NB whitespace is significant, i.e. returns can seperate statement
+     NB whitespace is significant, i.e. returns can separate statement
      Help says ' semicolons, end-of-line characters, or Delphi comments.'
 
      I know that the help claims that a label is a prefix on a statement,
@@ -4931,7 +4931,7 @@ begin
      so that would require a complete statement to consist of
      an optional label followed by an optional opcode
 
-     Anyway labels are usually placed on a seperate line
+     Anyway labels are usually placed on a separate line
 
      RET is opcode with no params
   }
