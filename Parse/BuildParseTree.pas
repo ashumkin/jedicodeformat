@@ -1082,7 +1082,7 @@ begin
 
   { In Delphi.Net, the type can be preceeded by an attribute in '[ ]' }
   lc := fcTokenList.FirstSolidToken;
-  while (lc.WordType in IdentifierTypes) or TypePastAttribute do
+  while (lc <> nil) and ((lc.WordType in IdentifierTypes) or TypePastAttribute) do
   begin
     RecogniseTypeDecl;
 

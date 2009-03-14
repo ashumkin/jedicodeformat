@@ -1,0 +1,3 @@
+unit testnestedtype;interface implementation type test1=class public type ttest2
+=class end;var blabla:integer;const toto='';class var tutu:string;private end;end
+.

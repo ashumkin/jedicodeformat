@@ -172,6 +172,8 @@ type
     procedure TestMVB;
     procedure TestNested;
     procedure TestNestedRecords;
+    procedure TestNestedType;
+
     procedure TestOleParams;
     procedure TestOperators;
     procedure TestParams;
@@ -891,6 +893,11 @@ end;
 procedure TTestObfuscate.TestNestedRecords;
 begin
   TestFile('TestNestedRecords');
+end;
+
+procedure TTestObfuscate.TestNestedType;
+begin
+  TestFile('TestNestedType');
 end;
 
 procedure TTestObfuscate.TestOleParams;

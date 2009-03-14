@@ -174,6 +174,8 @@ type
     procedure TestMVB;
     procedure TestNested;
     procedure TestNestedRecords;
+    procedure TestNestedType;
+
     procedure TestOleParams;
     procedure TestOperators;
     procedure TestParams;
@@ -954,6 +956,11 @@ end;
 procedure TFullTestClarify.TestNestedRecords;
 begin
   TestFile('TestNestedRecords', 1189);
+end;
+
+procedure TFullTestClarify.TestNestedType;
+begin
+  TestFile('TestNestedType', 1233);
 end;
 
 procedure TFullTestClarify.TestOperators;
