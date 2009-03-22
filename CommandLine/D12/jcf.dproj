@@ -67,7 +67,6 @@
 			<DCCReference Include="..\..\Process\VisitSetXY.pas"/>
 			<DCCReference Include="..\..\Process\BaseVisitor.pas"/>
 			<DCCReference Include="..\..\Utils\JcfMiscFunctions.pas"/>
-			<DCCReference Include="..\..\Utils\JcfFileUtils.pas"/>
 			<DCCReference Include="..\..\Utils\JcfLog.pas"/>
 			<DCCReference Include="..\..\Parse\UI\fShowParseTree.pas">
 				<Form>frmShowParseTree</Form>

@@ -59,7 +59,7 @@ FALSE
 47
 {\rtf1\ansi\ansicpg1252\deff0\deflang1031{\fonttbl{\f0\fswiss Arial;}{\f1\fswiss\fcharset0 Arial;}{\f2\fmodern Courier New;}{\f3\fnil\fcharset0 Arial;}}
 {\colortbl ;\red0\green0\blue255;\red128\green0\blue0;\red0\green128\blue0;}
-\viewkind4\uc1\pard\cf1\b\f0\fs32 JEDI Code Format \lang1036\f1 (JCF) \lang2057 2.42\cf0\lang1031\b0\f0\fs20 
+\viewkind4\uc1\pard\cf1\b\f0\fs32 JEDI Code Format \lang1036\f1 (JCF) \lang2057 2.44\cf0\lang1031\b0\f0\fs20 
 \par \cf2\{keepn\}
 \par \cf0 
 \par This is the main \lang2057\f1 help\lang1031\f0  for \lang2057\f1 JEDI Code Format (JCF)\lang1031\f0 .\lang2057\f1  \lang1036 JCF\lang1031\f0  can standardise all aspects of Delphi Object Pascal source code formatting, including indentation, spacing and capitalisation\lang2057\f1 .\lang1031\f0  \lang2057\f1 JCF is intended to be able to format all compilable Delphi Source code. Source that does not compile cannot always be formatted correctly.\lang1031\f0 
