@@ -61,7 +61,7 @@ implementation
 
 uses
   {$ifdef MSWINDOWS}
-    Windows, ShellApi, {$WARNINGS OFF} FileCtrl {$WARNINGS ON}
+    Windows, ShellApi, {$WARNINGS OFF} FileCtrl, {$WARNINGS ON}
   {$endif}
   {$ifdef Unix}
     Unix,
