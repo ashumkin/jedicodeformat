@@ -960,7 +960,7 @@ end;
 
 procedure TFullTestClarify.TestNestedType;
 begin
-  TestFile('TestNestedType', 89);
+  TestFile('TestNestedType', 194);
 end;
 
 procedure TFullTestClarify.TestOperators;
