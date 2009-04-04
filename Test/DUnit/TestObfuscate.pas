@@ -317,6 +317,7 @@ type
     procedure TestUnicode_utf8;
 
     procedure TestUnicodeStrings;
+    procedure TestAssignments;
 
   end;
 
@@ -1133,6 +1134,11 @@ end;
 procedure TTestObfuscate.TestAsmStructs;
 begin
   TestFile('TestAsmStructs');
+end;
+
+procedure TTestObfuscate.TestAssignments;
+begin
+  TestFile('TestAssignments');
 end;
 
 procedure TTestObfuscate.TestUnicodeStrings;

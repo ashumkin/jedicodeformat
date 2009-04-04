@@ -1,0 +1,18 @@
+unit testassignments;
+
+interface
+
+implementation
+
+procedure testcsttleassignments;
+var
+  a: double;
+begin
+  a := 2;
+  a += 2;
+  a -= 2;
+  a *= 2;
+  a /= 2;
+end;
+
+end.

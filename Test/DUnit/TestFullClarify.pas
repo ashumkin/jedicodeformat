@@ -315,7 +315,7 @@ type
     procedure TestUnicode_utf8;
 
     procedure TestUnicodeStrings;
-
+    procedure TestAssignments;
 
     procedure TestCases;
   end;
@@ -1176,6 +1176,11 @@ end;
 procedure TFullTestClarify.TestAsmStructs;
 begin
   TestFile('TestAsmStructs', 358);
+end;
+
+procedure TFullTestClarify.TestAssignments;
+begin
+  TestFile('TestAssignments', 81);
 end;
 
 procedure TFullTestClarify.TestUnicodeStrings;
