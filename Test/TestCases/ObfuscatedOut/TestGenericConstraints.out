@@ -54,8 +54,8 @@ constructor> = record
 
   tclasscontraintetypenu<t, u> = class
     type tclassimbriquee<s: u> = class
-      valeur: s;
-    end;
+        valeur: s;
+      end;
   end;
 
   procedure tclassemoninterface.faitqqchose;

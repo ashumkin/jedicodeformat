@@ -13,11 +13,11 @@ type
     myField: integer;
   public
     type
-    TInnerClass = class
-    public
-      myInnerField: integer;
-      procedure innerProc;
-    end;
+      TInnerClass = class
+      public
+        myInnerField: integer;
+        procedure innerProc;
+      end;
 
     procedure outerProc;
   end;

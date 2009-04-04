@@ -8,10 +8,10 @@ type
     myfield: integer;
   public
     type tinnerclass = class
-    public
-      myinnerfield: integer;
-      procedure innerproc;
-    end;
+      public
+        myinnerfield: integer;
+        procedure innerproc;
+      end;
 
     procedure outerproc;
   end;

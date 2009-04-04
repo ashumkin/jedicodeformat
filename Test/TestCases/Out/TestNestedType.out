@@ -15,8 +15,8 @@ type
   Test1 = class
   public
     type
-    TTest2 = class
-    end;
+      TTest2 = class
+      end;
 
   var
     blabla: integer;
@@ -36,16 +36,16 @@ type
   Test3 = class
   public
     type
-    TTest4 = class
-    var
-      blabla: integer;
+      TTest4 = class
+      var
+        blabla: integer;
 
-    const
-      toto = '';
+      const
+        toto = '';
 
-      class var
-      tutu: string;
-    end;
+        class var
+        tutu: string;
+      end;
 
   var
     blabla: integer;

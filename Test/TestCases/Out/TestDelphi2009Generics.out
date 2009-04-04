@@ -14,8 +14,8 @@ type
   TRecordList<T> = class(TEnumerable<T>)
   public
     type
-    TEnumerator = class(TEnumerator<T>)
-    end;
+      TEnumerator = class(TEnumerator<T>)
+      end;
 
   end;
 

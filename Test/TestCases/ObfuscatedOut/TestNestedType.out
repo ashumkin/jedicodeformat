@@ -8,7 +8,7 @@ type
   test1 = class
   public
     type ttest2 = class
-    end;
+      end;
 
   var
     blabla: integer;
@@ -22,12 +22,12 @@ type
   test3 = class
   public
     type ttest4 = class
-    var
-      blabla: integer;
-    const
-      toto = '';
-      class var tutu: string;
-    end;
+      var
+        blabla: integer;
+      const
+        toto = '';
+        class var tutu: string;
+      end;
 
   var
     blabla: integer;

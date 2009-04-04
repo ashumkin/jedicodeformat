@@ -8,7 +8,7 @@ type
   trecordlist<t> = class(TEnumerable<T>)
   public
     type tenumerator = class(TEnumerator<T>)
-    end;
+      end;
 
   end;
 

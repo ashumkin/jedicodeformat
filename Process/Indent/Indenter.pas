@@ -220,7 +220,7 @@ begin
 end;
 
 
-{ this is needed for delphi.net nested types
+{ this is needed for nested types
   indent the inner class more than the outer }
 function CountClassNesting(const pt: TParseTreeNode): integer;
 begin
@@ -233,6 +233,19 @@ begin
     Result := 1;
 
   Result := Result + CountClassNesting(pt.Parent);
+end;
+
+function CountTypeNesting(const pt: TParseTreeNode): integer;
+begin
+  Result := 0;
+
+  if pt = nil then
+    exit;
+
+  if pt.NodeType = nTypeSection then
+    Result := 1;
+
+  Result := Result + CountTypeNesting(pt.Parent);
 end;
 
 function IsRunOnProcDecl(const pt: TSourceToken): boolean;
@@ -298,6 +311,7 @@ var
   lbHasIndentedDecl: boolean;
   lcParent, lcChild: TParseTreeNode;
   liClassNestingCount: integer;
+  liTypeNestingCount: integer;
   liVarConstIndent: integer;
 begin
   Result := 0;
@@ -310,8 +324,6 @@ begin
   { object types }
   if pt.HasParentNode(ObjectTypes) then
   begin
-    liClassNestingCount := CountClassNesting(pt);
-
     { indentation sections inside the class }
     if FormatSettings.Indent.IndentVarAndConstInClass then
     begin
@@ -352,7 +364,24 @@ begin
 
     lbHasIndentedDecl := True;
 
+    liClassNestingCount := CountClassNesting(pt);
     liIndentCount := liIndentCount + (liClassNestingCount - 1);
+
+    if FormatSettings.Indent.IndentNestedTypes then
+    begin
+      liTypeNestingCount := CountTypeNesting(pt);
+      if (liTypeNestingCount > 1) then
+      begin
+        if pt.TokenType = ttType then
+        begin
+          liIndentCount := liIndentCount + (liTypeNestingCount - 2);
+        end
+        else
+        begin
+          liIndentCount := liIndentCount + (liTypeNestingCount - 1);
+        end;
+      end;
+    end;
   end
 
   { indent vars, consts etc, e.g.

@@ -82,9 +82,9 @@ constructor> = record //Les contraintes peuvent être couplées.
 
   TClassContrainteTypeNu<T, U> = class
     type
-    TClassImbriquee<S: U> = class
-      Valeur: S;
-    end;
+      TClassImbriquee<S: U> = class
+        Valeur: S;
+      end;
   end;
 
 

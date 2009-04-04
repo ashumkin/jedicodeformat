@@ -16,19 +16,19 @@ type
     myField: integer;
   public
     type
-    TInnerClass = class
-    private
-      type
-      TInner2Class = class
+      TInnerClass = class
+      private
+        type
+          TInner2Class = class
+          public
+            myInnerField: integer;
+            procedure innerProc;
+          end;
+
       public
         myInnerField: integer;
         procedure innerProc;
       end;
-
-    public
-      myInnerField: integer;
-      procedure innerProc;
-    end;
 
     procedure outerProc;
   end;
