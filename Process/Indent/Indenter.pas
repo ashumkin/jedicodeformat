@@ -195,7 +195,7 @@ begin
   if not pt.HasParentNode(nAssignment) then
     exit;
 
-  if not pt.IsOnRightOf(nAssignment, ttAssign) then
+  if not pt.IsOnRightOf([nAssignment], AssignmentDirectives) then
     exit;
 
   Result := True;
