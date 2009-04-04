@@ -298,6 +298,7 @@ var
   lbHasIndentedDecl: boolean;
   lcParent, lcChild: TParseTreeNode;
   liClassNestingCount: integer;
+  liVarConstIndent: integer;
 begin
   Result := 0;
   lbHasIndentedRunOnLine := False;
@@ -311,12 +312,22 @@ begin
   begin
     liClassNestingCount := CountClassNesting(pt);
 
+    { indentation sections inside the class }
+    if FormatSettings.Indent.IndentVarAndConstInClass then
+    begin
+      liVarConstIndent := 2;
+    end
+    else
+    begin
+      liVarConstIndent := 1;
+    end;
+
     if pt.TokenType in ClassVisibility + [ttStrict] then
       liIndentCount := 1
     else if (pt.TokenType = ttConst) and pt.HasParentNode(nConstSection, 1) then
-      liIndentCount := 1
+      liIndentCount := liVarConstIndent
     else if (pt.TokenType = ttVar) and pt.HasParentNode(nVarSection, 1) then
-      liIndentCount := 1
+      liIndentCount := liVarConstIndent
     else if (pt.TokenType = ttClass) and pt.HasParentNode(nClassVars, 1) then
       liIndentCount := 2
 

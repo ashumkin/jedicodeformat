@@ -6,7 +6,7 @@ type
   tfooform = class
   private
   var
-    foo:      integer;
+    foovar:   integer;
     class
     var fish: integer;
     class function getwibble: integer; static;

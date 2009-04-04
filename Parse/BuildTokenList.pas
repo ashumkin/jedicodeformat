@@ -479,7 +479,7 @@ var
 begin
   Result := False;
 
-  if not (Current in [':', '+', '-', '*', '/']) then
+  if not (CharInSet(Current, [':', '+', '-', '*', '/'])) then
     exit;
 
   TwoChars := CurrentChars(2);
