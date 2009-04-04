@@ -630,7 +630,7 @@ end;
 
 procedure TFullTestClarify.TestClassMethods;
 begin
-  TestFile('TestClassMethods', 176);
+  TestFile('TestClassMethods', 185);
 end;
 
 procedure TFullTestClarify.TestClassOf;
