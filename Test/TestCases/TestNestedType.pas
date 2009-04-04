@@ -10,6 +10,8 @@ interface
 implementation
 
 type
+
+{ class with a nested class }
 Test1 = class
 public
   type
@@ -26,6 +28,33 @@ public
     tutu: string;
 
 private
+
+end;
+
+{ nested class that has content }
+type
+Test3 = class
+public
+  type
+    TTest4 = class
+    var
+      blabla: integer;
+
+     const
+       toto = '';
+
+     class var
+       tutu: string;
+    end;
+
+  var
+    blabla: integer;
+
+  const
+    toto = '';
+
+  class var
+    tutu: string;
 
 end;
 
