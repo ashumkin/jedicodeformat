@@ -5,19 +5,20 @@ interface
 type
   tfooform = class
   private
-    class var fish: integer;
+  var
+    foo:      integer;
+    class
+    var fish: integer;
     class function getwibble: integer; static;
   public
     class function foo: boolean;
-    class
-    procedure bar;
+    class procedure bar;
     class property wibble: integer Read getwibble;
   end;
 
 implementation
 
-class
-procedure tfooform.bar;
+class procedure tfooform.bar;
 begin
   Inc(fish);
 end;

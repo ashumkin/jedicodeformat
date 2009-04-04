@@ -12,6 +12,7 @@ interface
 type
   TFooForm = class
   private
+    var foo: integer;
     class var fish: integer;
     class function GetWibble: integer; static;
   public

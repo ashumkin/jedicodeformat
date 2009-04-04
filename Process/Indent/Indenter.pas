@@ -317,6 +317,8 @@ begin
       liIndentCount := 1
     else if (pt.TokenType = ttVar) and pt.HasParentNode(nVarSection, 1) then
       liIndentCount := 1
+    else if (pt.TokenType = ttClass) and pt.HasParentNode(nClassVars, 1) then
+      liIndentCount := 2
 
     else if pt.TokenType = ttEnd then
     begin
