@@ -164,7 +164,7 @@ uses
   Unix
 {$endif}
 {$ifdef fpc}
-  , LCLIntf, FileUtil
+  , LCLIntf, fileutil
 {$endif};
 
 {$IFNDEF DELPHI12}
