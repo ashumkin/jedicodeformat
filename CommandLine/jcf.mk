@@ -29,6 +29,7 @@ BUILD_PLATFORM=LINUX
 
 PLATFORM=LINUX
 LAZARUS_ROOT=/usr/local/share/lazarus
+FPC_ROOT=/usr/local/lib/fpc/2.3.1
 
 #uncomment if needed and define proper path to delphi root directory in DELPHI_ROOT
 #PLATFORM=WIN32
@@ -86,9 +87,9 @@ else
 endif
 
 ifdef RELEASE
-  FPC_OPTS :=-n -XX -O2 -Xs
+  FPC_OPTS :=-n -Un -XX -O2 -Xs
   DCC_OPTS :=-O+ -I- -W- -Q- -R-
 else
-  FPC_OPTS :=-n -vb -CX -XX -gl -WN -vewnhi -l  
+  FPC_OPTS :=-n -Un -vb -CX -XX -gl -WN -vewnhi -l  
   DCC_OPTS :=-O- -I+ -W+ -Q+ -R+
 endif

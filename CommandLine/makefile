@@ -183,8 +183,7 @@ ifndef DELPHI
 #rules
 
 $(exe_bin) : $(pas_files) $(inc_files) $(PROJECT_FILE) 
-	echo -e "#INCLUDE /etc/fpc.cfg\n" > "$(FPC_OPTS_FILE)"
-	echo -e "$(FPC_OPTS)" >> "$(FPC_OPTS_FILE)"	
+	echo -e "$(FPC_OPTS)" > "$(FPC_OPTS_FILE)"	
 	$(FPC) @$(FPC_OPTS_FILE) $(PROJECT_FILE)
 
 endif
