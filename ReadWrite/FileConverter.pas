@@ -362,9 +362,11 @@ begin
       ProcessFile(lsDir + lsNames[liLoop]);
       if fbAbort then
         break;
-
+      
+      {$IFNDEF COMMAND_LINE}
       // refresh the GUI
       Application.ProcessMessages;
+      {$ENDIF}
     end;
 
     { all subdirs }
