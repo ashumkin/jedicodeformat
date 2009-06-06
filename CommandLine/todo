@@ -5,3 +5,4 @@ perfectly valid symbol in filenames
 +get rid of GUI cursor changes. Makes Lazarus code crash
 -make an option to control end-of-line marker. Now only Windows EOL is
 supported (check this)
+-create console DUnit tester for use with FPC under Linux
