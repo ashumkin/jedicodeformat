@@ -1,7 +1,7 @@
 JCF
 =========================================================================
--get rid of / checking in commandline params. Under Unix / is
++get rid of / checking in commandline params. Under Unix / is
 perfectly valid symbol in filenames
--get rid of GUI cursor changes. Makes Lazarus code crash
++get rid of GUI cursor changes. Makes Lazarus code crash
 -make an option to control end-of-line marker. Now only Windows EOL is
 supported (check this)
