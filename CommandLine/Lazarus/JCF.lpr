@@ -215,7 +215,7 @@ var
     { look for something that is not a -/\ param }
       lsOpt := ParamStr(liLoop);
 
-      if (StrLeft(lsOpt, 1) <> '-') and (StrLeft(lsOpt, 1) <> '/') and
+      if (StrLeft(lsOpt, 1) <> '-') and {$IFNDEF UNIX} (StrLeft(lsOpt, 1) <> '/') and {$ENDIF}
         (StrLeft(lsOpt, 1) <> '\') and (StrLeft(lsOpt, 1) <> '?') then
       begin
       // must be a path

@@ -43,6 +43,9 @@ OBJ_DIR_ROOT := $(JCF_ROOT)/Output
 obj_dir := $(OBJ_DIR_ROOT)/Lazarus
 EXE_DIR := $(OBJ_DIR_ROOT)/Lazarus
 
+#conditional define for build-time feature selection
+COND_DEFINES=COMMAND_LINE 
+
 # some checks
 ifeq ($(BUILD_PLATFORM),WIN32)
   ifeq ($(PLATFORM),WIN32)
@@ -83,8 +86,11 @@ else
   #Linux options
   FPC := /usr/local/bin/fpc
 
+  COND_DEFINES += UNIX
+
   PROJECT_BIN:=jcf
 endif
+
 
 ifdef RELEASE
   FPC_OPTS :=-n -Un -XX -O2 -Xs

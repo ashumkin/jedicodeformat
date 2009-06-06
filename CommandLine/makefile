@@ -148,6 +148,8 @@ ifeq ($(PLATFORM),WIN32)
     inc_dirs_for_DCC:=$(call win-dirs-list, $(inc_dirs),../)
     EXE_DIR_for_DCC:=$(call win-dirs-list, $(EXE_DIR),../)
 
+    DCC_OPTS += $(addprefix -D,$(COND_DEFINES))
+
     DCC_WIN32 := $(DELPHI_SANDBOX_ROOT)\\bin\\$(DCC) $(DCC_OPTS) -I$(inc_dirs_for_DCC) -U$(src_dirs_for_DCC) -U$(lib_bin_dirs) -N$(EXE_DIR_for_DCC) -E$(EXE_DIR_for_DCC)
 
 #rules
@@ -173,11 +175,16 @@ ifndef DELPHI
   inc_dirs_for_FPC := $(addsuffix \n,$(inc_dirs))
   inc_dirs_for_FPC := $(addprefix -Fi,$(inc_dirs_for_FPC))
 
+  FPC_COND_DEFINES := $(addprefix -d,$(COND_DEFINES))
+  FPC_COND_DEFINES := $(addsuffix \n,$(FPC_COND_DEFINES))
+
   FPC_OPTS := $(addsuffix \n,$(FPC_OPTS))
   FPC_OPTS += -FU$(obj_dir)\n
   
   FPC_OPTS += $(src_dirs_for_FPC)
   FPC_OPTS += $(inc_dirs_for_FPC)
+
+  FPC_OPTS += $(FPC_COND_DEFINES)
   
   FPC_OPTS += -o$(exe_bin)
 #rules
