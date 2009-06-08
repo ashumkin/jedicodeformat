@@ -27,9 +27,15 @@ JCF_ROOT=../.
 BUILD_PLATFORM=LINUX
 #BUILD_PLATFORM=WIN32
 
+ifeq ($(BUILD_PLATFORM),LINUX)
+  # load configure detected options
+  include fpc.mk
+endif
+
 PLATFORM=LINUX
-LAZARUS_ROOT=/usr/local/share/lazarus
-FPC_ROOT=/usr/local/lib/fpc/2.3.1
+LAZARUS_ROOT=$(lazarus_root)
+FPC_ROOT=$(fpc_root)
+INSTALL_DIR=$(bindir)
 
 #uncomment if needed and define proper path to delphi root directory in DELPHI_ROOT
 #PLATFORM=WIN32
@@ -84,7 +90,7 @@ ifeq ($(PLATFORM),WIN32)
   PROJECT_BIN:=jcf.exe
 else
   #Linux options
-  FPC := /usr/local/bin/fpc
+  FPC := $(fpcc)
 
   COND_DEFINES += UNIX
 

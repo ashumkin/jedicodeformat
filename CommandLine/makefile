@@ -7,6 +7,7 @@ include jcf.mk
 #+add BUILD_PLATFORM - platform on which we build physically
 #+add checks for validity of BUILD_PLATFORM, PLATFORM
 #+add check for win32 native delphi build (impossible for now)
+#+added installing under unix
 
 FPC_OPTS_FILE :=$(obj_dir)/fpc.cfg
 
@@ -165,6 +166,9 @@ $(exe_bin) : $(pas_files) $(inc_files) $(PROJECT_FILE)
 	echo "cd Jcf2\\CommandLine\\D11" >> $(WINE_SANDBOX_SCRIPT)
 	echo "$(DCC_WIN32) $(notdir $(PROJECT_FILE)) > ..\\make.log" >> $(WINE_SANDBOX_SCRIPT)
 	$(WINE_SHELL) $(WINE_SANDBOX_SCRIPT)
+
+install : $(exe_bin)
+	echo "Installing under Windows is not supported. Find your file - " $(exe_bin)
   endif
 endif
 
@@ -193,5 +197,7 @@ $(exe_bin) : $(pas_files) $(inc_files) $(PROJECT_FILE)
 	echo -e "$(FPC_OPTS)" > "$(FPC_OPTS_FILE)"	
 	$(FPC) @$(FPC_OPTS_FILE) $(PROJECT_FILE)
 
+install : $(exe_bin)
+	$(INSTALL_EXE) $(exe_bin) $(INSTALL_DIR)
 endif
 

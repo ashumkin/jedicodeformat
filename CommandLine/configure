@@ -1,0 +1,118 @@
+#!/bin/sh
+
+#Quickly hacked FPC+Lazarus configure script
+
+#TODO
+#choose the latest version among several FPC versions
+#start looking for FPC from /usr/local/bin directory
+
+cmdline="$0 $*"
+
+root=/usr/local
+bindir=$root/bin
+bindir_spec=no
+fpcc=
+fpc_root=
+fpcv_needed=2.2.0
+versioncheck=1
+
+usage (){
+    echo "Usage:"
+    echo "./configure [OPTION]..."
+    echo
+    echo "Recognized options are:"
+    echo "  --prefix <path>	installation prefix [/usr/local]"
+}
+
+while : ; do
+  case "$1" in
+    "") break;;
+    -help|--help) usage; exit 2;;
+    -prefix|--prefix) bindir_spec=yes
+                      bindir=$2/bin
+		      shift
+		      ;;
+     *) echo "Unknown option \"$1\"." 1>&2; exit 2;;
+  esac
+  shift
+done
+
+
+# rather dirty check for FPC
+fpcv=$(fpc --version -h | grep 'Free Pascal Compiler' | \
+    sed -re 's/.*version ([0-9.]*).*/\1/' )
+if [ $? -ne 0 ] ; then
+    echo fpc compiler not found. 
+    echo Please adjust \$PATH
+    exit 1
+else
+    echo fpc compiler version $fpcv found.
+    fpcc=$(which fpc)
+fi
+
+# check fpc version
+if [ $versioncheck = 1 ] ; then
+    if [ "$fpcv" \< "$fpcv_needed" ] ; then
+	echo FPC version $fpcv found. Need $fpcv_needed
+	exit 1
+    fi
+fi
+
+#fpc lib checks
+fpc_tested_dirs="/usr/local/lib/fpc /usr/lib/fpc"
+
+echo Looking for fpc root directory
+for dir in $fpc_tested_dirs; do
+    dir="$dir/$fpcv"
+    echo "   Testing $dir directory"
+    if [ -d "$dir" ] && [ -d "$dir/source" ] ; then
+	echo "   ... $dir seems ok"
+	fpc_root="$dir"
+	break;
+    fi
+done
+
+if [ "x$fpc_root" == "x" ] ; then
+    echo fpc compiler root directory not found. 
+    echo Aborting...
+    exit 1
+fi
+
+#lazarus checks
+lazarus_tested_dirs="/usr/local/share/lazarus /usr/share/lazarus"
+
+echo Looking for Lazarus root directory
+for dir in $lazarus_tested_dirs; do
+    echo "   Testing $dir directory"
+    if [ -d "$dir" ] && [ -d "$dir/lcl" ] ; then
+	echo "   ... $dir seems ok"
+	lazarus_root="$dir"
+	break;
+    fi
+done
+
+if [ "x$lazarus_root" == "x" ] ; then
+    echo Lazarus root directory not found. 
+    echo Aborting...
+    exit 1
+fi
+
+# Summary of the configuration
+echo
+echo "  Configuration summary:"
+echo "    fpc found at - $fpcc"
+echo "    fpc version found - $fpcv"
+echo "    fpc root directory found at - $fpc_root"
+echo "    lazarus found at - $lazarus_root"
+echo "    =================================="
+echo "    binaries will be copied to $bindir"
+
+echo -e "# Warning. Automatically generated data.\n
+bindir=$bindir
+fpcc=$fpcc
+fpc_root=$fpc_root
+lazarus_root=$lazarus_root
+
+INSTALL=install -c -m 644
+INSTALL_EXE=install -c -m 755
+" > fpc.mk
