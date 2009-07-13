@@ -102,7 +102,7 @@ FALSE
 \par \f1 
 \par Helpfile by \cf3\strike Ralf Steinhaeusser\cf2\strike0\{linkID=1000\}
 \par 
-\par \cf0\f3 Last change : 09.08.2008\f1 
+\par \cf0\f3 Last change : 13.07.2009\f1 
 \par }
 12
 Scribble12
