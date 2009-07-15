@@ -25,9 +25,7 @@ object frmAboutBox: TfrmAboutBox
     Top = 427
     Width = 100
     Height = 37
-    DoubleBuffered = True
     Kind = bkOK
-    ParentDoubleBuffered = False
     TabOrder = 1
   end
   object pnlClient: TPanel
