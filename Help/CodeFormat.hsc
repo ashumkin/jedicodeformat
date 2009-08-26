@@ -102,7 +102,7 @@ FALSE
 \par \f1 
 \par Helpfile by \cf3\strike Ralf Steinhaeusser\cf2\strike0\{linkID=1000\}
 \par 
-\par \cf0\f3 Last change : 13.07.2009\f1 
+\par \cf0\f3 Last change : 26.08.2009\f1 
 \par }
 12
 Scribble12
@@ -116,7 +116,7 @@ Writing
 
 
 FALSE
-28
+30
 {\rtf1\ansi\ansicpg1252\deff0\deflang2057{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil Arial;}}
 {\colortbl ;\red0\green0\blue255;\red0\green0\blue0;}
 \viewkind4\uc1\pard\cf1\b\fs32 Programs\cf2\b0\f1\fs20 
@@ -139,7 +139,9 @@ FALSE
 \par 
 \par \b JCFIdeD11.bpl\b0  - The JCF Delphi IDE plug-in compiled for CodeGear Delphi 2007 for Win32. Otherwise as above.
 \par \b 
-\par JCFIdeD12.bpl\b0  - The JCF Delphi IDE plug-in compiled for CodeGear Delphi 2009 for Win32. Otherwise as above.
+\par JCFIdeD12.bpl\b0  - The JCF Delphi IDE plug-in compiled for CodeGear Delphi 2009. Otherwise as above.
+\par 
+\par \b JCFIdeD14.bpl\b0  - The JCF Delphi IDE plug-in compiled for Embarcadero Delphi 2010. Otherwise as above.
 \par 
 \par If anyone compiles the IDE plug-in for other versions of Delphi I will gladly upload the binaries to SourceForge.
 \par 

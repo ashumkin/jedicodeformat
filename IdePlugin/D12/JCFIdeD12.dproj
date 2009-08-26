@@ -28,7 +28,7 @@
 			<DCC_DcuOutput>..\..\Output\D12</DCC_DcuOutput>
 			<DCC_DependencyCheckOutputName>..\..\Output\D12\JCFIdeD12.bpl</DCC_DependencyCheckOutputName>
 			<DCC_ImageBase>00400000</DCC_ImageBase>
-			<DCC_Description>JEDI Code Format IDE Plugin for CodeGear Delphi 2009 for Win32</DCC_Description>
+			<DCC_Description>JEDI Code Format IDE Plugin for CodeGear Delphi 2009</DCC_Description>
 			<DCC_Optimize>false</DCC_Optimize>
 			<DCC_Define>IDEPLUGGIN;$(DCC_Define)</DCC_Define>
 			<GenPackage>true</GenPackage>
@@ -343,7 +343,7 @@
 					</VersionInfo>
 					<VersionInfoKeys>
 						<VersionInfoKeys Name="CompanyName"/>
-						<VersionInfoKeys Name="FileDescription">JEDI Code Format IDE Plugin for CodeGear Delphi 2009 for Win32</VersionInfoKeys>
+						<VersionInfoKeys Name="FileDescription">JEDI Code Format IDE Plugin for CodeGear Delphi 2009</VersionInfoKeys>
 						<VersionInfoKeys Name="FileVersion">2.44.0.0</VersionInfoKeys>
 						<VersionInfoKeys Name="InternalName"/>
 						<VersionInfoKeys Name="LegalCopyright"/>

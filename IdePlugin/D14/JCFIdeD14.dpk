@@ -22,7 +22,7 @@ package JCFIdeD14;
 {$WRITEABLECONST ON}
 {$MINENUMSIZE 1}
 {$IMAGEBASE $400000}
-{$DESCRIPTION 'JEDI Code Format IDE Plugin for Embarcadero Delphi 2010 for Win32'}
+{$DESCRIPTION 'JEDI Code Format IDE Plugin for Embarcadero Delphi 2010'}
 {$DESIGNONLY}
 {$IMPLICITBUILD ON}
 {$DEFINE IDEPLUGGIN}
