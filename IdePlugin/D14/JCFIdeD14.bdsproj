@@ -10,7 +10,7 @@
 	</PersonalityInfo>
 	<Delphi.Personality>
 		<Source>
-			<Source Name="MainSource">JCFIdeD12.dpk</Source>
+			<Source Name="MainSource">JCFIdeD14.dpk</Source>
 		</Source>
 		<FileVersion>
 			<FileVersion Name="Version">7.0</FileVersion>
@@ -116,7 +116,7 @@
 			<Linker Name="MinStackSize">16384</Linker>
 			<Linker Name="MaxStackSize">1048576</Linker>
 			<Linker Name="ImageBase">4194304</Linker>
-			<Linker Name="ExeDescription">JEDI Code Format IDE Plugin for CodeGear Delphi 2009 for Win32</Linker>
+			<Linker Name="ExeDescription">JEDI Code Format IDE Plugin for Embarcadero Delphi 2010 for Win32</Linker>
 		</Linker>
 		<Directories>
 			<Directories Name="OutputDir"></Directories>
@@ -131,7 +131,7 @@
 		</Directories>
 		<Parameters>
 			<Parameters Name="RunParams"></Parameters>
-			<Parameters Name="HostApplication">C:\Program Files\CodeGear\RAD Studio\6.0\bin\bds.exe</Parameters>
+			<Parameters Name="HostApplication">C:\Program Files\CodeGear\RAD Studio\7.0\bin\bds.exe</Parameters>
 			<Parameters Name="Launcher"></Parameters>
 			<Parameters Name="UseLauncher">False</Parameters>
 			<Parameters Name="DebugCWD"></Parameters>
@@ -161,7 +161,7 @@
 		</VersionInfo>
 		<VersionInfoKeys>
 			<VersionInfoKeys Name="CompanyName"></VersionInfoKeys>
-			<VersionInfoKeys Name="FileDescription">JEDI Code Format IDE Plugin for CodeGear Delphi 2009 for Win32</VersionInfoKeys>
+			<VersionInfoKeys Name="FileDescription">JEDI Code Format IDE Plugin for Embarcadero Delphi 2010 for Win32</VersionInfoKeys>
 			<VersionInfoKeys Name="FileVersion">2.44.0.0</VersionInfoKeys>
 			<VersionInfoKeys Name="InternalName">JEDI Code Format</VersionInfoKeys>
 			<VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys>

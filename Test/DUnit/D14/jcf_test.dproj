@@ -1,0 +1,286 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{ff607c14-c567-40f9-9586-edfe81dd89c5}</ProjectGuid>
+			<MainSource>jcf_test.dpr</MainSource>
+			<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+			<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+			<DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+			<DCC_DependencyCheckOutputName>..\..\..\Output\D14\jcf_test.exe</DCC_DependencyCheckOutputName>
+			<ProjectVersion>12.0</ProjectVersion>
+			<Config Condition="'$(Config)'==''">Debug</Config>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_1)'!=''">
+			<Cfg_1>true</Cfg_1>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_2)'!=''">
+			<Cfg_2>true</Cfg_2>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Base)'!=''">
+			<DCC_DependencyCheckOutputName>jcf_test.exe</DCC_DependencyCheckOutputName>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_1)'!=''">
+			<DCC_DependencyCheckOutputName>..\..\..\Output\D14\jcf_test.exe</DCC_DependencyCheckOutputName>
+			<Version>7.0</Version>
+			<DCC_DebugInformation>False</DCC_DebugInformation>
+			<DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+			<DCC_Optimize>False</DCC_Optimize>
+			<DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+			<DCC_ExeOutput>..\..\..\Output\D14</DCC_ExeOutput>
+			<DCC_DcuOutput>..\..\..\Output\D14</DCC_DcuOutput>
+			<DCC_ObjOutput>..\..\..\Output\D14</DCC_ObjOutput>
+			<DCC_HppOutput>..\..\..\Output\D14</DCC_HppOutput>
+			<DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_2)'!=''">
+			<DCC_DependencyCheckOutputName>..\..\..\Output\D14\jcf_test.exe</DCC_DependencyCheckOutputName>
+			<Version>7.0</Version>
+			<DCC_Optimize>False</DCC_Optimize>
+			<DCC_ExeOutput>..\..\..\Output\D14</DCC_ExeOutput>
+			<DCC_DcuOutput>..\..\..\Output\D14</DCC_DcuOutput>
+			<DCC_ObjOutput>..\..\..\Output\D14</DCC_ObjOutput>
+			<DCC_HppOutput>..\..\..\Output\D14</DCC_HppOutput>
+			<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+			<DCC_UnitSearchPath>..\..\..\Include;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+			<DCC_ResourcePath>..\..\..\Include;$(DCC_ResourcePath)</DCC_ResourcePath>
+			<DCC_ObjPath>..\..\..\Include;$(DCC_ObjPath)</DCC_ObjPath>
+			<DCC_IncludePath>..\..\..\Include;$(DCC_IncludePath)</DCC_IncludePath>
+		</PropertyGroup>
+		<ItemGroup>
+			<DelphiCompile Include="jcf_test.dpr">
+				<MainSource>MainSource</MainSource>
+			</DelphiCompile>
+			<DCCReference Include="..\..\..\Parse\BuildTokenList.pas"/>
+			<DCCReference Include="..\..\..\Parse\ParseError.pas"/>
+			<DCCReference Include="..\..\..\Parse\ParseTreeNode.pas"/>
+			<DCCReference Include="..\..\..\Parse\SourceToken.pas"/>
+			<DCCReference Include="..\..\..\Parse\SourceTokenList.pas"/>
+			<DCCReference Include="..\..\..\Parse\UI\fShowParseTree.pas">
+				<Form>frmShowParseTree</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\..\ReadWrite\Converter.pas"/>
+			<DCCReference Include="..\..\..\ReadWrite\ConvertTypes.pas"/>
+			<DCCReference Include="..\..\..\ReadWrite\FileConverter.pas"/>
+			<DCCReference Include="..\..\..\Utils\JcfMiscFunctions.pas"/>
+			<DCCReference Include="..\..\..\Utils\JcfLog.pas"/>
+			<DCCReference Include="..\TestAdvanceTextPos.pas"/>
+			<DCCReference Include="..\..\..\Process\BaseVisitor.pas"/>
+			<DCCReference Include="..\..\..\Process\VisitSetXY.pas"/>
+			<DCCReference Include="..\..\..\Process\Obfuscate\RemoveComment.pas"/>
+			<DCCReference Include="..\..\..\Parse\ParseTreeNodeType.pas"/>
+			<DCCReference Include="..\..\..\Process\Obfuscate\RemoveUnneededWhiteSpace.pas"/>
+			<DCCReference Include="..\..\..\Process\Obfuscate\FixCase.pas"/>
+			<DCCReference Include="..\..\..\Process\Obfuscate\ReduceWhiteSpace.pas"/>
+			<DCCReference Include="..\..\..\Process\Obfuscate\RemoveConsecutiveWhiteSpace.pas"/>
+			<DCCReference Include="..\..\..\Process\Obfuscate\RemoveReturn.pas"/>
+			<DCCReference Include="..\..\..\Process\Obfuscate\RebreakLines.pas"/>
+			<DCCReference Include="..\TestFullClarify.pas"/>
+			<DCCReference Include="..\TestObfuscate.pas"/>
+			<DCCReference Include="..\..\..\Settings\SetUses.pas"/>
+			<DCCReference Include="..\..\..\Settings\JCFSetBase.pas"/>
+			<DCCReference Include="..\..\..\Settings\SetAlign.pas"/>
+			<DCCReference Include="..\..\..\Settings\SetCaps.pas"/>
+			<DCCReference Include="..\..\..\Settings\SetClarify.pas"/>
+			<DCCReference Include="..\..\..\Settings\SetFile.pas"/>
+			<DCCReference Include="..\..\..\Settings\SetIndent.pas"/>
+			<DCCReference Include="..\..\..\Settings\SetObfuscate.pas"/>
+			<DCCReference Include="..\..\..\Settings\SetReplace.pas"/>
+			<DCCReference Include="..\..\..\Settings\SetReturns.pas"/>
+			<DCCReference Include="..\..\..\Settings\SetSpaces.pas"/>
+			<DCCReference Include="..\..\..\Settings\Streams\SettingsStream.pas"/>
+			<DCCReference Include="..\..\..\Settings\Streams\RegistrySettings.pas"/>
+			<DCCReference Include="..\..\..\JcfVersionConsts.pas"/>
+			<DCCReference Include="..\..\..\Process\Capitalisation\Capitalisation.pas"/>
+			<DCCReference Include="..\..\..\Process\Capitalisation\SpecificWordCaps.pas"/>
+			<DCCReference Include="..\..\..\Process\Warnings\WarnCaseNoElse.pas"/>
+			<DCCReference Include="..\..\..\Process\Warnings\Warning.pas"/>
+			<DCCReference Include="..\..\..\Process\Warnings\WarnDestroy.pas"/>
+			<DCCReference Include="..\..\..\Process\Warnings\WarnEmptyBlock.pas"/>
+			<DCCReference Include="..\..\..\Process\Warnings\WarnRealType.pas"/>
+			<DCCReference Include="..\..\..\Process\Warnings\WarnAssignToFunctionName.pas"/>
+			<DCCReference Include="..\..\..\Parse\TokenUtils.pas"/>
+			<DCCReference Include="..\TestWarnings.pas"/>
+			<DCCReference Include="..\..\..\ReadWrite\StringsConverter.pas"/>
+			<DCCReference Include="..\..\..\Process\Spacing\TabToSpace.pas"/>
+			<DCCReference Include="..\..\..\Process\Spacing\SpaceToTab.pas"/>
+			<DCCReference Include="..\..\..\Process\Nesting.pas"/>
+			<DCCReference Include="..\..\..\Process\AllProcesses.pas"/>
+			<DCCReference Include="..\..\..\Process\Obfuscate\RemoveBlankLine.pas"/>
+			<DCCReference Include="..\..\..\Process\Returns\NoReturnAfter.pas"/>
+			<DCCReference Include="..\..\..\Process\Spacing\NoSpaceBefore.pas"/>
+			<DCCReference Include="..\TestSpacing.pas"/>
+			<DCCReference Include="..\TestAlignment.pas"/>
+			<DCCReference Include="..\TestIfElseBreaks.pas"/>
+			<DCCReference Include="..\TestUsesReturns.pas"/>
+			<DCCReference Include="..\TestFindReplace.pas"/>
+			<DCCReference Include="..\TestUsesFindReplace.pas"/>
+			<DCCReference Include="..\BaseTestProcess.pas"/>
+			<DCCReference Include="..\..\..\Process\Returns\NoReturnBefore.pas"/>
+			<DCCReference Include="..\..\..\Process\Spacing\NoSpaceAfter.pas"/>
+			<DCCReference Include="..\..\..\Process\Spacing\SingleSpaceBefore.pas"/>
+			<DCCReference Include="..\..\..\Process\Spacing\SingleSpaceAfter.pas"/>
+			<DCCReference Include="..\..\..\Process\Returns\ReturnBefore.pas"/>
+			<DCCReference Include="..\..\..\Process\Returns\ReturnAfter.pas"/>
+			<DCCReference Include="..\..\..\Process\Returns\BlockStyles.pas"/>
+			<DCCReference Include="..\..\..\Process\SwitchableVisitor.pas"/>
+			<DCCReference Include="..\..\..\Process\FormatFlags.pas"/>
+			<DCCReference Include="..\..\..\Process\Indent\Indenter.pas"/>
+			<DCCReference Include="..\..\..\Process\VisitSetNesting.pas"/>
+			<DCCReference Include="..\..\..\Process\Spacing\SpaceBeforeColon.pas"/>
+			<DCCReference Include="..\..\..\Process\VisitStripEmptySpace.pas"/>
+			<DCCReference Include="..\..\..\Process\Returns\PropertyOnOneLine.pas"/>
+			<DCCReference Include="..\..\..\Process\Returns\RemoveBlankLinesAfterProcHeader.pas"/>
+			<DCCReference Include="..\..\..\Process\Returns\RemoveBlankLinesInVars.pas"/>
+			<DCCReference Include="..\..\..\Process\Returns\RemoveReturnsAfterBegin.pas"/>
+			<DCCReference Include="..\..\..\Process\Returns\RemoveReturnsBeforeEnd.pas"/>
+			<DCCReference Include="..\..\..\Process\Returns\LongLineBreaker.pas"/>
+			<DCCReference Include="..\..\..\Utils\IntList.pas"/>
+			<DCCReference Include="..\..\..\Process\Returns\ReturnChars.pas"/>
+			<DCCReference Include="..\..\..\Process\Info\BasicStats.pas"/>
+			<DCCReference Include="..\..\..\Process\Align\AlignBase.pas"/>
+			<DCCReference Include="..\..\..\Process\Align\AlignConst.pas"/>
+			<DCCReference Include="..\..\..\Process\Align\AlignAssign.pas"/>
+			<DCCReference Include="..\..\..\Process\Align\AlignVars.pas"/>
+			<DCCReference Include="..\..\..\Process\Align\AlignTypedef.pas"/>
+			<DCCReference Include="..\..\..\Process\Align\AlignComment.pas"/>
+			<DCCReference Include="..\..\..\Settings\JcfRegistrySettings.pas"/>
+			<DCCReference Include="..\..\..\Settings\JCFSettings.pas"/>
+			<DCCReference Include="..\TestCommandLine.pas"/>
+			<DCCReference Include="..\TestConstants.pas"/>
+			<DCCReference Include="..\TestFile.pas"/>
+			<DCCReference Include="..\..\..\Process\Spacing\RemoveSpaceAtLineEnd.pas"/>
+			<DCCReference Include="..\..\..\Parse\Tokens.pas"/>
+			<DCCReference Include="..\..\..\Settings\SetWordList.pas"/>
+			<DCCReference Include="..\..\..\Process\Capitalisation\UnitNameCaps.pas"/>
+			<DCCReference Include="..\TestSelfParse.pas"/>
+			<DCCReference Include="..\TestPreprocessorTokens.pas"/>
+			<DCCReference Include="..\..\..\Parse\PreProcessor\PreProcessorExpressionTokens.pas"/>
+			<DCCReference Include="..\..\..\Parse\PreProcessor\PreProcessorExpressionParser.pas"/>
+			<DCCReference Include="..\..\..\Parse\PreProcessor\PreProcessorExpressionTokenise.pas"/>
+			<DCCReference Include="..\..\..\Utils\JCFHelp.pas"/>
+			<DCCReference Include="..\..\..\Settings\SettingsTypes.pas"/>
+			<DCCReference Include="..\..\..\Settings\SetPreProcessor.pas"/>
+			<DCCReference Include="..\..\..\Process\Transform\FindReplace.pas"/>
+			<DCCReference Include="..\..\..\Ui\fJcfErrorDisplay.pas">
+				<Form>ExceptionDialog</Form>
+			</DCCReference>
+			<DCCReference Include="..\..\..\Process\Returns\ReturnsAfterFinalEnd.pas"/>
+			<DCCReference Include="..\..\..\Process\Transform\UsesClauseRemove.pas"/>
+			<DCCReference Include="..\..\..\Process\Transform\UsesClauseFindReplace.pas"/>
+			<DCCReference Include="..\..\..\Process\Transform\UsesClauseInsert.pas"/>
+			<DCCReference Include="..\..\..\Parse\PreProcessor\PreProcessorParseTree.pas"/>
+			<DCCReference Include="..\..\..\Process\RemoveEmptyComment.pas"/>
+			<DCCReference Include="..\..\..\Process\Returns\RemoveConsecutiveReturns.pas"/>
+			<DCCReference Include="..\TestRemoveComment.pas"/>
+			<DCCReference Include="..\TestMaxBlankLines.pas"/>
+			<DCCReference Include="..\TestTextAfterUnitEnd.pas"/>
+			<DCCReference Include="..\TestCaseReturns.pas"/>
+			<DCCReference Include="..\TestIndentation.pas"/>
+			<DCCReference Include="..\..\..\Process\Spacing\MaxSpaces.pas"/>
+			<DCCReference Include="..\..\..\Process\TreeWalker.pas"/>
+			<DCCReference Include="..\..\..\Settings\SetComments.pas"/>
+			<DCCReference Include="..\..\..\Process\Transform\AddBeginEnd.pas"/>
+			<DCCReference Include="..\..\..\Process\Transform\AddBlockEndSemicolon.pas"/>
+			<DCCReference Include="..\..\..\Settings\SetTransform.pas"/>
+			<DCCReference Include="..\TestAddBeginEnd.pas"/>
+			<DCCReference Include="..\..\..\Process\Align\AlignField.pas"/>
+			<DCCReference Include="..\TestFormatPart.pas"/>
+			<DCCReference Include="..\..\..\Process\Transform\SortUses.pas"/>
+			<DCCReference Include="..\TestSortUses.pas"/>
+			<DCCReference Include="..\..\..\Parse\BuildParseTree.pas"/>
+			<DCCReference Include="..\..\..\Process\Transform\SortUsesData.pas"/>
+			<DCCReference Include="..\TestBreakConditionalCompilation.pas"/>
+			<DCCReference Include="..\TestCapitalisation.pas"/>
+			<DCCReference Include="..\..\..\Process\Capitalisation\IdentifierCaps.pas"/>
+			<DCCReference Include="..\..\..\Process\Warnings\WarnUnusedParam.pas"/>
+			<DCCReference Include="..\TestFileConverter.pas"/>
+			<DCCReference Include="..\TestIndentElse.pas"/>
+			<DCCReference Include="..\TestMiscFunctions.pas"/>
+			<DCCReference Include="..\..\..\Utils\JcfFontSetFunctions.pas"/>
+			<DCCReference Include="..\TestSpacingInsideBrackets.pas"/>
+			<DCCReference Include="..\..\..\Settings\SetAsm.pas"/>
+			<DCCReference Include="..\TestAsmOptionsCaps.pas"/>
+			<DCCReference Include="..\TestAsmOptionsBreaks.pas"/>
+			<DCCReference Include="..\..\..\Process\Returns\RemoveReturnsAfter.pas"/>
+			<DCCReference Include="..\TestAsmOptionsIndents.pas"/>
+			<DCCReference Include="..\..\..\Process\Indent\IndentAsmParam.pas"/>
+			<DCCReference Include="..\TestAsmOptionsIndentsBare.pas"/>
+			<DCCReference Include="..\..\..\Parse\AsmKeywords.pas"/>
+			<DCCReference Include="..\TestAsmParamKeywords.pas"/>
+			<DCCReference Include="..\..\..\Utils\JcfUnicode.pas"/>
+			<DCCReference Include="..\TestUnicodeFiles.pas"/>
+			<DCCReference Include="..\TestUnicodeFunctions.pas"/>
+			<DCCReference Include="..\..\..\Utils\JcfUnicodeFiles.pas"/>
+			<DCCReference Include="..\TestBreakAfterUses.pas"/>
+			<DCCReference Include="..\..\..\Utils\JcfStringUtils.pas"/>
+			<DCCReference Include="..\TestJcfStringUtils.pas"/>
+			<DCCReference Include="..\..\..\Process\Spacing\MoveSpaceToBeforeColon.pas"/>
+			<DCCReference Include="..\TestJcfUnicode.pas"/>
+			<DCCReference Include="..\TestMoveSpaceToBeforeColon.pas"/>
+			<DCCReference Include="..\TestIndentLibraryProcs.pas"/>
+			<DCCReference Include="..\..\..\Utils\JcfSystemUtils.pas"/>
+			<BuildConfiguration Include="Base">
+				<Key>Base</Key>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Debug">
+				<Key>Cfg_2</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Release">
+				<Key>Cfg_1</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+		</ItemGroup>
+		<Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+		<ProjectExtensions>
+			<Borland.Personality>Delphi.Personality.12</Borland.Personality>
+			<Borland.ProjectType>VCLApplication</Borland.ProjectType>
+			<BorlandProject>
+				<Delphi.Personality>
+					<Parameters>
+						<Parameters Name="UseLauncher">False</Parameters>
+						<Parameters Name="LoadAllSymbols">True</Parameters>
+						<Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
+					</Parameters>
+					<VersionInfo>
+						<VersionInfo Name="IncludeVerInfo">True</VersionInfo>
+						<VersionInfo Name="AutoIncBuild">False</VersionInfo>
+						<VersionInfo Name="MajorVer">2</VersionInfo>
+						<VersionInfo Name="MinorVer">44</VersionInfo>
+						<VersionInfo Name="Release">0</VersionInfo>
+						<VersionInfo Name="Build">0</VersionInfo>
+						<VersionInfo Name="Debug">False</VersionInfo>
+						<VersionInfo Name="PreRelease">False</VersionInfo>
+						<VersionInfo Name="Special">False</VersionInfo>
+						<VersionInfo Name="Private">False</VersionInfo>
+						<VersionInfo Name="DLL">False</VersionInfo>
+						<VersionInfo Name="Locale">1033</VersionInfo>
+						<VersionInfo Name="CodePage">1252</VersionInfo>
+					</VersionInfo>
+					<VersionInfoKeys>
+						<VersionInfoKeys Name="CompanyName"/>
+						<VersionInfoKeys Name="FileDescription">JCF Test</VersionInfoKeys>
+						<VersionInfoKeys Name="FileVersion">2.44.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="InternalName"/>
+						<VersionInfoKeys Name="LegalCopyright"/>
+						<VersionInfoKeys Name="LegalTrademarks"/>
+						<VersionInfoKeys Name="OriginalFilename"/>
+						<VersionInfoKeys Name="ProductName"/>
+						<VersionInfoKeys Name="ProductVersion">2.44</VersionInfoKeys>
+						<VersionInfoKeys Name="Comments"/>
+					</VersionInfoKeys>
+					<Source>
+						<Source Name="MainSource">jcf_test.dpr</Source>
+					</Source>
+				</Delphi.Personality>
+				<ModelSupport>False</ModelSupport>
+			</BorlandProject>
+			<ProjectFileVersion>12</ProjectFileVersion>
+		</ProjectExtensions>
+	</Project>

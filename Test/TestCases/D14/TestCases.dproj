@@ -1,0 +1,291 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{f6fbe7df-6dfc-492e-b3ef-8a613a12e1d5}</ProjectGuid>
+			<MainSource>TestCases.dpr</MainSource>
+			<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+			<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+			<DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+			<DCC_DependencyCheckOutputName>..\..\..\Output\D14\TestCases.exe</DCC_DependencyCheckOutputName>
+			<ProjectVersion>12.0</ProjectVersion>
+			<Config Condition="'$(Config)'==''">Debug</Config>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_1)'!=''">
+			<Cfg_1>true</Cfg_1>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_2)'!=''">
+			<Cfg_2>true</Cfg_2>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Base)'!=''">
+			<DCC_DependencyCheckOutputName>TestCases.exe</DCC_DependencyCheckOutputName>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_1)'!=''">
+			<DCC_DependencyCheckOutputName>..\..\..\Output\D14\TestCases.exe</DCC_DependencyCheckOutputName>
+			<Version>7.0</Version>
+			<DCC_DebugInformation>False</DCC_DebugInformation>
+			<DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+			<DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+			<DCC_ExeOutput>..\..\..\Output\D14</DCC_ExeOutput>
+			<DCC_DcuOutput>..\..\..\Output\D14</DCC_DcuOutput>
+			<DCC_ObjOutput>..\..\..\Output\D14</DCC_ObjOutput>
+			<DCC_HppOutput>..\..\..\Output\D14</DCC_HppOutput>
+			<DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_2)'!=''">
+			<DCC_DependencyCheckOutputName>..\..\..\Output\D14\TestCases.exe</DCC_DependencyCheckOutputName>
+			<Version>7.0</Version>
+			<DCC_ExeOutput>..\..\..\Output\D14</DCC_ExeOutput>
+			<DCC_DcuOutput>..\..\..\Output\D14</DCC_DcuOutput>
+			<DCC_ObjOutput>..\..\..\Output\D14</DCC_ObjOutput>
+			<DCC_HppOutput>..\..\..\Output\D14</DCC_HppOutput>
+			<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+		</PropertyGroup>
+		<ItemGroup>
+			<DelphiCompile Include="TestCases.dpr">
+				<MainSource>MainSource</MainSource>
+			</DelphiCompile>
+			<DCCReference Include="..\EmptyTest1.pas"/>
+			<DCCReference Include="..\fFormTest.pas">
+				<Form>FormTest</Form>
+			</DCCReference>
+			<DCCReference Include="..\LittleTest1.pas"/>
+			<DCCReference Include="..\LittleTest2.pas"/>
+			<DCCReference Include="..\LittleTest3.pas"/>
+			<DCCReference Include="..\LittleTest4.pas"/>
+			<DCCReference Include="..\LittleTest5.pas"/>
+			<DCCReference Include="..\TestAbsolute.pas"/>
+			<DCCReference Include="..\TestAlign.pas"/>
+			<DCCReference Include="..\TestBlankLineRemoval.pas"/>
+			<DCCReference Include="..\TestBogusDirectives.pas"/>
+			<DCCReference Include="..\TestBogusTypes.pas"/>
+			<DCCReference Include="..\TestCaseBlock.pas"/>
+			<DCCReference Include="..\TestCast.pas"/>
+			<DCCReference Include="..\TestCastSimple.pas"/>
+			<DCCReference Include="..\TestCharLiterals.pas"/>
+			<DCCReference Include="..\TestClassLines.pas"/>
+			<DCCReference Include="..\TestCommentIndent.pas"/>
+			<DCCReference Include="..\TestConstRecords.pas"/>
+			<DCCReference Include="..\TestDeclarations2.pas"/>
+			<DCCReference Include="..\TestDeclarations.pas"/>
+			<DCCReference Include="..\TestDefaultParams.pas"/>
+			<DCCReference Include="..\TestEmptyClass.pas"/>
+			<DCCReference Include="..\TestEsotericKeywords.pas"/>
+			<DCCReference Include="..\TestExclusion.pas"/>
+			<DCCReference Include="..\TestExclusionFlags.pas"/>
+			<DCCReference Include="..\TestForward.pas"/>
+			<DCCReference Include="..\TestGoto.pas"/>
+			<DCCReference Include="..\TestInitFinal.pas"/>
+			<DCCReference Include="..\TestInterfaceImplements.pas"/>
+			<DCCReference Include="..\TestInterfaces.pas"/>
+			<DCCReference Include="..\TestLayout.pas"/>
+			<DCCReference Include="..\TestLayoutBare2.pas"/>
+			<DCCReference Include="..\TestLayoutBare3.pas"/>
+			<DCCReference Include="..\TestLayoutBare.pas"/>
+			<DCCReference Include="..\TestLineBreaking.pas"/>
+			<DCCReference Include="..\TestLocalTypes.pas"/>
+			<DCCReference Include="..\TestLongStrings.pas"/>
+			<DCCReference Include="..\TestMarcoV.pas"/>
+			<DCCReference Include="..\TestMH.pas"/>
+			<DCCReference Include="..\TestMixedModeCaps.pas"/>
+			<DCCReference Include="..\TestNested.pas"/>
+			<DCCReference Include="..\TestNestedRecords.pas"/>
+			<DCCReference Include="..\TestOperators.pas"/>
+			<DCCReference Include="..\TestParams.pas"/>
+			<DCCReference Include="..\TestParamSpaces.pas"/>
+			<DCCReference Include="..\TestPointers.pas"/>
+			<DCCReference Include="..\TestProperties.pas"/>
+			<DCCReference Include="..\TestPropertyLines.pas"/>
+			<DCCReference Include="..\TestRecords.pas"/>
+			<DCCReference Include="..\TestReg.pas"/>
+			<DCCReference Include="..\TestReint.pas"/>
+			<DCCReference Include="..\TestReturnRemoval.pas"/>
+			<DCCReference Include="..\TestReturns.pas"/>
+			<DCCReference Include="..\TestRunOnConst.pas"/>
+			<DCCReference Include="..\TestRunOnDef.pas"/>
+			<DCCReference Include="..\TestTry.pas"/>
+			<DCCReference Include="..\TestTypeDefs.pas"/>
+			<DCCReference Include="..\TestUses.pas"/>
+			<DCCReference Include="..\TestWarnings.pas"/>
+			<DCCReference Include="..\TestWith.pas"/>
+			<DCCReference Include="..\LittleTest6.pas"/>
+			<DCCReference Include="..\TestArray.pas"/>
+			<DCCReference Include="..\TestVarParam.pas"/>
+			<DCCReference Include="..\LittleTest7.pas"/>
+			<DCCReference Include="..\LittleTest8.pas"/>
+			<DCCReference Include="..\TestDeref.pas"/>
+			<DCCReference Include="..\LittleTest9.pas"/>
+			<DCCReference Include="..\TestPropertyInherited.pas"/>
+			<DCCReference Include="..\TestMessages.pas"/>
+			<DCCReference Include="..\LittleTest10.pas"/>
+			<DCCReference Include="..\TestInheritedExpr.pas"/>
+			<DCCReference Include="..\LittleTest11.pas"/>
+			<DCCReference Include="..\LittleTest12.pas"/>
+			<DCCReference Include="..\LittleTest13.pas"/>
+			<DCCReference Include="..\TestOleParams.pas"/>
+			<DCCReference Include="..\LittleTest14.pas"/>
+			<DCCReference Include="..\LittleTest15.pas"/>
+			<DCCReference Include="..\LittleTest16.pas"/>
+			<DCCReference Include="..\LittleTest17.pas"/>
+			<DCCReference Include="..\LittleTest18.pas"/>
+			<DCCReference Include="..\TestAtExpr.pas"/>
+			<DCCReference Include="..\TestAsmStructs.pas"/>
+			<DCCReference Include="..\TestUnitPlatform.pas"/>
+			<DCCReference Include="..\TestUnitAllDirectives.pas"/>
+			<DCCReference Include="..\TestUnitDeprecated.pas"/>
+			<DCCReference Include="..\TestUnitLibrary.pas"/>
+			<DCCReference Include="..\LittleTest19.pas"/>
+			<DCCReference Include="..\LittleTest20.pas"/>
+			<DCCReference Include="..\TestRaise.pas"/>
+			<DCCReference Include="..\LittleTest21.pas"/>
+			<DCCReference Include="..\LittleTest22.pas"/>
+			<DCCReference Include="..\LittleTest23.pas"/>
+			<DCCReference Include="..\TestEmptySquareBrackets.pas"/>
+			<DCCReference Include="..\LittleTest24.pas"/>
+			<DCCReference Include="..\LittleTest25.pas"/>
+			<DCCReference Include="..\LittleTest26.pas"/>
+			<DCCReference Include="..\LittleTest27.pas"/>
+			<DCCReference Include="..\TestAsm.pas"/>
+			<DCCReference Include="..\TestCaseIfFormat.pas"/>
+			<DCCReference Include="..\LittleTest28.pas"/>
+			<DCCReference Include="..\TestEmptyCase.pas"/>
+			<DCCReference Include="..\LittleTest29.pas"/>
+			<DCCReference Include="..\LittleTest30.pas"/>
+			<DCCReference Include="..\LittleTest31.pas"/>
+			<DCCReference Include="..\LittleTest32.pas"/>
+			<DCCReference Include="..\LittleTest33.pas"/>
+			<DCCReference Include="..\LittleTest34.pas"/>
+			<DCCReference Include="..\TestSimpleIfdef.pas"/>
+			<DCCReference Include="..\TestSimpleIfdef2.pas"/>
+			<DCCReference Include="..\TestSimpleIfdef3.pas"/>
+			<DCCReference Include="..\LittleTest35.pas"/>
+			<DCCReference Include="..\LittleTest36.pas"/>
+			<DCCReference Include="..\LittleTest37.pas"/>
+			<DCCReference Include="..\TestSimpleIfDef4.pas"/>
+			<DCCReference Include="..\TestSimpleIfDef5.pas"/>
+			<DCCReference Include="..\LittleTest38.pas"/>
+			<DCCReference Include="..\LittleTest39.pas"/>
+			<DCCReference Include="..\LittleTest40.pas"/>
+			<DCCReference Include="..\TestDefines.pas"/>
+			<DCCReference Include="..\LittleTest41.pas"/>
+			<DCCReference Include="..\LittleTest42.pas"/>
+			<DCCReference Include="..\LittleTest43.pas"/>
+			<DCCReference Include="..\LittleTest44.pas"/>
+			<DCCReference Include="..\LittleTest45.pas"/>
+			<DCCReference Include="..\LittleTest46.pas"/>
+			<DCCReference Include="..\LittleTest47.pas"/>
+			<DCCReference Include="..\TestWarnDestroy.pas"/>
+			<DCCReference Include="..\LittleTest48.pas"/>
+			<DCCReference Include="..\LittleTest49.pas"/>
+			<DCCReference Include="..\LittleTest50.pas"/>
+			<DCCReference Include="..\LittleTest51.pas"/>
+			<DCCReference Include="..\LittleTest52.pas"/>
+			<DCCReference Include="..\TestSimpleIfDef6.pas"/>
+			<DCCReference Include="..\LittleTest53.pas"/>
+			<DCCReference Include="..\LittleTest54.pas"/>
+			<DCCReference Include="..\LittleTest55.pas"/>
+			<DCCReference Include="..\LittleTest56.pas"/>
+			<DCCReference Include="..\LittleTest57.pas"/>
+			<DCCReference Include="..\LittleTest58.pas"/>
+			<DCCReference Include="..\LittleTest59.pas"/>
+			<DCCReference Include="..\LittleTest60.pas"/>
+			<DCCReference Include="..\TestCommentIndent2.pas"/>
+			<DCCReference Include="..\fBracketProp.pas">
+				<Form>Form1</Form>
+			</DCCReference>
+			<DCCReference Include="..\TestEndElse.pas"/>
+			<DCCReference Include="..\TestCondReturns.pas"/>
+			<DCCReference Include="..\TestConstBug.pas"/>
+			<DCCReference Include="..\test.dotted.name.pas"/>
+			<DCCReference Include="..\TestCondCompBreaks.pas"/>
+			<DCCReference Include="..\TestDelphiNetKeywords.pas"/>
+			<DCCReference Include="..\TestIncAt.pas"/>
+			<DCCReference Include="..\TestDLLIndex.pas"/>
+			<DCCReference Include="..\TestASMAnd.pas"/>
+			<DCCReference Include="..\TestAsmLabel.pas"/>
+			<DCCReference Include="..\TestVarArgs.pas"/>
+			<DCCReference Include="..\TestAsmOps.pas"/>
+			<DCCReference Include="..\TestComplexAsm2.pas"/>
+			<DCCReference Include="..\TestSubrangeType.pas"/>
+			<DCCReference Include="..\TestAmpersand.pas"/>
+			<DCCReference Include="..\TestAutomated.pas"/>
+			<DCCReference Include="..\TestClassMethods.pas"/>
+			<DCCReference Include="..\TestExports.pas"/>
+			<DCCReference Include="..\TestAsmCaps.pas"/>
+			<DCCReference Include="..\TestAsmOffsetKeyword.pas"/>
+			<DCCReference Include="..\TestClassVarEmpty.pas"/>
+			<DCCReference Include="..\TestRecordWithClassFunction.pas"/>
+			<DCCReference Include="..\TestOutKeyword.pas"/>
+			<DCCReference Include="..\TestExit.pas"/>
+			<DCCReference Include="..\TestHexConstantElse.pas"/>
+			<DCCReference Include="..\TestClassOf.pas"/>
+			<DCCReference Include="..\TestDelphi2009Inherited.pas"/>
+			<DCCReference Include="..\TestDelphi2009Generics.pas"/>
+			<DCCReference Include="..\TestDelphi2009AnonymousMethod.pas"/>
+			<DCCReference Include="..\TestUnicodeStrings.pas"/>
+			<DCCReference Include="..\TestAnonFunctionInInitialization.pas"/>
+			<DCCReference Include="..\TestNestedType.pas"/>
+			<BuildConfiguration Include="Base">
+				<Key>Base</Key>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Debug">
+				<Key>Cfg_2</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Release">
+				<Key>Cfg_1</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+		</ItemGroup>
+		<Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+		<ProjectExtensions>
+			<Borland.Personality>Delphi.Personality.12</Borland.Personality>
+			<Borland.ProjectType>VCLApplication</Borland.ProjectType>
+			<BorlandProject>
+				<Delphi.Personality>
+					<Parameters>
+						<Parameters Name="UseLauncher">False</Parameters>
+						<Parameters Name="LoadAllSymbols">True</Parameters>
+						<Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
+					</Parameters>
+					<VersionInfo>
+						<VersionInfo Name="IncludeVerInfo">True</VersionInfo>
+						<VersionInfo Name="AutoIncBuild">False</VersionInfo>
+						<VersionInfo Name="MajorVer">2</VersionInfo>
+						<VersionInfo Name="MinorVer">44</VersionInfo>
+						<VersionInfo Name="Release">0</VersionInfo>
+						<VersionInfo Name="Build">0</VersionInfo>
+						<VersionInfo Name="Debug">False</VersionInfo>
+						<VersionInfo Name="PreRelease">False</VersionInfo>
+						<VersionInfo Name="Special">False</VersionInfo>
+						<VersionInfo Name="Private">False</VersionInfo>
+						<VersionInfo Name="DLL">False</VersionInfo>
+						<VersionInfo Name="Locale">1033</VersionInfo>
+						<VersionInfo Name="CodePage">1252</VersionInfo>
+					</VersionInfo>
+					<VersionInfoKeys>
+						<VersionInfoKeys Name="CompanyName"/>
+						<VersionInfoKeys Name="FileDescription">Test Cases</VersionInfoKeys>
+						<VersionInfoKeys Name="FileVersion">2.44.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="InternalName"/>
+						<VersionInfoKeys Name="LegalCopyright"/>
+						<VersionInfoKeys Name="LegalTrademarks"/>
+						<VersionInfoKeys Name="OriginalFilename"/>
+						<VersionInfoKeys Name="ProductName"/>
+						<VersionInfoKeys Name="ProductVersion">2.44</VersionInfoKeys>
+						<VersionInfoKeys Name="Comments"/>
+					</VersionInfoKeys>
+					<Source>
+						<Source Name="MainSource">TestCases.dpr</Source>
+					</Source>
+				</Delphi.Personality>
+				<ModelSupport>False</ModelSupport>
+			</BorlandProject>
+			<ProjectFileVersion>12</ProjectFileVersion>
+		</ProjectExtensions>
+	</Project>
