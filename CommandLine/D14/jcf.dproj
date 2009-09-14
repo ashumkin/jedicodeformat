@@ -33,7 +33,7 @@
 			<DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
 			<DCC_ExeOutput>..\Output\D14</DCC_ExeOutput>
 			<DCC_DcuOutput>..\Output\D14</DCC_DcuOutput>
-			<DCC_ObjOutput>..\Output\D142</DCC_ObjOutput>
+			<DCC_ObjOutput>..\Output\D14</DCC_ObjOutput>
 			<DCC_HppOutput>..\Output\D14</DCC_HppOutput>
 			<DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
 		</PropertyGroup>
