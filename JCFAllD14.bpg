@@ -1,0 +1,39 @@
+#------------------------------------------------------------------------------
+VERSION = BWS.01
+#------------------------------------------------------------------------------
+!ifndef ROOT
+ROOT = $(MAKEDIR)\..
+!endif
+#------------------------------------------------------------------------------
+MAKE = $(ROOT)\bin\make.exe -$(MAKEFLAGS) -f$**
+DCC = $(ROOT)\bin\dcc32.exe $**
+BRCC = $(ROOT)\bin\brcc32.exe $**
+#------------------------------------------------------------------------------
+PROJECTS = JCFGui.exe JCFNotepad.exe JCFIdeD14.bpl jcf.exe jcf_test.exe \
+  TestCases.exe
+#------------------------------------------------------------------------------
+default: $(PROJECTS)
+#------------------------------------------------------------------------------
+
+JCFNotepad.exe: Notepad\D14\JCFNotepad.dpr
+  $(DCC)
+
+JCFGui.exe: JCFGui\D14\JCFGui.dpr
+  $(DCC)
+
+JCFGui.exe: JCFGui\D14\JCFGui.dpr
+  $(DCC)
+
+JCFIdeD14.bpl: IdePlugin\D14\JCFIdeD14.dpk
+  $(DCC)
+
+jcf.exe: CommandLine\D14\jcf.dpr
+  $(DCC)
+
+TestCases.exe: Test\TestCases\D14\TestCases.dpr
+  $(DCC)
+
+jcf_test.exe: Test\DUnit\D14\jcf_test.dpr
+  $(DCC)
+
+
