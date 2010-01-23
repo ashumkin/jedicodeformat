@@ -33,7 +33,6 @@
 			<DCC_Define>IDEPLUGGIN;$(DCC_Define)</DCC_Define>
 			<GenPackage>true</GenPackage>
 			<GenDll>true</GenDll>
-			<DCC_SymbolReferenceInfo>1</DCC_SymbolReferenceInfo>
 			<DesignOnlyPackage>true</DesignOnlyPackage>
 			<DCC_WriteableConstants>true</DCC_WriteableConstants>
 		</PropertyGroup>
@@ -64,10 +63,10 @@
 			</DelphiCompile>
 			<DCCReference Include="vcl.dcp"/>
 			<DCCReference Include="DesignIDE.dcp"/>
-			<DCCReference Include="JvCoreD14R.dcp"/>
-			<DCCReference Include="JvSystemD14R.dcp"/>
-			<DCCReference Include="JvStdCtrlsD14R.dcp"/>
-			<DCCReference Include="JvCustomD14R.dcp"/>
+			<DCCReference Include="JvCore.dcp"/>
+			<DCCReference Include="JvSystem.dcp"/>
+			<DCCReference Include="JvStdCtrls.dcp"/>
+			<DCCReference Include="JvCustom.dcp"/>
 			<DCCReference Include="rtl.dcp"/>
 			<DCCReference Include="vclx.dcp"/>
 			<DCCReference Include="Jcl.dcp"/>
