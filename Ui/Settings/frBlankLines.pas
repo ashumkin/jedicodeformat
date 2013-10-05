@@ -83,7 +83,7 @@ end;
 
 procedure TfBlankLines.Read;
 begin
-  with FormatSettings.Returns do
+  with JcfFormatSettings.Returns do
   begin
     cbRemoveVarBlankLines.Checked   := RemoveVarBlankLines;
     cbRemoveBlankLinesAfterProcHeader.Checked := RemoveProcHeaderBlankLines;
@@ -101,7 +101,7 @@ end;
 
 procedure TfBlankLines.Write;
 begin
-  with FormatSettings.Returns do
+  with JcfFormatSettings.Returns do
   begin
     RemoveVarBlankLines   := cbRemoveVarBlankLines.Checked;
     RemoveProcHeaderBlankLines := cbRemoveBlankLinesAfterProcHeader.Checked;

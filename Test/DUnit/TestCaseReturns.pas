@@ -203,49 +203,49 @@ procedure TTestCaseReturns.Setup;
 begin
   inherited;
 
-  feSaveCaseLabelStyle := FormatSettings.Returns.CaseLabelStyle;
-  feSaveCaseBeginStyle := FormatSettings.Returns.CaseBeginStyle;
+  feSaveCaseLabelStyle := JcfFormatSettings.Returns.CaseLabelStyle;
+  feSaveCaseBeginStyle := JcfFormatSettings.Returns.CaseBeginStyle;
 
-  feSaveCaseElseStyle := FormatSettings.Returns.CaseElseStyle;
-  feSaveCaseElseBeginStyle := FormatSettings.Returns.CaseElseBeginStyle;
+  feSaveCaseElseStyle := JcfFormatSettings.Returns.CaseElseStyle;
+  feSaveCaseElseBeginStyle := JcfFormatSettings.Returns.CaseElseBeginStyle;
 
-  fbSaveCaseElseIndent := FormatSettings.Indent.IndentCaseElse;
+  fbSaveCaseElseIndent := JcfFormatSettings.Indent.IndentCaseElse;
 end;
 
 procedure TTestCaseReturns.TearDown;
 begin
   inherited;
 
-  FormatSettings.Returns.CaseLabelStyle := feSaveCaseLabelStyle;
-  FormatSettings.Returns.CaseBeginStyle := feSaveCaseBeginStyle;
+ JcfFormatSettings.Returns.CaseLabelStyle := feSaveCaseLabelStyle;
+ JcfFormatSettings.Returns.CaseBeginStyle := feSaveCaseBeginStyle;
 
-  FormatSettings.Returns.CaseElseStyle  := feSaveCaseElseStyle;
-  FormatSettings.Returns.CaseElseBeginStyle := feSaveCaseElseBeginStyle;
+ JcfFormatSettings.Returns.CaseElseStyle  := feSaveCaseElseStyle;
+ JcfFormatSettings.Returns.CaseElseBeginStyle := feSaveCaseElseBeginStyle;
 
-  FormatSettings.Indent.IndentCaseElse := fbSaveCaseElseIndent;
+ JcfFormatSettings.Indent.IndentCaseElse := fbSaveCaseElseIndent;
 end;
 
 
 procedure TTestCaseReturns.TestCaseStatementAlways1;
 begin
-  FormatSettings.Returns.CaseElseStyle  := eAlways;
-  FormatSettings.Returns.CaseLabelStyle := eAlways;
+ JcfFormatSettings.Returns.CaseElseStyle  := eAlways;
+ JcfFormatSettings.Returns.CaseLabelStyle := eAlways;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_IN_LINE, UNIT_TEXT_NEW_LINE);
 end;
 
 procedure TTestCaseReturns.TestCaseStatementAlways2;
 begin
-  FormatSettings.Returns.CaseElseStyle  := eAlways;
-  FormatSettings.Returns.CaseLabelStyle := eAlways;
+ JcfFormatSettings.Returns.CaseElseStyle  := eAlways;
+ JcfFormatSettings.Returns.CaseLabelStyle := eAlways;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_NEW_LINE, UNIT_TEXT_NEW_LINE);
 end;
 
 procedure TTestCaseReturns.TestCaseStatementAlways3;
 begin
-  FormatSettings.Returns.CaseElseStyle  := eAlways;
-  FormatSettings.Returns.CaseLabelStyle := eAlways;
+ JcfFormatSettings.Returns.CaseElseStyle  := eAlways;
+ JcfFormatSettings.Returns.CaseLabelStyle := eAlways;
 
   TestProcessResult(TBlockStyles, OUT_UNIT_TEXT_JUST_ELSE_NEWLINE, UNIT_TEXT_NEW_LINE);
 end;
@@ -254,24 +254,24 @@ end;
 
 procedure TTestCaseReturns.TestCaseStatementJustElse1;
 begin
-  FormatSettings.Returns.CaseElseStyle  := eAlways;
-  FormatSettings.Returns.CaseLabelStyle := eNever;
+ JcfFormatSettings.Returns.CaseElseStyle  := eAlways;
+ JcfFormatSettings.Returns.CaseLabelStyle := eNever;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_IN_LINE, OUT_UNIT_TEXT_JUST_ELSE_NEWLINE);
 end;
 
 procedure TTestCaseReturns.TestCaseStatementJustElse2;
 begin
-  FormatSettings.Returns.CaseElseStyle  := eAlways;
-  FormatSettings.Returns.CaseLabelStyle := eNever;
+ JcfFormatSettings.Returns.CaseElseStyle  := eAlways;
+ JcfFormatSettings.Returns.CaseLabelStyle := eNever;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_NEW_LINE, OUT_UNIT_TEXT_JUST_ELSE_NEWLINE);
 end;
 
 procedure TTestCaseReturns.TestCaseStatementJustElse3;
 begin
-  FormatSettings.Returns.CaseElseStyle  := eAlways;
-  FormatSettings.Returns.CaseLabelStyle := eNever;
+ JcfFormatSettings.Returns.CaseElseStyle  := eAlways;
+ JcfFormatSettings.Returns.CaseLabelStyle := eNever;
 
   TestProcessResult(TBlockStyles, OUT_UNIT_TEXT_JUST_ELSE_NEWLINE,
     OUT_UNIT_TEXT_JUST_ELSE_NEWLINE);
@@ -279,24 +279,24 @@ end;
 
 procedure TTestCaseReturns.TestCaseStatementLeave1;
 begin
-  FormatSettings.Returns.CaseElseStyle  := eLeave;
-  FormatSettings.Returns.CaseLabelStyle := eLeave;
+ JcfFormatSettings.Returns.CaseElseStyle  := eLeave;
+ JcfFormatSettings.Returns.CaseLabelStyle := eLeave;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_NEW_LINE, UNIT_TEXT_NEW_LINE);
 end;
 
 procedure TTestCaseReturns.TestCaseStatementLeave2;
 begin
-  FormatSettings.Returns.CaseElseStyle  := eLeave;
-  FormatSettings.Returns.CaseLabelStyle := eLeave;
+ JcfFormatSettings.Returns.CaseElseStyle  := eLeave;
+ JcfFormatSettings.Returns.CaseLabelStyle := eLeave;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_IN_LINE, UNIT_TEXT_IN_LINE);
 end;
 
 procedure TTestCaseReturns.TestCaseStatementLeave3;
 begin
-  FormatSettings.Returns.CaseElseStyle  := eLeave;
-  FormatSettings.Returns.CaseLabelStyle := eLeave;
+ JcfFormatSettings.Returns.CaseElseStyle  := eLeave;
+ JcfFormatSettings.Returns.CaseLabelStyle := eLeave;
 
   TestProcessResult(TBlockStyles, OUT_UNIT_TEXT_JUST_ELSE_NEWLINE,
     OUT_UNIT_TEXT_JUST_ELSE_NEWLINE);
@@ -304,126 +304,126 @@ end;
 
 procedure TTestCaseReturns.TestCaseStatementNever1;
 begin
-  FormatSettings.Returns.CaseElseStyle  := eNever;
-  FormatSettings.Returns.CaseLabelStyle := eNever;
+ JcfFormatSettings.Returns.CaseElseStyle  := eNever;
+ JcfFormatSettings.Returns.CaseLabelStyle := eNever;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_NEW_LINE, UNIT_TEXT_IN_LINE);
 end;
 
 procedure TTestCaseReturns.TestCaseStatementNever2;
 begin
-  FormatSettings.Returns.CaseElseStyle  := eNever;
-  FormatSettings.Returns.CaseLabelStyle := eNever;
+ JcfFormatSettings.Returns.CaseElseStyle  := eNever;
+ JcfFormatSettings.Returns.CaseLabelStyle := eNever;
 
   TestProcessResult(TBlockStyles, OUT_UNIT_TEXT_JUST_ELSE_NEWLINE, UNIT_TEXT_IN_LINE);
 end;
 
 procedure TTestCaseReturns.TestCaseStatementNever3;
 begin
-  FormatSettings.Returns.CaseElseStyle  := eNever;
-  FormatSettings.Returns.CaseLabelStyle := eNever;
+ JcfFormatSettings.Returns.CaseElseStyle  := eNever;
+ JcfFormatSettings.Returns.CaseLabelStyle := eNever;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_NEW_LINE, UNIT_TEXT_IN_LINE);
 end;
 
 procedure TTestCaseReturns.TestCaseStatementElseBegin1;
 begin
-  FormatSettings.Returns.CaseElseStyle      := eNever;
-  FormatSettings.Returns.CaseElseBeginStyle := eNever;
-  FormatSettings.Returns.CaseLabelStyle     := eLeave;
+ JcfFormatSettings.Returns.CaseElseStyle      := eNever;
+ JcfFormatSettings.Returns.CaseElseBeginStyle := eNever;
+ JcfFormatSettings.Returns.CaseLabelStyle     := eLeave;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_ELSE_BEGIN, UNIT_TEXT_ELSE_BEGIN);
 end;
 
 procedure TTestCaseReturns.TestCaseStatementElseBegin2;
 begin
-  FormatSettings.Returns.CaseElseStyle      := eNever;
-  FormatSettings.Returns.CaseElseBeginStyle := eNever;
-  FormatSettings.Returns.CaseLabelStyle     := eLeave;
+ JcfFormatSettings.Returns.CaseElseStyle      := eNever;
+ JcfFormatSettings.Returns.CaseElseBeginStyle := eNever;
+ JcfFormatSettings.Returns.CaseLabelStyle     := eLeave;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_ELSE_BEGIN_NEWLINE, UNIT_TEXT_ELSE_BEGIN);
 end;
 
 procedure TTestCaseReturns.TestCaseStatementElseBegin3;
 begin
-  FormatSettings.Returns.CaseElseStyle      := eNever;
-  FormatSettings.Returns.CaseElseBeginStyle := eLeave;
-  FormatSettings.Returns.CaseLabelStyle     := eLeave;
+ JcfFormatSettings.Returns.CaseElseStyle      := eNever;
+ JcfFormatSettings.Returns.CaseElseBeginStyle := eLeave;
+ JcfFormatSettings.Returns.CaseLabelStyle     := eLeave;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_ELSE_BEGIN, UNIT_TEXT_ELSE_BEGIN);
 end;
 
 procedure TTestCaseReturns.TestCaseStatementElseBegin4;
 begin
-  FormatSettings.Returns.CaseElseStyle      := eNever;
-  FormatSettings.Returns.CaseElseBeginStyle := eLeave;
-  FormatSettings.Returns.CaseLabelStyle     := eLeave;
+ JcfFormatSettings.Returns.CaseElseStyle      := eNever;
+ JcfFormatSettings.Returns.CaseElseBeginStyle := eLeave;
+ JcfFormatSettings.Returns.CaseLabelStyle     := eLeave;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_ELSE_BEGIN_NEWLINE, UNIT_TEXT_ELSE_BEGIN_NEWLINE);
 end;
 
 procedure TTestCaseReturns.TestCaseStatementElseBegin5;
 begin
-  FormatSettings.Returns.CaseElseStyle      := eNever;
-  FormatSettings.Returns.CaseElseBeginStyle := eAlways;
-  FormatSettings.Returns.CaseLabelStyle     := eLeave;
+ JcfFormatSettings.Returns.CaseElseStyle      := eNever;
+ JcfFormatSettings.Returns.CaseElseBeginStyle := eAlways;
+ JcfFormatSettings.Returns.CaseLabelStyle     := eLeave;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_ELSE_BEGIN, UNIT_TEXT_ELSE_BEGIN_NEWLINE);
 end;
 
 procedure TTestCaseReturns.TestCaseStatementElseBegin6;
 begin
-  FormatSettings.Returns.CaseElseStyle      := eNever;
-  FormatSettings.Returns.CaseElseBeginStyle := eAlways;
-  FormatSettings.Returns.CaseLabelStyle     := eLeave;
+ JcfFormatSettings.Returns.CaseElseStyle      := eNever;
+ JcfFormatSettings.Returns.CaseElseBeginStyle := eAlways;
+ JcfFormatSettings.Returns.CaseLabelStyle     := eLeave;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_ELSE_BEGIN_NEWLINE, UNIT_TEXT_ELSE_BEGIN_NEWLINE);
 end;
 
 procedure TTestCaseReturns.TestCaseBegin1;
 begin
-  FormatSettings.Returns.CaseBeginStyle := eLeave;
-  FormatSettings.Returns.CaseLabelStyle := eLeave;
+ JcfFormatSettings.Returns.CaseBeginStyle := eLeave;
+ JcfFormatSettings.Returns.CaseLabelStyle := eLeave;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_CASE_BEGIN, UNIT_TEXT_CASE_BEGIN);
 end;
 
 procedure TTestCaseReturns.TestCaseBegin2;
 begin
-  FormatSettings.Returns.CaseBeginStyle := eLeave;
-  FormatSettings.Returns.CaseLabelStyle := eLeave;
+ JcfFormatSettings.Returns.CaseBeginStyle := eLeave;
+ JcfFormatSettings.Returns.CaseLabelStyle := eLeave;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_CASE_BEGIN_NEW_LINE, UNIT_TEXT_CASE_BEGIN_NEW_LINE);
 end;
 
 procedure TTestCaseReturns.TestCaseBegin3;
 begin
-  FormatSettings.Returns.CaseBeginStyle := eAlways;
-  FormatSettings.Returns.CaseLabelStyle := eLeave;
+ JcfFormatSettings.Returns.CaseBeginStyle := eAlways;
+ JcfFormatSettings.Returns.CaseLabelStyle := eLeave;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_CASE_BEGIN, UNIT_TEXT_CASE_BEGIN_NEW_LINE);
 end;
 
 procedure TTestCaseReturns.TestCaseBegin4;
 begin
-  FormatSettings.Returns.CaseBeginStyle := eAlways;
-  FormatSettings.Returns.CaseLabelStyle := eLeave;
+ JcfFormatSettings.Returns.CaseBeginStyle := eAlways;
+ JcfFormatSettings.Returns.CaseLabelStyle := eLeave;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_CASE_BEGIN_NEW_LINE, UNIT_TEXT_CASE_BEGIN_NEW_LINE);
 end;
 
 procedure TTestCaseReturns.TestCaseBegin5;
 begin
-  FormatSettings.Returns.CaseBeginStyle := eNever;
-  FormatSettings.Returns.CaseLabelStyle := eLeave;
+ JcfFormatSettings.Returns.CaseBeginStyle := eNever;
+ JcfFormatSettings.Returns.CaseLabelStyle := eLeave;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_CASE_BEGIN, UNIT_TEXT_CASE_BEGIN);
 end;
 
 procedure TTestCaseReturns.TestCaseBegin6;
 begin
-  FormatSettings.Returns.CaseBeginStyle := eNever;
-  FormatSettings.Returns.CaseLabelStyle := eLeave;
+ JcfFormatSettings.Returns.CaseBeginStyle := eNever;
+ JcfFormatSettings.Returns.CaseLabelStyle := eLeave;
 
   TestProcessResult(TBlockStyles, UNIT_TEXT_CASE_BEGIN_NEW_LINE, UNIT_TEXT_CASE_BEGIN);
 end;
@@ -431,7 +431,7 @@ end;
 
 procedure TTestCaseReturns.TestCaseStatementElseIndent;
 begin
-  FormatSettings.Indent.IndentCaseElse := True;
+ JcfFormatSettings.Indent.IndentCaseElse := True;
 
   TestProcessResult(TIndenter, UNIT_TEXT_INDENTED, UNIT_TEXT_INDENTED);
   TestProcessResult(TIndenter, UNIT_TEXT_INDENTED_ELSE, UNIT_TEXT_INDENTED);
@@ -439,7 +439,7 @@ end;
 
 procedure TTestCaseReturns.TestCaseStatementElseOutdent;
 begin
-  FormatSettings.Indent.IndentCaseElse := False;
+ JcfFormatSettings.Indent.IndentCaseElse := False;
 
   TestProcessResult(TIndenter, UNIT_TEXT_INDENTED, UNIT_TEXT_INDENTED_ELSE);
   TestProcessResult(TIndenter, UNIT_TEXT_INDENTED_ELSE, UNIT_TEXT_INDENTED_ELSE);

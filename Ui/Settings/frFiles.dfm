@@ -48,9 +48,6 @@ inherited fFiles: TfFiles
     Top = 134
     Width = 301
     Height = 89
-    AutoSize = False
-    MaxLines = 0
-    HideCaret = False
     TabOrder = 0
   end
 end

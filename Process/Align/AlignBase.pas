@@ -156,7 +156,7 @@ begin
   if (lcCurrent = nil) then
     exit;
 
-  with FormatSettings do
+  with JcfFormatSettings do
   begin
     liSettingsMin  := Align.MinColumn;
     liSettingsMax  := Align.MaxColumn;

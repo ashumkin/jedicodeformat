@@ -102,7 +102,7 @@ end;
 
 function TMoveSpaceToBeforeColon.IsIncludedInSettings: boolean;
 begin
-  Result := FormatSettings.Spaces.MoveSpaceToBeforeColon;
+  Result := JcfFormatSettings.Spaces.MoveSpaceToBeforeColon;
 end;
 
 end.

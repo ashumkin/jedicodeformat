@@ -98,7 +98,7 @@ end;
 
 function TBlockEndSemicolon.IsIncludedInSettings: boolean;
 begin
-  Result := FormatSettings.Transform.AddBlockEndSemiColon;
+  Result := JcfFormatSettings.Transform.AddBlockEndSemiColon;
 end;
 
 end.

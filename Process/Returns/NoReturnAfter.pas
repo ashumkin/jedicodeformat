@@ -90,10 +90,10 @@ begin
   if pt.HasParentNode(nAsm) then
     exit;
 
-  lcSetReturns := FormatSettings.Returns;
+  lcSetReturns := JcfFormatSettings.Returns;
   Assert(lcSetReturns <> nil);
 
-  if FormatSettings.Returns.RemoveBadReturns then
+  if JcfFormatSettings.Returns.RemoveBadReturns then
   begin
 
     if pt.TokenType in NoReturnWords then
@@ -326,7 +326,7 @@ end;
 
 function TNoReturnAfter.IsIncludedInSettings: boolean;
 begin
-  Result := FormatSettings.Returns.RemoveBadReturns;
+  Result := JcfFormatSettings.Returns.RemoveBadReturns;
 end;
 
 end.

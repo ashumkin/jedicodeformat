@@ -95,10 +95,10 @@ begin
 
   // both
   lc := ((lcObj as TComponent).Owner as TComponent);
-  lc := (((lcObj as TButton) as TObject).Owner as TComponent);
+  lc := (((lcObj as TButton) as TComponent).Owner as TComponent);
 
   // surplus brackets
-  lc := ((((((lcObj as TButton)) as TObject)).Owner as TComponent));
+  lc := ((((((lcObj as TButton)) as TComponent)).Owner as TComponent));
 
   // complex on the left
   lc := (lcButton.Parent as TComponent).Owner;

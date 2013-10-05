@@ -70,13 +70,13 @@ const
 procedure TTestTextAfterUnitEnd.Setup;
 begin
   inherited;
-  fiSaveLines := FormatSettings.Returns.NumReturnsAfterFinalEnd;
+  fiSaveLines := JcfFormatSettings.Returns.NumReturnsAfterFinalEnd;
 end;
 
 procedure TTestTextAfterUnitEnd.Teardown;
 begin
   inherited;
-  FormatSettings.Returns.NumReturnsAfterFinalEnd := fiSaveLines;
+ JcfFormatSettings.Returns.NumReturnsAfterFinalEnd := fiSaveLines;
 end;
 
 procedure TTestTextAfterUnitEnd.TestTooFew;
@@ -84,7 +84,7 @@ const
   IN_UNIT_TEXT = TEST_UNIT;
   OUT_UNIT_TEXT = TEST_UNIT + NativeLineBreak + NativeLineBreak;
 begin
-  FormatSettings.Returns.NumReturnsAfterFinalEnd := 3;
+ JcfFormatSettings.Returns.NumReturnsAfterFinalEnd := 3;
   TestProcessResult(TReturnsAfterFinalEnd, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
@@ -93,7 +93,7 @@ const
   IN_UNIT_TEXT = TEST_UNIT  + NativeLineBreak + NativeLineBreak +  NativeLineBreak + NativeLineBreak;
   OUT_UNIT_TEXT = TEST_UNIT + NativeLineBreak + NativeLineBreak;
 begin
-  FormatSettings.Returns.NumReturnsAfterFinalEnd := 3;
+ JcfFormatSettings.Returns.NumReturnsAfterFinalEnd := 3;
   TestProcessResult(TReturnsAfterFinalEnd, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
@@ -102,7 +102,7 @@ const
   IN_UNIT_TEXT = TEST_UNIT  + NativeLineBreak + '//foo' + NativeLineBreak +  NativeLineBreak + NativeLineBreak;
   OUT_UNIT_TEXT = TEST_UNIT + NativeLineBreak + '//foo' + NativeLineBreak;
 begin
-  FormatSettings.Returns.NumReturnsAfterFinalEnd := 3;
+ JcfFormatSettings.Returns.NumReturnsAfterFinalEnd := 3;
   TestProcessResult(TReturnsAfterFinalEnd, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
@@ -113,7 +113,7 @@ const
     NativeLineBreak + NativeLineBreak;
   OUT_UNIT_TEXT = TEST_UNIT + NativeLineBreak + 'junk' + NativeLineBreak;
 begin
-  FormatSettings.Returns.NumReturnsAfterFinalEnd := 3;
+ JcfFormatSettings.Returns.NumReturnsAfterFinalEnd := 3;
   TestProcessResult(TReturnsAfterFinalEnd, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
@@ -124,7 +124,7 @@ const
   OUT_UNIT_TEXT = TEST_UNIT + NativeLineBreak + 'junk' + NativeLineBreak +
     'more junk';
 begin
-  FormatSettings.Returns.NumReturnsAfterFinalEnd := 3;
+ JcfFormatSettings.Returns.NumReturnsAfterFinalEnd := 3;
   TestProcessResult(TReturnsAfterFinalEnd, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
@@ -138,7 +138,7 @@ const
     'more junk' + NativeLineBreak +
     'warrawak';
 begin
-  FormatSettings.Returns.NumReturnsAfterFinalEnd := 3;
+ JcfFormatSettings.Returns.NumReturnsAfterFinalEnd := 3;
   TestProcessResult(TReturnsAfterFinalEnd, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
@@ -154,7 +154,7 @@ const
     'warrawak' + NativeLineBreak +
     'narrank';
 begin
-  FormatSettings.Returns.NumReturnsAfterFinalEnd := 3;
+ JcfFormatSettings.Returns.NumReturnsAfterFinalEnd := 3;
   TestProcessResult(TReturnsAfterFinalEnd, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 

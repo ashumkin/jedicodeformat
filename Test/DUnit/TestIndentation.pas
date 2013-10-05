@@ -88,13 +88,13 @@ begin
   inherited;
 
   // save settings
-  fbSaveIndentBeginEnd := FormatSettings.Indent.IndentBeginEnd;
-  fiSaveIndentSpaces   := FormatSettings.Indent.IndentSpaces;
-  fiSaveIndentBeginEndSpaces := FormatSettings.Indent.IndentBeginEndSpaces;
+  fbSaveIndentBeginEnd := JcfFormatSettings.Indent.IndentBeginEnd;
+  fiSaveIndentSpaces   := JcfFormatSettings.Indent.IndentSpaces;
+  fiSaveIndentBeginEndSpaces := JcfFormatSettings.Indent.IndentBeginEndSpaces;
 
-  fbSaveHasFirstLevelIndent := FormatSettings.Indent.HasFirstLevelIndent;
-  fiSaveFirstLevelIndent    := FormatSettings.Indent.FirstLevelIndent;
-  fbSaveIndentElse := FormatSettings.Indent.IndentElse;
+  fbSaveHasFirstLevelIndent := JcfFormatSettings.Indent.HasFirstLevelIndent;
+  fiSaveFirstLevelIndent    := JcfFormatSettings.Indent.FirstLevelIndent;
+  fbSaveIndentElse := JcfFormatSettings.Indent.IndentElse;
 end;
 
 procedure TTestIndentation.Teardown;
@@ -102,14 +102,14 @@ begin
   inherited;
 
   // restore the settings
-  FormatSettings.Indent.IndentBeginEnd := fbSaveIndentBeginEnd;
-  FormatSettings.Indent.IndentSpaces   := fiSaveIndentSpaces;
-  FormatSettings.Indent.IndentBeginEndSpaces := fiSaveIndentBeginEndSpaces;
+ JcfFormatSettings.Indent.IndentBeginEnd := fbSaveIndentBeginEnd;
+ JcfFormatSettings.Indent.IndentSpaces   := fiSaveIndentSpaces;
+ JcfFormatSettings.Indent.IndentBeginEndSpaces := fiSaveIndentBeginEndSpaces;
 
-  FormatSettings.Indent.HasFirstLevelIndent := fbSaveHasFirstLevelIndent;
-  FormatSettings.Indent.FirstLevelIndent    := fiSaveFirstLevelIndent;
+ JcfFormatSettings.Indent.HasFirstLevelIndent := fbSaveHasFirstLevelIndent;
+ JcfFormatSettings.Indent.FirstLevelIndent    := fiSaveFirstLevelIndent;
 
-  FormatSettings.Indent.IndentElse := fbSaveIndentElse;
+ JcfFormatSettings.Indent.IndentElse := fbSaveIndentElse;
 end;
 
 const
@@ -167,9 +167,9 @@ const
     ' end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
-  FormatSettings.Indent.IndentBeginEnd := False;
-  FormatSettings.Indent.IndentSpaces   := 1;
-  FormatSettings.Indent.HasFirstLevelIndent := False;
+ JcfFormatSettings.Indent.IndentBeginEnd := False;
+ JcfFormatSettings.Indent.IndentSpaces   := 1;
+ JcfFormatSettings.Indent.HasFirstLevelIndent := False;
 
   TestProcessResult(TIndenter, BASIC_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -184,9 +184,9 @@ const
     '  end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
-  FormatSettings.Indent.IndentBeginEnd := False;
-  FormatSettings.Indent.IndentSpaces   := 2;
-  FormatSettings.Indent.HasFirstLevelIndent := False;
+ JcfFormatSettings.Indent.IndentBeginEnd := False;
+ JcfFormatSettings.Indent.IndentSpaces   := 2;
+ JcfFormatSettings.Indent.HasFirstLevelIndent := False;
 
   TestProcessResult(TIndenter, BASIC_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -201,9 +201,9 @@ const
     '   end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
-  FormatSettings.Indent.IndentBeginEnd := False;
-  FormatSettings.Indent.IndentSpaces   := 3;
-  FormatSettings.Indent.HasFirstLevelIndent := False;
+ JcfFormatSettings.Indent.IndentBeginEnd := False;
+ JcfFormatSettings.Indent.IndentSpaces   := 3;
+ JcfFormatSettings.Indent.HasFirstLevelIndent := False;
 
   TestProcessResult(TIndenter, BASIC_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -218,10 +218,10 @@ const
     ' end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
-  FormatSettings.Indent.IndentBeginEnd   := False;
-  FormatSettings.Indent.IndentSpaces     := 2;
-  FormatSettings.Indent.HasFirstLevelIndent := True;
-  FormatSettings.Indent.FirstLevelIndent := 1;
+ JcfFormatSettings.Indent.IndentBeginEnd   := False;
+ JcfFormatSettings.Indent.IndentSpaces     := 2;
+ JcfFormatSettings.Indent.HasFirstLevelIndent := True;
+ JcfFormatSettings.Indent.FirstLevelIndent := 1;
 
   TestProcessResult(TIndenter, BASIC_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -236,10 +236,10 @@ const
     '  end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
-  FormatSettings.Indent.IndentBeginEnd   := False;
-  FormatSettings.Indent.IndentSpaces     := 2;
-  FormatSettings.Indent.HasFirstLevelIndent := True;
-  FormatSettings.Indent.FirstLevelIndent := 2;
+ JcfFormatSettings.Indent.IndentBeginEnd   := False;
+ JcfFormatSettings.Indent.IndentSpaces     := 2;
+ JcfFormatSettings.Indent.HasFirstLevelIndent := True;
+ JcfFormatSettings.Indent.FirstLevelIndent := 2;
 
   TestProcessResult(TIndenter, BASIC_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -254,10 +254,10 @@ const
     '   end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
-  FormatSettings.Indent.IndentBeginEnd   := False;
-  FormatSettings.Indent.IndentSpaces     := 2;
-  FormatSettings.Indent.HasFirstLevelIndent := True;
-  FormatSettings.Indent.FirstLevelIndent := 3;
+ JcfFormatSettings.Indent.IndentBeginEnd   := False;
+ JcfFormatSettings.Indent.IndentSpaces     := 2;
+ JcfFormatSettings.Indent.HasFirstLevelIndent := True;
+ JcfFormatSettings.Indent.FirstLevelIndent := 3;
 
   TestProcessResult(TIndenter, BASIC_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -272,10 +272,10 @@ const
     '   end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
-  FormatSettings.Indent.IndentBeginEnd := True;
-  FormatSettings.Indent.IndentSpaces   := 2;
-  FormatSettings.Indent.IndentBeginEndSpaces := 1;
-  FormatSettings.Indent.HasFirstLevelIndent := False;
+ JcfFormatSettings.Indent.IndentBeginEnd := True;
+ JcfFormatSettings.Indent.IndentSpaces   := 2;
+ JcfFormatSettings.Indent.IndentBeginEndSpaces := 1;
+ JcfFormatSettings.Indent.HasFirstLevelIndent := False;
 
   TestProcessResult(TIndenter, BASIC_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -290,10 +290,10 @@ const
     '    end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
-  FormatSettings.Indent.IndentBeginEnd := True;
-  FormatSettings.Indent.IndentSpaces   := 2;
-  FormatSettings.Indent.IndentBeginEndSpaces := 2;
-  FormatSettings.Indent.HasFirstLevelIndent := False;
+ JcfFormatSettings.Indent.IndentBeginEnd := True;
+ JcfFormatSettings.Indent.IndentSpaces   := 2;
+ JcfFormatSettings.Indent.IndentBeginEndSpaces := 2;
+ JcfFormatSettings.Indent.HasFirstLevelIndent := False;
 
   TestProcessResult(TIndenter, BASIC_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -308,10 +308,10 @@ const
     '     end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
-  FormatSettings.Indent.IndentBeginEnd := True;
-  FormatSettings.Indent.IndentSpaces   := 2;
-  FormatSettings.Indent.IndentBeginEndSpaces := 3;
-  FormatSettings.Indent.HasFirstLevelIndent := False;
+ JcfFormatSettings.Indent.IndentBeginEnd := True;
+ JcfFormatSettings.Indent.IndentSpaces   := 2;
+ JcfFormatSettings.Indent.IndentBeginEndSpaces := 3;
+ JcfFormatSettings.Indent.HasFirstLevelIndent := False;
 
   TestProcessResult(TIndenter, BASIC_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -328,10 +328,10 @@ const
     '   end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
-  FormatSettings.Indent.IndentBeginEnd := True;
-  FormatSettings.Indent.IndentSpaces   := 2;
-  FormatSettings.Indent.IndentBeginEndSpaces := 1;
-  FormatSettings.Indent.HasFirstLevelIndent := False;
+ JcfFormatSettings.Indent.IndentBeginEnd := True;
+ JcfFormatSettings.Indent.IndentSpaces   := 2;
+ JcfFormatSettings.Indent.IndentBeginEndSpaces := 1;
+ JcfFormatSettings.Indent.HasFirstLevelIndent := False;
 
   TestProcessResult(TIndenter, BASIC_TRY_EXCEPT_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -348,10 +348,10 @@ const
     '    end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
-  FormatSettings.Indent.IndentBeginEnd := True;
-  FormatSettings.Indent.IndentSpaces   := 2;
-  FormatSettings.Indent.IndentBeginEndSpaces := 2;
-  FormatSettings.Indent.HasFirstLevelIndent := False;
+ JcfFormatSettings.Indent.IndentBeginEnd := True;
+ JcfFormatSettings.Indent.IndentSpaces   := 2;
+ JcfFormatSettings.Indent.IndentBeginEndSpaces := 2;
+ JcfFormatSettings.Indent.HasFirstLevelIndent := False;
 
   TestProcessResult(TIndenter, BASIC_TRY_EXCEPT_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -368,10 +368,10 @@ const
     '     end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
-  FormatSettings.Indent.IndentBeginEnd := True;
-  FormatSettings.Indent.IndentSpaces   := 2;
-  FormatSettings.Indent.IndentBeginEndSpaces := 3;
-  FormatSettings.Indent.HasFirstLevelIndent := False;
+ JcfFormatSettings.Indent.IndentBeginEnd := True;
+ JcfFormatSettings.Indent.IndentSpaces   := 2;
+ JcfFormatSettings.Indent.IndentBeginEndSpaces := 3;
+ JcfFormatSettings.Indent.HasFirstLevelIndent := False;
 
   TestProcessResult(TIndenter, BASIC_TRY_EXCEPT_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -388,10 +388,10 @@ const
     '   end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
-  FormatSettings.Indent.IndentBeginEnd := True;
-  FormatSettings.Indent.IndentSpaces   := 2;
-  FormatSettings.Indent.IndentBeginEndSpaces := 1;
-  FormatSettings.Indent.HasFirstLevelIndent := False;
+ JcfFormatSettings.Indent.IndentBeginEnd := True;
+ JcfFormatSettings.Indent.IndentSpaces   := 2;
+ JcfFormatSettings.Indent.IndentBeginEndSpaces := 1;
+ JcfFormatSettings.Indent.HasFirstLevelIndent := False;
 
   TestProcessResult(TIndenter, BASIC_TRY_FINALLY_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -408,10 +408,10 @@ const
     '    end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
-  FormatSettings.Indent.IndentBeginEnd := True;
-  FormatSettings.Indent.IndentSpaces   := 2;
-  FormatSettings.Indent.IndentBeginEndSpaces := 2;
-  FormatSettings.Indent.HasFirstLevelIndent := False;
+ JcfFormatSettings.Indent.IndentBeginEnd := True;
+ JcfFormatSettings.Indent.IndentSpaces   := 2;
+ JcfFormatSettings.Indent.IndentBeginEndSpaces := 2;
+ JcfFormatSettings.Indent.HasFirstLevelIndent := False;
 
   TestProcessResult(TIndenter, BASIC_TRY_FINALLY_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -428,10 +428,10 @@ const
     '     end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
-  FormatSettings.Indent.IndentBeginEnd := True;
-  FormatSettings.Indent.IndentSpaces   := 2;
-  FormatSettings.Indent.IndentBeginEndSpaces := 3;
-  FormatSettings.Indent.HasFirstLevelIndent := False;
+ JcfFormatSettings.Indent.IndentBeginEnd := True;
+ JcfFormatSettings.Indent.IndentSpaces   := 2;
+ JcfFormatSettings.Indent.IndentBeginEndSpaces := 3;
+ JcfFormatSettings.Indent.HasFirstLevelIndent := False;
 
   TestProcessResult(TIndenter, BASIC_TRY_FINALLY_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -450,10 +450,10 @@ const
     '   end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
-  FormatSettings.Indent.IndentBeginEnd := True;
-  FormatSettings.Indent.IndentSpaces   := 2;
-  FormatSettings.Indent.IndentBeginEndSpaces := 1;
-  FormatSettings.Indent.HasFirstLevelIndent := False;
+ JcfFormatSettings.Indent.IndentBeginEnd := True;
+ JcfFormatSettings.Indent.IndentSpaces   := 2;
+ JcfFormatSettings.Indent.IndentBeginEndSpaces := 1;
+ JcfFormatSettings.Indent.HasFirstLevelIndent := False;
 
   TestProcessResult(TIndenter, BASIC_TWO_LEVEL_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -472,10 +472,10 @@ const
     '    end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
-  FormatSettings.Indent.IndentBeginEnd := True;
-  FormatSettings.Indent.IndentSpaces   := 2;
-  FormatSettings.Indent.IndentBeginEndSpaces := 2;
-  FormatSettings.Indent.HasFirstLevelIndent := False;
+ JcfFormatSettings.Indent.IndentBeginEnd := True;
+ JcfFormatSettings.Indent.IndentSpaces   := 2;
+ JcfFormatSettings.Indent.IndentBeginEndSpaces := 2;
+ JcfFormatSettings.Indent.HasFirstLevelIndent := False;
 
   TestProcessResult(TIndenter, BASIC_TWO_LEVEL_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -494,10 +494,10 @@ const
     '     end' + NativeLineBreak +
     'end;' + UNIT_FOOTER;
 begin
-  FormatSettings.Indent.IndentBeginEnd := True;
-  FormatSettings.Indent.IndentSpaces   := 2;
-  FormatSettings.Indent.IndentBeginEndSpaces := 3;
-  FormatSettings.Indent.HasFirstLevelIndent := False;
+ JcfFormatSettings.Indent.IndentBeginEnd := True;
+ JcfFormatSettings.Indent.IndentSpaces   := 2;
+ JcfFormatSettings.Indent.IndentBeginEndSpaces := 3;
+ JcfFormatSettings.Indent.HasFirstLevelIndent := False;
 
   TestProcessResult(TIndenter, BASIC_TWO_LEVEL_UNIT_TEXT, OUT_UNIT_TEXT);
 end;

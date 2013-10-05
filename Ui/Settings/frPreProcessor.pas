@@ -70,7 +70,7 @@ end;
 procedure TfPreProcessor.Read;
 begin
   inherited;
-  with FormatSettings.PreProcessor do
+  with JcfFormatSettings.PreProcessor do
   begin
     cbEnable.Checked := Enabled;
     mSymbols.Lines.Assign(DefinedSymbols);
@@ -82,7 +82,7 @@ end;
 procedure TfPreProcessor.Write;
 begin
   inherited;
-  with FormatSettings.PreProcessor do
+  with JcfFormatSettings.PreProcessor do
   begin
     Enabled := cbEnable.Checked;
     DefinedSymbols.Assign(mSymbols.Lines);

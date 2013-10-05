@@ -75,7 +75,7 @@ end;
 
 procedure TfClarifyBlocks.Read;
 begin
-  with FormatSettings.Returns do
+  with JcfFormatSettings.Returns do
   begin
     { block styles }
     rgBlockBegin.ItemIndex := Ord(BlockBeginStyle);
@@ -89,7 +89,7 @@ end;
 
 procedure TfClarifyBlocks.Write;
 begin
-  with FormatSettings.Returns do
+  with JcfFormatSettings.Returns do
   begin
     { block styles }
     BlockBeginStyle := TTriOptionStyle(rgBlockBegin.ItemIndex);

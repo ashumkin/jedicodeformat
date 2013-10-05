@@ -843,23 +843,23 @@ begin
   if InStatements(pt) then
   begin
     if pbBefore then
-      Result := FormatSettings.Returns.BeforeCompilerDirectStatements
+      Result := JcfFormatSettings.Returns.BeforeCompilerDirectStatements
     else
-      Result := FormatSettings.Returns.AfterCompilerDirectStatements;
+      Result := JcfFormatSettings.Returns.AfterCompilerDirectStatements;
   end
   else if pt.HasParentNode(nUses)  then
   begin
     if pbBefore then
-      Result := FormatSettings.Returns.BeforeCompilerDirectUses
+      Result := JcfFormatSettings.Returns.BeforeCompilerDirectUses
     else
-      Result := FormatSettings.Returns.AfterCompilerDirectUses;
+      Result := JcfFormatSettings.Returns.AfterCompilerDirectUses;
   end
   else
   begin
     if pbBefore then
-      Result := FormatSettings.Returns.BeforeCompilerDirectGeneral
+      Result := JcfFormatSettings.Returns.BeforeCompilerDirectGeneral
     else
-      Result := FormatSettings.Returns.AfterCompilerDirectGeneral;
+      Result := JcfFormatSettings.Returns.AfterCompilerDirectGeneral;
   end;
 end;
 

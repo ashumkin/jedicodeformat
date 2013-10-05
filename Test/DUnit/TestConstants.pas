@@ -130,8 +130,8 @@ begin
     raise Exception.Create('Settings file ' + lsSettingsFileName + ' not found');
 
   GetRegSettings.FormatConfigFileName := lsSettingsFileName;
-  FormatSettings; // create and read
-  FormatSettings.Obfuscate.Enabled := False;
+  JcfFormatSettings; // create and read
+  JcfFormatSettings.Obfuscate.Enabled := False;
 
   { some registry settings can be painfull in automated tests }
   GetRegSettings.LogTime := False;

@@ -77,7 +77,7 @@ uses
 procedure TTestAlignment.Setup;
 begin
   inherited;
-  FormatSettings.Align.MaxVariance := 5;
+ JcfFormatSettings.Align.MaxVariance := 5;
 end;
 
 procedure TTestAlignment.TestAlignConst;
@@ -226,7 +226,7 @@ const
     UNIT_FOOTER;
 
 begin
-  FormatSettings.Align.AlignAssign := True;
+ JcfFormatSettings.Align.AlignAssign := True;
   TestProcessResult(TAlignVars, MULTI_ALIGN_IN_UNIT_TEXT, OUT_UNIT_TEXT);
   TestProcessResult(TAlignVars, OUT_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -247,7 +247,7 @@ const
     'end;' +
     UNIT_FOOTER;
 begin
-  FormatSettings.Align.AlignAssign := True;
+ JcfFormatSettings.Align.AlignAssign := True;
   TestProcessResult(TAlignAssign, MULTI_ALIGN_IN_UNIT_TEXT, OUT_UNIT_TEXT);
   TestProcessResult(TAlignAssign, OUT_UNIT_TEXT, OUT_UNIT_TEXT);
 end;

@@ -111,17 +111,17 @@ procedure TTestWarnings.Setup;
 begin
   inherited;
 
-  fStoreWarningsOn := FormatSettings.Clarify.Warnings;
-  fStoreWarnUnusedParamsOn := FormatSettings.Clarify.WarnUnusedParams;
+  fStoreWarningsOn := JcfFormatSettings.Clarify.Warnings;
+  fStoreWarnUnusedParamsOn := JcfFormatSettings.Clarify.WarnUnusedParams;
 
-  FormatSettings.Clarify.Warnings := True;
-  FormatSettings.Clarify.WarnUnusedParams := True;
+ JcfFormatSettings.Clarify.Warnings := True;
+ JcfFormatSettings.Clarify.WarnUnusedParams := True;
 end;
 
 procedure TTestWarnings.TearDown;
 begin
-  FormatSettings.Clarify.Warnings := fStoreWarningsOn;
-  FormatSettings.Clarify.WarnUnusedParams := fStoreWarnUnusedParamsOn;
+ JcfFormatSettings.Clarify.Warnings := fStoreWarningsOn;
+ JcfFormatSettings.Clarify.WarnUnusedParams := fStoreWarnUnusedParamsOn;
 
   inherited;
 
@@ -147,7 +147,7 @@ procedure TTestWarnings.TestEmptyProcedureOff;
 const
   UNIT_TEXT = UNIT_HEADER + ' procedure fred; begin end; ' + UNIT_FOOTER;
 begin
-  FormatSettings.Clarify.Warnings := False;
+ JcfFormatSettings.Clarify.Warnings := False;
   TestNoWarnings(UNIT_TEXT);
 end;
 
@@ -411,21 +411,21 @@ const
     UNIT_FOOTER;
 begin
   // off
-  FormatSettings.Clarify.WarnUnusedParams := False;
+ JcfFormatSettings.Clarify.WarnUnusedParams := False;
   TestNoWarnings(UNIT_TEXT);
 
   // on
-  FormatSettings.Clarify.WarnUnusedParams := True;
+ JcfFormatSettings.Clarify.WarnUnusedParams := True;
   TestWarnings(UNIT_TEXT, 'foo');
 
   // excluded
-  FormatSettings.Clarify.IgnoreUnusedParams.Clear;
-  FormatSettings.Clarify.IgnoreUnusedParams.Add('foo');
+ JcfFormatSettings.Clarify.IgnoreUnusedParams.Clear;
+ JcfFormatSettings.Clarify.IgnoreUnusedParams.Add('foo');
   TestNoWarnings(UNIT_TEXT);
 
   // not excluded
-  FormatSettings.Clarify.IgnoreUnusedParams.Clear;
-  FormatSettings.Clarify.IgnoreUnusedParams.Add('oof');
+ JcfFormatSettings.Clarify.IgnoreUnusedParams.Clear;
+ JcfFormatSettings.Clarify.IgnoreUnusedParams.Add('oof');
   TestWarnings(UNIT_TEXT, 'foo');
 end;
 

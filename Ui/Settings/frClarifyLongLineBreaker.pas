@@ -76,7 +76,7 @@ end;
 
 procedure TfClarifyLongLineBreaker.Read;
 begin
-  with FormatSettings.Returns do
+  with JcfFormatSettings.Returns do
   begin
     { line breaking }
     edtMaxLineLength.Value := MaxLineLength;
@@ -86,7 +86,7 @@ end;
 
 procedure TfClarifyLongLineBreaker.Write;
 begin
-  with FormatSettings.Returns do
+  with JcfFormatSettings.Returns do
   begin
     { line breaking }
     MaxLineLength := edtMaxLineLength.Value;

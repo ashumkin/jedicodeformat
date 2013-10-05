@@ -1,4 +1,4 @@
-﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 		<PropertyGroup>
 			<ProjectGuid>{ff607c14-c567-40f9-9586-edfe81dd89c5}</ProjectGuid>
 			<MainSource>jcf_test.dpr</MainSource>
@@ -266,13 +266,13 @@
 					<VersionInfoKeys>
 						<VersionInfoKeys Name="CompanyName"/>
 						<VersionInfoKeys Name="FileDescription">JCF Test</VersionInfoKeys>
-						<VersionInfoKeys Name="FileVersion">2.44.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="FileVersion">2.46.0.0</VersionInfoKeys>
 						<VersionInfoKeys Name="InternalName"/>
 						<VersionInfoKeys Name="LegalCopyright"/>
 						<VersionInfoKeys Name="LegalTrademarks"/>
 						<VersionInfoKeys Name="OriginalFilename"/>
 						<VersionInfoKeys Name="ProductName"/>
-						<VersionInfoKeys Name="ProductVersion">2.44</VersionInfoKeys>
+						<VersionInfoKeys Name="ProductVersion">2.46</VersionInfoKeys>
 						<VersionInfoKeys Name="Comments"/>
 					</VersionInfoKeys>
 					<Source>

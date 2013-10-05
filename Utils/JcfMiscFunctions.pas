@@ -104,10 +104,13 @@ var
   code: integer;
 begin
   // de-localise the string if need be
+  {$IFDEF VER260}
+  if (FormatSettings.DecimalSeparator <> '.') and (Pos(FormatSettings.DecimalSeparator, s) > 0) then
+    StrReplace(s,FormatSettings.DecimalSeparator, '.');
+  {$ELSE}
   if (DecimalSeparator <> '.') and (Pos(DecimalSeparator, s) > 0) then
-  begin
     StrReplace(s, DecimalSeparator, '.');
-  end;
+  {$ENDIF}
 
   Val(s, Result, Code);
   if code <> 0 then
@@ -120,10 +123,17 @@ function Float2Str(const d: double): string;
 var
   OrgSep: char;
 begin
+  {$IFDEF VER260}
+  OrgSep := FormatSettings.DecimalSeparator;
+  FormatSettings.DecimalSeparator := '.';
+  Result := FloatToStr(d);
+  FormatSettings.DecimalSeparator := OrgSep;
+  {$ELSE}
   OrgSep := DecimalSeparator;
   DecimalSeparator := '.';
   Result := FloatToStr(d);
   DecimalSeparator := OrgSep;
+  {$ENDIF}
 end;
 
 

@@ -73,7 +73,7 @@ end;
 
 procedure TfTransform.Read;
 begin
-  with FormatSettings.Transform do
+  with JcfFormatSettings.Transform do
   begin
     rbBeginEnd.ItemIndex := Ord(BeginEndStyle);
     cbBlockEndSemicolons.Checked := AddBlockEndSemicolon;
@@ -93,7 +93,7 @@ end;
 
 procedure TfTransform.Write;
 begin
-  with FormatSettings.Transform do
+  with JcfFormatSettings.Transform do
   begin
     BeginEndStyle := TTriOptionStyle(rbBeginEnd.ItemIndex);
     AddBlockEndSemicolon := cbBlockEndSemicolons.Checked;

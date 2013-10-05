@@ -74,7 +74,7 @@ end;
 
 procedure TfObfuscateSettings.Read;
 begin
-  with FormatSettings.Obfuscate do
+  with JcfFormatSettings.Obfuscate do
   begin
     cbEnabled.Checked      := Enabled;
     rgObfuscateCaps.ItemIndex := Ord(Caps);
@@ -87,7 +87,7 @@ end;
 
 procedure TfObfuscateSettings.Write;
 begin
-  with FormatSettings.Obfuscate do
+  with JcfFormatSettings.Obfuscate do
   begin
     Enabled := cbEnabled.Checked;
     Caps    := TCapitalisationType(rgObfuscateCaps.ItemIndex);

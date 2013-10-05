@@ -112,7 +112,7 @@ end;
 
 procedure TfClarifyAlign.Read;
 begin
-  with FormatSettings.Align do
+  with JcfFormatSettings.Align do
   begin
     cbAlignAsign.Checked   := AlignAssign;
     cbAlignConst.Checked   := AlignConst;
@@ -133,7 +133,7 @@ end;
 
 procedure TfClarifyAlign.Write;
 begin
-  with FormatSettings.Align do
+  with JcfFormatSettings.Align do
   begin
     AlignAssign  := cbAlignAsign.Checked;
     AlignConst   := cbAlignConst.Checked;

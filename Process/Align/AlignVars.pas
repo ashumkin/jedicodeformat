@@ -131,7 +131,7 @@ end;
 function TAlignVars.IsTokenInContext(const pt: TSourceToken): boolean;
 begin
   Result := (pt.HasParentNode(nVarSection)) and (RoundBracketLevel(pt) < 1) and
-    (( not FormatSettings.Align.InterfaceOnly) or (pt.HasParentNode(nInterfaceSection)));
+    (( not JcfFormatSettings.Align.InterfaceOnly) or (pt.HasParentNode(nInterfaceSection)));
 end;
 
 function TAlignVars.TokenIsAligned(const pt: TSourceToken): boolean;
@@ -150,7 +150,7 @@ end;
 
 function TAlignVars.IsIncludedInSettings: boolean;
 begin
-  Result := ( not FormatSettings.Obfuscate.Enabled) and FormatSettings.Align.AlignVar;
+  Result := ( not JcfFormatSettings.Obfuscate.Enabled) and JcfFormatSettings.Align.AlignVar;
 end;
 
 

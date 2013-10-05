@@ -1,4 +1,4 @@
-﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 		<PropertyGroup>
 			<ProjectGuid>{db034cfc-48ca-4b05-8d76-af97e366c8ac}</ProjectGuid>
 			<MainSource>JCFIdeD12.dpk</MainSource>
@@ -344,13 +344,13 @@
 					<VersionInfoKeys>
 						<VersionInfoKeys Name="CompanyName"/>
 						<VersionInfoKeys Name="FileDescription">JEDI Code Format IDE Plugin for CodeGear Delphi 2009</VersionInfoKeys>
-						<VersionInfoKeys Name="FileVersion">2.44.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="FileVersion">2.46.0.0</VersionInfoKeys>
 						<VersionInfoKeys Name="InternalName"/>
 						<VersionInfoKeys Name="LegalCopyright"/>
 						<VersionInfoKeys Name="LegalTrademarks"/>
 						<VersionInfoKeys Name="OriginalFilename"/>
 						<VersionInfoKeys Name="ProductName"/>
-						<VersionInfoKeys Name="ProductVersion">2.44</VersionInfoKeys>
+						<VersionInfoKeys Name="ProductVersion">2.46</VersionInfoKeys>
 						<VersionInfoKeys Name="Comments"/>
 					</VersionInfoKeys>
 					<Source>

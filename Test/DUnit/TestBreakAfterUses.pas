@@ -93,9 +93,9 @@ procedure TTestBreakAfterUses.SetUp;
 begin
   inherited;
 
-  fbAddGoodReturns := FormatSettings.Returns.AddGoodReturns;
-  fbBreakAfterUses := FormatSettings.Returns.BreakAfterUses;
-  fbUsesClauseOnePerLine := FormatSettings.Returns.UsesClauseOnePerLine;
+  fbAddGoodReturns := JcfFormatSettings.Returns.AddGoodReturns;
+  fbBreakAfterUses := JcfFormatSettings.Returns.BreakAfterUses;
+  fbUsesClauseOnePerLine := JcfFormatSettings.Returns.UsesClauseOnePerLine;
 
 end;
 
@@ -103,17 +103,17 @@ procedure TTestBreakAfterUses.TearDown;
 begin
   inherited;
 
-  FormatSettings.Returns.AddGoodReturns := fbAddGoodReturns;
-  FormatSettings.Returns.BreakAfterUses := fbBreakAfterUses;
-  FormatSettings.Returns.UsesClauseOnePerLine := fbUsesClauseOnePerLine;
+ JcfFormatSettings.Returns.AddGoodReturns := fbAddGoodReturns;
+ JcfFormatSettings.Returns.BreakAfterUses := fbBreakAfterUses;
+ JcfFormatSettings.Returns.UsesClauseOnePerLine := fbUsesClauseOnePerLine;
 
 end;
 
 procedure TTestBreakAfterUses.TestAllOff;
 begin
-  FormatSettings.Returns.AddGoodReturns := False;
-  FormatSettings.Returns.BreakAfterUses := False;
-  FormatSettings.Returns.UsesClauseOnePerLine := False;
+ JcfFormatSettings.Returns.AddGoodReturns := False;
+ JcfFormatSettings.Returns.BreakAfterUses := False;
+ JcfFormatSettings.Returns.UsesClauseOnePerLine := False;
 
   // processes are turned off, no change
   TestProcessResult(TReturnAfter, UNIT_ALL_ONE_LINE, UNIT_ALL_ONE_LINE);
@@ -123,9 +123,9 @@ end;
 
 procedure TTestBreakAfterUses.TestNoChange;
 begin
-  FormatSettings.Returns.AddGoodReturns := True;
-  FormatSettings.Returns.BreakAfterUses := False;
-  FormatSettings.Returns.UsesClauseOnePerLine := False;
+ JcfFormatSettings.Returns.AddGoodReturns := True;
+ JcfFormatSettings.Returns.BreakAfterUses := False;
+ JcfFormatSettings.Returns.UsesClauseOnePerLine := False;
 
   // processes are turned off, no change
   TestProcessResult(TReturnAfter, UNIT_ALL_ONE_LINE, UNIT_ALL_ONE_LINE);
@@ -134,9 +134,9 @@ end;
 
 procedure TTestBreakAfterUses.TestBreakAfterUses;
 begin
-  FormatSettings.Returns.AddGoodReturns := False;
-  FormatSettings.Returns.BreakAfterUses := True;
-  FormatSettings.Returns.UsesClauseOnePerLine := False;
+ JcfFormatSettings.Returns.AddGoodReturns := False;
+ JcfFormatSettings.Returns.BreakAfterUses := True;
+ JcfFormatSettings.Returns.UsesClauseOnePerLine := False;
 
   // break after uses is applied
   TestProcessResult(TReturnAfter, UNIT_ALL_ONE_LINE, UNIT_BREAK_AFTER_USES);
@@ -144,9 +144,9 @@ end;
 
 procedure TTestBreakAfterUses.TestUsesSpacing;
 begin
-  FormatSettings.Returns.AddGoodReturns := False;
-  FormatSettings.Returns.BreakAfterUses := True;
-  FormatSettings.Returns.UsesClauseOnePerLine := True;
+ JcfFormatSettings.Returns.AddGoodReturns := False;
+ JcfFormatSettings.Returns.BreakAfterUses := True;
+ JcfFormatSettings.Returns.UsesClauseOnePerLine := True;
 
   // break after uses is applied
   TestProcessResult(TReturnAfter, UNIT_ALL_ONE_LINE, UNIT_ONE_PER_LINE);
@@ -155,9 +155,9 @@ end;
 
 procedure TTestBreakAfterUses.TestBreakAfterUsesAndGoodReturns;
 begin
-  FormatSettings.Returns.AddGoodReturns := True;
-  FormatSettings.Returns.BreakAfterUses := True;
-  FormatSettings.Returns.UsesClauseOnePerLine := False;
+ JcfFormatSettings.Returns.AddGoodReturns := True;
+ JcfFormatSettings.Returns.BreakAfterUses := True;
+ JcfFormatSettings.Returns.UsesClauseOnePerLine := False;
 
   // break after uses is applied
   TestProcessResult(TReturnAfter, UNIT_ALL_ONE_LINE, UNIT_BREAK_AFTER_USES);
@@ -165,9 +165,9 @@ end;
 
 procedure TTestBreakAfterUses.TestUsesClauseOnePerLine;
 begin
-  FormatSettings.Returns.AddGoodReturns := True;
-  FormatSettings.Returns.BreakAfterUses := False;
-  FormatSettings.Returns.UsesClauseOnePerLine := True;
+ JcfFormatSettings.Returns.AddGoodReturns := True;
+ JcfFormatSettings.Returns.BreakAfterUses := False;
+ JcfFormatSettings.Returns.UsesClauseOnePerLine := True;
 
   // uses clause on one line
   TestProcessResult(TReturnAfter, UNIT_ALL_ONE_LINE, UNIT_ONE_PER_LINE);
@@ -175,9 +175,9 @@ end;
 
 procedure TTestBreakAfterUses.TestUsesClauseOnePerLineNoOtherReturns;
 begin
-  FormatSettings.Returns.AddGoodReturns := False;
-  FormatSettings.Returns.BreakAfterUses := False;
-  FormatSettings.Returns.UsesClauseOnePerLine := True;
+ JcfFormatSettings.Returns.AddGoodReturns := False;
+ JcfFormatSettings.Returns.BreakAfterUses := False;
+ JcfFormatSettings.Returns.UsesClauseOnePerLine := True;
 
   // uses clause on one line
   TestProcessResult(TReturnAfter, UNIT_ALL_ONE_LINE, UNIT_ONE_PER_LINE);
@@ -186,9 +186,9 @@ end;
 
 procedure TTestBreakAfterUses.TestUsesClauseAll;
 begin
-  FormatSettings.Returns.AddGoodReturns := True;
-  FormatSettings.Returns.BreakAfterUses := True;
-  FormatSettings.Returns.UsesClauseOnePerLine := True;
+ JcfFormatSettings.Returns.AddGoodReturns := True;
+ JcfFormatSettings.Returns.BreakAfterUses := True;
+ JcfFormatSettings.Returns.UsesClauseOnePerLine := True;
 
   // all options are on
   TestProcessResult(TReturnAfter, UNIT_ALL_ONE_LINE, UNIT_ONE_PER_LINE);

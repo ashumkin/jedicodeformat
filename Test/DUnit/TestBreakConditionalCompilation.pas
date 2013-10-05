@@ -116,32 +116,32 @@ begin
   end;
 
   { store settings }
-  feSaveRebreakLines := FormatSettings.Returns.RebreakLines;
-  FormatSettings.Returns.RebreakLines := rbOff;
+  feSaveRebreakLines := JcfFormatSettings.Returns.RebreakLines;
+ JcfFormatSettings.Returns.RebreakLines := rbOff;
 
-  fbPreProcessorEnabled := FormatSettings.PreProcessor.Enabled;
-  FormatSettings.PreProcessor.Enabled := False;
+  fbPreProcessorEnabled := JcfFormatSettings.PreProcessor.Enabled;
+ JcfFormatSettings.PreProcessor.Enabled := False;
 
-  feSaveBeforeCompilerDirectUses := FormatSettings.Returns.BeforeCompilerDirectUses;
-  feSaveBeforeCompilerDirectStatements := FormatSettings.Returns.BeforeCompilerDirectStatements;
-  feSaveBeforeCompilerDirectGeneral := FormatSettings.Returns.BeforeCompilerDirectGeneral;
-  feSaveAfterCompilerDirectUses := FormatSettings.Returns.AfterCompilerDirectUses;
-  feSaveAfterCompilerDirectStatements := FormatSettings.Returns.AfterCompilerDirectStatements;
-  feSaveAfterCompilerDirectGeneral := FormatSettings.Returns.AfterCompilerDirectGeneral;
+  feSaveBeforeCompilerDirectUses := JcfFormatSettings.Returns.BeforeCompilerDirectUses;
+  feSaveBeforeCompilerDirectStatements := JcfFormatSettings.Returns.BeforeCompilerDirectStatements;
+  feSaveBeforeCompilerDirectGeneral := JcfFormatSettings.Returns.BeforeCompilerDirectGeneral;
+  feSaveAfterCompilerDirectUses := JcfFormatSettings.Returns.AfterCompilerDirectUses;
+  feSaveAfterCompilerDirectStatements := JcfFormatSettings.Returns.AfterCompilerDirectStatements;
+  feSaveAfterCompilerDirectGeneral := JcfFormatSettings.Returns.AfterCompilerDirectGeneral;
 end;
 
 procedure TTestBreakConditionalCompilation.TearDown;
 begin
   { restore settings }
-  FormatSettings.Returns.RebreakLines := feSaveRebreakLines;
-  FormatSettings.PreProcessor.Enabled := fbPreProcessorEnabled;
+ JcfFormatSettings.Returns.RebreakLines := feSaveRebreakLines;
+ JcfFormatSettings.PreProcessor.Enabled := fbPreProcessorEnabled;
 
-  FormatSettings.Returns.BeforeCompilerDirectUses := feSaveBeforeCompilerDirectUses;
-  FormatSettings.Returns.BeforeCompilerDirectStatements := feSaveBeforeCompilerDirectStatements;
-  FormatSettings.Returns.BeforeCompilerDirectGeneral := feSaveBeforeCompilerDirectGeneral;
-  FormatSettings.Returns.AfterCompilerDirectUses := feSaveAfterCompilerDirectUses;
-  FormatSettings.Returns.AfterCompilerDirectStatements := feSaveAfterCompilerDirectStatements;
-  FormatSettings.Returns.AfterCompilerDirectGeneral := feSaveAfterCompilerDirectGeneral;
+ JcfFormatSettings.Returns.BeforeCompilerDirectUses := feSaveBeforeCompilerDirectUses;
+ JcfFormatSettings.Returns.BeforeCompilerDirectStatements := feSaveBeforeCompilerDirectStatements;
+ JcfFormatSettings.Returns.BeforeCompilerDirectGeneral := feSaveBeforeCompilerDirectGeneral;
+ JcfFormatSettings.Returns.AfterCompilerDirectUses := feSaveAfterCompilerDirectUses;
+ JcfFormatSettings.Returns.AfterCompilerDirectStatements := feSaveAfterCompilerDirectStatements;
+ JcfFormatSettings.Returns.AfterCompilerDirectGeneral := feSaveAfterCompilerDirectGeneral;
 
   inherited;
 end;
@@ -160,12 +160,12 @@ procedure TTestBreakConditionalCompilation.TestNoChange;
 begin
   Check(fsFileIn <> '', 'No input file');
 
-  FormatSettings.Returns.BeforeCompilerDirectUses := eLeave;
-  FormatSettings.Returns.BeforeCompilerDirectStatements := eLeave;
-  FormatSettings.Returns.BeforeCompilerDirectGeneral := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectUses := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectStatements := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectUses := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectStatements := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectGeneral := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectUses := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectStatements := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
 
   TestFormatResult(string(fsFileIn), string(fsFileIn));
 end;
@@ -176,13 +176,13 @@ var
 begin
   Check(fsFileIn <> '', 'No input file');
 
-  FormatSettings.Returns.BeforeCompilerDirectUses := eAlways;
+ JcfFormatSettings.Returns.BeforeCompilerDirectUses := eAlways;
 
-  FormatSettings.Returns.BeforeCompilerDirectStatements := eLeave;
-  FormatSettings.Returns.BeforeCompilerDirectGeneral := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectUses := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectStatements := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectStatements := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectGeneral := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectUses := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectStatements := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
 
   lsFileOut := fsFileIn;
   CheckReplace(lsFileOut, ' {$IFDEF BAR_RAISED}', NativeLineBreak + '{$IFDEF BAR_RAISED}');
@@ -197,13 +197,13 @@ var
 begin
   Check(fsFileIn <> '', 'No input file');
 
-  FormatSettings.Returns.BeforeCompilerDirectUses := eNever;
+ JcfFormatSettings.Returns.BeforeCompilerDirectUses := eNever;
 
-  FormatSettings.Returns.BeforeCompilerDirectStatements := eLeave;
-  FormatSettings.Returns.BeforeCompilerDirectGeneral := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectUses := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectStatements := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectStatements := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectGeneral := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectUses := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectStatements := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
 
   lsFileOut := fsFileIn;
   CheckReplace(fsFileIn, '{$IFDEF BAR_RAISED}', NativeLineBreak + '{$IFDEF BAR_RAISED}');
@@ -217,13 +217,13 @@ var
 begin
   Check(fsFileIn <> '', 'No input file');
 
-  FormatSettings.Returns.AfterCompilerDirectUses := eAlways;
+ JcfFormatSettings.Returns.AfterCompilerDirectUses := eAlways;
 
-  FormatSettings.Returns.BeforeCompilerDirectUses := eLeave;
-  FormatSettings.Returns.BeforeCompilerDirectStatements := eLeave;
-  FormatSettings.Returns.BeforeCompilerDirectGeneral := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectStatements := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectUses := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectStatements := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectGeneral := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectStatements := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
 
   lsFileOut := fsFileIn;
   CheckReplace(lsFileOut, '{$IFDEF BAR_RAISED}', '{$IFDEF BAR_RAISED}' + NativeLineBreak + ' ');
@@ -237,13 +237,13 @@ var
 begin
   Check(fsFileIn <> '', 'No input file');
 
-  FormatSettings.Returns.AfterCompilerDirectUses := eNever;
+ JcfFormatSettings.Returns.AfterCompilerDirectUses := eNever;
 
-  FormatSettings.Returns.BeforeCompilerDirectUses := eLeave;
-  FormatSettings.Returns.BeforeCompilerDirectStatements := eLeave;
-  FormatSettings.Returns.BeforeCompilerDirectGeneral := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectStatements := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectUses := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectStatements := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectGeneral := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectStatements := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
 
   lsFileOut := string(fsFileIn);
   CheckReplace(fsFileIn, '{$IFDEF BAR_RAISED} ', '{$IFDEF BAR_RAISED}' + NativeLineBreak + ' ');
@@ -257,13 +257,13 @@ var
 begin
   Check(fsFileIn <> '', 'No input file');
 
-  FormatSettings.Returns.BeforeCompilerDirectStatements := eAlways;
+ JcfFormatSettings.Returns.BeforeCompilerDirectStatements := eAlways;
 
-  FormatSettings.Returns.BeforeCompilerDirectUses := eLeave;
-  FormatSettings.Returns.BeforeCompilerDirectGeneral := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectUses := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectStatements := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectUses := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectGeneral := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectUses := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectStatements := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
 
   lsFileOut := fsFileIn;
 
@@ -283,13 +283,13 @@ var
 begin
   Check(fsFileIn <> '', 'No input file');
 
-  FormatSettings.Returns.BeforeCompilerDirectStatements := eNever;
+ JcfFormatSettings.Returns.BeforeCompilerDirectStatements := eNever;
 
-  FormatSettings.Returns.BeforeCompilerDirectUses := eLeave;
-  FormatSettings.Returns.BeforeCompilerDirectGeneral := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectUses := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectStatements := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectUses := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectGeneral := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectUses := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectStatements := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
 
   lsFileOut := fsFileIn;
 
@@ -305,13 +305,13 @@ var
 begin
   Check(fsFileIn <> '', 'No input file');
 
-  FormatSettings.Returns.AfterCompilerDirectStatements := eAlways;
+ JcfFormatSettings.Returns.AfterCompilerDirectStatements := eAlways;
 
-  FormatSettings.Returns.BeforeCompilerDirectStatements := eLeave;
-  FormatSettings.Returns.BeforeCompilerDirectUses := eLeave;
-  FormatSettings.Returns.BeforeCompilerDirectGeneral := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectUses := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectStatements := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectUses := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectGeneral := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectUses := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
 
   lsFileOut := string(fsFileIn);
 
@@ -333,13 +333,13 @@ var
 begin
   Check(fsFileIn <> '', 'No input file');
 
-  FormatSettings.Returns.AfterCompilerDirectStatements := eNever;
+ JcfFormatSettings.Returns.AfterCompilerDirectStatements := eNever;
 
-  FormatSettings.Returns.BeforeCompilerDirectStatements := eLeave;
-  FormatSettings.Returns.BeforeCompilerDirectUses := eLeave;
-  FormatSettings.Returns.BeforeCompilerDirectGeneral := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectUses := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectStatements := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectUses := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectGeneral := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectUses := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
 
   lsFileOut := fsFileIn;
 
@@ -359,13 +359,13 @@ var
 begin
   Check(fsFileIn <> '', 'No input file');
 
-  FormatSettings.Returns.BeforeCompilerDirectGeneral := eAlways;
+ JcfFormatSettings.Returns.BeforeCompilerDirectGeneral := eAlways;
 
-  FormatSettings.Returns.BeforeCompilerDirectStatements := eLeave;
-  FormatSettings.Returns.BeforeCompilerDirectUses := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectUses := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectStatements := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectStatements := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectUses := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectUses := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectGeneral := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectStatements := eLeave;
 
   lsFileOut := fsFileIn;
 
@@ -391,13 +391,13 @@ var
 begin
   Check(fsFileIn <> '', 'No input file');
 
-  FormatSettings.Returns.AfterCompilerDirectGeneral := eNever;
+ JcfFormatSettings.Returns.AfterCompilerDirectGeneral := eNever;
 
-  FormatSettings.Returns.BeforeCompilerDirectStatements := eLeave;
-  FormatSettings.Returns.BeforeCompilerDirectUses := eLeave;
-  FormatSettings.Returns.BeforeCompilerDirectGeneral := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectUses := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectStatements := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectStatements := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectUses := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectGeneral := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectUses := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectStatements := eLeave;
 
   lsFileOut := string(fsFileIn);
 
@@ -421,13 +421,13 @@ var
 begin
   Check(fsFileIn <> '', 'No input file');
 
-  FormatSettings.Returns.AfterCompilerDirectGeneral := eAlways;
+ JcfFormatSettings.Returns.AfterCompilerDirectGeneral := eAlways;
 
-  FormatSettings.Returns.BeforeCompilerDirectGeneral := eLeave;
-  FormatSettings.Returns.BeforeCompilerDirectStatements := eLeave;
-  FormatSettings.Returns.BeforeCompilerDirectUses := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectUses := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectStatements := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectGeneral := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectStatements := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectUses := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectUses := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectStatements := eLeave;
 
   lsFileOut := fsFileIn;
   lsFind := '{$IFDEF SYM2} ';
@@ -444,13 +444,13 @@ var
 begin
   Check(fsFileIn <> '', 'No input file');
 
-  FormatSettings.Returns.AfterCompilerDirectGeneral := eNever;
+ JcfFormatSettings.Returns.AfterCompilerDirectGeneral := eNever;
 
-  FormatSettings.Returns.BeforeCompilerDirectGeneral := eLeave;
-  FormatSettings.Returns.BeforeCompilerDirectStatements := eLeave;
-  FormatSettings.Returns.BeforeCompilerDirectUses := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectUses := eLeave;
-  FormatSettings.Returns.AfterCompilerDirectStatements := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectGeneral := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectStatements := eLeave;
+ JcfFormatSettings.Returns.BeforeCompilerDirectUses := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectUses := eLeave;
+ JcfFormatSettings.Returns.AfterCompilerDirectStatements := eLeave;
 
   lsFileOut := fsFileIn;
   lsFind := '{$IFDEF SYM2} ';

@@ -95,18 +95,20 @@ begin
     end;
 
     { from the file, about itself}
-    lblDate.Caption    := 'Date file written: ' +
-      FormatDateTime(ShortDateFormat + ' ' + ShortTimeFormat,
-      FormatSettings.WriteDateTime);
-    lblVersion.Caption := 'Version that wrote this file: ' + FormatSettings.WriteVersion;
-    mDescription.Text  := FormatSettings.Description;
+    {$IFDEF VER260}
+    lblDate.Caption    := 'Date file written: ' + FormatDateTime(FormatSettings.ShortDateFormat + ' ' + FormatSettings.ShortTimeFormat,JcfFormatSettings.WriteDateTime);
+    {$ELSE}
+    lblDate.Caption    := 'Date file written: ' + FormatDateTime(ShortDateFormat + ' ' + ShortTimeFormat,JcfFormatSettings.WriteDateTime);
+    {$ENDIF}
+    lblVersion.Caption := 'Version that wrote this file: ' +JcfFormatSettings.WriteVersion;
+    mDescription.Text  := JcfFormatSettings.Description;
 
   end;
 end;
 
 procedure TfFiles.Write;
 begin
-  FormatSettings.Description := mDescription.Text;
+ JcfFormatSettings.Description := mDescription.Text;
 end;
 
 procedure TfFiles.FrameResize(Sender: TObject);

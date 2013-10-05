@@ -82,7 +82,7 @@ end;
 
 procedure TfClarifyReturns.Read;
 begin
-  with FormatSettings.Returns do
+  with JcfFormatSettings.Returns do
   begin
     cbRemoveReturns.Checked     := RemoveBadReturns;
     cbRemovePropertyReturns.Checked := RemovePropertyReturns;
@@ -100,7 +100,7 @@ end;
 
 procedure TfClarifyReturns.Write;
 begin
-  with FormatSettings.Returns do
+  with JcfFormatSettings.Returns do
   begin
     RemoveBadReturns      := cbRemoveReturns.Checked;
     RemovePropertyReturns := cbRemovePropertyReturns.Checked;

@@ -71,20 +71,20 @@ begin
     ' not found');
 
   GetRegSettings.FormatConfigFileName := lsSettingsFileName;
-  FormatSettings; // create and read
-  FormatSettings.Obfuscate.Enabled := False;
+  JcfFormatSettings; // create and read
+  JcfFormatSettings.Obfuscate.Enabled := False;
 
-  FormatSettings.Replace.Enabled := True;
-  FormatSettings.Replace.Words.Clear;
-  FormatSettings.Replace.Words.Add('Foo;Bar');
+  JcfFormatSettings.Replace.Enabled := True;
+  JcfFormatSettings.Replace.Words.Clear;
+  JcfFormatSettings.Replace.Words.Add('Foo;Bar');
 
-  FormatSettings.Replace.SplitWords
+  JcfFormatSettings.Replace.SplitWords
 end;
 
 procedure TTestFindReplace.TearDown;
 begin
-  FormatSettings.Replace.Enabled := False;
-  FormatSettings.Replace.Words.Clear;
+  JcfFormatSettings.Replace.Enabled := False;
+  JcfFormatSettings.Replace.Words.Clear;
 end;
 
 procedure TTestFindReplace.TestNoAction;

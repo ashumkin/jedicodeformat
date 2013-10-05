@@ -155,34 +155,34 @@ procedure TTestIfElseBreaks.Setup;
 begin
   inherited;
 
-  leSaveIfElseStyle    := FormatSettings.Returns.ElseIfStyle;
-  leSaveBareBlockStyle := FormatSettings.Returns.BlockStyle;
+  leSaveIfElseStyle    := JcfFormatSettings.Returns.ElseIfStyle;
+  leSaveBareBlockStyle := JcfFormatSettings.Returns.BlockStyle;
 
-  leSaveCaseLabelStyle := FormatSettings.Returns.CaseLabelStyle;
-  leSaveCaseElseStyle  := FormatSettings.Returns.CaseElseStyle;
+  leSaveCaseLabelStyle := JcfFormatSettings.Returns.CaseLabelStyle;
+  leSaveCaseElseStyle  := JcfFormatSettings.Returns.CaseElseStyle;
 
-  leSaveEndElseStyle := FormatSettings.Returns.EndElseStyle;
-  leSaveElseBeginStyle := FormatSettings.Returns.ElseBeginStyle;
+  leSaveEndElseStyle := JcfFormatSettings.Returns.EndElseStyle;
+  leSaveElseBeginStyle := JcfFormatSettings.Returns.ElseBeginStyle;
 
-  leSaveBlockBeginStyle := FormatSettings.Returns.BlockBeginStyle;
+  leSaveBlockBeginStyle := JcfFormatSettings.Returns.BlockBeginStyle;
 
-  FormatSettings.Returns.ElseBeginStyle := eLeave;
+ JcfFormatSettings.Returns.ElseBeginStyle := eLeave;
 end;
 
 procedure TTestIfElseBreaks.Teardown;
 begin
   inherited;
 
-  FormatSettings.Returns.ElseIfStyle := leSaveIfElseStyle;
-  FormatSettings.Returns.BlockStyle  := leSaveBareBlockStyle;
+ JcfFormatSettings.Returns.ElseIfStyle := leSaveIfElseStyle;
+ JcfFormatSettings.Returns.BlockStyle  := leSaveBareBlockStyle;
 
-  FormatSettings.Returns.CaseLabelStyle := leSaveCaseLabelStyle;
-  FormatSettings.Returns.CaseElseStyle  := leSaveCaseElseStyle;
+ JcfFormatSettings.Returns.CaseLabelStyle := leSaveCaseLabelStyle;
+ JcfFormatSettings.Returns.CaseElseStyle  := leSaveCaseElseStyle;
 
-  FormatSettings.Returns.EndElseStyle := leSaveEndElseStyle;
-  FormatSettings.Returns.ElseBeginStyle := leSaveElseBeginStyle;
+ JcfFormatSettings.Returns.EndElseStyle := leSaveEndElseStyle;
+ JcfFormatSettings.Returns.ElseBeginStyle := leSaveElseBeginStyle;
 
-  FormatSettings.Returns.BlockBeginStyle := leSaveBlockBeginStyle;
+ JcfFormatSettings.Returns.BlockBeginStyle := leSaveBlockBeginStyle;
 end;
 
 procedure TTestIfElseBreaks.TestBlockStyleNever;
@@ -201,7 +201,7 @@ const
     'end;' + NativeLineBreak +
     UNIT_FOOTER;
 begin
-  FormatSettings.Returns.BlockStyle := eNever;
+ JcfFormatSettings.Returns.BlockStyle := eNever;
 
   TestProcessResult(TBlockStyles, IN_TEXT, OUT_TEXT);
 end;
@@ -216,7 +216,7 @@ const
     'end;' + NativeLineBreak +
     UNIT_FOOTER;
 begin
-  FormatSettings.Returns.BlockStyle := eNever;
+ JcfFormatSettings.Returns.BlockStyle := eNever;
 
   TestProcessResult(TBlockStyles, IN_TEXT, IN_TEXT);
 end;
@@ -240,7 +240,7 @@ const
     'end;' + NativeLineBreak +
     UNIT_FOOTER;
 begin
-  FormatSettings.Returns.BlockStyle := eNever;
+ JcfFormatSettings.Returns.BlockStyle := eNever;
 
   TestProcessResult(TBlockStyles, IN_TEXT, OUT_TEXT);
 end;
@@ -269,7 +269,7 @@ const
     'end;' + NativeLineBreak +
     UNIT_FOOTER;
 begin
-  FormatSettings.Returns.BlockBeginStyle := eNever;
+ JcfFormatSettings.Returns.BlockBeginStyle := eNever;
 
   TestProcessResult(TBlockStyles, IN_TEXT, OUT_TEXT);
 end;
@@ -298,7 +298,7 @@ const
     'end;' + NativeLineBreak +
     UNIT_FOOTER;
 begin
-  FormatSettings.Returns.BlockBeginStyle := eAlways;
+ JcfFormatSettings.Returns.BlockBeginStyle := eAlways;
 
   TestProcessResult(TBlockStyles, IN_TEXT, OUT_TEXT);
 end;
@@ -325,46 +325,46 @@ const
     'end;' + NativeLineBreak +
     UNIT_FOOTER;
 begin
-  FormatSettings.Returns.BlockStyle := eNever;
+ JcfFormatSettings.Returns.BlockStyle := eNever;
 
   TestProcessResult(TBlockStyles, IN_TEXT, OUT_TEXT);
 end;
 
 procedure TTestIfElseBreaks.TestIfElseAddReturn1;
 begin
-  FormatSettings.Returns.ElseIfStyle := eAlways;
+ JcfFormatSettings.Returns.ElseIfStyle := eAlways;
   TestProcessResult(TBlockStyles, RETURN_REMOVED_TEXT, RETURN_ADDED_TEXT);
 end;
 
 procedure TTestIfElseBreaks.TestIfElseAddReturn2;
 begin
-  FormatSettings.Returns.ElseIfStyle := eAlways;
+ JcfFormatSettings.Returns.ElseIfStyle := eAlways;
   TestProcessResult(TBlockStyles, RETURN_ADDED_TEXT, RETURN_ADDED_TEXT);
 end;
 
 
 procedure TTestIfElseBreaks.TestIfElseLeaveReturnAsIs1;
 begin
-  FormatSettings.Returns.ElseIfStyle := eLeave;
+ JcfFormatSettings.Returns.ElseIfStyle := eLeave;
   TestProcessResult(TBlockStyles, RETURN_ADDED_TEXT, RETURN_ADDED_TEXT);
 end;
 
 procedure TTestIfElseBreaks.TestIfElseLeaveReturnAsIs2;
 begin
-  FormatSettings.Returns.ElseIfStyle := eLeave;
+ JcfFormatSettings.Returns.ElseIfStyle := eLeave;
   TestProcessResult(TBlockStyles, RETURN_REMOVED_TEXT, RETURN_REMOVED_TEXT);
 end;
 
 
 procedure TTestIfElseBreaks.TestIfElseRemoveReturn1;
 begin
-  FormatSettings.Returns.ElseIfStyle := eNever;
+ JcfFormatSettings.Returns.ElseIfStyle := eNever;
   TestProcessResult(TBlockStyles, RETURN_ADDED_TEXT, RETURN_REMOVED_TEXT);
 end;
 
 procedure TTestIfElseBreaks.TestIfElseRemoveReturn2;
 begin
-  FormatSettings.Returns.ElseIfStyle := eNever;
+ JcfFormatSettings.Returns.ElseIfStyle := eNever;
   TestProcessResult(TBlockStyles, RETURN_REMOVED_TEXT, RETURN_REMOVED_TEXT);
 end;
 
@@ -401,8 +401,8 @@ const
 
 procedure TTestIfElseBreaks.TestCaseStatementNever1;
 begin
-  FormatSettings.Returns.CaseLabelStyle := eNever;
-  FormatSettings.Returns.CaseElseStyle  := eNever;
+ JcfFormatSettings.Returns.CaseLabelStyle := eNever;
+ JcfFormatSettings.Returns.CaseElseStyle  := eNever;
 
   // no breaks - text without breaks is left as is
   TestProcessResult(TBlockStyles, CASE_STATEMENT_IN_TEXT_NO_BREAKS,
@@ -411,8 +411,8 @@ end;
 
 procedure TTestIfElseBreaks.TestCaseStatementNever2;
 begin
-  FormatSettings.Returns.CaseLabelStyle := eNever;
-  FormatSettings.Returns.CaseElseStyle  := eNever;
+ JcfFormatSettings.Returns.CaseLabelStyle := eNever;
+ JcfFormatSettings.Returns.CaseElseStyle  := eNever;
 
   // no breaks - text with breaks is altered
   TestProcessResult(TBlockStyles, CASE_STATEMENT_IN_TEXT_BREAKS,
@@ -421,8 +421,8 @@ end;
 
 procedure TTestIfElseBreaks.TestCaseStatementLeaveAsIs1;
 begin
-  FormatSettings.Returns.CaseLabelStyle := eLeave;
-  FormatSettings.Returns.CaseElseStyle  := eLeave;
+ JcfFormatSettings.Returns.CaseLabelStyle := eLeave;
+ JcfFormatSettings.Returns.CaseElseStyle  := eLeave;
 
   // leave as is - text with no breaks is left as is
   TestProcessResult(TBlockStyles, CASE_STATEMENT_IN_TEXT_NO_BREAKS,
@@ -431,8 +431,8 @@ end;
 
 procedure TTestIfElseBreaks.TestCaseStatementLeaveAsIs2;
 begin
-  FormatSettings.Returns.CaseLabelStyle := eLeave;
-  FormatSettings.Returns.CaseElseStyle  := eLeave;
+ JcfFormatSettings.Returns.CaseLabelStyle := eLeave;
+ JcfFormatSettings.Returns.CaseElseStyle  := eLeave;
 
   // leave as is - text with breaks is left as is
   TestProcessResult(TBlockStyles, CASE_STATEMENT_IN_TEXT_BREAKS,
@@ -441,8 +441,8 @@ end;
 
 procedure TTestIfElseBreaks.TestCaseStatementAlways1;
 begin
-  FormatSettings.Returns.CaseLabelStyle := eAlways;
-  FormatSettings.Returns.CaseElseStyle  := eAlways;
+ JcfFormatSettings.Returns.CaseLabelStyle := eAlways;
+ JcfFormatSettings.Returns.CaseElseStyle  := eAlways;
 
   // breaks - text without breaks has them inserted
   TestProcessResult(TBlockStyles, CASE_STATEMENT_IN_TEXT_NO_BREAKS,
@@ -451,8 +451,8 @@ end;
 
 procedure TTestIfElseBreaks.TestCaseStatementAlways2;
 begin
-  FormatSettings.Returns.CaseLabelStyle := eAlways;
-  FormatSettings.Returns.CaseElseStyle  := eAlways;
+ JcfFormatSettings.Returns.CaseLabelStyle := eAlways;
+ JcfFormatSettings.Returns.CaseElseStyle  := eAlways;
 
   // breaks - text with breaks is left as is
   TestProcessResult(TBlockStyles, CASE_STATEMENT_IN_TEXT_BREAKS,
@@ -493,41 +493,41 @@ const
 
 procedure TTestIfElseBreaks.TestEndElseStyle1;
 begin
-  FormatSettings.Returns.EndElseStyle := eLeave;
+ JcfFormatSettings.Returns.EndElseStyle := eLeave;
   TestProcessResult(TBlockStyles, BROKEN_END_ELSE_UNIT_TEXT, BROKEN_END_ELSE_UNIT_TEXT);
 end;
 
 
 procedure TTestIfElseBreaks.TestEndElseStyle2;
 begin
-  FormatSettings.Returns.EndElseStyle := eLeave;
+ JcfFormatSettings.Returns.EndElseStyle := eLeave;
   TestProcessResult(TBlockStyles, UNBROKEN_END_ELSE_UNIT_TEXT, UNBROKEN_END_ELSE_UNIT_TEXT);
 end;
 
 procedure TTestIfElseBreaks.TestEndElseStyle3;
 begin
-  FormatSettings.Returns.EndElseStyle := eAlways;
+ JcfFormatSettings.Returns.EndElseStyle := eAlways;
   // breaks - text with breaks is left as is
   TestProcessResult(TBlockStyles, BROKEN_END_ELSE_UNIT_TEXT, BROKEN_END_ELSE_UNIT_TEXT);
 end;
 
 procedure TTestIfElseBreaks.TestEndElseStyle4;
 begin
-  FormatSettings.Returns.EndElseStyle := eAlways;
+ JcfFormatSettings.Returns.EndElseStyle := eAlways;
   // without breaks -> breaks added
   TestProcessResult(TBlockStyles, UNBROKEN_END_ELSE_UNIT_TEXT, BROKEN_END_ELSE_UNIT_TEXT);
 end;
 
 procedure TTestIfElseBreaks.TestEndElseStyle5;
 begin
-  FormatSettings.Returns.EndElseStyle := eNever;
+ JcfFormatSettings.Returns.EndElseStyle := eNever;
 
   TestProcessResult(TBlockStyles, BROKEN_END_ELSE_UNIT_TEXT, UNBROKEN_END_ELSE_UNIT_TEXT);
 end;
 
 procedure TTestIfElseBreaks.TestEndElseStyle6;
 begin
-  FormatSettings.Returns.EndElseStyle := eNever;
+ JcfFormatSettings.Returns.EndElseStyle := eNever;
   TestProcessResult(TBlockStyles, UNBROKEN_END_ELSE_UNIT_TEXT, UNBROKEN_END_ELSE_UNIT_TEXT);
 end;
 
@@ -558,25 +558,25 @@ const
 
 procedure TTestIfElseBreaks.TestAddElseBegin1;
 begin
-  FormatSettings.Returns.ElseBeginStyle := eAlways;
+ JcfFormatSettings.Returns.ElseBeginStyle := eAlways;
   TestProcessResult(TBlockStyles, ELSE_BEGIN_TEXT_WITH_RETURN, ELSE_BEGIN_TEXT_WITH_RETURN);
 end;
 
 procedure TTestIfElseBreaks.TestAddElseBegin2;
 begin
-  FormatSettings.Returns.ElseBeginStyle := eAlways;
+ JcfFormatSettings.Returns.ElseBeginStyle := eAlways;
   TestProcessResult(TBlockStyles, ELSE_BEGIN_TEXT_NO_RETURN, ELSE_BEGIN_TEXT_WITH_RETURN);
 end;
 
 procedure TTestIfElseBreaks.TestRemoveElseBegin1;
 begin
-  FormatSettings.Returns.ElseBeginStyle := eNever;
+ JcfFormatSettings.Returns.ElseBeginStyle := eNever;
   TestProcessResult(TBlockStyles, ELSE_BEGIN_TEXT_WITH_RETURN, ELSE_BEGIN_TEXT_NO_RETURN);
 end;
 
 procedure TTestIfElseBreaks.TestRemoveElseBegin2;
 begin
-  FormatSettings.Returns.ElseBeginStyle := eNever;
+ JcfFormatSettings.Returns.ElseBeginStyle := eNever;
   TestProcessResult(TBlockStyles, ELSE_BEGIN_TEXT_NO_RETURN, ELSE_BEGIN_TEXT_NO_RETURN);
 end;
 

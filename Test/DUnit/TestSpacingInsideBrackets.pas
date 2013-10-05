@@ -73,16 +73,16 @@ procedure TTestSpacingInsideBrackets.Setup;
 begin
   inherited;
 
-  fbSpaceAfterOpen := FormatSettings.Spaces.SpaceAfterOpenBrackets;
-  fbSpaceBeforeClose := FormatSettings.Spaces.SpaceBeforeCloseBrackets;
+  fbSpaceAfterOpen := JcfFormatSettings.Spaces.SpaceAfterOpenBrackets;
+  fbSpaceBeforeClose := JcfFormatSettings.Spaces.SpaceBeforeCloseBrackets;
 end;
 
 procedure TTestSpacingInsideBrackets.Teardown;
 begin
   inherited;
 
-  FormatSettings.Spaces.SpaceAfterOpenBrackets := fbSpaceAfterOpen;
-  FormatSettings.Spaces.SpaceBeforeCloseBrackets := fbSpaceBeforeClose;
+ JcfFormatSettings.Spaces.SpaceAfterOpenBrackets := fbSpaceAfterOpen;
+ JcfFormatSettings.Spaces.SpaceBeforeCloseBrackets := fbSpaceBeforeClose;
 end;
 
 const
@@ -106,8 +106,8 @@ const
 
 procedure TTestSpacingInsideBrackets.TestNoSpaceAfterBegin;
 begin
-  FormatSettings.Spaces.SpaceAfterOpenBrackets := False;
-  FormatSettings.Spaces.SpaceBeforeCloseBrackets := False;
+ JcfFormatSettings.Spaces.SpaceAfterOpenBrackets := False;
+ JcfFormatSettings.Spaces.SpaceBeforeCloseBrackets := False;
 
   // processes are turned off, brackets stay put
   TestProcessResult(TSingleSpaceAfter, NO_SPACES_UNIT_TEXT, NO_SPACES_UNIT_TEXT);
@@ -117,8 +117,8 @@ end;
 
 procedure TTestSpacingInsideBrackets.TestSpaceAfterBegin;
 begin
-  FormatSettings.Spaces.SpaceAfterOpenBrackets := False;
-  FormatSettings.Spaces.SpaceBeforeCloseBrackets := False;
+ JcfFormatSettings.Spaces.SpaceAfterOpenBrackets := False;
+ JcfFormatSettings.Spaces.SpaceBeforeCloseBrackets := False;
 
   // processes  are turned off, brackets stay put
   TestProcessResult(TSingleSpaceAfter, SPACE_AFTER_BEGIN_UNIT_TEXT, SPACE_AFTER_BEGIN_UNIT_TEXT);
@@ -127,8 +127,8 @@ end;
 
 procedure TTestSpacingInsideBrackets.TestAddSpaces;
 begin
-  FormatSettings.Spaces.SpaceAfterOpenBrackets := True;
-  FormatSettings.Spaces.SpaceBeforeCloseBrackets := True;
+ JcfFormatSettings.Spaces.SpaceAfterOpenBrackets := True;
+ JcfFormatSettings.Spaces.SpaceBeforeCloseBrackets := True;
 
   // space-after process is turned on, space inserted
   TestProcessResult(TSingleSpaceAfter, NO_SPACES_UNIT_TEXT, SPACE_AFTER_BEGIN_UNIT_TEXT);
@@ -139,8 +139,8 @@ end;
 
 procedure TTestSpacingInsideBrackets.TestSpacesPresent;
 begin
-  FormatSettings.Spaces.SpaceAfterOpenBrackets := True;
-  FormatSettings.Spaces.SpaceBeforeCloseBrackets := True;
+ JcfFormatSettings.Spaces.SpaceAfterOpenBrackets := True;
+ JcfFormatSettings.Spaces.SpaceBeforeCloseBrackets := True;
 
   // no change here
   TestProcessResult(TSingleSpaceBefore, BOTH_SPACE_UNIT_TEXT, BOTH_SPACE_UNIT_TEXT);

@@ -73,7 +73,7 @@ end;
 
 procedure TfIdentifierCapsSettings.Read;
 begin
-  with FormatSettings.IdentifierCaps do
+  with JcfFormatSettings.IdentifierCaps do
   begin
     cbEnableAnyWords.Checked := Enabled;
     mWords.Lines.Assign(Words);
@@ -82,7 +82,7 @@ end;
 
 procedure TfIdentifierCapsSettings.Write;
 begin
-  with FormatSettings.IdentifierCaps do
+  with JcfFormatSettings.IdentifierCaps do
   begin
     Enabled := cbEnableAnyWords.Checked;
     Words.Assign(mWords.Lines);

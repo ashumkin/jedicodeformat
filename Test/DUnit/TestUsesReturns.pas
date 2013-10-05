@@ -62,13 +62,13 @@ begin
   inherited;
 
   InitTestSettings;
-  FormatSettings.Returns.UsesClauseOnePerLine := True;
+ JcfFormatSettings.Returns.UsesClauseOnePerLine := True;
 end;
 
 procedure TTestUsesReturns.TearDown;
 begin
   inherited;
-  FormatSettings.Returns.UsesClauseOnePerLine := False;
+ JcfFormatSettings.Returns.UsesClauseOnePerLine := False;
 end;
 
 procedure TTestUsesReturns.Test0;

@@ -103,8 +103,8 @@ begin
     inc(liIndentLevel);
   end;
 
-  Result := FormatSettings.Indent.SpacesForIndentLevel(liIndentLevel); 
-  Result := Result + FormatSettings.SetAsm.ParamsIndent;
+  Result := JcfFormatSettings.Indent.SpacesForIndentLevel(liIndentLevel);
+  Result := Result + JcfFormatSettings.SetAsm.ParamsIndent;
 end;
 
 function TIndentAsmParam.EnabledVisitSourceToken(const pcNode: TObject): Boolean;
@@ -139,7 +139,7 @@ end;
 
 function TIndentAsmParam.IsIncludedInSettings: boolean;
 begin
-  Result := FormatSettings.SetAsm.ParamsIndentEnabled;
+  Result := JcfFormatSettings.SetAsm.ParamsIndentEnabled;
 end;
 
 end.

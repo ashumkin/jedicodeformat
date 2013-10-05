@@ -77,7 +77,7 @@ end;
 
 procedure TfClarifyCaseBlocks.Read;
 begin
-  with FormatSettings.Returns do
+  with JcfFormatSettings.Returns do
   begin
     { block styles }
     rgLabelBegin.ItemIndex := Ord(LabelBeginStyle);
@@ -92,7 +92,7 @@ end;
 
 procedure TfClarifyCaseBlocks.Write;
 begin
-  with FormatSettings.Returns do
+  with JcfFormatSettings.Returns do
   begin
     { block styles }
     LabelBeginStyle := TTriOptionStyle(rgLabelBegin.ItemIndex);

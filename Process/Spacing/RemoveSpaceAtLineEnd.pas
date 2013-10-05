@@ -81,7 +81,7 @@ end;
 
 function TRemoveSpaceAtLineEnd.IsIncludedInSettings: boolean;
 begin
-  Result := FormatSettings.Spaces.FixSpacing;
+  Result := JcfFormatSettings.Spaces.FixSpacing;
 end;
 
 end.

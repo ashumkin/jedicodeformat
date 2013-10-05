@@ -58,7 +58,7 @@ uses
 constructor TMaxSpaces.Create;
 begin
   inherited;
-  fsSpaces    := StrRepeat(NativeSpace, FormatSettings.Spaces.MaxSpacesInCode);
+  fsSpaces    := StrRepeat(NativeSpace, JcfFormatSettings.Spaces.MaxSpacesInCode);
   FormatFlags := FormatFlags + [eRemoveSpace];
 end;
 
@@ -86,7 +86,7 @@ begin
   if lcSourceToken.SolidTokenOnLineIndex > 0 then
   begin
     { if the token is too long, truncate it }
-    if Length(lcSourceToken.SourceCode) > FormatSettings.Spaces.MaxSpacesInCode then
+    if Length(lcSourceToken.SourceCode) > JcfFormatSettings.Spaces.MaxSpacesInCode then
     begin
       lcSourceToken.SourceCode := fsSpaces;
     end;
@@ -95,7 +95,7 @@ end;
 
 function TMaxSpaces.IsIncludedInSettings: boolean;
 begin
-  Result := FormatSettings.Spaces.UseMaxSpacesInCode;
+  Result := JcfFormatSettings.Spaces.UseMaxSpacesInCode;
 end;
 
 end.

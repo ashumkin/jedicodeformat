@@ -65,7 +65,7 @@ end;
 
 procedure TfComments.Read;
 begin
-  with FormatSettings.Comments do
+  with JcfFormatSettings.Comments do
   begin
     cbRemoveEmptyDoubleSlashComments.Checked := RemoveEmptyDoubleSlashComments;
     cbRemoveEmptyCurlyBraceComments.Checked  := RemoveEmptyCurlyBraceComments;
@@ -74,7 +74,7 @@ end;
 
 procedure TfComments.Write;
 begin
-  with FormatSettings.Comments do
+  with JcfFormatSettings.Comments do
   begin
     RemoveEmptyDoubleSlashComments := cbRemoveEmptyDoubleSlashComments.Checked;
     RemoveEmptyCurlyBraceComments  := cbRemoveEmptyCurlyBraceComments.Checked;

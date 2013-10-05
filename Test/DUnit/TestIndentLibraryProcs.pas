@@ -147,23 +147,23 @@ procedure TTestIndentLibraryProcs.SetUp;
 begin
   inherited;
 
-  fbSaveIndentLibraryProcs := FormatSettings.Indent.IndentLibraryProcs;
-  fbSaveIndentProcedureBody := FormatSettings.Indent.IndentProcedureBody;
+  fbSaveIndentLibraryProcs := JcfFormatSettings.Indent.IndentLibraryProcs;
+  fbSaveIndentProcedureBody := JcfFormatSettings.Indent.IndentProcedureBody;
 end;
 
 procedure TTestIndentLibraryProcs.TearDown;
 begin
   inherited;
 
-  FormatSettings.Indent.IndentLibraryProcs := fbSaveIndentLibraryProcs;
-  FormatSettings.Indent.IndentProcedureBody := fbSaveIndentProcedureBody;
+ JcfFormatSettings.Indent.IndentLibraryProcs := fbSaveIndentLibraryProcs;
+ JcfFormatSettings.Indent.IndentProcedureBody := fbSaveIndentProcedureBody;
 end;
 
 procedure TTestIndentLibraryProcs.TestIndentTrueChange;
 begin
   // when the setting is on, code without indent should be indented
-  FormatSettings.Indent.IndentLibraryProcs := True;
-  FormatSettings.Indent.IndentProcedureBody := False;
+ JcfFormatSettings.Indent.IndentLibraryProcs := True;
+ JcfFormatSettings.Indent.IndentProcedureBody := False;
 
   TestFormatResult(ProgramNoIndent, ProgramWithIndent);
 end;
@@ -171,8 +171,8 @@ end;
 procedure TTestIndentLibraryProcs.TestIndentTrueNoChange;
 begin
   // when the setting is on, code with indent should be left as is
-  FormatSettings.Indent.IndentLibraryProcs := True;
-  FormatSettings.Indent.IndentProcedureBody := False;
+ JcfFormatSettings.Indent.IndentLibraryProcs := True;
+ JcfFormatSettings.Indent.IndentProcedureBody := False;
 
   TestFormatResult(ProgramWithIndent, ProgramWithIndent);
 end;
@@ -180,8 +180,8 @@ end;
 procedure TTestIndentLibraryProcs.TestIndentFalseNoChange;
 begin
   // when the setting is off, code without indent should be left as is
-  FormatSettings.Indent.IndentLibraryProcs := False;
-  FormatSettings.Indent.IndentProcedureBody := False;
+ JcfFormatSettings.Indent.IndentLibraryProcs := False;
+ JcfFormatSettings.Indent.IndentProcedureBody := False;
 
   TestFormatResult(ProgramNoIndent, ProgramNoIndent);
 end;
@@ -189,8 +189,8 @@ end;
 procedure TTestIndentLibraryProcs.TestIndentFalseChange;
 begin
   // when the setting is off, code with indent should have indent removed
-  FormatSettings.Indent.IndentLibraryProcs := False;
-  FormatSettings.Indent.IndentProcedureBody := False;
+ JcfFormatSettings.Indent.IndentLibraryProcs := False;
+ JcfFormatSettings.Indent.IndentProcedureBody := False;
 
   TestFormatResult(ProgramWithIndent, ProgramNoIndent);
 end;
@@ -198,8 +198,8 @@ end;
 procedure TTestIndentLibraryProcs.TestIndentProcedureBody;
 begin
   // test the IndentProcedureBody setting
-  FormatSettings.Indent.IndentLibraryProcs := False;
-  FormatSettings.Indent.IndentProcedureBody := True;
+ JcfFormatSettings.Indent.IndentLibraryProcs := False;
+ JcfFormatSettings.Indent.IndentProcedureBody := True;
 
   TestFormatResult(ProgramWithIndent, ProgramBodyIndent);
 end;
@@ -207,8 +207,8 @@ end;
 procedure TTestIndentLibraryProcs.TestIndentBoth;
 begin
   // test the IndentProcedureBody setting
-  FormatSettings.Indent.IndentLibraryProcs := True;
-  FormatSettings.Indent.IndentProcedureBody := True;
+ JcfFormatSettings.Indent.IndentLibraryProcs := True;
+ JcfFormatSettings.Indent.IndentProcedureBody := True;
 
   TestFormatResult(ProgramWithIndent, ProgramBothIndent);
 end;

@@ -80,9 +80,9 @@ end;
 
 procedure TfrReservedCapsSettings.Read;
 begin
-  cbEnable.Checked := FormatSettings.Caps.Enabled;
+  cbEnable.Checked := JcfFormatSettings.Caps.Enabled;
 
-  with FormatSettings.Caps do
+  with JcfFormatSettings.Caps do
   begin
     rgReservedWords.ItemIndex := Ord(ReservedWords);
     rgConstants.ItemIndex := Ord(Constants);
@@ -94,9 +94,9 @@ end;
 
 procedure TfrReservedCapsSettings.Write;
 begin
-  FormatSettings.Caps.Enabled := cbEnable.Checked;
+ JcfFormatSettings.Caps.Enabled := cbEnable.Checked;
 
-  with FormatSettings.Caps do
+  with JcfFormatSettings.Caps do
   begin
     ReservedWords := TCapitalisationType(rgReservedWords.ItemIndex);
     Constants := TCapitalisationType(rgConstants.ItemIndex);

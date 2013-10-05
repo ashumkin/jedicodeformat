@@ -205,7 +205,7 @@ end;
 
 function TNoReturnBefore.IsIncludedInSettings: boolean;
 begin
-  Result := FormatSettings.Returns.RemoveBadReturns;
+  Result := JcfFormatSettings.Returns.RemoveBadReturns;
 end;
 
 end.

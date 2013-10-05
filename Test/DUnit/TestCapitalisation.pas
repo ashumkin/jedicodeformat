@@ -85,7 +85,7 @@ var
 begin
   inherited;
 
-  lcSetCaps := FormatSettings.Caps;
+  lcSetCaps := JcfFormatSettings.Caps;
 
   fbSaveEnabled := lcSetCaps.Enabled;
   feSaveReservedWords := lcSetCaps.ReservedWords;
@@ -94,20 +94,20 @@ begin
   feSaveConstants := lcSetCaps.Constants;
   feSaveTypes := lcSetCaps.Types;
 
-  fbSaveAnyWordCapsEnabled := FormatSettings.SpecificWordCaps.Enabled;
+  fbSaveAnyWordCapsEnabled := JcfFormatSettings.SpecificWordCaps.Enabled;
 
-  fSaveIdentifierCaps := FormatSettings.IdentifierCaps.Enabled;
-  fSaveNotIdentifierCaps := FormatSettings.NotIdentifierCaps.Enabled;
+  fSaveIdentifierCaps := JcfFormatSettings.IdentifierCaps.Enabled;
+  fSaveNotIdentifierCaps := JcfFormatSettings.NotIdentifierCaps.Enabled;
 
   fSaveIdentifierCapsWords := TStringList.Create;
-  fSaveIdentifierCapsWords.Assign(FormatSettings.IdentifierCaps.Words);
+  fSaveIdentifierCapsWords.Assign(JcfFormatSettings.IdentifierCaps.Words);
   fSaveNotIdentifierCapsWords := TStringList.Create;
-  fSaveNotIdentifierCapsWords.Assign(FormatSettings.NotIdentifierCaps.Words);
+  fSaveNotIdentifierCapsWords.Assign(JcfFormatSettings.NotIdentifierCaps.Words);
 
 
   // default setup
-  FormatSettings.Caps.Enabled := True;
-  FormatSettings.SpecificWordCaps.Enabled := False;
+ JcfFormatSettings.Caps.Enabled := True;
+ JcfFormatSettings.SpecificWordCaps.Enabled := False;
 end;
 
 procedure TTestCapitalisation.Teardown;
@@ -116,7 +116,7 @@ var
 begin
   inherited;
 
-  lcSetCaps := FormatSettings.Caps;
+  lcSetCaps := JcfFormatSettings.Caps;
 
   lcSetCaps.Enabled := fbSaveEnabled;
   lcSetCaps.ReservedWords := feSaveReservedWords;
@@ -125,15 +125,15 @@ begin
   lcSetCaps.Constants := feSaveConstants;
   lcSetCaps.Types := feSaveTypes;
 
-  FormatSettings.IdentifierCaps.Enabled := fSaveIdentifierCaps;
-  FormatSettings.NotIdentifierCaps.Enabled := fSaveNotIdentifierCaps;
+ JcfFormatSettings.IdentifierCaps.Enabled := fSaveIdentifierCaps;
+ JcfFormatSettings.NotIdentifierCaps.Enabled := fSaveNotIdentifierCaps;
 
-  FormatSettings.IdentifierCaps.Words.Assign(fSaveIdentifierCapsWords);
+ JcfFormatSettings.IdentifierCaps.Words.Assign(fSaveIdentifierCapsWords);
   FreeAndNil(fSaveIdentifierCapsWords);
-  FormatSettings.NotIdentifierCaps.Words.Assign(fSaveNotIdentifierCapsWords);
+ JcfFormatSettings.NotIdentifierCaps.Words.Assign(fSaveNotIdentifierCapsWords);
   FreeAndNil(fSaveNotIdentifierCapsWords);
 
-  FormatSettings.SpecificWordCaps.Enabled := fbSaveAnyWordCapsEnabled;
+ JcfFormatSettings.SpecificWordCaps.Enabled := fbSaveAnyWordCapsEnabled;
 end;
 
 
@@ -171,7 +171,7 @@ const
 procedure TTestCapitalisation.TestPropertyCapsNull;
 begin
   // stay the same
-  FormatSettings.Caps.Directives := ctLeaveALone;
+ JcfFormatSettings.Caps.Directives := ctLeaveALone;
 
   // stay the same
   TestProcessResult(TCapitalisation, LOWER_UNIT, LOWER_UNIT);
@@ -181,7 +181,7 @@ end;
 
 procedure TTestCapitalisation.TestPropertyCapsUpper;
 begin
-  FormatSettings.Caps.Directives := ctUpper;
+ JcfFormatSettings.Caps.Directives := ctUpper;
 
   TestProcessResult(TCapitalisation, LOWER_UNIT, UPPER_UNIT);
   TestProcessResult(TCapitalisation, UPPER_UNIT, UPPER_UNIT);
@@ -190,7 +190,7 @@ end;
 
 procedure TTestCapitalisation.TestPropertyCapsLower;
 begin
-  FormatSettings.Caps.Directives := ctLower;
+ JcfFormatSettings.Caps.Directives := ctLower;
 
   TestProcessResult(TCapitalisation, LOWER_UNIT, LOWER_UNIT);
   TestProcessResult(TCapitalisation, UPPER_UNIT, LOWER_UNIT);
@@ -199,7 +199,7 @@ end;
 
 procedure TTestCapitalisation.TestPropertyCapsMixed;
 begin
-  FormatSettings.Caps.Directives := ctMixed;
+ JcfFormatSettings.Caps.Directives := ctMixed;
 
   TestProcessResult(TCapitalisation, LOWER_UNIT, MIXED_UNIT);
   TestProcessResult(TCapitalisation, UPPER_UNIT, MIXED_UNIT);
@@ -283,31 +283,31 @@ const
 
 procedure TTestCapitalisation.TestIdentifierCaps;
 begin
-  FormatSettings.IdentifierCaps.Enabled := False;
-  FormatSettings.IdentifierCaps.Words.Clear;
-  FormatSettings.NotIdentifierCaps.Enabled := False;
-  FormatSettings.NotIdentifierCaps.Words.Clear;
+ JcfFormatSettings.IdentifierCaps.Enabled := False;
+ JcfFormatSettings.IdentifierCaps.Words.Clear;
+ JcfFormatSettings.NotIdentifierCaps.Enabled := False;
+ JcfFormatSettings.NotIdentifierCaps.Words.Clear;
 
   // no change
   TestProcessResult(TIdentifierCaps, TEST_IDENTIFIER_CAPS_IN, TEST_IDENTIFIER_CAPS_IN);
 
-  FormatSettings.IdentifierCaps.Enabled := True;
-  FormatSettings.NotIdentifierCaps.Enabled := True;
+ JcfFormatSettings.IdentifierCaps.Enabled := True;
+ JcfFormatSettings.NotIdentifierCaps.Enabled := True;
 
   // no change
   TestProcessResult(TIdentifierCaps, TEST_IDENTIFIER_CAPS_IN, TEST_IDENTIFIER_CAPS_IN);
 
-  FormatSettings.IdentifierCaps.Add('Read');
-  FormatSettings.IdentifierCaps.Add('Write');
-  FormatSettings.IdentifierCaps.Add('Public');
-  FormatSettings.IdentifierCaps.Add('Strict');
+ JcfFormatSettings.IdentifierCaps.Add('Read');
+ JcfFormatSettings.IdentifierCaps.Add('Write');
+ JcfFormatSettings.IdentifierCaps.Add('Public');
+ JcfFormatSettings.IdentifierCaps.Add('Strict');
 
   // identifiers capitalised
   TestProcessResult(TIdentifierCaps, TEST_IDENTIFIER_CAPS_IN, TEST_IDENTIFIER_CAPS_OUT_IDS);
 
-  FormatSettings.NotIdentifierCaps.Add('READ');
-  FormatSettings.NotIdentifierCaps.Add('WRITE');
-  FormatSettings.NotIdentifierCaps.Add('PUBLIC');
+ JcfFormatSettings.NotIdentifierCaps.Add('READ');
+ JcfFormatSettings.NotIdentifierCaps.Add('WRITE');
+ JcfFormatSettings.NotIdentifierCaps.Add('PUBLIC');
 
   // both identifers and reserved words
   TestProcessResult(TIdentifierCaps, TEST_IDENTIFIER_CAPS_IN, TEST_IDENTIFIER_CAPS_OUT_BOTH);

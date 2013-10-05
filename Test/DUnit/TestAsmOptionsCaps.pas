@@ -154,7 +154,7 @@ begin
   inherited;
 
   // store old settings
-  with FormatSettings do
+  with JcfFormatSettings do
   begin
     feCapitalisation := SetAsm.Capitalisation;
 
@@ -176,7 +176,7 @@ procedure TTestAsmOptionsCaps.TearDown;
 begin
   inherited;
 
-  with FormatSettings do
+  with JcfFormatSettings do
   begin
     SetAsm.Capitalisation := feCapitalisation;
 
@@ -194,80 +194,80 @@ end;
 
 procedure TTestAsmOptionsCaps.TestCaps_UpperLeaveAlone;
 begin
-  FormatSettings.SetAsm.Capitalisation := ctLeaveAlone;
+ JcfFormatSettings.SetAsm.Capitalisation := ctLeaveAlone;
   TestFormatResult(ASM_STATEMENTS_UPPER, ASM_STATEMENTS_UPPER);
 end;
 
 procedure TTestAsmOptionsCaps.TestCaps_UpperToLower;
 begin
-  FormatSettings.SetAsm.Capitalisation := ctLower;
+ JcfFormatSettings.SetAsm.Capitalisation := ctLower;
   TestFormatResult(ASM_STATEMENTS_UPPER, ASM_STATEMENTS_LOWER);
 end;
 
 procedure TTestAsmOptionsCaps.TestCaps_UpperToMixed;
 begin
-  FormatSettings.SetAsm.Capitalisation := ctMixed;
+ JcfFormatSettings.SetAsm.Capitalisation := ctMixed;
   TestFormatResult(ASM_STATEMENTS_UPPER, ASM_STATEMENTS_INITALCAPS);
 end;
 
 procedure TTestAsmOptionsCaps.TestCaps_UpperToUpper;
 begin
-  FormatSettings.SetAsm.Capitalisation := ctUpper;
+ JcfFormatSettings.SetAsm.Capitalisation := ctUpper;
   TestFormatResult(ASM_STATEMENTS_UPPER, ASM_STATEMENTS_UPPER);
 end;
 
 
 procedure TTestAsmOptionsCaps.TestCaps_MixedLeaveAlone;
 begin
-  FormatSettings.SetAsm.Capitalisation := ctLeaveAlone;
+ JcfFormatSettings.SetAsm.Capitalisation := ctLeaveAlone;
   TestFormatResult(ASM_STATEMENTS_MIXED, ASM_STATEMENTS_MIXED);
 end;
 
 procedure TTestAsmOptionsCaps.TestCaps_MixedToLower;
 begin
-  FormatSettings.SetAsm.Capitalisation := ctLower;
+ JcfFormatSettings.SetAsm.Capitalisation := ctLower;
   TestFormatResult(ASM_STATEMENTS_MIXED, ASM_STATEMENTS_LOWER);
 end;
 
 procedure TTestAsmOptionsCaps.TestCaps_MixedToMixed;
 begin
-  FormatSettings.SetAsm.Capitalisation := ctMixed;
+ JcfFormatSettings.SetAsm.Capitalisation := ctMixed;
   TestFormatResult(ASM_STATEMENTS_MIXED, ASM_STATEMENTS_INITALCAPS);
 end;
 
 procedure TTestAsmOptionsCaps.TestCaps_MixedToUpper;
 begin
-  FormatSettings.SetAsm.Capitalisation := ctUpper;
+ JcfFormatSettings.SetAsm.Capitalisation := ctUpper;
   TestFormatResult(ASM_STATEMENTS_MIXED, ASM_STATEMENTS_UPPER);
 end;
 
 procedure TTestAsmOptionsCaps.TestCaps_LowerLeaveAlone;
 begin
-  FormatSettings.SetAsm.Capitalisation := ctLeaveAlone;
+ JcfFormatSettings.SetAsm.Capitalisation := ctLeaveAlone;
   TestFormatResult(ASM_STATEMENTS_LOWER, ASM_STATEMENTS_LOWER);
 end;
 
 procedure TTestAsmOptionsCaps.TestCaps_LowerToLower;
 begin
-  FormatSettings.SetAsm.Capitalisation := ctLower;
+ JcfFormatSettings.SetAsm.Capitalisation := ctLower;
   TestFormatResult(ASM_STATEMENTS_LOWER, ASM_STATEMENTS_LOWER);
 end;
 
 procedure TTestAsmOptionsCaps.TestCaps_LowerToMixed;
 begin
-  FormatSettings.SetAsm.Capitalisation := ctMixed;
+ JcfFormatSettings.SetAsm.Capitalisation := ctMixed;
   TestFormatResult(ASM_STATEMENTS_LOWER, ASM_STATEMENTS_INITALCAPS);
 end;
 
 procedure TTestAsmOptionsCaps.TestCaps_LowerToUpper;
 begin
-  FormatSettings.SetAsm.Capitalisation := ctUpper;
+ JcfFormatSettings.SetAsm.Capitalisation := ctUpper;
   TestFormatResult(ASM_STATEMENTS_LOWER, ASM_STATEMENTS_UPPER);
 end;
 
 procedure TTestAsmOptionsCaps.TestCaps_VarToCaps;
 begin
-  FormatSettings.SetAsm.Capitalisation := ctUpper;
+ JcfFormatSettings.SetAsm.Capitalisation := ctUpper;
   TestFormatResult(ASM_STATEMENTS_VarCaps_Lower, ASM_STATEMENTS_VarCaps_Upper);
 
 end;

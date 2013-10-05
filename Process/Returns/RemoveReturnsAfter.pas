@@ -68,7 +68,7 @@ begin
     begin
       if pcToken.HasParentNode(nAsmLabel, 1) then
       begin
-        Result := FormatSettings.SetAsm.BreaksAfterLabel;
+        Result := JcfFormatSettings.SetAsm.BreaksAfterLabel;
       end;
 
     end;
@@ -115,7 +115,7 @@ end;
 
 function TRemoveReturnsAfter.IsIncludedInSettings: boolean;
 begin
-  Result := FormatSettings.SetAsm.BreaksAfterLabelEnabled;
+  Result := JcfFormatSettings.SetAsm.BreaksAfterLabelEnabled;
 end;
 
 end.

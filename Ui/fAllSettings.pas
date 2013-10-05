@@ -140,8 +140,8 @@ begin
 
   ShowModal;
 
-  if (ModalResult = mrOk) and FormatSettings.Dirty then
-    FormatSettings.Write;
+  if (ModalResult = mrOk) and JcfFormatSettings.Dirty then
+   JcfFormatSettings.Write;
 end;
 
 procedure TFormAllSettings.GetFrameForNode(const pcNode: TTreeNode);
@@ -219,9 +219,9 @@ begin
   RemoveAll(True);
 
   { settings are now in need of saving }
-  FormatSettings.Dirty := True;
+ JcfFormatSettings.Dirty := True;
   { check consistency of settings }
-  FormatSettings.MakeConsistent;
+ JcfFormatSettings.MakeConsistent;
 
   Close;
   ModalResult := mrOk;

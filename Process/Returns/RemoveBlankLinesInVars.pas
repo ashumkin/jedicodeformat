@@ -86,7 +86,7 @@ begin
 
   lcNext := lcSourceToken.NextTokenWithExclusions([ttWhiteSpace, ttReturn]);
   liReturnCount := 0;
-  liMaxReturns := FormatSettings.Returns.MaxBlankLinesInSection + 1;
+  liMaxReturns := JcfFormatSettings.Returns.MaxBlankLinesInSection + 1;
 
   lcTest := lcSourceToken;
 
@@ -107,7 +107,7 @@ end;
 
 function TRemoveBlankLinesInVars.IsIncludedInSettings: boolean;
 begin
-  Result := FormatSettings.Returns.RemoveVarReturns;
+  Result := JcfFormatSettings.Returns.RemoveVarReturns;
 end;
 
 end.

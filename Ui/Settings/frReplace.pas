@@ -73,7 +73,7 @@ end;
 
 procedure TfReplace.Read;
 begin
-  with FormatSettings.Replace do
+  with JcfFormatSettings.Replace do
   begin
     cbEnable.Checked := Enabled;
     mWords.Lines.Assign(Words);
@@ -83,7 +83,7 @@ end;
 
 procedure TfReplace.Write;
 begin
-  with FormatSettings.Replace do
+  with JcfFormatSettings.Replace do
   begin
     Enabled := cbEnable.Checked;
     Words.Assign(mWords.Lines);

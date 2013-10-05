@@ -169,7 +169,7 @@ begin
   end;
 
   {$IFNDEF IDEPLUGGIN}
-  if FormatSettings = nil then
+  if JcfFormatSettings = nil then
     edtOutput.Text := ''
   else
     edtOutput.Text :=
@@ -246,7 +246,7 @@ end;
 
 function TfrBasic.GetGoHint: string;
 begin
-  if FormatSettings.Obfuscate.Enabled then
+  if JcfFormatSettings.Obfuscate.Enabled then
     Result := 'Obfuscate'
   else
     Result := 'Format';

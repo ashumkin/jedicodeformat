@@ -117,7 +117,7 @@ begin
   inherited;
 
   // store old settings
-  with FormatSettings do
+  with JcfFormatSettings do
   begin
     feCapitalisation := SetAsm.Capitalisation;
 
@@ -136,7 +136,7 @@ procedure TTestAsmOptionsIndentsBare.TearDown;
 begin
   inherited;
 
-  with FormatSettings do
+  with JcfFormatSettings do
   begin
     SetAsm.Capitalisation := feCapitalisation;
 
@@ -154,24 +154,24 @@ end;
 
 procedure TTestAsmOptionsIndentsBare.TestStatementIndentOn;
 begin
-  FormatSettings.SetAsm.StatementIndentEnabled := True;
-  FormatSettings.SetAsm.ParamsIndentEnabled := False;
+ JcfFormatSettings.SetAsm.StatementIndentEnabled := True;
+ JcfFormatSettings.SetAsm.ParamsIndentEnabled := False;
   TestFormatResult(ASM_STATEMENTS_NOT_INDENTED, ASM_STATEMENTS_INDENTED);
 end;
 
 
 procedure TTestAsmOptionsIndentsBare.TestParamsIndentOn;
 begin
-  FormatSettings.SetAsm.StatementIndentEnabled := True;
-  FormatSettings.SetAsm.ParamsIndentEnabled := True;
+ JcfFormatSettings.SetAsm.StatementIndentEnabled := True;
+ JcfFormatSettings.SetAsm.ParamsIndentEnabled := True;
   TestFormatResult(ASM_STATEMENTS_NOT_INDENTED, ASM_STATEMENTS_PARAMS_INDENTED);
 end;
 
 procedure TTestAsmOptionsIndentsBare.TestStatementIndentOff;
 begin
-  FormatSettings.SetAsm.StatementIndentEnabled := False;
-  FormatSettings.SetAsm.ParamsIndentEnabled := False;
-  FormatSettings.SetAsm.StatementIndent := 7;
+ JcfFormatSettings.SetAsm.StatementIndentEnabled := False;
+ JcfFormatSettings.SetAsm.ParamsIndentEnabled := False;
+ JcfFormatSettings.SetAsm.StatementIndent := 7;
   TestFormatResult(ASM_STATEMENTS_NOT_INDENTED, ASM_STATEMENTS_NOT_INDENTED);
 end;
 

@@ -126,7 +126,7 @@ var
   f1, f2: Extended;
 begin
   f1 := 123.4E-2;
-  f2 := f1 + 12.e12;
+  f2 := f1 + 12.12;
   f1 := f1 + BIGNUM + LITTLENUM * 1E-2;
 end;
 

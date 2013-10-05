@@ -112,7 +112,7 @@ begin
     exit;
 
   liReturnCount := 0;
-  liMaxReturns := FormatSettings.Returns.MaxBlankLinesInSection + 1;
+  liMaxReturns := JcfFormatSettings.Returns.MaxBlankLinesInSection + 1;
   lcTest := lcSourceToken;
 
   { remove all returns up to that point (except one) }
@@ -132,7 +132,7 @@ end;
 
 function TRemoveBlankLinesAfterProcHeader.IsIncludedInSettings: boolean;
 begin
-  Result := FormatSettings.Returns.RemoveProcedureDefReturns;
+  Result := JcfFormatSettings.Returns.RemoveProcedureDefReturns;
 end;
 
 end.

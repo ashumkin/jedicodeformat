@@ -68,7 +68,7 @@ end;
 
 procedure TfWarnings.Read;
 begin
-  with FormatSettings.Clarify do
+  with JcfFormatSettings.Clarify do
   begin
     cbWarningsOn.Checked := Warnings;
     cbWarnUnusedParams.Checked  := WarnUnusedParams;
@@ -79,7 +79,7 @@ end;
 
 procedure TfWarnings.Write;
 begin
-  with FormatSettings.Clarify do
+  with JcfFormatSettings.Clarify do
   begin
     Warnings := cbWarningsOn.Checked;
     WarnUnusedParams  := cbWarnUnusedParams.Checked;

@@ -129,7 +129,11 @@ end;
 
 function TSourceTokenList.GetItem(const piIndex: integer): TSourceToken;
 begin
+  {$IFDEF VER260}
+  Result := TSourceToken(List[piIndex]);
+  {$ELSE}
   Result := TSourceToken(List^[piIndex]);
+  {$ENDIF}
 end;
 
 procedure TSourceTokenList.SetItem(const piIndex: integer; const pcObject: TSourceToken);
@@ -139,21 +143,37 @@ end;
 
 function TSourceTokenList.First: TSourceToken;
 begin
+  {$IFDEF VER260}
+  Result := TSourceToken(List[fiCurrentTokenIndex]);
+  {$ELSE}
   Result := TSourceToken(List^[fiCurrentTokenIndex]);
+  {$ENDIF}
 end;
 
 function TSourceTokenList.FirstTokenType: TTokenType;
 begin
   Result := ttUnknown;
   if Count > 0 then
+  begin
+    {$IFDEF VER260}
+    Result := TSourceToken(List[fiCurrentTokenIndex]).TokenType;
+    {$ELSE}
     Result := TSourceToken(List^[fiCurrentTokenIndex]).TokenType;
+    {$ENDIF}
+  end;
 end;
 
 function TSourceTokenList.FirstWordType: TWordType;
 begin
   Result := wtNotAWord;
   if Count > 0 then
+  begin
+    {$IFDEF VER260}
+    Result := TSourceToken(List[fiCurrentTokenIndex]).WordType;
+    {$ELSE}
     Result := TSourceToken(List^[fiCurrentTokenIndex]).WordType;
+    {$ENDIF}
+  end;
 end;
 
 function TSourceTokenList.FirstTokenLength: integer;
@@ -206,7 +226,11 @@ begin
   liLoop := fiCurrentTokenIndex;
   while liLoop < Count do
   begin
+    {$IFDEF VER260}
+    lcItem := TSourceToken(List[liLoop]);
+    {$ELSE}
     lcItem := TSourceToken(List^[liLoop]);
+    {$ENDIF}
     if not (lcItem.TokenType in AExclusions) then
     begin
       Result := lcItem;
@@ -237,7 +261,11 @@ begin
 
   while liLoop < Count do
   begin
+    {$IFDEF VER260}
+    lcTestToken := TSourceToken(List[liLoop]);
+    {$ELSE}
     lcTestToken := TSourceToken(List^[liLoop]);
+    {$ENDIF}
     if (lcTestToken <> nil) and lcTestToken.IsSolid then
     begin
       // found a solid token.
@@ -285,7 +313,11 @@ begin
   liLoop := fiCurrentTokenIndex;
   while liLoop < Count do
   begin
-    lcToken := TSourceToken(List^[liLoop]);
+    {$IFDEF VER260}
+     lcToken := TSourceToken(List[liLoop]);
+    {$ELSE}
+     lcToken := TSourceToken(List^[liLoop]);
+    {$ENDIF}
     lcToken.XPosition := liX;
     lcToken.YPosition := liY;
     AdvanceTextPos(lcToken.SourceCode, liX, liY);
@@ -299,8 +331,14 @@ begin
 
     Here I am not doing any index checking at all.
     This thing needs to be FAST. Access to here is quite controlled anyway.}
+
+  {$IFDEF VER260}
+  Result := TSourceToken(List[fiCurrentTokenIndex]);
+  List[fiCurrentTokenIndex] := nil;
+  {$ELSE}
   Result := TSourceToken(List^[fiCurrentTokenIndex]);
   List^[fiCurrentTokenIndex] := nil;
+  {$ENDIF}
 
   inc(fiCurrentTokenIndex);
 end;

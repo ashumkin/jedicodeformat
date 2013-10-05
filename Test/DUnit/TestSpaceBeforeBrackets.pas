@@ -92,44 +92,44 @@ procedure TTestSpaceBeforeBrackets.SetUp;
 begin
   inherited;
 
-  fbSaveSpaceBeforeOpenBracketsInFunctionDeclaration := FormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionDeclaration;
-  fbSaveSpaceBeforeOpenBracketsInFunctionCall := FormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionCall;
-  fbSaveSpaceBeforeOpenSquareBracketsInExpression := FormatSettings.Spaces.SpaceBeforeOpenSquareBracketsInExpression;
+  fbSaveSpaceBeforeOpenBracketsInFunctionDeclaration := JcfFormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionDeclaration;
+  fbSaveSpaceBeforeOpenBracketsInFunctionCall := JcfFormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionCall;
+  fbSaveSpaceBeforeOpenSquareBracketsInExpression := JcfFormatSettings.Spaces.SpaceBeforeOpenSquareBracketsInExpression;
 end;
 
 procedure TTestSpaceBeforeBrackets.TearDown;
 begin
-  FormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionDeclaration := fbSaveSpaceBeforeOpenBracketsInFunctionDeclaration;
-  FormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionCall := fbSaveSpaceBeforeOpenBracketsInFunctionCall;
-  FormatSettings.Spaces.SpaceBeforeOpenSquareBracketsInExpression := fbSaveSpaceBeforeOpenSquareBracketsInExpression;
+ JcfFormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionDeclaration := fbSaveSpaceBeforeOpenBracketsInFunctionDeclaration;
+ JcfFormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionCall := fbSaveSpaceBeforeOpenBracketsInFunctionCall;
+ JcfFormatSettings.Spaces.SpaceBeforeOpenSquareBracketsInExpression := fbSaveSpaceBeforeOpenSquareBracketsInExpression;
 end;
 
 procedure TTestSpaceBeforeBrackets.TestSpaceBeforeBrackets_Off;
 begin
-  FormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionDeclaration := False;
-  FormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionCall := False;
+ JcfFormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionDeclaration := False;
+ JcfFormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionCall := False;
   TestProcessResult(TSingleSpaceBefore, TEST_UNIT_IN, TEST_UNIT_IN);
 end;
 
 
 procedure TTestSpaceBeforeBrackets.TestSpaceBeforeBrackets_InDecl;
 begin
-  FormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionDeclaration := True;
-  FormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionCall := False;
+ JcfFormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionDeclaration := True;
+ JcfFormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionCall := False;
   TestProcessResult(TSingleSpaceBefore, TEST_UNIT_IN, TEST_UNIT_OUT_HEADER);
 end;
 
 procedure TTestSpaceBeforeBrackets.TestSpaceBeforeBrackets_InCall;
 begin
-  FormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionDeclaration := False;
-  FormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionCall := True;
+ JcfFormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionDeclaration := False;
+ JcfFormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionCall := True;
   TestProcessResult(TSingleSpaceBefore, TEST_UNIT_IN, TEST_UNIT_OUT_CALL);
 end;
 
 procedure TTestSpaceBeforeBrackets.TestSpaceBeforeBrackets_InBoth;
 begin
-  FormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionDeclaration := True;
-  FormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionCall := True;
+ JcfFormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionDeclaration := True;
+ JcfFormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionCall := True;
   TestProcessResult(TSingleSpaceBefore, TEST_UNIT_IN, TEST_UNIT_OUT_BOTH);
 end;
 
@@ -150,18 +150,18 @@ const
 
 procedure TTestSpaceBeforeBrackets.TestSpaceBeforeArray_Off;
 begin
-  FormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionDeclaration := False;
-  FormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionCall := False;
-  FormatSettings.Spaces.SpaceBeforeOpenSquareBracketsInExpression := False;
+ JcfFormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionDeclaration := False;
+ JcfFormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionCall := False;
+ JcfFormatSettings.Spaces.SpaceBeforeOpenSquareBracketsInExpression := False;
 
   TestProcessResult(TSingleSpaceBefore, TEST_ARRAY_IN, TEST_ARRAY_IN);
 end;
 
 procedure TTestSpaceBeforeBrackets.TestSpaceBeforeArray_On;
 begin
-  FormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionDeclaration := False;
-  FormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionCall := False;
-  FormatSettings.Spaces.SpaceBeforeOpenSquareBracketsInExpression := True;
+ JcfFormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionDeclaration := False;
+ JcfFormatSettings.Spaces.SpaceBeforeOpenBracketsInFunctionCall := False;
+ JcfFormatSettings.Spaces.SpaceBeforeOpenSquareBracketsInExpression := True;
 
   TestProcessResult(TSingleSpaceBefore, TEST_ARRAY_IN, TEST_ARRAY_OUT);
 end;

@@ -374,7 +374,7 @@ var
   lsOutFileName: string;
 begin
   Check(FileExists(psInFileName), 'input file ' + psInFileName + ' not found');
-  FormatSettings.Obfuscate.Enabled := False;
+ JcfFormatSettings.Obfuscate.Enabled := False;
 
   lcConverter := TFileConverter.Create;
   try
@@ -401,7 +401,7 @@ begin
     TestFileContentsSame(lsOutFileName, psRefOutput);
   finally
     lcConverter.Free;
-    FormatSettings.Obfuscate.Enabled := False;
+   JcfFormatSettings.Obfuscate.Enabled := False;
   end;
 end;
 
@@ -413,21 +413,21 @@ var
   bSaveAlign: Array[0..5] of boolean;
 begin
   Check(FileExists(psInFileName), 'input file ' + psInFileName + ' not found');
-  FormatSettings.Obfuscate.Enabled := False;
+ JcfFormatSettings.Obfuscate.Enabled := False;
 
-  bSaveAlign[0] := FormatSettings.Align.AlignAssign;
-  bSaveAlign[1] := FormatSettings.Align.AlignConst;
-  bSaveAlign[2] := FormatSettings.Align.AlignTypeDef;
-  bSaveAlign[3] := FormatSettings.Align.AlignVar;
-  bSaveAlign[4] := FormatSettings.Align.AlignComment;
-  bSaveAlign[5] := FormatSettings.Align.AlignField;
+  bSaveAlign[0] := JcfFormatSettings.Align.AlignAssign;
+  bSaveAlign[1] := JcfFormatSettings.Align.AlignConst;
+  bSaveAlign[2] := JcfFormatSettings.Align.AlignTypeDef;
+  bSaveAlign[3] := JcfFormatSettings.Align.AlignVar;
+  bSaveAlign[4] := JcfFormatSettings.Align.AlignComment;
+  bSaveAlign[5] := JcfFormatSettings.Align.AlignField;
 
-  FormatSettings.Align.AlignAssign := False;
-  FormatSettings.Align.AlignConst := False;
-  FormatSettings.Align.AlignTypeDef := False;
-  FormatSettings.Align.AlignVar := False;
-  FormatSettings.Align.AlignComment := False;
-  FormatSettings.Align.AlignField := False;
+ JcfFormatSettings.Align.AlignAssign := False;
+ JcfFormatSettings.Align.AlignConst := False;
+ JcfFormatSettings.Align.AlignTypeDef := False;
+ JcfFormatSettings.Align.AlignVar := False;
+ JcfFormatSettings.Align.AlignComment := False;
+ JcfFormatSettings.Align.AlignField := False;
 
   lcConverter := TFileConverter.Create;
 
@@ -472,16 +472,16 @@ begin
     SysUtils.DeleteFile(lsOutFileName);
     SysUtils.DeleteFile(lsOutFileName2);
   finally
-    FormatSettings.Align.AlignAssign := bSaveAlign[0];
-    FormatSettings.Align.AlignConst := bSaveAlign[1];
-    FormatSettings.Align.AlignTypeDef := bSaveAlign[2];
-    FormatSettings.Align.AlignVar := bSaveAlign[3];
-    FormatSettings.Align.AlignComment := bSaveAlign[4];
-    FormatSettings.Align.AlignField := bSaveAlign[5];
+   JcfFormatSettings.Align.AlignAssign := bSaveAlign[0];
+   JcfFormatSettings.Align.AlignConst := bSaveAlign[1];
+   JcfFormatSettings.Align.AlignTypeDef := bSaveAlign[2];
+   JcfFormatSettings.Align.AlignVar := bSaveAlign[3];
+   JcfFormatSettings.Align.AlignComment := bSaveAlign[4];
+   JcfFormatSettings.Align.AlignField := bSaveAlign[5];
 
 
     lcConverter.Free;
-    FormatSettings.Obfuscate.Enabled := False;
+   JcfFormatSettings.Obfuscate.Enabled := False;
   end;
 end;
 

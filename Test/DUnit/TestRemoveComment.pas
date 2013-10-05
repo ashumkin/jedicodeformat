@@ -57,8 +57,8 @@ uses
 procedure TTestRemoveComment.Setup;
 begin
   inherited;
-  FormatSettings.Comments.RemoveEmptyDoubleSlashComments := True;
-  FormatSettings.Comments.RemoveEmptyCurlyBraceComments  := True;
+ JcfFormatSettings.Comments.RemoveEmptyDoubleSlashComments := True;
+ JcfFormatSettings.Comments.RemoveEmptyCurlyBraceComments  := True;
 end;
 
 

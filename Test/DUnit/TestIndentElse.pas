@@ -70,18 +70,18 @@ begin
   inherited;
 
   // save settings
-  fbSaveIndentBeginEnd := FormatSettings.Indent.IndentBeginEnd;
-  fiSaveIndentSpaces   := FormatSettings.Indent.IndentSpaces;
-  fiSaveIndentBeginEndSpaces := FormatSettings.Indent.IndentBeginEndSpaces;
+  fbSaveIndentBeginEnd := JcfFormatSettings.Indent.IndentBeginEnd;
+  fiSaveIndentSpaces   := JcfFormatSettings.Indent.IndentSpaces;
+  fiSaveIndentBeginEndSpaces := JcfFormatSettings.Indent.IndentBeginEndSpaces;
 
-  fbSaveHasFirstLevelIndent := FormatSettings.Indent.HasFirstLevelIndent;
-  fiSaveFirstLevelIndent    := FormatSettings.Indent.FirstLevelIndent;
-  fbSaveIndentElse := FormatSettings.Indent.IndentElse;
+  fbSaveHasFirstLevelIndent := JcfFormatSettings.Indent.HasFirstLevelIndent;
+  fiSaveFirstLevelIndent    := JcfFormatSettings.Indent.FirstLevelIndent;
+  fbSaveIndentElse := JcfFormatSettings.Indent.IndentElse;
 
-  FormatSettings.Indent.HasFirstLevelIndent := False;
-  FormatSettings.Indent.IndentBeginEnd := False;
-  FormatSettings.Indent.IndentSpaces := 2;
-  FormatSettings.Indent.IndentElse := True;
+ JcfFormatSettings.Indent.HasFirstLevelIndent := False;
+ JcfFormatSettings.Indent.IndentBeginEnd := False;
+ JcfFormatSettings.Indent.IndentSpaces := 2;
+ JcfFormatSettings.Indent.IndentElse := True;
 end;
 
 procedure TTestIndentElse.Teardown;
@@ -89,14 +89,14 @@ begin
   inherited;
 
   // restore the settings
-  FormatSettings.Indent.IndentBeginEnd := fbSaveIndentBeginEnd;
-  FormatSettings.Indent.IndentSpaces   := fiSaveIndentSpaces;
-  FormatSettings.Indent.IndentBeginEndSpaces := fiSaveIndentBeginEndSpaces;
+ JcfFormatSettings.Indent.IndentBeginEnd := fbSaveIndentBeginEnd;
+ JcfFormatSettings.Indent.IndentSpaces   := fiSaveIndentSpaces;
+ JcfFormatSettings.Indent.IndentBeginEndSpaces := fiSaveIndentBeginEndSpaces;
 
-  FormatSettings.Indent.HasFirstLevelIndent := fbSaveHasFirstLevelIndent;
-  FormatSettings.Indent.FirstLevelIndent    := fiSaveFirstLevelIndent;
+ JcfFormatSettings.Indent.HasFirstLevelIndent := fbSaveHasFirstLevelIndent;
+ JcfFormatSettings.Indent.FirstLevelIndent    := fiSaveFirstLevelIndent;
 
-  FormatSettings.Indent.IndentElse := fbSaveIndentElse;
+ JcfFormatSettings.Indent.IndentElse := fbSaveIndentElse;
 end;
 
 const

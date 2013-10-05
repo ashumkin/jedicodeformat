@@ -30,8 +30,8 @@ See http://www.gnu.org/licenses/gpl.html
 interface
 
 const
-  PROGRAM_VERSION   = '2.45';
-  PROGRAM_DATE      = 'February 2011';
+  PROGRAM_VERSION   = '2.46';
+  PROGRAM_DATE      = 'October 2013';
   PROGRAM_HOME_PAGE = 'http://jedicodeformat.sourceforge.net/';
   PROGRAM_SOURCEFORGE_HOME_PAGE = 'http://sourceforge.net/projects/jedicodeformat/';
   PROGRAM_SVN_TRUNK = 'http://jedicodeformat.svn.sourceforge.net/svnroot/jedicodeformat/trunk/CodeFormat/Jcf2/';

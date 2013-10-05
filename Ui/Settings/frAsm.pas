@@ -74,7 +74,7 @@ uses
 procedure TfAsm.Read;
 begin
 
-  with FormatSettings.SetAsm do
+  with JcfFormatSettings.SetAsm do
   begin
 
     cbStatementIndent.Checked := StatementIndentEnabled;
@@ -94,7 +94,7 @@ end;
 procedure TfAsm.Write;
 begin
 
-  with FormatSettings.SetAsm do
+  with JcfFormatSettings.SetAsm do
   begin
     StatementIndentEnabled := cbStatementIndent.Checked;
     StatementIndent := edtStatementIndent.Value;

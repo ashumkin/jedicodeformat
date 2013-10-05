@@ -59,7 +59,7 @@ var
 begin
   Assert(pt.TokenType = ttColon);
 
-  lcSpaces := FormatSettings.Spaces;
+  lcSpaces := JcfFormatSettings.Spaces;
 
   if pt.HasParentNode(nFormalParams) and InRoundBrackets(pt) then
   begin
@@ -190,7 +190,7 @@ end;
 
 function TSpaceBeforeColon.IsIncludedInSettings: boolean;
 begin
-  Result := FormatSettings.Spaces.FixSpacing;
+  Result := JcfFormatSettings.Spaces.FixSpacing;
 end;
 
 end.

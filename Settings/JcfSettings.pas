@@ -44,7 +44,7 @@ uses
 
 type
 
-  TFormatSettings = class(TObject)
+  TJcfFormatSettings = class(TObject)
   private
     fcObfuscate: TSetObfuscate;
     fcClarify: TSetClarify;
@@ -126,10 +126,10 @@ type
     property HasRead: boolean read fbHasRead write fbHasRead;
   end;
 
-function FormatSettings: TFormatSettings;
+function JcfFormatSettings: TJcfFormatSettings;
 
 // create from a settings file
-function FormatSettingsFromFile(const psFileName: string): TFormatSettings;
+function JcfFormatSettingsFromFile(const psFileName: string): TJcfFormatSettings;
 
 implementation
 
@@ -142,7 +142,7 @@ uses
   JcfRegistrySettings;
 
 
-constructor TFormatSettings.Create(const pbReadRegFile: boolean);
+constructor TJcfFormatSettings.Create(const pbReadRegFile: boolean);
 begin
   inherited Create();
 
@@ -178,7 +178,7 @@ begin
   fbDirty := False;
 end;
 
-destructor TFormatSettings.Destroy;
+destructor TJcfFormatSettings.Destroy;
 begin
   if WriteOnExit then
     Write;
@@ -214,7 +214,7 @@ const
   REG_WRITE_DATETIME = 'WriteDateTime';
   REG_DESCRIPTION = 'Description';
 
-procedure TFormatSettings.Read;
+procedure TJcfFormatSettings.Read;
 var
   lcReg: TJCFRegistrySettings;
 begin
@@ -223,7 +223,7 @@ begin
   ReadFromFile(lcReg.FormatConfigFileName, lcReg.FormatConfigNameSpecified);
 end;
 
-procedure TFormatSettings.ReadFromFile(const psFileName: string; const pbMustExist: boolean);
+procedure TJcfFormatSettings.ReadFromFile(const psFileName: string; const pbMustExist: boolean);
 var
   lsText: string;
   lcFile: TSettingsInputString;
@@ -253,7 +253,7 @@ begin
 end;
 
 
-procedure TFormatSettings.ReadDefaults;
+procedure TJcfFormatSettings.ReadDefaults;
 var
   lcSetDummy: TSettingsInputDummy;
 begin
@@ -265,7 +265,7 @@ begin
   end;
 end;
 
-procedure TFormatSettings.Write;
+procedure TJcfFormatSettings.Write;
 var
   lcReg: TJCFRegistrySettings;
   lcFile: TSettingsStreamOutput;
@@ -316,7 +316,7 @@ begin
 end;
 
 
-procedure TFormatSettings.ToStream(const pcStream: TSettingsOutput);
+procedure TJcfFormatSettings.ToStream(const pcStream: TSettingsOutput);
 
   procedure WriteToStream(const pcSet: TSetBase);
   begin
@@ -359,7 +359,7 @@ begin
   pcStream.CloseSection(CODEFORMAT_SETTINGS_SECTION);
 end;
 
-procedure TFormatSettings.FromStream(const pcStream: TSettingsInput);
+procedure TJcfFormatSettings.FromStream(const pcStream: TSettingsInput);
 var
   lcAllSettings: TSettingsInput;
 
@@ -390,7 +390,7 @@ var
 begin
 
   { basic test - we are only interested in the
-    <JediCodeFormaTFormatSettings> ... </JediCodeFormaTFormatSettings> part of the file
+    <JediCodeFormaTJcfFormatSettings> ... </JediCodeFormaTJcfFormatSettings> part of the file
     If this start & end is not present, then is is the wrong file }
   lcAllSettings := pcStream.ExtractSection(CODEFORMAT_SETTINGS_SECTION);
   if lcAllSettings = nil then
@@ -433,27 +433,27 @@ end;
 
 var
   // a module var
-  mcFormatSettings: TFormatSettings = nil;
+  mcFormatSettings: TJcfFormatSettings = nil;
 
-function FormatSettings: TFormatSettings;
+function JcfFormatSettings: TJcfFormatSettings;
 begin
   if mcFormatSettings = nil then
-    mcFormatSettings := TFormatSettings.Create(true);
+    mcFormatSettings := TJcfFormatSettings.Create(true);
 
   Result := mcFormatSettings;
 end;
 
-function FormatSettingsFromFile(const psFileName: string): TFormatSettings;
+function JcfFormatSettingsFromFile(const psFileName: string): TJcfFormatSettings;
 begin
   if mcFormatSettings = nil then
-    mcFormatSettings := TFormatSettings.Create(false);
+    mcFormatSettings := TJcfFormatSettings.Create(false);
 
   mcFormatSettings.ReadFromFile(psFileName, true);
   Result := mcFormatSettings;
 end;
 
 
-procedure TFormatSettings.MakeConsistent;
+procedure TJcfFormatSettings.MakeConsistent;
 begin
   { one consistency check so far
     - if linebreaking is off, then "remove returns in expressions" must also be off }

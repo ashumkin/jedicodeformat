@@ -60,7 +60,7 @@ uses
 constructor TTabToSpace.Create;
 begin
   inherited;
-  fsSpaces    := StrRepeat(NativeSpace, FormatSettings.Spaces.SpacesPerTab);
+  fsSpaces    := StrRepeat(NativeSpace, JcfFormatSettings.Spaces.SpacesPerTab);
   FormatFlags := FormatFlags + [eAddSpace, eRemoveSpace];
 end;
 
@@ -100,7 +100,7 @@ end;
 
 function TTabToSpace.IsIncludedInSettings: boolean;
 begin
-  Result := FormatSettings.Spaces.TabsToSpaces;
+  Result := JcfFormatSettings.Spaces.TabsToSpaces;
 end;
 
 end.

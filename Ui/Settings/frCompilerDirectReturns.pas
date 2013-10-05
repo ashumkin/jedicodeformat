@@ -70,7 +70,7 @@ end;
 
 procedure TfCompilerDirectReturns.Read;
 begin
-  with FormatSettings.Returns do
+  with JcfFormatSettings.Returns do
   begin
     rgBeforeUses.ItemIndex := Ord(BeforeCompilerDirectUses);
     rgBeforeStatements.ItemIndex := Ord(BeforeCompilerDirectStatements);
@@ -84,7 +84,7 @@ end;
 
 procedure TfCompilerDirectReturns.Write;
 begin
-  with FormatSettings.Returns do
+  with JcfFormatSettings.Returns do
   begin
     BeforeCompilerDirectUses := TTriOptionStyle(rgBeforeUses.ItemIndex);
     BeforeCompilerDirectStatements := TTriOptionStyle(rgBeforeStatements.ItemIndex);

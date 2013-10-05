@@ -112,7 +112,7 @@ end;
 
 procedure TfClarifySpaces.Read;
 begin
-  with FormatSettings.Spaces do
+  with JcfFormatSettings.Spaces do
   begin
     cbTabsToSpaces.Checked := TabsToSpaces;
     cbSpacesToTabs.Checked := SpacesToTabs;
@@ -156,7 +156,7 @@ end;
 
 procedure TfClarifySpaces.Write;
 begin
-  with FormatSettings.Spaces do
+  with JcfFormatSettings.Spaces do
   begin
     TabsToSpaces := cbTabsToSpaces.Checked;
     SpacesToTabs := cbSpacesToTabs.Checked;

@@ -91,14 +91,14 @@ uses
 procedure TTestAddBeginEnd.Setup;
 begin
   inherited;
-  feSaveBeginEndStyle := FormatSettings.Transform.BeginEndStyle;
+  feSaveBeginEndStyle := JcfFormatSettings.Transform.BeginEndStyle;
 end;
 
 procedure TTestAddBeginEnd.Teardown;
 begin
   inherited;
 
-  FormatSettings.Transform.BeginEndStyle := feSaveBeginEndStyle;
+ JcfFormatSettings.Transform.BeginEndStyle := feSaveBeginEndStyle;
 end;
 
 const
@@ -308,7 +308,7 @@ const
 
 procedure TTestAddBeginEnd.TestRemoveFromIfStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := eNever;
+ JcfFormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, IF_STATEMENT_TEXT_WITH_BEGIN,
     IF_STATEMENT_TEXT_NO_BEGIN);
@@ -316,7 +316,7 @@ end;
 
 procedure TTestAddBeginEnd.TestAddToIfStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := eAlways;
+ JcfFormatSettings.Transform.BeginEndStyle := eAlways;
 
   TestProcessResult(TAddBeginEnd, IF_STATEMENT_TEXT_NO_BEGIN,
     IF_STATEMENT_TEXT_WITH_BEGIN);
@@ -325,7 +325,7 @@ end;
 
 procedure TTestAddBeginEnd.TestAddToIfElseStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := eAlways;
+ JcfFormatSettings.Transform.BeginEndStyle := eAlways;
 
   TestProcessResult(TAddBeginEnd, IF_ELSE_STATEMENT_TEXT_NO_BEGIN,
     IF_ELSE_STATEMENT_TEXT_WITH_BEGIN);
@@ -334,7 +334,7 @@ end;
 
 procedure TTestAddBeginEnd.TestRemoveFromIfElseStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := eNever;
+ JcfFormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, IF_ELSE_STATEMENT_TEXT_WITH_BEGIN,
     IF_ELSE_STATEMENT_TEXT_NO_BEGIN);
@@ -342,7 +342,7 @@ end;
 
 procedure TTestAddBeginEnd.TestAddToDoubleIfStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := eNever;
+ JcfFormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, DOUBLE_IF_STATEMENT_TEXT_WITH_BEGIN,
     DOUBLE_IF_STATEMENT_TEXT_NO_BEGIN);
@@ -350,7 +350,7 @@ end;
 
 procedure TTestAddBeginEnd.TestRemoveFromDoubleIfStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := eNever;
+ JcfFormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, DOUBLE_IF_STATEMENT_TEXT_WITH_BEGIN,
     DOUBLE_IF_STATEMENT_TEXT_NO_BEGIN);
@@ -358,7 +358,7 @@ end;
 
 procedure TTestAddBeginEnd.TestAddToWhileStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := eNever;
+ JcfFormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, WHILE_STATEMENT_TEXT_WITH_BEGIN,
     WHILE_STATEMENT_TEXT_NO_BEGIN);
@@ -366,7 +366,7 @@ end;
 
 procedure TTestAddBeginEnd.TestRemoveFromWhileStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := eNever;
+ JcfFormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, WHILE_STATEMENT_TEXT_WITH_BEGIN,
     WHILE_STATEMENT_TEXT_NO_BEGIN);
@@ -374,7 +374,7 @@ end;
 
 procedure TTestAddBeginEnd.TestAddToForStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := eNever;
+ JcfFormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, FOR_STATEMENT_TEXT_WITH_BEGIN,
     FOR_STATEMENT_TEXT_NO_BEGIN);
@@ -382,7 +382,7 @@ end;
 
 procedure TTestAddBeginEnd.TestRemoveFromForStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := eNever;
+ JcfFormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, FOR_STATEMENT_TEXT_WITH_BEGIN,
     FOR_STATEMENT_TEXT_NO_BEGIN);
@@ -390,7 +390,7 @@ end;
 
 procedure TTestAddBeginEnd.TestAddToWithStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := eNever;
+ JcfFormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, WITH_STATEMENT_TEXT_WITH_BEGIN,
     WITH_STATEMENT_TEXT_NO_BEGIN);
@@ -398,7 +398,7 @@ end;
 
 procedure TTestAddBeginEnd.TestRemoveFromWithStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := eNever;
+ JcfFormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, WITH_STATEMENT_TEXT_WITH_BEGIN,
     WITH_STATEMENT_TEXT_NO_BEGIN);
@@ -407,7 +407,7 @@ end;
 
 procedure TTestAddBeginEnd.TestAddToCaseStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := eNever;
+ JcfFormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, WITH_STATEMENT_TEXT_WITH_BEGIN,
     WITH_STATEMENT_TEXT_NO_BEGIN);
@@ -415,7 +415,7 @@ end;
 
 procedure TTestAddBeginEnd.TestRemoveFromCaseStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := eNever;
+ JcfFormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, CASE_STATEMENT_TEXT_WITH_BEGIN,
     CASE_STATEMENT_TEXT_NO_BEGIN);
@@ -423,7 +423,7 @@ end;
 
 procedure TTestAddBeginEnd.TestAddToIfForStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := eNever;
+ JcfFormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, IF_FOR_STATEMENT_TEXT_WITH_BEGIN,
     IF_FOR_STATEMENT_TEXT_NO_BEGIN);
@@ -432,7 +432,7 @@ end;
 
 procedure TTestAddBeginEnd.TestAddToifForStatement2;
 begin
-  FormatSettings.Transform.BeginEndStyle := eAlways;
+ JcfFormatSettings.Transform.BeginEndStyle := eAlways;
 
   TestProcessResult(TAddBeginEnd, IF_FOR_ELSE_STATEMENT_TEXT_NO_BEGIN,
     IF_FOR_ELSE_STATEMENT_TEXT_WITH_BEGIN);
@@ -441,7 +441,7 @@ end;
 // note that the "else..if" doesn't become "else begin if"
 procedure TTestAddBeginEnd.TestAddToifForStatement3;
 begin
-  FormatSettings.Transform.BeginEndStyle := eAlways;
+ JcfFormatSettings.Transform.BeginEndStyle := eAlways;
 
   TestProcessResult(TAddBeginEnd, IF_FOR_ELSE_IF_STATEMENT_TEXT_NO_BEGIN,
     IF_FOR_ELSE_IF_STATEMENT_TEXT_WITH_BEGIN);
@@ -450,7 +450,7 @@ end;
 
 procedure TTestAddBeginEnd.TestRemoveFromIfForStatement;
 begin
-  FormatSettings.Transform.BeginEndStyle := eNever;
+ JcfFormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, IF_FOR_STATEMENT_TEXT_WITH_BEGIN,
     IF_FOR_STATEMENT_TEXT_NO_BEGIN);
@@ -480,7 +480,7 @@ else
 }
 procedure TTestAddBeginEnd.TestNestedIf1;
 begin
-  FormatSettings.Transform.BeginEndStyle := eNever;
+ JcfFormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, NESTED_IF_TEXT_WITH_BEGIN1,
     NESTED_IF_TEXT_WITH_BEGIN1);
@@ -489,7 +489,7 @@ end;
 
 procedure TTestAddBeginEnd.TestNestedIf1_2;
 begin
-  FormatSettings.Transform.BeginEndStyle := eAlways;
+ JcfFormatSettings.Transform.BeginEndStyle := eAlways;
 
   TestProcessResult(TAddBeginEnd, NESTED_IF_TEXT_WITH_BEGIN1,
     NESTED_IF_WITH_ALL_BEGINS1);
@@ -498,7 +498,7 @@ end;
 
 procedure TTestAddBeginEnd.TestNestedIf1_3;
 begin
-  FormatSettings.Transform.BeginEndStyle := eNever;
+ JcfFormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, NESTED_IF_WITH_ALL_BEGINS1,
     NESTED_IF_TEXT_WITH_BEGIN1);
@@ -506,14 +506,14 @@ end;
 
 procedure TTestAddBeginEnd.TestNestedIf2;
 begin
-  FormatSettings.Transform.BeginEndStyle := eAlways;
+ JcfFormatSettings.Transform.BeginEndStyle := eAlways;
   TestProcessResult(TAddBeginEnd, NESTED_IF_TEXT_NO_BEGIN2,
     NESTED_IF_TEXT_WITH_BEGIN2);
 end;
 
 procedure TTestAddBeginEnd.TestNestedIf3;
 begin
-  FormatSettings.Transform.BeginEndStyle := eNever;
+ JcfFormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, NESTED_IF_TEXT_WITH_BEGIN2,
     NESTED_IF_TEXT_NO_BEGIN2);
@@ -521,7 +521,7 @@ end;
 
 procedure TTestAddBeginEnd.TestNestedIf4;
 begin
-  FormatSettings.Transform.BeginEndStyle := eAlways;
+ JcfFormatSettings.Transform.BeginEndStyle := eAlways;
 
   TestProcessResult(TAddBeginEnd, NESTED_IF_TEXT_NO_BEGIN2, NESTED_IF_TEXT_WITH_BEGIN2);
 end;
@@ -547,7 +547,7 @@ begin
   { sourceforge bug [1174572 ]
     Remove begin and end from around single statement bug
    Removing the begin-end changes the meaning and should not be done }
-  FormatSettings.Transform.BeginEndStyle := eNever;
+ JcfFormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, TEST_1174572_IN, TEST_1174572_IN);
 end;
@@ -569,7 +569,7 @@ const
 
 procedure TTestAddBeginEnd.TestBug1262542;
 begin
-  FormatSettings.Transform.BeginEndStyle := eNever;
+ JcfFormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, TEST_1262542_IN, TEST_1262542_IN);
 end;
@@ -595,7 +595,7 @@ const
 
 procedure TTestAddBeginEnd.TestBugNew;
 begin
-  FormatSettings.Transform.BeginEndStyle := eNever;
+ JcfFormatSettings.Transform.BeginEndStyle := eNever;
 
   TestProcessResult(TAddBeginEnd, TEST_NEW_IN, TEST_NEW_IN);
 end;

@@ -162,13 +162,13 @@
 		<VersionInfoKeys>
 			<VersionInfoKeys Name="CompanyName"></VersionInfoKeys>
 			<VersionInfoKeys Name="FileDescription">JEDI Code Format IDE Plugin for Borland Developer Studio 2006</VersionInfoKeys>
-			<VersionInfoKeys Name="FileVersion">2.44.0.0</VersionInfoKeys>
+			<VersionInfoKeys Name="FileVersion">2.46.0.0</VersionInfoKeys>
 			<VersionInfoKeys Name="InternalName">Jedi Code Format</VersionInfoKeys>
 			<VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys>
 			<VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys>
 			<VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys>
 			<VersionInfoKeys Name="ProductName"></VersionInfoKeys>
-			<VersionInfoKeys Name="ProductVersion">2.44</VersionInfoKeys>
+			<VersionInfoKeys Name="ProductVersion">2.46</VersionInfoKeys>
 			<VersionInfoKeys Name="Comments"></VersionInfoKeys>
 		</VersionInfoKeys>
 	</Delphi.Personality>

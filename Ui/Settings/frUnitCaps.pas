@@ -65,7 +65,7 @@ end;
 procedure TfrUnitNameCaps.Read;
 begin
   inherited;
-  with FormatSettings.UnitNameCaps do
+  with JcfFormatSettings.UnitNameCaps do
   begin
     cbEnableAnyWords.Checked := Enabled;
     mWords.Lines.Assign(Words);
@@ -76,7 +76,7 @@ end;
 procedure TfrUnitNameCaps.Write;
 begin
   inherited;
-  with FormatSettings.UnitNameCaps do
+  with JcfFormatSettings.UnitNameCaps do
   begin
     Enabled := cbEnableAnyWords.Checked;
     Words.Assign(mWords.Lines);

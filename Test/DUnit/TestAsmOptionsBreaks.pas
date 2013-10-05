@@ -142,7 +142,7 @@ begin
   inherited;
 
   // store old settings
-  with FormatSettings do
+  with JcfFormatSettings do
   begin
     feCapitalisation := SetAsm.Capitalisation;
 
@@ -166,7 +166,7 @@ procedure TTestAsmOptionsBreaks.TearDown;
 begin
   inherited;
 
-  with FormatSettings do
+  with JcfFormatSettings do
   begin
     SetAsm.Capitalisation := feCapitalisation;
 
@@ -184,97 +184,97 @@ end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksNone_None;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabel := 0;
+ JcfFormatSettings.SetAsm.BreaksAfterLabel := 0;
   TestFormatResult(ASM_LABEL_NONE, ASM_LABEL_NONE);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksNone_One;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabel := 1;
+ JcfFormatSettings.SetAsm.BreaksAfterLabel := 1;
   TestFormatResult(ASM_LABEL_NONE, ASM_LABEL_ONE);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksNone_Two;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabel := 2;
+ JcfFormatSettings.SetAsm.BreaksAfterLabel := 2;
   TestFormatResult(ASM_LABEL_NONE, ASM_LABEL_TWO);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksNone_Three;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabel := 3;
+ JcfFormatSettings.SetAsm.BreaksAfterLabel := 3;
   TestFormatResult(ASM_LABEL_NONE, ASM_LABEL_THREE);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksOne_None;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabel := 0;
+ JcfFormatSettings.SetAsm.BreaksAfterLabel := 0;
   TestFormatResult(ASM_LABEL_ONE, ASM_LABEL_NONE);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksOne_One;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabel := 1;
+ JcfFormatSettings.SetAsm.BreaksAfterLabel := 1;
   TestFormatResult(ASM_LABEL_ONE, ASM_LABEL_ONE);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksOne_Two;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabel := 2;
+ JcfFormatSettings.SetAsm.BreaksAfterLabel := 2;
   TestFormatResult(ASM_LABEL_ONE, ASM_LABEL_TWO);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksOne_Three;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabel := 3;
+ JcfFormatSettings.SetAsm.BreaksAfterLabel := 3;
   TestFormatResult(ASM_LABEL_ONE, ASM_LABEL_THREE);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksTwo_None;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabel := 0;
+ JcfFormatSettings.SetAsm.BreaksAfterLabel := 0;
   TestFormatResult(ASM_LABEL_TWO, ASM_LABEL_NONE);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksTwo_One;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabel := 1;
+ JcfFormatSettings.SetAsm.BreaksAfterLabel := 1;
   TestFormatResult(ASM_LABEL_TWO, ASM_LABEL_ONE);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksTwo_Two;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabel := 2;
+ JcfFormatSettings.SetAsm.BreaksAfterLabel := 2;
   TestFormatResult(ASM_LABEL_TWO, ASM_LABEL_TWO);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksTwo_Three;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabel := 3;
+ JcfFormatSettings.SetAsm.BreaksAfterLabel := 3;
   TestFormatResult(ASM_LABEL_TWO, ASM_LABEL_THREE);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksThree_None;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabel := 0;
+ JcfFormatSettings.SetAsm.BreaksAfterLabel := 0;
   TestFormatResult(ASM_LABEL_THREE, ASM_LABEL_NONE);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksThree_One;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabel := 1;
+ JcfFormatSettings.SetAsm.BreaksAfterLabel := 1;
   TestFormatResult(ASM_LABEL_THREE, ASM_LABEL_ONE);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksThree_Two;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabel := 2;
+ JcfFormatSettings.SetAsm.BreaksAfterLabel := 2;
   TestFormatResult(ASM_LABEL_THREE, ASM_LABEL_TWO);
 end;
 
 procedure TTestAsmOptionsBreaks.TestLabelBreaksThree_Three;
 begin
-  FormatSettings.SetAsm.BreaksAfterLabel := 3;
+ JcfFormatSettings.SetAsm.BreaksAfterLabel := 3;
   TestFormatResult(ASM_LABEL_THREE, ASM_LABEL_THREE);
 end;
 

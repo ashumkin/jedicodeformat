@@ -346,7 +346,7 @@ var
   lsOutFileName: string;
 begin
   Check(FileExists(psInFileName), 'input file ' + psInFileName + ' not found');
-  FormatSettings.Obfuscate.Enabled := True;
+ JcfFormatSettings.Obfuscate.Enabled := True;
   GetRegSettings.OutputExtension   := 'obs';
 
   lcConverter := TFileConverter.Create;
@@ -357,7 +357,7 @@ begin
     lcConverter.SourceMode := fmSingleFile;
     lcConverter.BackupMode := cmSeparateOutput;
 
-    FormatSettings.Obfuscate.Enabled := True;
+   JcfFormatSettings.Obfuscate.Enabled := True;
 
     lcConverter.Input := psInFileName;
 
@@ -374,7 +374,7 @@ begin
     TestFileContentsSame(lsObsFileName, psRefObsOutput);
 
     // now deobfuscate
-    FormatSettings.Obfuscate.Enabled := False;
+   JcfFormatSettings.Obfuscate.Enabled := False;
     GetRegSettings.OutputExtension   := 'out';
 
     lcConverter.Clear;
@@ -400,7 +400,7 @@ begin
     DeleteFile(lsObsFileName);
   finally
     lcConverter.Free;
-    FormatSettings.Obfuscate.Enabled := False;
+   JcfFormatSettings.Obfuscate.Enabled := False;
   end;
 
 end;
@@ -452,7 +452,7 @@ begin
   {
     // test re-obfuscating 
 
-  FormatSettings.FileSettings.OutputExtension := 'out';
+ JcfFormatSettings.FileSettings.OutputExtension := 'out';
 
   TestObfuscateFile(GetTestFilesDir + lsObsFileName,
     GetObsOutFilesDir + lsRemadeFileName)

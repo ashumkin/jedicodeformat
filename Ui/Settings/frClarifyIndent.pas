@@ -89,7 +89,7 @@ end;
 
 procedure TfClarifyIndent.Read;
 begin
-  with FormatSettings.Indent do
+  with JcfFormatSettings.Indent do
   begin
     edtIndentSpaces.Value    := IndentSpaces;
     cbIndentBeginEnd.Checked := IndentBeginEnd;
@@ -119,7 +119,7 @@ end;
 procedure TfClarifyIndent.Write;
 begin
 
-  with FormatSettings.Indent do
+  with JcfFormatSettings.Indent do
   begin
     IndentSpaces   := edtIndentSpaces.Value;
     IndentBeginEnd := cbIndentBeginEnd.Checked;

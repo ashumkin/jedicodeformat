@@ -95,7 +95,7 @@ end;
 
 function TRemoveReturnsAfterBegin.IsIncludedInSettings: boolean;
 begin
-  Result := FormatSettings.Returns.RemoveBlockBlankLines;
+  Result := JcfFormatSettings.Returns.RemoveBlockBlankLines;
 end;
 
 end.

@@ -73,7 +73,7 @@ end;
 
 procedure TfClarify.Read;
 begin
-  with FormatSettings.Clarify do
+  with JcfFormatSettings.Clarify do
   begin
     rgRunOnceOffs.ItemIndex := Ord(OnceOffs);
 
@@ -83,7 +83,7 @@ end;
 
 procedure TfClarify.Write;
 begin
-  with FormatSettings.Clarify do
+  with JcfFormatSettings.Clarify do
   begin
     OnceOffs := TOnceOffsOption(rgRunOnceOffs.ItemIndex);
 

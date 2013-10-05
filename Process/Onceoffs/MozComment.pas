@@ -118,8 +118,8 @@ end;
 
 function TMozComment.IsIncludedInSettings: boolean;
 begin
-  Result := ( not FormatSettings.Obfuscate.Enabled) and
-    (FormatSettings.Clarify.OnceOffs <> eDoNotRun)
+  Result := ( not JcfFormatSettings.Obfuscate.Enabled) and
+    (JcfFormatSettings.Clarify.OnceOffs <> eDoNotRun)
 end;
 
 

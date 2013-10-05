@@ -42,7 +42,11 @@ uses
   FileConverter, JcfSettings,  ConvertTypes,
   frBasicSettings, JvMRUManager, JvFormPlacement,
   JvMemo, frDrop, frmBaseSettingsFrame, JvComponent, JvExStdCtrls,
-  JvComponentBase;
+  JvComponentBase
+  {$IFDEF VER260}
+  , System.Actions
+  {$ENDIF}
+  ;
 
 type
   TfrmMain = class(TForm)
@@ -184,7 +188,7 @@ begin
     lsFileDesc := 'the files in ' + lsSource;
 
   { confirm before obfuscate }
-  if FormatSettings.Obfuscate.Enabled then
+  if JcfFormatSettings.Obfuscate.Enabled then
   begin
     lsMessage := 'Are you sure that you want to obfuscate ' + lsFileDesc;
 
@@ -377,7 +381,7 @@ begin
 
   lcFile := TSettingsStreamOutput.Create(lsName);
   try
-    FormatSettings.ToStream(lcFile);
+   JcfFormatSettings.ToStream(lcFile);
   finally
     lcFile.Free;
   end;

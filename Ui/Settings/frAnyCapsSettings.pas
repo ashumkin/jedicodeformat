@@ -72,7 +72,7 @@ end;
 
 procedure TfrAnyCapsSettings.Read;
 begin
-  with FormatSettings.SpecificWordCaps do
+  with JcfFormatSettings.SpecificWordCaps do
   begin
     cbEnableAnyWords.Checked := Enabled;
     mWords.Lines.Assign(Words);
@@ -81,7 +81,7 @@ end;
 
 procedure TfrAnyCapsSettings.Write;
 begin
-  with FormatSettings.SpecificWordCaps do
+  with JcfFormatSettings.SpecificWordCaps do
   begin
     Enabled := cbEnableAnyWords.Checked;
     Words.Assign(mWords.Lines);

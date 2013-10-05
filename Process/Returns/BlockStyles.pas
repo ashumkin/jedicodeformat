@@ -104,24 +104,24 @@ begin
   if pt.TokenType = ttEnd then
   begin
     if lcNextToken.TokenType = ttElse then
-      Result := FormatSettings.Returns.EndElseStyle;
+      Result := JcfFormatSettings.Returns.EndElseStyle;
   end
   else if pt.TokenType = ttColon then
   begin
     if IsCaseColon(pt) then
     begin
       if lcNextToken.TokenType = ttBegin then
-        Result := FormatSettings.Returns.CaseBeginStyle
+        Result := JcfFormatSettings.Returns.CaseBeginStyle
       else
-        Result := FormatSettings.Returns.CaseLabelStyle;
+        Result := JcfFormatSettings.Returns.CaseLabelStyle;
     end
     else if IsLabelColon(pt) then
     begin
       { otherwise, is there a begin next? }
       if lcNextToken.TokenType = ttBegin then
-        Result := FormatSettings.Returns.LabelBeginStyle
+        Result := JcfFormatSettings.Returns.LabelBeginStyle
       else
-        Result := FormatSettings.Returns.LabelStyle;
+        Result := JcfFormatSettings.Returns.LabelStyle;
     end;
   end
   else if (pt.TokenType = ttElse) then
@@ -130,9 +130,9 @@ begin
     if pt.HasParentNode(nElseCase, 1) then
     begin
       if lcNextToken.TokenType = ttBegin then
-        Result := FormatSettings.Returns.CaseElseBeginStyle
+        Result := JcfFormatSettings.Returns.CaseElseBeginStyle
       else
-        Result := FormatSettings.Returns.CaseElseStyle;
+        Result := JcfFormatSettings.Returns.CaseElseStyle;
     end
     else if (lcNextToken.TokenType = ttIf) then
     begin
@@ -159,20 +159,20 @@ begin
          end;
 
        }
-      Result := FormatSettings.Returns.ElseIfStyle;
+      Result := JcfFormatSettings.Returns.ElseIfStyle;
     end
     else if (lcNextToken.TokenType = ttBegin) then
     begin
-      Result := FormatSettings.Returns.ElseBeginStyle;
+      Result := JcfFormatSettings.Returns.ElseBeginStyle;
     end;
   end
   else
   begin
     { otherwise, is there a begin next? }
     if lcNextToken.TokenType = ttBegin then
-      Result := FormatSettings.Returns.BlockBeginStyle
+      Result := JcfFormatSettings.Returns.BlockBeginStyle
     else
-      Result := FormatSettings.Returns.BlockStyle;
+      Result := JcfFormatSettings.Returns.BlockStyle;
   end;
 end;
 

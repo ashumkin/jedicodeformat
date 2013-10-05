@@ -116,7 +116,7 @@ begin
 
     // init and read the format settings
     GetRegSettings.FormatConfigFileName := GetTestSettingsFileName;
-    FormatSettings.Obfuscate.Enabled    := False;
+   JcfFormatSettings.Obfuscate.Enabled    := False;
 
     lcConverter.SourceMode := fmSingleFile;
     lcConverter.BackupMode := cmSeparateOutput;

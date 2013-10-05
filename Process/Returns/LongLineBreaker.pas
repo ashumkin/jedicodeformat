@@ -115,7 +115,7 @@ begin
   end;
 
   { middle of the actual line (ie from first token pos to max length) }
-  liEffectiveWidth := FormatSettings.Returns.MaxLineLength - piIndexOfFirstSolidToken;
+  liEffectiveWidth := JcfFormatSettings.Returns.MaxLineLength - piIndexOfFirstSolidToken;
   liMidPoint      := (liEffectiveWidth div 2) + piIndexOfFirstSolidToken;
   liOneThirdPoint := (liEffectiveWidth div 3) + piIndexOfFirstSolidToken;
 
@@ -131,7 +131,7 @@ begin
     Result := NOGO_PLACE + ((PLATEAU - NOGO_PLACE) * liEffectivePos * 3) div
       liEffectiveWidth;
   end
-  else if piPos < FormatSettings.Returns.MaxLineLength then
+  else if piPos < JcfFormatSettings.Returns.MaxLineLength then
   begin
     { relatively flat plateau, slight bump in the middle }
     liThreeQuarterPoint := (liEffectiveWidth * 3 div 4) + piIndexOfFirstSolidToken;
@@ -144,7 +144,7 @@ begin
   else
   begin
     { past the end}
-    liOverFlow := piPos - FormatSettings.Returns.MaxLineLength;
+    liOverFlow := piPos - JcfFormatSettings.Returns.MaxLineLength;
     Result     := PLATEAU - (liOverFlow * TO_FAR_SCORE_FACTOR);
     if Result < PAST_END then
     begin
@@ -621,7 +621,7 @@ begin
     exit;
 
   { if the line does not run on, exit now }
-  if liTotalWidth < FormatSettings.Returns.MaxLineLength then
+  if liTotalWidth < JcfFormatSettings.Returns.MaxLineLength then
     exit;
 
   { right, the line is too long.
@@ -714,15 +714,15 @@ begin
     exit;
 
   { best breakpoint is not good enough? }
-  if FormatSettings.Returns.RebreakLines = rbOnlyIfGood then
+  if JcfFormatSettings.Returns.RebreakLines = rbOnlyIfGood then
   begin
     if fcScores.Items[liPlaceToBreak] < GOOD_BREAK_THRESHHOLD then
       exit;
   end
   else
   begin
-    Assert(FormatSettings.Returns.RebreakLines = rbUsually,
-      'bad rebreak setting of ' + IntToStr(Ord(FormatSettings.Returns.RebreakLines)));
+    Assert(JcfFormatSettings.Returns.RebreakLines = rbUsually,
+      'bad rebreak setting of ' + IntToStr(Ord(JcfFormatSettings.Returns.RebreakLines)));
     if fcScores.Items[liPlaceToBreak] < ANY_BREAK_THRESHHOLD then
       exit;
   end;
@@ -744,7 +744,7 @@ end;
 
 function TLongLineBreaker.IsIncludedInSettings: boolean;
 begin
-  Result := FormatSettings.Returns.RebreakLines <> rbOff;
+  Result := JcfFormatSettings.Returns.RebreakLines <> rbOff;
 end;
 
 (*

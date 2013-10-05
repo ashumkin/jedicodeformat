@@ -58,7 +58,7 @@ uses
 constructor TSpaceToTab.Create;
 begin
   inherited;
-  fsSpaces    := string(StrRepeat(NativeSpace, FormatSettings.Spaces.SpacesForTab));
+  fsSpaces    := string(StrRepeat(NativeSpace, JcfFormatSettings.Spaces.SpacesForTab));
   FormatFlags := FormatFlags + [eAddSpace, eRemoveSpace];
 end;
 
@@ -94,7 +94,7 @@ end;
 
 function TSpaceToTab.IsIncludedInSettings: boolean;
 begin
-  Result := FormatSettings.Spaces.SpacesToTabs;
+  Result := JcfFormatSettings.Spaces.SpacesToTabs;
 end;
 
 end.

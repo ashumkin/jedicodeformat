@@ -82,23 +82,23 @@ procedure TTestUsesFindReplace.Setup;
 begin
   inherited;
 
-  FormatSettings.UsesClause.InsertInterfaceEnabled      := True;
-  FormatSettings.UsesClause.InsertImplementationEnabled := True;
+ JcfFormatSettings.UsesClause.InsertInterfaceEnabled      := True;
+ JcfFormatSettings.UsesClause.InsertImplementationEnabled := True;
 
-  FormatSettings.UsesClause.RemoveEnabled := True;
+ JcfFormatSettings.UsesClause.RemoveEnabled := True;
 
-  FormatSettings.UsesClause.InsertInterface.Clear;
-  FormatSettings.UsesClause.InsertImplementation.Clear;
-  FormatSettings.UsesClause.InsertImplementation.Add('foo');
+ JcfFormatSettings.UsesClause.InsertInterface.Clear;
+ JcfFormatSettings.UsesClause.InsertImplementation.Clear;
+ JcfFormatSettings.UsesClause.InsertImplementation.Add('foo');
 
 
-  FormatSettings.UsesClause.Remove.Clear;
-  FormatSettings.UsesClause.Remove.Add('foo');
+ JcfFormatSettings.UsesClause.Remove.Clear;
+ JcfFormatSettings.UsesClause.Remove.Add('foo');
 
-  FormatSettings.UsesClause.Find.Clear;
-  FormatSettings.UsesClause.Replace.Clear;
-  FormatSettings.UsesClause.Find.Add('foo');
-  FormatSettings.UsesClause.Replace.Add('foo2');
+ JcfFormatSettings.UsesClause.Find.Clear;
+ JcfFormatSettings.UsesClause.Replace.Clear;
+ JcfFormatSettings.UsesClause.Find.Add('foo');
+ JcfFormatSettings.UsesClause.Replace.Add('foo2');
 end;
 
 
@@ -106,16 +106,16 @@ procedure TTestUsesFindReplace.TearDown;
 begin
   inherited;
 
-  FormatSettings.UsesClause.InsertImplementation.Clear;
-  FormatSettings.UsesClause.InsertInterface.Clear;
-  FormatSettings.UsesClause.Remove.Clear;
+ JcfFormatSettings.UsesClause.InsertImplementation.Clear;
+ JcfFormatSettings.UsesClause.InsertInterface.Clear;
+ JcfFormatSettings.UsesClause.Remove.Clear;
 
-  FormatSettings.UsesClause.InsertInterfaceEnabled := False;
-  FormatSettings.UsesClause.InsertImplementationEnabled := False;
-  FormatSettings.UsesClause.RemoveEnabled := False;
+ JcfFormatSettings.UsesClause.InsertInterfaceEnabled := False;
+ JcfFormatSettings.UsesClause.InsertImplementationEnabled := False;
+ JcfFormatSettings.UsesClause.RemoveEnabled := False;
 
-  FormatSettings.UsesClause.Find.Clear;
-  FormatSettings.UsesClause.Replace.Clear;
+ JcfFormatSettings.UsesClause.Find.Clear;
+ JcfFormatSettings.UsesClause.Replace.Clear;
 end;
 
 procedure TTestUsesFindReplace.TestAdd1;
@@ -142,9 +142,9 @@ const
   OUT_UNIT_TEXT = 'unit Test;' + NativeLineBreak +
     'interface uses foo;' + NativeLineBreak + 'implementation' + UNIT_FOOTER;
 begin
-  FormatSettings.UsesClause.InsertInterface.Clear;
-  FormatSettings.UsesClause.InsertInterface.Add('foo');
-  FormatSettings.UsesClause.InsertImplementation.Clear;
+ JcfFormatSettings.UsesClause.InsertInterface.Clear;
+ JcfFormatSettings.UsesClause.InsertInterface.Add('foo');
+ JcfFormatSettings.UsesClause.InsertImplementation.Clear;
 
   TestProcessResult(TUsesClauseInsert, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -162,9 +162,9 @@ const
   IN_UNIT_TEXT  = UNIT_HEADER + ' uses bar;' + UNIT_FOOTER;
   OUT_UNIT_TEXT = UNIT_HEADER + ' uses bar,foo,t1,t2,t3;' + UNIT_FOOTER;
 begin
-  FormatSettings.UsesClause.InsertImplementation.Add('t1');
-  FormatSettings.UsesClause.InsertImplementation.Add('t2');
-  FormatSettings.UsesClause.InsertImplementation.Add('t3');
+ JcfFormatSettings.UsesClause.InsertImplementation.Add('t1');
+ JcfFormatSettings.UsesClause.InsertImplementation.Add('t2');
+ JcfFormatSettings.UsesClause.InsertImplementation.Add('t3');
 
   TestProcessResult(TUsesClauseInsert, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -176,8 +176,8 @@ const
   OUT_UNIT_TEXT = INTERFACE_HEADER + 'uses Bar,IntfFoo;' +
     'implementation' + NativeLineBreak + UNIT_FOOTER;
 begin
-  FormatSettings.UsesClause.InsertInterface.Add('IntfFoo');
-  FormatSettings.UsesClause.InsertImplementation.Clear;
+ JcfFormatSettings.UsesClause.InsertInterface.Add('IntfFoo');
+ JcfFormatSettings.UsesClause.InsertImplementation.Clear;
 
   TestProcessResult(TUsesClauseInsert, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -189,7 +189,7 @@ const
   OUT_UNIT_TEXT = INTERFACE_HEADER + 'uses Bar,IntfFoo;' +
     'implementation uses foo;' + NativeLineBreak + UNIT_FOOTER;
 begin
-  FormatSettings.UsesClause.InsertInterface.Add('IntfFoo');
+ JcfFormatSettings.UsesClause.InsertInterface.Add('IntfFoo');
   // impl keeps the 'foo' item
 
   TestProcessResult(TUsesClauseInsert, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -203,7 +203,7 @@ const
     'interface uses IntfFoo;' + NativeLineBreak +
     'implementation uses Bar,foo;' + NativeLineBreak + UNIT_FOOTER;
 begin
-  FormatSettings.UsesClause.InsertInterface.Add('IntfFoo');
+ JcfFormatSettings.UsesClause.InsertInterface.Add('IntfFoo');
   // impl keeps the 'foo' item
 
   TestProcessResult(TUsesClauseInsert, IN_UNIT_TEXT, OUT_UNIT_TEXT);
@@ -270,7 +270,7 @@ const
   IN_UNIT_TEXT  = UNIT_HEADER + ' uses foo, bar;' + UNIT_FOOTER;
   OUT_UNIT_TEXT = UNIT_HEADER + ' uses foo2 ;' + UNIT_FOOTER;
 begin
-  FormatSettings.UsesClause.Find.Add('bar');
+ JcfFormatSettings.UsesClause.Find.Add('bar');
   TestProcessResult(TUsesClauseFindReplace, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
@@ -283,7 +283,7 @@ const
     'implementation' + NativeLineBreak +
     'uses  spon;' + UNIT_FOOTER;
 begin
-  FormatSettings.UsesClause.Find.Add('bar');
+ JcfFormatSettings.UsesClause.Find.Add('bar');
   TestProcessResult(TUsesClauseFindReplace, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
@@ -296,7 +296,7 @@ const
     'implementation' + NativeLineBreak +
     'uses spon ;' + UNIT_FOOTER;
 begin
-  FormatSettings.UsesClause.Find.Add('bar');
+ JcfFormatSettings.UsesClause.Find.Add('bar');
   TestProcessResult(TUsesClauseFindReplace, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
@@ -309,7 +309,7 @@ const
     'implementation' + NativeLineBreak + ' ' +
     UNIT_FOOTER;
 begin
-  FormatSettings.UsesClause.Find.Add('bar');
+ JcfFormatSettings.UsesClause.Find.Add('bar');
   TestProcessResult(TUsesClauseFindReplace, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
@@ -322,7 +322,7 @@ const
     'implementation' + NativeLineBreak +
     'uses Fish;' + UNIT_FOOTER;
 begin
-  FormatSettings.UsesClause.Find.Add('bar');
+ JcfFormatSettings.UsesClause.Find.Add('bar');
   TestProcessResult(TUsesClauseFindReplace, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 

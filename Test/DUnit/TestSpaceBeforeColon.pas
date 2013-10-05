@@ -87,36 +87,36 @@ procedure TTestSpaceBeforeColon.Setup;
 begin
   inherited;
 
-  fiSaveMaxSpaces := FormatSettings.Spaces.MaxSpacesInCode;
-  feSaveOperatorSetting := FormatSettings.Spaces.SpaceForOperator;
+  fiSaveMaxSpaces := JcfFormatSettings.Spaces.MaxSpacesInCode;
+  feSaveOperatorSetting := JcfFormatSettings.Spaces.SpaceForOperator;
 
-  fiSaveSpacesBeforeColonVar := FormatSettings.Spaces.SpacesBeforeColonVar;
-  fiSaveSpacesBeforeColonConst := FormatSettings.Spaces.SpacesBeforeColonConst;
-  fiSaveSpacesBeforeColonParam := FormatSettings.Spaces.SpacesBeforeColonParam;
-  fiSaveSpacesBeforeColonFn := FormatSettings.Spaces.SpacesBeforeColonFn;
-  fiSaveSpacesBeforeColonClassVar := FormatSettings.Spaces.SpacesBeforeColonClassVar;
-  fiSaveSpacesBeforeColonRecordField := FormatSettings.Spaces.SpacesBeforeColonRecordField;
-  fiSaveSpacesBeforeColonCaseLabel := FormatSettings.Spaces.SpacesBeforeColonCaseLabel;
-  fiSaveSpacesBeforeColonLabel := FormatSettings.Spaces.SpacesBeforeColonLabel;
-  fiSaveSpacesBeforeColonInGeneric := FormatSettings.Spaces.SpacesBeforeColonInGeneric;
+  fiSaveSpacesBeforeColonVar := JcfFormatSettings.Spaces.SpacesBeforeColonVar;
+  fiSaveSpacesBeforeColonConst := JcfFormatSettings.Spaces.SpacesBeforeColonConst;
+  fiSaveSpacesBeforeColonParam := JcfFormatSettings.Spaces.SpacesBeforeColonParam;
+  fiSaveSpacesBeforeColonFn := JcfFormatSettings.Spaces.SpacesBeforeColonFn;
+  fiSaveSpacesBeforeColonClassVar := JcfFormatSettings.Spaces.SpacesBeforeColonClassVar;
+  fiSaveSpacesBeforeColonRecordField := JcfFormatSettings.Spaces.SpacesBeforeColonRecordField;
+  fiSaveSpacesBeforeColonCaseLabel := JcfFormatSettings.Spaces.SpacesBeforeColonCaseLabel;
+  fiSaveSpacesBeforeColonLabel := JcfFormatSettings.Spaces.SpacesBeforeColonLabel;
+  fiSaveSpacesBeforeColonInGeneric := JcfFormatSettings.Spaces.SpacesBeforeColonInGeneric;
 end;
 
 procedure TTestSpaceBeforeColon.Teardown;
 begin
   inherited;
 
-  FormatSettings.Spaces.MaxSpacesInCode := fiSaveMaxSpaces;
-  FormatSettings.Spaces.SpaceForOperator := feSaveOperatorSetting;
+ JcfFormatSettings.Spaces.MaxSpacesInCode := fiSaveMaxSpaces;
+ JcfFormatSettings.Spaces.SpaceForOperator := feSaveOperatorSetting;
 
-  FormatSettings.Spaces.SpacesBeforeColonVar := fiSaveSpacesBeforeColonVar;
-  FormatSettings.Spaces.SpacesBeforeColonConst := fiSaveSpacesBeforeColonConst;
-  FormatSettings.Spaces.SpacesBeforeColonParam := fiSaveSpacesBeforeColonParam;
-  FormatSettings.Spaces.SpacesBeforeColonFn := fiSaveSpacesBeforeColonFn;
-  FormatSettings.Spaces.SpacesBeforeColonClassVar := fiSaveSpacesBeforeColonClassVar;
-  FormatSettings.Spaces.SpacesBeforeColonRecordField := fiSaveSpacesBeforeColonRecordField;
-  FormatSettings.Spaces.SpacesBeforeColonCaseLabel := fiSaveSpacesBeforeColonCaseLabel;
-  FormatSettings.Spaces.SpacesBeforeColonLabel := fiSaveSpacesBeforeColonLabel;
-  FormatSettings.Spaces.SpacesBeforeColonInGeneric := fiSaveSpacesBeforeColonInGeneric;
+ JcfFormatSettings.Spaces.SpacesBeforeColonVar := fiSaveSpacesBeforeColonVar;
+ JcfFormatSettings.Spaces.SpacesBeforeColonConst := fiSaveSpacesBeforeColonConst;
+ JcfFormatSettings.Spaces.SpacesBeforeColonParam := fiSaveSpacesBeforeColonParam;
+ JcfFormatSettings.Spaces.SpacesBeforeColonFn := fiSaveSpacesBeforeColonFn;
+ JcfFormatSettings.Spaces.SpacesBeforeColonClassVar := fiSaveSpacesBeforeColonClassVar;
+ JcfFormatSettings.Spaces.SpacesBeforeColonRecordField := fiSaveSpacesBeforeColonRecordField;
+ JcfFormatSettings.Spaces.SpacesBeforeColonCaseLabel := fiSaveSpacesBeforeColonCaseLabel;
+ JcfFormatSettings.Spaces.SpacesBeforeColonLabel := fiSaveSpacesBeforeColonLabel;
+ JcfFormatSettings.Spaces.SpacesBeforeColonInGeneric := fiSaveSpacesBeforeColonInGeneric;
 end;
 
 
@@ -127,7 +127,7 @@ const
   OUT_UNIT_TEXT = UNIT_HEADER + ' function foo: integer; begin result := 2; end; ' +
     UNIT_FOOTER;
 begin
-  FormatSettings.Spaces.SpacesBeforeColonFn := 0;
+ JcfFormatSettings.Spaces.SpacesBeforeColonFn := 0;
 
   TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -139,7 +139,7 @@ const
   OUT_UNIT_TEXT = UNIT_HEADER + ' function foo: integer; begin result := 2; end; ' +
     UNIT_FOOTER;
 begin
-  FormatSettings.Spaces.SpacesBeforeColonFn := 0;
+ JcfFormatSettings.Spaces.SpacesBeforeColonFn := 0;
 
   TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -152,7 +152,7 @@ const
   OUT_UNIT_TEXT = UNIT_HEADER + ' function foo : integer; begin result := 2; end; ' +
     UNIT_FOOTER;
 begin
-  FormatSettings.Spaces.SpacesBeforeColonFn := 1;
+ JcfFormatSettings.Spaces.SpacesBeforeColonFn := 1;
   TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
@@ -164,7 +164,7 @@ const
   OUT_UNIT_TEXT = UNIT_HEADER + ' function foo : integer; begin result := 2; end; ' +
     UNIT_FOOTER;
 begin
-  FormatSettings.Spaces.SpacesBeforeColonFn := 1;
+ JcfFormatSettings.Spaces.SpacesBeforeColonFn := 1;
   TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
@@ -175,7 +175,7 @@ const
   OUT_UNIT_TEXT = UNIT_HEADER + ' var foo: integer;' +
     UNIT_FOOTER;
 begin
-  FormatSettings.Spaces.SpacesBeforeColonVar := 0;
+ JcfFormatSettings.Spaces.SpacesBeforeColonVar := 0;
 
   TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -187,7 +187,7 @@ const
   OUT_UNIT_TEXT = UNIT_HEADER + ' var foo: integer;' +
     UNIT_FOOTER;
 begin
-  FormatSettings.Spaces.SpacesBeforeColonVar := 0;
+ JcfFormatSettings.Spaces.SpacesBeforeColonVar := 0;
 
   TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -199,7 +199,7 @@ const
   OUT_UNIT_TEXT = UNIT_HEADER + ' var foo : integer;' +
     UNIT_FOOTER;
 begin
-  FormatSettings.Spaces.SpacesBeforeColonVar := 1;
+ JcfFormatSettings.Spaces.SpacesBeforeColonVar := 1;
 
   TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -211,7 +211,7 @@ const
   OUT_UNIT_TEXT = UNIT_HEADER + ' var foo : integer;' +
     UNIT_FOOTER;
 begin
-  FormatSettings.Spaces.SpacesBeforeColonVar := 1;
+ JcfFormatSettings.Spaces.SpacesBeforeColonVar := 1;
 
   TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -223,7 +223,7 @@ const
   OUT_UNIT_TEXT = UNIT_HEADER + ' const foo: integer = 3;' +
     UNIT_FOOTER;
 begin
-  FormatSettings.Spaces.SpacesBeforeColonConst := 0;
+ JcfFormatSettings.Spaces.SpacesBeforeColonConst := 0;
 
   TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -235,7 +235,7 @@ const
   OUT_UNIT_TEXT = UNIT_HEADER + ' const foo: integer = 3;' +
     UNIT_FOOTER;
 begin
-  FormatSettings.Spaces.SpacesBeforeColonConst := 0;
+ JcfFormatSettings.Spaces.SpacesBeforeColonConst := 0;
 
   TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -247,7 +247,7 @@ const
   OUT_UNIT_TEXT = UNIT_HEADER + ' const foo : integer = 3;' +
     UNIT_FOOTER;
 begin
-  FormatSettings.Spaces.SpacesBeforeColonConst := 1;
+ JcfFormatSettings.Spaces.SpacesBeforeColonConst := 1;
 
   TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -259,7 +259,7 @@ const
   OUT_UNIT_TEXT = UNIT_HEADER + ' const foo : integer = 3;' +
     UNIT_FOOTER;
 begin
-  FormatSettings.Spaces.SpacesBeforeColonConst := 1;
+ JcfFormatSettings.Spaces.SpacesBeforeColonConst := 1;
 
   TestProcessResult(TSpaceBeforeColon, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;

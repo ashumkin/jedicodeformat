@@ -167,7 +167,7 @@ begin
   fcDefinedSymbols.Duplicates := dupIgnore;
 
   // import user settings 
-  fcDefinedSymbols.Assign(FormatSettings.PreProcessor.DefinedSymbols);
+  fcDefinedSymbols.Assign(JcfFormatSettings.PreProcessor.DefinedSymbols);
 end;
 
 destructor TPreProcessorParseTree.Destroy;
@@ -373,7 +373,7 @@ begin
   lbWasIncluded := fbPreprocessorIncluded;
 
   if fbPreprocessorIncluded then
-    lbEval := FormatSettings.PreProcessor.OptionIsDefined(psOption)
+    lbEval := JcfFormatSettings.PreProcessor.OptionIsDefined(psOption)
   else
     lbEval := False;
 

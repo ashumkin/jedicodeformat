@@ -295,7 +295,7 @@ var
     begin
       if FileExists(fsConfigFileName) then
       begin
-        FormatSettingsFromFile(fsConfigFileName);
+        JcfFormatSettingsFromFile(fsConfigFileName);
       end
       else
       begin
@@ -307,7 +307,7 @@ var
     end;
 
     { must have read from registry or file }
-    if (not FormatSettings.HasRead) and (not fbQuietFail) then
+    if (not JcfFormatSettings.HasRead) and (not fbQuietFail) then
     begin
         WriteLn('No settings to read');
         WriteLn;
@@ -347,7 +347,7 @@ var
     end;
 
     GetRegSettings.Input := lsPath;
-    FormatSettings.Obfuscate.Enabled := fbCmdLineObfuscate;
+    JcfFormatSettings.Obfuscate.Enabled := fbCmdLineObfuscate;
   end;
 
   procedure ConvertFiles;
@@ -389,7 +389,7 @@ begin
   { format setttings will be altered by the command line.
     Do not persist these changes
     do this after parsing the command line }
-  FormatSettings.WriteOnExit := False;
+  JcfFormatSettings.WriteOnExit := False;
 
   if fbQuietFail then
   begin

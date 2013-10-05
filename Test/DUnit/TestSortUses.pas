@@ -105,10 +105,10 @@ TEST_UNIT_END =
 
 procedure SetTestSortState;
 begin
-  FormatSettings.Transform.SortInterfaceUses := True;
-  FormatSettings.Transform.UsesSortOrder := eAlpha;
-  FormatSettings.Transform.BreakUsesSortOnReturn := False;
-  FormatSettings.Transform.BreakUsesSortOnComment := False;
+ JcfFormatSettings.Transform.SortInterfaceUses := True;
+ JcfFormatSettings.Transform.UsesSortOrder := eAlpha;
+ JcfFormatSettings.Transform.BreakUsesSortOnReturn := False;
+ JcfFormatSettings.Transform.BreakUsesSortOnComment := False;
 end;
 
 procedure TTestSortUses.Setup;
@@ -116,27 +116,27 @@ begin
   inherited;
 
   { save the sort uses state before we monkey with it }
-  fbSaveSortInterfaceUses := FormatSettings.Transform.SortInterfaceUses;
-  fbSaveSortImplementationUses := FormatSettings.Transform.SortImplementationUses;
-  fbSaveSortProgramUses := FormatSettings.Transform.SortProgramUses;
+  fbSaveSortInterfaceUses := JcfFormatSettings.Transform.SortInterfaceUses;
+  fbSaveSortImplementationUses := JcfFormatSettings.Transform.SortImplementationUses;
+  fbSaveSortProgramUses := JcfFormatSettings.Transform.SortProgramUses;
 
-  fbSaveBreakUsesSortOnReturn := FormatSettings.Transform.BreakUsesSortOnReturn;
-  fbSaveBreakUsesSortOnComment := FormatSettings.Transform.BreakUsesSortOnComment;
-  feSaveUsesSortOrder := FormatSettings.Transform.UsesSortOrder;
-  fbSaveSortUsesNoComments := FormatSettings.Transform.SortUsesNoComments;
+  fbSaveBreakUsesSortOnReturn := JcfFormatSettings.Transform.BreakUsesSortOnReturn;
+  fbSaveBreakUsesSortOnComment := JcfFormatSettings.Transform.BreakUsesSortOnComment;
+  feSaveUsesSortOrder := JcfFormatSettings.Transform.UsesSortOrder;
+  fbSaveSortUsesNoComments := JcfFormatSettings.Transform.SortUsesNoComments;
 end;
 
 procedure TTestSortUses.Teardown;
 begin
   { restore sort uses state }
-  FormatSettings.Transform.SortInterfaceUses := fbSaveSortInterfaceUses;
-  FormatSettings.Transform.SortImplementationUses := fbSaveSortImplementationUses;
-  FormatSettings.Transform.SortProgramUses := fbSaveSortProgramUses;
+ JcfFormatSettings.Transform.SortInterfaceUses := fbSaveSortInterfaceUses;
+ JcfFormatSettings.Transform.SortImplementationUses := fbSaveSortImplementationUses;
+ JcfFormatSettings.Transform.SortProgramUses := fbSaveSortProgramUses;
 
-  FormatSettings.Transform.BreakUsesSortOnReturn := fbSaveBreakUsesSortOnReturn;
-  FormatSettings.Transform.BreakUsesSortOnComment := fbSaveBreakUsesSortOnComment;
-  FormatSettings.Transform.UsesSortOrder := feSaveUsesSortOrder;
-  fbSaveSortUsesNoComments := FormatSettings.Transform.SortUsesNoComments;
+ JcfFormatSettings.Transform.BreakUsesSortOnReturn := fbSaveBreakUsesSortOnReturn;
+ JcfFormatSettings.Transform.BreakUsesSortOnComment := fbSaveBreakUsesSortOnComment;
+ JcfFormatSettings.Transform.UsesSortOrder := feSaveUsesSortOrder;
+  fbSaveSortUsesNoComments := JcfFormatSettings.Transform.SortUsesNoComments;
 
   inherited;
 end;
@@ -295,7 +295,7 @@ const
     TEST_UNIT_END;
 begin
   SetTestSortState;
-  FormatSettings.Transform.BreakUsesSortOnReturn := True;
+ JcfFormatSettings.Transform.BreakUsesSortOnReturn := True;
   TestProcessResult(TSortUses, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
@@ -311,7 +311,7 @@ const
     TEST_UNIT_END;
 begin
   SetTestSortState;
-  FormatSettings.Transform.BreakUsesSortOnReturn := True;
+ JcfFormatSettings.Transform.BreakUsesSortOnReturn := True;
   TestProcessResult(TSortUses, IN_UNIT_TEXT, OUT_UNIT_TEXT);end;
 
 procedure TTestSortUses.TestSectionsReturn3;
@@ -328,7 +328,7 @@ const
     TEST_UNIT_END;
 begin
   SetTestSortState;
-  FormatSettings.Transform.BreakUsesSortOnReturn := True;
+ JcfFormatSettings.Transform.BreakUsesSortOnReturn := True;
   TestProcessResult(TSortUses, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
@@ -348,7 +348,7 @@ const
     TEST_UNIT_END;
 begin
   SetTestSortState;
-  FormatSettings.Transform.BreakUsesSortOnReturn := True;
+ JcfFormatSettings.Transform.BreakUsesSortOnReturn := True;
 
   TestProcessResult(TSortUses, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -416,7 +416,7 @@ const
     ' cUnit, gUnit; ' + NativeLineBreak + TEST_UNIT_END;
 begin
   SetTestSortState;
-  FormatSettings.Transform.BreakUsesSortOnComment := True;
+ JcfFormatSettings.Transform.BreakUsesSortOnComment := True;
 
   TestProcessResult(TSortUses, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -441,7 +441,7 @@ const
     ' cUnit, gUnit; ' + NativeLineBreak + TEST_UNIT_END;
 begin
   SetTestSortState;
-  FormatSettings.Transform.BreakUsesSortOnComment := True;
+ JcfFormatSettings.Transform.BreakUsesSortOnComment := True;
 
   TestProcessResult(TSortUses, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
@@ -522,13 +522,13 @@ const
 
 begin
   SetTestSortState;
-  FormatSettings.Transform.SortProgramUses := False;
+ JcfFormatSettings.Transform.SortProgramUses := False;
 
   { no sorting for a program uses clause }
   TestProcessResult(TSortUses, IN_UNIT_TEXT, IN_UNIT_TEXT);
 
   { now it will be sorted }
-  FormatSettings.Transform.SortProgramUses := True;
+ JcfFormatSettings.Transform.SortProgramUses := True;
   TestProcessResult(TSortUses, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 

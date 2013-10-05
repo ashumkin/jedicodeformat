@@ -113,7 +113,7 @@ end;
 
 function TPropertyOnOneLine.IsIncludedInSettings: boolean;
 begin
-  Result := FormatSettings.Returns.RemovePropertyReturns;
+  Result := JcfFormatSettings.Returns.RemovePropertyReturns;
 end;
 
 end.

@@ -107,16 +107,16 @@ procedure TTestSpacing.Setup;
 begin
   inherited;
 
-  fiSaveMaxSpaces := FormatSettings.Spaces.MaxSpacesInCode;
-  feSaveOperatorSetting := FormatSettings.Spaces.SpaceForOperator;
+  fiSaveMaxSpaces := JcfFormatSettings.Spaces.MaxSpacesInCode;
+  feSaveOperatorSetting := JcfFormatSettings.Spaces.SpaceForOperator;
 end;
 
 procedure TTestSpacing.Teardown;
 begin
   inherited;
 
-  FormatSettings.Spaces.MaxSpacesInCode := fiSaveMaxSpaces;
-  FormatSettings.Spaces.SpaceForOperator := feSaveOperatorSetting;
+ JcfFormatSettings.Spaces.MaxSpacesInCode := fiSaveMaxSpaces;
+ JcfFormatSettings.Spaces.SpaceForOperator := feSaveOperatorSetting;
 end;
 
 procedure TTestSpacing.TestNoReturnAfter;
@@ -126,7 +126,7 @@ const
   OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin if (foo) then ; end; ' +
     UNIT_FOOTER;
 begin
-  FormatSettings.Returns.RemoveBadReturns := True;
+ JcfFormatSettings.Returns.RemoveBadReturns := True;
   TestProcessResult(TNoReturnAfter, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
@@ -136,7 +136,7 @@ const
     ':= 2; end; ' + UNIT_FOOTER;
   OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin a := 2; end; ' + UNIT_FOOTER;
 begin
-  FormatSettings.Returns.RemoveBadReturns := True;
+ JcfFormatSettings.Returns.RemoveBadReturns := True;
   TestProcessResult(TNoReturnBefore, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
@@ -311,7 +311,7 @@ procedure TTestSpacing.TestUsesCaps1;
 const
   IN_UNIT_TEXT = 'unit foo; interface uses bar; implementation uses fish; end.';
 begin
-  FormatSettings.UnitNameCaps.Enabled := True;
+ JcfFormatSettings.UnitNameCaps.Enabled := True;
   TestProcessResult(TUnitNameCaps, IN_UNIT_TEXT, IN_UNIT_TEXT);
 end;
 
@@ -321,16 +321,16 @@ const
   OUT_UNIT_TEXT = 'unit Foo; interface uses Bar; implementation uses Fish, spon; end.';
 begin
   // contains these and only these
-  FormatSettings.UnitNameCaps.Enabled := True;
-  FormatSettings.UnitNameCaps.Clear;
-  FormatSettings.UnitNameCaps.Add('Foo');
-  FormatSettings.UnitNameCaps.Add('Bar');
-  FormatSettings.UnitNameCaps.Add('Fish');
+ JcfFormatSettings.UnitNameCaps.Enabled := True;
+ JcfFormatSettings.UnitNameCaps.Clear;
+ JcfFormatSettings.UnitNameCaps.Add('Foo');
+ JcfFormatSettings.UnitNameCaps.Add('Bar');
+ JcfFormatSettings.UnitNameCaps.Add('Fish');
 
   TestProcessResult(TUnitNameCaps, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 
   // reset
-  FormatSettings.Read;
+ JcfFormatSettings.Read;
 end;
 
 procedure TTestSpacing.TestUsesCaps3;
@@ -341,21 +341,21 @@ const
     'initialization Monkey.soy; shatner.kirk := shatner.kirk + 3; end.';
 begin
   // contains these and only these
-  FormatSettings.UnitNameCaps.Enabled := True;
-  FormatSettings.UnitNameCaps.Clear;
-  FormatSettings.UnitNameCaps.Add('Foo');
-  FormatSettings.UnitNameCaps.Add('Bar');
-  FormatSettings.UnitNameCaps.Add('Fish');
-  FormatSettings.UnitNameCaps.Add('Monkey');
+ JcfFormatSettings.UnitNameCaps.Enabled := True;
+ JcfFormatSettings.UnitNameCaps.Clear;
+ JcfFormatSettings.UnitNameCaps.Add('Foo');
+ JcfFormatSettings.UnitNameCaps.Add('Bar');
+ JcfFormatSettings.UnitNameCaps.Add('Fish');
+ JcfFormatSettings.UnitNameCaps.Add('Monkey');
   // this won't be used as 'soy' is a fn not a unit name
-  FormatSettings.UnitNameCaps.Add('Soy');
+ JcfFormatSettings.UnitNameCaps.Add('Soy');
   // likewise kirk is a global var
-  FormatSettings.UnitNameCaps.Add('Kirk');
+ JcfFormatSettings.UnitNameCaps.Add('Kirk');
 
   TestProcessResult(TUnitNameCaps, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 
   // reset
-  FormatSettings.Read;
+ JcfFormatSettings.Read;
 end;
 
 procedure TTestSpacing.TestTabToSpace;
@@ -383,7 +383,7 @@ const
   OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo;   begin   a    :=  2;    end;  ' +
     UNIT_FOOTER;
 begin
-  FormatSettings.Spaces.MaxSpacesInCode := 4;
+ JcfFormatSettings.Spaces.MaxSpacesInCode := 4;
   TestProcessResult(TMaxSpaces, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
@@ -395,7 +395,7 @@ const
   OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo;   begin   a   :=  2;   end;  ' +
     UNIT_FOOTER;
 begin
-  FormatSettings.Spaces.MaxSpacesInCode := 3;
+ JcfFormatSettings.Spaces.MaxSpacesInCode := 3;
   TestProcessResult(TMaxSpaces, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
@@ -407,7 +407,7 @@ const
   OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo;  begin  a  :=  2;  end;  ' +
     UNIT_FOOTER;
 begin
-  FormatSettings.Spaces.MaxSpacesInCode := 2;
+ JcfFormatSettings.Spaces.MaxSpacesInCode := 2;
   TestProcessResult(TMaxSpaces, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
@@ -417,7 +417,7 @@ const
     UNIT_FOOTER;
   OUT_UNIT_TEXT = UNIT_HEADER + ' procedure foo; begin a := 2; end; ' + UNIT_FOOTER;
 begin
-  FormatSettings.Spaces.MaxSpacesInCode := 1;
+ JcfFormatSettings.Spaces.MaxSpacesInCode := 1;
   TestProcessResult(TMaxSpaces, IN_UNIT_TEXT, OUT_UNIT_TEXT);
 end;
 
@@ -436,17 +436,17 @@ const
   UNIT_TEXT_UNSPACED_AFTER = UNIT_HEADER + ' procedure foo;   begin   a := 2 +2;    end;  ' +
     UNIT_FOOTER;
 begin
-  FormatSettings.Spaces.SpaceForOperator := eNever;
+ JcfFormatSettings.Spaces.SpaceForOperator := eNever;
 
   TestProcessResult(TNoSpaceBefore, UNIT_TEXT_SPACED, UNIT_TEXT_UNSPACED_BEFORE);
   TestProcessResult(TNoSpaceAfter, UNIT_TEXT_SPACED, UNIT_TEXT_UNSPACED_AFTER);
 
-  FormatSettings.Spaces.SpaceForOperator := eLeave;
+ JcfFormatSettings.Spaces.SpaceForOperator := eLeave;
 
   TestProcessResult(TNoSpaceBefore, UNIT_TEXT_UNSPACED_BEFORE, UNIT_TEXT_UNSPACED_BEFORE);
   TestProcessResult(TNoSpaceAfter, UNIT_TEXT_UNSPACED_AFTER, UNIT_TEXT_UNSPACED_AFTER);
 
-  FormatSettings.Spaces.SpaceForOperator := eAlways;
+ JcfFormatSettings.Spaces.SpaceForOperator := eAlways;
 
   TestProcessResult(TSingleSpaceBefore, UNIT_TEXT_UNSPACED_BEFORE, UNIT_TEXT_SPACED);
   TestProcessResult(TSingleSpaceAfter, UNIT_TEXT_UNSPACED_AFTER, UNIT_TEXT_SPACED);
@@ -460,16 +460,16 @@ const
   UNIT_TEXT_SPACED = UNIT_HEADER + ' procedure foo;   begin   a := 47 mod 3;    end;  ' +
     UNIT_FOOTER;
 begin
-  FormatSettings.Spaces.SpaceForOperator := eNever;
+ JcfFormatSettings.Spaces.SpaceForOperator := eNever;
 
   TestProcessResult(TNoSpaceBefore, UNIT_TEXT_SPACED, UNIT_TEXT_SPACED);
   TestProcessResult(TNoSpaceAfter, UNIT_TEXT_SPACED, UNIT_TEXT_SPACED);
 
-  FormatSettings.Spaces.SpaceForOperator := eLeave;
+ JcfFormatSettings.Spaces.SpaceForOperator := eLeave;
 
   TestProcessResult(TNoSpaceBefore, UNIT_TEXT_SPACED, UNIT_TEXT_SPACED);
 
-  FormatSettings.Spaces.SpaceForOperator := eAlways;
+ JcfFormatSettings.Spaces.SpaceForOperator := eAlways;
 
   TestProcessResult(TSingleSpaceBefore, UNIT_TEXT_SPACED, UNIT_TEXT_SPACED);
 end;

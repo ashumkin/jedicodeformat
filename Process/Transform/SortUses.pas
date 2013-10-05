@@ -92,7 +92,7 @@ end;
 
 function TSortUses.IsIncludedInSettings: boolean;
 begin
-  with FormatSettings.Transform do
+  with JcfFormatSettings.Transform do
     Result := SortInterfaceUses or SortImplementationUses;
 end;
 
@@ -107,26 +107,26 @@ begin
   if lcNode.NodeType <> nUses then
     exit;
 
-  if FormatSettings.Transform.SortUsesNoComments and lcNode.HasChildNode([ttComment]) then
+  if JcfFormatSettings.Transform.SortUsesNoComments and lcNode.HasChildNode([ttComment]) then
     exit;
 
   { is it turned on in this section? }
   if lcNode.HasParentNode(nInterfaceSection) then
   begin
     { interface section }
-    if not FormatSettings.Transform.SortInterfaceUses then
+    if not JcfFormatSettings.Transform.SortInterfaceUses then
       exit;
   end
   else if lcNode.HasParentNode(nImplementationSection) then
   begin
     { implentation section }
-    if not FormatSettings.Transform.SortImplementationUses then
+    if not JcfFormatSettings.Transform.SortImplementationUses then
       exit;
   end
   else
   begin
     { other - program, package or library section }
-    if not FormatSettings.Transform.SortProgramUses then
+    if not JcfFormatSettings.Transform.SortProgramUses then
       exit;
   end;
 
@@ -225,10 +225,10 @@ var
 begin
   leBreakTokens := [];
 
-  if FormatSettings.Transform.BreakUsesSortOnReturn then
+  if JcfFormatSettings.Transform.BreakUsesSortOnReturn then
     Include(leBreakTokens, ttReturn);
 
-  if FormatSettings.Transform.BreakUsesSortOnComment then
+  if JcfFormatSettings.Transform.BreakUsesSortOnComment then
     Include(leBreakTokens, ttComment);
 
   { sections is a list of lists
@@ -318,7 +318,7 @@ begin
       begin
 
         { sort this section }
-        case FormatSettings.Transform.UsesSortOrder of
+        case JcfFormatSettings.Transform.UsesSortOrder of
           eAlpha:
             lcCurrentSection.Sort(AlphaNameSort);
           eReverseAlpha:

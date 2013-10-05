@@ -148,16 +148,16 @@ begin
     begin
       if pt.HasParentNode(nBlock) then
       begin
-        Result := FormatSettings.Indent.KeepCommentsWithCodeInProcs;
+        Result := JcfFormatSettings.Indent.KeepCommentsWithCodeInProcs;
       end
       else if pt.HasParentNode([nClassType, nInterfaceType]) then
       begin
-        Result := FormatSettings.Indent.KeepCommentsWithCodeInClassDef;
+        Result := JcfFormatSettings.Indent.KeepCommentsWithCodeInClassDef;
       end
       else if pt.HasParentNode([nDeclSection]) then
-        Result := FormatSettings.Indent.KeepCommentsWithCodeInGlobals
+        Result := JcfFormatSettings.Indent.KeepCommentsWithCodeInGlobals
       else
-        Result := FormatSettings.Indent.KeepCommentsWithCodeElsewhere;
+        Result := JcfFormatSettings.Indent.KeepCommentsWithCodeElsewhere;
     end;
   end;
 end;
@@ -325,7 +325,7 @@ begin
   if pt.HasParentNode(ObjectTypes) then
   begin
     { indentation sections inside the class }
-    if FormatSettings.Indent.IndentVarAndConstInClass then
+    if JcfFormatSettings.Indent.IndentVarAndConstInClass then
     begin
       liVarConstIndent := 2;
     end
@@ -367,7 +367,7 @@ begin
     liClassNestingCount := CountClassNesting(pt);
     liIndentCount := liIndentCount + (liClassNestingCount - 1);
 
-    if FormatSettings.Indent.IndentNestedTypes then
+    if JcfFormatSettings.Indent.IndentNestedTypes then
     begin
       liTypeNestingCount := CountTypeNesting(pt);
       if (liTypeNestingCount > 1) then
@@ -463,7 +463,7 @@ begin
       else if (pt.TokenType = ttElse) and pt.HasParentNode(nElseCase, 1) then
         Dec(liIndentCount);
 
-      if not FormatSettings.Indent.IndentCaseElse then
+      if not JcfFormatSettings.Indent.IndentCaseElse then
       begin
         liIndentCount :=  liIndentCount - pt.CountParentNodes(nElseCase);
       end;
@@ -518,7 +518,7 @@ begin
       end;
     end;
 
-    if FormatSettings.Indent.IndentElse then
+    if JcfFormatSettings.Indent.IndentElse then
       liIndentCount := liIndentCount + ElseDepth(pt);
     
 
@@ -628,7 +628,7 @@ begin
 
   // program or library top level procs
   // re bug 1898723 - Identination of procedures in library
-  if not FormatSettings.Indent.IndentLibraryProcs then
+  if not JcfFormatSettings.Indent.IndentLibraryProcs then
   begin
     if pt.HasParentNode([nLibrary, nProgram]) and (liIndentCount >= 1) then
     begin
@@ -649,7 +649,7 @@ begin
   end;
 
   // indent all of procs except for the first line
-  if FormatSettings.Indent.IndentProcedureBody then
+  if JcfFormatSettings.Indent.IndentProcedureBody then
   begin
     if pt.HasParentNode(MethodDeclarations) then
     begin
@@ -663,23 +663,23 @@ begin
   Assert(liIndentCount >= 0, 'Indent count = ' + IntToStr(liIndentCount) +
     ' for ' + pt.Describe);
 
-  Result := FormatSettings.Indent.SpacesForIndentLevel(liIndentCount);
+  Result := JcfFormatSettings.Indent.SpacesForIndentLevel(liIndentCount);
 
   // asm extra indent
-  if IsInsideAsm(pt) and FormatSettings.SetAsm.StatementIndentEnabled then
+  if IsInsideAsm(pt) and JcfFormatSettings.SetAsm.StatementIndentEnabled then
   begin
-    Result := Result + FormatSettings.SetAsm.StatementIndent;
+    Result := Result + JcfFormatSettings.SetAsm.StatementIndent;
   end;
 
   // IndentBeginEnd option to indent begin/end words a bit extra
-  if FormatSettings.Indent.IndentBeginEnd then
+  if JcfFormatSettings.Indent.IndentBeginEnd then
   begin
     if (pt.TokenType in [ttTry, ttExcept, ttFinally, ttBegin, ttEnd]) and InStatements(pt) then
     begin
       // filter out the begin/end that starts and ends a procedure
       if not pt.HasParentNode(nBlock, 2) then
       begin
-        Result := Result + FormatSettings.Indent.IndentBeginEndSpaces;
+        Result := Result + JcfFormatSettings.Indent.IndentBeginEndSpaces;
       end;
     end;
   end;
