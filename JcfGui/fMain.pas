@@ -381,7 +381,7 @@ begin
 
   lcFile := TSettingsStreamOutput.Create(lsName);
   try
-   JcfFormatSettings.ToStream(lcFile);
+    JcfFormatSettings.ToStream(lcFile);
   finally
     lcFile.Free;
   end;

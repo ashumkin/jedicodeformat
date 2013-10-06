@@ -357,7 +357,7 @@ begin
     lcConverter.SourceMode := fmSingleFile;
     lcConverter.BackupMode := cmSeparateOutput;
 
-   JcfFormatSettings.Obfuscate.Enabled := True;
+    JcfFormatSettings.Obfuscate.Enabled := True;
 
     lcConverter.Input := psInFileName;
 
@@ -374,7 +374,7 @@ begin
     TestFileContentsSame(lsObsFileName, psRefObsOutput);
 
     // now deobfuscate
-   JcfFormatSettings.Obfuscate.Enabled := False;
+    JcfFormatSettings.Obfuscate.Enabled := False;
     GetRegSettings.OutputExtension   := 'out';
 
     lcConverter.Clear;
@@ -400,7 +400,7 @@ begin
     DeleteFile(lsObsFileName);
   finally
     lcConverter.Free;
-   JcfFormatSettings.Obfuscate.Enabled := False;
+    JcfFormatSettings.Obfuscate.Enabled := False;
   end;
 
 end;

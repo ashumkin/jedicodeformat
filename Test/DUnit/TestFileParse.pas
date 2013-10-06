@@ -305,8 +305,8 @@ begin
     Check(FileExists(lsSettingsFileName), 'Settings file ' +
       lsSettingsFileName + ' not found');
 
-   JcfFormatSettings.ReadFromFile(lsSettingsFileName, True);
-   JcfFormatSettings.Obfuscate.Enabled := False;
+    JcfFormatSettings.ReadFromFile(lsSettingsFileName, True);
+    JcfFormatSettings.Obfuscate.Enabled := False;
 
     lcConverter.SourceMode := fmSingleFile;
     lcConverter.BackupMode := cmSeparateOutput;

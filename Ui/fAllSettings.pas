@@ -141,7 +141,7 @@ begin
   ShowModal;
 
   if (ModalResult = mrOk) and JcfFormatSettings.Dirty then
-   JcfFormatSettings.Write;
+    JcfFormatSettings.Write;
 end;
 
 procedure TFormAllSettings.GetFrameForNode(const pcNode: TTreeNode);

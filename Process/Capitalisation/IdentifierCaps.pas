@@ -210,7 +210,7 @@ end;
 function TIdentifierCaps.IsIncludedInSettings: boolean;
 begin
   Result := JcfFormatSettings.IdentifierCaps.Enabled or
-   JcfFormatSettings.NotIdentifierCaps.Enabled;
+    JcfFormatSettings.NotIdentifierCaps.Enabled;
 end;
 
 end.
