@@ -39,7 +39,11 @@ done
 
 
 # rather dirty check for FPC
-fpcv=$(fpc --version -h | grep 'Free Pascal Compiler' | \
+fpcv=$(fpc -h --version 2> /dev/null)
+if [ $? -ne 0 ]; then
+	fpcv=$(fpc -h 2> /dev/null)
+fi
+fpcv=$(echo "$fpcv" | grep 'Free Pascal Compiler' | \
     sed -re 's/.*version ([0-9.]*).*/\1/' )
 if [ $? -ne 0 ] ; then
     echo fpc compiler not found. 
@@ -65,7 +69,7 @@ echo Looking for fpc root directory
 for dir in $fpc_tested_dirs; do
     dir="$dir/$fpcv"
     echo "   Testing $dir directory"
-    if [ -d "$dir" ] && [ -d "$dir/source" ] ; then
+    if [ -d "$dir" ] && [[ -d "$dir/source" || -d "$dir/units" ]] ; then
 	echo "   ... $dir seems ok"
 	fpc_root="$dir"
 	break;
@@ -79,7 +83,7 @@ if [ "x$fpc_root" == "x" ] ; then
 fi
 
 #lazarus checks
-lazarus_tested_dirs="/usr/local/share/lazarus /usr/share/lazarus"
+lazarus_tested_dirs="/usr/local/share/lazarus /usr/share/lazarus /usr/lib/lazarus"
 
 echo Looking for Lazarus root directory
 for dir in $lazarus_tested_dirs; do

@@ -72,6 +72,7 @@ ifneq ($(PLATFORM),WIN32)
   endif
 endif
 
+FPC_OPTS :=-T$(PLATFORM)
 #platform specific options
 ifeq ($(PLATFORM),WIN32)
   #Win32 options
@@ -86,6 +87,9 @@ ifeq ($(PLATFORM),WIN32)
       SHELL_SCRIPT:=dcc_compile.bat
     endif
   endif
+  ifndef RELEASE
+	FPC_OPTS +=-WN
+  endif
 
   PROJECT_BIN:=jcf.exe
 else
@@ -99,9 +103,9 @@ endif
 
 
 ifdef RELEASE
-  FPC_OPTS :=-n -Un -XX -O2 -Xs
+  FPC_OPTS +=-n -Un -XX -O2 -Xs
   DCC_OPTS :=-O+ -I- -W- -Q- -R-
 else
-  FPC_OPTS :=-n -Un -vb -CX -XX -gl -WN -vewnhi -l  
+  FPC_OPTS +=-n -Un -vb -CX -XX -gl -vewnhi -l
   DCC_OPTS :=-O- -I+ -W+ -Q+ -R+
 endif
