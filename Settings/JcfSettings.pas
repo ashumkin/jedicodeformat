@@ -40,6 +40,7 @@ uses
   SetComments, SetCaps, SetWordList,
   SetAlign, SetReplace, SetUses, SetPreProcessor,
   SettingsStream, SetTransform,  SetAsm,
+  {$IFDEF DELPHI2009_UP} UITypes, {$ENDIF}
   JcfVersionConsts;
 
 type

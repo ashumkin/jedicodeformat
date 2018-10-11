@@ -62,8 +62,10 @@ type
 
     procedure ParseNonPreProc(const peEndTokens: TPreProcessorSymbolTypeSet);
     procedure ParseOptTail(pbAlreadyMatchedClause: boolean);
+    {$HINTS OFF} //Private symbol declared but never used
     procedure ParsePreProcessorDirective(const peSymbolType: TPreProcessorSymbolType);
       overload;
+    {$HINTS ON}
     procedure ParsePreProcessorDirective(
       const peSymbolTypes: TPreProcessorSymbolTypeSet); overload;
 
@@ -513,7 +515,7 @@ var
   lcTokeniser: TPreProcessorExpressionTokeniser;
   lcParser:    TPreProcessorExpressionParser;
 begin
-  Result := False;
+  //Result := False;  // this value is never used
   Assert(psExpression <> '');
 
   lcTokeniser := TPreProcessorExpressionTokeniser.Create;
@@ -554,7 +556,6 @@ begin
     lcParser.Free;
   end;
 end;
-
 
 { hide the bits that are preprocessed out }
 procedure TPreProcessorParseTree.CompactTokens;

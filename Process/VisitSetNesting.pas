@@ -33,7 +33,7 @@ interface
 
 uses
   { delphi }
-  Contnrs,
+  Classes, Contnrs,
   { local }
   BaseVisitor, Nesting;
 

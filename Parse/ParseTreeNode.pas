@@ -34,7 +34,7 @@ interface
 }
 uses
   {delphi }
-  Contnrs, Classes,
+  Types, Contnrs, Classes,
   { local }
   Tokens, ParseTreeNodeType, Nesting;
 

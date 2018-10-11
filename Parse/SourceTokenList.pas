@@ -46,7 +46,7 @@ interface
 
 uses
   { delphi }
-  Contnrs,
+  Classes, Contnrs,
   { local }
   SourceToken,
   Tokens;
