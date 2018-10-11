@@ -129,7 +129,7 @@ end;
 
 function TSourceTokenList.GetItem(const piIndex: integer): TSourceToken;
 begin
-  {$IFDEF VER260}
+  {$IFDEF DELPHIXE5_UP}
   Result := TSourceToken(List[piIndex]);
   {$ELSE}
   Result := TSourceToken(List^[piIndex]);
@@ -143,7 +143,7 @@ end;
 
 function TSourceTokenList.First: TSourceToken;
 begin
-  {$IFDEF VER260}
+  {$IFDEF DELPHIXE5_UP}
   Result := TSourceToken(List[fiCurrentTokenIndex]);
   {$ELSE}
   Result := TSourceToken(List^[fiCurrentTokenIndex]);
@@ -155,7 +155,7 @@ begin
   Result := ttUnknown;
   if Count > 0 then
   begin
-    {$IFDEF VER260}
+    {$IFDEF DELPHIXE5_UP}
     Result := TSourceToken(List[fiCurrentTokenIndex]).TokenType;
     {$ELSE}
     Result := TSourceToken(List^[fiCurrentTokenIndex]).TokenType;
@@ -168,7 +168,7 @@ begin
   Result := wtNotAWord;
   if Count > 0 then
   begin
-    {$IFDEF VER260}
+    {$IFDEF DELPHIXE5_UP}
     Result := TSourceToken(List[fiCurrentTokenIndex]).WordType;
     {$ELSE}
     Result := TSourceToken(List^[fiCurrentTokenIndex]).WordType;
@@ -226,7 +226,7 @@ begin
   liLoop := fiCurrentTokenIndex;
   while liLoop < Count do
   begin
-    {$IFDEF VER260}
+    {$IFDEF DELPHIXE5_UP}
     lcItem := TSourceToken(List[liLoop]);
     {$ELSE}
     lcItem := TSourceToken(List^[liLoop]);
@@ -261,7 +261,7 @@ begin
 
   while liLoop < Count do
   begin
-    {$IFDEF VER260}
+    {$IFDEF DELPHIXE5_UP}
     lcTestToken := TSourceToken(List[liLoop]);
     {$ELSE}
     lcTestToken := TSourceToken(List^[liLoop]);
@@ -313,7 +313,7 @@ begin
   liLoop := fiCurrentTokenIndex;
   while liLoop < Count do
   begin
-    {$IFDEF VER260}
+    {$IFDEF DELPHIXE5_UP}
      lcToken := TSourceToken(List[liLoop]);
     {$ELSE}
      lcToken := TSourceToken(List^[liLoop]);
@@ -332,7 +332,7 @@ begin
     Here I am not doing any index checking at all.
     This thing needs to be FAST. Access to here is quite controlled anyway.}
 
-  {$IFDEF VER260}
+  {$IFDEF DELPHIXE5_UP}
   Result := TSourceToken(List[fiCurrentTokenIndex]);
   List[fiCurrentTokenIndex] := nil;
   {$ELSE}

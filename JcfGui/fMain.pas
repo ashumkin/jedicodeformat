@@ -30,7 +30,7 @@ unit fMain;
 }
 
 
-{$I ..\Include\JcfGlobal.inc}
+{$I JcfGlobal.inc}
 
 interface
 
@@ -42,11 +42,12 @@ uses
   FileConverter, JcfSettings,  ConvertTypes,
   frBasicSettings, JvMRUManager, JvFormPlacement,
   JvMemo, frDrop, frmBaseSettingsFrame, JvComponent, JvExStdCtrls,
-  JvComponentBase
-  {$IFDEF VER260}
-  , System.Actions
-  {$ENDIF}
-  ;
+  // these defines are here becuse of a bug in recent Delphi versions which will add these units even if the
+  // define is set correctly.
+  // Thus, if you use older Delphi versions, either set these defines or add the path for the provided empty units.
+  {.$IFDEF DELPHIXE3_UP}Actions, {.$ENDIF}
+  {.$IFDEF DELPHIXE8_UP}ImageList, {.$ENDIF}
+  JvComponentBase;
 
 type
   TfrmMain = class(TForm)
@@ -92,6 +93,7 @@ type
     mOutput: TJvMemo;
     lblLog:  TLabel;
     N2:      TMenuItem;
+    btnClearLog: TButton;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure mnuGoClick(Sender: TObject);
@@ -111,6 +113,7 @@ type
     procedure FormKeyUp(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure FormResize(Sender: TObject);
     procedure frBasicsbOpenClick(Sender: TObject);
+    procedure btnClearLogClick(Sender: TObject);
   private
     fcConverter: TFileConverter;
 
@@ -330,6 +333,11 @@ begin
   finally
     lfSet.Release;
   end;
+end;
+
+procedure TfrmMain.btnClearLogClick(Sender: TObject);
+begin
+  mOutput.Lines.Clear;
 end;
 
 procedure TfrmMain.SettingsChange(Sender: TObject);

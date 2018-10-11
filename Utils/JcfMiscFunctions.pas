@@ -104,7 +104,7 @@ var
   code: integer;
 begin
   // de-localise the string if need be
-  {$IFDEF VER260}
+  {$IFDEF DELPHIXE5_UP}
   if (FormatSettings.DecimalSeparator <> '.') and (Pos(FormatSettings.DecimalSeparator, s) > 0) then
     StrReplace(s,FormatSettings.DecimalSeparator, '.');
   {$ELSE}
@@ -123,7 +123,7 @@ function Float2Str(const d: double): string;
 var
   OrgSep: char;
 begin
-  {$IFDEF VER260}
+  {$IFDEF DELPHIXE5_UP}
   OrgSep := FormatSettings.DecimalSeparator;
   FormatSettings.DecimalSeparator := '.';
   Result := FloatToStr(d);

@@ -85,10 +85,15 @@ type
     constructor Create(const pbReadRegFile: boolean);
     destructor Destroy; override;
 
+    {$IFDEF JCF_REG}
     procedure Read;
+    {$ENDIF}
     procedure ReadFromFile(const psFileName: string; const pbMustExist: boolean);
+    procedure WriteToFile(const psFileName: string; pbAlwaysWrite: boolean);
     procedure ReadDefaults;
+    {$IFDEF JCF_REG}
     procedure Write;
+    {$ENDIF}
 
     procedure MakeConsistent;
 
@@ -138,8 +143,10 @@ uses
   {$IFNDEF FPC}Windows,{$ENDIF} SysUtils, Dialogs,
   { local }
   JcfStringUtils,
-  JcfSetBase,
-  JcfRegistrySettings;
+  {$IFDEF JCF_REG}
+  JcfRegistrySettings,
+  {$ENDIF}
+  JcfSetBase;
 
 
 constructor TJcfFormatSettings.Create(const pbReadRegFile: boolean);
@@ -214,6 +221,7 @@ const
   REG_WRITE_DATETIME = 'WriteDateTime';
   REG_DESCRIPTION = 'Description';
 
+{$IFDEF JCF_REG}
 procedure TJcfFormatSettings.Read;
 var
   lcReg: TJCFRegistrySettings;
@@ -222,6 +230,7 @@ begin
   lcReg := GetRegSettings;
   ReadFromFile(lcReg.FormatConfigFileName, lcReg.FormatConfigNameSpecified);
 end;
+{$ENDIF}
 
 procedure TJcfFormatSettings.ReadFromFile(const psFileName: string; const pbMustExist: boolean);
 var
@@ -252,7 +261,6 @@ begin
   end;
 end;
 
-
 procedure TJcfFormatSettings.ReadDefaults;
 var
   lcSetDummy: TSettingsInputDummy;
@@ -265,10 +273,10 @@ begin
   end;
 end;
 
+{$IFDEF JCF_REG}
 procedure TJcfFormatSettings.Write;
 var
   lcReg: TJCFRegistrySettings;
-  lcFile: TSettingsStreamOutput;
 begin
    if not Dirty then
     exit;
@@ -291,9 +299,18 @@ begin
     exit;
   end;
 
+  // use the Settings file name
+  WriteToFile(GetRegSettings.FormatConfigFileName, lcReg.FormatFileWriteOption = eAlwaysWrite);
+end;
+{$ENDIF}
+
+
+procedure TJcfFormatSettings.WriteToFile(const psFileName: string; pbAlwaysWrite: boolean);
+var
+  lcFile: TSettingsStreamOutput;
+begin
   try
-    // use the Settings file name
-    lcFile := TSettingsStreamOutput.Create(GetRegSettings.FormatConfigFileName);
+    lcFile := TSettingsStreamOutput.Create(psFileName);
     try
       ToStream(lcFile);
 
@@ -305,10 +322,10 @@ begin
   except
     on e: Exception do
     begin
-      if lcReg.FormatFileWriteOption = eAlwaysWrite then
+      if pbAlwaysWrite then
       begin
         MessageDlg('Error writing settings file ' +
-          GetRegSettings.FormatConfigFileName + NativeLineBreak + ' :' +
+          psFileName + NativeLineBreak + ' :' +
           E.Message, mtError, [mbOK], 0);
       end;
     end;

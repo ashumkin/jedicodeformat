@@ -204,6 +204,15 @@ object frmMain: TfrmMain
       Top = 120
     end
   end
+  object btnClearLog: TButton
+    Left = 558
+    Top = 196
+    Width = 75
+    Height = 25
+    Caption = 'Clear Log'
+    TabOrder = 3
+    OnClick = btnClearLogClick
+  end
   object mnuMain: TMainMenu
     Images = ilStandardImages
     Left = 160

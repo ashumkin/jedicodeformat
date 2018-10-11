@@ -57,6 +57,7 @@ type
 type
   TShowParseTreeOption = (eShowAlways, eShowOnError, eShowNever);
 
+{$IFDEF JCF_REG}
 const
   OLD_REG_ROOT_KEY = '\Software\Jedi\JediCodeFormat';
  {$IFDEF FPC} REG_ROOT_KEY = OLD_REG_ROOT_KEY; {$ENDIF}
@@ -73,7 +74,27 @@ const
  {$IFDEF DELPHI11} REG_ROOT_KEY = '\Software\Borland\BDS\5.0\Jedi\JCF'; {$ENDIF}
  {$IFDEF DELPHI12} REG_ROOT_KEY = '\Software\CodeGear\BDS\6.0\Jedi\JCF'; {$ENDIF}
  {$IFDEF DELPHI14} REG_ROOT_KEY = '\Software\CodeGear\BDS\7.0\Jedi\JCF'; {$ENDIF}
+
+ {$IFDEF DELPHI15} REG_ROOT_KEY = '\Software\Embarcadero\BDS\8.0\Jedi\JCF'; {$ENDIF}
+ {$IFDEF DELPHI16} REG_ROOT_KEY = '\Software\Embarcadero\BDS\9.0\Jedi\JCF'; {$ENDIF}
+ {$IFDEF DELPHI17} REG_ROOT_KEY = '\Software\Embarcadero\BDS\10.0\Jedi\JCF'; {$ENDIF}
+ {$IFDEF DELPHI18} REG_ROOT_KEY = '\Software\Embarcadero\BDS\11.0\Jedi\JCF'; {$ENDIF}
  {$IFDEF DELPHI19} REG_ROOT_KEY = '\Software\Embarcadero\BDS\12.0\Jedi\JCF'; {$ENDIF}
+ {$IFDEF DELPHI20} REG_ROOT_KEY = '\Software\Embarcadero\BDS\12.0\Jedi\JCF'; {$ENDIF}
+ {$IFDEF DELPHI21} REG_ROOT_KEY = '\Software\Embarcadero\BDS\15.0\Jedi\JCF'; {$ENDIF}
+ {$IFDEF DELPHI22} REG_ROOT_KEY = '\Software\Embarcadero\BDS\16.0\Jedi\JCF'; {$ENDIF}
+ {$IFDEF DELPHI23} REG_ROOT_KEY = '\Software\Embarcadero\BDS\17.0\Jedi\JCF'; {$ENDIF}
+ {$IFDEF DELPHI24} REG_ROOT_KEY = '\Software\Embarcadero\BDS\18.0\Jedi\JCF'; {$ENDIF}
+ {$IFDEF DELPHI25} REG_ROOT_KEY = '\Software\Embarcadero\BDS\19.0\Jedi\JCF'; {$ENDIF}
+
+ //future proof
+ {$IFDEF DELPHI26_UP} VERIFY THE BELOW VALUE {$ENDIF}
+ {$IFDEF DELPHI26} REG_ROOT_KEY = '\Software\Embarcadero\BDS\20.0\Jedi\JCF'; {$ENDIF}
+ {$IFDEF DELPHI27} REG_ROOT_KEY = '\Software\Embarcadero\BDS\21.0\Jedi\JCF'; {$ENDIF}
+ {$IFDEF DELPHI28} REG_ROOT_KEY = '\Software\Embarcadero\BDS\22.0\Jedi\JCF'; {$ENDIF}
+ {$IFDEF DELPHI29} REG_ROOT_KEY = '\Software\Embarcadero\BDS\23.0\Jedi\JCF'; {$ENDIF}
+ {$IFDEF DELPHI30} REG_ROOT_KEY = '\Software\Embarcadero\BDS\24.0\Jedi\JCF'; {$ENDIF}
+{$ENDIF}
 
 const
   SOURCE_FILE_FILTERS =

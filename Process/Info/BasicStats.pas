@@ -73,8 +73,10 @@ uses
   SysUtils,
   { JCF  }
   JcfStringUtils,
-  SourceToken, Tokens, ParseTreeNode, ParseTreeNodeType, TokenUtils,
-  JcfRegistrySettings;
+  {$IFDEF JCF_REG}
+  JcfRegistrySettings,
+  {$ENDIF}
+  SourceToken, Tokens, ParseTreeNode, ParseTreeNodeType, TokenUtils;
 
 function DisplayFloat(const ex: extended): string;
 begin
@@ -249,7 +251,7 @@ end;
 
 function TBasicStats.IsIncludedInSettings: boolean;
 begin
-  Result := GetRegSettings.LogStats;
+  Result := {$IFDEF JCF_REG}GetRegSettings.LogStats{$ELSE}False{$ENDIF};
 end;
 
 end.

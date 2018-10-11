@@ -187,7 +187,7 @@ begin
   end;
 
   // convert to wide string
-  {$IFDEF DELPHI12}
+  {$IFDEF DELPHI12_UP}
   Result := UTF8ToWideString(lsContents);
   {$ELSE}
   Result := UTF8Decode(lsContents);
