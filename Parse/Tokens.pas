@@ -124,6 +124,7 @@ type
     ttPacked,
     ttProcedure,
     ttProgram,
+    ttScript,
     ttProperty,
     ttRaise,
     ttRecord,

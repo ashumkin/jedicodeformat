@@ -68,10 +68,11 @@ type
     procedure RecogniseGoal;
     procedure RecogniseUnit;
     procedure RecogniseProgram;
+    procedure RecogniseScript;
     procedure RecognisePackage;
     procedure RecogniseLibrary;
 
-    procedure RecogniseFileEnd;
+    procedure RecogniseFileEnd(IsScript: Boolean = false);
 
     procedure RecogniseProgramBlock;
     procedure RecogniseUsesClause(const pbInFiles: boolean);
@@ -500,6 +501,8 @@ begin
       RecogniseLibrary;
     ttUnit:
       RecogniseUnit;
+    ttVar, ttBegin:
+      RecogniseScript;
     else
       raise TEParseError.Create('Expected program, package, library, unit', lc);
   end
@@ -532,6 +535,28 @@ begin
   RecogniseProgramBlock;
   RecogniseFileEnd;
 
+  PopNode;
+end;
+
+procedure TBuildParseTree.RecogniseScript;
+var
+  lcNewToken: TSourceToken;
+  fsFileName: string;
+begin
+  PushNode(nProgram);
+
+  // add 'program' token
+  fsFileName := fcTokenList.SourceTokens[0].FileName;
+  lcNewToken := TSourceToken.Create();
+  lcNewToken.FileName := fsFileName;
+  lcNewToken.SourceCode := '';
+  lcNewToken.TokenType := ttScript;//ttProgram;
+  fcTokenList.Insert(0,lcNewToken);
+
+  Recognise(ttScript);
+
+  RecogniseProgramBlock;
+  RecogniseFileEnd(true);
   PopNode;
 end;
 
@@ -620,11 +645,14 @@ begin
   PopNode;
 end;
 
-procedure TBuildParseTree.RecogniseFileEnd;
+procedure TBuildParseTree.RecogniseFileEnd(IsScript: Boolean);
 var
   lcCurrentToken: TSourceToken;
 begin
-  Recognise(ttDot);
+  if not IsScript then
+    Recognise(ttDot)
+  else
+    Recognise(ttSemiColon);
 
   { delphi accepts anything after the final end }
   while not fcTokenList.EOF do
@@ -2885,6 +2913,9 @@ begin
   CheckLabelPrefix;
 
   lc := fcTokenList.FirstSolidToken;
+  if lc = nil then
+    Exit;
+
 
   { anything more? can just be a label at the end of the proc/block }
   if not (lc.TokenType in BLOCK_END) then
@@ -2905,6 +2936,8 @@ var
   lbColonSecond: boolean;
 begin
   lc2 := fcTokenList.SolidToken(2);
+  if lc2 = nil then
+    exit;
   lbColonSecond := (lc2.TokenType = ttColon);
   if lbColonSecond then
   begin

@@ -290,7 +290,7 @@ begin
 
    var, const, type but not in parameter list }
   if (pt.TokenType in Declarations) and pt.HasParentNode(nTopLevelSections, 1) and
-    ( not pt.IsOnRightOf(nTypeDecl, ttEquals)) then
+    ( not pt.IsOnRightOf(nTypeDecl, ttEquals) and ( not pt.IsOnRightOf(nProgram, ttScript))) then
   begin
     Result := True;
     exit;
