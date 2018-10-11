@@ -38,7 +38,9 @@ interface
   and a list class
 }
 
-uses Contnrs;
+uses
+  {$IFDEF DELPHI2009_UP}UITypes,{$ENDIF}
+  Classes, Contnrs;
 
 type
 

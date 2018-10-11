@@ -95,7 +95,7 @@ begin
     end;
 
     { from the file, about itself}
-    {$IFDEF VER260}
+    {$IFDEF DELPHIXE5_UP}
     lblDate.Caption    := 'Date file written: ' + FormatDateTime(FormatSettings.ShortDateFormat + ' ' + FormatSettings.ShortTimeFormat,JcfFormatSettings.WriteDateTime);
     {$ELSE}
     lblDate.Caption    := 'Date file written: ' + FormatDateTime(ShortDateFormat + ' ' + ShortTimeFormat,JcfFormatSettings.WriteDateTime);

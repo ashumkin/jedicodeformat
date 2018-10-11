@@ -102,10 +102,8 @@ end;
   end;
 
 {$ELSE}
-  {$IFDEF WIN32}
-
   // delphi-windows version
-  function FileIsReadOnly(const ps: string): boolean;
+  function FileIsReadOnly(const ps: string): boolean;
   var
     liAttr: integer;
   begin
@@ -115,8 +113,6 @@ end;
     Result := ((liAttr and faReadOnly) <> 0);
   {$WARNINGS ON}
   end;
-
-  {$ENDIF}
 {$ENDIF}
 
 

@@ -104,15 +104,18 @@ uses
  Forms, SysUtils,
  { local }
  JcfStringUtils, JcfSystemUtils,
- JcfUnicode,
- JcfRegistrySettings;
+ {$IFDEF JCF_REG}
+ JcfRegistrySettings,
+ {$ENDIF}
+ JcfUnicode;
 
 function CheckMultiByte(const pcChar: WideChar): Boolean;
 begin
   Result := False;
-
+  {$IFDEF JCF_REG}
   if GetRegSettings.CheckMultiByteChars then
     Result := IsMultiByte(pcChar);
+  {$ENDIF}
 end;
 
 { TBuildTokenList }

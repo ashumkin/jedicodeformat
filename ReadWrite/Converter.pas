@@ -87,7 +87,9 @@ type
     procedure Convert;
     procedure ConvertPart(const piStartIndex, piEndIndex: Integer);
 
+    {$IFDEF JCF_GUI}
     procedure ShowParseTree;
+    {$ENDIF}
     procedure Clear;
 
     procedure CollectOutput(const pcRoot: TParseTreeNode);
@@ -112,7 +114,12 @@ uses
   { delphi }
   AllProcesses, Controls, Forms,
   { local }
-  fShowParseTree, JcfRegistrySettings,
+  {$IFDEF JCF_GUI}
+  fShowParseTree,
+  {$ENDIF}
+  {$IFDEF JCF_REG}
+  JcfRegistrySettings,
+  {$ENDIF}
   JcfSettings, JcfStringUtils,
   JcfUnicode,
   ParseError, PreProcessorParseTree,
@@ -193,8 +200,10 @@ begin
           fbConvertError := True;
           SendExceptionMessage(E);
 
+          {$IFDEF JCF_GUI}
           if GuiMessages and (GetRegSettings.ShowParseTreeOption = eShowOnError) then
             ShowParseTree;
+          {$ENDIF}
         end;
       end;
 
@@ -217,8 +226,10 @@ begin
 
       if not fbConvertError then
       begin
+        {$IFDEF JCF_GUI}
         if (GetRegSettings.ShowParseTreeOption = eShowAlways) then
           ShowParseTree;
+        {$ENDIF}
 
         // do the processes
         if Assigned(fcSingleProcess) then
@@ -371,11 +382,13 @@ begin
     fOnStatusMessage(psUnit, psMessage, peMessageType, piY, piX);
 end;
 
+{$IFDEF JCF_GUI}
 procedure TConverter.ShowParseTree;
 begin
   if fcBuildParseTree.Root <> nil then
     fShowParseTree.ShowParseTree(fcBuildParseTree.Root);
 end;
+{$ENDIF}
 
 procedure TConverter.ConvertPart(const piStartIndex, piEndIndex: Integer);
 const
